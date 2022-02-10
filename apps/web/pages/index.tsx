@@ -1,10 +1,15 @@
-import { Button } from "ui";
+import { Button } from "ui/atoms";
+// Layout
+import MainLayout from "../layouts/Main";
 
-export default function Web() {
+const MainPage = () => {
   return (
     <div>
-      <h1>Web</h1>
       <Button>Hey</Button>
     </div>
   );
-}
+};
+
+MainPage.Layout = MainLayout;
+
+export default MainPage;
