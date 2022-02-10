@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "test:coverage": "jest --coverage",
+    "test:log": "jest --no-coverage >& ./logs/jest.log",
+    "update:packages": "yarn upgrade-interactive --latest"
   },
   "dependencies": {
     "@formatjs/intl-utils": "^3.8.4",
@@ -49,6 +54,7 @@
     "@types/uuid": "^8.3.4",
     "config": "*",
     "eslint": "7.32.0",
+    "jest": "^27.5.1",
     "next-transpile-modules": "9.0.0",
     "redux-mock-store": "^1.5.4",
     "tsconfig": "*",

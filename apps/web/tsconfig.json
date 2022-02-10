@@ -1,12 +1,7 @@
 {
   "extends": "tsconfig/nextjs.json",
-  "paths": {
-    "@/components/*": ["./components/*"],
-    "@/styles/*": ["/styles/*"],
-    "@/locales/*": ["/locales/*"],
-    "@/types/*": ["/types/*"],
-    "@/utils/*": ["/utils/*"],
-    "@/graphql/*": ["/graphql/*"]
+  "compilerOptions": {
+    "baseUrl": "."
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
