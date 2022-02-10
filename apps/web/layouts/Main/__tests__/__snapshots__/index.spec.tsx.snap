@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main Layout tests render MainLayout correctly 1`] = `
+<DocumentFragment>
+  <h1>
+    Hello App
+  </h1>
+  <div>
+    Page content
+  </div>
+</DocumentFragment>
+`;

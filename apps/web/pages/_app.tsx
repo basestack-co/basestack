@@ -6,10 +6,10 @@ import theme from "ui/theme/theme.semantic";
 import GlobalStyle from "ui/theme/GlobalStyle";
 //Locales
 import { IntlProvider } from "react-intl";
-import { language, messages } from "../locales";
+import { language, messages } from "locales";
 // Store
 import { Provider } from "react-redux";
-import { store } from "../store";
+import { store } from "store";
 
 const Noop = ({ children }: { children: React.ReactNode }) => children;
 
