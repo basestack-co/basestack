@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Badge Component renders 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-bdvvtL kVUfO"
+  >
+    2
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge Component renders with props 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-bdvvtL kVUfO badge"
+  >
+    2
+  </div>
+</DocumentFragment>
+`;

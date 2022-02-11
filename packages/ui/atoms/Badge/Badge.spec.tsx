@@ -1,6 +1,6 @@
 import React from "react";
 import { cleanup } from "@testing-library/react";
-import { renderWithTheme } from "../../../utils/testUtils";
+import { renderWithTheme } from "../../global/testUtils";
 import Badge from "./index";
 
 describe("Badge Component", () => {
