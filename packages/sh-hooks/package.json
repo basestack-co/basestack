@@ -1,0 +1,29 @@
+{
+  "name": "sh-hooks",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "source": "./index.ts",
+  "files": [
+    "dist/**"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup index.ts --format esm,cjs --dts --external react",
+    "dev": "tsup index.ts --format esm,cjs --watch --dts --external react",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "test:coverage": "jest --coverage",
+    "test:log": "jest --no-coverage >& ./logs/jest.log",
+    "lint": "TIMING=1 eslint  --fix"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "tsconfig": "*",
+    "config": "*",
+    "typescript": "^4.5.3",
+    "react": "17.0.2",
+    "tsup": "^5.10.1"
+  }
+}
