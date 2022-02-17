@@ -37,52 +37,23 @@ var __toCommonJS = /* @__PURE__ */ ((cache) => {
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
-  useDebounce: () => useDebounce,
-  useTimeoutFn: () => useTimeoutFn,
+  off: () => off,
+  on: () => on,
 });
-
-// src/useDebounce.ts
-var import_react2 = require("react");
-
-// src/useTimeoutFn.ts
-var import_react = require("react");
-function useTimeoutFn(fn, ms = 0) {
-  const ready = (0, import_react.useRef)(false);
-  const timeout = (0, import_react.useRef)();
-  const callback = (0, import_react.useRef)(fn);
-  const isReady = (0, import_react.useCallback)(() => ready.current, []);
-  const set = (0, import_react.useCallback)(() => {
-    ready.current = false;
-    timeout.current && clearTimeout(timeout.current);
-    timeout.current = setTimeout(() => {
-      ready.current = true;
-      callback.current();
-    }, ms);
-  }, [ms]);
-  const clear = (0, import_react.useCallback)(() => {
-    ready.current = null;
-    timeout.current && clearTimeout(timeout.current);
-  }, []);
-  (0, import_react.useEffect)(() => {
-    callback.current = fn;
-  }, [fn]);
-  (0, import_react.useEffect)(() => {
-    set();
-    return clear;
-  }, [ms]);
-  return [isReady, clear, set];
+function on(obj, ...args) {
+  if (obj && obj.addEventListener) {
+    obj.addEventListener(...args);
+  }
 }
-
-// src/useDebounce.ts
-function useDebounce(fn, ms = 0, deps = []) {
-  const [isReady, cancel, reset] = useTimeoutFn(fn, ms);
-  (0, import_react2.useEffect)(reset, deps);
-  return [isReady, cancel];
+function off(obj, ...args) {
+  if (obj && obj.removeEventListener) {
+    obj.removeEventListener(...args);
+  }
 }
 module.exports = __toCommonJS(src_exports);
 // Annotate the CommonJS export names for ESM import in node:
 0 &&
   (module.exports = {
-    useDebounce,
-    useTimeoutFn,
+    off,
+    on,
   });
