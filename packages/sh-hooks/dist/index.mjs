@@ -1,7 +1,7 @@
-// useDebounce.ts
+// src/useDebounce.ts
 import { useEffect as useEffect2 } from "react";
 
-// useTimeoutFn.ts
+// src/useTimeoutFn.ts
 import { useCallback, useEffect, useRef } from "react";
 function useTimeoutFn(fn, ms = 0) {
   const ready = useRef(false);
@@ -30,7 +30,7 @@ function useTimeoutFn(fn, ms = 0) {
   return [isReady, clear, set];
 }
 
-// useDebounce.ts
+// src/useDebounce.ts
 function useDebounce(fn, ms = 0, deps = []) {
   const [isReady, cancel, reset] = useTimeoutFn(fn, ms);
   useEffect2(reset, deps);
