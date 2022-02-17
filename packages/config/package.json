@@ -4,10 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "files": [
-    "eslint-preset.js"
+    "eslint-preset.js",
+    "jest.config.js",
+    "jest.setup.js"
   ],
   "dependencies": {
-    "eslint-config-next": "^12.0.8",
+    "eslint-config-next": "^12.1.0",
     "eslint-config-prettier": "^8.3.0"
   }
 }
