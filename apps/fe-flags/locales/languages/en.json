@@ -377,5 +377,6 @@
   "app.val.segment.country.required": "The Country for the new segment is required",
   "app.val.segment.name.max": "The name for the segment is too long",
   "app.val.segment.name.min": "The name for the segment is too short",
-  "app.val.segment.name.required": "The name for the segment is required"
+  "app.val.segment.name.required": "The name for the segment is required",
+  "app.demo": "this is a demo intl"
 }

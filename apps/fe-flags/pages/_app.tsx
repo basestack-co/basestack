@@ -10,6 +10,8 @@ import { language, messages } from "locales";
 // Store
 import { Provider } from "react-redux";
 import { store } from "store";
+// Modals
+import Modals from "modals";
 
 const Noop = ({ children }: { children: React.ReactNode }) => children;
 
@@ -24,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Layout>
             <Component {...pageProps} />
           </Layout>
+          <Modals />
         </ThemeProvider>
       </IntlProvider>
     </Provider>
