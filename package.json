@@ -1,5 +1,5 @@
 {
-  "name": "turborepo-basic-shared",
+  "name": "devkit",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
@@ -15,15 +15,16 @@
     "clean": "turbo run clean && rm -rf node_modules",
     "prepare": "npx husky install",
     "precommit": "yarn format && yarn lint && yarn test && lint-staged",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "update:packages": "yarn upgrade-interactive --latest"
   },
   "devDependencies": {
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^7.0.4",
-    "lint-staged": "^12.3.3",
+    "lint-staged": "^12.3.4",
     "prettier": "^2.5.1",
-    "turbo": "latest"
+    "turbo": "1.1.3"
   },
   "engines": {
     "npm": ">=7.0.0",
