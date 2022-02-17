@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { Button } from "ui/atoms";
+import { useDebounce } from "sh-hooks/dist";
 // Layout
 import MainLayout from "../layouts/Main";
 // Store
@@ -9,6 +10,14 @@ import { setDemoModalOpen } from "store/slices/modals";
 
 const MainPage = () => {
   const dispatch = useDispatch<AppDispatch>();
+
+  useDebounce(
+    () => {
+      console.log("debounce");
+    },
+    1000,
+    []
+  );
 
   return (
     <div>
