@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Head from "next/head";
 import { Button } from "ui/atoms";
 import { useDebounce } from "sh-hooks/dist";
@@ -7,9 +8,16 @@ import MainLayout from "../layouts/Main";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "store";
 import { setDemoModalOpen } from "store/slices/modals";
+// Auth
+import { useSession } from "next-auth/react";
 
 const MainPage = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const session = useSession();
+
+  useEffect(() => {
+    console.log("session = ", session);
+  }, [session]);
 
   useDebounce(
     () => {
