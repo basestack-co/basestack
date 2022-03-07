@@ -9,6 +9,8 @@ import { messages } from "../locales";
 // Styles
 import { ThemeProvider } from "styled-components";
 import theme from "ui/theme/theme.semantic";
+// Auth
+import { SessionProvider } from "next-auth/react";
 
 interface AllProvidersProps {
   initialState?: {};
@@ -19,11 +21,13 @@ const AllProviders: React.FC<AllProvidersProps> = ({
   initialState = {},
 }) => {
   return (
-    <Provider store={{ ...store, ...initialState }}>
-      <IntlProvider locale="en" messages={messages.en}>
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
-      </IntlProvider>
-    </Provider>
+    <SessionProvider session={{ expires: null }}>
+      <Provider store={{ ...store, ...initialState }}>
+        <IntlProvider locale="en" messages={messages.en}>
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </IntlProvider>
+      </Provider>
+    </SessionProvider>
   );
 };
 

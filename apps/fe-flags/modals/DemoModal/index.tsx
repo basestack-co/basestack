@@ -5,7 +5,7 @@ import { AppDispatch, RootState } from "store";
 import { setDemoModalOpen } from "store/slices/modals";
 // Utils
 import Portal from "ui/global/Portal";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 // Locales
 import { useIntl } from "react-intl";
 import { demoMessages as messages } from "locales/messages/app";
@@ -32,7 +32,6 @@ const DemoModal = () => {
       <Portal selector="#portal">
         <div>Demo portal</div>
         <p>intl: {intl.formatMessage(messages.demo)}</p>
-        <p>date: {dayjs().format("DD/MM/YYYY")}</p>
         <button onClick={onClose}>Close Modal</button>
       </Portal>
     );

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
@@ -69,6 +69,7 @@
     "eslint": "8.10.0",
     "jest": "^27.5.1",
     "next-transpile-modules": "9.0.0",
+    "node-mocks-http": "^1.11.0",
     "prisma": "^3.10.0",
     "redux-mock-store": "^1.5.4",
     "tsconfig": "*",

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Head from "next/head";
 import { Button } from "ui/atoms";
 import { useDebounce } from "sh-hooks/dist";
@@ -9,15 +8,13 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "store";
 import { setDemoModalOpen } from "store/slices/modals";
 // Auth
-import { useSession } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
+// Utils
+import isEmpty from "lodash.isempty";
 
 const MainPage = () => {
+  const { data: session } = useSession();
   const dispatch = useDispatch<AppDispatch>();
-  const session = useSession();
-
-  useEffect(() => {
-    console.log("session = ", session);
-  }, [session]);
 
   useDebounce(
     () => {
@@ -32,6 +29,16 @@ const MainPage = () => {
       <Head>
         <title>Remote Flags</title>
       </Head>
+
+      {!isEmpty(session) && (
+        <div>
+          Signed in as {session.user.email} <br />
+          <button onClick={() => signOut()}>Sign out</button>
+        </div>
+      )}
+
+      <br />
+
       <Button onClick={() => dispatch(setDemoModalOpen(true))}>
         Open Modal
       </Button>

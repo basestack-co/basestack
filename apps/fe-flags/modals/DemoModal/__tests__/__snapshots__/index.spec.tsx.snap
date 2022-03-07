@@ -13,9 +13,6 @@ exports[`DemoModal tests render DemoModal with Event 1`] = `
     <p>
       intl: this is a demo intl
     </p>
-    <p>
-      date: 17/02/2022
-    </p>
     <button>
       Close Modal
     </button>
