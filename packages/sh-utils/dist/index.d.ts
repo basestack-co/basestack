@@ -8,5 +8,6 @@ declare function off<T extends Document | HTMLElement | EventTarget>(
   ...args: // @ts-ignore
   Parameters<T["removeEventListener"]> | [string, () => void | null, ...any]
 ): void;
+declare const isBrowser: boolean;
 
-export { off, on };
+export { isBrowser, off, on };

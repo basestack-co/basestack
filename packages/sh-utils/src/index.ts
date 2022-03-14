@@ -28,3 +28,5 @@ export function off<T extends Document | HTMLElement | EventTarget>(
     );
   }
 }
+
+export const isBrowser = typeof window !== "undefined";

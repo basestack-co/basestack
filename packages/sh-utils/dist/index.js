@@ -37,6 +37,7 @@ var __toCommonJS = /* @__PURE__ */ ((cache) => {
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
+  isBrowser: () => isBrowser,
   off: () => off,
   on: () => on,
 });
@@ -50,10 +51,12 @@ function off(obj, ...args) {
     obj.removeEventListener(...args);
   }
 }
+var isBrowser = typeof window !== "undefined";
 module.exports = __toCommonJS(src_exports);
 // Annotate the CommonJS export names for ESM import in node:
 0 &&
   (module.exports = {
+    isBrowser,
     off,
     on,
   });

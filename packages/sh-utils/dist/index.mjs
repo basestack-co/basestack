@@ -9,7 +9,9 @@ function off(obj, ...args) {
     obj.removeEventListener(...args);
   }
 }
+var isBrowser = typeof window !== "undefined";
 export {
+  isBrowser,
   off,
   on
 };
