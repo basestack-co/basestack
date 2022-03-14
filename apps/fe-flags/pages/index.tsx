@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Button } from "ui/atoms";
+import { Button, Avatar } from "ui/atoms";
 import { useDebounce } from "sh-hooks/dist";
 // Layout
 import MainLayout from "../layouts/Main";
@@ -39,6 +39,7 @@ const MainPage = () => {
 
       <br />
 
+      <Avatar size="small" mr={10} userName="John Doe" alt="user avatar" />
       <Button onClick={() => dispatch(setDemoModalOpen(true))}>
         Open Modal
       </Button>

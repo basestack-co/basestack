@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Atom tests render Button as link 1`] = `
+<DocumentFragment>
+  <a
+    class="sc-bdvvtL lgDkYb"
+    href="/"
+    type="primary"
+  >
+    Outlined button link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Button Atom tests render Button with custom props 1`] = `
+<DocumentFragment>
+  <button
+    class="sc-bdvvtL Zqnke"
+    type="primary"
+  >
+    Outlined fullWidth small disabled button
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button Atom tests render Button with default props 1`] = `
+<DocumentFragment>
+  <button
+    class="sc-bdvvtL EmzIp"
+    type="primary"
+  >
+    Filled normal button
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button Atom tests render Button with icon styles 1`] = `
+<DocumentFragment>
+  <a
+    class="sc-bdvvtL eCUqtG"
+    href="/"
+    type="primary"
+  >
+    Outlined button link
+  </a>
+</DocumentFragment>
+`;

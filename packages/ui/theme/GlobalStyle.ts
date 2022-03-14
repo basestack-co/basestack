@@ -8,9 +8,26 @@ const GlobalStyle = createGlobalStyle<any>`
       padding: 0;
       box-sizing: border-box;
     }
+    
+    html,
     body {
-        background: "#e8e4e6";
-        font-family: 'Roboto', sans-serif;
+      height: 100%;
+    }
+    
+    body {
+      font-family: ${({ theme }) => theme.typography.fontFamily};
+      background-color: ${({ theme }) => theme.colors.bg1};
+    }
+    
+    button, 
+    input,
+    textarea {
+      font-family: inherit;
+    }
+    
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
     }
 `;
 
