@@ -2,7 +2,7 @@ import React from "react";
 import { AppProps } from "next/app";
 //Styles
 import { ThemeProvider } from "styled-components";
-import theme from "ui/theme/theme.semantic";
+import theme from "ui/theme";
 import GlobalStyle from "ui/theme/GlobalStyle";
 //Locales
 import { IntlProvider } from "react-intl";

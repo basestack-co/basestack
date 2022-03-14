@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar Atom tests render Avatar with default props 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-bdvvtL bZDTjr"
+  >
+    <img
+      alt="user_avatar"
+      class="sc-gsDKAQ jPeROq"
+      src="https://images.pexels.com/photos/3586798/pexels-photo-3586798.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Avatar Atom tests render Avatar with user name initials 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-bdvvtL bZDTjr"
+  >
+    <img
+      alt="user_avatar"
+      class="sc-gsDKAQ jPeROq"
+      src="https://avatars.dicebear.com/api/initials/Flávio Amaral.svg?size=40&fontSize=40"
+    />
+  </div>
+</DocumentFragment>
+`;
