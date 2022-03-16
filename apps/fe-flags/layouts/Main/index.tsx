@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 
 const MainLayout: React.FC = ({ children }) => {
   const router = useRouter();
-  const { status, data } = useSession({
+  const { status } = useSession({
     required: true,
     onUnauthenticated() {
       router.push("/login");
