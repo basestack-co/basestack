@@ -12,7 +12,7 @@ const MainLayout: React.FC = ({ children }) => {
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
-      router.push("/login");
+      router.push("/auth/sign-in");
     },
   });
   /* const isNavCollapsed = useSelector(

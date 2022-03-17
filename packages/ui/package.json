@@ -11,7 +11,7 @@
     "test:log": "jest --no-coverage >& ./logs/jest.log"
   },
   "devDependencies": {
-    "@types/react": "^17.0.37",
+    "@types/react": "^17.0.40",
     "@types/react-dom": "^17.0.13",
     "config": "*",
     "tsconfig": "*",

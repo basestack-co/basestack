@@ -1,10 +1,12 @@
 import { useEffect, useState, useCallback } from "react";
 // Auth
-import { signIn, useSession } from "next-auth/react";
+import { signIn, useSession, getProviders } from "next-auth/react";
 // Router
 import { useRouter } from "next/router";
 // UI
 import { Button } from "ui/atoms";
+// Types
+import { Provider } from "types/nextAuth";
 
 const EmailPassword = () => {
   const [email, setEmail] = useState("");
@@ -42,11 +44,17 @@ const EmailPassword = () => {
   );
 };
 
-export default function Login() {
+interface Props {
+  providers: Provider;
+}
+
+const SignInPage = ({ providers }: Props) => {
   const { status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
+    console.log(typeof providers);
+
     if (status === "authenticated") {
       router.push("/");
     }
@@ -54,13 +62,22 @@ export default function Login() {
 
   return (
     <div>
-      <Button
-        onClick={() => {
-          signIn("github", { callbackUrl: "/" });
-        }}
-      >
-        Sign in with Github
-      </Button>
+      {Object.values(providers).map((provider) => (
+        <div key={provider.name}>
+          <Button onClick={() => signIn(provider.id, { callbackUrl: "/" })}>
+            Sign in with {provider.name}
+          </Button>
+        </div>
+      ))}
     </div>
   );
+};
+
+export async function getServerSideProps() {
+  const providers = await getProviders();
+  return {
+    props: { providers },
+  };
 }
+
+export default SignInPage;
