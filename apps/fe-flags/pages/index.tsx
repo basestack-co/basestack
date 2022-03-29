@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Button, Avatar } from "ui/atoms";
-import { useDebounce } from "sh-hooks/dist";
+import { useDebounce } from "sh-hooks";
 // Layout
 import MainLayout from "../layouts/Main";
 // Store

@@ -1,5 +1,8 @@
 {
   "extends": "tsconfig/react-library.json",
+  "compilerOptions": {
+    "lib": ["es5", "es6", "dom"]
+  },
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"]
 }
