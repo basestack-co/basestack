@@ -1,5 +1,4 @@
 import { cleanup } from "@testing-library/react";
-import "jest-styled-components";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Button from "..";
 
