@@ -2,12 +2,28 @@
 
 exports[`Avatar Atom tests render Avatar with default props 1`] = `
 <DocumentFragment>
-  <div
-    class="sc-bdvvtL bZDTjr"
+  .c0 {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+<div
+    class="c0"
   >
     <img
       alt="user_avatar"
-      class="sc-gsDKAQ jPeROq"
+      class="c1"
       src="https://images.pexels.com/photos/3586798/pexels-photo-3586798.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
     />
   </div>
@@ -16,12 +32,28 @@ exports[`Avatar Atom tests render Avatar with default props 1`] = `
 
 exports[`Avatar Atom tests render Avatar with user name initials 1`] = `
 <DocumentFragment>
-  <div
-    class="sc-bdvvtL bZDTjr"
+  .c0 {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+<div
+    class="c0"
   >
     <img
       alt="user_avatar"
-      class="sc-gsDKAQ jPeROq"
+      class="c1"
       src="https://avatars.dicebear.com/api/initials/Flávio Amaral.svg?size=40&fontSize=40"
     />
   </div>

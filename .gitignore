@@ -34,3 +34,6 @@ yarn-error.log*
 
 # Jetbrains
 .idea
+
+#dists
+dist

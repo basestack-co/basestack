@@ -1,5 +1,6 @@
 import React from "react";
 import { cleanup } from "@testing-library/react";
+import "jest-styled-components";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Avatar from "..";
 

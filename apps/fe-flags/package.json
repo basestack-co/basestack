@@ -68,6 +68,7 @@
     "config": "*",
     "eslint": "8.12.0",
     "jest": "^27.5.1",
+    "jest-styled-components": "^7.0.8",
     "next-transpile-modules": "9.0.0",
     "node-mocks-http": "^1.11.0",
     "prisma": "^3.11.1",
