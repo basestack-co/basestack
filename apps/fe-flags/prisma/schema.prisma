@@ -2,14 +2,12 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider             = "mysql"
-  url                  = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
+  provider = "prisma-client-js"
 }
 
 model Account {
@@ -53,6 +51,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  password      String?
   accounts      Account[]
   sessions      Session[]
   createdAt     DateTime  @default(now())

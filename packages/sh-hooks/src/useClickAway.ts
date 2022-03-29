@@ -1,5 +1,5 @@
 import { RefObject, useEffect, useRef } from "react";
-import { off, on } from "sh-utils/dist";
+import { off, on } from "sh-utils";
 
 const defaultEvents = ["click"];
 
