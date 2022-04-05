@@ -8,12 +8,12 @@ import get from "lodash.get";
 /**
  * @param userId
  * @param res
- * @returns Gets all the projects by user id
+ * @returns  all the projects by user id
  */
 
 export const getAllProjects = async (userId: string, res: NextApiResponse) => {
   try {
-    const data = await prisma.project.findMany({
+    const projects = await prisma.project.findMany({
       where: {
         users: {
           some: {
@@ -29,7 +29,7 @@ export const getAllProjects = async (userId: string, res: NextApiResponse) => {
     });
 
     res.status(200).json({
-      data,
+      projects,
     });
   } catch (error) {
     return res.status(get(error, "code", 400)).json({

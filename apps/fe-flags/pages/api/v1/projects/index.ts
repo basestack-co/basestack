@@ -6,16 +6,13 @@ import { getSession } from "next-auth/react";
 // Utils
 import isEmpty from "lodash.isempty";
 import get from "lodash.get";
+import { unauthorized, methodNotAllowed } from "../_utils/responses";
 
 const Projects = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
 
   if (isEmpty(session)) {
-    return res.status(401).json({
-      error: true,
-      message:
-        "You must be sign in to view the protected content on this page.",
-    });
+    return res.status(401).json(unauthorized);
   }
 
   switch (req.method) {
@@ -23,10 +20,7 @@ const Projects = async (req: NextApiRequest, res: NextApiResponse) => {
       await getAllProjects(get(session, "user.id", "") as string, res);
       break;
     default:
-      res.status(405).json({
-        error: true,
-        message: `The HTTP ${req.method} method is not supported at this route.`,
-      });
+      res.status(405).json(methodNotAllowed);
   }
 };
 
