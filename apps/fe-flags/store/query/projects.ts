@@ -4,7 +4,7 @@ import { baseApi } from "./base";
 import { ProjectsResponse } from "types/query/projects";
 
 // Define Projects service using BASE API URL and endpoints
-const projectsApi = baseApi.injectEndpoints({
+export const projectsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getProjects: builder.query<ProjectsResponse, void>({
       query: () => `/projects`,
