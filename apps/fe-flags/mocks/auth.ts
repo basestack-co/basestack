@@ -1,3 +1,5 @@
+export const userIdMock = "4938nfdgkd78478";
+
 export const sessionMock = {
   user: {
     name: "John Doe",
