@@ -1,4 +1,4 @@
-import theme from "../styles/theme";
+import theme from "ui/theme";
 
 export type ThemeInterface = typeof theme;
 
