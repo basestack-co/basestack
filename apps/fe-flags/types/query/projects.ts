@@ -16,3 +16,8 @@ export interface ProjectResponse {
 export interface ProjectsResponse {
   projects: Project[];
 }
+
+export interface UpdateProjectArgs {
+  projectId: string;
+  name: string;
+}

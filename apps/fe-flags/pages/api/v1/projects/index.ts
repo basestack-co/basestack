@@ -16,10 +16,11 @@ const Projects = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   switch (req.method) {
+    // gets all the projects
     case "GET":
       await getAllProjects(get(session, "user.id", "") as string, res);
       break;
-
+    // creates a new project
     case "POST":
       await createProject(
         get(session, "user.id", "") as string,

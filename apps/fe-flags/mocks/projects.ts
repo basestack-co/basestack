@@ -37,3 +37,8 @@ export const createProjectResponseMock = {
   project: projectMock,
   connection: projectsOnUsersMock,
 };
+
+export const updateProjectArgsMock = {
+  name: "Nice new project",
+  projectId: "cl24vhr5y050191wocdzfps09",
+};

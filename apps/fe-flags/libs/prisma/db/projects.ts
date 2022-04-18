@@ -3,7 +3,7 @@ import type { NextApiResponse } from "next";
 // Prisma
 import prisma from "libs/prisma";
 // Types
-import { ProjectArgs } from "types/query/projects";
+import { ProjectArgs, UpdateProjectArgs } from "types/query/projects";
 // Utils
 import get from "lodash.get";
 import { somethingWentWrong } from "utils/responses";
@@ -98,6 +98,29 @@ export const getProjectById = async (
       where: {
         id: projectId,
       },
+    });
+
+    res.status(200).json({
+      project,
+    });
+  } catch (error) {
+    return res.status(get(error, "code", 400)).json({
+      error: true,
+      message: get(error, "message", somethingWentWrong),
+    });
+  }
+};
+
+export const updateProjectById = async (
+  { projectId, ...data }: UpdateProjectArgs,
+  res: NextApiResponse
+) => {
+  try {
+    const project = await prisma.project.update({
+      where: {
+        id: projectId,
+      },
+      data,
     });
 
     res.status(200).json({

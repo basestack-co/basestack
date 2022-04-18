@@ -5,6 +5,7 @@ import {
   ProjectsResponse,
   ProjectArgs,
   ProjectResponse,
+  UpdateProjectArgs,
 } from "types/query/projects";
 
 // Define Projects service using BASE API URL and endpoints
@@ -42,9 +43,21 @@ export const projectsApi = baseApi.injectEndpoints({
       query: ({ projectId }) => `/projects/${projectId}`,
       providesTags: ["Projects"],
     }),
+    updateProjectById: builder.mutation<void, Partial<UpdateProjectArgs>>({
+      query: ({ projectId, ...data }) => ({
+        url: `/projects/${projectId}`,
+        method: "PUT",
+        body: JSON.stringify(data),
+      }),
+      invalidatesTags: ["Projects"],
+    }),
   }),
   overrideExisting: false,
 });
 
 // auto-generated based on the defined endpoints
-export const { useGetProjectsQuery, useCreateProjectMutation } = projectsApi;
+export const {
+  useGetProjectsQuery,
+  useCreateProjectMutation,
+  useUpdateProjectByIdMutation,
+} = projectsApi;

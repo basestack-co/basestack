@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 // DB
-import { getProjectById } from "libs/prisma/db/projects";
+import { getProjectById, updateProjectById } from "libs/prisma/db/projects";
 // Auth
 import { getSession } from "next-auth/react";
 // Utils
@@ -8,16 +8,33 @@ import isEmpty from "lodash.isempty";
 import get from "lodash.get";
 import { unauthorized, methodNotAllowed } from "utils/responses";
 
-const Projects = async (req: NextApiRequest, res: NextApiResponse) => {
+const ProjectsById = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
 
   if (isEmpty(session)) {
     return res.status(401).json(unauthorized);
   }
 
+  const projectId = get(req, "query.id", "");
+
   switch (req.method) {
+    // gets a project by id
     case "GET":
-      await getProjectById(get(req, "query.id", ""), res);
+      await getProjectById(projectId, res);
+      break;
+    // updates a project by id
+    case "PUT":
+      await updateProjectById(
+        {
+          projectId,
+          ...JSON.parse(req.body),
+        },
+        res
+      );
+      break;
+    // deletes a project by id
+    case "DELETE":
+      await getProjectById(projectId, res);
       break;
 
     default:
@@ -25,4 +42,4 @@ const Projects = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default Projects;
+export default ProjectsById;

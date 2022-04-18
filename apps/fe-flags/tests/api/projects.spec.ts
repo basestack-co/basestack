@@ -1,5 +1,6 @@
 // API
 import projectEndpoints from "pages/api/v1/projects";
+import projectByIdEndpoints from "pages/api/v1/projects/[id]";
 // Mocks
 import { sessionMock } from "mocks/auth";
 import {
@@ -24,6 +25,8 @@ jest.mock("libs/prisma/index", () => ({
   project: {
     findMany: jest.fn(() => projectsMock),
     create: jest.fn(() => projectMock),
+    findUnique: jest.fn(() => projectMock),
+    update: jest.fn(() => projectMock),
   },
   projectsOnUsers: {
     create: jest.fn(() => projectsOnUsersMock),
@@ -72,6 +75,53 @@ describe("Projects API Endpoints Tests", () => {
         project: projectMock,
         connection: projectsOnUsersMock,
       })
+    );
+  });
+});
+
+describe("Project by Id API Endpoints Tests", () => {
+  test("Should get error for not supporting HTTP Method", async () => {
+    const { req, res } = createMocks({
+      method: "POST",
+    });
+
+    await projectByIdEndpoints(req, res);
+
+    expect(res._getStatusCode()).toBe(405);
+    expect(JSON.parse(res._getData())).toEqual(
+      expect.objectContaining(methodNotAllowedMock)
+    );
+  });
+
+  test("Should get project by id from GET /v1/api/projects/[id]", async () => {
+    const { req, res } = createMocks({
+      method: "GET",
+      query: { id: "cl1l86cxb00790zuey3az0e0d" },
+    });
+
+    await projectByIdEndpoints(req, res);
+
+    expect(res._getStatusCode()).toBe(200);
+    expect(JSON.parse(res._getData())).toEqual(
+      expect.objectContaining({ project: projectMock })
+    );
+  });
+
+  test("Should update project by id from PUT /v1/api/projects/[id]", async () => {
+    const { req, res } = createMocks({
+      method: "GET",
+      query: { id: "cl1l86cxb00790zuey3az0e0d" },
+      body: {
+        name: "Nice new project",
+        projectId: "cl24vhr5y050191wocdzfps09",
+      },
+    });
+
+    await projectByIdEndpoints(req, res);
+
+    expect(res._getStatusCode()).toBe(200);
+    expect(JSON.parse(res._getData())).toEqual(
+      expect.objectContaining({ project: projectMock })
     );
   });
 });

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 // Layout
 import MainLayout from "../layouts/Main";
 // Store
@@ -9,6 +9,7 @@ import {
   projectsApi,
   useGetProjectsQuery,
   useCreateProjectMutation,
+  useUpdateProjectByIdMutation,
 } from "store/query/projects";
 // Utils
 import isEmpty from "lodash.isempty";
@@ -21,7 +22,8 @@ import * as Yup from "yup";
 const ProjectsDemos = () => {
   const dispatch = useDispatch<AppDispatch>();
   const projects = useGetProjectsQuery();
-  const [createProject, result] = useCreateProjectMutation();
+  const [createProject] = useCreateProjectMutation();
+  const [updateProject] = useUpdateProjectByIdMutation();
 
   useEffect(() => {
     const getProject = async () => {
@@ -66,6 +68,17 @@ const ProjectsDemos = () => {
     },
   });
 
+  const update = useCallback((projectId: string, projectName: string) => {
+    let name = prompt("New project name:", projectName);
+
+    if (!isEmpty(name)) {
+      updateProject({
+        projectId,
+        name,
+      });
+    }
+  }, []);
+
   return (
     <div>
       <div>
@@ -105,7 +118,11 @@ const ProjectsDemos = () => {
       {!projects.isLoading && !isEmpty(projects.data) && (
         <ul>
           {projects.data.projects.map((item: Project) => (
-            <li key={item.id}>{item.name}</li>
+            <li key={item.id}>
+              {item.name} |{" "}
+              <button onClick={() => update(item.id, item.name)}>✏️</button> |{" "}
+              <button onClick={() => update(item.id, item.name)}>❌</button>
+            </li>
           ))}
         </ul>
       )}

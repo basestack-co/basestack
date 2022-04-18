@@ -6,6 +6,7 @@ import {
   createProjectArgsMock,
   createProjectResponseMock,
   projectMock,
+  updateProjectArgsMock,
 } from "mocks/projects";
 // Utils
 import { setupApiStore } from "utils/setupApiStore";
@@ -16,6 +17,7 @@ import {
   projectsApi,
   useGetProjectsQuery,
   useCreateProjectMutation,
+  useUpdateProjectByIdMutation,
 } from "../projects";
 
 const updateTimeout = 5000;
@@ -109,6 +111,25 @@ describe("Projects Endpoint Tests", () => {
         })
     );
   });
+
+  test("Should updateProjectById successful", () => {
+    const storeRef = setupApiStore(projectsApi, {});
+    fetchMock.mockResponse(JSON.stringify(projectMock));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          projectsApi.endpoints.updateProjectById.initiate(
+            updateProjectArgsMock
+          )
+        )
+        .then((action: any) => {
+          const { data } = action;
+          expect(data).toStrictEqual(projectMock);
+        })
+    );
+  });
 });
 
 /**
@@ -193,6 +214,62 @@ describe("Projects Endpoint Hooks Tests", () => {
 
     act(() => {
       void createProject(createProjectArgsMock);
+    });
+
+    const loadingResponse = result.current[1];
+    expect(loadingResponse.data).toBeUndefined();
+    expect(loadingResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const loadedResponse = result.current[1];
+    expect(loadedResponse.data).toBeUndefined();
+    expect(loadedResponse.isLoading).toBe(false);
+    expect(loadedResponse.isError).toBe(true);
+  });
+
+  it("Should use useUpdateProjectByIdMutation with Success", async () => {
+    fetchMock.mockResponse(JSON.stringify(updateProjectArgsMock));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useUpdateProjectByIdMutation(undefined),
+      {
+        wrapper,
+      }
+    );
+    const [updateProject, initialResponse] = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(false);
+
+    act(() => {
+      void updateProject(updateProjectArgsMock);
+    });
+
+    const loadingResponse = result.current[1];
+    expect(loadingResponse.data).toBeUndefined();
+    expect(loadingResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const loadedResponse = result.current[1];
+    expect(loadedResponse.data).not.toBeUndefined();
+    expect(loadedResponse.isLoading).toBe(false);
+    expect(loadedResponse.isSuccess).toBe(true);
+  });
+
+  it("Should use useUpdateProjectByIdMutation with Error", async () => {
+    fetchMock.mockReject(new Error("Internal Server Error"));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useUpdateProjectByIdMutation(undefined),
+      {
+        wrapper,
+      }
+    );
+    const [updateProject, initialResponse] = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(false);
+
+    act(() => {
+      void updateProject(updateProjectArgsMock);
     });
 
     const loadingResponse = result.current[1];
