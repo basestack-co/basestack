@@ -8,7 +8,6 @@ import {
   darkenColors,
   lightenColors,
 } from "./utils";
-
 export const Button = styled.button<ButtonProps>`
   ${compose(space, flexbox)};
   ${({ size }) => handleButtonSize(size)};

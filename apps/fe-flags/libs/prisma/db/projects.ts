@@ -2,8 +2,11 @@
 import type { NextApiResponse } from "next";
 // Prisma
 import prisma from "libs/prisma";
+// Types
+import { ProjectArgs } from "types/query/projects";
 // Utils
 import get from "lodash.get";
+import { somethingWentWrong } from "utils/responses";
 
 /**
  * @param userId
@@ -34,7 +37,54 @@ export const getAllProjects = async (userId: string, res: NextApiResponse) => {
   } catch (error) {
     return res.status(get(error, "code", 400)).json({
       error: true,
-      message: get(error, "message", "Something went wrong"),
+      message: get(error, "message", somethingWentWrong),
+    });
+  }
+};
+
+/**
+ *
+ * @param userId
+ * @param data
+ * @param res
+ * @returns
+ */
+
+export const createProject = async (
+  userId: string,
+  data: ProjectArgs,
+  res: NextApiResponse
+) => {
+  try {
+    const project = await prisma.project.create({
+      data: {
+        ...data,
+      },
+    });
+
+    const connection = await prisma.projectsOnUsers.create({
+      data: {
+        project: {
+          connect: {
+            id: project.id,
+          },
+        },
+        user: {
+          connect: {
+            id: userId,
+          },
+        },
+      },
+    });
+
+    res.status(200).json({
+      project,
+      connection,
+    });
+  } catch (error) {
+    return res.status(get(error, "code", 400)).json({
+      error: true,
+      message: get(error, "message", somethingWentWrong),
     });
   }
 };

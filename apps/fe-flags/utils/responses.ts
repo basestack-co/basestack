@@ -1,3 +1,5 @@
+// MESSAGES
+
 export const unauthorized = {
   code: 401,
   error: true,
@@ -9,3 +11,5 @@ export const methodNotAllowed = {
   error: true,
   message: `The HTTP method is not supported at this route.`,
 };
+
+export const somethingWentWrong = "Something went wrong";

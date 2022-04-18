@@ -1,18 +1,26 @@
 import React from "react";
 import fetchMock from "jest-fetch-mock";
 // Mocks
-import { projectsMock } from "mocks/projects";
+import {
+  projectsMock,
+  createProjectArgsMock,
+  createProjectResponseMock,
+} from "mocks/projects";
 // Utils
 import { setupApiStore } from "utils/setupApiStore";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { Provider } from "react-redux";
 import { baseUrl } from "../utils";
 // Queries
-import { projectsApi, useGetProjectsQuery } from "../projects";
+import {
+  projectsApi,
+  useGetProjectsQuery,
+  useCreateProjectMutation,
+} from "../projects";
 
 const updateTimeout = 5000;
 
-const wrapper: React.FC = ({ children }) => {
+const wrapper = ({ children }: { children: React.ReactNode }) => {
   const storeRef = setupApiStore(projectsApi, {});
   return <Provider store={storeRef.store}>{children}</Provider>;
 };
@@ -20,6 +28,10 @@ const wrapper: React.FC = ({ children }) => {
 beforeEach((): void => {
   fetchMock.resetMocks();
 });
+
+/**
+ * HOOKS
+ */
 
 describe("useGetProjectsQuery", () => {
   it("Success", async () => {
@@ -58,21 +70,21 @@ describe("useGetProjectsQuery", () => {
   });
 });
 
-/* describe("useCreateGameMutation", () => {
+describe("useCreateProjectMutation", () => {
   it("Success", async () => {
-    fetchMock.mockResponse(JSON.stringify(game));
+    fetchMock.mockResponse(JSON.stringify(createProjectArgsMock));
     const { result, waitForNextUpdate } = renderHook(
-      () => useCreateGameMutation(undefined),
+      () => useCreateProjectMutation(undefined),
       {
         wrapper,
       }
     );
-    const [createGame, initialResponse] = result.current;
+    const [createProject, initialResponse] = result.current;
     expect(initialResponse.data).toBeUndefined();
     expect(initialResponse.isLoading).toBe(false);
 
     act(() => {
-      void createGame(newGame);
+      void createProject(createProjectArgsMock);
     });
 
     const loadingResponse = result.current[1];
@@ -90,17 +102,17 @@ describe("useGetProjectsQuery", () => {
   it("Internal Server Error", async () => {
     fetchMock.mockReject(new Error("Internal Server Error"));
     const { result, waitForNextUpdate } = renderHook(
-      () => useCreateGameMutation(undefined),
+      () => useCreateProjectMutation(undefined),
       {
         wrapper,
       }
     );
-    const [createGame, initialResponse] = result.current;
+    const [createProject, initialResponse] = result.current;
     expect(initialResponse.data).toBeUndefined();
     expect(initialResponse.isLoading).toBe(false);
 
     act(() => {
-      void createGame(newGame);
+      void createProject(createProjectArgsMock);
     });
 
     const loadingResponse = result.current[1];
@@ -114,7 +126,11 @@ describe("useGetProjectsQuery", () => {
     expect(loadedResponse.isLoading).toBe(false);
     expect(loadedResponse.isError).toBe(true);
   });
-}); */
+});
+
+/**
+ * ENDPOINTS
+ */
 
 describe("GetAllProjects Endpoint Tests", () => {
   const storeRef = setupApiStore(projectsApi, {});
@@ -172,6 +188,49 @@ describe("GetAllProjects Endpoint Tests", () => {
           expect(status).toBe("rejected");
           expect(isError).toBe(true);
           expect(error).toBe("Error: Internal Server Error");
+        })
+    );
+  });
+});
+
+describe("CreateProject Endpoint Tests", () => {
+  test("request is correct", () => {
+    const storeRef = setupApiStore(projectsApi, {});
+    fetchMock.mockResponse(JSON.stringify({}));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          projectsApi.endpoints.createProject.initiate(createProjectArgsMock)
+        )
+        .then(() => {
+          expect(fetchMock).toBeCalledTimes(1);
+          const request = fetchMock.mock.calls[0][0] as Request;
+          const { method, headers, url } = request;
+
+          void request.json().then((data) => {
+            expect(data).toStrictEqual(createProjectResponseMock);
+          });
+
+          expect(method).toBe("POST");
+          expect(url).toBe(`${baseUrl}/projects`);
+        })
+    );
+  });
+  test("successful response", () => {
+    const storeRef = setupApiStore(projectsApi, {});
+    fetchMock.mockResponse(JSON.stringify(createProjectResponseMock));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          projectsApi.endpoints.createProject.initiate(createProjectArgsMock)
+        )
+        .then((action: any) => {
+          const { data } = action;
+          expect(data).toStrictEqual(createProjectResponseMock);
         })
     );
   });

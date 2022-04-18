@@ -2,7 +2,12 @@
 import projectEndpoints from "pages/api/v1/projects";
 // Mocks
 import { sessionMock } from "mocks/auth";
-import { projectsMock } from "mocks/projects";
+import {
+  projectsMock,
+  createProjectArgsMock,
+  projectMock,
+  projectsOnUsersMock,
+} from "mocks/projects";
 import { methodNotAllowedMock } from "mocks/http";
 // Utils
 import { createMocks } from "node-mocks-http";
@@ -18,10 +23,14 @@ jest.mock("libs/prisma/index", () => ({
   ...jest.requireActual("libs/prisma/index"),
   project: {
     findMany: jest.fn(() => projectsMock),
+    create: jest.fn(() => projectMock),
+  },
+  projectsOnUsers: {
+    create: jest.fn(() => projectsOnUsersMock),
   },
 }));
 
-describe.skip("Projects API Endpoints Tests", () => {
+describe("Projects API Endpoints Tests", () => {
   test("Should get error for not supporting HTTP Method", async () => {
     const { req, res } = createMocks({
       method: "PUT",
@@ -35,7 +44,7 @@ describe.skip("Projects API Endpoints Tests", () => {
     );
   });
 
-  test("Should get all projects from /v1/api/projects", async () => {
+  test("Should get all projects from GET /v1/api/projects", async () => {
     const { req, res } = createMocks({
       method: "GET",
     });
@@ -45,6 +54,24 @@ describe.skip("Projects API Endpoints Tests", () => {
     expect(res._getStatusCode()).toBe(200);
     expect(JSON.parse(res._getData())).toEqual(
       expect.objectContaining({ projects: projectsMock })
+    );
+  });
+
+  test("Should create new project from POST /v1/api/projects", async () => {
+    const { req, res } = createMocks({
+      method: "POST",
+      // @ts-ignore
+      body: JSON.stringify(createProjectArgsMock),
+    });
+
+    await projectEndpoints(req, res);
+
+    expect(res._getStatusCode()).toBe(200);
+    expect(JSON.parse(res._getData())).toEqual(
+      expect.objectContaining({
+        project: projectMock,
+        connection: projectsOnUsersMock,
+      })
     );
   });
 });

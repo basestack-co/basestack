@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 // DB
-import { getAllProjects } from "libs/prisma/db/projects";
+import { getAllProjects, createProject } from "libs/prisma/db/projects";
 // Auth
 import { getSession } from "next-auth/react";
 // Utils
 import isEmpty from "lodash.isempty";
 import get from "lodash.get";
-import { unauthorized, methodNotAllowed } from "../_utils/responses";
+import { unauthorized, methodNotAllowed } from "utils/responses";
 
 const Projects = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
@@ -18,6 +18,14 @@ const Projects = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "GET":
       await getAllProjects(get(session, "user.id", "") as string, res);
+      break;
+
+    case "POST":
+      await createProject(
+        get(session, "user.id", "") as string,
+        JSON.parse(req.body),
+        res
+      );
       break;
     default:
       res.status(405).json(methodNotAllowed);
