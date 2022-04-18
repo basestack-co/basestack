@@ -15,6 +15,7 @@
     "db:connect": "pscale connect $db $branch --port 3306",
     "db:generate": "prisma generate --schema=./prisma/schema.prisma",
     "db:migrate": "prisma migrate dev --schema=./prisma/schema.prisma --skip-seed",
+    "db:migrate:create": "prisma migrate dev --name",
     "db:reset": "prisma migrate reset --schema=./prisma/schema.prisma --skip-seed",
     "db:push": "prisma db push --schema=./prisma/schema.prisma",
     "db:seed": "npx prisma db seed",
