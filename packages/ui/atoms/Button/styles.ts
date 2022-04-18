@@ -1,3 +1,4 @@
+// @ts-nocheck
 import styled, { css } from "styled-components";
 import { compose, flexbox, space } from "styled-system";
 import { ButtonProps } from "./types";
@@ -7,7 +8,6 @@ import {
   darkenColors,
   lightenColors,
 } from "./utils";
-
 export const Button = styled.button<ButtonProps>`
   ${compose(space, flexbox)};
   ${({ size }) => handleButtonSize(size)};

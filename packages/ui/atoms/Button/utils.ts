@@ -1,4 +1,4 @@
-import { Size, Target, Type, Variant } from "@/components/atoms/Button/types";
+import { Size, Target, Type, Variant } from "./types";
 import { css, DefaultTheme } from "styled-components";
 import { darken, rem, transparentize } from "polished";
 
