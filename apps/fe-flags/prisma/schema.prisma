@@ -78,7 +78,7 @@ model Project {
 }
 
 model ProjectsOnUsers {
-  project   Project @relation(fields: [projectId], references: [id])
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId String
   user      User    @relation(fields: [userId], references: [id])
   userId    String

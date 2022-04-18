@@ -21,3 +21,7 @@ export interface UpdateProjectArgs {
   projectId: string;
   name: string;
 }
+
+export interface DeleteProjectArgs {
+  projectId: string;
+}

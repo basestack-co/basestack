@@ -7,6 +7,7 @@ import {
   createProjectResponseMock,
   projectMock,
   updateProjectArgsMock,
+  deleteProjectArgsMock,
 } from "mocks/projects";
 // Utils
 import { setupApiStore } from "utils/setupApiStore";
@@ -18,6 +19,7 @@ import {
   useGetProjectsQuery,
   useCreateProjectMutation,
   useUpdateProjectByIdMutation,
+  useDeleteProjectByIdMutation,
 } from "../projects";
 
 const updateTimeout = 5000;
@@ -122,6 +124,25 @@ describe("Projects Endpoint Tests", () => {
         .dispatch<any>(
           projectsApi.endpoints.updateProjectById.initiate(
             updateProjectArgsMock
+          )
+        )
+        .then((action: any) => {
+          const { data } = action;
+          expect(data).toStrictEqual(projectMock);
+        })
+    );
+  });
+
+  test("Should deleteProjectById successful", () => {
+    const storeRef = setupApiStore(projectsApi, {});
+    fetchMock.mockResponse(JSON.stringify(projectMock));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          projectsApi.endpoints.deleteProjectById.initiate(
+            deleteProjectArgsMock
           )
         )
         .then((action: any) => {
@@ -270,6 +291,62 @@ describe("Projects Endpoint Hooks Tests", () => {
 
     act(() => {
       void updateProject(updateProjectArgsMock);
+    });
+
+    const loadingResponse = result.current[1];
+    expect(loadingResponse.data).toBeUndefined();
+    expect(loadingResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const loadedResponse = result.current[1];
+    expect(loadedResponse.data).toBeUndefined();
+    expect(loadedResponse.isLoading).toBe(false);
+    expect(loadedResponse.isError).toBe(true);
+  });
+
+  it("Should use useDeleteProjectByIdMutation with Success", async () => {
+    fetchMock.mockResponse(JSON.stringify(deleteProjectArgsMock));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useDeleteProjectByIdMutation(undefined),
+      {
+        wrapper,
+      }
+    );
+    const [deleteProject, initialResponse] = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(false);
+
+    act(() => {
+      void deleteProject(deleteProjectArgsMock);
+    });
+
+    const loadingResponse = result.current[1];
+    expect(loadingResponse.data).toBeUndefined();
+    expect(loadingResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const loadedResponse = result.current[1];
+    expect(loadedResponse.data).not.toBeUndefined();
+    expect(loadedResponse.isLoading).toBe(false);
+    expect(loadedResponse.isSuccess).toBe(true);
+  });
+
+  it("Should use useDeleteProjectByIdMutation with Error", async () => {
+    fetchMock.mockReject(new Error("Internal Server Error"));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useDeleteProjectByIdMutation(undefined),
+      {
+        wrapper,
+      }
+    );
+    const [deleteProject, initialResponse] = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(false);
+
+    act(() => {
+      void deleteProject(deleteProjectArgsMock);
     });
 
     const loadingResponse = result.current[1];

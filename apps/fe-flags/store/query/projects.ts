@@ -6,6 +6,7 @@ import {
   ProjectArgs,
   ProjectResponse,
   UpdateProjectArgs,
+  DeleteProjectArgs,
 } from "types/query/projects";
 
 // Define Projects service using BASE API URL and endpoints
@@ -51,6 +52,13 @@ export const projectsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Projects"],
     }),
+    deleteProjectById: builder.mutation<void, Partial<DeleteProjectArgs>>({
+      query: ({ projectId }) => ({
+        url: `/projects/${projectId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Projects"],
+    }),
   }),
   overrideExisting: false,
 });
@@ -60,4 +68,5 @@ export const {
   useGetProjectsQuery,
   useCreateProjectMutation,
   useUpdateProjectByIdMutation,
+  useDeleteProjectByIdMutation,
 } = projectsApi;

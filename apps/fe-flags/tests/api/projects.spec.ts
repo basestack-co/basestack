@@ -27,6 +27,7 @@ jest.mock("libs/prisma/index", () => ({
     create: jest.fn(() => projectMock),
     findUnique: jest.fn(() => projectMock),
     update: jest.fn(() => projectMock),
+    delete: jest.fn(() => projectMock),
   },
   projectsOnUsers: {
     create: jest.fn(() => projectsOnUsersMock),
@@ -115,6 +116,20 @@ describe("Project by Id API Endpoints Tests", () => {
         name: "Nice new project",
         projectId: "cl24vhr5y050191wocdzfps09",
       },
+    });
+
+    await projectByIdEndpoints(req, res);
+
+    expect(res._getStatusCode()).toBe(200);
+    expect(JSON.parse(res._getData())).toEqual(
+      expect.objectContaining({ project: projectMock })
+    );
+  });
+
+  test("Should delete project by id from DELETE /v1/api/projects/[id]", async () => {
+    const { req, res } = createMocks({
+      method: "DELETE",
+      query: { id: "cl1l86cxb00790zuey3az0e0d" },
     });
 
     await projectByIdEndpoints(req, res);

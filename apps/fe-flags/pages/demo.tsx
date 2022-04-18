@@ -10,6 +10,7 @@ import {
   useGetProjectsQuery,
   useCreateProjectMutation,
   useUpdateProjectByIdMutation,
+  useDeleteProjectByIdMutation,
 } from "store/query/projects";
 // Utils
 import isEmpty from "lodash.isempty";
@@ -24,6 +25,7 @@ const ProjectsDemos = () => {
   const projects = useGetProjectsQuery();
   const [createProject] = useCreateProjectMutation();
   const [updateProject] = useUpdateProjectByIdMutation();
+  const [deleteProject] = useDeleteProjectByIdMutation();
 
   useEffect(() => {
     const getProject = async () => {
@@ -57,11 +59,12 @@ const ProjectsDemos = () => {
         .max(20, "Must be 20 characters or less")
         .required("Required"),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
         console.log(JSON.stringify(values));
         const payload = await createProject(values);
         console.log("payload", payload);
+        resetForm();
       } catch (error) {
         console.log("Error on create project", error);
       }
@@ -76,6 +79,12 @@ const ProjectsDemos = () => {
         projectId,
         name,
       });
+    }
+  }, []);
+
+  const deleteAction = useCallback((projectId: string) => {
+    if (confirm("Delete project?")) {
+      deleteProject({ projectId });
     }
   }, []);
 
@@ -121,7 +130,7 @@ const ProjectsDemos = () => {
             <li key={item.id}>
               {item.name} |{" "}
               <button onClick={() => update(item.id, item.name)}>✏️</button> |{" "}
-              <button onClick={() => update(item.id, item.name)}>❌</button>
+              <button onClick={() => deleteAction(item.id)}>❌</button>
             </li>
           ))}
         </ul>

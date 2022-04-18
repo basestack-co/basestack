@@ -47,7 +47,7 @@ export const getAllProjects = async (userId: string, res: NextApiResponse) => {
  * @param userId
  * @param data
  * @param res
- * @returns
+ * @returns creates a new project
  */
 
 export const createProject = async (
@@ -89,6 +89,12 @@ export const createProject = async (
   }
 };
 
+/**
+ *
+ * @param projectId
+ * @param res
+ * @returns gets a project by id
+ */
 export const getProjectById = async (
   projectId: string,
   res: NextApiResponse
@@ -111,6 +117,12 @@ export const getProjectById = async (
   }
 };
 
+/**
+ *
+ * @param UpdateProjectArgs
+ * @param res
+ * @returns updates a project by id
+ */
 export const updateProjectById = async (
   { projectId, ...data }: UpdateProjectArgs,
   res: NextApiResponse
@@ -121,6 +133,34 @@ export const updateProjectById = async (
         id: projectId,
       },
       data,
+    });
+
+    res.status(200).json({
+      project,
+    });
+  } catch (error) {
+    return res.status(get(error, "code", 400)).json({
+      error: true,
+      message: get(error, "message", somethingWentWrong),
+    });
+  }
+};
+
+/**
+ *
+ * @param projectId
+ * @param res
+ * @returns deletes a project by id
+ */
+export const deleteProjectById = async (
+  projectId: string,
+  res: NextApiResponse
+) => {
+  try {
+    const project = await prisma.project.delete({
+      where: {
+        id: projectId,
+      },
     });
 
     res.status(200).json({

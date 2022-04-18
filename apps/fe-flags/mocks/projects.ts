@@ -42,3 +42,7 @@ export const updateProjectArgsMock = {
   name: "Nice new project",
   projectId: "cl24vhr5y050191wocdzfps09",
 };
+
+export const deleteProjectArgsMock = {
+  projectId: "cl24vhr5y050191wocdzfps09",
+};

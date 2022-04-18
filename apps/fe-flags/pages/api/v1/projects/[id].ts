@@ -1,6 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 // DB
-import { getProjectById, updateProjectById } from "libs/prisma/db/projects";
+import {
+  getProjectById,
+  updateProjectById,
+  deleteProjectById,
+} from "libs/prisma/db/projects";
 // Auth
 import { getSession } from "next-auth/react";
 // Utils
@@ -34,7 +38,7 @@ const ProjectsById = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
     // deletes a project by id
     case "DELETE":
-      await getProjectById(projectId, res);
+      await deleteProjectById(projectId, res);
       break;
 
     default:
