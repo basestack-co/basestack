@@ -9,6 +9,10 @@ export interface Project extends ProjectArgs {
   updatedAt: string;
 }
 
+export interface ProjectResponse {
+  project: Project;
+}
+
 export interface ProjectsResponse {
   projects: Project[];
 }

@@ -1,7 +1,11 @@
 // Queries
 import { baseApi } from "./base";
 // Types
-import { ProjectsResponse, ProjectArgs } from "types/query/projects";
+import {
+  ProjectsResponse,
+  ProjectArgs,
+  ProjectResponse,
+} from "types/query/projects";
 
 // Define Projects service using BASE API URL and endpoints
 export const projectsApi = baseApi.injectEndpoints({
@@ -33,6 +37,10 @@ export const projectsApi = baseApi.injectEndpoints({
         }
       }, */
       invalidatesTags: ["Projects"],
+    }),
+    getProjectById: builder.query<ProjectResponse, { projectId: string }>({
+      query: ({ projectId }) => `/projects/${projectId}`,
+      providesTags: ["Projects"],
     }),
   }),
   overrideExisting: false,

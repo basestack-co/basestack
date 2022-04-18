@@ -88,3 +88,25 @@ export const createProject = async (
     });
   }
 };
+
+export const getProjectById = async (
+  projectId: string,
+  res: NextApiResponse
+) => {
+  try {
+    const project = await prisma.project.findUnique({
+      where: {
+        id: projectId,
+      },
+    });
+
+    res.status(200).json({
+      project,
+    });
+  } catch (error) {
+    return res.status(get(error, "code", 400)).json({
+      error: true,
+      message: get(error, "message", somethingWentWrong),
+    });
+  }
+};

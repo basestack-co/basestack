@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 // Layout
 import MainLayout from "../layouts/Main";
 // Store
@@ -5,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "store";
 // Queries
 import {
+  projectsApi,
   useGetProjectsQuery,
   useCreateProjectMutation,
 } from "store/query/projects";
@@ -20,6 +22,25 @@ const ProjectsDemos = () => {
   const dispatch = useDispatch<AppDispatch>();
   const projects = useGetProjectsQuery();
   const [createProject, result] = useCreateProjectMutation();
+
+  useEffect(() => {
+    const getProject = async () => {
+      try {
+        const { status, data } = await dispatch(
+          projectsApi.endpoints.getProjectById.initiate({
+            projectId: "cl1l86cxb00790zuey3az0e0d",
+          })
+        );
+
+        if (status === "fulfilled") {
+          console.log("project by id = ", data.project);
+        }
+      } catch (error) {
+        console.log("error getting project", error);
+      }
+    };
+    getProject();
+  }, []);
 
   const formik = useFormik({
     initialValues: {

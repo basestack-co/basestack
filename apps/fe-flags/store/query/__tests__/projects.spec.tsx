@@ -5,12 +5,12 @@ import {
   projectsMock,
   createProjectArgsMock,
   createProjectResponseMock,
+  projectMock,
 } from "mocks/projects";
 // Utils
 import { setupApiStore } from "utils/setupApiStore";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { Provider } from "react-redux";
-import { baseUrl } from "../utils";
 // Queries
 import {
   projectsApi,
@@ -30,11 +30,93 @@ beforeEach((): void => {
 });
 
 /**
+ * ENDPOINTS
+ */
+
+describe("Projects Endpoint Tests", () => {
+  const storeRef = setupApiStore(projectsApi, {});
+  fetchMock.mockResponse(JSON.stringify(projectsMock));
+
+  test("Should getProjects successful", () => {
+    const storeRef = setupApiStore(projectsApi, {});
+    fetchMock.mockResponse(JSON.stringify(projectsMock));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(projectsApi.endpoints.getProjects.initiate(undefined))
+        .then((action: any) => {
+          const { status, data, isSuccess } = action;
+          expect(status).toBe("fulfilled");
+          expect(isSuccess).toBe(true);
+          expect(data).toStrictEqual(projectsMock);
+        })
+    );
+  });
+  test("Should getProjects unsuccessful", () => {
+    const storeRef = setupApiStore(projectsApi, {});
+    fetchMock.mockReject(new Error("Internal Server Error"));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(projectsApi.endpoints.getProjects.initiate(undefined))
+        .then((action: any) => {
+          const {
+            status,
+            error: { error },
+            isError,
+          } = action;
+          expect(status).toBe("rejected");
+          expect(isError).toBe(true);
+          expect(error).toBe("Error: Internal Server Error");
+        })
+    );
+  });
+
+  test("Should createProject successful", () => {
+    const storeRef = setupApiStore(projectsApi, {});
+    fetchMock.mockResponse(JSON.stringify(createProjectResponseMock));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          projectsApi.endpoints.createProject.initiate(createProjectArgsMock)
+        )
+        .then((action: any) => {
+          const { data } = action;
+          expect(data).toStrictEqual(createProjectResponseMock);
+        })
+    );
+  });
+
+  test("Should getProjectById successful", () => {
+    const storeRef = setupApiStore(projectsApi, {});
+    fetchMock.mockResponse(JSON.stringify(projectMock));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          projectsApi.endpoints.getProjectById.initiate({
+            projectId: "cl1l86cxb00790zuey3az0e0d",
+          })
+        )
+        .then((action: any) => {
+          const { data } = action;
+          expect(data).toStrictEqual(projectMock);
+        })
+    );
+  });
+});
+
+/**
  * HOOKS
  */
 
-describe("useGetProjectsQuery", () => {
-  it("Success", async () => {
+describe("Projects Endpoint Hooks Tests", () => {
+  it("Should use useGetProjectsQuery with Success", async () => {
     fetchMock.mockResponse(JSON.stringify(projectsMock));
     const { result, waitForNextUpdate } = renderHook(
       () => useGetProjectsQuery(undefined),
@@ -51,7 +133,7 @@ describe("useGetProjectsQuery", () => {
     expect(nextResponse.isSuccess).toBe(true);
   });
 
-  it("Internal Server Error", async () => {
+  it("Should use useGetProjectsQuery with Error", async () => {
     fetchMock.mockReject(new Error("Internal Server Error"));
     const { result, waitForNextUpdate } = renderHook(
       () => useGetProjectsQuery(undefined),
@@ -68,10 +150,8 @@ describe("useGetProjectsQuery", () => {
     expect(nextResponse.isLoading).toBe(false);
     expect(nextResponse.isError).toBe(true);
   });
-});
 
-describe("useCreateProjectMutation", () => {
-  it("Success", async () => {
+  it("Should use useCreateProjectMutation with Success", async () => {
     fetchMock.mockResponse(JSON.stringify(createProjectArgsMock));
     const { result, waitForNextUpdate } = renderHook(
       () => useCreateProjectMutation(undefined),
@@ -99,7 +179,7 @@ describe("useCreateProjectMutation", () => {
     expect(loadedResponse.isSuccess).toBe(true);
   });
 
-  it("Internal Server Error", async () => {
+  it("Should use useCreateProjectMutation with Error", async () => {
     fetchMock.mockReject(new Error("Internal Server Error"));
     const { result, waitForNextUpdate } = renderHook(
       () => useCreateProjectMutation(undefined),
@@ -125,113 +205,5 @@ describe("useCreateProjectMutation", () => {
     expect(loadedResponse.data).toBeUndefined();
     expect(loadedResponse.isLoading).toBe(false);
     expect(loadedResponse.isError).toBe(true);
-  });
-});
-
-/**
- * ENDPOINTS
- */
-
-describe("GetAllProjects Endpoint Tests", () => {
-  const storeRef = setupApiStore(projectsApi, {});
-  fetchMock.mockResponse(JSON.stringify(projectsMock));
-
-  test("request is correct", () => {
-    return (
-      storeRef.store
-        // @ts-ignore
-        .dispatch<any>(projectsApi.endpoints.getProjects.initiate(undefined))
-        .then(() => {
-          expect(fetchMock).toBeCalledTimes(1);
-          const { method, headers, url } = fetchMock.mock
-            .calls[0][0] as Request;
-
-          // @ts-ignore
-          const authorization = headers.get(Headers.Authorization);
-
-          expect(method).toBe("GET");
-          expect(url).toBe(`${baseUrl}/projects`);
-          expect(authorization).toBeNull();
-        })
-    );
-  });
-  test("successful response", () => {
-    const storeRef = setupApiStore(projectsApi, {});
-    fetchMock.mockResponse(JSON.stringify(projectsMock));
-
-    return (
-      storeRef.store
-        // @ts-ignore
-        .dispatch<any>(projectsApi.endpoints.getProjects.initiate(undefined))
-        .then((action: any) => {
-          const { status, data, isSuccess } = action;
-          expect(status).toBe("fulfilled");
-          expect(isSuccess).toBe(true);
-          expect(data).toStrictEqual(projectsMock);
-        })
-    );
-  });
-  test("unsuccessful response", () => {
-    const storeRef = setupApiStore(projectsApi, {});
-    fetchMock.mockReject(new Error("Internal Server Error"));
-
-    return (
-      storeRef.store
-        // @ts-ignore
-        .dispatch<any>(projectsApi.endpoints.getProjects.initiate(undefined))
-        .then((action: any) => {
-          const {
-            status,
-            error: { error },
-            isError,
-          } = action;
-          expect(status).toBe("rejected");
-          expect(isError).toBe(true);
-          expect(error).toBe("Error: Internal Server Error");
-        })
-    );
-  });
-});
-
-describe("CreateProject Endpoint Tests", () => {
-  test("request is correct", () => {
-    const storeRef = setupApiStore(projectsApi, {});
-    fetchMock.mockResponse(JSON.stringify({}));
-
-    return (
-      storeRef.store
-        // @ts-ignore
-        .dispatch<any>(
-          projectsApi.endpoints.createProject.initiate(createProjectArgsMock)
-        )
-        .then(() => {
-          expect(fetchMock).toBeCalledTimes(1);
-          const request = fetchMock.mock.calls[0][0] as Request;
-          const { method, headers, url } = request;
-
-          void request.json().then((data) => {
-            expect(data).toStrictEqual(createProjectResponseMock);
-          });
-
-          expect(method).toBe("POST");
-          expect(url).toBe(`${baseUrl}/projects`);
-        })
-    );
-  });
-  test("successful response", () => {
-    const storeRef = setupApiStore(projectsApi, {});
-    fetchMock.mockResponse(JSON.stringify(createProjectResponseMock));
-
-    return (
-      storeRef.store
-        // @ts-ignore
-        .dispatch<any>(
-          projectsApi.endpoints.createProject.initiate(createProjectArgsMock)
-        )
-        .then((action: any) => {
-          const { data } = action;
-          expect(data).toStrictEqual(createProjectResponseMock);
-        })
-    );
   });
 });

@@ -1,21 +1,28 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+// DB
+import { getProjectById } from "libs/prisma/db/projects";
+// Auth
 import { getSession } from "next-auth/react";
+// Utils
+import isEmpty from "lodash.isempty";
+import get from "lodash.get";
+import { unauthorized, methodNotAllowed } from "utils/responses";
 
-const test = async (req: NextApiRequest, res: NextApiResponse) => {
+const Projects = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
 
-  if (session) {
-    res.status(200).json({
-      headers: req.headers,
-      session,
-      content:
-        "This is protected content. You can access this content because you are signed in.",
-    });
-  } else {
-    res.status(400).json({
-      error: "You must be sign in to view the protected content on this page.",
-    });
+  if (isEmpty(session)) {
+    return res.status(401).json(unauthorized);
+  }
+
+  switch (req.method) {
+    case "GET":
+      await getProjectById(get(req, "query.id", ""), res);
+      break;
+
+    default:
+      res.status(405).json(methodNotAllowed);
   }
 };
 
-export default test;
+export default Projects;
