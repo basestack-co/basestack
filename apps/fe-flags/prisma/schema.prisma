@@ -54,7 +54,7 @@ model User {
   password      String?
   accounts      Account[]
   sessions      Session[]
-  Project       ProjectsOnUsers[]
+  project       ProjectsOnUsers[]
   createdAt     DateTime          @default(now())
   updatedAt     DateTime          @updatedAt
 }
@@ -93,6 +93,6 @@ model Environment {
   slug      String   @unique @db.VarChar(150)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId String
 }

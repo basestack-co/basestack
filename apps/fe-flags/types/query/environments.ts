@@ -1,8 +1,11 @@
-export interface Environment {
-  id: string;
+export interface EnvironmentArgs {
   name: string;
   projectId: string;
   slug: string;
+}
+
+export interface Environment extends EnvironmentArgs {
+  id: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -13,8 +16,4 @@ export interface EnvironmentResponse {
 
 export interface EnvironmentsResponse {
   environments: Environment[];
-}
-
-export interface EnvironmentArgs {
-  projectId: string;
 }

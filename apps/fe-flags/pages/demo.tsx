@@ -12,7 +12,10 @@ import {
   useUpdateProjectByIdMutation,
   useDeleteProjectByIdMutation,
 } from "store/query/projects";
-import { environmentsApi } from "store/query/environments";
+import {
+  environmentsApi,
+  useCreateEnvironmentMutation,
+} from "store/query/environments";
 // Utils
 import isEmpty from "lodash.isempty";
 // Types
@@ -144,12 +147,12 @@ const ProjectsDemos = () => {
 
 const EnvironmentsDemos = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const [envId, setEnvId] = useState("");
+  const [projectId, setProjectId] = useState("");
   const [environments, setEnvironments] = useState([]);
   /* const environments = useGetEnvironmentsQuery({
     projectId: "cl26g2quu0037liuekedc8ir4",
   }); */
-  const [createProject] = useCreateProjectMutation();
+  const [createEnvironment] = useCreateEnvironmentMutation();
   const [updateProject] = useUpdateProjectByIdMutation();
   const [deleteProject] = useDeleteProjectByIdMutation();
 
@@ -160,7 +163,7 @@ const EnvironmentsDemos = () => {
     },
     onSubmit: async (values, { resetForm }) => {
       try {
-        const payload = await createProject(values);
+        await createEnvironment({ ...values, projectId });
 
         resetForm();
       } catch (error) {
@@ -169,7 +172,7 @@ const EnvironmentsDemos = () => {
     },
   });
 
-  const load = useCallback(async (projectId: string) => {
+  const load = useCallback(async () => {
     try {
       setEnvironments([]);
       const { status, data } = await dispatch(
@@ -184,7 +187,7 @@ const EnvironmentsDemos = () => {
     } catch (error) {
       console.log("error getting environments", error);
     }
-  }, []);
+  }, [projectId]);
 
   const update = useCallback((projectId: string, projectName: string) => {
     let name = prompt("New project name:", projectName);
@@ -211,44 +214,48 @@ const EnvironmentsDemos = () => {
         <input
           placeholder="projectId"
           type="text"
-          onChange={(e) => setEnvId(e.target.value)}
-          value={envId}
+          onChange={(e) => setProjectId(e.target.value)}
+          value={projectId}
         />
 
-        <button onClick={() => load(envId)}>Load Envs</button>
+        <button onClick={load}>Load Envs</button>
 
         <br />
         <br />
 
-        <h4>New Environment</h4>
-        <form onSubmit={formik.handleSubmit}>
-          <label htmlFor="name">Name</label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            onChange={formik.handleChange}
-            value={formik.values.name}
-          />
-          {formik.touched.name && formik.errors.name ? (
-            <div>{formik.errors.name}</div>
-          ) : null}
+        {!isEmpty(environments) && (
+          <div>
+            <h4>New Environment</h4>
+            <form onSubmit={formik.handleSubmit}>
+              <label htmlFor="name">Name</label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                onChange={formik.handleChange}
+                value={formik.values.name}
+              />
+              {formik.touched.name && formik.errors.name ? (
+                <div>{formik.errors.name}</div>
+              ) : null}
 
-          <label htmlFor="slug">Slug</label>
-          <input
-            id="slug"
-            name="slug"
-            type="slug"
-            onChange={formik.handleChange}
-            value={formik.values.slug}
-          />
+              <label htmlFor="slug">Slug</label>
+              <input
+                id="slug"
+                name="slug"
+                type="slug"
+                onChange={formik.handleChange}
+                value={formik.values.slug}
+              />
 
-          {formik.touched.slug && formik.errors.slug ? (
-            <div>{formik.errors.slug}</div>
-          ) : null}
+              {formik.touched.slug && formik.errors.slug ? (
+                <div>{formik.errors.slug}</div>
+              ) : null}
 
-          <button type="submit">Submit</button>
-        </form>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        )}
       </div>
 
       <br />

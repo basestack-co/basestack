@@ -33,3 +33,13 @@ export const allEnvironmentsResponseMock = {
 export const getAllEnvironmentsArgsMock = {
   projectId: "cl1l86cxb00790zuey3az0e0d",
 };
+
+export const createEnvironmentArgsMock = {
+  name: "muda",
+  projectId: "cl26g2quu0037liuekedc8ir4",
+  slug: "muda",
+};
+
+export const createEnvironmentResponseMock = {
+  environment: environmentMock,
+};

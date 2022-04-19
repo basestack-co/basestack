@@ -4,13 +4,19 @@ import fetchMock from "jest-fetch-mock";
 import {
   getAllEnvironmentsArgsMock,
   allEnvironmentsResponseMock,
+  createEnvironmentArgsMock,
+  createEnvironmentResponseMock,
 } from "mocks/environments";
 // Utils
 import { setupApiStore } from "utils/setupApiStore";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { Provider } from "react-redux";
 // Queries
-import { environmentsApi, useGetEnvironmentsQuery } from "../environments";
+import {
+  environmentsApi,
+  useGetEnvironmentsQuery,
+  useCreateEnvironmentMutation,
+} from "../environments";
 
 const updateTimeout = 5000;
 
@@ -73,6 +79,24 @@ describe("Environments Endpoint Tests", () => {
         })
     );
   });
+  test("Should createEnvironment successful", () => {
+    const storeRef = setupApiStore(environmentsApi, {});
+    fetchMock.mockResponse(JSON.stringify(createEnvironmentResponseMock));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          environmentsApi.endpoints.createEnvironment.initiate(
+            createEnvironmentArgsMock
+          )
+        )
+        .then((action: any) => {
+          const { data } = action;
+          expect(data).toStrictEqual(createEnvironmentResponseMock);
+        })
+    );
+  });
 });
 
 /**
@@ -113,5 +137,61 @@ describe("Environments Endpoint Hooks Tests", () => {
     expect(nextResponse.data).toBeUndefined();
     expect(nextResponse.isLoading).toBe(false);
     expect(nextResponse.isError).toBe(true);
+  });
+
+  it("Should use useCreateEnvironmentMutation with Success", async () => {
+    fetchMock.mockResponse(JSON.stringify(createEnvironmentArgsMock));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useCreateEnvironmentMutation(undefined),
+      {
+        wrapper,
+      }
+    );
+    const [createEnvironment, initialResponse] = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(false);
+
+    act(() => {
+      void createEnvironment(createEnvironmentArgsMock);
+    });
+
+    const loadingResponse = result.current[1];
+    expect(loadingResponse.data).toBeUndefined();
+    expect(loadingResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const loadedResponse = result.current[1];
+    expect(loadedResponse.data).not.toBeUndefined();
+    expect(loadedResponse.isLoading).toBe(false);
+    expect(loadedResponse.isSuccess).toBe(true);
+  });
+
+  it("Should use useCreateEnvironmentMutation with Error", async () => {
+    fetchMock.mockReject(new Error("Internal Server Error"));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useCreateEnvironmentMutation(undefined),
+      {
+        wrapper,
+      }
+    );
+    const [createEnvironment, initialResponse] = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(false);
+
+    act(() => {
+      void createEnvironment(createEnvironmentArgsMock);
+    });
+
+    const loadingResponse = result.current[1];
+    expect(loadingResponse.data).toBeUndefined();
+    expect(loadingResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const loadedResponse = result.current[1];
+    expect(loadedResponse.data).toBeUndefined();
+    expect(loadedResponse.isLoading).toBe(false);
+    expect(loadedResponse.isError).toBe(true);
   });
 });

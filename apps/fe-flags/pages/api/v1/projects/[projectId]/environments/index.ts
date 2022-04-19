@@ -1,6 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 // DB
-import { getAllEnvironments } from "libs/prisma/db/environments";
+import {
+  getAllEnvironments,
+  createEnvironment,
+} from "libs/prisma/db/environments";
 // Auth
 import { getSession } from "next-auth/react";
 // Utils
@@ -23,14 +26,10 @@ const Environments = async (req: NextApiRequest, res: NextApiResponse) => {
     case "GET":
       await getAllEnvironments(userId, projectId, res);
       break;
-    // creates a new project
-    /* case "POST":
-      await createProject(
-        get(session, "user.id", "") as string,
-        JSON.parse(req.body),
-        res
-      );
-      break; */
+    // creates a new environment by project id
+    case "POST":
+      await createEnvironment(userId, JSON.parse(req.body), res);
+      break;
     default:
       res.status(405).json(methodNotAllowed);
   }

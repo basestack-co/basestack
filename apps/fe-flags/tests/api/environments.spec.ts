@@ -3,10 +3,7 @@ import environmentsEndpoints from "pages/api/v1/projects/[projectId]/environment
 // import projectByIdEndpoints from "pages/api/v1/projects/[projectId]";
 // Mocks
 import { sessionMock } from "mocks/auth";
-import {
-  environmentsMock,
-  allEnvironmentsResponseMock,
-} from "mocks/environments";
+import { environmentMock, createEnvironmentArgsMock } from "mocks/environments";
 import { methodNotAllowedMock } from "mocks/http";
 // Utils
 import { createMocks } from "node-mocks-http";
@@ -22,6 +19,9 @@ jest.mock("libs/prisma/index", () => ({
     findFirst: jest.fn(() => {
       environments: [];
     }),
+  },
+  environment: {
+    create: jest.fn(() => environmentMock),
   },
 }));
 
@@ -50,6 +50,24 @@ describe("Environments API Endpoints Tests", () => {
     expect(res._getStatusCode()).toBe(200);
     expect(JSON.parse(res._getData())).toEqual(
       expect.objectContaining({ environments: [] })
+    );
+  });
+
+  test.skip("Should create new environment by project from POST /v1/api/projects/[projectId]/environments", async () => {
+    const { req, res } = createMocks({
+      method: "POST",
+      query: { projectId: "cl1l86cxb00790zuey3az0e0d" },
+      // @ts-ignore
+      body: JSON.stringify(createEnvironmentArgsMock),
+    });
+
+    await environmentsEndpoints(req, res);
+
+    expect(res._getStatusCode()).toBe(200);
+    expect(JSON.parse(res._getData())).toEqual(
+      expect.objectContaining({
+        environment: environmentMock,
+      })
     );
   });
 });
