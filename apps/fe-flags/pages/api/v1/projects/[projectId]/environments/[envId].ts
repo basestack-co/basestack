@@ -12,14 +12,14 @@ import isEmpty from "lodash.isempty";
 import get from "lodash.get";
 import { unauthorized, methodNotAllowed } from "utils/responses";
 
-const ProjectsById = async (req: NextApiRequest, res: NextApiResponse) => {
+const EnvironmentsById = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
 
   if (isEmpty(session)) {
     return res.status(401).json(unauthorized);
   }
 
-  const projectId = get(req, "query.id", "");
+  const projectId = get(req, "query.envId", "");
 
   switch (req.method) {
     // gets a project by id
@@ -46,4 +46,4 @@ const ProjectsById = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default ProjectsById;
+export default EnvironmentsById;

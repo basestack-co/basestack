@@ -124,7 +124,8 @@ export const getProjectById = async (
  * @returns updates a project by id
  */
 export const updateProjectById = async (
-  { projectId, ...data }: UpdateProjectArgs,
+  projectId,
+  name: string,
   res: NextApiResponse
 ) => {
   try {
@@ -132,7 +133,9 @@ export const updateProjectById = async (
       where: {
         id: projectId,
       },
-      data,
+      data: {
+        name,
+      },
     });
 
     res.status(200).json({
