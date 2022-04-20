@@ -1,6 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 // DB
-import { getAllProjects, createProject } from "libs/prisma/db/projects";
+import {
+  getAllEnvironments,
+  createEnvironment,
+} from "libs/prisma/db/environments";
 // Auth
 import { getSession } from "next-auth/react";
 // Utils
@@ -8,7 +11,7 @@ import isEmpty from "lodash.isempty";
 import get from "lodash.get";
 import { unauthorized, methodNotAllowed } from "utils/responses";
 
-const Projects = async (req: NextApiRequest, res: NextApiResponse) => {
+const Environments = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
 
   if (isEmpty(session)) {
@@ -16,19 +19,20 @@ const Projects = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const userId = get(session, "user.id", "") as string;
+  const projectId = get(req, "query.projectId", "");
 
   switch (req.method) {
-    // gets all the projects
+    // gets all the environments by project id
     case "GET":
-      await getAllProjects(userId, res);
+      await getAllEnvironments(userId, projectId, res);
       break;
-    // creates a new project
+    // creates a new environment by project id
     case "POST":
-      await createProject(userId, JSON.parse(req.body), res);
+      await createEnvironment(userId, projectId, JSON.parse(req.body), res);
       break;
     default:
       res.status(405).json(methodNotAllowed);
   }
 };
 
-export default Projects;
+export default Environments;

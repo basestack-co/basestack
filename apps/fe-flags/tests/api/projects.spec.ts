@@ -1,6 +1,6 @@
 // API
 import projectEndpoints from "pages/api/v1/projects";
-import projectByIdEndpoints from "pages/api/v1/projects/[id]";
+import projectByIdEndpoints from "pages/api/v1/projects/[projectId]";
 // Mocks
 import { sessionMock } from "mocks/auth";
 import {
@@ -94,10 +94,10 @@ describe("Project by Id API Endpoints Tests", () => {
     );
   });
 
-  test("Should get project by id from GET /v1/api/projects/[id]", async () => {
+  test("Should get project by id from GET /v1/api/projects/[projectId]", async () => {
     const { req, res } = createMocks({
       method: "GET",
-      query: { id: "cl1l86cxb00790zuey3az0e0d" },
+      query: { projectId: "cl1l86cxb00790zuey3az0e0d" },
     });
 
     await projectByIdEndpoints(req, res);
@@ -108,14 +108,14 @@ describe("Project by Id API Endpoints Tests", () => {
     );
   });
 
-  test("Should update project by id from PUT /v1/api/projects/[id]", async () => {
+  test("Should update project by id from PUT /v1/api/projects/[projectId]", async () => {
     const { req, res } = createMocks({
-      method: "GET",
-      query: { id: "cl1l86cxb00790zuey3az0e0d" },
-      body: {
+      method: "PUT",
+      query: { projectId: "cl1l86cxb00790zuey3az0e0d" },
+      // @ts-ignore
+      body: JSON.stringify({
         name: "Nice new project",
-        projectId: "cl24vhr5y050191wocdzfps09",
-      },
+      }),
     });
 
     await projectByIdEndpoints(req, res);
@@ -126,10 +126,10 @@ describe("Project by Id API Endpoints Tests", () => {
     );
   });
 
-  test("Should delete project by id from DELETE /v1/api/projects/[id]", async () => {
+  test("Should delete project by id from DELETE /v1/api/projects/[projectId]", async () => {
     const { req, res } = createMocks({
       method: "DELETE",
-      query: { id: "cl1l86cxb00790zuey3az0e0d" },
+      query: { projectId: "cl1l86cxb00790zuey3az0e0d" },
     });
 
     await projectByIdEndpoints(req, res);

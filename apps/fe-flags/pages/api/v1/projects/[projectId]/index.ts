@@ -19,7 +19,7 @@ const ProjectsById = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(401).json(unauthorized);
   }
 
-  const projectId = get(req, "query.id", "");
+  const projectId = get(req, "query.projectId", "");
 
   switch (req.method) {
     // gets a project by id
@@ -29,10 +29,8 @@ const ProjectsById = async (req: NextApiRequest, res: NextApiResponse) => {
     // updates a project by id
     case "PUT":
       await updateProjectById(
-        {
-          projectId,
-          ...JSON.parse(req.body),
-        },
+        projectId,
+        get(JSON.parse(req.body), "name"),
         res
       );
       break;
