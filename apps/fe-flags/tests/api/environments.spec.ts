@@ -3,7 +3,11 @@ import environmentsEndpoints from "pages/api/v1/projects/[projectId]/environment
 import environmentByIdEndpoints from "pages/api/v1/projects/[projectId]/environments/[envId]";
 // Mocks
 import { sessionMock } from "mocks/auth";
-import { environmentMock, createEnvironmentArgsMock } from "mocks/environments";
+import {
+  environmentMock,
+  createEnvironmentArgsMock,
+  projectEnvironmentResponseMock,
+} from "mocks/environments";
 import { methodNotAllowedMock } from "mocks/http";
 // Utils
 import { createMocks } from "node-mocks-http";
@@ -16,15 +20,14 @@ jest.mock("libs/prisma/index", () => ({
   // @ts-ignore
   ...jest.requireActual("libs/prisma/index"),
   project: {
-    findFirst: jest.fn(() => {
-      environments: [];
-    }),
+    findFirst: jest.fn(() => projectEnvironmentResponseMock),
   },
   environment: {
     create: jest.fn(() => environmentMock),
     update: jest.fn(() => ({
       name: "environment1",
     })),
+    environment: jest.fn(() => environmentMock),
   },
 }));
 
@@ -94,7 +97,7 @@ describe("Project by Id API Endpoints Tests", () => {
       method: "PUT",
       query: {
         projectId: "cl1l86cxb00790zuey3az0e0d",
-        environmentId: "cl1l86cxb00790zuey3az884",
+        envId: "cl1l86cxb00790zuey3az884",
       },
       // @ts-ignore
       body: JSON.stringify({ name: "environment1" }),
@@ -110,5 +113,20 @@ describe("Project by Id API Endpoints Tests", () => {
         },
       })
     );
+  });
+
+  test.skip("Should delete project by id from DELETE /v1/api/projects/[projectId]/environments/[envId]", async () => {
+    const { req, res } = createMocks({
+      method: "DELETE",
+      query: {
+        projectId: "cl1l86cxb00790zuey3az0e0d",
+        envId: "cl1l86cxb00790zuey3az884",
+      },
+    });
+
+    await environmentByIdEndpoints(req, res);
+
+    expect(res._getStatusCode()).toBe(200);
+    expect(JSON.parse(res._getData())).toEqual(expect.objectContaining({}));
   });
 });

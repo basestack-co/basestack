@@ -23,3 +23,8 @@ export interface UpdateEnvironmentArgs {
   environmentId: string;
   name: string;
 }
+
+export interface DeleteEnvironmentArgs {
+  projectId: string;
+  environmentId: string;
+}

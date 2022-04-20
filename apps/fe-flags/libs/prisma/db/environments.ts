@@ -11,6 +11,7 @@ import {
   somethingWentWrong,
   notAuthorizedCreateEnv,
   notAuthorizedUpdateEnv,
+  notAuthorizedDeleteEnv,
 } from "utils/responses";
 // DB
 import { getUserInProject } from "./users";
@@ -104,6 +105,16 @@ export const createEnvironment = async (
   }
 };
 
+/**
+ *
+ * @param userId
+ * @param projectId
+ * @param environmentId
+ * @param name
+ * @param res
+ * @returns updates a environment by id
+ */
+
 export const updateEnvironmentById = async (
   userId: string,
   projectId: string,
@@ -131,6 +142,46 @@ export const updateEnvironmentById = async (
       });
     } else {
       throw new Error(notAuthorizedUpdateEnv);
+    }
+  } catch (error) {
+    return res.status(get(error, "code", 400)).json({
+      error: true,
+      message: get(error, "message", somethingWentWrong),
+    });
+  }
+};
+
+/**
+ *
+ * @param userId
+ * @param projectId
+ * @param environmentId
+ * @param res
+ * @returns deletes a environment by id
+ */
+export const deleteEnvironmentById = async (
+  userId: string,
+  projectId: string,
+  environmentId: string,
+  res: NextApiResponse
+) => {
+  try {
+    // checks if the user is in the project
+    const user = await getUserInProject(userId, projectId);
+
+    // This user can update an environment in this project
+    if (!isEmpty(user)) {
+      const environment = await prisma.environment.delete({
+        where: {
+          id: environmentId,
+        },
+      });
+
+      res.status(200).json({
+        environment,
+      });
+    } else {
+      throw new Error(notAuthorizedDeleteEnv);
     }
   } catch (error) {
     return res.status(get(error, "code", 400)).json({

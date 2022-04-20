@@ -22,3 +22,6 @@ export const notAuthorizedUpdateEnv =
 
 export const notAuthorizedActionProject =
   "You are not authorized to do this action in this project";
+
+export const notAuthorizedDeleteEnv =
+  "You are not authorized to delete this environment";

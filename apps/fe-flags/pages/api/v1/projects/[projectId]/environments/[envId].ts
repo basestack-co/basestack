@@ -1,6 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 // DB
-import { updateEnvironmentById } from "libs/prisma/db/environments";
+import {
+  updateEnvironmentById,
+  deleteEnvironmentById,
+} from "libs/prisma/db/environments";
 // Auth
 import { getSession } from "next-auth/react";
 // Utils
@@ -30,11 +33,10 @@ const EnvironmentsById = async (req: NextApiRequest, res: NextApiResponse) => {
         res
       );
       break;
-    // deletes a project by id
-    /* case "DELETE":
-      await deleteProjectById(projectId, res);
-      break; */
-
+    // deletes a environment by id
+    case "DELETE":
+      await deleteEnvironmentById(userId, projectId, environmentId, res);
+      break;
     default:
       res.status(405).json(methodNotAllowed);
   }

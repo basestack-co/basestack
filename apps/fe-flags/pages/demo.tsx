@@ -16,6 +16,8 @@ import {
   environmentsApi,
   useCreateEnvironmentMutation,
   useUpdateEnvironmentByIdMutation,
+  useDeleteEnvironmentByIdMutation,
+  useGetEnvironmentsQuery,
 } from "store/query/environments";
 // Utils
 import isEmpty from "lodash.isempty";
@@ -146,16 +148,48 @@ const ProjectsDemos = () => {
   );
 };
 
+const EnvironmentsList = ({
+  projectId,
+  update,
+  deleteAction,
+}: {
+  update: (environmentId: string, envName: string) => void;
+  deleteAction: (environmentId: string) => void;
+  projectId: string;
+}) => {
+  const { isLoading, data } = useGetEnvironmentsQuery(
+    {
+      projectId,
+    },
+    {
+      skip: isEmpty(projectId),
+      // refetchOnMountOrArgChange: true
+    }
+  );
+
+  return (
+    <div>
+      <h4>Environment list:</h4>
+      {!isLoading && !isEmpty(data) && (
+        <ul>
+          {data.environments.map((item: Environment) => (
+            <li key={item.id}>
+              {item.name} |{" "}
+              <button onClick={() => update(item.id, item.name)}>✏️</button> |{" "}
+              <button onClick={() => deleteAction(item.id)}>❌</button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
 const EnvironmentsDemos = () => {
-  const dispatch = useDispatch<AppDispatch>();
   const [projectId, setProjectId] = useState("");
-  const [environments, setEnvironments] = useState([]);
-  /* const environments = useGetEnvironmentsQuery({
-    projectId: "cl26g2quu0037liuekedc8ir4",
-  }); */
   const [createEnvironment] = useCreateEnvironmentMutation();
   const [updateEnvironment] = useUpdateEnvironmentByIdMutation();
-  const [deleteProject] = useDeleteProjectByIdMutation();
+  const [deleteEnvironment] = useDeleteEnvironmentByIdMutation();
 
   const formik = useFormik({
     initialValues: {
@@ -173,23 +207,6 @@ const EnvironmentsDemos = () => {
     },
   });
 
-  const load = useCallback(async () => {
-    try {
-      setEnvironments([]);
-      const { status, data } = await dispatch(
-        environmentsApi.endpoints.getEnvironments.initiate({
-          projectId,
-        })
-      );
-
-      if (status === "fulfilled") {
-        setEnvironments(data.environments);
-      }
-    } catch (error) {
-      console.log("error getting environments", error);
-    }
-  }, [projectId, dispatch]);
-
   const update = useCallback(
     (environmentId: string, envName: string) => {
       let name = prompt("New environment name:", envName);
@@ -205,11 +222,14 @@ const EnvironmentsDemos = () => {
     [projectId, updateEnvironment]
   );
 
-  const deleteAction = useCallback((projectId: string) => {
-    if (confirm("Delete Environment?")) {
-      deleteProject({ projectId });
-    }
-  }, []);
+  const deleteAction = useCallback(
+    (environmentId: string) => {
+      if (confirm("Delete Environment?")) {
+        deleteEnvironment({ projectId, environmentId });
+      }
+    },
+    [projectId, deleteEnvironment]
+  );
 
   return (
     <div>
@@ -222,8 +242,6 @@ const EnvironmentsDemos = () => {
           onChange={(e) => setProjectId(e.target.value)}
           value={projectId}
         />
-
-        <button onClick={load}>Load Envs</button>
 
         <br />
         <br />
@@ -262,18 +280,11 @@ const EnvironmentsDemos = () => {
       </div>
 
       <br />
-      <h4>Environment list:</h4>
-      {!isEmpty(environments) && (
-        <ul>
-          {environments.map((item: Environment) => (
-            <li key={item.id}>
-              {item.name} |{" "}
-              <button onClick={() => update(item.id, item.name)}>✏️</button> |{" "}
-              <button onClick={() => deleteAction(item.id)}>❌</button>
-            </li>
-          ))}
-        </ul>
-      )}
+      <EnvironmentsList
+        projectId={projectId}
+        update={update}
+        deleteAction={deleteAction}
+      />
     </div>
   );
 };

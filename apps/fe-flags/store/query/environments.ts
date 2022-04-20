@@ -5,6 +5,7 @@ import {
   EnvironmentsResponse,
   EnvironmentArgs,
   UpdateEnvironmentArgs,
+  DeleteEnvironmentArgs,
 } from "types/query/environments";
 
 // Define environments service using BASE API URL and endpoints
@@ -36,6 +37,16 @@ export const environmentsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Environments"],
     }),
+    deleteEnvironmentById: builder.mutation<
+      void,
+      Partial<DeleteEnvironmentArgs>
+    >({
+      query: ({ projectId, environmentId }) => ({
+        url: `/projects/${projectId}/environments/${environmentId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Environments"],
+    }),
   }),
   overrideExisting: false,
 });
@@ -45,4 +56,5 @@ export const {
   useGetEnvironmentsQuery,
   useCreateEnvironmentMutation,
   useUpdateEnvironmentByIdMutation,
+  useDeleteEnvironmentByIdMutation,
 } = environmentsApi;

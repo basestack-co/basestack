@@ -6,6 +6,10 @@ import {
   allEnvironmentsResponseMock,
   createEnvironmentArgsMock,
   createEnvironmentResponseMock,
+  updateEnvironmentArgsMock,
+  updateEnvironmentResponseMock,
+  deleteEnvironmentArgsMock,
+  projectEnvironmentResponseMock,
 } from "mocks/environments";
 // Utils
 import { setupApiStore } from "utils/setupApiStore";
@@ -16,6 +20,8 @@ import {
   environmentsApi,
   useGetEnvironmentsQuery,
   useCreateEnvironmentMutation,
+  useUpdateEnvironmentByIdMutation,
+  useDeleteEnvironmentByIdMutation,
 } from "../environments";
 
 const updateTimeout = 5000;
@@ -94,6 +100,44 @@ describe("Environments Endpoint Tests", () => {
         .then((action: any) => {
           const { data } = action;
           expect(data).toStrictEqual(createEnvironmentResponseMock);
+        })
+    );
+  });
+
+  test("Should updateEnvironment successful", () => {
+    const storeRef = setupApiStore(environmentsApi, {});
+    fetchMock.mockResponse(JSON.stringify(updateEnvironmentResponseMock));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          environmentsApi.endpoints.updateEnvironmentById.initiate(
+            updateEnvironmentArgsMock
+          )
+        )
+        .then((action: any) => {
+          const { data } = action;
+          expect(data).toStrictEqual(updateEnvironmentResponseMock);
+        })
+    );
+  });
+
+  test("Should deleteEnvironment successful", () => {
+    const storeRef = setupApiStore(environmentsApi, {});
+    fetchMock.mockResponse(JSON.stringify(projectEnvironmentResponseMock));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          environmentsApi.endpoints.deleteEnvironmentById.initiate(
+            deleteEnvironmentArgsMock
+          )
+        )
+        .then((action: any) => {
+          const { data } = action;
+          expect(data).toStrictEqual(projectEnvironmentResponseMock);
         })
     );
   });
@@ -181,6 +225,118 @@ describe("Environments Endpoint Hooks Tests", () => {
 
     act(() => {
       void createEnvironment(createEnvironmentArgsMock);
+    });
+
+    const loadingResponse = result.current[1];
+    expect(loadingResponse.data).toBeUndefined();
+    expect(loadingResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const loadedResponse = result.current[1];
+    expect(loadedResponse.data).toBeUndefined();
+    expect(loadedResponse.isLoading).toBe(false);
+    expect(loadedResponse.isError).toBe(true);
+  });
+
+  it("Should use useUpdateEnvironmentByIdMutation with Success", async () => {
+    fetchMock.mockResponse(JSON.stringify(updateEnvironmentArgsMock));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useUpdateEnvironmentByIdMutation(undefined),
+      {
+        wrapper,
+      }
+    );
+    const [updateEnvironment, initialResponse] = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(false);
+
+    act(() => {
+      void updateEnvironment(updateEnvironmentArgsMock);
+    });
+
+    const loadingResponse = result.current[1];
+    expect(loadingResponse.data).toBeUndefined();
+    expect(loadingResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const loadedResponse = result.current[1];
+    expect(loadedResponse.data).not.toBeUndefined();
+    expect(loadedResponse.isLoading).toBe(false);
+    expect(loadedResponse.isSuccess).toBe(true);
+  });
+
+  it("Should use useUpdateEnvironmentByIdMutation with Error", async () => {
+    fetchMock.mockReject(new Error("Internal Server Error"));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useUpdateEnvironmentByIdMutation(undefined),
+      {
+        wrapper,
+      }
+    );
+    const [updateEnvironment, initialResponse] = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(false);
+
+    act(() => {
+      void updateEnvironment(createEnvironmentArgsMock);
+    });
+
+    const loadingResponse = result.current[1];
+    expect(loadingResponse.data).toBeUndefined();
+    expect(loadingResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const loadedResponse = result.current[1];
+    expect(loadedResponse.data).toBeUndefined();
+    expect(loadedResponse.isLoading).toBe(false);
+    expect(loadedResponse.isError).toBe(true);
+  });
+
+  it("Should use useDeleteEnvironmentByIdMutation with Success", async () => {
+    fetchMock.mockResponse(JSON.stringify(deleteEnvironmentArgsMock));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useDeleteEnvironmentByIdMutation(undefined),
+      {
+        wrapper,
+      }
+    );
+    const [deleteEnvironment, initialResponse] = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(false);
+
+    act(() => {
+      void deleteEnvironment(deleteEnvironmentArgsMock);
+    });
+
+    const loadingResponse = result.current[1];
+    expect(loadingResponse.data).toBeUndefined();
+    expect(loadingResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const loadedResponse = result.current[1];
+    expect(loadedResponse.data).not.toBeUndefined();
+    expect(loadedResponse.isLoading).toBe(false);
+    expect(loadedResponse.isSuccess).toBe(true);
+  });
+
+  it("Should use useDeleteEnvironmentByIdMutation with Error", async () => {
+    fetchMock.mockReject(new Error("Internal Server Error"));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useDeleteEnvironmentByIdMutation(undefined),
+      {
+        wrapper,
+      }
+    );
+    const [deleteEnvironment, initialResponse] = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(false);
+
+    act(() => {
+      void deleteEnvironment(deleteEnvironmentArgsMock);
     });
 
     const loadingResponse = result.current[1];

@@ -43,3 +43,26 @@ export const createEnvironmentArgsMock = {
 export const createEnvironmentResponseMock = {
   environment: environmentMock,
 };
+
+export const updateEnvironmentArgsMock = {
+  name: "muda",
+  projectId: "cl26g2quu0037liuekedc8ir4",
+  environmentId: "cl26g2quu0037liuekedc8i22",
+};
+
+export const updateEnvironmentResponseMock = {
+  name: "muda",
+};
+
+export const projectEnvironmentResponseMock = {
+  id: "cl26g2quu0037liuekedc8ir4",
+  name: "nice3",
+  slug: "vaos",
+  createdAt: "2022-04-19T17:53:29.718Z",
+  updatedAt: "2022-04-19T17:53:33.249Z",
+};
+
+export const deleteEnvironmentArgsMock = {
+  projectId: "cl26g2quu0037liuekedc8ir4",
+  environmentId: "cl26g2quu0037liuekedc8i22",
+};
