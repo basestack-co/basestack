@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 // Layout
 import MainLayout from "../layouts/Main";
 // Store
@@ -12,10 +12,18 @@ import {
   useUpdateProjectByIdMutation,
   useDeleteProjectByIdMutation,
 } from "store/query/projects";
+import {
+  environmentsApi,
+  useCreateEnvironmentMutation,
+  useUpdateEnvironmentByIdMutation,
+  useDeleteEnvironmentByIdMutation,
+  useGetEnvironmentsQuery,
+} from "store/query/environments";
 // Utils
 import isEmpty from "lodash.isempty";
 // Types
 import { Project } from "types/query/projects";
+import { Environment } from "types/query/environments";
 // Formik
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -91,13 +99,14 @@ const ProjectsDemos = () => {
   return (
     <div>
       <div>
+        <br />
         <h4>New Project</h4>
         <form onSubmit={formik.handleSubmit}>
-          <label htmlFor="name">Name</label>
+          <label>Name</label>
           <input
-            id="name"
+            placeholder="name"
             name="name"
-            type="name"
+            type="text"
             onChange={formik.handleChange}
             value={formik.values.name}
           />
@@ -105,9 +114,9 @@ const ProjectsDemos = () => {
             <div>{formik.errors.name}</div>
           ) : null}
 
-          <label htmlFor="slug">Slug</label>
+          <label>Slug</label>
           <input
-            id="slug"
+            placeholder="slug"
             name="slug"
             type="slug"
             onChange={formik.handleChange}
@@ -128,6 +137,43 @@ const ProjectsDemos = () => {
         <ul>
           {projects.data.projects.map((item: Project) => (
             <li key={item.id}>
+              {item.name} (<b>{item.id}</b>) |{" "}
+              <button onClick={() => update(item.id, item.name)}>✏️</button> |{" "}
+              <button onClick={() => deleteAction(item.id)}>❌</button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+const EnvironmentsList = ({
+  projectId,
+  update,
+  deleteAction,
+}: {
+  update: (environmentId: string, envName: string) => void;
+  deleteAction: (environmentId: string) => void;
+  projectId: string;
+}) => {
+  const { isLoading, data } = useGetEnvironmentsQuery(
+    {
+      projectId,
+    },
+    {
+      skip: isEmpty(projectId),
+      // refetchOnMountOrArgChange: true
+    }
+  );
+
+  return (
+    <div>
+      <h4>Environment list:</h4>
+      {!isLoading && !isEmpty(data) && (
+        <ul>
+          {data.environments.map((item: Environment) => (
+            <li key={item.id}>
               {item.name} |{" "}
               <button onClick={() => update(item.id, item.name)}>✏️</button> |{" "}
               <button onClick={() => deleteAction(item.id)}>❌</button>
@@ -139,6 +185,110 @@ const ProjectsDemos = () => {
   );
 };
 
+const EnvironmentsDemos = () => {
+  const [projectId, setProjectId] = useState("");
+  const [createEnvironment] = useCreateEnvironmentMutation();
+  const [updateEnvironment] = useUpdateEnvironmentByIdMutation();
+  const [deleteEnvironment] = useDeleteEnvironmentByIdMutation();
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      slug: "",
+    },
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        await createEnvironment({ ...values, projectId });
+
+        resetForm();
+      } catch (error) {
+        console.log("Error on create project", error);
+      }
+    },
+  });
+
+  const update = useCallback(
+    (environmentId: string, envName: string) => {
+      let name = prompt("New environment name:", envName);
+
+      if (!isEmpty(name)) {
+        updateEnvironment({
+          environmentId,
+          projectId,
+          name,
+        });
+      }
+    },
+    [projectId, updateEnvironment]
+  );
+
+  const deleteAction = useCallback(
+    (environmentId: string) => {
+      if (confirm("Delete Environment?")) {
+        deleteEnvironment({ projectId, environmentId });
+      }
+    },
+    [projectId, deleteEnvironment]
+  );
+
+  return (
+    <div>
+      <div>
+        <br />
+        <h4>Load Environment</h4>
+        <input
+          placeholder="projectId"
+          type="text"
+          onChange={(e) => setProjectId(e.target.value)}
+          value={projectId}
+        />
+
+        <br />
+        <br />
+
+        <div>
+          <h4>New Environment</h4>
+          <form onSubmit={formik.handleSubmit}>
+            <label htmlFor="name">Name</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.name}
+            />
+            {formik.touched.name && formik.errors.name ? (
+              <div>{formik.errors.name}</div>
+            ) : null}
+
+            <label htmlFor="slug">Slug</label>
+            <input
+              id="slug"
+              name="slug"
+              type="slug"
+              onChange={formik.handleChange}
+              value={formik.values.slug}
+            />
+
+            {formik.touched.slug && formik.errors.slug ? (
+              <div>{formik.errors.slug}</div>
+            ) : null}
+
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+
+      <br />
+      <EnvironmentsList
+        projectId={projectId}
+        update={update}
+        deleteAction={deleteAction}
+      />
+    </div>
+  );
+};
+
 const DemoPage = () => {
   return (
     <div>
@@ -146,6 +296,11 @@ const DemoPage = () => {
       <h2>Projects</h2>
 
       <ProjectsDemos />
+
+      <br />
+      <h2>Environments</h2>
+
+      <EnvironmentsDemos />
     </div>
   );
 };
