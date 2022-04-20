@@ -15,6 +15,7 @@ import {
 import {
   environmentsApi,
   useCreateEnvironmentMutation,
+  useUpdateEnvironmentByIdMutation,
 } from "store/query/environments";
 // Utils
 import isEmpty from "lodash.isempty";
@@ -153,7 +154,7 @@ const EnvironmentsDemos = () => {
     projectId: "cl26g2quu0037liuekedc8ir4",
   }); */
   const [createEnvironment] = useCreateEnvironmentMutation();
-  const [updateProject] = useUpdateProjectByIdMutation();
+  const [updateEnvironment] = useUpdateEnvironmentByIdMutation();
   const [deleteProject] = useDeleteProjectByIdMutation();
 
   const formik = useFormik({
@@ -187,18 +188,22 @@ const EnvironmentsDemos = () => {
     } catch (error) {
       console.log("error getting environments", error);
     }
-  }, [projectId]);
+  }, [projectId, dispatch]);
 
-  const update = useCallback((projectId: string, projectName: string) => {
-    let name = prompt("New project name:", projectName);
+  const update = useCallback(
+    (environmentId: string, envName: string) => {
+      let name = prompt("New environment name:", envName);
 
-    if (!isEmpty(name)) {
-      updateProject({
-        projectId,
-        name,
-      });
-    }
-  }, []);
+      if (!isEmpty(name)) {
+        updateEnvironment({
+          environmentId,
+          projectId,
+          name,
+        });
+      }
+    },
+    [projectId, updateEnvironment]
+  );
 
   const deleteAction = useCallback((projectId: string) => {
     if (confirm("Delete Environment?")) {
@@ -223,39 +228,37 @@ const EnvironmentsDemos = () => {
         <br />
         <br />
 
-        {!isEmpty(environments) && (
-          <div>
-            <h4>New Environment</h4>
-            <form onSubmit={formik.handleSubmit}>
-              <label htmlFor="name">Name</label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.name}
-              />
-              {formik.touched.name && formik.errors.name ? (
-                <div>{formik.errors.name}</div>
-              ) : null}
+        <div>
+          <h4>New Environment</h4>
+          <form onSubmit={formik.handleSubmit}>
+            <label htmlFor="name">Name</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.name}
+            />
+            {formik.touched.name && formik.errors.name ? (
+              <div>{formik.errors.name}</div>
+            ) : null}
 
-              <label htmlFor="slug">Slug</label>
-              <input
-                id="slug"
-                name="slug"
-                type="slug"
-                onChange={formik.handleChange}
-                value={formik.values.slug}
-              />
+            <label htmlFor="slug">Slug</label>
+            <input
+              id="slug"
+              name="slug"
+              type="slug"
+              onChange={formik.handleChange}
+              value={formik.values.slug}
+            />
 
-              {formik.touched.slug && formik.errors.slug ? (
-                <div>{formik.errors.slug}</div>
-              ) : null}
+            {formik.touched.slug && formik.errors.slug ? (
+              <div>{formik.errors.slug}</div>
+            ) : null}
 
-              <button type="submit">Submit</button>
-            </form>
-          </div>
-        )}
+            <button type="submit">Submit</button>
+          </form>
+        </div>
       </div>
 
       <br />

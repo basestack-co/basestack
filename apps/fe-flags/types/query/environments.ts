@@ -17,3 +17,9 @@ export interface EnvironmentResponse {
 export interface EnvironmentsResponse {
   environments: Environment[];
 }
+
+export interface UpdateEnvironmentArgs {
+  projectId: string;
+  environmentId: string;
+  name: string;
+}

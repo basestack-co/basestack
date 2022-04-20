@@ -4,6 +4,7 @@ import { baseApi } from "./base";
 import {
   EnvironmentsResponse,
   EnvironmentArgs,
+  UpdateEnvironmentArgs,
 } from "types/query/environments";
 
 // Define environments service using BASE API URL and endpoints
@@ -24,10 +25,24 @@ export const environmentsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Environments"],
     }),
+    updateEnvironmentById: builder.mutation<
+      void,
+      Partial<UpdateEnvironmentArgs>
+    >({
+      query: ({ projectId, environmentId, ...data }) => ({
+        url: `/projects/${projectId}/environments/${environmentId}`,
+        method: "PUT",
+        body: JSON.stringify(data),
+      }),
+      invalidatesTags: ["Environments"],
+    }),
   }),
   overrideExisting: false,
 });
 
 // auto-generated based on the defined endpoints
-export const { useGetEnvironmentsQuery, useCreateEnvironmentMutation } =
-  environmentsApi;
+export const {
+  useGetEnvironmentsQuery,
+  useCreateEnvironmentMutation,
+  useUpdateEnvironmentByIdMutation,
+} = environmentsApi;

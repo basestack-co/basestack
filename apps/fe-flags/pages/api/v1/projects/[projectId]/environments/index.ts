@@ -28,7 +28,7 @@ const Environments = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
     // creates a new environment by project id
     case "POST":
-      await createEnvironment(userId, JSON.parse(req.body), res);
+      await createEnvironment(userId, projectId, JSON.parse(req.body), res);
       break;
     default:
       res.status(405).json(methodNotAllowed);

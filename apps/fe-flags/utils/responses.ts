@@ -13,3 +13,12 @@ export const methodNotAllowed = {
 };
 
 export const somethingWentWrong = "Something went wrong";
+
+export const notAuthorizedCreateEnv =
+  "You are not authorized to create an environment";
+
+export const notAuthorizedUpdateEnv =
+  "You are not authorized to update this environment";
+
+export const notAuthorizedActionProject =
+  "You are not authorized to do this action in this project";

@@ -110,11 +110,12 @@ describe("Project by Id API Endpoints Tests", () => {
 
   test("Should update project by id from PUT /v1/api/projects/[projectId]", async () => {
     const { req, res } = createMocks({
-      method: "GET",
+      method: "PUT",
       query: { projectId: "cl1l86cxb00790zuey3az0e0d" },
-      body: {
+      // @ts-ignore
+      body: JSON.stringify({
         name: "Nice new project",
-      },
+      }),
     });
 
     await projectByIdEndpoints(req, res);

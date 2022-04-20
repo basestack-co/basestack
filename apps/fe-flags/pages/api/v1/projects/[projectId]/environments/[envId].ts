@@ -1,10 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 // DB
-import {
-  getProjectById,
-  updateProjectById,
-  deleteProjectById,
-} from "libs/prisma/db/projects";
+import { updateEnvironmentById } from "libs/prisma/db/environments";
 // Auth
 import { getSession } from "next-auth/react";
 // Utils
@@ -19,27 +15,25 @@ const EnvironmentsById = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(401).json(unauthorized);
   }
 
-  const projectId = get(req, "query.envId", "");
+  const userId = get(session, "user.id", "") as string;
+  const projectId = get(req, "query.projectId", "");
+  const environmentId = get(req, "query.envId", "");
 
   switch (req.method) {
-    // gets a project by id
-    case "GET":
-      await getProjectById(projectId, res);
-      break;
-    // updates a project by id
+    // updates a environment by id
     case "PUT":
-      await updateProjectById(
-        {
-          projectId,
-          ...JSON.parse(req.body),
-        },
+      await updateEnvironmentById(
+        userId,
+        projectId,
+        environmentId,
+        get(JSON.parse(req.body), "name"),
         res
       );
       break;
     // deletes a project by id
-    case "DELETE":
+    /* case "DELETE":
       await deleteProjectById(projectId, res);
-      break;
+      break; */
 
     default:
       res.status(405).json(methodNotAllowed);
