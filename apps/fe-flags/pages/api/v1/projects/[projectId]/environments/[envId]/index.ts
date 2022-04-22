@@ -26,11 +26,12 @@ const EnvironmentsById = async (req: NextApiRequest, res: NextApiResponse) => {
     // updates a environment by id
     case "PUT":
       await updateEnvironmentById(
+        res,
         userId,
         projectId,
         environmentId,
         get(JSON.parse(req.body), "name"),
-        res
+        get(JSON.parse(req.body), "description")
       );
       break;
     // deletes a environment by id
