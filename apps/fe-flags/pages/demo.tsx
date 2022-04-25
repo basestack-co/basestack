@@ -21,7 +21,7 @@ import {
 import {
   useGetFlagsQuery,
   useCreateFlagMutation,
-  useGetFlagByIdQuery,
+  useUpdateFlagByIdMutation,
 } from "store/query/flags";
 // Utils
 import isEmpty from "lodash.isempty";
@@ -305,7 +305,7 @@ const FlagsList = ({
   update,
   deleteAction,
 }: {
-  update: (environmentId: string, envName: string) => void;
+  update: (flagId: string) => void;
   deleteAction: (environmentId: string) => void;
   projectId: string;
   envId: string;
@@ -334,7 +334,7 @@ const FlagsList = ({
             <li key={item.id}>
               (slug: <b>{item.slug}</b>) (id: <b>{item.id}</b>) (Enabled:{" "}
               <b>{item.enabled ? "ON" : "OFF"}</b>) |{" "}
-              <button onClick={() => update(item.id, item.slug)}>✏️</button> |{" "}
+              <button onClick={() => update(item.id)}>✏️</button> |{" "}
               <button onClick={() => deleteAction(item.id)}>❌</button>
             </li>
           ))}
@@ -348,14 +348,7 @@ const FlagsDemos = () => {
   const [envId, setEnvId] = useState("");
   const [projectId, setProjectId] = useState("");
   const [createFlag] = useCreateFlagMutation();
-
-  const flagById = useGetFlagByIdQuery({
-    flagId: "cl2aoghvp01596juek13sdfdsf",
-    projectId: "cl2aogaew00926juehs2ecs2t",
-    envId: "cl2aoghvp01596juek134uhfs",
-  });
-
-  console.log("flagById query = ", flagById.data);
+  const [updateFlag] = useUpdateFlagByIdMutation();
 
   const formik = useFormik({
     initialValues: {
@@ -378,6 +371,19 @@ const FlagsDemos = () => {
       }
     },
   });
+
+  const update = useCallback(
+    (flagId: string) => {
+      updateFlag({
+        enabled: false,
+        flagId,
+        envId,
+        projectId,
+        description: "a update description",
+      });
+    },
+    [projectId, updateFlag, envId]
+  );
 
   return (
     <div>
@@ -426,7 +432,7 @@ const FlagsDemos = () => {
       <FlagsList
         envId={envId}
         projectId={projectId}
-        update={console.log}
+        update={update}
         deleteAction={console.log}
       />
     </div>

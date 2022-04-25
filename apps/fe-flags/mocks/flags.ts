@@ -121,3 +121,23 @@ export const getFlagByIdArgsMock = {
   envId: "cl2aoghvp01596juek134uhfs",
   flagId: "cl2aoghvp01596juek13sdfdsf",
 };
+
+export const updateFlagByIdArgsMock = {
+  description: "a update description",
+  enabled: false,
+  envId: "cl2aoghvp01596juek134uhfs",
+  flagId: "cl2aoghvp01596juek13sdfdsf",
+  projectId: "cl2aogaew00926juehs2ecs2t",
+};
+
+export const updateFlagByIdResponseMock = {
+  createdAt: "2022-04-25T19:36:14.000Z",
+  description: "a update description",
+  enabled: false,
+  environmentId: "cl2aoghvp01596juek134uhfs",
+  expiredAt: "2022-04-25T19:36:12.000Z",
+  id: "cl2aoghvp01596juek13sdfdsf",
+  payload: {},
+  slug: "botala",
+  updatedAt: "2022-04-25T21:04:34.626Z",
+};

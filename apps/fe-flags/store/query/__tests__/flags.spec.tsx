@@ -8,6 +8,8 @@ import {
   createFlagArgsMock,
   getFlagByIdResponseMock,
   getFlagByIdArgsMock,
+  updateFlagByIdArgsMock,
+  updateFlagByIdResponseMock,
 } from "mocks/flags";
 // Utils
 import { setupApiStore } from "utils/setupApiStore";
@@ -19,6 +21,7 @@ import {
   useGetFlagsQuery,
   useCreateFlagMutation,
   useGetFlagByIdQuery,
+  useUpdateFlagByIdMutation,
 } from "../flags";
 
 const updateTimeout = 5000;
@@ -129,6 +132,23 @@ describe("Flags Endpoint Tests", () => {
         .then((action: any) => {
           const { data } = action;
           expect(data).toStrictEqual(createFlagsResponseMock);
+        })
+    );
+  });
+
+  test("Should updateFlagById successful", () => {
+    const storeRef = setupApiStore(flagsApi, {});
+    fetchMock.mockResponse(JSON.stringify(updateFlagByIdResponseMock));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          flagsApi.endpoints.updateFlagById.initiate(updateFlagByIdArgsMock)
+        )
+        .then((action: any) => {
+          const { data } = action;
+          expect(data).toStrictEqual(updateFlagByIdResponseMock);
         })
     );
   });
@@ -251,6 +271,62 @@ describe("Flags Endpoint Hooks Tests", () => {
 
     act(() => {
       void createFlag(createFlagArgsMock);
+    });
+
+    const loadingResponse = result.current[1];
+    expect(loadingResponse.data).toBeUndefined();
+    expect(loadingResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const loadedResponse = result.current[1];
+    expect(loadedResponse.data).toBeUndefined();
+    expect(loadedResponse.isLoading).toBe(false);
+    expect(loadedResponse.isError).toBe(true);
+  });
+
+  it("Should use useUpdateFlagByIdMutation with Success", async () => {
+    fetchMock.mockResponse(JSON.stringify(updateFlagByIdArgsMock));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useUpdateFlagByIdMutation(undefined),
+      {
+        wrapper,
+      }
+    );
+    const [updateFlag, initialResponse] = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(false);
+
+    act(() => {
+      void updateFlag(updateFlagByIdArgsMock);
+    });
+
+    const loadingResponse = result.current[1];
+    expect(loadingResponse.data).toBeUndefined();
+    expect(loadingResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const loadedResponse = result.current[1];
+    expect(loadedResponse.data).not.toBeUndefined();
+    expect(loadedResponse.isLoading).toBe(false);
+    expect(loadedResponse.isSuccess).toBe(true);
+  });
+
+  it("Should use useUpdateFlagByIdMutation with Error", async () => {
+    fetchMock.mockReject(new Error("Internal Server Error"));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useUpdateFlagByIdMutation(undefined),
+      {
+        wrapper,
+      }
+    );
+    const [updateFlag, initialResponse] = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(false);
+
+    act(() => {
+      void updateFlag(updateFlagByIdArgsMock);
     });
 
     const loadingResponse = result.current[1];

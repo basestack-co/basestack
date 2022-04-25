@@ -41,3 +41,13 @@ export interface FlagByIdArgs {
 export interface FlagByIdResponse extends Flag {
   environment: Environment;
 }
+
+export interface UpdateFlagArgs {
+  flagId: string;
+  envId: string;
+  projectId: string;
+  enabled: boolean;
+  payload?: any;
+  expiredAt?: Date;
+  description?: string;
+}

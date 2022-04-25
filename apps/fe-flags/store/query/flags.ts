@@ -7,6 +7,7 @@ import {
   CreateFlagArgs,
   FlagByIdArgs,
   FlagByIdResponse,
+  UpdateFlagArgs,
 } from "types/query/flags";
 // Utils
 import { urlQueryBuilder } from "utils/functions";
@@ -35,19 +36,17 @@ export const flagsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Flags"],
     }),
-
-    /*
-    updateEnvironmentById: builder.mutation<
-      void,
-      Partial<UpdateEnvironmentArgs>
-    >({
-      query: ({ projectId, environmentId, ...data }) => ({
-        url: `/projects/${projectId}/environments/${environmentId}`,
+    updateFlagById: builder.mutation<void, Partial<UpdateFlagArgs>>({
+      query: (data) => ({
+        url: `/projects/${data.projectId}/environments/${data.envId}/flags/${data.flagId}`,
         method: "PUT",
         body: JSON.stringify(data),
       }),
       invalidatesTags: ["Environments"],
     }),
+
+    /*
+    
     deleteEnvironmentById: builder.mutation<
       void,
       Partial<DeleteEnvironmentArgs>
@@ -63,5 +62,9 @@ export const flagsApi = baseApi.injectEndpoints({
 });
 
 // auto-generated based on the defined endpoints
-export const { useGetFlagsQuery, useCreateFlagMutation, useGetFlagByIdQuery } =
-  flagsApi;
+export const {
+  useGetFlagsQuery,
+  useCreateFlagMutation,
+  useGetFlagByIdQuery,
+  useUpdateFlagByIdMutation,
+} = flagsApi;

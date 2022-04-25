@@ -4,14 +4,24 @@ import type { NextApiResponse } from "next";
 import prisma from "libs/prisma";
 // Types
 import { Pagination } from "types/query/generic";
-import { CreateFlagArgs } from "types/query/flags";
+import { CreateFlagArgs, UpdateFlagArgs } from "types/query/flags";
 // Utils
 import get from "lodash.get";
 import isEmpty from "lodash.isempty";
-import { somethingWentWrong, notAuthorizedCreateFlag } from "utils/responses";
+import {
+  somethingWentWrong,
+  notAuthorizedCreateFlag,
+  notAuthorizedUpdateFlag,
+} from "utils/responses";
 // DB
 import { getUserInProject } from "./users";
 
+/**
+ *
+ * @param flagId
+ * @param res
+ * @returns gets the flag by id
+ */
 export const getFlagById = async (flagId: string, res: NextApiResponse) => {
   try {
     const flag = await prisma.flag.findFirst({
@@ -134,7 +144,7 @@ export const createFlag = async (
     // checks if the user is in the project
     const user = await getUserInProject(userId, projectId);
 
-    // This user can create an environment in this project
+    // This user can create an flag in this project
     if (!isEmpty(user)) {
       const flag = await prisma.flag.create({
         data: {
@@ -152,6 +162,54 @@ export const createFlag = async (
       });
     } else {
       throw new Error(notAuthorizedCreateFlag);
+    }
+  } catch (error) {
+    return res.status(get(error, "code", 400)).json({
+      error: true,
+      message: get(error, "message", somethingWentWrong),
+    });
+  }
+};
+
+/**
+ *
+ * @param res
+ * @param userId
+ * @param projectId
+ * @param flagId
+ * @param data
+ * @returns update a flag by id
+ */
+export const updateFlagById = async (
+  res: NextApiResponse,
+  userId: string,
+  projectId: string,
+  flagId: string,
+  data: UpdateFlagArgs
+) => {
+  try {
+    // checks if the user is in the project
+    const user = await getUserInProject(userId, projectId);
+
+    // This user can update an flag in this project
+    if (!isEmpty(user)) {
+      const flag = await prisma.flag.update({
+        where: {
+          id: flagId,
+        },
+        data: {
+          description: data.description,
+          enabled: data.enabled,
+          expiredAt: data.expiredAt,
+          payload: data.payload,
+        },
+      });
+
+      res.status(200).json({
+        ...flag,
+      });
+    } else {
+      throw new Error(notAuthorizedUpdateFlag);
     }
   } catch (error) {
     return res.status(get(error, "code", 400)).json({

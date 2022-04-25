@@ -93,7 +93,7 @@ describe("Project by Id API Endpoints Tests", () => {
     );
   });
 
-  test("Should get project by id from PUT /v1/api/projects/[projectId]/environments/[envId]", async () => {
+  test("Should update project by id from PUT /v1/api/projects/[projectId]/environments/[envId]", async () => {
     const { req, res } = createMocks({
       method: "PUT",
       query: {

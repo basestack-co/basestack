@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 // DB
-import { getFlagById } from "libs/prisma/db/flags";
+import { getFlagById, updateFlagById } from "libs/prisma/db/flags";
 // Auth
 import { getSession } from "next-auth/react";
 // Utils
@@ -16,25 +16,27 @@ const FlagsById = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const userId = get(session, "user.id", "") as string;
+  const projectId = get(req, "query.projectId", "");
   const envId = get(req, "query.envId", "");
   const flagId = get(req, "query.flagId", "");
 
   switch (req.method) {
+    // gets the flag by id
     case "GET":
       await getFlagById(flagId, res);
       break;
 
-    /* case "PUT":
-      await updateEnvironmentById(
+    // update a flag by id
+    case "PUT":
+      await updateFlagById(
         res,
         userId,
         projectId,
-        environmentId,
-        get(JSON.parse(req.body), "name"),
-        get(JSON.parse(req.body), "description")
+        flagId,
+        JSON.parse(req.body)
       );
       break;
-    case "DELETE":
+    /* case "DELETE":
       await deleteEnvironmentById(userId, projectId, environmentId, res);
       break; */
     default:

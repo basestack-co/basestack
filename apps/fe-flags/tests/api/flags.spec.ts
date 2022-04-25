@@ -10,6 +10,8 @@ import {
   createFlagResponseMock,
   validUserInProjectResponseMock,
   getFlagByIdResponseMock,
+  updateFlagByIdResponseMock,
+  updateFlagByIdArgsMock,
 } from "mocks/flags";
 import { methodNotAllowedMock } from "mocks/http";
 // Utils
@@ -28,6 +30,7 @@ jest.mock("libs/prisma/index", () => ({
     findMany: jest.fn(() => flagsMock),
     findFirst: jest.fn(() => getFlagByIdResponseMock),
     create: jest.fn(() => createFlagResponseMock),
+    update: jest.fn(() => updateFlagByIdResponseMock),
   },
   environment: {
     findMany: jest.fn(() => allFlagsByProjectAndEnvResponseMock),
@@ -119,6 +122,26 @@ describe("Flags by Id API Endpoints Tests", () => {
     expect(res._getStatusCode()).toBe(200);
     expect(JSON.parse(res._getData())).toEqual(
       expect.objectContaining(getFlagByIdResponseMock)
+    );
+  });
+
+  test("Should update flag by id from PUT /v1/api/projects/${projectId}/environments/${envId}/flags/${flagId}", async () => {
+    const { req, res } = createMocks({
+      method: "PUT",
+      query: {
+        projectId: "cl2aogaew00926juehs2ecs2t",
+        envId: "cl1l86cxb00790zuey3az884",
+        flagId: "cl2aoghvp01596juek13sdfdsf",
+      },
+      // @ts-ignore
+      body: JSON.stringify(updateFlagByIdArgsMock),
+    });
+
+    await flagsByIdEndpoints(req, res);
+
+    expect(res._getStatusCode()).toBe(200);
+    expect(JSON.parse(res._getData())).toEqual(
+      expect.objectContaining(updateFlagByIdResponseMock)
     );
   });
 });
