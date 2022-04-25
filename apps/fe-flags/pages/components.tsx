@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MainLayout from "../layouts/Main";
 import DemoPage from "./demo";
-import { Text, Button, Avatar, Icon } from "design-system";
+import { Text, Button, Avatar, Icon, Card } from "design-system";
 
 const Components = () => {
   const [count, setCount] = useState(0);
@@ -37,12 +37,7 @@ const Components = () => {
       <Button icon="expand_more" mb={20} variant="tertiary">
         button icon
       </Button>
-      <Button
-        icon="search"
-        iconPlacement="left"
-        mb={20}
-        variant="tertiary"
-      >
+      <Button icon="search" iconPlacement="left" mb={20} variant="tertiary">
         button icon
       </Button>
       <Button mb={50} variant="neutral">
@@ -64,6 +59,15 @@ const Components = () => {
       <Icon color="red" size="xLarge" icon="help" mb={20} />
       <Icon muted size="xLarge" icon="help" mb={20} />
       <Icon size="xLarge" icon="help" mb={50} />
+
+      <Card ml={20} p={20} mb={50} style={{ width: "300px" }}>
+        <Text size="small" pb={100}>
+          Card
+        </Text>
+      </Card>
+      <br />
+      <br />
+      <br />
     </div>
   );
 };
