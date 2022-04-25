@@ -48,6 +48,10 @@ const tertiaryStyles = css`
   &:hover:not(:active) {
     color: ${({ theme }) => lighten(0.3, theme.colors.black)};
     border-color: ${({ theme }) => lighten(0.3, theme.colors.black)};
+
+    .material-symbols-sharp {
+      color: inherit;
+    }
   }
 `;
 
@@ -58,6 +62,10 @@ const neutralStyles = css`
 
   &:hover:not(:active) {
     color: ${({ theme }) => lighten(0.3, theme.colors.black)};
+
+    .material-symbols-sharp {
+      color: inherit;
+    }
   }
 `;
 
@@ -75,6 +83,23 @@ const handleButtonVariant = (variant?: Variant) => {
   }
 };
 
-export const StyledButton = styled.button<ButtonProps>`
+interface Props extends ButtonProps {
+  hasLeftIcon: boolean;
+  hasRightIcon: boolean;
+}
+
+export const StyledButton = styled.button<Props>`
   ${({ variant }) => handleButtonVariant(variant)};
+
+  ${({ hasLeftIcon }) =>
+    hasLeftIcon &&
+    css`
+      padding-left: ${rem("8px")};
+    `};
+
+  ${({ hasRightIcon }) =>
+    hasRightIcon &&
+    css`
+      padding-right: ${rem("8px")};
+    `};
 `;

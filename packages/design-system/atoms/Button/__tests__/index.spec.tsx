@@ -29,6 +29,15 @@ describe("Button Atom tests", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  test("should render Button with icon", () => {
+    const { asFragment } = renderWithTheme(
+      <Button icon="help" onClick={jest.fn()}>
+        button icon
+      </Button>
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
   test("should render Button with styled system utilities", () => {
     const { asFragment } = renderWithTheme(
       <Button flexDirection="column" mb={100}>

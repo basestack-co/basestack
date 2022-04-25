@@ -1,5 +1,7 @@
 import React, { memo } from "react";
+import { useTheme } from "styled-components";
 import { ButtonProps } from "./types";
+import Icon from "../Icon";
 import { StyledButton } from "./styles";
 
 const Button = ({
@@ -7,8 +9,14 @@ const Button = ({
   variant = "primary",
   onClick,
   children,
+  icon,
+  iconPlacement = "right",
   ...props
 }: ButtonProps) => {
+  const theme = useTheme();
+  const hasLeftIcon = !!icon && iconPlacement === "left";
+  const hasRightIcon = !!icon && iconPlacement === "right";
+
   const customProps =
     type === "link"
       ? {
@@ -19,8 +27,16 @@ const Button = ({
         };
 
   return (
-    <StyledButton variant={variant} {...customProps} {...props}>
+    <StyledButton
+      hasLeftIcon={hasLeftIcon}
+      hasRightIcon={hasRightIcon}
+      variant={variant}
+      {...customProps}
+      {...props}
+    >
+      {hasLeftIcon && <Icon icon={icon} size="medium" mr={theme.spacing.s1} />}
       {children}
+      {hasRightIcon && <Icon icon={icon} size="medium" ml={theme.spacing.s1} />}
     </StyledButton>
   );
 };

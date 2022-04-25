@@ -20,4 +20,12 @@ export interface ButtonProps extends SpaceProps, FlexboxProps {
    * onClick function
    */
   onClick?: () => void;
+  /**
+   * Optional Icon
+   */
+  icon?: string;
+  /**
+   * Icon Placement
+   */
+  iconPlacement?: "left" | "right";
 }
