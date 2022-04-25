@@ -64,9 +64,8 @@ export default class MyDocument extends Document {
             content="Simple feature flagging and toggle service"
           />
           <meta property="twitter:image" content="" />
-
           <link
-            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
             rel="stylesheet"
           />
           <link href="/css/bootstrap-grid.min.css" rel="stylesheet" />

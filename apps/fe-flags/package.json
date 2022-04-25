@@ -45,7 +45,7 @@
     "sh-hooks": "*",
     "styled-components": "^5.3.5",
     "styled-system": "^5.1.5",
-    "ui": "*",
+    "design-system": "*",
     "uuid": "^8.3.2",
     "yup": "^0.32.11"
   },

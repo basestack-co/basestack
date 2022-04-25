@@ -4,7 +4,7 @@ import { batch, useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "store";
 import { setDemoModalOpen } from "store/slices/modals";
 // Utils
-import Portal from "ui/global/Portal";
+import Portal from "design-system/global/Portal";
 // import dayjs from "dayjs";
 // Locales
 import { useIntl } from "react-intl";

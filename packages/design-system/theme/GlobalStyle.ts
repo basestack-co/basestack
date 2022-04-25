@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle<any>`
     
     body {
       font-family: ${({ theme }) => theme.typography.fontFamily};
-      background-color: ${({ theme }) => theme.colors.bg1};
+      background-color: ${({ theme }) => theme.colors.gray50};
     }
     
     button, 

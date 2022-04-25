@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Button, Avatar } from "ui/atoms";
+import { Button, Avatar } from "design-system";
 import { useDebounce } from "sh-hooks";
 // Layout
 import MainLayout from "../layouts/Main";
