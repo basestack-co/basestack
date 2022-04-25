@@ -9,6 +9,7 @@ import {
   createFlagArgsMock,
   createFlagResponseMock,
   validUserInProjectResponseMock,
+  getFlagByIdResponseMock,
 } from "mocks/flags";
 import { methodNotAllowedMock } from "mocks/http";
 // Utils
@@ -25,6 +26,7 @@ jest.mock("libs/prisma/index", () => ({
   ...jest.requireActual("libs/prisma/index"),
   flag: {
     findMany: jest.fn(() => flagsMock),
+    findFirst: jest.fn(() => getFlagByIdResponseMock),
     create: jest.fn(() => createFlagResponseMock),
   },
   environment: {
@@ -88,13 +90,13 @@ describe("Flags API Endpoints Tests", () => {
   });
 });
 
-/* describe("Project by Id API Endpoints Tests", () => {
+describe("Flags by Id API Endpoints Tests", () => {
   test("Should get error for not supporting HTTP Method", async () => {
     const { req, res } = createMocks({
       method: "POST",
     });
 
-    await projectByIdEndpoints(req, res);
+    await flagsByIdEndpoints(req, res);
 
     expect(res._getStatusCode()).toBe(405);
     expect(JSON.parse(res._getData())).toEqual(
@@ -102,49 +104,21 @@ describe("Flags API Endpoints Tests", () => {
     );
   });
 
-  test("Should get project by id from GET /v1/api/projects/[projectId]", async () => {
+  test("Should get all flags from GET /v1/api/projects/${projectId}/environments/${envId}/flags/${flagId}", async () => {
     const { req, res } = createMocks({
       method: "GET",
-      query: { projectId: "cl1l86cxb00790zuey3az0e0d" },
+      query: {
+        projectId: "cl1l86cxb00790zuey3az0e0d",
+        envId: "cl2aoghvp01596juek134uhfs",
+        flagId: "cl2aoghvp01596juek13sdfdsf",
+      },
     });
 
-    await projectByIdEndpoints(req, res);
+    await flagsByIdEndpoints(req, res);
 
     expect(res._getStatusCode()).toBe(200);
     expect(JSON.parse(res._getData())).toEqual(
-      expect.objectContaining({ project: projectMock })
+      expect.objectContaining(getFlagByIdResponseMock)
     );
   });
-
-  test("Should update project by id from PUT /v1/api/projects/[projectId]", async () => {
-    const { req, res } = createMocks({
-      method: "PUT",
-      query: { projectId: "cl1l86cxb00790zuey3az0e0d" },
-      // @ts-ignore
-      body: JSON.stringify({
-        name: "Nice new project",
-      }),
-    });
-
-    await projectByIdEndpoints(req, res);
-
-    expect(res._getStatusCode()).toBe(200);
-    expect(JSON.parse(res._getData())).toEqual(
-      expect.objectContaining({ project: projectMock })
-    );
-  });
-
-  test("Should delete project by id from DELETE /v1/api/projects/[projectId]", async () => {
-    const { req, res } = createMocks({
-      method: "DELETE",
-      query: { projectId: "cl1l86cxb00790zuey3az0e0d" },
-    });
-
-    await projectByIdEndpoints(req, res);
-
-    expect(res._getStatusCode()).toBe(200);
-    expect(JSON.parse(res._getData())).toEqual(
-      expect.objectContaining({ project: projectMock })
-    );
-  });
-}); */
+});

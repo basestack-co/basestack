@@ -1,7 +1,13 @@
 // Queries
 import { baseApi } from "./base";
 // Types
-import { FlagsResponse, FlagArgs, CreateFlagArgs } from "types/query/flags";
+import {
+  FlagsResponse,
+  FlagArgs,
+  CreateFlagArgs,
+  FlagByIdArgs,
+  FlagByIdResponse,
+} from "types/query/flags";
 // Utils
 import { urlQueryBuilder } from "utils/functions";
 import isEmpty from "lodash.isempty";
@@ -14,6 +20,11 @@ export const flagsApi = baseApi.injectEndpoints({
         `/projects/${projectId}/environments/${envId}/flags${
           isEmpty(pagination) ? "" : "?"
         }${urlQueryBuilder(pagination)}`,
+      providesTags: ["Flags"],
+    }),
+    getFlagById: builder.query<FlagByIdResponse, Partial<FlagByIdArgs>>({
+      query: ({ projectId, envId, flagId }) =>
+        `/projects/${projectId}/environments/${envId}/flags/${flagId}`,
       providesTags: ["Flags"],
     }),
     createFlag: builder.mutation<void, Partial<CreateFlagArgs>>({
@@ -52,4 +63,5 @@ export const flagsApi = baseApi.injectEndpoints({
 });
 
 // auto-generated based on the defined endpoints
-export const { useGetFlagsQuery, useCreateFlagMutation } = flagsApi;
+export const { useGetFlagsQuery, useCreateFlagMutation, useGetFlagByIdQuery } =
+  flagsApi;

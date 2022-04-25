@@ -18,7 +18,11 @@ import {
   useDeleteEnvironmentByIdMutation,
   useGetEnvironmentsQuery,
 } from "store/query/environments";
-import { useGetFlagsQuery, useCreateFlagMutation } from "store/query/flags";
+import {
+  useGetFlagsQuery,
+  useCreateFlagMutation,
+  useGetFlagByIdQuery,
+} from "store/query/flags";
 // Utils
 import isEmpty from "lodash.isempty";
 // Types
@@ -344,6 +348,14 @@ const FlagsDemos = () => {
   const [envId, setEnvId] = useState("");
   const [projectId, setProjectId] = useState("");
   const [createFlag] = useCreateFlagMutation();
+
+  const flagById = useGetFlagByIdQuery({
+    flagId: "cl2aoghvp01596juek13sdfdsf",
+    projectId: "cl2aogaew00926juehs2ecs2t",
+    envId: "cl2aoghvp01596juek134uhfs",
+  });
+
+  console.log("flagById query = ", flagById.data);
 
   const formik = useFormik({
     initialValues: {

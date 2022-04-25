@@ -1,4 +1,5 @@
 import { Pagination } from "./generic";
+import { Environment } from "./environments";
 
 export interface Flag {
   id: string;
@@ -29,4 +30,14 @@ export interface CreateFlagArgs {
   payload?: any;
   expiredAt?: Date;
   description?: string;
+}
+
+export interface FlagByIdArgs {
+  projectId: string;
+  envId: string;
+  flagId: string;
+}
+
+export interface FlagByIdResponse extends Flag {
+  environment: Environment;
 }

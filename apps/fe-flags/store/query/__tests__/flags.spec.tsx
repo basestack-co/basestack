@@ -6,13 +6,20 @@ import {
   getFlagsArgsMock,
   createFlagsResponseMock,
   createFlagArgsMock,
+  getFlagByIdResponseMock,
+  getFlagByIdArgsMock,
 } from "mocks/flags";
 // Utils
 import { setupApiStore } from "utils/setupApiStore";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { Provider } from "react-redux";
 // Queries
-import { flagsApi, useGetFlagsQuery, useCreateFlagMutation } from "../flags";
+import {
+  flagsApi,
+  useGetFlagsQuery,
+  useCreateFlagMutation,
+  useGetFlagByIdQuery,
+} from "../flags";
 
 const updateTimeout = 5000;
 
@@ -55,6 +62,47 @@ describe("Flags Endpoint Tests", () => {
       storeRef.store
         // @ts-ignore
         .dispatch<any>(flagsApi.endpoints.getFlags.initiate(getFlagsArgsMock))
+        .then((action: any) => {
+          const {
+            status,
+            error: { error },
+            isError,
+          } = action;
+          expect(status).toBe("rejected");
+          expect(isError).toBe(true);
+          expect(error).toBe("Error: Internal Server Error");
+        })
+    );
+  });
+
+  test("Should getFlagsById successful", () => {
+    fetchMock.mockResponse(JSON.stringify(getFlagByIdResponseMock));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          flagsApi.endpoints.getFlagById.initiate(getFlagByIdArgsMock)
+        )
+        .then((action: any) => {
+          const { status, data, isSuccess } = action;
+          expect(status).toBe("fulfilled");
+          expect(isSuccess).toBe(true);
+          expect(data).toStrictEqual(getFlagByIdResponseMock);
+        })
+    );
+  });
+
+  test("Should getFlagsById unsuccessful", () => {
+    const storeRef = setupApiStore(flagsApi, {});
+    fetchMock.mockReject(new Error("Internal Server Error"));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          flagsApi.endpoints.getFlagById.initiate(getFlagByIdArgsMock)
+        )
         .then((action: any) => {
           const {
             status,
@@ -112,6 +160,41 @@ describe("Flags Endpoint Hooks Tests", () => {
     fetchMock.mockReject(new Error("Internal Server Error"));
     const { result, waitForNextUpdate } = renderHook(
       () => useGetFlagsQuery(getFlagsArgsMock),
+      { wrapper }
+    );
+    const initialResponse = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const nextResponse = result.current;
+    expect(nextResponse.data).toBeUndefined();
+    expect(nextResponse.isLoading).toBe(false);
+    expect(nextResponse.isError).toBe(true);
+  });
+
+  it("Should use useGetFlagByIdQuery with Success", async () => {
+    fetchMock.mockResponse(JSON.stringify(getFlagByIdResponseMock));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useGetFlagByIdQuery(getFlagByIdArgsMock),
+      { wrapper }
+    );
+    const initialResponse = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(true);
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const nextResponse = result.current;
+    expect(nextResponse.data).not.toBeUndefined();
+    expect(nextResponse.isLoading).toBe(false);
+    expect(nextResponse.isSuccess).toBe(true);
+  });
+
+  it("Should use useGetFlagByIdQuery with Error", async () => {
+    fetchMock.mockReject(new Error("Internal Server Error"));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useGetFlagByIdQuery(getFlagByIdArgsMock),
       { wrapper }
     );
     const initialResponse = result.current;

@@ -28,6 +28,7 @@ const Flags = async (req: NextApiRequest, res: NextApiResponse) => {
       });
       break;
 
+    // create a new flag
     case "POST":
       await createFlag(userId, projectId, envId, JSON.parse(req.body), res);
       break;

@@ -12,6 +12,28 @@ import { somethingWentWrong, notAuthorizedCreateFlag } from "utils/responses";
 // DB
 import { getUserInProject } from "./users";
 
+export const getFlagById = async (flagId: string, res: NextApiResponse) => {
+  try {
+    const flag = await prisma.flag.findFirst({
+      where: {
+        id: flagId,
+      },
+      include: {
+        environment: true,
+      },
+    });
+
+    res.status(200).json({
+      ...flag,
+    });
+  } catch (error) {
+    return res.status(get(error, "code", 400)).json({
+      error: true,
+      message: get(error, "message", somethingWentWrong),
+    });
+  }
+};
+
 /**
  *
  * @param userId
@@ -92,6 +114,15 @@ export const getAllFlags = async (
   }
 };
 
+/**
+ *
+ * @param userId
+ * @param projectId
+ * @param envId
+ * @param data
+ * @param res
+ * @returns create a new flag
+ */
 export const createFlag = async (
   userId: string,
   projectId: string,

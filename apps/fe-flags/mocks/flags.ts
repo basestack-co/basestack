@@ -94,3 +94,30 @@ export const validUserInProjectResponseMock = {
 export const createFlagsResponseMock = {
   flag: flagMock,
 };
+
+export const getFlagByIdResponseMock = {
+  id: "cl2aoghvp01596juek13sdfdsf",
+  slug: "botala",
+  description: "nice",
+  enabled: true,
+  payload: {},
+  expiredAt: "2022-04-22T17:59:38.000Z",
+  createdAt: "2022-04-25T19:36:14.000Z",
+  updatedAt: "2022-04-25T19:36:15.000Z",
+  environmentId: "cl2aoghvp01596juek134uhfs",
+  environment: {
+    id: "cl2aoghvp01596juek134uhfs",
+    name: "envnov2",
+    description: "a update description",
+    slug: "envnov",
+    createdAt: "2022-04-22T16:59:12.901Z",
+    updatedAt: "2022-04-22T17:04:25.454Z",
+    projectId: "cl2aogaew00926juehs2ecs2t",
+  },
+};
+
+export const getFlagByIdArgsMock = {
+  projectId: "cl2aoghvp01596juek134fsdf",
+  envId: "cl2aoghvp01596juek134uhfs",
+  flagId: "cl2aoghvp01596juek13sdfdsf",
+};
