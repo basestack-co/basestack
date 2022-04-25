@@ -1,40 +1,28 @@
-import React from "react";
+import React, { memo } from "react";
 import { ButtonProps } from "./types";
-import { Button as StyledButton } from "./styles";
+import { StyledButton } from "./styles";
 
-const Button: React.FC<ButtonProps> = ({
-  variant = "filled",
-  size = "normal",
-  children,
-  disabled = false,
-  as = "button",
-  href,
-  fullWidth = false,
+const Button = ({
+  type = "button",
+  variant = "primary",
   onClick,
-  type = "primary",
-  hasRightIcon = false,
-  hasLeftIcon = false,
-  textTransform,
+  children,
   ...props
-}) => {
+}: ButtonProps) => {
+  const customProps =
+    type === "link"
+      ? {
+          as: "a",
+        }
+      : {
+          onClick,
+        };
+
   return (
-    <StyledButton
-      variant={variant}
-      size={size}
-      disabled={disabled}
-      as={as}
-      href={href}
-      fullWidth={fullWidth}
-      onClick={onClick}
-      type={type}
-      hasRightIcon={hasRightIcon}
-      hasLeftIcon={hasLeftIcon}
-      textTransform={textTransform}
-      {...props}
-    >
+    <StyledButton variant={variant} {...customProps} {...props}>
       {children}
     </StyledButton>
   );
 };
 
-export default Button;
+export default memo(Button);

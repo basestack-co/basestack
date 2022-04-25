@@ -1,241 +1,161 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button Atom tests render Button as link 1`] = `
+exports[`Button Atom tests should render Button correctly 1`] = `
 <DocumentFragment>
   .c0 {
-  height: 2.875rem;
-  font-size: 0.875rem;
-  line-height: 1.1875rem;
-  padding: 0 1.5rem;
-  border-radius: 8px;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  cursor: pointer;
-  text-align: center;
-  font-weight: 600;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
+  border: none;
+  height: 2.25rem;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  background-color: transparent;
-  border: 1px solid #003049;
-  color: #003049;
-}
-
-.c0:hover {
-  color: #000e16;
-  border-color: #000e16;
-}
-
-.c0:active {
-  color: #000;
-  border-color: #000;
-}
-
-.c0:disabled {
-  cursor: not-allowed;
-  color: rgba(0,48,73,0.6);
-  border-color: rgba(0,48,73,0.6);
-}
-
-<a
-    class="c0"
-    href="/"
-    type="primary"
-  >
-    Outlined button link
-  </a>
-</DocumentFragment>
-`;
-
-exports[`Button Atom tests render Button with custom props 1`] = `
-<DocumentFragment>
-  .c0 {
-  height: 3rem;
-  font-size: 1rem;
-  line-height: 1.375rem;
-  padding: 0 1.875rem;
-  border-radius: 8px;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  cursor: pointer;
-  text-align: center;
-  font-weight: 600;
-  -webkit-text-decoration: none;
-  text-decoration: none;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border: none;
-  background-color: #003049;
-  color: #FFFFFF;
-}
-
-.c0:hover {
-  background-color: #000e16;
-}
-
-.c0:active {
-  background-color: #000;
-}
-
-.c0:disabled {
-  cursor: not-allowed;
-  background-color: rgba(0,48,73,0.6);
-}
-
-<button
-    class="c0"
-    type="primary"
-  >
-    Outlined fullWidth small disabled button
-  </button>
-</DocumentFragment>
-`;
-
-exports[`Button Atom tests render Button with default props 1`] = `
-<DocumentFragment>
-  .c0 {
-  height: 3rem;
-  font-size: 1rem;
-  line-height: 1.375rem;
-  padding: 0 1.875rem;
-  border-radius: 8px;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
   cursor: pointer;
-  text-align: center;
-  font-weight: 600;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  border: none;
-  background-color: #003049;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: #276EF1;
   color: #FFFFFF;
 }
 
-.c0:hover {
-  background-color: #000e16;
-}
-
-.c0:active {
-  background-color: #000;
-}
-
-.c0:disabled {
-  cursor: not-allowed;
-  background-color: rgba(0,48,73,0.6);
+.c0:hover:not(:active) {
+  background-color: #0e55d7;
 }
 
 <button
     class="c0"
-    type="primary"
   >
-    Filled normal button
+    button
   </button>
 </DocumentFragment>
 `;
 
-exports[`Button Atom tests render Button with icon styles 1`] = `
+exports[`Button Atom tests should render Button link 1`] = `
 <DocumentFragment>
   .c0 {
-  height: 3rem;
-  font-size: 1rem;
-  line-height: 1.375rem;
-  padding: 0 1.875rem;
-  border-radius: 8px;
+  border: none;
+  height: 2.25rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
   cursor: pointer;
-  text-align: center;
-  font-weight: 600;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  border: none;
-  background-color: #003049;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: #276EF1;
   color: #FFFFFF;
 }
 
-.c0:hover {
-  background-color: #000e16;
-}
-
-.c0:active {
-  background-color: #000;
-}
-
-.c0:disabled {
-  cursor: not-allowed;
-  background-color: rgba(0,48,73,0.6);
-}
-
-.c0 > svg {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-left: 12px;
-}
-
-.c0 > svg {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-right: 12px;
+.c0:hover:not(:active) {
+  background-color: #0e55d7;
 }
 
 <a
     class="c0"
-    href="/"
-    type="primary"
   >
-    Outlined button link
+    button link
   </a>
+</DocumentFragment>
+`;
+
+exports[`Button Atom tests should render Button with onClick 1`] = `
+<DocumentFragment>
+  .c0 {
+  border: none;
+  height: 2.25rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: #276EF1;
+  color: #FFFFFF;
+}
+
+.c0:hover:not(:active) {
+  background-color: #0e55d7;
+}
+
+<button
+    class="c0"
+  >
+    button link
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button Atom tests should render Button with styled system utilities 1`] = `
+<DocumentFragment>
+  .c0 {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-bottom: 100px;
+  border: none;
+  height: 2.25rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: #276EF1;
+  color: #FFFFFF;
+}
+
+.c0:hover:not(:active) {
+  background-color: #0e55d7;
+}
+
+<button
+    class="c0"
+  >
+    button link
+  </button>
 </DocumentFragment>
 `;

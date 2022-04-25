@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import MainLayout from "../layouts/Main";
 import DemoPage from "./demo";
-import { Text } from "design-system";
+import { Text, Button } from "design-system";
 
 const Components = () => {
   const [count, setCount] = useState(0);
 
   return (
     <div>
-      <button onClick={() => setCount((prevState) => prevState + 1)}>
-        plus
-      </button>
-      <Text size="xSmall">{count}</Text>
-      <Text size="xSmall">xSmall</Text>
+      <Text size="xSmall">xSmall {count}</Text>
       <Text size="small">small</Text>
       <Text size="medium">medium</Text>
       <Text size="large">large</Text>
@@ -22,9 +18,25 @@ const Components = () => {
       <Text size="xxLarge" color="red">
         xxLarge muted
       </Text>
-      <Text size="xxLarge" muted>
+      <Text size="xxLarge" muted mb={50}>
         xxLarge muted
       </Text>
+
+      <Button onClick={() => setCount((prevState) => prevState + 1)} mb={20}>
+        Primary button {count}
+      </Button>
+      <Button mb={20} variant="secondary">
+        Secondary button
+      </Button>
+      <Button type="link" mb={20} variant="secondary">
+        Secondary button link
+      </Button>
+      <Button mb={20} variant="tertiary">
+        Tertiary button
+      </Button>
+      <Button mb={50} variant="neutral">
+        Neutral button
+      </Button>
     </div>
   );
 };

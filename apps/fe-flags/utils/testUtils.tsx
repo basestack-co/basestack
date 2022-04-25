@@ -8,7 +8,7 @@ import { IntlProvider } from "react-intl";
 import { messages } from "../locales";
 // Styles
 import { ThemeProvider } from "styled-components";
-import theme from "ui/theme";
+import theme from "design-system/theme";
 // Auth
 import { SessionProvider } from "next-auth/react";
 
