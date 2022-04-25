@@ -72,3 +72,11 @@ export const deleteEnvironmentArgsMock = {
   projectId: "cl26g2quu0037liuekedc8ir4",
   environmentId: "cl26g2quu0037liuekedc8i22",
 };
+
+export const validUserInProjectResponseMock = {
+  id: "cl2aogaew00926juehs2ecs2t",
+  name: "novo",
+  slug: "novo",
+  createdAt: "2022-04-22T16:59:03.224Z",
+  updatedAt: "2022-04-22T16:59:03.224Z",
+};

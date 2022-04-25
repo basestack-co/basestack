@@ -1,7 +1,7 @@
 // Queries
 import { baseApi } from "./base";
 // Types
-import { FlagsResponse, FlagArgs } from "types/query/flags";
+import { FlagsResponse, FlagArgs, CreateFlagArgs } from "types/query/flags";
 // Utils
 import { urlQueryBuilder } from "utils/functions";
 import isEmpty from "lodash.isempty";
@@ -16,14 +16,16 @@ export const flagsApi = baseApi.injectEndpoints({
         }${urlQueryBuilder(pagination)}`,
       providesTags: ["Flags"],
     }),
-    /* createEnvironment: builder.mutation<void, Partial<EnvironmentArgs>>({
+    createFlag: builder.mutation<void, Partial<CreateFlagArgs>>({
       query: (data) => ({
-        url: `/projects/${data.projectId}/environments`,
+        url: `/projects/${data.projectId}/environments/${data.envId}/flags`,
         method: "POST",
         body: JSON.stringify(data),
       }),
-      invalidatesTags: ["Environments"],
+      invalidatesTags: ["Flags"],
     }),
+
+    /*
     updateEnvironmentById: builder.mutation<
       void,
       Partial<UpdateEnvironmentArgs>
@@ -50,4 +52,4 @@ export const flagsApi = baseApi.injectEndpoints({
 });
 
 // auto-generated based on the defined endpoints
-export const { useGetFlagsQuery } = flagsApi;
+export const { useGetFlagsQuery, useCreateFlagMutation } = flagsApi;

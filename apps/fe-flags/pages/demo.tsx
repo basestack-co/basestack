@@ -18,7 +18,7 @@ import {
   useDeleteEnvironmentByIdMutation,
   useGetEnvironmentsQuery,
 } from "store/query/environments";
-import { useGetFlagsQuery } from "store/query/flags";
+import { useGetFlagsQuery, useCreateFlagMutation } from "store/query/flags";
 // Utils
 import isEmpty from "lodash.isempty";
 // Types
@@ -343,14 +343,23 @@ const FlagsList = ({
 const FlagsDemos = () => {
   const [envId, setEnvId] = useState("");
   const [projectId, setProjectId] = useState("");
+  const [createFlag] = useCreateFlagMutation();
 
   const formik = useFormik({
     initialValues: {
-      name: "",
       slug: "",
     },
     onSubmit: async (values, { resetForm }) => {
       try {
+        await createFlag({
+          projectId,
+          envId,
+          slug: values.slug,
+          enabled: true,
+          payload: JSON.stringify({}),
+          expiredAt: null,
+          description: "a default description",
+        });
         resetForm();
       } catch (error) {
         console.log("Error on create project", error);
@@ -383,18 +392,6 @@ const FlagsDemos = () => {
         <div>
           <h4>New Flag</h4>
           <form onSubmit={formik.handleSubmit}>
-            <label htmlFor="name">Name</label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.name}
-            />
-            {formik.touched.name && formik.errors.name ? (
-              <div>{formik.errors.name}</div>
-            ) : null}
-
             <label htmlFor="slug">Slug</label>
             <input
               id="slug"

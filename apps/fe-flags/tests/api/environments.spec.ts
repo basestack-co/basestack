@@ -6,7 +6,7 @@ import { sessionMock } from "mocks/auth";
 import {
   environmentMock,
   createEnvironmentArgsMock,
-  projectEnvironmentResponseMock,
+  validUserInProjectResponseMock,
 } from "mocks/environments";
 import { methodNotAllowedMock } from "mocks/http";
 // Utils
@@ -20,13 +20,14 @@ jest.mock("libs/prisma/index", () => ({
   // @ts-ignore
   ...jest.requireActual("libs/prisma/index"),
   project: {
-    findFirst: jest.fn(() => projectEnvironmentResponseMock),
+    findFirst: jest.fn(() => validUserInProjectResponseMock),
   },
   environment: {
     create: jest.fn(() => environmentMock),
     update: jest.fn(() => ({
       name: "environment1",
     })),
+    delete: jest.fn(() => environmentMock),
     environment: jest.fn(() => environmentMock),
   },
 }));
@@ -59,10 +60,10 @@ describe("Environments API Endpoints Tests", () => {
     );
   });
 
-  test.skip("Should create new environment by project from POST /v1/api/projects/[projectId]/environments", async () => {
+  test("Should create new environment by project from POST /v1/api/projects/[projectId]/environments", async () => {
     const { req, res } = createMocks({
       method: "POST",
-      query: { projectId: "cl1l86cxb00790zuey3az0e0d" },
+      query: { projectId: "cl2aogaew00926juehs2ecs2t" },
       // @ts-ignore
       body: JSON.stringify(createEnvironmentArgsMock),
     });
@@ -92,11 +93,11 @@ describe("Project by Id API Endpoints Tests", () => {
     );
   });
 
-  test.skip("Should get project by id from PUT /v1/api/projects/[projectId]/environments/[envId]", async () => {
+  test("Should get project by id from PUT /v1/api/projects/[projectId]/environments/[envId]", async () => {
     const { req, res } = createMocks({
       method: "PUT",
       query: {
-        projectId: "cl1l86cxb00790zuey3az0e0d",
+        projectId: "cl2aogaew00926juehs2ecs2t",
         envId: "cl1l86cxb00790zuey3az884",
       },
       // @ts-ignore
@@ -115,11 +116,11 @@ describe("Project by Id API Endpoints Tests", () => {
     );
   });
 
-  test.skip("Should delete project by id from DELETE /v1/api/projects/[projectId]/environments/[envId]", async () => {
+  test("Should delete project by id from DELETE /v1/api/projects/[projectId]/environments/[envId]", async () => {
     const { req, res } = createMocks({
       method: "DELETE",
       query: {
-        projectId: "cl1l86cxb00790zuey3az0e0d",
+        projectId: "cl2aogaew00926juehs2ecs2t",
         envId: "cl1l86cxb00790zuey3az884",
       },
     });

@@ -6,9 +6,9 @@ export interface Flag {
   environmentId: string;
   enabled: boolean;
   payload?: unknown;
-  expiredAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  expiredAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface FlagsResponse {
@@ -19,4 +19,14 @@ export interface FlagArgs {
   projectId: string;
   envId: string;
   pagination?: Pagination;
+}
+
+export interface CreateFlagArgs {
+  projectId: string;
+  envId: string;
+  slug: string;
+  enabled: boolean;
+  payload?: any;
+  expiredAt?: Date;
+  description?: string;
 }

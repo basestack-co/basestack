@@ -3,7 +3,13 @@ import flagsEndpoints from "pages/api/v1/projects/[projectId]/environments/[envI
 import flagsByIdEndpoints from "pages/api/v1/projects/[projectId]/environments/[envId]/flags/[flagId]";
 // Mocks
 import { sessionMock } from "mocks/auth";
-import { flagsMock } from "mocks/flags";
+import {
+  flagsMock,
+  allFlagsByProjectAndEnvResponseMock,
+  createFlagArgsMock,
+  createFlagResponseMock,
+  validUserInProjectResponseMock,
+} from "mocks/flags";
 import { methodNotAllowedMock } from "mocks/http";
 // Utils
 import { createMocks } from "node-mocks-http";
@@ -19,6 +25,13 @@ jest.mock("libs/prisma/index", () => ({
   ...jest.requireActual("libs/prisma/index"),
   flag: {
     findMany: jest.fn(() => flagsMock),
+    create: jest.fn(() => createFlagResponseMock),
+  },
+  environment: {
+    findMany: jest.fn(() => allFlagsByProjectAndEnvResponseMock),
+  },
+  project: {
+    findFirst: jest.fn(() => validUserInProjectResponseMock),
   },
 }));
 
@@ -50,6 +63,27 @@ describe("Flags API Endpoints Tests", () => {
     expect(res._getStatusCode()).toBe(200);
     expect(JSON.parse(res._getData())).toEqual(
       expect.objectContaining({ flags: flagsMock })
+    );
+  });
+
+  test("Should create new flag from POST /v1/api/projects/${projectId}/environments/${envId}/flags", async () => {
+    const { req, res } = createMocks({
+      method: "POST",
+      query: {
+        projectId: "cl2aogaew00926juehs2ecs2t",
+        env: "cl2aoghvp01596juek134uhfs",
+      },
+      // @ts-ignore
+      body: JSON.stringify(createFlagArgsMock),
+    });
+
+    await flagsEndpoints(req, res);
+
+    expect(res._getStatusCode()).toBe(200);
+    expect(JSON.parse(res._getData())).toEqual(
+      expect.objectContaining({
+        flag: createFlagResponseMock,
+      })
     );
   });
 });
