@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MainLayout from "../layouts/Main";
 import DemoPage from "./demo";
-import { Text, Button } from "design-system";
+import { Text, Button, Avatar } from "design-system";
 
 const Components = () => {
   const [count, setCount] = useState(0);
@@ -37,6 +37,15 @@ const Components = () => {
       <Button mb={50} variant="neutral">
         Neutral button
       </Button>
+
+      <Avatar mb={20} size="small" alt="image" />
+      <Avatar mb={20} alt="image" />
+      <Avatar
+        mb={50}
+        size="large"
+        alt="image"
+        src="https://images.pexels.com/photos/11245771/pexels-photo-11245771.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+      />
     </div>
   );
 };
