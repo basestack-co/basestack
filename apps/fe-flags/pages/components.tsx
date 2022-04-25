@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import MainLayout from "../layouts/Main";
 import DemoPage from "./demo";
-import { Text, Button, Avatar, Icon, Card } from "design-system";
+import {
+  Text,
+  Button,
+  Avatar,
+  Icon,
+  Card,
+  HorizontalRule,
+} from "design-system";
 
 const Components = () => {
   const [count, setCount] = useState(0);
@@ -66,6 +73,8 @@ const Components = () => {
         </Text>
       </Card>
       <br />
+
+      <HorizontalRule />
       <br />
       <br />
     </div>
