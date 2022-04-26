@@ -4,7 +4,7 @@ import { Container, Icon } from "./styles";
 
 export type Size = "xLarge" | "large" | "medium" | "small";
 
-interface AvatarProps extends SpaceProps {
+interface IconProps extends SpaceProps {
   /**
    * Icon name
    */
@@ -37,17 +37,17 @@ const handleSize = (size: Size) => {
   }
 };
 
-const Avatar = ({
+const IconComp = ({
   icon,
   size = "medium",
   color,
   muted,
   ...props
-}: AvatarProps) => {
+}: IconProps) => {
   const iconSize = handleSize(size);
 
   return (
-    <Container size={iconSize} {...props}>
+    <Container data-testid="icon-container" size={iconSize} {...props}>
       <Icon
         data-testid="icon"
         color={color}
@@ -61,4 +61,4 @@ const Avatar = ({
   );
 };
 
-export default memo(Avatar);
+export default memo(IconComp);

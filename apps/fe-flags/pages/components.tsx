@@ -8,6 +8,7 @@ import {
   Icon,
   Card,
   HorizontalRule,
+  Input,
 } from "design-system";
 
 const Components = () => {
@@ -75,6 +76,28 @@ const Components = () => {
       <br />
 
       <HorizontalRule />
+      <br />
+      <br />
+      <div style={{ width: "300px" }}>
+        <Input size="small" placeholder="Search here" isDarker />
+      </div>
+      <br />
+      <div style={{ width: "300px" }}>
+        <Input placeholder="Search here" isDarker />
+      </div>
+      <br />
+      <div style={{ width: "300px" }}>
+        <Input icon="info" placeholder="Search here" isDarker />
+      </div>
+      <br />
+      <div style={{ width: "300px" }}>
+        <Input
+          icon="info"
+          iconPlacement="right"
+          placeholder="Search here"
+          isDarker
+        />
+      </div>
       <br />
       <br />
     </div>

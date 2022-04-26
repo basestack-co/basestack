@@ -130,6 +130,7 @@ exports[`Button Atom tests should render Button with icon 1`] = `
     button icon
     <div
       class="c1"
+      data-testid="icon-container"
       size="24"
     >
       <span

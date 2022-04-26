@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input Atom tests should render Input correctly 1`] = `
+<DocumentFragment>
+  .c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c1 {
+  border: none;
+  background-color: #F6F6F6;
+  height: 2.75rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  width: 100%;
+  padding: 0 1rem;
+  color: #757575;
+}
+
+.c1:focus {
+  outline: 2px solid #000000;
+  color: #000000;
+}
+
+<div
+    class="c0"
+    data-testid="input-container"
+  >
+    <input
+      class="c1"
+      data-testid="input"
+      placeholder="Search here..."
+      type="text"
+    />
+  </div>
+</DocumentFragment>
+`;

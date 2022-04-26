@@ -17,6 +17,7 @@ exports[`Icon Atom tests render Icon correctly 1`] = `
 
 <div
     class="c0"
+    data-testid="icon-container"
     size="24"
   >
     <span
