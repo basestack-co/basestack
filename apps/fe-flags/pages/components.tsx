@@ -10,6 +10,7 @@ import {
   HorizontalRule,
   Input,
   Textarea,
+  Switch,
 } from "design-system";
 
 const Components = () => {
@@ -97,6 +98,13 @@ const Components = () => {
       <br />
       <div style={{ width: "300px" }}>
         <Textarea placeholder="Search here" isDarker />
+      </div>
+      <br />
+      <div style={{ margin: "30px" }}>
+        <Switch onChange={() => console.log("yo")} />
+      </div>
+      <div style={{ margin: "30px" }}>
+        <Switch text="Toggle:" onChange={() => console.log("yo")} />
       </div>
       <br />
     </div>
