@@ -11,6 +11,7 @@ import {
   Input,
   Textarea,
   Switch,
+  Pagination,
 } from "design-system";
 
 const Components = () => {
@@ -106,6 +107,8 @@ const Components = () => {
       <div style={{ margin: "30px" }}>
         <Switch text="Toggle:" onChange={() => console.log("yo")} />
       </div>
+      <br />
+      <Pagination currentPage={100} totalPages={101} />
       <br />
     </div>
   );
