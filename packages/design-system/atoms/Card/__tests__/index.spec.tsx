@@ -12,9 +12,6 @@ describe("Card Atom tests", () => {
     const card = getByTestId("card");
 
     expect(card).toHaveStyle(`border-radius: ${rem("6px")}`);
-    expect(card).toHaveStyle(
-      `box-shadow: 0 1px 3px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.24)`
-    );
     expect(card).toHaveStyle(`background-color: #FFFFFF`);
     expect(asFragment()).toMatchSnapshot();
   });

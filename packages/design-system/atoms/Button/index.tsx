@@ -5,7 +5,7 @@ import Icon from "../Icon";
 import { StyledButton } from "./styles";
 
 const Button = ({
-  type = "button",
+  as,
   variant = "primary",
   onClick,
   children,
@@ -18,7 +18,7 @@ const Button = ({
   const hasRightIcon = !!icon && iconPlacement === "right";
 
   const customProps =
-    type === "link"
+    as === "a"
       ? {
           as: "a",
         }

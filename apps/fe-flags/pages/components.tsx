@@ -12,6 +12,7 @@ import {
   Textarea,
   Switch,
   Pagination,
+  Navigation,
 } from "design-system";
 
 const Components = () => {
@@ -19,6 +20,7 @@ const Components = () => {
 
   return (
     <div>
+      <Navigation />
       <Text size="xSmall">xSmall {count}</Text>
       <Text size="small">small</Text>
       <Text size="medium">medium</Text>
@@ -37,7 +39,7 @@ const Components = () => {
       <Button mb={20} variant="secondary">
         Secondary button
       </Button>
-      <Button type="link" mb={20} variant="secondary">
+      <Button as="a" mb={20} variant="secondary">
         Secondary button link
       </Button>
       <Button mb={20} variant="tertiary">

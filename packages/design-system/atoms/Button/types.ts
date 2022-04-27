@@ -1,15 +1,20 @@
 import { ReactNode } from "react";
 import { SpaceProps, FlexboxProps } from "styled-system";
 
-export type Variant = "primary" | "secondary" | "tertiary" | "neutral";
+export type Variant =
+  | "primary"
+  | "primaryNeutral"
+  | "secondary"
+  | "tertiary"
+  | "neutral";
 
 export interface ButtonProps extends SpaceProps, FlexboxProps {
   /**
    * Change button or link
    */
-  type?: "button" | "link";
+  as?: string;
   /**
-   * Change button type
+   * Change button variant
    */
   variant?: Variant;
   /**

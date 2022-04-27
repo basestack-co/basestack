@@ -38,16 +38,20 @@ const Pagination = ({
         iconPlacement="left"
         icon="chevron_left"
         variant="neutral"
-        mr={theme.spacing.s2}
+        mr={theme.spacing.s3}
       >
         Prev
       </Button>
-      <Number highlight>
+      <Number>
         <StyledText data-testid="pagination-current-page" size="small">
           {currentPage}
         </StyledText>
       </Number>
-      <StyledText data-testid="pagination-total-pages" ml={10} size="small">
+      <StyledText
+        data-testid="pagination-total-pages"
+        ml={theme.spacing.s3}
+        size="small"
+      >
         of {""}
         {totalPages}
       </StyledText>
@@ -55,7 +59,7 @@ const Pagination = ({
         iconPlacement="right"
         icon="chevron_right"
         variant="neutral"
-        ml={theme.spacing.s2}
+        ml={theme.spacing.s3}
       >
         Next
       </Button>

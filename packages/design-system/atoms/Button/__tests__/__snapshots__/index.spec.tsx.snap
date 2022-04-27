@@ -86,7 +86,7 @@ exports[`Button Atom tests should render Button with icon 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  margin-left: 0.3125rem;
+  margin-left: 0.25rem;
 }
 
 .c2 {

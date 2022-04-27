@@ -64,7 +64,7 @@ export const Slider = styled.span`
     left: -1px;
     top: -3px;
     background-color: ${({ theme }) => theme.colors.white};
-    box-shadow: ${({ theme }) => theme.shadow.elevation1};
+    box-shadow: ${({ theme }) => theme.shadow.elevation3};
     -webkit-transition: 0.3s;
     transition: 0.3s;
     border-radius: 50%;

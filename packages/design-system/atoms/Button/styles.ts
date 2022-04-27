@@ -60,12 +60,31 @@ const neutralStyles = css`
   background-color: transparent;
   color: ${({ theme }) => theme.colors.black};
 
-  &:hover:not(:active) {
-    color: ${({ theme }) => lighten(0.3, theme.colors.black)};
+  .material-symbols-sharp {
+    color: inherit;
+  }
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray100};
+  }
+  &:active {
+    background-color: ${({ theme }) => theme.colors.gray200};
+  }
+`;
 
-    .material-symbols-sharp {
-      color: inherit;
-    }
+const primaryNeutralStyles = css`
+  ${sharedStyles};
+  background-color: transparent;
+  color: ${({ theme }) => theme.colors.black};
+
+  .material-symbols-sharp {
+    color: inherit;
+  }
+  &:hover {
+    color: ${({ theme }) => theme.colors.blue400};
+    background-color: ${({ theme }) => theme.colors.blue50};
+  }
+  &:active {
+    background-color: ${({ theme }) => theme.colors.blue100};
   }
 `;
 
@@ -74,6 +93,8 @@ const handleButtonVariant = (variant?: Variant) => {
     default:
     case "primary":
       return primaryStyles;
+    case "primaryNeutral":
+      return primaryNeutralStyles;
     case "secondary":
       return secondaryStyles;
     case "tertiary":

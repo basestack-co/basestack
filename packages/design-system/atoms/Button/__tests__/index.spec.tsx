@@ -48,9 +48,7 @@ describe("Button Atom tests", () => {
   });
 
   test("should render Button link", () => {
-    const { asFragment } = renderWithTheme(
-      <Button type="link">button link</Button>
-    );
+    const { asFragment } = renderWithTheme(<Button as="a">button link</Button>);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -61,6 +59,15 @@ describe("Button Atom tests", () => {
     const button = getByText(/primary/);
     expect(button).toHaveStyle(`color: #FFFFFF`);
     expect(button).toHaveStyle(`background-color: #276EF1`);
+  });
+
+  test("should render primaryNeutral Button", () => {
+    const { getByText } = renderWithTheme(
+      <Button variant="primaryNeutral">primaryNeutral</Button>
+    );
+    const button = getByText(/primaryNeutral/);
+    expect(button).toHaveStyle(`color: #000000`);
+    expect(button).toHaveStyle(`background-color: transparent`);
   });
 
   test("should render secondary Button", () => {

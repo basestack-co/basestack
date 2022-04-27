@@ -29,7 +29,7 @@ const Switch = ({ text, checked, color, onChange, ...props }: SwitchProps) => {
   return (
     <Container {...props}>
       {!!text && (
-        <Text muted mr={theme.spacing.s2} size="small">
+        <Text muted mr={theme.spacing.s3} size="small">
           {text}
         </Text>
       )}

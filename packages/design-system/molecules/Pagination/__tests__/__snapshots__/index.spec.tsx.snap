@@ -10,7 +10,7 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
 }
 
 .c7 {
-  margin-left: 10px;
+  margin-left: 0.75rem;
   font-family: 'Roboto',sans-serif;
   color: #000000;
   font-size: 0.875rem;
@@ -23,7 +23,7 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  margin-right: 0.3125rem;
+  margin-right: 0.25rem;
 }
 
 .c9 {
@@ -32,7 +32,7 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  margin-left: 0.3125rem;
+  margin-left: 0.25rem;
 }
 
 .c3 {
@@ -41,7 +41,7 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
 }
 
 .c1 {
-  margin-right: 0.625rem;
+  margin-right: 0.75rem;
   border: none;
   height: 2.25rem;
   width: -webkit-fit-content;
@@ -67,16 +67,20 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   padding-left: 0.5rem;
 }
 
-.c1:hover:not(:active) {
-  color: #4d4d4d;
-}
-
-.c1:hover:not(:active) .material-symbols-sharp {
+.c1 .material-symbols-sharp {
   color: inherit;
 }
 
+.c1:hover {
+  background-color: #EEEEEE;
+}
+
+.c1:active {
+  background-color: #E2E2E2;
+}
+
 .c8 {
-  margin-left: 0.625rem;
+  margin-left: 0.75rem;
   border: none;
   height: 2.25rem;
   width: -webkit-fit-content;
@@ -102,12 +106,16 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   padding-right: 0.5rem;
 }
 
-.c8:hover:not(:active) {
-  color: #4d4d4d;
+.c8 .material-symbols-sharp {
+  color: inherit;
 }
 
-.c8:hover:not(:active) .material-symbols-sharp {
-  color: inherit;
+.c8:hover {
+  background-color: #EEEEEE;
+}
+
+.c8:active {
+  background-color: #E2E2E2;
 }
 
 .c0 {
@@ -130,7 +138,7 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
 }
 
 .c4 {
-  background-color: #E2E2E2;
+  background-color: #EEEEEE;
   height: 36px;
   min-width: 36px;
   padding: 0 10px;

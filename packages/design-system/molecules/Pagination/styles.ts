@@ -14,8 +14,7 @@ export const StyledText = styled(Text)`
 `;
 
 export const Number = styled.div<{ highlight: boolean }>`
-  background-color: ${({ theme, highlight }) =>
-    highlight ? theme.colors.gray200 : "transparent"};
+  background-color: ${({ theme }) => theme.colors.gray100};
   height: 36px;
   min-width: 36px;
   padding: 0 10px;

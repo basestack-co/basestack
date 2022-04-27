@@ -29,6 +29,10 @@ const GlobalStyle = createGlobalStyle<any>`
     a {
       -webkit-tap-highlight-color: transparent;
     }
+    
+    ul {
+      list-style-type: none;
+    }
 `;
 
 export default GlobalStyle;

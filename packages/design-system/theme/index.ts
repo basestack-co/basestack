@@ -21,10 +21,14 @@ const colors = {
   gray50: "#F6F6F6",
   gray10: "#FAFAFA",
 
+  blue700: "#102C60",
+  blue600: "#174291",
+  blue500: "#1E54B7",
   blue400: "#276EF1",
   blue300: "#5B91F5",
   blue200: "#A0BFF8",
   blue100: "#D4E2FC",
+  blue50: "#EFF3FE",
 
   green400: "#05944F",
   green300: "#06C167",
@@ -42,22 +46,27 @@ const zIndex = {
 };
 
 const spacing = {
-  s1: rem("5px"),
-  s2: rem("10px"),
-  s3: rem("15px"),
-  s4: rem("20px"),
-  s5: rem("25px"),
+  s1: rem("4px"),
+  s2: rem("8px"),
+  s3: rem("12px"),
+  s4: rem("16px"),
+  s5: rem("20px"),
   s6: rem("30px"),
   s7: rem("40px"),
   s8: rem("50px"),
 };
 
 const shadow = {
-  elevation1: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
-  elevation2: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
-  elevation3: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
-  elevation4: "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)",
-  elevation5: "0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)",
+  elevation1: "rgba(0, 0, 0, 0.05) 0px 1px 2px 0px",
+  elevation2:
+    "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px",
+  elevation3:
+    "rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px",
+  elevation4:
+    "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
+  elevation5:
+    "rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px",
+  elevation6: "box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px",
 };
 
 export const device = {
