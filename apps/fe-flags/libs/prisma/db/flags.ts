@@ -12,6 +12,7 @@ import {
   somethingWentWrong,
   notAuthorizedCreateFlag,
   notAuthorizedUpdateFlag,
+  notAuthorizedDeleteFlag,
 } from "utils/responses";
 // DB
 import { getUserInProject } from "./users";
@@ -210,6 +211,47 @@ export const updateFlagById = async (
       });
     } else {
       throw new Error(notAuthorizedUpdateFlag);
+    }
+  } catch (error) {
+    return res.status(get(error, "code", 400)).json({
+      error: true,
+      message: get(error, "message", somethingWentWrong),
+    });
+  }
+};
+
+/**
+ *
+ * @param res
+ * @param userId
+ * @param projectId
+ * @param flagId
+ * @returns deletes a flag by id
+ */
+
+export const deleteFlagById = async (
+  res: NextApiResponse,
+  userId: string,
+  projectId: string,
+  flagId: string
+) => {
+  try {
+    // checks if the user is in the project
+    const user = await getUserInProject(userId, projectId);
+
+    // This user can delete a flag in this project
+    if (!isEmpty(user)) {
+      const flag = await prisma.flag.delete({
+        where: {
+          id: flagId,
+        },
+      });
+
+      res.status(200).json({
+        ...flag,
+      });
+    } else {
+      throw new Error(notAuthorizedDeleteFlag);
     }
   } catch (error) {
     return res.status(get(error, "code", 400)).json({

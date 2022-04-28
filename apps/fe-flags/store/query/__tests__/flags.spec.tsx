@@ -10,6 +10,8 @@ import {
   getFlagByIdArgsMock,
   updateFlagByIdArgsMock,
   updateFlagByIdResponseMock,
+  deleteFlagByIdResponseMock,
+  deleteFlagByIdArgsMock,
 } from "mocks/flags";
 // Utils
 import { setupApiStore } from "utils/setupApiStore";
@@ -22,6 +24,7 @@ import {
   useCreateFlagMutation,
   useGetFlagByIdQuery,
   useUpdateFlagByIdMutation,
+  useDeleteFlagByIdMutation,
 } from "../flags";
 
 const updateTimeout = 5000;
@@ -149,6 +152,23 @@ describe("Flags Endpoint Tests", () => {
         .then((action: any) => {
           const { data } = action;
           expect(data).toStrictEqual(updateFlagByIdResponseMock);
+        })
+    );
+  });
+
+  test("Should deleteFlagById successful", () => {
+    const storeRef = setupApiStore(flagsApi, {});
+    fetchMock.mockResponse(JSON.stringify(deleteFlagByIdResponseMock));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          flagsApi.endpoints.deleteFlagById.initiate(deleteFlagByIdArgsMock)
+        )
+        .then((action: any) => {
+          const { data } = action;
+          expect(data).toStrictEqual(deleteFlagByIdResponseMock);
         })
     );
   });
@@ -327,6 +347,62 @@ describe("Flags Endpoint Hooks Tests", () => {
 
     act(() => {
       void updateFlag(updateFlagByIdArgsMock);
+    });
+
+    const loadingResponse = result.current[1];
+    expect(loadingResponse.data).toBeUndefined();
+    expect(loadingResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const loadedResponse = result.current[1];
+    expect(loadedResponse.data).toBeUndefined();
+    expect(loadedResponse.isLoading).toBe(false);
+    expect(loadedResponse.isError).toBe(true);
+  });
+
+  it("Should use useDeleteFlagByIdMutation with Success", async () => {
+    fetchMock.mockResponse(JSON.stringify(deleteFlagByIdArgsMock));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useDeleteFlagByIdMutation(undefined),
+      {
+        wrapper,
+      }
+    );
+    const [deleteFlag, initialResponse] = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(false);
+
+    act(() => {
+      void deleteFlag(deleteFlagByIdArgsMock);
+    });
+
+    const loadingResponse = result.current[1];
+    expect(loadingResponse.data).toBeUndefined();
+    expect(loadingResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const loadedResponse = result.current[1];
+    expect(loadedResponse.data).not.toBeUndefined();
+    expect(loadedResponse.isLoading).toBe(false);
+    expect(loadedResponse.isSuccess).toBe(true);
+  });
+
+  it("Should use useDeleteFlagByIdMutation with Error", async () => {
+    fetchMock.mockReject(new Error("Internal Server Error"));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useDeleteFlagByIdMutation(undefined),
+      {
+        wrapper,
+      }
+    );
+    const [deleteFlag, initialResponse] = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(false);
+
+    act(() => {
+      void deleteFlag(deleteFlagByIdArgsMock);
     });
 
     const loadingResponse = result.current[1];

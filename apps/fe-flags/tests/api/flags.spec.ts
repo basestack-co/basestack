@@ -12,6 +12,7 @@ import {
   getFlagByIdResponseMock,
   updateFlagByIdResponseMock,
   updateFlagByIdArgsMock,
+  deleteFlagByIdResponseMock,
 } from "mocks/flags";
 import { methodNotAllowedMock } from "mocks/http";
 // Utils
@@ -31,6 +32,7 @@ jest.mock("libs/prisma/index", () => ({
     findFirst: jest.fn(() => getFlagByIdResponseMock),
     create: jest.fn(() => createFlagResponseMock),
     update: jest.fn(() => updateFlagByIdResponseMock),
+    delete: jest.fn(() => deleteFlagByIdResponseMock),
   },
   environment: {
     findMany: jest.fn(() => allFlagsByProjectAndEnvResponseMock),
@@ -142,6 +144,24 @@ describe("Flags by Id API Endpoints Tests", () => {
     expect(res._getStatusCode()).toBe(200);
     expect(JSON.parse(res._getData())).toEqual(
       expect.objectContaining(updateFlagByIdResponseMock)
+    );
+  });
+
+  test("Should delete flag by id from PUT /v1/api/projects/${projectId}/environments/${envId}/flags/${flagId}", async () => {
+    const { req, res } = createMocks({
+      method: "DELETE",
+      query: {
+        projectId: "cl2aogaew00926juehs2ecs2t",
+        envId: "cl1l86cxb00790zuey3az884",
+        flagId: "cl2aoghvp01596juek13sdfdsf",
+      },
+    });
+
+    await flagsByIdEndpoints(req, res);
+
+    expect(res._getStatusCode()).toBe(200);
+    expect(JSON.parse(res._getData())).toEqual(
+      expect.objectContaining(deleteFlagByIdResponseMock)
     );
   });
 });

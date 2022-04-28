@@ -51,3 +51,9 @@ export interface UpdateFlagArgs {
   expiredAt?: Date;
   description?: string;
 }
+
+export interface DeleteFlagArgs {
+  flagId: string;
+  envId: string;
+  projectId: string;
+}

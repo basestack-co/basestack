@@ -22,6 +22,7 @@ import {
   useGetFlagsQuery,
   useCreateFlagMutation,
   useUpdateFlagByIdMutation,
+  useDeleteFlagByIdMutation,
 } from "store/query/flags";
 // Utils
 import isEmpty from "lodash.isempty";
@@ -306,7 +307,7 @@ const FlagsList = ({
   deleteAction,
 }: {
   update: (flagId: string) => void;
-  deleteAction: (environmentId: string) => void;
+  deleteAction: (flagId: string) => void;
   projectId: string;
   envId: string;
 }) => {
@@ -349,6 +350,7 @@ const FlagsDemos = () => {
   const [projectId, setProjectId] = useState("");
   const [createFlag] = useCreateFlagMutation();
   const [updateFlag] = useUpdateFlagByIdMutation();
+  const [deleteFlag] = useDeleteFlagByIdMutation();
 
   const formik = useFormik({
     initialValues: {
@@ -383,6 +385,16 @@ const FlagsDemos = () => {
       });
     },
     [projectId, updateFlag, envId]
+  );
+
+  const deleteAction = useCallback(
+    (flagId: string) => {
+      console.log("del flagId = ", flagId);
+      if (confirm("Delete Flag?")) {
+        deleteFlag({ projectId, envId, flagId });
+      }
+    },
+    [projectId, envId, deleteFlag]
   );
 
   return (
@@ -433,7 +445,7 @@ const FlagsDemos = () => {
         envId={envId}
         projectId={projectId}
         update={update}
-        deleteAction={console.log}
+        deleteAction={deleteAction}
       />
     </div>
   );
