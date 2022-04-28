@@ -25,11 +25,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       <StoreProvider store={store}>
         <IntlProvider locale={language} messages={messages[language]}>
           <ThemeProvider theme={theme}>
-            <GlobalStyle />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-            <Modals />
+            <>
+              <GlobalStyle />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+              <Modals />
+            </>
           </ThemeProvider>
         </IntlProvider>
       </StoreProvider>
