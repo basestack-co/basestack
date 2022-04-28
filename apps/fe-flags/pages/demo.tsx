@@ -13,17 +13,23 @@ import {
   useDeleteProjectByIdMutation,
 } from "store/query/projects";
 import {
-  environmentsApi,
   useCreateEnvironmentMutation,
   useUpdateEnvironmentByIdMutation,
   useDeleteEnvironmentByIdMutation,
   useGetEnvironmentsQuery,
 } from "store/query/environments";
+import {
+  useGetFlagsQuery,
+  useCreateFlagMutation,
+  useUpdateFlagByIdMutation,
+  useDeleteFlagByIdMutation,
+} from "store/query/flags";
 // Utils
 import isEmpty from "lodash.isempty";
 // Types
 import { Project } from "types/query/projects";
 import { Environment } from "types/query/environments";
+import { Flag } from "types/query/flags";
 // Formik
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -174,7 +180,7 @@ const EnvironmentsList = ({
         <ul>
           {data.environments.map((item: Environment) => (
             <li key={item.id}>
-              {item.name} |{" "}
+              {item.name} (<b>{item.id}</b>) |{" "}
               <button onClick={() => update(item.id, item.name)}>✏️</button> |{" "}
               <button onClick={() => deleteAction(item.id)}>❌</button>
             </li>
@@ -198,7 +204,11 @@ const EnvironmentsDemos = () => {
     },
     onSubmit: async (values, { resetForm }) => {
       try {
-        await createEnvironment({ ...values, projectId });
+        await createEnvironment({
+          ...values,
+          projectId,
+          description: "a default description",
+        });
 
         resetForm();
       } catch (error) {
@@ -216,6 +226,7 @@ const EnvironmentsDemos = () => {
           environmentId,
           projectId,
           name,
+          description: "a update description",
         });
       }
     },
@@ -251,7 +262,7 @@ const EnvironmentsDemos = () => {
           <form onSubmit={formik.handleSubmit}>
             <label htmlFor="name">Name</label>
             <input
-              id="name"
+              placeholder="name"
               name="name"
               type="text"
               onChange={formik.handleChange}
@@ -263,7 +274,7 @@ const EnvironmentsDemos = () => {
 
             <label htmlFor="slug">Slug</label>
             <input
-              id="slug"
+              placeholder="slug"
               name="slug"
               type="slug"
               onChange={formik.handleChange}
@@ -289,6 +300,157 @@ const EnvironmentsDemos = () => {
   );
 };
 
+const FlagsList = ({
+  projectId,
+  envId,
+  update,
+  deleteAction,
+}: {
+  update: (flagId: string) => void;
+  deleteAction: (flagId: string) => void;
+  projectId: string;
+  envId: string;
+}) => {
+  const { isLoading, data } = useGetFlagsQuery(
+    {
+      projectId,
+      envId,
+      pagination: {
+        skip: "0",
+        take: "10",
+      },
+    },
+    {
+      skip: isEmpty(envId) || isEmpty(projectId),
+      // refetchOnMountOrArgChange: true
+    }
+  );
+
+  return (
+    <div>
+      <h4>Flags list:</h4>
+      {!isLoading && !isEmpty(data) && (
+        <ul>
+          {data.flags.map((item: Flag) => (
+            <li key={item.id}>
+              (slug: <b>{item.slug}</b>) (id: <b>{item.id}</b>) (Enabled:{" "}
+              <b>{item.enabled ? "ON" : "OFF"}</b>) |{" "}
+              <button onClick={() => update(item.id)}>✏️</button> |{" "}
+              <button onClick={() => deleteAction(item.id)}>❌</button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+const FlagsDemos = () => {
+  const [envId, setEnvId] = useState("");
+  const [projectId, setProjectId] = useState("");
+  const [createFlag] = useCreateFlagMutation();
+  const [updateFlag] = useUpdateFlagByIdMutation();
+  const [deleteFlag] = useDeleteFlagByIdMutation();
+
+  const formik = useFormik({
+    initialValues: {
+      slug: "",
+    },
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        await createFlag({
+          projectId,
+          envId,
+          slug: values.slug,
+          enabled: true,
+          payload: JSON.stringify({}),
+          expiredAt: null,
+          description: "a default description",
+        });
+        resetForm();
+      } catch (error) {
+        console.log("Error on create project", error);
+      }
+    },
+  });
+
+  const update = useCallback(
+    (flagId: string) => {
+      updateFlag({
+        enabled: false,
+        flagId,
+        envId,
+        projectId,
+        description: "a update description",
+      });
+    },
+    [projectId, updateFlag, envId]
+  );
+
+  const deleteAction = useCallback(
+    (flagId: string) => {
+      console.log("del flagId = ", flagId);
+      if (confirm("Delete Flag?")) {
+        deleteFlag({ projectId, envId, flagId });
+      }
+    },
+    [projectId, envId, deleteFlag]
+  );
+
+  return (
+    <div>
+      <div>
+        <br />
+        <h4>Load Flags</h4>
+        <input
+          placeholder="projectId"
+          type="text"
+          onChange={(e) => setProjectId(e.target.value)}
+          value={projectId}
+        />
+
+        <input
+          placeholder="envId"
+          type="text"
+          onChange={(e) => setEnvId(e.target.value)}
+          value={envId}
+        />
+
+        <br />
+        <br />
+
+        <div>
+          <h4>New Flag</h4>
+          <form onSubmit={formik.handleSubmit}>
+            <label htmlFor="slug">Slug</label>
+            <input
+              id="slug"
+              name="slug"
+              type="slug"
+              onChange={formik.handleChange}
+              value={formik.values.slug}
+            />
+
+            {formik.touched.slug && formik.errors.slug ? (
+              <div>{formik.errors.slug}</div>
+            ) : null}
+
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+
+      <br />
+      <FlagsList
+        envId={envId}
+        projectId={projectId}
+        update={update}
+        deleteAction={deleteAction}
+      />
+    </div>
+  );
+};
+
 const DemoPage = () => {
   return (
     <div>
@@ -301,6 +463,11 @@ const DemoPage = () => {
       <h2>Environments</h2>
 
       <EnvironmentsDemos />
+
+      <br />
+      <h2>Flags</h2>
+
+      <FlagsDemos />
     </div>
   );
 };

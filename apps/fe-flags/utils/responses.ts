@@ -14,14 +14,27 @@ export const methodNotAllowed = {
 
 export const somethingWentWrong = "Something went wrong";
 
+export const notAuthorizedActionProject =
+  "You are not authorized to do this action in this project";
+
+// ENVIRONMENTS
+
 export const notAuthorizedCreateEnv =
   "You are not authorized to create an environment";
 
 export const notAuthorizedUpdateEnv =
   "You are not authorized to update this environment";
 
-export const notAuthorizedActionProject =
-  "You are not authorized to do this action in this project";
-
 export const notAuthorizedDeleteEnv =
   "You are not authorized to delete this environment";
+
+// FLAGS
+
+export const notAuthorizedCreateFlag =
+  "You are not authorized to create an flag";
+
+export const notAuthorizedUpdateFlag =
+  "You are not authorized to update this flag";
+
+export const notAuthorizedDeleteFlag =
+  "You are not authorized to delete this flag";

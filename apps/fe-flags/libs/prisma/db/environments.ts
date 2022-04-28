@@ -83,6 +83,7 @@ export const createEnvironment = async (
         data: {
           name: data.name,
           slug: data.slug,
+          description: "miididi",
           project: {
             connect: {
               id: data.projectId,
@@ -107,20 +108,22 @@ export const createEnvironment = async (
 
 /**
  *
+ * @param res
  * @param userId
  * @param projectId
  * @param environmentId
  * @param name
- * @param res
+ * @param description
  * @returns updates a environment by id
  */
 
 export const updateEnvironmentById = async (
+  res: NextApiResponse,
   userId: string,
   projectId: string,
   environmentId: string,
   name: string,
-  res: NextApiResponse
+  description?: string
 ) => {
   try {
     // checks if the user is in the project
@@ -134,6 +137,7 @@ export const updateEnvironmentById = async (
         },
         data: {
           name,
+          description,
         },
       });
 

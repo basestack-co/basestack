@@ -11,7 +11,7 @@ export const baseApi = createApi({
     fetchFn: fetch,
     prepareHeaders,
   }),
-  tagTypes: ["Projects", "Environments"],
+  tagTypes: ["Projects", "Environments", "Flags"],
   endpoints: () => ({}),
 });
 
