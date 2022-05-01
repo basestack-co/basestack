@@ -7,7 +7,8 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["filterJson"]
 }
 
 model Account {
@@ -54,7 +55,7 @@ model User {
   password      String?
   accounts      Account[]
   sessions      Session[]
-  project       ProjectsOnUsers[]
+  projects      ProjectsOnUsers[]
   createdAt     DateTime          @default(now())
   updatedAt     DateTime          @updatedAt
 }
@@ -75,7 +76,8 @@ model Project {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 
-  users ProjectsOnUsers[]
+  users   ProjectsOnUsers[]
+  history History[]
 }
 
 model ProjectsOnUsers {
@@ -110,4 +112,17 @@ model Flag {
   updatedAt     DateTime    @updatedAt
   environment   Environment @relation(fields: [environmentId], references: [id], onDelete: Cascade)
   environmentId String
+}
+
+model History {
+  id        String   @default(cuid())
+  projectId String
+  action    String
+  payload   Json?    @default("{}") @db.Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  @@id([id, projectId])
+  @@index([projectId])
 }
