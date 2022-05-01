@@ -58,7 +58,7 @@ describe("Text Atom tests", () => {
     const { getByText } = renderWithTheme(<Text size="xLarge">xLarge</Text>);
     const text = getByText(/xLarge/);
     expect(text).toHaveStyle(`font-size: ${rem("20px")}`);
-    expect(text).toHaveStyle(`font-weight: 700`);
+    expect(text).toHaveStyle(`font-weight: 500`);
     expect(text).toHaveStyle(`color: #000000`);
   });
 

@@ -1,9 +1,10 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
-import { space } from "styled-system";
+import { space, compose, layout } from "styled-system";
 import Icon from "../Icon";
 
 export const Container = styled.div`
+  ${compose(space, layout)};
   position: relative;
   display: flex;
   align-items: center;
@@ -15,7 +16,6 @@ export const StyledInput = styled.input<{
   hasLeftIcon: boolean;
   hasRightIcon: boolean;
 }>`
-  ${space};
   border: none;
   background-color: ${({ theme, isDarker }) =>
     isDarker ? theme.colors.gray100 : theme.colors.gray50};
@@ -35,22 +35,22 @@ export const StyledInput = styled.input<{
   ${({ hasLeftIcon }) =>
     hasLeftIcon &&
     css`
-      padding-left: ${rem("48px")};
+      padding-left: ${rem("44px")};
     `};
 
   ${({ hasRightIcon }) =>
     hasRightIcon &&
     css`
-      padding-right: ${rem("48px")};
+      padding-right: ${rem("44px")};
     `};
 `;
 
 export const LeftIcon = styled(Icon)`
   position: absolute;
-  left: ${rem("16px")};
+  left: ${rem("12px")};
 `;
 
 export const RightIcon = styled(Icon)`
   position: absolute;
-  right: ${rem("16px")};
+  right: ${rem("12px")};
 `;

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { SpaceProps } from "styled-system";
+import { SpaceProps, TypographyProps } from "styled-system";
 
 export type Size =
   | "xxLarge"
@@ -9,7 +9,7 @@ export type Size =
   | "small"
   | "xSmall";
 
-export interface TextProps extends SpaceProps {
+export interface TextProps extends SpaceProps, TypographyProps {
   /**
    * Change text size
    */

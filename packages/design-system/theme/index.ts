@@ -86,6 +86,14 @@ export const device = {
   },
 };
 
+export const maxWidth = {
+  sm: "100%",
+  md: "100%",
+  lg: "1400px",
+  xl: "1400px",
+  xxl: "1400px",
+};
+
 const theme = {
   typography,
   colors,

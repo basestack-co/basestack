@@ -9,14 +9,14 @@ describe("Input Atom tests", () => {
 
   test("should render Input correctly", () => {
     const { asFragment } = renderWithTheme(
-      <Input placeholder="Search here..." />
+      <Input placeholder="Search here..." onChange={jest.fn()} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   test("should render input container", () => {
     const { getByTestId } = renderWithTheme(
-      <Input placeholder="Search here..." />
+      <Input placeholder="Search here..." onChange={jest.fn()} />
     );
     const container = getByTestId("input-container");
 
@@ -27,7 +27,7 @@ describe("Input Atom tests", () => {
 
   test("should render normal input", () => {
     const { getByTestId } = renderWithTheme(
-      <Input placeholder="Search here..." />
+      <Input placeholder="Search here..." onChange={jest.fn()} />
     );
     const input = getByTestId("input");
 
@@ -40,7 +40,7 @@ describe("Input Atom tests", () => {
 
   test("should render small input", () => {
     const { getByTestId } = renderWithTheme(
-      <Input size="small" placeholder="Search here..." />
+      <Input size="small" placeholder="Search here..." onChange={jest.fn()} />
     );
     const input = getByTestId("input");
 
@@ -49,29 +49,39 @@ describe("Input Atom tests", () => {
 
   test("should render input with left icon", () => {
     const { getByTestId } = renderWithTheme(
-      <Input placeholder="Search here..." icon="search" iconPlacement="left" />
+      <Input
+        placeholder="Search here..."
+        icon="search"
+        iconPlacement="left"
+        onChange={jest.fn()}
+      />
     );
     const input = getByTestId("input");
     const iconContainer = getByTestId("icon-container");
     const icon = getByTestId("icon");
 
-    expect(input).toHaveStyle(`padding-left: ${rem("48px")}`);
+    expect(input).toHaveStyle(`padding-left: ${rem("44px")}`);
     expect(iconContainer).toHaveStyle(`position: absolute`);
-    expect(iconContainer).toHaveStyle(`left:  ${rem("16px")}`);
+    expect(iconContainer).toHaveStyle(`left:  ${rem("12px")}`);
     expect(icon).toBeVisible();
   });
 
   test("should render input with right icon", () => {
     const { getByTestId } = renderWithTheme(
-      <Input placeholder="Search here..." icon="search" iconPlacement="right" />
+      <Input
+        placeholder="Search here..."
+        icon="search"
+        iconPlacement="right"
+        onChange={jest.fn()}
+      />
     );
     const input = getByTestId("input");
     const iconContainer = getByTestId("icon-container");
     const icon = getByTestId("icon");
 
-    expect(input).toHaveStyle(`padding-right: ${rem("48px")}`);
+    expect(input).toHaveStyle(`padding-right: ${rem("44px")}`);
     expect(iconContainer).toHaveStyle(`position: absolute`);
-    expect(iconContainer).toHaveStyle(`right:  ${rem("16px")}`);
+    expect(iconContainer).toHaveStyle(`right:  ${rem("12px")}`);
     expect(icon).toBeVisible();
   });
 });

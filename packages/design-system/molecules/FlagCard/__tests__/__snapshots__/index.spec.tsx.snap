@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
+<DocumentFragment>
+  .c3 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c8 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  margin-top: auto;
+  font-family: 'Roboto',sans-serif;
+  color: #545454;
+}
+
+.c2 {
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c0 {
+  padding: 1.25rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  box-shadow: rgba(0,0,0,0.1) 0px 1px 3px 0px,rgba(0,0,0,0.06) 0px 1px 2px 0px;
+  background-color: #FFFFFF;
+  border-radius: 0.375rem;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0.25rem 0.375rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  font-weight: 400;
+  color: #FFFFFF;
+  background-color: #05944F;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0.25rem 0.375rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  font-weight: 400;
+  color: #545454;
+  background-color: #E2E2E2;
+}
+
+.c1 {
+  -webkit-transition: box-shadow 0.2s ease-in-out;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.c1:hover {
+  box-shadow: rgba(0,0,0,0.1) 0px 10px 15px -3px,rgba(0,0,0,0.05) 0px 4px 6px -2px;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.c6 {
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+<div
+    class="c0 c1"
+    data-testid="flag-card"
+  >
+    <h3
+      class="c2"
+      data-testid="flag-title"
+    >
+      header_size
+    </h3>
+    <p
+      class="c3"
+      data-testid="flag-description"
+    >
+      Display new header for only a number of users
+    </p>
+    <div
+      class="c4"
+      data-testid="flag-labels"
+    >
+      <div
+        class="c5 c6"
+        data-testid="Development-flag-label"
+      >
+        Development
+      </div>
+      <div
+        class="c7 c6"
+        data-testid="Staging-flag-label"
+      >
+        Staging
+      </div>
+      <div
+        class="c7 c6"
+        data-testid="Production-flag-label"
+      >
+        Production
+      </div>
+    </div>
+    <p
+      class="c8"
+      data-testid="flag-date"
+    >
+      Created 11 jan 2022
+    </p>
+  </div>
+</DocumentFragment>
+`;

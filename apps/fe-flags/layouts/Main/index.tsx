@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 // Router
 import { useRouter } from "next/router";
 // Store
@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 // import { RootState } from "store";
 // Auth
 import { useSession } from "next-auth/react";
+import { Navigation } from "design-system";
 
 const MainLayout: React.FC = ({ children }) => {
   const router = useRouter();
@@ -25,7 +26,7 @@ const MainLayout: React.FC = ({ children }) => {
 
   return (
     <Fragment>
-      <h1>Hello App</h1>
+      <Navigation />
       {children}
     </Fragment>
   );

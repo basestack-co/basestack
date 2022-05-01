@@ -1,9 +1,9 @@
 import React, { memo } from "react";
 import { useTheme } from "styled-components";
-import { SpaceProps } from "styled-system";
+import { SpaceProps, LayoutProps } from "styled-system";
 import { Container, StyledInput, LeftIcon, RightIcon } from "./styles";
 
-export interface InputProps extends SpaceProps {
+export interface InputProps extends SpaceProps, LayoutProps {
   /**
    * Optional Icon
    */
@@ -28,6 +28,14 @@ export interface InputProps extends SpaceProps {
    * Input placeholder
    */
   placeholder: string;
+  /**
+   * Input onChange
+   */
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  /**
+   * Input optional testID
+   */
+  testId?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -37,6 +45,8 @@ const Input: React.FC<InputProps> = ({
   placeholder,
   isDarker = false,
   size = "normal",
+  testId = "input-container",
+  onChange,
   ...props
 }) => {
   const theme = useTheme();
@@ -44,19 +54,19 @@ const Input: React.FC<InputProps> = ({
   const hasRightIcon = !!icon && iconPlacement === "right";
 
   return (
-    <Container data-testid="input-container">
+    <Container data-testid={testId} {...props}>
       {hasLeftIcon && (
         <LeftIcon icon={icon} size="medium" color={theme.colors.gray500} />
       )}
       <StyledInput
         data-testid="input"
+        onChange={onChange}
         placeholder={placeholder}
         type={type}
         isDarker={isDarker}
         size={size}
         hasLeftIcon={hasLeftIcon}
         hasRightIcon={hasRightIcon}
-        {...props}
       />
       {hasRightIcon && (
         <RightIcon icon={icon} size="medium" color={theme.colors.gray500} />

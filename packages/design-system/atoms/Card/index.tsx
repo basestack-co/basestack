@@ -7,10 +7,14 @@ interface CardProps extends SpaceProps {
    * Content
    */
   children: ReactNode;
+  /**
+   * TestID
+   */
+  testId?: string;
 }
 
-const Card = ({ children, ...props }: CardProps) => (
-  <Container data-testid="card" {...props}>
+const Card = ({ children, testId = "card", ...props }: CardProps) => (
+  <Container data-testid={testId} {...props}>
     {children}
   </Container>
 );
