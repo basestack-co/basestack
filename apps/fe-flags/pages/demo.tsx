@@ -24,12 +24,17 @@ import {
   useUpdateFlagByIdMutation,
   useDeleteFlagByIdMutation,
 } from "store/query/flags";
+import {
+  useGetHistoryQuery,
+  useCreateHistoryMutation,
+} from "store/query/history";
 // Utils
 import isEmpty from "lodash.isempty";
 // Types
 import { Project } from "types/query/projects";
 import { Environment } from "types/query/environments";
 import { Flag } from "types/query/flags";
+import { History, HistoryAction } from "types/query/history";
 // Formik
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -150,6 +155,83 @@ const ProjectsDemos = () => {
           ))}
         </ul>
       )}
+    </div>
+  );
+};
+
+const HistoryList = ({ projectId }: { projectId: string }) => {
+  const { isLoading, data } = useGetHistoryQuery(
+    {
+      projectId,
+      /*  query: {
+        flagId: "cl2npxpyp0874d4ueo42d0kxx",
+      }, */
+    },
+    {
+      skip: isEmpty(projectId),
+    }
+  );
+
+  return (
+    <div>
+      <h4>History list:</h4>
+      {!isLoading && !isEmpty(data) && (
+        <ul>
+          {data.history.map((item: History) => {
+            return (
+              <li key={item.id}>
+                action: <b>{item.action} </b>| projectId:{" "}
+                <b>{item.projectId}</b> | payload:{" "}
+                <b>{JSON.stringify(item.payload)}</b>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+const HistoryDemos = () => {
+  const [projectId, setProjectId] = useState("");
+  const [createHistory] = useCreateHistoryMutation();
+
+  const onCreateHistory = useCallback(async () => {
+    createHistory({
+      projectId,
+      action: HistoryAction.createFlag,
+      payload: {
+        flag: {
+          id: "cl2npxsbm0920d4ue44r5ujt9",
+          slug: "test",
+          enabled: true,
+        },
+        user: {
+          id: "cl2npwq7i0662d4ueifse5ms3",
+          name: "John Doe",
+          avatar: "https://avatars3.githubusercontent.com/u/17098?v=4",
+        },
+      },
+    });
+  }, [projectId, createHistory]);
+
+  return (
+    <div>
+      <div>
+        <br />
+        <h4>Load History</h4>
+        <input
+          placeholder="projectId"
+          type="text"
+          onChange={(e) => setProjectId(e.target.value)}
+          value={projectId}
+        />
+
+        <button onClick={onCreateHistory}>Create History</button>
+      </div>
+
+      <br />
+      <HistoryList projectId={projectId} />
     </div>
   );
 };
@@ -458,6 +540,11 @@ const DemoPage = () => {
       <h2>Projects</h2>
 
       <ProjectsDemos />
+
+      <br />
+      <h2>Projects</h2>
+
+      <HistoryDemos />
 
       <br />
       <h2>Environments</h2>
