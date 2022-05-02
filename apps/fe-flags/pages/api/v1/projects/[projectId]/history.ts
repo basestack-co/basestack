@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 // DB
-import { getHistory } from "libs/prisma/db/history";
+import { getHistory, createHistory } from "libs/prisma/db/history";
 // Auth
 import { getSession } from "next-auth/react";
 // Utils
@@ -23,16 +23,15 @@ const History = async (req: NextApiRequest, res: NextApiResponse) => {
       // gets all the history for a project or a flag
       await getHistory(res, projectId, flagId);
       break;
-    /* case "PUT":
-      await updateProjectById(
+    // creste a new history
+    case "POST":
+      await createHistory(
+        res,
         projectId,
-        get(JSON.parse(req.body), "name"),
-        res
+        get(JSON.parse(req.body), "action"),
+        get(JSON.parse(req.body), "payload")
       );
       break;
-    case "DELETE":
-      await deleteProjectById(projectId, res);
-      break; */
 
     default:
       res.status(405).json(methodNotAllowed);

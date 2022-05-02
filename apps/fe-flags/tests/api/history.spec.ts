@@ -2,7 +2,11 @@
 import historyEndpoints from "pages/api/v1/projects/[projectId]/history";
 // Mocks
 import { sessionMock } from "mocks/auth";
-import { historyByProjectIdResponseMock } from "mocks/history";
+import {
+  historyByProjectIdResponseMock,
+  createHistoryByProjectIdResponseMock,
+  createHistoryArgsMock,
+} from "mocks/history";
 import { methodNotAllowedMock } from "mocks/http";
 // Utils
 import { createMocks } from "node-mocks-http";
@@ -16,6 +20,7 @@ jest.mock("libs/prisma/index", () => ({
   ...jest.requireActual("libs/prisma/index"),
   history: {
     findMany: jest.fn(() => historyByProjectIdResponseMock),
+    create: jest.fn(() => createHistoryByProjectIdResponseMock),
   },
 }));
 
@@ -46,6 +51,24 @@ describe("History API Endpoints Tests", () => {
     expect(res._getStatusCode()).toBe(200);
     expect(JSON.parse(res._getData())).toEqual(
       expect.objectContaining({ history: historyByProjectIdResponseMock })
+    );
+  });
+
+  test("Should create a new history entry by project Id from POST /v1/api/projects/${projectId}/history", async () => {
+    const { req, res } = createMocks({
+      method: "POST",
+      query: {
+        projectId: "cl2npx6a00734d4ue4j3qtlcu",
+      },
+      // @ts-ignore
+      body: JSON.stringify(createHistoryArgsMock),
+    });
+
+    await historyEndpoints(req, res);
+
+    expect(res._getStatusCode()).toBe(200);
+    expect(JSON.parse(res._getData())).toEqual(
+      expect.objectContaining(createHistoryByProjectIdResponseMock)
     );
   });
 });

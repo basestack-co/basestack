@@ -3,14 +3,11 @@ import type { NextApiResponse } from "next";
 // Prisma
 import prisma from "libs/prisma";
 // Types
-import { Pagination } from "types/query/generic";
-import {} from "types/query/history";
+import { HistoryAction, HistoryPayload } from "types/query/history";
 // Utils
 import get from "lodash.get";
 import isEmpty from "lodash.isempty";
 import { somethingWentWrong } from "utils/responses";
-// DB
-import { getUserInProject } from "./users";
 
 /**
  *
@@ -45,6 +42,44 @@ export const getHistory = async (
 
     res.status(200).json({
       history,
+    });
+  } catch (error) {
+    return res.status(get(error, "code", 400)).json({
+      error: true,
+      message: get(error, "message", somethingWentWrong),
+    });
+  }
+};
+
+/**
+ *
+ * @param res
+ * @param projectId
+ * @param action
+ * @param payload
+ * @returns creates a new history emtry
+ */
+export const createHistory = async (
+  res: NextApiResponse,
+  projectId: string,
+  action: HistoryAction,
+  payload: any
+) => {
+  try {
+    const history = await prisma.history.create({
+      data: {
+        action,
+        payload: JSON.stringify(payload),
+        project: {
+          connect: {
+            id: projectId,
+          },
+        },
+      },
+    });
+
+    res.status(200).json({
+      ...history,
     });
   } catch (error) {
     return res.status(get(error, "code", 400)).json({

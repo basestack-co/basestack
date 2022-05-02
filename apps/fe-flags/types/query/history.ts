@@ -1,4 +1,6 @@
 export enum HistoryAction {
+  createProject = "CREATE_PROJECT",
+  updateProject = "UPDATE_PROJECT",
   createFlag = "CREATE_FLAG",
   updateFlag = "UPDATE_FLAG",
   deleteFlag = "DELETE_FLAG",
@@ -8,12 +10,12 @@ export enum HistoryAction {
 }
 
 export interface HistoryPayload {
-  flag: {
+  flag?: {
     id: string;
     slug: string;
     enabled: boolean;
   };
-  environment: {
+  environment?: {
     id: string;
     name: string;
   };
@@ -37,9 +39,15 @@ export interface HistoryResponse {
   history: History[];
 }
 
-export interface HistoryArgs {
+export interface GetHistoryArgs {
   projectId: string;
   query?: {
     flagId?: string;
   };
+}
+
+export interface CreateHistoryArgs {
+  projectId: string;
+  action: HistoryAction;
+  payload: HistoryPayload;
 }

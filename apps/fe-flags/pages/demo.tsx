@@ -24,14 +24,17 @@ import {
   useUpdateFlagByIdMutation,
   useDeleteFlagByIdMutation,
 } from "store/query/flags";
-import { useGetHistoryQuery } from "store/query/history";
+import {
+  useGetHistoryQuery,
+  useCreateHistoryMutation,
+} from "store/query/history";
 // Utils
 import isEmpty from "lodash.isempty";
 // Types
 import { Project } from "types/query/projects";
 import { Environment } from "types/query/environments";
 import { Flag } from "types/query/flags";
-import { History } from "types/query/history";
+import { History, HistoryAction } from "types/query/history";
 // Formik
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -191,6 +194,26 @@ const HistoryList = ({ projectId }: { projectId: string }) => {
 
 const HistoryDemos = () => {
   const [projectId, setProjectId] = useState("");
+  const [createHistory] = useCreateHistoryMutation();
+
+  const onCreateHistory = useCallback(async () => {
+    createHistory({
+      projectId,
+      action: HistoryAction.createFlag,
+      payload: {
+        flag: {
+          id: "cl2npxsbm0920d4ue44r5ujt9",
+          slug: "test",
+          enabled: true,
+        },
+        user: {
+          id: "cl2npwq7i0662d4ueifse5ms3",
+          name: "John Doe",
+          avatar: "https://avatars3.githubusercontent.com/u/17098?v=4",
+        },
+      },
+    });
+  }, [projectId, createHistory]);
 
   return (
     <div>
@@ -203,6 +226,8 @@ const HistoryDemos = () => {
           onChange={(e) => setProjectId(e.target.value)}
           value={projectId}
         />
+
+        <button onClick={onCreateHistory}>Create History</button>
       </div>
 
       <br />
