@@ -83,7 +83,7 @@ export const createEnvironment = async (
         data: {
           name: data.name,
           slug: data.slug,
-          description: "miididi",
+          description: data.description,
           project: {
             connect: {
               id: data.projectId,

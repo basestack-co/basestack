@@ -38,3 +38,11 @@ export const notAuthorizedUpdateFlag =
 
 export const notAuthorizedDeleteFlag =
   "You are not authorized to delete this flag";
+
+// HISTORY
+
+export const notAuthorizedCreateHistory =
+  "You are not authorized to create an history";
+
+export const notAuthorizedUpdateHistory =
+  "You are not authorized to update this history";
