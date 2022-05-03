@@ -1,23 +1,24 @@
-import React, { memo, useState } from "react";
-import { useTheme } from "styled-components";
+import React, { useState, memo } from "react";
 import { SpaceProps } from "styled-system";
 import { Input, Pill } from "../../atoms";
+import { Segment } from "../../molecules";
 import { Container, PillsUl, PillLi } from "./styles";
 
 export interface ToolbarProps extends SpaceProps {
   onSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSelect: (environment: string) => void;
   environments: Array<string>;
+  onChangeView: (selected: string) => void;
 }
 
 const Toolbar = ({
   environments,
   onSearch,
   onSelect,
+  onChangeView,
   ...props
 }: ToolbarProps) => {
   const [selectedEnv, setSelectedEnv] = useState("all");
-  const theme = useTheme();
 
   return (
     <Container data-testid="toolbar" {...props}>
@@ -59,11 +60,12 @@ const Toolbar = ({
           );
         })}
       </PillsUl>
-
-      <Pill
-        text="..."
-        isSelected={false}
-        onClick={() => console.log("clicked")}
+      <Segment
+        onSelect={onChangeView}
+        items={[
+          { icon: "view_module", id: "cards" },
+          { icon: "view_stream", id: "table" },
+        ]}
       />
     </Container>
   );
