@@ -8,6 +8,11 @@ import {
   UpdateProjectArgs,
   DeleteProjectArgs,
 } from "types/query/projects";
+import { HistoryAction } from "types/query/history";
+// Utils
+import { createHistoryRecord } from "./history";
+import get from "lodash.get";
+import isEmpty from "lodash.isempty";
 
 // Define Projects service using BASE API URL and endpoints
 export const projectsApi = baseApi.injectEndpoints({
@@ -25,19 +30,31 @@ export const projectsApi = baseApi.injectEndpoints({
         method: "POST",
         body: JSON.stringify(data),
       }),
-      /* async onQueryStarted(body, { dispatch, queryFulfilled }) {
+      async onQueryStarted(
+        body,
+        { dispatch, queryFulfilled, getState, ...rest }
+      ) {
         try {
-          await queryFulfilled;
-          dispatch(
-            setToast({
-              type: "success"
-              title: "message"
-            })
-          );
+          const result = await queryFulfilled;
+
+          if (!isEmpty(result)) {
+            const projectId = get(result, "data.project.id", "");
+            // creates history record for project creation
+            await createHistoryRecord(
+              dispatch,
+              projectId,
+              HistoryAction.createProject,
+              {
+                project: {
+                  name: get(result, "data.project.name", ""),
+                },
+              }
+            );
+          }
         } catch (err) {
-          handleErrorToast(err as UserErrorResponse, dispatch);
+          console.log("create project error", err);
         }
-      }, */
+      },
       invalidatesTags: ["Projects"],
     }),
     getProjectById: builder.query<ProjectResponse, { projectId: string }>({
