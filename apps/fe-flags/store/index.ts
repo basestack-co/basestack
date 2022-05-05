@@ -1,12 +1,23 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 // Slices
-import appReducer from "./slices/app";
-import modalsReducer from "./slices/modals";
+import appReducer, { initialState as appInitialState } from "./slices/app";
+import modalsReducer, {
+  initialState as modalsInitialState,
+} from "./slices/modals";
 // Queries
 import { baseApi } from "./query/base";
 // Utils
 import { rtkQueryErrorLogger } from "./query/utils";
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+// @ts-ignore
+export const initialState: RootState = {
+  app: appInitialState,
+  modals: modalsInitialState,
+};
 
 export const store = configureStore({
   reducer: {
@@ -27,6 +38,3 @@ export const store = configureStore({
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors
 setupListeners(store.dispatch);
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;

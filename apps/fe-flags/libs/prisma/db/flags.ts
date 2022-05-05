@@ -207,7 +207,7 @@ export const updateFlagById = async (
       });
 
       res.status(200).json({
-        ...flag,
+        flag,
       });
     } else {
       throw new Error(notAuthorizedUpdateFlag);
@@ -248,7 +248,7 @@ export const deleteFlagById = async (
       });
 
       res.status(200).json({
-        ...flag,
+        flag,
       });
     } else {
       throw new Error(notAuthorizedDeleteFlag);

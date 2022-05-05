@@ -17,9 +17,12 @@ export interface HistoryPayload {
   };
   environment?: {
     id: string;
+    name?: string;
+  };
+  project?: {
     name: string;
   };
-  user: {
+  user?: {
     id: string;
     name: string;
     avatar: string;

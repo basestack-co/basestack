@@ -16,6 +16,10 @@ export interface FlagsResponse {
   flags: Flag[];
 }
 
+export interface FlagResponse {
+  flag: Flag;
+}
+
 export interface FlagArgs {
   projectId: string;
   envId: string;
