@@ -30,3 +30,7 @@ export interface DeleteEnvironmentArgs {
   projectId: string;
   environmentId: string;
 }
+
+export interface EnvironmentResponse {
+  environment: Environment;
+}

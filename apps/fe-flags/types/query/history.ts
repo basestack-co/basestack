@@ -17,7 +17,7 @@ export interface HistoryPayload {
   };
   environment?: {
     id: string;
-    name: string;
+    name?: string;
   };
   project?: {
     name: string;
