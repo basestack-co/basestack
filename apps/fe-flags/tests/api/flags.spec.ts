@@ -143,7 +143,7 @@ describe("Flags by Id API Endpoints Tests", () => {
 
     expect(res._getStatusCode()).toBe(200);
     expect(JSON.parse(res._getData())).toEqual(
-      expect.objectContaining(updateFlagByIdResponseMock)
+      expect.objectContaining({ flag: updateFlagByIdResponseMock })
     );
   });
 
@@ -161,7 +161,7 @@ describe("Flags by Id API Endpoints Tests", () => {
 
     expect(res._getStatusCode()).toBe(200);
     expect(JSON.parse(res._getData())).toEqual(
-      expect.objectContaining(deleteFlagByIdResponseMock)
+      expect.objectContaining({ flag: deleteFlagByIdResponseMock })
     );
   });
 });
