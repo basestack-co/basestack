@@ -3,6 +3,11 @@ export interface ProjectArgs {
   slug: string;
 }
 
+export interface ProjectConnection {
+  projectId: string;
+  userId: string;
+}
+
 export interface Project extends ProjectArgs {
   id: string;
   createdAt: string;
@@ -24,4 +29,9 @@ export interface UpdateProjectArgs {
 
 export interface DeleteProjectArgs {
   projectId: string;
+}
+
+export interface CreateProjectResponse {
+  project: Project;
+  connection: ProjectConnection;
 }

@@ -40,13 +40,20 @@ export const historyApi = baseApi.injectEndpoints({
   overrideExisting: false,
 });
 
+export interface HistoryRecord {
+  dispatch: AppDispatch;
+  projectId: string;
+  action: HistoryAction;
+  payload: HistoryPayload;
+}
+
 // Util function to create history record
-export const createHistoryRecord = async (
-  dispatch: AppDispatch,
-  projectId: string,
-  action: HistoryAction,
-  payload: HistoryPayload
-) => {
+export const createHistoryRecord = async ({
+  dispatch,
+  projectId,
+  action,
+  payload,
+}: HistoryRecord) => {
   const session = await getSession();
 
   return await dispatch(
