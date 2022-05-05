@@ -6,8 +6,14 @@ export const Container = styled.main`
   margin: 0 auto;
 `;
 
-export const FlagsContainer = styled.div`
+export const FlagsCardContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-gap: ${({ theme }) => theme.spacing.s5};
+`;
+
+export const FlagsTableContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
   grid-gap: ${({ theme }) => theme.spacing.s5};
 `;

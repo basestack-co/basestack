@@ -1,4 +1,4 @@
-import React, { memo, ReactNode } from "react";
+import React, { memo, ReactNode, forwardRef } from "react";
 import { SpaceProps } from "styled-system";
 import { Container } from "./styles";
 
@@ -13,10 +13,14 @@ interface CardProps extends SpaceProps {
   testId?: string;
 }
 
-const Card = ({ children, testId = "card", ...props }: CardProps) => (
-  <Container data-testid={testId} {...props}>
-    {children}
-  </Container>
+const Card = forwardRef<HTMLDivElement, CardProps>(
+  ({ children, testId = "card", ...props }, ref) => (
+    <Container ref={ref} data-testid={testId} {...props}>
+      {children}
+    </Container>
+  )
 );
+
+Card.displayName = "Card";
 
 export default memo(Card);
