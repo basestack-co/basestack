@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlagCard, Text, Toolbar } from "design-system";
+import { FlagCard, FlagRow, Text, Toolbar } from "design-system";
 import { Container, FlagsCardContainer, FlagsTableContainer } from "./styles";
 import { useTheme } from "styled-components";
 import { mockFlags } from "./mockData";
@@ -13,12 +13,16 @@ import {
 } from "react-spring";
 
 const AnimatedFlagCard = animated(FlagCard);
+const AnimatedFlagRow = animated(FlagRow);
 
 const Flags = () => {
   const theme = useTheme();
   const [data, setData] = useState(mockFlags);
   const [selectedEnvironment, setSelectedEnvironment] = useState("all");
+
   const [selectedView, setSelectedView] = useState("cards");
+  const [cardsDestroyed, setCardsAnimationEnd] = useState(false);
+  const [tableDestroyed, setTableAnimationEnd] = useState(true);
 
   console.log("data = ", data);
 
@@ -37,22 +41,44 @@ const Flags = () => {
   };
 
   const transitionCardsRef = useSpringRef();
-  const transitionCards = useTransition(showCards ? mockFlags : [], {
-    ref: transitionCardsRef,
-    config: showCards ? { ...config.stiff, duration: 300 } : { duration: 300 },
-    trail: 400 / mockFlags.length,
-    ...transitionsProps,
-  });
+  const transitionCards = useTransition(
+    showCards && tableDestroyed ? mockFlags : [],
+    {
+      ref: transitionCardsRef,
+      config: showCards
+        ? { ...config.stiff, duration: 300 }
+        : { duration: 300 },
+      trail: 400 / mockFlags.length,
+      ...transitionsProps,
+      onDestroyed: () => {
+        setCardsAnimationEnd(true);
+        setTableAnimationEnd(false);
+      },
+    }
+  );
 
   const transitionTableRef = useSpringRef();
-  const transitionTable = useTransition(showTable ? mockFlags : [], {
-    ref: transitionTableRef,
-    config: showTable ? { ...config.stiff, duration: 300 } : { duration: 300 },
-    trail: 400 / mockFlags.length,
-    ...transitionsProps,
-  });
+  const transitionTable = useTransition(
+    showTable && cardsDestroyed ? mockFlags : [],
+    {
+      ref: transitionTableRef,
+      config: showTable
+        ? { ...config.stiff, duration: 300 }
+        : { duration: 300 },
+      trail: 400 / mockFlags.length,
+      ...transitionsProps,
+      onDestroyed: () => {
+        setTableAnimationEnd(true);
+        setCardsAnimationEnd(false);
+      },
+    }
+  );
 
-  useChain([transitionCardsRef, transitionTableRef]);
+  useChain(
+    cardsDestroyed
+      ? [transitionTableRef, transitionCardsRef]
+      : [transitionCardsRef, transitionTableRef]
+  );
 
   return (
     <Container>
@@ -81,11 +107,14 @@ const Flags = () => {
       <FlagsTableContainer>
         {transitionTable(
           (styles, flag) =>
-            flag &&
-            showTable && (
-              <animated.div style={styles}>
-                <h1>Animated</h1>
-              </animated.div>
+            flag && (
+              <AnimatedFlagRow
+                style={styles}
+                title={flag.title}
+                description={flag.description}
+                environments={flag.environments}
+                date={flag.date}
+              />
             )
         )}
       </FlagsTableContainer>

@@ -11,7 +11,7 @@ export const Container = styled.nav`
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.elevation2};
   height: ${rem("64px")};
-  padding: 0 ${({ theme }) => theme.spacing.s4};
+  padding: 0 ${({ theme }) => theme.spacing.s5};
 `;
 
 const flexCenter = css`
