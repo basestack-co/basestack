@@ -9,6 +9,7 @@ describe("FlagCard Molecule tests", () => {
   test("should render FlagCard correctly", () => {
     const { asFragment } = renderWithTheme(
       <FlagCard
+        onClickMore={jest.fn()}
         title="header_size"
         description="Display new header for only a number of users"
         environments={[
@@ -25,6 +26,7 @@ describe("FlagCard Molecule tests", () => {
   test("should render FlagCard with core elements", () => {
     const { getByTestId, getByText } = renderWithTheme(
       <FlagCard
+        onClickMore={jest.fn()}
         title="header_size"
         description="Display new header for only a number of users"
         environments={[

@@ -1,7 +1,7 @@
 import React, { memo, forwardRef } from "react";
 import { SpaceProps } from "styled-system";
 import { useTheme } from "styled-components";
-import { Text, Icon } from "../../atoms";
+import { Text, IconButton } from "../../atoms";
 import { Labels, StyledCard, Label, CardWrapper } from "./styles";
 
 export interface FlagRowProps extends SpaceProps {
@@ -9,6 +9,10 @@ export interface FlagRowProps extends SpaceProps {
    * Card title
    */
   title: string;
+  /**
+   * Callback for more button
+   */
+  onClickMore: () => void;
   /**
    * Card title
    */
@@ -27,17 +31,19 @@ export interface FlagRowProps extends SpaceProps {
 }
 
 const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
-  ({ title, description, environments, date, ...props }, ref) => {
+  ({ title, description, environments, date, onClickMore, ...props }, ref) => {
     const theme = useTheme();
 
     return (
       <StyledCard ref={ref} testId="flag-card" p={theme.spacing.s5}>
         <CardWrapper>
           <Labels data-testid="flag-labels">
-            {environments.map((environment, index) => {
+            {environments.map((environment, index, { length }) => {
               return (
                 <Label
                   key={index.toString()}
+                  index={index}
+                  length={length}
                   data-testid={`${environment.text}-flag-label`}
                   isActive={environment.isFlagOn}
                 />
@@ -53,7 +59,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
           <Text data-testid="flag-date" size="small" muted>
             {date}
           </Text>
-          <Icon icon="more_horiz" />
+          <IconButton icon="more_horiz" onClick={onClickMore} />
         </CardWrapper>
       </StyledCard>
     );

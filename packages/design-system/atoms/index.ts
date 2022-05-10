@@ -9,3 +9,4 @@ export { default as Textarea } from "./Textarea";
 export { default as Switch } from "./Switch";
 export { default as Pill } from "./Pill";
 export { default as Label } from "./Label";
+export { default as IconButton } from "./IconButton";

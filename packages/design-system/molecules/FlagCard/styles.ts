@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Label, Card } from "../../atoms";
 
 export const StyledCard = styled(Card)`
+  position: relative;
   transition: box-shadow 0.2s ease-in-out;
   &:hover {
     box-shadow: ${({ theme }) => theme.shadow.elevation4};

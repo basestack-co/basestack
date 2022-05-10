@@ -1,7 +1,7 @@
 import React, { memo, forwardRef } from "react";
 import { SpaceProps } from "styled-system";
 import { useTheme } from "styled-components";
-import { Text } from "../../atoms";
+import { IconButton, Text } from "../../atoms";
 import { Labels, StyledCard, StyledLabel } from "./styles";
 
 export interface FlagCardProps extends SpaceProps {
@@ -9,6 +9,10 @@ export interface FlagCardProps extends SpaceProps {
    * Card title
    */
   title: string;
+  /**
+   * Callback for more button
+   */
+  onClickMore: () => void;
   /**
    * Card title
    */
@@ -27,7 +31,7 @@ export interface FlagCardProps extends SpaceProps {
 }
 
 const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
-  ({ title, description, environments, date, ...props }, ref) => {
+  ({ title, description, environments, date, onClickMore, ...props }, ref) => {
     const theme = useTheme();
 
     return (
@@ -55,6 +59,13 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
         <Text data-testid="flag-date" mt="auto" size="small" muted>
           {date}
         </Text>
+        <IconButton
+          position="absolute"
+          top="14px"
+          right="14px"
+          icon="more_horiz"
+          onClick={onClickMore}
+        />
       </StyledCard>
     );
   }
