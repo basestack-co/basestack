@@ -42,6 +42,7 @@ const colors = {
 };
 
 const zIndex = {
+  modal: 101,
   navigation: 100,
 };
 

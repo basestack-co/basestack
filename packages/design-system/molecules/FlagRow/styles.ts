@@ -3,6 +3,7 @@ import { Card } from "../../atoms";
 import { rem } from "polished";
 
 export const StyledCard = styled(Card)`
+  padding: ${rem("10px")};
   transition: box-shadow 0.2s ease-in-out;
   &:hover {
     box-shadow: ${({ theme }) => theme.shadow.elevation4};

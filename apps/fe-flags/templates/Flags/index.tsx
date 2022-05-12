@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlagCard, FlagRow, Text, Toolbar } from "design-system";
+import { FlagCard, FlagRow, Text, Toolbar, Modal } from "design-system";
 import { Container, FlagsCardContainer, FlagsTableContainer } from "./styles";
 import { useTheme } from "styled-components";
 import { mockFlags } from "./mockData";
@@ -23,6 +23,8 @@ const Flags = () => {
   const [selectedView, setSelectedView] = useState("cards");
   const [cardsDestroyed, setCardsAnimationEnd] = useState(false);
   const [tableDestroyed, setTableAnimationEnd] = useState(true);
+
+  const [openModal, setOpenModal] = useState(false);
 
   console.log("data = ", data);
 
@@ -82,6 +84,18 @@ const Flags = () => {
 
   return (
     <Container>
+      <button onClick={() => setOpenModal(true)}>Open Modal</button>
+      <Modal
+        title="Create Flag"
+        isOpen={openModal}
+        onClose={() => setOpenModal(false)}
+        buttons={[
+          { text: "Close", onClick: () => console.log("yo") },
+          { text: "Create", onClick: () => console.log("yo") },
+        ]}
+      >
+        <Text size="small">Coisas linda aqui dentro</Text>
+      </Modal>
       <Text size="xLarge">Flags</Text>
       <Toolbar
         onChangeView={(selected) => setSelectedView(selected)}
