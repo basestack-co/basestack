@@ -4,13 +4,19 @@ import fetchMock from "jest-fetch-mock";
 import {
   getAllUsersByProjectResponseMock,
   getUsersByProjectArgsMock,
+  getUsersBySearchArgsMock,
+  getAllUsersBySearchResponseMock,
 } from "mocks/users";
 // Utils
 import { setupApiStore } from "utils/setupApiStore";
-import { act, renderHook } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react-hooks";
 import { Provider } from "react-redux";
 // Queries
-import { usersApi, useGetUsersByProjectQuery } from "../users";
+import {
+  usersApi,
+  useGetUsersByProjectQuery,
+  useGetUsersBySearchQuery,
+} from "../users";
 
 const updateTimeout = 5000;
 
@@ -74,6 +80,47 @@ describe("Users Endpoint Tests", () => {
         })
     );
   });
+
+  test("Should getUsersBySearch successful", () => {
+    fetchMock.mockResponse(JSON.stringify(getAllUsersBySearchResponseMock));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          usersApi.endpoints.getUsersBySearch.initiate(getUsersBySearchArgsMock)
+        )
+        .then((action: any) => {
+          const { status, data, isSuccess } = action;
+          expect(status).toBe("fulfilled");
+          expect(isSuccess).toBe(true);
+          expect(data).toStrictEqual(getAllUsersBySearchResponseMock);
+        })
+    );
+  });
+
+  test("Should getUsersBySearch unsuccessful", () => {
+    const storeRef = setupApiStore(usersApi, {});
+    fetchMock.mockReject(new Error("Internal Server Error"));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          usersApi.endpoints.getUsersBySearch.initiate(getUsersBySearchArgsMock)
+        )
+        .then((action: any) => {
+          const {
+            status,
+            error: { error },
+            isError,
+          } = action;
+          expect(status).toBe("rejected");
+          expect(isError).toBe(true);
+          expect(error).toBe("Error: Internal Server Error");
+        })
+    );
+  });
 });
 
 /**
@@ -102,6 +149,41 @@ describe("Users Endpoint Hooks Tests", () => {
     fetchMock.mockReject(new Error("Internal Server Error"));
     const { result, waitForNextUpdate } = renderHook(
       () => useGetUsersByProjectQuery(getUsersByProjectArgsMock),
+      { wrapper }
+    );
+    const initialResponse = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const nextResponse = result.current;
+    expect(nextResponse.data).toBeUndefined();
+    expect(nextResponse.isLoading).toBe(false);
+    expect(nextResponse.isError).toBe(true);
+  });
+
+  it("Should use useGetUsersBySearchQuery with Success", async () => {
+    fetchMock.mockResponse(JSON.stringify(getAllUsersBySearchResponseMock));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useGetUsersBySearchQuery(getUsersBySearchArgsMock),
+      { wrapper }
+    );
+    const initialResponse = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(true);
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const nextResponse = result.current;
+    expect(nextResponse.data).not.toBeUndefined();
+    expect(nextResponse.isLoading).toBe(false);
+    expect(nextResponse.isSuccess).toBe(true);
+  });
+
+  it("Should use useGetUsersBySearchQuery with Error", async () => {
+    fetchMock.mockReject(new Error("Internal Server Error"));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useGetUsersBySearchQuery(getUsersBySearchArgsMock),
       { wrapper }
     );
     const initialResponse = result.current;

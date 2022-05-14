@@ -9,6 +9,10 @@ export interface GetUsersByProjectArgs {
   projectId: string;
 }
 
-export interface UsersByProjectResponse {
+export interface GetUsersBySearchArgs {
+  name: string;
+}
+
+export interface UsersResponse {
   users: User[];
 }

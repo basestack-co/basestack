@@ -11,6 +11,14 @@ export const getUsersByProjectArgsMock = {
   projectId: "cl2npx6a00734d4ue4j3qtlcu",
 };
 
+export const getUsersBySearchArgsMock = {
+  name: "amaral",
+};
+
 export const getAllUsersByProjectResponseMock = {
+  users: usersMock,
+};
+
+export const getAllUsersBySearchResponseMock = {
   users: usersMock,
 };

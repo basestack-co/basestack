@@ -2,19 +2,29 @@
 import { baseApi } from "./base";
 // Types
 import {
-  UsersByProjectResponse,
+  UsersResponse,
   GetUsersByProjectArgs,
+  GetUsersBySearchArgs,
 } from "types/query/users";
 
 // Define users service using BASE API URL and endpoints
 export const usersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getUsersByProject: builder.query<
-      UsersByProjectResponse,
+      UsersResponse,
       Partial<GetUsersByProjectArgs>
     >({
       query: ({ projectId }) => {
         return `/projects/${projectId}/users`;
+      },
+      providesTags: ["Users"],
+    }),
+    getUsersBySearch: builder.query<
+      UsersResponse,
+      Partial<GetUsersBySearchArgs>
+    >({
+      query: ({ name }) => {
+        return `/users?name=${name}`;
       },
       providesTags: ["Users"],
     }),
@@ -23,4 +33,4 @@ export const usersApi = baseApi.injectEndpoints({
 });
 
 // auto-generated based on the defined endpoints
-export const { useGetUsersByProjectQuery } = usersApi;
+export const { useGetUsersByProjectQuery, useGetUsersBySearchQuery } = usersApi;
