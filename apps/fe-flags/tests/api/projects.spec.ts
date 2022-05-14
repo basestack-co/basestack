@@ -1,6 +1,7 @@
 // API
 import projectEndpoints from "pages/api/v1/projects";
 import projectByIdEndpoints from "pages/api/v1/projects/[projectId]";
+import flagsByProjectEndpoints from "pages/api/v1/projects/[projectId]/flags";
 // Mocks
 import { sessionMock } from "mocks/auth";
 import {
@@ -9,6 +10,10 @@ import {
   projectMock,
   projectsOnUsersMock,
 } from "mocks/projects";
+/* import {
+  getAllFlagsByProjectArgsMock,
+  getAllFlagsByProjectResponseMock,
+} from "mocks/flags"; */
 import { methodNotAllowedMock } from "mocks/http";
 // Utils
 import { createMocks } from "node-mocks-http";
@@ -137,6 +142,21 @@ describe("Project by Id API Endpoints Tests", () => {
     expect(res._getStatusCode()).toBe(200);
     expect(JSON.parse(res._getData())).toEqual(
       expect.objectContaining({ project: projectMock })
+    );
+  });
+});
+
+describe("Flags by Project Id API Endpoints Tests", () => {
+  test("Should get error for not supporting HTTP Method", async () => {
+    const { req, res } = createMocks({
+      method: "POST",
+    });
+
+    await flagsByProjectEndpoints(req, res);
+
+    expect(res._getStatusCode()).toBe(405);
+    expect(JSON.parse(res._getData())).toEqual(
+      expect.objectContaining(methodNotAllowedMock)
     );
   });
 });

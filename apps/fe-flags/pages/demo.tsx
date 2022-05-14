@@ -19,6 +19,7 @@ import {
   useGetEnvironmentsQuery,
 } from "store/query/environments";
 import {
+  flagsApi,
   useGetFlagsQuery,
   useCreateFlagMutation,
   useUpdateFlagByIdMutation,
@@ -428,11 +429,35 @@ const FlagsList = ({
 };
 
 const FlagsDemos = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const [envId, setEnvId] = useState("");
   const [projectId, setProjectId] = useState("");
   const [createFlag] = useCreateFlagMutation();
   const [updateFlag] = useUpdateFlagByIdMutation();
   const [deleteFlag] = useDeleteFlagByIdMutation();
+
+  useEffect(() => {
+    const getAllFlagsByProject = async () => {
+      try {
+        const { status, data } = await dispatch(
+          flagsApi.endpoints.getAllFlagsByProject.initiate({
+            projectId,
+          })
+        );
+
+        if (status === "fulfilled") {
+          console.log("all flags by project = ", data);
+        }
+      } catch (error) {
+        console.log("error getting project", error);
+      }
+    };
+
+    if (!isEmpty(projectId)) {
+      console.log("entrou aqui");
+      getAllFlagsByProject();
+    }
+  }, [projectId]);
 
   const formik = useFormik({
     initialValues: {

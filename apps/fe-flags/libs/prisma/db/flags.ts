@@ -14,6 +14,7 @@ import {
   notAuthorizedUpdateFlag,
   notAuthorizedDeleteFlag,
 } from "utils/responses";
+import { groupBy } from "utils/functions";
 // DB
 import { getUserInProject } from "./users";
 
@@ -36,6 +37,82 @@ export const getFlagById = async (flagId: string, res: NextApiResponse) => {
 
     res.status(200).json({
       ...flag,
+    });
+  } catch (error) {
+    return res.status(get(error, "code", 400)).json({
+      error: true,
+      message: get(error, "message", somethingWentWrong),
+    });
+  }
+};
+
+/**
+ *
+ * @param userId
+ * @param projectId
+ * @param res
+ * @param pagination
+ * @returns get all the flags by project id
+ */
+export const getAllFlagsByProject = async (
+  projectId: string,
+  res: NextApiResponse,
+  pagination?: Pagination
+) => {
+  try {
+    const { skip = "0", take = "50" } = pagination;
+
+    const [allFlags, totalFlags] = await prisma.$transaction([
+      prisma.flag.findMany({
+        where: {
+          environment: {
+            project: {
+              id: projectId,
+            },
+          },
+        },
+        select: {
+          id: true,
+          slug: true,
+          description: true,
+          enabled: true,
+          payload: true,
+          expiredAt: true,
+          createdAt: true,
+          updatedAt: true,
+          environment: true,
+        },
+        skip: Number(skip),
+        take: Number(take),
+        orderBy: {
+          createdAt: "desc",
+        },
+      }),
+      prisma.flag.count(),
+    ]);
+
+    const grouped = groupBy(allFlags, (c) => c.slug);
+
+    const flags = Object.keys(grouped || {}).map((key) => {
+      const flags = grouped[key];
+      return {
+        slug: key,
+        flags,
+        environments: flags.map(({ environment: { id, name }, enabled }) => ({
+          id,
+          name,
+          enabled,
+        })),
+      };
+    });
+
+    res.status(200).json({
+      flags,
+      pagination: {
+        skip: Number(skip),
+        take: Number(take),
+        total: totalFlags,
+      },
     });
   } catch (error) {
     return res.status(get(error, "code", 400)).json({
