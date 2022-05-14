@@ -12,6 +12,10 @@ export interface Flag {
   updatedAt: Date;
 }
 
+export interface FlagWithEnv extends Flag {
+  environment: Environment;
+}
+
 export interface FlagsResponse {
   flags: Flag[];
 }
@@ -60,4 +64,20 @@ export interface DeleteFlagArgs {
   flagId: string;
   envId: string;
   projectId: string;
+}
+
+export interface TestFlag {
+  slug: string;
+  flags: Flag[];
+}
+
+export interface FlagsByProjectArgs {
+  projectId: string;
+  pagination?: Pagination;
+}
+
+export interface FlagsByProjectResponse {
+  flags: FlagWithEnv[];
+  environments: Array<{ id: string; name: string; enabled: boolean }>;
+  pagination: Pagination;
 }

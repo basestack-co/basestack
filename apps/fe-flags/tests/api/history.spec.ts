@@ -7,6 +7,7 @@ import {
   createHistoryByProjectIdResponseMock,
   createHistoryArgsMock,
 } from "mocks/history";
+import { projectMock } from "mocks/projects";
 import { methodNotAllowedMock } from "mocks/http";
 // Utils
 import { createMocks } from "node-mocks-http";
@@ -21,6 +22,9 @@ jest.mock("libs/prisma/index", () => ({
   history: {
     findMany: jest.fn(() => historyByProjectIdResponseMock),
     create: jest.fn(() => createHistoryByProjectIdResponseMock),
+  },
+  project: {
+    findFirst: jest.fn(() => projectMock),
   },
 }));
 

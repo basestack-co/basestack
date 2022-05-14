@@ -159,3 +159,76 @@ export const deleteFlagByIdArgsMock = {
   flagId: "cl2aoghvp01596juek13sdfdsf",
   projectId: "cl2aogaew00926juehs2ecs2t",
 };
+
+export const getAllFlagsByProjectArgsMock = {
+  projectId: "cl2aoghvp01596juek134fsdf",
+  pagination: {
+    skip: "0",
+    take: "10",
+  },
+};
+
+export const getAllFlagsByProjectResponseMock = {
+  flags: [
+    {
+      slug: "design",
+      flags: [
+        {
+          id: "cl35vbz8f2294qnw3ksbgr1pm",
+          slug: "design",
+          description: "a default description",
+          enabled: true,
+          payload: "{}",
+          expiredAt: null,
+          createdAt: "2022-05-14T12:52:30.879Z",
+          updatedAt: "2022-05-14T12:52:30.880Z",
+          environment: {
+            id: "cl35tw5q70430qnw3m86wo56d",
+            name: "env2",
+            description: "a default description",
+            slug: "env2",
+            createdAt: "2022-05-14T12:12:13.183Z",
+            updatedAt: "2022-05-14T12:12:13.184Z",
+            projectId: "cl2vs2opt0073osw3kd7q26yd",
+          },
+        },
+        {
+          id: "cl35vbude2203qnw30fkfn4tm",
+          slug: "design",
+          description: "a default description",
+          enabled: false,
+          payload: "{}",
+          expiredAt: null,
+          createdAt: "2022-05-14T12:52:24.578Z",
+          updatedAt: "2022-05-14T12:52:24.579Z",
+          environment: {
+            id: "cl35tw0mu0362qnw36qkn607b",
+            name: "env1",
+            description: "a default description",
+            slug: "env1",
+            createdAt: "2022-05-14T12:12:06.582Z",
+            updatedAt: "2022-05-14T12:12:06.583Z",
+            projectId: "cl2vs2opt0073osw3kd7q26yd",
+          },
+        },
+      ],
+      environments: [
+        {
+          id: "cl35tw5q70430qnw3m86wo56d",
+          name: "env2",
+          enabled: true,
+        },
+        {
+          id: "cl35tw0mu0362qnw36qkn607b",
+          name: "env1",
+          enabled: false,
+        },
+      ],
+    },
+  ],
+  pagination: {
+    skip: 0,
+    take: 10,
+    total: 6,
+  },
+};
