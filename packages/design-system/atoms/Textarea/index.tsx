@@ -11,16 +11,22 @@ export interface TextareaProps extends SpaceProps {
    * Textarea placeholder
    */
   placeholder: string;
+  /**
+   * Textarea onChange
+   */
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 const Textarea: React.FC<TextareaProps> = ({
   placeholder,
   isDarker = false,
+  onChange,
   ...props
 }) => {
   return (
     <StyledTextarea
       data-testid="textarea"
+      onChange={onChange}
       placeholder={placeholder}
       isDarker={isDarker}
       {...props}

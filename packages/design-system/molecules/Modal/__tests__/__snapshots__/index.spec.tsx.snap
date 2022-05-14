@@ -150,6 +150,7 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  padding: 0 1.25rem;
 }
 
 .c1 {
@@ -162,7 +163,7 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  height: 300px;
+  min-height: undefinedpx;
   background-color: #FFFFFF;
   box-shadow: rgba(0,0,0,0.1) 0px 10px 15px -3px,rgba(0,0,0,0.05) 0px 4px 6px -2px;
   border-radius: 4px;
@@ -183,7 +184,7 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
 }
 
 .c7 {
-  padding: 0 1.25rem;
+  padding: 0 1.25rem 1.25rem 1.25rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -217,6 +218,26 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   background-color: rgba(0,0,0,0.5);
 }
 
+@media screen and (max-width:575.98px) {
+  .c0 {
+    -webkit-align-items: initial;
+    -webkit-box-align: initial;
+    -ms-flex-align: initial;
+    align-items: initial;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width:575.98px) {
+  .c1 {
+    height: calc(100vh - 1.875rem);
+  }
+}
+
 <div
     class="c0"
     data-testid="modal-container"
@@ -233,6 +254,305 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
           class="c3"
         >
           Create Flag
+        </h2>
+        <button
+          class="c4"
+        >
+          <div
+            class="c5"
+            data-testid="icon-container"
+            size="24"
+          >
+            <span
+              class="c6 material-symbols-sharp"
+              color="#000000"
+              data-testid="icon"
+              size="24"
+            >
+              close
+            </span>
+          </div>
+        </button>
+      </div>
+      <div
+        class="c7"
+      >
+        Body Content
+      </div>
+      <div
+        class="c8"
+      >
+        <button
+          class="c9"
+        >
+          Close
+        </button>
+        <button
+          class="c10"
+        >
+          Create
+        </button>
+      </div>
+    </div>
+    <div
+      class="c11"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Modal Molecule tests render Modal with custom props 1`] = `
+<DocumentFragment>
+  .c3 {
+  font-size: 1.25rem;
+  line-height: 1.625rem;
+  font-weight: 500;
+  margin-right: 0.5rem;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c5 {
+  height: 1.5rem;
+  width: 1.5rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c6 {
+  color: #000000;
+  font-size: 1.5rem;
+}
+
+.c9 {
+  margin-left: 0.25rem;
+  border: none;
+  height: 2.25rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: transparent;
+  color: #000000;
+}
+
+.c9 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c9:hover {
+  background-color: #EEEEEE;
+}
+
+.c9:active {
+  background-color: #E2E2E2;
+}
+
+.c10 {
+  margin-left: 0.25rem;
+  border: none;
+  height: 2.25rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: #276EF1;
+  color: #FFFFFF;
+}
+
+.c10:hover:not(:active) {
+  background-color: #0e55d7;
+}
+
+.c4 {
+  margin-left: auto;
+  border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: transparent;
+  color: #000000;
+  height: 2.25rem;
+  width: 2.25rem;
+}
+
+.c4 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c4:hover {
+  background-color: #EEEEEE;
+}
+
+.c4:active {
+  background-color: #E2E2E2;
+}
+
+.c0 {
+  position: fixed;
+  inset: 0;
+  z-index: 101;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 0 1.25rem;
+}
+
+.c1 {
+  max-width: 1000px;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-height: 300px;
+  background-color: #FFFFFF;
+  box-shadow: rgba(0,0,0,0.1) 0px 10px 15px -3px,rgba(0,0,0,0.05) 0px 4px 6px -2px;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.c2 {
+  height: 4.6875rem;
+  padding: 0 1.25rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c7 {
+  padding: 0 1.25rem 1.25rem 1.25rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c8 {
+  padding: 1.25rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  margin-top: auto;
+}
+
+.c11 {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: rgba(0,0,0,0.5);
+}
+
+@media screen and (max-width:575.98px) {
+  .c0 {
+    -webkit-align-items: initial;
+    -webkit-box-align: initial;
+    -ms-flex-align: initial;
+    align-items: initial;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width:575.98px) {
+  .c1 {
+    height: calc(100vh - 1.875rem);
+  }
+}
+
+<div
+    class="c0"
+    data-testid="modal-container"
+    style="opacity: 0;"
+  >
+    <div
+      class="c1"
+      style="opacity: 0; transform: translate3d(0px, 50px, 0px);"
+    >
+      <div
+        class="c2"
+      >
+        <h2
+          class="c3"
+        >
+          Create Flag Large
         </h2>
         <button
           class="c4"

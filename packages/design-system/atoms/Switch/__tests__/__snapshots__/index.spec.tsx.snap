@@ -8,7 +8,7 @@ exports[`Switch Atom tests should render Switch checked by default 1`] = `
   font-weight: 400;
   margin-right: 0.75rem;
   font-family: 'Roboto',sans-serif;
-  color: #545454;
+  color: #757575;
 }
 
 .c0 {
@@ -269,7 +269,7 @@ exports[`Switch Atom tests should render Switch with text 1`] = `
   font-weight: 400;
   margin-right: 0.75rem;
   font-family: 'Roboto',sans-serif;
-  color: #545454;
+  color: #757575;
 }
 
 .c0 {

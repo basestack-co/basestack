@@ -17,7 +17,7 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   font-weight: 400;
   margin-top: auto;
   font-family: 'Roboto',sans-serif;
-  color: #545454;
+  color: #757575;
 }
 
 .c2 {

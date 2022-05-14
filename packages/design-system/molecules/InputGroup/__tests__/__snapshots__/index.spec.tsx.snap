@@ -1,0 +1,399 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputGroup Molecule tests should render InputGroup as textarea 1`] = `
+<DocumentFragment>
+  .c1 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c2 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  color: #757575;
+}
+
+.c3 {
+  border: none;
+  background-color: #F6F6F6;
+  min-height: 6.25rem;
+  max-height: 31.25rem;
+  min-width: 100%;
+  max-width: 100%;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  width: 100%;
+  padding: 1rem;
+  color: #757575;
+}
+
+.c3:focus {
+  outline: 2px solid #000000;
+  color: #000000;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+<div
+    class=""
+    data-testid="input-group-container"
+  >
+    <div
+      class="c0"
+    >
+      <p
+        class="c1"
+        data-testid="input-group-title"
+        font-weight="500"
+      >
+        Feature Key
+      </p>
+      <p
+        class="c2"
+        data-testid="input-group-label"
+      />
+    </div>
+    <textarea
+      class="c3"
+      data-testid="textarea"
+      placeholder="Description"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`InputGroup Molecule tests should render InputGroup correctly 1`] = `
+<DocumentFragment>
+  .c1 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c2 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  color: #757575;
+}
+
+.c3 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c4 {
+  border: none;
+  background-color: #F6F6F6;
+  height: 2.75rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  width: 100%;
+  padding: 0 1rem;
+  color: #757575;
+}
+
+.c4:focus {
+  outline: 2px solid #000000;
+  color: #000000;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+<div
+    class=""
+    data-testid="input-group-container"
+  >
+    <div
+      class="c0"
+    >
+      <p
+        class="c1"
+        data-testid="input-group-title"
+        font-weight="500"
+      >
+        Feature Key
+      </p>
+      <p
+        class="c2"
+        data-testid="input-group-label"
+      />
+    </div>
+    <div
+      class="c3"
+      data-testid="input-container"
+    >
+      <input
+        class="c4"
+        data-testid="input"
+        placeholder="E.g. header_size"
+        type="text"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`InputGroup Molecule tests should render InputGroup with hint 1`] = `
+<DocumentFragment>
+  .c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+  font-weight: 400;
+  margin-top: 0.5rem;
+  font-family: 'Roboto',sans-serif;
+  color: #757575;
+}
+
+.c1 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c2 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  color: #757575;
+}
+
+.c3 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c4 {
+  border: none;
+  background-color: #F6F6F6;
+  height: 2.75rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  width: 100%;
+  padding: 0 1rem;
+  color: #757575;
+}
+
+.c4:focus {
+  outline: 2px solid #000000;
+  color: #000000;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+<div
+    class=""
+    data-testid="input-group-container"
+  >
+    <div
+      class="c0"
+    >
+      <p
+        class="c1"
+        data-testid="input-group-title"
+        font-weight="500"
+      >
+        Feature Key
+      </p>
+      <p
+        class="c2"
+        data-testid="input-group-label"
+      />
+    </div>
+    <div
+      class="c3"
+      data-testid="input-container"
+    >
+      <input
+        class="c4"
+        data-testid="input"
+        placeholder="E.g. header_size"
+        type="text"
+      />
+    </div>
+    <span
+      class="c5"
+      data-testid="input-group-hint"
+    >
+      no special characters
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`InputGroup Molecule tests should render InputGroup with label 1`] = `
+<DocumentFragment>
+  .c1 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c2 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  color: #757575;
+}
+
+.c3 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c4 {
+  border: none;
+  background-color: #F6F6F6;
+  height: 2.75rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  width: 100%;
+  padding: 0 1rem;
+  color: #757575;
+}
+
+.c4:focus {
+  outline: 2px solid #000000;
+  color: #000000;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+<div
+    class=""
+    data-testid="input-group-container"
+  >
+    <div
+      class="c0"
+    >
+      <p
+        class="c1"
+        data-testid="input-group-title"
+        font-weight="500"
+      >
+        Feature Key
+      </p>
+      <p
+        class="c2"
+        data-testid="input-group-label"
+      >
+        0 / 120
+      </p>
+    </div>
+    <div
+      class="c3"
+      data-testid="input-container"
+    >
+      <input
+        class="c4"
+        data-testid="input"
+        placeholder="E.g. header_size"
+        type="text"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

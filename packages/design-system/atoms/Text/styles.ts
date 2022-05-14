@@ -7,7 +7,7 @@ const sharedStyles = (color?: string, muted = false) => css`
   ${compose(space, typography)};
   font-family: ${({ theme }) => theme.typography.fontFamily};
   color: ${({ theme }) =>
-    color || (muted ? theme.colors.gray600 : theme.colors.black)};
+    color || (muted ? theme.colors.gray500 : theme.colors.black)};
 `;
 
 export const XSmallText = styled.span<TextProps>`

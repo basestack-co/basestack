@@ -80,7 +80,7 @@ export const Header = styled.div`
 `;
 
 export const Body = styled.div`
-  padding: 0 ${rem("20px")};
+  padding: 0 ${rem("20px")} ${rem("20px")} ${rem("20px")};
   ${flexColumn};
 `;
 

@@ -19,7 +19,7 @@ describe("Text Atom tests", () => {
 
   test("should render muted text", () => {
     const { getByText } = renderWithTheme(<Text muted>muted</Text>);
-    expect(getByText(/muted/)).toHaveStyle(`color: #545454`);
+    expect(getByText(/muted/)).toHaveStyle(`color: #757575`);
   });
 
   test("should render xSmall text", () => {
