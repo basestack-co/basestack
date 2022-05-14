@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "store";
 // Queries
 import {
-  projectsApi,
   useGetProjectsQuery,
   useCreateProjectMutation,
   useUpdateProjectByIdMutation,
@@ -29,6 +28,7 @@ import {
   useGetHistoryQuery,
   useCreateHistoryMutation,
 } from "store/query/history";
+import { useGetUsersByProjectQuery } from "store/query/users";
 // Utils
 import isEmpty from "lodash.isempty";
 // Types
@@ -36,6 +36,7 @@ import { Project } from "types/query/projects";
 import { Environment } from "types/query/environments";
 import { Flag } from "types/query/flags";
 import { History, HistoryAction } from "types/query/history";
+import { User } from "types/query/users";
 // Formik
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -137,6 +138,57 @@ const ProjectsDemos = () => {
           ))}
         </ul>
       )}
+    </div>
+  );
+};
+
+const UsersList = ({ projectId }: { projectId: string }) => {
+  const { isLoading, data } = useGetUsersByProjectQuery(
+    {
+      projectId,
+    },
+    {
+      skip: isEmpty(projectId),
+    }
+  );
+
+  return (
+    <div>
+      <h4>Users on Project list:</h4>
+      {!isLoading && !isEmpty(data) && (
+        <ul>
+          {data.users.map((item: User) => {
+            return (
+              <li key={item.id}>
+                name: <b>{item.name} </b>| email: <b>{item.email}</b> | image:{" "}
+                <b>{item.image}</b>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+const UsersDemos = () => {
+  const [projectId, setProjectId] = useState("");
+
+  return (
+    <div>
+      <div>
+        <br />
+        <h4>Load History</h4>
+        <input
+          placeholder="projectId"
+          type="text"
+          onChange={(e) => setProjectId(e.target.value)}
+          value={projectId}
+        />
+      </div>
+
+      <br />
+      <UsersList projectId={projectId} />
     </div>
   );
 };
@@ -548,7 +600,12 @@ const DemoPage = () => {
       <ProjectsDemos />
 
       <br />
-      <h2>Projects</h2>
+      <h2>Users</h2>
+
+      <UsersDemos />
+
+      <br />
+      <h2>History</h2>
 
       <HistoryDemos />
 
