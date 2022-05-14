@@ -59,3 +59,7 @@ export const notAuthorizedCreateHistory =
 
 export const notAuthorizedUpdateHistory =
   "You are not authorized to update this history";
+
+// USERS
+
+export const notEmptySearchForUsers = "The search cannot be empty";

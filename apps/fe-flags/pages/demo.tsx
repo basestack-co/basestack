@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "store";
 // Queries
 import {
-  projectsApi,
   useGetProjectsQuery,
   useCreateProjectMutation,
   useUpdateProjectByIdMutation,
@@ -29,6 +28,7 @@ import {
   useGetHistoryQuery,
   useCreateHistoryMutation,
 } from "store/query/history";
+import { usersApi, useGetUsersByProjectQuery } from "store/query/users";
 // Utils
 import isEmpty from "lodash.isempty";
 // Types
@@ -36,6 +36,9 @@ import { Project } from "types/query/projects";
 import { Environment } from "types/query/environments";
 import { Flag } from "types/query/flags";
 import { History, HistoryAction } from "types/query/history";
+import { User, UsersResponse } from "types/query/users";
+// Hooks
+import { useDebounce } from "sh-hooks";
 // Formik
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -137,6 +140,108 @@ const ProjectsDemos = () => {
           ))}
         </ul>
       )}
+    </div>
+  );
+};
+
+const UsersList = ({ projectId }: { projectId: string }) => {
+  const { isLoading, data } = useGetUsersByProjectQuery(
+    {
+      projectId,
+    },
+    {
+      skip: isEmpty(projectId),
+    }
+  );
+
+  return (
+    <div>
+      <h4>Users on Project list:</h4>
+      {!isLoading && !isEmpty(data) && (
+        <ul>
+          {data.users.map((item: User) => {
+            return (
+              <li key={item.id}>
+                name: <b>{item.name} </b>| email: <b>{item.email}</b> | image:{" "}
+                <b>{item.image}</b>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+const UsersDemos = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const [projectId, setProjectId] = useState("");
+  const [name, setName] = useState("");
+  const [searchUsers, setSearchUsers] = useState<UsersResponse>(null);
+
+  useDebounce(
+    async () => {
+      try {
+        if (isEmpty(name)) return;
+        const { status, data } = await dispatch(
+          usersApi.endpoints.getUsersBySearch.initiate({
+            name,
+          })
+        );
+
+        if (status === "fulfilled") {
+          setSearchUsers(data);
+        }
+      } catch (error) {
+        console.log("error getting users", error);
+      }
+    },
+    200,
+    [name]
+  );
+
+  return (
+    <div>
+      <div>
+        <br />
+        <h4>Load Users</h4>
+        <input
+          placeholder="projectId"
+          type="text"
+          onChange={(e) => setProjectId(e.target.value)}
+          value={projectId}
+        />
+      </div>
+
+      <br />
+      <UsersList projectId={projectId} />
+
+      <div>
+        <br />
+        <h4>Search Users</h4>
+        <input
+          placeholder="user name"
+          type="text"
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+        />
+      </div>
+
+      <div>
+        <h4>Users Search:</h4>
+        {!isEmpty(searchUsers) && (
+          <ul>
+            {searchUsers.users.map((item: User) => {
+              return (
+                <li key={item.id}>
+                  name: <b>{item.name} </b>| email: <b>{item.email}</b> | image:{" "}
+                  <b>{item.image}</b>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };
@@ -548,7 +653,12 @@ const DemoPage = () => {
       <ProjectsDemos />
 
       <br />
-      <h2>Projects</h2>
+      <h2>Users</h2>
+
+      <UsersDemos />
+
+      <br />
+      <h2>History</h2>
 
       <HistoryDemos />
 
