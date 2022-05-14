@@ -11,6 +11,7 @@ const Button = ({
   children,
   icon,
   iconPlacement = "right",
+  fullWidth = false,
   ...props
 }: ButtonProps) => {
   const theme = useTheme();
@@ -31,6 +32,7 @@ const Button = ({
       hasLeftIcon={hasLeftIcon}
       hasRightIcon={hasRightIcon}
       variant={variant}
+      fullWidth={fullWidth}
       {...customProps}
       {...props}
     >

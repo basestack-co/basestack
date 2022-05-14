@@ -1,14 +1,14 @@
 import React from "react";
 import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
-import FlagCard from "..";
+import FlagRow from "../index";
 
-describe("FlagCard Molecule tests", () => {
+describe("FlagRow Molecule tests", () => {
   afterEach(cleanup);
 
-  test("should render FlagCard correctly", () => {
+  test("should render FlagRow correctly", () => {
     const { asFragment } = renderWithTheme(
-      <FlagCard
+      <FlagRow
         title="header_size"
         description="Display new header for only a number of users"
         environments={[
@@ -17,14 +17,15 @@ describe("FlagCard Molecule tests", () => {
           { text: "Production", isFlagOn: false },
         ]}
         date="Created 11 jan 2022"
+        popupItems={[]}
       />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("should render FlagCard with core elements", () => {
-    const { getByTestId, getByText } = renderWithTheme(
-      <FlagCard
+  test("should render FlagRow with popup items", () => {
+    const { asFragment } = renderWithTheme(
+      <FlagRow
         title="header_size"
         description="Display new header for only a number of users"
         environments={[
@@ -33,22 +34,13 @@ describe("FlagCard Molecule tests", () => {
           { text: "Production", isFlagOn: false },
         ]}
         date="Created 11 jan 2022"
+        popupItems={[
+          { text: "Edit", onClick: () => console.log("") },
+          { text: "History", onClick: () => console.log("") },
+          { text: "Delete", onClick: () => console.log("") },
+        ]}
       />
     );
-    const title = getByTestId("flag-title");
-    const description = getByTestId("flag-description");
-    const labels = getByTestId("flag-labels");
-    const devLabel = getByTestId("Development-flag-label");
-    const stagLabel = getByTestId("Staging-flag-label");
-    const prodLabel = getByTestId("Production-flag-label");
-    const date = getByTestId("flag-date");
-
-    expect(title).toBeVisible();
-    expect(description).toBeVisible();
-    expect(labels).toBeVisible();
-    expect(devLabel).toBeVisible();
-    expect(stagLabel).toBeVisible();
-    expect(prodLabel).toBeVisible();
-    expect(date).toBeVisible();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

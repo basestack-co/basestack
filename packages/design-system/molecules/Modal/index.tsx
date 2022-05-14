@@ -12,6 +12,7 @@ import {
 import { useTheme } from "styled-components";
 import { useTransition, animated, config } from "react-spring";
 import { ModalProps } from "./types";
+import { fadeIn } from "../../animations/springs";
 
 const AnimatedModal = animated(Container);
 const AnimatedSheet = animated(Sheet);
@@ -19,7 +20,7 @@ const AnimatedSheet = animated(Sheet);
 const Modal: React.FC<ModalProps> = ({
   size = "small",
   isOpen = false,
-  expandMobile = true,
+  expandMobile = false,
   title,
   onClose,
   buttons,
@@ -29,14 +30,12 @@ const Modal: React.FC<ModalProps> = ({
   const theme = useTheme();
 
   const transitionModal = useTransition(isOpen, {
-    config: isOpen ? { ...config.stiff, duration: 300 } : { duration: 300 },
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
+    config: { ...config.stiff, duration: 300 },
+    ...fadeIn,
   });
 
   const transitionSheet = useTransition(isOpen, {
-    config: isOpen ? { ...config.stiff, duration: 300 } : { duration: 300 },
+    config: { ...config.stiff, duration: 300 },
     from: { opacity: 0, transform: `translate3d(0px, 50px, 0px)` },
     enter: { opacity: 1, transform: `translate3d(0px, 0px, 0px)` },
     leave: { opacity: 0, transform: `translate3d(0px, 50px, 0px)` },

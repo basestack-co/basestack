@@ -35,9 +35,6 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
 .c5 {
   border: none;
   height: 2.25rem;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -55,6 +52,9 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
   padding-right: 0.5rem;
 }
 
@@ -74,9 +74,6 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
 .c9 {
   border: none;
   height: 2.25rem;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -94,6 +91,9 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .c9 .material-symbols-sharp {
@@ -112,9 +112,6 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
 .c12 {
   border: none;
   height: 2.25rem;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -132,6 +129,9 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #276EF1;
   color: #FFFFFF;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .c12:hover:not(:active) {

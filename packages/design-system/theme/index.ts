@@ -42,7 +42,8 @@ const colors = {
 };
 
 const zIndex = {
-  modal: 101,
+  modal: 102,
+  popup: 101,
   navigation: 100,
 };
 
@@ -67,7 +68,7 @@ const shadow = {
     "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
   elevation5:
     "rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px",
-  elevation6: "box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px",
+  elevation6: "rgba(0, 0, 0, 0.25) 0px 25px 50px -12px",
 };
 
 export const device = {

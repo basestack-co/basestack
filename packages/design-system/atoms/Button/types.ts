@@ -1,5 +1,11 @@
 import { ReactNode } from "react";
-import { SpaceProps, FlexboxProps } from "styled-system";
+import {
+  SpaceProps,
+  FlexboxProps,
+  LayoutProps,
+  TypographyProps,
+  ColorProps,
+} from "styled-system";
 
 export type Variant =
   | "primary"
@@ -8,7 +14,12 @@ export type Variant =
   | "tertiary"
   | "neutral";
 
-export interface ButtonProps extends SpaceProps, FlexboxProps {
+export interface ButtonProps
+  extends SpaceProps,
+    FlexboxProps,
+    LayoutProps,
+    TypographyProps,
+    ColorProps {
   /**
    * Change button or link
    */
@@ -33,4 +44,8 @@ export interface ButtonProps extends SpaceProps, FlexboxProps {
    * Icon Placement
    */
   iconPlacement?: "left" | "right";
+  /**
+   * Set button to full width
+   */
+  fullWidth?: boolean;
 }

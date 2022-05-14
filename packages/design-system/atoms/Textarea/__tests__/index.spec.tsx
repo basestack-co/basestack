@@ -21,7 +21,7 @@ describe("Textarea Atom tests", () => {
     const textarea = getByTestId("textarea");
 
     expect(textarea).toHaveStyle(`background-color: #EEEEEE`);
-    expect(textarea).toHaveStyle(`min-height: ${rem("100px")}`);
+    expect(textarea).toHaveStyle(`min-height: ${rem("150px")}`);
     expect(textarea).toHaveStyle(`font-size: ${rem("14px")}`);
   });
 });

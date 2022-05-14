@@ -20,6 +20,7 @@ const CreateFlagModal = ({
   return (
     <Modal
       title="Create Flag"
+      expandMobile
       isOpen={isModalOpen}
       onClose={onClose}
       buttons={[

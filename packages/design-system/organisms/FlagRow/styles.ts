@@ -1,8 +1,10 @@
 import styled, { css } from "styled-components";
+import { space, position, compose } from "styled-system";
 import { Card } from "../../atoms";
 import { rem } from "polished";
 
 export const StyledCard = styled(Card)`
+  ${compose(space, position)};
   padding: ${rem("10px")};
   transition: box-shadow 0.2s ease-in-out;
   &:hover {

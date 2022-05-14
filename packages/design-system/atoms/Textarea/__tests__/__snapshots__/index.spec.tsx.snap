@@ -5,7 +5,7 @@ exports[`Textarea Atom tests should render Textarea correctly 1`] = `
   .c0 {
   border: none;
   background-color: #F6F6F6;
-  min-height: 6.25rem;
+  min-height: 9.375rem;
   max-height: 31.25rem;
   min-width: 100%;
   max-width: 100%;

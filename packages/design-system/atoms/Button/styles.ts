@@ -1,13 +1,18 @@
 import styled, { css } from "styled-components";
-import { flexbox, space, compose } from "styled-system";
+import {
+  flexbox,
+  space,
+  layout,
+  typography,
+  color,
+  compose,
+} from "styled-system";
 import { rem, darken, lighten } from "polished";
 import { ButtonProps, Variant } from "./types";
 
 const sharedStyles = css`
-  ${compose(flexbox, space)};
   border: none;
   height: ${rem("36px")};
-  width: fit-content;
   display: flex;
   align-items: center;
   padding: 0 ${rem("12px")};
@@ -107,10 +112,21 @@ const handleButtonVariant = (variant?: Variant) => {
 interface Props extends ButtonProps {
   hasLeftIcon: boolean;
   hasRightIcon: boolean;
+  fullWidth: boolean;
 }
 
 export const StyledButton = styled.button<Props>`
   ${({ variant }) => handleButtonVariant(variant)};
+  ${compose(flexbox, space, layout, typography, color)};
+
+  ${({ fullWidth }) =>
+    fullWidth
+      ? css`
+          width: 100%;
+        `
+      : css`
+          width: fit-content;
+        `};
 
   ${({ hasLeftIcon }) =>
     hasLeftIcon &&

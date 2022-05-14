@@ -27,12 +27,8 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
 }
 
 .c9 {
-  margin-left: 0.25rem;
   border: none;
   height: 2.25rem;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -50,6 +46,10 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
+  margin-left: 0.25rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .c9 .material-symbols-sharp {
@@ -65,12 +65,8 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
 }
 
 .c10 {
-  margin-left: 0.25rem;
   border: none;
   height: 2.25rem;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -88,6 +84,10 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #276EF1;
   color: #FFFFFF;
+  margin-left: 0.25rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .c10:hover:not(:active) {
@@ -134,7 +134,7 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
 .c0 {
   position: fixed;
   inset: 0;
-  z-index: 101;
+  z-index: 102;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -154,7 +154,7 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
 }
 
 .c1 {
-  max-width: 500px;
+  max-width: 576px;
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -216,26 +216,6 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   inset: 0;
   z-index: 0;
   background-color: rgba(0,0,0,0.5);
-}
-
-@media screen and (max-width:575.98px) {
-  .c0 {
-    -webkit-align-items: initial;
-    -webkit-box-align: initial;
-    -ms-flex-align: initial;
-    align-items: initial;
-    -webkit-box-pack: end;
-    -webkit-justify-content: flex-end;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
-    padding: 0;
-  }
-}
-
-@media screen and (max-width:575.98px) {
-  .c1 {
-    height: calc(100vh - 1.875rem);
-  }
 }
 
 <div
@@ -326,12 +306,8 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
 }
 
 .c9 {
-  margin-left: 0.25rem;
   border: none;
   height: 2.25rem;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -349,6 +325,10 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
+  margin-left: 0.25rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .c9 .material-symbols-sharp {
@@ -364,12 +344,8 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
 }
 
 .c10 {
-  margin-left: 0.25rem;
   border: none;
   height: 2.25rem;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -387,6 +363,10 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #276EF1;
   color: #FFFFFF;
+  margin-left: 0.25rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .c10:hover:not(:active) {
@@ -433,7 +413,7 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
 .c0 {
   position: fixed;
   inset: 0;
-  z-index: 101;
+  z-index: 102;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -453,7 +433,7 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
 }
 
 .c1 {
-  max-width: 1000px;
+  max-width: 992px;
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -515,26 +495,6 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
   inset: 0;
   z-index: 0;
   background-color: rgba(0,0,0,0.5);
-}
-
-@media screen and (max-width:575.98px) {
-  .c0 {
-    -webkit-align-items: initial;
-    -webkit-box-align: initial;
-    -ms-flex-align: initial;
-    align-items: initial;
-    -webkit-box-pack: end;
-    -webkit-justify-content: flex-end;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
-    padding: 0;
-  }
-}
-
-@media screen and (max-width:575.98px) {
-  .c1 {
-    height: calc(100vh - 1.875rem);
-  }
 }
 
 <div

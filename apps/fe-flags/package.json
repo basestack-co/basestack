@@ -22,6 +22,7 @@
     "db:studio": "prisma studio --schema=./prisma/schema.prisma"
   },
   "dependencies": {
+    "@floating-ui/react-dom": "^0.7.0",
     "@formatjs/intl-utils": "^3.8.4",
     "@next-auth/prisma-adapter": "^1.0.3",
     "@prisma/client": "^3.12.0",

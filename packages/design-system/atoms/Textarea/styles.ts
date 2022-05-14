@@ -9,7 +9,7 @@ export const StyledTextarea = styled.textarea<{
   border: none;
   background-color: ${({ theme, isDarker }) =>
     isDarker ? theme.colors.gray100 : theme.colors.gray50};
-  min-height: ${rem("100px")};
+  min-height: ${rem("150px")};
   max-height: ${rem("500px")};
   min-width: 100%;
   max-width: 100%;

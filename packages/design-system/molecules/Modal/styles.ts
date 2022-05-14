@@ -42,11 +42,11 @@ const handleSheetSize = (size: Size) => {
   switch (size) {
     default:
     case "small":
-      return "500px";
+      return "576px";
     case "medium":
-      return "750px";
+      return "768px";
     case "large":
-      return "1000px";
+      return "992px";
   }
 };
 

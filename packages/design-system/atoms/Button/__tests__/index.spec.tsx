@@ -97,4 +97,14 @@ describe("Button Atom tests", () => {
     expect(button).toHaveStyle(`color: #000000`);
     expect(button).toHaveStyle(`background-color: transparent`);
   });
+
+  test("should render fullWidth Button", () => {
+    const { getByText } = renderWithTheme(
+      <Button variant="secondary" fullWidth>
+        fullWidth
+      </Button>
+    );
+    const button = getByText(/fullWidth/);
+    expect(button).toHaveStyle(`width: 100%`);
+  });
 });

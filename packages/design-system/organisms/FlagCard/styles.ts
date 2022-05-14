@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { space, position, compose } from "styled-system";
 import { Label, Card } from "../../atoms";
 
 export const StyledCard = styled(Card)`
+  ${compose(space, position)};
   position: relative;
   transition: box-shadow 0.2s ease-in-out;
   &:hover {

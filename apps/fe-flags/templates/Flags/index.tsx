@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlagCard, FlagRow, Text, Toolbar, Modal } from "design-system";
+import { FlagCard, FlagRow, Text, Toolbar, slideTop } from "design-system";
 import { Container, FlagsCardContainer, FlagsTableContainer } from "./styles";
 import { useTheme } from "styled-components";
 import { mockFlags } from "./mockData";
@@ -24,30 +24,19 @@ const Flags = () => {
   const [cardsDestroyed, setCardsAnimationEnd] = useState(false);
   const [tableDestroyed, setTableAnimationEnd] = useState(true);
 
-  useEffect(() => {
-    if (selectedEnvironment !== "all") {
-    }
-  }, [selectedEnvironment]);
-
   const showCards = selectedView === "cards";
   const showTable = selectedView === "table";
 
-  const transitionsProps = {
-    from: { opacity: 0, transform: `translate3d(0px, 10px, 0px)` },
-    enter: { opacity: 1, transform: `translate3d(0px, 0px, 0px)` },
-    leave: { opacity: 0, transform: `translate3d(0px, 10px, 0px)` },
-  };
-
   const transitionCardsRef = useSpringRef();
   const transitionCards = useTransition(
-    showCards && tableDestroyed ? mockFlags : [],
+    showCards && tableDestroyed ? data : [],
     {
       ref: transitionCardsRef,
       config: showCards
         ? { ...config.stiff, duration: 300 }
         : { duration: 300 },
-      trail: 400 / mockFlags.length,
-      ...transitionsProps,
+      trail: 400 / data.length,
+      ...slideTop,
       onDestroyed: () => {
         setCardsAnimationEnd(true);
         setTableAnimationEnd(false);
@@ -57,14 +46,14 @@ const Flags = () => {
 
   const transitionTableRef = useSpringRef();
   const transitionTable = useTransition(
-    showTable && cardsDestroyed ? mockFlags : [],
+    showTable && cardsDestroyed ? data : [],
     {
       ref: transitionTableRef,
       config: showTable
         ? { ...config.stiff, duration: 300 }
         : { duration: 300 },
-      trail: 400 / mockFlags.length,
-      ...transitionsProps,
+      trail: 400 / data.length,
+      ...slideTop,
       onDestroyed: () => {
         setTableAnimationEnd(true);
         setCardsAnimationEnd(false);
@@ -90,28 +79,40 @@ const Flags = () => {
       />
       <FlagsCardContainer>
         {transitionCards(
-          (styles, flag) =>
+          (styles, flag, _, index) =>
             flag && (
               <AnimatedFlagCard
                 style={styles}
+                zIndex={data.length - index}
                 title={flag.title}
                 description={flag.description}
                 environments={flag.environments}
                 date={flag.date}
+                popupItems={[
+                  { text: "Edit", onClick: () => console.log("") },
+                  { text: "History", onClick: () => console.log("") },
+                  { text: "Delete", onClick: () => console.log("") },
+                ]}
               />
             )
         )}
       </FlagsCardContainer>
       <FlagsTableContainer>
         {transitionTable(
-          (styles, flag) =>
+          (styles, flag, _, index) =>
             flag && (
               <AnimatedFlagRow
                 style={styles}
+                zIndex={data.length - index}
                 title={flag.title}
                 description={flag.description}
                 environments={flag.environments}
                 date={flag.date}
+                popupItems={[
+                  { text: "Edit", onClick: () => console.log("") },
+                  { text: "History", onClick: () => console.log("") },
+                  { text: "Delete", onClick: () => console.log("") },
+                ]}
               />
             )
         )}
