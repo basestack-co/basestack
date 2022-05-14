@@ -8,10 +8,7 @@ import {
   LogoContainer,
   ButtonContainer,
 } from "./styles";
-
-interface ButtonLinkProps {
-  isActive: boolean;
-}
+import { ButtonLinkProps, NavigationProps } from "./types";
 
 const ButtonLink: React.FC<ButtonLinkProps> = ({
   isActive = false,
@@ -24,7 +21,7 @@ const ButtonLink: React.FC<ButtonLinkProps> = ({
   </ButtonContainer>
 );
 
-const Navigation = () => {
+const Navigation = ({ onCreateFlag }: NavigationProps) => {
   const theme = useTheme();
 
   return (
@@ -52,7 +49,9 @@ const Navigation = () => {
           <ButtonLink isActive={false}>Settings</ButtonLink>
         </ListItem>
         <ListItem ml={theme.spacing.s3}>
-          <Button variant="primary">Create flag</Button>
+          <Button onClick={onCreateFlag} variant="primary">
+            Create flag
+          </Button>
         </ListItem>
       </List>
       <List ml="auto" data-testid="navigation-right-ul">

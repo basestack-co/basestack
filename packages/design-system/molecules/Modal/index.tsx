@@ -11,46 +11,19 @@ import {
 } from "./styles";
 import { useTheme } from "styled-components";
 import { useTransition, animated, config } from "react-spring";
-
-export type Size = "small" | "medium" | "large" | "fullWidth";
-
-export type Button = {
-  text: string;
-  onClick: () => void;
-};
-
-export interface IconProps {
-  /**
-   * Modal size
-   */
-  size?: Size;
-  /**
-   * Modal title
-   */
-  title: string;
-  /**
-   * onClose callback
-   */
-  onClose: () => void;
-  /**
-   * Footer buttons
-   */
-  buttons: Array<Button>;
-  /**
-   * If modal is open
-   */
-  isOpen: boolean;
-}
+import { ModalProps } from "./types";
 
 const AnimatedModal = animated(Container);
 const AnimatedSheet = animated(Sheet);
 
-const Modal: React.FC<IconProps> = ({
+const Modal: React.FC<ModalProps> = ({
   size = "small",
   isOpen = false,
+  expandMobile = true,
   title,
   onClose,
   buttons,
+  minHeight,
   children,
 }) => {
   const theme = useTheme();
@@ -72,12 +45,21 @@ const Modal: React.FC<IconProps> = ({
   return transitionModal(
     (styles, item) =>
       item && (
-        <AnimatedModal style={styles} data-testid="modal-container">
+        <AnimatedModal
+          expandMobile={expandMobile}
+          style={styles}
+          data-testid="modal-container"
+        >
           <GlobalStyle />
           {transitionSheet(
             (styles, item) =>
               item && (
-                <AnimatedSheet style={styles}>
+                <AnimatedSheet
+                  expandMobile={expandMobile}
+                  size={size}
+                  minHeight={minHeight}
+                  style={styles}
+                >
                   <Header>
                     <Text size="xLarge" mr={theme.spacing.s2}>
                       {title}

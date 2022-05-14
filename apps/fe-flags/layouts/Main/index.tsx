@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 // Router
 import { useRouter } from "next/router";
 // Store
@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 // import { RootState } from "store";
 // Auth
 import { useSession } from "next-auth/react";
-import { Navigation } from "design-system";
+import { Navigation, CreateFlagModal } from "design-system";
 
 const MainLayout: React.FC = ({ children }) => {
   const router = useRouter();
@@ -16,6 +16,9 @@ const MainLayout: React.FC = ({ children }) => {
       router.push("/auth/sign-in");
     },
   });
+
+  const [isCreateFlagModalOpen, setIsCreateFlagModalOpen] = useState(false);
+
   /* const isNavCollapsed = useSelector(
     (store: RootState) => store.app.isNavCollapsed
   ); */
@@ -26,7 +29,12 @@ const MainLayout: React.FC = ({ children }) => {
 
   return (
     <Fragment>
-      <Navigation />
+      <Navigation onCreateFlag={() => setIsCreateFlagModalOpen(true)} />
+      <CreateFlagModal
+        onCreate={() => setIsCreateFlagModalOpen(false)}
+        isModalOpen={isCreateFlagModalOpen}
+        onClose={() => setIsCreateFlagModalOpen(false)}
+      />
       {children}
     </Fragment>
   );

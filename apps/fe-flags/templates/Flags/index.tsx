@@ -24,10 +24,6 @@ const Flags = () => {
   const [cardsDestroyed, setCardsAnimationEnd] = useState(false);
   const [tableDestroyed, setTableAnimationEnd] = useState(true);
 
-  const [openModal, setOpenModal] = useState(false);
-
-  console.log("data = ", data);
-
   useEffect(() => {
     if (selectedEnvironment !== "all") {
     }
@@ -84,18 +80,6 @@ const Flags = () => {
 
   return (
     <Container>
-      <button onClick={() => setOpenModal(true)}>Open Modal</button>
-      <Modal
-        title="Create Flag"
-        isOpen={openModal}
-        onClose={() => setOpenModal(false)}
-        buttons={[
-          { text: "Close", onClick: () => console.log("yo") },
-          { text: "Create", onClick: () => console.log("yo") },
-        ]}
-      >
-        <Text size="small">Coisas linda aqui dentro</Text>
-      </Modal>
       <Text size="xLarge">Flags</Text>
       <Toolbar
         onChangeView={(selected) => setSelectedView(selected)}
