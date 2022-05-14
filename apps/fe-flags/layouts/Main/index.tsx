@@ -7,8 +7,9 @@ import { useRouter } from "next/router";
 // Auth
 import { useSession } from "next-auth/react";
 
-
-const MainLayout: React.FunctionComponent<React.PropsWithChildren> = ({ children }) => {
+const MainLayout: React.FunctionComponent<React.PropsWithChildren> = ({
+  children,
+}) => {
   const router = useRouter();
   const { status } = useSession({
     required: true,

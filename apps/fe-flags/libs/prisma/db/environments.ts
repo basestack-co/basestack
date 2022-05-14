@@ -6,15 +6,7 @@ import prisma from "libs/prisma";
 import { EnvironmentArgs } from "types/query/environments";
 // Utils
 import get from "lodash.get";
-import isEmpty from "lodash.isempty";
-import {
-  somethingWentWrong,
-  notAuthorizedCreateEnv,
-  notAuthorizedUpdateEnv,
-  notAuthorizedDeleteEnv,
-} from "utils/responses";
-// DB
-import { getUserInProject } from "./users";
+import { somethingWentWrong } from "utils/responses";
 
 /**
  *
@@ -68,36 +60,26 @@ export const getAllEnvironments = async (
  */
 
 export const createEnvironment = async (
-  userId: string,
-  projectId: string,
   data: EnvironmentArgs,
   res: NextApiResponse
 ) => {
   try {
-    // checks if the user is in the project
-    const user = await getUserInProject(userId, projectId);
-
-    // This user can create an environment in this project
-    if (!isEmpty(user)) {
-      const environment = await prisma.environment.create({
-        data: {
-          name: data.name,
-          slug: data.slug,
-          description: data.description,
-          project: {
-            connect: {
-              id: data.projectId,
-            },
+    const environment = await prisma.environment.create({
+      data: {
+        name: data.name,
+        slug: data.slug,
+        description: data.description,
+        project: {
+          connect: {
+            id: data.projectId,
           },
         },
-      });
+      },
+    });
 
-      res.status(200).json({
-        environment,
-      });
-    } else {
-      throw new Error(notAuthorizedCreateEnv);
-    }
+    res.status(200).json({
+      environment,
+    });
   } catch (error) {
     return res.status(get(error, "code", 400)).json({
       error: true,
@@ -119,34 +101,24 @@ export const createEnvironment = async (
 
 export const updateEnvironmentById = async (
   res: NextApiResponse,
-  userId: string,
-  projectId: string,
   environmentId: string,
   name: string,
   description?: string
 ) => {
   try {
-    // checks if the user is in the project
-    const user = await getUserInProject(userId, projectId);
+    const environment = await prisma.environment.update({
+      where: {
+        id: environmentId,
+      },
+      data: {
+        name,
+        description,
+      },
+    });
 
-    // This user can update an environment in this project
-    if (!isEmpty(user)) {
-      const environment = await prisma.environment.update({
-        where: {
-          id: environmentId,
-        },
-        data: {
-          name,
-          description,
-        },
-      });
-
-      res.status(200).json({
-        environment,
-      });
-    } else {
-      throw new Error(notAuthorizedUpdateEnv);
-    }
+    res.status(200).json({
+      environment,
+    });
   } catch (error) {
     return res.status(get(error, "code", 400)).json({
       error: true,
@@ -164,29 +136,19 @@ export const updateEnvironmentById = async (
  * @returns deletes a environment by id
  */
 export const deleteEnvironmentById = async (
-  userId: string,
-  projectId: string,
   environmentId: string,
   res: NextApiResponse
 ) => {
   try {
-    // checks if the user is in the project
-    const user = await getUserInProject(userId, projectId);
+    const environment = await prisma.environment.delete({
+      where: {
+        id: environmentId,
+      },
+    });
 
-    // This user can update an environment in this project
-    if (!isEmpty(user)) {
-      const environment = await prisma.environment.delete({
-        where: {
-          id: environmentId,
-        },
-      });
-
-      res.status(200).json({
-        environment,
-      });
-    } else {
-      throw new Error(notAuthorizedDeleteEnv);
-    }
+    res.status(200).json({
+      environment,
+    });
   } catch (error) {
     return res.status(get(error, "code", 400)).json({
       error: true,

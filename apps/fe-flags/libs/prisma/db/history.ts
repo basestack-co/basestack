@@ -3,7 +3,7 @@ import type { NextApiResponse } from "next";
 // Prisma
 import prisma from "libs/prisma";
 // Types
-import { HistoryAction, HistoryPayload } from "types/query/history";
+import { HistoryAction } from "types/query/history";
 // Utils
 import get from "lodash.get";
 import isEmpty from "lodash.isempty";

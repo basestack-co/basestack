@@ -47,25 +47,6 @@ const ProjectsDemos = () => {
   const [updateProject] = useUpdateProjectByIdMutation();
   const [deleteProject] = useDeleteProjectByIdMutation();
 
-  useEffect(() => {
-    const getProject = async () => {
-      try {
-        const { status, data } = await dispatch(
-          projectsApi.endpoints.getProjectById.initiate({
-            projectId: "cl1l86cxb00790zuey3az0e0d",
-          })
-        );
-
-        if (status === "fulfilled") {
-          console.log("project by id = ", data.project);
-        }
-      } catch (error) {
-        console.log("error getting project", error);
-      }
-    };
-    getProject();
-  }, []);
-
   const formik = useFormik({
     initialValues: {
       name: "",

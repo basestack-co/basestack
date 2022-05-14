@@ -33,6 +33,7 @@ jest.mock("libs/prisma/index", () => ({
     findUnique: jest.fn(() => projectMock),
     update: jest.fn(() => projectMock),
     delete: jest.fn(() => projectMock),
+    findFirst: jest.fn(() => projectMock),
   },
   projectsOnUsers: {
     create: jest.fn(() => projectsOnUsersMock),

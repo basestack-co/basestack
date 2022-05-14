@@ -7,16 +7,8 @@ import { Pagination } from "types/query/generic";
 import { CreateFlagArgs, UpdateFlagArgs } from "types/query/flags";
 // Utils
 import get from "lodash.get";
-import isEmpty from "lodash.isempty";
-import {
-  somethingWentWrong,
-  notAuthorizedCreateFlag,
-  notAuthorizedUpdateFlag,
-  notAuthorizedDeleteFlag,
-} from "utils/responses";
+import { somethingWentWrong } from "utils/responses";
 import { groupBy } from "utils/functions";
-// DB
-import { getUserInProject } from "./users";
 
 /**
  *
@@ -212,35 +204,25 @@ export const getAllFlags = async (
  * @returns create a new flag
  */
 export const createFlag = async (
-  userId: string,
-  projectId: string,
   envId: string,
   data: CreateFlagArgs,
   res: NextApiResponse
 ) => {
   try {
-    // checks if the user is in the project
-    const user = await getUserInProject(userId, projectId);
+    const flag = await prisma.flag.create({
+      data: {
+        slug: data.slug,
+        environmentId: envId,
+        enabled: data.enabled,
+        payload: data.payload,
+        expiredAt: data.expiredAt,
+        description: data.description,
+      },
+    });
 
-    // This user can create an flag in this project
-    if (!isEmpty(user)) {
-      const flag = await prisma.flag.create({
-        data: {
-          slug: data.slug,
-          environmentId: envId,
-          enabled: data.enabled,
-          payload: data.payload,
-          expiredAt: data.expiredAt,
-          description: data.description,
-        },
-      });
-
-      res.status(200).json({
-        flag,
-      });
-    } else {
-      throw new Error(notAuthorizedCreateFlag);
-    }
+    res.status(200).json({
+      flag,
+    });
   } catch (error) {
     return res.status(get(error, "code", 400)).json({
       error: true,
@@ -260,35 +242,25 @@ export const createFlag = async (
  */
 export const updateFlagById = async (
   res: NextApiResponse,
-  userId: string,
-  projectId: string,
   flagId: string,
   data: UpdateFlagArgs
 ) => {
   try {
-    // checks if the user is in the project
-    const user = await getUserInProject(userId, projectId);
+    const flag = await prisma.flag.update({
+      where: {
+        id: flagId,
+      },
+      data: {
+        description: data.description,
+        enabled: data.enabled,
+        expiredAt: data.expiredAt,
+        payload: data.payload,
+      },
+    });
 
-    // This user can update an flag in this project
-    if (!isEmpty(user)) {
-      const flag = await prisma.flag.update({
-        where: {
-          id: flagId,
-        },
-        data: {
-          description: data.description,
-          enabled: data.enabled,
-          expiredAt: data.expiredAt,
-          payload: data.payload,
-        },
-      });
-
-      res.status(200).json({
-        flag,
-      });
-    } else {
-      throw new Error(notAuthorizedUpdateFlag);
-    }
+    res.status(200).json({
+      flag,
+    });
   } catch (error) {
     return res.status(get(error, "code", 400)).json({
       error: true,
@@ -306,30 +278,17 @@ export const updateFlagById = async (
  * @returns deletes a flag by id
  */
 
-export const deleteFlagById = async (
-  res: NextApiResponse,
-  userId: string,
-  projectId: string,
-  flagId: string
-) => {
+export const deleteFlagById = async (res: NextApiResponse, flagId: string) => {
   try {
-    // checks if the user is in the project
-    const user = await getUserInProject(userId, projectId);
+    const flag = await prisma.flag.delete({
+      where: {
+        id: flagId,
+      },
+    });
 
-    // This user can delete a flag in this project
-    if (!isEmpty(user)) {
-      const flag = await prisma.flag.delete({
-        where: {
-          id: flagId,
-        },
-      });
-
-      res.status(200).json({
-        flag,
-      });
-    } else {
-      throw new Error(notAuthorizedDeleteFlag);
-    }
+    res.status(200).json({
+      flag,
+    });
   } catch (error) {
     return res.status(get(error, "code", 400)).json({
       error: true,

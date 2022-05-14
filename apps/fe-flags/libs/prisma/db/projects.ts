@@ -3,7 +3,7 @@ import type { NextApiResponse } from "next";
 // Prisma
 import prisma from "libs/prisma";
 // Types
-import { ProjectArgs, UpdateProjectArgs } from "types/query/projects";
+import { ProjectArgs } from "types/query/projects";
 // Utils
 import get from "lodash.get";
 import { somethingWentWrong } from "utils/responses";

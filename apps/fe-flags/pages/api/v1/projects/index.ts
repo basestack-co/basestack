@@ -4,9 +4,9 @@ import { getAllProjects, createProject } from "libs/prisma/db/projects";
 // Auth
 import { getSession } from "next-auth/react";
 // Utils
+import { methodNotAllowed, unauthorized } from "utils/responses";
 import isEmpty from "lodash.isempty";
 import get from "lodash.get";
-import { unauthorized, methodNotAllowed } from "utils/responses";
 
 const Projects = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });

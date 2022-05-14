@@ -1,21 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 // DB
 import { getAllFlagsByProject } from "libs/prisma/db/flags";
-// Auth
-import { getSession } from "next-auth/react";
+// Middleware
+import runAuthorizationMiddleware from "libs/middleware/authorization";
 // Utils
-import isEmpty from "lodash.isempty";
 import get from "lodash.get";
-import { unauthorized, methodNotAllowed } from "utils/responses";
+import { methodNotAllowed } from "utils/responses";
 
 const FlagsByProject = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getSession({ req });
+  await runAuthorizationMiddleware(req, res);
 
-  if (isEmpty(session)) {
-    return res.status(401).json(unauthorized);
-  }
-
-  const userId = get(session, "user.id", "") as string;
   const projectId = get(req, "query.projectId", "");
 
   switch (req.method) {
