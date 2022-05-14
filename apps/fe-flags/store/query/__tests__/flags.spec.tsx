@@ -12,6 +12,8 @@ import {
   updateFlagByIdResponseMock,
   deleteFlagByIdResponseMock,
   deleteFlagByIdArgsMock,
+  getAllFlagsByProjectResponseMock,
+  getAllFlagsByProjectArgsMock,
 } from "mocks/flags";
 // Utils
 import { setupApiStore } from "utils/setupApiStore";
@@ -25,6 +27,7 @@ import {
   useGetFlagByIdQuery,
   useUpdateFlagByIdMutation,
   useDeleteFlagByIdMutation,
+  useGetAllFlagsByProjectQuery,
 } from "../flags";
 
 const updateTimeout = 5000;
@@ -169,6 +172,51 @@ describe("Flags Endpoint Tests", () => {
         .then((action: any) => {
           const { data } = action;
           expect(data).toStrictEqual(deleteFlagByIdResponseMock);
+        })
+    );
+  });
+
+  test("Should getAllFlagsByProject successful", () => {
+    fetchMock.mockResponse(JSON.stringify(getAllFlagsByProjectResponseMock));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          flagsApi.endpoints.getAllFlagsByProject.initiate(
+            getAllFlagsByProjectArgsMock
+          )
+        )
+        .then((action: any) => {
+          const { status, data, isSuccess } = action;
+          expect(status).toBe("fulfilled");
+          expect(isSuccess).toBe(true);
+          expect(data).toStrictEqual(getAllFlagsByProjectResponseMock);
+        })
+    );
+  });
+
+  test("Should getAllFlagsByProject unsuccessful", () => {
+    const storeRef = setupApiStore(flagsApi, {});
+    fetchMock.mockReject(new Error("Internal Server Error"));
+
+    return (
+      storeRef.store
+        // @ts-ignore
+        .dispatch<any>(
+          flagsApi.endpoints.getAllFlagsByProject.initiate(
+            getAllFlagsByProjectArgsMock
+          )
+        )
+        .then((action: any) => {
+          const {
+            status,
+            error: { error },
+            isError,
+          } = action;
+          expect(status).toBe("rejected");
+          expect(isError).toBe(true);
+          expect(error).toBe("Error: Internal Server Error");
         })
     );
   });
@@ -415,5 +463,40 @@ describe("Flags Endpoint Hooks Tests", () => {
     expect(loadedResponse.data).toBeUndefined();
     expect(loadedResponse.isLoading).toBe(false);
     expect(loadedResponse.isError).toBe(true);
+  });
+
+  it("Should use useGetAllFlagsByProjectQuery with Success", async () => {
+    fetchMock.mockResponse(JSON.stringify(getAllFlagsByProjectResponseMock));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useGetAllFlagsByProjectQuery(getAllFlagsByProjectArgsMock),
+      { wrapper }
+    );
+    const initialResponse = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(true);
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const nextResponse = result.current;
+    expect(nextResponse.data).not.toBeUndefined();
+    expect(nextResponse.isLoading).toBe(false);
+    expect(nextResponse.isSuccess).toBe(true);
+  });
+
+  it("Should use useGetAllFlagsByProjectQuery with Error", async () => {
+    fetchMock.mockReject(new Error("Internal Server Error"));
+    const { result, waitForNextUpdate } = renderHook(
+      () => useGetAllFlagsByProjectQuery(getAllFlagsByProjectArgsMock),
+      { wrapper }
+    );
+    const initialResponse = result.current;
+    expect(initialResponse.data).toBeUndefined();
+    expect(initialResponse.isLoading).toBe(true);
+
+    await waitForNextUpdate({ timeout: updateTimeout });
+
+    const nextResponse = result.current;
+    expect(nextResponse.data).toBeUndefined();
+    expect(nextResponse.isLoading).toBe(false);
+    expect(nextResponse.isError).toBe(true);
   });
 });

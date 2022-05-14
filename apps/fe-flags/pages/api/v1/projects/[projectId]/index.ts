@@ -5,19 +5,14 @@ import {
   updateProjectById,
   deleteProjectById,
 } from "libs/prisma/db/projects";
-// Auth
-import { getSession } from "next-auth/react";
+// Middleware
+import runAuthorizationMiddleware from "libs/middleware/authorization";
 // Utils
-import isEmpty from "lodash.isempty";
 import get from "lodash.get";
-import { unauthorized, methodNotAllowed } from "utils/responses";
+import { methodNotAllowed } from "utils/responses";
 
 const ProjectsById = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getSession({ req });
-
-  if (isEmpty(session)) {
-    return res.status(401).json(unauthorized);
-  }
+  await runAuthorizationMiddleware(req, res);
 
   const projectId = get(req, "query.projectId", "");
 

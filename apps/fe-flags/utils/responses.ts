@@ -12,7 +12,20 @@ export const methodNotAllowed = {
   message: `The HTTP method is not supported at this route.`,
 };
 
+export const unauthorizedUserInProject = {
+  code: 401,
+  error: true,
+  message:
+    "You are not authorized for this project, request access to the project administrator",
+};
+
 export const somethingWentWrong = "Something went wrong";
+
+export const notAuthorizedUser =
+  "You must be sign in to view the protected content on this page";
+
+export const notAuthorizedUserInProject =
+  "You are not authorized for this project, request access to the project administrator";
 
 export const notAuthorizedActionProject =
   "You are not authorized to do this action in this project";

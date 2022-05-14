@@ -19,6 +19,7 @@ import {
   useGetEnvironmentsQuery,
 } from "store/query/environments";
 import {
+  flagsApi,
   useGetFlagsQuery,
   useCreateFlagMutation,
   useUpdateFlagByIdMutation,
@@ -45,25 +46,6 @@ const ProjectsDemos = () => {
   const [createProject] = useCreateProjectMutation();
   const [updateProject] = useUpdateProjectByIdMutation();
   const [deleteProject] = useDeleteProjectByIdMutation();
-
-  useEffect(() => {
-    const getProject = async () => {
-      try {
-        const { status, data } = await dispatch(
-          projectsApi.endpoints.getProjectById.initiate({
-            projectId: "cl1l86cxb00790zuey3az0e0d",
-          })
-        );
-
-        if (status === "fulfilled") {
-          console.log("project by id = ", data.project);
-        }
-      } catch (error) {
-        console.log("error getting project", error);
-      }
-    };
-    getProject();
-  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -428,11 +410,35 @@ const FlagsList = ({
 };
 
 const FlagsDemos = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const [envId, setEnvId] = useState("");
   const [projectId, setProjectId] = useState("");
   const [createFlag] = useCreateFlagMutation();
   const [updateFlag] = useUpdateFlagByIdMutation();
   const [deleteFlag] = useDeleteFlagByIdMutation();
+
+  useEffect(() => {
+    const getAllFlagsByProject = async () => {
+      try {
+        const { status, data } = await dispatch(
+          flagsApi.endpoints.getAllFlagsByProject.initiate({
+            projectId,
+          })
+        );
+
+        if (status === "fulfilled") {
+          console.log("all flags by project = ", data);
+        }
+      } catch (error) {
+        console.log("error getting project", error);
+      }
+    };
+
+    if (!isEmpty(projectId)) {
+      console.log("entrou aqui");
+      getAllFlagsByProject();
+    }
+  }, [projectId]);
 
   const formik = useFormik({
     initialValues: {

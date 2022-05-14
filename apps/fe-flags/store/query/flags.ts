@@ -10,6 +10,8 @@ import {
   FlagByIdResponse,
   UpdateFlagArgs,
   DeleteFlagArgs,
+  FlagsByProjectArgs,
+  FlagsByProjectResponse,
 } from "types/query/flags";
 import { HistoryAction } from "types/query/history";
 // Utils
@@ -27,6 +29,16 @@ export const flagsApi = baseApi.injectEndpoints({
           isEmpty(pagination) ? "" : "?"
         }${urlQueryBuilder(pagination)}`,
       providesTags: ["Flags"],
+    }),
+    getAllFlagsByProject: builder.query<
+      FlagsByProjectResponse,
+      Partial<FlagsByProjectArgs>
+    >({
+      query: ({ projectId, pagination = {} }) =>
+        `/projects/${projectId}/flags${
+          isEmpty(pagination) ? "" : "?"
+        }${urlQueryBuilder(pagination)}`,
+      providesTags: ["FlagsByProject"],
     }),
     getFlagById: builder.query<FlagByIdResponse, Partial<FlagByIdArgs>>({
       query: ({ projectId, envId, flagId }) =>
@@ -145,4 +157,5 @@ export const {
   useGetFlagByIdQuery,
   useUpdateFlagByIdMutation,
   useDeleteFlagByIdMutation,
+  useGetAllFlagsByProjectQuery,
 } = flagsApi;
