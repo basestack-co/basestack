@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/react-library.json",
+  "extends": "tsconfig/base.json",
   "compilerOptions": {
     "lib": ["es5", "es6", "dom"]
   },

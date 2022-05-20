@@ -5,6 +5,7 @@ import { Button as StyledButton } from "./styles";
 const Button: React.FC<ButtonProps> = ({
   variant = "filled",
   size = "normal",
+  // @ts-ignore
   children,
   disabled = false,
   as = "button",

@@ -70,6 +70,7 @@
     "config": "*",
     "eslint": "8.15.0",
     "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "jest-fetch-mock": "^3.0.3",
     "jest-mock-extended": "2.0.6",
     "jest-styled-components": "^7.0.8",
