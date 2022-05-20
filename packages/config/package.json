@@ -9,7 +9,7 @@
     "jest.setup.js"
   ],
   "dependencies": {
-    "eslint-config-next": "^12.1.5",
+    "eslint-config-next": "^12.1.6",
     "eslint-config-prettier": "^8.5.0"
   }
 }
