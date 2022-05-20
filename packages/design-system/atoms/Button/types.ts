@@ -12,7 +12,8 @@ export type Variant =
   | "primaryNeutral"
   | "secondary"
   | "tertiary"
-  | "neutral";
+  | "neutral"
+  | "outlined";
 
 export interface ButtonProps
   extends SpaceProps,

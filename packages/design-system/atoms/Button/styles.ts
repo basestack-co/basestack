@@ -46,6 +46,16 @@ const secondaryStyles = css`
 
 const tertiaryStyles = css`
   ${sharedStyles};
+  background-color: ${({ theme }) => theme.colors.gray100};
+  color: ${({ theme }) => theme.colors.black};
+
+  &:hover:not(:active) {
+    background-color: ${({ theme }) => theme.colors.gray200};
+  }
+`;
+
+const outlinedStyles = css`
+  ${sharedStyles};
   background-color: transparent;
   color: ${({ theme }) => theme.colors.black};
   border: 2px solid ${({ theme }) => theme.colors.black};
@@ -104,6 +114,8 @@ const handleButtonVariant = (variant?: Variant) => {
       return secondaryStyles;
     case "tertiary":
       return tertiaryStyles;
+    case "outlined":
+      return outlinedStyles;
     case "neutral":
       return neutralStyles;
   }

@@ -21,6 +21,10 @@ interface AvatarProps extends SpaceProps {
    * Image Alt
    */
   alt: string;
+  /**
+   * Changes the shape from round to squared
+   */
+  round?: boolean;
 }
 
 const handleSize = (size: Size) => {
@@ -31,7 +35,7 @@ const handleSize = (size: Size) => {
     case "medium":
       return 40;
     case "small":
-      return 24;
+      return 28;
   }
 };
 
@@ -39,13 +43,14 @@ const Avatar = ({
   src,
   size = "medium",
   userName = "user name",
+  round = true,
   alt,
   ...props
 }: AvatarProps) => {
   const imageSize = handleSize(size);
 
   return (
-    <Container data-testid="avatar" size={imageSize} {...props}>
+    <Container round={round} data-testid="avatar" size={imageSize} {...props}>
       <Image
         alt={alt}
         src={

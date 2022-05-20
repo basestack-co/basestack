@@ -85,6 +85,15 @@ describe("Button Atom tests", () => {
     );
     const button = getByText(/tertiary/);
     expect(button).toHaveStyle(`color: #000000`);
+    expect(button).toHaveStyle(`background-color: #EEEEEE`);
+  });
+
+  test("should render tertiary Button", () => {
+    const { getByText } = renderWithTheme(
+      <Button variant="outlined">outlined</Button>
+    );
+    const button = getByText(/outlined/);
+    expect(button).toHaveStyle(`color: #000000`);
     expect(button).toHaveStyle(`background-color: transparent`);
     expect(button).toHaveStyle(`border: 2px solid #000000`);
   });

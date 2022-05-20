@@ -23,7 +23,17 @@ describe("Avatar Atom tests", () => {
     const { asFragment } = renderWithTheme(
       <Avatar userName="Flávio Amaral" alt="user_avatar" />
     );
+
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  test("should render squared Avatar", () => {
+    const { getByTestId } = renderWithTheme(
+      <Avatar userName="Flávio Amaral" alt="user_avatar" round={false} />
+    );
+    const avatar = getByTestId("avatar");
+
+    expect(avatar).toHaveStyle(`border-radius: 4px`);
   });
 
   test("should render large Avatar", () => {

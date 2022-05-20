@@ -10,6 +10,18 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+  border-radius: 4px;
+}
+
+.c14 {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  border-radius: 50%;
 }
 
 .c4 {
@@ -277,7 +289,7 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
       <li
         class=""
       >
-        <a
+        <button
           class="c5"
         >
           Project Name
@@ -294,7 +306,7 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
               expand_more
             </span>
           </div>
-        </a>
+        </button>
       </li>
       <li
         class=""
@@ -375,7 +387,7 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
         class="c11"
       >
         <div
-          class="c3"
+          class="c14"
           data-testid="avatar"
           size="40"
         >
