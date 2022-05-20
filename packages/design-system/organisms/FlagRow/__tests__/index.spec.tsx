@@ -3,7 +3,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import FlagRow from "../index";
 
-describe("FlagRow Molecule tests", () => {
+describe("FlagRow Organism tests", () => {
   afterEach(cleanup);
 
   test("should render FlagRow correctly", () => {
