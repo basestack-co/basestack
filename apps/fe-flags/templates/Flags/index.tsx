@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  FlagCard,
-  FlagRow,
-  Text,
-  Toolbar,
-  slideTop,
-  Table,
-} from "design-system";
+import { FlagCard, FlagRow, Text, Toolbar, slideTop } from "design-system";
 import { Container, FlagsCardContainer, FlagsTableContainer } from "./styles";
 import { useTheme } from "styled-components";
 import { mockFlags } from "./mockData";

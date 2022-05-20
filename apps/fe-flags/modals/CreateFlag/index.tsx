@@ -1,7 +1,6 @@
-import React from "react";
-import { Modal, InputGroup } from "../../../molecules";
+import React, { useCallback, useState } from "react";
 import { useTheme } from "styled-components";
-import { Text, Switch } from "../../../atoms";
+import { Tabs, Text, Switch, Modal, InputGroup } from "design-system";
 import { Environments } from "./styles";
 
 interface CreateFlagModalProps {
@@ -16,6 +15,16 @@ const CreateFlagModal = ({
   onCreate,
 }: CreateFlagModalProps) => {
   const theme = useTheme();
+  const [textareaLength, setTextareaLength] = useState("");
+
+  const onChangeTextarea = useCallback(
+    (event) => {
+      if (textareaLength.length < 120) {
+        setTextareaLength(event.target.value.toString());
+      }
+    },
+    [textareaLength]
+  );
 
   return (
     <Modal
@@ -28,6 +37,11 @@ const CreateFlagModal = ({
         { text: "Create", onClick: onCreate },
       ]}
     >
+      <Tabs
+        items={[{ text: "Core" }, { text: "Advanced" }]}
+        onSelect={(tab) => console.log(tab)}
+        mb={theme.spacing.s6}
+      />
       <InputGroup
         title="Feature Key"
         inputProps={{
@@ -35,17 +49,18 @@ const CreateFlagModal = ({
           placeholder: "E.g. header_size",
         }}
         hint="No numbers, spaces, or special characters"
-        mb={theme.spacing.s5}
+        mb={theme.spacing.s6}
       />
       <InputGroup
         title="Description"
-        label="0 / 120"
+        label={`${textareaLength.length} / 120`}
         textarea
         textareaProps={{
-          onChange: (text) => console.log("text = ", text),
+          onChange: (event) => onChangeTextarea(event),
           placeholder: "Flag description",
+          maxlength: "120",
         }}
-        mb={theme.spacing.s5}
+        mb={theme.spacing.s6}
       />
       <Text
         fontWeight={500}

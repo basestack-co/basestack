@@ -6,7 +6,8 @@ import { useRouter } from "next/router";
 // import { RootState } from "store";
 // Auth
 import { useSession } from "next-auth/react";
-import { Navigation, CreateFlagModal } from "design-system";
+import CreateFlagModal from "../../modals/CreateFlag";
+import { Navigation } from "design-system";
 
 const MainLayout: React.FC = ({ children }) => {
   const router = useRouter();
