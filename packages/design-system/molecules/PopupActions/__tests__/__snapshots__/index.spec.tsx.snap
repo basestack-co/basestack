@@ -1,0 +1,209 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PopupActions Molecule tests should render PopupActions correctly 1`] = `
+<DocumentFragment>
+  .c6 {
+  height: 1.75rem;
+  width: 1.75rem;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  border-radius: 4px;
+}
+
+.c7 {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.c2 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  color: #757575;
+}
+
+.c8 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  margin-left: 0.5rem;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c9 {
+  border: none;
+  height: 2.25rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: #EEEEEE;
+  color: #000000;
+  margin-top: 0.25rem;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.c9:hover:not(:active) {
+  background-color: #E2E2E2;
+}
+
+.c0 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #FFFFFF;
+  box-shadow: rgba(0,0,0,0.25) 0px 25px 50px -12px;
+  padding: 0.25rem;
+  border-radius: 4px;
+  width: 13.75rem;
+  z-index: 101;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 32px;
+  padding: 0 0.5rem;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.c5:hover {
+  background-color: #EEEEEE;
+}
+
+.c5:active {
+  background-color: #E2E2E2;
+}
+
+<div
+    class="c0"
+  >
+    <div
+      class="c1"
+    >
+      <p
+        class="c2"
+        font-weight="500"
+      >
+        Projects
+      </p>
+    </div>
+    <ul
+      class="c3"
+    >
+      <li
+        class="c4"
+      >
+        <button
+          class="c5"
+        >
+          <div
+            class="c6"
+            data-testid="avatar"
+            size="28"
+          >
+            <img
+              alt="logo"
+              class="c7"
+              src="https://avatars.dicebear.com/api/initials/Moon flags.svg?size=28&fontSize=40"
+            />
+          </div>
+          <p
+            class="c8"
+          >
+            Moon flags
+          </p>
+        </button>
+        <button
+          class="c5"
+        >
+          <div
+            class="c6"
+            data-testid="avatar"
+            size="28"
+          >
+            <img
+              alt="logo"
+              class="c7"
+              src="https://avatars.dicebear.com/api/initials/Teams kids.svg?size=28&fontSize=40"
+            />
+          </div>
+          <p
+            class="c8"
+          >
+            Teams kids
+          </p>
+        </button>
+      </li>
+    </ul>
+    <button
+      class="c9"
+    >
+      Create Project
+    </button>
+  </div>
+</DocumentFragment>
+`;

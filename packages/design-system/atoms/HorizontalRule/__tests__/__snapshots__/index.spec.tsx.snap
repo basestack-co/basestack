@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hr Atom tests render Hr correctly 1`] = `
+<DocumentFragment>
+  .c0 {
+  height: 1px;
+  border: none;
+  background-color: #EEEEEE;
+  width: 100%;
+}
+
+<hr
+    class="c0"
+    data-testid="horizontal-rule"
+  />
+</DocumentFragment>
+`;
