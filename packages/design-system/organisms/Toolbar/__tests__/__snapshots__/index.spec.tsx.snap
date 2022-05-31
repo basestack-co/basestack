@@ -1,0 +1,365 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toolbar Organism tests should render Toolbar correctly 1`] = `
+<DocumentFragment>
+  .c9 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  color: #276EF1;
+}
+
+.c11 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c2 {
+  height: 1.5rem;
+  width: 1.5rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c4 {
+  color: #757575;
+  font-size: 1.5rem;
+}
+
+.c14 {
+  color: #000000;
+  font-size: 1.5rem;
+}
+
+.c1 {
+  max-width: 220px;
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c5 {
+  border: none;
+  background-color: #EEEEEE;
+  height: 2.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  width: 100%;
+  padding: 0 1rem;
+  color: #757575;
+  padding-left: 2.75rem;
+}
+
+.c5:focus {
+  outline: 2px solid #000000;
+  color: #000000;
+}
+
+.c3 {
+  position: absolute;
+  left: 0.75rem;
+}
+
+.c8 {
+  border: none;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 2.25rem;
+  border-radius: 1.125rem;
+  padding: 0 0.75rem;
+  background-color: #D4E2FC;
+  -webkit-transition: background-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.c8:hover:not(:active) {
+  background-color: #c1d5fb;
+}
+
+.c10 {
+  border: none;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 2.25rem;
+  border-radius: 1.125rem;
+  padding: 0 0.75rem;
+  background-color: #EEEEEE;
+  -webkit-transition: background-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.c10:hover:not(:active) {
+  background-color: #E2E2E2;
+}
+
+.c12 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #EEEEEE;
+  height: 2.25rem;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+}
+
+.c13 {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex: 1 0 0;
+  -ms-flex: 1 0 0;
+  flex: 1 0 0;
+  height: 100%;
+  padding: 0 0.75rem;
+  z-index: 1;
+  border-radius: 0.25rem;
+  -webkit-transition: background-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.c13:hover:not(.active) {
+  background-color: #E2E2E2;
+}
+
+.c15 {
+  position: absolute;
+  inset: 0.25rem;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.c15::before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #FFFFFF;
+  width: calc((100% / 2));
+  border-radius: 0.25rem;
+  box-shadow: rgba(0,0,0,0.1) 0px 1px 3px 0px,rgba(0,0,0,0.06) 0px 1px 2px 0px;
+  -webkit-transition: -webkit-transform 0.2s ease-in-out;
+  -webkit-transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
+  -webkit-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  transform: translateX(0%);
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 auto 0 1.25rem;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c7:not(:last-child) {
+  margin-right: 0.25rem;
+}
+
+<header
+    class="c0"
+    data-testid="toolbar"
+  >
+    <div
+      class="c1"
+      data-testid="search-input"
+    >
+      <div
+        class="c2 c3"
+        data-testid="icon-container"
+        size="24"
+      >
+        <span
+          class="c4 material-symbols-sharp"
+          color="#757575"
+          data-testid="icon"
+          size="24"
+        >
+          search
+        </span>
+      </div>
+      <input
+        class="c5"
+        data-testid="input"
+        placeholder="Filter by title"
+        type="text"
+      />
+    </div>
+    <ul
+      class="c6"
+      data-testid="pills"
+    >
+      <li
+        class="c7"
+      >
+        <button
+          class="c8"
+          data-testid="pill-container"
+        >
+          <p
+            class="c9"
+            color="#276EF1"
+            data-testid="pill-text"
+          >
+            All
+          </p>
+        </button>
+      </li>
+      <li
+        class="c7"
+      >
+        <button
+          class="c10"
+          data-testid="pill-container"
+        >
+          <p
+            class="c11"
+            color="#000000"
+            data-testid="pill-text"
+          >
+            development
+          </p>
+        </button>
+      </li>
+      <li
+        class="c7"
+      >
+        <button
+          class="c10"
+          data-testid="pill-container"
+        >
+          <p
+            class="c11"
+            color="#000000"
+            data-testid="pill-text"
+          >
+            staging
+          </p>
+        </button>
+      </li>
+      <li
+        class="c7"
+      >
+        <button
+          class="c10"
+          data-testid="pill-container"
+        >
+          <p
+            class="c11"
+            color="#000000"
+            data-testid="pill-text"
+          >
+            production
+          </p>
+        </button>
+      </li>
+    </ul>
+    <div
+      class="c12"
+      data-testid="segment-component"
+    >
+      <button
+        class="c13 active"
+        data-testid="segment-button"
+      >
+        <div
+          class="c2"
+          data-testid="icon-container"
+          size="24"
+        >
+          <span
+            class="c14 material-symbols-sharp"
+            color="#000000"
+            data-testid="icon"
+            size="24"
+          >
+            view_module
+          </span>
+        </div>
+      </button>
+      <button
+        class="c13"
+        data-testid="segment-button"
+      >
+        <div
+          class="c2"
+          data-testid="icon-container"
+          size="24"
+        >
+          <span
+            class="c14 material-symbols-sharp"
+            color="#000000"
+            data-testid="icon"
+            size="24"
+          >
+            view_stream
+          </span>
+        </div>
+      </button>
+      <div
+        class="c15"
+      />
+    </div>
+  </header>
+</DocumentFragment>
+`;

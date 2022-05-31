@@ -65,15 +65,14 @@ export default class MyDocument extends Document {
             content="Simple feature flagging and toggle service"
           />
           <meta property="twitter:image" content="" />
-
           <link
-            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
             rel="stylesheet"
           />
           <link href="/css/bootstrap-grid.min.css" rel="stylesheet" />
           <link
-            href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
             rel="stylesheet"
+            href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0"
           />
         </Head>
         <body>

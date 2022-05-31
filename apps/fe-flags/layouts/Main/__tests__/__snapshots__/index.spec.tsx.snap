@@ -2,9 +2,404 @@
 
 exports[`Main Layout tests render MainLayout correctly 1`] = `
 <DocumentFragment>
-  <h1>
-    Hello App
-  </h1>
+  .c3 {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  border-radius: 4px;
+}
+
+.c14 {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.c4 {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.c6 {
+  height: 1.5rem;
+  width: 1.5rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-left: 0.25rem;
+}
+
+.c7 {
+  color: #000000;
+  font-size: 1.5rem;
+}
+
+.c5 {
+  border: none;
+  height: 2.25rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: transparent;
+  color: #000000;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding-right: 0.5rem;
+}
+
+.c5 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c5:hover {
+  color: #276EF1;
+  background-color: #EFF3FE;
+}
+
+.c5:active {
+  background-color: #D4E2FC;
+}
+
+.c9 {
+  border: none;
+  height: 2.25rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: transparent;
+  color: #000000;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.c9 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c9:hover {
+  color: #276EF1;
+  background-color: #EFF3FE;
+}
+
+.c9:active {
+  background-color: #D4E2FC;
+}
+
+.c12 {
+  border: none;
+  height: 2.25rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: #276EF1;
+  color: #FFFFFF;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.c12:hover:not(:active) {
+  background-color: #0e55d7;
+}
+
+.c0 {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #FFFFFF;
+  box-shadow: rgba(0,0,0,0.1) 0px 1px 3px 0px,rgba(0,0,0,0.06) 0px 1px 2px 0px;
+  height: 4rem;
+  padding: 0 1.25rem;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  height: 4rem;
+}
+
+.c8 a {
+  color: #276EF1;
+}
+
+.c8::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background-color: #276EF1;
+}
+
+.c10 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  height: 4rem;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c13 {
+  margin-left: auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c11 {
+  margin-left: 0.75rem;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  padding-right: 1rem;
+  margin-right: 0.25rem;
+}
+
+.c2::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  right: -1px;
+  width: 2px;
+  background-color: #EEEEEE;
+}
+
+<nav
+    class="c0"
+    data-testid="navigation"
+  >
+    <ul
+      class="c1"
+      data-testid="navigation-left-ul"
+    >
+      <li
+        class=""
+      >
+        <div
+          class="c2"
+        >
+          <div
+            class="c3"
+            data-testid="avatar"
+            size="40"
+          >
+            <img
+              alt="user image"
+              class="c4"
+              src="https://avatars.dicebear.com/api/initials/Logo.svg?size=40&fontSize=40"
+            />
+          </div>
+        </div>
+      </li>
+      <li
+        class=""
+      >
+        <button
+          class="c5"
+        >
+          Project Name
+          <div
+            class="c6"
+            data-testid="icon-container"
+            size="24"
+          >
+            <span
+              class="c7 material-symbols-sharp"
+              data-testid="icon"
+              size="24"
+            >
+              expand_more
+            </span>
+          </div>
+        </button>
+      </li>
+      <li
+        class=""
+      >
+        <div
+          class="c8"
+        >
+          <a
+            class="c9"
+          >
+            Features
+          </a>
+        </div>
+      </li>
+      <li
+        class=""
+      >
+        <div
+          class="c10"
+        >
+          <a
+            class="c9"
+          >
+            Settings
+          </a>
+        </div>
+      </li>
+      <li
+        class="c11"
+      >
+        <button
+          class="c12"
+        >
+          Create flag
+        </button>
+      </li>
+    </ul>
+    <ul
+      class="c13"
+      data-testid="navigation-right-ul"
+    >
+      <li
+        class=""
+      >
+        <div
+          class="c10"
+        >
+          <a
+            class="c9"
+          >
+            Documentation
+          </a>
+        </div>
+      </li>
+      <li
+        class=""
+      >
+        <div
+          class="c10"
+        >
+          <a
+            class="c9"
+          >
+            Resources
+          </a>
+        </div>
+      </li>
+      <li
+        class=""
+      >
+        <a
+          class="c9"
+        >
+          Github
+        </a>
+      </li>
+      <li
+        class="c11"
+      >
+        <div
+          class="c14"
+          data-testid="avatar"
+          size="40"
+        >
+          <img
+            alt="user image"
+            class="c4"
+            src="https://avatars.dicebear.com/api/initials/Flávio Amaral.svg?size=40&fontSize=40"
+          />
+        </div>
+      </li>
+    </ul>
+  </nav>
   <div>
     Page content
   </div>

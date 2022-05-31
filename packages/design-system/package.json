@@ -1,0 +1,24 @@
+{
+  "name": "design-system",
+  "version": "0.0.0",
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "test:coverage": "jest --coverage",
+    "test:log": "jest --no-coverage >& ./logs/jest.log"
+  },
+  "devDependencies": {
+    "@types/react": "18.0.10",
+    "@types/react-dom": "^18.0.5",
+    "config": "*",
+    "jest-styled-components": "^7.0.8",
+    "tsconfig": "*",
+    "typescript": "^4.7.2"
+  },
+  "overrides": {
+    "@types/react": "^18.0.0"
+  }
+}

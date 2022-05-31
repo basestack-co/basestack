@@ -4,7 +4,7 @@ import { signIn, useSession, getProviders } from "next-auth/react";
 // Router
 import { useRouter } from "next/router";
 // UI
-import { Button } from "ui/atoms";
+import { Button } from "design-system";
 // Types
 import { Provider } from "types/nextAuth";
 
