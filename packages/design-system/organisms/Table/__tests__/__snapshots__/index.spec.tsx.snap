@@ -1,0 +1,542 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table Organism tests should render Table correctly 1`] = `
+<DocumentFragment>
+  .c3 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  color: #757575;
+}
+
+.c5 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c6 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c8 {
+  height: 1.5rem;
+  width: 1.5rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c9 {
+  color: #000000;
+  font-size: 1.5rem;
+}
+
+.c7 {
+  border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: transparent;
+  color: #000000;
+  height: 2.25rem;
+  width: 2.25rem;
+}
+
+.c7 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c7:hover {
+  background-color: #EEEEEE;
+}
+
+.c7:active {
+  background-color: #E2E2E2;
+}
+
+.c0 {
+  background-color: #EEEEEE;
+  padding: 1.25rem;
+  border-radius: 4px;
+}
+
+.c1 {
+  display: grid;
+  grid-template-columns: repeat(3,1fr) auto;
+  grid-gap: 1.25rem;
+}
+
+.c1:not(:last-child) {
+  border-bottom: 1px solid #E2E2E2;
+}
+
+.c4 {
+  min-width: 2.25rem;
+  pointer-events: none;
+}
+
+.c2 {
+  height: 2.8125rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+<div
+    class="c0"
+    data-testid="table"
+  >
+    <div
+      class="c1"
+      data-testid="header"
+    >
+      <div
+        class="c2"
+      >
+        <p
+          class="c3"
+        >
+          Key
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <p
+          class="c3"
+        >
+          Environment
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <p
+          class="c3"
+        >
+          Description
+        </p>
+      </div>
+      <div
+        class="c4"
+      />
+    </div>
+    <div
+      class="c1"
+      data-testid="row"
+    >
+      <div
+        class="c2"
+      >
+        <p
+          class="c5"
+          font-weight="500"
+        >
+          key_dev_8299aa6b
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <p
+          class="c6"
+          font-weight="400"
+        >
+          development
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <p
+          class="c6"
+          font-weight="400"
+        >
+          development SDK
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <button
+          class="c7"
+        >
+          <div
+            class="c8"
+            data-testid="icon-container"
+            size="24"
+          >
+            <span
+              class="c9 material-symbols-sharp"
+              color="#000000"
+              data-testid="icon"
+              size="24"
+            >
+              more_horiz
+            </span>
+          </div>
+        </button>
+      </div>
+    </div>
+    <div
+      class="c1"
+      data-testid="row"
+    >
+      <div
+        class="c2"
+      >
+        <p
+          class="c5"
+          font-weight="500"
+        >
+          key_dev_8299aa6b
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <p
+          class="c6"
+          font-weight="400"
+        >
+          development
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <p
+          class="c6"
+          font-weight="400"
+        >
+          development SDK
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <button
+          class="c7"
+        >
+          <div
+            class="c8"
+            data-testid="icon-container"
+            size="24"
+          >
+            <span
+              class="c9 material-symbols-sharp"
+              color="#000000"
+              data-testid="icon"
+              size="24"
+            >
+              more_horiz
+            </span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Table Organism tests should render Table with space utils 1`] = `
+<DocumentFragment>
+  .c3 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  color: #757575;
+}
+
+.c5 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c6 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c8 {
+  height: 1.5rem;
+  width: 1.5rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c9 {
+  color: #000000;
+  font-size: 1.5rem;
+}
+
+.c7 {
+  border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: transparent;
+  color: #000000;
+  height: 2.25rem;
+  width: 2.25rem;
+}
+
+.c7 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c7:hover {
+  background-color: #EEEEEE;
+}
+
+.c7:active {
+  background-color: #E2E2E2;
+}
+
+.c0 {
+  margin-top: 30px;
+  background-color: #EEEEEE;
+  padding: 1.25rem;
+  border-radius: 4px;
+}
+
+.c1 {
+  display: grid;
+  grid-template-columns: repeat(3,1fr) auto;
+  grid-gap: 1.25rem;
+}
+
+.c1:not(:last-child) {
+  border-bottom: 1px solid #E2E2E2;
+}
+
+.c4 {
+  min-width: 2.25rem;
+  pointer-events: none;
+}
+
+.c2 {
+  height: 2.8125rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+<div
+    class="c0"
+    data-testid="table"
+  >
+    <div
+      class="c1"
+      data-testid="header"
+    >
+      <div
+        class="c2"
+      >
+        <p
+          class="c3"
+        >
+          Key
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <p
+          class="c3"
+        >
+          Environment
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <p
+          class="c3"
+        >
+          Description
+        </p>
+      </div>
+      <div
+        class="c4"
+      />
+    </div>
+    <div
+      class="c1"
+      data-testid="row"
+    >
+      <div
+        class="c2"
+      >
+        <p
+          class="c5"
+          font-weight="500"
+        >
+          key_dev_8299aa6b
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <p
+          class="c6"
+          font-weight="400"
+        >
+          development
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <p
+          class="c6"
+          font-weight="400"
+        >
+          development SDK
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <button
+          class="c7"
+        >
+          <div
+            class="c8"
+            data-testid="icon-container"
+            size="24"
+          >
+            <span
+              class="c9 material-symbols-sharp"
+              color="#000000"
+              data-testid="icon"
+              size="24"
+            >
+              more_horiz
+            </span>
+          </div>
+        </button>
+      </div>
+    </div>
+    <div
+      class="c1"
+      data-testid="row"
+    >
+      <div
+        class="c2"
+      >
+        <p
+          class="c5"
+          font-weight="500"
+        >
+          key_dev_8299aa6b
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <p
+          class="c6"
+          font-weight="400"
+        >
+          development
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <p
+          class="c6"
+          font-weight="400"
+        >
+          development SDK
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <button
+          class="c7"
+        >
+          <div
+            class="c8"
+            data-testid="icon-container"
+            size="24"
+          >
+            <span
+              class="c9 material-symbols-sharp"
+              color="#000000"
+              data-testid="icon"
+              size="24"
+            >
+              more_horiz
+            </span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

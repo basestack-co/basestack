@@ -1,0 +1,202 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tabs Molecule tests should render Tabs correctly 1`] = `
+<DocumentFragment>
+  .c2 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #FFFFFF;
+  position: relative;
+}
+
+.c1 {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  height: 2.75rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex: 1 0 0;
+  -ms-flex: 1 0 0;
+  flex: 1 0 0;
+  padding: 0 0.75rem;
+  -webkit-transition: background-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out;
+  border-bottom: 2px solid #E2E2E2;
+}
+
+.c1:hover {
+  background-color: #EEEEEE;
+}
+
+.c3 {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  left: 0;
+  bottom: 0;
+  background-color: #000000;
+  height: 2px;
+  width: calc((100% / 2));
+  -webkit-transition: -webkit-transform 0.2s ease-in-out;
+  -webkit-transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
+  -webkit-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  transform: translateX(0%);
+}
+
+<div
+    class="c0"
+    data-testid="tabs-component"
+  >
+    <button
+      class="c1"
+      data-testid="tab-button"
+    >
+      <p
+        class="c2"
+        font-weight="500"
+      >
+        Core
+      </p>
+    </button>
+    <button
+      class="c1"
+      data-testid="tab-button"
+    >
+      <p
+        class="c2"
+        font-weight="500"
+      >
+        Advanced
+      </p>
+    </button>
+    <div
+      class="c3"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Tabs Molecule tests should render Tabs with space utils 1`] = `
+<DocumentFragment>
+  .c2 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c0 {
+  margin-bottom: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #FFFFFF;
+  position: relative;
+}
+
+.c1 {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  height: 2.75rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex: 1 0 0;
+  -ms-flex: 1 0 0;
+  flex: 1 0 0;
+  padding: 0 0.75rem;
+  -webkit-transition: background-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out;
+  border-bottom: 2px solid #E2E2E2;
+}
+
+.c1:hover {
+  background-color: #EEEEEE;
+}
+
+.c3 {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  left: 0;
+  bottom: 0;
+  background-color: #000000;
+  height: 2px;
+  width: calc((100% / 2));
+  -webkit-transition: -webkit-transform 0.2s ease-in-out;
+  -webkit-transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
+  -webkit-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  transform: translateX(0%);
+}
+
+<div
+    class="c0"
+    data-testid="tabs-component"
+  >
+    <button
+      class="c1"
+      data-testid="tab-button"
+    >
+      <p
+        class="c2"
+        font-weight="500"
+      >
+        Core
+      </p>
+    </button>
+    <button
+      class="c1"
+      data-testid="tab-button"
+    >
+      <p
+        class="c2"
+        font-weight="500"
+      >
+        Advanced
+      </p>
+    </button>
+    <div
+      class="c3"
+    />
+  </div>
+</DocumentFragment>
+`;

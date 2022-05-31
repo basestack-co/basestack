@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Popup Molecule tests should render Popup correctly 1`] = `
+<DocumentFragment>
+  .c3 {
+  border: none;
+  height: 2.25rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: transparent;
+  color: #000000;
+  font-weight: 400;
+  width: 100%;
+}
+
+.c3 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c3:hover {
+  background-color: #EEEEEE;
+}
+
+.c3:active {
+  background-color: #E2E2E2;
+}
+
+.c0 {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: #FFFFFF;
+  box-shadow: rgba(0,0,0,0.25) 0px 25px 50px -12px;
+  padding: 0.25rem;
+  border-radius: 4px;
+  width: 9.375rem;
+  z-index: 101;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+<div
+    class="c0"
+  >
+    <ul
+      class="c1"
+    >
+      <li
+        class="c2"
+      >
+        <button
+          class="c3"
+          font-weight="400"
+        >
+          Edit
+        </button>
+        <button
+          class="c3"
+          font-weight="400"
+        >
+          History
+        </button>
+        <button
+          class="c3"
+          font-weight="400"
+        >
+          Delete
+        </button>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
