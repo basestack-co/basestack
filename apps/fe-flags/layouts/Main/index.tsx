@@ -9,7 +9,9 @@ import { useSession } from "next-auth/react";
 import CreateFlagModal from "../../modals/CreateFlag";
 import { Navigation } from "design-system";
 
-const MainLayout: React.FC = ({ children }) => {
+const MainLayout: React.FunctionComponent<React.PropsWithChildren> = ({
+  children,
+}) => {
   const router = useRouter();
   const { status } = useSession({
     required: true,

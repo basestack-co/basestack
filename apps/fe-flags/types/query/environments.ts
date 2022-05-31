@@ -2,6 +2,7 @@ export interface EnvironmentArgs {
   name: string;
   projectId: string;
   slug: string;
+  description?: string;
 }
 
 export interface Environment extends EnvironmentArgs {
@@ -22,9 +23,14 @@ export interface UpdateEnvironmentArgs {
   projectId: string;
   environmentId: string;
   name: string;
+  description?: string;
 }
 
 export interface DeleteEnvironmentArgs {
   projectId: string;
   environmentId: string;
+}
+
+export interface EnvironmentResponse {
+  environment: Environment;
 }

@@ -10,6 +10,7 @@ exports[`Avatar Atom tests render Avatar correctly 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+  border-radius: 50%;
 }
 
 .c1 {
@@ -42,6 +43,7 @@ exports[`Avatar Atom tests should render Avatar with user name initials 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+  border-radius: 50%;
 }
 
 .c1 {
