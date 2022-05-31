@@ -41,13 +41,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...customProps}
         {...props}
       >
-        {hasLeftIcon && (
-          <Icon icon={icon} size="medium" mr={theme.spacing.s1} />
-        )}
-        {children}
-        {hasRightIcon && (
-          <Icon icon={icon} size="medium" ml={theme.spacing.s1} />
-        )}
+        <>
+          {hasLeftIcon && (
+            <Icon icon={icon} size="medium" mr={theme.spacing.s1} />
+          )}
+          {children}
+          {hasRightIcon && (
+            <Icon icon={icon} size="medium" ml={theme.spacing.s1} />
+          )}
+        </>
       </StyledButton>
     );
   }

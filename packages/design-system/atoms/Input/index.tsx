@@ -59,7 +59,7 @@ const Input: React.FC<InputProps> = ({
         <LeftIcon icon={icon} size="medium" color={theme.colors.gray500} />
       )}
       <StyledInput
-        data-testid="input"
+        data-test-id="input"
         onChange={onChange}
         placeholder={placeholder}
         type={type}

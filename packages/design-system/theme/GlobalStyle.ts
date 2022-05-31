@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
+import { ThemeInterface } from "../types/styled-components";
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<ThemeInterface>`
     *,
     *:before,
     *:after {
