@@ -3,7 +3,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Toolbar from "..";
 
-describe("Toolbar Organism tests", () => {
+describe.skip("Toolbar Organism tests", () => {
   afterEach(cleanup);
 
   test("should render Toolbar correctly", () => {

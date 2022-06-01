@@ -9,14 +9,14 @@ describe("Textarea Atom tests", () => {
 
   test("should render Textarea correctly", () => {
     const { asFragment } = renderWithTheme(
-      <Textarea placeholder="Search here..." />
+      <Textarea placeholder="Search here..." onChange={jest.fn} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   test("should render textarea dark", () => {
     const { getByTestId } = renderWithTheme(
-      <Textarea placeholder="Search here..." isDarker />
+      <Textarea placeholder="Search here..." onChange={jest.fn} isDarker />
     );
     const textarea = getByTestId("textarea");
 

@@ -22,7 +22,6 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  font-weight: 400;
   width: 100%;
 }
 
@@ -81,19 +80,16 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
       >
         <button
           class="c3"
-          font-weight="400"
         >
           Edit
         </button>
         <button
           class="c3"
-          font-weight="400"
         >
           History
         </button>
         <button
           class="c3"
-          font-weight="400"
         >
           Delete
         </button>

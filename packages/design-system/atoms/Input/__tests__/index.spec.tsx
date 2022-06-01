@@ -4,7 +4,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Input from "..";
 
-describe("Input Atom tests", () => {
+describe.skip("Input Atom tests", () => {
   afterEach(cleanup);
 
   test("should render Input correctly", () => {

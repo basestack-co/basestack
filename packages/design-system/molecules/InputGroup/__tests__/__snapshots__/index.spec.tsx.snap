@@ -168,11 +168,12 @@ exports[`InputGroup Molecule tests should render InputGroup correctly 1`] = `
     </div>
     <div
       class="c3"
-      data-testid="input-container"
+      data-test-id="input-container"
     >
       <input
         class="c4"
-        data-testid="input"
+        data-test-id="input"
+        format="normal"
         placeholder="E.g. header_size"
         type="text"
       />
@@ -279,11 +280,12 @@ exports[`InputGroup Molecule tests should render InputGroup with hint 1`] = `
     </div>
     <div
       class="c3"
-      data-testid="input-container"
+      data-test-id="input-container"
     >
       <input
         class="c4"
-        data-testid="input"
+        data-test-id="input"
+        format="normal"
         placeholder="E.g. header_size"
         type="text"
       />
@@ -385,11 +387,12 @@ exports[`InputGroup Molecule tests should render InputGroup with label 1`] = `
     </div>
     <div
       class="c3"
-      data-testid="input-container"
+      data-test-id="input-container"
     >
       <input
         class="c4"
-        data-testid="input"
+        data-test-id="input"
+        format="normal"
         placeholder="E.g. header_size"
         type="text"
       />

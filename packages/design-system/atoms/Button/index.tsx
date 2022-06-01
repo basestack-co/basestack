@@ -32,6 +32,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           };
 
     return (
+      // TODO check why the type is not working for the button
+      // @ts-ignore
       <StyledButton
         ref={ref}
         hasLeftIcon={hasLeftIcon}
@@ -39,7 +41,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         variant={variant}
         fullWidth={fullWidth}
         {...customProps}
-        {...props}
       >
         <>
           {hasLeftIcon && (

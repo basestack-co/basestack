@@ -8,7 +8,7 @@ import {
   compose,
 } from "styled-system";
 import { rem, darken, lighten } from "polished";
-import { ButtonProps, Variant } from "./types";
+import { Variant } from "./types";
 
 const sharedStyles = css`
   border: none;
@@ -121,10 +121,11 @@ const handleButtonVariant = (variant?: Variant) => {
   }
 };
 
-interface Props extends ButtonProps {
+interface Props {
   hasLeftIcon: boolean;
   hasRightIcon: boolean;
   fullWidth: boolean;
+  variant: Variant;
 }
 
 export const StyledButton = styled.button<Props>`

@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { SpaceProps } from "styled-system";
 import { StyledLabel } from "./styles";
 
-interface LabelProps extends SpaceProps {
+export interface LabelProps extends SpaceProps {
   /**
    * Label variants
    */

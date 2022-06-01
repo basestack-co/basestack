@@ -4,7 +4,7 @@ import { Container, Icon } from "./styles";
 
 export type Size = "xLarge" | "large" | "medium" | "small";
 
-interface IconProps extends SpaceProps {
+export interface IconProps extends SpaceProps {
   /**
    * Icon name
    */

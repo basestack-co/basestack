@@ -7,7 +7,9 @@ describe("Navigation Organism tests", () => {
   afterEach(cleanup);
 
   test("should render Navigation correctly", () => {
-    const { asFragment } = renderWithTheme(<Navigation />);
+    const { asFragment } = renderWithTheme(
+      <Navigation onCreateFlag={jest.fn} />
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 });
