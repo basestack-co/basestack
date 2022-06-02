@@ -1,4 +1,4 @@
-import React, { forwardRef, memo } from "react";
+import { forwardRef, memo } from "react";
 import { useTheme } from "styled-components";
 import { ButtonProps } from "./types";
 import Icon from "../Icon";

@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import { useState, memo } from "react";
 import { SpaceProps } from "styled-system";
 import { useTheme } from "styled-components";
 import { Text, Icon } from "../../atoms";

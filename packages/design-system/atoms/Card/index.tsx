@@ -1,4 +1,4 @@
-import React, { memo, ReactNode, forwardRef } from "react";
+import { memo, ReactNode, forwardRef } from "react";
 import { SpaceProps } from "styled-system";
 import { Container } from "./styles";
 
