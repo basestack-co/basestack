@@ -1,10 +1,10 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import { SpaceProps } from "styled-system";
 import { Container, Icon } from "./styles";
 
 export type Size = "xLarge" | "large" | "medium" | "small";
 
-interface IconProps extends SpaceProps {
+export interface IconProps extends SpaceProps {
   /**
    * Icon name
    */

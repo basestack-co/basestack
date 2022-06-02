@@ -15,6 +15,10 @@ export interface TextareaProps extends SpaceProps {
    * Textarea onChange
    */
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  /**
+   * Textarea Max Length
+   */
+  maxlength?: string;
 }
 
 const Textarea: React.FC<TextareaProps> = ({

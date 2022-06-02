@@ -12,14 +12,15 @@ import theme from "design-system/theme";
 // Auth
 import { SessionProvider } from "next-auth/react";
 
-interface AllProvidersProps {
+interface WithChildrenProps {
+  children: React.ReactNode;
+}
+
+interface AllProvidersProps extends WithChildrenProps {
   initialState?: {};
 }
 
-const AllProviders: React.FC<AllProvidersProps> = ({
-  children,
-  initialState = {},
-}) => {
+const AllProviders = ({ children, initialState = {} }: AllProvidersProps) => {
   return (
     <SessionProvider session={{ expires: null }}>
       <Provider store={{ ...store, ...initialState }}>
@@ -41,7 +42,7 @@ const renderWithAllProviders = (
     ...options,
   });
 
-const WithThemeProvider: React.FC = ({ children }) => (
+const WithThemeProvider = ({ children }: WithChildrenProps) => (
   <ThemeProvider theme={theme}>{children}</ThemeProvider>
 );
 
@@ -50,7 +51,7 @@ const renderWithTheme = (
   options?: Omit<RenderOptions, "wrapper">
 ) => render(ui, { wrapper: WithThemeProvider, ...options });
 
-const WithReduxProvider: React.FC = ({ children }) => (
+const WithReduxProvider = ({ children }: WithChildrenProps) => (
   <Provider store={store}>{children}</Provider>
 );
 

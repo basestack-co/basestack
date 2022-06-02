@@ -1,4 +1,4 @@
-import React, { forwardRef, memo } from "react";
+import { forwardRef, memo } from "react";
 import { useTheme } from "styled-components";
 import { ButtonProps } from "./types";
 import Icon from "../Icon";
@@ -32,6 +32,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           };
 
     return (
+      // TODO check why the type is not working for the button
+      // @ts-ignore
       <StyledButton
         ref={ref}
         hasLeftIcon={hasLeftIcon}
@@ -39,15 +41,16 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         variant={variant}
         fullWidth={fullWidth}
         {...customProps}
-        {...props}
       >
-        {hasLeftIcon && (
-          <Icon icon={icon} size="medium" mr={theme.spacing.s1} />
-        )}
-        {children}
-        {hasRightIcon && (
-          <Icon icon={icon} size="medium" ml={theme.spacing.s1} />
-        )}
+        <>
+          {hasLeftIcon && (
+            <Icon icon={icon} size="medium" mr={theme.spacing.s1} />
+          )}
+          {children}
+          {hasRightIcon && (
+            <Icon icon={icon} size="medium" ml={theme.spacing.s1} />
+          )}
+        </>
       </StyledButton>
     );
   }

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { space } from "styled-system";
+import { space, SpaceProps } from "styled-system";
 import { rem } from "polished";
 
 export const Container = styled.nav`
@@ -42,12 +42,12 @@ export const ButtonContainer = styled.div<{ isActive: boolean }>`
     `};
 `;
 
-export const List = styled.ul`
+export const List = styled.ul<SpaceProps>`
   ${space};
   ${flexCenter};
 `;
 
-export const ListItem = styled.li`
+export const ListItem = styled.li<SpaceProps>`
   ${space};
 `;
 

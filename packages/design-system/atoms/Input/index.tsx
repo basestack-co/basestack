@@ -19,7 +19,7 @@ export interface InputProps extends SpaceProps, LayoutProps {
   /**
    * Input size
    */
-  size?: "small" | "normal";
+  format?: "small" | "normal";
   /**
    * Icon Placement
    */
@@ -44,7 +44,7 @@ const Input: React.FC<InputProps> = ({
   type = "text",
   placeholder,
   isDarker = false,
-  size = "normal",
+  format = "normal",
   testId = "input-container",
   onChange,
   ...props
@@ -54,17 +54,17 @@ const Input: React.FC<InputProps> = ({
   const hasRightIcon = !!icon && iconPlacement === "right";
 
   return (
-    <Container data-testid={testId} {...props}>
+    <Container data-testId={testId} {...props}>
       {hasLeftIcon && (
         <LeftIcon icon={icon} size="medium" color={theme.colors.gray500} />
       )}
       <StyledInput
-        data-testid="input"
+        data-testId="input"
         onChange={onChange}
         placeholder={placeholder}
         type={type}
         isDarker={isDarker}
-        size={size}
+        format={format}
         hasLeftIcon={hasLeftIcon}
         hasRightIcon={hasRightIcon}
       />

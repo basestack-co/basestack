@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 export type Size = "small" | "medium" | "large" | "fullWidth";
 
 export type Button = {
@@ -34,4 +35,8 @@ export interface ModalProps {
    * Sets the modal to full height in mobile
    */
   expandMobile?: boolean;
+  /**
+   * A React Element
+   */
+  children: ReactNode;
 }

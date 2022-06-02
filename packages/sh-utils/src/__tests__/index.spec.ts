@@ -1,5 +1,4 @@
-import { DependencyList } from "react";
-
+//@ts-ignore
 describe("test", () => {
   it("test", () => {
     expect(true).toBe(true);

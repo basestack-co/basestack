@@ -1,4 +1,3 @@
-import React from "react";
 import { rem } from "polished";
 import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
@@ -62,7 +61,7 @@ describe("Avatar Atom tests", () => {
     );
     const avatar = getByTestId("avatar");
 
-    expect(avatar).toHaveStyle(`height: ${rem("24px")}`);
-    expect(avatar).toHaveStyle(`width: ${rem("24px")}`);
+    expect(avatar).toHaveStyle(`height: ${rem("28px")}`);
+    expect(avatar).toHaveStyle(`width: ${rem("28px")}`);
   });
 });
