@@ -224,7 +224,7 @@ exports[`Toolbar Organism tests should render Toolbar correctly 1`] = `
   >
     <div
       class="c1"
-      data-test-id="search-input"
+      data-testid="search-input"
     >
       <div
         class="c2 c3"
@@ -242,7 +242,7 @@ exports[`Toolbar Organism tests should render Toolbar correctly 1`] = `
       </div>
       <input
         class="c5"
-        data-test-id="input"
+        data-testid="input"
         format="normal"
         placeholder="Filter by title"
         type="text"

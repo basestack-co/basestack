@@ -1,4 +1,3 @@
-import React from "react";
 import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Navigation from "..";

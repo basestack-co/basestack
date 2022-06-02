@@ -54,12 +54,12 @@ const Input: React.FC<InputProps> = ({
   const hasRightIcon = !!icon && iconPlacement === "right";
 
   return (
-    <Container data-test-id={testId} {...props}>
+    <Container data-testId={testId} {...props}>
       {hasLeftIcon && (
         <LeftIcon icon={icon} size="medium" color={theme.colors.gray500} />
       )}
       <StyledInput
-        data-test-id="input"
+        data-testId="input"
         onChange={onChange}
         placeholder={placeholder}
         type={type}

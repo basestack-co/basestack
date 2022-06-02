@@ -1,4 +1,3 @@
-import React from "react";
 import { rem } from "polished";
 import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
@@ -56,13 +55,13 @@ describe("Avatar Atom tests", () => {
     expect(avatar).toHaveStyle(`width: ${rem("40px")}`);
   });
 
-  test.skip("should render small Avatar", () => {
+  test("should render small Avatar", () => {
     const { getByTestId } = renderWithTheme(
       <Avatar size="small" alt="avatar" />
     );
     const avatar = getByTestId("avatar");
 
-    expect(avatar).toHaveStyle(`height: ${rem("24px")}`);
-    expect(avatar).toHaveStyle(`width: ${rem("24px")}`);
+    expect(avatar).toHaveStyle(`height: ${rem("28px")}`);
+    expect(avatar).toHaveStyle(`width: ${rem("28px")}`);
   });
 });

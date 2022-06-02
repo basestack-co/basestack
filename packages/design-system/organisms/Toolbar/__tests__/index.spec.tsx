@@ -1,9 +1,8 @@
-import React from "react";
 import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Toolbar from "..";
 
-describe.skip("Toolbar Organism tests", () => {
+describe("Toolbar Organism tests", () => {
   afterEach(cleanup);
 
   test("should render Toolbar correctly", () => {

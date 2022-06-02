@@ -33,11 +33,11 @@ exports[`Input Atom tests should render Input correctly 1`] = `
 
 <div
     class="c0"
-    data-test-id="input-container"
+    data-testid="input-container"
   >
     <input
       class="c1"
-      data-test-id="input"
+      data-testid="input"
       format="normal"
       placeholder="Search here..."
       type="text"
