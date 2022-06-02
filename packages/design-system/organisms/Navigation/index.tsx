@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { useFloating, autoUpdate, offset } from "@floating-ui/react-dom";
 import { useTheme } from "styled-components";
 import { useTransition, animated, config } from "react-spring";
@@ -14,10 +14,7 @@ import {
 import { ButtonLinkProps, NavigationProps } from "./types";
 import { scaleInTopLeft } from "../../animations/springs";
 
-const ButtonLink: React.FC<ButtonLinkProps> = ({
-  isActive = false,
-  children,
-}) => (
+const ButtonLink = ({ isActive = false, children }: ButtonLinkProps) => (
   <ButtonContainer isActive={isActive}>
     <Button as="a" variant="primaryNeutral">
       {children}

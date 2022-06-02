@@ -13,7 +13,7 @@ export const StyledText = styled(Text)`
   font-weight: 500;
 `;
 
-export const Number = styled.div<{ highlight: boolean }>`
+export const Number = styled.div<{ highlight?: boolean }>`
   background-color: ${({ theme }) => theme.colors.gray100};
   height: 36px;
   min-width: 36px;

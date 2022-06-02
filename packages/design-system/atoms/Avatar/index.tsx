@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import { SpaceProps } from "styled-system";
 import { Container, Image } from "./styles";
 

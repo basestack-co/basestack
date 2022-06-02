@@ -38,6 +38,7 @@ exports[`Input Atom tests should render Input correctly 1`] = `
     <input
       class="c1"
       data-testid="input"
+      format="normal"
       placeholder="Search here..."
       type="text"
     />

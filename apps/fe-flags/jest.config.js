@@ -1,3 +1,3 @@
-const common = require("config/jest.config.js");
+const common = require("config/jest.next.config");
 
 module.exports = common;

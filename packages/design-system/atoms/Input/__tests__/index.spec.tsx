@@ -1,4 +1,3 @@
-import React from "react";
 import { rem } from "polished";
 import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
@@ -27,7 +26,11 @@ describe("Input Atom tests", () => {
 
   test("should render normal input", () => {
     const { getByTestId } = renderWithTheme(
-      <Input placeholder="Search here..." onChange={jest.fn()} />
+      <Input
+        placeholder="Search here..."
+        onChange={jest.fn()}
+        format="normal"
+      />
     );
     const input = getByTestId("input");
 
@@ -40,7 +43,7 @@ describe("Input Atom tests", () => {
 
   test("should render small input", () => {
     const { getByTestId } = renderWithTheme(
-      <Input size="small" placeholder="Search here..." onChange={jest.fn()} />
+      <Input format="small" placeholder="Search here..." onChange={jest.fn()} />
     );
     const input = getByTestId("input");
 

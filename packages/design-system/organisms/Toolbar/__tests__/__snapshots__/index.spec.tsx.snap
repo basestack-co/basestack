@@ -37,6 +37,8 @@ exports[`Toolbar Organism tests should render Toolbar correctly 1`] = `
 }
 
 .c1 {
+  width: small;
+  height: small;
   max-width: 220px;
   position: relative;
   display: -webkit-box;
@@ -52,7 +54,7 @@ exports[`Toolbar Organism tests should render Toolbar correctly 1`] = `
 .c5 {
   border: none;
   background-color: #EEEEEE;
-  height: 2.25rem;
+  height: 2.75rem;
   border-radius: 0.25rem;
   font-size: 0.875rem;
   font-weight: 400;
@@ -241,6 +243,7 @@ exports[`Toolbar Organism tests should render Toolbar correctly 1`] = `
       <input
         class="c5"
         data-testid="input"
+        format="normal"
         placeholder="Filter by title"
         type="text"
       />

@@ -1,4 +1,4 @@
-import React, { forwardRef, memo } from "react";
+import { forwardRef, memo } from "react";
 import { PositionProps } from "styled-system";
 import { Button, Text, Avatar } from "../../atoms";
 import { Container, Header, List, ListItem, ProjectButton } from "./styles";

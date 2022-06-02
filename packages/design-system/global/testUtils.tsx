@@ -1,12 +1,14 @@
 import React from "react";
 import { render, RenderOptions } from "@testing-library/react";
-// Store
-import { Provider } from "react-redux";
 // Styles
 import { ThemeProvider } from "styled-components";
-import theme from "ui/theme/theme.semantic";
+import theme from "../theme";
 
-const WithThemeProvider: React.FC = ({ children }) => (
+interface Props {
+  children: React.ReactNode;
+}
+
+const WithThemeProvider = ({ children }: Props) => (
   <ThemeProvider theme={theme}>{children}</ThemeProvider>
 );
 

@@ -21,10 +21,10 @@
   "devDependencies": {
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^7.0.4",
-    "lint-staged": "^12.3.8",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.0",
     "prettier": "^2.6.2",
-    "turbo": "1.2.5"
+    "turbo": "1.2.15"
   },
   "engines": {
     "npm": ">=7.0.0",

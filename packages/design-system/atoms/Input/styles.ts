@@ -12,14 +12,14 @@ export const Container = styled.div`
 
 export const StyledInput = styled.input<{
   isDarker: boolean;
-  size?: "small" | "normal";
+  format?: "small" | "normal";
   hasLeftIcon: boolean;
   hasRightIcon: boolean;
 }>`
   border: none;
   background-color: ${({ theme, isDarker }) =>
     isDarker ? theme.colors.gray100 : theme.colors.gray50};
-  height: ${({ size }) => (size === "normal" ? rem("44px") : rem("36px"))};
+  height: ${({ format }) => (format === "normal" ? rem("44px") : rem("36px"))};
   border-radius: ${rem("4px")};
   font-size: ${rem("14px")};
   font-weight: 400;
