@@ -14,6 +14,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       icon,
       iconPlacement = "right",
       fullWidth = false,
+      href,
       ...props
     },
     ref
@@ -26,6 +27,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       as === "a"
         ? {
             as: "a",
+            href,
           }
         : {
             onClick,
@@ -41,6 +43,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         variant={variant}
         fullWidth={fullWidth}
         {...customProps}
+        {...props}
       >
         <>
           {hasLeftIcon && (

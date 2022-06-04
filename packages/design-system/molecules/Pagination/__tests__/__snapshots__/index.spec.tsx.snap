@@ -58,10 +58,13 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
+  margin-right: 0.75rem;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -96,10 +99,13 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
+  margin-left: 0.75rem;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;

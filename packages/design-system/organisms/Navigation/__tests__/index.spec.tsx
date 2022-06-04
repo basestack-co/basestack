@@ -7,7 +7,7 @@ describe("Navigation Organism tests", () => {
 
   test("should render Navigation correctly", () => {
     const { asFragment } = renderWithTheme(
-      <Navigation onCreateFlag={jest.fn} />
+      <Navigation onCreateFlag={jest.fn} pathname="/flags" />
     );
     expect(asFragment()).toMatchSnapshot();
   });

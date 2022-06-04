@@ -49,4 +49,8 @@ export interface ButtonProps
    * Set button to full width
    */
   fullWidth?: boolean;
+  /**
+   * Href for button links
+   */
+  href?: string;
 }

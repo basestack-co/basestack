@@ -14,9 +14,9 @@ import {
 import { ButtonLinkProps, NavigationProps } from "./types";
 import { scaleInTopLeft } from "../../animations/springs";
 
-const ButtonLink = ({ isActive = false, children }: ButtonLinkProps) => (
+const ButtonLink = ({ isActive = false, children, href }: ButtonLinkProps) => (
   <ButtonContainer isActive={isActive}>
-    <Button as="a" variant="primaryNeutral">
+    <Button href={href} as="a" variant="primaryNeutral">
       {children}
     </Button>
   </ButtonContainer>
@@ -24,9 +24,8 @@ const ButtonLink = ({ isActive = false, children }: ButtonLinkProps) => (
 
 const AnimatedPopup = animated(PopupActions);
 
-const Navigation = ({ onCreateFlag }: NavigationProps) => {
+const Navigation = ({ onCreateFlag, pathname }: NavigationProps) => {
   const theme = useTheme();
-
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const { x, y, reference, floating, strategy } = useFloating({
     placement: "bottom-start",
@@ -92,12 +91,16 @@ const Navigation = ({ onCreateFlag }: NavigationProps) => {
           )}
         </ListItem>
         <ListItem>
-          <ButtonLink isActive>Features</ButtonLink>
+          <ButtonLink href="/flags" isActive={pathname === "/flags"}>
+            Features
+          </ButtonLink>
         </ListItem>
         <ListItem>
-          <ButtonLink isActive={false}>Settings</ButtonLink>
+          <ButtonLink href="/settings" isActive={pathname === "/settings"}>
+            Settings
+          </ButtonLink>
         </ListItem>
-        <ListItem ml={theme.spacing.s3}>
+        <ListItem ml={theme.spacing.s5}>
           <Button onClick={onCreateFlag} variant="primary">
             Create flag
           </Button>
@@ -105,10 +108,17 @@ const Navigation = ({ onCreateFlag }: NavigationProps) => {
       </List>
       <List ml="auto" data-testid="navigation-right-ul">
         <ListItem>
-          <ButtonLink isActive={false}>Documentation</ButtonLink>
+          <ButtonLink
+            href="/documentation"
+            isActive={pathname === "/documentation"}
+          >
+            Documentation
+          </ButtonLink>
         </ListItem>
         <ListItem>
-          <ButtonLink isActive={false}>Resources</ButtonLink>
+          <ButtonLink href="/resources" isActive={pathname === "/resources"}>
+            Resources
+          </ButtonLink>
         </ListItem>
         <ListItem>
           <Button as="a" variant="primaryNeutral">

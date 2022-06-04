@@ -53,10 +53,17 @@ exports[`PopupActions Molecule tests should render PopupActions correctly 1`] = 
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #EEEEEE;
   color: #000000;
+  margin-top: 0.25rem;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   width: 100%;
 }
 

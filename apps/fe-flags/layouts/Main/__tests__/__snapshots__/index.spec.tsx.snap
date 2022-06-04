@@ -60,6 +60,8 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
@@ -99,6 +101,8 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
@@ -121,7 +125,7 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
   background-color: #D4E2FC;
 }
 
-.c12 {
+.c11 {
   border: none;
   height: 2.25rem;
   display: -webkit-box;
@@ -137,6 +141,8 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #276EF1;
@@ -146,7 +152,7 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
   width: fit-content;
 }
 
-.c12:hover:not(:active) {
+.c11:hover:not(:active) {
   background-color: #0e55d7;
 }
 
@@ -182,33 +188,6 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
   height: 4rem;
 }
 
-.c8 a {
-  color: #276EF1;
-}
-
-.c8::before {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 3px;
-  background-color: #276EF1;
-}
-
-.c10 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  position: relative;
-  height: 4rem;
-}
-
 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -220,7 +199,7 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
   align-items: center;
 }
 
-.c13 {
+.c12 {
   margin-left: auto;
   display: -webkit-box;
   display: -webkit-flex;
@@ -232,7 +211,11 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
   align-items: center;
 }
 
-.c11 {
+.c10 {
+  margin-left: 1.25rem;
+}
+
+.c13 {
   margin-left: 0.75rem;
 }
 
@@ -316,6 +299,7 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
         >
           <a
             class="c9"
+            href="/flags"
           >
             Features
           </a>
@@ -325,37 +309,39 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
         class=""
       >
         <div
-          class="c10"
+          class="c8"
         >
           <a
             class="c9"
+            href="/settings"
           >
             Settings
           </a>
         </div>
       </li>
       <li
-        class="c11"
+        class="c10"
       >
         <button
-          class="c12"
+          class="c11"
         >
           Create flag
         </button>
       </li>
     </ul>
     <ul
-      class="c13"
+      class="c12"
       data-testid="navigation-right-ul"
     >
       <li
         class=""
       >
         <div
-          class="c10"
+          class="c8"
         >
           <a
             class="c9"
+            href="/documentation"
           >
             Documentation
           </a>
@@ -365,10 +351,11 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
         class=""
       >
         <div
-          class="c10"
+          class="c8"
         >
           <a
             class="c9"
+            href="/resources"
           >
             Resources
           </a>
@@ -384,7 +371,7 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
         </a>
       </li>
       <li
-        class="c11"
+        class="c13"
       >
         <div
           class="c14"

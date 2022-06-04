@@ -13,7 +13,7 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
   border-radius: 4px;
 }
 
-.c14 {
+.c15 {
   height: 2.5rem;
   width: 2.5rem;
   border-radius: 50%;
@@ -60,6 +60,8 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
@@ -99,6 +101,8 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
@@ -137,6 +141,8 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #276EF1;
@@ -233,6 +239,10 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
 }
 
 .c11 {
+  margin-left: 1.25rem;
+}
+
+.c14 {
   margin-left: 0.75rem;
 }
 
@@ -316,6 +326,7 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
         >
           <a
             class="c9"
+            href="/flags"
           >
             Features
           </a>
@@ -329,6 +340,7 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
         >
           <a
             class="c9"
+            href="/settings"
           >
             Settings
           </a>
@@ -356,6 +368,7 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
         >
           <a
             class="c9"
+            href="/documentation"
           >
             Documentation
           </a>
@@ -369,6 +382,7 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
         >
           <a
             class="c9"
+            href="/resources"
           >
             Resources
           </a>
@@ -384,10 +398,10 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
         </a>
       </li>
       <li
-        class="c11"
+        class="c14"
       >
         <div
-          class="c14"
+          class="c15"
           data-testid="avatar"
           size="40"
         >

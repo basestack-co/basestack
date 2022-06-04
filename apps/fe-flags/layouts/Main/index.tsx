@@ -30,7 +30,10 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Fragment>
-      <Navigation onCreateFlag={() => setIsCreateFlagModalOpen(true)} />
+      <Navigation
+        pathname={router.pathname}
+        onCreateFlag={() => setIsCreateFlagModalOpen(true)}
+      />
       <CreateFlagModal
         onCreate={() => setIsCreateFlagModalOpen(false)}
         isModalOpen={isCreateFlagModalOpen}

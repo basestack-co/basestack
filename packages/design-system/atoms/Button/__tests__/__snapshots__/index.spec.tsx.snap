@@ -18,6 +18,8 @@ exports[`Button Atom tests should render Button correctly 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #276EF1;
@@ -57,6 +59,8 @@ exports[`Button Atom tests should render Button link 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #276EF1;
@@ -110,6 +114,8 @@ exports[`Button Atom tests should render Button with icon 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #276EF1;
@@ -163,6 +169,8 @@ exports[`Button Atom tests should render Button with onClick 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #276EF1;
@@ -202,10 +210,16 @@ exports[`Button Atom tests should render Button with styled system utilities 1`]
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #276EF1;
   color: #FFFFFF;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-bottom: 100px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;

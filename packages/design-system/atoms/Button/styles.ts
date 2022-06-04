@@ -20,6 +20,7 @@ const sharedStyles = css`
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  text-decoration: none;
   transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out,
     border-color 0.1s ease-in-out;
 `;
