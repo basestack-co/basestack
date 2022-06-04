@@ -4,7 +4,7 @@ import Link from "next/link";
 //Styles
 import { ThemeProvider } from "styled-components";
 import theme from "design-system/theme";
-import GlobalStyle from "design-system/theme/GlobalStyle";
+import GlobalStyle from "styles/GlobalStyle";
 
 // Components
 import { SideNav, TableOfContents, TopNav } from "../components";

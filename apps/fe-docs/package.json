@@ -5,13 +5,14 @@
   "scripts": {
     "dev": "next dev --port 3001",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
   },
   "dependencies": {
     "@markdoc/markdoc": "latest",
     "@markdoc/next.js": "latest",
     "design-system": "*",
-    "next": "latest",
+    "next": "^12.1.6",
     "prismjs": "^1.28.0",
     "react": "latest",
     "react-dom": "latest",

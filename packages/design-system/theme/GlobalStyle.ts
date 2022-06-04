@@ -1,39 +1,37 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-    :root {
-      --top-nav-height: 51px;
-      --border-color: #dce6e9;
-    }
-    
     *,
-    *::before,
-    *::after {
+    *:before,
+    *:after {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
-    
+
+    html,
+    body {
+      height: 100%;
+    }
+
     body {
       font-family: ${({ theme }) => theme.typography.fontFamily};
       background-color: ${({ theme }) => theme.colors.gray50};
-      color: rgba(60, 66, 87, 1);
-      margin: 0;
     }
-    
-    p {
-      line-height: 1.5em;
+
+    button, 
+    input,
+    textarea {
+      font-family: inherit;
     }
-    
-    
-    h1 {
-      font-size: 40px;
-    }
-    
-    h2 {
-      margin: 1.5em 0;
-    }
-    
+
+    button,
     a {
-      color: rgba(75, 85, 99, 1);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    ul {
+      list-style-type: none;
     }
 `;
 
