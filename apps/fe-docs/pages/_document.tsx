@@ -39,15 +39,22 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/*  <!-- Primary Meta Tags --> */}
-          <meta name="title" content="Monolock" />
-          <meta name="description" content="Monolock desc" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+
+          <meta
+            name="description"
+            content="Simple feature flagging and toggle service"
+          />
+
+          <meta name="referrer" content="strict-origin" />
 
           <link
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
             rel="stylesheet"
           />
-          <link href="/css/bootstrap-grid.min.css" rel="stylesheet" />
           <link
             rel="stylesheet"
             href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0"

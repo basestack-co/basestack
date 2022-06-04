@@ -1,0 +1,31 @@
+{
+  "name": "fe-docs",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3001",
+    "build": "next build",
+    "start": "next start",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
+  },
+  "dependencies": {
+    "@markdoc/markdoc": "latest",
+    "@markdoc/next.js": "latest",
+    "design-system": "*",
+    "next": "^12.1.6",
+    "prismjs": "^1.28.0",
+    "react": "latest",
+    "react-dom": "latest",
+    "styled-components": "^5.3.5"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "config": "*",
+    "typescript": "latest"
+  },
+  "overrides": {
+    "@types/react": "^18.0.0"
+  }
+}
