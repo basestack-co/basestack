@@ -9,62 +9,60 @@ const mockMore = [
 ];
 
 const mockTableData = {
-  headers: ["Environment", "Description", "Show toggle"],
+  headers: ["Key", "Environment", "Description"],
   rows: [
     {
       cols: [
         {
+          title: "key_dev_8299aa6b",
+        },
+        {
           title: "development",
         },
         {
-          title: "Toggles for developers only",
-        },
-        {
-          title: "yes",
+          title: "development SDK",
         },
       ],
       more: mockMore,
     },
     {
       cols: [
+        {
+          title: "key_stag_3400aa6b",
+        },
         {
           title: "staging",
         },
         {
-          title: "Toggles for Qa’s",
-        },
-        {
-          title: "no",
+          title: "staging SDK",
         },
       ],
       more: mockMore,
     },
-
     {
       cols: [
+        {
+          title: "key_close_6002aa6b",
+        },
         {
           title: "closeprod",
         },
         {
-          title: "-",
-        },
-        {
-          title: "no",
+          title: "closeprod SDK",
         },
       ],
       more: mockMore,
     },
-
     {
       cols: [
+        {
+          title: "key_prod_1092aa6b",
+        },
         {
           title: "production",
         },
         {
-          title: "Toggles for end users",
-        },
-        {
-          title: "yes",
+          title: "production SDK",
         },
       ],
       more: mockMore,
@@ -72,14 +70,14 @@ const mockTableData = {
   ],
 };
 
-const Environments = () => {
+const ApiKeys = () => {
   return (
     <CardList>
       <CardListItem>
         <SettingCard
-          title="Environments"
-          description="Create and edit environments for feature flags and their rules."
-          button="Create New Environment"
+          title="API Keys"
+          description="API keys can be used with our SDK’s (Javascript, React, Go, PHP)."
+          button="Create New API Key"
           onClick={() => console.log("save")}
         >
           <Table data={mockTableData} />
@@ -89,4 +87,4 @@ const Environments = () => {
   );
 };
 
-export default Environments;
+export default ApiKeys;

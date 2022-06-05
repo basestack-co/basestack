@@ -4,7 +4,7 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
 <DocumentFragment>
   .c3 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   margin-bottom: 0.75rem;
   font-family: 'Roboto',sans-serif;
@@ -13,7 +13,7 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
 
 .c8 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   margin-top: auto;
   font-family: 'Roboto',sans-serif;
@@ -22,7 +22,7 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
 
 .c2 {
   font-size: 1.125rem;
-  line-height: 1.5rem;
+  line-height: 1.625rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
   font-family: 'Roboto',sans-serif;
@@ -221,7 +221,7 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
 <DocumentFragment>
   .c3 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   margin-bottom: 0.75rem;
   font-family: 'Roboto',sans-serif;
@@ -230,7 +230,7 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
 
 .c8 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   margin-top: auto;
   font-family: 'Roboto',sans-serif;
@@ -239,7 +239,7 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
 
 .c2 {
   font-size: 1.125rem;
-  line-height: 1.5rem;
+  line-height: 1.625rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
   font-family: 'Roboto',sans-serif;

@@ -20,28 +20,28 @@ export const XSmallText = styled.span<TextProps>`
 
 export const SmallText = styled.p<TextProps>`
   font-size: ${rem("14px")};
-  line-height: ${rem("20px")};
+  line-height: ${rem("22px")};
   font-weight: 400;
   ${({ color, muted }) => sharedStyles(color, muted)};
 `;
 
 export const MediumText = styled.p<TextProps>`
   font-size: ${rem("16px")};
-  line-height: ${rem("22px")};
+  line-height: ${rem("24px")};
   font-weight: 500;
   ${({ color, muted }) => sharedStyles(color, muted)};
 `;
 
 export const LargeText = styled.h3<TextProps>`
   font-size: ${rem("18px")};
-  line-height: ${rem("24px")};
+  line-height: ${rem("26px")};
   font-weight: 500;
   ${({ color, muted }) => sharedStyles(color, muted)};
 `;
 
 export const XLargeText = styled.h2<TextProps>`
   font-size: ${rem("20px")};
-  line-height: ${rem("26px")};
+  line-height: ${rem("28px")};
   font-weight: 500;
   ${({ color, muted }) => sharedStyles(color, muted)};
 `;

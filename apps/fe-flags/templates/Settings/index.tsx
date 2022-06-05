@@ -1,17 +1,22 @@
 import React, { useMemo, useState } from "react";
 import { useTheme } from "styled-components";
-import { Text, SettingCard } from "design-system";
-import {
-  CardList,
-  CardListItem,
-  List,
-  ListItem,
-  SettingsContainer,
-  StyledButton,
-} from "./styles";
+import { Text } from "design-system";
+import { List, ListItem, SettingsContainer, StyledButton } from "./styles";
 import { Container } from "../styles";
 
-const buttons = ["General", "Environments", "Members", "Api Keys", "Billing"];
+import General from "./General";
+import Environments from "./Environments";
+import Members from "./Members";
+import ApiKeys from "./ApiKeys";
+
+enum ButtonsEnum {
+  GENERAL = "general",
+  ENVIRONMENTS = "environments",
+  MEMBERS = "members",
+  API_KEYS = "api keys",
+}
+
+const buttons = ["General", "Environments", "Members", "Api Keys"];
 
 const Settings = () => {
   const theme = useTheme();
@@ -36,6 +41,19 @@ const Settings = () => {
     ));
   }, [activeButton]);
 
+  const renderContent = useMemo(() => {
+    switch (activeButton.text) {
+      case ButtonsEnum.GENERAL:
+        return <General />;
+      case ButtonsEnum.ENVIRONMENTS:
+        return <Environments />;
+      case ButtonsEnum.MEMBERS:
+        return <Members />;
+      case ButtonsEnum.API_KEYS:
+        return <ApiKeys />;
+    }
+  }, [activeButton]);
+
   return (
     <Container>
       <Text size="xLarge" mb={theme.spacing.s5}>
@@ -43,34 +61,7 @@ const Settings = () => {
       </Text>
       <SettingsContainer>
         <List top={activeButton.index * 100}>{renderButton}</List>
-        <CardList>
-          <CardListItem>
-            <SettingCard
-              title="Team name"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-              button="Save"
-              onClick={() => console.log("save")}
-              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-              input={{
-                onChange: () => console.log("change"),
-                placeholder: "Team name",
-              }}
-            />
-          </CardListItem>
-          <CardListItem>
-            <SettingCard
-              title="Project name"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-              button="Save"
-              onClick={() => console.log("save")}
-              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-              input={{
-                onChange: () => console.log("change"),
-                placeholder: "Project name",
-              }}
-            />
-          </CardListItem>
-        </CardList>
+        {renderContent}
       </SettingsContainer>
     </Container>
   );

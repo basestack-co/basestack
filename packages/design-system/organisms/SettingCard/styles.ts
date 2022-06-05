@@ -9,5 +9,5 @@ export const Container = styled.div`
 export const Footer = styled.div`
   display: flex;
   align-items: center;
-  padding: ${({ theme }) => theme.spacing.s5};
+  padding: ${({ theme }) => theme.spacing.s4} ${({ theme }) => theme.spacing.s5};
 `;

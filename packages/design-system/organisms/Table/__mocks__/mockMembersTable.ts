@@ -1,47 +1,83 @@
-export const mockTableData = {
-  headers: ["Key", "Environment", "Description"],
+export const mockMore = [
+  { text: "Edit", onClick: () => console.log("") },
+  { text: "History", onClick: () => console.log("") },
+  { text: "Delete", onClick: () => console.log("") },
+];
+
+export const mockMembersTable = {
+  headers: ["Name", "Email", "Role"],
   rows: [
     {
       cols: [
         {
-          title: "key_dev_8299aa6b",
-          link: "",
+          image: {
+            userName: "Jack",
+            src: "",
+          },
+          title: "Jack",
         },
         {
-          title: "development",
-          link: "",
+          title: "jack@gmail.com",
         },
         {
-          title: "development SDK",
-          link: "",
+          title: "Admin",
         },
       ],
-      more: [
-        { text: "Edit", onClick: () => console.log("") },
-        { text: "History", onClick: () => console.log("") },
-        { text: "Delete", onClick: () => console.log("") },
-      ],
+      more: mockMore,
     },
     {
       cols: [
         {
-          title: "key_dev_8299aa6b",
-          link: "",
+          image: {
+            userName: "Pedro",
+            src: "",
+          },
+          title: "Pedro",
         },
         {
-          title: "development",
-          link: "",
+          title: "pedro_dev@gmail.com",
         },
         {
-          title: "development SDK",
-          link: "",
+          title: "developer",
         },
       ],
-      more: [
-        { text: "Edit", onClick: () => console.log("") },
-        { text: "History", onClick: () => console.log("") },
-        { text: "Delete", onClick: () => console.log("") },
+      more: mockMore,
+    },
+    {
+      cols: [
+        {
+          image: {
+            userName: "Daniel",
+            src: "",
+          },
+          title: "Daniel",
+        },
+        {
+          title: "daniel_ninja_dev@gmail.com",
+        },
+        {
+          title: "developer",
+        },
       ],
+      more: mockMore,
+    },
+    {
+      cols: [
+        {
+          image: {
+            userName: "Joana",
+            src: "",
+          },
+          title: "Joana",
+        },
+        {
+          title: "joana_mac@gmail.com",
+        },
+        {
+          title: "QA",
+        },
+      ],
+      more: mockMore,
     },
   ],
 };

@@ -4,7 +4,7 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
 <DocumentFragment>
   .c8 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
   color: #000000;
@@ -12,7 +12,7 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
 
 .c9 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
   color: #757575;
@@ -20,7 +20,7 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
 
 .c7 {
   font-size: 1.125rem;
-  line-height: 1.5rem;
+  line-height: 1.625rem;
   font-weight: 500;
   font-family: 'Roboto',sans-serif;
   color: #000000;
@@ -252,7 +252,7 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
 <DocumentFragment>
   .c8 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
   color: #000000;
@@ -260,7 +260,7 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
 
 .c9 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
   color: #757575;
@@ -268,7 +268,7 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
 
 .c7 {
   font-size: 1.125rem;
-  line-height: 1.5rem;
+  line-height: 1.625rem;
   font-weight: 500;
   font-family: 'Roboto',sans-serif;
   color: #000000;

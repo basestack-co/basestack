@@ -6,7 +6,7 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
 <DocumentFragment>
   .c3 {
   font-size: 1.25rem;
-  line-height: 1.625rem;
+  line-height: 1.75rem;
   font-weight: 500;
   margin-right: 0.5rem;
   font-family: 'Roboto',sans-serif;
@@ -289,7 +289,7 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
 <DocumentFragment>
   .c3 {
   font-size: 1.25rem;
-  line-height: 1.625rem;
+  line-height: 1.75rem;
   font-weight: 500;
   margin-right: 0.5rem;
   font-family: 'Roboto',sans-serif;

@@ -4,7 +4,7 @@ exports[`Text Atom tests should render text correctly 1`] = `
 <DocumentFragment>
   .c0 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
   color: #000000;

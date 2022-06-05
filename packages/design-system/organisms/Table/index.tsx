@@ -1,9 +1,17 @@
 import React, { useCallback, useState } from "react";
 import { useFloating, autoUpdate } from "@floating-ui/react-dom";
 import { useTransition, animated, config } from "react-spring";
-import { Text, IconButton } from "../../atoms";
+import get from "lodash.get";
+import { Text, IconButton, Avatar } from "../../atoms";
 import { scaleInTopRight } from "../../animations/springs";
-import { Col, Container, Placeholder, StyledLink, StyledRow } from "./styles";
+import {
+  Col,
+  Container,
+  ContentRow,
+  Placeholder,
+  StyledLink,
+  StyledRow,
+} from "./styles";
 import { Popup } from "../../molecules";
 import { TableProps, RowProps } from "./types";
 import { useTheme } from "styled-components";
@@ -32,22 +40,35 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
     <StyledRow numberOfColumns={numberOfCols} data-testid="row">
       {cols &&
         cols.map((col, index) => {
+          const imageSrc = get(col, "image.src");
+          const imageUsername = get(col, "image.userName");
           return (
             <Col key={`${index.toString()}-col`}>
               {!!col.link ? (
                 <StyledLink>
                   <Text
                     color={theme.colors.primary}
-                    fontWeight={index === 0 ? "500" : "400"}
+                    fontWeight="400"
                     size="small"
                   >
                     {col.title}
                   </Text>
                 </StyledLink>
               ) : (
-                <Text fontWeight={index === 0 ? "500" : "400"} size="small">
-                  {col.title}
-                </Text>
+                <ContentRow>
+                  {(!!imageSrc || !!imageUsername) && (
+                    <Avatar
+                      src={imageSrc}
+                      userName={imageUsername}
+                      alt={`${imageUsername} profile image`}
+                      size="small"
+                      mr={theme.spacing.s3}
+                    />
+                  )}
+                  <Text fontWeight="400" size="small">
+                    {col.title}
+                  </Text>
+                </ContentRow>
               )}
             </Col>
           );

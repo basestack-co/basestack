@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 import { useTheme } from "styled-components";
-import { Text, Card, HorizontalRule, Button, Input } from "../../atoms";
-import { InputProps } from "../../atoms/Input";
+import { Text, Card, HorizontalRule, Button } from "../../atoms";
 import { Container, Footer } from "./styles";
 
 interface SettingCard {
@@ -26,9 +25,9 @@ interface SettingCard {
    */
   button: string;
   /**
-   * Card input
+   * Card body content, input, table or other elements
    */
-  input: InputProps;
+  children: React.ReactElement;
 }
 
 const SettingCard = ({
@@ -37,20 +36,20 @@ const SettingCard = ({
   text,
   onClick,
   button,
-  input,
+  children,
 }: SettingCard) => {
   const theme = useTheme();
 
   return (
     <Card>
       <Container>
-        <Text mb={theme.spacing.s2} data-testid="setting-title" size="large">
+        <Text mb={theme.spacing.s1} data-testid="setting-title" size="large">
           {title}
         </Text>
         <Text mb={theme.spacing.s5} data-testid="setting-title" size="small">
           {description}
         </Text>
-        <Input maxWidth={400} {...input} />
+        {children}
       </Container>
       <HorizontalRule />
       <Footer>

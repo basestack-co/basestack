@@ -9,18 +9,22 @@ const mockMore = [
 ];
 
 const mockTableData = {
-  headers: ["Environment", "Description", "Show toggle"],
+  headers: ["Name", "Email", "Role"],
   rows: [
     {
       cols: [
         {
-          title: "development",
+          image: {
+            userName: "Marta",
+            src: "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+          },
+          title: "Marta",
         },
         {
-          title: "Toggles for developers only",
+          title: "Marta@gmail.com",
         },
         {
-          title: "yes",
+          title: "Admin",
         },
       ],
       more: mockMore,
@@ -28,43 +32,53 @@ const mockTableData = {
     {
       cols: [
         {
-          title: "staging",
+          image: {
+            userName: "Pedro",
+            src: "https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+          },
+          title: "Pedro",
         },
         {
-          title: "Toggles for Qa’s",
+          title: "pedro_dev@gmail.com",
         },
         {
-          title: "no",
-        },
-      ],
-      more: mockMore,
-    },
-
-    {
-      cols: [
-        {
-          title: "closeprod",
-        },
-        {
-          title: "-",
-        },
-        {
-          title: "no",
+          title: "developer",
         },
       ],
       more: mockMore,
     },
-
     {
       cols: [
         {
-          title: "production",
+          image: {
+            userName: "Daniel",
+            src: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+          },
+          title: "Daniel",
         },
         {
-          title: "Toggles for end users",
+          title: "daniel_ninja_dev@gmail.com",
         },
         {
-          title: "yes",
+          title: "developer",
+        },
+      ],
+      more: mockMore,
+    },
+    {
+      cols: [
+        {
+          image: {
+            userName: "Joana",
+            src: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+          },
+          title: "Joana",
+        },
+        {
+          title: "joana_mac@gmail.com",
+        },
+        {
+          title: "QA",
         },
       ],
       more: mockMore,
@@ -72,14 +86,14 @@ const mockTableData = {
   ],
 };
 
-const Environments = () => {
+const Members = () => {
   return (
     <CardList>
       <CardListItem>
         <SettingCard
-          title="Environments"
-          description="Create and edit environments for feature flags and their rules."
-          button="Create New Environment"
+          title="Team members"
+          description="Active Members"
+          button="Invite Member"
           onClick={() => console.log("save")}
         >
           <Table data={mockTableData} />
@@ -89,4 +103,4 @@ const Environments = () => {
   );
 };
 
-export default Environments;
+export default Members;

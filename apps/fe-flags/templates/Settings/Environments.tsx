@@ -1,42 +1,92 @@
 import React from "react";
-import { Input, SettingCard } from "design-system";
+import { SettingCard, Table } from "design-system";
 import { CardList, CardListItem } from "./styles";
 
-const General = () => {
+const mockMore = [
+  { text: "Edit", onClick: () => console.log("") },
+  { text: "History", onClick: () => console.log("") },
+  { text: "Delete", onClick: () => console.log("") },
+];
+
+const mockTableData = {
+  headers: ["Environment", "Description", "Show toggle"],
+  rows: [
+    {
+      cols: [
+        {
+          title: "development",
+        },
+        {
+          title: "Toggles for developers only",
+        },
+        {
+          title: "yes",
+        },
+      ],
+      more: mockMore,
+    },
+    {
+      cols: [
+        {
+          title: "staging",
+        },
+        {
+          title: "Toggles for Qa’s",
+        },
+        {
+          title: "no",
+        },
+      ],
+      more: mockMore,
+    },
+
+    {
+      cols: [
+        {
+          title: "closeprod",
+        },
+        {
+          title: "-",
+        },
+        {
+          title: "no",
+        },
+      ],
+      more: mockMore,
+    },
+
+    {
+      cols: [
+        {
+          title: "production",
+        },
+        {
+          title: "Toggles for end users",
+        },
+        {
+          title: "yes",
+        },
+      ],
+      more: mockMore,
+    },
+  ],
+};
+
+const Environments = () => {
   return (
     <CardList>
       <CardListItem>
         <SettingCard
-          title="Team name"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-          button="Save"
+          title="Environments"
+          description="Create and edit environments for feature flags and their rules."
+          button="Create New Environment"
           onClick={() => console.log("save")}
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         >
-          <Input
-            maxWidth={400}
-            onChange={() => console.log("change")}
-            placeholder="Team name"
-          />
-        </SettingCard>
-      </CardListItem>
-      <CardListItem>
-        <SettingCard
-          title="Project name"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-          button="Save"
-          onClick={() => console.log("save")}
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        >
-          <Input
-            maxWidth={400}
-            onChange={() => console.log("change")}
-            placeholder="Project name"
-          />
+          <Table data={mockTableData} />
         </SettingCard>
       </CardListItem>
     </CardList>
   );
 };
 
-export default General;
+export default Environments;

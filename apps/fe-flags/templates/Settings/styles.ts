@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { Button } from "design-system";
+import { rem } from "polished";
 
 const flexColumn = css`
   display: flex;
@@ -8,7 +9,7 @@ const flexColumn = css`
 
 export const SettingsContainer = styled.div`
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: ${rem("220px")} 1fr;
   grid-gap: ${({ theme }) => theme.spacing.s5};
 `;
 
@@ -21,8 +22,8 @@ export const List = styled.ul<{ top: number }>`
     position: absolute;
     top: 0;
     left: 0;
-    width: 3px;
-    height: 44px;
+    width: 2px;
+    height: ${rem("44px")};
     background-color: ${({ theme }) => theme.colors.black};
     transition: transform 0.2s ease-in-out;
     transform: translateY(${({ top }) => `${top}%`});
@@ -36,9 +37,9 @@ export const ListItem = styled.li`
 export const StyledButton = styled(Button)<{
   isActive: boolean;
 }>`
-  height: 44px;
+  height: ${rem("44px")};
   border-radius: 0;
-  padding-left: 20px;
+  padding-left: ${({ theme }) => theme.spacing.s5};
 
   ${({ isActive, theme }) =>
     isActive &&

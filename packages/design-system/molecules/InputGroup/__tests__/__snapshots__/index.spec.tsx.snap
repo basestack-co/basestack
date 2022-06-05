@@ -4,7 +4,7 @@ exports[`InputGroup Molecule tests should render InputGroup as textarea 1`] = `
 <DocumentFragment>
   .c1 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-weight: 500;
   font-family: 'Roboto',sans-serif;
@@ -13,7 +13,7 @@ exports[`InputGroup Molecule tests should render InputGroup as textarea 1`] = `
 
 .c2 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
   color: #757575;
@@ -87,7 +87,7 @@ exports[`InputGroup Molecule tests should render InputGroup correctly 1`] = `
 <DocumentFragment>
   .c1 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-weight: 500;
   font-family: 'Roboto',sans-serif;
@@ -96,7 +96,7 @@ exports[`InputGroup Molecule tests should render InputGroup correctly 1`] = `
 
 .c2 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
   color: #757575;
@@ -199,7 +199,7 @@ exports[`InputGroup Molecule tests should render InputGroup with hint 1`] = `
 
 .c1 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-weight: 500;
   font-family: 'Roboto',sans-serif;
@@ -208,7 +208,7 @@ exports[`InputGroup Molecule tests should render InputGroup with hint 1`] = `
 
 .c2 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
   color: #757575;
@@ -304,7 +304,7 @@ exports[`InputGroup Molecule tests should render InputGroup with label 1`] = `
 <DocumentFragment>
   .c1 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-weight: 500;
   font-family: 'Roboto',sans-serif;
@@ -313,7 +313,7 @@ exports[`InputGroup Molecule tests should render InputGroup with label 1`] = `
 
 .c2 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
   color: #757575;
