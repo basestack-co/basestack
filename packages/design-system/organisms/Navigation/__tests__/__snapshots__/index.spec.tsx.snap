@@ -340,7 +340,7 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
         >
           <a
             class="c9"
-            href="/settings"
+            href="/settings/general"
           >
             Settings
           </a>

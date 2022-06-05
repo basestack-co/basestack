@@ -1,6 +1,9 @@
 import React from "react";
 import { SettingCard, Table } from "design-system";
+import { setInviteMemberModalOpen } from "store/slices/modals";
+import { AppDispatch } from "store";
 import { CardList, CardListItem } from "./styles";
+import { useDispatch } from "react-redux";
 
 const mockMore = [
   { text: "Edit", onClick: () => console.log("") },
@@ -87,6 +90,8 @@ const mockTableData = {
 };
 
 const Members = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
   return (
     <CardList>
       <CardListItem>
@@ -94,7 +99,7 @@ const Members = () => {
           title="Team members"
           description="Active Members"
           button="Invite Member"
-          onClick={() => console.log("save")}
+          onClick={() => dispatch(setInviteMemberModalOpen(true))}
         >
           <Table data={mockTableData} />
         </SettingCard>

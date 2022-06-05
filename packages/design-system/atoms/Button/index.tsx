@@ -14,7 +14,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       icon,
       iconPlacement = "right",
       fullWidth = false,
-      href,
       ...props
     },
     ref
@@ -23,27 +22,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const hasLeftIcon = !!icon && iconPlacement === "left";
     const hasRightIcon = !!icon && iconPlacement === "right";
 
-    const customProps =
-      as === "a"
-        ? {
-            as: "a",
-            href,
-          }
-        : {
-            onClick,
-          };
-
     return (
-      // TODO check why the type is not working for the button
       // @ts-ignore
       <StyledButton
+        onClick={onClick}
         ref={ref}
         hasLeftIcon={hasLeftIcon}
         hasRightIcon={hasRightIcon}
         variant={variant}
         fullWidth={fullWidth}
-        {...customProps}
         {...props}
+        {...(!!as && { as })}
       >
         <>
           {hasLeftIcon && (

@@ -16,6 +16,7 @@ import { scaleInTopLeft } from "../../animations/springs";
 
 const ButtonLink = ({ isActive = false, children, href }: ButtonLinkProps) => (
   <ButtonContainer isActive={isActive}>
+    {/* @ts-ignore */}
     <Button href={href} as="a" variant="primaryNeutral">
       {children}
     </Button>
@@ -96,7 +97,7 @@ const Navigation = ({ onCreateFlag, pathname }: NavigationProps) => {
           </ButtonLink>
         </ListItem>
         <ListItem>
-          <ButtonLink href="/settings" isActive={pathname === "/settings"}>
+          <ButtonLink href="/settings/general" isActive={pathname.includes("settings")}>
             Settings
           </ButtonLink>
         </ListItem>

@@ -54,7 +54,7 @@ const Input: React.FC<InputProps> = ({
   const hasRightIcon = !!icon && iconPlacement === "right";
 
   return (
-    <Container data-testId={testId} {...props}>
+    <Container data-testid={testId} {...props}>
       {hasLeftIcon && (
         <LeftIcon icon={icon} size="medium" color={theme.colors.gray500} />
       )}

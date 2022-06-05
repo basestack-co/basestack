@@ -1,24 +1,23 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 // Router
 import { useRouter } from "next/router";
 // Store
-// import { useSelector } from "react-redux";
-// import { RootState } from "store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "store";
+import { setCreateFlagModalOpen } from "store/slices/modals";
 // Auth
 import { useSession } from "next-auth/react";
-import CreateFlagModal from "../../modals/CreateFlag";
 import { Navigation } from "design-system";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
       router.push("/auth/sign-in");
     },
   });
-
-  const [isCreateFlagModalOpen, setIsCreateFlagModalOpen] = useState(false);
 
   /* const isNavCollapsed = useSelector(
     (store: RootState) => store.app.isNavCollapsed
@@ -32,12 +31,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     <Fragment>
       <Navigation
         pathname={router.pathname}
-        onCreateFlag={() => setIsCreateFlagModalOpen(true)}
-      />
-      <CreateFlagModal
-        onCreate={() => setIsCreateFlagModalOpen(false)}
-        isModalOpen={isCreateFlagModalOpen}
-        onClose={() => setIsCreateFlagModalOpen(false)}
+        onCreateFlag={() => dispatch(setCreateFlagModalOpen(true))}
       />
       {children}
     </Fragment>
