@@ -296,3 +296,43 @@ export const deleteFlagById = async (res: NextApiResponse, flagId: string) => {
     });
   }
 };
+
+export const getFlagsByProjectSlugAndEnvSlug = async (
+  projectKey: string,
+  envKey: string,
+  res: NextApiResponse
+) => {
+  try {
+    const flags = await prisma.flag.findMany({
+      where: {
+        environment: {
+          key: envKey,
+          project: {
+            key: projectKey,
+          },
+        },
+      },
+      select: {
+        slug: true,
+        enabled: true,
+        payload: true,
+        expiredAt: true,
+        description: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    res.status(200).json({
+      flags,
+    });
+  } catch (error) {
+    return res.status(get(error, "code", 400)).json({
+      error: true,
+      message: get(error, "message", somethingWentWrong),
+    });
+  }
+};
