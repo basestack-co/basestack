@@ -19,11 +19,11 @@
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
-    "@types/node": "latest",
-    "@types/react": "latest",
+    "@types/node": "17.0.40",
+    "@types/react": "18.0.11",
     "@types/react-dom": "latest",
     "config": "*",
-    "typescript": "latest"
+    "typescript": "4.7.3"
   },
   "overrides": {
     "@types/react": "^18.0.0"
