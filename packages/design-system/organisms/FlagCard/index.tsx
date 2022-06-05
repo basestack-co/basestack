@@ -29,7 +29,13 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
     });
 
     return (
-      <StyledCard ref={ref} testId="flag-card" p={theme.spacing.s5} {...props}>
+      <StyledCard
+        ref={ref}
+        testId="flag-card"
+        hasHoverAnimation
+        p={theme.spacing.s5}
+        {...props}
+      >
         <Text data-testid="flag-title" size="large" mb={theme.spacing.s2}>
           {title}
         </Text>

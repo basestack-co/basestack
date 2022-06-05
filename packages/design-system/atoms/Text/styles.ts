@@ -41,14 +41,14 @@ export const LargeText = styled.h3<TextProps>`
 
 export const XLargeText = styled.h2<TextProps>`
   font-size: ${rem("20px")};
-  line-height: ${rem("28px")};
+  line-height: ${rem("30px")};
   font-weight: 500;
   ${({ color, muted }) => sharedStyles(color, muted)};
 `;
 
 export const XXLargeText = styled.h1<TextProps>`
   font-size: ${rem("24px")};
-  line-height: ${rem("32px")};
+  line-height: ${rem("36px")};
   font-weight: 700;
   ${({ color, muted }) => sharedStyles(color, muted)};
 `;

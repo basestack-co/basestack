@@ -32,7 +32,13 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
     });
 
     return (
-      <StyledCard ref={ref} testId="flag-card" p={theme.spacing.s5} {...props}>
+      <StyledCard
+        ref={ref}
+        testId="flag-card"
+        hasHoverAnimation
+        p={theme.spacing.s5}
+        {...props}
+      >
         <CardWrapper>
           <Labels data-testid="flag-labels">
             {environments.map((environment, index, { length }) => {

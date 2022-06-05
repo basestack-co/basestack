@@ -30,15 +30,32 @@ const colors = {
   blue100: "#D4E2FC",
   blue50: "#EFF3FE",
 
+  green700: "#10462D",
+  green600: "#03582F",
+  green500: "#03703C",
   green400: "#05944F",
   green300: "#06C167",
   green200: "#66D19E",
   green100: "#ADDEC9",
+  green50: "#E6F2ED",
 
+  red700: "#5A0A00",
+  red600: "#870F00",
+  red500: "#AB1300",
   red400: "#E11900",
   red300: "#E85C4A",
   red200: "#F1998E",
   red100: "#FED7D2",
+  red50: "#FFEFED",
+
+  purple700: "#2E224C",
+  purple600: "#453473",
+  purple500: "#574191",
+  purple400: "#7356BF",
+  purple300: "#957FCE",
+  purple200: "#C1B5E3",
+  purple100: "#E3DDF2",
+  purple50: "#F4F1FA",
 };
 
 const zIndex = {
