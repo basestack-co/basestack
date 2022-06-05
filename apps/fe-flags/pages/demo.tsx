@@ -540,7 +540,6 @@ const FlagsDemos = () => {
     };
 
     if (!isEmpty(projectId)) {
-      console.log("entrou aqui");
       getAllFlagsByProject();
     }
   }, [projectId]);
@@ -582,7 +581,6 @@ const FlagsDemos = () => {
 
   const deleteAction = useCallback(
     (flagId: string) => {
-      console.log("del flagId = ", flagId);
       if (confirm("Delete Flag?")) {
         deleteFlag({ projectId, envId, flagId });
       }
