@@ -53,8 +53,6 @@ const SignInPage = ({ providers }: Props) => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(typeof providers);
-
     if (status === "authenticated") {
       router.push("/");
     }
