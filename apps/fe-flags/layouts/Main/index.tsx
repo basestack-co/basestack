@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 // Auth
 import { useSession } from "next-auth/react";
 import CreateFlagModal from "../../modals/CreateFlag";
-import { Navigation } from "design-system";
+import { Navigation } from "@basestack/design-system";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();

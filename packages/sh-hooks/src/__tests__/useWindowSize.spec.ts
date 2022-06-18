@@ -2,7 +2,7 @@ import { act, renderHook } from "@testing-library/react-hooks";
 // @ts-ignore
 import { replaceRaf } from "raf-stub";
 import useWindowSize from "../useWindowSize";
-import { isBrowser } from "sh-utils";
+import { isBrowser } from "@basestack/utils";
 
 declare let requestAnimationFrame: {
   reset: () => void;

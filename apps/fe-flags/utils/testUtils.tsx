@@ -8,7 +8,7 @@ import { IntlProvider } from "react-intl";
 import { messages } from "../locales";
 // Styles
 import { ThemeProvider } from "styled-components";
-import theme from "design-system/theme";
+import theme from "@basestack/design-system/theme";
 // Auth
 import { SessionProvider } from "next-auth/react";
 

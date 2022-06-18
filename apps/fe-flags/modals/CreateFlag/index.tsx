@@ -1,6 +1,12 @@
 import React, { useCallback, useState } from "react";
 import { useTheme } from "styled-components";
-import { Tabs, Text, Switch, Modal, InputGroup } from "design-system";
+import {
+  Tabs,
+  Text,
+  Switch,
+  Modal,
+  InputGroup,
+} from "@basestack/design-system";
 import { Environments } from "./styles";
 
 interface CreateFlagModalProps {

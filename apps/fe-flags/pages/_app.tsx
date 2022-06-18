@@ -2,8 +2,8 @@ import React from "react";
 import { AppProps } from "next/app";
 //Styles
 import { ThemeProvider } from "styled-components";
-import theme from "design-system/theme";
-import GlobalStyle from "design-system/theme/GlobalStyle";
+import theme from "@basestack/design-system/theme";
+import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
 //Locales
 import { IntlProvider } from "react-intl";
 import { language, messages } from "locales";

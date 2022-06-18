@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 //Styles
 import { ThemeProvider } from "styled-components";
-import theme from "design-system/theme";
+import theme from "@basestack/design-system/theme";
 import GlobalStyle from "styles/GlobalStyle";
 
 // Components
@@ -63,6 +63,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="title" content={title} />

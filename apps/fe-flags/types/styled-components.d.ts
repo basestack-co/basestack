@@ -1,4 +1,4 @@
-import theme from "design-system/theme";
+import theme from "@basestack/design-system/theme";
 
 export type ThemeInterface = typeof theme;
 

@@ -1,5 +1,5 @@
 import { RefObject, useEffect, useRef } from "react";
-import { off, on } from "sh-utils";
+import { off, on } from "@basestack/utils";
 
 const defaultEvents = ["click"];
 
