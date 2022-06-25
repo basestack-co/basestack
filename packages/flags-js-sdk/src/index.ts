@@ -19,7 +19,7 @@ class FlagsJS {
       const url = `${this.apiUrl}/${this.projectKey}/${this.envKey}/flags`;
 
       const response = await fetch(url);
-      const data: FlagsResponse = await response.json();
+      const data = (await response.json()) as FlagsResponse;
 
       return {
         ...data,
@@ -34,7 +34,7 @@ class FlagsJS {
       const url = `${this.apiUrl}/${this.projectKey}/${this.envKey}/flags`;
 
       const response = await fetch(url);
-      const { flags }: FlagsResponse = await response.json();
+      const { flags } = (await response.json()) as FlagsResponse;
 
       const flag = flags.find((flag: Flag) => flag.slug === slug) as Flag;
       const isEmpty = Object.keys(flag).length === 0;

@@ -12,12 +12,12 @@
     "clean": "rm -rf .turbo && rm -rf node_modules"
   },
   "devDependencies": {
-    "@types/react": "18.0.11",
-    "@types/react-dom": "^18.0.5",
     "@basestack/config": "*",
-    "jest-styled-components": "^7.0.8",
     "@basestack/tsconfig": "*",
-    "typescript": "^4.7.3"
+    "@types/react": "18.0.14",
+    "@types/react-dom": "^18.0.5",
+    "jest-styled-components": "^7.0.8",
+    "typescript": "^4.7.4"
   },
   "overrides": {
     "@types/react": "^18.0.0"
