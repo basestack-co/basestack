@@ -1,11 +1,11 @@
 {
   "name": "@basestack/flags-js-sdk",
-  "version": "0.0.3-alpha",
+  "version": "0.0.12-alpha",
   "author": "Basestack",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "source": "src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "source": "./src/index.ts",
   "files": [
     "dist/**",
     "src"
@@ -22,8 +22,8 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "prepublishOnly": "yarn build"
   },
-  "dependencies": {
-    "node-fetch": "^3.2.6"
+  "peerDependencies": {
+    "isomorphic-unfetch": "^3.1.0"
   },
   "devDependencies": {
     "@basestack/config": "*",

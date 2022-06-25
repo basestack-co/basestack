@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+import fetch from "isomorphic-unfetch";
 // Types
 import { Params, FlagsResponse, Flag } from "./types";
 

@@ -6,7 +6,8 @@ export default defineConfig((options) => {
     splitting: false,
     sourcemap: false,
     clean: true,
-    minify: false, // !options.watch,
-    noExternal: [/^node-fetch($|\/)/],
+    minify: true, //!options.watch,
+    // noExternal: [/^node-fetch($|\/)/],
+    // target: "es5"
   };
 });
