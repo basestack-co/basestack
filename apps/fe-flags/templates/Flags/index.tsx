@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useMediaQuery } from "sh-hooks";
 import { FlagCard, FlagRow, Text, Toolbar, slideTop } from "design-system";
 import { useTheme } from "styled-components";
 import { FlagsCardContainer, FlagsTableContainer } from "./styles";
@@ -18,12 +19,19 @@ const AnimatedFlagRow = animated(FlagRow);
 
 const Flags = () => {
   const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.device.min.lg);
   const [data, setData] = useState(mockFlags);
   const [selectedEnvironment, setSelectedEnvironment] = useState("all");
 
   const [selectedView, setSelectedView] = useState("cards");
   const [cardsDestroyed, setCardsAnimationEnd] = useState(false);
   const [tableDestroyed, setTableAnimationEnd] = useState(true);
+
+  useEffect(() => {
+    if (!isDesktop) {
+      setSelectedView("cards");
+    }
+  }, [isDesktop]);
 
   const showCards = selectedView === "cards";
   const showTable = selectedView === "table";

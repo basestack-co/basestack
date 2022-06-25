@@ -52,8 +52,8 @@ exports[`Table Organism tests should render Table correctly 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 .c7 .material-symbols-sharp {
@@ -366,8 +366,8 @@ exports[`Table Organism tests should render Table with images 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 .c9 .material-symbols-sharp {
@@ -844,8 +844,8 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 .c7 .material-symbols-sharp {

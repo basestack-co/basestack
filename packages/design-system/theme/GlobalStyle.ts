@@ -19,6 +19,12 @@ const GlobalStyle = createGlobalStyle`
       background-color: ${({ theme }) => theme.colors.gray50};
     }
     
+    #__next {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
     button, 
     input,
     textarea {

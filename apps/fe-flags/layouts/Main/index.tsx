@@ -1,4 +1,6 @@
 import React, { Fragment } from "react";
+import { useMediaQuery } from "sh-hooks";
+import { useTheme } from "styled-components";
 // Router
 import { useRouter } from "next/router";
 // Store
@@ -7,9 +9,11 @@ import { AppDispatch } from "store";
 import { setCreateFlagModalOpen } from "store/slices/modals";
 // Auth
 import { useSession } from "next-auth/react";
-import { Navigation } from "design-system";
+import { Navigation, TabBar } from "design-system";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.device.min.lg);
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const { status } = useSession({
@@ -18,10 +22,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       router.push("/auth/sign-in");
     },
   });
-
-  /* const isNavCollapsed = useSelector(
-    (store: RootState) => store.app.isNavCollapsed
-  ); */
 
   if (status === "loading") {
     return <div>isLoading</div>;
@@ -34,6 +34,12 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         onCreateFlag={() => dispatch(setCreateFlagModalOpen(true))}
       />
       {children}
+      {!isDesktop && (
+        <TabBar
+          pathname={router.pathname}
+          onCreateFlag={() => dispatch(setCreateFlagModalOpen(true))}
+        />
+      )}
     </Fragment>
   );
 };

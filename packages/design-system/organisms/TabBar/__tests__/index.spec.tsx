@@ -1,8 +1,8 @@
 import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
-import Navigation from "..";
+import TabBar from "..";
 
-describe("Navigation Organism tests", () => {
+describe("TabBar Organism tests", () => {
   beforeAll(() => {
     Object.defineProperty(window, "matchMedia", {
       value: jest.fn(() => {
@@ -17,9 +17,9 @@ describe("Navigation Organism tests", () => {
 
   afterEach(cleanup);
 
-  test("should render Navigation correctly", () => {
+  test("should render TabBar correctly", () => {
     const { asFragment } = renderWithTheme(
-      <Navigation onCreateFlag={jest.fn} pathname="/flags" />
+      <TabBar onCreateFlag={jest.fn} pathname="/settings" />
     );
     expect(asFragment()).toMatchSnapshot();
   });

@@ -8,6 +8,7 @@ export const Container = styled.nav`
   z-index: ${({ theme }) => theme.zIndex.navigation};
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadow.elevation2};
   height: ${rem("64px")};
@@ -17,29 +18,6 @@ export const Container = styled.nav`
 const flexCenter = css`
   display: flex;
   align-items: center;
-`;
-
-export const ButtonContainer = styled.div<{ isActive: boolean }>`
-  ${flexCenter};
-  position: relative;
-  height: ${rem("64px")};
-  ${({ isActive }) =>
-    isActive &&
-    css`
-      a {
-        color: ${({ theme }) => theme.colors.blue400};
-      }
-
-      &::before {
-        content: "";
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        height: 3px;
-        background-color: ${({ theme }) => theme.colors.blue400};
-      }
-    `};
 `;
 
 export const List = styled.ul<SpaceProps>`

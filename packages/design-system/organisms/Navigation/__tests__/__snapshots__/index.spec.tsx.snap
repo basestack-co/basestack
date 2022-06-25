@@ -169,10 +169,67 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
   background-color: #FFFFFF;
   box-shadow: rgba(0,0,0,0.1) 0px 1px 3px 0px,rgba(0,0,0,0.06) 0px 1px 2px 0px;
   height: 4rem;
   padding: 0 1.25rem;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c13 {
+  margin-left: auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c14 {
+  margin-left: 0.75rem;
+}
+
+.c11 {
+  margin-left: 1.25rem;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  padding-right: 1rem;
+  margin-right: 0.25rem;
+}
+
+.c2::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  right: -1px;
+  width: 2px;
+  background-color: #EEEEEE;
 }
 
 .c8 {
@@ -213,60 +270,6 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
   align-items: center;
   position: relative;
   height: 4rem;
-}
-
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c13 {
-  margin-left: auto;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c11 {
-  margin-left: 1.25rem;
-}
-
-.c14 {
-  margin-left: 0.75rem;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  position: relative;
-  padding-right: 1rem;
-  margin-right: 0.25rem;
-}
-
-.c2::before {
-  content: "";
-  position: absolute;
-  height: 20px;
-  right: -1px;
-  width: 2px;
-  background-color: #EEEEEE;
 }
 
 <nav

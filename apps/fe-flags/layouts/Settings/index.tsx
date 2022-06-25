@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useTheme } from "styled-components";
-import { Text } from "design-system";
+import { Text, Tabs } from "design-system";
 import MainLayout from "../Main";
 import { Button } from "design-system";
 import {
@@ -12,6 +12,7 @@ import {
   ListItem,
   ButtonContainer,
 } from "./styles";
+import { useMediaQuery } from "sh-hooks";
 
 const buttons = [
   {
@@ -34,7 +35,8 @@ const buttons = [
 
 const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme();
-  const { pathname } = useRouter();
+  const isDesktop = useMediaQuery(theme.device.min.lg);
+  const { pathname, push } = useRouter();
 
   const renderButton = useMemo(() => {
     return buttons.map((button, index) => (
@@ -55,6 +57,12 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
     [pathname]
   );
 
+  const items = buttons.map(({ text }) => {
+    return {
+      text,
+    };
+  });
+
   return (
     <MainLayout>
       <Container>
@@ -62,7 +70,17 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
           Settings
         </Text>
         <SettingsContainer>
-          <List top={activeButtonIndex * 100}>{renderButton}</List>
+          {isDesktop && (
+            <List top={activeButtonIndex * 100}>{renderButton}</List>
+          )}
+          {!isDesktop && (
+            <Tabs
+              items={items}
+              onSelect={(item) => push(item.replace(/\s+/g, "-").toLowerCase())}
+              sliderPosition={activeButtonIndex}
+              backgroundColor="transparent"
+            />
+          )}
           {children}
         </SettingsContainer>
       </Container>

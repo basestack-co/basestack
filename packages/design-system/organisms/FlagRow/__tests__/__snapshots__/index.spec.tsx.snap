@@ -79,8 +79,8 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 .c10 .material-symbols-sharp {
@@ -327,8 +327,8 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 .c10 .material-symbols-sharp {

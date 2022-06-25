@@ -2,10 +2,11 @@ import styled from "styled-components";
 import { rem } from "polished";
 import { space } from "styled-system";
 
-export const Container = styled.div`
+export const Container = styled.div<{ backgroundColor?: string }>`
   ${space};
   display: flex;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme, backgroundColor }) =>
+    backgroundColor || theme.colors.white};
   position: relative;
 `;
 

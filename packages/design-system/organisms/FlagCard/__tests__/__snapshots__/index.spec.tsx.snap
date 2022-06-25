@@ -113,8 +113,8 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 .c9 .material-symbols-sharp {
@@ -330,8 +330,8 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 .c9 .material-symbols-sharp {

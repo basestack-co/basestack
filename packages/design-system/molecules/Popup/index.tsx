@@ -25,6 +25,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>(
               return (
                 <Button
                   key={index.toString()}
+                  onClick={item.onClick}
                   fontWeight={400}
                   variant="neutral"
                   fullWidth

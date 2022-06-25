@@ -16,22 +16,35 @@ export interface TabsProps extends SpaceProps {
    * Selected item
    */
   onSelect: (selected: string) => void;
+  /**
+   * Change Tabs background
+   */
+  backgroundColor?: string;
+  /**
+   * Change slider position, number representing the index of selected item
+   */
+  sliderPosition?: number;
 }
 
-const Tabs = ({ items, onSelect, ...props }: TabsProps) => {
-  const [translateX, setTranslateX] = useState(0);
-
-  return (
-    <Container data-testid="tabs-component" {...props}>
-      {items.map((item: Item, index: number) => {
+const Tabs = ({
+  items,
+  onSelect,
+  backgroundColor,
+  sliderPosition = 0,
+  ...props
+}: TabsProps) => (
+  <Container
+    backgroundColor={backgroundColor}
+    data-testid="tabs-component"
+    {...props}
+  >
+    {items &&
+      items.map((item: Item, index: number) => {
         return (
           <Button
             data-testid="tab-button"
             key={index.toString()}
-            onClick={() => {
-              setTranslateX(index * 100);
-              onSelect(item.text);
-            }}
+            onClick={() => onSelect(item.text)}
           >
             {!!item.text && (
               <Text fontWeight="500" size="small">
@@ -41,9 +54,8 @@ const Tabs = ({ items, onSelect, ...props }: TabsProps) => {
           </Button>
         );
       })}
-      <Slider translateX={translateX} numberOfItems={items.length} />
-    </Container>
-  );
-};
+    <Slider translateX={sliderPosition * 100} numberOfItems={items.length} />
+  </Container>
+);
 
 export default memo(Tabs);

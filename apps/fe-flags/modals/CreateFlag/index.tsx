@@ -5,27 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { getIsCreateFlagModalOpen } from "store/selectors/modals";
 import { AppDispatch } from "store";
 import { setCreateFlagModalOpen } from "store/slices/modals";
-import { Tabs, Text, Switch, Modal, InputGroup } from "design-system";
-import { Environments } from "./styles";
+import { Tabs, Modal } from "design-system";
+import Core from "./Core";
+import Advanced from "./Advanced";
 
 const CreateFlagModal = () => {
   const theme = useTheme();
   const dispatch = useDispatch<AppDispatch>();
   const isModalOpen = useSelector(getIsCreateFlagModalOpen);
-  const [textareaLength, setTextareaLength] = useState("");
+  const [selectedTab, setSelectedTab] = useState("core");
 
   const onClose = useCallback(() => {
     dispatch(setCreateFlagModalOpen(false));
   }, [dispatch]);
-
-  const onChangeTextarea = useCallback(
-    (event) => {
-      if (textareaLength.length < 120) {
-        setTextareaLength(event.target.value.toString());
-      }
-    },
-    [textareaLength]
-  );
 
   return (
     <Portal selector="#portal">
@@ -41,60 +33,11 @@ const CreateFlagModal = () => {
       >
         <Tabs
           items={[{ text: "Core" }, { text: "Advanced" }]}
-          onSelect={(tab) => console.log(tab)}
+          onSelect={(tab) => setSelectedTab(tab.toLowerCase())}
+          sliderPosition={selectedTab === "advanced" ? 1 : 0}
           mb={theme.spacing.s6}
         />
-        <InputGroup
-          title="Feature Key"
-          inputProps={{
-            onChange: (text) => console.log("text = ", text),
-            placeholder: "E.g. header_size",
-          }}
-          hint="No numbers, spaces, or special characters"
-          mb={theme.spacing.s6}
-        />
-        <InputGroup
-          title="Description"
-          label={`${textareaLength.length} / 120`}
-          textarea
-          textareaProps={{
-            onChange: (event) => onChangeTextarea(event),
-            placeholder: "Flag description",
-            maxlength: "120",
-          }}
-          mb={theme.spacing.s6}
-        />
-        <Text
-          fontWeight={500}
-          mb={theme.spacing.s2}
-          data-testid="input-group-title"
-          size="small"
-        >
-          Enabled Environments
-        </Text>
-        <Environments>
-          <Switch
-            py={theme.spacing.s2}
-            mr={theme.spacing.s5}
-            text="Development:"
-            checked
-            onChange={() => console.log("")}
-          />
-          <Switch
-            py={theme.spacing.s2}
-            mr={theme.spacing.s5}
-            text="Staging:"
-            checked={false}
-            onChange={() => console.log("")}
-          />
-          <Switch
-            py={theme.spacing.s2}
-            mr={theme.spacing.s5}
-            text="Production:"
-            checked={false}
-            onChange={() => console.log("")}
-          />
-        </Environments>
+        {selectedTab === "core" ? <Core /> : <Advanced />}
       </Modal>
     </Portal>
   );

@@ -62,6 +62,7 @@ const zIndex = {
   modal: 102,
   popup: 101,
   navigation: 100,
+  tabBar: 99,
 };
 
 const spacing = {
