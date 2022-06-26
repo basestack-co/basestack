@@ -1,8 +1,12 @@
 {
-  "extends": "tsconfig/base.json",
+  "extends": "@basestack/tsconfig/base.json",
   "compilerOptions": {
-    "lib": ["es5", "es6", "dom"]
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": true,
+    "outDir": "./lib",
+    "strict": true
   },
-  "include": ["."],
+  "include": ["src"],
   "exclude": ["dist", "build", "node_modules"]
 }

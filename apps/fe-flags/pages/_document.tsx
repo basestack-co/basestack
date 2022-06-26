@@ -39,9 +39,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/*  <!-- Primary Meta Tags --> */}
-          <meta name="title" content="Monolock" />
-          <meta name="description" content="Monolock desc" />
+          <meta name="title" content="Basestack" />
 
           <link
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
@@ -50,7 +48,7 @@ export default class MyDocument extends Document {
           <link href="/css/bootstrap-grid.min.css" rel="stylesheet" />
           <link
             rel="stylesheet"
-            href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
           />
         </Head>
         <body>

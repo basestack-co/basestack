@@ -1,4 +1,4 @@
-const withTM = require("next-transpile-modules")(["design-system"]);
+const withTM = require("next-transpile-modules")(["@basestack/design-system"]);
 
 module.exports = withTM({
   reactStrictMode: true,

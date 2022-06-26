@@ -6,7 +6,7 @@ import { setDemoModalOpen } from "store/slices/modals";
 // Selectors
 import { getIsDemoModalOpen } from "store/selectors/modals";
 // Utils
-import Portal from "design-system/global/Portal";
+import Portal from "@basestack/design-system/global/Portal";
 // import dayjs from "dayjs";
 // Locales
 import { useIntl } from "react-intl";

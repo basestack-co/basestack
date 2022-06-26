@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/nextjs.json",
+  "extends": "@basestack/tsconfig/nextjs.json",
   "compilerOptions": {
     "baseUrl": "."
   },

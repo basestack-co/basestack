@@ -1,3 +1,3 @@
-const common = require("config/jest.setup.js");
+const common = require("@basestack/config/jest.setup.js");
 
 module.exports = common;
