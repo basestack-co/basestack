@@ -6,12 +6,6 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "store";
 // Queries
 import {
-  useGetProjectsQuery,
-  useCreateProjectMutation,
-  useUpdateProjectByIdMutation,
-  useDeleteProjectByIdMutation,
-} from "store/query/projects";
-import {
   useCreateEnvironmentMutation,
   useUpdateEnvironmentByIdMutation,
   useDeleteEnvironmentByIdMutation,
@@ -47,10 +41,26 @@ import { trpc } from "libs/trpc";
 
 const ProjectsDemos = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const projects = useGetProjectsQuery();
-  const [createProject] = useCreateProjectMutation();
-  const [updateProject] = useUpdateProjectByIdMutation();
-  const [deleteProject] = useDeleteProjectByIdMutation();
+  const trpcContext = trpc.useContext();
+
+  const projects = trpc.useQuery(["project.all"]);
+  const createProject = trpc.useMutation(["project.create"], {
+    onSuccess() {
+      trpcContext.invalidateQueries(["project.all"]);
+    },
+  });
+
+  const deleteProject = trpc.useMutation(["project.delete"], {
+    onSuccess() {
+      trpcContext.invalidateQueries(["project.all"]);
+    },
+  });
+
+  const updateProject = trpc.useMutation(["project.update"], {
+    onSuccess() {
+      trpcContext.invalidateQueries(["project.all"]);
+    },
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -67,9 +77,8 @@ const ProjectsDemos = () => {
     }),
     onSubmit: async (values, { resetForm }) => {
       try {
-        console.log(JSON.stringify(values));
-        const payload = await createProject(values);
-        console.log("payload", payload);
+        createProject.mutate(values);
+
         resetForm();
       } catch (error) {
         console.log("Error on create project", error);
@@ -77,22 +86,28 @@ const ProjectsDemos = () => {
     },
   });
 
-  const update = useCallback((projectId: string, projectName: string) => {
-    let name = prompt("New project name:", projectName);
+  const update = useCallback(
+    (projectId: string, projectName: string) => {
+      let name = prompt("New project name:", projectName);
 
-    if (!isEmpty(name)) {
-      updateProject({
-        projectId,
-        name,
-      });
-    }
-  }, []);
+      if (!isEmpty(name)) {
+        updateProject.mutate({
+          projectId,
+          name,
+        });
+      }
+    },
+    [updateProject]
+  );
 
-  const deleteAction = useCallback((projectId: string) => {
-    if (confirm("Delete project?")) {
-      deleteProject({ projectId });
-    }
-  }, []);
+  const deleteAction = useCallback(
+    (projectId: string) => {
+      if (confirm("Delete project?")) {
+        deleteProject.mutate({ projectId });
+      }
+    },
+    [deleteProject]
+  );
 
   return (
     <div>
@@ -133,7 +148,7 @@ const ProjectsDemos = () => {
       <h4>Projects list:</h4>
       {!projects.isLoading && !isEmpty(projects.data) && (
         <ul>
-          {projects.data.projects.map((item: Project) => (
+          {projects.data.projects.map((item) => (
             <li key={item.id}>
               {item.name} (<b>{item.id}</b>) |{" "}
               <button onClick={() => update(item.id, item.name)}>✏️</button> |{" "}
@@ -645,10 +660,6 @@ const FlagsDemos = () => {
 };
 
 const DemoPage = () => {
-  const projectQuery = trpc.useQuery(["project.all", { text: "hey joe" }]);
-
-  console.log("projectQuery = ", projectQuery);
-
   return (
     <div>
       <br />
