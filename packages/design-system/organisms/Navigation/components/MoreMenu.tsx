@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useState } from "react";
-import { useFloating, autoUpdate, offset } from "@floating-ui/react-dom";
-import { useTransition, animated, config } from "react-spring";
-import { Button } from "../../../atoms";
+import { autoUpdate, offset, useFloating } from "@floating-ui/react-dom";
+import { animated, config, useTransition } from "react-spring";
+import { Button, ButtonVariant } from "../../../atoms";
 import { Popup } from "../../../molecules";
 import { scaleInTopRight } from "../../../animations/springs";
 
@@ -30,7 +30,7 @@ const MoreButton = () => {
         ref={reference}
         iconPlacement="left"
         icon={isMorePopupOpen ? "expand_less" : "expand_more"}
-        variant="primaryNeutral"
+        variant={ButtonVariant.PrimaryNeutral}
         onClick={onClickMore}
       >
         Docs

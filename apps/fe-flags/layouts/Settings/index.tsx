@@ -2,15 +2,14 @@ import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useTheme } from "styled-components";
-import { Text, Tabs } from "design-system";
+import { Button, ButtonVariant, Tabs, Text } from "design-system";
 import MainLayout from "../Main";
-import { Button } from "design-system";
 import {
+  ButtonContainer,
   Container,
   List,
-  SettingsContainer,
   ListItem,
-  ButtonContainer,
+  SettingsContainer,
 } from "./styles";
 import { useMediaQuery } from "sh-hooks";
 
@@ -43,7 +42,12 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
       <ListItem key={index.toString()}>
         <ButtonContainer isActive={pathname === button.href}>
           <Link href={button.href} passHref>
-            <Button as="a" variant="neutral" fontWeight={400} fullWidth>
+            <Button
+              as="a"
+              variant={ButtonVariant.Neutral}
+              fontWeight={400}
+              fullWidth
+            >
               {button.text}
             </Button>
           </Link>

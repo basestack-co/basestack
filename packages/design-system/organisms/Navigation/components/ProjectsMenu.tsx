@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useState } from "react";
-import { useTransition, animated, config } from "react-spring";
-import { useFloating, autoUpdate, offset } from "@floating-ui/react-dom";
-import { Button } from "../../../atoms";
+import { animated, config, useTransition } from "react-spring";
+import { autoUpdate, offset, useFloating } from "@floating-ui/react-dom";
+import { Button, ButtonVariant } from "../../../atoms";
 import { scaleInTopLeft } from "../../../animations/springs";
 import { PopupActions } from "../../../molecules";
 
@@ -30,7 +30,7 @@ const ProjectsMenu = () => {
         ref={reference}
         iconPlacement="right"
         icon={isProjectsPopupOpen ? "expand_less" : "expand_more"}
-        variant="primaryNeutral"
+        variant={ButtonVariant.PrimaryNeutral}
         onClick={onClickProjects}
       >
         Project Name

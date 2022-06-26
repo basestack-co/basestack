@@ -1,9 +1,9 @@
 import React, { memo } from "react";
 import { useTheme } from "styled-components";
 import { useMediaQuery } from "sh-hooks";
-import { Button, Avatar } from "../../atoms";
+import { Avatar, Button, ButtonVariant } from "../../atoms";
 import { Container, List, ListItem, LogoContainer } from "./styles";
-import { MoreMenu, ProjectsMenu, ButtonLink } from "./components";
+import { ButtonLink, MoreMenu, ProjectsMenu } from "./components";
 
 export interface NavigationProps {
   /**
@@ -47,7 +47,7 @@ const Navigation = ({ onCreateFlag, pathname }: NavigationProps) => {
               </ButtonLink>
             </ListItem>
             <ListItem ml={theme.spacing.s5}>
-              <Button onClick={onCreateFlag} variant="primary">
+              <Button onClick={onCreateFlag} variant={ButtonVariant.Primary}>
                 Create flag
               </Button>
             </ListItem>
@@ -74,7 +74,7 @@ const Navigation = ({ onCreateFlag, pathname }: NavigationProps) => {
               </ButtonLink>
             </ListItem>
             <ListItem>
-              <Button as="a" variant="primaryNeutral">
+              <Button as="a" variant={ButtonVariant.PrimaryNeutral}>
                 Github
               </Button>
             </ListItem>

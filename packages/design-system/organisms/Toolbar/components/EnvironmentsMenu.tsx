@@ -1,8 +1,8 @@
 import React, { memo, useCallback, useState } from "react";
-import { useFloating, autoUpdate } from "@floating-ui/react-dom";
+import { autoUpdate, useFloating } from "@floating-ui/react-dom";
 import { useTheme } from "styled-components";
-import { useTransition, animated, config } from "react-spring";
-import { Button } from "../../../atoms";
+import { animated, config, useTransition } from "react-spring";
+import { Button, ButtonVariant } from "../../../atoms";
 import { Popup } from "../../../molecules";
 import { scaleInTopLeft } from "../../../animations/springs";
 
@@ -51,7 +51,7 @@ const EnvironmentsMenu = ({
         ref={reference}
         iconPlacement="right"
         icon={isMenuOpen ? "expand_less" : "expand_more"}
-        variant="tertiary"
+        variant={ButtonVariant.Tertiary}
         fontWeight={400}
         onClick={onClickMore}
         ml={theme.spacing.s5}

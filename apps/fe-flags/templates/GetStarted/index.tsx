@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "styled-components";
-import { Text, HorizontalRule, Icon } from "design-system";
+import { Text, HorizontalRule, Icon, ButtonVariant } from "design-system";
 import {
   Container,
   ContentContainer,
@@ -34,7 +34,7 @@ const GetStarted = () => {
             button={{
               text: "View Instructions",
               onClick: () => console.log("instructions"),
-              variant: "tertiary",
+              variant: ButtonVariant.Tertiary,
             }}
           />
           <GetStartedCard
@@ -48,7 +48,7 @@ const GetStarted = () => {
             button={{
               text: "Create Feature Flag",
               onClick: () => console.log("instructions"),
-              variant: "primary",
+              variant: ButtonVariant.Primary,
             }}
           />
           <GetStartedCard
@@ -62,7 +62,7 @@ const GetStarted = () => {
             button={{
               text: "Invite Team",
               onClick: () => console.log("instructions"),
-              variant: "tertiary",
+              variant: ButtonVariant.Tertiary,
             }}
           />
         </ContentWrapper>

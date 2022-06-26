@@ -21,4 +21,21 @@ describe("Popup Molecule tests", () => {
 
     expect(asFragment()).toMatchSnapshot();
   });
+
+  test("should render Popup with icons", () => {
+    const { asFragment } = renderWithTheme(
+      <Popup
+        position="absolute"
+        right={0}
+        top={0}
+        items={[
+          { icon: "edit", text: "Edit", onClick: () => console.log("") },
+          { icon: "edit", text: "History", onClick: () => console.log("") },
+          { icon: "edit", text: "Delete", onClick: () => console.log("") },
+        ]}
+      />
+    );
+
+    expect(asFragment()).toMatchSnapshot();
+  });
 });

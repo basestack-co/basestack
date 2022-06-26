@@ -1,6 +1,6 @@
 import { forwardRef, memo } from "react";
 import { useTheme } from "styled-components";
-import { ButtonProps } from "./types";
+import { ButtonProps, ButtonVariant } from "./types";
 import Icon from "../Icon";
 import { StyledButton } from "./styles";
 
@@ -8,12 +8,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       as = "button",
-      variant = "primary",
+      variant = ButtonVariant.Primary,
       onClick,
       children,
       icon,
       iconPlacement = "right",
       fullWidth = false,
+      iconSize = "medium",
       ...props
     },
     ref
@@ -36,11 +37,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         <>
           {hasLeftIcon && (
-            <Icon icon={icon} size="medium" mr={theme.spacing.s1} />
+            <Icon icon={icon} size={iconSize} mr={theme.spacing.s2} />
           )}
           {children}
           {hasRightIcon && (
-            <Icon icon={icon} size="medium" ml={theme.spacing.s1} />
+            <Icon icon={icon} size={iconSize} ml={theme.spacing.s2} />
           )}
         </>
       </StyledButton>

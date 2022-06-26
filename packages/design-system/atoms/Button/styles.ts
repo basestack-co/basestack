@@ -1,14 +1,14 @@
 import styled, { css } from "styled-components";
 import {
-  flexbox,
-  space,
-  layout,
-  typography,
   color,
   compose,
+  flexbox,
+  layout,
+  space,
+  typography,
 } from "styled-system";
-import { rem, darken, lighten } from "polished";
-import { Variant } from "./types";
+import { darken, lighten, rem } from "polished";
+import { ButtonVariant } from "./types";
 
 const sharedStyles = css`
   border: none;
@@ -76,9 +76,6 @@ const neutralStyles = css`
   background-color: transparent;
   color: ${({ theme }) => theme.colors.black};
 
-  .material-symbols-sharp {
-    color: inherit;
-  }
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray100};
   }
@@ -92,9 +89,6 @@ const primaryNeutralStyles = css`
   background-color: transparent;
   color: ${({ theme }) => theme.colors.black};
 
-  .material-symbols-sharp {
-    color: inherit;
-  }
   &:hover {
     color: ${({ theme }) => theme.colors.blue400};
     background-color: ${({ theme }) => theme.colors.blue50};
@@ -104,21 +98,36 @@ const primaryNeutralStyles = css`
   }
 `;
 
-const handleButtonVariant = (variant?: Variant) => {
+const dangerStyles = css`
+  ${sharedStyles};
+  background-color: transparent;
+  color: ${({ theme }) => theme.colors.red400};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.red50};
+  }
+  &:active {
+    background-color: ${({ theme }) => theme.colors.red100};
+  }
+`;
+
+const handleButtonVariant = (variant?: ButtonVariant) => {
   switch (variant) {
     default:
-    case "primary":
+    case ButtonVariant.Primary:
       return primaryStyles;
-    case "primaryNeutral":
+    case ButtonVariant.PrimaryNeutral:
       return primaryNeutralStyles;
-    case "secondary":
+    case ButtonVariant.Secondary:
       return secondaryStyles;
-    case "tertiary":
+    case ButtonVariant.Tertiary:
       return tertiaryStyles;
-    case "outlined":
+    case ButtonVariant.Outlined:
       return outlinedStyles;
-    case "neutral":
+    case ButtonVariant.Neutral:
       return neutralStyles;
+    case ButtonVariant.Danger:
+      return dangerStyles;
   }
 };
 
@@ -126,12 +135,16 @@ interface Props {
   hasLeftIcon: boolean;
   hasRightIcon: boolean;
   fullWidth: boolean;
-  variant: Variant;
+  variant: ButtonVariant;
 }
 
 export const StyledButton = styled.button<Props>`
   ${({ variant }) => handleButtonVariant(variant)};
   ${compose(flexbox, space, layout, typography, color)};
+
+  .material-symbols-sharp {
+    color: inherit;
+  }
 
   ${({ fullWidth }) =>
     fullWidth

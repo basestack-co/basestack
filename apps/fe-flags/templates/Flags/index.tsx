@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "sh-hooks";
-import { FlagCard, FlagRow, Text, Toolbar, slideTop } from "design-system";
+import {
+  FlagCard,
+  FlagRow,
+  Text,
+  Toolbar,
+  slideTop,
+  ButtonVariant,
+} from "design-system";
 import { useTheme } from "styled-components";
 import { FlagsCardContainer, FlagsTableContainer } from "./styles";
 import { Container } from "../styles";
@@ -76,6 +83,17 @@ const Flags = () => {
       : [transitionCardsRef, transitionTableRef]
   );
 
+  const popupItems = [
+    { icon: "edit", text: "Edit", onClick: () => console.log("") },
+    { icon: "history", text: "History", onClick: () => console.log("") },
+    {
+      icon: "delete",
+      text: "Delete",
+      variant: ButtonVariant.Danger,
+      onClick: () => console.log(""),
+    },
+  ];
+
   return (
     <Container>
       <Text size="xLarge">Flags</Text>
@@ -97,11 +115,7 @@ const Flags = () => {
                 description={flag.description}
                 environments={flag.environments}
                 date={flag.date}
-                popupItems={[
-                  { text: "Edit", onClick: () => console.log("") },
-                  { text: "History", onClick: () => console.log("") },
-                  { text: "Delete", onClick: () => console.log("") },
-                ]}
+                popupItems={popupItems}
               />
             )
         )}
@@ -117,11 +131,7 @@ const Flags = () => {
                 description={flag.description}
                 environments={flag.environments}
                 date={flag.date}
-                popupItems={[
-                  { text: "Edit", onClick: () => console.log("") },
-                  { text: "History", onClick: () => console.log("") },
-                  { text: "Delete", onClick: () => console.log("") },
-                ]}
+                popupItems={popupItems}
               />
             )
         )}

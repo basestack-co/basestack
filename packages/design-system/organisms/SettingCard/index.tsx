@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { useTheme } from "styled-components";
-import { Text, Card, HorizontalRule, Button } from "../../atoms";
+import { Button, ButtonVariant, Card, HorizontalRule, Text } from "../../atoms";
 import { Container, Footer } from "./styles";
 
 interface SettingCard {
@@ -61,7 +61,7 @@ const SettingCard = ({
         >
           {text}
         </Text>
-        <Button variant="secondary" ml="auto" onClick={onClick}>
+        <Button variant={ButtonVariant.Secondary} ml="auto" onClick={onClick}>
           {button}
         </Button>
       </Footer>
