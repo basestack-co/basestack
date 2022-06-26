@@ -17,3 +17,7 @@ export const StyledLabel = styled(Label)`
   margin-right: ${({ theme }) => theme.spacing.s1};
   margin-bottom: ${({ theme }) => theme.spacing.s1};
 `;
+
+export const PopupWrapper = styled.div`
+  height: 0;
+`;

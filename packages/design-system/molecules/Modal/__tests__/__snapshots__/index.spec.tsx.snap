@@ -54,16 +54,16 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   width: fit-content;
 }
 
-.c9 .material-symbols-sharp {
-  color: inherit;
-}
-
 .c9:hover {
   background-color: #EEEEEE;
 }
 
 .c9:active {
   background-color: #E2E2E2;
+}
+
+.c9 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c10 {
@@ -96,6 +96,10 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
 
 .c10:hover:not(:active) {
   background-color: #0e55d7;
+}
+
+.c10 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c4 {
@@ -337,16 +341,16 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
   width: fit-content;
 }
 
-.c9 .material-symbols-sharp {
-  color: inherit;
-}
-
 .c9:hover {
   background-color: #EEEEEE;
 }
 
 .c9:active {
   background-color: #E2E2E2;
+}
+
+.c9 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c10 {
@@ -379,6 +383,10 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
 
 .c10:hover:not(:active) {
   background-color: #0e55d7;
+}
+
+.c10 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c4 {

@@ -25,7 +25,7 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  margin-right: 0.25rem;
+  margin-right: 0.5rem;
 }
 
 .c9 {
@@ -34,7 +34,7 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  margin-left: 0.25rem;
+  margin-left: 0.5rem;
 }
 
 .c3 {
@@ -71,16 +71,16 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   padding-left: 0.5rem;
 }
 
-.c1 .material-symbols-sharp {
-  color: inherit;
-}
-
 .c1:hover {
   background-color: #EEEEEE;
 }
 
 .c1:active {
   background-color: #E2E2E2;
+}
+
+.c1 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c8 {
@@ -112,16 +112,16 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   padding-right: 0.5rem;
 }
 
-.c8 .material-symbols-sharp {
-  color: inherit;
-}
-
 .c8:hover {
   background-color: #EEEEEE;
 }
 
 .c8:active {
   background-color: #E2E2E2;
+}
+
+.c8 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c0 {

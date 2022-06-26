@@ -26,7 +26,7 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
   color: #000000;
 }
 
-.c11 {
+.c12 {
   height: 1.5rem;
   width: 1.5rem;
   -webkit-flex-shrink: 0;
@@ -34,7 +34,7 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
   flex-shrink: 0;
 }
 
-.c12 {
+.c13 {
   color: #000000;
   font-size: 1.5rem;
 }
@@ -59,7 +59,7 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
   box-shadow: rgba(0,0,0,0.1) 0px 10px 15px -3px,rgba(0,0,0,0.05) 0px 4px 6px -2px;
 }
 
-.c10 {
+.c11 {
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -83,15 +83,15 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
   width: 2rem;
 }
 
-.c10 .material-symbols-sharp {
+.c11 .material-symbols-sharp {
   color: inherit;
 }
 
-.c10:hover {
+.c11:hover {
   background-color: #EEEEEE;
 }
 
-.c10:active {
+.c11:active {
   background-color: #E2E2E2;
 }
 
@@ -183,6 +183,11 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
   z-index: 4;
 }
 
+.c10 {
+  height: 2rem;
+  width: 2rem;
+}
+
 <div
     class="c0 c1"
     data-testid="flag-card"
@@ -225,24 +230,28 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
       >
         Created 11 jan 2022
       </p>
-      <button
+      <div
         class="c10"
       >
-        <div
+        <button
           class="c11"
-          data-testid="icon-container"
-          size="24"
         >
-          <span
-            class="c12 material-symbols-sharp"
-            color="#000000"
-            data-testid="icon"
+          <div
+            class="c12"
+            data-testid="icon-container"
             size="24"
           >
-            more_horiz
-          </span>
-        </div>
-      </button>
+            <span
+              class="c13 material-symbols-sharp"
+              color="#000000"
+              data-testid="icon"
+              size="24"
+            >
+              more_horiz
+            </span>
+          </div>
+        </button>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -274,7 +283,7 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
   color: #000000;
 }
 
-.c11 {
+.c12 {
   height: 1.5rem;
   width: 1.5rem;
   -webkit-flex-shrink: 0;
@@ -282,7 +291,7 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
   flex-shrink: 0;
 }
 
-.c12 {
+.c13 {
   color: #000000;
   font-size: 1.5rem;
 }
@@ -307,7 +316,7 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
   box-shadow: rgba(0,0,0,0.1) 0px 10px 15px -3px,rgba(0,0,0,0.05) 0px 4px 6px -2px;
 }
 
-.c10 {
+.c11 {
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -331,15 +340,15 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
   width: 2rem;
 }
 
-.c10 .material-symbols-sharp {
+.c11 .material-symbols-sharp {
   color: inherit;
 }
 
-.c10:hover {
+.c11:hover {
   background-color: #EEEEEE;
 }
 
-.c10:active {
+.c11:active {
   background-color: #E2E2E2;
 }
 
@@ -431,6 +440,11 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
   z-index: 4;
 }
 
+.c10 {
+  height: 2rem;
+  width: 2rem;
+}
+
 <div
     class="c0 c1"
     data-testid="flag-card"
@@ -473,24 +487,28 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
       >
         Created 11 jan 2022
       </p>
-      <button
+      <div
         class="c10"
       >
-        <div
+        <button
           class="c11"
-          data-testid="icon-container"
-          size="24"
         >
-          <span
-            class="c12 material-symbols-sharp"
-            color="#000000"
-            data-testid="icon"
+          <div
+            class="c12"
+            data-testid="icon-container"
             size="24"
           >
-            more_horiz
-          </span>
-        </div>
-      </button>
+            <span
+              class="c13 material-symbols-sharp"
+              color="#000000"
+              data-testid="icon"
+              size="24"
+            >
+              more_horiz
+            </span>
+          </div>
+        </button>
+      </div>
     </div>
   </div>
 </DocumentFragment>

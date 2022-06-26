@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useFloating, autoUpdate } from "@floating-ui/react-dom";
 import { useTransition, animated, config } from "react-spring";
+import { useClickAway } from "sh-hooks";
 import get from "lodash.get";
 import { Text, IconButton, Avatar } from "../../atoms";
 import { scaleInTopRight } from "../../animations/springs";
@@ -8,6 +9,7 @@ import {
   Col,
   Container,
   ContentRow,
+  PopupWrapper,
   Placeholder,
   StyledLink,
   StyledRow,
@@ -20,7 +22,7 @@ const AnimatedPopup = animated(Popup);
 
 const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
   const theme = useTheme();
-
+  const popupWrapperRef = useRef(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const { x, y, reference, floating, strategy } = useFloating({
     placement: "bottom-end",
@@ -34,6 +36,10 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
   const transitionPopup = useTransition(isPopupOpen, {
     config: { ...config.default, duration: 150 },
     ...scaleInTopRight,
+  });
+
+  useClickAway(popupWrapperRef, () => {
+    setIsPopupOpen(false);
   });
 
   return (
@@ -74,20 +80,22 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
           );
         })}
       <Col>
-        <IconButton ref={reference} icon="more_horiz" onClick={onClickMore} />
-        {transitionPopup(
-          (styles, item) =>
-            item && (
-              <AnimatedPopup
-                style={styles}
-                ref={floating}
-                position={strategy}
-                top={y}
-                left={x}
-                items={more}
-              />
-            )
-        )}
+        <PopupWrapper ref={popupWrapperRef}>
+          <IconButton ref={reference} icon="more_horiz" onClick={onClickMore} />
+          {transitionPopup(
+            (styles, item) =>
+              item && (
+                <AnimatedPopup
+                  style={styles}
+                  ref={floating}
+                  position={strategy}
+                  top={y}
+                  left={x}
+                  items={more}
+                />
+              )
+          )}
+        </PopupWrapper>
       </Col>
     </StyledRow>
   );

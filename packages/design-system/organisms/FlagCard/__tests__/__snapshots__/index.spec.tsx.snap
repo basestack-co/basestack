@@ -29,7 +29,7 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   color: #000000;
 }
 
-.c10 {
+.c11 {
   height: 1.5rem;
   width: 1.5rem;
   -webkit-flex-shrink: 0;
@@ -37,7 +37,7 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   flex-shrink: 0;
 }
 
-.c11 {
+.c12 {
   color: #000000;
   font-size: 1.5rem;
 }
@@ -90,7 +90,7 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   background-color: #E2E2E2;
 }
 
-.c9 {
+.c10 {
   position: absolute;
   top: 14px;
   right: 14px;
@@ -117,15 +117,15 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   width: 2rem;
 }
 
-.c9 .material-symbols-sharp {
+.c10 .material-symbols-sharp {
   color: inherit;
 }
 
-.c9:hover {
+.c10:hover {
   background-color: #EEEEEE;
 }
 
-.c9:active {
+.c10:active {
   background-color: #E2E2E2;
 }
 
@@ -148,6 +148,10 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
 .c6 {
   margin-right: 0.25rem;
   margin-bottom: 0.25rem;
+}
+
+.c9 {
+  height: 0;
 }
 
 <div
@@ -195,24 +199,28 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
     >
       Created 11 jan 2022
     </p>
-    <button
+    <div
       class="c9"
     >
-      <div
+      <button
         class="c10"
-        data-testid="icon-container"
-        size="24"
       >
-        <span
-          class="c11 material-symbols-sharp"
-          color="#000000"
-          data-testid="icon"
+        <div
+          class="c11"
+          data-testid="icon-container"
           size="24"
         >
-          more_horiz
-        </span>
-      </div>
-    </button>
+          <span
+            class="c12 material-symbols-sharp"
+            color="#000000"
+            data-testid="icon"
+            size="24"
+          >
+            more_horiz
+          </span>
+        </div>
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -246,7 +254,7 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   color: #000000;
 }
 
-.c10 {
+.c11 {
   height: 1.5rem;
   width: 1.5rem;
   -webkit-flex-shrink: 0;
@@ -254,7 +262,7 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   flex-shrink: 0;
 }
 
-.c11 {
+.c12 {
   color: #000000;
   font-size: 1.5rem;
 }
@@ -307,7 +315,7 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   background-color: #E2E2E2;
 }
 
-.c9 {
+.c10 {
   position: absolute;
   top: 14px;
   right: 14px;
@@ -334,15 +342,15 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   width: 2rem;
 }
 
-.c9 .material-symbols-sharp {
+.c10 .material-symbols-sharp {
   color: inherit;
 }
 
-.c9:hover {
+.c10:hover {
   background-color: #EEEEEE;
 }
 
-.c9:active {
+.c10:active {
   background-color: #E2E2E2;
 }
 
@@ -365,6 +373,10 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
 .c6 {
   margin-right: 0.25rem;
   margin-bottom: 0.25rem;
+}
+
+.c9 {
+  height: 0;
 }
 
 <div
@@ -412,24 +424,28 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
     >
       Created 11 jan 2022
     </p>
-    <button
+    <div
       class="c9"
     >
-      <div
+      <button
         class="c10"
-        data-testid="icon-container"
-        size="24"
       >
-        <span
-          class="c11 material-symbols-sharp"
-          color="#000000"
-          data-testid="icon"
+        <div
+          class="c11"
+          data-testid="icon-container"
           size="24"
         >
-          more_horiz
-        </span>
-      </div>
-    </button>
+          <span
+            class="c12 material-symbols-sharp"
+            color="#000000"
+            data-testid="icon"
+            size="24"
+          >
+            more_horiz
+          </span>
+        </div>
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;

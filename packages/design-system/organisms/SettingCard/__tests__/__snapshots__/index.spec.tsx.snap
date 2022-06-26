@@ -61,6 +61,10 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
   background-color: #333;
 }
 
+.c7 .material-symbols-sharp {
+  color: inherit;
+}
+
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -207,6 +211,10 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
 
 .c9:hover:not(:active) {
   background-color: #333;
+}
+
+.c9 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c0 {
@@ -396,6 +404,10 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
 
 .c7:hover:not(:active) {
   background-color: #333;
+}
+
+.c7 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c0 {

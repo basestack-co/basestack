@@ -1,13 +1,16 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useRef, useState } from "react";
+import { useClickAway } from "sh-hooks";
 import { animated, config, useTransition } from "react-spring";
 import { autoUpdate, offset, useFloating } from "@floating-ui/react-dom";
 import { Button, ButtonVariant } from "../../../atoms";
 import { scaleInTopLeft } from "../../../animations/springs";
 import { PopupActions } from "../../../molecules";
+import { ListItem } from "../styles";
 
 const AnimatedProjectsPopup = animated(PopupActions);
 
 const ProjectsMenu = () => {
+  const menuWrapperRef = useRef(null);
   const [isProjectsPopupOpen, setIsProjectsPopupOpen] = useState(false);
   const { x, y, reference, floating, strategy } = useFloating({
     placement: "bottom-start",
@@ -24,8 +27,12 @@ const ProjectsMenu = () => {
     ...scaleInTopLeft,
   });
 
+  useClickAway(menuWrapperRef, () => {
+    setIsProjectsPopupOpen(false);
+  });
+
   return (
-    <>
+    <ListItem ref={menuWrapperRef}>
       <Button
         ref={reference}
         iconPlacement="right"
@@ -64,7 +71,7 @@ const ProjectsMenu = () => {
             />
           )
       )}
-    </>
+    </ListItem>
   );
 };
 

@@ -47,3 +47,8 @@ export const ContentRow = styled.div`
   display: flex;
   align-items: center;
 `;
+
+export const PopupWrapper = styled.div`
+  height: ${rem("32px")};
+  width: ${rem("32px")};
+`;

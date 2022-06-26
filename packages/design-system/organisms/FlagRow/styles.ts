@@ -48,3 +48,8 @@ export const Label = styled.div<{
           background-color: ${({ theme }) => theme.colors.gray300};
         `};
 `;
+
+export const PopupWrapper = styled.div`
+  height: ${rem("32px")};
+  width: ${rem("32px")};
+`;

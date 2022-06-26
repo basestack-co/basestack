@@ -28,9 +28,7 @@ const Navigation = ({ onCreateFlag, pathname }: NavigationProps) => {
             <Avatar round={false} alt="user image" userName="Logo" />
           </LogoContainer>
         </ListItem>
-        <ListItem>
-          <ProjectsMenu />
-        </ListItem>
+        <ProjectsMenu />
         {isLargeDevice && (
           <>
             <ListItem>

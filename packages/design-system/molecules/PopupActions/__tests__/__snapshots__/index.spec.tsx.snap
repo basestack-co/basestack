@@ -71,6 +71,10 @@ exports[`PopupActions Molecule tests should render PopupActions correctly 1`] = 
   background-color: #E2E2E2;
 }
 
+.c9 .material-symbols-sharp {
+  color: inherit;
+}
+
 .c0 {
   position: absolute;
   top: 0;

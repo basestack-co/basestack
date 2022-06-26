@@ -33,6 +33,10 @@ exports[`Button Atom tests should render Button correctly 1`] = `
   background-color: #0e55d7;
 }
 
+.c0 .material-symbols-sharp {
+  color: inherit;
+}
+
 <button
     class="c0"
   >
@@ -74,6 +78,10 @@ exports[`Button Atom tests should render Button link 1`] = `
   background-color: #0e55d7;
 }
 
+.c0 .material-symbols-sharp {
+  color: inherit;
+}
+
 <a
     class="c0"
   >
@@ -90,7 +98,7 @@ exports[`Button Atom tests should render Button with icon 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  margin-left: 0.25rem;
+  margin-right: 0.5rem;
 }
 
 .c2 {
@@ -123,17 +131,20 @@ exports[`Button Atom tests should render Button with icon 1`] = `
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  padding-right: 0.5rem;
+  padding-left: 0.5rem;
 }
 
 .c0:hover:not(:active) {
   background-color: #0e55d7;
 }
 
+.c0 .material-symbols-sharp {
+  color: inherit;
+}
+
 <button
     class="c0"
   >
-    button icon
     <div
       class="c1"
       data-testid="icon-container"
@@ -147,6 +158,7 @@ exports[`Button Atom tests should render Button with icon 1`] = `
         help
       </span>
     </div>
+    button icon
   </button>
 </DocumentFragment>
 `;
@@ -182,6 +194,10 @@ exports[`Button Atom tests should render Button with onClick 1`] = `
 
 .c0:hover:not(:active) {
   background-color: #0e55d7;
+}
+
+.c0 .material-symbols-sharp {
+  color: inherit;
 }
 
 <button
@@ -227,6 +243,10 @@ exports[`Button Atom tests should render Button with styled system utilities 1`]
 
 .c0:hover:not(:active) {
   background-color: #0e55d7;
+}
+
+.c0 .material-symbols-sharp {
+  color: inherit;
 }
 
 <button

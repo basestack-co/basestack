@@ -19,7 +19,7 @@ exports[`Table Organism tests should render Table correctly 1`] = `
   color: #000000;
 }
 
-.c8 {
+.c9 {
   height: 1.5rem;
   width: 1.5rem;
   -webkit-flex-shrink: 0;
@@ -27,12 +27,12 @@ exports[`Table Organism tests should render Table correctly 1`] = `
   flex-shrink: 0;
 }
 
-.c9 {
+.c10 {
   color: #000000;
   font-size: 1.5rem;
 }
 
-.c7 {
+.c8 {
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -56,15 +56,15 @@ exports[`Table Organism tests should render Table correctly 1`] = `
   width: 2rem;
 }
 
-.c7 .material-symbols-sharp {
+.c8 .material-symbols-sharp {
   color: inherit;
 }
 
-.c7:hover {
+.c8:hover {
   background-color: #EEEEEE;
 }
 
-.c7:active {
+.c8:active {
   background-color: #E2E2E2;
 }
 
@@ -113,6 +113,11 @@ exports[`Table Organism tests should render Table correctly 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+}
+
+.c7 {
+  height: 2rem;
+  width: 2rem;
 }
 
 <div
@@ -203,24 +208,28 @@ exports[`Table Organism tests should render Table correctly 1`] = `
       <div
         class="c2"
       >
-        <button
+        <div
           class="c7"
         >
-          <div
+          <button
             class="c8"
-            data-testid="icon-container"
-            size="24"
           >
-            <span
-              class="c9 material-symbols-sharp"
-              color="#000000"
-              data-testid="icon"
+            <div
+              class="c9"
+              data-testid="icon-container"
               size="24"
             >
-              more_horiz
-            </span>
-          </div>
-        </button>
+              <span
+                class="c10 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                more_horiz
+              </span>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
     <div
@@ -272,24 +281,28 @@ exports[`Table Organism tests should render Table correctly 1`] = `
       <div
         class="c2"
       >
-        <button
+        <div
           class="c7"
         >
-          <div
+          <button
             class="c8"
-            data-testid="icon-container"
-            size="24"
           >
-            <span
-              class="c9 material-symbols-sharp"
-              color="#000000"
-              data-testid="icon"
+            <div
+              class="c9"
+              data-testid="icon-container"
               size="24"
             >
-              more_horiz
-            </span>
-          </div>
-        </button>
+              <span
+                class="c10 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                more_horiz
+              </span>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -333,7 +346,7 @@ exports[`Table Organism tests should render Table with images 1`] = `
   color: #000000;
 }
 
-.c10 {
+.c11 {
   height: 1.5rem;
   width: 1.5rem;
   -webkit-flex-shrink: 0;
@@ -341,12 +354,12 @@ exports[`Table Organism tests should render Table with images 1`] = `
   flex-shrink: 0;
 }
 
-.c11 {
+.c12 {
   color: #000000;
   font-size: 1.5rem;
 }
 
-.c9 {
+.c10 {
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -370,15 +383,15 @@ exports[`Table Organism tests should render Table with images 1`] = `
   width: 2rem;
 }
 
-.c9 .material-symbols-sharp {
+.c10 .material-symbols-sharp {
   color: inherit;
 }
 
-.c9:hover {
+.c10:hover {
   background-color: #EEEEEE;
 }
 
-.c9:active {
+.c10:active {
   background-color: #E2E2E2;
 }
 
@@ -427,6 +440,11 @@ exports[`Table Organism tests should render Table with images 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+}
+
+.c9 {
+  height: 2rem;
+  width: 2rem;
 }
 
 <div
@@ -528,24 +546,28 @@ exports[`Table Organism tests should render Table with images 1`] = `
       <div
         class="c2"
       >
-        <button
+        <div
           class="c9"
         >
-          <div
+          <button
             class="c10"
-            data-testid="icon-container"
-            size="24"
           >
-            <span
-              class="c11 material-symbols-sharp"
-              color="#000000"
-              data-testid="icon"
+            <div
+              class="c11"
+              data-testid="icon-container"
               size="24"
             >
-              more_horiz
-            </span>
-          </div>
-        </button>
+              <span
+                class="c12 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                more_horiz
+              </span>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
     <div
@@ -608,24 +630,28 @@ exports[`Table Organism tests should render Table with images 1`] = `
       <div
         class="c2"
       >
-        <button
+        <div
           class="c9"
         >
-          <div
+          <button
             class="c10"
-            data-testid="icon-container"
-            size="24"
           >
-            <span
-              class="c11 material-symbols-sharp"
-              color="#000000"
-              data-testid="icon"
+            <div
+              class="c11"
+              data-testid="icon-container"
               size="24"
             >
-              more_horiz
-            </span>
-          </div>
-        </button>
+              <span
+                class="c12 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                more_horiz
+              </span>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
     <div
@@ -688,24 +714,28 @@ exports[`Table Organism tests should render Table with images 1`] = `
       <div
         class="c2"
       >
-        <button
+        <div
           class="c9"
         >
-          <div
+          <button
             class="c10"
-            data-testid="icon-container"
-            size="24"
           >
-            <span
-              class="c11 material-symbols-sharp"
-              color="#000000"
-              data-testid="icon"
+            <div
+              class="c11"
+              data-testid="icon-container"
               size="24"
             >
-              more_horiz
-            </span>
-          </div>
-        </button>
+              <span
+                class="c12 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                more_horiz
+              </span>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
     <div
@@ -768,24 +798,28 @@ exports[`Table Organism tests should render Table with images 1`] = `
       <div
         class="c2"
       >
-        <button
+        <div
           class="c9"
         >
-          <div
+          <button
             class="c10"
-            data-testid="icon-container"
-            size="24"
           >
-            <span
-              class="c11 material-symbols-sharp"
-              color="#000000"
-              data-testid="icon"
+            <div
+              class="c11"
+              data-testid="icon-container"
               size="24"
             >
-              more_horiz
-            </span>
-          </div>
-        </button>
+              <span
+                class="c12 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                more_horiz
+              </span>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -811,7 +845,7 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
   color: #000000;
 }
 
-.c8 {
+.c9 {
   height: 1.5rem;
   width: 1.5rem;
   -webkit-flex-shrink: 0;
@@ -819,12 +853,12 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
   flex-shrink: 0;
 }
 
-.c9 {
+.c10 {
   color: #000000;
   font-size: 1.5rem;
 }
 
-.c7 {
+.c8 {
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -848,15 +882,15 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
   width: 2rem;
 }
 
-.c7 .material-symbols-sharp {
+.c8 .material-symbols-sharp {
   color: inherit;
 }
 
-.c7:hover {
+.c8:hover {
   background-color: #EEEEEE;
 }
 
-.c7:active {
+.c8:active {
   background-color: #E2E2E2;
 }
 
@@ -906,6 +940,11 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+}
+
+.c7 {
+  height: 2rem;
+  width: 2rem;
 }
 
 <div
@@ -996,24 +1035,28 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
       <div
         class="c2"
       >
-        <button
+        <div
           class="c7"
         >
-          <div
+          <button
             class="c8"
-            data-testid="icon-container"
-            size="24"
           >
-            <span
-              class="c9 material-symbols-sharp"
-              color="#000000"
-              data-testid="icon"
+            <div
+              class="c9"
+              data-testid="icon-container"
               size="24"
             >
-              more_horiz
-            </span>
-          </div>
-        </button>
+              <span
+                class="c10 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                more_horiz
+              </span>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
     <div
@@ -1065,24 +1108,28 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
       <div
         class="c2"
       >
-        <button
+        <div
           class="c7"
         >
-          <div
+          <button
             class="c8"
-            data-testid="icon-container"
-            size="24"
           >
-            <span
-              class="c9 material-symbols-sharp"
-              color="#000000"
-              data-testid="icon"
+            <div
+              class="c9"
+              data-testid="icon-container"
               size="24"
             >
-              more_horiz
-            </span>
-          </div>
-        </button>
+              <span
+                class="c10 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                more_horiz
+              </span>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
   </div>

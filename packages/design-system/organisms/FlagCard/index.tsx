@@ -1,10 +1,11 @@
-import React, { memo, forwardRef, useState, useCallback } from "react";
+import React, { memo, forwardRef, useState, useCallback, useRef } from "react";
 import { useFloating, autoUpdate } from "@floating-ui/react-dom";
+import { useClickAway } from "sh-hooks";
 import { useTheme } from "styled-components";
 import { useTransition, animated, config } from "react-spring";
 import { IconButton, Text } from "../../atoms";
 import { Popup } from "../../molecules";
-import { Labels, StyledCard, StyledLabel } from "./styles";
+import { Labels, StyledCard, StyledLabel, PopupWrapper } from "./styles";
 import { FlagCardProps } from "./types";
 import { scaleInTopRight } from "../../animations/springs";
 
@@ -13,6 +14,7 @@ const AnimatedPopup = animated(Popup);
 const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
   ({ title, description, environments, date, popupItems, ...props }, ref) => {
     const theme = useTheme();
+    const popupWrapperRef = useRef(null);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const { x, y, reference, floating, strategy } = useFloating({
       placement: "bottom-end",
@@ -26,6 +28,10 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
     const transitionPopup = useTransition(isPopupOpen, {
       config: { ...config.default, duration: 150 },
       ...scaleInTopRight,
+    });
+
+    useClickAway(popupWrapperRef, () => {
+      setIsPopupOpen(false);
     });
 
     return (
@@ -59,28 +65,30 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
         <Text data-testid="flag-date" mt="auto" size="small" muted>
           {date}
         </Text>
-        <IconButton
-          ref={reference}
-          position="absolute"
-          top="14px"
-          right="14px"
-          icon="more_horiz"
-          onClick={onClickMore}
-        />
-        {transitionPopup(
-          (styles, item) =>
-            item &&
-            popupItems.length > 0 && (
-              <AnimatedPopup
-                style={styles}
-                ref={floating}
-                position={strategy}
-                top={y}
-                left={x}
-                items={popupItems}
-              />
-            )
-        )}
+        <PopupWrapper ref={popupWrapperRef}>
+          <IconButton
+            ref={reference}
+            position="absolute"
+            top="14px"
+            right="14px"
+            icon="more_horiz"
+            onClick={onClickMore}
+          />
+          {transitionPopup(
+            (styles, item) =>
+              item &&
+              popupItems.length > 0 && (
+                <AnimatedPopup
+                  style={styles}
+                  ref={floating}
+                  position={strategy}
+                  top={y}
+                  left={x}
+                  items={popupItems}
+                />
+              )
+          )}
+        </PopupWrapper>
       </StyledCard>
     );
   }

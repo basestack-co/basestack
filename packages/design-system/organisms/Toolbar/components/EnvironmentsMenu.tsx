@@ -1,4 +1,5 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useRef, useState } from "react";
+import { useClickAway } from "sh-hooks";
 import { autoUpdate, useFloating } from "@floating-ui/react-dom";
 import { useTheme } from "styled-components";
 import { animated, config, useTransition } from "react-spring";
@@ -20,6 +21,7 @@ const EnvironmentsMenu = ({
   onSelect,
 }: EnvironmentsMenuProps) => {
   const theme = useTheme();
+  const menuWrapperRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { x, y, reference, floating, strategy } = useFloating({
     placement: "bottom-start",
@@ -45,8 +47,12 @@ const EnvironmentsMenu = ({
     };
   });
 
+  useClickAway(menuWrapperRef, () => {
+    setIsMenuOpen(false);
+  });
+
   return (
-    <>
+    <div ref={menuWrapperRef}>
       <Button
         ref={reference}
         iconPlacement="right"
@@ -73,7 +79,7 @@ const EnvironmentsMenu = ({
             />
           )
       )}
-    </>
+    </div>
   );
 };
 

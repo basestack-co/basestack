@@ -36,7 +36,7 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  margin-left: 0.25rem;
+  margin-left: 0.5rem;
 }
 
 .c7 {
@@ -72,10 +72,6 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
   padding-right: 0.5rem;
 }
 
-.c5 .material-symbols-sharp {
-  color: inherit;
-}
-
 .c5:hover {
   color: #276EF1;
   background-color: #EFF3FE;
@@ -83,6 +79,10 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
 
 .c5:active {
   background-color: #D4E2FC;
+}
+
+.c5 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c9 {
@@ -112,10 +112,6 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
   width: fit-content;
 }
 
-.c9 .material-symbols-sharp {
-  color: inherit;
-}
-
 .c9:hover {
   color: #276EF1;
   background-color: #EFF3FE;
@@ -123,6 +119,10 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
 
 .c9:active {
   background-color: #D4E2FC;
+}
+
+.c9 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c12 {
@@ -154,6 +154,10 @@ exports[`Navigation Organism tests should render Navigation correctly 1`] = `
 
 .c12:hover:not(:active) {
   background-color: #0e55d7;
+}
+
+.c12 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c0 {
