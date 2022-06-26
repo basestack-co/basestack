@@ -42,6 +42,8 @@ import { useDebounce } from "@basestack/hooks";
 // Formik
 import { useFormik } from "formik";
 import * as Yup from "yup";
+// Server
+import { trpc } from "libs/trpc";
 
 const ProjectsDemos = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -643,6 +645,10 @@ const FlagsDemos = () => {
 };
 
 const DemoPage = () => {
+  const projectQuery = trpc.useQuery(["project.all", { text: "hey joe" }]);
+
+  console.log("projectQuery = ", projectQuery);
+
   return (
     <div>
       <br />
