@@ -1,5 +1,5 @@
 {
-  "name": "fe-docs",
+  "name": "@basestack/fe-docs",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -9,21 +9,23 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
   },
   "dependencies": {
-    "@markdoc/markdoc": "latest",
+    "@basestack/design-system": "*",
+    "@markdoc/markdoc": "0.1.3",
     "@markdoc/next.js": "latest",
-    "design-system": "*",
     "next": "^12.1.6",
     "prismjs": "^1.28.0",
-    "react": "latest",
-    "react-dom": "latest",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
-    "@types/node": "17.0.40",
-    "@types/react": "18.0.11",
+    "@basestack/config": "*",
+    "@basestack/tsconfig": "*",
+    "@types/node": "18.0.0",
+    "@types/react": "18.0.14",
     "@types/react-dom": "latest",
-    "config": "*",
-    "typescript": "4.7.3"
+    "next-transpile-modules": "^9.0.0",
+    "typescript": "4.7.4"
   },
   "overrides": {
     "@types/react": "^18.0.0"

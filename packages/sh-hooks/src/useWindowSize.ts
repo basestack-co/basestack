@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import useRafState from "./useRafState";
-import { isBrowser, off, on } from "sh-utils";
+import { isBrowser, off, on } from "@basestack/utils";
 
 const useWindowSize = (initialWidth = Infinity, initialHeight = Infinity) => {
   const [state, setState] = useRafState<{ width: number; height: number }>({

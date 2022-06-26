@@ -1,4 +1,4 @@
-import { Button } from "design-system";
+import { Button } from "@basestack/design-system";
 
 export const button = {
   render: Button,
