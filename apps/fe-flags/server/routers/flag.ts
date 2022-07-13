@@ -2,9 +2,8 @@
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
 import * as yup from "yup";
-import get from "lodash.get";
+import { getValue } from "@basestack/utils";
 import { groupBy } from "utils/functions";
-import isEmpty from "lodash.isempty";
 
 export const flagRouter = createProtectedRouter()
   .query("all", {
@@ -21,8 +20,8 @@ export const flagRouter = createProtectedRouter()
     async resolve({ ctx, input }) {
       const userId = ctx.session.user.id;
 
-      const skip = get(input.pagination, "skip", "0");
-      const take = get(input.pagination, "take", "50");
+      const skip = getValue(input.pagination, "skip", "0");
+      const take = getValue(input.pagination, "take", "50");
 
       const flags = await ctx.prisma.environment.findMany({
         where: {
@@ -70,11 +69,11 @@ export const flagRouter = createProtectedRouter()
       });
 
       return {
-        flags: get(flags, "[0].flags", []),
+        flags: getValue(flags, "[0].flags", []),
         pagination: {
           skip: Number(skip),
           take: Number(take),
-          total: get(flags, "[0]._count.flags", 0),
+          total: getValue(flags, "[0]._count.flags", 0),
         },
       };
     },
@@ -109,8 +108,8 @@ export const flagRouter = createProtectedRouter()
         .nullable(),
     }),
     async resolve({ ctx, input }) {
-      const skip = get(input.pagination, "skip", "0");
-      const take = get(input.pagination, "take", "50");
+      const skip = getValue(input.pagination, "skip", "0");
+      const take = getValue(input.pagination, "take", "50");
 
       const [allFlags, totalFlags] = await ctx.prisma.$transaction([
         ctx.prisma.flag.findMany({

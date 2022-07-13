@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "libs/prisma";
 // Utils
 import { methodNotAllowed, somethingWentWrong } from "utils/responses";
-import get from "lodash.get";
+import { getValue } from "@basestack/utils";
 
 export const getFlagsByProjectSlugAndEnvSlug = async (
   projectKey: string,
@@ -38,9 +38,9 @@ export const getFlagsByProjectSlugAndEnvSlug = async (
       flags,
     });
   } catch (error) {
-    return res.status(get(error, "code", 400)).json({
+    return res.status(getValue(error, "code", 400)).json({
       error: true,
-      message: get(error, "message", somethingWentWrong),
+      message: getValue(error, "message", somethingWentWrong),
     });
   }
 };
@@ -48,11 +48,15 @@ export const getFlagsByProjectSlugAndEnvSlug = async (
 const RestApiFlags = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "GET":
-      const projectKey = get(req, "query.projectKey", "");
-      const envKey = get(req, "query.envKey", "");
+      const projectKey = getValue(req, "query.projectKey", "");
+      const envKey = getValue(req, "query.envKey", "");
 
       // Get flags by project slug and env slug
-      await getFlagsByProjectSlugAndEnvSlug(projectKey, envKey, res);
+      await getFlagsByProjectSlugAndEnvSlug(
+        projectKey as string,
+        envKey as string,
+        res
+      );
       break;
 
     default:

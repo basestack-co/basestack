@@ -2,7 +2,7 @@
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
 import * as yup from "yup";
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "@basestack/utils";
 
 export const historyRouter = createProtectedRouter()
   .query("all", {

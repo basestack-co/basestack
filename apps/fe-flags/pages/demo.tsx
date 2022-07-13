@@ -2,7 +2,7 @@ import { useEffect, useCallback, useState } from "react";
 // Layout
 import MainLayout from "../layouts/Main";
 // Utils
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "@basestack/utils";
 // Hooks
 import { useDebounce } from "@basestack/hooks";
 // Types

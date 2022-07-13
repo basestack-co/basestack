@@ -8,7 +8,6 @@ import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
 import { IntlProvider } from "react-intl";
 import { language, messages } from "locales";
 // Contexts
-// Contexts
 import { ModalsContextProvider } from "contexts/modals";
 // Modals
 import Modals from "modals";

@@ -1,15 +1,38 @@
 // Trpc
 import * as trpc from "@trpc/server";
 import { Context } from "./context";
-// DB
-import { getUserInProject } from "libs/prisma/db/users";
 // Utils
-import get from "lodash.get";
-import isEmpty from "lodash.isempty";
+import { getValue, isEmpty } from "@basestack/utils";
 
 export interface Meta {
   restricted?: boolean;
 }
+
+// Checks if user can do an action in this project like create, update, delete
+/* export const getUserInProject = async (userId: string, projectId: string) => {
+  try {
+    return await prisma.project.findFirst({
+      where: {
+        AND: [
+          {
+            id: projectId,
+          },
+          {
+            users: {
+              some: {
+                user: {
+                  id: userId,
+                },
+              },
+            },
+          },
+        ],
+      },
+    });
+  } catch {
+    throw new Error(notAuthorizedActionProject);
+  }
+}; */
 
 export function createProtectedRouter() {
   return trpc

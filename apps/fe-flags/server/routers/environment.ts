@@ -2,7 +2,7 @@
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
 import * as yup from "yup";
-import get from "lodash.get";
+import { getValue } from "@basestack/utils";
 
 export const environmentRouter = createProtectedRouter()
   .query("all", {
@@ -31,7 +31,7 @@ export const environmentRouter = createProtectedRouter()
         },
       });
 
-      return { environments: get(environments, "environments", []) };
+      return { environments: getValue(environments, "environments", []) };
     },
   })
   .mutation("create", {

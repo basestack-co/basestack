@@ -9,7 +9,7 @@ import { setIsDemoModalOpen } from "contexts/modals/actions";
 // Auth
 import { useSession, signOut } from "next-auth/react";
 // Utils
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "@basestack/utils";
 
 const MainPage = () => {
   const { data: session } = useSession();
