@@ -39,32 +39,8 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/*  <!-- Primary Meta Tags --> */}
-          <meta name="title" content="UpStamps" />
-          <meta
-            name="description"
-            content="Simple feature flagging and toggle service"
-          />
+          <meta name="title" content="Basestack" />
 
-          {/* <!-- Open Graph / Facebook --> */}
-          <meta property="og:type" content="website" />
-          <meta property="og:url" content="http://www.upstamps.com/" />
-          <meta property="og:title" content="Upstamps" />
-          <meta
-            property="og:description"
-            content="Simple feature flagging and toggle service"
-          />
-          <meta property="og:image" content="" />
-
-          {/* <!-- Twitter --> */}
-          <meta property="twitter:card" content="summary_large_image" />
-          <meta property="twitter:url" content="http://www.upstamps.com/" />
-          <meta property="twitter:title" content="Upstamps" />
-          <meta
-            property="twitter:description"
-            content="Simple feature flagging and toggle service"
-          />
-          <meta property="twitter:image" content="" />
           <link
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
             rel="stylesheet"

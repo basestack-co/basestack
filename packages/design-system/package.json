@@ -1,5 +1,5 @@
 {
-  "name": "design-system",
+  "name": "@basestack/design-system",
   "version": "0.0.0",
   "main": "./index.tsx",
   "types": "./index.tsx",
@@ -8,15 +8,16 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
-    "test:log": "jest --no-coverage >& ./logs/jest.log"
+    "test:log": "jest --no-coverage >& ./logs/jest.log",
+    "clean": "rm -rf .turbo && rm -rf node_modules"
   },
   "devDependencies": {
-    "@types/react": "18.0.10",
+    "@basestack/config": "*",
+    "@basestack/tsconfig": "*",
+    "@types/react": "18.0.14",
     "@types/react-dom": "^18.0.5",
-    "config": "*",
     "jest-styled-components": "^7.0.8",
-    "tsconfig": "*",
-    "typescript": "^4.7.2"
+    "typescript": "^4.7.4"
   },
   "overrides": {
     "@types/react": "^18.0.0"

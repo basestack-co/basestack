@@ -4,7 +4,7 @@ import { signIn, useSession, getProviders } from "next-auth/react";
 // Router
 import { useRouter } from "next/router";
 // UI
-import { Button } from "design-system";
+import { Button } from "@basestack/design-system";
 // Types
 import { Provider } from "types/nextAuth";
 
@@ -53,8 +53,6 @@ const SignInPage = ({ providers }: Props) => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(typeof providers);
-
     if (status === "authenticated") {
       router.push("/");
     }

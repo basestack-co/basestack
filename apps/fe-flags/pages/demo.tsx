@@ -38,7 +38,7 @@ import { Flag } from "types/query/flags";
 import { History, HistoryAction } from "types/query/history";
 import { User, UsersResponse } from "types/query/users";
 // Hooks
-import { useDebounce } from "sh-hooks";
+import { useDebounce } from "@basestack/hooks";
 // Formik
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -540,7 +540,6 @@ const FlagsDemos = () => {
     };
 
     if (!isEmpty(projectId)) {
-      console.log("entrou aqui");
       getAllFlagsByProject();
     }
   }, [projectId]);
@@ -582,7 +581,6 @@ const FlagsDemos = () => {
 
   const deleteAction = useCallback(
     (flagId: string) => {
-      console.log("del flagId = ", flagId);
       if (confirm("Delete Flag?")) {
         deleteFlag({ projectId, envId, flagId });
       }

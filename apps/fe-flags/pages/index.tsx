@@ -1,6 +1,6 @@
 import Head from "next/head";
-import { Button, Avatar } from "design-system";
-import { useDebounce } from "sh-hooks";
+import { Button, Avatar } from "@basestack/design-system";
+import { useDebounce } from "@basestack/hooks";
 // Layout
 import MainLayout from "../layouts/Main";
 // Store

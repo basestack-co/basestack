@@ -1,5 +1,5 @@
 {
-  "name": "config",
+  "name": "@basestack/config",
   "version": "0.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -8,6 +8,9 @@
     "jest.config.js",
     "jest.setup.js"
   ],
+  "scripts": {
+    "clean": "rm -rf .turbo && rm -rf node_modules"
+  },
   "dependencies": {
     "eslint-config-next": "^12.1.6",
     "eslint-config-prettier": "^8.5.0"

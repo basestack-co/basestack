@@ -4,7 +4,9 @@ import { createSelector } from "@reduxjs/toolkit";
 // Utils
 import get from "lodash.get";
 
-export const getIsDemoModalOpen = createSelector(
+type Selector<T> = (state: RootState) => T;
+
+export const getIsDemoModalOpen: Selector<boolean> = createSelector(
   (store: RootState) => get(store, "modals.isDemoModalOpen", false),
   (content) => content
 );

@@ -1,5 +1,5 @@
 {
-  "name": "sh-utils",
+  "name": "@basestack/utils",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -9,7 +9,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react --minify",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
     "test": "jest",
     "test:watch": "jest --watchAll",
@@ -19,10 +19,10 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
-    "config": "*",
-    "ts-jest": "^28.0.3",
-    "tsconfig": "*",
-    "tsup": "^6.0.1",
-    "typescript": "^4.7.2"
+    "@basestack/config": "*",
+    "@basestack/tsconfig": "*",
+    "ts-jest": "^28.0.5",
+    "tsup": "^6.1.2",
+    "typescript": "^4.7.4"
   }
 }

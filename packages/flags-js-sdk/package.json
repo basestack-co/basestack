@@ -1,0 +1,48 @@
+{
+  "name": "@basestack/flags-js-sdk",
+  "version": "0.0.12-alpha",
+  "author": "Basestack",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "source": "./src/index.ts",
+  "files": [
+    "dist/**",
+    "src"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "test:coverage": "jest --coverage",
+    "test:log": "jest --no-coverage >& ./logs/jest.log",
+    "lint": "TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "prepublishOnly": "yarn build"
+  },
+  "peerDependencies": {
+    "isomorphic-unfetch": "^3.1.0"
+  },
+  "devDependencies": {
+    "@basestack/config": "*",
+    "@basestack/tsconfig": "*",
+    "@types/node": "^18.0.0",
+    "@types/node-fetch": "^2.6.2",
+    "tsup": "^6.1.2",
+    "typescript": "^4.7.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/Storytics/monolock",
+  "bugs": {
+    "url": "https://github.com/Storytics/monolock/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Storytics/monolock.git"
+  },
+  "description": ""
+}
