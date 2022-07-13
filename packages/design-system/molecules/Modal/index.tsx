@@ -1,16 +1,16 @@
 import React, { memo } from "react";
-import { Text, IconButton, Button } from "../../atoms";
+import { Button, ButtonVariant, IconButton, Text } from "../../atoms";
 import {
-  Container,
-  Sheet,
-  Overlay,
-  Header,
-  Footer,
   Body,
+  Container,
+  Footer,
   GlobalStyle,
+  Header,
+  Overlay,
+  Sheet,
 } from "./styles";
 import { useTheme } from "styled-components";
-import { useTransition, animated, config } from "react-spring";
+import { animated, config, useTransition } from "react-spring";
 import { ModalProps } from "./types";
 import { fadeIn } from "../../animations/springs";
 
@@ -73,7 +73,11 @@ const Modal: React.FC<ModalProps> = ({
                         return (
                           <Button
                             key={index.toString()}
-                            variant={isLastItem ? "primary" : "neutral"}
+                            variant={
+                              isLastItem
+                                ? ButtonVariant.Primary
+                                : ButtonVariant.Neutral
+                            }
                             onClick={item.onClick}
                             ml={theme.spacing.s1}
                           >

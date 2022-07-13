@@ -11,11 +11,20 @@ export interface CardProps extends SpaceProps {
    * TestID
    */
   testId?: string;
+  /**
+   * Optional hover animation
+   */
+  hasHoverAnimation?: boolean;
 }
 
 const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ children, testId = "card", ...props }, ref) => (
-    <Container ref={ref} data-testid={testId} {...props}>
+  ({ children, testId = "card", hasHoverAnimation = false, ...props }, ref) => (
+    <Container
+      hasHoverAnimation={hasHoverAnimation}
+      ref={ref}
+      data-testid={testId}
+      {...props}
+    >
       {children}
     </Container>
   )

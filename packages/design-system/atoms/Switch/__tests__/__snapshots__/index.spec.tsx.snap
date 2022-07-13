@@ -4,7 +4,7 @@ exports[`Switch Atom tests should render Switch checked by default 1`] = `
 <DocumentFragment>
   .c1 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   margin-right: 0.75rem;
   font-family: 'Roboto',sans-serif;
@@ -265,7 +265,7 @@ exports[`Switch Atom tests should render Switch with text 1`] = `
 <DocumentFragment>
   .c1 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   margin-right: 0.75rem;
   font-family: 'Roboto',sans-serif;

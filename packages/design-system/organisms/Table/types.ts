@@ -10,6 +10,13 @@ export type Col = {
    * Optional if to be link
    */
   link?: string;
+  /**
+   * Optional image before title
+   */
+  image?: {
+    src?: string;
+    userName?: string;
+  };
 };
 
 export type Row = {

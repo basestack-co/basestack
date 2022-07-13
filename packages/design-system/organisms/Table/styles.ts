@@ -4,7 +4,7 @@ import { rem } from "polished";
 
 export const Container = styled.div`
   ${space};
-  background-color: ${({ theme }) => theme.colors.gray100};
+  background-color: ${({ theme }) => theme.colors.gray50};
   padding: ${({ theme }) => theme.spacing.s5};
   border-radius: 4px;
 `;
@@ -41,4 +41,14 @@ export const StyledLink = styled.a`
     text-decoration: underline;
     color: ${({ theme }) => theme.colors.primary};
   }
+`;
+
+export const ContentRow = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const PopupWrapper = styled.div`
+  height: ${rem("32px")};
+  width: ${rem("32px")};
 `;

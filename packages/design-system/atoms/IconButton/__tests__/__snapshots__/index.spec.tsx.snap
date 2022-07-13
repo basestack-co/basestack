@@ -35,8 +35,8 @@ exports[`IconButton Atom tests should render IconButton correctly 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 .c0 .material-symbols-sharp {
@@ -64,6 +64,70 @@ exports[`IconButton Atom tests should render IconButton correctly 1`] = `
         color="#000000"
         data-testid="icon"
         size="24"
+      >
+        help
+      </span>
+    </div>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`IconButton Atom tests should render IconButton with different size 1`] = `
+<DocumentFragment>
+  .c1 {
+  height: 2rem;
+  width: 2rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c2 {
+  color: #000000;
+  font-size: 2rem;
+}
+
+.c0 {
+  border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: #EEEEEE;
+  color: #FFFFFF;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.c0:hover:not(:active) {
+  background-color: #E2E2E2;
+}
+
+<button
+    class="c0"
+  >
+    <div
+      class="c1"
+      data-testid="icon-container"
+      size="32"
+    >
+      <span
+        class="c2 material-symbols-sharp"
+        color="#000000"
+        data-testid="icon"
+        size="32"
       >
         help
       </span>
@@ -107,8 +171,8 @@ exports[`IconButton Atom tests should render primary IconButton 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #276EF1;
   color: #FFFFFF;
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 .c0:hover:not(:active) {
@@ -171,8 +235,8 @@ exports[`IconButton Atom tests should render primaryNeutral IconButton 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 .c0 .material-symbols-sharp {
@@ -244,8 +308,8 @@ exports[`IconButton Atom tests should render secondary IconButton 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #EEEEEE;
   color: #FFFFFF;
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 .c0:hover:not(:active) {

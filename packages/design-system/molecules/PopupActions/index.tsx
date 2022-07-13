@@ -1,6 +1,6 @@
 import { forwardRef, memo } from "react";
 import { PositionProps } from "styled-system";
-import { Button, Text, Avatar } from "../../atoms";
+import { Avatar, Button, ButtonVariant, Text } from "../../atoms";
 import { Container, Header, List, ListItem, ProjectButton } from "./styles";
 import { useTheme } from "styled-components";
 
@@ -60,7 +60,7 @@ const PopupActions = forwardRef<HTMLDivElement, PopupActionsProps>(
         <Button
           mt={theme.spacing.s1}
           justifyContent="center"
-          variant="tertiary"
+          variant={ButtonVariant.Tertiary}
           fullWidth
           onClick={button.onClick}
         >

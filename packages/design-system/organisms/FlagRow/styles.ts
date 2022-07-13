@@ -6,10 +6,6 @@ import { rem } from "polished";
 export const StyledCard = styled(Card)`
   ${compose(space, position)};
   padding: ${rem("10px")};
-  transition: box-shadow 0.2s ease-in-out;
-  &:hover {
-    box-shadow: ${({ theme }) => theme.shadow.elevation4};
-  }
 `;
 
 export const CardWrapper = styled.div`
@@ -51,4 +47,9 @@ export const Label = styled.div<{
       : css`
           background-color: ${({ theme }) => theme.colors.gray300};
         `};
+`;
+
+export const PopupWrapper = styled.div`
+  height: ${rem("32px")};
+  width: ${rem("32px")};
 `;
