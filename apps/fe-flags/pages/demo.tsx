@@ -1,15 +1,12 @@
 import { useEffect, useCallback, useState } from "react";
 // Layout
 import MainLayout from "../layouts/Main";
-// Store
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "store";
 // Utils
 import isEmpty from "lodash.isempty";
-// Types
-import { HistoryAction } from "types/query/history";
 // Hooks
 import { useDebounce } from "@basestack/hooks";
+// Types
+import { HistoryAction } from "types/history";
 // Formik
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -163,7 +160,6 @@ const UsersList = ({ projectId }: { projectId: string }) => {
 };
 
 const UsersDemos = () => {
-  const dispatch = useDispatch<AppDispatch>();
   const [projectId, setProjectId] = useState("");
   const [name, setName] = useState("");
   const [searchUsers, setSearchUsers] = useState(null);
@@ -175,7 +171,7 @@ const UsersDemos = () => {
 
   useEffect(() => {
     if (!isLoading && data) {
-      // @ty-ignore
+      // @ts-ignore
       setSearchUsers(data);
     }
   }, [isLoading, data]);
@@ -509,7 +505,6 @@ const FlagsList = ({
 
 const FlagsDemos = () => {
   const trpcContext = trpc.useContext();
-  const dispatch = useDispatch<AppDispatch>();
   const [envId, setEnvId] = useState("");
   const [projectId, setProjectId] = useState("");
 

@@ -28,29 +28,3 @@ export interface HistoryPayload {
     avatar: string;
   };
 }
-
-export interface History {
-  id: string;
-  projectId: string;
-  action: string;
-  payload: HistoryPayload;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface HistoryResponse {
-  history: History[];
-}
-
-export interface GetHistoryArgs {
-  projectId: string;
-  query?: {
-    flagId?: string;
-  };
-}
-
-export interface CreateHistoryArgs {
-  projectId: string;
-  action: HistoryAction;
-  payload: HistoryPayload;
-}

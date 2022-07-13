@@ -1,12 +1,9 @@
 import React, { useCallback, useMemo } from "react";
-// Store
-import { batch, useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "store";
-import { setDemoModalOpen } from "store/slices/modals";
-// Selectors
-import { getIsDemoModalOpen } from "store/selectors/modals";
 // Utils
 import Portal from "@basestack/design-system/global/Portal";
+// Context
+import useModals from "hooks/useModals";
+import { setIsDemoModalOpen } from "contexts/modals/actions";
 // import dayjs from "dayjs";
 // Locales
 import { useIntl } from "react-intl";
@@ -14,14 +11,14 @@ import { demoMessages as messages } from "locales/messages/app";
 
 const DemoModal = () => {
   const intl = useIntl();
-  const dispatch = useDispatch<AppDispatch>();
-  const isModalOpen = useSelector(getIsDemoModalOpen);
+  const {
+    dispatch,
+    state: { isDemoModalOpen: isModalOpen },
+  } = useModals();
 
   const onClose = useCallback(() => {
     if (isModalOpen) {
-      batch(() => {
-        dispatch(setDemoModalOpen(false));
-      });
+      dispatch(setIsDemoModalOpen(false));
     }
   }, [isModalOpen, dispatch]);
 

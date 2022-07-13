@@ -7,9 +7,9 @@ import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
 //Locales
 import { IntlProvider } from "react-intl";
 import { language, messages } from "locales";
-// Store
-import { Provider as StoreProvider } from "react-redux";
-import { store } from "store";
+// Contexts
+// Contexts
+import { ModalsContextProvider } from "contexts/modals";
 // Modals
 import Modals from "modals";
 // Auth
@@ -32,9 +32,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   const Layout = Component.Layout || Noop;
   return (
     <SessionProvider session={pageProps.session}>
-      <StoreProvider store={store}>
-        <IntlProvider locale={language} messages={messages[language]}>
-          <ThemeProvider theme={theme}>
+      <IntlProvider locale={language} messages={messages[language]}>
+        <ThemeProvider theme={theme}>
+          <ModalsContextProvider>
             <>
               <GlobalStyle />
               <Layout>
@@ -42,9 +42,9 @@ function MyApp({ Component, pageProps }: AppProps) {
               </Layout>
               <Modals />
             </>
-          </ThemeProvider>
-        </IntlProvider>
-      </StoreProvider>
+          </ModalsContextProvider>
+        </ThemeProvider>
+      </IntlProvider>
     </SessionProvider>
   );
 }
@@ -76,7 +76,11 @@ export default withTRPC<AppRouter>({
               >;
               const code = err?.data?.code;
               // Don't let an UNAUTHORIZED user to retry queries
-              if (["BAD_REQUEST", "FORBIDDEN", "UNAUTHORIZED"].includes(code)) {
+              if (
+                ["BAD_REQUEST", "FORBIDDEN", "UNAUTHORIZED"].includes(
+                  code as string
+                )
+              ) {
                 return false;
               }
               const MAX_QUERY_RETRIES = 3;
