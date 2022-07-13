@@ -1,6 +1,11 @@
+// Utils
+import superjson from "superjson";
+// Routers
 import { createRouter } from "../createRouter";
 import { projectRouter } from "./project";
-import superjson from "superjson";
+import { historyRouter } from "./history";
+import { environmentRouter } from "./environment";
+import { flagRouter } from "./flag";
 
 export const appRouter = createRouter()
   .transformer(superjson)
@@ -9,6 +14,9 @@ export const appRouter = createRouter()
       return "yay!";
     },
   })
-  .merge("project.", projectRouter);
+  .merge("project.", projectRouter)
+  .merge("environment.", environmentRouter)
+  .merge("flag.", flagRouter)
+  .merge("history.", historyRouter);
 
 export type AppRouter = typeof appRouter;

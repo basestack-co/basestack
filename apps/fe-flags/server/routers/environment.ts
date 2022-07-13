@@ -1,0 +1,94 @@
+// import { TRPCError } from "@trpc/server";
+import { createProtectedRouter } from "server/createProtectedRouter";
+// Utils
+import * as yup from "yup";
+import get from "lodash.get";
+
+export const environmentRouter = createProtectedRouter()
+  .query("all", {
+    input: yup.object({
+      projectId: yup.string().required(),
+    }),
+    async resolve({ ctx, input }) {
+      const userId = ctx.session.user.id;
+
+      const environments = await ctx.prisma.project.findFirst({
+        where: {
+          id: input.projectId,
+          users: {
+            some: {
+              user: {
+                id: userId,
+              },
+            },
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+        select: {
+          environments: true,
+        },
+      });
+
+      return { environments: get(environments, "environments", []) };
+    },
+  })
+  .mutation("create", {
+    input: yup.object({
+      name: yup.string().required(),
+      slug: yup.string().required(),
+      description: yup.string().required(),
+      projectId: yup.string().required(),
+    }),
+    resolve: async ({ ctx, input }) => {
+      const environment = await ctx.prisma.environment.create({
+        data: {
+          name: input.name,
+          slug: input.slug,
+          description: input.description,
+          project: {
+            connect: {
+              id: input.projectId,
+            },
+          },
+        },
+      });
+
+      return { environment };
+    },
+  })
+  .mutation("update", {
+    input: yup.object({
+      environmentId: yup.string().required(),
+      name: yup.string().required(),
+      description: yup.string().required(),
+    }),
+    resolve: async ({ ctx, input }) => {
+      const environment = await ctx.prisma.environment.update({
+        where: {
+          id: input.environmentId,
+        },
+        data: {
+          name: input.name,
+          description: input.description,
+        },
+      });
+
+      return { environment };
+    },
+  })
+  .mutation("delete", {
+    input: yup.object({
+      environmentId: yup.string().required(),
+    }),
+    resolve: async ({ ctx, input }) => {
+      const environment = await ctx.prisma.environment.delete({
+        where: {
+          id: input.environmentId,
+        },
+      });
+
+      return { environment };
+    },
+  });
