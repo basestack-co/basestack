@@ -4,14 +4,10 @@ import MainLayout from "../layouts/Main";
 // Store
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "store";
-// Queries
-import { flagsApi } from "store/query/flags";
-import { usersApi, useGetUsersByProjectQuery } from "store/query/users";
 // Utils
 import isEmpty from "lodash.isempty";
 // Types
 import { HistoryAction } from "types/query/history";
-import { User, UsersResponse } from "types/query/users";
 // Hooks
 import { useDebounce } from "@basestack/hooks";
 // Formik
@@ -142,13 +138,9 @@ const ProjectsDemos = () => {
 };
 
 const UsersList = ({ projectId }: { projectId: string }) => {
-  const { isLoading, data } = useGetUsersByProjectQuery(
-    {
-      projectId,
-    },
-    {
-      skip: isEmpty(projectId),
-    }
+  const { isLoading, data } = trpc.useQuery(
+    ["user.byProjectId", { projectId }],
+    { enabled: !isEmpty(projectId) }
   );
 
   return (
@@ -156,7 +148,7 @@ const UsersList = ({ projectId }: { projectId: string }) => {
       <h4>Users on Project list:</h4>
       {!isLoading && !isEmpty(data) && (
         <ul>
-          {data?.users.map((item: User) => {
+          {data?.users.map((item) => {
             return (
               <li key={item.id}>
                 name: <b>{item.name} </b>| email: <b>{item.email}</b> | image:{" "}
@@ -174,21 +166,26 @@ const UsersDemos = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [projectId, setProjectId] = useState("");
   const [name, setName] = useState("");
-  const [searchUsers, setSearchUsers] = useState<UsersResponse>(null);
+  const [searchUsers, setSearchUsers] = useState(null);
+
+  const { refetch, isLoading, data } = trpc.useQuery(
+    ["user.bySearch", { projectId, search: name }],
+    { enabled: false }
+  );
+
+  useEffect(() => {
+    if (!isLoading && data) {
+      // @ty-ignore
+      setSearchUsers(data);
+    }
+  }, [isLoading, data]);
 
   useDebounce(
     async () => {
       try {
         if (isEmpty(name)) return;
-        const { status, data } = await dispatch(
-          usersApi.endpoints.getUsersBySearch.initiate({
-            name,
-          })
-        );
 
-        if (status === "fulfilled") {
-          setSearchUsers(data);
-        }
+        refetch();
       } catch (error) {
         console.log("error getting users", error);
       }
@@ -228,7 +225,7 @@ const UsersDemos = () => {
         <h4>Users Search:</h4>
         {!isEmpty(searchUsers) && (
           <ul>
-            {searchUsers.users.map((item: User) => {
+            {searchUsers?.users.map((item) => {
               return (
                 <li key={item.id}>
                   name: <b>{item.name} </b>| email: <b>{item.email}</b> | image:{" "}
@@ -533,28 +530,6 @@ const FlagsDemos = () => {
       trpcContext.invalidateQueries(["flag.all"]);
     },
   });
-
-  useEffect(() => {
-    const getAllFlagsByProject = async () => {
-      try {
-        const { status, data } = await dispatch(
-          flagsApi.endpoints.getAllFlagsByProject.initiate({
-            projectId,
-          })
-        );
-
-        if (status === "fulfilled") {
-          console.log("all flags by project = ", data);
-        }
-      } catch (error) {
-        console.log("error getting project", error);
-      }
-    };
-
-    if (!isEmpty(projectId)) {
-      getAllFlagsByProject();
-    }
-  }, [projectId, dispatch]);
 
   const formik = useFormik({
     initialValues: {
