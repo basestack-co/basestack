@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useTheme } from "styled-components";
-import { Button, ButtonVariant, Tabs, Text } from "design-system";
+import { Button, ButtonVariant, Tabs, Text } from "@basestack/design-system";
 import MainLayout from "../Main";
 import {
   ButtonContainer,
@@ -11,7 +11,7 @@ import {
   ListItem,
   SettingsContainer,
 } from "./styles";
-import { useMediaQuery } from "sh-hooks";
+import { useMediaQuery } from "@basestack/hooks";
 
 const buttons = [
   {

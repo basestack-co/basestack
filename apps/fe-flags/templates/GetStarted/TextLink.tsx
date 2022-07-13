@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "styled-components";
-import { Text } from "design-system";
+import { Text } from "@basestack/design-system";
 import { StyledLink } from "./styles";
 
 interface TextLinkProps {

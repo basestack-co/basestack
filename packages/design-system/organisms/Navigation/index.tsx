@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { useTheme } from "styled-components";
-import { useMediaQuery } from "sh-hooks";
+import { useMediaQuery } from "@basestack/hooks";
 import { Avatar, Button, ButtonVariant } from "../../atoms";
 import { Container, List, ListItem, LogoContainer } from "./styles";
 import { ButtonLink, MoreMenu, ProjectsMenu } from "./components";
@@ -39,7 +39,7 @@ const Navigation = ({ onCreateFlag, pathname }: NavigationProps) => {
             <ListItem>
               <ButtonLink
                 href="/settings/general"
-                isActive={pathname.includes("settings")}
+                isActive={pathname ? pathname.includes("settings") : false}
               >
                 Settings
               </ButtonLink>

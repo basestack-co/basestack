@@ -12,6 +12,18 @@ jest.mock("next/router", () => ({
 }));
 
 describe("Settings Layout tests", () => {
+  beforeAll(() => {
+    Object.defineProperty(window, "matchMedia", {
+      value: jest.fn(() => {
+        return {
+          matches: true,
+          addListener: jest.fn(),
+          removeListener: jest.fn(),
+        };
+      }),
+    });
+  });
+
   afterEach(cleanup);
 
   test("render SettingsLayout correctly", () => {

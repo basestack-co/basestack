@@ -2,7 +2,7 @@ import { memo } from "react";
 import { useTheme } from "styled-components";
 import { IconButton, Icon } from "../../atoms";
 import { Container, List, ListItem, StyledButton } from "./styles";
-import { useMediaQuery } from "sh-hooks";
+import { useMediaQuery } from "@basestack/hooks";
 
 export interface ButtonProps {
   icon: string;
@@ -53,7 +53,7 @@ const TabBar = ({ onCreateFlag, pathname }: TabBarProps) => {
         <ListItem>
           <ButtonLink
             href="/settings/general"
-            isActive={pathname.includes("settings")}
+            isActive={pathname ? pathname.includes("settings") : false}
             icon="settings"
             text="Settings"
           />

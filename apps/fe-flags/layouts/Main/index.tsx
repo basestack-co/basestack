@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { useMediaQuery } from "sh-hooks";
+import { useMediaQuery } from "@basestack/hooks";
 import { useTheme } from "styled-components";
 // Router
 import { useRouter } from "next/router";
@@ -9,7 +9,7 @@ import { AppDispatch } from "store";
 import { setCreateFlagModalOpen } from "store/slices/modals";
 // Auth
 import { useSession } from "next-auth/react";
-import { Navigation, TabBar } from "design-system";
+import { Navigation, TabBar } from "@basestack/design-system";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme();

@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "styled-components";
-import { InputGroup, Text } from "design-system";
+import { InputGroup, Text } from "@basestack/design-system";
 
 const Advanced = () => {
   const theme = useTheme();

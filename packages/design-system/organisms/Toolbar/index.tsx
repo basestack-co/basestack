@@ -1,7 +1,7 @@
 import React, { useState, memo } from "react";
 import { SpaceProps } from "styled-system";
 import { useTheme } from "styled-components";
-import { useMediaQuery } from "sh-hooks";
+import { useMediaQuery } from "@basestack/hooks";
 import { Input, Pill } from "../../atoms";
 import { Segment } from "../../molecules";
 import { Container, PillsUl, PillLi } from "./styles";

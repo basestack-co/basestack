@@ -7,7 +7,7 @@ import { Labels, StyledCard, Label, CardWrapper, PopupWrapper } from "./styles";
 import { scaleInTopRight } from "../../animations/springs";
 import { Popup } from "../../molecules";
 import { FlagRowProps } from "./types";
-import { useClickAway } from "sh-hooks";
+import { useClickAway } from "@basestack/hooks";
 
 const AnimatedPopup = animated(Popup);
 

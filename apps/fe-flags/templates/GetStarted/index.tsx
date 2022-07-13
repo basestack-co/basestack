@@ -1,6 +1,11 @@
 import React from "react";
 import { useTheme } from "styled-components";
-import { Text, HorizontalRule, Icon, ButtonVariant } from "design-system";
+import {
+  Text,
+  HorizontalRule,
+  Icon,
+  ButtonVariant,
+} from "@basestack/design-system";
 import {
   Container,
   ContentContainer,

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { rem } from "polished";
-import { Card } from "design-system";
+import { Card } from "@basestack/design-system";
 
 export const Container = styled.main`
   padding: ${({ theme }) => theme.spacing.s6} ${({ theme }) => theme.spacing.s5};

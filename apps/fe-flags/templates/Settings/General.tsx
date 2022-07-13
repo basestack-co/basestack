@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, SettingCard } from "design-system";
+import { Input, SettingCard } from "@basestack/design-system";
 import { CardList, CardListItem } from "./styles";
 
 const General = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "styled-components";
-import { Text, Button, Icon } from "design-system";
-import { ButtonVariant } from "design-system/atoms/Button/types";
+import { Text, Button, Icon } from "@basestack/design-system";
+import { ButtonVariant } from "@basestack/design-system/atoms/Button/types";
 import { IconContainer, StyledCard } from "./styles";
 
 interface GetStartedCardProps {

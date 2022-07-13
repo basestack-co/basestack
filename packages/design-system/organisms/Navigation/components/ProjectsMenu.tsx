@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useRef, useState } from "react";
-import { useClickAway } from "sh-hooks";
+import { useClickAway } from "@basestack/hooks";
 import { animated, config, useTransition } from "react-spring";
 import { autoUpdate, offset, useFloating } from "@floating-ui/react-dom";
 import { Button, ButtonVariant } from "../../../atoms";

@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import { useFloating, autoUpdate } from "@floating-ui/react-dom";
 import { useTransition, animated, config } from "react-spring";
-import { useClickAway } from "sh-hooks";
+import { useClickAway } from "@basestack/hooks";
 import get from "lodash.get";
 import { Text, IconButton, Avatar } from "../../atoms";
 import { scaleInTopRight } from "../../animations/springs";

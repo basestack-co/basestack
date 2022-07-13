@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useTheme } from "styled-components";
-import { InputGroup, Switch, Text } from "design-system";
+import { InputGroup, Switch, Text } from "@basestack/design-system";
 import { Environments } from "./styles";
 
 const Core = () => {

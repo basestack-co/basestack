@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Main Layout tests render MainLayout correctly 1`] = `
+exports[`Settings Layout tests render SettingsLayout correctly 1`] = `
 <DocumentFragment>
   .c3 {
   height: 2.5rem;
@@ -257,6 +257,10 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
 
 }
 
+@media screen and (min-width:992px) {
+
+}
+
 <nav
     class="c0"
     data-testid="navigation"
@@ -402,7 +406,118 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
       </li>
     </ul>
   </nav>
-  @media screen and (min-width:380px) {
+  .c1 {
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c6 {
+  border: none;
+  height: 2.25rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: transparent;
+  color: #000000;
+  font-weight: 400;
+  width: 100%;
+}
+
+.c6:hover {
+  background-color: #EEEEEE;
+}
+
+.c6:active {
+  background-color: #E2E2E2;
+}
+
+.c6 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c0 {
+  padding: 1.875rem 1.25rem;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.c2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1.25rem;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+}
+
+.c3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 2.75rem;
+  background-color: #000000;
+  -webkit-transition: -webkit-transform 0.2s ease-in-out;
+  -webkit-transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
+  -webkit-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  transform: translateY(-100%);
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.c5 a {
+  height: 2.75rem;
+  border-radius: 0;
+  padding-left: 1.25rem;
+}
+
+@media screen and (min-width:380px) {
 
 }
 
@@ -410,8 +525,91 @@ exports[`Main Layout tests render MainLayout correctly 1`] = `
 
 }
 
-<div>
-    Page content
-  </div>
+@media screen and (min-width:992px) {
+  .c2 {
+    grid-template-columns: 13.75rem 1fr;
+  }
+}
+
+<main
+    class="c0"
+  >
+    <h2
+      class="c1"
+    >
+      Settings
+    </h2>
+    <div
+      class="c2"
+    >
+      <ul
+        class="c3"
+      >
+        <li
+          class="c4"
+        >
+          <div
+            class="c5"
+          >
+            <a
+              class="c6"
+              font-weight="400"
+              href="/settings/general"
+            >
+              General
+            </a>
+          </div>
+        </li>
+        <li
+          class="c4"
+        >
+          <div
+            class="c5"
+          >
+            <a
+              class="c6"
+              font-weight="400"
+              href="/settings/environments"
+            >
+              Environments
+            </a>
+          </div>
+        </li>
+        <li
+          class="c4"
+        >
+          <div
+            class="c5"
+          >
+            <a
+              class="c6"
+              font-weight="400"
+              href="/settings/members"
+            >
+              Members
+            </a>
+          </div>
+        </li>
+        <li
+          class="c4"
+        >
+          <div
+            class="c5"
+          >
+            <a
+              class="c6"
+              font-weight="400"
+              href="/settings/api-keys"
+            >
+              Api Keys
+            </a>
+          </div>
+        </li>
+      </ul>
+      <div>
+        Page content
+      </div>
+    </div>
+  </main>
 </DocumentFragment>
 `;

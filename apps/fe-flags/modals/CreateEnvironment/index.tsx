@@ -1,11 +1,11 @@
 import React, { useCallback, useState } from "react";
 import { useTheme } from "styled-components";
-import Portal from "design-system/global/Portal";
+import Portal from "@basestack/design-system/global/Portal";
 import { useDispatch, useSelector } from "react-redux";
 import { getIsCreateEnvironmentModalOpen } from "store/selectors/modals";
 import { AppDispatch } from "store";
 import { setCreateEnvironmentModalOpen } from "store/slices/modals";
-import { Modal, InputGroup } from "design-system";
+import { Modal, InputGroup } from "@basestack/design-system";
 
 const CreateEnvironmentModal = () => {
   const theme = useTheme();

@@ -1,5 +1,5 @@
 import React from "react";
-import { SettingCard, Table } from "design-system";
+import { SettingCard, Table } from "@basestack/design-system";
 import { CardList, CardListItem } from "./styles";
 
 const mockMore = [

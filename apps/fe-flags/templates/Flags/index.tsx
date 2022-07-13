@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useMediaQuery } from "sh-hooks";
+import { useMediaQuery } from "@basestack/hooks";
 import {
   FlagCard,
   FlagRow,
@@ -7,7 +7,7 @@ import {
   Toolbar,
   slideTop,
   ButtonVariant,
-} from "design-system";
+} from "@basestack/design-system";
 import { useTheme } from "styled-components";
 import { FlagsCardContainer, FlagsTableContainer } from "./styles";
 import { Container } from "../styles";

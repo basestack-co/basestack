@@ -1,5 +1,5 @@
 import React from "react";
-import { SettingCard, Table } from "design-system";
+import { SettingCard, Table } from "@basestack/design-system";
 import { setInviteMemberModalOpen } from "store/slices/modals";
 import { AppDispatch } from "store";
 import { CardList, CardListItem } from "./styles";
