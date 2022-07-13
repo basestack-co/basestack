@@ -20,4 +20,11 @@ describe("Card Atom tests", () => {
     const card = getByTestId("card");
     expect(card).toHaveStyle(`margin-bottom: 20px`);
   });
+
+  test("render Card with hover animation", () => {
+    const { getByTestId } = renderWithTheme(
+      <Card hasHoverAnimation>Content</Card>
+    );
+    const card = getByTestId("card");
+  });
 });

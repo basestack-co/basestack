@@ -6,14 +6,17 @@ import {
   TypographyProps,
   ColorProps,
 } from "styled-system";
+import { Size as IconSize } from "../Icon";
 
-export type Variant =
-  | "primary"
-  | "primaryNeutral"
-  | "secondary"
-  | "tertiary"
-  | "neutral"
-  | "outlined";
+export enum ButtonVariant {
+  Primary = "primary",
+  PrimaryNeutral = "primaryNeutral",
+  Secondary = "secondary",
+  Tertiary = "tertiary",
+  Neutral = "neutral",
+  Outlined = "outlined",
+  Danger = "danger",
+}
 
 export interface ButtonProps
   extends SpaceProps,
@@ -28,7 +31,7 @@ export interface ButtonProps
   /**
    * Change button variant
    */
-  variant?: Variant;
+  variant?: ButtonVariant;
   /**
    * Text
    */
@@ -45,6 +48,10 @@ export interface ButtonProps
    * Icon Placement
    */
   iconPlacement?: "left" | "right";
+  /**
+   * Icon Size
+   */
+  iconSize?: IconSize;
   /**
    * Set button to full width
    */

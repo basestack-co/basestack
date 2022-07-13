@@ -1,5 +1,7 @@
 import { SpaceProps, FlexboxProps, PositionProps } from "styled-system";
 
+export type Size = "xLarge" | "large" | "medium" | "small";
+
 export type Variant = "primary" | "primaryNeutral" | "secondary" | "neutral";
 
 export interface IconButtonProps
@@ -15,7 +17,11 @@ export interface IconButtonProps
    */
   onClick: () => void;
   /**
-   * Optional Icon
+   * Icon
    */
   icon: string;
+  /**
+   * Optional size
+   */
+  size?: Size;
 }

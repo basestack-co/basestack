@@ -82,8 +82,11 @@ const handleButtonVariant = (variant?: Variant) => {
   }
 };
 
-export const StyledButton = styled.button<{ variant: Variant }>`
+export const StyledButton = styled.button<{
+  variant: Variant;
+  iconSize: string;
+}>`
   ${({ variant }) => handleButtonVariant(variant)};
-  height: ${rem("36px")};
-  width: ${rem("36px")};
+  height: ${({ iconSize }) => rem(iconSize)};
+  width: ${({ iconSize }) => rem(iconSize)};
 `;

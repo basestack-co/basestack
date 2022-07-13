@@ -4,31 +4,22 @@ exports[`Table Organism tests should render Table correctly 1`] = `
 <DocumentFragment>
   .c3 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
   color: #757575;
 }
 
-.c5 {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 400;
-  font-weight: 500;
-  font-family: 'Roboto',sans-serif;
-  color: #000000;
-}
-
 .c6 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
   color: #000000;
 }
 
-.c8 {
+.c9 {
   height: 1.5rem;
   width: 1.5rem;
   -webkit-flex-shrink: 0;
@@ -36,12 +27,12 @@ exports[`Table Organism tests should render Table correctly 1`] = `
   flex-shrink: 0;
 }
 
-.c9 {
+.c10 {
   color: #000000;
   font-size: 1.5rem;
 }
 
-.c7 {
+.c8 {
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -61,24 +52,24 @@ exports[`Table Organism tests should render Table correctly 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2rem;
+  width: 2rem;
 }
 
-.c7 .material-symbols-sharp {
+.c8 .material-symbols-sharp {
   color: inherit;
 }
 
-.c7:hover {
+.c8:hover {
   background-color: #EEEEEE;
 }
 
-.c7:active {
+.c8:active {
   background-color: #E2E2E2;
 }
 
 .c0 {
-  background-color: #EEEEEE;
+  background-color: #F6F6F6;
   padding: 1.25rem;
   border-radius: 4px;
 }
@@ -111,6 +102,22 @@ exports[`Table Organism tests should render Table correctly 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c7 {
+  height: 2rem;
+  width: 2rem;
 }
 
 <div
@@ -159,54 +166,70 @@ exports[`Table Organism tests should render Table correctly 1`] = `
       <div
         class="c2"
       >
-        <p
+        <div
           class="c5"
-          font-weight="500"
         >
-          key_dev_8299aa6b
-        </p>
+          <p
+            class="c6"
+            font-weight="400"
+          >
+            key_dev_8299aa6b
+          </p>
+        </div>
       </div>
       <div
         class="c2"
       >
-        <p
-          class="c6"
-          font-weight="400"
+        <div
+          class="c5"
         >
-          development
-        </p>
+          <p
+            class="c6"
+            font-weight="400"
+          >
+            development
+          </p>
+        </div>
       </div>
       <div
         class="c2"
       >
-        <p
-          class="c6"
-          font-weight="400"
+        <div
+          class="c5"
         >
-          development SDK
-        </p>
+          <p
+            class="c6"
+            font-weight="400"
+          >
+            development SDK
+          </p>
+        </div>
       </div>
       <div
         class="c2"
       >
-        <button
+        <div
           class="c7"
         >
-          <div
+          <button
             class="c8"
-            data-testid="icon-container"
-            size="24"
           >
-            <span
-              class="c9 material-symbols-sharp"
-              color="#000000"
-              data-testid="icon"
+            <div
+              class="c9"
+              data-testid="icon-container"
               size="24"
             >
-              more_horiz
-            </span>
-          </div>
-        </button>
+              <span
+                class="c10 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                more_horiz
+              </span>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
     <div
@@ -216,54 +239,587 @@ exports[`Table Organism tests should render Table correctly 1`] = `
       <div
         class="c2"
       >
-        <p
+        <div
           class="c5"
-          font-weight="500"
         >
-          key_dev_8299aa6b
-        </p>
+          <p
+            class="c6"
+            font-weight="400"
+          >
+            key_dev_8299aa6b
+          </p>
+        </div>
       </div>
       <div
         class="c2"
       >
-        <p
-          class="c6"
-          font-weight="400"
+        <div
+          class="c5"
         >
-          development
-        </p>
+          <p
+            class="c6"
+            font-weight="400"
+          >
+            development
+          </p>
+        </div>
       </div>
       <div
         class="c2"
       >
-        <p
-          class="c6"
-          font-weight="400"
+        <div
+          class="c5"
         >
-          development SDK
-        </p>
+          <p
+            class="c6"
+            font-weight="400"
+          >
+            development SDK
+          </p>
+        </div>
       </div>
       <div
         class="c2"
       >
-        <button
+        <div
           class="c7"
         >
-          <div
+          <button
             class="c8"
-            data-testid="icon-container"
-            size="24"
           >
-            <span
-              class="c9 material-symbols-sharp"
-              color="#000000"
-              data-testid="icon"
+            <div
+              class="c9"
+              data-testid="icon-container"
               size="24"
             >
-              more_horiz
-            </span>
+              <span
+                class="c10 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                more_horiz
+              </span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Table Organism tests should render Table with images 1`] = `
+<DocumentFragment>
+  .c6 {
+  height: 1.75rem;
+  width: 1.75rem;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-right: 0.75rem;
+  border-radius: 50%;
+}
+
+.c7 {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.c3 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  color: #757575;
+}
+
+.c8 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c11 {
+  height: 1.5rem;
+  width: 1.5rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c12 {
+  color: #000000;
+  font-size: 1.5rem;
+}
+
+.c10 {
+  border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: transparent;
+  color: #000000;
+  height: 2rem;
+  width: 2rem;
+}
+
+.c10 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c10:hover {
+  background-color: #EEEEEE;
+}
+
+.c10:active {
+  background-color: #E2E2E2;
+}
+
+.c0 {
+  background-color: #F6F6F6;
+  padding: 1.25rem;
+  border-radius: 4px;
+}
+
+.c1 {
+  display: grid;
+  grid-template-columns: repeat(3,1fr) auto;
+  grid-gap: 1.25rem;
+}
+
+.c1:not(:last-child) {
+  border-bottom: 1px solid #E2E2E2;
+}
+
+.c4 {
+  min-width: 2.25rem;
+  pointer-events: none;
+}
+
+.c2 {
+  height: 2.8125rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c9 {
+  height: 2rem;
+  width: 2rem;
+}
+
+<div
+    class="c0"
+    data-testid="table"
+  >
+    <div
+      class="c1"
+      data-testid="header"
+    >
+      <div
+        class="c2"
+      >
+        <p
+          class="c3"
+        >
+          Name
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <p
+          class="c3"
+        >
+          Email
+        </p>
+      </div>
+      <div
+        class="c2"
+      >
+        <p
+          class="c3"
+        >
+          Role
+        </p>
+      </div>
+      <div
+        class="c4"
+      />
+    </div>
+    <div
+      class="c1"
+      data-testid="row"
+    >
+      <div
+        class="c2"
+      >
+        <div
+          class="c5"
+        >
+          <div
+            class="c6"
+            data-testid="avatar"
+            size="28"
+          >
+            <img
+              alt="Jack profile image"
+              class="c7"
+              src="https://avatars.dicebear.com/api/initials/Jack.svg?size=28&fontSize=40"
+            />
           </div>
-        </button>
+          <p
+            class="c8"
+            font-weight="400"
+          >
+            Jack
+          </p>
+        </div>
+      </div>
+      <div
+        class="c2"
+      >
+        <div
+          class="c5"
+        >
+          <p
+            class="c8"
+            font-weight="400"
+          >
+            jack@gmail.com
+          </p>
+        </div>
+      </div>
+      <div
+        class="c2"
+      >
+        <div
+          class="c5"
+        >
+          <p
+            class="c8"
+            font-weight="400"
+          >
+            Admin
+          </p>
+        </div>
+      </div>
+      <div
+        class="c2"
+      >
+        <div
+          class="c9"
+        >
+          <button
+            class="c10"
+          >
+            <div
+              class="c11"
+              data-testid="icon-container"
+              size="24"
+            >
+              <span
+                class="c12 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                more_horiz
+              </span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="c1"
+      data-testid="row"
+    >
+      <div
+        class="c2"
+      >
+        <div
+          class="c5"
+        >
+          <div
+            class="c6"
+            data-testid="avatar"
+            size="28"
+          >
+            <img
+              alt="Pedro profile image"
+              class="c7"
+              src="https://avatars.dicebear.com/api/initials/Pedro.svg?size=28&fontSize=40"
+            />
+          </div>
+          <p
+            class="c8"
+            font-weight="400"
+          >
+            Pedro
+          </p>
+        </div>
+      </div>
+      <div
+        class="c2"
+      >
+        <div
+          class="c5"
+        >
+          <p
+            class="c8"
+            font-weight="400"
+          >
+            pedro_dev@gmail.com
+          </p>
+        </div>
+      </div>
+      <div
+        class="c2"
+      >
+        <div
+          class="c5"
+        >
+          <p
+            class="c8"
+            font-weight="400"
+          >
+            developer
+          </p>
+        </div>
+      </div>
+      <div
+        class="c2"
+      >
+        <div
+          class="c9"
+        >
+          <button
+            class="c10"
+          >
+            <div
+              class="c11"
+              data-testid="icon-container"
+              size="24"
+            >
+              <span
+                class="c12 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                more_horiz
+              </span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="c1"
+      data-testid="row"
+    >
+      <div
+        class="c2"
+      >
+        <div
+          class="c5"
+        >
+          <div
+            class="c6"
+            data-testid="avatar"
+            size="28"
+          >
+            <img
+              alt="Daniel profile image"
+              class="c7"
+              src="https://avatars.dicebear.com/api/initials/Daniel.svg?size=28&fontSize=40"
+            />
+          </div>
+          <p
+            class="c8"
+            font-weight="400"
+          >
+            Daniel
+          </p>
+        </div>
+      </div>
+      <div
+        class="c2"
+      >
+        <div
+          class="c5"
+        >
+          <p
+            class="c8"
+            font-weight="400"
+          >
+            daniel_ninja_dev@gmail.com
+          </p>
+        </div>
+      </div>
+      <div
+        class="c2"
+      >
+        <div
+          class="c5"
+        >
+          <p
+            class="c8"
+            font-weight="400"
+          >
+            developer
+          </p>
+        </div>
+      </div>
+      <div
+        class="c2"
+      >
+        <div
+          class="c9"
+        >
+          <button
+            class="c10"
+          >
+            <div
+              class="c11"
+              data-testid="icon-container"
+              size="24"
+            >
+              <span
+                class="c12 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                more_horiz
+              </span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="c1"
+      data-testid="row"
+    >
+      <div
+        class="c2"
+      >
+        <div
+          class="c5"
+        >
+          <div
+            class="c6"
+            data-testid="avatar"
+            size="28"
+          >
+            <img
+              alt="Joana profile image"
+              class="c7"
+              src="https://avatars.dicebear.com/api/initials/Joana.svg?size=28&fontSize=40"
+            />
+          </div>
+          <p
+            class="c8"
+            font-weight="400"
+          >
+            Joana
+          </p>
+        </div>
+      </div>
+      <div
+        class="c2"
+      >
+        <div
+          class="c5"
+        >
+          <p
+            class="c8"
+            font-weight="400"
+          >
+            joana_mac@gmail.com
+          </p>
+        </div>
+      </div>
+      <div
+        class="c2"
+      >
+        <div
+          class="c5"
+        >
+          <p
+            class="c8"
+            font-weight="400"
+          >
+            QA
+          </p>
+        </div>
+      </div>
+      <div
+        class="c2"
+      >
+        <div
+          class="c9"
+        >
+          <button
+            class="c10"
+          >
+            <div
+              class="c11"
+              data-testid="icon-container"
+              size="24"
+            >
+              <span
+                class="c12 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                more_horiz
+              </span>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -274,31 +830,22 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
 <DocumentFragment>
   .c3 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
   color: #757575;
 }
 
-.c5 {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 400;
-  font-weight: 500;
-  font-family: 'Roboto',sans-serif;
-  color: #000000;
-}
-
 .c6 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
   color: #000000;
 }
 
-.c8 {
+.c9 {
   height: 1.5rem;
   width: 1.5rem;
   -webkit-flex-shrink: 0;
@@ -306,12 +853,12 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
   flex-shrink: 0;
 }
 
-.c9 {
+.c10 {
   color: #000000;
   font-size: 1.5rem;
 }
 
-.c7 {
+.c8 {
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -331,25 +878,25 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2rem;
+  width: 2rem;
 }
 
-.c7 .material-symbols-sharp {
+.c8 .material-symbols-sharp {
   color: inherit;
 }
 
-.c7:hover {
+.c8:hover {
   background-color: #EEEEEE;
 }
 
-.c7:active {
+.c8:active {
   background-color: #E2E2E2;
 }
 
 .c0 {
   margin-top: 30px;
-  background-color: #EEEEEE;
+  background-color: #F6F6F6;
   padding: 1.25rem;
   border-radius: 4px;
 }
@@ -382,6 +929,22 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c7 {
+  height: 2rem;
+  width: 2rem;
 }
 
 <div
@@ -430,54 +993,70 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
       <div
         class="c2"
       >
-        <p
+        <div
           class="c5"
-          font-weight="500"
         >
-          key_dev_8299aa6b
-        </p>
+          <p
+            class="c6"
+            font-weight="400"
+          >
+            key_dev_8299aa6b
+          </p>
+        </div>
       </div>
       <div
         class="c2"
       >
-        <p
-          class="c6"
-          font-weight="400"
+        <div
+          class="c5"
         >
-          development
-        </p>
+          <p
+            class="c6"
+            font-weight="400"
+          >
+            development
+          </p>
+        </div>
       </div>
       <div
         class="c2"
       >
-        <p
-          class="c6"
-          font-weight="400"
+        <div
+          class="c5"
         >
-          development SDK
-        </p>
+          <p
+            class="c6"
+            font-weight="400"
+          >
+            development SDK
+          </p>
+        </div>
       </div>
       <div
         class="c2"
       >
-        <button
+        <div
           class="c7"
         >
-          <div
+          <button
             class="c8"
-            data-testid="icon-container"
-            size="24"
           >
-            <span
-              class="c9 material-symbols-sharp"
-              color="#000000"
-              data-testid="icon"
+            <div
+              class="c9"
+              data-testid="icon-container"
               size="24"
             >
-              more_horiz
-            </span>
-          </div>
-        </button>
+              <span
+                class="c10 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                more_horiz
+              </span>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
     <div
@@ -487,54 +1066,70 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
       <div
         class="c2"
       >
-        <p
+        <div
           class="c5"
-          font-weight="500"
         >
-          key_dev_8299aa6b
-        </p>
+          <p
+            class="c6"
+            font-weight="400"
+          >
+            key_dev_8299aa6b
+          </p>
+        </div>
       </div>
       <div
         class="c2"
       >
-        <p
-          class="c6"
-          font-weight="400"
+        <div
+          class="c5"
         >
-          development
-        </p>
+          <p
+            class="c6"
+            font-weight="400"
+          >
+            development
+          </p>
+        </div>
       </div>
       <div
         class="c2"
       >
-        <p
-          class="c6"
-          font-weight="400"
+        <div
+          class="c5"
         >
-          development SDK
-        </p>
+          <p
+            class="c6"
+            font-weight="400"
+          >
+            development SDK
+          </p>
+        </div>
       </div>
       <div
         class="c2"
       >
-        <button
+        <div
           class="c7"
         >
-          <div
+          <button
             class="c8"
-            data-testid="icon-container"
-            size="24"
           >
-            <span
-              class="c9 material-symbols-sharp"
-              color="#000000"
-              data-testid="icon"
+            <div
+              class="c9"
+              data-testid="icon-container"
               size="24"
             >
-              more_horiz
-            </span>
-          </div>
-        </button>
+              <span
+                class="c10 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                more_horiz
+              </span>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
   </div>

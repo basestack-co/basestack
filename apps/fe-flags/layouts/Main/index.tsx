@@ -1,16 +1,21 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
+import { useMediaQuery } from "@basestack/hooks";
+import { useTheme } from "styled-components";
 // Router
 import { useRouter } from "next/router";
 // Store
-// import { useSelector } from "react-redux";
-// import { RootState } from "store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "store";
+import { setCreateFlagModalOpen } from "store/slices/modals";
 // Auth
 import { useSession } from "next-auth/react";
-import CreateFlagModal from "../../modals/CreateFlag";
-import { Navigation } from "@basestack/design-system";
+import { Navigation, TabBar } from "@basestack/design-system";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.device.min.lg);
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -18,25 +23,23 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     },
   });
 
-  const [isCreateFlagModalOpen, setIsCreateFlagModalOpen] = useState(false);
-
-  /* const isNavCollapsed = useSelector(
-    (store: RootState) => store.app.isNavCollapsed
-  ); */
-
   if (status === "loading") {
     return <div>isLoading</div>;
   }
 
   return (
     <Fragment>
-      <Navigation onCreateFlag={() => setIsCreateFlagModalOpen(true)} />
-      <CreateFlagModal
-        onCreate={() => setIsCreateFlagModalOpen(false)}
-        isModalOpen={isCreateFlagModalOpen}
-        onClose={() => setIsCreateFlagModalOpen(false)}
+      <Navigation
+        pathname={router.pathname}
+        onCreateFlag={() => dispatch(setCreateFlagModalOpen(true))}
       />
       {children}
+      {!isDesktop && (
+        <TabBar
+          pathname={router.pathname}
+          onCreateFlag={() => dispatch(setCreateFlagModalOpen(true))}
+        />
+      )}
     </Fragment>
   );
 };

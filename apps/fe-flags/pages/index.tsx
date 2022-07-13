@@ -12,6 +12,8 @@ import { useSession, signIn, signOut } from "next-auth/react";
 // Utils
 import isEmpty from "lodash.isempty";
 
+import GetStarted from "templates/GetStarted";
+
 const MainPage = () => {
   const { data: session } = useSession();
   const dispatch = useDispatch<AppDispatch>();
@@ -31,18 +33,13 @@ const MainPage = () => {
       </Head>
 
       {!isEmpty(session) && (
-        <div>
+        <div style={{ display: "none" }}>
           Signed in as {session.user.email} <br />
           <button onClick={() => signOut()}>Sign out</button>
         </div>
       )}
 
-      <br />
-
-      <Avatar size="small" mr={10} userName="John Doe" alt="user avatar" />
-      <Button onClick={() => dispatch(setDemoModalOpen(true))}>
-        Open Modal
-      </Button>
+      <GetStarted />
     </div>
   );
 };

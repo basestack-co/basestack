@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { SpaceProps } from "styled-system";
 import { useTheme } from "styled-components";
-import { Button } from "../../atoms";
-import { Container, StyledText, Number } from "./styles";
+import { Button, ButtonVariant } from "../../atoms";
+import { Container, Number, StyledText } from "./styles";
 
 export interface PaginationProps extends SpaceProps {
   /**
@@ -37,7 +37,7 @@ const Pagination = ({
       <Button
         iconPlacement="left"
         icon="chevron_left"
-        variant="neutral"
+        variant={ButtonVariant.Neutral}
         mr={theme.spacing.s3}
       >
         Prev
@@ -58,7 +58,7 @@ const Pagination = ({
       <Button
         iconPlacement="right"
         icon="chevron_right"
-        variant="neutral"
+        variant={ButtonVariant.Neutral}
         ml={theme.spacing.s3}
       >
         Next
