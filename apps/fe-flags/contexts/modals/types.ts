@@ -2,6 +2,9 @@ import React from "react";
 
 export interface ModalsState {
   isDemoModalOpen: boolean;
+  isCreateEnvironmentModalOpen: boolean;
+  isCreateFlagModalOpen: boolean;
+  isInviteMemberModalOpen: boolean;
 }
 
 export interface OpenDemoModalAction {
@@ -11,9 +14,32 @@ export interface OpenDemoModalAction {
   };
 }
 
+export interface OpenCreateEnvironmentModalAction {
+  type: "CREATE_ENVIRONMENT_MODAL_OPEN";
+  payload: {
+    isOpen: boolean;
+  };
+}
 
+export interface OpenCreateFlagModalAction {
+  type: "CREATE_FLAG_MODAL_OPEN";
+  payload: {
+    isOpen: boolean;
+  };
+}
 
-export type ModalsActions = OpenDemoModalAction;
+export interface OpenInviteMemberModalAction {
+  type: "INVITE_MEMBER_MODAL_OPEN";
+  payload: {
+    isOpen: boolean;
+  };
+}
+
+export type ModalsActions =
+  | OpenDemoModalAction
+  | OpenCreateEnvironmentModalAction
+  | OpenCreateFlagModalAction
+  | OpenInviteMemberModalAction;
 
 export interface Context {
   state: ModalsState;

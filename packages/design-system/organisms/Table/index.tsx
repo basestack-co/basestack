@@ -1,9 +1,19 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useFloating, autoUpdate } from "@floating-ui/react-dom";
 import { useTransition, animated, config } from "react-spring";
-import { Text, IconButton } from "../../atoms";
+import { useClickAway } from "@basestack/hooks";
+import { getValue } from "@basestack/utils";
+import { Text, IconButton, Avatar } from "../../atoms";
 import { scaleInTopRight } from "../../animations/springs";
-import { Col, Container, Placeholder, StyledLink, StyledRow } from "./styles";
+import {
+  Col,
+  Container,
+  ContentRow,
+  PopupWrapper,
+  Placeholder,
+  StyledLink,
+  StyledRow,
+} from "./styles";
 import { Popup } from "../../molecules";
 import { TableProps, RowProps } from "./types";
 import { useTheme } from "styled-components";
@@ -12,7 +22,7 @@ const AnimatedPopup = animated(Popup);
 
 const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
   const theme = useTheme();
-
+  const popupWrapperRef = useRef(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const { x, y, reference, floating, strategy } = useFloating({
     placement: "bottom-end",
@@ -28,45 +38,64 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
     ...scaleInTopRight,
   });
 
+  useClickAway(popupWrapperRef, () => {
+    setIsPopupOpen(false);
+  });
+
   return (
     <StyledRow numberOfColumns={numberOfCols} data-testid="row">
       {cols &&
         cols.map((col, index) => {
+          const imageSrc = getValue(col, "image.src");
+          const imageUsername = getValue(col, "image.userName");
           return (
             <Col key={`${index.toString()}-col`}>
               {!!col.link ? (
                 <StyledLink>
                   <Text
                     color={theme.colors.primary}
-                    fontWeight={index === 0 ? "500" : "400"}
+                    fontWeight="400"
                     size="small"
                   >
                     {col.title}
                   </Text>
                 </StyledLink>
               ) : (
-                <Text fontWeight={index === 0 ? "500" : "400"} size="small">
-                  {col.title}
-                </Text>
+                <ContentRow>
+                  {(!!imageSrc || !!imageUsername) && (
+                    <Avatar
+                      src={imageSrc}
+                      userName={imageUsername}
+                      alt={`${imageUsername} profile image`}
+                      size="small"
+                      mr={theme.spacing.s3}
+                    />
+                  )}
+                  <Text fontWeight="400" size="small">
+                    {col.title}
+                  </Text>
+                </ContentRow>
               )}
             </Col>
           );
         })}
       <Col>
-        <IconButton ref={reference} icon="more_horiz" onClick={onClickMore} />
-        {transitionPopup(
-          (styles, item) =>
-            item && (
-              <AnimatedPopup
-                style={styles}
-                ref={floating}
-                position={strategy}
-                top={y}
-                left={x}
-                items={more}
-              />
-            )
-        )}
+        <PopupWrapper ref={popupWrapperRef}>
+          <IconButton ref={reference} icon="more_horiz" onClick={onClickMore} />
+          {transitionPopup(
+            (styles, item) =>
+              item && (
+                <AnimatedPopup
+                  style={styles}
+                  ref={floating}
+                  position={strategy}
+                  top={y}
+                  left={x}
+                  items={more}
+                />
+              )
+          )}
+        </PopupWrapper>
       </Col>
     </StyledRow>
   );

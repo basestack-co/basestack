@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useMediaQuery } from "@basestack/hooks";
 import {
   FlagCard,
   FlagRow,
   Text,
   Toolbar,
   slideTop,
+  ButtonVariant,
 } from "@basestack/design-system";
-import { Container, FlagsCardContainer, FlagsTableContainer } from "./styles";
 import { useTheme } from "styled-components";
+import { FlagsCardContainer, FlagsTableContainer } from "./styles";
+import { Container } from "../styles";
 import { mockFlags } from "./mockData";
 
 import {
@@ -23,12 +26,19 @@ const AnimatedFlagRow = animated(FlagRow);
 
 const Flags = () => {
   const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.device.min.lg);
   const [data, setData] = useState(mockFlags);
   const [selectedEnvironment, setSelectedEnvironment] = useState("all");
 
   const [selectedView, setSelectedView] = useState("cards");
   const [cardsDestroyed, setCardsAnimationEnd] = useState(false);
   const [tableDestroyed, setTableAnimationEnd] = useState(true);
+
+  useEffect(() => {
+    if (!isDesktop) {
+      setSelectedView("cards");
+    }
+  }, [isDesktop]);
 
   const showCards = selectedView === "cards";
   const showTable = selectedView === "table";
@@ -73,6 +83,17 @@ const Flags = () => {
       : [transitionCardsRef, transitionTableRef]
   );
 
+  const popupItems = [
+    { icon: "edit", text: "Edit", onClick: () => console.log("") },
+    { icon: "history", text: "History", onClick: () => console.log("") },
+    {
+      icon: "delete",
+      text: "Delete",
+      variant: ButtonVariant.Danger,
+      onClick: () => console.log(""),
+    },
+  ];
+
   return (
     <Container>
       <Text size="xLarge">Flags</Text>
@@ -94,11 +115,7 @@ const Flags = () => {
                 description={flag.description}
                 environments={flag.environments}
                 date={flag.date}
-                popupItems={[
-                  { text: "Edit", onClick: () => console.log("") },
-                  { text: "History", onClick: () => console.log("") },
-                  { text: "Delete", onClick: () => console.log("") },
-                ]}
+                popupItems={popupItems}
               />
             )
         )}
@@ -114,11 +131,7 @@ const Flags = () => {
                 description={flag.description}
                 environments={flag.environments}
                 date={flag.date}
-                popupItems={[
-                  { text: "Edit", onClick: () => console.log("") },
-                  { text: "History", onClick: () => console.log("") },
-                  { text: "Delete", onClick: () => console.log("") },
-                ]}
+                popupItems={popupItems}
               />
             )
         )}

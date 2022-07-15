@@ -5,10 +5,6 @@ import { Label, Card } from "../../atoms";
 export const StyledCard = styled(Card)`
   ${compose(space, position)};
   position: relative;
-  transition: box-shadow 0.2s ease-in-out;
-  &:hover {
-    box-shadow: ${({ theme }) => theme.shadow.elevation4};
-  }
 `;
 
 export const Labels = styled.div`
@@ -20,4 +16,8 @@ export const Labels = styled.div`
 export const StyledLabel = styled(Label)`
   margin-right: ${({ theme }) => theme.spacing.s1};
   margin-bottom: ${({ theme }) => theme.spacing.s1};
+`;
+
+export const PopupWrapper = styled.div`
+  height: 0;
 `;

@@ -1,6 +1,7 @@
 import { cleanup } from "@testing-library/react";
 import { rem } from "polished";
 import { renderWithTheme } from "../../../utils/testUtils";
+import { ButtonVariant } from "../types";
 import Button from "..";
 
 describe("Button Atom tests", () => {
@@ -30,7 +31,12 @@ describe("Button Atom tests", () => {
 
   test("should render Button with icon", () => {
     const { asFragment } = renderWithTheme(
-      <Button icon="help" onClick={jest.fn()}>
+      <Button
+        icon="help"
+        onClick={jest.fn()}
+        iconSize="medium"
+        iconPlacement="left"
+      >
         button icon
       </Button>
     );
@@ -53,7 +59,7 @@ describe("Button Atom tests", () => {
 
   test("should render primary Button", () => {
     const { getByText } = renderWithTheme(
-      <Button variant="primary">primary</Button>
+      <Button variant={ButtonVariant.Primary}>primary</Button>
     );
     const button = getByText(/primary/);
     expect(button).toHaveStyle(`color: #FFFFFF`);
@@ -62,7 +68,7 @@ describe("Button Atom tests", () => {
 
   test("should render primaryNeutral Button", () => {
     const { getByText } = renderWithTheme(
-      <Button variant="primaryNeutral">primaryNeutral</Button>
+      <Button variant={ButtonVariant.PrimaryNeutral}>primaryNeutral</Button>
     );
     const button = getByText(/primaryNeutral/);
     expect(button).toHaveStyle(`color: #000000`);
@@ -71,7 +77,7 @@ describe("Button Atom tests", () => {
 
   test("should render secondary Button", () => {
     const { getByText } = renderWithTheme(
-      <Button variant="secondary">secondary</Button>
+      <Button variant={ButtonVariant.Secondary}>secondary</Button>
     );
     const button = getByText(/secondary/);
     expect(button).toHaveStyle(`color: #FFFFFF`);
@@ -80,7 +86,7 @@ describe("Button Atom tests", () => {
 
   test("should render tertiary Button", () => {
     const { getByText } = renderWithTheme(
-      <Button variant="tertiary">tertiary</Button>
+      <Button variant={ButtonVariant.Tertiary}>tertiary</Button>
     );
     const button = getByText(/tertiary/);
     expect(button).toHaveStyle(`color: #000000`);
@@ -89,7 +95,7 @@ describe("Button Atom tests", () => {
 
   test("should render tertiary Button", () => {
     const { getByText } = renderWithTheme(
-      <Button variant="outlined">outlined</Button>
+      <Button variant={ButtonVariant.Outlined}>outlined</Button>
     );
     const button = getByText(/outlined/);
     expect(button).toHaveStyle(`color: #000000`);
@@ -99,16 +105,25 @@ describe("Button Atom tests", () => {
 
   test("should render neutral Button", () => {
     const { getByText } = renderWithTheme(
-      <Button variant="neutral">neutral</Button>
+      <Button variant={ButtonVariant.Neutral}>neutral</Button>
     );
     const button = getByText(/neutral/);
     expect(button).toHaveStyle(`color: #000000`);
     expect(button).toHaveStyle(`background-color: transparent`);
   });
 
+  test("should render danger Button", () => {
+    const { getByText } = renderWithTheme(
+      <Button variant={ButtonVariant.Danger}>danger</Button>
+    );
+    const button = getByText(/danger/);
+    expect(button).toHaveStyle(`color: #E11900`);
+    expect(button).toHaveStyle(`background-color: transparent`);
+  });
+
   test("should render fullWidth Button", () => {
     const { getByText } = renderWithTheme(
-      <Button variant="secondary" fullWidth>
+      <Button variant={ButtonVariant.Secondary} fullWidth>
         fullWidth
       </Button>
     );

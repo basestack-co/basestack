@@ -21,7 +21,7 @@ exports[`PopupActions Molecule tests should render PopupActions correctly 1`] = 
 
 .c2 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   font-weight: 500;
   font-family: 'Roboto',sans-serif;
@@ -30,7 +30,7 @@ exports[`PopupActions Molecule tests should render PopupActions correctly 1`] = 
 
 .c8 {
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 1.375rem;
   font-weight: 400;
   margin-left: 0.5rem;
   font-family: 'Roboto',sans-serif;
@@ -53,15 +53,26 @@ exports[`PopupActions Molecule tests should render PopupActions correctly 1`] = 
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #EEEEEE;
   color: #000000;
+  margin-top: 0.25rem;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   width: 100%;
 }
 
 .c9:hover:not(:active) {
   background-color: #E2E2E2;
+}
+
+.c9 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c0 {

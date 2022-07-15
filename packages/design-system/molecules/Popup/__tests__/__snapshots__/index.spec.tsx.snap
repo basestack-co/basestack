@@ -18,15 +18,14 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
+  font-weight: 400;
   width: 100%;
-}
-
-.c3 .material-symbols-sharp {
-  color: inherit;
 }
 
 .c3:hover {
@@ -35,6 +34,10 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
 
 .c3:active {
   background-color: #E2E2E2;
+}
+
+.c3 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c0 {
@@ -80,17 +83,179 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
       >
         <button
           class="c3"
+          font-weight="400"
         >
           Edit
         </button>
         <button
           class="c3"
+          font-weight="400"
         >
           History
         </button>
         <button
           class="c3"
+          font-weight="400"
         >
+          Delete
+        </button>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Popup Molecule tests should render Popup with icons 1`] = `
+<DocumentFragment>
+  .c4 {
+  height: 1.125rem;
+  width: 1.125rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-right: 0.5rem;
+}
+
+.c5 {
+  color: #000000;
+  font-size: 1.125rem;
+}
+
+.c3 {
+  border: none;
+  height: 2.25rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: transparent;
+  color: #000000;
+  font-weight: 400;
+  width: 100%;
+  padding-left: 0.5rem;
+}
+
+.c3:hover {
+  background-color: #EEEEEE;
+}
+
+.c3:active {
+  background-color: #E2E2E2;
+}
+
+.c3 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c0 {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: #FFFFFF;
+  box-shadow: rgba(0,0,0,0.25) 0px 25px 50px -12px;
+  padding: 0.25rem;
+  border-radius: 4px;
+  width: 9.375rem;
+  z-index: 101;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+<div
+    class="c0"
+  >
+    <ul
+      class="c1"
+    >
+      <li
+        class="c2"
+      >
+        <button
+          class="c3"
+          font-weight="400"
+        >
+          <div
+            class="c4"
+            data-testid="icon-container"
+            size="18"
+          >
+            <span
+              class="c5 material-symbols-sharp"
+              data-testid="icon"
+              size="18"
+            >
+              edit
+            </span>
+          </div>
+          Edit
+        </button>
+        <button
+          class="c3"
+          font-weight="400"
+        >
+          <div
+            class="c4"
+            data-testid="icon-container"
+            size="18"
+          >
+            <span
+              class="c5 material-symbols-sharp"
+              data-testid="icon"
+              size="18"
+            >
+              edit
+            </span>
+          </div>
+          History
+        </button>
+        <button
+          class="c3"
+          font-weight="400"
+        >
+          <div
+            class="c4"
+            data-testid="icon-container"
+            size="18"
+          >
+            <span
+              class="c5 material-symbols-sharp"
+              data-testid="icon"
+              size="18"
+            >
+              edit
+            </span>
+          </div>
           Delete
         </button>
       </li>

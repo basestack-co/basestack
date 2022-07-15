@@ -36,4 +36,17 @@ describe("IconButton Atom tests", () => {
 
     expect(asFragment()).toMatchSnapshot();
   });
+
+  test("should render IconButton with different size", () => {
+    const { asFragment } = renderWithTheme(
+      <IconButton
+        onClick={jest.fn()}
+        icon="help"
+        variant="secondary"
+        size="large"
+      />
+    );
+
+    expect(asFragment()).toMatchSnapshot();
+  });
 });

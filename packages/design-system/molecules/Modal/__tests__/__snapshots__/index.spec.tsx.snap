@@ -6,7 +6,7 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
 <DocumentFragment>
   .c3 {
   font-size: 1.25rem;
-  line-height: 1.625rem;
+  line-height: 1.875rem;
   font-weight: 500;
   margin-right: 0.5rem;
   font-family: 'Roboto',sans-serif;
@@ -42,17 +42,16 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
+  margin-left: 0.25rem;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-}
-
-.c9 .material-symbols-sharp {
-  color: inherit;
 }
 
 .c9:hover {
@@ -61,6 +60,10 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
 
 .c9:active {
   background-color: #E2E2E2;
+}
+
+.c9 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c10 {
@@ -79,10 +82,13 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #276EF1;
   color: #FFFFFF;
+  margin-left: 0.25rem;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -90,6 +96,10 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
 
 .c10:hover:not(:active) {
   background-color: #0e55d7;
+}
+
+.c10 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c4 {
@@ -113,8 +123,8 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 .c4 .material-symbols-sharp {
@@ -283,7 +293,7 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
 <DocumentFragment>
   .c3 {
   font-size: 1.25rem;
-  line-height: 1.625rem;
+  line-height: 1.875rem;
   font-weight: 500;
   margin-right: 0.5rem;
   font-family: 'Roboto',sans-serif;
@@ -319,17 +329,16 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
+  margin-left: 0.25rem;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-}
-
-.c9 .material-symbols-sharp {
-  color: inherit;
 }
 
 .c9:hover {
@@ -338,6 +347,10 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
 
 .c9:active {
   background-color: #E2E2E2;
+}
+
+.c9 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c10 {
@@ -356,10 +369,13 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #276EF1;
   color: #FFFFFF;
+  margin-left: 0.25rem;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -367,6 +383,10 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
 
 .c10:hover:not(:active) {
   background-color: #0e55d7;
+}
+
+.c10 .material-symbols-sharp {
+  color: inherit;
 }
 
 .c4 {
@@ -390,8 +410,8 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 .c4 .material-symbols-sharp {

@@ -14,6 +14,8 @@
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
+    "@basestack/hooks": "*",
+    "@basestack/utils": "*",
     "@types/react": "18.0.14",
     "@types/react-dom": "^18.0.5",
     "jest-styled-components": "^7.0.8",

@@ -2,8 +2,7 @@
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
 import * as yup from "yup";
-import { getValue } from "@basestack/utils";
-import { groupBy } from "utils/functions";
+import { getValue, groupBy } from "@basestack/utils";
 
 export const flagRouter = createProtectedRouter()
   .query("all", {
