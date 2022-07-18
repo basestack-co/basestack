@@ -48,11 +48,10 @@ export function createProtectedRouter() {
       }
 
       const restricted = getValue(meta, "restricted", false);
+      const projectId = getValue(rawInput, "projectId", "");
 
       // This is for routes that need to verify any action if the user allowed in that project
-      if (restricted) {
-        const projectId = getValue(rawInput, "projectId", "");
-
+      if (restricted && projectId) {
         // checks if the user is in the project
         const isUserAllowedInProject = await getUserInProject(
           ctx.prisma,
