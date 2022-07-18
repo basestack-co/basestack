@@ -1,4 +1,3 @@
-// import { TRPCError } from "@trpc/server";
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
 import * as yup from "yup";
@@ -6,6 +5,9 @@ import { getValue } from "@basestack/utils";
 
 export const environmentRouter = createProtectedRouter()
   .query("all", {
+    meta: {
+      restricted: true,
+    },
     input: yup.object({
       projectId: yup.string().required(),
     }),
@@ -35,6 +37,9 @@ export const environmentRouter = createProtectedRouter()
     },
   })
   .mutation("create", {
+    meta: {
+      restricted: true,
+    },
     input: yup.object({
       name: yup.string().required(),
       slug: yup.string().required(),
@@ -59,7 +64,12 @@ export const environmentRouter = createProtectedRouter()
     },
   })
   .mutation("update", {
+    meta: {
+      restricted: true,
+    },
     input: yup.object({
+      // this prop is used on the createProtectedRouter Middleware to validated user project permissions
+      projectId: yup.string().required(),
       environmentId: yup.string().required(),
       name: yup.string().required(),
       description: yup.string().required(),
@@ -79,7 +89,12 @@ export const environmentRouter = createProtectedRouter()
     },
   })
   .mutation("delete", {
+    meta: {
+      restricted: true,
+    },
     input: yup.object({
+      // this prop is used on the createProtectedRouter Middleware to validated user project permissions
+      projectId: yup.string().required(),
       environmentId: yup.string().required(),
     }),
     resolve: async ({ ctx, input }) => {

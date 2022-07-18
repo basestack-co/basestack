@@ -1,4 +1,3 @@
-// import { TRPCError } from "@trpc/server";
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
 import * as yup from "yup";
@@ -72,6 +71,9 @@ export const projectRouter = createProtectedRouter()
     },
   })
   .mutation("update", {
+    meta: {
+      restricted: true,
+    },
     input: yup.object({
       projectId: yup.string().required(),
       name: yup.string().required(),
@@ -90,7 +92,7 @@ export const projectRouter = createProtectedRouter()
   })
   .mutation("delete", {
     meta: {
-      restricted: false,
+      restricted: true,
     },
     input: yup.object({
       projectId: yup.string().required(),

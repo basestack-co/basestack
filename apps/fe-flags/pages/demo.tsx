@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useEffect, useCallback, useState } from "react";
 // Layout
 import MainLayout from "../layouts/Main";
@@ -333,7 +332,7 @@ const EnvironmentsList = ({
   return (
     <div>
       <h4>Environment list:</h4>
-      {!isLoading && !data && (
+      {!isLoading && data && (
         <ul>
           {
             // @ts-ignore
@@ -399,22 +398,23 @@ const EnvironmentsDemos = () => {
 
       if (!isEmpty(name)) {
         updateEnvironment.mutate({
+          projectId,
           environmentId,
           name: name as string,
           description: "a update description",
         });
       }
     },
-    [updateEnvironment]
+    [updateEnvironment, projectId]
   );
 
   const deleteAction = useCallback(
     (environmentId: string) => {
       if (confirm("Delete Environment?")) {
-        deleteEnvironment.mutate({ environmentId });
+        deleteEnvironment.mutate({ environmentId, projectId });
       }
     },
-    [deleteEnvironment]
+    [deleteEnvironment, projectId]
   );
 
   return (
@@ -558,6 +558,7 @@ const FlagsDemos = () => {
   const update = useCallback(
     (flagId: string) => {
       updateFlag.mutate({
+        projectId,
         enabled: false,
         flagId,
         description: "a update description",
@@ -565,16 +566,16 @@ const FlagsDemos = () => {
         payload: undefined,
       });
     },
-    [updateFlag]
+    [updateFlag, projectId]
   );
 
   const deleteAction = useCallback(
     (flagId: string) => {
       if (confirm("Delete Flag?")) {
-        deleteFlag.mutate({ flagId });
+        deleteFlag.mutate({ flagId, projectId });
       }
     },
-    [deleteFlag]
+    [deleteFlag, projectId]
   );
 
   return (

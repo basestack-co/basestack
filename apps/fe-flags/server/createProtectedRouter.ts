@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 // Trpc
 import * as trpc from "@trpc/server";
 import { Context } from "./context";
@@ -9,7 +10,11 @@ export interface Meta {
 }
 
 // Checks if user can do an action in this project like create, update, delete
-/* export const getUserInProject = async (userId: string, projectId: string) => {
+export const getUserInProject = async (
+  prisma: PrismaClient,
+  userId: string,
+  projectId: string
+) => {
   try {
     return await prisma.project.findFirst({
       where: {
@@ -30,27 +35,27 @@ export interface Meta {
       },
     });
   } catch {
-    throw new Error(notAuthorizedActionProject);
+    throw new trpc.TRPCError({ code: "UNAUTHORIZED" });
   }
-}; */
+};
 
 export function createProtectedRouter() {
   return trpc
     .router<Context, Meta>()
-    .middleware(async ({ ctx, next, meta }) => {
+    .middleware(async ({ ctx, next, meta, rawInput }) => {
       if (!ctx.session) {
         throw new trpc.TRPCError({ code: "UNAUTHORIZED" });
       }
 
-      /*  const restricted = get(meta, "restricted", false);
-      const projectId = get(meta, "projectId", "");
-
-      console.log("GOOOOOO = ", get(ctx.req.query, "projectId", "NULLL"));
+      const restricted = getValue(meta, "restricted", false);
 
       // This is for routes that need to verify any action if the user allowed in that project
-      if (restricted && projectId) {
+      if (restricted) {
+        const projectId = getValue(rawInput, "projectId", "");
+
         // checks if the user is in the project
         const isUserAllowedInProject = await getUserInProject(
+          ctx.prisma,
           ctx.session.user.id,
           projectId
         );
@@ -59,7 +64,7 @@ export function createProtectedRouter() {
         if (isEmpty(isUserAllowedInProject)) {
           throw new trpc.TRPCError({ code: "UNAUTHORIZED" });
         }
-      } */
+      }
 
       return next({
         ctx: {

@@ -1,4 +1,3 @@
-// import { TRPCError } from "@trpc/server";
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
 import * as yup from "yup";
@@ -6,6 +5,9 @@ import { getValue, groupBy } from "@basestack/utils";
 
 export const flagRouter = createProtectedRouter()
   .query("all", {
+    meta: {
+      restricted: true,
+    },
     input: yup.object({
       projectId: yup.string().required(),
       environmentId: yup.string().required(),
@@ -97,6 +99,9 @@ export const flagRouter = createProtectedRouter()
     },
   })
   .query("byProjectId", {
+    meta: {
+      restricted: true,
+    },
     input: yup.object({
       projectId: yup.string().required(),
       pagination: yup
@@ -165,6 +170,9 @@ export const flagRouter = createProtectedRouter()
     },
   })
   .mutation("create", {
+    meta: {
+      restricted: true,
+    },
     input: yup.object({
       environmentId: yup.string().required(),
       projectId: yup.string().required(),
@@ -190,7 +198,12 @@ export const flagRouter = createProtectedRouter()
     },
   })
   .mutation("update", {
+    meta: {
+      restricted: true,
+    },
     input: yup.object({
+      // this prop is used on the createProtectedRouter Middleware to validated user project permissions
+      projectId: yup.string().required(),
       flagId: yup.string().required(),
       enabled: yup.bool().required(),
       payload: yup.mixed().optional(),
@@ -214,7 +227,12 @@ export const flagRouter = createProtectedRouter()
     },
   })
   .mutation("delete", {
+    meta: {
+      restricted: true,
+    },
     input: yup.object({
+      // this prop is used on the createProtectedRouter Middleware to validated user project permissions
+      projectId: yup.string().required(),
       flagId: yup.string().required(),
     }),
     resolve: async ({ ctx, input }) => {
