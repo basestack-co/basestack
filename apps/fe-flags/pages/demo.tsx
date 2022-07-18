@@ -12,6 +12,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 // Server
 import { trpc } from "libs/trpc";
+import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
 
 const ProjectsDemos = () => {
   const trpcContext = trpc.useContext();
@@ -353,10 +354,23 @@ const EnvironmentsList = ({
 const EnvironmentsDemos = () => {
   const trpcContext = trpc.useContext();
   const [projectId, setProjectId] = useState("");
+  const { onCreateHistory } = useCreateApiHistory();
 
   const createEnvironment = trpc.useMutation(["environment.create"], {
-    onSuccess() {
+    onSuccess(data) {
       trpcContext.invalidateQueries(["environment.all"]);
+
+      onCreateHistory(HistoryAction.createEnvironment, {
+        projectId: data.environment.projectId,
+        payload: {
+          environment: {
+            id: data.environment.id,
+            name: data.environment.name,
+            slug: data.environment.slug,
+            description: data.environment.description ?? "",
+          },
+        },
+      });
     },
   });
 

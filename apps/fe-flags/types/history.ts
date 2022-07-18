@@ -18,13 +18,15 @@ export interface HistoryPayload {
   environment?: {
     id: string;
     name?: string;
+    slug?: string;
+    description?: string;
   };
   project?: {
     name: string;
   };
-  user?: {
-    id: string;
-    name: string;
-    avatar: string;
-  };
+}
+
+export interface HistoryData {
+  projectId: string;
+  payload: HistoryPayload;
 }
