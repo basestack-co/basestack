@@ -27,6 +27,7 @@ function collectHeadings(node, sections = []) {
       if (typeof title === "string") {
         sections.push({
           ...node.attributes,
+          // @ts-ignore
           title,
         });
       }

@@ -1,9 +1,10 @@
 import React from "react";
 import { SettingCard, Table } from "@basestack/design-system";
-import { setInviteMemberModalOpen } from "store/slices/modals";
-import { AppDispatch } from "store";
+// Context
+import useModals from "hooks/useModals";
+import { seIsInviteMemberModalOpen } from "contexts/modals/actions";
+// Styles
 import { CardList, CardListItem } from "./styles";
-import { useDispatch } from "react-redux";
 
 const mockMore = [
   { text: "Edit", onClick: () => console.log("") },
@@ -90,7 +91,10 @@ const mockTableData = {
 };
 
 const Members = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const {
+    dispatch,
+    state: { isDemoModalOpen: isModalOpen },
+  } = useModals();
 
   return (
     <CardList>
@@ -99,7 +103,7 @@ const Members = () => {
           title="Team members"
           description="Active Members"
           button="Invite Member"
-          onClick={() => dispatch(setInviteMemberModalOpen(true))}
+          onClick={() => dispatch(seIsInviteMemberModalOpen(true))}
         >
           <Table data={mockTableData} />
         </SettingCard>

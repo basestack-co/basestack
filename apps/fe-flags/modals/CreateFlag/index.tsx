@@ -1,22 +1,25 @@
 import React, { useCallback, useState } from "react";
 import { useTheme } from "styled-components";
 import Portal from "@basestack/design-system/global/Portal";
-import { useDispatch, useSelector } from "react-redux";
-import { getIsCreateFlagModalOpen } from "store/selectors/modals";
-import { AppDispatch } from "store";
-import { setCreateFlagModalOpen } from "store/slices/modals";
 import { Tabs, Modal } from "@basestack/design-system";
+// Context
+import useModals from "hooks/useModals";
+import { seIstCreateFlagModalOpen } from "contexts/modals/actions";
+// Containers
 import Core from "./Core";
 import Advanced from "./Advanced";
 
 const CreateFlagModal = () => {
   const theme = useTheme();
-  const dispatch = useDispatch<AppDispatch>();
-  const isModalOpen = useSelector(getIsCreateFlagModalOpen);
+  const {
+    dispatch,
+    state: { isCreateFlagModalOpen: isModalOpen },
+  } = useModals();
+
   const [selectedTab, setSelectedTab] = useState("core");
 
   const onClose = useCallback(() => {
-    dispatch(setCreateFlagModalOpen(false));
+    dispatch(seIstCreateFlagModalOpen(false));
   }, [dispatch]);
 
   return (

@@ -1,8 +1,9 @@
 import React from "react";
 import { SettingCard, Table } from "@basestack/design-system";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "store";
-import { setCreateEnvironmentModalOpen } from "store/slices/modals";
+// Context
+import useModals from "hooks/useModals";
+import { setIsCreateEnvironmentModalOpen } from "contexts/modals/actions";
+// Styles
 import { CardList, CardListItem } from "./styles";
 
 const mockMore = [
@@ -76,7 +77,7 @@ const mockTableData = {
 };
 
 const Environments = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const { dispatch } = useModals();
 
   return (
     <CardList>
@@ -85,7 +86,7 @@ const Environments = () => {
           title="Environments"
           description="Create and edit environments for feature flags and their rules."
           button="Create New Environment"
-          onClick={() => dispatch(setCreateEnvironmentModalOpen(true))}
+          onClick={() => dispatch(setIsCreateEnvironmentModalOpen(true))}
         >
           <Table data={mockTableData} />
         </SettingCard>

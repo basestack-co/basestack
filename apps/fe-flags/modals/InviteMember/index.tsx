@@ -1,17 +1,18 @@
 import React, { useCallback } from "react";
 import Portal from "@basestack/design-system/global/Portal";
-import { useDispatch, useSelector } from "react-redux";
-import { getIsInviteMemberModalOpen } from "store/selectors/modals";
-import { AppDispatch } from "store";
-import { setInviteMemberModalOpen } from "store/slices/modals";
 import { Modal, InputGroup } from "@basestack/design-system";
+// Context
+import useModals from "hooks/useModals";
+import { seIsInviteMemberModalOpen } from "contexts/modals/actions";
 
 const InviteMemberModal = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const isModalOpen = useSelector(getIsInviteMemberModalOpen);
+  const {
+    dispatch,
+    state: { isInviteMemberModalOpen: isModalOpen },
+  } = useModals();
 
   const onClose = useCallback(() => {
-    dispatch(setInviteMemberModalOpen(false));
+    dispatch(seIsInviteMemberModalOpen(false));
   }, [dispatch]);
 
   return (

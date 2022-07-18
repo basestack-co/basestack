@@ -1,14 +1,13 @@
 import React from "react";
 import { render, RenderOptions } from "@testing-library/react";
-// Store
-import { Provider } from "react-redux";
-import { store } from "../store";
 // Locales
 import { IntlProvider } from "react-intl";
 import { messages } from "../locales";
 // Styles
 import { ThemeProvider } from "styled-components";
 import theme from "@basestack/design-system/theme";
+// Contexts
+import { ModalsContextProvider } from "contexts/modals";
 // Auth
 import { SessionProvider } from "next-auth/react";
 
@@ -22,12 +21,13 @@ interface AllProvidersProps extends WithChildrenProps {
 
 const AllProviders = ({ children, initialState = {} }: AllProvidersProps) => {
   return (
+    // @ts-ignore
     <SessionProvider session={{ expires: null }}>
-      <Provider store={{ ...store, ...initialState }}>
+      <ModalsContextProvider>
         <IntlProvider locale="en" messages={messages.en}>
           <ThemeProvider theme={theme}>{children}</ThemeProvider>
         </IntlProvider>
-      </Provider>
+      </ModalsContextProvider>
     </SessionProvider>
   );
 };
@@ -51,13 +51,4 @@ const renderWithTheme = (
   options?: Omit<RenderOptions, "wrapper">
 ) => render(ui, { wrapper: WithThemeProvider, ...options });
 
-const WithReduxProvider = ({ children }: WithChildrenProps) => (
-  <Provider store={store}>{children}</Provider>
-);
-
-const renderWithRedux = (
-  ui: React.ReactElement,
-  options?: Omit<RenderOptions, "wrapper">
-) => render(ui, { wrapper: WithReduxProvider, ...options });
-
-export { renderWithAllProviders, renderWithTheme, renderWithRedux };
+export { renderWithAllProviders, renderWithTheme };
