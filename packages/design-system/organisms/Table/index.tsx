@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { useFloating, autoUpdate } from "@floating-ui/react-dom";
 import { useTransition, animated, config } from "react-spring";
 import { useClickAway } from "@basestack/hooks";
-import get from "lodash.get";
+import { getValue } from "@basestack/utils";
 import { Text, IconButton, Avatar } from "../../atoms";
 import { scaleInTopRight } from "../../animations/springs";
 import {
@@ -46,8 +46,8 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
     <StyledRow numberOfColumns={numberOfCols} data-testid="row">
       {cols &&
         cols.map((col, index) => {
-          const imageSrc = get(col, "image.src");
-          const imageUsername = get(col, "image.userName");
+          const imageSrc = getValue(col, "image.src");
+          const imageUsername = getValue(col, "image.userName");
           return (
             <Col key={`${index.toString()}-col`}>
               {!!col.link ? (

@@ -1,20 +1,22 @@
 import React, { useCallback, useState } from "react";
 import { useTheme } from "styled-components";
-import Portal from "@basestack/design-system/global/Portal";
-import { useDispatch, useSelector } from "react-redux";
-import { getIsCreateEnvironmentModalOpen } from "store/selectors/modals";
-import { AppDispatch } from "store";
-import { setCreateEnvironmentModalOpen } from "store/slices/modals";
 import { Modal, InputGroup } from "@basestack/design-system";
+import Portal from "@basestack/design-system/global/Portal";
+// Context
+import useModals from "hooks/useModals";
+import { setIsCreateEnvironmentModalOpen } from "contexts/modals/actions";
 
 const CreateEnvironmentModal = () => {
   const theme = useTheme();
-  const dispatch = useDispatch<AppDispatch>();
-  const isModalOpen = useSelector(getIsCreateEnvironmentModalOpen);
+  const {
+    dispatch,
+    state: { isCreateEnvironmentModalOpen: isModalOpen },
+  } = useModals();
+
   const [textareaLength, setTextareaLength] = useState("");
 
   const onClose = useCallback(() => {
-    dispatch(setCreateEnvironmentModalOpen(false));
+    dispatch(setIsCreateEnvironmentModalOpen(false));
   }, [dispatch]);
 
   const onChangeTextarea = useCallback(

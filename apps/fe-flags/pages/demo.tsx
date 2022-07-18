@@ -1,54 +1,41 @@
+// @ts-nocheck
 import { useEffect, useCallback, useState } from "react";
 // Layout
 import MainLayout from "../layouts/Main";
-// Store
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "store";
-// Queries
-import {
-  useGetProjectsQuery,
-  useCreateProjectMutation,
-  useUpdateProjectByIdMutation,
-  useDeleteProjectByIdMutation,
-} from "store/query/projects";
-import {
-  useCreateEnvironmentMutation,
-  useUpdateEnvironmentByIdMutation,
-  useDeleteEnvironmentByIdMutation,
-  useGetEnvironmentsQuery,
-} from "store/query/environments";
-import {
-  flagsApi,
-  useGetFlagsQuery,
-  useCreateFlagMutation,
-  useUpdateFlagByIdMutation,
-  useDeleteFlagByIdMutation,
-} from "store/query/flags";
-import {
-  useGetHistoryQuery,
-  useCreateHistoryMutation,
-} from "store/query/history";
-import { usersApi, useGetUsersByProjectQuery } from "store/query/users";
 // Utils
-import isEmpty from "lodash.isempty";
-// Types
-import { Project } from "types/query/projects";
-import { Environment } from "types/query/environments";
-import { Flag } from "types/query/flags";
-import { History, HistoryAction } from "types/query/history";
-import { User, UsersResponse } from "types/query/users";
+import { isEmpty } from "@basestack/utils";
 // Hooks
 import { useDebounce } from "@basestack/hooks";
+// Types
+import { HistoryAction } from "types/history";
 // Formik
 import { useFormik } from "formik";
 import * as Yup from "yup";
+// Server
+import { trpc } from "libs/trpc";
+import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
 
 const ProjectsDemos = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const projects = useGetProjectsQuery();
-  const [createProject] = useCreateProjectMutation();
-  const [updateProject] = useUpdateProjectByIdMutation();
-  const [deleteProject] = useDeleteProjectByIdMutation();
+  const trpcContext = trpc.useContext();
+
+  const projects = trpc.useQuery(["project.all"]);
+  const createProject = trpc.useMutation(["project.create"], {
+    onSuccess() {
+      trpcContext.invalidateQueries(["project.all"]);
+    },
+  });
+
+  const deleteProject = trpc.useMutation(["project.delete"], {
+    onSuccess() {
+      trpcContext.invalidateQueries(["project.all"]);
+    },
+  });
+
+  const updateProject = trpc.useMutation(["project.update"], {
+    onSuccess() {
+      trpcContext.invalidateQueries(["project.all"]);
+    },
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -65,9 +52,8 @@ const ProjectsDemos = () => {
     }),
     onSubmit: async (values, { resetForm }) => {
       try {
-        console.log(JSON.stringify(values));
-        const payload = await createProject(values);
-        console.log("payload", payload);
+        createProject.mutate(values);
+
         resetForm();
       } catch (error) {
         console.log("Error on create project", error);
@@ -75,22 +61,28 @@ const ProjectsDemos = () => {
     },
   });
 
-  const update = useCallback((projectId: string, projectName: string) => {
-    let name = prompt("New project name:", projectName);
+  const update = useCallback(
+    (projectId: string, projectName: string) => {
+      let name = prompt("New project name:", projectName);
 
-    if (!isEmpty(name)) {
-      updateProject({
-        projectId,
-        name,
-      });
-    }
-  }, []);
+      if (!isEmpty(name)) {
+        updateProject.mutate({
+          projectId,
+          name: name as string,
+        });
+      }
+    },
+    [updateProject]
+  );
 
-  const deleteAction = useCallback((projectId: string) => {
-    if (confirm("Delete project?")) {
-      deleteProject({ projectId });
-    }
-  }, []);
+  const deleteAction = useCallback(
+    (projectId: string) => {
+      if (confirm("Delete project?")) {
+        deleteProject.mutate({ projectId });
+      }
+    },
+    [deleteProject]
+  );
 
   return (
     <div>
@@ -131,7 +123,7 @@ const ProjectsDemos = () => {
       <h4>Projects list:</h4>
       {!projects.isLoading && !isEmpty(projects.data) && (
         <ul>
-          {projects.data.projects.map((item: Project) => (
+          {projects.data?.projects.map((item) => (
             <li key={item.id}>
               {item.name} (<b>{item.id}</b>) |{" "}
               <button onClick={() => update(item.id, item.name)}>✏️</button> |{" "}
@@ -145,13 +137,9 @@ const ProjectsDemos = () => {
 };
 
 const UsersList = ({ projectId }: { projectId: string }) => {
-  const { isLoading, data } = useGetUsersByProjectQuery(
-    {
-      projectId,
-    },
-    {
-      skip: isEmpty(projectId),
-    }
+  const { isLoading, data } = trpc.useQuery(
+    ["user.byProjectId", { projectId }],
+    { enabled: !isEmpty(projectId) }
   );
 
   return (
@@ -159,7 +147,7 @@ const UsersList = ({ projectId }: { projectId: string }) => {
       <h4>Users on Project list:</h4>
       {!isLoading && !isEmpty(data) && (
         <ul>
-          {data.users.map((item: User) => {
+          {data?.users.map((item) => {
             return (
               <li key={item.id}>
                 name: <b>{item.name} </b>| email: <b>{item.email}</b> | image:{" "}
@@ -174,24 +162,28 @@ const UsersList = ({ projectId }: { projectId: string }) => {
 };
 
 const UsersDemos = () => {
-  const dispatch = useDispatch<AppDispatch>();
   const [projectId, setProjectId] = useState("");
   const [name, setName] = useState("");
-  const [searchUsers, setSearchUsers] = useState<UsersResponse>(null);
+  const [searchUsers, setSearchUsers] = useState(null);
+
+  const { refetch, isLoading, data } = trpc.useQuery(
+    ["user.bySearch", { projectId, search: name }],
+    { enabled: false }
+  );
+
+  useEffect(() => {
+    if (!isLoading && data) {
+      // @ts-ignore
+      setSearchUsers(data);
+    }
+  }, [isLoading, data]);
 
   useDebounce(
     async () => {
       try {
         if (isEmpty(name)) return;
-        const { status, data } = await dispatch(
-          usersApi.endpoints.getUsersBySearch.initiate({
-            name,
-          })
-        );
 
-        if (status === "fulfilled") {
-          setSearchUsers(data);
-        }
+        refetch();
       } catch (error) {
         console.log("error getting users", error);
       }
@@ -229,16 +221,19 @@ const UsersDemos = () => {
 
       <div>
         <h4>Users Search:</h4>
-        {!isEmpty(searchUsers) && (
+        {!searchUsers && (
           <ul>
-            {searchUsers.users.map((item: User) => {
-              return (
-                <li key={item.id}>
-                  name: <b>{item.name} </b>| email: <b>{item.email}</b> | image:{" "}
-                  <b>{item.image}</b>
-                </li>
-              );
-            })}
+            {
+              // @ts-ignore
+              searchUsers?.users.map((item) => {
+                return (
+                  <li key={item.id}>
+                    name: <b>{item.name} </b>| email: <b>{item.email}</b> |
+                    image: <b>{item.image}</b>
+                  </li>
+                );
+              })
+            }
           </ul>
         )}
       </div>
@@ -247,16 +242,9 @@ const UsersDemos = () => {
 };
 
 const HistoryList = ({ projectId }: { projectId: string }) => {
-  const { isLoading, data } = useGetHistoryQuery(
-    {
-      projectId,
-      /*  query: {
-        flagId: "cl2npxpyp0874d4ueo42d0kxx",
-      }, */
-    },
-    {
-      skip: isEmpty(projectId),
-    }
+  const { isLoading, data } = trpc.useQuery(
+    ["history.all", { projectId, flagId: undefined }],
+    { enabled: !isEmpty(projectId) }
   );
 
   return (
@@ -264,7 +252,7 @@ const HistoryList = ({ projectId }: { projectId: string }) => {
       <h4>History list:</h4>
       {!isLoading && !isEmpty(data) && (
         <ul>
-          {data.history.map((item: History) => {
+          {data?.history.map((item) => {
             return (
               <li key={item.id}>
                 action: <b>{item.action} </b>| projectId:{" "}
@@ -281,10 +269,16 @@ const HistoryList = ({ projectId }: { projectId: string }) => {
 
 const HistoryDemos = () => {
   const [projectId, setProjectId] = useState("");
-  const [createHistory] = useCreateHistoryMutation();
+  const trpcContext = trpc.useContext();
+
+  const createHistory = trpc.useMutation(["history.create"], {
+    onSuccess() {
+      trpcContext.invalidateQueries(["history.all"]);
+    },
+  });
 
   const onCreateHistory = useCallback(async () => {
-    createHistory({
+    createHistory.mutate({
       projectId,
       action: HistoryAction.createFlag,
       payload: {
@@ -332,28 +326,26 @@ const EnvironmentsList = ({
   deleteAction: (environmentId: string) => void;
   projectId: string;
 }) => {
-  const { isLoading, data } = useGetEnvironmentsQuery(
-    {
-      projectId,
-    },
-    {
-      skip: isEmpty(projectId),
-      // refetchOnMountOrArgChange: true
-    }
+  const { isLoading, data } = trpc.useQuery(
+    ["environment.all", { projectId }],
+    { enabled: !isEmpty(projectId) }
   );
 
   return (
     <div>
       <h4>Environment list:</h4>
-      {!isLoading && !isEmpty(data) && (
+      {!isLoading && data && (
         <ul>
-          {data.environments.map((item: Environment) => (
-            <li key={item.id}>
-              {item.name} (<b>{item.id}</b>) |{" "}
-              <button onClick={() => update(item.id, item.name)}>✏️</button> |{" "}
-              <button onClick={() => deleteAction(item.id)}>❌</button>
-            </li>
-          ))}
+          {
+            // @ts-ignore
+            data?.environments?.map((item) => (
+              <li key={item.id}>
+                {item.name} (<b>{item.id}</b>) |{" "}
+                <button onClick={() => update(item.id, item.name)}>✏️</button> |{" "}
+                <button onClick={() => deleteAction(item.id)}>❌</button>
+              </li>
+            ))
+          }
         </ul>
       )}
     </div>
@@ -361,10 +353,39 @@ const EnvironmentsList = ({
 };
 
 const EnvironmentsDemos = () => {
+  const trpcContext = trpc.useContext();
   const [projectId, setProjectId] = useState("");
-  const [createEnvironment] = useCreateEnvironmentMutation();
-  const [updateEnvironment] = useUpdateEnvironmentByIdMutation();
-  const [deleteEnvironment] = useDeleteEnvironmentByIdMutation();
+  const { onCreateHistory } = useCreateApiHistory();
+
+  const createEnvironment = trpc.useMutation(["environment.create"], {
+    onSuccess(data) {
+      trpcContext.invalidateQueries(["environment.all"]);
+
+      onCreateHistory(HistoryAction.createEnvironment, {
+        projectId: data.environment.projectId,
+        payload: {
+          environment: {
+            id: data.environment.id,
+            name: data.environment.name,
+            slug: data.environment.slug,
+            description: data.environment.description ?? "",
+          },
+        },
+      });
+    },
+  });
+
+  const updateEnvironment = trpc.useMutation(["environment.update"], {
+    onSuccess() {
+      trpcContext.invalidateQueries(["environment.all"]);
+    },
+  });
+
+  const deleteEnvironment = trpc.useMutation(["environment.delete"], {
+    onSuccess() {
+      trpcContext.invalidateQueries(["environment.all"]);
+    },
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -373,7 +394,7 @@ const EnvironmentsDemos = () => {
     },
     onSubmit: async (values, { resetForm }) => {
       try {
-        await createEnvironment({
+        await createEnvironment.mutate({
           ...values,
           projectId,
           description: "a default description",
@@ -391,24 +412,24 @@ const EnvironmentsDemos = () => {
       let name = prompt("New environment name:", envName);
 
       if (!isEmpty(name)) {
-        updateEnvironment({
-          environmentId,
+        updateEnvironment.mutate({
           projectId,
-          name,
+          environmentId,
+          name: name as string,
           description: "a update description",
         });
       }
     },
-    [projectId, updateEnvironment]
+    [updateEnvironment, projectId]
   );
 
   const deleteAction = useCallback(
     (environmentId: string) => {
       if (confirm("Delete Environment?")) {
-        deleteEnvironment({ projectId, environmentId });
+        deleteEnvironment.mutate({ environmentId, projectId });
       }
     },
-    [projectId, deleteEnvironment]
+    [deleteEnvironment, projectId]
   );
 
   return (
@@ -480,19 +501,9 @@ const FlagsList = ({
   projectId: string;
   envId: string;
 }) => {
-  const { isLoading, data } = useGetFlagsQuery(
-    {
-      projectId,
-      envId,
-      pagination: {
-        skip: "0",
-        take: "10",
-      },
-    },
-    {
-      skip: isEmpty(envId) || isEmpty(projectId),
-      // refetchOnMountOrArgChange: true
-    }
+  const { isLoading, data } = trpc.useQuery(
+    ["flag.all", { projectId, environmentId: envId, pagination: null }],
+    { enabled: !isEmpty(envId) || !isEmpty(projectId) }
   );
 
   return (
@@ -500,7 +511,7 @@ const FlagsList = ({
       <h4>Flags list:</h4>
       {!isLoading && !isEmpty(data) && (
         <ul>
-          {data.flags.map((item: Flag) => (
+          {data?.flags.map((item) => (
             <li key={item.id}>
               (slug: <b>{item.slug}</b>) (id: <b>{item.id}</b>) (Enabled:{" "}
               <b>{item.enabled ? "ON" : "OFF"}</b>) |{" "}
@@ -515,34 +526,27 @@ const FlagsList = ({
 };
 
 const FlagsDemos = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const trpcContext = trpc.useContext();
   const [envId, setEnvId] = useState("");
   const [projectId, setProjectId] = useState("");
-  const [createFlag] = useCreateFlagMutation();
-  const [updateFlag] = useUpdateFlagByIdMutation();
-  const [deleteFlag] = useDeleteFlagByIdMutation();
 
-  useEffect(() => {
-    const getAllFlagsByProject = async () => {
-      try {
-        const { status, data } = await dispatch(
-          flagsApi.endpoints.getAllFlagsByProject.initiate({
-            projectId,
-          })
-        );
+  const createFlag = trpc.useMutation(["flag.create"], {
+    onSuccess() {
+      trpcContext.invalidateQueries(["flag.all"]);
+    },
+  });
 
-        if (status === "fulfilled") {
-          console.log("all flags by project = ", data);
-        }
-      } catch (error) {
-        console.log("error getting project", error);
-      }
-    };
+  const updateFlag = trpc.useMutation(["flag.update"], {
+    onSuccess() {
+      trpcContext.invalidateQueries(["flag.all"]);
+    },
+  });
 
-    if (!isEmpty(projectId)) {
-      getAllFlagsByProject();
-    }
-  }, [projectId]);
+  const deleteFlag = trpc.useMutation(["flag.delete"], {
+    onSuccess() {
+      trpcContext.invalidateQueries(["flag.all"]);
+    },
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -550,9 +554,9 @@ const FlagsDemos = () => {
     },
     onSubmit: async (values, { resetForm }) => {
       try {
-        await createFlag({
+        await createFlag.mutate({
           projectId,
-          envId,
+          environmentId: envId,
           slug: values.slug,
           enabled: true,
           payload: JSON.stringify({}),
@@ -568,24 +572,25 @@ const FlagsDemos = () => {
 
   const update = useCallback(
     (flagId: string) => {
-      updateFlag({
+      updateFlag.mutate({
+        projectId,
         enabled: false,
         flagId,
-        envId,
-        projectId,
         description: "a update description",
+        expiredAt: null,
+        payload: undefined,
       });
     },
-    [projectId, updateFlag, envId]
+    [updateFlag, projectId]
   );
 
   const deleteAction = useCallback(
     (flagId: string) => {
       if (confirm("Delete Flag?")) {
-        deleteFlag({ projectId, envId, flagId });
+        deleteFlag.mutate({ flagId, projectId });
       }
     },
-    [projectId, envId, deleteFlag]
+    [deleteFlag, projectId]
   );
 
   return (

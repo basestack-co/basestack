@@ -3,20 +3,19 @@ import { Button, Avatar } from "@basestack/design-system";
 import { useDebounce } from "@basestack/hooks";
 // Layout
 import MainLayout from "../layouts/Main";
-// Store
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "store";
-import { setDemoModalOpen } from "store/slices/modals";
+// Context
+import useModals from "hooks/useModals";
+import { setIsDemoModalOpen } from "contexts/modals/actions";
 // Auth
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 // Utils
-import isEmpty from "lodash.isempty";
+import { isEmpty } from "@basestack/utils";
 
 import GetStarted from "templates/GetStarted";
 
 const MainPage = () => {
   const { data: session } = useSession();
-  const dispatch = useDispatch<AppDispatch>();
+  const { dispatch } = useModals();
 
   useDebounce(
     () => {
@@ -34,7 +33,7 @@ const MainPage = () => {
 
       {!isEmpty(session) && (
         <div style={{ display: "none" }}>
-          Signed in as {session.user.email} <br />
+          Signed in as {session?.user.email} <br />
           <button onClick={() => signOut()}>Sign out</button>
         </div>
       )}

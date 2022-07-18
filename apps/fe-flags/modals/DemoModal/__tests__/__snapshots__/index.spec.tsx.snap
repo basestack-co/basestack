@@ -1,21 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DemoModal tests render DemoModal correctly 1`] = `<DocumentFragment />`;
-
-exports[`DemoModal tests render DemoModal with Event 1`] = `
-<DocumentFragment>
-  <div
-    id="portal"
-  >
-    <div>
-      Demo portal
-    </div>
-    <p>
-      intl: this is a demo intl
-    </p>
-    <button>
-      Close Modal
-    </button>
-  </div>
-</DocumentFragment>
-`;

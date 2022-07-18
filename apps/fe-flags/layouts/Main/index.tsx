@@ -3,10 +3,9 @@ import { useMediaQuery } from "@basestack/hooks";
 import { useTheme } from "styled-components";
 // Router
 import { useRouter } from "next/router";
-// Store
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "store";
-import { setCreateFlagModalOpen } from "store/slices/modals";
+// Context
+import useModals from "hooks/useModals";
+import { seIstCreateFlagModalOpen } from "contexts/modals/actions";
 // Auth
 import { useSession } from "next-auth/react";
 import { Navigation, TabBar } from "@basestack/design-system";
@@ -15,7 +14,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.device.min.lg);
   const router = useRouter();
-  const dispatch = useDispatch<AppDispatch>();
+  const { dispatch } = useModals();
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -31,13 +30,13 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     <Fragment>
       <Navigation
         pathname={router.pathname}
-        onCreateFlag={() => dispatch(setCreateFlagModalOpen(true))}
+        onCreateFlag={() => dispatch(seIstCreateFlagModalOpen(true))}
       />
       {children}
       {!isDesktop && (
         <TabBar
           pathname={router.pathname}
-          onCreateFlag={() => dispatch(setCreateFlagModalOpen(true))}
+          onCreateFlag={() => dispatch(seIstCreateFlagModalOpen(true))}
         />
       )}
     </Fragment>
