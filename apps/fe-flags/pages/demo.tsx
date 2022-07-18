@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useEffect, useCallback, useState } from "react";
 // Layout
 import MainLayout from "../layouts/Main";
