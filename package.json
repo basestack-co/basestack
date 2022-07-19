@@ -20,7 +20,7 @@
     "update:packages": "yarn upgrade-interactive --latest"
   },
   "devDependencies": {
-    "commitizen": "^4.2.4",
+    "commitizen": "^4.2.5",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
