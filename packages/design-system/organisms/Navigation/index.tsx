@@ -1,24 +1,66 @@
-import React, { memo } from "react";
+import { memo, useCallback } from "react";
 import { useTheme } from "styled-components";
 import { useMediaQuery } from "@basestack/hooks";
 import { Avatar, Button, ButtonVariant } from "../../atoms";
 import { Container, List, ListItem, LogoContainer } from "./styles";
 import { ButtonLink, MoreMenu, ProjectsMenu } from "./components";
+import { PopupItem } from "../../molecules/PopupActions";
+
+export interface LinkItem {
+  text: string;
+  onClick: (to: string, isExternal?: boolean) => void;
+  to: string;
+  isExternal?: boolean;
+}
 
 export interface NavigationProps {
   /**
-   * create flag callback
+   * create callback
    */
-  onCreateFlag: () => void;
+  onCreate: () => void;
   /**
    * pathname
    */
   pathname: string;
+  /**
+   * Left items navigation
+   */
+  leftItems: Array<LinkItem>;
+  /**
+   * Right items navigation
+   */
+  rightItems: Array<LinkItem>;
+  projects: Array<PopupItem>;
+  projectId: string;
 }
 
-const Navigation = ({ onCreateFlag, pathname }: NavigationProps) => {
+const Navigation = ({
+  onCreate,
+  pathname,
+  leftItems,
+  rightItems,
+  projects,
+  projectId,
+}: NavigationProps) => {
   const theme = useTheme();
   const isLargeDevice = useMediaQuery(theme.device.min.lg);
+
+  const onRenderItems = useCallback(
+    (items: LinkItem[], type: string) =>
+      items.map(({ text, onClick, to, isExternal }, i) => {
+        return (
+          <ListItem key={`${type}-list-item-${i}`}>
+            <ButtonLink
+              onClick={() => onClick(to, isExternal)}
+              isActive={pathname === to}
+            >
+              {text}
+            </ButtonLink>
+          </ListItem>
+        );
+      }),
+    []
+  );
 
   return (
     <Container data-testid="navigation">
@@ -28,24 +70,16 @@ const Navigation = ({ onCreateFlag, pathname }: NavigationProps) => {
             <Avatar round={false} alt="user image" userName="Logo" />
           </LogoContainer>
         </ListItem>
-        <ProjectsMenu />
+        {projects && !!projects.length && (
+          <ProjectsMenu projectId={projectId} projects={projects} />
+        )}
+
         {isLargeDevice && (
           <>
-            <ListItem>
-              <ButtonLink href="/flags" isActive={pathname === "/flags"}>
-                Features
-              </ButtonLink>
-            </ListItem>
-            <ListItem>
-              <ButtonLink
-                href="/settings/general"
-                isActive={pathname ? pathname.includes("settings") : false}
-              >
-                Settings
-              </ButtonLink>
-            </ListItem>
+            {onRenderItems(leftItems, "left")}
+
             <ListItem ml={theme.spacing.s5}>
-              <Button onClick={onCreateFlag} variant={ButtonVariant.Primary}>
+              <Button onClick={onCreate} variant={ButtonVariant.Primary}>
                 Create flag
               </Button>
             </ListItem>
@@ -53,31 +87,7 @@ const Navigation = ({ onCreateFlag, pathname }: NavigationProps) => {
         )}
       </List>
       <List ml="auto" data-testid="navigation-right-ul">
-        {isLargeDevice && (
-          <>
-            <ListItem>
-              <ButtonLink
-                href="/documentation"
-                isActive={pathname === "/documentation"}
-              >
-                Documentation
-              </ButtonLink>
-            </ListItem>
-            <ListItem>
-              <ButtonLink
-                href="/resources"
-                isActive={pathname === "/resources"}
-              >
-                Resources
-              </ButtonLink>
-            </ListItem>
-            <ListItem>
-              <Button as="a" variant={ButtonVariant.PrimaryNeutral}>
-                Github
-              </Button>
-            </ListItem>
-          </>
-        )}
+        {isLargeDevice && <>{onRenderItems(rightItems, "rigth")}</>}
         {!isLargeDevice && <MoreMenu />}
         <ListItem ml={theme.spacing.s3}>
           <Avatar alt="user image" userName="Flávio Amaral" />

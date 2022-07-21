@@ -1,8 +1,9 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { useMediaQuery } from "@basestack/hooks";
 import { useTheme } from "styled-components";
 // Router
 import { useRouter } from "next/router";
+import Link, { LinkProps } from "next/link";
 // Context
 import useModals from "hooks/useModals";
 import { seIstCreateFlagModalOpen } from "contexts/modals/actions";
@@ -21,6 +22,19 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       router.push("/auth/sign-in");
     },
   });
+  const [projectId, setProjectId] = useState("");
+
+  const onHandleNavigation = (to: string, isExternal: boolean = false) => {
+    if (typeof window !== "undefined" && isExternal) {
+      window.open(to, "_blank");
+    } else {
+      router.push(to);
+    }
+  };
+
+  const onSelectProject = (id: string) => {
+    setProjectId(id);
+  };
 
   if (status === "loading") {
     return <div>isLoading</div>;
@@ -30,7 +44,45 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     <Fragment>
       <Navigation
         pathname={router.pathname}
-        onCreateFlag={() => dispatch(seIstCreateFlagModalOpen(true))}
+        onCreate={() => dispatch(seIstCreateFlagModalOpen(true))}
+        projectId={projectId}
+        projects={[
+          {
+            id: "125",
+            text: "Demo project",
+            onClick: onSelectProject,
+          },
+        ]}
+        leftItems={[
+          {
+            text: "Features",
+            to: "/flags",
+            onClick: onHandleNavigation,
+          },
+          {
+            text: "Settings",
+            to: "/settings/general",
+            onClick: onHandleNavigation,
+          },
+        ]}
+        rightItems={[
+          {
+            text: "Documentation",
+            to: "/documentation",
+            onClick: onHandleNavigation,
+          },
+          {
+            text: "Resources",
+            to: "/resources",
+            onClick: onHandleNavigation,
+          },
+          {
+            text: "Github",
+            to: "https://github.com/",
+            isExternal: true,
+            onClick: onHandleNavigation,
+          },
+        ]}
       />
       {children}
       {!isDesktop && (

@@ -15,7 +15,7 @@ export interface ButtonLinkProps {
   /**
    * Link href
    */
-  href: string;
+  onClick: () => void;
 }
 
 export const ButtonContainer = styled.div<{ isActive: boolean }>`
@@ -42,10 +42,14 @@ export const ButtonContainer = styled.div<{ isActive: boolean }>`
     `};
 `;
 
-const ButtonLink = ({ isActive = false, children, href }: ButtonLinkProps) => (
+const ButtonLink = ({
+  isActive = false,
+  children,
+  onClick,
+}: ButtonLinkProps) => (
   <ButtonContainer isActive={isActive}>
     {/* @ts-ignore */}
-    <Button href={href} as="a" variant="primaryNeutral">
+    <Button onClick={onClick} variant="primaryNeutral">
       {children}
     </Button>
   </ButtonContainer>

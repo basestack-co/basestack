@@ -4,10 +4,10 @@ import { Avatar, Button, ButtonVariant, Text } from "../../atoms";
 import { Container, Header, List, ListItem, ProjectButton } from "./styles";
 import { useTheme } from "styled-components";
 
-export interface PopupItems {
-  onClick: () => void;
+export interface PopupItem {
+  id: string;
+  onClick: (id: string) => void;
   text: string;
-  logo: string;
 }
 
 export interface PopupActionsProps extends PositionProps {
@@ -18,7 +18,7 @@ export interface PopupActionsProps extends PositionProps {
   /**
    * List of actions
    */
-  items: Array<PopupItems>;
+  items: Array<PopupItem>;
   /**
    * Button props
    */
@@ -44,11 +44,14 @@ const PopupActions = forwardRef<HTMLDivElement, PopupActionsProps>(
             {items &&
               items.map((item, index) => {
                 return (
-                  <ProjectButton key={index.toString()}>
+                  <ProjectButton
+                    onClick={() => item.onClick(item.id)}
+                    key={`project-button-${index}`}
+                  >
                     <Avatar
                       round={false}
                       userName={item.text}
-                      alt="logo"
+                      alt={`Select ${item.text} from the projects list`}
                       size="small"
                     />
                     <Text ml={theme.spacing.s2}>{item.text}</Text>

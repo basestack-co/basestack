@@ -1,15 +1,21 @@
-import React, { memo, useCallback, useRef, useState } from "react";
+import React, { memo, useCallback, useRef, useState, useMemo } from "react";
 import { useClickAway } from "@basestack/hooks";
 import { animated, config, useTransition } from "react-spring";
 import { autoUpdate, offset, useFloating } from "@floating-ui/react-dom";
 import { Button, ButtonVariant } from "../../../atoms";
 import { scaleInTopLeft } from "../../../animations/springs";
 import { PopupActions } from "../../../molecules";
+import { PopupItem } from "../../../molecules/PopupActions";
 import { ListItem } from "../styles";
+
+export interface ProjectsMenuProps {
+  projectId: string;
+  projects: Array<PopupItem>;
+}
 
 const AnimatedProjectsPopup = animated(PopupActions);
 
-const ProjectsMenu = () => {
+const ProjectsMenu = ({ projects, projectId }: ProjectsMenuProps) => {
   const menuWrapperRef = useRef(null);
   const [isProjectsPopupOpen, setIsProjectsPopupOpen] = useState(false);
   const { x, y, reference, floating, strategy } = useFloating({
@@ -31,6 +37,12 @@ const ProjectsMenu = () => {
     setIsProjectsPopupOpen(false);
   });
 
+  const currentProject = useMemo(() => {
+    const project = projects.find(({ id }) => id === projectId);
+
+    return project?.text ?? "Select project";
+  }, [projectId, projects]);
+
   return (
     <ListItem ref={menuWrapperRef}>
       <Button
@@ -40,7 +52,7 @@ const ProjectsMenu = () => {
         variant={ButtonVariant.PrimaryNeutral}
         onClick={onClickProjects}
       >
-        Project Name
+        {currentProject}
       </Button>
       {transitionProjectsPopup(
         (styles, item) =>
@@ -52,18 +64,7 @@ const ProjectsMenu = () => {
               top={y}
               left={x}
               title="Projects"
-              items={[
-                {
-                  text: "Moon flags",
-                  onClick: () => console.log("clicked"),
-                  logo: "",
-                },
-                {
-                  text: "Teams kids",
-                  onClick: () => console.log("clicked"),
-                  logo: "",
-                },
-              ]}
+              items={projects}
               button={{
                 text: "Create Project",
                 onClick: () => console.log("clicked"),
