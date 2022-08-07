@@ -1,7 +1,8 @@
 import React, { memo, ReactNode } from "react";
 import { rem } from "polished";
+import Link from "next/link";
 import styled, { css } from "styled-components";
-import { Button } from "../../../atoms";
+import { Button, ButtonVariant } from "@basestack/design-system";
 
 export interface ButtonLinkProps {
   /**
@@ -9,14 +10,22 @@ export interface ButtonLinkProps {
    */
   isActive: boolean;
   /**
+   * Link href
+   */
+  href: string;
+  /**
    * Set button link active
    */
   children: ReactNode;
   /**
-   * Link href
+   * Target blank external links
    */
-  onClick: () => void;
+  isExternal?: boolean;
 }
+
+export const ExternalLink = styled.a`
+  text-decoration: none;
+`;
 
 export const ButtonContainer = styled.div<{ isActive: boolean }>`
   display: flex;
@@ -26,10 +35,6 @@ export const ButtonContainer = styled.div<{ isActive: boolean }>`
   ${({ isActive }) =>
     isActive &&
     css`
-      a {
-        color: ${({ theme }) => theme.colors.blue400};
-      }
-
       &::before {
         content: "";
         position: absolute;
@@ -43,16 +48,28 @@ export const ButtonContainer = styled.div<{ isActive: boolean }>`
 `;
 
 const ButtonLink = ({
+  href,
   isActive = false,
   children,
-  onClick,
-}: ButtonLinkProps) => (
-  <ButtonContainer isActive={isActive}>
-    {/* @ts-ignore */}
-    <Button onClick={onClick} variant="primaryNeutral">
-      {children}
-    </Button>
-  </ButtonContainer>
-);
+  isExternal = false,
+}: ButtonLinkProps) => {
+  const Anchor = isExternal ? ExternalLink : Link;
+  const anchorProps = isExternal
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : { passHref: true };
+
+  return (
+    <ButtonContainer isActive={isActive}>
+      <Anchor href={href} {...anchorProps}>
+        <Button
+          as={isExternal ? "div" : "a"}
+          variant={ButtonVariant.PrimaryNeutral}
+        >
+          {children}
+        </Button>
+      </Anchor>
+    </ButtonContainer>
+  );
+};
 
 export default memo(ButtonLink);

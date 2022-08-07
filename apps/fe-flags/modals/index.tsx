@@ -3,6 +3,7 @@ import DemoModal from "./DemoModal";
 import CreateFlagModal from "./CreateFlag";
 import InviteMemberModal from "./InviteMember";
 import CreateEnvironmentModal from "./CreateEnvironment";
+import CreateProjectModal from "./CreateProject";
 
 const Modals = () => {
   return (
@@ -11,6 +12,7 @@ const Modals = () => {
       <CreateFlagModal />
       <InviteMemberModal />
       <CreateEnvironmentModal />
+      <CreateProjectModal />
     </Fragment>
   );
 };

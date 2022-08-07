@@ -2,9 +2,8 @@ import React, { memo, useCallback, useRef, useState } from "react";
 import { autoUpdate, offset, useFloating } from "@floating-ui/react-dom";
 import { animated, config, useTransition } from "react-spring";
 import { useClickAway } from "@basestack/hooks";
-import { Button, ButtonVariant } from "../../../atoms";
-import { Popup } from "../../../molecules";
-import { scaleInTopRight } from "../../../animations/springs";
+import { Button, ButtonVariant, Popup } from "@basestack/design-system";
+import { scaleInTopRight } from "@basestack/design-system/animations/springs";
 import { ListItem } from "../styles";
 
 const AnimatedMorePopup = animated(Popup);

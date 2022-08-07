@@ -197,6 +197,7 @@ exports[`Environments General tests render General correctly 1`] = `
               format="normal"
               placeholder="Team name"
               type="text"
+              value=""
             />
           </div>
         </div>
@@ -253,6 +254,7 @@ exports[`Environments General tests render General correctly 1`] = `
               format="normal"
               placeholder="Project name"
               type="text"
+              value=""
             />
           </div>
         </div>

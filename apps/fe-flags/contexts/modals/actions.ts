@@ -3,6 +3,7 @@ import {
   OpenCreateEnvironmentModalAction,
   OpenCreateFlagModalAction,
   OpenInviteMemberModalAction,
+  OpenCreateProjectModalAction,
 } from "./types";
 
 export const setIsDemoModalOpen = (isOpen: boolean): OpenDemoModalAction => ({
@@ -28,5 +29,12 @@ export const seIsInviteMemberModalOpen = (
   isOpen: boolean
 ): OpenInviteMemberModalAction => ({
   type: "INVITE_MEMBER_MODAL_OPEN",
+  payload: { isOpen },
+});
+
+export const seIsCreateProjectModalOpen = (
+  isOpen: boolean
+): OpenCreateProjectModalAction => ({
+  type: "CREATE_PROJECT_MODAL_OPEN",
   payload: { isOpen },
 });

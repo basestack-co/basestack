@@ -7,6 +7,7 @@ export const initialState: ModalsState = {
   isCreateEnvironmentModalOpen: false,
   isCreateFlagModalOpen: false,
   isInviteMemberModalOpen: false,
+  isCreateProjectModalOpen: false
 };
 
 export const ModalsContext = createContext<Context>({
@@ -41,6 +42,12 @@ export const Reducer = (
       return {
         ...state,
         isInviteMemberModalOpen: action.payload.isOpen,
+      };
+
+    case "CREATE_PROJECT_MODAL_OPEN":
+      return {
+        ...state,
+        isCreateProjectModalOpen: action.payload.isOpen,
       };
 
     default:

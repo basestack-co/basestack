@@ -23,6 +23,7 @@ export interface HistoryPayload {
   };
   project?: {
     name: string;
+    slug?: string;
   };
 }
 
