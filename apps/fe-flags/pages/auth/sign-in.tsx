@@ -56,7 +56,7 @@ const SignInPage = ({ providers }: Props) => {
     if (status === "authenticated") {
       router.push("/");
     }
-  }, [status]);
+  }, [status, router]);
 
   return (
     <div>

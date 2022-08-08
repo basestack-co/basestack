@@ -7,7 +7,7 @@ export const initialState: ModalsState = {
   isCreateEnvironmentModalOpen: false,
   isCreateFlagModalOpen: false,
   isInviteMemberModalOpen: false,
-  isCreateProjectModalOpen: false
+  isCreateProjectModalOpen: false,
 };
 
 export const ModalsContext = createContext<Context>({

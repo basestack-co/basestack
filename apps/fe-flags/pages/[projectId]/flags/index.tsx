@@ -1,7 +1,7 @@
 import React from "react";
 // Layout
-import MainLayout from "../../layouts/Main";
-import Flags from "../../templates/Flags";
+import MainLayout from "layouts/Main";
+import Flags from "templates/Flags";
 
 const FlagsPage = () => {
   return <Flags />;

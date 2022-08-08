@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useTheme } from "styled-components";
 import { useMediaQuery } from "@basestack/hooks";
 // Components
@@ -16,6 +16,8 @@ import {
 } from "contexts/modals/actions";
 // Hooks
 import useModals from "hooks/useModals";
+// Auth
+import { useSession } from "next-auth/react";
 
 export interface LinkItem {
   text: string;
@@ -56,7 +58,7 @@ interface NavigationProps {
 
 const Navigation = ({ isDesktop }: NavigationProps) => {
   const theme = useTheme();
-
+  const { data: session } = useSession();
   const { dispatch } = useModals();
   const router = useRouter();
   const { data, isLoading } = trpc.useQuery(["project.all"]);
@@ -80,9 +82,16 @@ const Navigation = ({ isDesktop }: NavigationProps) => {
     [router.pathname]
   );
 
-  const onSelectProject = (id: string) => {
-    setProjectId(id);
-  };
+  const onSelectProject = useCallback(
+    (id: string) => {
+      setProjectId(id);
+      router.push({
+        pathname: "/[projectId]/flags",
+        query: { projectId: id },
+      });
+    },
+    [router]
+  );
 
   const projects = useMemo(
     () =>
@@ -93,7 +102,7 @@ const Navigation = ({ isDesktop }: NavigationProps) => {
           text: item.name,
         };
       }),
-    [data]
+    [data, onSelectProject]
   );
 
   return (
@@ -114,14 +123,17 @@ const Navigation = ({ isDesktop }: NavigationProps) => {
         {isDesktop && (
           <>
             {onRenderItems(leftItems, "left")}
-            <ListItem ml={theme.spacing.s5}>
-              <Button
-                onClick={() => dispatch(seIstCreateFlagModalOpen(true))}
-                variant={ButtonVariant.Primary}
-              >
-                Create flag
-              </Button>
-            </ListItem>
+
+            {router.query.projectId && (
+              <ListItem ml={theme.spacing.s5}>
+                <Button
+                  onClick={() => dispatch(seIstCreateFlagModalOpen(true))}
+                  variant={ButtonVariant.Primary}
+                >
+                  Create flag
+                </Button>
+              </ListItem>
+            )}
           </>
         )}
       </List>
@@ -129,7 +141,11 @@ const Navigation = ({ isDesktop }: NavigationProps) => {
         {isDesktop && <>{onRenderItems(rightItems, "right")}</>}
         {!isDesktop && <MoreMenu />}
         <ListItem ml={theme.spacing.s3}>
-          <Avatar alt="user image" userName="Flávio Amaral" />
+          <Avatar
+            src={session?.user.image ?? ""}
+            alt="user image"
+            userName={session?.user.name ?? session?.user.email}
+          />
         </ListItem>
       </List>
     </Container>
