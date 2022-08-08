@@ -45,6 +45,8 @@ const CreateEnvironmentModal = () => {
           inputProps={{
             onChange: (text) => console.log("text = ", text),
             placeholder: "E.g. development",
+            name: "id",
+            value: "",
           }}
           hint="No numbers, spaces, or special characters"
           mb={theme.spacing.s6}

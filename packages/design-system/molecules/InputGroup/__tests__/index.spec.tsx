@@ -12,6 +12,8 @@ describe("InputGroup Molecule tests", () => {
         inputProps={{
           onChange: jest.fn(),
           placeholder: "E.g. header_size",
+          name: "feature",
+          value: "",
         }}
       />
     );
@@ -25,6 +27,8 @@ describe("InputGroup Molecule tests", () => {
         inputProps={{
           onChange: jest.fn(),
           placeholder: "E.g. header_size",
+          name: "feature",
+          value: "",
         }}
         hint="no special characters"
       />
@@ -39,6 +43,8 @@ describe("InputGroup Molecule tests", () => {
         inputProps={{
           onChange: jest.fn(),
           placeholder: "E.g. header_size",
+          name: "feature",
+          value: "",
         }}
         label="0 / 120"
       />

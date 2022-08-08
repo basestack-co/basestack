@@ -174,8 +174,10 @@ exports[`InputGroup Molecule tests should render InputGroup correctly 1`] = `
         class="c4"
         data-testid="input"
         format="normal"
+        name="feature"
         placeholder="E.g. header_size"
         type="text"
+        value=""
       />
     </div>
   </div>
@@ -286,12 +288,15 @@ exports[`InputGroup Molecule tests should render InputGroup with hint 1`] = `
         class="c4"
         data-testid="input"
         format="normal"
+        name="feature"
         placeholder="E.g. header_size"
         type="text"
+        value=""
       />
     </div>
     <span
       class="c5"
+      color="#757575"
       data-testid="input-group-hint"
     >
       no special characters
@@ -393,8 +398,10 @@ exports[`InputGroup Molecule tests should render InputGroup with label 1`] = `
         class="c4"
         data-testid="input"
         format="normal"
+        name="feature"
         placeholder="E.g. header_size"
         type="text"
+        value=""
       />
     </div>
   </div>

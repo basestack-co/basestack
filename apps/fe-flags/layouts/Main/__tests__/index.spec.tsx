@@ -11,7 +11,7 @@ jest.mock("next/router", () => ({
   },
 }));
 
-describe("Main Layout tests", () => {
+describe.skip("Main Layout tests", () => {
   beforeAll(() => {
     Object.defineProperty(window, "matchMedia", {
       value: jest.fn(() => {

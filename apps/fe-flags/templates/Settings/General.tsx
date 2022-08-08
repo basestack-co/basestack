@@ -17,6 +17,8 @@ const General = () => {
             maxWidth={400}
             onChange={() => console.log("change")}
             placeholder="Team name"
+            name="team"
+            value=""
           />
         </SettingCard>
       </CardListItem>
@@ -32,6 +34,8 @@ const General = () => {
             maxWidth={400}
             onChange={() => console.log("change")}
             placeholder="Project name"
+            name="project"
+            value=""
           />
         </SettingCard>
       </CardListItem>

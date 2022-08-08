@@ -12,6 +12,8 @@ const Advanced = () => {
         inputProps={{
           onChange: (text) => console.log("text = ", text),
           placeholder: "mm/dd/yyyy",
+          name: "date",
+          value: "",
         }}
         mb={theme.spacing.s6}
       />

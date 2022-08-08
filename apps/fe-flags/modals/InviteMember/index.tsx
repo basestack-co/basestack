@@ -32,6 +32,8 @@ const InviteMemberModal = () => {
           inputProps={{
             onChange: (text) => console.log("text = ", text),
             placeholder: "E.g. tom@gmail.com",
+            name: "email",
+            value: "",
           }}
         />
       </Modal>

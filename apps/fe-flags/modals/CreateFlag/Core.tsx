@@ -23,6 +23,8 @@ const Core = () => {
         inputProps={{
           onChange: (text) => console.log("text = ", text),
           placeholder: "E.g. header_size",
+          name: "feature",
+          value: "",
         }}
         hint="No numbers, spaces, or special characters"
         mb={theme.spacing.s6}

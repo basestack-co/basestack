@@ -27,7 +27,7 @@ exports[`Toolbar Organism tests should render Toolbar correctly 1`] = `
 }
 
 .c4 {
-  color: #757575;
+  color: #AFAFAF;
   font-size: 1.5rem;
 }
 
@@ -233,7 +233,7 @@ exports[`Toolbar Organism tests should render Toolbar correctly 1`] = `
       >
         <span
           class="c4 material-symbols-sharp"
-          color="#757575"
+          color="#AFAFAF"
           data-testid="icon"
           size="24"
         >
@@ -244,8 +244,10 @@ exports[`Toolbar Organism tests should render Toolbar correctly 1`] = `
         class="c5"
         data-testid="input"
         format="normal"
+        name="search"
         placeholder="Filter by title"
         type="text"
+        value=""
       />
     </div>
     <ul

@@ -8,14 +8,24 @@ describe("Input Atom tests", () => {
 
   test("should render Input correctly", () => {
     const { asFragment } = renderWithTheme(
-      <Input placeholder="Search here..." onChange={jest.fn()} />
+      <Input
+        placeholder="Search here..."
+        onChange={jest.fn()}
+        name="feature"
+        value=""
+      />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   test("should render input container", () => {
     const { getByTestId } = renderWithTheme(
-      <Input placeholder="Search here..." onChange={jest.fn()} />
+      <Input
+        placeholder="Search here..."
+        onChange={jest.fn()}
+        name="feature"
+        value=""
+      />
     );
     const container = getByTestId("input-container");
 
@@ -30,6 +40,8 @@ describe("Input Atom tests", () => {
         placeholder="Search here..."
         onChange={jest.fn()}
         format="normal"
+        name="feature"
+        value=""
       />
     );
     const input = getByTestId("input");
@@ -43,7 +55,13 @@ describe("Input Atom tests", () => {
 
   test("should render small input", () => {
     const { getByTestId } = renderWithTheme(
-      <Input format="small" placeholder="Search here..." onChange={jest.fn()} />
+      <Input
+        format="small"
+        placeholder="Search here..."
+        onChange={jest.fn()}
+        name="feature"
+        value=""
+      />
     );
     const input = getByTestId("input");
 
@@ -57,6 +75,8 @@ describe("Input Atom tests", () => {
         icon="search"
         iconPlacement="left"
         onChange={jest.fn()}
+        name="feature"
+        value=""
       />
     );
     const input = getByTestId("input");
@@ -76,6 +96,8 @@ describe("Input Atom tests", () => {
         icon="search"
         iconPlacement="right"
         onChange={jest.fn()}
+        name="feature"
+        value=""
       />
     );
     const input = getByTestId("input");

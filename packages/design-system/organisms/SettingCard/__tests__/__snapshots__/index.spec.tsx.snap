@@ -317,8 +317,10 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
           class="c5"
           data-testid="input"
           format="normal"
+          name="feature"
           placeholder="placeholder"
           type="text"
+          value=""
         />
       </div>
     </div>

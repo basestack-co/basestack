@@ -45,7 +45,13 @@ describe("SettingCard Molecule tests", () => {
         onClick={jest.fn()}
         text="text"
       >
-        <Input maxWidth={400} onChange={jest.fn()} placeholder="placeholder" />
+        <Input
+          maxWidth={400}
+          onChange={jest.fn()}
+          placeholder="placeholder"
+          name="feature"
+          value=""
+        />
       </SettingCard>
     );
     expect(asFragment()).toMatchSnapshot();

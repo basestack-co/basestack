@@ -36,6 +36,8 @@ const Toolbar = ({
         iconPlacement="left"
         placeholder="Filter by title"
         onChange={onSearch}
+        name="search"
+        value=""
       />
       {isDesktop && (
         <PillsUl data-testid="pills">
