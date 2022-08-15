@@ -172,7 +172,7 @@ exports[`PopupActions Molecule tests should render PopupActions correctly 1`] = 
             size="28"
           >
             <img
-              alt="Select Moon flags from the projects list"
+              alt="Select Moon flags from the list"
               class="c7"
               src="https://avatars.dicebear.com/api/initials/Moon flags.svg?size=28&fontSize=40"
             />
@@ -192,7 +192,7 @@ exports[`PopupActions Molecule tests should render PopupActions correctly 1`] = 
             size="28"
           >
             <img
-              alt="Select Teams kids from the projects list"
+              alt="Select Teams kids from the list"
               class="c7"
               src="https://avatars.dicebear.com/api/initials/Teams kids.svg?size=28&fontSize=40"
             />

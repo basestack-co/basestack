@@ -1,14 +1,14 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { useTheme } from "styled-components";
-import { useMediaQuery } from "@basestack/hooks";
 // Components
 import { Avatar, Button, ButtonVariant } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
 import { ButtonLink, MoreMenu, ProjectsMenu } from "./components";
-// Server
-import { trpc } from "libs/trpc";
 // Router
 import { useRouter } from "next/router";
+import Link from "next/link";
+// Types
+import { inferQueryOutput } from "libs/trpc";
 // Store
 import {
   seIsCreateProjectModalOpen,
@@ -28,11 +28,11 @@ export interface LinkItem {
 const leftItems = [
   {
     text: "Features",
-    to: "/flags",
+    to: "/[projectSlug]/flags",
   },
   {
     text: "Settings",
-    to: "/settings/general",
+    to: "/[projectSlug]/settings/general",
   },
 ];
 
@@ -54,15 +54,16 @@ const rightItems = [
 
 interface NavigationProps {
   isDesktop: boolean;
+  data?: inferQueryOutput<"project.all">;
 }
 
-const Navigation = ({ isDesktop }: NavigationProps) => {
+const Navigation = ({ isDesktop, data }: NavigationProps) => {
   const theme = useTheme();
   const { data: session } = useSession();
   const { dispatch } = useModals();
   const router = useRouter();
-  const { data, isLoading } = trpc.useQuery(["project.all"]);
-  const [projectId, setProjectId] = useState("");
+
+  const projectSlug = router.query.projectSlug as string;
 
   const onRenderItems = useCallback(
     (items: LinkItem[], type: string) =>
@@ -70,7 +71,7 @@ const Navigation = ({ isDesktop }: NavigationProps) => {
         return (
           <ListItem key={`${type}-list-item-${i}`}>
             <ButtonLink
-              href={to}
+              href={to.replace("[projectSlug]", projectSlug)}
               isExternal={isExternal}
               isActive={router.pathname === to}
             >
@@ -79,15 +80,14 @@ const Navigation = ({ isDesktop }: NavigationProps) => {
           </ListItem>
         );
       }),
-    [router.pathname]
+    [router.pathname, projectSlug]
   );
 
   const onSelectProject = useCallback(
-    (id: string) => {
-      setProjectId(id);
+    (projectSlug: string) => {
       router.push({
-        pathname: "/[projectId]/flags",
-        query: { projectId: id },
+        pathname: "/[projectSlug]/flags",
+        query: { projectSlug },
       });
     },
     [router]
@@ -98,7 +98,8 @@ const Navigation = ({ isDesktop }: NavigationProps) => {
       data?.projects.map((item) => {
         return {
           id: item.id,
-          onClick: () => onSelectProject(item.id),
+          slug: item.slug,
+          onClick: () => onSelectProject(item.slug),
           text: item.name,
         };
       }),
@@ -109,31 +110,30 @@ const Navigation = ({ isDesktop }: NavigationProps) => {
     <Container data-testid="navigation">
       <List data-testid="navigation-left-ul">
         <ListItem>
-          <LogoContainer>
-            <Avatar round={false} alt="user image" userName="Logo" />
-          </LogoContainer>
+          <Link href="/">
+            <LogoContainer>
+              <Avatar round={false} alt="user image" userName="Logo" />
+            </LogoContainer>
+          </Link>
         </ListItem>
         <ProjectsMenu
           onClickCreateProject={() =>
             dispatch(seIsCreateProjectModalOpen(true))
           }
-          projectId={projectId}
+          projectSlug={projectSlug}
           projects={projects ?? []}
         />
-        {isDesktop && (
+        {isDesktop && !!projectSlug && (
           <>
             {onRenderItems(leftItems, "left")}
-
-            {router.query.projectId && (
-              <ListItem ml={theme.spacing.s5}>
-                <Button
-                  onClick={() => dispatch(seIstCreateFlagModalOpen(true))}
-                  variant={ButtonVariant.Primary}
-                >
-                  Create flag
-                </Button>
-              </ListItem>
-            )}
+            <ListItem ml={theme.spacing.s5}>
+              <Button
+                onClick={() => dispatch(seIstCreateFlagModalOpen(true))}
+                variant={ButtonVariant.Primary}
+              >
+                Create flag
+              </Button>
+            </ListItem>
           </>
         )}
       </List>

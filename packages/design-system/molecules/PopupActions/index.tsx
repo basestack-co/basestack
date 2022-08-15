@@ -1,12 +1,13 @@
-import { forwardRef, memo } from "react";
+import { forwardRef, memo, useCallback } from "react";
 import { PositionProps } from "styled-system";
 import { Avatar, Button, ButtonVariant, Text } from "../../atoms";
-import { Container, Header, List, ListItem, ProjectButton } from "./styles";
+import { Container, Header, List, ListItem, PopUpButton } from "./styles";
 import { useTheme } from "styled-components";
 
 export interface PopupItem {
   id: string;
-  onClick: (id: string) => void;
+  slug: string;
+  onClick: () => void;
   text: string;
 }
 
@@ -26,11 +27,23 @@ export interface PopupActionsProps extends PositionProps {
     text: string;
     onClick: () => void;
   };
+  onCallback?: () => void;
 }
 
 const PopupActions = forwardRef<HTMLDivElement, PopupActionsProps>(
-  ({ items, button, title, ...props }, ref) => {
+  ({ items, button, title, onCallback, ...props }, ref) => {
     const theme = useTheme();
+
+    const onHandleClick = useCallback(
+      (onClick: () => void) => {
+        onClick();
+
+        if (typeof onCallback === "function") {
+          onCallback();
+        }
+      },
+      [onCallback]
+    );
 
     return (
       <Container ref={ref} {...props}>
@@ -44,18 +57,18 @@ const PopupActions = forwardRef<HTMLDivElement, PopupActionsProps>(
             {items &&
               items.map((item, index) => {
                 return (
-                  <ProjectButton
-                    onClick={() => item.onClick(item.id)}
-                    key={`project-button-${index}`}
+                  <PopUpButton
+                    onClick={() => onHandleClick(item.onClick)}
+                    key={`pop-up-button-${item.id}`}
                   >
                     <Avatar
                       round={false}
                       userName={item.text}
-                      alt={`Select ${item.text} from the projects list`}
+                      alt={`Select ${item.text} from the list`}
                       size="small"
                     />
                     <Text ml={theme.spacing.s2}>{item.text}</Text>
-                  </ProjectButton>
+                  </PopUpButton>
                 );
               })}
           </ListItem>

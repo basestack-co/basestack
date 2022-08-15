@@ -1,5 +1,6 @@
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
+import { generateSlug } from "random-word-slugs";
 import * as yup from "yup";
 
 export const projectRouter = createProtectedRouter()
@@ -49,23 +50,53 @@ export const projectRouter = createProtectedRouter()
       const project = await ctx.prisma.project.create({
         data: {
           ...input,
+          slug: `pr-${input.slug}`,
         },
       });
 
-      const connection = await ctx.prisma.projectsOnUsers.create({
-        data: {
-          project: {
-            connect: {
-              id: project.id,
+      /* const connection = await ctx.prisma.projectsOnUsers.create({
+                          data: {
+                            project: {
+                              connect: {
+                                id: project.id,
+                              },
+                            },
+                            user: {
+                              connect: {
+                                id: userId,
+                              },
+                            },
+                          },
+                        }); */
+
+      const [connection] = await ctx.prisma.$transaction([
+        ctx.prisma.projectsOnUsers.create({
+          data: {
+            project: {
+              connect: {
+                id: project.id,
+              },
+            },
+            user: {
+              connect: {
+                id: userId,
+              },
             },
           },
-          user: {
-            connect: {
-              id: userId,
+        }),
+        ctx.prisma.environment.create({
+          data: {
+            name: "develop",
+            slug: `env-${generateSlug()}`,
+            description: "The default environment",
+            project: {
+              connect: {
+                id: project.id,
+              },
             },
           },
-        },
-      });
+        }),
+      ]);
 
       return { project, connection };
     },

@@ -34,6 +34,7 @@ export const LogoContainer = styled.div`
   position: relative;
   padding-right: ${({ theme }) => theme.spacing.s4};
   margin-right: ${({ theme }) => theme.spacing.s1};
+  cursor: pointer;
 
   &::before {
     content: "";

@@ -15,57 +15,73 @@ import { useMediaQuery } from "@basestack/hooks";
 
 const buttons = [
   {
+    id: 1,
     text: "General",
-    href: "/settings/general",
+    href: "/[projectSlug]/settings/general",
   },
   {
+    id: 2,
     text: "Environments",
-    href: "/settings/environments",
+    href: "/[projectSlug]/settings/environments",
   },
   {
+    id: 3,
     text: "Members",
-    href: "/settings/members",
+    href: "/[projectSlug]/settings/members",
   },
   {
+    id: 4,
     text: "Api Keys",
-    href: "/settings/api-keys",
+    href: "/[projectSlug]/settings/api-keys",
   },
 ];
 
 const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.device.min.lg);
-  const { pathname, push } = useRouter();
+  const { pathname, push, query } = useRouter();
+
+  const projectSlug = query.projectSlug as string;
 
   const renderButton = useMemo(() => {
-    return buttons.map((button, index) => (
-      <ListItem key={index.toString()}>
-        <ButtonContainer isActive={pathname === button.href}>
-          <Link href={button.href} passHref>
+    return buttons.map(({ id, text, href }) => (
+      <ListItem key={`settings-button-list-${id}`}>
+        <ButtonContainer isActive={pathname === href}>
+          <Link
+            href={{
+              pathname: href,
+              query: { projectSlug },
+            }}
+            passHref
+          >
             <Button
               as="a"
               variant={ButtonVariant.Neutral}
               fontWeight={400}
               fullWidth
             >
-              {button.text}
+              {text}
             </Button>
           </Link>
         </ButtonContainer>
       </ListItem>
     ));
-  }, [pathname]);
+  }, [pathname, projectSlug]);
 
   const activeButtonIndex = useMemo(
     () => buttons.findIndex((button) => button.href === pathname),
     [pathname]
   );
 
-  const items = buttons.map(({ text }) => {
-    return {
-      text,
-    };
-  });
+  const items = useMemo(
+    () =>
+      buttons.map(({ text }) => {
+        return {
+          text,
+        };
+      }),
+    []
+  );
 
   return (
     <MainLayout>

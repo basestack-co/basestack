@@ -10,7 +10,7 @@ import { PopupItem } from "@basestack/design-system/molecules/PopupActions";
 import { ListItem } from "../styles";
 
 export interface ProjectsMenuProps {
-  projectId: string;
+  projectSlug: string;
   projects: Array<PopupItem>;
   onClickCreateProject: () => void;
 }
@@ -19,7 +19,7 @@ const AnimatedProjectsPopup = animated(PopupActions);
 
 const ProjectsMenu = ({
   projects,
-  projectId,
+  projectSlug,
   onClickCreateProject,
 }: ProjectsMenuProps) => {
   const menuWrapperRef = useRef(null);
@@ -44,10 +44,10 @@ const ProjectsMenu = ({
   });
 
   const currentProject = useMemo(() => {
-    const project = projects.find(({ id }) => id === projectId);
+    const project = projects.find(({ slug }) => slug === projectSlug);
 
     return project?.text ?? "Select project";
-  }, [projectId, projects]);
+  }, [projectSlug, projects]);
 
   const onClickCreate = useCallback(() => {
     setIsProjectsPopupOpen(false);
@@ -76,6 +76,7 @@ const ProjectsMenu = ({
               left={x}
               title="Projects"
               items={projects}
+              onCallback={onClickProjects}
               button={{
                 text: "Create Project",
                 onClick: onClickCreate,

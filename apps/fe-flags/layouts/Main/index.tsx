@@ -11,12 +11,14 @@ import { useSession } from "next-auth/react";
 // Components
 import { TabBar } from "@basestack/design-system";
 import Navigation from "./Navigation";
+// Server
+import { trpc } from "libs/trpc";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.device.max.lg);
-  const router = useRouter();
   const { dispatch } = useModals();
+  const router = useRouter();
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -24,13 +26,20 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     },
   });
 
-  if (status === "loading") {
-    return <div>isLoading</div>;
+  const { data, isLoading: isLoadingProjects } = trpc.useQuery(
+    ["project.all"],
+    {
+      enabled: status === "authenticated",
+    }
+  );
+
+  if (status === "loading" || isLoadingProjects) {
+    return <div>...isLoading</div>;
   }
 
   return (
     <Fragment>
-      <Navigation isDesktop={!isMobile} />
+      <Navigation isDesktop={!isMobile} data={data} />
       {children}
       {isMobile && (
         <TabBar

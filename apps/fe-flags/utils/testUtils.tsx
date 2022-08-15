@@ -1,8 +1,5 @@
 import React from "react";
 import { render, RenderOptions } from "@testing-library/react";
-// Locales
-import { IntlProvider } from "react-intl";
-import { messages } from "../locales";
 // Styles
 import { ThemeProvider } from "styled-components";
 import theme from "@basestack/design-system/theme";
@@ -24,9 +21,7 @@ const AllProviders = ({ children, initialState = {} }: AllProvidersProps) => {
     // @ts-ignore
     <SessionProvider session={{ expires: null }}>
       <ModalsContextProvider>
-        <IntlProvider locale="en" messages={messages.en}>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
-        </IntlProvider>
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
       </ModalsContextProvider>
     </SessionProvider>
   );

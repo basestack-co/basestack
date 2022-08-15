@@ -16,11 +16,13 @@ describe("PopupActions Molecule tests", () => {
           {
             id: "1",
             text: "Moon flags",
+            slug: "moon-lags",
             onClick: jest.fn(),
           },
           {
             id: "2",
             text: "Teams kids",
+            slug: "teams-kids",
             onClick: jest.fn(),
           },
         ]}

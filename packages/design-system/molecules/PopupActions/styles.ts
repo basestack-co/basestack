@@ -29,7 +29,7 @@ export const ListItem = styled.li`
   flex-direction: column;
 `;
 
-export const ProjectButton = styled.button`
+export const PopUpButton = styled.button`
   display: flex;
   align-items: center;
   background-color: transparent;

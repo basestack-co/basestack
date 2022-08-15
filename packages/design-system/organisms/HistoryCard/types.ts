@@ -1,6 +1,11 @@
 import { SpaceProps } from "styled-system";
 
-export type Type = "deleted" | "edited" | "created" | "toggledOn" | "toggledOff";
+export type Type =
+  | "deleted"
+  | "edited"
+  | "created"
+  | "toggledOn"
+  | "toggledOff";
 
 export interface HistoryCardProps extends SpaceProps {
   userName: string;

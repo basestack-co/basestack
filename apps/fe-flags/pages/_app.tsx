@@ -4,9 +4,6 @@ import { AppProps } from "next/app";
 import { ThemeProvider } from "styled-components";
 import theme from "@basestack/design-system/theme";
 import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
-//Locales
-import { IntlProvider } from "react-intl";
-import { language, messages } from "locales";
 // Contexts
 import { ModalsContextProvider } from "contexts/modals";
 // Modals
@@ -31,19 +28,17 @@ function MyApp({ Component, pageProps }: AppProps) {
   const Layout = Component.Layout || Noop;
   return (
     <SessionProvider session={pageProps.session}>
-      <IntlProvider locale={language} messages={messages[language]}>
-        <ThemeProvider theme={theme}>
-          <ModalsContextProvider>
-            <>
-              <GlobalStyle />
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-              <Modals />
-            </>
-          </ModalsContextProvider>
-        </ThemeProvider>
-      </IntlProvider>
+      <ThemeProvider theme={theme}>
+        <ModalsContextProvider>
+          <>
+            <GlobalStyle />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+            <Modals />
+          </>
+        </ModalsContextProvider>
+      </ThemeProvider>
     </SessionProvider>
   );
 }
