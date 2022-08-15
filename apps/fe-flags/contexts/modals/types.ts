@@ -6,6 +6,7 @@ export interface ModalsState {
   isCreateFlagModalOpen: boolean;
   isInviteMemberModalOpen: boolean;
   isCreateProjectModalOpen: boolean;
+  isEditFlagModalOpen: boolean;
 }
 
 export interface OpenDemoModalAction {
@@ -43,12 +44,20 @@ export interface OpenCreateProjectModalAction {
   };
 }
 
+export interface EditCreateFlagModalAction {
+  type: "EDIT_FLAG_MODAL_OPEN";
+  payload: {
+    isOpen: boolean;
+  };
+}
+
 export type ModalsActions =
   | OpenDemoModalAction
   | OpenCreateEnvironmentModalAction
   | OpenCreateFlagModalAction
   | OpenInviteMemberModalAction
-  | OpenCreateProjectModalAction;
+  | OpenCreateProjectModalAction
+  | EditCreateFlagModalAction;
 
 export interface Context {
   state: ModalsState;

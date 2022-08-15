@@ -4,6 +4,7 @@ import {
   OpenCreateFlagModalAction,
   OpenInviteMemberModalAction,
   OpenCreateProjectModalAction,
+  EditCreateFlagModalAction,
 } from "./types";
 
 export const setIsDemoModalOpen = (isOpen: boolean): OpenDemoModalAction => ({
@@ -36,5 +37,12 @@ export const seIsCreateProjectModalOpen = (
   isOpen: boolean
 ): OpenCreateProjectModalAction => ({
   type: "CREATE_PROJECT_MODAL_OPEN",
+  payload: { isOpen },
+});
+
+export const setIstEditFlagModalOpen = (
+  isOpen: boolean
+): EditCreateFlagModalAction => ({
+  type: "EDIT_FLAG_MODAL_OPEN",
   payload: { isOpen },
 });

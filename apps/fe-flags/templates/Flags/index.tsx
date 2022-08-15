@@ -8,6 +8,8 @@ import {
   slideTop,
   ButtonVariant,
 } from "@basestack/design-system";
+import { setIstEditFlagModalOpen } from "contexts/modals/actions";
+import useModals from "hooks/useModals";
 import { useTheme } from "styled-components";
 import { FlagsCardContainer, FlagsTableContainer } from "./styles";
 import { Container } from "../styles";
@@ -25,6 +27,7 @@ const AnimatedFlagCard = animated(FlagCard);
 const AnimatedFlagRow = animated(FlagRow);
 
 const Flags = () => {
+  const { dispatch } = useModals();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.device.min.lg);
   const [data, setData] = useState(mockFlags);
@@ -84,8 +87,16 @@ const Flags = () => {
   );
 
   const popupItems = [
-    { icon: "edit", text: "Edit", onClick: () => console.log("") },
-    { icon: "history", text: "History", onClick: () => console.log("") },
+    {
+      icon: "edit",
+      text: "Edit",
+      onClick: () => dispatch(setIstEditFlagModalOpen(true)),
+    },
+    {
+      icon: "history",
+      text: "History",
+      onClick: () => dispatch(setIstEditFlagModalOpen(true)),
+    },
     {
       icon: "delete",
       text: "Delete",

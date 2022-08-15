@@ -8,6 +8,7 @@ export const initialState: ModalsState = {
   isCreateFlagModalOpen: false,
   isInviteMemberModalOpen: false,
   isCreateProjectModalOpen: false,
+  isEditFlagModalOpen: false,
 };
 
 export const ModalsContext = createContext<Context>({
@@ -48,6 +49,12 @@ export const Reducer = (
       return {
         ...state,
         isCreateProjectModalOpen: action.payload.isOpen,
+      };
+
+    case "EDIT_FLAG_MODAL_OPEN":
+      return {
+        ...state,
+        isEditFlagModalOpen: action.payload.isOpen,
       };
 
     default:

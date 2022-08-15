@@ -4,6 +4,7 @@ import CreateFlagModal from "./CreateFlag";
 import InviteMemberModal from "./InviteMember";
 import CreateEnvironmentModal from "./CreateEnvironment";
 import CreateProjectModal from "./CreateProject";
+import EditFlag from "./EditFlag";
 
 const Modals = () => {
   return (
@@ -13,6 +14,7 @@ const Modals = () => {
       <InviteMemberModal />
       <CreateEnvironmentModal />
       <CreateProjectModal />
+      <EditFlag />
     </Fragment>
   );
 };
