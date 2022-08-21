@@ -1,25 +1,21 @@
-import React, { memo, useCallback, useRef, useState } from "react";
+import React, { memo, useCallback, useRef, useState, useMemo } from "react";
 import { useClickAway } from "@basestack/hooks";
 import { autoUpdate, useFloating } from "@floating-ui/react-dom";
 import { useTheme } from "styled-components";
 import { animated, config, useTransition } from "react-spring";
-import { Button, ButtonVariant } from "../../../atoms";
-import { Popup } from "../../../molecules";
-import { scaleInTopLeft } from "../../../animations/springs";
+import { Popup, Button, ButtonVariant } from "@basestack/design-system";
+import { scaleInTopLeft } from "@basestack/design-system/animations/springs";
+import { inferQueryOutput } from "libs/trpc";
 
 const AnimatedMenu = animated(Popup);
 
 export interface EnvironmentsMenuProps {
   title: string;
-  environments: Array<string>;
+  data?: inferQueryOutput<"environment.all">;
   onSelect: (item: string) => void;
 }
 
-const EnvironmentsMenu = ({
-  title,
-  environments,
-  onSelect,
-}: EnvironmentsMenuProps) => {
+const EnvironmentsMenu = ({ title, data, onSelect }: EnvironmentsMenuProps) => {
   const theme = useTheme();
   const menuWrapperRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -37,15 +33,21 @@ const EnvironmentsMenu = ({
     ...scaleInTopLeft,
   });
 
-  const items = environments.map((item) => {
-    return {
-      text: item,
-      onClick: () => {
-        setIsMenuOpen(false);
-        onSelect(item);
-      },
-    };
-  });
+  const items = useMemo(() => {
+    if (!data || !data.environments) {
+      return [];
+    }
+
+    return data.environments.map(({ name, id }) => {
+      return {
+        text: name,
+        onClick: () => {
+          setIsMenuOpen(false);
+          onSelect(name);
+        },
+      };
+    });
+  }, [data]);
 
   useClickAway(menuWrapperRef, () => {
     setIsMenuOpen(false);

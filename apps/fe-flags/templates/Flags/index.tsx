@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useTheme } from "styled-components";
-// Server
-import { inferQueryOutput, trpc } from "libs/trpc";
 // Hooks
 import { useMediaQuery } from "@basestack/hooks";
 // Types
@@ -9,9 +7,11 @@ import { SelectedView } from "types/flags";
 // Router
 import { useRouter } from "next/router";
 // Components
-import { Text, Toolbar } from "@basestack/design-system";
+import { Text } from "@basestack/design-system";
 import FlagCards from "./Cards";
 import { Container } from "../styles";
+// Containers
+import Toolbar from "./Toolbar";
 
 const Flags = () => {
   const theme = useTheme();
@@ -23,27 +23,21 @@ const Flags = () => {
   const [selectedView, setSelectedView] = useState<SelectedView>("cards");
   const [selectedEnvironment, setSelectedEnvironment] = useState("all");
 
-  const { data, isLoading } = trpc.useQuery([
-    "flag.byProjectSlug",
-    { projectSlug, pagination: null },
-  ]);
-
-  console.log("data = ", data);
-
   useEffect(() => {
     if (!isDesktop) {
       setSelectedView("cards");
     }
   }, [isDesktop]);
 
+  const onSelectEnv = useCallback(() => {}, [])
+
   return (
     <Container>
       <Text size="xLarge">Flags</Text>
       <Toolbar
+        projectSlug={projectSlug}
         onChangeView={(selected) => setSelectedView(selected as SelectedView)}
-        my={theme.spacing.s5}
         onSearch={(event) => console.log(event.target.value)}
-        environments={["Development", "Staging", "Production"]}
         onSelect={(environment) => setSelectedEnvironment(environment)}
       />
 

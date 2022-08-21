@@ -1,7 +1,6 @@
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
 import * as yup from "yup";
-import { getValue } from "@basestack/utils";
 
 export const environmentRouter = createProtectedRouter()
   .query("all", {
@@ -9,14 +8,14 @@ export const environmentRouter = createProtectedRouter()
       restricted: true,
     },
     input: yup.object({
-      projectId: yup.string().required(),
+      projectSlug: yup.string().required(),
     }),
     async resolve({ ctx, input }) {
       const userId = ctx.session.user.id;
 
-      const environments = await ctx.prisma.project.findFirst({
+      return await ctx.prisma.project.findFirst({
         where: {
-          id: input.projectId,
+          slug: input.projectSlug,
           users: {
             some: {
               user: {
@@ -32,8 +31,6 @@ export const environmentRouter = createProtectedRouter()
           environments: true,
         },
       });
-
-      return { environments: getValue(environments, "environments", []) };
     },
   })
   .mutation("create", {

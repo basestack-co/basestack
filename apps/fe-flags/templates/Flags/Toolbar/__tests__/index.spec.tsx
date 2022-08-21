@@ -1,5 +1,5 @@
 import { cleanup } from "@testing-library/react";
-import { renderWithTheme } from "../../../utils/testUtils";
+import { renderWithTheme } from "utils/testUtils";
 import Toolbar from "..";
 
 describe("Toolbar Organism tests", () => {

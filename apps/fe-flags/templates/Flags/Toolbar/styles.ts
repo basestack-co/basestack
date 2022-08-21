@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { space } from "styled-system";
+import { space, SpaceProps } from "styled-system";
 
-export const Container = styled.header`
+export const Container = styled.header<SpaceProps>`
   ${space};
   display: flex;
   align-items: center;
