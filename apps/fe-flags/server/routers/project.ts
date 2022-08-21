@@ -84,9 +84,34 @@ export const projectRouter = createProtectedRouter()
             },
           },
         }),
+        // TODO use create many
         ctx.prisma.environment.create({
           data: {
             name: "develop",
+            slug: `env-${generateSlug()}`,
+            description: "The default environment",
+            project: {
+              connect: {
+                id: project.id,
+              },
+            },
+          },
+        }),
+        ctx.prisma.environment.create({
+          data: {
+            name: "staging",
+            slug: `env-${generateSlug()}`,
+            description: "The default environment",
+            project: {
+              connect: {
+                id: project.id,
+              },
+            },
+          },
+        }),
+        ctx.prisma.environment.create({
+          data: {
+            name: "production",
             slug: `env-${generateSlug()}`,
             description: "The default environment",
             project: {

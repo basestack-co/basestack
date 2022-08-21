@@ -2,6 +2,7 @@ import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
 import * as yup from "yup";
 import { getValue, groupBy } from "@basestack/utils";
+import dayjs from "dayjs";
 
 export const flagRouter = createProtectedRouter()
   .query("all", {
@@ -98,12 +99,12 @@ export const flagRouter = createProtectedRouter()
       };
     },
   })
-  .query("byProjectId", {
+  .query("byProjectSlug", {
     meta: {
       restricted: true,
     },
     input: yup.object({
-      projectId: yup.string().required(),
+      projectSlug: yup.string().required(),
       pagination: yup
         .object({
           skip: yup.string(),
@@ -120,7 +121,7 @@ export const flagRouter = createProtectedRouter()
           where: {
             environment: {
               project: {
-                id: input.projectId,
+                slug: input.projectSlug,
               },
             },
           },
@@ -150,12 +151,15 @@ export const flagRouter = createProtectedRouter()
         const flags = grouped[key];
         return {
           slug: key,
+          createdAt: getValue(flags, "[0].createdAt", ""),
           flags,
-          environments: flags.map(({ environment: { id, name }, enabled }) => ({
-            id,
-            name,
-            enabled,
-          })),
+          environments: flags
+            .map(({ environment: { id, name }, enabled }) => ({
+              id,
+              name,
+              enabled,
+            }))
+            .reverse(),
         };
       });
 
