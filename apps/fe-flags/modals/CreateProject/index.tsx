@@ -19,11 +19,9 @@ import { trpc } from "libs/trpc";
 import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
 // Utils
 import { generateSlug } from "random-word-slugs";
+import { slugify } from "@basestack/utils";
 // Hooks
 import { useDebounce } from "@basestack/hooks";
-
-const formatSlug = (value: string) =>
-  value.replace(/\b \b/g, "-").toLowerCase().trim();
 
 const CreateProjectModal = () => {
   const theme = useTheme();
@@ -89,7 +87,7 @@ const CreateProjectModal = () => {
     () => {
       const value = formik.values.name;
       if (value) {
-        formik.setFieldValue("slug", formatSlug(value));
+        formik.setFieldValue("slug", value);
       }
     },
     500,
@@ -127,7 +125,7 @@ const CreateProjectModal = () => {
           hint={formik.errors.slug}
           inputProps={{
             name: "slug",
-            value: formatSlug(formik.values.slug),
+            value: slugify(formik.values.slug),
             onChange: formik.handleChange,
             placeholder: "pr-chat",
             hasError: formik.touched.slug && !!formik.errors.slug,
