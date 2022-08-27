@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import dayjs from "dayjs"
+import dayjs from "dayjs";
 // Server
 import { trpc } from "libs/trpc";
 // Components
@@ -125,7 +125,7 @@ const FlagCards = ({ selectedView, projectSlug }: FlagCardsProps) => {
                 style={styles}
                 zIndex={flags.length - index}
                 title={flag.slug}
-                description={"- - -"}
+                description={flag.description}
                 environments={flag.environments}
                 date={`Created ${dayjs(flag.createdAt).format("DD/MM/YYYY")}`}
                 popupItems={popupItems}
@@ -141,7 +141,7 @@ const FlagCards = ({ selectedView, projectSlug }: FlagCardsProps) => {
                 style={styles}
                 zIndex={flags.length - index}
                 title={flag.slug}
-                description={"- - -"}
+                description={flag.description}
                 environments={flag.environments}
                 date={`Created ${dayjs(flag.createdAt).format("DD/MM/YYYY")}`}
                 popupItems={popupItems}

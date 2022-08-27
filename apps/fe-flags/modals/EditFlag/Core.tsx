@@ -34,6 +34,8 @@ const Core = () => {
         label={`${textareaLength.length} / 120`}
         textarea
         textareaProps={{
+          value: "",
+          name: "",
           onChange: (event) => onChangeTextarea(event),
           placeholder: "Flag description",
           maxlength: "120",

@@ -58,6 +58,8 @@ describe("InputGroup Molecule tests", () => {
         title="Feature Key"
         textarea
         textareaProps={{
+          value: "",
+          name: "",
           onChange: jest.fn(),
           placeholder: "Description",
         }}

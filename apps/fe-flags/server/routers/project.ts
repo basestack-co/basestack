@@ -51,77 +51,42 @@ export const projectRouter = createProtectedRouter()
         data: {
           ...input,
           slug: `pr-${input.slug}`,
+          environments: {
+            create: [
+              {
+                name: "develop",
+                slug: `env-${generateSlug()}`,
+                description: "The default develop environment",
+              },
+              {
+                name: "staging",
+                slug: `env-${generateSlug()}`,
+                description: "The default staging environment",
+              },
+              {
+                name: "production",
+                slug: `env-${generateSlug()}`,
+                description: "The default production environment",
+              },
+            ],
+          },
         },
       });
 
-      /* const connection = await ctx.prisma.projectsOnUsers.create({
-                          data: {
-                            project: {
-                              connect: {
-                                id: project.id,
-                              },
-                            },
-                            user: {
-                              connect: {
-                                id: userId,
-                              },
-                            },
-                          },
-                        }); */
-
-      const [connection] = await ctx.prisma.$transaction([
-        ctx.prisma.projectsOnUsers.create({
-          data: {
-            project: {
-              connect: {
-                id: project.id,
-              },
-            },
-            user: {
-              connect: {
-                id: userId,
-              },
+      const connection = await ctx.prisma.projectsOnUsers.create({
+        data: {
+          project: {
+            connect: {
+              id: project.id,
             },
           },
-        }),
-        // TODO use create many
-        ctx.prisma.environment.create({
-          data: {
-            name: "develop",
-            slug: `env-${generateSlug()}`,
-            description: "The default environment",
-            project: {
-              connect: {
-                id: project.id,
-              },
+          user: {
+            connect: {
+              id: userId,
             },
           },
-        }),
-        ctx.prisma.environment.create({
-          data: {
-            name: "staging",
-            slug: `env-${generateSlug()}`,
-            description: "The default environment",
-            project: {
-              connect: {
-                id: project.id,
-              },
-            },
-          },
-        }),
-        ctx.prisma.environment.create({
-          data: {
-            name: "production",
-            slug: `env-${generateSlug()}`,
-            description: "The default environment",
-            project: {
-              connect: {
-                id: project.id,
-              },
-            },
-          },
-        }),
-      ]);
+        },
+      });
 
       return { project, connection };
     },

@@ -11,9 +11,9 @@ describe("FlagCard Molecule tests", () => {
         title="header_size"
         description="Display new header for only a number of users"
         environments={[
-          { text: "Development", isFlagOn: true },
-          { text: "Staging", isFlagOn: false },
-          { text: "Production", isFlagOn: false },
+          { name: "Development", enabled: true, id: "1" },
+          { name: "Staging", enabled: false, id: "2" },
+          { name: "Production", enabled: false, id: "3" },
         ]}
         date="Created 11 jan 2022"
         popupItems={[]}
@@ -28,9 +28,9 @@ describe("FlagCard Molecule tests", () => {
         title="header_size"
         description="Display new header for only a number of users"
         environments={[
-          { text: "Development", isFlagOn: true },
-          { text: "Staging", isFlagOn: false },
-          { text: "Production", isFlagOn: false },
+          { name: "Development", enabled: true, id: "1" },
+          { name: "Staging", enabled: false, id: "2" },
+          { name: "Production", enabled: false, id: "3" },
         ]}
         date="Created 11 jan 2022"
         popupItems={[

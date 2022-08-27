@@ -56,6 +56,8 @@ const CreateEnvironmentModal = () => {
           label={`${textareaLength.length} / 120`}
           textarea
           textareaProps={{
+            value: "",
+            name: "",
             onChange: (event) => onChangeTextarea(event),
             placeholder: "Environment description",
             maxlength: "120",

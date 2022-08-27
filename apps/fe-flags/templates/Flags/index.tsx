@@ -29,16 +29,27 @@ const Flags = () => {
     }
   }, [isDesktop]);
 
-  const onSelectEnv = useCallback(() => {}, [])
+  const onChangeView = useCallback((selected: string) => {
+    setSelectedView(selected as SelectedView);
+  }, []);
+
+  const onSearch = useCallback((event) => {
+    console.log(event.target.value);
+  }, []);
+
+  const onSelectEnvironment = useCallback((environment: string) => {
+    setSelectedEnvironment(environment);
+  }, []);
 
   return (
     <Container>
       <Text size="xLarge">Flags</Text>
       <Toolbar
         projectSlug={projectSlug}
-        onChangeView={(selected) => setSelectedView(selected as SelectedView)}
-        onSearch={(event) => console.log(event.target.value)}
-        onSelect={(environment) => setSelectedEnvironment(environment)}
+        onChangeView={onChangeView}
+        onSearch={onSearch}
+        onSelect={onSelectEnvironment}
+        isDesktop={isDesktop}
       />
 
       <FlagCards projectSlug={projectSlug} selectedView={selectedView} />

@@ -152,6 +152,11 @@ export const flagRouter = createProtectedRouter()
         return {
           slug: key,
           createdAt: getValue(flags, "[0].createdAt", ""),
+          description: getValue(
+            flags,
+            "[0].description",
+            "No description provided"
+          ),
           flags,
           environments: flags
             .map(({ environment: { id, name }, enabled }) => ({

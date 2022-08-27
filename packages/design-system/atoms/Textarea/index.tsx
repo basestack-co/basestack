@@ -19,6 +19,22 @@ export interface TextareaProps extends SpaceProps {
    * Textarea Max Length
    */
   maxlength?: string;
+  /**
+   * Textarea name
+   */
+  name: string;
+  /**
+   * Input value
+   */
+  value: string;
+  /**
+   * Input error styles
+   */
+  hasError?: boolean;
+  /**
+   * Input disabled state
+   */
+  isDisabled?: boolean;
 }
 
 const Textarea: React.FC<TextareaProps> = ({
