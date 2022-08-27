@@ -10,6 +10,7 @@ export const flagRouter = createProtectedRouter()
       restricted: true,
     },
     input: yup.object({
+      projectSlug: yup.string().required(),
       projectId: yup.string().required(),
       environmentId: yup.string().required(),
       pagination: yup
@@ -183,24 +184,24 @@ export const flagRouter = createProtectedRouter()
       restricted: true,
     },
     input: yup.object({
-      environmentId: yup.string().required(),
+      // this prop is used on the createProtectedRouter Middleware to validated user project permissions
       projectId: yup.string().required(),
-      slug: yup.string().required(),
-      enabled: yup.bool().required(),
-      payload: yup.mixed().optional(),
-      expiredAt: yup.date().nullable(),
-      description: yup.string().optional(),
+      data: yup
+        .array(
+          yup.object({
+            environmentId: yup.string().required(),
+            slug: yup.string().required(),
+            enabled: yup.bool().required(),
+            payload: yup.mixed().optional().nullable(),
+            expiredAt: yup.date().optional().nullable(),
+            description: yup.string().optional(),
+          })
+        )
+        .required(),
     }),
     resolve: async ({ ctx, input }) => {
-      const flag = await ctx.prisma.flag.create({
-        data: {
-          slug: input.slug,
-          environmentId: input.environmentId,
-          enabled: input.enabled,
-          payload: input.payload,
-          expiredAt: input.expiredAt,
-          description: input.description,
-        },
+      const flag = await ctx.prisma.flag.createMany({
+        data: input.data,
       });
 
       return { flag };

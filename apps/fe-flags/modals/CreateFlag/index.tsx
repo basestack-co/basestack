@@ -15,15 +15,24 @@ import {
 import useModals from "hooks/useModals";
 import { seIstCreateFlagModalOpen } from "contexts/modals/actions";
 // Form
-import { useFormik } from "formik";
+import { useFormik, FormikProps } from "formik";
 import * as Yup from "yup";
+// Types
+import { HistoryAction } from "types/history";
 // Server
 import { trpc } from "libs/trpc";
 import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
 // Styles
 import { Environments } from "./styles";
 
+interface InitialValues {
+  name: string;
+  description: string;
+  environments: Array<{ id: string; name: string; enabled: boolean }>;
+}
+
 const CreateFlagModal = () => {
+  const trpcContext = trpc.useContext();
   const theme = useTheme();
   const router = useRouter();
   const projectSlug = router.query.projectSlug as string;
@@ -31,6 +40,7 @@ const CreateFlagModal = () => {
     dispatch,
     state: { isCreateFlagModalOpen: isModalOpen },
   } = useModals();
+  const { onCreateHistory } = useCreateApiHistory();
   const [textareaLength, setTextareaLength] = useState("");
   const [selectedTab, setSelectedTab] = useState("core");
 
@@ -39,11 +49,31 @@ const CreateFlagModal = () => {
     { projectSlug },
   ]);
 
+  const createFlag = trpc.useMutation(["flag.create"], {
+    async onSuccess(data) {
+      console.log("success data = ", data);
+
+      onCreateHistory(HistoryAction.createFlag, {
+        projectId: "cl73mzxsf0947wu68vmsd448f",
+        payload: {
+          flag: {
+            id: "",
+            slug: "",
+            enabled: false,
+          },
+        },
+      });
+
+      await trpcContext.invalidateQueries(["flag.byProjectSlug"]);
+    },
+  });
+
   const onClose = useCallback(() => {
     dispatch(seIstCreateFlagModalOpen(false));
+    formik.resetForm();
   }, [dispatch]);
 
-  const formik = useFormik({
+  const formik: FormikProps<InitialValues> = useFormik<InitialValues>({
     initialValues: {
       name: "",
       description: "",
@@ -55,26 +85,59 @@ const CreateFlagModal = () => {
         .required("Required"),
       description: Yup.string().max(150, "Must be 120 characters or less"),
     }),
-    onSubmit: async (values, { resetForm }) => {
-      console.log("form values = ", values);
-      // resetForm();
+    onSubmit: (values, { resetForm }) => {
+      const data = values.environments.map((env) => ({
+        slug: values.name,
+        description: values.description,
+        environmentId: env.id,
+        enabled: env.enabled,
+        payload: JSON.stringify({}),
+        expiredAt: null,
+      }));
+
+      createFlag.mutate({ projectId: "cl73mzxsf0947wu68vmsd448f", data });
+      onClose();
     },
   });
 
   useEffect(() => {
-    if (!isLoading && data && data.environments) {
-      console.log("data environments = ", data.environments);
-      formik.setFieldValue("environments", [{ id: 1 }]);
+    if (!isLoading && data && data.environments && isModalOpen) {
+      const environments = data.environments.map(({ id, name }) => ({
+        id,
+        name,
+        enabled: false,
+      }));
+      formik.setFieldValue("environments", environments);
     }
-  }, [data, isLoading]);
+    // It wants formik but adding create an infinite loop
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isLoading, isModalOpen]);
 
   const onChangeTextarea = useCallback(
-    (event) => {
+    (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      const text = event.target.value;
       if (textareaLength.length < 120) {
-        setTextareaLength(event.target.value.toString());
+        setTextareaLength(text);
       }
+
+      formik.setFieldValue("description", text);
     },
     [textareaLength]
+  );
+
+  const onChangeEnvironmentSwitch = useCallback(
+    (id: string, enabled: boolean) => {
+      console.log("id = ", id);
+      console.log("enabled = ", enabled);
+      const updated = formik.values.environments.map((item) =>
+        item.id === id ? { ...item, enabled } : item
+      );
+
+      console.log("updated = ", updated);
+
+      formik.setFieldValue("environments", updated);
+    },
+    [formik.values.environments]
   );
 
   const onRenderCore = useCallback(() => {
@@ -102,7 +165,7 @@ const CreateFlagModal = () => {
           textareaProps={{
             name: "description",
             value: formik.values.description,
-            onChange: formik.handleChange,
+            onChange: onChangeTextarea,
             placeholder: "Flag description",
             maxlength: "120",
             hasError: formik.touched.description && !!formik.errors.description,
@@ -116,18 +179,20 @@ const CreateFlagModal = () => {
           data-testid="input-group-title"
           size="small"
         >
-          Enabled Environments
+          Environments
         </Text>
         <Environments>
-          {formik.values.environments.map((item, index) => {
+          {formik.values.environments.map(({ id, name, enabled }) => {
             return (
               <Switch
-                key={`${index}`}
+                key={`create-flag-env-${id}`}
                 py={theme.spacing.s2}
                 mr={theme.spacing.s5}
-                text="Development:"
-                checked
-                onChange={() => console.log("")}
+                text={name}
+                checked={enabled}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  onChangeEnvironmentSwitch(id, event.target.checked)
+                }
               />
             );
           })}
