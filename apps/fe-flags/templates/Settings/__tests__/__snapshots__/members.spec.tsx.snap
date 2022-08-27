@@ -105,12 +105,16 @@ exports[`Members General tests render General correctly 1`] = `
   width: fit-content;
 }
 
-.c22:hover:not(:active) {
+.c22:hover:not(:active,:disabled) {
   background-color: #333;
 }
 
 .c22 .material-symbols-sharp {
   color: inherit;
+}
+
+.c22:disabled {
+  cursor: not-allowed;
 }
 
 .c2 {

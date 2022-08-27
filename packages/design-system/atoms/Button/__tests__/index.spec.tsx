@@ -130,4 +130,18 @@ describe("Button Atom tests", () => {
     const button = getByText(/fullWidth/);
     expect(button).toHaveStyle(`width: 100%`);
   });
+
+  test("should render Button with spinner", () => {
+    const { asFragment } = renderWithTheme(
+      <Button isLoading>fullWidth</Button>
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test("should render Button disabled", () => {
+    const { asFragment } = renderWithTheme(
+      <Button isDisabled>fullWidth</Button>
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
 });

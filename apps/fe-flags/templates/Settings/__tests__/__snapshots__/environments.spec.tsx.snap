@@ -87,12 +87,16 @@ exports[`Environments Template tests render Environments correctly 1`] = `
   width: fit-content;
 }
 
-.c20:hover:not(:active) {
+.c20:hover:not(:active,:disabled) {
   background-color: #333;
 }
 
 .c20 .material-symbols-sharp {
   color: inherit;
+}
+
+.c20:disabled {
+  cursor: not-allowed;
 }
 
 .c2 {

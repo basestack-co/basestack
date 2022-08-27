@@ -57,12 +57,16 @@ exports[`Environments General tests render General correctly 1`] = `
   width: fit-content;
 }
 
-.c11:hover:not(:active) {
+.c11:hover:not(:active,:disabled) {
   background-color: #333;
 }
 
 .c11 .material-symbols-sharp {
   color: inherit;
+}
+
+.c11:disabled {
+  cursor: not-allowed;
 }
 
 .c2 {

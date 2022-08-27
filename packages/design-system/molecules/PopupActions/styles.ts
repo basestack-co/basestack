@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { rem } from "polished";
 import { position } from "styled-system";
+import { scrollbar } from "../../styles";
 
 export const Container = styled.div`
   ${position};
@@ -22,6 +23,9 @@ export const Header = styled.div`
 export const List = styled.ul`
   display: flex;
   flex-direction: column;
+  max-height: 264px;
+  overflow-y: scroll;
+  ${scrollbar};
 `;
 
 export const ListItem = styled.li`

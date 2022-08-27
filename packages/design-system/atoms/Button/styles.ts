@@ -30,7 +30,7 @@ const primaryStyles = css`
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
 
-  &:hover:not(:active) {
+  &:hover:not(:active, :disabled) {
     background-color: ${({ theme }) => darken(0.1, theme.colors.primary)};
   }
 `;
@@ -40,7 +40,7 @@ const secondaryStyles = css`
   background-color: ${({ theme }) => theme.colors.black};
   color: ${({ theme }) => theme.colors.white};
 
-  &:hover:not(:active) {
+  &:hover:not(:active, :disabled) {
     background-color: ${({ theme }) => lighten(0.2, theme.colors.black)};
   }
 `;
@@ -50,7 +50,7 @@ const tertiaryStyles = css`
   background-color: ${({ theme }) => theme.colors.gray100};
   color: ${({ theme }) => theme.colors.black};
 
-  &:hover:not(:active) {
+  &:hover:not(:active, :disabled) {
     background-color: ${({ theme }) => theme.colors.gray200};
   }
 `;
@@ -61,7 +61,7 @@ const outlinedStyles = css`
   color: ${({ theme }) => theme.colors.black};
   border: 2px solid ${({ theme }) => theme.colors.black};
 
-  &:hover:not(:active) {
+  &:hover:not(:active, :disabled) {
     color: ${({ theme }) => lighten(0.3, theme.colors.black)};
     border-color: ${({ theme }) => lighten(0.3, theme.colors.black)};
 
@@ -76,10 +76,10 @@ const neutralStyles = css`
   background-color: transparent;
   color: ${({ theme }) => theme.colors.black};
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: ${({ theme }) => theme.colors.gray100};
   }
-  &:active {
+  &:active:not(:disabled) {
     background-color: ${({ theme }) => theme.colors.gray200};
   }
 `;
@@ -89,11 +89,11 @@ const primaryNeutralStyles = css`
   background-color: transparent;
   color: ${({ theme }) => theme.colors.black};
 
-  &:hover {
+  &:hover:not(:disabled) {
     color: ${({ theme }) => theme.colors.blue400};
     background-color: ${({ theme }) => theme.colors.blue50};
   }
-  &:active {
+  &:active:not(:disabled) {
     background-color: ${({ theme }) => theme.colors.blue100};
   }
 `;
@@ -103,10 +103,10 @@ const dangerStyles = css`
   background-color: transparent;
   color: ${({ theme }) => theme.colors.red400};
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: ${({ theme }) => theme.colors.red50};
   }
-  &:active {
+  &:active:not(:disabled) {
     background-color: ${({ theme }) => theme.colors.red100};
   }
 `;
@@ -166,4 +166,8 @@ export const StyledButton = styled.button<Props>`
     css`
       padding-right: ${rem("8px")};
     `};
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;

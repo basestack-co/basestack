@@ -57,12 +57,16 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
   width: fit-content;
 }
 
-.c7:hover:not(:active) {
+.c7:hover:not(:active,:disabled) {
   background-color: #333;
 }
 
 .c7 .material-symbols-sharp {
   color: inherit;
+}
+
+.c7:disabled {
+  cursor: not-allowed;
 }
 
 .c0 {
@@ -209,12 +213,16 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
   width: fit-content;
 }
 
-.c9:hover:not(:active) {
+.c9:hover:not(:active,:disabled) {
   background-color: #333;
 }
 
 .c9 .material-symbols-sharp {
   color: inherit;
+}
+
+.c9:disabled {
+  cursor: not-allowed;
 }
 
 .c0 {
@@ -404,12 +412,16 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
   width: fit-content;
 }
 
-.c7:hover:not(:active) {
+.c7:hover:not(:active,:disabled) {
   background-color: #333;
 }
 
 .c7 .material-symbols-sharp {
   color: inherit;
+}
+
+.c7:disabled {
+  cursor: not-allowed;
 }
 
 .c0 {

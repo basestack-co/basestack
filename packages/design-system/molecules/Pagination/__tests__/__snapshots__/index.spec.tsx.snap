@@ -71,16 +71,20 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   padding-left: 0.5rem;
 }
 
-.c1:hover {
+.c1:hover:not(:disabled) {
   background-color: #EEEEEE;
 }
 
-.c1:active {
+.c1:active:not(:disabled) {
   background-color: #E2E2E2;
 }
 
 .c1 .material-symbols-sharp {
   color: inherit;
+}
+
+.c1:disabled {
+  cursor: not-allowed;
 }
 
 .c8 {
@@ -112,16 +116,20 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   padding-right: 0.5rem;
 }
 
-.c8:hover {
+.c8:hover:not(:disabled) {
   background-color: #EEEEEE;
 }
 
-.c8:active {
+.c8:active:not(:disabled) {
   background-color: #E2E2E2;
 }
 
 .c8 .material-symbols-sharp {
   color: inherit;
+}
+
+.c8:disabled {
+  cursor: not-allowed;
 }
 
 .c0 {
