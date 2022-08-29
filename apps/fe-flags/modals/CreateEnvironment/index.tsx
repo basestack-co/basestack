@@ -36,8 +36,8 @@ const CreateEnvironmentModal = () => {
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { text: "Close", onClick: onClose },
-          { text: "Create", onClick: () => console.log("create") },
+          { children: "Close", onClick: onClose },
+          { children: "Create", onClick: () => console.log("create") },
         ]}
       >
         <InputGroup

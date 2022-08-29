@@ -35,7 +35,7 @@ describe.skip("Toolbar Organism tests", () => {
       <Toolbar
         onChangeView={jest.fn()}
         onSelect={jest.fn()}
-          // @ts-ignore
+        // @ts-ignore
         environments={[]}
         onSearch={jest.fn()}
       />

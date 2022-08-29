@@ -102,8 +102,8 @@ const CreateProjectModal = () => {
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { text: "Close", onClick: onClose },
-          { text: "Create", onClick: formik.handleSubmit },
+          { children: "Close", onClick: onClose },
+          { children: "Create", onClick: formik.handleSubmit },
         ]}
       >
         <InputGroup

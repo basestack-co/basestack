@@ -23,8 +23,8 @@ const InviteMemberModal = () => {
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { text: "Close", onClick: onClose },
-          { text: "Send Invite", onClick: () => console.log("invite") },
+          { children: "Close", onClick: onClose },
+          { children: "Send Invite", onClick: () => console.log("invite") },
         ]}
       >
         <InputGroup

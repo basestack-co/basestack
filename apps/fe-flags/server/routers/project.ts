@@ -26,14 +26,14 @@ export const projectRouter = createProtectedRouter()
       return { projects };
     },
   })
-  .query("byId", {
+  .query("bySlug", {
     input: yup.object({
-      projectId: yup.string().required(),
+      projectSlug: yup.string().required(),
     }),
     async resolve({ ctx, input }) {
       const project = await ctx.prisma.project.findUnique({
         where: {
-          id: input.projectId,
+          slug: input.projectSlug,
         },
       });
       return { project };

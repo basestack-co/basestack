@@ -79,9 +79,11 @@ const Modal: React.FC<ModalProps> = ({
                                 : ButtonVariant.Neutral
                             }
                             onClick={item.onClick}
+                            isDisabled={item.isDisabled}
+                            isLoading={item.isLoading}
                             ml={theme.spacing.s1}
                           >
-                            {item.text}
+                            {item.children}
                           </Button>
                         );
                       })}

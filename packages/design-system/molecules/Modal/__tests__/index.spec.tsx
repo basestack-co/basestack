@@ -6,8 +6,8 @@ describe("Modal Molecule tests", () => {
   afterEach(cleanup);
 
   const buttons = [
-    { text: "Close", onClick: () => console.log("yo") },
-    { text: "Create", onClick: () => console.log("yo") },
+    { children: "Close", onClick: jest.fn },
+    { children: "Create", onClick: jest.fn },
   ];
 
   test("render Modal correctly", () => {

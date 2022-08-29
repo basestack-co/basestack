@@ -37,8 +37,8 @@ const EditFlagModal = () => {
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { text: "Close", onClick: onClose },
-          { text: "Save", onClick: () => console.log("create") },
+          { children: "Close", onClick: onClose },
+          { children: "Save", onClick: () => console.log("create") },
         ]}
       >
         <Tabs

@@ -22,6 +22,8 @@ import { HistoryAction } from "types/history";
 // Server
 import { trpc } from "libs/trpc";
 import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
+// Utils
+import { getValue } from "@basestack/utils";
 // Styles
 import { Environments } from "./styles";
 
@@ -44,23 +46,30 @@ const CreateFlagModal = () => {
   const [textareaLength, setTextareaLength] = useState("");
   const [selectedTab, setSelectedTab] = useState("core");
 
-  const { data, isLoading } = trpc.useQuery([
-    "environment.all",
-    { projectSlug },
-  ]);
+  const { data: current } = trpc.useQuery(["project.bySlug", { projectSlug }], {
+    enabled: !!projectSlug && isModalOpen,
+  });
+
+  const { data, isLoading } = trpc.useQuery(
+    ["environment.all", { projectSlug }],
+    { enabled: !!projectSlug && isModalOpen }
+  );
+
 
   const createFlag = trpc.useMutation(["flag.create"], {
-    async onSuccess(data) {
-      console.log("success data = ", data);
-
+    async onSuccess(_, form) {
       onCreateHistory(HistoryAction.createFlag, {
-        projectId: "cl73mzxsf0947wu68vmsd448f",
+        projectId: form.projectId,
         payload: {
           flag: {
             id: "",
-            slug: "",
-            enabled: false,
+            slug: getValue(form, "data[0].slug", ""),
+            enabled: getValue(form, "data[0].enabled", false),
+            description: getValue(form, "data[0].description", ""),
           },
+          environment: form.data.map(({ environmentId }) => ({
+            id: environmentId,
+          })),
         },
       });
 
@@ -85,7 +94,7 @@ const CreateFlagModal = () => {
         .required("Required"),
       description: Yup.string().max(150, "Must be 120 characters or less"),
     }),
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: (values) => {
       const data = values.environments.map((env) => ({
         slug: values.name,
         description: values.description,
@@ -95,7 +104,7 @@ const CreateFlagModal = () => {
         expiredAt: null,
       }));
 
-      createFlag.mutate({ projectId: "cl73mzxsf0947wu68vmsd448f", data });
+      createFlag.mutate({ projectId: current?.project?.id!, data });
       onClose();
     },
   });
@@ -127,13 +136,9 @@ const CreateFlagModal = () => {
 
   const onChangeEnvironmentSwitch = useCallback(
     (id: string, enabled: boolean) => {
-      console.log("id = ", id);
-      console.log("enabled = ", enabled);
       const updated = formik.values.environments.map((item) =>
         item.id === id ? { ...item, enabled } : item
       );
-
-      console.log("updated = ", updated);
 
       formik.setFieldValue("environments", updated);
     },
@@ -229,8 +234,13 @@ const CreateFlagModal = () => {
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { text: "Close", onClick: onClose },
-          { text: "Create", onClick: formik.handleSubmit },
+          { children: "Close", onClick: onClose },
+          {
+            children: "Create",
+            onClick: formik.handleSubmit,
+            isDisabled: !current?.project?.id,
+            isLoading: formik.isSubmitting,
+          },
         ]}
       >
         <Tabs
