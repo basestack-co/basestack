@@ -1,9 +1,10 @@
-import { useState, memo } from "react";
+import { memo } from "react";
 import { SpaceProps } from "styled-system";
 import { Text } from "../../atoms";
 import { Container, Button, Slider } from "./styles";
 
 type Item = {
+  id: string;
   text: string;
 };
 
@@ -42,9 +43,9 @@ const Tabs = ({
       items.map((item: Item, index: number) => {
         return (
           <Button
+            key={`tab-${item.id}`}
             data-testid="tab-button"
-            key={index.toString()}
-            onClick={() => onSelect(item.text)}
+            onClick={() => onSelect(item.id)}
           >
             {!!item.text && (
               <Text fontWeight="500" size="small">

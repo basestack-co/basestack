@@ -17,7 +17,8 @@
     "prepare": "npx husky install",
     "precommit": "yarn format && yarn lint && yarn test && lint-staged",
     "commit": "git-cz",
-    "update:packages": "yarn upgrade-interactive --latest"
+    "update:packages": "yarn upgrade-interactive --latest",
+    "build:packages": "turbo run build --filter=./packages/*"
   },
   "devDependencies": {
     "commitizen": "^4.2.5",

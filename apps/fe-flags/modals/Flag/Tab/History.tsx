@@ -2,7 +2,7 @@ import React from "react";
 import { useTheme } from "styled-components";
 import { HistoryCard } from "@basestack/design-system";
 
-const Advanced = () => {
+const HistoryTab = () => {
   const theme = useTheme();
 
   return (
@@ -53,4 +53,4 @@ const Advanced = () => {
   );
 };
 
-export default Advanced;
+export default HistoryTab;

@@ -1,8 +1,15 @@
 import React from "react";
+// Components
 import { useTheme } from "styled-components";
 import { InputGroup, Text } from "@basestack/design-system";
+// Types
+import { Form } from "types/flags";
 
-const Advanced = () => {
+export interface Props {
+  form: Form;
+}
+
+const AdvanceTab = ({ form }: Props) => {
   const theme = useTheme();
 
   return (
@@ -24,4 +31,4 @@ const Advanced = () => {
   );
 };
 
-export default Advanced;
+export default AdvanceTab;

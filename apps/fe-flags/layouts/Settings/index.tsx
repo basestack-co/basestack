@@ -77,6 +77,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
     () =>
       buttons.map(({ text }) => {
         return {
+          id: text.toLowerCase(),
           text,
         };
       }),

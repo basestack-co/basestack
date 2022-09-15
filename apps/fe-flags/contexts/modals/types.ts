@@ -1,12 +1,22 @@
 import React from "react";
 
+export interface OpenFlagModalPayload {
+  isOpen: boolean;
+  isEdit: boolean;
+  data?: {
+    flagId: string;
+    selectedTab: string;
+    selectedEnvId: string;
+  } | null;
+}
+
 export interface ModalsState {
   isDemoModalOpen: boolean;
   isCreateEnvironmentModalOpen: boolean;
-  isCreateFlagModalOpen: boolean;
   isInviteMemberModalOpen: boolean;
   isCreateProjectModalOpen: boolean;
-  isEditFlagModalOpen: boolean;
+  isFlagModalOpen: boolean;
+  flagModalPayload: Pick<OpenFlagModalPayload, "isEdit" | "data">;
 }
 
 export interface OpenDemoModalAction {
@@ -18,13 +28,6 @@ export interface OpenDemoModalAction {
 
 export interface OpenCreateEnvironmentModalAction {
   type: "CREATE_ENVIRONMENT_MODAL_OPEN";
-  payload: {
-    isOpen: boolean;
-  };
-}
-
-export interface OpenCreateFlagModalAction {
-  type: "CREATE_FLAG_MODAL_OPEN";
   payload: {
     isOpen: boolean;
   };
@@ -44,20 +47,17 @@ export interface OpenCreateProjectModalAction {
   };
 }
 
-export interface EditCreateFlagModalAction {
-  type: "EDIT_FLAG_MODAL_OPEN";
-  payload: {
-    isOpen: boolean;
-  };
+export interface OpenFlagModalAction {
+  type: "FLAG_MODAL_OPEN";
+  payload: OpenFlagModalPayload;
 }
 
 export type ModalsActions =
   | OpenDemoModalAction
   | OpenCreateEnvironmentModalAction
-  | OpenCreateFlagModalAction
   | OpenInviteMemberModalAction
   | OpenCreateProjectModalAction
-  | EditCreateFlagModalAction;
+  | OpenFlagModalAction;
 
 export interface Context {
   state: ModalsState;

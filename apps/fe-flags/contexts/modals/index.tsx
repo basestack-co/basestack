@@ -5,10 +5,13 @@ import { ModalsState, ModalsActions, Context } from "./types";
 export const initialState: ModalsState = {
   isDemoModalOpen: false,
   isCreateEnvironmentModalOpen: false,
-  isCreateFlagModalOpen: false,
   isInviteMemberModalOpen: false,
   isCreateProjectModalOpen: false,
-  isEditFlagModalOpen: false,
+  isFlagModalOpen: false,
+  flagModalPayload: {
+    isEdit: true,
+    data: null,
+  },
 };
 
 export const ModalsContext = createContext<Context>({
@@ -21,22 +24,10 @@ export const Reducer = (
   action: ModalsActions
 ): ModalsState => {
   switch (action.type) {
-    case "DEMO_MODAL_OPEN":
-      return {
-        ...state,
-        isDemoModalOpen: action.payload.isOpen,
-      };
-
     case "CREATE_ENVIRONMENT_MODAL_OPEN":
       return {
         ...state,
         isCreateEnvironmentModalOpen: action.payload.isOpen,
-      };
-
-    case "CREATE_FLAG_MODAL_OPEN":
-      return {
-        ...state,
-        isCreateFlagModalOpen: action.payload.isOpen,
       };
 
     case "INVITE_MEMBER_MODAL_OPEN":
@@ -51,10 +42,14 @@ export const Reducer = (
         isCreateProjectModalOpen: action.payload.isOpen,
       };
 
-    case "EDIT_FLAG_MODAL_OPEN":
+    case "FLAG_MODAL_OPEN":
       return {
         ...state,
-        isEditFlagModalOpen: action.payload.isOpen,
+        isFlagModalOpen: action.payload.isOpen,
+        flagModalPayload: {
+          isEdit: action.payload.isEdit,
+          data: action.payload.data,
+        },
       };
 
     default:

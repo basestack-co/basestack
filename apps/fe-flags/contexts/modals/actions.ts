@@ -1,28 +1,15 @@
 import {
-  OpenDemoModalAction,
   OpenCreateEnvironmentModalAction,
-  OpenCreateFlagModalAction,
   OpenInviteMemberModalAction,
   OpenCreateProjectModalAction,
-  EditCreateFlagModalAction,
+  OpenFlagModalAction,
+  OpenFlagModalPayload,
 } from "./types";
-
-export const setIsDemoModalOpen = (isOpen: boolean): OpenDemoModalAction => ({
-  type: "DEMO_MODAL_OPEN",
-  payload: { isOpen },
-});
 
 export const setIsCreateEnvironmentModalOpen = (
   isOpen: boolean
 ): OpenCreateEnvironmentModalAction => ({
   type: "CREATE_ENVIRONMENT_MODAL_OPEN",
-  payload: { isOpen },
-});
-
-export const seIstCreateFlagModalOpen = (
-  isOpen: boolean
-): OpenCreateFlagModalAction => ({
-  type: "CREATE_FLAG_MODAL_OPEN",
   payload: { isOpen },
 });
 
@@ -40,9 +27,9 @@ export const seIsCreateProjectModalOpen = (
   payload: { isOpen },
 });
 
-export const setIstEditFlagModalOpen = (
-  isOpen: boolean
-): EditCreateFlagModalAction => ({
-  type: "EDIT_FLAG_MODAL_OPEN",
-  payload: { isOpen },
+export const setIsFlagModalOpen = (
+  payload: OpenFlagModalPayload
+): OpenFlagModalAction => ({
+  type: "FLAG_MODAL_OPEN",
+  payload,
 });

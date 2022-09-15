@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 // Router
 import { useRouter } from "next/router";
-// Form
+// Tab
 import { useFormik } from "formik";
 import * as Yup from "yup";
 // Types

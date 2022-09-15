@@ -12,7 +12,7 @@ import { inferQueryOutput } from "libs/trpc";
 // Store
 import {
   seIsCreateProjectModalOpen,
-  seIstCreateFlagModalOpen,
+  setIsFlagModalOpen,
 } from "contexts/modals/actions";
 // Hooks
 import useModals from "hooks/useModals";
@@ -128,7 +128,9 @@ const Navigation = ({ isDesktop, data }: NavigationProps) => {
             {onRenderItems(leftItems, "left")}
             <ListItem ml={theme.spacing.s5}>
               <Button
-                onClick={() => dispatch(seIstCreateFlagModalOpen(true))}
+                onClick={() =>
+                  dispatch(setIsFlagModalOpen({ isOpen: true, isEdit: false }))
+                }
                 variant={ButtonVariant.Primary}
               >
                 Create flag

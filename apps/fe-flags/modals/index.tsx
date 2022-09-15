@@ -1,18 +1,16 @@
 import React, { Fragment } from "react";
-import CreateFlagModal from "./CreateFlag";
 import InviteMemberModal from "./InviteMember";
 import CreateEnvironmentModal from "./CreateEnvironment";
 import CreateProjectModal from "./CreateProject";
-import EditFlag from "./EditFlag";
+import FlagModal from "./Flag";
 
 const Modals = () => {
   return (
     <Fragment>
-      <CreateFlagModal />
       <InviteMemberModal />
       <CreateEnvironmentModal />
       <CreateProjectModal />
-      <EditFlag />
+      <FlagModal />
     </Fragment>
   );
 };

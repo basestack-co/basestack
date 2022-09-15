@@ -27,6 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   //@ts-ignore
   const Layout = Component.Layout || Noop;
   return (
+    //@ts-ignore
     <SessionProvider session={pageProps.session}>
       <ThemeProvider theme={theme}>
         <ModalsContextProvider>

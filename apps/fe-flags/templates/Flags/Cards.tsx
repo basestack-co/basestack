@@ -17,7 +17,7 @@ import {
   ButtonVariant,
 } from "@basestack/design-system";
 // Store
-import { setIstEditFlagModalOpen } from "contexts/modals/actions";
+import { setIsFlagModalOpen } from "contexts/modals/actions";
 // Hooks
 import useModals from "hooks/useModals";
 // Types
@@ -92,12 +92,26 @@ const FlagCards = ({ selectedView, projectSlug }: FlagCardsProps) => {
     {
       icon: "edit",
       text: "Edit",
-      onClick: () => dispatch(setIstEditFlagModalOpen(true)),
+      onClick: () =>
+        dispatch(
+          setIsFlagModalOpen({
+            isOpen: true,
+            isEdit: true,
+            data: { flagId: "", selectedEnvId: "", selectedTab: "core" },
+          })
+        ),
     },
     {
       icon: "history",
       text: "History",
-      onClick: () => dispatch(setIstEditFlagModalOpen(true)),
+      onClick: () =>
+        dispatch(
+          setIsFlagModalOpen({
+            isOpen: true,
+            isEdit: true,
+            data: { flagId: "", selectedEnvId: "", selectedTab: "history" },
+          })
+        ),
     },
     {
       icon: "delete",
