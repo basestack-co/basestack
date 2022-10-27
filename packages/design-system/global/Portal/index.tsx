@@ -6,7 +6,7 @@ interface PortalProps {
   selector: string;
 }
 
-export default function Portal({ children, selector }: PortalProps) {
+const Portal = ({ children, selector }: PortalProps): JSX.Element => {
   const ref = useRef<any>();
   const [mounted, setMounted] = useState(false);
 
@@ -16,5 +16,7 @@ export default function Portal({ children, selector }: PortalProps) {
     setMounted(true);
   }, [selector]);
 
-  return mounted ? createPortal(children, ref.current) : null;
-}
+  return <>{mounted ? createPortal(children, ref.current) : null}</>;
+};
+
+export default Portal;
