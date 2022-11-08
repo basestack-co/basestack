@@ -1,7 +1,12 @@
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
 import { generateSlug } from "random-word-slugs";
-import { z } from "zod";
+import {
+  CreateProjectInput,
+  DeleteProjectInput,
+  ProjectBySlugInput,
+  UpdateProjectInput,
+} from "../schemas/project";
 
 export const projectRouter = createProtectedRouter()
   .query("all", {
@@ -27,11 +32,7 @@ export const projectRouter = createProtectedRouter()
     },
   })
   .query("bySlug", {
-    input: z
-      .object({
-        projectSlug: z.string(),
-      })
-      .required(),
+    input: ProjectBySlugInput,
     async resolve({ ctx, input }) {
       const project = await ctx.prisma.project.findUnique({
         where: {
@@ -42,12 +43,7 @@ export const projectRouter = createProtectedRouter()
     },
   })
   .mutation("create", {
-    input: z
-      .object({
-        name: z.string(),
-        slug: z.string(),
-      })
-      .required(),
+    input: CreateProjectInput,
     resolve: async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
@@ -99,12 +95,7 @@ export const projectRouter = createProtectedRouter()
     meta: {
       restricted: true,
     },
-    input: z
-      .object({
-        projectId: z.string(),
-        name: z.string(),
-      })
-      .required(),
+    input: UpdateProjectInput,
     resolve: async ({ ctx, input }) => {
       const project = await ctx.prisma.project.update({
         where: {
@@ -121,11 +112,7 @@ export const projectRouter = createProtectedRouter()
     meta: {
       restricted: true,
     },
-    input: z
-      .object({
-        projectId: z.string(),
-      })
-      .required(),
+    input: DeleteProjectInput,
     resolve: async ({ ctx, input }) => {
       const project = await ctx.prisma.project.delete({
         where: {

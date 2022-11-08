@@ -4,10 +4,10 @@ import { useTheme } from "styled-components";
 import { InputGroup, Text, Switch } from "@basestack/design-system";
 // Form
 import { Controller } from "react-hook-form";
+import { FlagFormInputs, EnvironmentInput } from "../schema";
 // Styles
 import { Environments } from "../styles";
 // Types
-import { EnvironmentInput, FlagFormInputs } from "types/flags";
 import { UseFormSetValue, FieldErrors, Control } from "react-hook-form";
 
 export interface Props {
@@ -30,13 +30,11 @@ const CoreTab = ({
 
   const onChangeEnvironmentSwitch = useCallback(
     (id: string, enabled: boolean) => {
-      if (environments && !!environments.length) {
-        const updated = environments.map((item: EnvironmentInput) =>
-          item.id === id ? { ...item, enabled } : item
-        );
+      const updated = environments.map((item: EnvironmentInput) =>
+        item.id === id ? { ...item, enabled } : item
+      );
 
-        setValue("environments", updated);
-      }
+      setValue("environments", updated);
     },
     [environments, setValue]
   );

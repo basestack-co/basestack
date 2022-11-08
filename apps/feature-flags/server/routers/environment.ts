@@ -1,17 +1,18 @@
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
-import { z } from "zod";
+import {
+  AllEnvironmentInput,
+  CreateEnvironmentInput,
+  DeleteEnvironmentInput,
+  UpdateEnvironmentInput,
+} from "../schemas/environment";
 
 export const environmentRouter = createProtectedRouter()
   .query("all", {
     meta: {
       restricted: true,
     },
-    input: z
-      .object({
-        projectSlug: z.string(),
-      })
-      .required(),
+    input: AllEnvironmentInput,
     async resolve({ ctx, input }) {
       const userId = ctx.session.user.id;
 
@@ -39,14 +40,7 @@ export const environmentRouter = createProtectedRouter()
     meta: {
       restricted: true,
     },
-    input: z
-      .object({
-        name: z.string(),
-        slug: z.string(),
-        description: z.string(),
-        projectId: z.string(),
-      })
-      .required(),
+    input: CreateEnvironmentInput,
     resolve: async ({ ctx, input }) => {
       const environment = await ctx.prisma.environment.create({
         data: {
@@ -68,15 +62,7 @@ export const environmentRouter = createProtectedRouter()
     meta: {
       restricted: true,
     },
-    input: z
-      .object({
-        // this prop is used on the createProtectedRouter Middleware to validated user project permissions
-        projectId: z.string(),
-        environmentId: z.string(),
-        name: z.string(),
-        description: z.string(),
-      })
-      .required(),
+    input: UpdateEnvironmentInput,
     resolve: async ({ ctx, input }) => {
       const environment = await ctx.prisma.environment.update({
         where: {
@@ -95,13 +81,7 @@ export const environmentRouter = createProtectedRouter()
     meta: {
       restricted: true,
     },
-    input: z
-      .object({
-        // this prop is used on the createProtectedRouter Middleware to validated user project permissions
-        projectId: z.string(),
-        environmentId: z.string(),
-      })
-      .required(),
+    input: DeleteEnvironmentInput,
     resolve: async ({ ctx, input }) => {
       const environment = await ctx.prisma.environment.delete({
         where: {

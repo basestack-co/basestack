@@ -1,15 +1,11 @@
 // import { TRPCError } from "@trpc/server";
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
-import { z } from "zod";
+import { UserByProjectIdInput, UserBySearchInput } from "../schemas/user";
 
 export const userRouter = createProtectedRouter()
   .query("byProjectId", {
-    input: z
-      .object({
-        projectId: z.string(),
-      })
-      .required(),
+    input: UserByProjectIdInput,
     async resolve({ ctx, input }) {
       const users = await ctx.prisma.user.findMany({
         where: {
@@ -36,12 +32,7 @@ export const userRouter = createProtectedRouter()
     },
   })
   .query("bySearch", {
-    input: z
-      .object({
-        projectId: z.string(),
-        search: z.string(),
-      })
-      .required(),
+    input: UserBySearchInput,
     async resolve({ ctx, input }) {
       const users = await ctx.prisma.user.findMany({
         where: {

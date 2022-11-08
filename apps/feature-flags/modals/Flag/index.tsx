@@ -8,12 +8,13 @@ import { Modal, Tabs } from "@basestack/design-system";
 // Form
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FlagFormInputs, FlagFormSchema } from "./schema";
 // Context
 import useModals from "hooks/useModals";
 import { setIsFlagModalOpen } from "contexts/modals/actions";
 // Types
 import { HistoryAction } from "types/history";
-import { TabType, FlagFormInputs, FlagFormSchema } from "types/flags";
+import { TabType } from "types/flags";
 // Server
 import { trpc } from "libs/trpc";
 import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
@@ -118,7 +119,7 @@ const FlagModal = () => {
       default:
         return (
           <Core
-            environments={getValues("environments")}
+            environments={watch("environments")}
             setValue={setValue}
             errors={errors}
             control={control}
