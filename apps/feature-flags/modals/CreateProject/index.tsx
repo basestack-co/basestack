@@ -1,9 +1,10 @@
 import React, { useCallback } from "react";
 // Router
 import { useRouter } from "next/router";
-// Tab
-import { useFormik } from "formik";
-import * as Yup from "yup";
+// Form
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 // Types
 import { HistoryAction } from "types/history";
 // Theme
@@ -22,6 +23,19 @@ import { generateSlug } from "random-word-slugs";
 import { slugify } from "@basestack/utils";
 // Hooks
 import { useDebounce } from "@basestack/hooks";
+
+export const FormSchema = z.object({
+  name: z
+    .string()
+    .max(30, "Must be 30 characters or less")
+    .min(1, "Required field"),
+  slug: z
+    .string()
+    .max(150, "Must be 150 characters or less")
+    .min(1, "Required field"),
+});
+
+export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const CreateProjectModal = () => {
   const theme = useTheme();
@@ -50,48 +64,44 @@ const CreateProjectModal = () => {
     },
   });
 
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors, isSubmitting },
+    setValue,
+    reset,
+  } = useForm<FormInputs>({
+    resolver: zodResolver(FormSchema),
+    mode: "onChange",
+  });
+
+  const watchName = watch("name");
+
   const onClose = useCallback(() => {
     dispatch(seIsCreateProjectModalOpen(false));
-  }, [dispatch]);
+    reset();
+  }, [dispatch, reset]);
 
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      slug: "",
-    },
-    validationSchema: Yup.object({
-      name: Yup.string()
-        .max(30, "Must be 30 characters or less")
-        .required("Required"),
-      slug: Yup.string()
-        .max(150, "Must be 150 characters or less")
-        .required("Required"),
-    }),
-    onSubmit: async (values, { resetForm }) => {
-      await createProject.mutate({
-        name: values.name,
-        slug: values.slug,
-      });
+  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+    await createProject.mutate(data);
 
-      await router.push({
-        pathname: "/[projectSlug]/flags",
-        query: { projectSlug: values.slug },
-      });
+    await router.push({
+      pathname: "/[projectSlug]/flags",
+      query: { projectSlug: data.slug },
+    });
 
-      onClose();
-      resetForm();
-    },
-  });
+    onClose();
+  };
 
   useDebounce(
     () => {
-      const value = formik.values.name;
-      if (value) {
-        formik.setFieldValue("slug", value);
+      if (watchName) {
+        setValue("slug", watchName);
       }
     },
     500,
-    [formik.values.name]
+    [watchName]
   );
 
   return (
@@ -103,38 +113,57 @@ const CreateProjectModal = () => {
         onClose={onClose}
         buttons={[
           { children: "Close", onClick: onClose },
-          { children: "Create", onClick: formik.handleSubmit },
+          {
+            children: "Create",
+            onClick: handleSubmit(onSubmit),
+          },
         ]}
       >
-        <InputGroup
-          title="Project name"
-          hint={formik.errors.name}
-          inputProps={{
-            name: "name",
-            value: formik.values.name,
-            onChange: formik.handleChange,
-            placeholder: "E.g. Chat",
-            hasError: formik.touched.name && !!formik.errors.name,
-            isDisabled: formik.isSubmitting,
-          }}
-          mb={theme.spacing.s6}
+        <Controller
+          name="name"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <InputGroup
+              title="Project name"
+              hint={errors.name?.message}
+              inputProps={{
+                type: "text",
+                name: field.name,
+                value: field.value,
+                onChange: field.onChange,
+                onBlur: field.onBlur,
+                placeholder: "E.g. Chat",
+                hasError: !!errors.name,
+                isDisabled: isSubmitting,
+              }}
+              mb={theme.spacing.s6}
+            />
+          )}
         />
-
-        <InputGroup
-          title="Project slug"
-          hint={formik.errors.slug}
-          inputProps={{
-            name: "slug",
-            value: slugify(formik.values.slug),
-            onChange: formik.handleChange,
-            placeholder: "pr-chat",
-            hasError: formik.touched.slug && !!formik.errors.slug,
-            isDisabled: formik.isSubmitting,
-          }}
+        <Controller
+          name="slug"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <InputGroup
+              title="Project slug"
+              hint={errors.slug?.message}
+              inputProps={{
+                name: "slug",
+                value: slugify(field.value),
+                onChange: field.onChange,
+                onBlur: field.onBlur,
+                placeholder: "pr-chat",
+                hasError: !!errors.slug,
+                isDisabled: isSubmitting,
+              }}
+            />
+          )}
         />
         <button
           onClick={() => {
-            formik.setFieldValue("slug", generateSlug());
+            setValue("slug", generateSlug());
           }}
         >
           generate
