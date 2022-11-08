@@ -16,6 +16,10 @@ export interface TextareaProps extends SpaceProps {
    */
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   /**
+   * Input onBlur
+   */
+  onBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
+  /**
    * Textarea Max Length
    */
   maxlength?: string;
@@ -41,12 +45,14 @@ const Textarea: React.FC<TextareaProps> = ({
   placeholder,
   isDarker = false,
   onChange,
+  onBlur,
   ...props
 }) => {
   return (
     <StyledTextarea
       data-testid="textarea"
       onChange={onChange}
+      onBlur={onBlur}
       placeholder={placeholder}
       isDarker={isDarker}
       {...props}

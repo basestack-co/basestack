@@ -3,13 +3,14 @@ import React from "react";
 import { useTheme } from "styled-components";
 import { InputGroup, Text } from "@basestack/design-system";
 // Types
-import { Form } from "types/flags";
+import { FlagFormInputs } from "types/flags";
+import { UseFormSetValue } from "react-hook-form";
 
 export interface Props {
-  form: Form;
+  setValue: UseFormSetValue<FlagFormInputs>;
 }
 
-const AdvanceTab = ({ form }: Props) => {
+const AdvanceTab = ({ setValue }: Props) => {
   const theme = useTheme();
 
   return (

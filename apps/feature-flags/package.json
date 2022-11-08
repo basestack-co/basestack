@@ -37,7 +37,6 @@
     "bcryptjs": "^2.4.3",
     "dayjs": "^1.11.4",
     "eslint-config-next": "^13.0.0",
-    "formik": "^2.2.9",
     "isomorphic-unfetch": "^3.1.0",
     "next": "^13.0.0",
     "next-auth": "^4.10.3",
@@ -52,7 +51,6 @@
     "styled-system": "^5.1.5",
     "superjson": "^1.9.1",
     "uuid": "^8.3.2",
-    "yup": "^0.32.11",
     "zod": "^3.19.1"
   },
   "devDependencies": {
