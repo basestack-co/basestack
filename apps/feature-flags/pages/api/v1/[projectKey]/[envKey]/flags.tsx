@@ -38,7 +38,7 @@ export const getFlagsByProjectSlugAndEnvSlug = async (
       flags,
     });
   } catch (error) {
-    return res.status(getValue(error, "code", 400)).json({
+    return res.status(getValue(error, "code", 400) as number).json({
       error: true,
       message: getValue(error, "message", somethingWentWrong),
     });

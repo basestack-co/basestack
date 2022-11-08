@@ -1,15 +1,17 @@
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
-import * as yup from "yup";
+import { z } from "zod";
 
 export const environmentRouter = createProtectedRouter()
   .query("all", {
     meta: {
       restricted: true,
     },
-    input: yup.object({
-      projectSlug: yup.string().required(),
-    }),
+    input: z
+      .object({
+        projectSlug: z.string(),
+      })
+      .required(),
     async resolve({ ctx, input }) {
       const userId = ctx.session.user.id;
 
@@ -37,12 +39,14 @@ export const environmentRouter = createProtectedRouter()
     meta: {
       restricted: true,
     },
-    input: yup.object({
-      name: yup.string().required(),
-      slug: yup.string().required(),
-      description: yup.string().required(),
-      projectId: yup.string().required(),
-    }),
+    input: z
+      .object({
+        name: z.string(),
+        slug: z.string(),
+        description: z.string(),
+        projectId: z.string(),
+      })
+      .required(),
     resolve: async ({ ctx, input }) => {
       const environment = await ctx.prisma.environment.create({
         data: {
@@ -64,13 +68,15 @@ export const environmentRouter = createProtectedRouter()
     meta: {
       restricted: true,
     },
-    input: yup.object({
-      // this prop is used on the createProtectedRouter Middleware to validated user project permissions
-      projectId: yup.string().required(),
-      environmentId: yup.string().required(),
-      name: yup.string().required(),
-      description: yup.string().required(),
-    }),
+    input: z
+      .object({
+        // this prop is used on the createProtectedRouter Middleware to validated user project permissions
+        projectId: z.string(),
+        environmentId: z.string(),
+        name: z.string(),
+        description: z.string(),
+      })
+      .required(),
     resolve: async ({ ctx, input }) => {
       const environment = await ctx.prisma.environment.update({
         where: {
@@ -89,11 +95,13 @@ export const environmentRouter = createProtectedRouter()
     meta: {
       restricted: true,
     },
-    input: yup.object({
-      // this prop is used on the createProtectedRouter Middleware to validated user project permissions
-      projectId: yup.string().required(),
-      environmentId: yup.string().required(),
-    }),
+    input: z
+      .object({
+        // this prop is used on the createProtectedRouter Middleware to validated user project permissions
+        projectId: z.string(),
+        environmentId: z.string(),
+      })
+      .required(),
     resolve: async ({ ctx, input }) => {
       const environment = await ctx.prisma.environment.delete({
         where: {

@@ -1,15 +1,17 @@
 // import { TRPCError } from "@trpc/server";
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
-import * as yup from "yup";
+import { z } from "zod";
 import { isEmpty } from "@basestack/utils";
 
 export const historyRouter = createProtectedRouter()
   .query("all", {
-    input: yup.object({
-      projectId: yup.string().required(),
-      flagId: yup.string().optional(),
-    }),
+    input: z
+      .object({
+        projectId: z.string(),
+        flagId: z.string().optional(),
+      })
+      .required(),
     async resolve({ ctx, input }) {
       const getId = isEmpty(input.flagId)
         ? { projectId: input.projectId }
@@ -33,11 +35,13 @@ export const historyRouter = createProtectedRouter()
     },
   })
   .mutation("create", {
-    input: yup.object({
-      projectId: yup.string().required(),
-      action: yup.string().required(),
-      payload: yup.mixed().required(),
-    }),
+    input: z
+      .object({
+        projectId: z.string(),
+        action: z.string(),
+        payload: z.any(),
+      })
+      .required(),
     resolve: async ({ ctx, input }) => {
       const history = await ctx.prisma.history.create({
         data: {

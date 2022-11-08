@@ -1,25 +1,26 @@
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
-import * as yup from "yup";
+import { z } from "zod";
 import { getValue, groupBy } from "@basestack/utils";
-import dayjs from "dayjs";
 
 export const flagRouter = createProtectedRouter()
   .query("all", {
     meta: {
       restricted: true,
     },
-    input: yup.object({
-      projectSlug: yup.string().required(),
-      projectId: yup.string().required(),
-      environmentId: yup.string().required(),
-      pagination: yup
-        .object({
-          skip: yup.string(),
-          take: yup.string(),
-        })
-        .nullable(),
-    }),
+    input: z
+      .object({
+        projectSlug: z.string(),
+        projectId: z.string(),
+        environmentId: z.string(),
+        pagination: z
+          .object({
+            skip: z.string(),
+            take: z.string(),
+          })
+          .nullable(),
+      })
+      .required(),
     async resolve({ ctx, input }) {
       const userId = ctx.session.user.id;
 
@@ -82,9 +83,11 @@ export const flagRouter = createProtectedRouter()
     },
   })
   .query("byId", {
-    input: yup.object({
-      flagId: yup.string().required(),
-    }),
+    input: z
+      .object({
+        flagId: z.string(),
+      })
+      .required(),
     async resolve({ ctx, input }) {
       const flag = await ctx.prisma.flag.findFirst({
         where: {
@@ -104,15 +107,17 @@ export const flagRouter = createProtectedRouter()
     meta: {
       restricted: true,
     },
-    input: yup.object({
-      projectSlug: yup.string().required(),
-      pagination: yup
-        .object({
-          skip: yup.string(),
-          take: yup.string(),
-        })
-        .nullable(),
-    }),
+    input: z
+      .object({
+        projectSlug: z.string(),
+        pagination: z
+          .object({
+            skip: z.string(),
+            take: z.string(),
+          })
+          .nullable(),
+      })
+      .required(),
     async resolve({ ctx, input }) {
       const skip = getValue(input.pagination, "skip", "0");
       const take = getValue(input.pagination, "take", "50");
@@ -146,10 +151,10 @@ export const flagRouter = createProtectedRouter()
         ctx.prisma.flag.count(),
       ]);
 
-      const grouped = groupBy(allFlags, (c) => c.slug);
+      const grouped = groupBy(allFlags, (c: typeof allFlags[number]) => c.slug);
 
-      const flags = Object.keys(grouped || {}).map((key) => {
-        const flags = grouped[key];
+      const response = Object.keys(grouped || {}).map((key) => {
+        const flags: Array<typeof allFlags[number]> = grouped[key];
         return {
           slug: key,
           createdAt: getValue(flags, "[0].createdAt", ""),
@@ -170,7 +175,7 @@ export const flagRouter = createProtectedRouter()
       });
 
       return {
-        flags,
+        flags: response,
         pagination: {
           skip: Number(skip),
           take: Number(take),
@@ -183,21 +188,19 @@ export const flagRouter = createProtectedRouter()
     meta: {
       restricted: true,
     },
-    input: yup.object({
+    input: z.object({
       // this prop is used on the createProtectedRouter Middleware to validated user project permissions
-      projectId: yup.string().required(),
-      data: yup
-        .array(
-          yup.object({
-            environmentId: yup.string().required(),
-            slug: yup.string().required(),
-            enabled: yup.bool().required(),
-            payload: yup.mixed().optional().nullable(),
-            expiredAt: yup.date().optional().nullable(),
-            description: yup.string().optional(),
-          })
-        )
-        .required(),
+      projectId: z.string(),
+      data: z.array(
+        z.object({
+          environmentId: z.string(),
+          slug: z.string(),
+          enabled: z.boolean(),
+          payload: z.any().optional().nullable(),
+          expiredAt: z.date().optional().nullable(),
+          description: z.string().optional(),
+        })
+      ),
     }),
     resolve: async ({ ctx, input }) => {
       const flag = await ctx.prisma.flag.createMany({
@@ -211,15 +214,17 @@ export const flagRouter = createProtectedRouter()
     meta: {
       restricted: true,
     },
-    input: yup.object({
-      // this prop is used on the createProtectedRouter Middleware to validated user project permissions
-      projectId: yup.string().required(),
-      flagId: yup.string().required(),
-      enabled: yup.bool().required(),
-      payload: yup.mixed().optional(),
-      expiredAt: yup.date().nullable(),
-      description: yup.string().nullable(),
-    }),
+    input: z
+      .object({
+        // this prop is used on the createProtectedRouter Middleware to validated user project permissions
+        projectId: z.string(),
+        flagId: z.string(),
+        enabled: z.boolean(),
+        payload: z.any().optional(),
+        expiredAt: z.date().nullable(),
+        description: z.string().nullable(),
+      })
+      .required(),
     resolve: async ({ ctx, input }) => {
       const flag = await ctx.prisma.flag.update({
         where: {
@@ -240,11 +245,13 @@ export const flagRouter = createProtectedRouter()
     meta: {
       restricted: true,
     },
-    input: yup.object({
-      // this prop is used on the createProtectedRouter Middleware to validated user project permissions
-      projectId: yup.string().required(),
-      flagId: yup.string().required(),
-    }),
+    input: z
+      .object({
+        // this prop is used on the createProtectedRouter Middleware to validated user project permissions
+        projectId: z.string(),
+        flagId: z.string(),
+      })
+      .required(),
     resolve: async ({ ctx, input }) => {
       const flag = await ctx.prisma.flag.delete({
         where: {

@@ -1,13 +1,15 @@
 // import { TRPCError } from "@trpc/server";
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
-import * as yup from "yup";
+import { z } from "zod";
 
 export const userRouter = createProtectedRouter()
   .query("byProjectId", {
-    input: yup.object({
-      projectId: yup.string().required(),
-    }),
+    input: z
+      .object({
+        projectId: z.string(),
+      })
+      .required(),
     async resolve({ ctx, input }) {
       const users = await ctx.prisma.user.findMany({
         where: {
@@ -34,10 +36,12 @@ export const userRouter = createProtectedRouter()
     },
   })
   .query("bySearch", {
-    input: yup.object({
-      projectId: yup.string().required(),
-      search: yup.string(),
-    }),
+    input: z
+      .object({
+        projectId: z.string(),
+        search: z.string(),
+      })
+      .required(),
     async resolve({ ctx, input }) {
       const users = await ctx.prisma.user.findMany({
         where: {
