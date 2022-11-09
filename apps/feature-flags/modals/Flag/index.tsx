@@ -111,7 +111,7 @@ const FlagModal = () => {
       }));
       setValue("environments", environments);
     }
-  }, [envData, isEnvLoading, isModalOpen]);
+  }, [envData, isEnvLoading, isModalOpen, setValue]);
 
   const onRenderTab = () => {
     switch (selectedTab) {

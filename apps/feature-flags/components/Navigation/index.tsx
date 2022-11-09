@@ -3,7 +3,9 @@ import { useTheme } from "styled-components";
 // Components
 import { Avatar, Button, ButtonVariant } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
-import { ButtonLink, MoreMenu, ProjectsMenu } from "./components";
+import ButtonLink from "./ButtonLink";
+import MoreMenu from "./MoreMenu";
+import ProjectsMenu from "./ProjectsMenu";
 // Router
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -40,10 +42,12 @@ const rightItems = [
   {
     text: "Documentation",
     to: "/documentation",
+    isExternal: true,
   },
   {
     text: "Resources",
     to: "/resources",
+    isExternal: true,
   },
   {
     text: "Github",

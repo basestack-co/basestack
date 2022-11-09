@@ -52,14 +52,10 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
               pathname: href,
               query: { projectSlug },
             }}
+            style={{ textDecoration: "none" }}
             passHref
           >
-            <Button
-              as="a"
-              variant={ButtonVariant.Neutral}
-              fontWeight={400}
-              fullWidth
-            >
+            <Button variant={ButtonVariant.Neutral} fontWeight={400} fullWidth>
               {text}
             </Button>
           </Link>

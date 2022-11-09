@@ -23,9 +23,7 @@ export interface ButtonLinkProps {
   isExternal?: boolean;
 }
 
-export const ExternalLink = styled.a`
-  text-decoration: none;
-`;
+export const ExternalLink = styled.a``;
 
 export const ButtonContainer = styled.div<{ isActive: boolean }>`
   display: flex;
@@ -60,13 +58,8 @@ const ButtonLink = ({
 
   return (
     <ButtonContainer isActive={isActive}>
-      <Anchor href={href} {...anchorProps}>
-        <Button
-          as={isExternal ? "div" : "a"}
-          variant={ButtonVariant.PrimaryNeutral}
-        >
-          {children}
-        </Button>
+      <Anchor href={href} {...anchorProps} style={{ textDecoration: "none" }}>
+        <Button variant={ButtonVariant.PrimaryNeutral}>{children}</Button>
       </Anchor>
     </ButtonContainer>
   );
