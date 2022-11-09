@@ -18,7 +18,8 @@
     "precommit": "yarn format && yarn lint && yarn test && lint-staged",
     "commit": "git-cz",
     "update:packages": "yarn upgrade-interactive --latest",
-    "build:packages": "turbo run build --filter=./packages/*"
+    "build:packages": "turbo run build --filter=./packages/*",
+    "build:feature-flags": "turbo run build --filter=feature-flags..."
   },
   "devDependencies": {
     "commitizen": "^4.2.5",

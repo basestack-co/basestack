@@ -33,7 +33,7 @@ const Flags = () => {
     setSelectedView(selected as SelectedView);
   }, []);
 
-  const onSearch = useCallback((event) => {
+  const onSearch = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value);
   }, []);
 

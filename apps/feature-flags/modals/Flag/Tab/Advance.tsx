@@ -3,7 +3,7 @@ import React from "react";
 import { useTheme } from "styled-components";
 import { InputGroup, Text } from "@basestack/design-system";
 // Types
-import { FlagFormInputs } from "types/flags";
+import { FlagFormInputs } from "../schema";
 import { UseFormSetValue } from "react-hook-form";
 
 export interface Props {

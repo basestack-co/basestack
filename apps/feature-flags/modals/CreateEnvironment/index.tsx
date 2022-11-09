@@ -20,7 +20,7 @@ const CreateEnvironmentModal = () => {
   }, [dispatch]);
 
   const onChangeTextarea = useCallback(
-    (event) => {
+    (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       if (textareaLength.length < 120) {
         setTextareaLength(event.target.value.toString());
       }
