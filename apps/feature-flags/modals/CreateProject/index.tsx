@@ -48,21 +48,7 @@ const CreateProjectModal = () => {
     state: { isCreateProjectModalOpen: isModalOpen },
   } = useModals();
 
-  const createProject = trpc.useMutation(["project.create"], {
-    async onSuccess(data) {
-      onCreateHistory(HistoryAction.createProject, {
-        projectId: data.project.id,
-        payload: {
-          project: {
-            name: data.project.name,
-            slug: data.project.slug,
-          },
-        },
-      });
-
-      await trpcContext.invalidateQueries(["project.all"]);
-    },
-  });
+  const createProject = trpc.useMutation(["project.create"]);
 
   const {
     control,
@@ -84,7 +70,32 @@ const CreateProjectModal = () => {
   }, [dispatch, reset]);
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    await createProject.mutate(data);
+    await createProject.mutate(data, {
+      onSuccess: async (result) => {
+        // Get all the projects on the cache
+        const prev = trpcContext.getQueryData(["project.all"]);
+
+        if (prev && prev.projects) {
+          // Add the new project with the others
+          const projects = [result.project, ...prev.projects];
+
+          // Update the cache with the new data
+          trpcContext.setQueryData(["project.all"], { projects });
+        }
+
+        onCreateHistory(HistoryAction.createProject, {
+          projectId: result.project.id,
+          payload: {
+            project: {
+              name: result.project.name,
+              slug: result.project.slug,
+            },
+          },
+        });
+
+        await trpcContext.invalidateQueries(["project.all"]);
+      },
+    });
 
     await router.push({
       pathname: "/[projectSlug]/flags",

@@ -37,29 +37,13 @@ const General = () => {
     }
   );
 
-  const updateProject = trpc.useMutation(["project.update"], {
-    async onSuccess(data) {
-      onCreateHistory(HistoryAction.updateProject, {
-        projectId: data.project.id,
-        payload: {
-          project: {
-            name: data.project.name,
-            slug: data.project.slug,
-          },
-        },
-      });
-
-      await trpcContext.invalidateQueries(["project.all"]);
-    },
-  });
+  const updateProject = trpc.useMutation(["project.update"]);
 
   const {
     control,
     handleSubmit,
-    watch,
     formState: { errors, isSubmitting },
     setValue,
-    reset,
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
@@ -67,10 +51,41 @@ const General = () => {
 
   const onSaveProjectName: SubmitHandler<FormInputs> = async (input) => {
     if (data && data.project) {
-      await updateProject.mutate({
-        projectId: data.project.id!,
-        name: input.name,
-      });
+      updateProject.mutate(
+        {
+          projectId: data.project.id!,
+          name: input.name,
+        },
+        {
+          onSuccess: async (result) => {
+            // Get all the projects on the cache
+            const prev = trpcContext.getQueryData(["project.all"]);
+
+            if (prev && prev.projects) {
+              // Find the project and update with the new name
+              const projects = prev.projects.map((project) =>
+                project.id === result.project.id
+                  ? { ...project, name: result.project.name }
+                  : project
+              );
+
+              // Update the cache with the new data
+              trpcContext.setQueryData(["project.all"], { projects });
+            }
+
+            // Create new history entry on updating the project name
+            onCreateHistory(HistoryAction.updateProject, {
+              projectId: result.project.id,
+              payload: {
+                project: {
+                  name: result.project.name,
+                  slug: result.project.slug,
+                },
+              },
+            });
+          },
+        }
+      );
     }
   };
 
