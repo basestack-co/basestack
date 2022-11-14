@@ -1,9 +1,13 @@
 import React, { useMemo } from "react";
+// Router
 import { useRouter } from "next/router";
 import Link from "next/link";
+// Server
+import { trpc } from "libs/trpc";
+// Theme
 import { useTheme } from "styled-components";
+// Components
 import { Button, ButtonVariant, Tabs, Text } from "@basestack/design-system";
-import MainLayout from "../Main";
 import {
   ButtonContainer,
   Container,
@@ -11,7 +15,10 @@ import {
   ListItem,
   SettingsContainer,
 } from "./styles";
+// Hooks
 import { useMediaQuery } from "@basestack/hooks";
+// Layouts
+import MainLayout from "../Main";
 
 const buttons = [
   {
@@ -36,12 +43,19 @@ const buttons = [
   },
 ];
 
-const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
+const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.device.min.lg);
   const { pathname, push, query } = useRouter();
 
   const projectSlug = query.projectSlug as string;
+
+  const { data, isLoading: isLoadingProject } = trpc.useQuery(
+    ["project.bySlug", { projectSlug }],
+    {
+      enabled: !!projectSlug,
+    }
+  );
 
   const renderButton = useMemo(() => {
     return buttons.map(({ id, text, href }) => (
@@ -98,7 +112,9 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
               backgroundColor="transparent"
             />
           )}
-          {children}
+          {React.cloneElement(children, {
+            project: !isLoadingProject && data ? data.project : null,
+          })}
         </SettingsContainer>
       </Container>
     </MainLayout>

@@ -4,21 +4,22 @@ import { useTheme } from "styled-components";
 import { useMediaQuery } from "@basestack/hooks";
 // Types
 import { SelectedView } from "types/flags";
-// Router
-import { useRouter } from "next/router";
 // Components
 import { Text } from "@basestack/design-system";
 import FlagCards from "./Cards";
 import { Container } from "../styles";
 // Containers
 import Toolbar from "./Toolbar";
+// Libs
+import { inferQueryOutput } from "libs/trpc";
 
-const Flags = () => {
+export interface Props {
+  project: inferQueryOutput<"project.bySlug">["project"];
+}
+
+const Flags = ({ project }: Props) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.device.min.lg);
-
-  const router = useRouter();
-  const projectSlug = router.query.projectSlug as string;
 
   const [selectedView, setSelectedView] = useState<SelectedView>("cards");
   const [selectedEnvironment, setSelectedEnvironment] = useState("all");
@@ -45,14 +46,14 @@ const Flags = () => {
     <Container>
       <Text size="xLarge">Flags</Text>
       <Toolbar
-        projectSlug={projectSlug}
+        projectSlug={project?.slug!}
         onChangeView={onChangeView}
         onSearch={onSearch}
         onSelect={onSelectEnvironment}
         isDesktop={isDesktop}
       />
 
-      <FlagCards projectSlug={projectSlug} selectedView={selectedView} />
+      <FlagCards projectSlug={project?.slug!} selectedView={selectedView} />
     </Container>
   );
 };

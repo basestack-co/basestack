@@ -2,7 +2,7 @@ import Head from "next/head";
 // Layout
 import MainLayout from "../layouts/Main";
 
-import GetStarted from "templates/GetStarted";
+import GetStarted from "modules/GetStarted";
 
 const MainPage = () => {
   return (

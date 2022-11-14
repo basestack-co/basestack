@@ -10,7 +10,7 @@ import { setIsFlagModalOpen } from "contexts/modals/actions";
 import { useSession } from "next-auth/react";
 // Components
 import { TabBar } from "@basestack/design-system";
-import Navigation from "components/Navigation";
+import Navigation from "./Navigation";
 // Server
 import { trpc } from "libs/trpc";
 
