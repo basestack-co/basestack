@@ -49,14 +49,14 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
           {description}
         </Text>
         <Labels data-testid="flag-labels">
-          {environments.map((environment, index) => {
+          {environments.map((environment) => {
             return (
-              !!environment.text && (
+              !!environment.name && (
                 <StyledLabel
-                  key={index.toString()}
-                  testId={`${environment.text}-flag-label`}
-                  text={environment.text}
-                  variant={environment.isFlagOn ? "success" : "default"}
+                  key={environment.id}
+                  testId={`${environment.name}-flag-label`}
+                  text={environment.name}
+                  variant={environment.enabled ? "success" : "default"}
                 />
               )
             );

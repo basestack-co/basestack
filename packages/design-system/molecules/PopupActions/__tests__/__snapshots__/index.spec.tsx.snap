@@ -67,12 +67,16 @@ exports[`PopupActions Molecule tests should render PopupActions correctly 1`] = 
   width: 100%;
 }
 
-.c9:hover:not(:active) {
+.c9:hover:not(:active,:disabled) {
   background-color: #E2E2E2;
 }
 
 .c9 .material-symbols-sharp {
   color: inherit;
+}
+
+.c9:disabled {
+  cursor: not-allowed;
 }
 
 .c0 {
@@ -108,6 +112,24 @@ exports[`PopupActions Molecule tests should render PopupActions correctly 1`] = 
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  max-height: 264px;
+  overflow-y: scroll;
+}
+
+.c3::-webkit-scrollbar {
+  width: 4px;
+}
+
+.c3::-webkit-scrollbar-track {
+  background: #EEEEEE;
+}
+
+.c3::-webkit-scrollbar-thumb {
+  background: #CBCBCB;
+}
+
+.c3::-webkit-scrollbar-thumb:hover {
+  background: #AFAFAF;
 }
 
 .c4 {
@@ -172,7 +194,7 @@ exports[`PopupActions Molecule tests should render PopupActions correctly 1`] = 
             size="28"
           >
             <img
-              alt="logo"
+              alt="Select Moon flags from the list"
               class="c7"
               src="https://avatars.dicebear.com/api/initials/Moon flags.svg?size=28&fontSize=40"
             />
@@ -192,7 +214,7 @@ exports[`PopupActions Molecule tests should render PopupActions correctly 1`] = 
             size="28"
           >
             <img
-              alt="logo"
+              alt="Select Teams kids from the list"
               class="c7"
               src="https://avatars.dicebear.com/api/initials/Teams kids.svg?size=28&fontSize=40"
             />

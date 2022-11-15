@@ -8,7 +8,10 @@ describe("Tabs Molecule tests", () => {
   test("should render Tabs correctly", () => {
     const { asFragment } = renderWithTheme(
       <Tabs
-        items={[{ text: "Core" }, { text: "Advanced" }]}
+        items={[
+          { text: "Core", id: "core" },
+          { text: "Advanced", id: "advanced" },
+        ]}
         onSelect={jest.fn()}
       />
     );
@@ -19,7 +22,10 @@ describe("Tabs Molecule tests", () => {
   test("should render Tabs with space utils", () => {
     const { asFragment } = renderWithTheme(
       <Tabs
-        items={[{ text: "Core" }, { text: "Advanced" }]}
+        items={[
+          { text: "Core", id: "core" },
+          { text: "Advanced", id: "advanced" },
+        ]}
         onSelect={jest.fn()}
         mb={20}
       />

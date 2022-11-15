@@ -50,11 +50,11 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
             {environments.map((environment, index, { length }) => {
               return (
                 <Label
-                  key={index.toString()}
+                  key={environment.id}
                   index={index}
                   length={length}
-                  data-testid={`${environment.text}-flag-label`}
-                  isActive={environment.isFlagOn}
+                  data-testid={`${environment.name}-flag-label`}
+                  isActive={environment.enabled}
                 />
               );
             })}

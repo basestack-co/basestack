@@ -64,9 +64,11 @@ const InputGroup = ({
       {!!hint && (
         <Text
           data-testid="input-group-hint"
-          muted
           size="xSmall"
           mt={theme.spacing.s2}
+          color={
+            inputProps?.hasError ? theme.colors.red400 : theme.colors.gray500
+          }
         >
           {hint}
         </Text>

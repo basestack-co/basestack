@@ -29,13 +29,33 @@ export interface InputProps extends SpaceProps, LayoutProps {
    */
   placeholder: string;
   /**
+   * Input value
+   */
+  value: string;
+  /**
+   * Input name
+   */
+  name: string;
+  /**
    * Input onChange
    */
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   /**
+   * Input onBlur
+   */
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  /**
    * Input optional testID
    */
   testId?: string;
+  /**
+   * Input error styles
+   */
+  hasError?: boolean;
+  /**
+   * Input disabled state
+   */
+  isDisabled?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -43,10 +63,15 @@ const Input: React.FC<InputProps> = ({
   iconPlacement = "left",
   type = "text",
   placeholder,
+  name,
+  value,
   isDarker = false,
   format = "normal",
   testId = "input-container",
   onChange,
+  onBlur,
+  hasError = false,
+  isDisabled = false,
   ...props
 }) => {
   const theme = useTheme();
@@ -56,20 +81,33 @@ const Input: React.FC<InputProps> = ({
   return (
     <Container data-testid={testId} {...props}>
       {hasLeftIcon && (
-        <LeftIcon icon={icon} size="medium" color={theme.colors.gray500} />
+        <LeftIcon
+          icon={icon}
+          size="medium"
+          color={hasError ? theme.colors.red400 : theme.colors.gray400}
+        />
       )}
       <StyledInput
         data-testid="input"
         onChange={onChange}
+        onBlur={onBlur}
         placeholder={placeholder}
+        name={name}
+        value={value}
         type={type}
         isDarker={isDarker}
         format={format}
         hasLeftIcon={hasLeftIcon}
         hasRightIcon={hasRightIcon}
+        hasError={hasError}
+        disabled={isDisabled}
       />
       {hasRightIcon && (
-        <RightIcon icon={icon} size="medium" color={theme.colors.gray500} />
+        <RightIcon
+          icon={icon}
+          size="medium"
+          color={hasError ? theme.colors.red400 : theme.colors.gray400}
+        />
       )}
     </Container>
   );

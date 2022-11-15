@@ -1,10 +1,6 @@
 import type { ReactNode } from "react";
+import type { ButtonProps } from "../../atoms/Button/types";
 export type Size = "small" | "medium" | "large" | "fullWidth";
-
-export type Button = {
-  text: string;
-  onClick: () => void;
-};
 
 export interface ModalProps {
   /**
@@ -22,7 +18,7 @@ export interface ModalProps {
   /**
    * Footer buttons
    */
-  buttons: Array<Button>;
+  buttons: Array<ButtonProps>;
   /**
    * If modal is open
    */
