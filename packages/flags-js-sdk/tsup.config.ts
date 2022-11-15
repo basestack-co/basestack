@@ -8,6 +8,6 @@ export default defineConfig((options) => {
     clean: true,
     minify: true, //!options.watch,
     // noExternal: [/^node-fetch($|\/)/],
-    // target: "es5"
+    target: "es5",
   };
 });
