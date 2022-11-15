@@ -7,7 +7,7 @@ import { Button, ButtonVariant, PopupActions } from "@basestack/design-system";
 import { scaleInTopLeft } from "@basestack/design-system/animations/springs";
 // Types
 import { PopupItem } from "@basestack/design-system/molecules/PopupActions";
-import { ListItem } from "./styles";
+import { ListItem } from "../styles";
 
 export interface ProjectsMenuProps {
   projectSlug: string;

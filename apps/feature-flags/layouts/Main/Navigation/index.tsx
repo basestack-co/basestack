@@ -3,9 +3,7 @@ import { useTheme } from "styled-components";
 // Components
 import { Avatar, Button, ButtonVariant } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
-import ButtonLink from "./ButtonLink";
-import MoreMenu from "./MoreMenu";
-import ProjectsMenu from "./ProjectsMenu";
+import { ButtonLink, MoreMenu, ProjectsMenu } from "./components";
 // Router
 import { useRouter } from "next/router";
 import Link from "next/link";

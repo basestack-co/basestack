@@ -4,7 +4,7 @@ import { animated, config, useTransition } from "react-spring";
 import { useClickAway } from "@basestack/hooks";
 import { Button, ButtonVariant, Popup } from "@basestack/design-system";
 import { scaleInTopRight } from "@basestack/design-system/animations/springs";
-import { ListItem } from "./styles";
+import { ListItem } from "../styles";
 
 const AnimatedMorePopup = animated(Popup);
 

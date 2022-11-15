@@ -1,4 +1,6 @@
 import React from "react";
+// SEO
+import Head from "next/head";
 // Layout
 import MainLayout from "layouts/Main";
 // Modules
@@ -23,7 +25,14 @@ const FlagsPage = () => {
     return <div>Loading Project...</div>;
   }
 
-  return <Flags project={data.project} />;
+  return (
+    <>
+      <Head>
+        <title>Flags for {data.project?.name}</title>
+      </Head>
+      <Flags project={data.project} />;
+    </>
+  );
 };
 
 FlagsPage.Layout = MainLayout;
