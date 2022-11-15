@@ -1,0 +1,170 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Spinner Atom tests should render Spinner correctly 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border-top: 0.1875rem solid #EEEEEE;
+  border-right: 0.1875rem solid #EEEEEE;
+  border-bottom: 0.1875rem solid #EEEEEE;
+  border-left: 0.1875rem solid #276EF1;
+  -webkit-animation: cilQsd 1.1s infinite linear;
+  animation: cilQsd 1.1s infinite linear;
+}
+
+<div
+    class="c0"
+  />
+</DocumentFragment>
+`;
+
+exports[`Spinner Atom tests should render custom styled Spinner 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border-top: 0.1875rem solid red;
+  border-right: 0.1875rem solid red;
+  border-bottom: 0.1875rem solid red;
+  border-left: 0.1875rem solid blue;
+  -webkit-animation: cilQsd 1.1s infinite linear;
+  animation: cilQsd 1.1s infinite linear;
+}
+
+<div
+    class="c0"
+    color="blue"
+  />
+</DocumentFragment>
+`;
+
+exports[`Spinner Atom tests should render large Spinner 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border-top: 0.25rem solid #EEEEEE;
+  border-right: 0.25rem solid #EEEEEE;
+  border-bottom: 0.25rem solid #EEEEEE;
+  border-left: 0.25rem solid #276EF1;
+  -webkit-animation: cilQsd 1.1s infinite linear;
+  animation: cilQsd 1.1s infinite linear;
+}
+
+<div
+    class="c0"
+  />
+</DocumentFragment>
+`;
+
+exports[`Spinner Atom tests should render medium Spinner 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border-top: 0.1875rem solid #EEEEEE;
+  border-right: 0.1875rem solid #EEEEEE;
+  border-bottom: 0.1875rem solid #EEEEEE;
+  border-left: 0.1875rem solid #276EF1;
+  -webkit-animation: cilQsd 1.1s infinite linear;
+  animation: cilQsd 1.1s infinite linear;
+}
+
+<div
+    class="c0"
+  />
+</DocumentFragment>
+`;
+
+exports[`Spinner Atom tests should render small Spinner 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border-top: 0.1875rem solid #EEEEEE;
+  border-right: 0.1875rem solid #EEEEEE;
+  border-bottom: 0.1875rem solid #EEEEEE;
+  border-left: 0.1875rem solid #276EF1;
+  -webkit-animation: cilQsd 1.1s infinite linear;
+  animation: cilQsd 1.1s infinite linear;
+}
+
+<div
+    class="c0"
+  />
+</DocumentFragment>
+`;
+
+exports[`Spinner Atom tests should render xLarge Spinner 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border-top: 0.3125rem solid #EEEEEE;
+  border-right: 0.3125rem solid #EEEEEE;
+  border-bottom: 0.3125rem solid #EEEEEE;
+  border-left: 0.3125rem solid #276EF1;
+  -webkit-animation: cilQsd 1.1s infinite linear;
+  animation: cilQsd 1.1s infinite linear;
+}
+
+<div
+    class="c0"
+  />
+</DocumentFragment>
+`;
+
+exports[`Spinner Atom tests should render xxLarge Spinner 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  border-top: 0.3125rem solid #EEEEEE;
+  border-right: 0.3125rem solid #EEEEEE;
+  border-bottom: 0.3125rem solid #EEEEEE;
+  border-left: 0.3125rem solid #276EF1;
+  -webkit-animation: cilQsd 1.1s infinite linear;
+  animation: cilQsd 1.1s infinite linear;
+}
+
+<div
+    class="c0"
+  />
+</DocumentFragment>
+`;

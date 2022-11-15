@@ -18,8 +18,9 @@ export interface FlagRowProps extends SpaceProps, PositionProps {
    * Environments where flag is created
    */
   environments: Array<{
-    text: string;
-    isFlagOn: boolean;
+    id: string;
+    name: string;
+    enabled: boolean;
   }>;
   /**
    * Popup items array

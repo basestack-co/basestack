@@ -28,16 +28,20 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
   width: 100%;
 }
 
-.c3:hover {
+.c3:hover:not(:disabled) {
   background-color: #EEEEEE;
 }
 
-.c3:active {
+.c3:active:not(:disabled) {
   background-color: #E2E2E2;
 }
 
 .c3 .material-symbols-sharp {
   color: inherit;
+}
+
+.c3:disabled {
+  cursor: not-allowed;
 }
 
 .c0 {
@@ -148,16 +152,20 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
   padding-left: 0.5rem;
 }
 
-.c3:hover {
+.c3:hover:not(:disabled) {
   background-color: #EEEEEE;
 }
 
-.c3:active {
+.c3:active:not(:disabled) {
   background-color: #E2E2E2;
 }
 
 .c3 .material-symbols-sharp {
   color: inherit;
+}
+
+.c3:disabled {
+  cursor: not-allowed;
 }
 
 .c0 {

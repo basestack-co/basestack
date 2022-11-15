@@ -14,3 +14,4 @@ export { default as Switch } from "./Switch";
 export { default as Pill } from "./Pill";
 export { default as Label } from "./Label";
 export { default as IconButton } from "./IconButton";
+export { default as Spinner } from "./Spinner";

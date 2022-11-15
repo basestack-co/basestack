@@ -56,4 +56,12 @@ export interface ButtonProps
    * Set button to full width
    */
   fullWidth?: boolean;
+  /**
+   * Show spinner & disable button
+   */
+  isLoading?: boolean;
+  /**
+   * Disabled the button
+   */
+  isDisabled?: boolean;
 }

@@ -25,6 +25,7 @@ exports[`Textarea Atom tests should render Textarea correctly 1`] = `
 <textarea
     class="c0"
     data-testid="textarea"
+    name="test1"
     placeholder="Search here..."
   />
 </DocumentFragment>

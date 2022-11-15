@@ -8,14 +8,25 @@ describe("Textarea Atom tests", () => {
 
   test("should render Textarea correctly", () => {
     const { asFragment } = renderWithTheme(
-      <Textarea placeholder="Search here..." onChange={jest.fn} />
+      <Textarea
+        placeholder="Search here..."
+        onChange={jest.fn}
+        name="test1"
+        value=""
+      />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   test("should render textarea dark", () => {
     const { getByTestId } = renderWithTheme(
-      <Textarea placeholder="Search here..." onChange={jest.fn} isDarker />
+      <Textarea
+        placeholder="Search here..."
+        onChange={jest.fn}
+        name="test1"
+        value=""
+        isDarker
+      />
     );
     const textarea = getByTestId("textarea");
 

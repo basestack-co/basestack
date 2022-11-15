@@ -15,10 +15,16 @@ export const StyledInput = styled.input<{
   format?: "small" | "normal";
   hasLeftIcon: boolean;
   hasRightIcon: boolean;
+  hasError: boolean;
+  disabled: boolean;
 }>`
   border: none;
-  background-color: ${({ theme, isDarker }) =>
-    isDarker ? theme.colors.gray100 : theme.colors.gray50};
+  background-color: ${({ theme, isDarker, hasError }) =>
+    hasError
+      ? theme.colors.red50
+      : isDarker
+      ? theme.colors.gray100
+      : theme.colors.gray50};
   height: ${({ format }) => (format === "normal" ? rem("44px") : rem("36px"))};
   border-radius: ${rem("4px")};
   font-size: ${rem("14px")};
@@ -28,7 +34,9 @@ export const StyledInput = styled.input<{
   color: ${({ theme }) => theme.colors.gray500};
 
   &:focus {
-    outline: 2px solid ${({ theme }) => theme.colors.black};
+    outline: 2px solid
+      ${({ theme, hasError }) =>
+        hasError ? theme.colors.red200 : theme.colors.black};
     color: ${({ theme }) => theme.colors.black};
   }
 
@@ -42,6 +50,12 @@ export const StyledInput = styled.input<{
     hasRightIcon &&
     css`
       padding-right: ${rem("44px")};
+    `};
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      opacity: 0.6;
     `};
 `;
 

@@ -1,6 +1,7 @@
 import { forwardRef, memo } from "react";
 import { useTheme } from "styled-components";
 import { ButtonProps, ButtonVariant } from "./types";
+import Spinner from "../Spinner";
 import Icon from "../Icon";
 import { StyledButton } from "./styles";
 
@@ -15,6 +16,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       iconPlacement = "right",
       fullWidth = false,
       iconSize = "medium",
+      isLoading = false,
+      isDisabled = false,
       ...props
     },
     ref
@@ -22,6 +25,26 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const theme = useTheme();
     const hasLeftIcon = !!icon && iconPlacement === "left";
     const hasRightIcon = !!icon && iconPlacement === "right";
+
+    const spinnerColor = {
+      [ButtonVariant.Primary]: theme.colors.white,
+      [ButtonVariant.Secondary]: theme.colors.white,
+      [ButtonVariant.Tertiary]: theme.colors.black,
+      [ButtonVariant.PrimaryNeutral]: theme.colors.black,
+      [ButtonVariant.Danger]: theme.colors.red400,
+      [ButtonVariant.Neutral]: theme.colors.black,
+      [ButtonVariant.Outlined]: theme.colors.black,
+    };
+
+    const spinnerBg = {
+      [ButtonVariant.Primary]: theme.colors.blue500,
+      [ButtonVariant.Secondary]: theme.colors.gray500,
+      [ButtonVariant.Tertiary]: theme.colors.gray300,
+      [ButtonVariant.PrimaryNeutral]: theme.colors.gray200,
+      [ButtonVariant.Danger]: theme.colors.gray200,
+      [ButtonVariant.Neutral]: theme.colors.gray200,
+      [ButtonVariant.Outlined]: theme.colors.gray200,
+    };
 
     return (
       // @ts-ignore
@@ -32,6 +55,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         hasRightIcon={hasRightIcon}
         variant={variant}
         fullWidth={fullWidth}
+        disabled={isDisabled}
         {...props}
         {...(!!as && { as })}
       >
@@ -42,6 +66,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           {children}
           {hasRightIcon && (
             <Icon icon={icon} size={iconSize} ml={theme.spacing.s2} />
+          )}
+          {isLoading && (
+            <Spinner
+              size="small"
+              ml={theme.spacing.s2}
+              bg={spinnerBg[variant]}
+              color={spinnerColor[variant]}
+            />
           )}
         </>
       </StyledButton>

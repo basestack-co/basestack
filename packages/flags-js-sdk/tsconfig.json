@@ -1,7 +1,6 @@
 {
   "extends": "@basestack/tsconfig/base.json",
   "compilerOptions": {
-    "target": "es5",
     "module": "commonjs",
     "declaration": true,
     "outDir": "./lib",

@@ -28,6 +28,10 @@ interface SettingCard {
    * Card body content, input, table or other elements
    */
   children: React.ReactElement;
+  /**
+   * Card button disable state
+   */
+  isDisabled?: boolean;
 }
 
 const SettingCard = ({
@@ -37,6 +41,7 @@ const SettingCard = ({
   onClick,
   button,
   children,
+  isDisabled,
 }: SettingCard) => {
   const theme = useTheme();
 
@@ -61,7 +66,12 @@ const SettingCard = ({
         >
           {text}
         </Text>
-        <Button variant={ButtonVariant.Secondary} ml="auto" onClick={onClick}>
+        <Button
+          variant={ButtonVariant.Secondary}
+          ml="auto"
+          onClick={onClick}
+          isDisabled={isDisabled}
+        >
           {button}
         </Button>
       </Footer>
