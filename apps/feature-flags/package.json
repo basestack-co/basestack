@@ -84,5 +84,8 @@
   },
   "overrides": {
     "@types/react": "^18.0.0"
+  },
+  "engines": {
+    "node": ">=16 <17"
   }
 }
