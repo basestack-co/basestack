@@ -1,5 +1,6 @@
 import { createProtectedRouter } from "server/createProtectedRouter";
 // Utils
+import { generateSlug } from "random-word-slugs";
 import {
   AllEnvironmentInput,
   CreateEnvironmentInput,
@@ -45,7 +46,7 @@ export const environmentRouter = createProtectedRouter()
       const environment = await ctx.prisma.environment.create({
         data: {
           name: input.name,
-          slug: input.slug,
+          slug: generateSlug(),
           description: input.description,
           project: {
             connect: {

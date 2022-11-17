@@ -92,8 +92,6 @@ const CreateProjectModal = () => {
             },
           },
         });
-
-        await trpcContext.invalidateQueries(["project.all"]);
       },
     });
 

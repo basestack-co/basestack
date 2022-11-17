@@ -9,7 +9,6 @@ export const AllEnvironmentInput = z
 export const CreateEnvironmentInput = z
   .object({
     name: z.string(),
-    slug: z.string(),
     description: z.string(),
     projectId: z.string(),
   })
