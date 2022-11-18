@@ -92,15 +92,15 @@ const CreateProjectModal = () => {
             },
           },
         });
+
+        onClose();
+
+        await router.push({
+          pathname: "/[projectSlug]/flags",
+          query: { projectSlug: data.slug },
+        });
       },
     });
-
-    await router.push({
-      pathname: "/[projectSlug]/flags",
-      query: { projectSlug: data.slug },
-    });
-
-    onClose();
   };
 
   useDebounce(

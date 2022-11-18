@@ -3,6 +3,7 @@ import React, { useMemo } from "react";
 import { ButtonVariant, SettingCard, Table } from "@basestack/design-system";
 // Server
 import { trpc, inferQueryOutput } from "libs/trpc";
+import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
 // Context
 import useModals from "hooks/useModals";
 import { setIsCreateEnvironmentModalOpen } from "contexts/modals/actions";
@@ -11,14 +12,19 @@ import { CardList, CardListItem } from "../styles";
 // Types
 import { Row } from "@basestack/design-system/organisms/Table/types";
 import { Environment } from "@prisma/client";
+import { HistoryAction } from "types/history";
+// Utils
+import dayjs from "dayjs";
 
-export const headers = ["Environment", "Slug", "Description"];
+export const headers = ["Environment", "Slug", "Description", "Created At"];
 
 export interface Props {
   project: inferQueryOutput<"project.bySlug">["project"];
 }
 
 const EnvironmentsModule = ({ project }: Props) => {
+  const trpcContext = trpc.useContext();
+  const { onCreateHistory } = useCreateApiHistory();
   const { dispatch } = useModals();
 
   const { data, isLoading } = trpc.useQuery(
@@ -26,18 +32,65 @@ const EnvironmentsModule = ({ project }: Props) => {
     { enabled: !!project?.slug }
   );
 
+  const deleteEnvironment = trpc.useMutation(["environment.delete"]);
+
   const onHandleEdit = (id: string) => {
     console.log("edita", id);
   };
 
-  const onHandleDelete = (id: string) => {
-    console.log("edita", id);
+  const onHandleDelete = async (environmentId: string) => {
+    if (project) {
+      await deleteEnvironment.mutate(
+        {
+          environmentId,
+          projectId: project.id,
+        },
+        {
+          onSuccess: async (result) => {
+            // Get all the environments by project on the cache
+            const prev = trpcContext.getQueryData([
+              "environment.all",
+              { projectSlug: project.slug },
+            ]);
+
+            if (prev && prev.environments) {
+              const environments = prev.environments.filter(
+                ({ id }) => id !== result.environment.id
+              );
+
+              // Update the cache with the new data
+              trpcContext.setQueryData(
+                ["environment.all", { projectSlug: project.slug }],
+                {
+                  environments,
+                }
+              );
+            }
+
+            onCreateHistory(HistoryAction.deleteEnvironment, {
+              projectId: project.id,
+              payload: {
+                environment: {
+                  id: result.environment.id,
+                  name: result.environment.name,
+                  slug: result.environment.slug,
+                  description: result.environment.description ?? "",
+                },
+              },
+            });
+          },
+        }
+      );
+    }
   };
 
   const getTable = useMemo(() => {
     if (!isLoading && !!data) {
       const rows = data.environments.reduce(
-        (acc: Row[], { name, slug, description, id }: Environment) => {
+        (
+          acc: Row[],
+          { name, slug, description, id, createdAt }: Environment
+        ) => {
           return [
             ...acc,
             {
@@ -50,6 +103,9 @@ const EnvironmentsModule = ({ project }: Props) => {
                 },
                 {
                   title: description,
+                },
+                {
+                  title: dayjs(createdAt).fromNow(),
                 },
               ],
               more: [

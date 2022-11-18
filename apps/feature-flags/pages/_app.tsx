@@ -20,6 +20,11 @@ import { Maybe } from "@trpc/server";
 // Utils
 import superjson from "superjson";
 import { getBaseUrl } from "utils/functions";
+// Dates
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
 
 const Noop = ({ children }: { children: React.ReactNode }) => children;
 

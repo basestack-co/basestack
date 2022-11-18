@@ -14,7 +14,10 @@ import { trpc } from "libs/trpc";
 import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
 // Router
 import { useRouter } from "next/router";
-import { HistoryAction } from "../../types/history";
+// Types
+import { HistoryAction } from "types/history";
+// Utils
+import dayjs from "dayjs";
 
 export const FormSchema = z.object({
   name: z
@@ -87,7 +90,6 @@ const CreateEnvironmentModal = () => {
         },
         {
           onSuccess: async (result) => {
-            console.log("result = ", result);
             // Get all the environments by project on the cache
             const prev = trpcContext.getQueryData([
               "environment.all",
@@ -95,18 +97,33 @@ const CreateEnvironmentModal = () => {
             ]);
 
             if (prev && prev.environments) {
-              const environments = [result.environment, ...prev.environments];
+              const environments = [
+                result.environment,
+                ...prev.environments,
+              ].sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
 
               // Update the cache with the new data
               trpcContext.setQueryData(["environment.all", { projectSlug }], {
                 environments,
               });
             }
+
+            onCreateHistory(HistoryAction.createEnvironment, {
+              projectId: current?.project?.id!,
+              payload: {
+                environment: {
+                  id: result.environment.id,
+                  name: result.environment.name,
+                  slug: result.environment.slug,
+                  description: result.environment.description ?? "",
+                },
+              },
+            });
+
+            onClose();
           },
         }
       );
-
-      onClose();
     }
   };
 

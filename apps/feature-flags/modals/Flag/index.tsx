@@ -97,9 +97,14 @@ const FlagModal = () => {
       expiredAt: null,
     }));
 
-    await createFlag.mutate({ projectId: current?.project?.id!, data });
-
-    onClose();
+    await createFlag.mutate(
+      { projectId: current?.project?.id!, data },
+      {
+        onSuccess: async (result) => {
+          onClose();
+        },
+      }
+    );
   };
 
   useEffect(() => {
