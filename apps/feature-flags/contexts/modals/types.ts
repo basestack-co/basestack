@@ -1,4 +1,5 @@
 import React from "react";
+import { inferQueryOutput } from "libs/trpc";
 
 export interface OpenFlagModalPayload {
   isOpen: boolean;
@@ -10,13 +11,23 @@ export interface OpenFlagModalPayload {
   } | null;
 }
 
+export interface OpenEnvironmentModalPayload {
+  isOpen: boolean;
+  data: {
+    environment?: { id: string };
+    project: inferQueryOutput<"project.bySlug">["project"];
+  } | null;
+}
+
 export interface ModalsState {
   isDemoModalOpen: boolean;
   isCreateEnvironmentModalOpen: boolean;
+  isEditEnvironmentModalOpen: boolean;
   isInviteMemberModalOpen: boolean;
   isCreateProjectModalOpen: boolean;
   isFlagModalOpen: boolean;
   flagModalPayload: Pick<OpenFlagModalPayload, "isEdit" | "data">;
+  environmentModalPayload: Pick<OpenEnvironmentModalPayload, "data">;
 }
 
 export interface OpenDemoModalAction {
@@ -28,9 +39,12 @@ export interface OpenDemoModalAction {
 
 export interface OpenCreateEnvironmentModalAction {
   type: "CREATE_ENVIRONMENT_MODAL_OPEN";
-  payload: {
-    isOpen: boolean;
-  };
+  payload: OpenEnvironmentModalPayload;
+}
+
+export interface OpenEditEnvironmentModalAction {
+  type: "EDIT_ENVIRONMENT_MODAL_OPEN";
+  payload: OpenEnvironmentModalPayload;
 }
 
 export interface OpenInviteMemberModalAction {
@@ -55,6 +69,7 @@ export interface OpenFlagModalAction {
 export type ModalsActions =
   | OpenDemoModalAction
   | OpenCreateEnvironmentModalAction
+  | OpenEditEnvironmentModalAction
   | OpenInviteMemberModalAction
   | OpenCreateProjectModalAction
   | OpenFlagModalAction;

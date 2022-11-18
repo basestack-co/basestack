@@ -18,7 +18,7 @@ export const UpdateEnvironmentInput = z
   .object({
     // this prop is used on the createProtectedRouter Middleware to validated user project permissions
     projectId: z.string(),
-    environmentId: z.string(),
+    environmentId: z.string().min(1),
     name: z.string(),
     description: z.string(),
   })

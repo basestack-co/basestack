@@ -6,7 +6,10 @@ import { trpc, inferQueryOutput } from "libs/trpc";
 import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
 // Context
 import useModals from "hooks/useModals";
-import { setIsCreateEnvironmentModalOpen } from "contexts/modals/actions";
+import {
+  setIsCreateEnvironmentModalOpen,
+  setIsEditEnvironmentModalOpen,
+} from "contexts/modals/actions";
 // Styles
 import { CardList, CardListItem } from "../styles";
 // Types
@@ -34,8 +37,26 @@ const EnvironmentsModule = ({ project }: Props) => {
 
   const deleteEnvironment = trpc.useMutation(["environment.delete"]);
 
-  const onHandleEdit = (id: string) => {
-    console.log("edita", id);
+  const onHandleEdit = (environmentId: string) => {
+    if (project) {
+      dispatch(
+        setIsEditEnvironmentModalOpen({
+          isOpen: true,
+          data: { environment: { id: environmentId }, project },
+        })
+      );
+    }
+  };
+
+  const onHandleCreate = () => {
+    if (project) {
+      dispatch(
+        setIsCreateEnvironmentModalOpen({
+          isOpen: true,
+          data: { project },
+        })
+      );
+    }
   };
 
   const onHandleDelete = async (environmentId: string) => {
@@ -140,7 +161,7 @@ const EnvironmentsModule = ({ project }: Props) => {
           title="Environments"
           description="Create and edit environments for feature flags and their rules."
           button="Create New Environment"
-          onClick={() => dispatch(setIsCreateEnvironmentModalOpen(true))}
+          onClick={onHandleCreate}
         >
           <Table data={getTable} />
         </SettingCard>
