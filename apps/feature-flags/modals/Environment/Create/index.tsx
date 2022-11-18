@@ -1,54 +1,51 @@
-import React, { useCallback, useEffect } from "react";
-// Components
+import React, { useCallback } from "react";
 import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
 // Form
 import { SubmitHandler } from "react-hook-form";
 // Context
 import useModals from "hooks/useModals";
-import { setIsEditEnvironmentModalOpen } from "contexts/modals/actions";
+import { setIsCreateEnvironmentModalOpen } from "contexts/modals/actions";
 // Server
 import { trpc } from "libs/trpc";
 import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
+// Router
+import { useRouter } from "next/router";
 // Types
-import { FormInputs } from "./types";
+import { HistoryAction } from "types/history";
+import { FormInputs } from "../types";
 // Form
-import useEnvironmentForm from "./useEnvironmentForm";
-import { HistoryAction } from "../../types/history";
+import useEnvironmentForm from "../useEnvironmentForm";
 
-const EditEnvironmentModal = () => {
+const CreateEnvironmentModal = () => {
+  const router = useRouter();
   const trpcContext = trpc.useContext();
   const { onCreateHistory } = useCreateApiHistory();
   const {
     dispatch,
     state: {
-      isEditEnvironmentModalOpen: isModalOpen,
+      isCreateEnvironmentModalOpen: isModalOpen,
       environmentModalPayload: { data },
     },
   } = useModals();
 
-  const updateEnvironment = trpc.useMutation(["environment.update"]);
-  const { handleSubmit, onRenderForm, reset, isSubmitting, setValue } =
+  const createEnvironment = trpc.useMutation(["environment.create"]);
+
+  const { handleSubmit, onRenderForm, reset, isSubmitting } =
     useEnvironmentForm();
 
   const onClose = useCallback(() => {
-    dispatch(
-      setIsEditEnvironmentModalOpen({
-        isOpen: false,
-        data: null,
-      })
-    );
+    dispatch(setIsCreateEnvironmentModalOpen({ isOpen: false, data: null }));
     reset();
   }, [dispatch, reset]);
 
   const onSubmit: SubmitHandler<FormInputs> = (input: FormInputs) => {
-    if (data && data.project && data.environment) {
-      updateEnvironment.mutate(
+    if (data && data.project) {
+      createEnvironment.mutate(
         {
           name: input.name,
           description: input.description,
           projectId: data.project.id,
-          environmentId: data.environment.id,
         },
         {
           onSuccess: (result) => {
@@ -60,19 +57,10 @@ const EditEnvironmentModal = () => {
               ]);
 
               if (prev && prev.environments) {
-                const environments = prev.environments
-                  .map((environment) =>
-                    environment.id === result.environment.id
-                      ? {
-                          ...environment,
-                          name: result.environment.name,
-                          description: result.environment.description,
-                        }
-                      : environment
-                  )
-                  .sort(
-                    (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
-                  );
+                const environments = [
+                  result.environment,
+                  ...prev.environments,
+                ].sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
 
                 // Update the cache with the new data
                 trpcContext.setQueryData(
@@ -83,7 +71,7 @@ const EditEnvironmentModal = () => {
                 );
               }
 
-              onCreateHistory(HistoryAction.updateEnvironment, {
+              onCreateHistory(HistoryAction.createEnvironment, {
                 projectId: data.project.id,
                 payload: {
                   environment: {
@@ -103,38 +91,17 @@ const EditEnvironmentModal = () => {
     }
   };
 
-  useEffect(() => {
-    if (data && data.project && isModalOpen && data.environment) {
-      // Get all the environments by project on the cache
-      const cache = trpcContext.getQueryData([
-        "environment.all",
-        { projectSlug: data.project.slug },
-      ]);
-
-      if (cache && cache.environments) {
-        const environment = cache.environments.find(
-          ({ id }) => id === data?.environment?.id
-        );
-
-        if (environment) {
-          setValue("name", environment.name);
-          setValue("description", environment.description ?? "");
-        }
-      }
-    }
-  }, [data, isModalOpen, trpcContext, setValue]);
-
   return (
     <Portal selector="#portal">
       <Modal
-        title="Edit Environment"
+        title="Create New Environment"
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
           { children: "Close", onClick: onClose },
           {
-            children: "Update",
+            children: "Create",
             onClick: handleSubmit(onSubmit),
             isDisabled: isSubmitting,
             isLoading: isSubmitting,
@@ -147,4 +114,4 @@ const EditEnvironmentModal = () => {
   );
 };
 
-export default EditEnvironmentModal;
+export default CreateEnvironmentModal;

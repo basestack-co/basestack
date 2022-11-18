@@ -8,7 +8,7 @@ import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
 import useModals from "hooks/useModals";
 import {
   setIsCreateEnvironmentModalOpen,
-  setIsEditEnvironmentModalOpen,
+  setIsUpdateEnvironmentModalOpen,
 } from "contexts/modals/actions";
 // Styles
 import { CardList, CardListItem } from "../styles";
@@ -40,7 +40,7 @@ const EnvironmentsModule = ({ project }: Props) => {
   const onHandleEdit = (environmentId: string) => {
     if (project) {
       dispatch(
-        setIsEditEnvironmentModalOpen({
+        setIsUpdateEnvironmentModalOpen({
           isOpen: true,
           data: { environment: { id: environmentId }, project },
         })

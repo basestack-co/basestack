@@ -22,7 +22,7 @@ export interface OpenEnvironmentModalPayload {
 export interface ModalsState {
   isDemoModalOpen: boolean;
   isCreateEnvironmentModalOpen: boolean;
-  isEditEnvironmentModalOpen: boolean;
+  isUpdateEnvironmentModalOpen: boolean;
   isInviteMemberModalOpen: boolean;
   isCreateProjectModalOpen: boolean;
   isFlagModalOpen: boolean;
@@ -42,8 +42,8 @@ export interface OpenCreateEnvironmentModalAction {
   payload: OpenEnvironmentModalPayload;
 }
 
-export interface OpenEditEnvironmentModalAction {
-  type: "EDIT_ENVIRONMENT_MODAL_OPEN";
+export interface OpenUpdateEnvironmentModalAction {
+  type: "UPDATE_ENVIRONMENT_MODAL_OPEN";
   payload: OpenEnvironmentModalPayload;
 }
 
@@ -69,7 +69,7 @@ export interface OpenFlagModalAction {
 export type ModalsActions =
   | OpenDemoModalAction
   | OpenCreateEnvironmentModalAction
-  | OpenEditEnvironmentModalAction
+  | OpenUpdateEnvironmentModalAction
   | OpenInviteMemberModalAction
   | OpenCreateProjectModalAction
   | OpenFlagModalAction;

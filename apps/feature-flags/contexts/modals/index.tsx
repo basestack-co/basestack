@@ -5,7 +5,7 @@ import { ModalsState, ModalsActions, Context } from "./types";
 export const initialState: ModalsState = {
   isDemoModalOpen: false,
   isCreateEnvironmentModalOpen: false,
-  isEditEnvironmentModalOpen: false,
+  isUpdateEnvironmentModalOpen: false,
   isInviteMemberModalOpen: false,
   isCreateProjectModalOpen: false,
   isFlagModalOpen: false,
@@ -35,10 +35,10 @@ export const Reducer = (
         },
       };
 
-    case "EDIT_ENVIRONMENT_MODAL_OPEN":
+    case "UPDATE_ENVIRONMENT_MODAL_OPEN":
       return {
         ...state,
-        isEditEnvironmentModalOpen: action.payload.isOpen,
+        isUpdateEnvironmentModalOpen: action.payload.isOpen,
         environmentModalPayload: {
           data: action.payload.data,
         },

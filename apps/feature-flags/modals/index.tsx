@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import InviteMemberModal from "./InviteMember";
 import CreateEnvironmentModal from "./Environment/Create";
-import EditEnvironmentModal from "./Environment/Edit";
+import UpdateEnvironmentModal from "./Environment/Update";
 import CreateProjectModal from "./CreateProject";
 import FlagModal from "./Flag";
 
@@ -11,7 +11,7 @@ const Modals = () => {
       <InviteMemberModal />
       <CreateEnvironmentModal />
       <CreateProjectModal />
-      <EditEnvironmentModal />
+      <UpdateEnvironmentModal />
       <FlagModal />
     </Fragment>
   );

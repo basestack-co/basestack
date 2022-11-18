@@ -2,7 +2,7 @@ import {
   OpenCreateEnvironmentModalAction,
   OpenInviteMemberModalAction,
   OpenCreateProjectModalAction,
-  OpenEditEnvironmentModalAction,
+  OpenUpdateEnvironmentModalAction,
   OpenFlagModalAction,
   OpenFlagModalPayload,
   OpenEnvironmentModalPayload,
@@ -15,10 +15,10 @@ export const setIsCreateEnvironmentModalOpen = (
   payload,
 });
 
-export const setIsEditEnvironmentModalOpen = (
+export const setIsUpdateEnvironmentModalOpen = (
   payload: OpenEnvironmentModalPayload
-): OpenEditEnvironmentModalAction => ({
-  type: "EDIT_ENVIRONMENT_MODAL_OPEN",
+): OpenUpdateEnvironmentModalAction => ({
+  type: "UPDATE_ENVIRONMENT_MODAL_OPEN",
   payload,
 });
 
