@@ -1,19 +1,19 @@
 import React, { useMemo } from "react";
 // Router
 import { useRouter } from "next/router";
-import Link from "next/link";
 // Server
 import { trpc } from "libs/trpc";
 // Theme
 import { useTheme } from "styled-components";
 // Components
-import { Button, ButtonVariant, Tabs, Text } from "@basestack/design-system";
+import { Tabs, Text } from "@basestack/design-system";
 import {
-  ButtonContainer,
+  StyledLink,
   Container,
   List,
   ListItem,
   SettingsContainer,
+  StyledButton,
 } from "./styles";
 // Hooks
 import { useMediaQuery } from "@basestack/hooks";
@@ -60,20 +60,15 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   const renderButton = useMemo(() => {
     return buttons.map(({ id, text, href }) => (
       <ListItem key={`settings-button-list-${id}`}>
-        <ButtonContainer isActive={pathname === href}>
-          <Link
-            href={{
-              pathname: href,
-              query: { projectSlug },
-            }}
-            style={{ textDecoration: "none" }}
-            passHref
-          >
-            <Button variant={ButtonVariant.Neutral} fontWeight={400} fullWidth>
-              {text}
-            </Button>
-          </Link>
-        </ButtonContainer>
+        <StyledLink
+          href={{
+            pathname: href,
+            query: { projectSlug },
+          }}
+          passHref
+        >
+          <StyledButton isActive={pathname === href}>{text}</StyledButton>
+        </StyledLink>
       </ListItem>
     ));
   }, [pathname, projectSlug]);

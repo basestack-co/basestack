@@ -3,7 +3,16 @@ import { useTheme } from "styled-components";
 import { ButtonProps, ButtonVariant } from "./types";
 import Spinner from "../Spinner";
 import Icon from "../Icon";
-import { StyledButton } from "./styles";
+import {
+  StyledButton,
+  outlinedButtonStyles,
+  neutralButtonStyles,
+  primaryNeutralButtonStyles,
+  dangerButtonStyles,
+  primaryButtonStyles,
+  secondaryButtonStyles,
+  tertiaryButtonStyles,
+} from "./styles";
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -81,6 +90,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 
-Button.displayName = "Button";
-
-export default memo(Button);
+export {
+  outlinedButtonStyles,
+  neutralButtonStyles,
+  primaryNeutralButtonStyles,
+  dangerButtonStyles,
+  primaryButtonStyles,
+  secondaryButtonStyles,
+  tertiaryButtonStyles,
+  Button,
+};
