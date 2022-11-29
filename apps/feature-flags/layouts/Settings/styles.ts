@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
+import Link from "next/link";
+import { neutralButtonStyles } from "@basestack/design-system";
 
 const flexColumn = css`
   display: flex;
@@ -44,18 +46,26 @@ export const ListItem = styled.li`
   display: flex;
 `;
 
-export const ButtonContainer = styled.div<{ isActive: boolean }>`
+export const StyledLink = styled(Link)`
   display: flex;
+  flex-direction: column;
   flex-grow: 1;
-  a {
-    height: ${rem("44px")};
-    border-radius: 0;
-    padding-left: ${({ theme }) => theme.spacing.s5};
+  text-decoration: none;
+`;
 
-    ${({ isActive, theme }) =>
-      isActive &&
-      css`
-        background-color: ${theme.colors.gray100};
-      `};
-  }
+interface StyledButtonProps {
+  isActive: boolean;
+}
+
+export const StyledButton = styled.div<StyledButtonProps>`
+  ${neutralButtonStyles};
+  height: ${rem("44px")};
+  border-radius: 0;
+  padding-left: ${({ theme }) => theme.spacing.s5};
+
+  ${({ isActive, theme }) =>
+    isActive &&
+    css`
+      background-color: ${theme.colors.gray100};
+    `};
 `;
