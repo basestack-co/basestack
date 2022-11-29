@@ -3,6 +3,7 @@ import { useTheme } from "styled-components";
 // Components
 import { Avatar, Button, ButtonVariant } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
+import AvatarDropdown from "./AvatarDropdown"
 import { ButtonLink, MoreMenu, ProjectsMenu } from "./components";
 // Router
 import { useRouter } from "next/router";
@@ -145,10 +146,10 @@ const Navigation = ({ isDesktop, data }: NavigationProps) => {
         {isDesktop && <>{onRenderItems(rightItems, "right")}</>}
         {!isDesktop && <MoreMenu />}
         <ListItem ml={theme.spacing.s3}>
-          <Avatar
-            src={session?.user.image ?? ""}
-            alt="user image"
-            userName={session?.user.name ?? session?.user.email}
+          <AvatarDropdown
+            name={session?.user.name || "User Name"}
+            email={session?.user.email || ""}
+            src={session?.user.image || ""}
           />
         </ListItem>
       </List>

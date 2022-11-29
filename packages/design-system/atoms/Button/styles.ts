@@ -155,18 +155,6 @@ export const StyledButton = styled.button<Props>`
           width: fit-content;
         `};
 
-  ${({ hasLeftIcon }) =>
-    hasLeftIcon &&
-    css`
-      padding-left: ${rem("8px")};
-    `};
-
-  ${({ hasRightIcon }) =>
-    hasRightIcon &&
-    css`
-      padding-right: ${rem("8px")};
-    `};
-
   &:disabled {
     cursor: not-allowed;
   }
