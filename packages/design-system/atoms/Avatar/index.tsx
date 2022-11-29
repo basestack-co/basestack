@@ -4,7 +4,7 @@ import { Container, Image } from "./styles";
 
 export type Size = "large" | "medium" | "small";
 
-interface AvatarProps extends SpaceProps {
+export interface AvatarProps extends SpaceProps {
   /**
    * Change avatar size
    */
