@@ -11,6 +11,7 @@ export const CreateEnvironmentInput = z
     name: z.string(),
     description: z.string(),
     projectId: z.string(),
+    copyFromEnvId: z.string(),
   })
   .required();
 

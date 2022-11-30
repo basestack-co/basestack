@@ -29,7 +29,7 @@ const EditEnvironmentModal = () => {
 
   const updateEnvironment = trpc.useMutation(["environment.update"]);
   const { handleSubmit, onRenderForm, reset, isSubmitting, setValue } =
-    useEnvironmentForm();
+    useEnvironmentForm({});
 
   const onClose = useCallback(() => {
     dispatch(

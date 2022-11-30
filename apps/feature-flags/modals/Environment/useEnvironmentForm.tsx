@@ -4,10 +4,17 @@ import { InputGroup } from "@basestack/design-system";
 // Form
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+// Components
+import Select from "react-select";
 // Types
 import { FormInputs, FormSchema } from "./types";
 
-const useEnvironmentForm = () => {
+export interface Props {
+  isCreate?: boolean;
+  options?: Array<{ value: string; label: string }>;
+}
+
+const useEnvironmentForm = ({ isCreate = false, options = [] }: Props) => {
   const theme = useTheme();
   const [textareaLength, setTextareaLength] = useState("");
   const {
@@ -15,6 +22,7 @@ const useEnvironmentForm = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
+    watch,
     reset,
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
@@ -36,6 +44,45 @@ const useEnvironmentForm = () => {
   const onRenderForm = () => {
     return (
       <>
+        {isCreate && (
+          <>
+            <Controller
+              name="environmentId"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <Select
+                  ref={field.ref}
+                  placeholder="Select environment"
+                  options={options}
+                  value={
+                    (options &&
+                      options.find((option) => option.value === field.value)) ||
+                    []
+                  }
+                  onChange={(val) => field.onChange((val && val.value) || "")}
+                  isDisabled={!options.length}
+                  isLoading={!options.length}
+                  styles={{
+                    control: (baseStyles, state) => ({
+                      ...baseStyles,
+                      ...(state.isFocused
+                        ? {
+                            outline: `2px solid ${theme.colors.black}`,
+                          }
+                        : {}),
+                      backgroundColor: theme.colors.gray50,
+                      border: "none",
+                    }),
+                  }}
+                  isClearable
+                />
+              )}
+            />
+            <br />
+          </>
+        )}
+
         <Controller
           name="name"
           control={control}

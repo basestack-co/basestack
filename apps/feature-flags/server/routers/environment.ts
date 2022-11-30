@@ -43,6 +43,21 @@ export const environmentRouter = createProtectedRouter()
     },
     input: CreateEnvironmentInput,
     resolve: async ({ ctx, input }) => {
+      // Get all the flags from a selected environment
+      const flagsFromEnv = await ctx.prisma.flag.findMany({
+        where: {
+          environmentId: input.copyFromEnvId,
+        },
+      });
+
+      // Format the flags to be created in the new environment
+      const flags = flagsFromEnv.map((flag) => ({
+        slug: flag.slug,
+        payload: flag.payload ?? {},
+        expiredAt: flag.expiredAt,
+        description: flag.description,
+      }));
+
       const environment = await ctx.prisma.environment.create({
         data: {
           name: input.name,
@@ -52,6 +67,9 @@ export const environmentRouter = createProtectedRouter()
             connect: {
               id: input.projectId,
             },
+          },
+          flags: {
+            create: flags,
           },
         },
       });

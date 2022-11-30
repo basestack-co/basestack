@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
 // Form
@@ -28,11 +28,32 @@ const CreateEnvironmentModal = () => {
       environmentModalPayload: { data },
     },
   } = useModals();
+  const project = data && data.project;
 
   const createEnvironment = trpc.useMutation(["environment.create"]);
 
+  const [options, environments] = useMemo(() => {
+    if (project) {
+      const cache = trpcContext.getQueryData([
+        "environment.all",
+        { projectSlug: project.slug },
+      ]);
+
+      const environments = (cache && cache.environments) || [];
+
+      const options = environments.map((item) => ({
+        value: item.id,
+        label: item.name,
+      }));
+
+      return [options, environments] as const;
+    }
+
+    return [] as const;
+  }, [project, trpcContext]);
+
   const { handleSubmit, onRenderForm, reset, isSubmitting } =
-    useEnvironmentForm();
+    useEnvironmentForm({ isCreate: true, options });
 
   const onClose = useCallback(() => {
     dispatch(setIsCreateEnvironmentModalOpen({ isOpen: false, data: null }));
@@ -40,39 +61,33 @@ const CreateEnvironmentModal = () => {
   }, [dispatch, reset]);
 
   const onSubmit: SubmitHandler<FormInputs> = (input: FormInputs) => {
-    if (data && data.project) {
+    if (project) {
       createEnvironment.mutate(
         {
           name: input.name,
           description: input.description,
-          projectId: data.project.id,
+          projectId: project.id,
+          copyFromEnvId: input.environmentId ?? "",
         },
         {
           onSuccess: (result) => {
-            if (data && data.project) {
-              // Get all the environments by project on the cache
-              const prev = trpcContext.getQueryData([
-                "environment.all",
-                { projectSlug: data.project.slug },
-              ]);
-
-              if (prev && prev.environments) {
-                const environments = [
-                  result.environment,
-                  ...prev.environments,
-                ].sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+            if (project && result) {
+              if (environments) {
+                const updated = [result.environment, ...environments].sort(
+                  (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
+                );
 
                 // Update the cache with the new data
                 trpcContext.setQueryData(
-                  ["environment.all", { projectSlug: data.project.slug }],
+                  ["environment.all", { projectSlug: project.slug }],
                   {
-                    environments,
+                    environments: updated,
                   }
                 );
               }
 
               onCreateHistory(HistoryAction.createEnvironment, {
-                projectId: data.project.id,
+                projectId: project.id,
                 payload: {
                   environment: {
                     id: result.environment.id,
@@ -94,7 +109,7 @@ const CreateEnvironmentModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title="Create New Environment"
+        title="Create Environment"
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
