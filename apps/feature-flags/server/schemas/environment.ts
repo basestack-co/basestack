@@ -9,9 +9,9 @@ export const AllEnvironmentInput = z
 export const CreateEnvironmentInput = z
   .object({
     name: z.string(),
-    slug: z.string(),
     description: z.string(),
     projectId: z.string(),
+    copyFromEnvId: z.string(),
   })
   .required();
 
@@ -19,7 +19,7 @@ export const UpdateEnvironmentInput = z
   .object({
     // this prop is used on the createProtectedRouter Middleware to validated user project permissions
     projectId: z.string(),
-    environmentId: z.string(),
+    environmentId: z.string().min(1),
     name: z.string(),
     description: z.string(),
   })

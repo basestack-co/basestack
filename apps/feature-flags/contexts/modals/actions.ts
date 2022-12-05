@@ -2,15 +2,24 @@ import {
   OpenCreateEnvironmentModalAction,
   OpenInviteMemberModalAction,
   OpenCreateProjectModalAction,
+  OpenUpdateEnvironmentModalAction,
   OpenFlagModalAction,
   OpenFlagModalPayload,
+  OpenEnvironmentModalPayload,
 } from "./types";
 
 export const setIsCreateEnvironmentModalOpen = (
-  isOpen: boolean
+  payload: OpenEnvironmentModalPayload
 ): OpenCreateEnvironmentModalAction => ({
   type: "CREATE_ENVIRONMENT_MODAL_OPEN",
-  payload: { isOpen },
+  payload,
+});
+
+export const setIsUpdateEnvironmentModalOpen = (
+  payload: OpenEnvironmentModalPayload
+): OpenUpdateEnvironmentModalAction => ({
+  type: "UPDATE_ENVIRONMENT_MODAL_OPEN",
+  payload,
 });
 
 export const seIsInviteMemberModalOpen = (

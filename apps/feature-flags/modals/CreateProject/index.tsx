@@ -93,16 +93,14 @@ const CreateProjectModal = () => {
           },
         });
 
-        await trpcContext.invalidateQueries(["project.all"]);
+        onClose();
+
+        await router.push({
+          pathname: "/[projectSlug]/flags",
+          query: { projectSlug: data.slug },
+        });
       },
     });
-
-    await router.push({
-      pathname: "/[projectSlug]/flags",
-      query: { projectSlug: data.slug },
-    });
-
-    onClose();
   };
 
   useDebounce(
