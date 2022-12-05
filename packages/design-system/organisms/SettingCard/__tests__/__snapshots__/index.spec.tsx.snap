@@ -113,7 +113,7 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
 }
 
 <div
-    class="c0"
+    class="c0 "
     data-testid="card"
   >
     <div
@@ -299,7 +299,7 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
 }
 
 <div
-    class="c0"
+    class="c0 "
     data-testid="card"
   >
     <div
@@ -468,7 +468,7 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
 }
 
 <div
-    class="c0"
+    class="c0 "
     data-testid="card"
   >
     <div

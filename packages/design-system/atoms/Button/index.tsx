@@ -43,6 +43,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       [ButtonVariant.Danger]: theme.colors.red400,
       [ButtonVariant.Neutral]: theme.colors.black,
       [ButtonVariant.Outlined]: theme.colors.black,
+      [ButtonVariant.DangerFilled]: theme.colors.white,
     };
 
     const spinnerBg = {
@@ -53,6 +54,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       [ButtonVariant.Danger]: theme.colors.gray200,
       [ButtonVariant.Neutral]: theme.colors.gray200,
       [ButtonVariant.Outlined]: theme.colors.gray200,
+      [ButtonVariant.DangerFilled]: theme.colors.red200,
     };
 
     return (

@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { useTheme } from "styled-components";
-import { Button, ButtonVariant, Card, HorizontalRule, Text } from "../../atoms";
-import { Container, Footer } from "./styles";
+import { Button, ButtonVariant, HorizontalRule, Text } from "../../atoms";
+import { Container, Footer, StyledCard } from "./styles";
 
 interface SettingCard {
   /**
@@ -32,6 +32,10 @@ interface SettingCard {
    * Card button disable state
    */
   isDisabled?: boolean;
+  /**
+   * Changes card styles based on variant
+   */
+  variant?: "default" | "danger";
 }
 
 const SettingCard = ({
@@ -42,11 +46,12 @@ const SettingCard = ({
   button,
   children,
   isDisabled,
+  variant = "default",
 }: SettingCard) => {
   const theme = useTheme();
 
   return (
-    <Card>
+    <StyledCard variant={variant}>
       <Container>
         <Text mb={theme.spacing.s1} data-testid="setting-title" size="large">
           {title}
@@ -67,7 +72,11 @@ const SettingCard = ({
           {text}
         </Text>
         <Button
-          variant={ButtonVariant.Secondary}
+          variant={
+            variant === "danger"
+              ? ButtonVariant.DangerFilled
+              : ButtonVariant.Secondary
+          }
           ml="auto"
           onClick={onClick}
           isDisabled={isDisabled}
@@ -75,7 +84,7 @@ const SettingCard = ({
           {button}
         </Button>
       </Footer>
-    </Card>
+    </StyledCard>
   );
 };
 
