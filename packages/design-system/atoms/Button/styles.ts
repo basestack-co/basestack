@@ -111,6 +111,19 @@ export const dangerButtonStyles = css`
   }
 `;
 
+export const dangerFilledButtonStyles = css`
+  ${sharedButtonStyles};
+  background-color: ${({ theme }) => theme.colors.red400};
+  color: ${({ theme }) => theme.colors.white};
+
+  &:hover:not(:disabled) {
+    background-color: ${({ theme }) => theme.colors.red500};
+  }
+  &:active:not(:disabled) {
+    background-color: ${({ theme }) => theme.colors.red400};
+  }
+`;
+
 const handleButtonVariant = (variant?: ButtonVariant) => {
   switch (variant) {
     default:
@@ -128,6 +141,8 @@ const handleButtonVariant = (variant?: ButtonVariant) => {
       return neutralButtonStyles;
     case ButtonVariant.Danger:
       return dangerButtonStyles;
+    case ButtonVariant.DangerFilled:
+      return dangerFilledButtonStyles;
   }
 };
 

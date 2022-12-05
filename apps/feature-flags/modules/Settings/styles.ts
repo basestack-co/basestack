@@ -9,7 +9,7 @@ export const CardList = styled.ul`
   ${flexColumn};
 `;
 
-export const CardListItem = styled.ul`
+export const CardListItem = styled.li`
   ${flexColumn};
   &:not(:last-child) {
     margin-bottom: ${({ theme }) => theme.spacing.s5};
