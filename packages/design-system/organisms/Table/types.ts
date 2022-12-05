@@ -30,14 +30,16 @@ export type Row = {
   more: Array<PopupItems>;
 };
 
+export interface TableData {
+  headers: Array<string>;
+  rows: Array<Row>;
+}
+
 export interface TableProps extends SpaceProps {
   /**
    * Table data
    */
-  data: {
-    headers: Array<string>;
-    rows: Array<Row>;
-  };
+  data: TableData;
 }
 
 export interface RowProps {

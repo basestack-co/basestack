@@ -50,22 +50,22 @@ export const projectRouter = createProtectedRouter()
       const project = await ctx.prisma.project.create({
         data: {
           ...input,
-          slug: `pr-${input.slug}`,
+          slug: `${input.slug}`,
           environments: {
             create: [
               {
                 name: "develop",
-                slug: `env-${generateSlug()}`,
+                slug: `${generateSlug()}`,
                 description: "The default develop environment",
               },
               {
                 name: "staging",
-                slug: `env-${generateSlug()}`,
+                slug: `${generateSlug()}`,
                 description: "The default staging environment",
               },
               {
                 name: "production",
-                slug: `env-${generateSlug()}`,
+                slug: `${generateSlug()}`,
                 description: "The default production environment",
               },
             ],
