@@ -6,7 +6,8 @@ import { Session } from "next-auth";
 // Utils
 import { getValue } from "@basestack/utils";
 // Types
-import { HistoryAction } from "types/history";
+import { HistoryAction, HistoryPayload } from "types/history";
+import { RouterInput } from "libs/trpc";
 
 /*
   QUERIES
@@ -65,14 +66,8 @@ export const createHistory = async (
   let projectId = getValue(input, "projectId", "");
   const action = getPathAction[path] ?? "";
 
-  console.log("path = ", path);
-  console.log("input = ", input);
-  console.log("projectId = ", projectId);
-  console.log("action = ", action);
-  console.log("data = ", data);
-
   if (action) {
-    let payload = {};
+    let payload: HistoryPayload = {};
 
     if (path.includes("environment")) {
       payload = {
@@ -94,17 +89,25 @@ export const createHistory = async (
           slug: data.project.slug,
         },
       };
-    } /* else if (path.includes("flag")) {
-      payload = {
-        flag: {},
-      };
-    } */
+    } else if (path.includes("flag")) {
+      if (path === "project.create") {
+        const flagsCreateInput: RouterInput["flag"]["create"] = input;
 
-    console.log("paylaod = ", payload);
-    console.log("new projectId = ", projectId);
+        payload = {
+          flag: flagsCreateInput.data.map(
+            ({ slug, description, environmentId, enabled }) => ({
+              slug,
+              description,
+              environmentId,
+              enabled,
+            })
+          ),
+        };
+      }
+    }
 
     if (projectId) {
-      const history = await prisma.history.create({
+      await prisma.history.create({
         data: {
           action,
           payload: JSON.stringify({
@@ -122,8 +125,6 @@ export const createHistory = async (
           },
         },
       });
-
-      console.log("history success created = ", history);
     }
   }
 };
