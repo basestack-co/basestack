@@ -9,7 +9,6 @@ import useModals from "hooks/useModals";
 import { setIsUpdateEnvironmentModalOpen } from "contexts/modals/actions";
 // Server
 import { trpc } from "libs/trpc";
-import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
 // Types
 import { FormInputs } from "../types";
 // Form
@@ -18,7 +17,6 @@ import { HistoryAction } from "types/history";
 
 const EditEnvironmentModal = () => {
   const trpcContext = trpc.useContext();
-  const { onCreateHistory } = useCreateApiHistory();
   const {
     dispatch,
     state: {
@@ -83,18 +81,6 @@ const EditEnvironmentModal = () => {
                   }
                 );
               }
-
-              await onCreateHistory(HistoryAction.updateEnvironment, {
-                projectId: data.project.id,
-                payload: {
-                  environment: {
-                    id: result.environment.id,
-                    name: result.environment.name,
-                    slug: result.environment.slug,
-                    description: result.environment.description ?? "",
-                  },
-                },
-              });
 
               onClose();
             }

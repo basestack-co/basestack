@@ -17,7 +17,6 @@ import useModals from "hooks/useModals";
 import { seIsCreateProjectModalOpen } from "contexts/modals/actions";
 // Server
 import { trpc } from "libs/trpc";
-import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
 // Utils
 import { generateSlug } from "random-word-slugs";
 import { slugify } from "@basestack/utils";
@@ -41,7 +40,6 @@ const CreateProjectModal = () => {
   const theme = useTheme();
   const router = useRouter();
   const trpcContext = trpc.useContext();
-  const { onCreateHistory } = useCreateApiHistory();
 
   const {
     dispatch,
@@ -82,16 +80,6 @@ const CreateProjectModal = () => {
           // Update the cache with the new data
           trpcContext.project.all.setData(undefined, { projects });
         }
-
-        await onCreateHistory(HistoryAction.createProject, {
-          projectId: result.project.id,
-          payload: {
-            project: {
-              name: result.project.name,
-              slug: result.project.slug,
-            },
-          },
-        });
 
         onClose();
 

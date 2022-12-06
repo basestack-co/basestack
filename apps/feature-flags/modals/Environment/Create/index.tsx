@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
 // Form
@@ -8,19 +8,13 @@ import useModals from "hooks/useModals";
 import { setIsCreateEnvironmentModalOpen } from "contexts/modals/actions";
 // Server
 import { trpc } from "libs/trpc";
-import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
-// Router
-import { useRouter } from "next/router";
 // Types
-import { HistoryAction } from "types/history";
 import { FormInputs } from "../types";
 // Form
 import useEnvironmentForm from "../useEnvironmentForm";
 
 const CreateEnvironmentModal = () => {
-  const router = useRouter();
   const trpcContext = trpc.useContext();
-  const { onCreateHistory } = useCreateApiHistory();
   const {
     dispatch,
     state: {
@@ -84,18 +78,6 @@ const CreateEnvironmentModal = () => {
                   }
                 );
               }
-
-              await onCreateHistory(HistoryAction.createEnvironment, {
-                projectId: project.id,
-                payload: {
-                  environment: {
-                    id: result.environment.id,
-                    name: result.environment.name,
-                    slug: result.environment.slug,
-                    description: result.environment.description ?? "",
-                  },
-                },
-              });
 
               onClose();
             }

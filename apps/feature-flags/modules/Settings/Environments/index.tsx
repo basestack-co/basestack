@@ -3,7 +3,6 @@ import React, { useMemo } from "react";
 import { ButtonVariant, SettingCard, Table } from "@basestack/design-system";
 // Server
 import { trpc, RouterOutput } from "libs/trpc";
-import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
 // Context
 import useModals from "hooks/useModals";
 import {
@@ -27,7 +26,6 @@ export interface Props {
 
 const EnvironmentsModule = ({ project }: Props) => {
   const trpcContext = trpc.useContext();
-  const { onCreateHistory } = useCreateApiHistory();
   const { dispatch } = useModals();
 
   const { data, isLoading } = trpc.environment.all.useQuery(
@@ -86,18 +84,6 @@ const EnvironmentsModule = ({ project }: Props) => {
                 }
               );
             }
-
-            await onCreateHistory(HistoryAction.deleteEnvironment, {
-              projectId: project.id,
-              payload: {
-                environment: {
-                  id: result.environment.id,
-                  name: result.environment.name,
-                  slug: result.environment.slug,
-                  description: result.environment.description ?? "",
-                },
-              },
-            });
           },
         }
       );

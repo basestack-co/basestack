@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // Server
 import { RouterOutput, trpc } from "libs/trpc";
-import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
 // Components
 import { Input, SettingCard } from "@basestack/design-system";
 // Types
@@ -26,7 +25,6 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const ProjectName = ({ project }: Props) => {
   const trpcContext = trpc.useContext();
-  const { onCreateHistory } = useCreateApiHistory();
 
   const updateProject = trpc.project.update.useMutation();
 
@@ -76,17 +74,6 @@ const ProjectName = ({ project }: Props) => {
                 }
               );
             }
-
-            // Create new history entry on updating the project name
-            await onCreateHistory(HistoryAction.updateProject, {
-              projectId: result.project.id,
-              payload: {
-                project: {
-                  name: result.project.name,
-                  slug: result.project.slug,
-                },
-              },
-            });
           },
         }
       );

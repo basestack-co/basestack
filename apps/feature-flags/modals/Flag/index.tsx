@@ -17,7 +17,6 @@ import { HistoryAction } from "types/history";
 import { TabType } from "types/flags";
 // Server
 import { trpc } from "libs/trpc";
-import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
 // Utils
 import { getValue } from "@basestack/utils";
 // Tabs
@@ -34,7 +33,6 @@ const FlagModal = () => {
     dispatch,
     state: { isFlagModalOpen: isModalOpen, flagModalPayload: payload },
   } = useModals();
-  const { onCreateHistory } = useCreateApiHistory();
   const [selectedTab, setSelectedTab] = useState<TabType>(TabType.CORE);
 
   const projectSlug = router.query.projectSlug as string;
@@ -51,22 +49,7 @@ const FlagModal = () => {
     );
 
   const createFlag = trpc.flag.create.useMutation({
-    async onSuccess(_, form) {
-      await onCreateHistory(HistoryAction.createFlag, {
-        projectId: form.projectId,
-        payload: {
-          flag: {
-            id: "",
-            slug: getValue(form, "data[0].slug", ""),
-            enabled: getValue(form, "data[0].enabled", false),
-            description: getValue(form, "data[0].description", ""),
-          },
-          environment: form.data.map(({ environmentId }) => ({
-            id: environmentId,
-          })),
-        },
-      });
-
+    async onSuccess() {
       await trpcContext.flag.byProjectSlug.invalidate();
     },
   });
@@ -78,7 +61,6 @@ const FlagModal = () => {
     formState: { errors, isSubmitting },
     setValue,
     reset,
-    getValues,
   } = useForm<FlagFormInputs>({
     resolver: zodResolver(FlagFormSchema),
     mode: "onChange",

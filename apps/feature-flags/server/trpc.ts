@@ -1,12 +1,11 @@
-// Prima
-import { PrismaClient } from "@prisma/client";
 // Trpc
 import { initTRPC, TRPCError } from "@trpc/server";
 import { Context } from "./context";
 // Utils
 import superjson from "superjson";
 import { getValue, isEmpty } from "@basestack/utils";
-import { createProtectedRouter } from "./createProtectedRouter";
+// Prisma
+import { createHistory, getUserInProject } from "libs/prisma/utils";
 
 export type Meta = {
   restricted?: boolean;
@@ -18,51 +17,29 @@ const t = initTRPC
   .context<Context>()
   .meta<Meta>()
   .create({
-    /**
-     * @see https://trpc.io/docs/v10/data-transformers
-     */
     transformer: superjson,
-    /**
-     * @see https://trpc.io/docs/v10/error-formatting
-     */
     errorFormatter({ shape }) {
       return shape;
     },
   });
 
-// Checks if user can do an action in this project like create, update, delete
-export const getUserInProject = async (
-  prisma: PrismaClient,
-  userId: string,
-  projectId: string
-) => {
-  try {
-    return await prisma.project.findFirst({
-      where: {
-        AND: [
-          {
-            id: projectId,
-          },
-          {
-            users: {
-              some: {
-                user: {
-                  id: userId,
-                },
-              },
-            },
-          },
-        ],
-      },
-    });
-  } catch {
-    throw new TRPCError({ code: "UNAUTHORIZED" });
-  }
-};
-
 // MIDDLEWARES
 
 export const middleware = t.middleware;
+
+const logger = t.middleware(async ({ path, type, next, rawInput, ctx }) => {
+  if (!ctx.session) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+
+  const result = await next();
+
+  if (type === "mutation" && result.ok && result.data) {
+    await createHistory(ctx.prisma, ctx.session, path, result.data, rawInput);
+  }
+
+  return result;
+});
 
 export const isAuthenticated = middleware(
   async ({ next, ctx, meta, rawInput }) => {
@@ -107,4 +84,6 @@ export const mergeRouters = t.mergeRouters;
 
 export const publicProcedure = t.procedure;
 
-export const protectedProcedure = t.procedure.use(isAuthenticated);
+const loggedProcedure = t.procedure.use(logger);
+
+export const protectedProcedure = t.procedure.use(logger).use(isAuthenticated);
