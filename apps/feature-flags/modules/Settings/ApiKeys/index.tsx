@@ -2,14 +2,14 @@ import React from "react";
 // Components
 import { SettingCard, Table } from "@basestack/design-system";
 // Libs
-import { inferQueryOutput } from "libs/trpc";
+import { RouterOutput } from "libs/trpc";
 // Styles
 import { CardList, CardListItem } from "../styles";
 // Mocks
 import { apiKeysTableMock } from "mocks/settings";
 
 interface Props {
-  project: inferQueryOutput<"project.bySlug">["project"];
+  project: RouterOutput["project"]["bySlug"]["project"];
 }
 
 const ApiKeysModule = ({ project }: Props) => {

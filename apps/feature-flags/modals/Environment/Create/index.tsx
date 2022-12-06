@@ -30,14 +30,13 @@ const CreateEnvironmentModal = () => {
   } = useModals();
   const project = data && data.project;
 
-  const createEnvironment = trpc.useMutation(["environment.create"]);
+  const createEnvironment = trpc.environment.create.useMutation();
 
   const [options, environments] = useMemo(() => {
     if (project) {
-      const cache = trpcContext.getQueryData([
-        "environment.all",
-        { projectSlug: project.slug },
-      ]);
+      const cache = trpcContext.environment.all.getData({
+        projectSlug: project.slug,
+      });
 
       const environments = (cache && cache.environments) || [];
 
@@ -70,7 +69,7 @@ const CreateEnvironmentModal = () => {
           copyFromEnvId: input.environmentId ?? "",
         },
         {
-          onSuccess: (result) => {
+          onSuccess: async (result) => {
             if (project && result) {
               if (environments) {
                 const updated = [result.environment, ...environments].sort(
@@ -78,15 +77,15 @@ const CreateEnvironmentModal = () => {
                 );
 
                 // Update the cache with the new data
-                trpcContext.setQueryData(
-                  ["environment.all", { projectSlug: project.slug }],
+                trpcContext.environment.all.setData(
+                  { projectSlug: project.slug },
                   {
                     environments: updated,
                   }
                 );
               }
 
-              onCreateHistory(HistoryAction.createEnvironment, {
+              await onCreateHistory(HistoryAction.createEnvironment, {
                 projectId: project.id,
                 payload: {
                   environment: {

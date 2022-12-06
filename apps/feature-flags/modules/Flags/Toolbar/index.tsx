@@ -26,10 +26,7 @@ const Toolbar = ({
   const theme = useTheme();
   const [selected, setSelected] = useState("all");
 
-  const { data, isLoading } = trpc.useQuery([
-    "environment.all",
-    { projectSlug },
-  ]);
+  const { data, isLoading } = trpc.environment.all.useQuery({ projectSlug });
 
   const onRenderDesktopPills = useCallback(() => {
     if (isLoading) {

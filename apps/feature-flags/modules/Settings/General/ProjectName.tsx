@@ -4,17 +4,15 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // Server
-import { trpc } from "libs/trpc";
+import { RouterOutput, trpc } from "libs/trpc";
 import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
 // Components
 import { Input, SettingCard } from "@basestack/design-system";
 // Types
 import { HistoryAction } from "types/history";
-// Libs
-import { inferQueryOutput } from "libs/trpc";
 
 interface Props {
-  project: inferQueryOutput<"project.bySlug">["project"];
+  project: RouterOutput["project"]["bySlug"]["project"];
 }
 
 export const FormSchema = z.object({
@@ -30,7 +28,7 @@ const ProjectName = ({ project }: Props) => {
   const trpcContext = trpc.useContext();
   const { onCreateHistory } = useCreateApiHistory();
 
-  const updateProject = trpc.useMutation(["project.update"]);
+  const updateProject = trpc.project.update.useMutation();
 
   const {
     control,
@@ -52,7 +50,7 @@ const ProjectName = ({ project }: Props) => {
         {
           onSuccess: async (result) => {
             // Get all the projects on the cache
-            const prev = trpcContext.getQueryData(["project.all"]);
+            const prev = trpcContext.project.all.getData();
 
             if (prev && prev.projects) {
               // Find the project and update with the new name
@@ -69,10 +67,10 @@ const ProjectName = ({ project }: Props) => {
 
               // Update the cache with the new data
               // This updates in the navigation list
-              trpcContext.setQueryData(["project.all"], { projects });
+              trpcContext.project.all.setData(undefined, { projects });
               // Updates the current active project in the cache
-              trpcContext.setQueryData(
-                ["project.bySlug", { projectSlug: result.project.slug }],
+              trpcContext.project.bySlug.setData(
+                { projectSlug: result.project.slug },
                 {
                   project,
                 }
@@ -80,7 +78,7 @@ const ProjectName = ({ project }: Props) => {
             }
 
             // Create new history entry on updating the project name
-            onCreateHistory(HistoryAction.updateProject, {
+            await onCreateHistory(HistoryAction.updateProject, {
               projectId: result.project.id,
               payload: {
                 project: {

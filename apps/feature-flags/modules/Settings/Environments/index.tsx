@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 // Components
 import { ButtonVariant, SettingCard, Table } from "@basestack/design-system";
 // Server
-import { trpc, inferQueryOutput } from "libs/trpc";
+import { trpc, RouterOutput } from "libs/trpc";
 import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
 // Context
 import useModals from "hooks/useModals";
@@ -22,7 +22,7 @@ import dayjs from "dayjs";
 export const headers = ["Environment", "Slug", "Description", "Created At"];
 
 export interface Props {
-  project: inferQueryOutput<"project.bySlug">["project"];
+  project: RouterOutput["project"]["bySlug"]["project"];
 }
 
 const EnvironmentsModule = ({ project }: Props) => {
@@ -30,12 +30,12 @@ const EnvironmentsModule = ({ project }: Props) => {
   const { onCreateHistory } = useCreateApiHistory();
   const { dispatch } = useModals();
 
-  const { data, isLoading } = trpc.useQuery(
-    ["environment.all", { projectSlug: project?.slug! }],
+  const { data, isLoading } = trpc.environment.all.useQuery(
+    { projectSlug: project?.slug! },
     { enabled: !!project?.slug }
   );
 
-  const deleteEnvironment = trpc.useMutation(["environment.delete"]);
+  const deleteEnvironment = trpc.environment.delete.useMutation();
 
   const onHandleEdit = (environmentId: string) => {
     if (project) {
@@ -69,10 +69,9 @@ const EnvironmentsModule = ({ project }: Props) => {
         {
           onSuccess: async (result) => {
             // Get all the environments by project on the cache
-            const prev = trpcContext.getQueryData([
-              "environment.all",
-              { projectSlug: project.slug },
-            ]);
+            const prev = trpcContext.environment.all.getData({
+              projectSlug: project.slug,
+            });
 
             if (prev && prev.environments) {
               const environments = prev.environments.filter(
@@ -80,15 +79,15 @@ const EnvironmentsModule = ({ project }: Props) => {
               );
 
               // Update the cache with the new data
-              trpcContext.setQueryData(
-                ["environment.all", { projectSlug: project.slug }],
+              trpcContext.environment.all.setData(
+                { projectSlug: project.slug },
                 {
                   environments,
                 }
               );
             }
 
-            onCreateHistory(HistoryAction.deleteEnvironment, {
+            await onCreateHistory(HistoryAction.deleteEnvironment, {
               projectId: project.id,
               payload: {
                 environment: {

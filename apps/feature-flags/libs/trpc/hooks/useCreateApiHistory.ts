@@ -25,8 +25,8 @@ const useCreateApiHistory = () => {
   );
 
   const onCreateHistory = useCallback(
-    (action: HistoryAction, data: HistoryData) => {
-      client.mutation("history.create", {
+    async (action: HistoryAction, data: HistoryData) => {
+      await client.history.create.mutate({
         projectId: data.projectId,
         action,
         payload: {
@@ -34,6 +34,15 @@ const useCreateApiHistory = () => {
           ...payload,
         },
       });
+
+      /* client.mutation("history.create", {
+        projectId: data.projectId,
+        action,
+        payload: {
+          ...data.payload,
+          ...payload,
+        },
+      }); */
     },
     [client, payload]
   );

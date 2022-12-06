@@ -39,18 +39,20 @@ const FlagModal = () => {
 
   const projectSlug = router.query.projectSlug as string;
 
-  const { data: current } = trpc.useQuery(["project.bySlug", { projectSlug }], {
-    enabled: !!projectSlug && isModalOpen,
-  });
-
-  const { data: envData, isLoading: isEnvLoading } = trpc.useQuery(
-    ["environment.all", { projectSlug }],
+  const { data: current } = trpc.project.bySlug.useQuery(
+    { projectSlug },
     { enabled: !!projectSlug && isModalOpen }
   );
 
-  const createFlag = trpc.useMutation(["flag.create"], {
+  const { data: envData, isLoading: isEnvLoading } =
+    trpc.environment.all.useQuery(
+      { projectSlug },
+      { enabled: !!projectSlug && isModalOpen }
+    );
+
+  const createFlag = trpc.flag.create.useMutation({
     async onSuccess(_, form) {
-      onCreateHistory(HistoryAction.createFlag, {
+      await onCreateHistory(HistoryAction.createFlag, {
         projectId: form.projectId,
         payload: {
           flag: {
@@ -65,7 +67,7 @@ const FlagModal = () => {
         },
       });
 
-      await trpcContext.invalidateQueries(["flag.byProjectSlug"]);
+      await trpcContext.flag.byProjectSlug.invalidate();
     },
   });
 

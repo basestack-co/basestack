@@ -48,7 +48,7 @@ const CreateProjectModal = () => {
     state: { isCreateProjectModalOpen: isModalOpen },
   } = useModals();
 
-  const createProject = trpc.useMutation(["project.create"]);
+  const createProject = trpc.project.create.useMutation();
 
   const {
     control,
@@ -73,17 +73,17 @@ const CreateProjectModal = () => {
     await createProject.mutate(data, {
       onSuccess: async (result) => {
         // Get all the projects on the cache
-        const prev = trpcContext.getQueryData(["project.all"]);
+        const prev = trpcContext.project.all.getData();
 
         if (prev && prev.projects) {
           // Add the new project with the others
           const projects = [result.project, ...prev.projects];
 
           // Update the cache with the new data
-          trpcContext.setQueryData(["project.all"], { projects });
+          trpcContext.project.all.setData(undefined, { projects });
         }
 
-        onCreateHistory(HistoryAction.createProject, {
+        await onCreateHistory(HistoryAction.createProject, {
           projectId: result.project.id,
           payload: {
             project: {

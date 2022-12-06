@@ -41,10 +41,10 @@ const transitionConfig = (show: boolean, length: number) => ({
 const FlagCards = ({ selectedView, projectSlug }: FlagCardsProps) => {
   const { dispatch } = useModals();
 
-  const { data, isLoading } = trpc.useQuery([
-    "flag.byProjectSlug",
-    { projectSlug, pagination: null },
-  ]);
+  const { data, isLoading } = trpc.flag.byProjectSlug.useQuery({
+    projectSlug,
+    pagination: null,
+  });
 
   const [cardsDestroyed, setCardsAnimationEnd] = useState(false);
   const [tableDestroyed, setTableAnimationEnd] = useState(true);
