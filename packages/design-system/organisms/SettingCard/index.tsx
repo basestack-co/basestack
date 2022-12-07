@@ -27,7 +27,7 @@ interface SettingCard {
   /**
    * Card body content, input, table or other elements
    */
-  children: React.ReactElement;
+  children?: React.ReactElement;
   /**
    * Card button disable state
    */
@@ -36,6 +36,10 @@ interface SettingCard {
    * Changes card styles based on variant
    */
   variant?: "default" | "danger";
+  /**
+   * Card button loading state
+   */
+  isLoading?: boolean;
 }
 
 const SettingCard = ({
@@ -47,6 +51,7 @@ const SettingCard = ({
   children,
   isDisabled,
   variant = "default",
+  isLoading = false,
 }: SettingCard) => {
   const theme = useTheme();
 
@@ -80,6 +85,7 @@ const SettingCard = ({
           ml="auto"
           onClick={onClick}
           isDisabled={isDisabled}
+          isLoading={isLoading}
         >
           {button}
         </Button>

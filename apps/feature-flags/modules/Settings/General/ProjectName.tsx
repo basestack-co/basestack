@@ -7,8 +7,6 @@ import { z } from "zod";
 import { RouterOutput, trpc } from "libs/trpc";
 // Components
 import { Input, SettingCard } from "@basestack/design-system";
-// Types
-import { HistoryAction } from "types/history";
 
 interface Props {
   project: RouterOutput["project"]["bySlug"]["project"];
@@ -42,7 +40,7 @@ const ProjectName = ({ project }: Props) => {
     if (project) {
       updateProject.mutate(
         {
-          projectId: project.id!,
+          projectId: project.id,
           name: input.name,
         },
         {
@@ -88,12 +86,12 @@ const ProjectName = ({ project }: Props) => {
 
   return (
     <SettingCard
-      title="Project name"
+      title="Project Name"
       description="Used to identify your Project on the Dashboard."
-      button="Save"
+      button="Update"
       onClick={handleSubmit(onSaveProjectName)}
-      text="Learn more about Project Name"
-      isDisabled={isSubmitting || !project}
+      isDisabled={isSubmitting || !project || updateProject.isLoading}
+      isLoading={isSubmitting || updateProject.isLoading}
     >
       <Controller
         name="name"

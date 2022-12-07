@@ -5,7 +5,7 @@ import { CardList, CardListItem } from "../styles";
 import { RouterOutput } from "libs/trpc";
 // Modules
 import ProjectName from "./ProjectName";
-import DangerExample from "./DangerExample";
+import DeleteProject from "./DeleteProject";
 
 interface Props {
   project: RouterOutput["project"]["bySlug"]["project"];
@@ -18,7 +18,7 @@ const GeneralModule = ({ project }: Props) => {
         <ProjectName project={project} />
       </CardListItem>
       <CardListItem>
-        <DangerExample />
+        <DeleteProject project={project} />
       </CardListItem>
     </CardList>
   );
