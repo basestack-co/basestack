@@ -1,5 +1,5 @@
 import React from "react";
-import { inferQueryOutput } from "libs/trpc";
+import { RouterOutput } from "libs/trpc";
 
 export interface OpenFlagModalPayload {
   isOpen: boolean;
@@ -15,7 +15,7 @@ export interface OpenEnvironmentModalPayload {
   isOpen: boolean;
   data: {
     environment?: { id: string };
-    project: inferQueryOutput<"project.bySlug">["project"];
+    project: RouterOutput["project"]["bySlug"]["project"];
   } | null;
 }
 

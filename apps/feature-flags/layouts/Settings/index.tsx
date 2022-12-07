@@ -50,8 +50,8 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
 
   const projectSlug = query.projectSlug as string;
 
-  const { data, isLoading: isLoadingProject } = trpc.useQuery(
-    ["project.bySlug", { projectSlug }],
+  const { data, isLoading: isLoadingProject } = trpc.project.bySlug.useQuery(
+    { projectSlug },
     {
       enabled: !!projectSlug,
     }

@@ -4,12 +4,12 @@ import Head from "next/head";
 // Layout
 import SettingsLayout from "layouts/Settings";
 // Libs
-import { inferQueryOutput } from "libs/trpc";
+import { RouterOutput } from "libs/trpc";
 // Modules
 import GeneralModule from "modules/Settings/General";
 
 interface Props {
-  project: inferQueryOutput<"project.bySlug">["project"];
+  project: RouterOutput["project"]["bySlug"]["project"];
 }
 
 const GeneralPage = ({ project }: Props) => {

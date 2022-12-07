@@ -14,8 +14,8 @@ const FlagsPage = () => {
   const router = useRouter();
   const projectSlug = router.query.projectSlug as string;
 
-  const { data, isLoading } = trpc.useQuery(
-    ["project.bySlug", { projectSlug }],
+  const { data, isLoading } = trpc.project.bySlug.useQuery(
+    { projectSlug },
     {
       enabled: !!projectSlug,
     }

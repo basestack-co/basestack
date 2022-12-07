@@ -1,4 +1,4 @@
-import { createProtectedRouter } from "server/createProtectedRouter";
+import { protectedProcedure, router } from "server/trpc";
 // Utils
 import { getValue, groupBy } from "@basestack/utils";
 import {
@@ -10,13 +10,13 @@ import {
   UpdateFlagInput,
 } from "../schemas/flag";
 
-export const flagRouter = createProtectedRouter()
-  .query("all", {
-    meta: {
+export const flagRouter = router({
+  all: protectedProcedure
+    .meta({
       restricted: true,
-    },
-    input: AllFlagsInput,
-    async resolve({ ctx, input }) {
+    })
+    .input(AllFlagsInput)
+    .query(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
       const skip = getValue(input.pagination, "skip", "0");
@@ -75,11 +75,13 @@ export const flagRouter = createProtectedRouter()
           total: getValue(flags, "[0]._count.flags", 0),
         },
       };
-    },
-  })
-  .query("byId", {
-    input: FlagByIdInput,
-    async resolve({ ctx, input }) {
+    }),
+  byId: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(FlagByIdInput)
+    .query(async ({ ctx, input }) => {
       const flag = await ctx.prisma.flag.findFirst({
         where: {
           id: input.flagId,
@@ -92,14 +94,13 @@ export const flagRouter = createProtectedRouter()
       return {
         ...flag,
       };
-    },
-  })
-  .query("byProjectSlug", {
-    meta: {
+    }),
+  byProjectSlug: protectedProcedure
+    .meta({
       restricted: true,
-    },
-    input: FlagByProjectSlugInput,
-    async resolve({ ctx, input }) {
+    })
+    .input(FlagByProjectSlugInput)
+    .query(async ({ ctx, input }) => {
       const skip = getValue(input.pagination, "skip", "0");
       const take = getValue(input.pagination, "take", "50");
 
@@ -163,27 +164,25 @@ export const flagRouter = createProtectedRouter()
           total: totalFlags,
         },
       };
-    },
-  })
-  .mutation("create", {
-    meta: {
+    }),
+  create: protectedProcedure
+    .meta({
       restricted: true,
-    },
-    input: CreateFlagInput,
-    resolve: async ({ ctx, input }) => {
+    })
+    .input(CreateFlagInput)
+    .mutation(async ({ ctx, input }) => {
       const flag = await ctx.prisma.flag.createMany({
         data: input.data,
       });
 
       return { flag };
-    },
-  })
-  .mutation("update", {
-    meta: {
+    }),
+  update: protectedProcedure
+    .meta({
       restricted: true,
-    },
-    input: UpdateFlagInput,
-    resolve: async ({ ctx, input }) => {
+    })
+    .input(UpdateFlagInput)
+    .mutation(async ({ ctx, input }) => {
       const flag = await ctx.prisma.flag.update({
         where: {
           id: input.flagId,
@@ -197,14 +196,13 @@ export const flagRouter = createProtectedRouter()
       });
 
       return { flag };
-    },
-  })
-  .mutation("delete", {
-    meta: {
+    }),
+  delete: protectedProcedure
+    .meta({
       restricted: true,
-    },
-    input: DeleteFlagInput,
-    resolve: async ({ ctx, input }) => {
+    })
+    .input(DeleteFlagInput)
+    .mutation(async ({ ctx, input }) => {
       const flag = await ctx.prisma.flag.delete({
         where: {
           id: input.flagId,
@@ -212,5 +210,5 @@ export const flagRouter = createProtectedRouter()
       });
 
       return { flag };
-    },
-  });
+    }),
+});

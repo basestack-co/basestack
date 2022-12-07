@@ -21,10 +21,10 @@ interface FlagCardsProps {
 const FlagCards = ({ selectedView, projectSlug }: FlagCardsProps) => {
   const { dispatch } = useModals();
 
-  const { data, isLoading } = trpc.useQuery([
-    "flag.byProjectSlug",
-    { projectSlug, pagination: null },
-  ]);
+  const { data, isLoading } = trpc.flag.byProjectSlug.useQuery({
+    projectSlug,
+    pagination: null,
+  });
 
   const flags = !isLoading && data ? data.flags : [];
 

@@ -26,11 +26,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     },
   });
 
-  const { data, isLoading: isLoadingProjects } = trpc.useQuery(
-    ["project.all"],
-    {
-      enabled: status === "authenticated",
-    }
+  const { data, isLoading: isLoadingProjects } = trpc.project.all.useQuery(
+    undefined,
+    { enabled: status === "authenticated" }
   );
 
   if (status === "loading" || isLoadingProjects) {
