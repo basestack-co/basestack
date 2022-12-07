@@ -3,7 +3,16 @@ import { useTheme } from "styled-components";
 import { ButtonProps, ButtonVariant } from "./types";
 import Spinner from "../Spinner";
 import Icon from "../Icon";
-import { StyledButton } from "./styles";
+import {
+  StyledButton,
+  outlinedButtonStyles,
+  neutralButtonStyles,
+  primaryNeutralButtonStyles,
+  dangerButtonStyles,
+  primaryButtonStyles,
+  secondaryButtonStyles,
+  tertiaryButtonStyles,
+} from "./styles";
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -34,6 +43,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       [ButtonVariant.Danger]: theme.colors.red400,
       [ButtonVariant.Neutral]: theme.colors.black,
       [ButtonVariant.Outlined]: theme.colors.black,
+      [ButtonVariant.DangerFilled]: theme.colors.white,
     };
 
     const spinnerBg = {
@@ -44,6 +54,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       [ButtonVariant.Danger]: theme.colors.gray200,
       [ButtonVariant.Neutral]: theme.colors.gray200,
       [ButtonVariant.Outlined]: theme.colors.gray200,
+      [ButtonVariant.DangerFilled]: theme.colors.red200,
     };
 
     return (
@@ -81,6 +92,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 
-Button.displayName = "Button";
-
-export default memo(Button);
+export {
+  outlinedButtonStyles,
+  neutralButtonStyles,
+  primaryNeutralButtonStyles,
+  dangerButtonStyles,
+  primaryButtonStyles,
+  secondaryButtonStyles,
+  tertiaryButtonStyles,
+  Button,
+};

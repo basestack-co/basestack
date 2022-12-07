@@ -189,7 +189,6 @@ exports[`Button Atom tests should render Button with icon 1`] = `
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  padding-left: 0.5rem;
 }
 
 .c0:hover:not(:active,:disabled) {

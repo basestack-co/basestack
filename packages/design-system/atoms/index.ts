@@ -1,7 +1,7 @@
-export { default as Avatar } from "./Avatar";
+export { default as Avatar, type AvatarProps } from "./Avatar";
 export { default as Text } from "./Text";
 
-export { default as Button } from "./Button";
+export * from "./Button";
 export type { ButtonProps } from "./Button/types";
 export { ButtonVariant } from "./Button/types";
 
