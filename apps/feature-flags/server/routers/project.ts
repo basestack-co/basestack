@@ -1,4 +1,4 @@
-import { createProtectedRouter } from "server/createProtectedRouter";
+import { protectedProcedure, router } from "server/trpc";
 // Utils
 import { generateSlug } from "random-word-slugs";
 import {
@@ -8,43 +8,40 @@ import {
   UpdateProjectInput,
 } from "../schemas/project";
 
-export const projectRouter = createProtectedRouter()
-  .query("all", {
-    async resolve({ ctx }) {
-      const userId = ctx.session.user.id;
+export const projectRouter = router({
+  all: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.session.user.id;
 
-      const projects = await ctx.prisma.project.findMany({
-        where: {
-          users: {
-            some: {
-              user: {
-                id: userId,
-              },
+    const projects = await ctx.prisma.project.findMany({
+      where: {
+        users: {
+          some: {
+            user: {
+              id: userId,
             },
           },
         },
-        orderBy: {
-          createdAt: "desc",
-        },
-      });
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
 
-      return { projects };
-    },
-  })
-  .query("bySlug", {
-    input: ProjectBySlugInput,
-    async resolve({ ctx, input }) {
+    return { projects };
+  }),
+  bySlug: protectedProcedure
+    .input(ProjectBySlugInput)
+    .query(async ({ ctx, input }) => {
       const project = await ctx.prisma.project.findUnique({
         where: {
           slug: input.projectSlug,
         },
       });
       return { project };
-    },
-  })
-  .mutation("create", {
-    input: CreateProjectInput,
-    resolve: async ({ ctx, input }) => {
+    }),
+  create: protectedProcedure
+    .input(CreateProjectInput)
+    .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
       const project = await ctx.prisma.project.create({
@@ -89,14 +86,13 @@ export const projectRouter = createProtectedRouter()
       });
 
       return { project, connection };
-    },
-  })
-  .mutation("update", {
-    meta: {
+    }),
+  update: protectedProcedure
+    .meta({
       restricted: true,
-    },
-    input: UpdateProjectInput,
-    resolve: async ({ ctx, input }) => {
+    })
+    .input(UpdateProjectInput)
+    .mutation(async ({ ctx, input }) => {
       const project = await ctx.prisma.project.update({
         where: {
           id: input.projectId,
@@ -106,14 +102,13 @@ export const projectRouter = createProtectedRouter()
         },
       });
       return { project };
-    },
-  })
-  .mutation("delete", {
-    meta: {
+    }),
+  delete: protectedProcedure
+    .meta({
       restricted: true,
-    },
-    input: DeleteProjectInput,
-    resolve: async ({ ctx, input }) => {
+    })
+    .input(DeleteProjectInput)
+    .mutation(async ({ ctx, input }) => {
       const project = await ctx.prisma.project.delete({
         where: {
           id: input.projectId,
@@ -121,5 +116,5 @@ export const projectRouter = createProtectedRouter()
       });
 
       return { project };
-    },
-  });
+    }),
+});

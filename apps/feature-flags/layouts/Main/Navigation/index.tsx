@@ -9,7 +9,7 @@ import { ButtonLink, MoreMenu, ProjectsMenu } from "./components";
 import { useRouter } from "next/router";
 import Link from "next/link";
 // Types
-import { inferQueryOutput } from "libs/trpc";
+import { RouterOutput } from "libs/trpc";
 // Store
 import {
   seIsCreateProjectModalOpen,
@@ -57,7 +57,7 @@ const rightItems = [
 
 interface NavigationProps {
   isDesktop: boolean;
-  data?: inferQueryOutput<"project.all">;
+  data?: RouterOutput["project"]["all"];
 }
 
 const Navigation = ({ isDesktop, data }: NavigationProps) => {

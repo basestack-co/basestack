@@ -9,7 +9,6 @@ import useModals from "hooks/useModals";
 import { setIsUpdateEnvironmentModalOpen } from "contexts/modals/actions";
 // Server
 import { trpc } from "libs/trpc";
-import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
 // Types
 import { FormInputs } from "../types";
 // Form
@@ -18,7 +17,6 @@ import { HistoryAction } from "types/history";
 
 const EditEnvironmentModal = () => {
   const trpcContext = trpc.useContext();
-  const { onCreateHistory } = useCreateApiHistory();
   const {
     dispatch,
     state: {
@@ -27,7 +25,8 @@ const EditEnvironmentModal = () => {
     },
   } = useModals();
 
-  const updateEnvironment = trpc.useMutation(["environment.update"]);
+  const updateEnvironment = trpc.environment.update.useMutation();
+
   const { handleSubmit, onRenderForm, reset, isSubmitting, setValue } =
     useEnvironmentForm({});
 
@@ -51,13 +50,13 @@ const EditEnvironmentModal = () => {
           environmentId: data.environment.id,
         },
         {
-          onSuccess: (result) => {
+          onSuccess: async (result) => {
             if (data && data.project) {
               // Get all the environments by project on the cache
-              const prev = trpcContext.getQueryData([
-                "environment.all",
-                { projectSlug: data.project.slug },
-              ]);
+
+              const prev = trpcContext.environment.all.getData({
+                projectSlug: data.project.slug,
+              });
 
               if (prev && prev.environments) {
                 const environments = prev.environments
@@ -75,25 +74,13 @@ const EditEnvironmentModal = () => {
                   );
 
                 // Update the cache with the new data
-                trpcContext.setQueryData(
-                  ["environment.all", { projectSlug: data.project.slug }],
+                trpcContext.environment.all.setData(
+                  { projectSlug: data.project.slug },
                   {
                     environments,
                   }
                 );
               }
-
-              onCreateHistory(HistoryAction.updateEnvironment, {
-                projectId: data.project.id,
-                payload: {
-                  environment: {
-                    id: result.environment.id,
-                    name: result.environment.name,
-                    slug: result.environment.slug,
-                    description: result.environment.description ?? "",
-                  },
-                },
-              });
 
               onClose();
             }
@@ -106,10 +93,9 @@ const EditEnvironmentModal = () => {
   useEffect(() => {
     if (data && data.project && isModalOpen && data.environment) {
       // Get all the environments by project on the cache
-      const cache = trpcContext.getQueryData([
-        "environment.all",
-        { projectSlug: data.project.slug },
-      ]);
+      const cache = trpcContext.environment.all.getData({
+        projectSlug: data.project.slug,
+      });
 
       if (cache && cache.environments) {
         const environment = cache.environments.find(

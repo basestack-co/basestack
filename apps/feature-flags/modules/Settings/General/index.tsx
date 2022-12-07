@@ -2,13 +2,13 @@ import React from "react";
 // Styles
 import { CardList, CardListItem } from "../styles";
 // Libs
-import { inferQueryOutput } from "libs/trpc";
+import { RouterOutput } from "libs/trpc";
 // Modules
 import ProjectName from "./ProjectName";
 import DangerExample from "./DangerExample";
 
 interface Props {
-  project: inferQueryOutput<"project.bySlug">["project"];
+  project: RouterOutput["project"]["bySlug"]["project"];
 }
 
 const GeneralModule = ({ project }: Props) => {

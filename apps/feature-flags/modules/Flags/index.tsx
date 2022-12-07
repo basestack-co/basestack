@@ -11,10 +11,10 @@ import { Container } from "../styles";
 // Containers
 import Toolbar from "./Toolbar";
 // Libs
-import { inferQueryOutput } from "libs/trpc";
+import { RouterOutput } from "libs/trpc";
 
 export interface Props {
-  project: inferQueryOutput<"project.bySlug">["project"];
+  project: RouterOutput["project"]["bySlug"]["project"];
 }
 
 const Flags = ({ project }: Props) => {

@@ -2,7 +2,7 @@ import React from "react";
 // Components
 import { SettingCard, Table } from "@basestack/design-system";
 // Libs
-import { inferQueryOutput } from "libs/trpc";
+import { RouterOutput } from "libs/trpc";
 // Context
 import useModals from "hooks/useModals";
 import { seIsInviteMemberModalOpen } from "contexts/modals/actions";
@@ -12,7 +12,7 @@ import { CardList, CardListItem } from "../styles";
 import { membersTableMock } from "mocks/settings";
 
 interface Props {
-  project: inferQueryOutput<"project.bySlug">["project"];
+  project: RouterOutput["project"]["bySlug"]["project"];
 }
 
 const MembersModule = ({ project }: Props) => {

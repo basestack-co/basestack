@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
 // Form
@@ -8,19 +8,13 @@ import useModals from "hooks/useModals";
 import { setIsCreateEnvironmentModalOpen } from "contexts/modals/actions";
 // Server
 import { trpc } from "libs/trpc";
-import useCreateApiHistory from "libs/trpc/hooks/useCreateApiHistory";
-// Router
-import { useRouter } from "next/router";
 // Types
-import { HistoryAction } from "types/history";
 import { FormInputs } from "../types";
 // Form
 import useEnvironmentForm from "../useEnvironmentForm";
 
 const CreateEnvironmentModal = () => {
-  const router = useRouter();
   const trpcContext = trpc.useContext();
-  const { onCreateHistory } = useCreateApiHistory();
   const {
     dispatch,
     state: {
@@ -30,14 +24,13 @@ const CreateEnvironmentModal = () => {
   } = useModals();
   const project = data && data.project;
 
-  const createEnvironment = trpc.useMutation(["environment.create"]);
+  const createEnvironment = trpc.environment.create.useMutation();
 
   const [options, environments] = useMemo(() => {
     if (project) {
-      const cache = trpcContext.getQueryData([
-        "environment.all",
-        { projectSlug: project.slug },
-      ]);
+      const cache = trpcContext.environment.all.getData({
+        projectSlug: project.slug,
+      });
 
       const environments = (cache && cache.environments) || [];
 
@@ -70,7 +63,7 @@ const CreateEnvironmentModal = () => {
           copyFromEnvId: input.environmentId ?? "",
         },
         {
-          onSuccess: (result) => {
+          onSuccess: async (result) => {
             if (project && result) {
               if (environments) {
                 const updated = [result.environment, ...environments].sort(
@@ -78,25 +71,13 @@ const CreateEnvironmentModal = () => {
                 );
 
                 // Update the cache with the new data
-                trpcContext.setQueryData(
-                  ["environment.all", { projectSlug: project.slug }],
+                trpcContext.environment.all.setData(
+                  { projectSlug: project.slug },
                   {
                     environments: updated,
                   }
                 );
               }
-
-              onCreateHistory(HistoryAction.createEnvironment, {
-                projectId: project.id,
-                payload: {
-                  environment: {
-                    id: result.environment.id,
-                    name: result.environment.name,
-                    slug: result.environment.slug,
-                    description: result.environment.description ?? "",
-                  },
-                },
-              });
 
               onClose();
             }
