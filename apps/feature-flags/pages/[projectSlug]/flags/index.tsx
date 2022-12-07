@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // SEO
 import Head from "next/head";
 // Layout
@@ -14,15 +14,26 @@ const FlagsPage = () => {
   const router = useRouter();
   const projectSlug = router.query.projectSlug as string;
 
-  const { data, isLoading } = trpc.project.bySlug.useQuery(
+  const { data, isLoading, isError } = trpc.project.bySlug.useQuery(
     { projectSlug },
     {
       enabled: !!projectSlug,
     }
   );
 
+  useEffect(() => {
+    // Verify if the project is still available
+    if (!isLoading && data && !data.project) {
+      router.push("/");
+    }
+  }, [isLoading, data, router]);
+
   if (isLoading || !data) {
     return <div>Loading Project...</div>;
+  }
+
+  if (isError) {
+    return <div>Error</div>;
   }
 
   return (

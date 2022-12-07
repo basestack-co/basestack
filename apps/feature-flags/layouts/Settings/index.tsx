@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 // Router
 import { useRouter } from "next/router";
 // Server
@@ -46,9 +46,9 @@ const buttons = [
 const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.device.min.lg);
-  const { pathname, push, query } = useRouter();
+  const router = useRouter();
 
-  const projectSlug = query.projectSlug as string;
+  const projectSlug = router.query.projectSlug as string;
 
   const { data, isLoading: isLoadingProject } = trpc.project.bySlug.useQuery(
     { projectSlug },
@@ -67,15 +67,17 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
           }}
           passHref
         >
-          <StyledButton isActive={pathname === href}>{text}</StyledButton>
+          <StyledButton isActive={router.pathname === href}>
+            {text}
+          </StyledButton>
         </StyledLink>
       </ListItem>
     ));
-  }, [pathname, projectSlug]);
+  }, [router.pathname, projectSlug]);
 
   const activeButtonIndex = useMemo(
-    () => buttons.findIndex((button) => button.href === pathname),
-    [pathname]
+    () => buttons.findIndex((button) => button.href === router.pathname),
+    [router.pathname]
   );
 
   const items = useMemo(
@@ -88,6 +90,13 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
       }),
     []
   );
+
+  useEffect(() => {
+    // Verify if the project is still available
+    if (!isLoadingProject && data && !data.project) {
+      router.push("/");
+    }
+  }, [isLoadingProject, data, router]);
 
   return (
     <MainLayout>
@@ -102,7 +111,9 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
           {!isDesktop && (
             <Tabs
               items={items}
-              onSelect={(item) => push(item.replace(/\s+/g, "-").toLowerCase())}
+              onSelect={(item) =>
+                router.push(item.replace(/\s+/g, "-").toLowerCase())
+              }
               sliderPosition={activeButtonIndex}
               backgroundColor="transparent"
             />
