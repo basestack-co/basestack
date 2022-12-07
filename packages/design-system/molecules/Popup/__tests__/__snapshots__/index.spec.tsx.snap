@@ -149,7 +149,6 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
   color: #000000;
   font-weight: 400;
   width: 100%;
-  padding-left: 0.5rem;
 }
 
 .c3:hover:not(:disabled) {

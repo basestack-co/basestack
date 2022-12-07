@@ -16,6 +16,7 @@ export enum ButtonVariant {
   Neutral = "neutral",
   Outlined = "outlined",
   Danger = "danger",
+  DangerFilled = "dangerFilled"
 }
 
 export interface ButtonProps

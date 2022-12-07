@@ -10,7 +10,7 @@ import {
 import { darken, lighten, rem } from "polished";
 import { ButtonVariant } from "./types";
 
-const sharedStyles = css`
+const sharedButtonStyles = css`
   border: none;
   height: ${rem("36px")};
   display: flex;
@@ -25,8 +25,8 @@ const sharedStyles = css`
     border-color 0.1s ease-in-out;
 `;
 
-const primaryStyles = css`
-  ${sharedStyles};
+export const primaryButtonStyles = css`
+  ${sharedButtonStyles};
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
 
@@ -35,8 +35,8 @@ const primaryStyles = css`
   }
 `;
 
-const secondaryStyles = css`
-  ${sharedStyles};
+export const secondaryButtonStyles = css`
+  ${sharedButtonStyles};
   background-color: ${({ theme }) => theme.colors.black};
   color: ${({ theme }) => theme.colors.white};
 
@@ -45,8 +45,8 @@ const secondaryStyles = css`
   }
 `;
 
-const tertiaryStyles = css`
-  ${sharedStyles};
+export const tertiaryButtonStyles = css`
+  ${sharedButtonStyles};
   background-color: ${({ theme }) => theme.colors.gray100};
   color: ${({ theme }) => theme.colors.black};
 
@@ -55,8 +55,8 @@ const tertiaryStyles = css`
   }
 `;
 
-const outlinedStyles = css`
-  ${sharedStyles};
+export const outlinedButtonStyles = css`
+  ${sharedButtonStyles};
   background-color: transparent;
   color: ${({ theme }) => theme.colors.black};
   border: 2px solid ${({ theme }) => theme.colors.black};
@@ -71,8 +71,8 @@ const outlinedStyles = css`
   }
 `;
 
-const neutralStyles = css`
-  ${sharedStyles};
+export const neutralButtonStyles = css`
+  ${sharedButtonStyles};
   background-color: transparent;
   color: ${({ theme }) => theme.colors.black};
 
@@ -84,8 +84,8 @@ const neutralStyles = css`
   }
 `;
 
-const primaryNeutralStyles = css`
-  ${sharedStyles};
+export const primaryNeutralButtonStyles = css`
+  ${sharedButtonStyles};
   background-color: transparent;
   color: ${({ theme }) => theme.colors.black};
 
@@ -98,8 +98,8 @@ const primaryNeutralStyles = css`
   }
 `;
 
-const dangerStyles = css`
-  ${sharedStyles};
+export const dangerButtonStyles = css`
+  ${sharedButtonStyles};
   background-color: transparent;
   color: ${({ theme }) => theme.colors.red400};
 
@@ -111,23 +111,38 @@ const dangerStyles = css`
   }
 `;
 
+export const dangerFilledButtonStyles = css`
+  ${sharedButtonStyles};
+  background-color: ${({ theme }) => theme.colors.red400};
+  color: ${({ theme }) => theme.colors.white};
+
+  &:hover:not(:disabled) {
+    background-color: ${({ theme }) => theme.colors.red500};
+  }
+  &:active:not(:disabled) {
+    background-color: ${({ theme }) => theme.colors.red400};
+  }
+`;
+
 const handleButtonVariant = (variant?: ButtonVariant) => {
   switch (variant) {
     default:
     case ButtonVariant.Primary:
-      return primaryStyles;
+      return primaryButtonStyles;
     case ButtonVariant.PrimaryNeutral:
-      return primaryNeutralStyles;
+      return primaryNeutralButtonStyles;
     case ButtonVariant.Secondary:
-      return secondaryStyles;
+      return secondaryButtonStyles;
     case ButtonVariant.Tertiary:
-      return tertiaryStyles;
+      return tertiaryButtonStyles;
     case ButtonVariant.Outlined:
-      return outlinedStyles;
+      return outlinedButtonStyles;
     case ButtonVariant.Neutral:
-      return neutralStyles;
+      return neutralButtonStyles;
     case ButtonVariant.Danger:
-      return dangerStyles;
+      return dangerButtonStyles;
+    case ButtonVariant.DangerFilled:
+      return dangerFilledButtonStyles;
   }
 };
 
@@ -154,18 +169,6 @@ export const StyledButton = styled.button<Props>`
       : css`
           width: fit-content;
         `};
-
-  ${({ hasLeftIcon }) =>
-    hasLeftIcon &&
-    css`
-      padding-left: ${rem("8px")};
-    `};
-
-  ${({ hasRightIcon }) =>
-    hasRightIcon &&
-    css`
-      padding-right: ${rem("8px")};
-    `};
 
   &:disabled {
     cursor: not-allowed;

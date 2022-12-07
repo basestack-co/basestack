@@ -68,7 +68,6 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  padding-left: 0.5rem;
 }
 
 .c1:hover:not(:disabled) {
@@ -113,7 +112,6 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  padding-right: 0.5rem;
 }
 
 .c8:hover:not(:disabled) {
