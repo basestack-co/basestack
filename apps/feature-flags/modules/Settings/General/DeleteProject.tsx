@@ -1,6 +1,6 @@
 import React from "react";
 // Components
-import {  SettingCard } from "@basestack/design-system";
+import { SettingCard } from "@basestack/design-system";
 // Server
 import { RouterOutput, trpc } from "libs/trpc";
 // Router
@@ -12,9 +12,10 @@ interface Props {
 
 const DeleteProject = ({ project }: Props) => {
   const router = useRouter();
+  const trpcContext = trpc.useContext();
   const deleteProject = trpc.project.delete.useMutation();
 
-  deleteProject.isLoading
+  deleteProject.isLoading;
 
   const onDeleteProject = () => {
     if (project) {
@@ -23,7 +24,20 @@ const DeleteProject = ({ project }: Props) => {
           projectId: project.id,
         },
         {
-          onSuccess: async () => {
+          onSuccess: async (result) => {
+            // Get all the projects on the cache
+            const prev = trpcContext.project.all.getData();
+
+            if (prev && prev.projects) {
+              // Find the project and remove from the list
+              const projects = prev.projects.filter(
+                (project) => project.id !== result.project.id
+              );
+
+              // Update the cache with the new data
+              trpcContext.project.all.setData(undefined, { projects });
+            }
+
             await router.push("/");
           },
         }
