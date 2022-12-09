@@ -42,35 +42,37 @@ export const environmentRouter = router({
       restricted: true,
     })
     .mutation(async ({ ctx, input }) => {
-      // Get all the flags from a selected environment
-      const flagsFromEnv = await ctx.prisma.flag.findMany({
-        where: {
-          environmentId: input.copyFromEnvId,
-        },
-      });
+      const environment = await ctx.prisma.$transaction(async (tx) => {
+        // Get all the flags from a selected environment
+        const flagsFromEnv = await tx.flag.findMany({
+          where: {
+            environmentId: input.copyFromEnvId,
+          },
+        });
 
-      // Format the flags to be created in the new environment
-      const flags = flagsFromEnv.map((flag) => ({
-        slug: flag.slug,
-        payload: flag.payload ?? {},
-        expiredAt: flag.expiredAt,
-        description: flag.description,
-      }));
+        // Format the flags to be created in the new environment
+        const flags = flagsFromEnv.map((flag) => ({
+          slug: flag.slug,
+          payload: flag.payload ?? {},
+          expiredAt: flag.expiredAt,
+          description: flag.description,
+        }));
 
-      const environment = await ctx.prisma.environment.create({
-        data: {
-          name: input.name,
-          slug: generateSlug(),
-          description: input.description,
-          project: {
-            connect: {
-              id: input.projectId,
+        return await tx.environment.create({
+          data: {
+            name: input.name,
+            slug: generateSlug(),
+            description: input.description,
+            project: {
+              connect: {
+                id: input.projectId,
+              },
+            },
+            flags: {
+              create: flags,
             },
           },
-          flags: {
-            create: flags,
-          },
-        },
+        });
       });
 
       return { environment };
