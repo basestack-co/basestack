@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 // Router
 import { useRouter } from "next/router";
 // Components
@@ -10,7 +10,7 @@ import { SubmitHandler } from "react-hook-form";
 import { FlagFormInputs } from "../types";
 // Context
 import useModals from "hooks/useModals";
-import { setIsCreateFlagModalOpen } from "contexts/modals/actions";
+import { setIsUpdateFlagModalOpen } from "contexts/modals/actions";
 // Types
 import { TabType } from "types/flags";
 // Server
@@ -18,14 +18,14 @@ import { trpc } from "libs/trpc";
 // Hooks
 import useFlagForm, { tabPosition } from "../useFlagForm";
 
-const CreateFlagModal = () => {
+const UpdateFlagModal = () => {
   const trpcContext = trpc.useContext();
   const theme = useTheme();
   const router = useRouter();
 
   const {
     dispatch,
-    state: { isCreateFlagModalOpen: isModalOpen, flagModalPayload: payload },
+    state: { isUpdateFlagModalOpen: isModalOpen, flagModalPayload: payload },
   } = useModals();
 
   const projectSlug = router.query.projectSlug as string;
@@ -38,12 +38,16 @@ const CreateFlagModal = () => {
     reset,
     onRenderTab,
     project,
-  } = useFlagForm({ isModalOpen, projectSlug });
+  } = useFlagForm({
+    isModalOpen,
+    projectSlug,
+    isCreate: false,
+  });
 
-  const createFlag = trpc.flag.create.useMutation();
+  const updateFlag = trpc.flag.update.useMutation();
 
   const onClose = useCallback(() => {
-    dispatch(setIsCreateFlagModalOpen({ isOpen: false, data: null }));
+    dispatch(setIsUpdateFlagModalOpen({ isOpen: false, data: null }));
     setTimeout(reset, 250);
   }, [dispatch, reset]);
 
@@ -58,51 +62,36 @@ const CreateFlagModal = () => {
         expiredAt: null,
       }));
 
-      createFlag.mutate(
+      /* updateFlag.mutate(
         { projectId: project.id, data },
         {
           onSuccess: async (result) => {
-            /* console.log("result = ", result);
-
-            const cache = trpcContext.flag.byProjectSlug.getData({
-              projectSlug: project.slug,
-              pagination: null,
-            });
-
-            console.log("cache = ", cache); */
-
-            /* if (cache && cache.flags) {
-              const flags = [...cache.flags, result];
-
-              trpcContext.flag.byProjectSlug.setData(
-                {
-                  projectSlug: project.slug,
-                  pagination: null,
-                },
-                {flags, pagination: cache.pagination}
-              );
-            } */
-
             // doing this instead of the above because the above doesn't work
             await trpcContext.flag.byProjectSlug.invalidate();
             onClose();
           },
         }
-      );
+      ); */
     }
   };
+
+  useEffect(() => {
+    if (isModalOpen && payload && payload.data) {
+      setSelectedTab(payload.data.selectedTab as TabType);
+    }
+  }, [payload, isModalOpen, setSelectedTab]);
 
   return (
     <Portal selector="#portal">
       <Modal
-        title={`Create Flag`}
+        title={`Edit Flag`}
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
           { children: "Close", onClick: onClose },
           {
-            children: "Create",
+            children: "Update",
             onClick: handleSubmit(onSubmit),
             isDisabled: !project?.id,
             isLoading: isSubmitting,
@@ -113,6 +102,7 @@ const CreateFlagModal = () => {
           items={[
             { text: "Core", id: TabType.CORE },
             { text: "Advanced", id: TabType.ADVANCED },
+            { text: "History", id: TabType.HISTORY },
           ]}
           onSelect={(tab: string) => setSelectedTab(tab as TabType)}
           sliderPosition={tabPosition[selectedTab]}
@@ -124,4 +114,4 @@ const CreateFlagModal = () => {
   );
 };
 
-export default CreateFlagModal;
+export default UpdateFlagModal;

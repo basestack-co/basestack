@@ -18,6 +18,12 @@ export interface UseFlagFormProps {
   isCreate?: boolean;
 }
 
+export const tabPosition: { [key in TabType]: number } = {
+  [TabType.CORE]: 0,
+  [TabType.ADVANCED]: 1,
+  [TabType.HISTORY]: 2,
+};
+
 const useFlagForm = ({
   isModalOpen,
   projectSlug,

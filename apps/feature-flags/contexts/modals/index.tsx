@@ -12,7 +12,6 @@ export const initialState: ModalsState = {
   isUpdateFlagModalOpen: false,
   environmentModalPayload: { data: null },
   flagModalPayload: {
-    isEdit: true,
     data: null,
   },
 };
@@ -62,7 +61,6 @@ export const Reducer = (
         ...state,
         isCreateFlagModalOpen: action.payload.isOpen,
         flagModalPayload: {
-          isEdit: action.payload.isEdit,
           data: action.payload.data,
         },
       };
@@ -72,7 +70,6 @@ export const Reducer = (
         ...state,
         isUpdateFlagModalOpen: action.payload.isOpen,
         flagModalPayload: {
-          isEdit: action.payload.isEdit,
           data: action.payload.data,
         },
       };

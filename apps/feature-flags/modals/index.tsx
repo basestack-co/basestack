@@ -3,6 +3,7 @@ import React, { Fragment } from "react";
 import CreateProjectModal from "./Project/Create";
 // Flag
 import CreateFlagModal from "./Flag/Create";
+import UpdateFlagModal from "./Flag/Update";
 // Environment
 import CreateEnvironmentModal from "./Environment/Create";
 import UpdateEnvironmentModal from "./Environment/Update";
@@ -17,6 +18,7 @@ const Modals = () => {
       <CreateProjectModal />
       <UpdateEnvironmentModal />
       <CreateFlagModal />
+      <UpdateFlagModal />
     </Fragment>
   );
 };

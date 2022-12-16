@@ -3,7 +3,6 @@ import { RouterOutput } from "libs/trpc";
 
 export interface OpenFlagModalPayload {
   isOpen: boolean;
-  isEdit: boolean;
   data?: {
     flagId: string;
     selectedTab: string;
@@ -27,7 +26,7 @@ export interface ModalsState {
   isCreateProjectModalOpen: boolean;
   isCreateFlagModalOpen: boolean;
   isUpdateFlagModalOpen: boolean;
-  flagModalPayload: Pick<OpenFlagModalPayload, "isEdit" | "data">;
+  flagModalPayload: Pick<OpenFlagModalPayload, "data">;
   environmentModalPayload: Pick<OpenEnvironmentModalPayload, "data">;
 }
 

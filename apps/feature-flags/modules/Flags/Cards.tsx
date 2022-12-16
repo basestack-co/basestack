@@ -5,7 +5,7 @@ import { trpc } from "libs/trpc";
 // Components
 import { FlagCard, FlagRow, ButtonVariant } from "@basestack/design-system";
 // Store
-import { setIsFlagModalOpen } from "contexts/modals/actions";
+import { setIsUpdateFlagModalOpen } from "contexts/modals/actions";
 // Hooks
 import useModals from "hooks/useModals";
 // Types
@@ -27,39 +27,6 @@ const FlagCards = ({ selectedView, projectSlug }: FlagCardsProps) => {
   });
 
   const flags = !isLoading && data ? data.flags : [];
-
-  const popupItems = [
-    {
-      icon: "edit",
-      text: "Edit",
-      onClick: () =>
-        dispatch(
-          setIsFlagModalOpen({
-            isOpen: true,
-            isEdit: true,
-            data: { flagId: "", selectedEnvId: "", selectedTab: "core" },
-          })
-        ),
-    },
-    {
-      icon: "history",
-      text: "History",
-      onClick: () =>
-        dispatch(
-          setIsFlagModalOpen({
-            isOpen: true,
-            isEdit: true,
-            data: { flagId: "", selectedEnvId: "", selectedTab: "history" },
-          })
-        ),
-    },
-    {
-      icon: "delete",
-      text: "Delete",
-      variant: ButtonVariant.Danger,
-      onClick: () => console.log(""),
-    },
-  ];
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -84,8 +51,45 @@ const FlagCards = ({ selectedView, projectSlug }: FlagCardsProps) => {
             title={flag.slug}
             description={flag.description ?? ""}
             environments={flag.environments}
-            date={`Created ${dayjs(flag.createdAt).format("DD/MM/YYYY")}`}
-            popupItems={popupItems}
+            date={`Created ${dayjs(flag.createdAt).fromNow()}`}
+            popupItems={[
+              {
+                icon: "edit",
+                text: "Edit",
+                onClick: () =>
+                  dispatch(
+                    setIsUpdateFlagModalOpen({
+                      isOpen: true,
+                      data: {
+                        flagId: "",
+                        environment: { id: "" },
+                        selectedTab: "core",
+                      },
+                    })
+                  ),
+              },
+              {
+                icon: "history",
+                text: "History",
+                onClick: () =>
+                  dispatch(
+                    setIsUpdateFlagModalOpen({
+                      isOpen: true,
+                      data: {
+                        flagId: "",
+                        environment: { id: "" },
+                        selectedTab: "history",
+                      },
+                    })
+                  ),
+              },
+              {
+                icon: "delete",
+                text: "Delete",
+                variant: ButtonVariant.Danger,
+                onClick: () => console.log(""),
+              },
+            ]}
           />
         );
       })}

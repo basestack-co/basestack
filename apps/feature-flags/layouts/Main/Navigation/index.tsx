@@ -135,7 +135,6 @@ const Navigation = ({ isDesktop, data }: NavigationProps) => {
                   dispatch(
                     setIsCreateFlagModalOpen({
                       isOpen: true,
-                      isEdit: false,
                     })
                   )
                 }

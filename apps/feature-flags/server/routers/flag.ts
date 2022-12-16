@@ -171,6 +171,11 @@ export const flagRouter = router({
     })
     .input(CreateFlagInput)
     .mutation(async ({ ctx, input }) => {
+      // this is workaround for prisma bug on createMany not returning the created data
+      /* return await this.prisma.$transaction(
+        users.map((user) => prisma.user.create({ data: userCreateData })),
+     ); */
+
       const flag = await ctx.prisma.flag.createMany({
         data: input.data,
       });
