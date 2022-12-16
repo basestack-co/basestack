@@ -1617,6 +1617,13 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
   integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
 
+"@types/react-calendar@^3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@types/react-calendar/-/react-calendar-3.9.0.tgz#b345707c9b593331a48963514f3e30ce0b3ca195"
+  integrity sha512-KpAu1MKAGFw5hNwlDnWsHWqI9i/igAB+8jH97YV7QpC2v7rlwNEU5i6VMFb73lGRacuejM/Zd2LklnEzkFV3XA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@18.0.9", "@types/react-dom@^18.0.9":
   version "18.0.9"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.0.9.tgz#ffee5e4bfc2a2f8774b15496474f8e7fe8d0b504"
@@ -1754,6 +1761,11 @@
   dependencies:
     "@typescript-eslint/types" "5.43.0"
     eslint-visitor-keys "^3.3.0"
+
+"@wojtekmaj/date-utils@^1.0.2":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@wojtekmaj/date-utils/-/date-utils-1.0.3.tgz#2dcfd92881425c5923e429c2aec86fb3609032a1"
+  integrity sha512-1VPkkTBk07gMR1fjpBtse4G+oJqpmE+0gUFB0dg3VIL7qJmUVaBoD/vlzMm/jNeOPfvlmerl1lpnsZyBUFIRuw==
 
 abab@^2.0.6:
   version "2.0.6"
@@ -2341,6 +2353,11 @@ clone@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==
+
+clsx@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.2.1.tgz#0ddc4a20a549b59c93a4116bb26f5294ca17dc12"
+  integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
 
 co@^4.6.0:
   version "4.6.0"
@@ -3529,6 +3546,13 @@ get-tsconfig@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/get-tsconfig/-/get-tsconfig-4.2.0.tgz#ff368dd7104dab47bf923404eb93838245c66543"
   integrity sha512-X8u8fREiYOE6S8hLbq99PeykTDoLVnxvF4DjWKJmz9xy2nNRdUcV8ZN9tniJFeKyTU3qnC9lL8n4Chd6LmVKHg==
+
+get-user-locale@^1.2.0:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/get-user-locale/-/get-user-locale-1.5.1.tgz#18a9ba2cfeed0e713ea00968efa75d620523a5ea"
+  integrity sha512-WiNpoFRcHn1qxP9VabQljzGwkAQDrcpqUtaP0rNBEkFxJdh4f3tik6MfZsMYZc+UgQJdGCxWEjL9wnCUlRQXag==
+  dependencies:
+    lodash.memoize "^4.1.1"
 
 glob-parent@^5.1.2, glob-parent@~5.1.2:
   version "5.1.2"
@@ -4783,7 +4807,7 @@ lodash.map@^4.5.1:
   resolved "https://registry.yarnpkg.com/lodash.map/-/lodash.map-4.6.0.tgz#771ec7839e3473d9c4cde28b19394c3562f4f6d3"
   integrity sha512-worNHGKLDetmcEYDvh2stPCrrQRkP20E4l0iIS7F8EvzMqBBi7ltvFN5m1HvTf1P7Jk1txKhvFcmYsCr8O2F1Q==
 
-lodash.memoize@4.x:
+lodash.memoize@4.x, lodash.memoize@^4.1.1:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
   integrity sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag==
@@ -5563,6 +5587,16 @@ range-parser@^1.2.0:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
   integrity sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==
+
+react-calendar@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-4.0.0.tgz#99ad73dd0c7c5b25aa535a5fdeee3d71bfe45faa"
+  integrity sha512-y9Q5Oo3Mq869KExbOCP3aJ3hEnRZKZ0TqUa9QU1wJGgDZFrW1qTaWp5v52oZpmxTTrpAMTUcUGaC0QJcO1f8Nw==
+  dependencies:
+    "@wojtekmaj/date-utils" "^1.0.2"
+    clsx "^1.2.1"
+    get-user-locale "^1.2.0"
+    prop-types "^15.6.0"
 
 react-dom@18.2.0, react-dom@^18.2.0:
   version "18.2.0"

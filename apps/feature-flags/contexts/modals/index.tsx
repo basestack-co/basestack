@@ -8,7 +8,8 @@ export const initialState: ModalsState = {
   isUpdateEnvironmentModalOpen: false,
   isInviteMemberModalOpen: false,
   isCreateProjectModalOpen: false,
-  isFlagModalOpen: false,
+  isCreateFlagModalOpen: false,
+  isUpdateFlagModalOpen: false,
   environmentModalPayload: { data: null },
   flagModalPayload: {
     isEdit: true,
@@ -56,10 +57,20 @@ export const Reducer = (
         isCreateProjectModalOpen: action.payload.isOpen,
       };
 
-    case "FLAG_MODAL_OPEN":
+    case "CREATE_FLAG_MODAL_OPEN":
       return {
         ...state,
-        isFlagModalOpen: action.payload.isOpen,
+        isCreateFlagModalOpen: action.payload.isOpen,
+        flagModalPayload: {
+          isEdit: action.payload.isEdit,
+          data: action.payload.data,
+        },
+      };
+
+    case "UPDATE_FLAG_MODAL_OPEN":
+      return {
+        ...state,
+        isUpdateFlagModalOpen: action.payload.isOpen,
         flagModalPayload: {
           isEdit: action.payload.isEdit,
           data: action.payload.data,

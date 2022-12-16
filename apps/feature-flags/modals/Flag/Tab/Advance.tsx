@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 // Components
 import { useTheme } from "styled-components";
 import { InputGroup, Text } from "@basestack/design-system";
 // Types
-import { FlagFormInputs } from "../schema";
+import { FlagFormInputs } from "../types";
 import { UseFormSetValue } from "react-hook-form";
+
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
 export interface Props {
   setValue: UseFormSetValue<FlagFormInputs>;
@@ -12,9 +15,16 @@ export interface Props {
 
 const AdvanceTab = ({ setValue }: Props) => {
   const theme = useTheme();
+  const [value, onChange] = useState(new Date());
 
   return (
     <>
+      <Calendar
+        onChange={onChange}
+        value={value}
+        locale="en-US"
+        minDate={new Date()}
+      />
       <InputGroup
         title="Expiration Date"
         inputProps={{

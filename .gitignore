@@ -39,3 +39,4 @@ yarn-error.log*
 dist
 .vscode/settings.json
 .vercel
+.tool-versions

@@ -3,7 +3,8 @@ import {
   OpenInviteMemberModalAction,
   OpenCreateProjectModalAction,
   OpenUpdateEnvironmentModalAction,
-  OpenFlagModalAction,
+  OpenCreateFlagModalAction,
+  OpenUpdateFlagModalAction,
   OpenFlagModalPayload,
   OpenEnvironmentModalPayload,
 } from "./types";
@@ -36,9 +37,16 @@ export const seIsCreateProjectModalOpen = (
   payload: { isOpen },
 });
 
-export const setIsFlagModalOpen = (
+export const setIsCreateFlagModalOpen = (
   payload: OpenFlagModalPayload
-): OpenFlagModalAction => ({
-  type: "FLAG_MODAL_OPEN",
+): OpenCreateFlagModalAction => ({
+  type: "CREATE_FLAG_MODAL_OPEN",
+  payload,
+});
+
+export const setIsUpdateFlagModalOpen = (
+  payload: OpenFlagModalPayload
+): OpenUpdateFlagModalAction => ({
+  type: "UPDATE_FLAG_MODAL_OPEN",
   payload,
 });

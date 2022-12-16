@@ -4,7 +4,7 @@ import { useTheme } from "styled-components";
 import { InputGroup, Text, Switch } from "@basestack/design-system";
 // Form
 import { Controller } from "react-hook-form";
-import { FlagFormInputs, EnvironmentInput } from "../schema";
+import { FlagFormInputs, EnvironmentInput } from "../types";
 // Styles
 import { Environments } from "../styles";
 // Types

@@ -13,7 +13,7 @@ import { RouterOutput } from "libs/trpc";
 // Store
 import {
   seIsCreateProjectModalOpen,
-  setIsFlagModalOpen,
+  setIsCreateFlagModalOpen,
 } from "contexts/modals/actions";
 // Hooks
 import useModals from "hooks/useModals";
@@ -132,7 +132,12 @@ const Navigation = ({ isDesktop, data }: NavigationProps) => {
             <ListItem ml={theme.spacing.s5}>
               <Button
                 onClick={() =>
-                  dispatch(setIsFlagModalOpen({ isOpen: true, isEdit: false }))
+                  dispatch(
+                    setIsCreateFlagModalOpen({
+                      isOpen: true,
+                      isEdit: false,
+                    })
+                  )
                 }
                 variant={ButtonVariant.Primary}
               >

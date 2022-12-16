@@ -1,9 +1,13 @@
 import React, { Fragment } from "react";
-import InviteMemberModal from "./InviteMember";
+// Project
+import CreateProjectModal from "./Project/Create";
+// Flag
+import CreateFlagModal from "./Flag/Create";
+// Environment
 import CreateEnvironmentModal from "./Environment/Create";
 import UpdateEnvironmentModal from "./Environment/Update";
-import CreateProjectModal from "./CreateProject";
-import FlagModal from "./Flag";
+// Settings
+import InviteMemberModal from "./InviteMember";
 
 const Modals = () => {
   return (
@@ -12,7 +16,7 @@ const Modals = () => {
       <CreateEnvironmentModal />
       <CreateProjectModal />
       <UpdateEnvironmentModal />
-      <FlagModal />
+      <CreateFlagModal />
     </Fragment>
   );
 };

@@ -8,10 +8,10 @@ import { Modal, Tabs } from "@basestack/design-system";
 // Form
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FlagFormInputs, FlagFormSchema } from "./schema";
+import { FlagFormInputs, FlagFormSchema } from "./types";
 // Context
 import useModals from "hooks/useModals";
-import { setIsFlagModalOpen } from "contexts/modals/actions";
+import { setIsCreateFlagModalOpen } from "contexts/modals/actions";
 // Types
 import { HistoryAction } from "types/history";
 import { TabType } from "types/flags";
@@ -31,7 +31,7 @@ const FlagModal = () => {
 
   const {
     dispatch,
-    state: { isFlagModalOpen: isModalOpen, flagModalPayload: payload },
+    state: { isCreateFlagModalOpen: isModalOpen, flagModalPayload: payload },
   } = useModals();
   const [selectedTab, setSelectedTab] = useState<TabType>(TabType.CORE);
 
@@ -67,7 +67,9 @@ const FlagModal = () => {
   });
 
   const onClose = useCallback(() => {
-    dispatch(setIsFlagModalOpen({ isOpen: false, isEdit: false, data: null }));
+    dispatch(
+      setIsCreateFlagModalOpen({ isOpen: false, isEdit: false, data: null })
+    );
     reset();
   }, [dispatch, reset]);
 

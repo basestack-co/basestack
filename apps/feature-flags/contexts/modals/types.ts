@@ -7,7 +7,7 @@ export interface OpenFlagModalPayload {
   data?: {
     flagId: string;
     selectedTab: string;
-    selectedEnvId: string;
+    environment?: { id: string };
   } | null;
 }
 
@@ -25,7 +25,8 @@ export interface ModalsState {
   isUpdateEnvironmentModalOpen: boolean;
   isInviteMemberModalOpen: boolean;
   isCreateProjectModalOpen: boolean;
-  isFlagModalOpen: boolean;
+  isCreateFlagModalOpen: boolean;
+  isUpdateFlagModalOpen: boolean;
   flagModalPayload: Pick<OpenFlagModalPayload, "isEdit" | "data">;
   environmentModalPayload: Pick<OpenEnvironmentModalPayload, "data">;
 }
@@ -61,8 +62,13 @@ export interface OpenCreateProjectModalAction {
   };
 }
 
-export interface OpenFlagModalAction {
-  type: "FLAG_MODAL_OPEN";
+export interface OpenCreateFlagModalAction {
+  type: "CREATE_FLAG_MODAL_OPEN";
+  payload: OpenFlagModalPayload;
+}
+
+export interface OpenUpdateFlagModalAction {
+  type: "UPDATE_FLAG_MODAL_OPEN";
   payload: OpenFlagModalPayload;
 }
 
@@ -72,7 +78,8 @@ export type ModalsActions =
   | OpenUpdateEnvironmentModalAction
   | OpenInviteMemberModalAction
   | OpenCreateProjectModalAction
-  | OpenFlagModalAction;
+  | OpenCreateFlagModalAction
+  | OpenUpdateFlagModalAction;
 
 export interface Context {
   state: ModalsState;
