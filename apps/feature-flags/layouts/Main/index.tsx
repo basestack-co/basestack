@@ -5,7 +5,7 @@ import { useTheme } from "styled-components";
 import { useRouter } from "next/router";
 // Context
 import useModals from "hooks/useModals";
-import { setIsFlagModalOpen } from "contexts/modals/actions";
+import { setIsCreateFlagModalOpen } from "contexts/modals/actions";
 // Auth
 import { useSession } from "next-auth/react";
 // Components
@@ -43,7 +43,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         <TabBar
           pathname={router.pathname}
           onCreateFlag={() =>
-            dispatch(setIsFlagModalOpen({ isOpen: true, isEdit: false }))
+            dispatch(setIsCreateFlagModalOpen({ isOpen: true, data: null }))
           }
         />
       )}

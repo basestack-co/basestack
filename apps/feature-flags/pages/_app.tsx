@@ -1,7 +1,7 @@
 import React from "react";
 import { AppProps } from "next/app";
 //Styles
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider, createGlobalStyle } from "styled-components";
 import theme from "@basestack/design-system/theme";
 import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
 // Contexts
@@ -12,6 +12,8 @@ import Modals from "modals";
 import { SessionProvider } from "next-auth/react";
 // Server
 import { trpc } from "libs/trpc";
+// Fonts
+import "material-symbols";
 // Dates
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -26,9 +28,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider session={pageProps.session}>
       <ThemeProvider theme={theme}>
+        <GlobalStyle />
         <ModalsContextProvider>
           <>
-            <GlobalStyle />
             <Layout>
               <Component {...pageProps} />
             </Layout>
