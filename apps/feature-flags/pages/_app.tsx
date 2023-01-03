@@ -1,7 +1,7 @@
 import React from "react";
 import { AppProps } from "next/app";
 //Styles
-import { ThemeProvider, createGlobalStyle } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import theme from "@basestack/design-system/theme";
 import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
 // Contexts
