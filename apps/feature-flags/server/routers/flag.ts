@@ -17,62 +17,59 @@ export const flagRouter = router({
     })
     .input(AllFlagsInput)
     .query(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const skip = getValue(input.pagination, "skip", 0);
+      const take = getValue(input.pagination, "take", 50);
 
-      const skip = getValue(input.pagination, "skip", "0");
-      const take = getValue(input.pagination, "take", "50");
-
-      const flags = await ctx.prisma.environment.findMany({
-        where: {
-          AND: [
-            {
-              id: input.environmentId,
+      const search = input.search
+        ? {
+            slug: {
+              search: input.search,
             },
-            {
+          }
+        : {};
+
+      const [allFlags, totalFlags] = await ctx.prisma.$transaction([
+        ctx.prisma.flag.findMany({
+          where: {
+            environment: {
+              id: input.environmentId,
               project: {
                 id: input.projectId,
-                users: {
-                  some: {
-                    user: {
-                      id: userId,
-                    },
-                  },
-                },
               },
             },
-          ],
-        },
-        select: {
-          _count: {
-            select: { flags: true },
+            ...search,
           },
-          flags: {
-            skip: Number(skip),
-            take: Number(take),
-            orderBy: {
-              createdAt: "desc",
-            },
-            select: {
-              id: true,
-              slug: true,
-              description: true,
-              enabled: true,
-              payload: true,
-              environmentId: true,
-              expiredAt: true,
-              createdAt: true,
-              updatedAt: true,
+          skip,
+          take,
+          orderBy: {
+            createdAt: "desc",
+          },
+          select: {
+            id: true,
+            slug: true,
+            description: true,
+            enabled: true,
+            createdAt: true,
+            environment: {
+              select: {
+                id: true,
+                name: true,
+              },
             },
           },
-        },
-      });
+        }),
+        ctx.prisma.flag.count(),
+      ]);
 
       return {
-        flags: getValue(flags, "[0].flags", []),
+        flags: allFlags.map((flag) => ({
+          ...flag,
+          environments: [{ ...flag.environment, enabled: flag.enabled }],
+        })),
         pagination: {
-          skip: Number(skip),
-          take: Number(take),
-          total: getValue(flags, "[0]._count.flags", 0),
+          skip,
+          take,
+          total: totalFlags,
         },
       };
     }),

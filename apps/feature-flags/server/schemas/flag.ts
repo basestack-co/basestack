@@ -2,13 +2,13 @@ import { z } from "zod";
 
 export const AllFlagsInput = z
   .object({
-    projectSlug: z.string(),
     projectId: z.string(),
     environmentId: z.string(),
+    search: z.string().optional().nullable(),
     pagination: z
       .object({
-        skip: z.string(),
-        take: z.string(),
+        skip: z.number(),
+        take: z.number(),
       })
       .nullable(),
   })
@@ -20,6 +20,7 @@ export const FlagByIdInput = z
   })
   .required();
 
+// TODO: remove this after the new migration query is done
 export const FlagByProjectSlugInput = z
   .object({
     projectSlug: z.string(),

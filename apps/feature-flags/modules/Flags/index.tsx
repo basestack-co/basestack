@@ -11,7 +11,7 @@ import { Container } from "../styles";
 // Containers
 import Toolbar from "./Toolbar";
 // Libs
-import { RouterOutput } from "libs/trpc";
+import { RouterOutput, trpc } from "libs/trpc";
 
 export interface Props {
   project: RouterOutput["project"]["bySlug"]["project"];
@@ -22,7 +22,9 @@ const Flags = ({ project }: Props) => {
   const isDesktop = useMediaQuery(theme.device.min.lg);
 
   const [selectedView, setSelectedView] = useState<SelectedView>("cards");
-  const [selectedEnvironment, setSelectedEnvironment] = useState("all");
+  const [selectedEnvironmentId, setSelectedEnvironmentId] =
+    useState<string>("");
+  const [searchValue, setSearchValue] = useState<string>("");
 
   useEffect(() => {
     if (!isDesktop) {
@@ -35,25 +37,27 @@ const Flags = ({ project }: Props) => {
   }, []);
 
   const onSearch = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
-  }, []);
-
-  const onSelectEnvironment = useCallback((environment: string) => {
-    setSelectedEnvironment(environment);
+    setSearchValue(event.target.value);
   }, []);
 
   return (
     <Container>
       <Text size="xLarge">Flags</Text>
       <Toolbar
-        projectSlug={project?.slug!}
+        projectId={project?.id!}
         onChangeView={onChangeView}
         onSearch={onSearch}
-        onSelect={onSelectEnvironment}
+        searchValue={searchValue}
+        onSelect={(id: string) => setSelectedEnvironmentId(id)}
         isDesktop={isDesktop}
       />
 
-      <FlagCards projectSlug={project?.slug!} selectedView={selectedView} />
+      <FlagCards
+        projectId={project?.id!}
+        environmentId={selectedEnvironmentId}
+        selectedView={selectedView}
+        searchValue={searchValue}
+      />
     </Container>
   );
 };

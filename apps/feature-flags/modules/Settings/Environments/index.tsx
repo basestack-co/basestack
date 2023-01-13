@@ -29,8 +29,8 @@ const EnvironmentsModule = ({ project }: Props) => {
   const { dispatch } = useModals();
 
   const { data, isLoading } = trpc.environment.all.useQuery(
-    { projectSlug: project?.slug! },
-    { enabled: !!project?.slug }
+    { projectId: project?.id! },
+    { enabled: !!project?.id }
   );
 
   const deleteEnvironment = trpc.environment.delete.useMutation();

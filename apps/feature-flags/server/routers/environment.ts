@@ -19,7 +19,7 @@ export const environmentRouter = router({
 
       return await ctx.prisma.project.findFirst({
         where: {
-          slug: input.projectSlug,
+          id: input.projectId,
           users: {
             some: {
               user: {

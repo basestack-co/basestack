@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const AllEnvironmentInput = z
   .object({
-    projectSlug: z.string(),
+    projectId: z.string(),
   })
   .required();
 

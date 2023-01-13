@@ -38,7 +38,7 @@ const CreateFlagModal = () => {
     reset,
     onRenderTab,
     project,
-  } = useFlagForm({ isModalOpen, projectSlug });
+  } = useFlagForm({ isModalOpen, projectSlug, isCreate: true });
 
   const createFlag = trpc.flag.create.useMutation();
 

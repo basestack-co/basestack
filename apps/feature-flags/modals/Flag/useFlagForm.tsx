@@ -57,9 +57,9 @@ const useFlagForm = ({
   }, [projectSlug, isModalOpen, trpcContext]);
 
   useEffect(() => {
-    if (isModalOpen && projectSlug) {
+    if (isModalOpen && project) {
       const cache = trpcContext.environment.all.getData({
-        projectSlug,
+        projectId: project.id,
       });
 
       const environments = ((cache && cache.environments) || []).map(
@@ -71,7 +71,7 @@ const useFlagForm = ({
       );
       setValue("environments", environments);
     }
-  }, [isModalOpen, projectSlug, trpcContext, setValue]);
+  }, [isModalOpen, project, trpcContext, setValue]);
 
   const onRenderTab = () => {
     switch (selectedTab) {

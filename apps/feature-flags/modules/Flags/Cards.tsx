@@ -15,16 +15,28 @@ import { FlagsCardContainer, FlagsTableContainer } from "./styles";
 
 interface FlagCardsProps {
   selectedView: SelectedView;
-  projectSlug: string;
+  projectId: string;
+  environmentId: string;
+  searchValue: string;
 }
 
-const FlagCards = ({ selectedView, projectSlug }: FlagCardsProps) => {
+const FlagCards = ({
+  selectedView,
+  projectId,
+  environmentId,
+  searchValue,
+}: FlagCardsProps) => {
   const { dispatch } = useModals();
 
-  const { data, isLoading } = trpc.flag.byProjectSlug.useQuery({
-    projectSlug,
-    pagination: null,
-  });
+  const { data, isLoading } = trpc.flag.all.useQuery(
+    {
+      environmentId,
+      projectId,
+      pagination: { skip: 0, take: 10 },
+      search: searchValue,
+    },
+    { enabled: !!projectId && !!environmentId }
+  );
 
   const flags = !isLoading && data ? data.flags : [];
 

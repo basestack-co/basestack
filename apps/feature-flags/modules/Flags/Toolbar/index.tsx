@@ -9,24 +9,26 @@ import EnvironmentsMenu from "./EnvironmentsMenu";
 import { trpc } from "libs/trpc";
 
 export interface ToolbarProps extends SpaceProps {
-  projectSlug: string;
+  projectId: string;
   onSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onSelect: (environment: string) => void;
+  onSelect: (environmentId: string) => void;
   onChangeView: (selected: string) => void;
   isDesktop?: boolean;
+  searchValue: string;
 }
 
 const Toolbar = ({
-  projectSlug,
+  projectId,
   isDesktop = true,
   onSearch,
   onSelect,
   onChangeView,
+  searchValue,
 }: ToolbarProps) => {
   const theme = useTheme();
   const [selected, setSelected] = useState("all");
 
-  const { data, isLoading } = trpc.environment.all.useQuery({ projectSlug });
+  const { data, isLoading } = trpc.environment.all.useQuery({ projectId });
 
   const onRenderDesktopPills = useCallback(() => {
     if (isLoading) {
@@ -39,16 +41,6 @@ const Toolbar = ({
 
     return (
       <PillsUl data-testid="pills">
-        <PillLi>
-          <Pill
-            text="All"
-            isSelected={selected === "all"}
-            onClick={() => {
-              onSelect("all");
-              setSelected("all");
-            }}
-          />
-        </PillLi>
         {data.environments.map(({ name, id }) => {
           return (
             <PillLi key={id}>
@@ -56,7 +48,7 @@ const Toolbar = ({
                 text={name}
                 isSelected={selected === name.toLowerCase()}
                 onClick={() => {
-                  onSelect(name.toLowerCase());
+                  onSelect(id);
                   setSelected(name.toLowerCase());
                 }}
               />
@@ -65,7 +57,7 @@ const Toolbar = ({
         })}
       </PillsUl>
     );
-  }, [data, isLoading, selected]);
+  }, [data, isLoading, selected, onSelect]);
 
   return (
     <Container data-testid="toolbar" my={theme.spacing.s5}>
@@ -79,7 +71,7 @@ const Toolbar = ({
         placeholder="Filter by title"
         onChange={onSearch}
         name="search"
-        value=""
+        value={searchValue}
       />
       {isDesktop && onRenderDesktopPills()}
       {!isDesktop && !isLoading && (
