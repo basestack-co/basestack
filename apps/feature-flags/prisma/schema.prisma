@@ -98,6 +98,7 @@ model Environment {
   description String?  @db.VarChar(250)
   slug        String   @unique @db.VarChar(150)
   key         String?  @unique @default(cuid())
+  isDefault   Boolean? @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
@@ -129,6 +130,7 @@ model History {
   updatedAt DateTime @updatedAt
 
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
   @@id([id, projectId])
   @@index([projectId])
 }

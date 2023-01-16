@@ -68,7 +68,7 @@ const EnvironmentsModule = ({ project }: Props) => {
           onSuccess: async (result) => {
             // Get all the environments by project on the cache
             const prev = trpcContext.environment.all.getData({
-              projectSlug: project.slug,
+              projectId: project.id,
             });
 
             if (prev && prev.environments) {
@@ -78,7 +78,7 @@ const EnvironmentsModule = ({ project }: Props) => {
 
               // Update the cache with the new data
               trpcContext.environment.all.setData(
-                { projectSlug: project.slug },
+                { projectId: project.id },
                 {
                   environments,
                 }
@@ -95,7 +95,7 @@ const EnvironmentsModule = ({ project }: Props) => {
       const rows = data.environments.reduce(
         (
           acc: Row[],
-          { name, slug, description, id, createdAt }: Environment
+          { name, slug, description, id, createdAt, isDefault }: Environment
         ) => {
           return [
             ...acc,
@@ -121,6 +121,7 @@ const EnvironmentsModule = ({ project }: Props) => {
                   text: "Delete",
                   variant: ButtonVariant.Danger,
                   onClick: () => onHandleDelete(id),
+                  isVisible: !isDefault,
                 },
               ],
             },
@@ -133,7 +134,7 @@ const EnvironmentsModule = ({ project }: Props) => {
     }
 
     return { headers, rows: [] };
-  }, [isLoading, data]);
+  }, [isLoading, data, onHandleEdit, onHandleDelete]);
 
   if (isLoading || !data) {
     return <div>isLoading...</div>;

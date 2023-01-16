@@ -29,7 +29,7 @@ const CreateEnvironmentModal = () => {
   const [options, environments] = useMemo(() => {
     if (project) {
       const cache = trpcContext.environment.all.getData({
-        projectSlug: project.slug,
+        projectId: project.id,
       });
 
       const environments = (cache && cache.environments) || [];
@@ -72,7 +72,7 @@ const CreateEnvironmentModal = () => {
 
                 // Update the cache with the new data
                 trpcContext.environment.all.setData(
-                  { projectSlug: project.slug },
+                  { projectId: project.id },
                   {
                     environments: updated,
                   }

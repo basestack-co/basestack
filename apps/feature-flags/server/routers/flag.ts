@@ -1,13 +1,14 @@
 import { protectedProcedure, router } from "server/trpc";
+import { TRPCError } from "@trpc/server";
 // Utils
 import { getValue, groupBy } from "@basestack/utils";
 import {
-  AllFlagsInput,
   CreateFlagInput,
   DeleteFlagInput,
   FlagByIdInput,
   FlagByProjectSlugInput,
   UpdateFlagInput,
+  AllFlagsInput,
 } from "../schemas/flag";
 
 export const flagRouter = router({
@@ -28,51 +29,80 @@ export const flagRouter = router({
           }
         : {};
 
-      const [allFlags, totalFlags] = await ctx.prisma.$transaction([
-        ctx.prisma.flag.findMany({
-          where: {
-            environment: {
-              id: input.environmentId,
-              project: {
-                id: input.projectId,
-              },
-            },
-            ...search,
-          },
-          skip,
-          take,
-          orderBy: {
-            createdAt: "desc",
-          },
-          select: {
-            id: true,
-            slug: true,
-            description: true,
-            enabled: true,
-            createdAt: true,
-            environment: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
-          },
-        }),
-        ctx.prisma.flag.count(),
-      ]);
+      return await ctx.prisma.$transaction(async (tx) => {
+        const env = await tx.environment.findFirst({
+          where: { isDefault: true, projectId: input.projectId },
+        });
 
-      return {
-        flags: allFlags.map((flag) => ({
-          ...flag,
-          environments: [{ ...flag.environment, enabled: flag.enabled }],
-        })),
-        pagination: {
-          skip,
-          take,
-          total: totalFlags,
-        },
-      };
+        if (env) {
+          const allFlags = await tx.flag.findMany({
+            where: {
+              environment: {
+                id: env.id,
+                project: {
+                  id: input.projectId,
+                },
+              },
+              ...search,
+            },
+            skip,
+            take,
+            orderBy: {
+              createdAt: "desc",
+            },
+            select: {
+              id: true,
+              slug: true,
+              description: true,
+              enabled: true,
+              createdAt: true,
+            },
+          });
+
+          const flags = await Promise.all(
+            allFlags.map(async (flag) => {
+              const allEnvironments = await tx.flag.findMany({
+                where: { slug: flag.slug },
+                select: {
+                  enabled: true,
+                  environment: {
+                    select: {
+                      id: true,
+                      name: true,
+                    },
+                  },
+                },
+              });
+
+              return {
+                ...flag,
+                environments: allEnvironments.map((item) => ({
+                  ...item.environment,
+                  enabled: item.enabled,
+                })),
+              };
+            })
+          );
+
+          const totalFlags = await tx.flag.count();
+
+          return {
+            flags,
+            pagination: {
+              skip,
+              take,
+              total: totalFlags,
+            },
+          };
+        } else {
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "Could not find the default environment",
+          });
+        }
+      });
     }),
+
   byId: protectedProcedure
     .meta({
       restricted: true,
@@ -130,10 +160,13 @@ export const flagRouter = router({
         ctx.prisma.flag.count(),
       ]);
 
-      const grouped = groupBy(allFlags, (c: typeof allFlags[number]) => c.slug);
+      const grouped = groupBy(
+        allFlags,
+        (c: (typeof allFlags)[number]) => c.slug
+      );
 
       const response = Object.keys(grouped || {}).map((key) => {
-        const flags: Array<typeof allFlags[number]> = grouped[key];
+        const flags: Array<(typeof allFlags)[number]> = grouped[key];
         return {
           slug: key,
           createdAt: getValue(flags, "[0].createdAt", ""),

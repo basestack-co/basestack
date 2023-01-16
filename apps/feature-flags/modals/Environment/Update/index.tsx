@@ -55,7 +55,7 @@ const EditEnvironmentModal = () => {
               // Get all the environments by project on the cache
 
               const prev = trpcContext.environment.all.getData({
-                projectSlug: data.project.slug,
+                projectId: data.project.id,
               });
 
               if (prev && prev.environments) {
@@ -75,7 +75,7 @@ const EditEnvironmentModal = () => {
 
                 // Update the cache with the new data
                 trpcContext.environment.all.setData(
-                  { projectSlug: data.project.slug },
+                  { projectId: data.project.id },
                   {
                     environments,
                   }
@@ -94,7 +94,7 @@ const EditEnvironmentModal = () => {
     if (data && data.project && isModalOpen && data.environment) {
       // Get all the environments by project on the cache
       const cache = trpcContext.environment.all.getData({
-        projectSlug: data.project.slug,
+        projectId: data.project.id,
       });
 
       if (cache && cache.environments) {

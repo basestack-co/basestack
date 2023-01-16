@@ -30,12 +30,11 @@ const FlagCards = ({
 
   const { data, isLoading } = trpc.flag.all.useQuery(
     {
-      environmentId,
       projectId,
       pagination: { skip: 0, take: 10 },
       search: searchValue,
     },
-    { enabled: !!projectId && !!environmentId }
+    { enabled: !!projectId }
   );
 
   const flags = !isLoading && data ? data.flags : [];

@@ -1,4 +1,5 @@
 import { protectedProcedure, router } from "server/trpc";
+import { TRPCError } from "@trpc/server";
 // Utils
 import { generateSlug } from "random-word-slugs";
 import {
@@ -44,19 +45,17 @@ export const environmentRouter = router({
     .mutation(async ({ ctx, input }) => {
       const environment = await ctx.prisma.$transaction(async (tx) => {
         // Get all the flags from a selected environment
-        const flagsFromEnv = await tx.flag.findMany({
+        const flags = await tx.flag.findMany({
           where: {
             environmentId: input.copyFromEnvId,
           },
+          select: {
+            slug: true,
+            payload: true,
+            expiredAt: true,
+            description: true,
+          },
         });
-
-        // Format the flags to be created in the new environment
-        const flags = flagsFromEnv.map((flag) => ({
-          slug: flag.slug,
-          payload: flag.payload ?? {},
-          expiredAt: flag.expiredAt,
-          description: flag.description,
-        }));
 
         return await tx.environment.create({
           data: {
@@ -69,6 +68,7 @@ export const environmentRouter = router({
               },
             },
             flags: {
+              // @ts-ignore
               create: flags,
             },
           },
@@ -101,10 +101,25 @@ export const environmentRouter = router({
     })
     .input(DeleteEnvironmentInput)
     .mutation(async ({ ctx, input }) => {
-      const environment = await ctx.prisma.environment.delete({
-        where: {
-          id: input.environmentId,
-        },
+      const environment = await ctx.prisma.$transaction(async (tx) => {
+        // TODO: find a better way to do this, this is a bit hacky, should be in the same query
+        const current = await tx.environment.findFirst({
+          where: { id: input.environmentId },
+        });
+
+        // only allow deleting the environment if it's not the default
+        if (current && !current.isDefault) {
+          return await tx.environment.delete({
+            where: {
+              id: input.environmentId,
+            },
+          });
+        } else {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "You cannot delete the default environment",
+          });
+        }
       });
 
       return { environment };

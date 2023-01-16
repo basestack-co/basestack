@@ -55,6 +55,7 @@ export const projectRouter = router({
                   name: "develop",
                   slug: `${generateSlug()}`,
                   description: "The default develop environment",
+                  isDefault: true,
                 },
                 {
                   name: "staging",

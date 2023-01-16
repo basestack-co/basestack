@@ -3,7 +3,6 @@ import { z } from "zod";
 export const AllFlagsInput = z
   .object({
     projectId: z.string(),
-    environmentId: z.string(),
     search: z.string().optional().nullable(),
     pagination: z
       .object({
