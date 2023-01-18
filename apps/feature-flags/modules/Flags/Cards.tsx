@@ -13,6 +13,8 @@ import { SelectedView } from "types/flags";
 // Styles
 import { FlagsCardContainer, FlagsTableContainer } from "./styles";
 
+import { useStore } from "store";
+
 interface FlagCardsProps {
   selectedView: SelectedView;
   projectId: string;
@@ -27,6 +29,16 @@ const FlagCards = ({
   searchValue,
 }: FlagCardsProps) => {
   const { dispatch } = useModals();
+
+  const isCreateEnvironmentModalOpen = useStore(
+    (state) => state.isCreateEnvironmentModalOpen
+  );
+  const setIsCreateEnvironmentModalOpen = useStore(
+    (state) => state.setCreateEnvironmentModalOpen
+  );
+
+  const isDarkMode = useStore((state) => state.isDarkMode);
+  const setDarkMode = useStore((state) => state.setDarkMode);
 
   const { data, isLoading } = trpc.flag.all.useQuery(
     {

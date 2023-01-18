@@ -8,9 +8,8 @@ import { Modal, Tabs } from "@basestack/design-system";
 // Form
 import { SubmitHandler } from "react-hook-form";
 import { FlagFormInputs } from "../types";
-// Context
-import useModals from "hooks/useModals";
-import { setIsUpdateFlagModalOpen } from "contexts/modals/actions";
+// Store
+import { useStore } from "store";
 // Types
 import { TabType } from "types/flags";
 // Server
@@ -22,11 +21,11 @@ const UpdateFlagModal = () => {
   const trpcContext = trpc.useContext();
   const theme = useTheme();
   const router = useRouter();
-
-  const {
-    dispatch,
-    state: { isUpdateFlagModalOpen: isModalOpen, flagModalPayload: payload },
-  } = useModals();
+  const isModalOpen = useStore((state) => state.isUpdateFlagModalOpen);
+  const payload = useStore((state) => state.flagModalPayload);
+  const setUpdateFlagModalOpen = useStore(
+    (state) => state.setUpdateFlagModalOpen
+  );
 
   const projectSlug = router.query.projectSlug as string;
 
@@ -47,9 +46,9 @@ const UpdateFlagModal = () => {
   const updateFlag = trpc.flag.update.useMutation();
 
   const onClose = useCallback(() => {
-    dispatch(setIsUpdateFlagModalOpen({ isOpen: false, data: null }));
+    setUpdateFlagModalOpen(null);
     setTimeout(reset, 250);
-  }, [dispatch, reset]);
+  }, [setUpdateFlagModalOpen, reset]);
 
   const onSubmit: SubmitHandler<FlagFormInputs> = async (input) => {
     if (project) {
@@ -76,8 +75,8 @@ const UpdateFlagModal = () => {
   };
 
   useEffect(() => {
-    if (isModalOpen && payload && payload.data) {
-      setSelectedTab(payload.data.selectedTab as TabType);
+    if (isModalOpen && payload) {
+      setSelectedTab(payload.selectedTab as TabType);
     }
   }, [payload, isModalOpen, setSelectedTab]);
 

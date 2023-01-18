@@ -4,9 +4,8 @@ import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
 // Form
 import { SubmitHandler } from "react-hook-form";
-// Context
-import useModals from "hooks/useModals";
-import { setIsUpdateEnvironmentModalOpen } from "contexts/modals/actions";
+// Store
+import { useStore } from "store";
 // Server
 import { trpc } from "libs/trpc";
 // Types
@@ -17,13 +16,11 @@ import { HistoryAction } from "types/history";
 
 const EditEnvironmentModal = () => {
   const trpcContext = trpc.useContext();
-  const {
-    dispatch,
-    state: {
-      isUpdateEnvironmentModalOpen: isModalOpen,
-      environmentModalPayload: { data },
-    },
-  } = useModals();
+  const isModalOpen = useStore((state) => state.isUpdateEnvironmentModalOpen);
+  const data = useStore((state) => state.environmentModalPayload);
+  const setUpdateEnvironmentModalOpen = useStore(
+    (state) => state.setUpdateEnvironmentModalOpen
+  );
 
   const updateEnvironment = trpc.environment.update.useMutation();
 
@@ -31,14 +28,9 @@ const EditEnvironmentModal = () => {
     useEnvironmentForm({});
 
   const onClose = useCallback(() => {
-    dispatch(
-      setIsUpdateEnvironmentModalOpen({
-        isOpen: false,
-        data: null,
-      })
-    );
+    setUpdateEnvironmentModalOpen(null);
     reset();
-  }, [dispatch, reset]);
+  }, [reset, setUpdateEnvironmentModalOpen]);
 
   const onSubmit: SubmitHandler<FormInputs> = (input: FormInputs) => {
     if (data && data.project && data.environment) {

@@ -3,12 +3,8 @@ import React, { useMemo } from "react";
 import { ButtonVariant, SettingCard, Table } from "@basestack/design-system";
 // Server
 import { trpc, RouterOutput } from "libs/trpc";
-// Context
-import useModals from "hooks/useModals";
-import {
-  setIsCreateEnvironmentModalOpen,
-  setIsUpdateEnvironmentModalOpen,
-} from "contexts/modals/actions";
+// Store
+import { useStore } from "store";
 // Styles
 import { CardList, CardListItem } from "../styles";
 // Types
@@ -26,7 +22,12 @@ export interface Props {
 
 const EnvironmentsModule = ({ project }: Props) => {
   const trpcContext = trpc.useContext();
-  const { dispatch } = useModals();
+  const setCreateEnvironmentModalOpen = useStore(
+    (state) => state.setCreateEnvironmentModalOpen
+  );
+  const setUpdateEnvironmentModalOpen = useStore(
+    (state) => state.setUpdateEnvironmentModalOpen
+  );
 
   const { data, isLoading } = trpc.environment.all.useQuery(
     { projectId: project?.id! },
@@ -37,23 +38,16 @@ const EnvironmentsModule = ({ project }: Props) => {
 
   const onHandleEdit = (environmentId: string) => {
     if (project) {
-      dispatch(
-        setIsUpdateEnvironmentModalOpen({
-          isOpen: true,
-          data: { environment: { id: environmentId }, project },
-        })
-      );
+      setUpdateEnvironmentModalOpen({
+        environment: { id: environmentId },
+        project,
+      });
     }
   };
 
   const onHandleCreate = () => {
     if (project) {
-      dispatch(
-        setIsCreateEnvironmentModalOpen({
-          isOpen: true,
-          data: { project },
-        })
-      );
+      setCreateEnvironmentModalOpen({ project });
     }
   };
 

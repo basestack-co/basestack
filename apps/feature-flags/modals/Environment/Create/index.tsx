@@ -3,11 +3,10 @@ import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
 // Form
 import { SubmitHandler } from "react-hook-form";
-// Context
-import useModals from "hooks/useModals";
-import { setIsCreateEnvironmentModalOpen } from "contexts/modals/actions";
 // Server
 import { trpc } from "libs/trpc";
+// Store
+import { useStore } from "store";
 // Types
 import { FormInputs } from "../types";
 // Form
@@ -15,13 +14,12 @@ import useEnvironmentForm from "../useEnvironmentForm";
 
 const CreateEnvironmentModal = () => {
   const trpcContext = trpc.useContext();
-  const {
-    dispatch,
-    state: {
-      isCreateEnvironmentModalOpen: isModalOpen,
-      environmentModalPayload: { data },
-    },
-  } = useModals();
+  const isModalOpen = useStore((state) => state.isCreateEnvironmentModalOpen);
+  const data = useStore((state) => state.environmentModalPayload);
+  const setCreateEnvironmentModalOpen = useStore(
+    (state) => state.setCreateEnvironmentModalOpen
+  );
+
   const project = data && data.project;
 
   const createEnvironment = trpc.environment.create.useMutation();
@@ -49,9 +47,9 @@ const CreateEnvironmentModal = () => {
     useEnvironmentForm({ isCreate: true, options });
 
   const onClose = useCallback(() => {
-    dispatch(setIsCreateEnvironmentModalOpen({ isOpen: false, data: null }));
+    setCreateEnvironmentModalOpen(null);
     reset();
-  }, [dispatch, reset]);
+  }, [reset, setCreateEnvironmentModalOpen]);
 
   const onSubmit: SubmitHandler<FormInputs> = (input: FormInputs) => {
     if (project) {

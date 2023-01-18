@@ -8,9 +8,8 @@ import { Modal, Tabs } from "@basestack/design-system";
 // Form
 import { SubmitHandler } from "react-hook-form";
 import { FlagFormInputs } from "../types";
-// Context
-import useModals from "hooks/useModals";
-import { setIsCreateFlagModalOpen } from "contexts/modals/actions";
+// Store
+import { useStore } from "store";
 // Types
 import { TabType } from "types/flags";
 // Server
@@ -22,11 +21,11 @@ const CreateFlagModal = () => {
   const trpcContext = trpc.useContext();
   const theme = useTheme();
   const router = useRouter();
-
-  const {
-    dispatch,
-    state: { isCreateFlagModalOpen: isModalOpen, flagModalPayload: payload },
-  } = useModals();
+  const isModalOpen = useStore((state) => state.isCreateFlagModalOpen);
+  const data = useStore((state) => state.flagModalPayload);
+  const setCreateFlagModalOpen = useStore(
+    (state) => state.setCreateFlagModalOpen
+  );
 
   const projectSlug = router.query.projectSlug as string;
 
@@ -43,9 +42,9 @@ const CreateFlagModal = () => {
   const createFlag = trpc.flag.create.useMutation();
 
   const onClose = useCallback(() => {
-    dispatch(setIsCreateFlagModalOpen({ isOpen: false, data: null }));
+    setCreateFlagModalOpen(null);
     setTimeout(reset, 250);
-  }, [dispatch, reset]);
+  }, [setCreateFlagModalOpen, reset]);
 
   const onSubmit: SubmitHandler<FlagFormInputs> = async (input) => {
     if (project) {
