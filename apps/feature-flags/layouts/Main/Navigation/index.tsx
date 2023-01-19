@@ -11,12 +11,7 @@ import Link from "next/link";
 // Types
 import { RouterOutput } from "libs/trpc";
 // Store
-import {
-  seIsCreateProjectModalOpen,
-  setIsCreateFlagModalOpen,
-} from "contexts/modals/actions";
-// Hooks
-import useModals from "hooks/useModals";
+import { useStore } from "store";
 // Auth
 import { useSession } from "next-auth/react";
 
@@ -63,8 +58,15 @@ interface NavigationProps {
 const Navigation = ({ isDesktop, data }: NavigationProps) => {
   const theme = useTheme();
   const { data: session } = useSession();
-  const { dispatch } = useModals();
   const router = useRouter();
+
+  const setCreateProjectModalOpen = useStore(
+    (state) => state.setCreateProjectModalOpen
+  );
+
+  const setCreateFlagModalOpen = useStore(
+    (state) => state.setCreateFlagModalOpen
+  );
 
   const projectSlug = router.query.projectSlug as string;
 
@@ -120,9 +122,7 @@ const Navigation = ({ isDesktop, data }: NavigationProps) => {
           </Link>
         </ListItem>
         <ProjectsMenu
-          onClickCreateProject={() =>
-            dispatch(seIsCreateProjectModalOpen(true))
-          }
+          onClickCreateProject={() => setCreateProjectModalOpen(true)}
           projectSlug={projectSlug}
           projects={projects ?? []}
         />
@@ -131,13 +131,7 @@ const Navigation = ({ isDesktop, data }: NavigationProps) => {
             {onRenderItems(leftItems, "left")}
             <ListItem ml={theme.spacing.s5}>
               <Button
-                onClick={() =>
-                  dispatch(
-                    setIsCreateFlagModalOpen({
-                      isOpen: true,
-                    })
-                  )
-                }
+                onClick={() => setCreateFlagModalOpen(true)}
                 variant={ButtonVariant.Primary}
               >
                 Create flag

@@ -12,9 +12,8 @@ import { useTheme } from "styled-components";
 // Components
 import Portal from "@basestack/design-system/global/Portal";
 import { Modal, InputGroup } from "@basestack/design-system";
-// Context
-import useModals from "hooks/useModals";
-import { seIsCreateProjectModalOpen } from "contexts/modals/actions";
+// Store
+import { useStore } from "store";
 // Server
 import { trpc } from "libs/trpc";
 // Utils
@@ -41,10 +40,10 @@ const CreateProjectModal = () => {
   const router = useRouter();
   const trpcContext = trpc.useContext();
 
-  const {
-    dispatch,
-    state: { isCreateProjectModalOpen: isModalOpen },
-  } = useModals();
+  const isModalOpen = useStore((state) => state.isCreateProjectModalOpen);
+  const setCreateProjectModalOpen = useStore(
+    (state) => state.setCreateProjectModalOpen
+  );
 
   const createProject = trpc.project.create.useMutation();
 
@@ -63,9 +62,9 @@ const CreateProjectModal = () => {
   const watchName = watch("name");
 
   const onClose = useCallback(() => {
-    dispatch(seIsCreateProjectModalOpen(false));
+    setCreateProjectModalOpen(false);
     reset();
-  }, [dispatch, reset]);
+  }, [reset]);
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     await createProject.mutate(data, {

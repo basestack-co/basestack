@@ -21,32 +21,37 @@ export const createModalsSlice: StateCreator<
   isUpdateFlagModalOpen: false,
   environmentModalPayload: null,
   flagModalPayload: null,
-  setCreateEnvironmentModalOpen: (payload: EnvironmentModalPayload | null) =>
+  setCreateEnvironmentModalOpen: (
+    isOpen,
+    payload: EnvironmentModalPayload | null
+  ) =>
     set((state) => ({
-      isCreateEnvironmentModalOpen: !state.isCreateEnvironmentModalOpen,
+      isCreateEnvironmentModalOpen: isOpen,
       environmentModalPayload: payload,
     })),
-  setUpdateEnvironmentModalOpen: (payload: EnvironmentModalPayload | null) =>
+  setUpdateEnvironmentModalOpen: (
+    isOpen,
+    payload: EnvironmentModalPayload | null
+  ) =>
     set((state) => ({
-      isUpdateEnvironmentModalOpen: !state.isUpdateEnvironmentModalOpen,
+      isUpdateEnvironmentModalOpen: isOpen,
       environmentModalPayload: payload,
     })),
-  setInviteMemberModalOpen: () =>
+  setInviteMemberModalOpen: (isOpen) =>
     set((state) => ({
-      isInviteMemberModalOpen: !state.isInviteMemberModalOpen,
+      isInviteMemberModalOpen: isOpen,
     })),
-  setCreateProjectModalOpen: () =>
+  setCreateProjectModalOpen: (isOpen) =>
     set((state) => ({
-      isCreateProjectModalOpen: !state.isCreateProjectModalOpen,
+      isCreateProjectModalOpen: isOpen,
     })),
-  setCreateFlagModalOpen: (payload: FlagModalPayload | null) =>
+  setCreateFlagModalOpen: (isOpen) =>
     set((state) => ({
-      isCreateFlagModalOpen: !state.isCreateFlagModalOpen,
-      flagModalPayload: payload,
+      isCreateFlagModalOpen: isOpen,
     })),
-  setUpdateFlagModalOpen: (payload: FlagModalPayload | null) =>
+  setUpdateFlagModalOpen: (isOpen, payload: FlagModalPayload | null) =>
     set((state) => ({
-      isUpdateFlagModalOpen: !state.isUpdateFlagModalOpen,
+      isUpdateFlagModalOpen: isOpen,
       flagModalPayload: payload,
     })),
 });

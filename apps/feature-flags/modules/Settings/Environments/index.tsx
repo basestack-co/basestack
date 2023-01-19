@@ -38,7 +38,7 @@ const EnvironmentsModule = ({ project }: Props) => {
 
   const onHandleEdit = (environmentId: string) => {
     if (project) {
-      setUpdateEnvironmentModalOpen({
+      setUpdateEnvironmentModalOpen(true, {
         environment: { id: environmentId },
         project,
       });
@@ -47,7 +47,7 @@ const EnvironmentsModule = ({ project }: Props) => {
 
   const onHandleCreate = () => {
     if (project) {
-      setCreateEnvironmentModalOpen({ project });
+      setCreateEnvironmentModalOpen(true, { project });
     }
   };
 

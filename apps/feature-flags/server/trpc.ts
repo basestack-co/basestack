@@ -35,7 +35,7 @@ const logger = t.middleware(async ({ path, type, next, rawInput, ctx }) => {
   const result = await next();
 
   if (type === "mutation" && result.ok && result.data) {
-   await createHistory(ctx.prisma, ctx.session, path, result.data, rawInput);
+    await createHistory(ctx.prisma, ctx.session, path, result.data, rawInput);
   }
 
   return result;

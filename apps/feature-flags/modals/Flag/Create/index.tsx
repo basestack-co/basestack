@@ -22,7 +22,6 @@ const CreateFlagModal = () => {
   const theme = useTheme();
   const router = useRouter();
   const isModalOpen = useStore((state) => state.isCreateFlagModalOpen);
-  const data = useStore((state) => state.flagModalPayload);
   const setCreateFlagModalOpen = useStore(
     (state) => state.setCreateFlagModalOpen
   );
@@ -42,7 +41,7 @@ const CreateFlagModal = () => {
   const createFlag = trpc.flag.create.useMutation();
 
   const onClose = useCallback(() => {
-    setCreateFlagModalOpen(null);
+    setCreateFlagModalOpen(false);
     setTimeout(reset, 250);
   }, [setCreateFlagModalOpen, reset]);
 

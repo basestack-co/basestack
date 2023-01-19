@@ -3,9 +3,8 @@ import { useMediaQuery } from "@basestack/hooks";
 import { useTheme } from "styled-components";
 // Router
 import { useRouter } from "next/router";
-// Context
-import useModals from "hooks/useModals";
-import { setIsCreateFlagModalOpen } from "contexts/modals/actions";
+// Store
+import { useStore } from "store";
 // Auth
 import { useSession } from "next-auth/react";
 // Components
@@ -17,8 +16,10 @@ import { trpc } from "libs/trpc";
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.device.max.lg);
-  const { dispatch } = useModals();
   const router = useRouter();
+  const setCreateFlagModalOpen = useStore(
+    (state) => state.setCreateFlagModalOpen
+  );
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -42,9 +43,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       {isMobile && (
         <TabBar
           pathname={router.pathname}
-          onCreateFlag={() =>
-            dispatch(setIsCreateFlagModalOpen({ isOpen: true, data: null }))
-          }
+          onCreateFlag={() => setCreateFlagModalOpen(true)}
         />
       )}
     </Fragment>

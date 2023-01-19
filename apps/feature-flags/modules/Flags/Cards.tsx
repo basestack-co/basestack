@@ -5,15 +5,11 @@ import { trpc } from "libs/trpc";
 // Components
 import { FlagCard, FlagRow, ButtonVariant } from "@basestack/design-system";
 // Store
-import { setIsUpdateFlagModalOpen } from "contexts/modals/actions";
-// Hooks
-import useModals from "hooks/useModals";
+import { useStore } from "store";
 // Types
 import { SelectedView } from "types/flags";
 // Styles
 import { FlagsCardContainer, FlagsTableContainer } from "./styles";
-
-import { useStore } from "store";
 
 interface FlagCardsProps {
   selectedView: SelectedView;
@@ -28,17 +24,9 @@ const FlagCards = ({
   environmentId,
   searchValue,
 }: FlagCardsProps) => {
-  const { dispatch } = useModals();
-
-  const isCreateEnvironmentModalOpen = useStore(
-    (state) => state.isCreateEnvironmentModalOpen
+  const setUpdateFlagModalOpen = useStore(
+    (state) => state.setUpdateFlagModalOpen
   );
-  const setIsCreateEnvironmentModalOpen = useStore(
-    (state) => state.setCreateEnvironmentModalOpen
-  );
-
-  const isDarkMode = useStore((state) => state.isDarkMode);
-  const setDarkMode = useStore((state) => state.setDarkMode);
 
   const { data, isLoading } = trpc.flag.all.useQuery(
     {
@@ -80,31 +68,21 @@ const FlagCards = ({
                 icon: "edit",
                 text: "Edit",
                 onClick: () =>
-                  dispatch(
-                    setIsUpdateFlagModalOpen({
-                      isOpen: true,
-                      data: {
-                        flagId: "",
-                        environment: { id: "" },
-                        selectedTab: "core",
-                      },
-                    })
-                  ),
+                  setUpdateFlagModalOpen(true, {
+                    flagId: "",
+                    environment: { id: "" },
+                    selectedTab: "core",
+                  }),
               },
               {
                 icon: "history",
                 text: "History",
                 onClick: () =>
-                  dispatch(
-                    setIsUpdateFlagModalOpen({
-                      isOpen: true,
-                      data: {
-                        flagId: "",
-                        environment: { id: "" },
-                        selectedTab: "history",
-                      },
-                    })
-                  ),
+                  setUpdateFlagModalOpen(true, {
+                    flagId: "",
+                    environment: { id: "" },
+                    selectedTab: "history",
+                  }),
               },
               {
                 icon: "delete",

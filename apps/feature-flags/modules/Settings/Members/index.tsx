@@ -3,9 +3,8 @@ import React from "react";
 import { SettingCard, Table } from "@basestack/design-system";
 // Libs
 import { RouterOutput } from "libs/trpc";
-// Context
-import useModals from "hooks/useModals";
-import { seIsInviteMemberModalOpen } from "contexts/modals/actions";
+// Store
+import { useStore } from "store";
 // Styles
 import { CardList, CardListItem } from "../styles";
 // Mocks
@@ -16,10 +15,9 @@ interface Props {
 }
 
 const MembersModule = ({ project }: Props) => {
-  const {
-    dispatch,
-    state: { isDemoModalOpen: isModalOpen },
-  } = useModals();
+  const setInviteMemberModalOpen = useStore(
+    (state) => state.setInviteMemberModalOpen
+  );
 
   return (
     <CardList>
@@ -28,7 +26,7 @@ const MembersModule = ({ project }: Props) => {
           title="Team members"
           description="Active Members"
           button="Invite Member"
-          onClick={() => dispatch(seIsInviteMemberModalOpen(true))}
+          onClick={() => setInviteMemberModalOpen(true)}
         >
           <Table data={membersTableMock} />
         </SettingCard>

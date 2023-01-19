@@ -28,15 +28,20 @@ export interface EnvironmentModalPayload {
 
 export interface ModalsSliceActions {
   setCreateEnvironmentModalOpen: (
+    isOpen: boolean,
     payload: EnvironmentModalPayload | null
   ) => void;
   setUpdateEnvironmentModalOpen: (
+    isOpen: boolean,
     payload: EnvironmentModalPayload | null
   ) => void;
-  setInviteMemberModalOpen: () => void;
-  setCreateProjectModalOpen: () => void;
-  setCreateFlagModalOpen: (payload: FlagModalPayload | null) => void;
-  setUpdateFlagModalOpen: (payload: FlagModalPayload | null) => void;
+  setInviteMemberModalOpen: (isOpen: boolean) => void;
+  setCreateProjectModalOpen: (isOpen: boolean) => void;
+  setCreateFlagModalOpen: (isOpen: boolean) => void;
+  setUpdateFlagModalOpen: (
+    isOpen: boolean,
+    payload: FlagModalPayload | null
+  ) => void;
 }
 
 export interface ModalsSliceState extends ModalsSliceActions {

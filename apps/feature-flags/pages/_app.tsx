@@ -4,8 +4,6 @@ import { AppProps } from "next/app";
 import { ThemeProvider } from "styled-components";
 import theme from "@basestack/design-system/theme";
 import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
-// Contexts
-import { ModalsContextProvider } from "contexts/modals";
 // Modals
 import Modals from "modals";
 // Auth
@@ -29,14 +27,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     <SessionProvider session={pageProps.session}>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <ModalsContextProvider>
-          <>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-            <Modals />
-          </>
-        </ModalsContextProvider>
+        <>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+          <Modals />
+        </>
       </ThemeProvider>
     </SessionProvider>
   );

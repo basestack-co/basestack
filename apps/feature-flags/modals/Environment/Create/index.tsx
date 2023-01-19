@@ -47,7 +47,7 @@ const CreateEnvironmentModal = () => {
     useEnvironmentForm({ isCreate: true, options });
 
   const onClose = useCallback(() => {
-    setCreateEnvironmentModalOpen(null);
+    setCreateEnvironmentModalOpen(false, null);
     reset();
   }, [reset, setCreateEnvironmentModalOpen]);
 
