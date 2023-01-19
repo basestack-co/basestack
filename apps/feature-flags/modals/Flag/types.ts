@@ -13,6 +13,8 @@ export const FlagFormSchema = z.object({
     .min(1, "Required field"),
   description: z.string().max(150, "Must be 120 characters or less").optional(),
   environments: z.array(EnvironmentSchema),
+  payload: z.object({}).optional(),
+  expiredAt: z.date().nullish().optional(),
 });
 
 export type FlagFormInputs = z.TypeOf<typeof FlagFormSchema>;

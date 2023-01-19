@@ -53,6 +53,7 @@
     "react-calendar": "^4.0.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.42.1",
+    "react-json-view": "^1.21.3",
     "react-select": "^5.7.0",
     "react-spring": "^9.6.1",
     "styled-components": "^5.3.5",

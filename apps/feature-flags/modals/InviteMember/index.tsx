@@ -11,7 +11,7 @@ const InviteMemberModal = () => {
   );
 
   const onClose = useCallback(() => {
-    setInviteMemberModalOpen(false);
+    setInviteMemberModalOpen({ isOpen: false });
   }, [setInviteMemberModalOpen]);
 
   return (

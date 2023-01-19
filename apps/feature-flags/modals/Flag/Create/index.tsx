@@ -25,7 +25,6 @@ const CreateFlagModal = () => {
   const setCreateFlagModalOpen = useStore(
     (state) => state.setCreateFlagModalOpen
   );
-
   const projectSlug = router.query.projectSlug as string;
 
   const {
@@ -41,19 +40,24 @@ const CreateFlagModal = () => {
   const createFlag = trpc.flag.create.useMutation();
 
   const onClose = useCallback(() => {
-    setCreateFlagModalOpen(false);
+    setCreateFlagModalOpen({ isOpen: false });
     setTimeout(reset, 250);
   }, [setCreateFlagModalOpen, reset]);
 
   const onSubmit: SubmitHandler<FlagFormInputs> = async (input) => {
     if (project) {
+      console.log("input = ", input);
+
+
+      return
+
       const data = input.environments.map((env) => ({
         slug: input.name,
         description: input.description,
         environmentId: env.id,
         enabled: env.enabled,
-        payload: JSON.stringify({}),
-        expiredAt: null,
+        payload: JSON.stringify(input.payload),
+        expiredAt: input.expiredAt,
       }));
 
       createFlag.mutate(
@@ -82,7 +86,7 @@ const CreateFlagModal = () => {
             } */
 
             // doing this instead of the above because the above doesn't work
-            await trpcContext.flag.byProjectSlug.invalidate();
+            await trpcContext.flag.all.invalidate();
             onClose();
           },
         }

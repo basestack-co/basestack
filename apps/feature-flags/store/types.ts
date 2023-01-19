@@ -31,17 +31,21 @@ export interface ModalPayload<T> {
   data?: T;
 }
 
+export type ModalAction<P, A> = (payload: P) => A;
+
 export interface ModalsSliceActions {
-  setCreateEnvironmentModalOpen: (
-    payload: ModalPayload<EnvironmentModalPayload>
-  ) => void;
-  setUpdateEnvironmentModalOpen: (
-    payload: ModalPayload<EnvironmentModalPayload>
-  ) => void;
-  setInviteMemberModalOpen: (payload: ModalPayload<null>) => void;
-  setCreateProjectModalOpen: (payload: ModalPayload<null>) => void;
-  setCreateFlagModalOpen: (payload: ModalPayload<null>) => void;
-  setUpdateFlagModalOpen: (payload: ModalPayload<FlagModalPayload>) => void;
+  setCreateEnvironmentModalOpen: ModalAction<
+    ModalPayload<EnvironmentModalPayload>,
+    void
+  >;
+  setUpdateEnvironmentModalOpen: ModalAction<
+    ModalPayload<EnvironmentModalPayload>,
+    void
+  >;
+  setInviteMemberModalOpen: ModalAction<ModalPayload<null>, void>;
+  setCreateProjectModalOpen: ModalAction<ModalPayload<null>, void>;
+  setCreateFlagModalOpen: ModalAction<ModalPayload<null>, void>;
+  setUpdateFlagModalOpen: ModalAction<ModalPayload<FlagModalPayload>, void>;
 }
 
 export interface ModalsSliceState extends ModalsSliceActions {

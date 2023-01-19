@@ -73,6 +73,9 @@ const useFlagForm = ({
     }
   }, [isModalOpen, project, trpcContext, setValue]);
 
+
+  console.log("je = ", watch("payload") )
+
   const onRenderTab = () => {
     switch (selectedTab) {
       case TabType.CORE:
@@ -87,7 +90,13 @@ const useFlagForm = ({
           />
         );
       case TabType.ADVANCED:
-        return <Advance setValue={setValue} />;
+        return (
+          <Advance
+            setValue={setValue}
+            payload={watch("payload") ?? {}}
+            expiredAt={watch("expiredAt")}
+          />
+        );
       case TabType.HISTORY:
         return <History />;
     }
