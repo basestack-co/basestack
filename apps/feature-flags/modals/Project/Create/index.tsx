@@ -62,7 +62,7 @@ const CreateProjectModal = () => {
   const watchName = watch("name");
 
   const onClose = useCallback(() => {
-    setCreateProjectModalOpen(false);
+    setCreateProjectModalOpen({ isOpen: false });
     reset();
   }, [reset]);
 

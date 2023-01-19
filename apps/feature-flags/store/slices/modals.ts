@@ -1,11 +1,6 @@
 import { StateCreator } from "zustand";
 // Types
-import {
-  EnvironmentModalPayload,
-  FlagModalPayload,
-  ModalsSliceState,
-  Store,
-} from "../types";
+import { ModalsSliceState, Store } from "../types";
 
 export const createModalsSlice: StateCreator<
   Store,
@@ -21,37 +16,31 @@ export const createModalsSlice: StateCreator<
   isUpdateFlagModalOpen: false,
   environmentModalPayload: null,
   flagModalPayload: null,
-  setCreateEnvironmentModalOpen: (
-    isOpen,
-    payload: EnvironmentModalPayload | null
-  ) =>
+  setCreateEnvironmentModalOpen: ({ isOpen, data }) =>
     set((state) => ({
       isCreateEnvironmentModalOpen: isOpen,
-      environmentModalPayload: payload,
+      environmentModalPayload: data,
     })),
-  setUpdateEnvironmentModalOpen: (
-    isOpen,
-    payload: EnvironmentModalPayload | null
-  ) =>
+  setUpdateEnvironmentModalOpen: ({ isOpen, data }) =>
     set((state) => ({
       isUpdateEnvironmentModalOpen: isOpen,
-      environmentModalPayload: payload,
+      environmentModalPayload: data,
     })),
-  setInviteMemberModalOpen: (isOpen) =>
+  setInviteMemberModalOpen: ({ isOpen }) =>
     set((state) => ({
       isInviteMemberModalOpen: isOpen,
     })),
-  setCreateProjectModalOpen: (isOpen) =>
+  setCreateProjectModalOpen: ({ isOpen }) =>
     set((state) => ({
       isCreateProjectModalOpen: isOpen,
     })),
-  setCreateFlagModalOpen: (isOpen) =>
+  setCreateFlagModalOpen: ({ isOpen }) =>
     set((state) => ({
       isCreateFlagModalOpen: isOpen,
     })),
-  setUpdateFlagModalOpen: (isOpen, payload: FlagModalPayload | null) =>
+  setUpdateFlagModalOpen: ({ isOpen, data }) =>
     set((state) => ({
       isUpdateFlagModalOpen: isOpen,
-      flagModalPayload: payload,
+      flagModalPayload: data,
     })),
 });

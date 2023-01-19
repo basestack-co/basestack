@@ -46,7 +46,7 @@ const UpdateFlagModal = () => {
   const updateFlag = trpc.flag.update.useMutation();
 
   const onClose = useCallback(() => {
-    setUpdateFlagModalOpen(false, null);
+    setUpdateFlagModalOpen({ isOpen: false });
     setTimeout(reset, 250);
   }, [setUpdateFlagModalOpen, reset]);
 

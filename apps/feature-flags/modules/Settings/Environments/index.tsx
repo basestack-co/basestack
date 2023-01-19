@@ -38,16 +38,19 @@ const EnvironmentsModule = ({ project }: Props) => {
 
   const onHandleEdit = (environmentId: string) => {
     if (project) {
-      setUpdateEnvironmentModalOpen(true, {
-        environment: { id: environmentId },
-        project,
+      setUpdateEnvironmentModalOpen({
+        isOpen: true,
+        data: {
+          environment: { id: environmentId },
+          project,
+        },
       });
     }
   };
 
   const onHandleCreate = () => {
     if (project) {
-      setCreateEnvironmentModalOpen(true, { project });
+      setCreateEnvironmentModalOpen({ isOpen: true, data: { project } });
     }
   };
 

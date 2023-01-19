@@ -28,7 +28,7 @@ const EditEnvironmentModal = () => {
     useEnvironmentForm({});
 
   const onClose = useCallback(() => {
-    setUpdateEnvironmentModalOpen(false, null);
+    setUpdateEnvironmentModalOpen({ isOpen: false });
     reset();
   }, [reset, setUpdateEnvironmentModalOpen]);
 

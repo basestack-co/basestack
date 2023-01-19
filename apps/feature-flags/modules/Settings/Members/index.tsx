@@ -26,7 +26,7 @@ const MembersModule = ({ project }: Props) => {
           title="Team members"
           description="Active Members"
           button="Invite Member"
-          onClick={() => setInviteMemberModalOpen(true)}
+          onClick={() => setInviteMemberModalOpen({ isOpen: true })}
         >
           <Table data={membersTableMock} />
         </SettingCard>

@@ -68,20 +68,26 @@ const FlagCards = ({
                 icon: "edit",
                 text: "Edit",
                 onClick: () =>
-                  setUpdateFlagModalOpen(true, {
-                    flagId: "",
-                    environment: { id: "" },
-                    selectedTab: "core",
+                  setUpdateFlagModalOpen({
+                    isOpen: true,
+                    data: {
+                      flagId: "",
+                      environment: { id: "" },
+                      selectedTab: "core",
+                    },
                   }),
               },
               {
                 icon: "history",
                 text: "History",
                 onClick: () =>
-                  setUpdateFlagModalOpen(true, {
-                    flagId: "",
-                    environment: { id: "" },
-                    selectedTab: "history",
+                  setUpdateFlagModalOpen({
+                    isOpen: true,
+                    data: {
+                      flagId: "",
+                      environment: { id: "" },
+                      selectedTab: "history",
+                    },
                   }),
               },
               {

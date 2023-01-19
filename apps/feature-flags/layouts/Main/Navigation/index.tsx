@@ -122,7 +122,9 @@ const Navigation = ({ isDesktop, data }: NavigationProps) => {
           </Link>
         </ListItem>
         <ProjectsMenu
-          onClickCreateProject={() => setCreateProjectModalOpen(true)}
+          onClickCreateProject={() =>
+            setCreateProjectModalOpen({ isOpen: true })
+          }
           projectSlug={projectSlug}
           projects={projects ?? []}
         />
@@ -131,7 +133,7 @@ const Navigation = ({ isDesktop, data }: NavigationProps) => {
             {onRenderItems(leftItems, "left")}
             <ListItem ml={theme.spacing.s5}>
               <Button
-                onClick={() => setCreateFlagModalOpen(true)}
+                onClick={() => setCreateFlagModalOpen({ isOpen: true })}
                 variant={ButtonVariant.Primary}
               >
                 Create flag

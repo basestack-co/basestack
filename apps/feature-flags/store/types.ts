@@ -26,22 +26,22 @@ export interface EnvironmentModalPayload {
   project: RouterOutput["project"]["bySlug"]["project"];
 }
 
+export interface ModalPayload<T> {
+  isOpen: boolean;
+  data?: T;
+}
+
 export interface ModalsSliceActions {
   setCreateEnvironmentModalOpen: (
-    isOpen: boolean,
-    payload: EnvironmentModalPayload | null
+    payload: ModalPayload<EnvironmentModalPayload>
   ) => void;
   setUpdateEnvironmentModalOpen: (
-    isOpen: boolean,
-    payload: EnvironmentModalPayload | null
+    payload: ModalPayload<EnvironmentModalPayload>
   ) => void;
-  setInviteMemberModalOpen: (isOpen: boolean) => void;
-  setCreateProjectModalOpen: (isOpen: boolean) => void;
-  setCreateFlagModalOpen: (isOpen: boolean) => void;
-  setUpdateFlagModalOpen: (
-    isOpen: boolean,
-    payload: FlagModalPayload | null
-  ) => void;
+  setInviteMemberModalOpen: (payload: ModalPayload<null>) => void;
+  setCreateProjectModalOpen: (payload: ModalPayload<null>) => void;
+  setCreateFlagModalOpen: (payload: ModalPayload<null>) => void;
+  setUpdateFlagModalOpen: (payload: ModalPayload<FlagModalPayload>) => void;
 }
 
 export interface ModalsSliceState extends ModalsSliceActions {

@@ -7,6 +7,7 @@ import { SubmitHandler } from "react-hook-form";
 import { trpc } from "libs/trpc";
 // Store
 import { useStore } from "store";
+import { shallow } from "zustand/shallow";
 // Types
 import { FormInputs } from "../types";
 // Form
@@ -14,14 +15,16 @@ import useEnvironmentForm from "../useEnvironmentForm";
 
 const CreateEnvironmentModal = () => {
   const trpcContext = trpc.useContext();
-  const isModalOpen = useStore((state) => state.isCreateEnvironmentModalOpen);
-  const data = useStore((state) => state.environmentModalPayload);
-  const setCreateEnvironmentModalOpen = useStore(
-    (state) => state.setCreateEnvironmentModalOpen
+  const { isModalOpen, data, setCreateEnvironmentModalOpen } = useStore(
+    (state) => ({
+      isModalOpen: state.isCreateEnvironmentModalOpen,
+      data: state.environmentModalPayload,
+      setCreateEnvironmentModalOpen: state.setCreateEnvironmentModalOpen,
+    }),
+    shallow
   );
 
   const project = data && data.project;
-
   const createEnvironment = trpc.environment.create.useMutation();
 
   const [options, environments] = useMemo(() => {
@@ -47,7 +50,7 @@ const CreateEnvironmentModal = () => {
     useEnvironmentForm({ isCreate: true, options });
 
   const onClose = useCallback(() => {
-    setCreateEnvironmentModalOpen(false, null);
+    setCreateEnvironmentModalOpen({ isOpen: false });
     reset();
   }, [reset, setCreateEnvironmentModalOpen]);
 
