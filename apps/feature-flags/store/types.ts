@@ -1,5 +1,6 @@
 import { StateCreator } from "zustand/esm";
 import { PersistOptions } from "zustand/middleware";
+import { TabType, SelectedView } from "types/flags";
 import { RouterOutput } from "../libs/trpc";
 
 /**
@@ -17,7 +18,7 @@ export type Persist = (
 
 export interface FlagModalPayload {
   flagId: string;
-  selectedTab: string;
+  selectedTab: TabType;
   environment?: { id: string };
 }
 
@@ -65,10 +66,12 @@ export interface ModalsSliceState extends ModalsSliceActions {
 
 export interface AppSliceActions {
   setDarkMode: () => void;
+  setSelectedView: (payload: { view: SelectedView }) => void;
 }
 
 export interface AppSliceState extends AppSliceActions {
   isDarkMode: boolean;
+  selectedView: SelectedView;
 }
 
 export type Store = ModalsSliceState & AppSliceState;

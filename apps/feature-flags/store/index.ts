@@ -17,7 +17,10 @@ export const useStore = create<Store>(
       name: "feature-flags-app",
       storage: createJSONStorage(() => localStorage),
       // @ts-ignore
-      partialize: (state) => ({ isDarkMode: state.isDarkMode }),
+      partialize: (state) => ({
+        isDarkMode: state.isDarkMode,
+        selectedView: state.selectedView,
+      }),
     }
   )
 );

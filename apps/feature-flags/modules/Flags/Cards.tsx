@@ -1,13 +1,21 @@
-import React from "react";
-import dayjs from "dayjs";
+import React, { useCallback } from "react";
 // Server
 import { trpc } from "libs/trpc";
 // Components
-import { FlagCard, FlagRow, ButtonVariant } from "@basestack/design-system";
+import {
+  FlagCard,
+  FlagRow,
+  ButtonVariant,
+  Loader,
+  Spinner,
+} from "@basestack/design-system";
 // Store
 import { useStore } from "store";
 // Types
-import { SelectedView } from "types/flags";
+import { SelectedView, TabType } from "types/flags";
+// Utils
+import { getValue } from "@basestack/utils";
+import dayjs from "dayjs";
 // Styles
 import { FlagsCardContainer, FlagsTableContainer } from "./styles";
 
@@ -21,12 +29,13 @@ interface FlagCardsProps {
 const FlagCards = ({
   selectedView,
   projectId,
-  environmentId,
   searchValue,
 }: FlagCardsProps) => {
+  const trpcContext = trpc.useContext();
   const setUpdateFlagModalOpen = useStore(
     (state) => state.setUpdateFlagModalOpen
   );
+  const deleteFlag = trpc.flag.delete.useMutation();
 
   const { data, isLoading } = trpc.flag.all.useQuery(
     {
@@ -39,8 +48,42 @@ const FlagCards = ({
 
   const flags = !isLoading && data ? data.flags : [];
 
+  const onUpdateOrHistory = useCallback(
+    (flagId: string, environmentId: string, selectedTab: TabType) => {
+      setUpdateFlagModalOpen({
+        isOpen: true,
+        data: {
+          flagId,
+          environment: { id: environmentId },
+          selectedTab: selectedTab,
+        },
+      });
+    },
+    [setUpdateFlagModalOpen]
+  );
+
+  const onDelete = useCallback(
+    (flagId: string) => {
+      deleteFlag.mutate(
+        { projectId: projectId, flagId },
+        {
+          onSuccess: async () => {
+            // TODO: migrate this to use cache from useQuery
+            await trpcContext.flag.all.invalidate();
+          },
+        }
+      );
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [projectId, deleteFlag]
+  );
+
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Loader>
+        <Spinner size="large" />
+      </Loader>
+    );
   }
 
   if (!flags.length) {
@@ -53,10 +96,11 @@ const FlagCards = ({
   return (
     <Container>
       {flags.map((flag, index) => {
-        const Flag = selectedView === "cards" ? FlagCard : FlagRow;
+        const FlagComponent = selectedView === "cards" ? FlagCard : FlagRow;
+        const environmentId = getValue(flag, "environments[0].id", "");
 
         return (
-          <Flag
+          <FlagComponent
             key={index.toString()}
             zIndex={flags.length - index}
             title={flag.slug}
@@ -68,33 +112,19 @@ const FlagCards = ({
                 icon: "edit",
                 text: "Edit",
                 onClick: () =>
-                  setUpdateFlagModalOpen({
-                    isOpen: true,
-                    data: {
-                      flagId: "",
-                      environment: { id: "" },
-                      selectedTab: "core",
-                    },
-                  }),
+                  onUpdateOrHistory(flag.id, environmentId, TabType.CORE),
               },
               {
                 icon: "history",
                 text: "History",
                 onClick: () =>
-                  setUpdateFlagModalOpen({
-                    isOpen: true,
-                    data: {
-                      flagId: "",
-                      environment: { id: "" },
-                      selectedTab: "history",
-                    },
-                  }),
+                  onUpdateOrHistory(flag.id, environmentId, TabType.HISTORY),
               },
               {
                 icon: "delete",
                 text: "Delete",
                 variant: ButtonVariant.Danger,
-                onClick: () => console.log(""),
+                onClick: () => onDelete(flag.id),
               },
             ]}
           />

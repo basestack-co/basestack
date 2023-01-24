@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback } from "react";
 import dynamic from "next/dynamic";
 // Components
 import { useTheme } from "styled-components";
@@ -6,6 +6,8 @@ import { InputGroup, Text } from "@basestack/design-system";
 // Types
 import { FlagFormInputs } from "../types";
 import { UseFormSetValue } from "react-hook-form";
+import type { InteractionProps } from "react-json-view";
+
 // Calendar
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -16,12 +18,19 @@ import dayjs from "dayjs";
 
 export interface Props {
   setValue: UseFormSetValue<FlagFormInputs>;
-  payload: object;
+  payload: string;
   expiredAt?: Date | null;
 }
 
 const AdvanceTab = ({ setValue, payload, expiredAt }: Props) => {
   const theme = useTheme();
+
+  const onChangeJson = useCallback(
+    ({ updated_src }: InteractionProps) => {
+      setValue("payload", JSON.stringify(updated_src));
+    },
+    [setValue]
+  );
 
   return (
     <>
@@ -57,16 +66,10 @@ const AdvanceTab = ({ setValue, payload, expiredAt }: Props) => {
         name="data"
         iconStyle="square"
         defaultValue="string"
-        src={payload}
-        onEdit={({ updated_src }) => {
-          setValue("payload", updated_src);
-        }}
-        onAdd={({ updated_src }) => {
-          setValue("payload", updated_src);
-        }}
-        onDelete={({ updated_src }) => {
-          setValue("payload", updated_src);
-        }}
+        src={JSON.parse(payload)}
+        onEdit={onChangeJson}
+        onAdd={onChangeJson}
+        onDelete={onChangeJson}
         enableClipboard={false}
         collapsed={false}
       />

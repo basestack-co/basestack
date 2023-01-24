@@ -22,7 +22,7 @@
     "build:feature-flags": "turbo run build --filter=feature-flags..."
   },
   "devDependencies": {
-    "commitizen": "^4.2.6",
+    "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",

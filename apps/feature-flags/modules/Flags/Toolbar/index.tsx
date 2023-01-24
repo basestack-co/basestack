@@ -7,28 +7,30 @@ import { Container, PillsUl, PillLi } from "./styles";
 import EnvironmentsMenu from "./EnvironmentsMenu";
 // Server
 import { trpc } from "libs/trpc";
+// Hooks
+import { useDebounce } from "@basestack/hooks";
 
 export interface ToolbarProps extends SpaceProps {
   projectId: string;
-  onSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSearchCallback: (value: string) => void;
   onSelect: (environmentId: string) => void;
   onChangeView: (selected: string) => void;
   isDesktop?: boolean;
-  searchValue: string;
 }
 
 const Toolbar = ({
   projectId,
   isDesktop = true,
-  onSearch,
   onSelect,
   onChangeView,
-  searchValue,
+  onSearchCallback,
 }: ToolbarProps) => {
   const theme = useTheme();
   const [selected, setSelected] = useState("all");
-
+  const [searchValue, setSearchValue] = useState<string>("");
   const { data, isLoading } = trpc.environment.all.useQuery({ projectId });
+
+  useDebounce(() => onSearchCallback(searchValue), 500, [searchValue]);
 
   const onRenderDesktopPills = useCallback(() => {
     if (isLoading) {
@@ -69,7 +71,9 @@ const Toolbar = ({
         icon="search"
         iconPlacement="left"
         placeholder="Filter by title"
-        onChange={onSearch}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setSearchValue(event.target.value)
+        }
         name="search"
         value={searchValue}
       />

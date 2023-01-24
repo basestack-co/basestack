@@ -4,6 +4,8 @@ import { useTheme } from "styled-components";
 import { useMediaQuery } from "@basestack/hooks";
 // Types
 import { SelectedView } from "types/flags";
+// Store
+import { useStore } from "store";
 // Components
 import { Text } from "@basestack/design-system";
 import FlagCards from "./Cards";
@@ -20,25 +22,25 @@ export interface Props {
 const Flags = ({ project }: Props) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.device.min.lg);
-
-  const [selectedView, setSelectedView] = useState<SelectedView>("cards");
+  const setSelectedView = useStore((state) => state.setSelectedView);
+  const selectedView = useStore((state) => state.selectedView);
   const [selectedEnvironmentId, setSelectedEnvironmentId] =
     useState<string>("");
   const [searchValue, setSearchValue] = useState<string>("");
 
   useEffect(() => {
     if (!isDesktop) {
-      setSelectedView("cards");
+      // TODO: Update this to be desktop first
+      // setSelectedView({ view: "cards" });
     }
-  }, [isDesktop]);
+  }, [isDesktop, setSelectedView]);
 
-  const onChangeView = useCallback((selected: string) => {
-    setSelectedView(selected as SelectedView);
-  }, []);
-
-  const onSearch = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
-  }, []);
+  const onChangeView = useCallback(
+    (selected: string) => {
+      setSelectedView({ view: selected as SelectedView });
+    },
+    [setSelectedView]
+  );
 
   return (
     <Container>
@@ -46,8 +48,7 @@ const Flags = ({ project }: Props) => {
       <Toolbar
         projectId={project?.id!}
         onChangeView={onChangeView}
-        onSearch={onSearch}
-        searchValue={searchValue}
+        onSearchCallback={(value) => setSearchValue(value)}
         onSelect={(id: string) => setSelectedEnvironmentId(id)}
         isDesktop={isDesktop}
       />

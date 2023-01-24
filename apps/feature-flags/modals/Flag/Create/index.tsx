@@ -46,17 +46,12 @@ const CreateFlagModal = () => {
 
   const onSubmit: SubmitHandler<FlagFormInputs> = async (input) => {
     if (project) {
-      console.log("input = ", input);
-
-
-      return
-
       const data = input.environments.map((env) => ({
         slug: input.name,
         description: input.description,
         environmentId: env.id,
         enabled: env.enabled,
-        payload: JSON.stringify(input.payload),
+        payload: input.payload,
         expiredAt: input.expiredAt,
       }));
 
@@ -64,28 +59,7 @@ const CreateFlagModal = () => {
         { projectId: project.id, data },
         {
           onSuccess: async (result) => {
-            /* console.log("result = ", result);
-
-            const cache = trpcContext.flag.byProjectSlug.getData({
-              projectSlug: project.slug,
-              pagination: null,
-            });
-
-            console.log("cache = ", cache); */
-
-            /* if (cache && cache.flags) {
-              const flags = [...cache.flags, result];
-
-              trpcContext.flag.byProjectSlug.setData(
-                {
-                  projectSlug: project.slug,
-                  pagination: null,
-                },
-                {flags, pagination: cache.pagination}
-              );
-            } */
-
-            // doing this instead of the above because the above doesn't work
+            // TODO: migrate this to use cache from useQuery
             await trpcContext.flag.all.invalidate();
             onClose();
           },
@@ -97,7 +71,7 @@ const CreateFlagModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title={`Create Flag`}
+        title="Create Flag"
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}

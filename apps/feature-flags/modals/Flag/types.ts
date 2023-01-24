@@ -13,7 +13,7 @@ export const FlagFormSchema = z.object({
     .min(1, "Required field"),
   description: z.string().max(150, "Must be 120 characters or less").optional(),
   environments: z.array(EnvironmentSchema),
-  payload: z.object({}).optional(),
+  payload: z.string().optional(),
   expiredAt: z.date().nullish().optional(),
 });
 
