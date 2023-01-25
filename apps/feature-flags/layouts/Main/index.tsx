@@ -43,7 +43,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       {isMobile && (
         <TabBar
           pathname={router.pathname}
-          onCreateFlag={() => setCreateFlagModalOpen(true)}
+          onCreateFlag={() => setCreateFlagModalOpen({ isOpen: true })}
         />
       )}
     </Fragment>

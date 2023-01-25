@@ -66,7 +66,7 @@ const AdvanceTab = ({ setValue, payload, expiredAt }: Props) => {
         name="data"
         iconStyle="square"
         defaultValue="string"
-        src={JSON.parse(payload)}
+        src={typeof payload === "string" ? JSON.parse(payload) : payload}
         onEdit={onChangeJson}
         onAdd={onChangeJson}
         onDelete={onChangeJson}

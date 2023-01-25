@@ -22,12 +22,13 @@ const UpdateFlagModal = () => {
   const theme = useTheme();
   const router = useRouter();
   const isModalOpen = useStore((state) => state.isUpdateFlagModalOpen);
-  const payload = useStore((state) => state.flagModalPayload);
+  const modalPayload = useStore((state) => state.flagModalPayload);
   const setUpdateFlagModalOpen = useStore(
     (state) => state.setUpdateFlagModalOpen
   );
 
   const projectSlug = router.query.projectSlug as string;
+  const updateFlag = trpc.flag.update.useMutation();
 
   const {
     selectedTab,
@@ -37,13 +38,17 @@ const UpdateFlagModal = () => {
     reset,
     onRenderTab,
     project,
+    setValue,
   } = useFlagForm({
     isModalOpen,
     projectSlug,
     isCreate: false,
   });
 
-  const updateFlag = trpc.flag.update.useMutation();
+  const { isLoading, data } = trpc.flag.byId.useQuery(
+    { flagId: modalPayload?.flagId!, projectId: project?.id! },
+    { enabled: !!project?.id && !!modalPayload?.flagId }
+  );
 
   const onClose = useCallback(() => {
     setUpdateFlagModalOpen({ isOpen: false });
@@ -61,29 +66,45 @@ const UpdateFlagModal = () => {
         expiredAt: null,
       }));
 
-      /* updateFlag.mutate(
-        { projectId: project.id, data },
+      updateFlag.mutate(
+        { projectId: project.id,  },
         {
           onSuccess: async (result) => {
             // doing this instead of the above because the above doesn't work
-            await trpcContext.flag.byProjectSlug.invalidate();
+            await trpcContext.flag.all.invalidate();
             onClose();
           },
         }
-      ); */
+      );
     }
   };
 
   useEffect(() => {
-    if (isModalOpen && payload) {
-      setSelectedTab(payload.selectedTab as TabType);
+    if (isModalOpen && modalPayload) {
+      setSelectedTab(modalPayload.selectedTab as TabType);
     }
-  }, [payload, isModalOpen, setSelectedTab]);
+  }, [modalPayload, isModalOpen, setSelectedTab]);
+
+  useEffect(() => {
+    if (!isLoading && data) {
+      setValue("name", data.slug ?? "");
+      setValue("description", data.description ?? "");
+      setValue("payload", (data.payload ?? "{}") as string);
+      setValue("expiredAt", data.expiredAt ?? null);
+      setValue("environments", [
+        {
+          id: data.environment?.id ?? "",
+          name: data.environment?.name ?? "",
+          enabled: data.enabled ?? false,
+        },
+      ]);
+    }
+  }, [isLoading, data, setValue]);
 
   return (
     <Portal selector="#portal">
       <Modal
-        title={`Edit Flag`}
+        title="Edit Flag"
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
@@ -92,7 +113,7 @@ const UpdateFlagModal = () => {
           {
             children: "Update",
             onClick: handleSubmit(onSubmit),
-            isDisabled: !project?.id,
+            isDisabled: !project?.id || isLoading,
             isLoading: isSubmitting,
           },
         ]}
@@ -107,7 +128,7 @@ const UpdateFlagModal = () => {
           sliderPosition={tabPosition[selectedTab]}
           mb={theme.spacing.s6}
         />
-        {onRenderTab()}
+        {onRenderTab(isLoading)}
       </Modal>
     </Portal>
   );

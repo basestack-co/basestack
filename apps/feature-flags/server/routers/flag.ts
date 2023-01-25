@@ -113,8 +113,19 @@ export const flagRouter = router({
         where: {
           id: input.flagId,
         },
-        include: {
-          environment: true,
+        select: {
+          id: true,
+          slug: true,
+          description: true,
+          expiredAt: true,
+          payload: true,
+          enabled: true,
+          environment: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
         },
       });
 

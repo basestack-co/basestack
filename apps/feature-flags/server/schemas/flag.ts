@@ -15,6 +15,7 @@ export const AllFlagsInput = z
 
 export const FlagByIdInput = z
   .object({
+    projectId: z.string(),
     flagId: z.string(),
   })
   .required();

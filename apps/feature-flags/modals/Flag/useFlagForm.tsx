@@ -39,6 +39,7 @@ const useFlagForm = ({
     formState: { errors, isSubmitting },
     setValue,
     reset,
+    getValues,
   } = useForm<FlagFormInputs>({
     resolver: zodResolver(FlagFormSchema),
     mode: "onChange",
@@ -57,7 +58,7 @@ const useFlagForm = ({
   }, [projectSlug, isModalOpen, trpcContext]);
 
   useEffect(() => {
-    if (isModalOpen && project) {
+    if (isModalOpen && project && isCreate) {
       const cache = trpcContext.environment.all.getData({
         projectId: project.id,
       });
@@ -71,9 +72,9 @@ const useFlagForm = ({
       );
       setValue("environments", environments);
     }
-  }, [isModalOpen, project, trpcContext, setValue]);
+  }, [isModalOpen, project, trpcContext, setValue, isCreate]);
 
-  const onRenderTab = () => {
+  const onRenderTab = (isLoading: boolean = false) => {
     switch (selectedTab) {
       case TabType.CORE:
       default:
@@ -83,7 +84,8 @@ const useFlagForm = ({
             setValue={setValue}
             errors={errors}
             control={control}
-            isSubmitting={isSubmitting}
+            isSubmitting={isSubmitting || isLoading}
+            isCreate={isCreate}
           />
         );
       case TabType.ADVANCED:
@@ -111,6 +113,7 @@ const useFlagForm = ({
     reset,
     onRenderTab,
     project,
+    getValues,
   } as const;
 };
 
