@@ -16,15 +16,12 @@ interface Environment {
   description?: string;
 }
 
-interface Flag {
-  slug: string;
-  enabled: boolean;
-  description?: string;
-  environmentId: string;
-}
-
 export interface HistoryPayload {
-  flag?: Flag | Flag[];
+  flag?: {
+    slug: string;
+    description?: string;
+    environments: Array<{ id: string; enabled: boolean }>;
+  };
   environment?: Environment | Environment[];
   project?: {
     name: string;

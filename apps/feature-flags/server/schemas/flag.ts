@@ -20,19 +20,6 @@ export const FlagByIdInput = z
   })
   .required();
 
-// TODO: remove this after the new migration query is done
-export const FlagByProjectSlugInput = z
-  .object({
-    projectSlug: z.string(),
-    pagination: z
-      .object({
-        skip: z.string(),
-        take: z.string(),
-      })
-      .nullable(),
-  })
-  .required();
-
 export const CreateFlagInput = z.object({
   // this prop is used on the createProtectedRouter Middleware to validated user project permissions
   projectId: z.string(),

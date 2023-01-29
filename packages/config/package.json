@@ -12,7 +12,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules"
   },
   "dependencies": {
-    "eslint-config-next": "^13.1.5",
+    "eslint-config-next": "^13.1.6",
     "eslint-config-prettier": "^8.6.0"
   }
 }

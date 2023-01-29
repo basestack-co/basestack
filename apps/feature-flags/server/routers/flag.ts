@@ -1,12 +1,11 @@
 import { protectedProcedure, router } from "server/trpc";
 import { TRPCError } from "@trpc/server";
 // Utils
-import { getValue, groupBy } from "@basestack/utils";
+import { getValue } from "@basestack/utils";
 import {
   CreateFlagInput,
   DeleteFlagInput,
   FlagByIdInput,
-  FlagByProjectSlugInput,
   UpdateFlagInput,
   AllFlagsInput,
 } from "../schemas/flag";
@@ -131,79 +130,6 @@ export const flagRouter = router({
 
       return {
         ...flag,
-      };
-    }),
-  byProjectSlug: protectedProcedure
-    .meta({
-      restricted: true,
-    })
-    .input(FlagByProjectSlugInput)
-    .query(async ({ ctx, input }) => {
-      const skip = getValue(input.pagination, "skip", "0");
-      const take = getValue(input.pagination, "take", "50");
-
-      const [allFlags, totalFlags] = await ctx.prisma.$transaction([
-        ctx.prisma.flag.findMany({
-          where: {
-            environment: {
-              project: {
-                slug: input.projectSlug,
-              },
-            },
-          },
-          select: {
-            id: true,
-            slug: true,
-            description: true,
-            enabled: true,
-            payload: true,
-            expiredAt: true,
-            createdAt: true,
-            updatedAt: true,
-            environment: true,
-          },
-          skip: Number(skip),
-          take: Number(take),
-          orderBy: {
-            createdAt: "desc",
-          },
-        }),
-        ctx.prisma.flag.count(),
-      ]);
-
-      const grouped = groupBy(
-        allFlags,
-        (c: (typeof allFlags)[number]) => c.slug
-      );
-
-      const response = Object.keys(grouped || {}).map((key) => {
-        const flags: Array<(typeof allFlags)[number]> = grouped[key];
-        return {
-          slug: key,
-          createdAt: getValue(flags, "[0].createdAt", ""),
-          description: getValue(
-            flags,
-            "[0].description",
-            "No description provided"
-          ),
-          flags,
-          environments: flags
-            .map(({ environment: { id, name }, enabled }) => ({
-              id,
-              name,
-              enabled,
-            }))
-            .reverse(),
-        };
-      });
-
-      return {
-        flags: response,
-        pagination: {
-          skip: Number(skip),
-          take: Number(take),
-          total: totalFlags,
-        },
       };
     }),
   create: protectedProcedure

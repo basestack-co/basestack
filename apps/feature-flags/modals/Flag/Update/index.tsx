@@ -66,7 +66,7 @@ const UpdateFlagModal = () => {
         expiredAt: null,
       }));
 
-      updateFlag.mutate(
+      /*  updateFlag.mutate(
         { projectId: project.id,  },
         {
           onSuccess: async (result) => {
@@ -75,7 +75,7 @@ const UpdateFlagModal = () => {
             onClose();
           },
         }
-      );
+      ); */
     }
   };
 

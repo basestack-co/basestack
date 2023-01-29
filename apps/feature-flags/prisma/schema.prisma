@@ -11,6 +11,11 @@ generator client {
   previewFeatures = ["fullTextSearch"]
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model Account {
   id                 String   @id @default(cuid())
   userId             String
@@ -56,6 +61,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   projects      ProjectsOnUsers[]
+  role          Role              @default(ADMIN)
   createdAt     DateTime          @default(now())
   updatedAt     DateTime          @updatedAt
 }
@@ -88,6 +94,7 @@ model ProjectsOnUsers {
   projectId String
   user      User    @relation(fields: [userId], references: [id])
   userId    String
+  role      Role    @default(ADMIN)
 
   @@id([projectId, userId])
 }

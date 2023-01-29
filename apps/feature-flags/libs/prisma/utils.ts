@@ -90,18 +90,20 @@ export const createHistory = async (
         },
       };
     } else if (path.includes("flag")) {
-      if (path === "project.create") {
+      if (path === "flag.create") {
         const flagsCreateInput: RouterInput["flag"]["create"] = input;
 
         payload = {
-          flag: flagsCreateInput.data.map(
-            ({ slug, description, environmentId, enabled }) => ({
-              slug,
-              description,
-              environmentId,
-              enabled,
-            })
-          ),
+          flag: {
+            slug: getValue(flagsCreateInput, "data[0].slug", "")!,
+            description: getValue(flagsCreateInput, "data[0].description", "")!,
+            environments: flagsCreateInput.data.map(
+              ({ environmentId, enabled }) => ({
+                id: environmentId,
+                enabled,
+              })
+            ),
+          },
         };
       }
     }
