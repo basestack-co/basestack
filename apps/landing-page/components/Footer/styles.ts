@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { rem } from "polished";
 
 export const Container = styled.div`
-  margin-top: auto;
   display: flex;
   padding: ${({ theme }) => theme.spacing.s8} ${({ theme }) => theme.spacing.s5};
   background-color: ${({ theme }) => theme.colors.gray800};

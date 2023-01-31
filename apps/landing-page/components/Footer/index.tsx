@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "styled-components";
 // Components
-import { Text, Button, ButtonVariant } from "@basestack/design-system";
+import { Text, Button } from "@basestack/design-system";
 import {
   Container,
   ContentContainer,
