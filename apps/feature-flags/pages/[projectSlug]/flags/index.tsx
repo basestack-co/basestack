@@ -28,10 +28,6 @@ const FlagsPage = () => {
     }
   }, [isLoading, data, router]);
 
-  if (isLoading || !data) {
-    return <div>Loading Project...</div>;
-  }
-
   if (isError) {
     return <div>Error</div>;
   }
@@ -39,9 +35,9 @@ const FlagsPage = () => {
   return (
     <>
       <Head>
-        <title>Flags for {data.project?.name}</title>
+        <title>Flags for {data?.project?.name}</title>
       </Head>
-      <Flags project={data.project} />;
+      <Flags project={data?.project ?? null} />
     </>
   );
 };

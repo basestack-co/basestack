@@ -2,33 +2,21 @@ import { z } from "zod";
 
 export const AllFlagsInput = z
   .object({
-    projectSlug: z.string(),
     projectId: z.string(),
-    environmentId: z.string(),
+    search: z.string().optional().nullable(),
     pagination: z
       .object({
-        skip: z.string(),
-        take: z.string(),
+        skip: z.number(),
+        take: z.number(),
       })
       .nullable(),
   })
   .required();
 
-export const FlagByIdInput = z
+export const FlagBySlugInput = z
   .object({
-    flagId: z.string(),
-  })
-  .required();
-
-export const FlagByProjectSlugInput = z
-  .object({
-    projectSlug: z.string(),
-    pagination: z
-      .object({
-        skip: z.string(),
-        take: z.string(),
-      })
-      .nullable(),
+    projectId: z.string(),
+    slug: z.string(),
   })
   .required();
 
@@ -51,11 +39,16 @@ export const UpdateFlagInput = z
   .object({
     // this prop is used on the createProtectedRouter Middleware to validated user project permissions
     projectId: z.string(),
-    flagId: z.string(),
-    enabled: z.boolean(),
-    payload: z.any().optional(),
-    expiredAt: z.date().nullable(),
-    description: z.string().nullable(),
+    data: z.array(
+      z.object({
+        flagId: z.string(),
+        slug: z.string(),
+        enabled: z.boolean(),
+        payload: z.any().optional(),
+        expiredAt: z.date().nullable(),
+        description: z.string().nullable(),
+      })
+    ),
   })
   .required();
 

@@ -7,7 +7,6 @@ import Document, {
 } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
-// @ts-ignore
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet();
@@ -40,15 +39,15 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           <meta name="title" content="Basestack" />
-
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossOrigin="true"
+          />
           <link
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
             rel="stylesheet"
-          />
-          <link href="/css/bootstrap-grid.min.css" rel="stylesheet" />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
           />
         </Head>
         <body>

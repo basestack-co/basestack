@@ -2,6 +2,7 @@ import type { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "libs/prisma";
+import { Role } from "@prisma/client";
 
 declare module "next-auth" {
   interface Session {
@@ -10,7 +11,12 @@ declare module "next-auth" {
       name: string;
       email: string;
       image?: string | null;
+      role?: Role;
     };
+  }
+
+  interface User {
+    role?: Role;
   }
 }
 
@@ -45,6 +51,7 @@ export const authOptions: NextAuthOptions = {
         ...session.user,
         id: user.id,
         username: user.name,
+        role: user.role,
       },
     }),
   },

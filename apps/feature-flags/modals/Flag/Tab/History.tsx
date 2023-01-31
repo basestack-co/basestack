@@ -1,9 +1,19 @@
 import React from "react";
+// Components
 import { useTheme } from "styled-components";
 import { HistoryCard } from "@basestack/design-system";
+// Server
+import { trpc } from "libs/trpc";
 
 const HistoryTab = () => {
   const theme = useTheme();
+
+  const { data } = trpc.history.all.useQuery({
+    flagSlug: "gfdgh",
+    projectId: "cldhpq7s10008w3mioil4w2y1",
+  });
+
+  console.log("history tab data", data);
 
   return (
     <>

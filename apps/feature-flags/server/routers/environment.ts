@@ -1,4 +1,5 @@
 import { protectedProcedure, router } from "server/trpc";
+import { TRPCError } from "@trpc/server";
 // Utils
 import { generateSlug } from "random-word-slugs";
 import {
@@ -19,7 +20,7 @@ export const environmentRouter = router({
 
       return await ctx.prisma.project.findFirst({
         where: {
-          slug: input.projectSlug,
+          id: input.projectId,
           users: {
             some: {
               user: {
@@ -42,35 +43,36 @@ export const environmentRouter = router({
       restricted: true,
     })
     .mutation(async ({ ctx, input }) => {
-      // Get all the flags from a selected environment
-      const flagsFromEnv = await ctx.prisma.flag.findMany({
-        where: {
-          environmentId: input.copyFromEnvId,
-        },
-      });
+      const environment = await ctx.prisma.$transaction(async (tx) => {
+        // Get all the flags from a selected environment
+        const flags = await tx.flag.findMany({
+          where: {
+            environmentId: input.copyFromEnvId,
+          },
+          select: {
+            slug: true,
+            payload: true,
+            expiredAt: true,
+            description: true,
+          },
+        });
 
-      // Format the flags to be created in the new environment
-      const flags = flagsFromEnv.map((flag) => ({
-        slug: flag.slug,
-        payload: flag.payload ?? {},
-        expiredAt: flag.expiredAt,
-        description: flag.description,
-      }));
-
-      const environment = await ctx.prisma.environment.create({
-        data: {
-          name: input.name,
-          slug: generateSlug(),
-          description: input.description,
-          project: {
-            connect: {
-              id: input.projectId,
+        return await tx.environment.create({
+          data: {
+            name: input.name,
+            slug: generateSlug(),
+            description: input.description,
+            project: {
+              connect: {
+                id: input.projectId,
+              },
+            },
+            flags: {
+              // @ts-ignore
+              create: flags,
             },
           },
-          flags: {
-            create: flags,
-          },
-        },
+        });
       });
 
       return { environment };
@@ -99,10 +101,25 @@ export const environmentRouter = router({
     })
     .input(DeleteEnvironmentInput)
     .mutation(async ({ ctx, input }) => {
-      const environment = await ctx.prisma.environment.delete({
-        where: {
-          id: input.environmentId,
-        },
+      const environment = await ctx.prisma.$transaction(async (tx) => {
+        // TODO: find a better way to do this, this is a bit hacky, should be in the same query
+        const current = await tx.environment.findFirst({
+          where: { id: input.environmentId },
+        });
+
+        // only allow deleting the environment if it's not the default
+        if (current && !current.isDefault) {
+          return await tx.environment.delete({
+            where: {
+              id: input.environmentId,
+            },
+          });
+        } else {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "You cannot delete the default environment",
+          });
+        }
       });
 
       return { environment };
