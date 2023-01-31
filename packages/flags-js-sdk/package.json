@@ -28,11 +28,11 @@
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "@swc/core": "^1.3.30",
+    "@swc/core": "^1.3.31",
     "@types/node": "^18.11.18",
     "@types/node-fetch": "^2.6.2",
     "tsup": "^6.5.0",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.5"
   },
   "publishConfig": {
     "access": "public"
