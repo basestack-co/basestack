@@ -9,6 +9,6 @@ export const Container = styled.div<{ hasMarginBottom: boolean }>`
   ${({ hasMarginBottom }) =>
     hasMarginBottom &&
     css`
-      margin-bottom: ${({ theme }) => theme.spacing.s7};
+      margin-bottom: ${({ theme }) => theme.spacing.s8};
     `}
 `;

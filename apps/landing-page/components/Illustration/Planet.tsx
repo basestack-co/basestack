@@ -1,9 +1,6 @@
-interface HalfPlanetProps {
-  color?: string;
-  width?: number;
-}
+import { IllustrationProps } from "./types";
 
-const Planet = ({ color, width }: HalfPlanetProps) => (
+const Planet = ({ color, width }: IllustrationProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
