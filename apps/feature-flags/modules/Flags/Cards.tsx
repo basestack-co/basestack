@@ -49,11 +49,16 @@ const FlagCards = ({
   const flags = !isLoading && data ? data.flags : [];
 
   const onUpdateOrHistory = useCallback(
-    (flagId: string, environmentId: string, selectedTab: TabType) => {
+    (
+      flagId: string,
+      flagSlug: string,
+      environmentId: string,
+      selectedTab: TabType
+    ) => {
       setUpdateFlagModalOpen({
         isOpen: true,
         data: {
-          flagId,
+          flag: { id: flagSlug, slug: flagSlug },
           environment: { id: environmentId },
           selectedTab: selectedTab,
         },
@@ -112,13 +117,23 @@ const FlagCards = ({
                 icon: "edit",
                 text: "Edit",
                 onClick: () =>
-                  onUpdateOrHistory(flag.id, environmentId, TabType.CORE),
+                  onUpdateOrHistory(
+                    flag.id,
+                    flag.slug,
+                    environmentId,
+                    TabType.CORE
+                  ),
               },
               {
                 icon: "history",
                 text: "History",
                 onClick: () =>
-                  onUpdateOrHistory(flag.id, environmentId, TabType.HISTORY),
+                  onUpdateOrHistory(
+                    flag.id,
+                    flag.slug,
+                    environmentId,
+                    TabType.HISTORY
+                  ),
               },
               {
                 icon: "delete",

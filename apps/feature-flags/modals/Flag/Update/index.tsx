@@ -45,9 +45,9 @@ const UpdateFlagModal = () => {
     isCreate: false,
   });
 
-  const { isLoading, data } = trpc.flag.byId.useQuery(
-    { flagId: modalPayload?.flagId!, projectId: project?.id! },
-    { enabled: !!project?.id && !!modalPayload?.flagId }
+  const { isLoading, data: bySlugData } = trpc.flag.bySlug.useQuery(
+    { slug: modalPayload?.flag.slug!, projectId: project?.id! },
+    { enabled: !!project?.id && !!modalPayload?.flag.slug }
   );
 
   const onClose = useCallback(() => {
@@ -56,18 +56,27 @@ const UpdateFlagModal = () => {
   }, [setUpdateFlagModalOpen, reset]);
 
   const onSubmit: SubmitHandler<FlagFormInputs> = async (input) => {
-    if (project) {
-      const data = input.environments.map((env) => ({
-        slug: input.name,
-        description: input.description,
-        environmentId: env.id,
-        enabled: env.enabled,
-        payload: JSON.stringify({}),
-        expiredAt: null,
-      }));
+    if (project && bySlugData) {
+      const data = input.environments.map((env) => {
+        const current = bySlugData.content.find(
+          ({ environmentId }) => environmentId === env.id
+        );
 
-      /*  updateFlag.mutate(
-        { projectId: project.id,  },
+        return {
+          flagId: current?.flagId!,
+          slug: input.name,
+          description: input.description ?? "",
+          enabled: env.enabled,
+          payload: JSON.stringify({}),
+          expiredAt: null,
+        };
+      });
+
+      updateFlag.mutate(
+        {
+          projectId: project.id,
+          data,
+        },
         {
           onSuccess: async (result) => {
             // doing this instead of the above because the above doesn't work
@@ -75,7 +84,7 @@ const UpdateFlagModal = () => {
             onClose();
           },
         }
-      ); */
+      );
     }
   };
 
@@ -86,20 +95,14 @@ const UpdateFlagModal = () => {
   }, [modalPayload, isModalOpen, setSelectedTab]);
 
   useEffect(() => {
-    if (!isLoading && data) {
-      setValue("name", data.slug ?? "");
-      setValue("description", data.description ?? "");
-      setValue("payload", (data.payload ?? "{}") as string);
-      setValue("expiredAt", data.expiredAt ?? null);
-      setValue("environments", [
-        {
-          id: data.environment?.id ?? "",
-          name: data.environment?.name ?? "",
-          enabled: data.enabled ?? false,
-        },
-      ]);
+    if (!isLoading && bySlugData) {
+      setValue("name", bySlugData.slug ?? "");
+      setValue("description", bySlugData.description ?? "");
+      // setValue("payload", (data.payload ?? "{}") as string);
+      // setValue("expiredAt", data.expiredAt ?? null);
+      setValue("environments", bySlugData.environments);
     }
-  }, [isLoading, data, setValue]);
+  }, [isLoading, bySlugData, setValue]);
 
   return (
     <Portal selector="#portal">

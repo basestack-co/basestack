@@ -17,7 +17,7 @@ export type Persist = (
  */
 
 export interface FlagModalPayload {
-  flagId: string;
+  flag: { id: string; slug: string };
   selectedTab: TabType;
   environment?: { id: string };
 }

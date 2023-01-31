@@ -5,7 +5,7 @@ import { getValue } from "@basestack/utils";
 import {
   CreateFlagInput,
   DeleteFlagInput,
-  FlagByIdInput,
+  FlagBySlugInput,
   UpdateFlagInput,
   AllFlagsInput,
 } from "../schemas/flag";
@@ -102,15 +102,15 @@ export const flagRouter = router({
       });
     }),
 
-  byId: protectedProcedure
+  bySlug: protectedProcedure
     .meta({
       restricted: true,
     })
-    .input(FlagByIdInput)
+    .input(FlagBySlugInput)
     .query(async ({ ctx, input }) => {
-      const flag = await ctx.prisma.flag.findFirst({
+      const flags = await ctx.prisma.flag.findMany({
         where: {
-          id: input.flagId,
+          slug: input.slug,
         },
         select: {
           id: true,
@@ -128,8 +128,22 @@ export const flagRouter = router({
         },
       });
 
+      const data = flags && !!flags.length ? flags : [];
+
       return {
-        ...flag,
+        slug: getValue(flags, "[0].slug", ""),
+        description: getValue(flags, "[0].description", ""),
+        content: data.map(({ id, environment, payload, expiredAt }) => ({
+          flagId: id,
+          environmentId: environment.id,
+          payload,
+          expiredAt,
+        })),
+        environments: data.map(({ environment: { id, name }, enabled }) => ({
+          id,
+          name,
+          enabled,
+        })),
       };
     }),
   create: protectedProcedure
@@ -155,19 +169,24 @@ export const flagRouter = router({
     })
     .input(UpdateFlagInput)
     .mutation(async ({ ctx, input }) => {
-      const flag = await ctx.prisma.flag.update({
-        where: {
-          id: input.flagId,
-        },
-        data: {
-          description: input.description,
-          enabled: input.enabled,
-          expiredAt: input.expiredAt,
-          payload: input.payload,
-        },
+      const flags = await ctx.prisma.$transaction(async (tx) => {
+        return await Promise.all(
+          input.data.map(async ({ flagId, ...data }) => {
+            const updatedFlag = await tx.flag.update({
+              where: {
+                id: flagId,
+              },
+              data,
+            });
+
+            return {
+              ...updatedFlag,
+            };
+          })
+        );
       });
 
-      return { flag };
+      return { flags };
     }),
   delete: protectedProcedure
     .meta({
