@@ -6,7 +6,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Fragment>
-      <h1>This is a Layout </h1>
       {children}
     </Fragment>
   );

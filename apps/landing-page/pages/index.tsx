@@ -1,11 +1,15 @@
 // Layout
 import MainLayout from "../layouts/Main";
+// Components
+import { Navigation, Hero, Footer } from "../components";
 
 const MainPage = () => {
   return (
-    <div>
-      <p>this is a page content</p>
-    </div>
+    <>
+      <Navigation />
+      <Hero />
+      <Footer />
+    </>
   );
 };
 
