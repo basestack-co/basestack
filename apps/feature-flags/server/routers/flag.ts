@@ -1,13 +1,13 @@
 import { protectedProcedure, router } from "server/trpc";
+import { TRPCError } from "@trpc/server";
 // Utils
-import { getValue, groupBy } from "@basestack/utils";
+import { getValue } from "@basestack/utils";
 import {
-  AllFlagsInput,
   CreateFlagInput,
   DeleteFlagInput,
-  FlagByIdInput,
-  FlagByProjectSlugInput,
+  FlagBySlugInput,
   UpdateFlagInput,
+  AllFlagsInput,
 } from "../schemas/flag";
 
 export const flagRouter = router({
@@ -17,38 +17,35 @@ export const flagRouter = router({
     })
     .input(AllFlagsInput)
     .query(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const skip = getValue(input.pagination, "skip", 0);
+      const take = getValue(input.pagination, "take", 50);
 
-      const skip = getValue(input.pagination, "skip", "0");
-      const take = getValue(input.pagination, "take", "50");
-
-      const flags = await ctx.prisma.environment.findMany({
-        where: {
-          AND: [
-            {
-              id: input.environmentId,
+      const search = input.search
+        ? {
+            slug: {
+              search: input.search,
             },
-            {
-              project: {
-                id: input.projectId,
-                users: {
-                  some: {
-                    user: {
-                      id: userId,
-                    },
-                  },
+          }
+        : {};
+
+      return await ctx.prisma.$transaction(async (tx) => {
+        const env = await tx.environment.findFirst({
+          where: { isDefault: true, projectId: input.projectId },
+        });
+
+        if (env) {
+          const allFlags = await tx.flag.findMany({
+            where: {
+              environment: {
+                id: env.id,
+                project: {
+                  id: input.projectId,
                 },
               },
+              ...search,
             },
-          ],
-        },
-        select: {
-          _count: {
-            select: { flags: true },
-          },
-          flags: {
-            skip: Number(skip),
-            take: Number(take),
+            skip,
+            take,
             orderBy: {
               createdAt: "desc",
             },
@@ -57,112 +54,96 @@ export const flagRouter = router({
               slug: true,
               description: true,
               enabled: true,
-              payload: true,
-              environmentId: true,
-              expiredAt: true,
               createdAt: true,
-              updatedAt: true,
             },
-          },
-        },
-      });
+          });
 
-      return {
-        flags: getValue(flags, "[0].flags", []),
-        pagination: {
-          skip: Number(skip),
-          take: Number(take),
-          total: getValue(flags, "[0]._count.flags", 0),
-        },
-      };
-    }),
-  byId: protectedProcedure
-    .meta({
-      restricted: true,
-    })
-    .input(FlagByIdInput)
-    .query(async ({ ctx, input }) => {
-      const flag = await ctx.prisma.flag.findFirst({
-        where: {
-          id: input.flagId,
-        },
-        include: {
-          environment: true,
-        },
-      });
+          const flags = await Promise.all(
+            allFlags.map(async (flag) => {
+              const allEnvironments = await tx.flag.findMany({
+                where: { slug: flag.slug },
+                select: {
+                  enabled: true,
+                  environment: {
+                    select: {
+                      id: true,
+                      name: true,
+                    },
+                  },
+                },
+              });
 
-      return {
-        ...flag,
-      };
-    }),
-  byProjectSlug: protectedProcedure
-    .meta({
-      restricted: true,
-    })
-    .input(FlagByProjectSlugInput)
-    .query(async ({ ctx, input }) => {
-      const skip = getValue(input.pagination, "skip", "0");
-      const take = getValue(input.pagination, "take", "50");
+              return {
+                ...flag,
+                environments: allEnvironments.map((item) => ({
+                  ...item.environment,
+                  enabled: item.enabled,
+                })),
+              };
+            })
+          );
 
-      const [allFlags, totalFlags] = await ctx.prisma.$transaction([
-        ctx.prisma.flag.findMany({
-          where: {
-            environment: {
-              project: {
-                slug: input.projectSlug,
-              },
-            },
-          },
-          select: {
-            id: true,
-            slug: true,
-            description: true,
-            enabled: true,
-            payload: true,
-            expiredAt: true,
-            createdAt: true,
-            updatedAt: true,
-            environment: true,
-          },
-          skip: Number(skip),
-          take: Number(take),
-          orderBy: {
-            createdAt: "desc",
-          },
-        }),
-        ctx.prisma.flag.count(),
-      ]);
+          const totalFlags = await tx.flag.count();
 
-      const grouped = groupBy(allFlags, (c: typeof allFlags[number]) => c.slug);
-
-      const response = Object.keys(grouped || {}).map((key) => {
-        const flags: Array<typeof allFlags[number]> = grouped[key];
-        return {
-          slug: key,
-          createdAt: getValue(flags, "[0].createdAt", ""),
-          description: getValue(
+          return {
             flags,
-            "[0].description",
-            "No description provided"
-          ),
-          flags,
-          environments: flags
-            .map(({ environment: { id, name }, enabled }) => ({
-              id,
-              name,
-              enabled,
-            }))
-            .reverse(),
-        };
+            pagination: {
+              skip,
+              take,
+              total: totalFlags,
+            },
+          };
+        } else {
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "Could not find the default environment",
+          });
+        }
+      });
+    }),
+
+  bySlug: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(FlagBySlugInput)
+    .query(async ({ ctx, input }) => {
+      const flags = await ctx.prisma.flag.findMany({
+        where: {
+          slug: input.slug,
+        },
+        select: {
+          id: true,
+          slug: true,
+          description: true,
+          expiredAt: true,
+          payload: true,
+          enabled: true,
+          environment: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
       });
 
+      const data = flags && !!flags.length ? flags : [];
+
       return {
-        flags: response,
-        pagination: {
-          skip: Number(skip),
-          take: Number(take),
-          total: totalFlags,
-        },
+        slug: getValue(flags, "[0].slug", ""),
+        description: getValue(flags, "[0].description", ""),
+        content: data.map(({ id, environment, payload, expiredAt }) => ({
+          flagId: id,
+          environmentId: environment.id,
+          payload,
+          expiredAt,
+        })),
+        environments: data.map(({ environment: { id, name }, enabled }) => ({
+          id,
+          name,
+          enabled,
+        })),
       };
     }),
   create: protectedProcedure
@@ -171,6 +152,11 @@ export const flagRouter = router({
     })
     .input(CreateFlagInput)
     .mutation(async ({ ctx, input }) => {
+      // this is workaround for prisma bug on createMany not returning the created data
+      /* return await this.prisma.$transaction(
+        users.map((user) => prisma.user.create({ data: userCreateData })),
+     ); */
+
       const flag = await ctx.prisma.flag.createMany({
         data: input.data,
       });
@@ -183,19 +169,24 @@ export const flagRouter = router({
     })
     .input(UpdateFlagInput)
     .mutation(async ({ ctx, input }) => {
-      const flag = await ctx.prisma.flag.update({
-        where: {
-          id: input.flagId,
-        },
-        data: {
-          description: input.description,
-          enabled: input.enabled,
-          expiredAt: input.expiredAt,
-          payload: input.payload,
-        },
+      const flags = await ctx.prisma.$transaction(async (tx) => {
+        return await Promise.all(
+          input.data.map(async ({ flagId, ...data }) => {
+            const updatedFlag = await tx.flag.update({
+              where: {
+                id: flagId,
+              },
+              data,
+            });
+
+            return {
+              ...updatedFlag,
+            };
+          })
+        );
       });
 
-      return { flag };
+      return { flags };
     }),
   delete: protectedProcedure
     .meta({

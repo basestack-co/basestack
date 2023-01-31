@@ -3,11 +3,11 @@ import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
 // Form
 import { SubmitHandler } from "react-hook-form";
-// Context
-import useModals from "hooks/useModals";
-import { setIsCreateEnvironmentModalOpen } from "contexts/modals/actions";
 // Server
 import { trpc } from "libs/trpc";
+// Store
+import { useStore } from "store";
+import { shallow } from "zustand/shallow";
 // Types
 import { FormInputs } from "../types";
 // Form
@@ -15,21 +15,22 @@ import useEnvironmentForm from "../useEnvironmentForm";
 
 const CreateEnvironmentModal = () => {
   const trpcContext = trpc.useContext();
-  const {
-    dispatch,
-    state: {
-      isCreateEnvironmentModalOpen: isModalOpen,
-      environmentModalPayload: { data },
-    },
-  } = useModals();
-  const project = data && data.project;
+  const { isModalOpen, data, setCreateEnvironmentModalOpen } = useStore(
+    (state) => ({
+      isModalOpen: state.isCreateEnvironmentModalOpen,
+      data: state.environmentModalPayload,
+      setCreateEnvironmentModalOpen: state.setCreateEnvironmentModalOpen,
+    }),
+    shallow
+  );
 
+  const project = data && data.project;
   const createEnvironment = trpc.environment.create.useMutation();
 
   const [options, environments] = useMemo(() => {
     if (project) {
       const cache = trpcContext.environment.all.getData({
-        projectSlug: project.slug,
+        projectId: project.id,
       });
 
       const environments = (cache && cache.environments) || [];
@@ -49,9 +50,9 @@ const CreateEnvironmentModal = () => {
     useEnvironmentForm({ isCreate: true, options });
 
   const onClose = useCallback(() => {
-    dispatch(setIsCreateEnvironmentModalOpen({ isOpen: false, data: null }));
+    setCreateEnvironmentModalOpen({ isOpen: false });
     reset();
-  }, [dispatch, reset]);
+  }, [reset, setCreateEnvironmentModalOpen]);
 
   const onSubmit: SubmitHandler<FormInputs> = (input: FormInputs) => {
     if (project) {
@@ -72,7 +73,7 @@ const CreateEnvironmentModal = () => {
 
                 // Update the cache with the new data
                 trpcContext.environment.all.setData(
-                  { projectSlug: project.slug },
+                  { projectId: project.id },
                   {
                     environments: updated,
                   }

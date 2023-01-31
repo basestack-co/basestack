@@ -4,6 +4,8 @@ import { useTheme } from "styled-components";
 import { useMediaQuery } from "@basestack/hooks";
 // Types
 import { SelectedView } from "types/flags";
+// Store
+import { useStore } from "store";
 // Components
 import { Text } from "@basestack/design-system";
 import FlagCards from "./Cards";
@@ -11,7 +13,7 @@ import { Container } from "../styles";
 // Containers
 import Toolbar from "./Toolbar";
 // Libs
-import { RouterOutput } from "libs/trpc";
+import { RouterOutput, trpc } from "libs/trpc";
 
 export interface Props {
   project: RouterOutput["project"]["bySlug"]["project"];
@@ -20,40 +22,43 @@ export interface Props {
 const Flags = ({ project }: Props) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.device.min.lg);
-
-  const [selectedView, setSelectedView] = useState<SelectedView>("cards");
-  const [selectedEnvironment, setSelectedEnvironment] = useState("all");
+  const setSelectedView = useStore((state) => state.setSelectedView);
+  const selectedView = useStore((state) => state.selectedView);
+  const [selectedEnvironmentId, setSelectedEnvironmentId] =
+    useState<string>("");
+  const [searchValue, setSearchValue] = useState<string>("");
 
   useEffect(() => {
     if (!isDesktop) {
-      setSelectedView("cards");
+      // TODO: Update this to be desktop first
+      // setSelectedView({ view: "cards" });
     }
-  }, [isDesktop]);
+  }, [isDesktop, setSelectedView]);
 
-  const onChangeView = useCallback((selected: string) => {
-    setSelectedView(selected as SelectedView);
-  }, []);
-
-  const onSearch = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
-  }, []);
-
-  const onSelectEnvironment = useCallback((environment: string) => {
-    setSelectedEnvironment(environment);
-  }, []);
+  const onChangeView = useCallback(
+    (selected: string) => {
+      setSelectedView({ view: selected as SelectedView });
+    },
+    [setSelectedView]
+  );
 
   return (
     <Container>
       <Text size="xLarge">Flags</Text>
       <Toolbar
-        projectSlug={project?.slug!}
+        projectId={project?.id!}
         onChangeView={onChangeView}
-        onSearch={onSearch}
-        onSelect={onSelectEnvironment}
+        onSearchCallback={(value) => setSearchValue(value)}
+        onSelect={(id: string) => setSelectedEnvironmentId(id)}
         isDesktop={isDesktop}
       />
 
-      <FlagCards projectSlug={project?.slug!} selectedView={selectedView} />
+      <FlagCards
+        projectId={project?.id!}
+        environmentId={selectedEnvironmentId}
+        selectedView={selectedView}
+        searchValue={searchValue}
+      />
     </Container>
   );
 };

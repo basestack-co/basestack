@@ -44,48 +44,51 @@ export const projectRouter = router({
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
-      const project = await ctx.prisma.project.create({
-        data: {
-          ...input,
-          slug: `${input.slug}`,
-          environments: {
-            create: [
-              {
-                name: "develop",
-                slug: `${generateSlug()}`,
-                description: "The default develop environment",
-              },
-              {
-                name: "staging",
-                slug: `${generateSlug()}`,
-                description: "The default staging environment",
-              },
-              {
-                name: "production",
-                slug: `${generateSlug()}`,
-                description: "The default production environment",
-              },
-            ],
-          },
-        },
-      });
-
-      const connection = await ctx.prisma.projectsOnUsers.create({
-        data: {
-          project: {
-            connect: {
-              id: project.id,
+      return await ctx.prisma.$transaction(async (tx) => {
+        const project = await tx.project.create({
+          data: {
+            ...input,
+            slug: `${input.slug}`,
+            environments: {
+              create: [
+                {
+                  name: "develop",
+                  slug: `${generateSlug()}`,
+                  description: "The default develop environment",
+                  isDefault: true,
+                },
+                {
+                  name: "staging",
+                  slug: `${generateSlug()}`,
+                  description: "The default staging environment",
+                },
+                {
+                  name: "production",
+                  slug: `${generateSlug()}`,
+                  description: "The default production environment",
+                },
+              ],
             },
           },
-          user: {
-            connect: {
-              id: userId,
+        });
+
+        const connection = await tx.projectsOnUsers.create({
+          data: {
+            project: {
+              connect: {
+                id: project.id,
+              },
+            },
+            user: {
+              connect: {
+                id: userId,
+              },
             },
           },
-        },
-      });
+        });
 
-      return { project, connection };
+        return { project, connection };
+      });
     }),
   update: protectedProcedure
     .meta({

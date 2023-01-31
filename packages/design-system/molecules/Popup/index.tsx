@@ -20,6 +20,10 @@ export interface PopupItems {
    * Change list item button styles based on variant
    */
   variant?: ButtonVariant;
+  /**
+   * Change the visibility of the item button
+   */
+  isVisible?: boolean;
 }
 
 export interface PopupProps extends PositionProps {
@@ -35,7 +39,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>(
       <List>
         <ListItem>
           {items &&
-            items.map((item, index) => {
+            items.map(({ isVisible = true, ...item }, index) => {
               const iconProps = !!item.icon
                 ? {
                     icon: item.icon,
@@ -43,7 +47,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>(
                     iconSize: "small",
                   }
                 : {};
-              return (
+              return isVisible ? (
                 <Button
                   key={index.toString()}
                   {...(iconProps as ButtonProps)}
@@ -54,7 +58,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>(
                 >
                   {item.text}
                 </Button>
-              );
+              ) : null;
             })}
         </ListItem>
       </List>
