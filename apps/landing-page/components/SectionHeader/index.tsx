@@ -28,6 +28,7 @@ const SectionHeader = ({
         size="xxLarge"
         fontSize={titleSize === "normal" ? rem("42px") : rem("60px")}
         lineHeight="1.4"
+        textAlign="center"
         mb={theme.spacing.s2}
         // @ts-ignore
         as={titleSize === "normal" ? "h2" : "h1"}

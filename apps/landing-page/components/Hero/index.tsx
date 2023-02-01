@@ -1,22 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "styled-components";
+import { rem } from "polished";
 // Components
+import Image, { ImageProps } from "../Image";
 import { Button, ButtonVariant } from "@basestack/design-system";
-import { ButtonsContainer, Container, ContentContainer } from "./styles";
+import {
+  ButtonsContainer,
+  Container,
+  ContentContainer,
+  ImageContainer,
+} from "./styles";
 import SectionHeader from "../SectionHeader";
 
-const Hero = () => {
+interface HeroProps {
+  title: string;
+  text: string;
+  image?: ImageProps;
+}
+
+const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
   const theme = useTheme();
 
   return (
     <Container>
       <ContentContainer>
         <SectionHeader
-          title="Feature Flag Service"
+          title={title}
           titleSize="large"
-          text="Release features with confidence, manage feature flags across web,
-        mobile, and server side applications. Use our hosted API, deploy to your
-        own private cloud, or run on-premises"
+          text={text}
           hasMarginBottom={false}
         />
         <ButtonsContainer>
@@ -29,6 +40,11 @@ const Hero = () => {
             Talk To Sales
           </Button>
         </ButtonsContainer>
+        {image?.src && (
+          <ImageContainer>
+            <Image mt={rem("100px")} {...image} />
+          </ImageContainer>
+        )}
       </ContentContainer>
     </Container>
   );

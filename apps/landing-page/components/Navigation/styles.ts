@@ -4,6 +4,7 @@ import { rem } from "polished";
 export const Container = styled.nav`
   position: sticky;
   top: 0;
+  z-index: 1000;
   display: flex;
   flex-shrink: 0;
   align-items: center;
