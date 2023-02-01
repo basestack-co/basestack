@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
     
     html,
     body {
-      height: 100%;
+      min-height: 100%;
     }
     
     body {
@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
     }
     
     #__next {
-      height: 100%;
+      min-height: 100%;
       display: flex;
       flex-direction: column;
     }

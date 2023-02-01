@@ -1,10 +1,15 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { rem } from "polished";
 
-export const Container = styled.div`
+export const Container = styled.div<{ isDarkMode: boolean }>`
   display: flex;
   flex-direction: column;
   padding: ${rem("100px")} ${({ theme }) => theme.spacing.s5};
+  ${({ isDarkMode }) =>
+    isDarkMode &&
+    css`
+      background-color: ${({ theme }) => theme.colors.gray800};
+    `}
 `;
 
 export const ContentContainer = styled.div`
@@ -21,17 +26,4 @@ export const CardsContainer = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-gap: ${({ theme }) => theme.spacing.s5};
   width: 100%;
-`;
-
-export const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  background: ${({ theme }) => theme.colors.white};
-  border: 1px solid ${({ theme }) => theme.colors.gray100};
-  border-radius: ${rem("20px")};
-  padding: ${({ theme }) => theme.spacing.s5};
-`;
-
-export const ImageContainer = styled.div`
-  height: 180px;
 `;

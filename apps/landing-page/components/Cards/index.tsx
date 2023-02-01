@@ -1,78 +1,43 @@
 import React from "react";
 import { useTheme } from "styled-components";
 // Components
-import { Text } from "@basestack/design-system";
-import Illustration, { IllustrationVariant } from "../Illustration";
-import {
-  Card,
-  CardsContainer,
-  Container,
-  ContentContainer,
-  ImageContainer,
-} from "./styles";
+import { IllustrationVariant } from "../Illustration";
+import Card from "../Card";
+import { CardsContainer, Container, ContentContainer } from "./styles";
 import SectionHeader from "../SectionHeader";
 
-const Cards = () => {
+export interface CardsProps {
+  title: string;
+  text: string;
+  cards: Array<{
+    title: string;
+    text: string;
+    illustration: IllustrationVariant;
+  }>;
+  isDarkMode?: boolean;
+}
+
+const Cards = ({ title, text, cards, isDarkMode = false }: CardsProps) => {
   const theme = useTheme();
 
   return (
-    <Container>
+    <Container isDarkMode={isDarkMode}>
       <ContentContainer>
-        <SectionHeader
-          title="Feature flags"
-          text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
-        />
+        <SectionHeader isDarkMode={isDarkMode} title={title} text={text} />
         <CardsContainer>
-          <Card>
-            <ImageContainer>
-              <Illustration
-                width="100%"
-                variant={IllustrationVariant.Browser}
-              />
-            </ImageContainer>
-            <Text size="xLarge" mb={theme.spacing.s2} mt={theme.spacing.s5}>
-              Manage Flags
-            </Text>
-            <Text muted>
-              MoonFlags makes it easy to create and manage feature toggles
-              across web, mobile, and server-side applications. Just wrap a
-              section of code with a flag, and then use MoonFlags to manage that
-              feature.
-            </Text>
-          </Card>
-
-          <Card>
-            <ImageContainer>
-              <Illustration
-                width="100%"
-                variant={IllustrationVariant.Browser}
-              />
-            </ImageContainer>
-            <Text size="xLarge" mb={theme.spacing.s2} mt={theme.spacing.s5}>
-              Powerful Segmenting rules
-            </Text>
-            <Text muted>
-              Manage feature flags by development environment, and for
-              individual users, a segment of users, or a percentage. This means
-              quickly implementing practices like canary deployments.
-            </Text>
-          </Card>
-
-          <Card>
-            <ImageContainer>
-              <Illustration
-                width="100%"
-                variant={IllustrationVariant.Browser}
-              />
-            </ImageContainer>
-            <Text size="xLarge" mb={theme.spacing.s2} mt={theme.spacing.s5}>
-              Drive A/B and Multivariate Tests
-            </Text>
-            <Text muted>
-              Multivariate flags allow you to use a percentage split across two
-              or more variations for precise A/B/n testing and experimentation.
-            </Text>
-          </Card>
+          {cards?.map((card, index) => (
+            <Card
+              key={index}
+              title={card.title}
+              text={card.text}
+              illustration={{
+                color: isDarkMode ? theme.colors.gray50 : theme.colors.black,
+                width: "100%",
+                variant: card.illustration,
+              }}
+              isDarkMode={isDarkMode}
+            />
+          ))}
         </CardsContainer>
       </ContentContainer>
     </Container>

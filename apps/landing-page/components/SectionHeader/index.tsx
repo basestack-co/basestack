@@ -10,6 +10,7 @@ export interface SectionHeaderProps {
   text: string;
   titleSize?: "normal" | "large";
   hasMarginBottom?: boolean;
+  isDarkMode?: boolean;
 }
 
 const SectionHeader = ({
@@ -17,6 +18,7 @@ const SectionHeader = ({
   text,
   titleSize = "normal",
   hasMarginBottom = true,
+  isDarkMode = false,
 }: SectionHeaderProps) => {
   const theme = useTheme();
 
@@ -29,17 +31,18 @@ const SectionHeader = ({
         mb={theme.spacing.s2}
         // @ts-ignore
         as={titleSize === "normal" ? "h2" : "h1"}
+        color={isDarkMode ? theme.colors.gray50 : theme.colors.black}
       >
         {title}
       </Text>
       <Text
         size="xLarge"
         fontWeight={400}
-        muted
         textAlign="center"
         lineHeight="1.6"
         // @ts-ignore
         as="p"
+        color={isDarkMode ? theme.colors.gray300 : theme.colors.gray500}
       >
         {text}
       </Text>
