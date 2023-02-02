@@ -200,6 +200,8 @@ export const flagRouter = router({
         },
       });
 
+      console.log("DELETE = ", flag)
+
       return { flag };
     }),
 });

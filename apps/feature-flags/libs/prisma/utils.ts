@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 // tRPC
 import { TRPCError } from "@trpc/server";
 // Auth
@@ -66,6 +66,11 @@ export const createHistory = async (
   let projectId = getValue(input, "projectId", "");
   const action = getPathAction[path] ?? "";
 
+  console.log("action = ", action);
+  console.log("data = ", data);
+  console.log("input = ", input);
+  console.log("------------------");
+
   if (action) {
     let payload: HistoryPayload = {};
 
@@ -90,19 +95,33 @@ export const createHistory = async (
         },
       };
     } else if (path.includes("flag")) {
-      if (path === "flag.create") {
+      if (path === "flag.create" || path === "flag.update") {
         const flagsCreateInput: RouterInput["flag"]["create"] = input;
+
+        const flagsInput =
+          path === "flag.update"
+            ? getValue(data, "flags", [])
+            : getValue(input, "data", []);
 
         payload = {
           flag: {
-            slug: getValue(flagsCreateInput, "data[0].slug", "")!,
-            description: getValue(flagsCreateInput, "data[0].description", "")!,
-            environments: flagsCreateInput.data.map(
-              ({ environmentId, enabled }) => ({
-                id: environmentId,
-                enabled,
-              })
-            ),
+            slug: getValue(flagsInput, "[0].slug", "")!,
+            description: getValue(flagsInput, "[0].description", "")!,
+
+            environments: (
+              flagsInput as Array<{ enabled: boolean; environmentId: boolean }>
+            ).map(({ environmentId, enabled }) => ({
+              id: environmentId,
+              enabled,
+            })),
+          },
+        };
+      } else if (path === "flag.delete") {
+        payload = {
+          flag: {
+            slug: getValue(input, "slug", "")!,
+            description: getValue(input, "description", "")!,
+            environments: [],
           },
         };
       }
@@ -112,14 +131,16 @@ export const createHistory = async (
       await prisma.history.create({
         data: {
           action,
-          payload: JSON.stringify({
+          // TODO:  find the correct type for this Prisma JSON
+          // @ts-ignore
+          payload: {
             user: {
               id: session.user.id,
               name: session.user.name,
               avatar: session.user.image ?? "",
             },
             ...payload,
-          }),
+          },
           project: {
             connect: {
               id: projectId,

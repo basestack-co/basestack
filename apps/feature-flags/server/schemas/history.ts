@@ -11,6 +11,6 @@ export const CreateHistoryInput = z
   .object({
     projectId: z.string(),
     action: z.string(),
-    payload: z.any(),
+    payload: z.object({}),
   })
   .required();

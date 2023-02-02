@@ -43,6 +43,7 @@ const UpdateFlagModal = () => {
     isModalOpen,
     projectSlug,
     isCreate: false,
+    flagSlug: modalPayload?.flag.slug,
   });
 
   const { isLoading, data: bySlugData } = trpc.flag.bySlug.useQuery(

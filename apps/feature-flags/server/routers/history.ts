@@ -33,7 +33,7 @@ export const historyRouter = router({
       const history = await ctx.prisma.history.create({
         data: {
           action: input.action,
-          payload: [input.payload],
+          payload: input.payload,
           project: {
             connect: {
               id: input.projectId,
