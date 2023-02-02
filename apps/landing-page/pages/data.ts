@@ -36,3 +36,33 @@ export const questions = [
     text: "You can do what ever you want to do, just be happy",
   },
 ];
+
+export const slides = [
+  {
+    icon: "person",
+    title: "User traits",
+    text: "MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.",
+    image: {
+      src: "https://images.pexels.com/photos/3912477/pexels-photo-3912477.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      alt: "product demo",
+    },
+  },
+  {
+    icon: "send",
+    title: "Staged feature rollouts",
+    text: "MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.",
+    image: {
+      src: "https://images.pexels.com/photos/1667088/pexels-photo-1667088.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      alt: "product demo",
+    },
+  },
+  {
+    icon: "history",
+    title: "Track Changes",
+    text: "MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.",
+    image: {
+      src: "https://images.pexels.com/photos/335257/pexels-photo-335257.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      alt: "product demo",
+    },
+  },
+];
