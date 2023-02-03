@@ -36,11 +36,9 @@ export const CardContainer = styled.div<{ isDark: boolean }>`
   flex-direction: column;
   background: ${({ theme, isDark }) =>
     isDark ? theme.colors.gray700 : theme.colors.white};
-  border: 1px solid
-    ${({ theme, isDark }) =>
-      isDark ? theme.colors.gray600 : theme.colors.gray100};
   border-radius: ${rem("20px")};
   padding: ${({ theme }) => theme.spacing.s5};
+  box-shadow: ${({ theme }) => theme.shadow.elevation3};
 `;
 
 export const StyledButton = styled(Button)`

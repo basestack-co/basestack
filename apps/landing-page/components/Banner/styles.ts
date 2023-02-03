@@ -28,6 +28,7 @@ export const Banner = styled.div`
   border-radius: ${rem("20px")};
   padding: ${({ theme }) => theme.spacing.s8};
   height: 425px;
+  box-shadow: ${({ theme }) => theme.shadow.elevation3};
 `;
 
 export const BannerContent = styled.div`

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "styled-components";
 // Components
 import {
@@ -52,12 +52,20 @@ const Card = ({ title, text, icon, isActive = false, onClick }: CardProps) => {
 };
 
 const Slider = ({ title, text, data }: SliderProps) => {
-  const [activeSlide, setActiveSlide] = useState(0);
+  const [currentImage, setCurrentImage] = useState(0);
 
   const image = {
-    src: data[activeSlide].image.src,
-    alt: data[activeSlide].image.alt,
+    src: data[currentImage].image.src,
+    alt: data[currentImage].image.alt,
   };
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const nextIndex = (currentImage + 1) % data.length;
+      setCurrentImage(nextIndex);
+    }, 10000);
+    return () => clearInterval(intervalId);
+  }, [currentImage, data]);
 
   return (
     <Container>
@@ -67,11 +75,11 @@ const Slider = ({ title, text, data }: SliderProps) => {
           {data?.map((item, index) => (
             <Card
               key={index}
-              isActive={index === activeSlide}
+              isActive={index === currentImage}
               icon={item.icon}
               title={item.title}
               text={item.text}
-              onClick={() => setActiveSlide(index)}
+              onClick={() => setCurrentImage(index)}
             />
           ))}
         </CardsContainer>

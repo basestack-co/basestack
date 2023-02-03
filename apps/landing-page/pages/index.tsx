@@ -10,6 +10,7 @@ import {
   Questions,
   Pricing,
   Slider,
+  Code,
 } from "../components";
 import { FooterContainer } from "./styles";
 import { cards, questions, slides } from "./data";
@@ -44,6 +45,7 @@ const MainPage = () => {
         text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
         data={questions}
       />
+      <Code />
       <Cards
         title="Feature flags"
         text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."

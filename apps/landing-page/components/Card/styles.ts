@@ -6,11 +6,9 @@ export const Container = styled.div<{ isDarkMode: boolean }>`
   flex-direction: column;
   background: ${({ theme, isDarkMode }) =>
     isDarkMode ? theme.colors.gray700 : theme.colors.white};
-  border: 1px solid
-    ${({ theme, isDarkMode }) =>
-      isDarkMode ? theme.colors.gray600 : theme.colors.gray100};
   border-radius: ${rem("20px")};
   padding: ${({ theme }) => theme.spacing.s5};
+  box-shadow: ${({ theme }) => theme.shadow.elevation3};
 `;
 
 export const ImageContainer = styled.div`
