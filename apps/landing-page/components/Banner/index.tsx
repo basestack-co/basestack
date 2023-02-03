@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "styled-components";
 // Components
-import { Button, Text } from "@basestack/design-system";
+import { Button, ButtonSize, Text } from "@basestack/design-system";
 import Illustration, { IllustrationVariant } from "../Illustration";
 import {
   Container,
@@ -37,12 +37,18 @@ const BannerComp = () => {
             </Text>
             <ButtonsContainer>
               <StyledButton
-                mr={theme.spacing.s2}
+                mr={theme.spacing.s3}
                 onClick={() => console.log("yeah")}
+                size={ButtonSize.Medium}
               >
                 Get Started
               </StyledButton>
-              <Button onClick={() => console.log("yeah")}>Talk To Sales</Button>
+              <Button
+                onClick={() => console.log("yeah")}
+                size={ButtonSize.Medium}
+              >
+                Talk To Sales
+              </Button>
             </ButtonsContainer>
           </BannerContent>
           <PlanetIllustration>

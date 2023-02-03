@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "styled-components";
-import { Button, ButtonVariant } from "@basestack/design-system";
+import { Button, ButtonVariant, ButtonSize } from "@basestack/design-system";
 import {
   Container,
   ContentContainer,
@@ -41,6 +41,7 @@ const Navigation = () => {
                   <Button
                     variant={ButtonVariant.Neutral}
                     onClick={() => console.log("yeah")}
+                    size={ButtonSize.Medium}
                   >
                     {link.text}
                   </Button>
@@ -52,12 +53,15 @@ const Navigation = () => {
         <RightColumn>
           <Button
             variant={ButtonVariant.Outlined}
-            mr={theme.spacing.s2}
+            mr={theme.spacing.s3}
             onClick={() => console.log("yeah")}
+            size={ButtonSize.Medium}
           >
             Sign In
           </Button>
-          <Button onClick={() => console.log("yeah")}>Get Started</Button>
+          <Button onClick={() => console.log("yeah")} size={ButtonSize.Medium}>
+            Get Started
+          </Button>
         </RightColumn>
       </ContentContainer>
     </Container>

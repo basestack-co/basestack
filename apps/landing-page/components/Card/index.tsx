@@ -28,7 +28,12 @@ const Card = ({ illustration, title, text, isDarkMode = false }: CardProps) => {
       >
         {title}
       </Text>
-      <Text color={isDarkMode ? theme.colors.gray300 : theme.colors.gray500}>
+      <Text
+        size="medium"
+        fontWeight={400}
+        lineHeight={1.6}
+        color={isDarkMode ? theme.colors.gray300 : theme.colors.gray500}
+      >
         {text}
       </Text>
     </Container>

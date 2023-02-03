@@ -2,6 +2,7 @@ import { memo } from "react";
 import { useTheme } from "styled-components";
 import { SpaceProps } from "styled-system";
 import { Text } from "../../atoms";
+import { Size } from "../../atoms/Text/types";
 import { Container, Button, Slider } from "./styles";
 
 type Item = {
@@ -42,6 +43,10 @@ export interface TabsProps extends SpaceProps {
    * Change slider position, number representing the index of selected item
    */
   sliderPosition?: number;
+  /**
+   * Change text size
+   */
+  textSize?: Size;
 }
 
 const Tabs = ({
@@ -53,6 +58,7 @@ const Tabs = ({
   activeBorderColor,
   textColor,
   sliderPosition = 0,
+  textSize = "small",
   ...props
 }: TabsProps) => {
   const theme = useTheme();
@@ -76,7 +82,7 @@ const Tabs = ({
               {!!item.text && (
                 <Text
                   fontWeight="500"
-                  size="small"
+                  size={textSize}
                   color={textColor || theme.colors.black}
                 >
                   {item.text}

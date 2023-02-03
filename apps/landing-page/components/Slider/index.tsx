@@ -42,11 +42,13 @@ const Card = ({ title, text, icon, isActive = false, onClick }: CardProps) => {
           size="medium"
           color={isActive ? theme.colors.primary : theme.colors.black}
         />
-        <Text ml={theme.spacing.s3} size="medium">
+        <Text ml={theme.spacing.s3} size="large">
           {title}
         </Text>
       </TitleContainer>
-      <Text muted>{text}</Text>
+      <Text muted size="medium" fontWeight={400} lineHeight={1.6}>
+        {text}
+      </Text>
     </CardContainer>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "styled-components";
 // Components
-import { Text, Button } from "@basestack/design-system";
+import { Text, Button, ButtonSize } from "@basestack/design-system";
 import {
   Container,
   ContentContainer,
@@ -33,18 +33,26 @@ const Footer = () => {
     <Container>
       <ContentContainer>
         <LeftColumn>
-          <Text size="large" color={theme.colors.gray300} mb={theme.spacing.s2}>
+          <Text
+            size="xLarge"
+            color={theme.colors.gray300}
+            mb={theme.spacing.s2}
+          >
             MoonFlags
           </Text>
           <LeftColumnContent>
-            <Text size="small" color={theme.colors.gray300}>
+            <Text size="medium" fontWeight={400} color={theme.colors.gray300}>
               © MoonFlags 2023
             </Text>
             <List>
               {links.map((link, index) => {
                 return (
                   <ListItem key={index.toString()}>
-                    <Text size="small" color={theme.colors.gray300}>
+                    <Text
+                      size="medium"
+                      fontWeight={400}
+                      color={theme.colors.gray300}
+                    >
                       {link.text}
                     </Text>
                   </ListItem>
@@ -54,12 +62,22 @@ const Footer = () => {
           </LeftColumnContent>
         </LeftColumn>
         <RightColumn>
-          <Text size="small" color={theme.colors.gray300} mb={theme.spacing.s2}>
+          <Text
+            size="medium"
+            fontWeight={400}
+            color={theme.colors.gray300}
+            mb={theme.spacing.s2}
+          >
             Updates right to your inbox
           </Text>
           <InputContainer>
             <Input placeholder="Enter your email" />
-            <Button onClick={() => console.log("yeah")}>Send</Button>
+            <Button
+              onClick={() => console.log("yeah")}
+              size={ButtonSize.Medium}
+            >
+              Send
+            </Button>
           </InputContainer>
         </RightColumn>
       </ContentContainer>

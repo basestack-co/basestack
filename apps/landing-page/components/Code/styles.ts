@@ -29,11 +29,11 @@ export const CodeContainer = styled.div`
   margin: 0 auto;
   border-radius: 20px;
   overflow: hidden;
-  font-size: ${rem("14px")};
+  font-size: ${rem("16px")};
   box-shadow: ${({ theme }) => theme.shadow.elevation3};
 
   pre {
-    min-height: 400px;
+    min-height: 448px;
     background: ${({ theme }) => theme.colors.gray700}!important;
   }
 `;

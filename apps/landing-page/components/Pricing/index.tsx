@@ -2,7 +2,7 @@ import React from "react";
 import { useTheme } from "styled-components";
 import { rem } from "polished";
 // Components
-import { Text, Button, Icon } from "@basestack/design-system";
+import { Text, Button, Icon, ButtonSize } from "@basestack/design-system";
 import SectionHeader from "../SectionHeader";
 import {
   CardContainer,
@@ -84,7 +84,12 @@ const Card = ({
           </ListItem>
         ))}
       </List>
-      <ButtonComponent onClick={onClick} mt="auto" mx="auto">
+      <ButtonComponent
+        onClick={onClick}
+        mt="auto"
+        mx="auto"
+        size={ButtonSize.Medium}
+      >
         {buttonText}
       </ButtonComponent>
     </CardContainer>

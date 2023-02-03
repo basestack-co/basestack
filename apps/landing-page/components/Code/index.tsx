@@ -53,6 +53,7 @@ const Code = () => {
             textColor={theme.colors.gray300}
             activeBorderColor={theme.colors.blue300}
             hoverBgColor={theme.colors.gray600}
+            textSize="medium"
           />
           <SyntaxHighlighter language="javascript" style={a11yDark}>
             {codeString}

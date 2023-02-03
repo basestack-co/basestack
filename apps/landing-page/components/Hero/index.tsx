@@ -3,7 +3,7 @@ import { useTheme } from "styled-components";
 import { rem } from "polished";
 // Components
 import Image, { ImageProps } from "../Image";
-import { Button, ButtonVariant } from "@basestack/design-system";
+import { Button, ButtonVariant, ButtonSize } from "@basestack/design-system";
 import {
   ButtonsContainer,
   Container,
@@ -31,11 +31,14 @@ const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
           hasMarginBottom={false}
         />
         <ButtonsContainer>
-          <Button onClick={() => console.log("yeah")}>Get Started</Button>
+          <Button onClick={() => console.log("yeah")} size={ButtonSize.Medium}>
+            Get Started
+          </Button>
           <Button
             variant={ButtonVariant.Outlined}
-            ml={theme.spacing.s2}
+            ml={theme.spacing.s3}
             onClick={() => console.log("yeah")}
+            size={ButtonSize.Medium}
           >
             Talk To Sales
           </Button>

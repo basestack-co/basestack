@@ -10,7 +10,6 @@ export const Container = styled.div`
 export const ContentContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: ${({ theme }) => theme.spacing.s5};
   max-width: 1440px;
   width: 100%;
   margin: 0 auto;
@@ -28,14 +27,15 @@ export const LeftColumnContent = styled.div`
 
 export const List = styled.ul`
   display: flex;
-  margin-left: ${({ theme }) => theme.spacing.s3};
+  margin-left: ${({ theme }) => theme.spacing.s4};
 `;
 
 export const ListItem = styled.li`
   display: inline-flex;
   height: ${rem("36px")};
   align-items: center;
-  padding: 0 ${({ theme }) => theme.spacing.s3};
+  padding: 0 ${({ theme }) => theme.spacing.s4};
+  margin-right: ${({ theme }) => theme.spacing.s2};
 `;
 
 export const RightColumn = styled.div`
@@ -50,20 +50,21 @@ export const InputContainer = styled.div`
 `;
 
 export const Input = styled.input`
-  height: ${rem("36px")};
+  font-size: ${rem("16px")};
+  height: ${rem("42px")};
   width: 100%;
   border-radius: ${rem("4px")};
   border: none;
   margin-right: ${({ theme }) => theme.spacing.s3};
-  padding: 0 ${({ theme }) => theme.spacing.s3};
+  padding: 0 ${({ theme }) => theme.spacing.s4};
   color: ${({ theme }) => theme.colors.gray50};
   background-color: ${({ theme }) => theme.colors.gray700};
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.gray300};
+    color: ${({ theme }) => theme.colors.gray400};
   }
 
   &:focus {
-    outline: 1px solid ${({ theme }) => theme.colors.gray500};
+    outline: 2px solid ${({ theme }) => theme.colors.gray500};
   }
 `;
