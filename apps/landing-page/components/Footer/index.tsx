@@ -12,6 +12,7 @@ import {
   List,
   ListItem,
   RightColumn,
+  CopyWrightContainer,
 } from "./styles";
 
 const links = [
@@ -41,9 +42,11 @@ const Footer = () => {
             MoonFlags
           </Text>
           <LeftColumnContent>
-            <Text size="medium" fontWeight={400} color={theme.colors.gray300}>
-              © MoonFlags 2023
-            </Text>
+            <CopyWrightContainer>
+              <Text size="medium" fontWeight={400} color={theme.colors.gray300}>
+                © MoonFlags 2023
+              </Text>
+            </CopyWrightContainer>
             <List>
               {links.map((link, index) => {
                 return (

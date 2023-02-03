@@ -29,6 +29,10 @@ export const Cards = styled.div`
   grid-gap: ${({ theme }) => theme.spacing.s5};
   max-width: 780px;
   width: 100%;
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const CardContainer = styled.div<{ isDark: boolean }>`

@@ -24,7 +24,7 @@ const Accordion = ({ title, text }: AccordionProps) => {
   return (
     <Container>
       <Header onClick={() => setIsOpen((prev) => !prev)}>
-        <Text size="large">{title}</Text>
+        <Text size="large" textAlign="left">{title}</Text>
         <Icon size="large" icon={isOpen ? "expand_less" : "expand_more"} />
       </Header>
       {transitionContent(
@@ -32,7 +32,13 @@ const Accordion = ({ title, text }: AccordionProps) => {
           item && (
             <AnimatedContent style={styles}>
               <ContentWrapper>
-                <Text muted size="medium" fontWeight={400} lineHeight={1.4}>
+                <Text
+                  muted
+                  size="medium"
+                  fontWeight={400}
+                  lineHeight={1.4}
+                  textAlign="left"
+                >
                   {text}
                 </Text>
               </ContentWrapper>

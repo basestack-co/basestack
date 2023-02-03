@@ -23,6 +23,14 @@ export const CardsContainer = styled.div`
   max-width: 1100px;
   width: 100%;
   margin: 0 auto ${({ theme }) => theme.spacing.s8} auto;
+
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const indicatorAnimation = keyframes`

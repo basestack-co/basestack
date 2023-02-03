@@ -26,4 +26,12 @@ export const CardsContainer = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-gap: ${({ theme }) => theme.spacing.s5};
   width: 100%;
+
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    grid-template-columns: 1fr;
+  }
 `;

@@ -27,7 +27,7 @@ export const Banner = styled.div`
   background-color: ${({ theme }) => theme.colors.primary};
   border-radius: ${rem("20px")};
   padding: ${({ theme }) => theme.spacing.s8};
-  height: 425px;
+  min-height: 425px;
   box-shadow: ${({ theme }) => theme.shadow.elevation3};
 `;
 
@@ -35,11 +35,21 @@ export const BannerContent = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 620px;
+  position: relative;
+  z-index: 3;
 `;
 
 export const ButtonsContainer = styled.div`
   display: flex;
   margin-top: ${({ theme }) => theme.spacing.s5};
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    flex-direction: column;
+    
+    button:first-child {
+      margin-bottom: ${({ theme }) => theme.spacing.s3};
+    }
+  }
 `;
 
 export const StyledButton = styled(Button)`
@@ -69,4 +79,8 @@ export const PlanetIllustration = styled.div`
   ${illustrationStyles};
   left: -90px;
   top: -140px;
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    top: -200px;
+  }
 `;
