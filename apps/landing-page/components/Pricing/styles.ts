@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { rem } from "polished";
 import { Button } from "@basestack/design-system";
 
-export const Container = styled.div`
+export const Container = styled.section`
   display: flex;
   flex-direction: column;
   padding: ${rem("100px")} ${({ theme }) => theme.spacing.s5};

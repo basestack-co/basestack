@@ -62,4 +62,8 @@ export const Input = styled.input`
   &::placeholder {
     color: ${({ theme }) => theme.colors.gray300};
   }
+
+  &:focus {
+    outline: 1px solid ${({ theme }) => theme.colors.gray500};
+  }
 `;

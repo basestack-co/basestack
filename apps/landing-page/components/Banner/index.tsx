@@ -26,9 +26,10 @@ const BannerComp = () => {
             <Text
               size="xxLarge"
               fontSize={rem("42px")}
-              lineHeight="1.4"
+              lineHeight="1.3"
               color={theme.colors.gray50}
               mb={theme.spacing.s2}
+              fontFamily="robotoFlex"
               // @ts-ignore
               as="h2"
             >

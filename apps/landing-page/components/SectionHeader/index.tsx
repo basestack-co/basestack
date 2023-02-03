@@ -30,6 +30,7 @@ const SectionHeader = ({
         lineHeight="1.4"
         textAlign="center"
         mb={theme.spacing.s2}
+        fontFamily="robotoFlex"
         // @ts-ignore
         as={titleSize === "normal" ? "h2" : "h1"}
         color={isDarkMode ? theme.colors.gray50 : theme.colors.black}

@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
 
-export const Container = styled.div<{ isDarkMode: boolean }>`
+export const Container = styled.section<{ isDarkMode: boolean }>`
   display: flex;
   flex-direction: column;
   padding: ${rem("100px")} ${({ theme }) => theme.spacing.s5};

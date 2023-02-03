@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
     }
     
     body {
-      font-family: ${({ theme }) => theme.typography.fontFamily};
+      font-family: ${({ theme }) => theme.typography.roboto};
       background-color: ${({ theme }) => theme.colors.gray50};
       color: rgba(60, 66, 87, 1);
       margin: 0;
