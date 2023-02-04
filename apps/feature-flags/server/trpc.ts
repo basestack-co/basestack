@@ -5,7 +5,8 @@ import { Context } from "./context";
 import superjson from "superjson";
 import { getValue, isEmpty } from "@basestack/utils";
 // Prisma
-import { createHistory, getUserInProject } from "libs/prisma/utils";
+import { getUserInProject } from "libs/prisma/utils/user";
+import { createHistory } from "libs/prisma/utils/history";
 
 export type Meta = {
   restricted?: boolean;
@@ -34,8 +35,8 @@ const logger = t.middleware(async ({ path, type, next, rawInput, ctx }) => {
 
   const result = await next();
 
-  if (type === "mutation" && result.ok && result.data) {
-    await createHistory(ctx.prisma, ctx.session, path, result.data, rawInput);
+  if (type === "mutation" && result.ok) {
+    await createHistory(ctx.prisma, ctx.session, path, result.data!, rawInput);
   }
 
   return result;

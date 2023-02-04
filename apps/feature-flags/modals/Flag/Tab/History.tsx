@@ -1,16 +1,44 @@
-import React from "react";
+import React, { useMemo } from "react";
 // Components
-import { HistoryCard } from "@basestack/design-system";
+import { HistoryCard, Loader, Spinner } from "@basestack/design-system";
 // Server
 import { trpc } from "libs/trpc";
+// Types
+import { HistoryAction, HistoryPayload } from "types/history";
+// Utils
+import { getValue } from "@basestack/utils";
+import dayjs from "dayjs";
+import { Type } from "@basestack/design-system/organisms/HistoryCard/types";
 
 interface Props {
   projectId: string;
   flagSlug: string;
 }
 
+const getType: { [id: string]: Type } = {
+  [HistoryAction.createProject]: "created",
+  [HistoryAction.updateProject]: "edited",
+  [HistoryAction.createEnvironment]: "created",
+  [HistoryAction.updateEnvironment]: "edited",
+  [HistoryAction.deleteEnvironment]: "deleted",
+  [HistoryAction.createFlag]: "created",
+  [HistoryAction.updateFlag]: "edited",
+  [HistoryAction.deleteFlag]: "deleted",
+};
+
+const getDescription: { [id: string]: string } = {
+  [HistoryAction.createProject]: "created the project",
+  [HistoryAction.updateProject]: "updated the project",
+  [HistoryAction.createEnvironment]: "created the environment",
+  [HistoryAction.updateEnvironment]: "updated the environment",
+  [HistoryAction.deleteEnvironment]: "deleted the environment",
+  [HistoryAction.createFlag]: "created the flag",
+  [HistoryAction.updateFlag]: "updated the flag",
+  [HistoryAction.deleteFlag]: "deleted the flag",
+};
+
 const HistoryTab = ({ projectId, flagSlug }: Props) => {
-  const { data } = trpc.history.all.useQuery(
+  const { data, isLoading } = trpc.history.all.useQuery(
     {
       flagSlug,
       projectId,
@@ -20,8 +48,42 @@ const HistoryTab = ({ projectId, flagSlug }: Props) => {
 
   console.log("history tab data", data);
 
+  const getHistory = useMemo(() => {
+    if (data && !!data.history.length) {
+      return data.history.map(
+        ({ id, action, payload, createdAt }, index, { length }) => {
+          return (
+            <HistoryCard
+              key={`history-entry-${id}`}
+              userName={getValue(payload, "user.name", "")!}
+              description={`${getDescription[action] ?? ""}`}
+              flagName={getValue(payload, "flag.slug", "")!}
+              date={dayjs(createdAt).fromNow()}
+              environment="Development"
+              type={`${getType[action] ?? "created"}`}
+              hasPaddingTop={index !== 0 && index !== length - 1}
+            />
+          );
+        }
+      );
+    }
+
+    return <div>No history for this feature flag.</div>;
+  }, [data]);
+
+  if (isLoading) {
+    return (
+      <Loader>
+        <Spinner size="large" />
+      </Loader>
+    );
+  }
+
   return (
     <>
+      {getHistory}
+
+      {/*
       <HistoryCard
         userName="Vitor Amaral"
         description="deleted the flag"
@@ -64,6 +126,7 @@ const HistoryTab = ({ projectId, flagSlug }: Props) => {
         type="created"
         hasPaddingBottom={false}
       />
+      */}
     </>
   );
 };

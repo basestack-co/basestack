@@ -25,6 +25,30 @@ export const historyRouter = router({
         },
       });
 
+
+      let  response = []
+
+
+        if(history && !!history.length){
+
+            response = history.map(({id, }) => {
+
+
+                return {
+
+                }
+
+
+            })
+
+
+        }
+
+
+
+
+
+
       return { history };
     }),
   create: protectedProcedure
