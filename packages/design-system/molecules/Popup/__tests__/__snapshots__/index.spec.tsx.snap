@@ -3,8 +3,10 @@
 exports[`Popup Molecule tests should render Popup correctly 1`] = `
 <DocumentFragment>
   .c3 {
-  border: none;
   height: 2.25rem;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  border: none;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -13,8 +15,6 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 0 0.75rem;
-  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
@@ -24,6 +24,8 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
+  width: normal;
+  height: normal;
   font-weight: 400;
   width: 100%;
 }
@@ -126,8 +128,10 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
 }
 
 .c3 {
-  border: none;
   height: 2.25rem;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  border: none;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -136,8 +140,6 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 0 0.75rem;
-  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
@@ -147,6 +149,8 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
+  width: normal;
+  height: normal;
   font-weight: 400;
   width: 100%;
 }

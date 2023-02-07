@@ -24,6 +24,7 @@ exports[`HistoryCard Molecule tests should render HistoryCard correctly 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
+  font-family: roboto;
   font-weight: 500;
   font-family: 'Roboto',sans-serif;
   color: #000000;
@@ -33,6 +34,7 @@ exports[`HistoryCard Molecule tests should render HistoryCard correctly 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
+  font-family: roboto;
   font-family: 'Roboto',sans-serif;
   color: #757575;
 }
@@ -159,6 +161,7 @@ exports[`HistoryCard Molecule tests should render HistoryCard correctly 1`] = `
       >
         <p
           class="c8"
+          font-family="roboto"
           font-weight="500"
         >
           Joana Lopes 
@@ -177,6 +180,7 @@ exports[`HistoryCard Molecule tests should render HistoryCard correctly 1`] = `
         </p>
         <p
           class="c10"
+          font-family="roboto"
         >
           1 hour ago - Development
         </p>

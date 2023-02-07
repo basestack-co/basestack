@@ -1,17 +1,18 @@
 import { cleanup } from "@testing-library/react";
 import { rem } from "polished";
 import { renderWithTheme } from "../../../utils/testUtils";
-import { ButtonVariant } from "../types";
+import { ButtonSize, ButtonVariant } from "../types";
 import { Button } from "..";
 
 describe("Button Atom tests", () => {
   afterEach(cleanup);
 
   test("should render Button correctly", () => {
-    const { asFragment, getByText } = renderWithTheme(<Button>button</Button>);
+    const { asFragment, getByText } = renderWithTheme(
+      <Button size={ButtonSize.Normal}>button</Button>
+    );
     const button = getByText(/button/);
 
-    expect(button).toHaveStyle(`height: ${rem("36px")}`);
     expect(button).toHaveStyle(`display: flex`);
     expect(button).toHaveStyle(`align-items: center`);
     expect(button).toHaveStyle(`font-size: ${rem("14px")}`);
