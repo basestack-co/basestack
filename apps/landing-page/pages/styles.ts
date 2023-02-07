@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-export const FooterContainer = styled.footer`
+export const DarkContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: auto;
+  background-color: ${({ theme }) => theme.colors.gray800};
 `;

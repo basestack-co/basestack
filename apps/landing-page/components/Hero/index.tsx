@@ -35,7 +35,7 @@ const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
             Get Started
           </Button>
           <Button
-            variant={ButtonVariant.Outlined}
+            variant={ButtonVariant.Secondary}
             ml={theme.spacing.s3}
             onClick={() => console.log("yeah")}
             size={ButtonSize.Medium}

@@ -1,18 +1,20 @@
 import styled from "styled-components";
 import { rem } from "polished";
 
-export const Container = styled.nav`
+export const Container = styled.nav<{ isDarkMode: boolean }>`
   position: sticky;
   top: 0;
   z-index: 1000;
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  background: rgba(238, 238, 238, 0.7);
+  background: ${({ isDarkMode }) =>
+    isDarkMode ? "rgba(31, 31, 31, 0.6)" : "rgba(238, 238, 238, 0.7)"};
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
   height: ${rem("80px")};
   padding: 0 ${({ theme }) => theme.spacing.s5};
+  transition: all 0.2s ease-in;
 `;
 
 export const ContentContainer = styled.div`

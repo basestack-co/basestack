@@ -33,13 +33,17 @@ const links = [
   },
 ];
 
-const Navigation = () => {
+interface NavigationProps {
+  isDarkMode: boolean;
+}
+
+const Navigation = ({ isDarkMode }: NavigationProps) => {
   const theme = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isDesktop = useMediaQuery(theme.device.min.md);
 
   return (
-    <Container>
+    <Container isDarkMode={isDarkMode}>
       <ContentContainer>
         <LeftColumn>
           {!isDesktop && (
@@ -57,9 +61,14 @@ const Navigation = () => {
                 return (
                   <ListItem key={index.toString()}>
                     <Button
-                      variant={ButtonVariant.Neutral}
+                      variant={
+                        isDarkMode
+                          ? ButtonVariant.Secondary
+                          : ButtonVariant.Tertiary
+                      }
                       onClick={() => console.log("yeah")}
                       size={ButtonSize.Medium}
+                      backgroundColor="transparent"
                     >
                       {link.text}
                     </Button>
@@ -71,10 +80,13 @@ const Navigation = () => {
         </LeftColumn>
         <RightColumn>
           <Button
-            variant={ButtonVariant.Outlined}
+            variant={
+              isDarkMode ? ButtonVariant.Secondary : ButtonVariant.Tertiary
+            }
             mr={theme.spacing.s3}
             onClick={() => console.log("yeah")}
             size={ButtonSize.Medium}
+            backgroundColor="transparent"
           >
             Sign In
           </Button>

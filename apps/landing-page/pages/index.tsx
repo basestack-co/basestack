@@ -1,3 +1,5 @@
+import React from "react";
+import { useIsTop } from "@basestack/hooks";
 // Layout
 import MainLayout from "../layouts/Main";
 // Components
@@ -12,13 +14,15 @@ import {
   Slider,
   Code,
 } from "../components";
-import { FooterContainer } from "./styles";
+import { DarkContainer } from "./styles";
 import { cards, questions, slides } from "./data";
 
 const MainPage = () => {
+  const [isDarkSectionTop, darkContainer] = useIsTop({ offSet: 40 });
+
   return (
     <>
-      <Navigation />
+      <Navigation isDarkMode={isDarkSectionTop} />
       <Hero
         title="Feature Flag Service"
         text="Release features with confidence, manage feature flags across web,
@@ -45,17 +49,17 @@ const MainPage = () => {
         text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
         data={questions}
       />
-      <Code />
-      <Cards
-        title="Feature flags"
-        text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
-        cards={cards}
-        isDarkMode
-      />
-      <FooterContainer>
+      <DarkContainer ref={darkContainer}>
+        <Code />
+        <Cards
+          title="Feature flags"
+          text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
+          cards={cards}
+          isDarkMode
+        />
         <Banner />
         <Footer />
-      </FooterContainer>
+      </DarkContainer>
     </>
   );
 };
