@@ -1,0 +1,652 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pricing tests render Pricing correctly 1`] = `
+<DocumentFragment>
+  .c9 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-size: 2.625rem;
+  line-height: 1.2;
+  font-weight: 500;
+  text-align: center;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c10 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  margin-left: 0.25rem;
+  font-family: 'Roboto',sans-serif;
+  color: #757575;
+}
+
+.c21 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-size: 2.625rem;
+  line-height: 1.2;
+  font-weight: 500;
+  text-align: center;
+  font-family: 'Roboto',sans-serif;
+  color: #F6F6F6;
+}
+
+.c22 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  margin-left: 0.25rem;
+  font-family: 'Roboto',sans-serif;
+  color: #CBCBCB;
+}
+
+.c15 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-weight: 400;
+  margin-left: 0.75rem;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c17 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-weight: 400;
+  margin-left: 0.75rem;
+  font-family: 'Roboto',sans-serif;
+  color: #757575;
+}
+
+.c24 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-weight: 400;
+  margin-left: 0.75rem;
+  font-family: 'Roboto',sans-serif;
+  color: #F6F6F6;
+}
+
+.c7 {
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  font-weight: 500;
+  font-family: roboto;
+  margin-bottom: 1.25rem;
+  text-align: center;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c20 {
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  font-weight: 500;
+  font-family: roboto;
+  margin-bottom: 1.25rem;
+  text-align: center;
+  font-family: 'Roboto',sans-serif;
+  color: #F6F6F6;
+}
+
+.c4 {
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.6;
+  font-family: 'Roboto',sans-serif;
+  color: #757575;
+}
+
+.c3 {
+  font-size: 1.5rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  font-family: robotoFlex;
+  font-size: 2.625rem;
+  line-height: 1.4;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-family: 'Roboto Flex',sans-serif;
+  color: #000000;
+}
+
+.c13 {
+  height: 1.5rem;
+  width: 1.5rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c14 {
+  color: #276EF1;
+  font-size: 1.5rem;
+}
+
+.c16 {
+  color: #757575;
+  font-size: 1.5rem;
+}
+
+.c23 {
+  color: #5B91F5;
+  font-size: 1.5rem;
+}
+
+.c18 {
+  height: 2.625rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+  border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: #276EF1;
+  color: #FFFFFF;
+  width: medium;
+  height: medium;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.c18:hover:not(:active,:disabled) {
+  background-color: #0e55d7;
+}
+
+.c18 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c18:disabled {
+  cursor: not-allowed;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  max-width: 720px;
+  margin-bottom: 3.125rem;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 6.25rem 1.25rem;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c5 {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-gap: 1.25rem;
+  max-width: 780px;
+  width: 100%;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background: #FFFFFF;
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  box-shadow: rgba(0,0,0,0.1) 0px 4px 6px -1px,rgba(0,0,0,0.06) 0px 2px 4px -1px;
+}
+
+.c19 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background: #333333;
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  box-shadow: rgba(0,0,0,0.1) 0px 4px 6px -1px,rgba(0,0,0,0.06) 0px 2px 4px -1px;
+}
+
+.c25 {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+.c25:hover:not(:active,:disabled) {
+  background-color: rgba(255,255,255,0.9);
+  color: #000000;
+}
+
+.c11 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin: 1.875rem 0;
+}
+
+.c12 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c12:not(:last-child) {
+  margin-bottom: 0.75rem;
+}
+
+@media screen and (max-width:767.98px) {
+  .c5 {
+    grid-template-columns: 1fr;
+  }
+}
+
+<section
+    class="c0"
+  >
+    <div
+      class="c1"
+    >
+      <div
+        class="c2"
+      >
+        <h2
+          class="c3"
+          color="#000000"
+          font-family="robotoFlex"
+          font-size="2.625rem"
+        >
+          Pricing
+        </h2>
+        <p
+          class="c4"
+          color="#757575"
+          font-family="roboto"
+          font-weight="400"
+        >
+          MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags.
+        </p>
+      </div>
+      <div
+        class="c5"
+      >
+        <div
+          class="c6"
+        >
+          <h3
+            class="c7"
+            color="#000000"
+            font-family="roboto"
+          >
+            Basic Plan
+          </h3>
+          <div
+            class="c8"
+          >
+            <p
+              class="c9"
+              color="#000000"
+              font-family="roboto"
+              font-size="2.625rem"
+              font-weight="500"
+            >
+              $0
+            </p>
+            <p
+              class="c10"
+              color="#757575"
+              font-family="roboto"
+            >
+              /MO
+            </p>
+          </div>
+          <ul
+            class="c11"
+          >
+            <li
+              class="c12"
+            >
+              <div
+                class="c13"
+                data-testid="icon-container"
+                size="24"
+              >
+                <span
+                  class="c14 material-symbols-sharp"
+                  color="#276EF1"
+                  data-testid="icon"
+                  size="24"
+                >
+                  check_circle
+                </span>
+              </div>
+              <p
+                class="c15"
+                color="#000000"
+                font-family="roboto"
+                font-weight="400"
+              >
+                10 000 flags per project
+              </p>
+            </li>
+            <li
+              class="c12"
+            >
+              <div
+                class="c13"
+                data-testid="icon-container"
+                size="24"
+              >
+                <span
+                  class="c14 material-symbols-sharp"
+                  color="#276EF1"
+                  data-testid="icon"
+                  size="24"
+                >
+                  check_circle
+                </span>
+              </div>
+              <p
+                class="c15"
+                color="#000000"
+                font-family="roboto"
+                font-weight="400"
+              >
+                5 environments per team
+              </p>
+            </li>
+            <li
+              class="c12"
+            >
+              <div
+                class="c13"
+                data-testid="icon-container"
+                size="24"
+              >
+                <span
+                  class="c14 material-symbols-sharp"
+                  color="#276EF1"
+                  data-testid="icon"
+                  size="24"
+                >
+                  check_circle
+                </span>
+              </div>
+              <p
+                class="c15"
+                color="#000000"
+                font-family="roboto"
+                font-weight="400"
+              >
+                10 project per organization
+              </p>
+            </li>
+            <li
+              class="c12"
+            >
+              <div
+                class="c13"
+                data-testid="icon-container"
+                size="24"
+              >
+                <span
+                  class="c16 material-symbols-sharp"
+                  color="#757575"
+                  data-testid="icon"
+                  size="24"
+                >
+                  cancel
+                </span>
+              </div>
+              <p
+                class="c17"
+                color="#757575"
+                font-family="roboto"
+                font-weight="400"
+              >
+                Enterprise use
+              </p>
+            </li>
+          </ul>
+          <button
+            class="c18"
+          >
+            Get Started
+          </button>
+        </div>
+        <div
+          class="c19"
+        >
+          <h3
+            class="c20"
+            color="#F6F6F6"
+            font-family="roboto"
+          >
+            Enterprise
+          </h3>
+          <div
+            class="c8"
+          >
+            <p
+              class="c21"
+              color="#F6F6F6"
+              font-family="roboto"
+              font-size="2.625rem"
+              font-weight="500"
+            >
+              $100
+            </p>
+            <p
+              class="c22"
+              color="#CBCBCB"
+              font-family="roboto"
+            >
+              /MO
+            </p>
+          </div>
+          <ul
+            class="c11"
+          >
+            <li
+              class="c12"
+            >
+              <div
+                class="c13"
+                data-testid="icon-container"
+                size="24"
+              >
+                <span
+                  class="c23 material-symbols-sharp"
+                  color="#5B91F5"
+                  data-testid="icon"
+                  size="24"
+                >
+                  check_circle
+                </span>
+              </div>
+              <p
+                class="c24"
+                color="#F6F6F6"
+                font-family="roboto"
+                font-weight="400"
+              >
+                50 000 flags per project
+              </p>
+            </li>
+            <li
+              class="c12"
+            >
+              <div
+                class="c13"
+                data-testid="icon-container"
+                size="24"
+              >
+                <span
+                  class="c23 material-symbols-sharp"
+                  color="#5B91F5"
+                  data-testid="icon"
+                  size="24"
+                >
+                  check_circle
+                </span>
+              </div>
+              <p
+                class="c24"
+                color="#F6F6F6"
+                font-family="roboto"
+                font-weight="400"
+              >
+                5 environments per team
+              </p>
+            </li>
+            <li
+              class="c12"
+            >
+              <div
+                class="c13"
+                data-testid="icon-container"
+                size="24"
+              >
+                <span
+                  class="c23 material-symbols-sharp"
+                  color="#5B91F5"
+                  data-testid="icon"
+                  size="24"
+                >
+                  check_circle
+                </span>
+              </div>
+              <p
+                class="c24"
+                color="#F6F6F6"
+                font-family="roboto"
+                font-weight="400"
+              >
+                10 project per organization
+              </p>
+            </li>
+            <li
+              class="c12"
+            >
+              <div
+                class="c13"
+                data-testid="icon-container"
+                size="24"
+              >
+                <span
+                  class="c23 material-symbols-sharp"
+                  color="#5B91F5"
+                  data-testid="icon"
+                  size="24"
+                >
+                  check_circle
+                </span>
+              </div>
+              <p
+                class="c24"
+                color="#F6F6F6"
+                font-family="roboto"
+                font-weight="400"
+              >
+                Enterprise use
+              </p>
+            </li>
+          </ul>
+          <button
+            class="c18 c25"
+          >
+            Contact Sales
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

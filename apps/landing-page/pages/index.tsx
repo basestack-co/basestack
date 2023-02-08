@@ -18,7 +18,7 @@ import { DarkContainer } from "./styles";
 import { cards, questions, slides } from "./data";
 
 const MainPage = () => {
-  const [isDarkSectionTop, darkContainer] = useIsTop({ offSet: 40 });
+  const [isDarkSectionTop, darkContainer] = useIsTop({ offSet: 80 });
 
   return (
     <>

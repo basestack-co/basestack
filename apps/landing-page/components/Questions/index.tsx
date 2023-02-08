@@ -12,8 +12,6 @@ export interface QuestionsProps {
 }
 
 const Questions = ({ title, text, data }: QuestionsProps) => {
-  const theme = useTheme();
-
   return (
     <Container>
       <ContentContainer>

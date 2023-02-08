@@ -1,0 +1,366 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer tests render Footer correctly 1`] = `
+<DocumentFragment>
+  .c6 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  color: #CBCBCB;
+}
+
+.c10 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  font-family: 'Roboto',sans-serif;
+  color: #CBCBCB;
+}
+
+.c3 {
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+  font-weight: 500;
+  font-family: roboto;
+  margin-bottom: 0.5rem;
+  font-family: 'Roboto',sans-serif;
+  color: #CBCBCB;
+}
+
+.c13 {
+  height: 2.625rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+  border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: #276EF1;
+  color: #FFFFFF;
+  width: medium;
+  height: medium;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.c13:hover:not(:active,:disabled) {
+  background-color: #0e55d7;
+}
+
+.c13 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c13:disabled {
+  cursor: not-allowed;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 3.125rem 1.25rem;
+  background-color: #1F1F1F;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c5 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  height: 2.25rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 1rem;
+}
+
+.c8 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  height: 2.25rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 1rem;
+  margin-right: 0.5rem;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  max-width: 20rem;
+  width: 100%;
+}
+
+.c11 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c12 {
+  font-size: 1rem;
+  height: 2.625rem;
+  width: 100%;
+  border-radius: 0.25rem;
+  border: none;
+  margin-right: 0.75rem;
+  padding: 0 1rem;
+  color: #F6F6F6;
+  background-color: #333333;
+}
+
+.c12::-webkit-input-placeholder {
+  color: #AFAFAF;
+}
+
+.c12::-moz-placeholder {
+  color: #AFAFAF;
+}
+
+.c12:-ms-input-placeholder {
+  color: #AFAFAF;
+}
+
+.c12::placeholder {
+  color: #AFAFAF;
+}
+
+.c12:focus {
+  outline: 2px solid #757575;
+}
+
+@media screen and (max-width:575.98px) {
+  .c1 {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: initial;
+    -webkit-justify-content: initial;
+    -ms-flex-pack: initial;
+    justify-content: initial;
+  }
+}
+
+@media screen and (max-width:575.98px) {
+  .c2 {
+    margin-top: 1.875rem;
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    order: 1;
+  }
+}
+
+@media screen and (max-width:991.98px) {
+  .c4 {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: initial;
+    -webkit-box-align: initial;
+    -ms-flex-align: initial;
+    align-items: initial;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width:991.98px) {
+  .c5 {
+    margin: 0.5rem 0;
+  }
+}
+
+@media screen and (max-width:991.98px) {
+  .c7 {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width:991.98px) {
+  .c8 {
+    padding: 0;
+    margin: 0 0 0.5rem 0;
+  }
+}
+
+<footer
+    class="c0"
+  >
+    <div
+      class="c1"
+    >
+      <div
+        class="c2"
+      >
+        <h2
+          class="c3"
+          color="#CBCBCB"
+          font-family="roboto"
+        >
+          MoonFlags
+        </h2>
+        <div
+          class="c4"
+        >
+          <div
+            class="c5"
+          >
+            <p
+              class="c6"
+              color="#CBCBCB"
+              font-family="roboto"
+              font-weight="400"
+            >
+              © MoonFlags 2023
+            </p>
+          </div>
+          <ul
+            class="c7"
+          >
+            <li
+              class="c8"
+            >
+              <p
+                class="c6"
+                color="#CBCBCB"
+                font-family="roboto"
+                font-weight="400"
+              >
+                Privacy policy
+              </p>
+            </li>
+            <li
+              class="c8"
+            >
+              <p
+                class="c6"
+                color="#CBCBCB"
+                font-family="roboto"
+                font-weight="400"
+              >
+                Cookies policy
+              </p>
+            </li>
+            <li
+              class="c8"
+            >
+              <p
+                class="c6"
+                color="#CBCBCB"
+                font-family="roboto"
+                font-weight="400"
+              >
+                Term of use
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        class="c9"
+      >
+        <p
+          class="c10"
+          color="#CBCBCB"
+          font-family="roboto"
+          font-weight="400"
+        >
+          Updates right to your inbox
+        </p>
+        <div
+          class="c11"
+        >
+          <input
+            class="c12"
+            placeholder="Enter your email"
+          />
+          <button
+            class="c13"
+          >
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+</DocumentFragment>
+`;
