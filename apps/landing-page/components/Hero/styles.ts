@@ -45,6 +45,7 @@ export const ImageContainer = styled.div`
   &::after {
     content: "";
     background: ${({ theme }) => theme.colors.primary};
+    opacity: 0.5;
     position: absolute;
     border-radius: 50%;
     z-index: -2;
