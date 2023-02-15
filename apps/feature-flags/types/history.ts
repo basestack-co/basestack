@@ -9,7 +9,7 @@ export enum HistoryAction {
   deleteEnvironment = "DELETE_ENVIRONMENT",
 }
 
-interface Environment {
+export interface Environment {
   id: string;
   name?: string;
   slug?: string;

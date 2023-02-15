@@ -4,9 +4,11 @@ import { Session } from "next-auth";
 // Utils
 import { getValue } from "@basestack/utils";
 // Types
-import { HistoryAction } from "types/history";
+import { HistoryAction, Environment } from "types/history";
+import { Type } from "@basestack/design-system/organisms/HistoryCard/types";
+import { RouterOutput } from "libs/trpc";
 
-export const getPathAction: { [id: string]: string } = {
+export const pathActionMap: { [id: string]: string } = {
   "project.create": HistoryAction.createProject,
   "project.update": HistoryAction.updateProject,
   "environment.create": HistoryAction.createEnvironment,
@@ -17,7 +19,29 @@ export const getPathAction: { [id: string]: string } = {
   "flag.delete": HistoryAction.deleteFlag,
 };
 
-interface FlagPayload {
+export const typeMap: { [id: string]: Type } = {
+  [HistoryAction.createProject]: "created",
+  [HistoryAction.updateProject]: "edited",
+  [HistoryAction.createEnvironment]: "created",
+  [HistoryAction.updateEnvironment]: "edited",
+  [HistoryAction.deleteEnvironment]: "deleted",
+  [HistoryAction.createFlag]: "created",
+  [HistoryAction.updateFlag]: "edited",
+  [HistoryAction.deleteFlag]: "deleted",
+};
+
+export const descriptionMap: { [id: string]: string } = {
+  [HistoryAction.createProject]: "created the project",
+  [HistoryAction.updateProject]: "updated the project",
+  [HistoryAction.createEnvironment]: "created the environment",
+  [HistoryAction.updateEnvironment]: "updated the environment",
+  [HistoryAction.deleteEnvironment]: "deleted the environment",
+  [HistoryAction.createFlag]: "created the flag",
+  [HistoryAction.updateFlag]: "updated the flag",
+  [HistoryAction.deleteFlag]: "deleted the flag",
+};
+
+export interface FlagPayload {
   flag: {
     slug: string;
     description: string;
@@ -26,18 +50,28 @@ interface FlagPayload {
   };
 }
 
-interface FlagData {
+export interface FlagData {
   flags: { id: string; slug: string; description: string }[];
 }
 
-interface FlagInput {
+export interface FlagInput {
   environments: string[];
   flagSlug: string;
 }
 
-interface FlagContent {
+export interface FlagContent {
   slug: string;
   description: string;
+}
+
+export interface HistoryItemDetails {
+  user: string;
+  avatar: string;
+  description: string;
+  slug: string;
+  createdAt: string | Date;
+  type: Type;
+  environments: Environment[];
 }
 
 const createFlagPayload = (
@@ -106,7 +140,7 @@ export const createHistory = async (
   data: any,
   input: any
 ) => {
-  const action = getPathAction[path];
+  const action = pathActionMap[path];
 
   if (!action) return;
 
@@ -137,4 +171,26 @@ export const createHistory = async (
       },
     },
   });
+};
+
+export const getHistoryItemDetails = (
+  item: RouterOutput["history"]["all"]["history"][0]
+): HistoryItemDetails => {
+  const { payload, action, createdAt } = item;
+  const { user, flag } = payload as any;
+  const { name, avatar } = user;
+  const { slug, environments } = flag;
+
+  const description = descriptionMap[action] ?? "";
+  const type = typeMap[action] ?? "created";
+
+  return {
+    user: name,
+    avatar,
+    description,
+    slug,
+    createdAt,
+    type,
+    environments,
+  };
 };
