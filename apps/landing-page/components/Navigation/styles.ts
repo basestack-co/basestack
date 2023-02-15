@@ -30,17 +30,28 @@ const backgroundBlur = (isDarkMode: boolean) => css`
   backdrop-filter: saturate(180%) blur(20px);
 `;
 
-export const Container = styled.nav<{ isDarkMode: boolean }>`
+export const Container = styled.nav<{
+  isDarkMode: boolean;
+  hasBackdropFilter: boolean;
+}>`
   position: sticky;
   top: 0;
   z-index: 1000;
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  ${({ isDarkMode }) => backgroundBlur(isDarkMode)};
   height: ${rem("80px")};
   padding: 0 ${({ theme }) => theme.spacing.s5};
   transition: all 0.2s ease-in;
+
+  ${({ hasBackdropFilter, isDarkMode, theme }) =>
+    hasBackdropFilter
+      ? backgroundBlur(isDarkMode)
+      : css`
+          background-color: ${isDarkMode
+            ? theme.colors.gray800
+            : theme.colors.gray50};
+        `}
 `;
 
 export const ContentContainer = styled.div`

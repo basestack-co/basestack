@@ -43,12 +43,16 @@ const links = [
 
 interface NavigationProps {
   isDarkMode: boolean;
+  hasBackdropFilter?: boolean;
 }
 
 const AnimatedPopup = animated(PopupWrapper);
 const AnimatedPopupItem = animated(PopupItem);
 
-const Navigation = ({ isDarkMode }: NavigationProps) => {
+const Navigation = ({
+  isDarkMode,
+  hasBackdropFilter = true,
+}: NavigationProps) => {
   const theme = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isMobile = useMediaQuery(theme.device.max.md);
@@ -82,7 +86,7 @@ const Navigation = ({ isDarkMode }: NavigationProps) => {
   return (
     <>
       <GlobalStyle isMenuOpen={isMenuOpen} />
-      <Container isDarkMode={isDarkMode}>
+      <Container isDarkMode={isDarkMode} hasBackdropFilter={hasBackdropFilter}>
         <ContentContainer>
           <LeftColumn>
             {isMobile && (
