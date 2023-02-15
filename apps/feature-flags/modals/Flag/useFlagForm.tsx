@@ -15,6 +15,7 @@ import History from "./Tab/History";
 export interface UseFlagFormProps {
   isModalOpen: boolean;
   projectSlug: string;
+  flagId?: string;
   isCreate?: boolean;
 }
 
@@ -27,6 +28,7 @@ export const tabPosition: { [key in TabType]: number } = {
 const useFlagForm = ({
   isModalOpen,
   projectSlug,
+  flagId = "",
   isCreate = true,
 }: UseFlagFormProps) => {
   const trpcContext = trpc.useContext();
@@ -97,7 +99,7 @@ const useFlagForm = ({
           />
         );
       case TabType.HISTORY:
-        return <History />;
+        return <History flagId={flagId} projectId={project?.id!} />;
     }
   };
 
