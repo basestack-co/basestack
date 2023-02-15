@@ -152,16 +152,16 @@ export const flagRouter = router({
     })
     .input(CreateFlagInput)
     .mutation(async ({ ctx, input }) => {
-      // this is workaround for prisma bug on createMany not returning the created data
-      /* return await this.prisma.$transaction(
-        users.map((user) => prisma.user.create({ data: userCreateData })),
-     ); */
-
-      const flag = await ctx.prisma.flag.createMany({
-        data: input.data,
+      // TODO: this is workaround for prisma bug on createMany not returning the created data
+      const flags = await ctx.prisma.$transaction(async (tx) => {
+        return await Promise.all(
+          input.data.map(async (flagCreateData) =>
+            tx.flag.create({ data: flagCreateData })
+          )
+        );
       });
 
-      return { flag };
+      return { flags };
     }),
   update: protectedProcedure
     .meta({
@@ -171,10 +171,10 @@ export const flagRouter = router({
     .mutation(async ({ ctx, input }) => {
       const flags = await ctx.prisma.$transaction(async (tx) => {
         return await Promise.all(
-          input.data.map(async ({ flagId, ...data }) => {
+          input.data.map(async ({ id, ...data }) => {
             const updatedFlag = await tx.flag.update({
               where: {
-                id: flagId,
+                id,
               },
               data,
             });
@@ -194,14 +194,12 @@ export const flagRouter = router({
     })
     .input(DeleteFlagInput)
     .mutation(async ({ ctx, input }) => {
-      const flag = await ctx.prisma.flag.delete({
+      const flags = await ctx.prisma.flag.deleteMany({
         where: {
-          id: input.flagId,
+          slug: input.flagSlug,
         },
       });
 
-      console.log("DELETE = ", flag)
-
-      return { flag };
+      return { flags };
     }),
 });

@@ -12,7 +12,7 @@ import { Type } from "@basestack/design-system/organisms/HistoryCard/types";
 
 interface Props {
   projectId: string;
-  flagSlug: string;
+  flagId: string;
 }
 
 const getType: { [id: string]: Type } = {
@@ -37,13 +37,13 @@ const getDescription: { [id: string]: string } = {
   [HistoryAction.deleteFlag]: "deleted the flag",
 };
 
-const HistoryTab = ({ projectId, flagSlug }: Props) => {
+const HistoryTab = ({ projectId, flagId }: Props) => {
   const { data, isLoading } = trpc.history.all.useQuery(
     {
-      flagSlug,
+      flagId,
       projectId,
     },
-    { enabled: !!projectId && !!flagSlug }
+    { enabled: !!projectId && !!flagId }
   );
 
   console.log("history tab data", data);

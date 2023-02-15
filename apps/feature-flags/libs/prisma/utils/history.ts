@@ -19,44 +19,36 @@ export const getPathAction: { [id: string]: string } = {
 
 export const createEnvironmentPayload = (data: any) => {
   return {
-    environment: {
-      id: data.environment.id,
-      name: data.environment.name,
-      slug: data.environment.slug,
-      description: data.environment.description ?? "",
-    },
+    environment: getValue(data, "environment", {}),
   };
 };
 
 export const createProjectPayload = (data: any) => {
   return {
-    project: {
-      name: data.project.name,
-      slug: data.project.slug,
-    },
+    project: getValue(data, "project", {}),
   };
 };
 
 export const createFlagPayload = (data: any, input: any, path: string) => {
-  let flagsInput;
+  const isDelete = path === "flag.delete";
+  const content = getValue(data, "flags", isDelete ? {} : []);
 
-  if (path === "flag.create") {
-    flagsInput = getValue(input, "data", []);
-  } else if (path === "flag.update") {
-    flagsInput = getValue(data, "flags", []);
-  }
+  const ids = !isDelete
+    ? (getValue(data, "flags", []) as Array<{ id: string }>).map(({ id }) => id)
+    : [];
+
+  const environments = !isDelete ? getValue(input, "environments", []) : [];
 
   return {
     flag: {
-      slug: getValue(flagsInput || input, "[0].slug", "")!,
-      description: getValue(flagsInput || input, "[0].description", "")!,
-      environments:
-        (flagsInput as Array<{ enabled: boolean; environmentId: string }>).map(
-          ({ environmentId, enabled }) => ({
-            id: environmentId,
-            enabled,
-          })
-        ) || [],
+      slug: getValue(
+        isDelete ? input : content,
+        isDelete ? `flagSlug` : "[0].slug",
+        ""
+      )!,
+      description: getValue(content, "[0].description", "")!,
+      ids,
+      environments,
     },
   };
 };
@@ -91,6 +83,7 @@ export const createHistory = async (
   input: any
 ) => {
   const action = getPathAction[path];
+
   if (!action) return;
 
   let projectId =

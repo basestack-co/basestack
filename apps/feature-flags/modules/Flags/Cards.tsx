@@ -58,7 +58,7 @@ const FlagCards = ({
       setUpdateFlagModalOpen({
         isOpen: true,
         data: {
-          flag: { id: flagSlug, slug: flagSlug },
+          flag: { id: flagId, slug: flagSlug },
           environment: { id: environmentId },
           selectedTab: selectedTab,
         },
@@ -68,9 +68,9 @@ const FlagCards = ({
   );
 
   const onDelete = useCallback(
-    (flagId: string) => {
+    (flagSlug: string) => {
       deleteFlag.mutate(
-        { projectId: projectId, flagId },
+        { projectId: projectId, flagSlug },
         {
           onSuccess: async () => {
             // TODO: migrate this to use cache from useQuery
@@ -139,7 +139,7 @@ const FlagCards = ({
                 icon: "delete",
                 text: "Delete",
                 variant: ButtonVariant.Danger,
-                onClick: () => onDelete(flag.id),
+                onClick: () => onDelete(flag.slug),
               },
             ]}
           />

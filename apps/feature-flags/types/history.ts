@@ -20,7 +20,8 @@ export interface HistoryPayload {
   flag?: {
     slug: string;
     description?: string;
-    environments: Array<{ id: string; enabled: boolean }>;
+    ids: string[];
+    environments: Array<{ id: string; enabled: boolean; name: string }>;
   };
   environment?: Environment | Environment[];
   project?: {

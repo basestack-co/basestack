@@ -3,7 +3,7 @@ import { z } from "zod";
 export const AllHistoryInput = z
   .object({
     projectId: z.string(),
-    flagSlug: z.string().optional(),
+    flagId: z.string().optional(),
   })
   .required();
 

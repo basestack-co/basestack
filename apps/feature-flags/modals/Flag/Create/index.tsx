@@ -56,7 +56,7 @@ const CreateFlagModal = () => {
       }));
 
       createFlag.mutate(
-        { projectId: project.id, data },
+        { projectId: project.id, environments: input.environments, data },
         {
           onSuccess: async (result) => {
             // TODO: migrate this to use cache from useQuery

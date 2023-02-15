@@ -43,7 +43,7 @@ const UpdateFlagModal = () => {
     isModalOpen,
     projectSlug,
     isCreate: false,
-    flagSlug: modalPayload?.flag.slug,
+    flagId: modalPayload?.flag.id,
   });
 
   const { isLoading, data: bySlugData } = trpc.flag.bySlug.useQuery(
@@ -64,7 +64,7 @@ const UpdateFlagModal = () => {
         );
 
         return {
-          flagId: current?.flagId!,
+          id: current?.flagId!,
           slug: input.name,
           description: input.description ?? "",
           enabled: env.enabled,
@@ -76,6 +76,7 @@ const UpdateFlagModal = () => {
       updateFlag.mutate(
         {
           projectId: project.id,
+          environments: input.environments,
           data,
         },
         {

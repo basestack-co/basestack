@@ -7,12 +7,14 @@ export const historyRouter = router({
   all: protectedProcedure
     .input(AllHistoryInput)
     .query(async ({ ctx, input }) => {
-      const getId = isEmpty(input.flagSlug)
+      console.log("input.flagId = ", input.flagId);
+
+      const getId = isEmpty(input.flagId)
         ? { projectId: input.projectId }
         : {
             payload: {
-              path: ["flag", "slug"],
-              equals: input.flagSlug,
+              path: ["flag", "ids"],
+              array_contains: [input.flagId],
             },
           };
 
@@ -24,30 +26,6 @@ export const historyRouter = router({
           createdAt: "desc",
         },
       });
-
-
-      let  response = []
-
-
-        if(history && !!history.length){
-
-            response = history.map(({id, }) => {
-
-
-                return {
-
-                }
-
-
-            })
-
-
-        }
-
-
-
-
-
 
       return { history };
     }),
