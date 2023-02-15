@@ -17,6 +17,54 @@ export const getPathAction: { [id: string]: string } = {
   "flag.delete": HistoryAction.deleteFlag,
 };
 
+interface FlagPayload {
+  flag: {
+    slug: string;
+    description: string;
+    ids: string[];
+    environments: string[];
+  };
+}
+
+interface FlagData {
+  flags: { id: string; slug: string; description: string }[];
+}
+
+interface FlagInput {
+  environments: string[];
+  flagSlug: string;
+}
+
+interface FlagContent {
+  slug: string;
+  description: string;
+}
+
+const createFlagPayload = (
+  data: FlagData,
+  input: FlagInput,
+  path: string
+): FlagPayload => {
+  const isDelete = path === "flag.delete";
+  const { flags } = data;
+  const { environments, flagSlug } = input;
+
+  const content: FlagContent = isDelete
+    ? { slug: "", description: "" }
+    : flags[0] || { slug: "", description: "" };
+
+  const ids = !isDelete ? flags.map(({ id }) => id) : [];
+
+  return {
+    flag: {
+      ids,
+      slug: isDelete ? flagSlug : content.slug,
+      description: content.description,
+      environments: isDelete ? [] : environments,
+    },
+  };
+};
+
 export const createEnvironmentPayload = (data: any) => {
   return {
     environment: getValue(data, "environment", {}),
@@ -26,30 +74,6 @@ export const createEnvironmentPayload = (data: any) => {
 export const createProjectPayload = (data: any) => {
   return {
     project: getValue(data, "project", {}),
-  };
-};
-
-export const createFlagPayload = (data: any, input: any, path: string) => {
-  const isDelete = path === "flag.delete";
-  const content = getValue(data, "flags", isDelete ? {} : []);
-
-  const ids = !isDelete
-    ? (getValue(data, "flags", []) as Array<{ id: string }>).map(({ id }) => id)
-    : [];
-
-  const environments = !isDelete ? getValue(input, "environments", []) : [];
-
-  return {
-    flag: {
-      slug: getValue(
-        isDelete ? input : content,
-        isDelete ? `flagSlug` : "[0].slug",
-        ""
-      )!,
-      description: getValue(content, "[0].description", "")!,
-      ids,
-      environments,
-    },
   };
 };
 
