@@ -9,7 +9,7 @@ export enum HistoryAction {
   deleteEnvironment = "DELETE_ENVIRONMENT",
 }
 
-interface Environment {
+export interface Environment {
   id: string;
   name?: string;
   slug?: string;
@@ -20,7 +20,8 @@ export interface HistoryPayload {
   flag?: {
     slug: string;
     description?: string;
-    environments: Array<{ id: string; enabled: boolean }>;
+    ids: string[];
+    environments: Array<{ id: string; enabled: boolean; name: string }>;
   };
   environment?: Environment | Environment[];
   project?: {

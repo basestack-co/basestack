@@ -20,17 +20,29 @@ export const FlagBySlugInput = z
   })
   .required();
 
+export const EnvironmentsInput = z.array(
+  z.object({
+    name: z.string(),
+    id: z.string(),
+    enabled: z.boolean(),
+  })
+);
+
+export const flagDataInput = z.object({
+  slug: z.string(),
+  enabled: z.boolean(),
+  payload: z.any().optional().nullable(),
+  expiredAt: z.date().optional().nullable(),
+  description: z.string().optional(),
+});
+
 export const CreateFlagInput = z.object({
   // this prop is used on the createProtectedRouter Middleware to validated user project permissions
   projectId: z.string(),
+  environments: EnvironmentsInput,
   data: z.array(
-    z.object({
+    flagDataInput.extend({
       environmentId: z.string(),
-      slug: z.string(),
-      enabled: z.boolean(),
-      payload: z.any().optional().nullable(),
-      expiredAt: z.date().optional().nullable(),
-      description: z.string().optional(),
     })
   ),
 });
@@ -39,14 +51,10 @@ export const UpdateFlagInput = z
   .object({
     // this prop is used on the createProtectedRouter Middleware to validated user project permissions
     projectId: z.string(),
+    environments: EnvironmentsInput,
     data: z.array(
-      z.object({
-        flagId: z.string(),
-        slug: z.string(),
-        enabled: z.boolean(),
-        payload: z.any().optional(),
-        expiredAt: z.date().nullable(),
-        description: z.string().nullable(),
+      flagDataInput.extend({
+        id: z.string(),
       })
     ),
   })
@@ -56,6 +64,6 @@ export const DeleteFlagInput = z
   .object({
     // this prop is used on the createProtectedRouter Middleware to validated user project permissions
     projectId: z.string(),
-    flagId: z.string(),
+    flagSlug: z.string(),
   })
   .required();

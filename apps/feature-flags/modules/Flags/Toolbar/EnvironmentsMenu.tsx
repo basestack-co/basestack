@@ -38,7 +38,7 @@ const EnvironmentsMenu = ({ title, data, onSelect }: EnvironmentsMenuProps) => {
       return [];
     }
 
-    return data.environments.map(({ name, id }) => {
+    return data.environments.map(({ name }) => {
       return {
         text: name,
         onClick: () => {

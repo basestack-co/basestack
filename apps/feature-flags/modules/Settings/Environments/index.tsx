@@ -89,42 +89,35 @@ const EnvironmentsModule = ({ project }: Props) => {
 
   const getTable = useMemo(() => {
     if (!isLoading && !!data) {
-      const rows = data.environments.reduce(
-        (
-          acc: Row[],
-          { name, slug, description, id, createdAt, isDefault }: Environment
-        ) => {
-          return [
-            ...acc,
-            {
-              cols: [
-                {
-                  title: name,
-                },
-                {
-                  title: slug,
-                },
-                {
-                  title: description,
-                },
-                {
-                  title: dayjs(createdAt).fromNow(),
-                },
-              ],
-              more: [
-                { icon: "edit", text: "Edit", onClick: () => onHandleEdit(id) },
-                {
-                  icon: "delete",
-                  text: "Delete",
-                  variant: ButtonVariant.Danger,
-                  onClick: () => onHandleDelete(id),
-                  isVisible: !isDefault,
-                },
-              ],
-            },
-          ] as Row[];
-        },
-        [] as Row[]
+      const rows = data.environments.map(
+        ({
+          name,
+          slug,
+          description,
+          id,
+          createdAt,
+          isDefault,
+        }: Environment) => {
+          const row: Row = {
+            cols: [
+              { title: name },
+              { title: slug },
+              { title: description ?? "" },
+              { title: dayjs(createdAt).fromNow() },
+            ],
+            more: [
+              { icon: "edit", text: "Edit", onClick: () => onHandleEdit(id) },
+              {
+                icon: "delete",
+                text: "Delete",
+                variant: ButtonVariant.Danger,
+                onClick: () => onHandleDelete(id),
+                isVisible: !isDefault,
+              },
+            ],
+          };
+          return row;
+        }
       );
 
       return { headers, rows };
