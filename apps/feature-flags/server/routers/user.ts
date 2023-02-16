@@ -6,24 +6,21 @@ export const userRouter = router({
   byProjectId: protectedProcedure
     .input(UserByProjectIdInput)
     .query(async ({ ctx, input }) => {
-      const users = await ctx.prisma.user.findMany({
+      const users = await ctx.prisma.projectsOnUsers.findMany({
         where: {
-          projects: {
-            some: {
-              project: {
-                id: input.projectId,
-              },
-            },
-          },
+          projectId: input.projectId,
         },
         select: {
-          id: true,
-          name: true,
-          email: true,
-          image: true,
-        },
-        orderBy: {
-          createdAt: "desc",
+          userId: true,
+          projectId: true,
+          role: true,
+          user: {
+            select: {
+              name: true,
+              email: true,
+              image: true,
+            },
+          },
         },
       });
 

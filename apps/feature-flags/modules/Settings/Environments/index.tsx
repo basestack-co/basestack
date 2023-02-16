@@ -1,6 +1,12 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useCallback } from "react";
 // Components
-import { ButtonVariant, SettingCard, Table } from "@basestack/design-system";
+import {
+  ButtonVariant,
+  Loader,
+  SettingCard,
+  Spinner,
+  Table,
+} from "@basestack/design-system";
 // Server
 import { trpc, RouterOutput } from "libs/trpc";
 // Store
@@ -10,7 +16,6 @@ import { CardList, CardListItem } from "../styles";
 // Types
 import { Row } from "@basestack/design-system/organisms/Table/types";
 import { Environment } from "@prisma/client";
-import { HistoryAction } from "types/history";
 // Utils
 import dayjs from "dayjs";
 
@@ -36,17 +41,20 @@ const EnvironmentsModule = ({ project }: Props) => {
 
   const deleteEnvironment = trpc.environment.delete.useMutation();
 
-  const onHandleEdit = (environmentId: string) => {
-    if (project) {
-      setUpdateEnvironmentModalOpen({
-        isOpen: true,
-        data: {
-          environment: { id: environmentId },
-          project,
-        },
-      });
-    }
-  };
+  const onHandleEdit = useCallback(
+    (environmentId: string) => {
+      if (project) {
+        setUpdateEnvironmentModalOpen({
+          isOpen: true,
+          data: {
+            environment: { id: environmentId },
+            project,
+          },
+        });
+      }
+    },
+    [project, setUpdateEnvironmentModalOpen]
+  );
 
   const onHandleCreate = () => {
     if (project) {
@@ -54,38 +62,41 @@ const EnvironmentsModule = ({ project }: Props) => {
     }
   };
 
-  const onHandleDelete = async (environmentId: string) => {
-    if (project) {
-      await deleteEnvironment.mutate(
-        {
-          environmentId,
-          projectId: project.id,
-        },
-        {
-          onSuccess: async (result) => {
-            // Get all the environments by project on the cache
-            const prev = trpcContext.environment.all.getData({
-              projectId: project.id,
-            });
-
-            if (prev && prev.environments) {
-              const environments = prev.environments.filter(
-                ({ id }) => id !== result.environment.id
-              );
-
-              // Update the cache with the new data
-              trpcContext.environment.all.setData(
-                { projectId: project.id },
-                {
-                  environments,
-                }
-              );
-            }
+  const onHandleDelete = useCallback(
+    async (environmentId: string) => {
+      if (project) {
+        await deleteEnvironment.mutate(
+          {
+            environmentId,
+            projectId: project.id,
           },
-        }
-      );
-    }
-  };
+          {
+            onSuccess: async (result) => {
+              // Get all the environments by project on the cache
+              const prev = trpcContext.environment.all.getData({
+                projectId: project.id,
+              });
+
+              if (prev && prev.environments) {
+                const environments = prev.environments.filter(
+                  ({ id }) => id !== result.environment.id
+                );
+
+                // Update the cache with the new data
+                trpcContext.environment.all.setData(
+                  { projectId: project.id },
+                  {
+                    environments,
+                  }
+                );
+              }
+            },
+          }
+        );
+      }
+    },
+    [project, deleteEnvironment, trpcContext.environment.all]
+  );
 
   const getTable = useMemo(() => {
     if (!isLoading && !!data) {
@@ -127,7 +138,11 @@ const EnvironmentsModule = ({ project }: Props) => {
   }, [isLoading, data, onHandleEdit, onHandleDelete]);
 
   if (isLoading || !data) {
-    return <div>isLoading...</div>;
+    return (
+      <Loader>
+        <Spinner size="large" />
+      </Loader>
+    );
   }
 
   return (

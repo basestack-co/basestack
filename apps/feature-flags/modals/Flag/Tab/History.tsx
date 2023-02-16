@@ -24,12 +24,13 @@ const HistoryTab = ({ projectId, flagId }: Props) => {
   const getHistory = useMemo(() => {
     if (data && !!data.history.length) {
       return data.history.map((item, index, { length }) => {
-        const { user, description, slug, createdAt, type, environments } =
+        const { user, description, slug, createdAt, type, environments, avatar } =
           getHistoryItemDetails(item);
 
         return (
           <HistoryCard
             key={`history-entry-${item.id}`}
+            avatar={avatar}
             userName={user}
             description={description}
             flagName={slug}
