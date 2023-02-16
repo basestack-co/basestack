@@ -92,18 +92,18 @@ export const Input = styled.input`
   width: 100%;
   max-width: ${rem("320px")};
   border-radius: ${rem("4px")};
-  border: none;
   margin-right: ${({ theme }) => theme.spacing.s3};
   padding: 0 ${({ theme }) => theme.spacing.s4};
-  color: ${({ theme }) => theme.colors.gray50};
-  background-color: ${({ theme }) => theme.colors.gray800};
+  color: ${({ theme }) => theme.colors.gray900};
+  border: 2px solid ${({ theme }) => theme.colors.gray600};
+  background-color: transparent;
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.gray300};
+    color: ${({ theme }) => theme.colors.gray500};
   }
 
   &:focus {
-    outline: 2px solid ${({ theme }) => theme.colors.gray600};
+    outline: 2px solid ${({ theme }) => theme.colors.gray300};
   }
 `;
 
