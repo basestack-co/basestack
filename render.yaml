@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: basestack-landing-page
+    rootDir: apps/landing-page
+    env: static
+    buildCommand: cd ../.. && yarn && yarn build:packages; cd apps/landing-page/ && yarn build && yarn next export
+    staticPublishPath: out
+    pullRequestPreviewsEnabled: true
