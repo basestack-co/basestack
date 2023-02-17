@@ -4,9 +4,8 @@ import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
 // Form
 import { SubmitHandler } from "react-hook-form";
-// Context
-import useModals from "hooks/useModals";
-import { setIsUpdateEnvironmentModalOpen } from "contexts/modals/actions";
+// Store
+import { useStore } from "store";
 // Server
 import { trpc } from "libs/trpc";
 // Types
@@ -17,13 +16,11 @@ import { HistoryAction } from "types/history";
 
 const EditEnvironmentModal = () => {
   const trpcContext = trpc.useContext();
-  const {
-    dispatch,
-    state: {
-      isUpdateEnvironmentModalOpen: isModalOpen,
-      environmentModalPayload: { data },
-    },
-  } = useModals();
+  const isModalOpen = useStore((state) => state.isUpdateEnvironmentModalOpen);
+  const data = useStore((state) => state.environmentModalPayload);
+  const setUpdateEnvironmentModalOpen = useStore(
+    (state) => state.setUpdateEnvironmentModalOpen
+  );
 
   const updateEnvironment = trpc.environment.update.useMutation();
 
@@ -31,14 +28,9 @@ const EditEnvironmentModal = () => {
     useEnvironmentForm({});
 
   const onClose = useCallback(() => {
-    dispatch(
-      setIsUpdateEnvironmentModalOpen({
-        isOpen: false,
-        data: null,
-      })
-    );
+    setUpdateEnvironmentModalOpen({ isOpen: false });
     reset();
-  }, [dispatch, reset]);
+  }, [reset, setUpdateEnvironmentModalOpen]);
 
   const onSubmit: SubmitHandler<FormInputs> = (input: FormInputs) => {
     if (data && data.project && data.environment) {
@@ -55,7 +47,7 @@ const EditEnvironmentModal = () => {
               // Get all the environments by project on the cache
 
               const prev = trpcContext.environment.all.getData({
-                projectSlug: data.project.slug,
+                projectId: data.project.id,
               });
 
               if (prev && prev.environments) {
@@ -75,7 +67,7 @@ const EditEnvironmentModal = () => {
 
                 // Update the cache with the new data
                 trpcContext.environment.all.setData(
-                  { projectSlug: data.project.slug },
+                  { projectId: data.project.id },
                   {
                     environments,
                   }
@@ -94,7 +86,7 @@ const EditEnvironmentModal = () => {
     if (data && data.project && isModalOpen && data.environment) {
       // Get all the environments by project on the cache
       const cache = trpcContext.environment.all.getData({
-        projectSlug: data.project.slug,
+        projectId: data.project.id,
       });
 
       if (cache && cache.environments) {

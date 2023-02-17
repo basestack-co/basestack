@@ -55,7 +55,11 @@ const Code = () => {
             hoverBgColor={theme.colors.gray600}
             textSize="medium"
           />
-          <SyntaxHighlighter language="javascript" style={a11yDark} wrapLongLines>
+          <SyntaxHighlighter
+            language="javascript"
+            style={a11yDark}
+            wrapLongLines
+          >
             {codeString}
           </SyntaxHighlighter>
         </CodeContainer>

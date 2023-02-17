@@ -3,8 +3,6 @@ import { render, RenderOptions } from "@testing-library/react";
 // Styles
 import { ThemeProvider } from "styled-components";
 import theme from "@basestack/design-system/theme";
-// Auth
-import { SessionProvider } from "next-auth/react";
 
 interface WithChildrenProps {
   children: React.ReactNode;
@@ -15,12 +13,7 @@ interface AllProvidersProps extends WithChildrenProps {
 }
 
 const AllProviders = ({ children, initialState = {} }: AllProvidersProps) => {
-  return (
-    // @ts-ignore
-    <SessionProvider session={{ expires: null }}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    </SessionProvider>
-  );
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 
 const renderWithAllProviders = (

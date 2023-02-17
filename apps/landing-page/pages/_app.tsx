@@ -4,12 +4,8 @@ import { AppProps } from "next/app";
 import { ThemeProvider } from "styled-components";
 import theme from "@basestack/design-system/theme";
 import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
-// Dates
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-
-dayjs.extend(relativeTime);
-
+// Fonts
+import "material-symbols";
 const Noop = ({ children }: { children: React.ReactNode }) => children;
 
 function MyApp({ Component, pageProps }: AppProps) {

@@ -38,7 +38,7 @@ const DeleteProject = ({ project }: Props) => {
               trpcContext.project.all.setData(undefined, { projects });
             }
 
-            await router.push("/");
+            await router.replace("/");
           },
         }
       );

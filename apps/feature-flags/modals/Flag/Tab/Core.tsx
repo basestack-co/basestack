@@ -4,7 +4,7 @@ import { useTheme } from "styled-components";
 import { InputGroup, Text, Switch } from "@basestack/design-system";
 // Form
 import { Controller } from "react-hook-form";
-import { FlagFormInputs, EnvironmentInput } from "../schema";
+import { FlagFormInputs, EnvironmentInput } from "../types";
 // Styles
 import { Environments } from "../styles";
 // Types
@@ -16,6 +16,7 @@ export interface Props {
   errors: FieldErrors<FlagFormInputs>;
   control: Control<FlagFormInputs, any>;
   isSubmitting: boolean;
+  isCreate?: boolean;
 }
 
 const CoreTab = ({
@@ -24,6 +25,7 @@ const CoreTab = ({
   errors,
   control,
   isSubmitting,
+  isCreate = true,
 }: Props) => {
   const theme = useTheme();
   const [textareaLength, setTextareaLength] = useState("");
@@ -110,7 +112,7 @@ const CoreTab = ({
         data-testid="input-group-title"
         size="small"
       >
-        Environments
+        Environment{isCreate ? "s" : ""}
       </Text>
       <Environments>
         {environments &&

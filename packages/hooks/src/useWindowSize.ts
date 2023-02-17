@@ -23,6 +23,7 @@ const useWindowSize = (initialWidth = Infinity, initialHeight = Infinity) => {
         off(window, "resize", handler);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return state;

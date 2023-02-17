@@ -37,6 +37,7 @@ export default function useTimeoutFn(
     set();
 
     return clear;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ms]);
 
   return [isReady, clear, set];

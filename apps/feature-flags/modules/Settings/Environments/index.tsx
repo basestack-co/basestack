@@ -3,12 +3,8 @@ import React, { useMemo } from "react";
 import { ButtonVariant, SettingCard, Table } from "@basestack/design-system";
 // Server
 import { trpc, RouterOutput } from "libs/trpc";
-// Context
-import useModals from "hooks/useModals";
-import {
-  setIsCreateEnvironmentModalOpen,
-  setIsUpdateEnvironmentModalOpen,
-} from "contexts/modals/actions";
+// Store
+import { useStore } from "store";
 // Styles
 import { CardList, CardListItem } from "../styles";
 // Types
@@ -26,34 +22,35 @@ export interface Props {
 
 const EnvironmentsModule = ({ project }: Props) => {
   const trpcContext = trpc.useContext();
-  const { dispatch } = useModals();
+  const setCreateEnvironmentModalOpen = useStore(
+    (state) => state.setCreateEnvironmentModalOpen
+  );
+  const setUpdateEnvironmentModalOpen = useStore(
+    (state) => state.setUpdateEnvironmentModalOpen
+  );
 
   const { data, isLoading } = trpc.environment.all.useQuery(
-    { projectSlug: project?.slug! },
-    { enabled: !!project?.slug }
+    { projectId: project?.id! },
+    { enabled: !!project?.id }
   );
 
   const deleteEnvironment = trpc.environment.delete.useMutation();
 
   const onHandleEdit = (environmentId: string) => {
     if (project) {
-      dispatch(
-        setIsUpdateEnvironmentModalOpen({
-          isOpen: true,
-          data: { environment: { id: environmentId }, project },
-        })
-      );
+      setUpdateEnvironmentModalOpen({
+        isOpen: true,
+        data: {
+          environment: { id: environmentId },
+          project,
+        },
+      });
     }
   };
 
   const onHandleCreate = () => {
     if (project) {
-      dispatch(
-        setIsCreateEnvironmentModalOpen({
-          isOpen: true,
-          data: { project },
-        })
-      );
+      setCreateEnvironmentModalOpen({ isOpen: true, data: { project } });
     }
   };
 
@@ -68,7 +65,7 @@ const EnvironmentsModule = ({ project }: Props) => {
           onSuccess: async (result) => {
             // Get all the environments by project on the cache
             const prev = trpcContext.environment.all.getData({
-              projectSlug: project.slug,
+              projectId: project.id,
             });
 
             if (prev && prev.environments) {
@@ -78,7 +75,7 @@ const EnvironmentsModule = ({ project }: Props) => {
 
               // Update the cache with the new data
               trpcContext.environment.all.setData(
-                { projectSlug: project.slug },
+                { projectId: project.id },
                 {
                   environments,
                 }
@@ -92,48 +89,42 @@ const EnvironmentsModule = ({ project }: Props) => {
 
   const getTable = useMemo(() => {
     if (!isLoading && !!data) {
-      const rows = data.environments.reduce(
-        (
-          acc: Row[],
-          { name, slug, description, id, createdAt }: Environment
-        ) => {
-          return [
-            ...acc,
-            {
-              cols: [
-                {
-                  title: name,
-                },
-                {
-                  title: slug,
-                },
-                {
-                  title: description,
-                },
-                {
-                  title: dayjs(createdAt).fromNow(),
-                },
-              ],
-              more: [
-                { icon: "edit", text: "Edit", onClick: () => onHandleEdit(id) },
-                {
-                  icon: "delete",
-                  text: "Delete",
-                  variant: ButtonVariant.Danger,
-                  onClick: () => onHandleDelete(id),
-                },
-              ],
-            },
-          ] as Row[];
-        },
-        [] as Row[]
+      const rows = data.environments.map(
+        ({
+          name,
+          slug,
+          description,
+          id,
+          createdAt,
+          isDefault,
+        }: Environment) => {
+          const row: Row = {
+            cols: [
+              { title: name },
+              { title: slug },
+              { title: description ?? "" },
+              { title: dayjs(createdAt).fromNow() },
+            ],
+            more: [
+              { icon: "edit", text: "Edit", onClick: () => onHandleEdit(id) },
+              {
+                icon: "delete",
+                text: "Delete",
+                variant: ButtonVariant.Danger,
+                onClick: () => onHandleDelete(id),
+                isVisible: !isDefault,
+              },
+            ],
+          };
+          return row;
+        }
       );
 
       return { headers, rows };
     }
 
     return { headers, rows: [] };
-  }, [isLoading, data]);
+  }, [isLoading, data, onHandleEdit, onHandleDelete]);
 
   if (isLoading || !data) {
     return <div>isLoading...</div>;

@@ -7,26 +7,30 @@ import { Container, PillsUl, PillLi } from "./styles";
 import EnvironmentsMenu from "./EnvironmentsMenu";
 // Server
 import { trpc } from "libs/trpc";
+// Hooks
+import { useDebounce } from "@basestack/hooks";
 
 export interface ToolbarProps extends SpaceProps {
-  projectSlug: string;
-  onSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onSelect: (environment: string) => void;
+  projectId: string;
+  onSearchCallback: (value: string) => void;
+  onSelect: (environmentId: string) => void;
   onChangeView: (selected: string) => void;
   isDesktop?: boolean;
 }
 
 const Toolbar = ({
-  projectSlug,
+  projectId,
   isDesktop = true,
-  onSearch,
   onSelect,
   onChangeView,
+  onSearchCallback,
 }: ToolbarProps) => {
   const theme = useTheme();
   const [selected, setSelected] = useState("all");
+  const [searchValue, setSearchValue] = useState<string>("");
+  const { data, isLoading } = trpc.environment.all.useQuery({ projectId });
 
-  const { data, isLoading } = trpc.environment.all.useQuery({ projectSlug });
+  useDebounce(() => onSearchCallback(searchValue), 500, [searchValue]);
 
   const onRenderDesktopPills = useCallback(() => {
     if (isLoading) {
@@ -39,16 +43,6 @@ const Toolbar = ({
 
     return (
       <PillsUl data-testid="pills">
-        <PillLi>
-          <Pill
-            text="All"
-            isSelected={selected === "all"}
-            onClick={() => {
-              onSelect("all");
-              setSelected("all");
-            }}
-          />
-        </PillLi>
         {data.environments.map(({ name, id }) => {
           return (
             <PillLi key={id}>
@@ -56,7 +50,7 @@ const Toolbar = ({
                 text={name}
                 isSelected={selected === name.toLowerCase()}
                 onClick={() => {
-                  onSelect(name.toLowerCase());
+                  onSelect(id);
                   setSelected(name.toLowerCase());
                 }}
               />
@@ -65,7 +59,7 @@ const Toolbar = ({
         })}
       </PillsUl>
     );
-  }, [data, isLoading, selected]);
+  }, [data, isLoading, selected, onSelect]);
 
   return (
     <Container data-testid="toolbar" my={theme.spacing.s5}>
@@ -77,9 +71,11 @@ const Toolbar = ({
         icon="search"
         iconPlacement="left"
         placeholder="Filter by title"
-        onChange={onSearch}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setSearchValue(event.target.value)
+        }
         name="search"
-        value=""
+        value={searchValue}
       />
       {isDesktop && onRenderDesktopPills()}
       {!isDesktop && !isLoading && (

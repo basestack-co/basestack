@@ -24,7 +24,9 @@ const Accordion = ({ title, text }: AccordionProps) => {
   return (
     <Container>
       <Header onClick={() => setIsOpen((prev) => !prev)}>
-        <Text size="large" textAlign="left">{title}</Text>
+        <Text size="large" textAlign="left">
+          {title}
+        </Text>
         <Icon size="large" icon={isOpen ? "expand_less" : "expand_more"} />
       </Header>
       {transitionContent(

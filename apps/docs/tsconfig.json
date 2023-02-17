@@ -1,8 +1,0 @@
-{
-  "extends": "@basestack/tsconfig/nextjs.json",
-  "compilerOptions": {
-    "baseUrl": "."
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
-}

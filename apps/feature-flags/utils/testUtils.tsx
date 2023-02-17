@@ -3,8 +3,6 @@ import { render, RenderOptions } from "@testing-library/react";
 // Styles
 import { ThemeProvider } from "styled-components";
 import theme from "@basestack/design-system/theme";
-// Contexts
-import { ModalsContextProvider } from "contexts/modals";
 // Auth
 import { SessionProvider } from "next-auth/react";
 
@@ -20,9 +18,7 @@ const AllProviders = ({ children, initialState = {} }: AllProvidersProps) => {
   return (
     // @ts-ignore
     <SessionProvider session={{ expires: null }}>
-      <ModalsContextProvider>
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
-      </ModalsContextProvider>
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </SessionProvider>
   );
 };

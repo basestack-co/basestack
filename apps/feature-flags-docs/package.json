@@ -1,0 +1,31 @@
+{
+  "name": "@basestack/feature-flags-docs",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3001",
+    "build": "next build",
+    "start": "next start",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@basestack/design-system": "*",
+    "material-symbols": "^0.4.4",
+    "next": "^13.1.6",
+    "nextra": "2.2.14",
+    "nextra-theme-docs": "2.2.14",
+    "polished": "^4.2.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^5.3.5",
+    "styled-system": "^5.1.5"
+  },
+  "devDependencies": {
+    "@basestack/config": "*",
+    "@basestack/tsconfig": "*",
+    "@types/node": "18.13.0",
+    "next-transpile-modules": "^10.0.0",
+    "typescript": "^4.9.5"
+  }
+}

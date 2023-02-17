@@ -45,7 +45,7 @@ export const ButtonsContainer = styled.div`
 
   @media screen and ${({ theme }) => theme.device.max.sm} {
     flex-direction: column;
-    
+
     button:first-child {
       margin-bottom: ${({ theme }) => theme.spacing.s3};
     }
