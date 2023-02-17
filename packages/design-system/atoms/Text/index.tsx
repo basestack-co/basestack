@@ -14,11 +14,13 @@ const Text = ({
   muted = false,
   color,
   children,
+  fontFamily = "roboto",
   ...props
 }: TextProps) => {
   const sharedProps = {
     muted,
     color,
+    fontFamily,
   };
 
   switch (size) {

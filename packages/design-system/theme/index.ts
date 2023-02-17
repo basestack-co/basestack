@@ -1,7 +1,8 @@
 import { rem } from "polished";
 
 const typography = {
-  fontFamily: "'Roboto', sans-serif",
+  roboto: "'Roboto', sans-serif",
+  robotoFlex: "'Roboto Flex', sans-serif",
 };
 
 const colors = {

@@ -6,6 +6,7 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
+  font-family: roboto;
   margin-bottom: 1.25rem;
   font-family: 'Roboto',sans-serif;
   color: #000000;
@@ -15,6 +16,7 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
+  font-family: roboto;
   margin-right: 0.75rem;
   font-family: 'Roboto',sans-serif;
   color: #757575;
@@ -24,14 +26,17 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
   font-size: 1.125rem;
   line-height: 1.625rem;
   font-weight: 500;
+  font-family: roboto;
   margin-bottom: 0.25rem;
   font-family: 'Roboto',sans-serif;
   color: #000000;
 }
 
 .c7 {
-  border: none;
   height: 2.25rem;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  border: none;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -40,8 +45,6 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 0 0.75rem;
-  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
@@ -51,6 +54,8 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #000000;
   color: #FFFFFF;
+  width: normal;
+  height: normal;
   margin-left: auto;
   width: -webkit-fit-content;
   width: -moz-fit-content;
@@ -122,12 +127,14 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
       <h3
         class="c2"
         data-testid="setting-title"
+        font-family="roboto"
       >
         title
       </h3>
       <p
         class="c3"
         data-testid="setting-title"
+        font-family="roboto"
       >
         description
       </p>
@@ -145,6 +152,7 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
       <p
         class="c6"
         data-testid="setting-title"
+        font-family="roboto"
       />
       <button
         class="c7"
@@ -162,6 +170,7 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
+  font-family: roboto;
   margin-bottom: 1.25rem;
   font-family: 'Roboto',sans-serif;
   color: #000000;
@@ -171,6 +180,7 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
+  font-family: roboto;
   margin-right: 0.75rem;
   font-family: 'Roboto',sans-serif;
   color: #757575;
@@ -180,14 +190,17 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
   font-size: 1.125rem;
   line-height: 1.625rem;
   font-weight: 500;
+  font-family: roboto;
   margin-bottom: 0.25rem;
   font-family: 'Roboto',sans-serif;
   color: #000000;
 }
 
 .c9 {
-  border: none;
   height: 2.25rem;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  border: none;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -196,8 +209,6 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 0 0.75rem;
-  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
@@ -207,6 +218,8 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #000000;
   color: #FFFFFF;
+  width: normal;
+  height: normal;
   margin-left: auto;
   width: -webkit-fit-content;
   width: -moz-fit-content;
@@ -308,12 +321,14 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
       <h3
         class="c2"
         data-testid="setting-title"
+        font-family="roboto"
       >
         title
       </h3>
       <p
         class="c3"
         data-testid="setting-title"
+        font-family="roboto"
       >
         description
       </p>
@@ -342,6 +357,7 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
       <p
         class="c8"
         data-testid="setting-title"
+        font-family="roboto"
       >
         text
       </p>
@@ -361,6 +377,7 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
+  font-family: roboto;
   margin-bottom: 1.25rem;
   font-family: 'Roboto',sans-serif;
   color: #000000;
@@ -370,6 +387,7 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
+  font-family: roboto;
   margin-right: 0.75rem;
   font-family: 'Roboto',sans-serif;
   color: #757575;
@@ -379,14 +397,17 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
   font-size: 1.125rem;
   line-height: 1.625rem;
   font-weight: 500;
+  font-family: roboto;
   margin-bottom: 0.25rem;
   font-family: 'Roboto',sans-serif;
   color: #000000;
 }
 
 .c7 {
-  border: none;
   height: 2.25rem;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  border: none;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -395,8 +416,6 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 0 0.75rem;
-  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
@@ -406,6 +425,8 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
   background-color: #000000;
   color: #FFFFFF;
+  width: normal;
+  height: normal;
   margin-left: auto;
   width: -webkit-fit-content;
   width: -moz-fit-content;
@@ -477,12 +498,14 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
       <h3
         class="c2"
         data-testid="setting-title"
+        font-family="roboto"
       >
         title
       </h3>
       <p
         class="c3"
         data-testid="setting-title"
+        font-family="roboto"
       >
         description
       </p>
@@ -500,6 +523,7 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
       <p
         class="c6"
         data-testid="setting-title"
+        font-family="roboto"
       >
         text
       </p>

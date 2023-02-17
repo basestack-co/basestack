@@ -8,15 +8,12 @@ import {
   typography,
 } from "styled-system";
 import { darken, lighten, rem } from "polished";
-import { ButtonVariant } from "./types";
+import { ButtonSize, ButtonVariant, StyledButtonProps } from "./types";
 
 const sharedButtonStyles = css`
   border: none;
-  height: ${rem("36px")};
   display: flex;
   align-items: center;
-  padding: 0 ${rem("12px")};
-  font-size: ${rem("14px")};
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
@@ -146,14 +143,29 @@ const handleButtonVariant = (variant?: ButtonVariant) => {
   }
 };
 
-interface Props {
-  hasLeftIcon: boolean;
-  hasRightIcon: boolean;
-  fullWidth: boolean;
-  variant: ButtonVariant;
-}
+const handleButtonSize = (size?: ButtonSize) => {
+  switch (size) {
+    default:
+    case ButtonSize.Normal:
+      return {
+        height: rem("36px"),
+        padding: `0 ${rem("12px")}`,
+        fontSize: rem("14px"),
+      };
+    case ButtonSize.Medium:
+      return {
+        height: rem("42px"),
+        padding: `0 ${rem("16px")}`,
+        fontSize: rem("16px"),
+      };
+  }
+};
 
-export const StyledButton = styled.button<Props>`
+export const StyledButton = styled.button<StyledButtonProps>`
+  height: ${({ size }) => handleButtonSize(size).height};
+  padding: ${({ size }) => handleButtonSize(size).padding};
+  font-size: ${({ size }) => handleButtonSize(size).fontSize};
+
   ${({ variant }) => handleButtonVariant(variant)};
   ${compose(flexbox, space, layout, typography, color)};
 

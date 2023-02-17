@@ -1,0 +1,375 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Slider tests render Slider correctly 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 6.25rem 1.25rem;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.c5 {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-gap: 1.25rem;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto 3.125rem auto;
+}
+
+.c6 {
+  position: relative;
+  border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  text-align: left;
+  background-color: #FFFFFF;
+  border-radius: 1.25rem;
+  padding: 1.25rem 1.25rem 1.5625rem 1.25rem;
+  box-shadow: rgba(0,0,0,0.1) 0px 4px 6px -1px,rgba(0,0,0,0.06) 0px 2px 4px -1px;
+  cursor: pointer;
+  -webkit-transition: scale 0.2s ease-in-out;
+  transition: scale 0.2s ease-in-out;
+  overflow: hidden;
+}
+
+.c6:hover {
+  scale: 1.05;
+}
+
+.c6::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  -webkit-animation: bHTXJE 10s linear;
+  animation: bHTXJE 10s linear;
+  height: 5px;
+  background-color: #276EF1;
+}
+
+.c12 {
+  position: relative;
+  border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  text-align: left;
+  background-color: #F6F6F6;
+  border-radius: 1.25rem;
+  padding: 1.25rem 1.25rem 1.5625rem 1.25rem;
+  box-shadow: rgba(0,0,0,0.1) 0px 4px 6px -1px,rgba(0,0,0,0.06) 0px 2px 4px -1px;
+  cursor: pointer;
+  -webkit-transition: scale 0.2s ease-in-out;
+  transition: scale 0.2s ease-in-out;
+  overflow: hidden;
+}
+
+.c12:hover {
+  scale: 1.05;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.c14 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: #F6F6F6;
+  box-shadow: rgba(0,0,0,0.25) 0px 25px 50px -12px;
+  border-radius: 1.25rem;
+  width: 100%;
+  overflow: hidden;
+  max-width: 1100px;
+}
+
+.c15 {
+  width: 100%;
+  height: auto;
+}
+
+.c11 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-weight: 400;
+  line-height: 1.6;
+  font-family: 'Roboto',sans-serif;
+  color: #757575;
+}
+
+.c10 {
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  font-weight: 500;
+  font-family: roboto;
+  margin-left: 0.75rem;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c4 {
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.6;
+  font-family: 'Roboto',sans-serif;
+  color: #757575;
+}
+
+.c3 {
+  font-size: 1.5rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  font-family: robotoFlex;
+  font-size: 2.625rem;
+  line-height: 1.4;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-family: 'Roboto Flex',sans-serif;
+  color: #000000;
+}
+
+.c8 {
+  height: 1.5rem;
+  width: 1.5rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c9 {
+  color: #276EF1;
+  font-size: 1.5rem;
+}
+
+.c13 {
+  color: #000000;
+  font-size: 1.5rem;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  max-width: 720px;
+  margin-bottom: 3.125rem;
+}
+
+@media screen and (max-width:991.98px) {
+  .c5 {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+@media screen and (max-width:767.98px) {
+  .c5 {
+    grid-template-columns: 1fr;
+  }
+}
+
+<section
+    class="c0"
+  >
+    <div
+      class="c1"
+    >
+      <div
+        class="c2"
+      >
+        <h2
+          class="c3"
+          color="#000000"
+          font-family="robotoFlex"
+          font-size="2.625rem"
+        >
+          Release with Confidence
+        </h2>
+        <p
+          class="c4"
+          color="#757575"
+          font-family="roboto"
+          font-weight="400"
+        >
+          MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags.
+        </p>
+      </div>
+      <div
+        class="c5"
+      >
+        <button
+          class="c6"
+        >
+          <div
+            class="c7"
+          >
+            <div
+              class="c8"
+              data-testid="icon-container"
+              size="24"
+            >
+              <span
+                class="c9 material-symbols-sharp"
+                color="#276EF1"
+                data-testid="icon"
+                size="24"
+              >
+                person
+              </span>
+            </div>
+            <h3
+              class="c10"
+              font-family="roboto"
+            >
+              User traits
+            </h3>
+          </div>
+          <p
+            class="c11"
+            font-family="roboto"
+            font-weight="400"
+          >
+            MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.
+          </p>
+        </button>
+        <button
+          class="c12"
+        >
+          <div
+            class="c7"
+          >
+            <div
+              class="c8"
+              data-testid="icon-container"
+              size="24"
+            >
+              <span
+                class="c13 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                send
+              </span>
+            </div>
+            <h3
+              class="c10"
+              font-family="roboto"
+            >
+              Staged feature rollouts
+            </h3>
+          </div>
+          <p
+            class="c11"
+            font-family="roboto"
+            font-weight="400"
+          >
+            MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.
+          </p>
+        </button>
+        <button
+          class="c12"
+        >
+          <div
+            class="c7"
+          >
+            <div
+              class="c8"
+              data-testid="icon-container"
+              size="24"
+            >
+              <span
+                class="c13 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="24"
+              >
+                history
+              </span>
+            </div>
+            <h3
+              class="c10"
+              font-family="roboto"
+            >
+              Track Changes
+            </h3>
+          </div>
+          <p
+            class="c11"
+            font-family="roboto"
+            font-weight="400"
+          >
+            MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.
+          </p>
+        </button>
+      </div>
+      <div
+        class="c14"
+      >
+        <img
+          alt="product demo"
+          class="c15"
+          src="https://images.pexels.com/photos/3912477/pexels-photo-3912477.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        />
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

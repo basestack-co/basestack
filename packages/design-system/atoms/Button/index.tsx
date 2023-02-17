@@ -1,6 +1,6 @@
-import { forwardRef, memo } from "react";
+import { forwardRef } from "react";
 import { useTheme } from "styled-components";
-import { ButtonProps, ButtonVariant } from "./types";
+import { ButtonProps, ButtonVariant, ButtonSize } from "./types";
 import Spinner from "../Spinner";
 import Icon from "../Icon";
 import {
@@ -27,6 +27,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       iconSize = "medium",
       isLoading = false,
       isDisabled = false,
+      size = ButtonSize.Normal,
       ...props
     },
     ref
@@ -67,6 +68,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         variant={variant}
         fullWidth={fullWidth}
         disabled={isDisabled}
+        size={size}
         {...props}
         {...(!!as && { as })}
       >
@@ -91,6 +93,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     );
   }
 );
+
+Button.displayName = "Button";
 
 export {
   outlinedButtonStyles,
