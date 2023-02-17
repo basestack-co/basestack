@@ -43,6 +43,7 @@ export default class MyDocument extends Document {
           <link
             rel="preconnect"
             href="https://fonts.gstatic.com"
+            // @ts-ignore
             crossOrigin="true"
           />
           <link

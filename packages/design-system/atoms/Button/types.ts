@@ -19,6 +19,11 @@ export enum ButtonVariant {
   DangerFilled = "dangerFilled",
 }
 
+export enum ButtonSize {
+  Normal = "normal",
+  Medium = "medium",
+}
+
 export interface ButtonProps
   extends SpaceProps,
     FlexboxProps,
@@ -65,4 +70,16 @@ export interface ButtonProps
    * Disabled the button
    */
   isDisabled?: boolean;
+  /**
+   * Button Size
+   */
+  size?: ButtonSize;
+}
+
+export interface StyledButtonProps {
+  hasLeftIcon: boolean;
+  hasRightIcon: boolean;
+  fullWidth: boolean;
+  variant: ButtonVariant;
+  size: ButtonSize;
 }

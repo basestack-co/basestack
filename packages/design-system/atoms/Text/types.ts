@@ -9,6 +9,8 @@ export type Size =
   | "small"
   | "xSmall";
 
+export type FontFamily = "roboto" | "robotoFlex";
+
 export interface TextProps extends SpaceProps, TypographyProps {
   /**
    * Change text size
@@ -26,4 +28,8 @@ export interface TextProps extends SpaceProps, TypographyProps {
    * Text
    */
   children: ReactNode;
+  /**
+   * Change text fontFamily
+   */
+  fontFamily?: FontFamily;
 }

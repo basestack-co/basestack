@@ -6,6 +6,7 @@ exports[`Pill Atom tests render Pill correctly 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
+  font-family: roboto;
   font-family: 'Roboto',sans-serif;
   color: #000000;
 }
@@ -41,6 +42,7 @@ exports[`Pill Atom tests render Pill correctly 1`] = `
       class="c1"
       color="#000000"
       data-testid="pill-text"
+      font-family="roboto"
     >
       pill
     </p>
@@ -54,6 +56,7 @@ exports[`Pill Atom tests should render selected Pill 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
+  font-family: roboto;
   font-family: 'Roboto',sans-serif;
   color: #276EF1;
 }
@@ -89,6 +92,7 @@ exports[`Pill Atom tests should render selected Pill 1`] = `
       class="c1"
       color="#276EF1"
       data-testid="pill-text"
+      font-family="roboto"
     >
       pill
     </p>

@@ -1,0 +1,590 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Code tests render Code correctly 1`] = `
+<DocumentFragment>
+  .c8 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  color: #CBCBCB;
+}
+
+.c4 {
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.6;
+  font-family: 'Roboto',sans-serif;
+  color: #CBCBCB;
+}
+
+.c3 {
+  font-size: 1.5rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  font-family: robotoFlex;
+  font-size: 2.625rem;
+  line-height: 1.4;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-family: 'Roboto Flex',sans-serif;
+  color: #F6F6F6;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #333333;
+  position: relative;
+}
+
+.c7 {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  height: 2.75rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex: 1 0 0;
+  -ms-flex: 1 0 0;
+  flex: 1 0 0;
+  padding: 0 0.75rem;
+  -webkit-transition: background-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out;
+  border-bottom: 2px solid #545454;
+}
+
+.c7:hover {
+  background-color: #545454;
+}
+
+.c9 {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  left: 0;
+  bottom: 0;
+  background-color: #5B91F5;
+  height: 2px;
+  width: calc((100% / 4));
+  -webkit-transition: -webkit-transform 0.2s ease-in-out;
+  -webkit-transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 6.25rem 1.25rem;
+  background-color: #1F1F1F;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  font-size: 1rem;
+  box-shadow: rgba(0,0,0,0.1) 0px 4px 6px -1px,rgba(0,0,0,0.06) 0px 2px 4px -1px;
+}
+
+.c5 pre {
+  min-height: 448px;
+  background: #333333!important;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  max-width: 720px;
+  margin-bottom: 3.125rem;
+}
+
+<section
+    class="c0"
+  >
+    <div
+      class="c1"
+    >
+      <div
+        class="c2"
+      >
+        <h2
+          class="c3"
+          color="#F6F6F6"
+          font-family="robotoFlex"
+          font-size="2.625rem"
+        >
+          Available in Frontend Frameworks
+        </h2>
+        <p
+          class="c4"
+          color="#CBCBCB"
+          font-family="roboto"
+          font-weight="400"
+        >
+          We currently support these popular languages and frameworks
+        </p>
+      </div>
+      <div
+        class="c5"
+      >
+        <div
+          class="c6"
+          data-testid="tabs-component"
+        >
+          <button
+            class="c7"
+            data-testid="tab-button"
+          >
+            <p
+              class="c8"
+              color="#CBCBCB"
+              font-family="roboto"
+              font-weight="500"
+            >
+              Javascript
+            </p>
+          </button>
+          <button
+            class="c7"
+            data-testid="tab-button"
+          >
+            <p
+              class="c8"
+              color="#CBCBCB"
+              font-family="roboto"
+              font-weight="500"
+            >
+              React
+            </p>
+          </button>
+          <button
+            class="c7"
+            data-testid="tab-button"
+          >
+            <p
+              class="c8"
+              color="#CBCBCB"
+              font-family="roboto"
+              font-weight="500"
+            >
+              Vue
+            </p>
+          </button>
+          <button
+            class="c7"
+            data-testid="tab-button"
+          >
+            <p
+              class="c8"
+              color="#CBCBCB"
+              font-family="roboto"
+              font-weight="500"
+            >
+              jquery
+            </p>
+          </button>
+          <div
+            class="c9"
+          />
+        </div>
+        <pre
+          style="display: block; overflow-x: auto; background: rgb(43, 43, 43); color: rgb(248, 248, 242); padding: 0.5em;"
+        >
+          <code
+            class="language-javascript"
+            style="white-space: pre-wrap;"
+          >
+            <span>
+              <span>
+                
+
+              </span>
+            </span>
+            <span>
+              <span>
+                  
+              </span>
+              <span
+                style="color: rgb(220, 198, 224);"
+              >
+                import
+              </span>
+              <span>
+                 React, { useState } 
+              </span>
+              <span
+                style="color: rgb(220, 198, 224);"
+              >
+                from
+              </span>
+              <span>
+                 
+              </span>
+              <span
+                style="color: rgb(171, 227, 56);"
+              >
+                "react"
+              </span>
+              <span>
+                ;
+
+              </span>
+            </span>
+            <span>
+              
+
+            </span>
+            <span>
+              <span>
+                  
+              </span>
+              <span
+                style="color: rgb(220, 198, 224);"
+              >
+                const
+              </span>
+              <span>
+                 currentClients = 
+              </span>
+              <span
+                style="color: rgb(245, 171, 53);"
+              >
+                1000
+              </span>
+              <span>
+                ;
+
+              </span>
+            </span>
+            <span>
+              <span>
+                  
+              </span>
+              <span
+                style="color: rgb(220, 198, 224);"
+              >
+                const
+              </span>
+              <span>
+                 newClients = 
+              </span>
+              <span
+                style="color: rgb(245, 171, 53);"
+              >
+                50
+              </span>
+              <span>
+                ;
+
+              </span>
+            </span>
+            <span>
+              
+
+            </span>
+            <span>
+              <span>
+                  
+              </span>
+              <span
+                class="hljs-function"
+                style="color: rgb(220, 198, 224);"
+              >
+                function
+              </span>
+              <span
+                class="hljs-function"
+              >
+                 
+              </span>
+              <span
+                class="hljs-function"
+                style="color: rgb(0, 224, 224);"
+              >
+                sum
+              </span>
+              <span
+                class="hljs-function"
+              >
+                (
+              </span>
+              <span
+                class="hljs-function"
+                style="color: rgb(245, 171, 53);"
+              >
+                a, b
+              </span>
+              <span
+                class="hljs-function"
+              >
+                ) 
+              </span>
+              <span>
+                {
+
+              </span>
+            </span>
+            <span>
+              <span>
+                    
+              </span>
+              <span
+                style="color: rgb(220, 198, 224);"
+              >
+                return
+              </span>
+              <span>
+                 a + b;
+
+              </span>
+            </span>
+            <span>
+                }
+
+            </span>
+            <span>
+              
+
+            </span>
+            <span>
+              <span>
+                  
+              </span>
+              <span
+                style="color: rgb(220, 198, 224);"
+              >
+                const
+              </span>
+              <span>
+                 numberOfClients = sum(currentClients, newClients);
+
+              </span>
+            </span>
+            <span>
+              
+
+            </span>
+            <span>
+              <span>
+                  
+              </span>
+              <span
+                class="hljs-function"
+                style="color: rgb(220, 198, 224);"
+              >
+                function
+              </span>
+              <span
+                class="hljs-function"
+              >
+                 
+              </span>
+              <span
+                class="hljs-function"
+                style="color: rgb(0, 224, 224);"
+              >
+                App
+              </span>
+              <span
+                class="hljs-function"
+              >
+                (
+              </span>
+              <span
+                class="hljs-function"
+              >
+                ) 
+              </span>
+              <span>
+                {
+
+              </span>
+            </span>
+            <span>
+              <span>
+                    
+              </span>
+              <span
+                style="color: rgb(220, 198, 224);"
+              >
+                const
+              </span>
+              <span>
+                 [alertMessage, setAlertMessage] = useState(
+              </span>
+              <span
+                style="color: rgb(171, 227, 56);"
+              >
+                ""
+              </span>
+              <span>
+                );
+
+              </span>
+            </span>
+            <span>
+              
+
+            </span>
+            <span>
+              <span>
+                    
+              </span>
+              <span
+                style="color: rgb(220, 198, 224);"
+              >
+                if
+              </span>
+              <span>
+                 (numberOfClients &gt; 
+              </span>
+              <span
+                style="color: rgb(245, 171, 53);"
+              >
+                3000
+              </span>
+              <span>
+                ) {
+
+              </span>
+            </span>
+            <span>
+              <span>
+                      setAlertMessage(
+              </span>
+              <span
+                style="color: rgb(171, 227, 56);"
+              >
+                "Party Time"
+              </span>
+              <span>
+                );
+
+              </span>
+            </span>
+            <span>
+                  }
+
+            </span>
+            <span>
+              
+
+            </span>
+            <span>
+              <span>
+                    
+              </span>
+              <span
+                style="color: rgb(220, 198, 224);"
+              >
+                return
+              </span>
+              <span>
+                 alertMessage;
+
+              </span>
+            </span>
+            <span>
+                }
+
+            </span>
+            <span>
+              
+
+            </span>
+            <span>
+              <span>
+                  
+              </span>
+              <span
+                style="color: rgb(220, 198, 224);"
+              >
+                export
+              </span>
+              <span>
+                 
+              </span>
+              <span
+                style="color: rgb(220, 198, 224);"
+              >
+                default
+              </span>
+              <span>
+                 App;
+
+              </span>
+            </span>
+            <span>
+                
+
+            </span>
+            <span />
+          </code>
+        </pre>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

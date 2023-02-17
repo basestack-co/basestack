@@ -11,16 +11,16 @@ const GlobalStyle = createGlobalStyle`
     
     html,
     body {
-      height: 100%;
+      min-height: 100%;
     }
     
     body {
-      font-family: ${({ theme }) => theme.typography.fontFamily};
+      font-family: ${({ theme }) => theme.typography.roboto};
       background-color: ${({ theme }) => theme.colors.gray50};
     }
     
     #__next {
-      height: 100%;
+      min-height: 100%;
       display: flex;
       flex-direction: column;
     }
