@@ -48,28 +48,28 @@ const WaitingList = () => {
   });
 
   const onSubmit: SubmitHandler<FormInputs> = async (input: FormInputs) => {
-    /* try {
-     const rawResponse = await fetch(
-        `${sendinblueApiUrl}/contacts/doubleOptinConfirmation`,
+    try {
+      const params = new URLSearchParams({
+        includeListIds: "4", // Feature Flags Early Access
+        email: input.email,
+        templateId: "1", // Default Template Double opt-in confirmation
+        redirectionUrl,
+      });
+
+      await fetch(
+        `https://basestack-email.vercel.app/api/v1/email/subscribe?${params.toString()}`,
         {
           method: "POST",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "api-key": process.env.SENDBLUE_API_KEY!,
           },
-          body: JSON.stringify({
-            includeListIds: [4], // Feature Flags Early Access
-            email: input.email,
-            templateId: 1, // Default Template Double opt-in confirmation
-            redirectionUrl,
-          }),
         }
       );
       console.log("success");
     } catch (error) {
       console.log(error);
-    } */
+    }
   };
 
   return (
