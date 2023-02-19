@@ -51,7 +51,7 @@ const WaitingList = () => {
   const onSubmit: SubmitHandler<FormInputs> = async (input: FormInputs) => {
     try {
       const params = new URLSearchParams({
-        includeListIds: "4", // Feature Flags Early Access
+        includeListId: "4", // Feature Flags Early Access
         email: input.email,
         templateId: "1", // Default Template Double opt-in confirmation
         redirectionUrl,
