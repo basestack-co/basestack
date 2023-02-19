@@ -78,15 +78,15 @@ const LegalGlobalStyle = createGlobalStyle`
   }
 
   hr {
-    border-color: #1d7484;
+    border-color: #276ef1;
   }
 
   a {
     text-decoration: none;
-    color: #1d7484;
+    color: #276ef1;
   }
   a:visited {
-    color: #144f5a;
+    color: #276ef1;
   }
   a:hover {
     color: #982c61;
@@ -110,7 +110,7 @@ const LegalGlobalStyle = createGlobalStyle`
     padding-top: 0.8em;
     padding-bottom: 0.8em;
     padding-right: 0.8em;
-    border-left: 5px solid #1d7484;
+    border-left: 5px solid #276ef1;
     margin-bottom: 2.5rem;
     background-color: #f1f1f1;
   }
@@ -168,7 +168,7 @@ const LegalGlobalStyle = createGlobalStyle`
     border: 1px solid #4a4a4a;
   }
   input:focus, textarea:focus {
-    border: 1px solid #1d7484;
+    border: 1px solid #276ef1;
   }
 
   textarea {
@@ -181,10 +181,10 @@ const LegalGlobalStyle = createGlobalStyle`
     text-align: center;
     text-decoration: none;
     white-space: nowrap;
-    background-color: #1d7484;
+    background-color: #276ef1;
     color: #f9f9f9;
     border-radius: 1px;
-    border: 1px solid #1d7484;
+    border: 1px solid #276ef1;
     cursor: pointer;
     box-sizing: border-box;
   }
@@ -210,12 +210,12 @@ const LegalGlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   textarea:focus, select:focus, input:focus {
-    border: 1px solid #1d7484;
+    border: 1px solid #276ef1;
     outline: 0;
   }
 
   input[type=checkbox]:focus {
-    outline: 1px dotted #1d7484;
+    outline: 1px dotted #276ef1;
   }
 
   label, legend, fieldset {

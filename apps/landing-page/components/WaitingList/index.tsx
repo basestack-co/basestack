@@ -131,6 +131,7 @@ const WaitingList = () => {
                   />
                 )}
               />
+
               <Button
                 onClick={handleSubmit(onSubmit)}
                 isDisabled={isSubmitting}
@@ -142,11 +143,22 @@ const WaitingList = () => {
                 Get Early Access
               </Button>
             </InputContainer>
+            {!!errors.email?.message && (
+              <Text
+                size="xSmall"
+                mt={theme.spacing.s2}
+                color={
+                  !!errors.email ? theme.colors.red400 : theme.colors.gray500
+                }
+              >
+                {errors.email?.message}
+              </Text>
+            )}
           </TextContainer>
           <ImageContainer>
             <Image
-              src="https://images.pexels.com/photos/3912477/pexels-photo-3912477.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt=""
+              src="/images/flags_dash.png"
+              alt="Basestack feature flags preview"
             />
           </ImageContainer>
         </Grid>
