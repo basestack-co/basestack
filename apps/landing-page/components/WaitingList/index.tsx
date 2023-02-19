@@ -1,4 +1,6 @@
 import React from "react";
+import Link from "next/link";
+// Styles
 import { rem } from "polished";
 import { useTheme } from "styled-components";
 // Form
@@ -6,6 +8,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Utils
 import { z } from "zod";
+import { sendinblueApiUrl, redirectionUrl } from "utils/constants";
 // Components
 import Image from "../Image";
 import Logo from "../Logo";
@@ -44,8 +47,29 @@ const WaitingList = () => {
     mode: "onChange",
   });
 
-  const onSubmit: SubmitHandler<FormInputs> = (input: FormInputs) => {
-    console.log(input);
+  const onSubmit: SubmitHandler<FormInputs> = async (input: FormInputs) => {
+    /* try {
+     const rawResponse = await fetch(
+        `${sendinblueApiUrl}/contacts/doubleOptinConfirmation`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "api-key": process.env.SENDBLUE_API_KEY!,
+          },
+          body: JSON.stringify({
+            includeListIds: [4], // Feature Flags Early Access
+            email: input.email,
+            templateId: 1, // Default Template Double opt-in confirmation
+            redirectionUrl,
+          }),
+        }
+      );
+      console.log("success");
+    } catch (error) {
+      console.log(error);
+    } */
   };
 
   return (
@@ -117,7 +141,10 @@ const WaitingList = () => {
         </Grid>
         <Footer>
           <Text size="medium" fontWeight={400} muted>
-            © Basestack {new Date().getFullYear()}. All rights reserved.
+            © Basestack {new Date().getFullYear()}. All rights reserved.{" "}
+            <Link style={{ color: "black" }} href="/legal/privacy">
+              Privacy Policy
+            </Link>
           </Text>
         </Footer>
       </ContentContainer>

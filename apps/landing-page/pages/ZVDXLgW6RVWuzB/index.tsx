@@ -13,7 +13,7 @@ import {
   Code,
 } from "../../components";
 import { DarkContainer } from "../../styles";
-import { cards, questions, slides } from "../../content/data";
+import { cards, questions, slides } from "../../content/landing-page";
 
 const LandingPage = () => {
   const [isDarkSectionTop, darkContainer] = useIsTop({ offSet: 80 });
