@@ -8,7 +8,8 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Utils
 import { z } from "zod";
-import { sendinblueApiUrl, redirectionUrl } from "utils/constants";
+import { redirectionUrl } from "utils/constants";
+import toast from "react-hot-toast";
 // Components
 import Image from "../Image";
 import Logo from "../Logo";
@@ -56,7 +57,7 @@ const WaitingList = () => {
         redirectionUrl,
       });
 
-      await fetch(
+      const res = await fetch(
         `https://basestack-email.vercel.app/api/v1/email/subscribe?${params.toString()}`,
         {
           method: "POST",
@@ -66,9 +67,18 @@ const WaitingList = () => {
           },
         }
       );
-      console.log("success");
+
+      const data = await res.json();
+
+      if (data.code === "permission_denied" || data.error) {
+        throw new Error(data.message);
+      }
+
+      reset();
+      toast.success("Successfully subscribed! Check your email!");
     } catch (error) {
-      console.log(error);
+      const { message } = error as Error;
+      toast.error(message ?? "Something went wrong, please try again.");
     }
   };
 
@@ -117,6 +127,7 @@ const WaitingList = () => {
                     value={field.value}
                     onChange={field.onChange}
                     onBlur={field.onBlur}
+                    disabled={isSubmitting}
                   />
                 )}
               />
@@ -126,7 +137,7 @@ const WaitingList = () => {
                 isLoading={isSubmitting}
                 size={ButtonSize.Medium}
                 flexShrink={0}
-                icon="arrow_forward"
+                {...(isSubmitting ? {} : { icon: "arrow_forward" })}
               >
                 Get Early Access
               </Button>

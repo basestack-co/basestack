@@ -6,6 +6,9 @@ import theme from "@basestack/design-system/theme";
 import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
 // Fonts
 import "material-symbols";
+// Utils
+import toast, { Toaster } from "react-hot-toast";
+
 const Noop = ({ children }: { children: React.ReactNode }) => children;
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -18,6 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Layout>
           <Component {...pageProps} />
         </Layout>
+        <Toaster position="bottom-right" />
       </>
     </ThemeProvider>
   );
