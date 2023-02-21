@@ -1,9 +1,40 @@
 import { protectedProcedure, router } from "server/trpc";
 // Utils
-import { UserByProjectIdInput, UserBySearchInput } from "../schemas/user";
+import {
+  AllUserInput,
+  UserByProjectIdInput,
+  UserBySearchInput,
+} from "../schemas/user";
 
 export const userRouter = router({
+  all: protectedProcedure.input(AllUserInput).query(async ({ ctx, input }) => {
+    const users = await ctx.prisma.user.findMany({
+      where: {
+        NOT: {
+          projects: {
+            some: {
+              projectId: input.projectId,
+            },
+          },
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        image: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return { users };
+  }),
   byProjectId: protectedProcedure
+    .meta({
+      restricted: true,
+    })
     .input(UserByProjectIdInput)
     .query(async ({ ctx, input }) => {
       const users = await ctx.prisma.projectsOnUsers.findMany({
@@ -32,6 +63,9 @@ export const userRouter = router({
       const users = await ctx.prisma.user.findMany({
         where: {
           name: {
+            search: input.search,
+          },
+          email: {
             search: input.search,
           },
         },

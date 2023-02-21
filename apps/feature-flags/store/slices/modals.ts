@@ -16,6 +16,7 @@ export const createModalsSlice: StateCreator<
   isUpdateFlagModalOpen: false,
   environmentModalPayload: null,
   flagModalPayload: null,
+  inviteMemberModalPayload: null,
   setCreateEnvironmentModalOpen: ({ isOpen, data }) =>
     set((state) => ({
       isCreateEnvironmentModalOpen: isOpen,
@@ -26,9 +27,10 @@ export const createModalsSlice: StateCreator<
       isUpdateEnvironmentModalOpen: isOpen,
       environmentModalPayload: data,
     })),
-  setInviteMemberModalOpen: ({ isOpen }) =>
+  setInviteMemberModalOpen: ({ isOpen, data }) =>
     set((state) => ({
       isInviteMemberModalOpen: isOpen,
+      inviteMemberModalPayload: data,
     })),
   setCreateProjectModalOpen: ({ isOpen }) =>
     set((state) => ({

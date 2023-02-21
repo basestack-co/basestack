@@ -22,6 +22,10 @@ export interface FlagModalPayload {
   environment?: { id: string };
 }
 
+export interface InviteMemberModalPayload {
+  project: RouterOutput["project"]["bySlug"]["project"];
+}
+
 export interface EnvironmentModalPayload {
   environment?: { id: string };
   project: RouterOutput["project"]["bySlug"]["project"];
@@ -43,7 +47,10 @@ export interface ModalsSliceActions {
     ModalPayload<EnvironmentModalPayload>,
     void
   >;
-  setInviteMemberModalOpen: ModalAction<ModalPayload<null>, void>;
+  setInviteMemberModalOpen: ModalAction<
+    ModalPayload<InviteMemberModalPayload>,
+    void
+  >;
   setCreateProjectModalOpen: ModalAction<ModalPayload<null>, void>;
   setCreateFlagModalOpen: ModalAction<ModalPayload<null>, void>;
   setUpdateFlagModalOpen: ModalAction<ModalPayload<FlagModalPayload>, void>;
@@ -58,6 +65,7 @@ export interface ModalsSliceState extends ModalsSliceActions {
   isUpdateFlagModalOpen: boolean;
   flagModalPayload: FlagModalPayload | null;
   environmentModalPayload: EnvironmentModalPayload | null;
+  inviteMemberModalPayload: InviteMemberModalPayload | null;
 }
 
 /**

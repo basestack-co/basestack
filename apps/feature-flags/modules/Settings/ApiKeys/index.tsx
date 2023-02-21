@@ -6,7 +6,7 @@ import { RouterOutput } from "libs/trpc";
 // Styles
 import { CardList, CardListItem } from "../styles";
 // Mocks
-import { apiKeysTableMock } from "mocks/settings";
+import { apiKeysTableMock } from "__mocks__/settings";
 
 interface Props {
   project: RouterOutput["project"]["bySlug"]["project"];

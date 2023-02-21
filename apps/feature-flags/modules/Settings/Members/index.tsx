@@ -45,7 +45,7 @@ const MembersModule = ({ project }: Props) => {
   const onHandleInvite = useCallback(() => {
     if (project) {
       console.log("create here");
-      setInviteMemberModalOpen({ isOpen: true });
+      setInviteMemberModalOpen({ isOpen: true, data: { project } });
     }
   }, [project]);
 
