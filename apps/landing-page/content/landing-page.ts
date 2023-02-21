@@ -66,3 +66,33 @@ export const slides = [
     },
   },
 ];
+
+export const waitingList = [
+  {
+    icon: "person",
+    title: "Beautiful Interface",
+    text: "Easy to create and manage feature toggles across web, mobile, and server-side applications.",
+    image: {
+      src: "/images/flags_cards_popups.png",
+      alt: "Basestack feature flags preview",
+    },
+  },
+  {
+    icon: "history",
+    title: "Track Changes",
+    text: "Create and manage feature toggles across web, mobile, and server-side applications.",
+    image: {
+      src: "/images/flag_history.png",
+      alt: "product demo",
+    },
+  },
+  {
+    icon: "send",
+    title: "Add Payload",
+    text: "Create and manage feature toggles across web, mobile, and server-side applications.",
+    image: {
+      src: "/images/create_flag_advanced.png",
+      alt: "product demo",
+    },
+  },
+];

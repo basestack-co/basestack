@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { Text } from "@basestack/design-system";
 import { rem } from "polished";
 
 const flexColumn = css`
@@ -36,31 +37,45 @@ export const ContentContainer = styled.div`
   margin: 0 auto;
 `;
 
-export const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: ${({ theme }) => theme.spacing.s8};
-  padding: ${rem("100px")} 0;
-  margin: auto 0;
-
-  @media screen and ${({ theme }) => theme.device.max.xl} {
-    grid-template-columns: 1fr;
-  }
-`;
-
 export const Header = styled.div`
   ${flexColumn};
 `;
 
 export const TextContainer = styled.div`
   ${flexColumn};
+  max-width: 50%;
+  padding-top: ${({ theme }) => theme.spacing.s8};
 
   @media screen and ${({ theme }) => theme.device.max.xl} {
-    text-align: center;
-    align-items: center;
-    max-width: 720px;
-    margin: 0 auto;
+    max-width: 80%;
   }
+
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    max-width: 100%;
+  }
+`;
+
+export const Grid = styled.div`
+  display: grid;
+  grid-template-columns: minmax(auto, ${rem("420px")}) 1fr;
+  grid-gap: ${({ theme }) => theme.spacing.s8};
+  margin: ${({ theme }) => theme.spacing.s7} 0;
+
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    grid-template-columns: 1fr;
+  }
+`;
+
+export const LeftCol = styled.div`
+  ${flexColumn};
+`;
+
+export const InputContainer = styled.div`
+  ${flexColumn};
+`;
+
+export const InputWrapper = styled.div`
+  display: flex;
 `;
 
 export const ImageContainer = styled.div`
@@ -76,14 +91,9 @@ export const ImageContainer = styled.div`
     z-index: -2;
     height: 500px;
     width: 500px;
-    left: -250px;
+    right: 0;
     top: -150px;
   }
-`;
-
-export const InputContainer = styled.div`
-  display: flex;
-  margin-top: ${({ theme }) => theme.spacing.s7};
 `;
 
 export const Input = styled.input`
@@ -107,6 +117,33 @@ export const Input = styled.input`
   }
 `;
 
+export const ErrorContainer = styled.div`
+  height: 0;
+  position: relative;
+`;
+
+export const ErrorText = styled(Text)`
+  position: absolute;
+  top: ${rem("4px")};
+  left: 0;
+`;
+
+export const CardsContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: ${({ theme }) => theme.spacing.s5};
+  margin-top: ${({ theme }) => theme.spacing.s8};
+
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    grid-template-columns: 1fr;
+  }
+`;
+
 export const Footer = styled.div`
   ${flexColumn};
+  margin-top: auto;
 `;
