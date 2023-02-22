@@ -69,9 +69,9 @@ export const slides = [
 
 export const waitingList = [
   {
-    icon: "person",
-    title: "Beautiful Interface",
-    text: "Easy to create and manage feature toggles across web, mobile, and server-side applications.",
+    icon: "flag",
+    title: "Manage Multiple Projects Easily",
+    text: "Control feature releases across multiple projects and environments with ease, all in one platform.",
     image: {
       src: "/images/flags_cards_popups.png",
       alt: "Basestack feature flags preview",
@@ -79,8 +79,8 @@ export const waitingList = [
   },
   {
     icon: "history",
-    title: "Track Changes",
-    text: "Create and manage feature toggles across web, mobile, and server-side applications.",
+    title: "Confident Feature Flag Control",
+    text: "Streamlined management, monitoring, and automated change tracking.",
     image: {
       src: "/images/flag_history.png",
       alt: "product demo",
@@ -88,8 +88,8 @@ export const waitingList = [
   },
   {
     icon: "send",
-    title: "Add Payload",
-    text: "Create and manage feature toggles across web, mobile, and server-side applications.",
+    title: "Efficient Remote Configuration",
+    text: "Optimize your feature flag config with dynamic payload data changes.",
     image: {
       src: "/images/create_flag_advanced.png",
       alt: "product demo",
