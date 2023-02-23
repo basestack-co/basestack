@@ -17,8 +17,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   //@ts-ignore
   const Layout = Component.Layout || Noop;
 
-
-  console.log("process.env = ", process.env)
   return (
     <PiwikProProvider
       containerUrl={process.env.NEXT_PUBLIC_PIWIK_PRO_ACCOUNT_URL}
