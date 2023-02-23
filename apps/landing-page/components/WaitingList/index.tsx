@@ -109,10 +109,9 @@ const WaitingList = ({ data }: WaitingListProps) => {
         throw new Error(data.message);
       }
 
-      CustomEvent.trackEvent("Success", "Successfully subscribed!");
-
+      CustomEvent.trackEvent("Success", "Successfully sent email to confirm");
+      toast.success("A confirmation email has been sent to your inbox.");
       reset();
-      toast.success("Successfully subscribed! Check your email!");
     } catch (error) {
       const { message } = error as Error;
       CustomEvent.trackEvent("Error", message);
@@ -188,10 +187,7 @@ const WaitingList = ({ data }: WaitingListProps) => {
                   )}
                 />
                 <Button
-                  onClick={() => {
-                    CustomEvent.trackEvent("onClick", "Early Access Button");
-                    handleSubmit(onSubmit);
-                  }}
+                  onClick={handleSubmit(onSubmit)}
                   isDisabled={isSubmitting}
                   isLoading={isSubmitting}
                   size={ButtonSize.Medium}
