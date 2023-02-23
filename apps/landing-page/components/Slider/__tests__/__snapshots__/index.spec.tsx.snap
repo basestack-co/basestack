@@ -39,6 +39,70 @@ exports[`Slider tests render Slider correctly 1`] = `
   margin: 0 auto 3.125rem auto;
 }
 
+.c11 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-weight: 400;
+  line-height: 1.6;
+  font-family: 'Roboto',sans-serif;
+  color: #757575;
+}
+
+.c10 {
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  font-weight: 500;
+  font-family: roboto;
+  margin-left: 0.75rem;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c4 {
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.6;
+  font-family: 'Roboto',sans-serif;
+  color: #757575;
+}
+
+.c3 {
+  font-size: 1.5rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  font-family: robotoFlex;
+  font-size: 2.625rem;
+  line-height: 1.4;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-family: 'Roboto Flex',sans-serif;
+  color: #000000;
+}
+
+.c8 {
+  height: 1.5rem;
+  width: 1.5rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c9 {
+  color: #276EF1;
+  font-size: 1.5rem;
+}
+
+.c13 {
+  color: #000000;
+  font-size: 1.5rem;
+}
+
 .c6 {
   position: relative;
   border: none;
@@ -131,70 +195,6 @@ exports[`Slider tests render Slider correctly 1`] = `
 .c15 {
   width: 100%;
   height: auto;
-}
-
-.c11 {
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-weight: 500;
-  font-family: roboto;
-  font-weight: 400;
-  line-height: 1.6;
-  font-family: 'Roboto',sans-serif;
-  color: #757575;
-}
-
-.c10 {
-  font-size: 1.125rem;
-  line-height: 1.625rem;
-  font-weight: 500;
-  font-family: roboto;
-  margin-left: 0.75rem;
-  font-family: 'Roboto',sans-serif;
-  color: #000000;
-}
-
-.c4 {
-  font-size: 1.25rem;
-  line-height: 1.875rem;
-  font-weight: 500;
-  font-family: roboto;
-  font-weight: 400;
-  text-align: center;
-  line-height: 1.6;
-  font-family: 'Roboto',sans-serif;
-  color: #757575;
-}
-
-.c3 {
-  font-size: 1.5rem;
-  line-height: 2.25rem;
-  font-weight: 700;
-  font-family: robotoFlex;
-  font-size: 2.625rem;
-  line-height: 1.4;
-  text-align: center;
-  margin-bottom: 0.5rem;
-  font-family: 'Roboto Flex',sans-serif;
-  color: #000000;
-}
-
-.c8 {
-  height: 1.5rem;
-  width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c9 {
-  color: #276EF1;
-  font-size: 1.5rem;
-}
-
-.c13 {
-  color: #000000;
-  font-size: 1.5rem;
 }
 
 .c2 {

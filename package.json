@@ -19,7 +19,8 @@
     "commit": "git-cz",
     "update:packages": "yarn upgrade-interactive --latest",
     "build:packages": "turbo run build --filter=./packages/*",
-    "build:feature-flags": "turbo run build --filter=feature-flags..."
+    "build:feature-flags": "turbo run build --filter=feature-flags...",
+    "build:landing-page": "turbo run build --filter=landing-page..."
   },
   "devDependencies": {
     "commitizen": "^4.3.0",
@@ -27,7 +28,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.1.2",
     "prettier": "^2.8.4",
-    "turbo": "1.7.4"
+    "turbo": "1.8.0"
   },
   "engines": {
     "npm": ">=7.0.0",
