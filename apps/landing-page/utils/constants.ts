@@ -1,1 +1,1 @@
-export const redirectionUrl = "https://basestack-landing-page.onrender.com/";
+export const redirectionUrl = "https://basestack.co/";
