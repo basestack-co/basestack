@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: basestack-landing-page
+    rootDir: apps/landing-page
+    env: static
+    buildCommand: cd ../.. && yarn install && yarn build:packages; cd apps/landing-page/ && yarn build && yarn next export
+    staticPublishPath: out
+    pullRequestPreviewsEnabled: true
+    envVars:
+      - key: SKIP_INSTALL_DEPS
+        value: true # disables npm install to use yarn
+      - key: NEXT_PUBLIC_PIWIK_PRO_ACCOUNT_URL
+        sync: false # placeholder for a value to be added in the dashboard
+      - key: NEXT_PUBLIC_PIWIK_PRO_CONTAINER_ID
+        sync: false # placeholder for a value to be added in the dashboard
+
+

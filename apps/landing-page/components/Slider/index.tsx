@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useTheme } from "styled-components";
 // Components
-import {
-  CardContainer,
-  CardsContainer,
-  Container,
-  ContentContainer,
-  TitleContainer,
-} from "./styles";
+import { CardsContainer, Container, ContentContainer } from "./styles";
+import SlideCard from "../SlideCard";
 import Image from "../Image";
 import SectionHeader from "../SectionHeader";
-import { Icon, Text } from "@basestack/design-system";
 
 export interface SliderProps {
   title: string;
@@ -22,36 +15,6 @@ export interface SliderProps {
     image: { src: string; alt: string };
   }>;
 }
-
-interface CardProps {
-  text: string;
-  title: string;
-  icon: string;
-  isActive: boolean;
-  onClick: () => void;
-}
-
-const Card = ({ title, text, icon, isActive = false, onClick }: CardProps) => {
-  const theme = useTheme();
-
-  return (
-    <CardContainer onClick={onClick} isActive={isActive}>
-      <TitleContainer>
-        <Icon
-          icon={icon}
-          size="medium"
-          color={isActive ? theme.colors.primary : theme.colors.black}
-        />
-        <Text ml={theme.spacing.s3} size="large">
-          {title}
-        </Text>
-      </TitleContainer>
-      <Text muted size="medium" fontWeight={400} lineHeight={1.6}>
-        {text}
-      </Text>
-    </CardContainer>
-  );
-};
 
 const Slider = ({ title, text, data }: SliderProps) => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -75,7 +38,7 @@ const Slider = ({ title, text, data }: SliderProps) => {
         <SectionHeader title={title} text={text} />
         <CardsContainer>
           {data?.map((item, index) => (
-            <Card
+            <SlideCard
               key={index}
               isActive={index === currentImage}
               icon={item.icon}
