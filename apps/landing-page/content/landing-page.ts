@@ -74,7 +74,7 @@ export const waitingList = [
     text: "Control feature releases across multiple projects and environments with ease, all in one platform.",
     image: {
       src: "/images/flags_cards_popups.png",
-      alt: "Basestack feature flags preview",
+      alt: "An image of a feature flag control panel displaying multiple projects and environments, with intuitive controls for easily managing feature releases.",
     },
   },
   {
@@ -83,7 +83,7 @@ export const waitingList = [
     text: "Streamlined management, monitoring, and automated change tracking.",
     image: {
       src: "/images/flag_history.png",
-      alt: "product demo",
+      alt: "An image of a feature flag dashboard displaying streamlined management, monitoring, and automated change tracking features. The dashboard provides clear and concise data visualization and intuitive controls for easy navigation and management.",
     },
   },
   {
@@ -92,7 +92,7 @@ export const waitingList = [
     text: "Optimize your feature flag config with dynamic payload data changes.",
     image: {
       src: "/images/create_flag_advanced.png",
-      alt: "product demo",
+      alt: "An image of a feature flag configuration interface, displaying dynamic payload data changes. The interface provides intuitive controls for easily making and testing feature flag changes.",
     },
   },
 ];

@@ -10,6 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { redirectionUrl } from "utils/constants";
 import toast from "react-hot-toast";
+// Analytics
+import { usePiwikPro } from "@piwikpro/next-piwik-pro";
 // Components
 import Image from "../Image";
 import { Button, ButtonSize, Text } from "@basestack/design-system";
@@ -50,6 +52,7 @@ export const FormSchema = z.object({
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const WaitingList = ({ data }: WaitingListProps) => {
+  const { PageViews, CustomEvent } = usePiwikPro();
   const theme = useTheme();
   const [currentImage, setCurrentImage] = useState(0);
 
@@ -57,6 +60,10 @@ const WaitingList = ({ data }: WaitingListProps) => {
     src: data[currentImage].image.src,
     alt: data[currentImage].image.alt,
   };
+
+  useEffect(() => {
+    PageViews.trackPageView("Early Access Page View");
+  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -102,10 +109,13 @@ const WaitingList = ({ data }: WaitingListProps) => {
         throw new Error(data.message);
       }
 
+      CustomEvent.trackEvent("Success", "Successfully subscribed!");
+
       reset();
       toast.success("Successfully subscribed! Check your email!");
     } catch (error) {
       const { message } = error as Error;
+      CustomEvent.trackEvent("Error", message);
       toast.error(message ?? "Something went wrong, please try again.");
     }
   };
@@ -168,11 +178,20 @@ const WaitingList = ({ data }: WaitingListProps) => {
                       onChange={field.onChange}
                       onBlur={field.onBlur}
                       disabled={isSubmitting}
+                      onFocus={() =>
+                        CustomEvent.trackEvent(
+                          "onFocus",
+                          "Email Input Field Focus"
+                        )
+                      }
                     />
                   )}
                 />
                 <Button
-                  onClick={handleSubmit(onSubmit)}
+                  onClick={() => {
+                    CustomEvent.trackEvent("onClick", "Early Access Button");
+                    handleSubmit(onSubmit);
+                  }}
                   isDisabled={isSubmitting}
                   isLoading={isSubmitting}
                   size={ButtonSize.Medium}
@@ -205,7 +224,10 @@ const WaitingList = ({ data }: WaitingListProps) => {
                   icon={item.icon}
                   title={item.title}
                   text={item.text}
-                  onClick={() => setCurrentImage(index)}
+                  onClick={() => {
+                    CustomEvent.trackEvent("Feature Slider", item.title);
+                    setCurrentImage(index);
+                  }}
                 />
               ))}
             </CardsContainer>
@@ -218,7 +240,13 @@ const WaitingList = ({ data }: WaitingListProps) => {
         <Footer>
           <Text size="medium" fontWeight={400} muted>
             © Basestack {new Date().getFullYear()}. All rights reserved.{" "}
-            <Link style={{ color: "black" }} href="/legal/privacy">
+            <Link
+              style={{ color: "black" }}
+              href="/legal/privacy"
+              onClick={() =>
+                CustomEvent.trackEvent("onClick", "Privacy Policy Link")
+              }
+            >
               Privacy Policy
             </Link>
           </Text>

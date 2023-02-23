@@ -1,4 +1,7 @@
-const withTM = require("next-transpile-modules")(["@basestack/design-system"]);
+const withTM = require("next-transpile-modules")([
+  "@basestack/design-system",
+  "@piwikpro/next-piwik-pro",
+]);
 
 module.exports = withTM({
   reactStrictMode: true,

@@ -20,6 +20,7 @@
     "@basestack/utils": "*",
     "@floating-ui/react-dom": "^1.0.1",
     "@hookform/resolvers": "^2.9.10",
+    "@piwikpro/next-piwik-pro": "^1.0.4",
     "eslint-config-next": "^13.0.6",
     "isomorphic-unfetch": "^4.0.2",
     "material-symbols": "^0.4.5",
