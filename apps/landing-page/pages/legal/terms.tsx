@@ -17,14 +17,14 @@ const PrivacyPolicyPage = () => {
           <Link href="/">Go back</Link>
           <h2>Basestack Terms of Service</h2>
           <p>
-            These Terms of Service govern your use of the website located at
+            These Terms of Service govern your use of the website located at{" "}
             <a href="https://www.basestack.co" target="_blank" rel="noreferrer">
               https://www.basestack.co
             </a>
             and any related services provided by Basestack.
           </p>
           <p>
-            By accessing
+            By accessing{" "}
             <a href="https://www.basestack.co" target="_blank" rel="noreferrer">
               https://www.basestack.co
             </a>
@@ -102,10 +102,10 @@ const PrivacyPolicyPage = () => {
           </p>
           <h3>Liability</h3>
           <p>
-            Our website and the materials on our website are provided on an 'as
-            is' basis. To the extent permitted by law, Basestack makes no
-            warranties, expressed or implied, and hereby disclaims and negates
-            all other warranties including, without limitation, implied
+            Our website and the materials on our website are provided on an
+            &apos;as is&apos; basis. To the extent permitted by law, Basestack
+            makes no warranties, expressed or implied, and hereby disclaims and
+            negates all other warranties including, without limitation, implied
             warranties or conditions of merchantability, fitness for a
             particular purpose, or non-infringement of intellectual property, or
             other violation of rights.
