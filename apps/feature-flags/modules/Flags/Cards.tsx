@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { useRouter } from "next/router";
 // Server
 import { trpc } from "libs/trpc";
 // Components
@@ -6,8 +7,7 @@ import {
   FlagCard,
   FlagRow,
   ButtonVariant,
-  Loader,
-  Spinner,
+  Empty,
 } from "@basestack/design-system";
 // Store
 import { useStore } from "store";
@@ -18,6 +18,7 @@ import { getValue } from "@basestack/utils";
 import dayjs from "dayjs";
 // Styles
 import { FlagsCardContainer, FlagsTableContainer } from "./styles";
+import Loading from "./Loading";
 
 interface FlagCardsProps {
   selectedView: SelectedView;
@@ -32,6 +33,10 @@ const FlagCards = ({
   searchValue,
 }: FlagCardsProps) => {
   const trpcContext = trpc.useContext();
+  const router = useRouter();
+  const setCreateFlagModalOpen = useStore(
+    (state) => state.setCreateFlagModalOpen
+  );
   const setUpdateFlagModalOpen = useStore(
     (state) => state.setUpdateFlagModalOpen
   );
@@ -45,6 +50,8 @@ const FlagCards = ({
     },
     { enabled: !!projectId }
   );
+
+  const projectSlug = router.query.projectSlug as string;
 
   const flags = !isLoading && data ? data.flags : [];
 
@@ -83,17 +90,20 @@ const FlagCards = ({
     [projectId, deleteFlag]
   );
 
-  if (isLoading) {
-    return (
-      <Loader>
-        <Spinner size="large" />
-      </Loader>
-    );
-  }
+  if (isLoading) return <Loading selectedView={selectedView} />;
 
-  if (!flags.length) {
-    return <div>No Flags</div>;
-  }
+  if (!flags.length)
+    return (
+      <Empty
+        iconName="flag"
+        title="No flags available"
+        description={`There is no flags available for ${projectSlug}`}
+        button={{
+          text: "Create flag",
+          onClick: () => setCreateFlagModalOpen({ isOpen: true }),
+        }}
+      />
+    );
 
   const Container =
     selectedView === "cards" ? FlagsCardContainer : FlagsTableContainer;
