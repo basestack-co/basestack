@@ -33,29 +33,30 @@ const MembersModule = ({ project }: Props) => {
     { enabled: !!project?.id }
   );
 
-  const onHandleEdit = useCallback(
-    (userId: string) => {
-      if (project) {
-        console.log("edit here");
-      }
-    },
-    [project]
-  );
+  const removeUserFromProject = trpc.user.removeFromProject.useMutation();
 
   const onHandleInvite = useCallback(() => {
     if (project) {
       console.log("create here");
       setInviteMemberModalOpen({ isOpen: true, data: { project } });
     }
-  }, [project]);
+  }, [project, setInviteMemberModalOpen]);
 
   const onHandleDelete = useCallback(
     async (userId: string) => {
       if (project) {
-        console.log("delete here");
+        removeUserFromProject.mutate(
+          { projectId: project.id, userId },
+          {
+            onSuccess: async (result) => {
+              // TODO: migrate this to use cache from useQuery
+              await trpcContext.user.byProjectId.invalidate();
+            },
+          }
+        );
       }
     },
-    [project]
+    [project, removeUserFromProject, trpcContext]
   );
 
   const getTable = useMemo(() => {
@@ -74,7 +75,6 @@ const MembersModule = ({ project }: Props) => {
             { title: role === "ADMIN" ? "Admin" : "User" },
           ],
           more: [
-            { icon: "edit", text: "Edit", onClick: () => onHandleEdit(userId) },
             {
               icon: "delete",
               text: "Remove",
@@ -91,7 +91,7 @@ const MembersModule = ({ project }: Props) => {
     }
 
     return { headers, rows: [] };
-  }, [isLoading, data, onHandleEdit, onHandleDelete]);
+  }, [isLoading, data, onHandleDelete]);
 
   if (isLoading || !data) {
     return (

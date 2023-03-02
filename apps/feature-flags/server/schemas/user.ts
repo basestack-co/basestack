@@ -8,7 +8,7 @@ export const UserByProjectIdInput = z
 
 export const AllUserInput = z
   .object({
-    projectId: z.string(),
+    excludeProjectId: z.string(),
   })
   .required();
 
@@ -16,5 +16,19 @@ export const UserBySearchInput = z
   .object({
     projectId: z.string(),
     search: z.string(),
+  })
+  .required();
+
+export const AddUserToProjectInput = z
+  .object({
+    projectId: z.string(),
+    userId: z.string(),
+  })
+  .required();
+
+export const RemoveUserFromProjectInput = z
+  .object({
+    projectId: z.string(),
+    userId: z.string(),
   })
   .required();

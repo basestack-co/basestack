@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import Portal from "@basestack/design-system/global/Portal";
 import { Modal, Select } from "@basestack/design-system";
-import { useTheme } from "styled-components";
 // Store
 import { useStore } from "store";
 // Form
@@ -18,23 +17,23 @@ export const FormSchema = z.object({
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const InviteMemberModal = () => {
-  const theme = useTheme();
   const trpcContext = trpc.useContext();
   const isModalOpen = useStore((state) => state.isInviteMemberModalOpen);
   const setInviteMemberModalOpen = useStore(
     (state) => state.setInviteMemberModalOpen
   );
-
-  const modalPayload = useStore((state) => state.inviteMemberModalPayload);
+  const payload = useStore((state) => state.inviteMemberModalPayload);
 
   const { data, isLoading } = trpc.user.all.useQuery(
     {
-      projectId: modalPayload?.project?.id!,
+      excludeProjectId: payload?.project?.id!,
     },
     {
-      enabled: !!isModalOpen && !!modalPayload?.project?.id,
+      enabled: isModalOpen && !!payload?.project?.id,
     }
   );
+
+  const addUserToProject = trpc.user.addToProject.useMutation();
 
   const {
     control,
@@ -60,14 +59,34 @@ const InviteMemberModal = () => {
   const onClose = useCallback(() => {
     setInviteMemberModalOpen({ isOpen: false });
     reset();
-  }, [setInviteMemberModalOpen]);
+  }, [setInviteMemberModalOpen, reset]);
 
   const onSubmit: SubmitHandler<FormInputs> = useCallback(
     (input: FormInputs) => {
-      console.log("input = ", input);
+      if (payload && payload.project) {
+        console.log("input = ", input);
+
+        addUserToProject.mutate(
+          { projectId: payload?.project?.id!, userId: input.memberId },
+          {
+            onSuccess: async (result) => {
+              // TODO: migrate this to use cache from useQuery
+              await trpcContext.user.byProjectId.invalidate();
+              onClose();
+            },
+          }
+        );
+      }
     },
-    []
+    [addUserToProject, payload, onClose, trpcContext]
   );
+
+  const onChangeMember = useCallback((option: unknown, setField: any) => {
+    if (option) {
+      const { value } = option as (typeof options)[0];
+      setField(value);
+    }
+  }, []);
 
   return (
     <Portal selector="#portal">
@@ -82,7 +101,7 @@ const InviteMemberModal = () => {
             children: "Add member",
             onClick: handleSubmit(onSubmit),
             isDisabled:
-              !modalPayload?.project?.id || !options.length || isSubmitting,
+              !payload?.project?.id || !options.length || isSubmitting,
             isLoading: isSubmitting,
           },
         ]}
@@ -94,16 +113,16 @@ const InviteMemberModal = () => {
           render={({ field }) => (
             <Select
               ref={field.ref}
-              placeholder="Select member from the list"
+              placeholder={!options.length ? "No members" : "Select member"}
               options={options}
               value={
                 (options &&
                   options.find((option) => option.value === field.value)) ||
                 []
               }
-              onChange={(val) => field.onChange((val && val.value) || "")}
+              onChange={(option) => onChangeMember(option, field.onChange)}
               isDisabled={!options.length}
-              isLoading={!options.length}
+              isLoading={isLoading}
               isClearable
             />
           )}

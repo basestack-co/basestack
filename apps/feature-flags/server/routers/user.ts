@@ -4,6 +4,8 @@ import {
   AllUserInput,
   UserByProjectIdInput,
   UserBySearchInput,
+  AddUserToProjectInput,
+  RemoveUserFromProjectInput,
 } from "../schemas/user";
 
 export const userRouter = router({
@@ -13,7 +15,7 @@ export const userRouter = router({
         NOT: {
           projects: {
             some: {
-              projectId: input.projectId,
+              projectId: input.excludeProjectId,
             },
           },
         },
@@ -79,6 +81,48 @@ export const userRouter = router({
           createdAt: "desc",
         },
       });
+
       return { users };
+    }),
+  addToProject: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(AddUserToProjectInput)
+    .mutation(async ({ ctx, input }) => {
+      const connection = await ctx.prisma.projectsOnUsers.create({
+        data: {
+          project: {
+            connect: {
+              id: input.projectId,
+            },
+          },
+          user: {
+            connect: {
+              id: input.userId,
+            },
+          },
+          role: "USER",
+        },
+      });
+
+      return { connection };
+    }),
+  removeFromProject: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(RemoveUserFromProjectInput)
+    .mutation(async ({ ctx, input }) => {
+      const connection = await ctx.prisma.projectsOnUsers.delete({
+        where: {
+          projectId_userId: {
+            projectId: input.projectId,
+            userId: input.userId,
+          },
+        },
+      });
+
+      return { connection };
     }),
 });
