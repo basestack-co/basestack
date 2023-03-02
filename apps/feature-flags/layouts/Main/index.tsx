@@ -8,7 +8,7 @@ import { useStore } from "store";
 // Auth
 import { useSession } from "next-auth/react";
 // Components
-import { TabBar } from "@basestack/design-system";
+import { TabBar, Splash, Loader } from "@basestack/design-system";
 import Navigation from "./Navigation";
 // Server
 import { trpc } from "libs/trpc";
@@ -33,7 +33,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   );
 
   if (status === "loading" || isLoadingProjects) {
-    return <div>...isLoading</div>;
+    return (
+      <Loader>
+        <Splash />
+      </Loader>
+    );
   }
 
   return (

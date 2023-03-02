@@ -10,8 +10,9 @@ interface SkeletonProps {
   items: Array<{
     h: number;
     w: number | string;
-    mb?: number;
-    mr?: number;
+    mb?: number | string;
+    mr?: number | string;
+    ml?: number | string;
   }>;
 }
 
@@ -35,6 +36,7 @@ const Skeleton = ({
           width={item.w}
           marginBottom={item.mb || 0}
           marginRight={item.mr || 0}
+          marginLeft={item.ml || 0}
         />
       ))}
     </Wrapper>

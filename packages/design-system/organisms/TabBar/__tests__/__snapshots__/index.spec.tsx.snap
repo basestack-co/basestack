@@ -2,21 +2,21 @@
 
 exports[`TabBar Organism tests should render TabBar correctly 1`] = `
 <DocumentFragment>
-  .c9 {
-  height: 2rem;
-  width: 2rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c4 {
+  .c4 {
   height: 1.5rem;
   width: 1.5rem;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
   margin-right: 0.5rem;
+}
+
+.c9 {
+  height: 2rem;
+  width: 2rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 .c5 {

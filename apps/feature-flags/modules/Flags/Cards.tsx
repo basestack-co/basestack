@@ -8,6 +8,7 @@ import {
   FlagRow,
   ButtonVariant,
   Empty,
+  Loader,
 } from "@basestack/design-system";
 // Store
 import { useStore } from "store";
@@ -90,7 +91,12 @@ const FlagCards = ({
     [projectId, deleteFlag]
   );
 
-  if (isLoading) return <Loading selectedView={selectedView} />;
+  if (isLoading)
+    return (
+      <Loader>
+        <Loading selectedView={selectedView} />
+      </Loader>
+    );
 
   if (!flags.length)
     return (

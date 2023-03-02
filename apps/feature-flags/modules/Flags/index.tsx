@@ -51,6 +51,7 @@ const Flags = ({ project }: Props) => {
         onSearchCallback={(value) => setSearchValue(value)}
         onSelect={(id: string) => setSelectedEnvironmentId(id)}
         isDesktop={isDesktop}
+        selectedView={selectedView}
       />
 
       <FlagCards

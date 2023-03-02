@@ -16,9 +16,9 @@ export const IconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${rem("42px")};
-  height: ${rem("42px")};
+  height: ${rem("48px")};
+  width: ${rem("48px")};
+  border-radius: ${rem("8px")};
   background-color: ${({ theme }) => theme.colors.blue100};
-  border-radius: 50%;
   margin-bottom: ${({ theme }) => theme.spacing.s3};
 `;

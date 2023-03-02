@@ -60,6 +60,7 @@ interface StyledButtonProps {
 export const StyledButton = styled.div<StyledButtonProps>`
   ${neutralButtonStyles};
   height: ${rem("44px")};
+  font-size: ${rem("14px")};
   border-radius: 0;
   padding-left: ${({ theme }) => theme.spacing.s5};
 

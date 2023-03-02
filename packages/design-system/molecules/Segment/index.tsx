@@ -1,4 +1,4 @@
-import { useState, memo } from "react";
+import { useReducer, memo } from "react";
 import { SpaceProps } from "styled-system";
 import { useTheme } from "styled-components";
 import { Text, Icon } from "../../atoms";
@@ -19,12 +19,36 @@ export interface SegmentProps extends SpaceProps {
    * Selected item
    */
   onSelect: (selected: string) => void;
+  selectedIndex?: number;
 }
 
-const Segment = ({ items, onSelect, ...props }: SegmentProps) => {
+const reducer = (
+  state: any,
+  action: { type: any; payload: { selected: number; translateX: number } }
+) => {
+  switch (action.type) {
+    case "SET_SELECTED_VALUES":
+      return {
+        ...state,
+        selected: action.payload.selected,
+        translateX: action.payload.translateX,
+      };
+    default:
+      return state;
+  }
+};
+
+const Segment = ({
+  items,
+  onSelect,
+  selectedIndex,
+  ...props
+}: SegmentProps) => {
   const theme = useTheme();
-  const [selected, setSelected] = useState(0);
-  const [translateX, setTranslateX] = useState(0);
+  const [{ selected, translateX }, dispatch] = useReducer(reducer, {
+    selected: 0,
+    translateX: (selectedIndex || 0) * 100,
+  });
 
   return (
     <Container data-testid="segment-component" {...props}>
@@ -36,9 +60,11 @@ const Segment = ({ items, onSelect, ...props }: SegmentProps) => {
             {...buttonProps}
             key={index.toString()}
             onClick={() => {
-              setTranslateX(index * 100);
+              dispatch({
+                type: "SET_SELECTED_VALUES",
+                payload: { selected: index, translateX: index * 100 },
+              });
               onSelect(item.id);
-              setSelected(index);
             }}
           >
             {!!item.icon && (

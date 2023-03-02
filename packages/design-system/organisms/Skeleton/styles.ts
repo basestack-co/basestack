@@ -47,18 +47,22 @@ export const Wrapper = styled.div<{ displayInline?: boolean }>`
   animation: ${pulsate} 1.2s infinite linear;
 `;
 
+const getValue = (value: number | string) =>
+  typeof value === "string" ? value : rem(`${value}px`);
+
 export const Item = styled.div<{
   height: number;
   width: number | string;
-  marginBottom?: number;
-  marginRight?: number;
+  marginBottom?: number | string;
+  marginRight?: number | string;
+  marginLeft?: number | string;
 }>`
   ${flexColumn};
   background-color: ${({ theme }) => theme.colors.gray100};
   border-radius: ${rem("6px")};
   height: ${({ height }) => rem(`${height}px`)};
-  width: ${({ width }) =>
-    typeof width === "string" ? width : rem(`${width}px`)};
-  margin-bottom: ${({ marginBottom }) => rem(`${marginBottom}px`)};
-  margin-right: ${({ marginRight }) => rem(`${marginRight}px`)};
+  width: ${({ width }) => getValue(width || 0)};
+  margin-bottom: ${({ marginBottom }) => getValue(marginBottom || 0)};
+  margin-right: ${({ marginRight }) => getValue(marginRight || 0)};
+  margin-left: ${({ marginLeft }) => getValue(marginLeft || 0)};
 `;
