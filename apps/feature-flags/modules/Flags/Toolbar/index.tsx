@@ -34,8 +34,6 @@ const Toolbar = ({
   const [searchValue, setSearchValue] = useState<string>("");
   const { data, isLoading } = trpc.environment.all.useQuery({ projectId });
 
-  console.log("selectedView = ", selectedView);
-
   useDebounce(() => onSearchCallback(searchValue), 500, [searchValue]);
 
   const onRenderDesktopPills = useCallback(() => {
