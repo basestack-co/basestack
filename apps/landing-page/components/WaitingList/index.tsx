@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 // Styles
 import { rem } from "polished";
@@ -8,6 +8,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Utils
 import { z } from "zod";
+import { useMediaQuery } from "@basestack/hooks";
 import { redirectionUrl } from "utils/constants";
 import toast from "react-hot-toast";
 // Analytics
@@ -30,6 +31,7 @@ import {
   CardsContainer,
   ErrorContainer,
   ErrorText,
+  CardWrapper,
 } from "./styles";
 import SlideCard from "../SlideCard";
 
@@ -54,12 +56,24 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 const WaitingList = ({ data }: WaitingListProps) => {
   const { PageViews, CustomEvent } = usePiwikPro();
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.device.max.md);
   const [currentImage, setCurrentImage] = useState(0);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const image = {
     src: data[currentImage].image.src,
     alt: data[currentImage].image.alt,
   };
+
+  useEffect(() => {
+    if (cardRef.current && isMobile) {
+      cardRef.current.scrollIntoView({
+        behavior: "smooth",
+        inline: "start",
+        block: "nearest",
+      });
+    }
+  }, [cardRef, currentImage, isMobile]);
 
   useEffect(() => {
     PageViews.trackPageView("Early Access Page View");
@@ -214,17 +228,21 @@ const WaitingList = ({ data }: WaitingListProps) => {
             </InputContainer>
             <CardsContainer>
               {data?.map((item, index) => (
-                <SlideCard
+                <CardWrapper
                   key={index}
-                  isActive={index === currentImage}
-                  icon={item.icon}
-                  title={item.title}
-                  text={item.text}
-                  onClick={() => {
-                    CustomEvent.trackEvent("Feature Slider", item.title);
-                    setCurrentImage(index);
-                  }}
-                />
+                  ref={index === currentImage ? cardRef : null}
+                >
+                  <SlideCard
+                    isActive={index === currentImage}
+                    icon={item.icon}
+                    title={item.title}
+                    text={item.text}
+                    onClick={() => {
+                      CustomEvent.trackEvent("Feature Slider", item.title);
+                      setCurrentImage(index);
+                    }}
+                  />
+                </CardWrapper>
               ))}
             </CardsContainer>
           </LeftCol>
