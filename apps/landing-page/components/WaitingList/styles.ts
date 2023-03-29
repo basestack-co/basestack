@@ -11,7 +11,6 @@ export const Container = styled.section`
   ${flexColumn};
   min-height: 100vh;
   position: relative;
-  padding: ${({ theme }) => theme.spacing.s8} ${({ theme }) => theme.spacing.s5};
   z-index: 1;
   overflow: hidden;
 
@@ -39,12 +38,14 @@ export const ContentContainer = styled.div`
 
 export const Header = styled.div`
   ${flexColumn};
+  padding: ${({ theme }) => theme.spacing.s8} ${({ theme }) => theme.spacing.s5}
+    0 ${({ theme }) => theme.spacing.s5};
 `;
 
 export const TextContainer = styled.div`
   ${flexColumn};
   max-width: 50%;
-  padding-top: ${({ theme }) => theme.spacing.s8};
+  padding: ${({ theme }) => theme.spacing.s8} ${({ theme }) => theme.spacing.s5};
 
   @media screen and ${({ theme }) => theme.device.max.xl} {
     max-width: 80%;
@@ -53,16 +54,39 @@ export const TextContainer = styled.div`
   @media screen and ${({ theme }) => theme.device.max.lg} {
     max-width: 100%;
   }
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    h1 {
+      font-size: 42px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    h1 {
+      font-size: 32px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+  }
 `;
 
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: minmax(auto, ${rem("420px")}) 1fr;
-  grid-gap: ${({ theme }) => theme.spacing.s8};
-  margin: ${({ theme }) => theme.spacing.s7} 0;
+  grid-gap: ${({ theme }) => theme.spacing.s3};
 
   @media screen and ${({ theme }) => theme.device.max.lg} {
     grid-template-columns: 1fr;
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    grid-gap: ${({ theme }) => theme.spacing.s6};
   }
 `;
 
@@ -72,6 +96,7 @@ export const LeftCol = styled.div`
 
 export const InputContainer = styled.div`
   ${flexColumn};
+  padding: 0 ${({ theme }) => theme.spacing.s5};
 `;
 
 export const InputWrapper = styled.div`
@@ -80,6 +105,7 @@ export const InputWrapper = styled.div`
 
 export const ImageContainer = styled.div`
   ${flexColumn};
+  padding: 0 ${({ theme }) => theme.spacing.s5};
   position: relative;
 
   &::after {
@@ -91,7 +117,7 @@ export const ImageContainer = styled.div`
     z-index: -2;
     height: 500px;
     width: 500px;
-    right: 0;
+    right: 20px;
     top: -150px;
   }
 `;
@@ -129,21 +155,43 @@ export const ErrorText = styled(Text)`
 `;
 
 export const CardsContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: ${({ theme }) => theme.spacing.s5};
-  margin-top: ${({ theme }) => theme.spacing.s8};
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.s5};
+  margin-top: ${({ theme }) => theme.spacing.s6};
+  padding: ${({ theme }) => theme.spacing.s5};
 
   @media screen and ${({ theme }) => theme.device.max.lg} {
-    grid-template-columns: repeat(3, 1fr);
+    flex-direction: row;
   }
 
   @media screen and ${({ theme }) => theme.device.max.md} {
-    grid-template-columns: 1fr;
+    width: 100vw;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-padding: ${({ theme }) => theme.spacing.s5};
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+`;
+
+export const CardWrapper = styled.div`
+  display: flex;
+  flex: 1 0 0;
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    min-width: 320px;
+    scroll-snap-align: start;
   }
 `;
 
 export const Footer = styled.div`
   ${flexColumn};
+  padding: ${({ theme }) => theme.spacing.s8} ${({ theme }) => theme.spacing.s5};
   margin-top: auto;
 `;
