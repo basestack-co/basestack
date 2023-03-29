@@ -159,7 +159,7 @@ const WaitingList = ({ data }: WaitingListProps) => {
             mb={theme.spacing.s5}
             fontWeight={800}
           >
-            The Essential Stack for Developers and Startups
+            The Open-Source Stack for Developers and Startups
           </Text>
           <Text
             size="xxLarge"
@@ -208,9 +208,22 @@ const WaitingList = ({ data }: WaitingListProps) => {
                   flexShrink={0}
                   {...(isSubmitting ? {} : { icon: "arrow_forward" })}
                 >
-                  Get Early Access
+                  {isMobile ? "Join" : "Get Early Access"}
                 </Button>
               </InputWrapper>
+
+              <ErrorContainer>
+                <ErrorText
+                  size="small"
+                  color={
+                    !!errors.email ? theme.colors.red400 : theme.colors.gray500
+                  }
+                >
+                  {errors.email?.message ||
+                    "Be an early adopter and get a commercial license!"}
+                </ErrorText>
+              </ErrorContainer>
+
               {!!errors.email?.message && (
                 <ErrorContainer>
                   <ErrorText

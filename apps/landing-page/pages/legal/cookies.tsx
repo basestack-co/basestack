@@ -17,7 +17,7 @@ const PrivacyPolicyPage = () => {
           <Link href="/legal/privacy">Go back</Link>
           <h2>Basestack Cookie Policy</h2>
           <p>
-            We use cookies to help improve your experience of our website at {" "}
+            We use cookies to help improve your experience of our website at{" "}
             <a href="https://www.basestack.co" target="_blank" rel="noreferrer">
               https://www.basestack.co
             </a>
@@ -31,7 +31,7 @@ const PrivacyPolicyPage = () => {
           </p>
           <p>
             If you don’t wish to accept cookies from us, you should instruct
-            your browser to refuse cookies from {" "}
+            your browser to refuse cookies from{" "}
             <a href="https://www.basestack.co" target="_blank" rel="noreferrer">
               https://www.basestack.co
             </a>
