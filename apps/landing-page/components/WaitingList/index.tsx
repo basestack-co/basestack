@@ -208,7 +208,7 @@ const WaitingList = ({ data }: WaitingListProps) => {
                   flexShrink={0}
                   {...(isSubmitting ? {} : { icon: "arrow_forward" })}
                 >
-                  {isMobile ? "Join" : "Get Early Access"}
+                  Get Early Access
                 </Button>
               </InputWrapper>
 
