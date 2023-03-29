@@ -124,10 +124,6 @@ exports[`Slider tests render Slider correctly 1`] = `
   overflow: hidden;
 }
 
-.c6:hover {
-  scale: 1.05;
-}
-
 .c6::before {
   content: "";
   position: absolute;
@@ -158,10 +154,6 @@ exports[`Slider tests render Slider correctly 1`] = `
   -webkit-transition: scale 0.2s ease-in-out;
   transition: scale 0.2s ease-in-out;
   overflow: hidden;
-}
-
-.c12:hover {
-  scale: 1.05;
 }
 
 .c7 {
