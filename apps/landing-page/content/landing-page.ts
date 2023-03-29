@@ -71,7 +71,7 @@ export const waitingList = [
   {
     icon: "flag",
     title: "Manage Multiple Projects Easily",
-    text: "Control feature releases across multiple projects and environments with ease, all in one platform.",
+    text: "Control feature releases across multiple projects and environments.",
     image: {
       src: "/images/flags_cards_popups.png",
       alt: "An image of a feature flag control panel displaying multiple projects and environments, with intuitive controls for easily managing feature releases.",

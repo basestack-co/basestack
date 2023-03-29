@@ -29,10 +29,6 @@ export const CardContainer = styled.button<{
   transition: scale 0.2s ease-in-out;
   overflow: hidden;
 
-  &:hover {
-    scale: 1.05;
-  }
-
   ${({ isActive, theme, animationTime }) =>
     isActive &&
     css`
