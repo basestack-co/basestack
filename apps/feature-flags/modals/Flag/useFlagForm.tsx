@@ -43,7 +43,8 @@ const useFlagForm = ({
     reset,
     getValues,
   } = useForm<FlagFormInputs>({
-    resolver: zodResolver(FlagFormSchema),
+    // @ts-ignore
+    resolver: zodResolver(FlagFormSchema), // TODO: fix this, broken after the 3.0.0 release
     mode: "onChange",
   });
 

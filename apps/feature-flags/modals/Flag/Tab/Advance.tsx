@@ -7,7 +7,6 @@ import { InputGroup, Text } from "@basestack/design-system";
 import { FlagFormInputs } from "../types";
 import { UseFormSetValue } from "react-hook-form";
 import type { InteractionProps } from "react-json-view";
-
 // Calendar
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -52,7 +51,7 @@ const AdvanceTab = ({ setValue, payload, expiredAt }: Props) => {
         mb={theme.spacing.s6}
       />
       <Calendar
-        onChange={(date: Date) => setValue("expiredAt", date)}
+        onChange={(date) => setValue("expiredAt", date as Date)}
         value={expiredAt}
         locale="en-US"
         minDate={new Date()}
