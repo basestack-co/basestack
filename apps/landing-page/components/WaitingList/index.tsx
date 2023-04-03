@@ -102,12 +102,12 @@ const WaitingList = ({ data }: WaitingListProps) => {
       const params = new URLSearchParams({
         includeListId: "4", // Feature Flags Early Access
         email: input.email,
-        templateId: "1", // Default Template Double opt-in confirmation
-        redirectionUrl,
+        // templateId: "1", // Default Template Double opt-in confirmation
+        // redirectionUrl,
       });
 
       const res = await fetch(
-        `https://basestack-email.vercel.app/api/v1/email/subscribe?${params.toString()}`,
+        `https://basestack-email.vercel.app/api/v1/contacts/create?${params.toString()}`,
         {
           method: "POST",
           headers: {
@@ -123,8 +123,11 @@ const WaitingList = ({ data }: WaitingListProps) => {
         throw new Error(data.message);
       }
 
-      CustomEvent.trackEvent("Success", "Successfully sent email to confirm");
-      toast.success("A confirmation email has been sent to your inbox.");
+      CustomEvent.trackEvent(
+        "Success",
+        "Successfully added to the waiting list"
+      );
+      toast.success("Thank you for your interest! We will be in touch soon.");
       reset();
     } catch (error) {
       const { message } = error as Error;
