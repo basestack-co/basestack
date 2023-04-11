@@ -18,10 +18,9 @@ const Endpoints = ({ project }: Props) => {
       <SettingCard
         title="Endpoints"
         description="API keys can be used with our SDK’s (Javascript, React)."
-        button="Create New API Key"
-        onClick={() => console.log("save")}
+        hasFooter={false}
       >
-        <Table data={apiKeysTableMock} />
+        <p>list here</p>
       </SettingCard>
     </CardListItem>
   );

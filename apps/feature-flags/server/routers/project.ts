@@ -35,15 +35,26 @@ export const projectRouter = router({
       });
       return { project };
     }),
-  keys: protectedProcedure
+  allKeys: protectedProcedure
     .input(schemas.project.input.allKeys)
     .query(async ({ ctx, input }) => {
-      const project = await ctx.prisma.project.findUnique({
+      const keys = await ctx.prisma.project.findUnique({
         where: {
           slug: input.projectSlug,
         },
+        select: {
+          key: true,
+          environments: {
+            select: {
+              id: true,
+              name: true,
+              key: true,
+            },
+          },
+        },
       });
-      return { project };
+
+      return { keys };
     }),
   create: protectedProcedure
     .input(schemas.project.input.create)

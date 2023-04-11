@@ -1,8 +1,14 @@
 import React, { useMemo, useCallback } from "react";
 // Components
-import { ButtonVariant, SettingCard, Table } from "@basestack/design-system";
+import {
+  ButtonVariant,
+  Loader,
+  SettingCard,
+  Spinner,
+  Table,
+} from "@basestack/design-system";
 // Libs
-import { RouterOutput } from "libs/trpc";
+import { RouterOutput, trpc } from "libs/trpc";
 // Styles
 import { CardList, CardListItem } from "../styles";
 // Types
@@ -12,41 +18,55 @@ interface Props {
   project: RouterOutput["project"]["bySlug"]["project"];
 }
 
-export const headers = ["Name", "Project Key", "Environment Key", "Created At"];
+export const headers = ["Name", "Project Key", "Environment Key"];
 
 const Keys = ({ project }: Props) => {
+  const { data, isLoading } = trpc.project.allKeys.useQuery(
+    { projectSlug: project?.slug! },
+    { enabled: !!project?.id }
+  );
+
   const getTable = useMemo(() => {
-    // if (!isLoading && !!data) {
-    /* const rows = data.users.map(({ userId, user, role }) => {
+    if (!isLoading && !!data && !!data.keys) {
+      const projectKey = data.keys.key;
+
+      const rows = data.keys.environments.map((environment) => {
         const row: Row = {
           cols: [
+            { title: environment.name },
+            { title: projectKey! },
+            { title: environment.key! },
+          ],
+          more: [
             {
-              image: {
-                userName: user.name!,
-                src: user.image!,
-              },
-              title: user.name!,
+              icon: "content_copy",
+              text: "Copy",
+              onClick: () => console.log("delete"),
             },
-            { title: user.email! },
-            { title: role === "ADMIN" ? "Admin" : "User" },
           ],
         };
         return row;
-      }); */
+      });
 
-    // return { headers, rows };
-    // }
+      return { headers, rows };
+    }
 
     return { headers, rows: [] };
-  }, []);
+  }, [isLoading, data]);
+  if (isLoading || !data) {
+    return (
+      <Loader>
+        <Spinner size="large" />
+      </Loader>
+    );
+  }
 
   return (
     <CardListItem>
       <SettingCard
         title="API Keys"
         description="API keys can be used with our SDK’s (Javascript, React)."
-        button="Create New API Key"
-        onClick={() => console.log("save")}
+        hasFooter={false}
       >
         <Table data={getTable} />
       </SettingCard>
