@@ -45,6 +45,10 @@ export interface InputProps extends SpaceProps, LayoutProps {
    */
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   /**
+   * Input onFocus
+   */
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  /**
    * Input optional testID
    */
   testId?: string;
@@ -70,6 +74,7 @@ const Input: React.FC<InputProps> = ({
   testId = "input-container",
   onChange,
   onBlur,
+  onFocus,
   hasError = false,
   isDisabled = false,
   ...props
@@ -91,6 +96,7 @@ const Input: React.FC<InputProps> = ({
         data-testid="input"
         onChange={onChange}
         onBlur={onBlur}
+        onFocus={onFocus}
         placeholder={placeholder}
         name={name}
         value={value}
