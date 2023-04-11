@@ -8,7 +8,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // Libs
-import { RouterOutput, trpc } from "libs/trpc";
+import { trpc } from "libs/trpc";
 
 export const FormSchema = z.object({
   memberId: z.string().min(1, "Required field"),

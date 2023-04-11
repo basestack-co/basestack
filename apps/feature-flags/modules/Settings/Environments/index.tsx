@@ -123,7 +123,7 @@ const EnvironmentsModule = ({ project }: Props) => {
                 text: "Delete",
                 variant: ButtonVariant.Danger,
                 onClick: () => onHandleDelete(id),
-                isVisible: !isDefault,
+                isDisabled: !!isDefault,
               },
             ],
           };

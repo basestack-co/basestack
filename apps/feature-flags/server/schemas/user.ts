@@ -1,34 +1,33 @@
 import { z } from "zod";
+// utils
+import { withProjectId, withProjectIdAndUserId } from "./utils";
 
-export const UserByProjectIdInput = z
-  .object({
-    projectId: z.string(),
-  })
-  .required();
+const byProjectId = withProjectId.required();
 
-export const AllUserInput = z
+const all = z
   .object({
     excludeProjectId: z.string(),
   })
   .required();
 
-export const UserBySearchInput = z
-  .object({
-    projectId: z.string(),
+const bySearch = withProjectId
+  .extend({
     search: z.string(),
   })
   .required();
 
-export const AddUserToProjectInput = z
-  .object({
-    projectId: z.string(),
-    userId: z.string(),
-  })
-  .required();
+const addUserToProject = withProjectIdAndUserId.required();
 
-export const RemoveUserFromProjectInput = z
-  .object({
-    projectId: z.string(),
-    userId: z.string(),
-  })
-  .required();
+const removeUserFromProject = withProjectIdAndUserId.required();
+
+const userSchema = {
+  input: {
+    all,
+    byProjectId,
+    bySearch,
+    addUserToProject,
+    removeUserFromProject,
+  },
+};
+
+export default userSchema;

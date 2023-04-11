@@ -80,7 +80,7 @@ const MembersModule = ({ project }: Props) => {
               text: "Remove",
               variant: ButtonVariant.Danger,
               onClick: () => onHandleDelete(userId),
-              isVisible: role !== "ADMIN",
+              isDisabled: role === "ADMIN",
             },
           ],
         };

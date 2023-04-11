@@ -2,19 +2,15 @@ import { protectedProcedure, router } from "server/trpc";
 import { TRPCError } from "@trpc/server";
 // Utils
 import { generateSlug } from "random-word-slugs";
-import {
-  AllEnvironmentInput,
-  CreateEnvironmentInput,
-  DeleteEnvironmentInput,
-  UpdateEnvironmentInput,
-} from "../schemas/environment";
+// Inputs
+import schemas from "server/schemas";
 
 export const environmentRouter = router({
   all: protectedProcedure
     .meta({
       restricted: true,
     })
-    .input(AllEnvironmentInput)
+    .input(schemas.environment.input.all)
     .query(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
@@ -38,7 +34,7 @@ export const environmentRouter = router({
       });
     }),
   create: protectedProcedure
-    .input(CreateEnvironmentInput)
+    .input(schemas.environment.input.create)
     .meta({
       restricted: true,
     })
@@ -81,7 +77,7 @@ export const environmentRouter = router({
     .meta({
       restricted: true,
     })
-    .input(UpdateEnvironmentInput)
+    .input(schemas.environment.input.update)
     .mutation(async ({ ctx, input }) => {
       const environment = await ctx.prisma.environment.update({
         where: {
@@ -99,7 +95,7 @@ export const environmentRouter = router({
     .meta({
       restricted: true,
     })
-    .input(DeleteEnvironmentInput)
+    .input(schemas.environment.input.delete)
     .mutation(async ({ ctx, input }) => {
       const environment = await ctx.prisma.$transaction(async (tx) => {
         // TODO: find a better way to do this, this is a bit hacky, should be in the same query

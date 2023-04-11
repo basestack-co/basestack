@@ -1,43 +1,39 @@
 import { protectedProcedure, router } from "server/trpc";
-// Utils
-import {
-  AllUserInput,
-  UserByProjectIdInput,
-  UserBySearchInput,
-  AddUserToProjectInput,
-  RemoveUserFromProjectInput,
-} from "../schemas/user";
+// Inputs
+import schemas from "server/schemas";
 
 export const userRouter = router({
-  all: protectedProcedure.input(AllUserInput).query(async ({ ctx, input }) => {
-    const users = await ctx.prisma.user.findMany({
-      where: {
-        NOT: {
-          projects: {
-            some: {
-              projectId: input.excludeProjectId,
+  all: protectedProcedure
+    .input(schemas.user.input.all)
+    .query(async ({ ctx, input }) => {
+      const users = await ctx.prisma.user.findMany({
+        where: {
+          NOT: {
+            projects: {
+              some: {
+                projectId: input.excludeProjectId,
+              },
             },
           },
         },
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        image: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          image: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
 
-    return { users };
-  }),
+      return { users };
+    }),
   byProjectId: protectedProcedure
     .meta({
       restricted: true,
     })
-    .input(UserByProjectIdInput)
+    .input(schemas.user.input.byProjectId)
     .query(async ({ ctx, input }) => {
       const users = await ctx.prisma.projectsOnUsers.findMany({
         where: {
@@ -60,7 +56,7 @@ export const userRouter = router({
       return { users };
     }),
   bySearch: protectedProcedure
-    .input(UserBySearchInput)
+    .input(schemas.user.input.bySearch)
     .query(async ({ ctx, input }) => {
       const users = await ctx.prisma.user.findMany({
         where: {
@@ -88,7 +84,7 @@ export const userRouter = router({
     .meta({
       restricted: true,
     })
-    .input(AddUserToProjectInput)
+    .input(schemas.user.input.addUserToProject)
     .mutation(async ({ ctx, input }) => {
       const connection = await ctx.prisma.projectsOnUsers.create({
         data: {
@@ -112,7 +108,7 @@ export const userRouter = router({
     .meta({
       restricted: true,
     })
-    .input(RemoveUserFromProjectInput)
+    .input(schemas.user.input.removeUserFromProject)
     .mutation(async ({ ctx, input }) => {
       const connection = await ctx.prisma.projectsOnUsers.delete({
         where: {

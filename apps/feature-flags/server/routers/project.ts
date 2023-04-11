@@ -1,12 +1,8 @@
 import { protectedProcedure, router } from "server/trpc";
 // Utils
 import { generateSlug } from "random-word-slugs";
-import {
-  CreateProjectInput,
-  DeleteProjectInput,
-  ProjectBySlugInput,
-  UpdateProjectInput,
-} from "../schemas/project";
+// Inputs
+import schemas from "server/schemas";
 
 export const projectRouter = router({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -30,7 +26,17 @@ export const projectRouter = router({
     return { projects };
   }),
   bySlug: protectedProcedure
-    .input(ProjectBySlugInput)
+    .input(schemas.project.input.BySlug)
+    .query(async ({ ctx, input }) => {
+      const project = await ctx.prisma.project.findUnique({
+        where: {
+          slug: input.projectSlug,
+        },
+      });
+      return { project };
+    }),
+  keys: protectedProcedure
+    .input(schemas.project.input.allKeys)
     .query(async ({ ctx, input }) => {
       const project = await ctx.prisma.project.findUnique({
         where: {
@@ -40,7 +46,7 @@ export const projectRouter = router({
       return { project };
     }),
   create: protectedProcedure
-    .input(CreateProjectInput)
+    .input(schemas.project.input.create)
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
@@ -94,7 +100,7 @@ export const projectRouter = router({
     .meta({
       restricted: true,
     })
-    .input(UpdateProjectInput)
+    .input(schemas.project.input.update)
     .mutation(async ({ ctx, input }) => {
       const project = await ctx.prisma.project.update({
         where: {
@@ -110,7 +116,7 @@ export const projectRouter = router({
     .meta({
       restricted: true,
     })
-    .input(DeleteProjectInput)
+    .input(schemas.project.input.delete)
     .mutation(async ({ ctx, input }) => {
       const project = await ctx.prisma.project.delete({
         where: {

@@ -11,10 +11,10 @@
   "license": "MIT",
   "dependencies": {
     "@basestack/design-system": "*",
-    "material-symbols": "^0.5.3",
-    "next": "^13.2.4",
-    "nextra": "2.2.20",
-    "nextra-theme-docs": "2.2.20",
+    "material-symbols": "^0.5.5",
+    "next": "^13.3.0",
+    "nextra": "2.3.0",
+    "nextra-theme-docs": "2.3.0",
     "polished": "^4.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -26,6 +26,6 @@
     "@basestack/tsconfig": "*",
     "@types/node": "18.15.11",
     "next-transpile-modules": "^10.0.0",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.4"
   }
 }

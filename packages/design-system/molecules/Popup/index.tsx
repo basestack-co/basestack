@@ -24,6 +24,10 @@ export interface PopupItems {
    * Change the visibility of the item button
    */
   isVisible?: boolean;
+  /**
+   * Change the disability of the item button
+   */
+  isDisabled?: boolean;
 }
 
 export interface PopupProps extends PositionProps {
@@ -54,6 +58,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>(
                   onClick={item.onClick}
                   fontWeight={400}
                   variant={item.variant || ButtonVariant.Neutral}
+                  isDisabled={item.isDisabled}
                   fullWidth
                 >
                   {item.text}

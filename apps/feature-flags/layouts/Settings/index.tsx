@@ -28,17 +28,17 @@ const buttons = [
   },
   {
     id: 2,
-    text: "Environments",
-    href: "/[projectSlug]/settings/environments",
-  },
-  {
-    id: 3,
     text: "Members",
     href: "/[projectSlug]/settings/members",
   },
   {
+    id: 3,
+    text: "Environments",
+    href: "/[projectSlug]/settings/environments",
+  },
+  {
     id: 4,
-    text: "Api Keys",
+    text: "Endpoints & API Keys",
     href: "/[projectSlug]/settings/api-keys",
   },
 ];

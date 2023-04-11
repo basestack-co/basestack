@@ -1,34 +1,38 @@
 import { z } from "zod";
+// utils
+import { withProjectId } from "./utils";
 
-export const AllEnvironmentInput = z
-  .object({
-    projectId: z.string(),
-  })
-  .required();
+const all = withProjectId.required();
 
-export const CreateEnvironmentInput = z
-  .object({
+export const create = withProjectId
+  .extend({
     name: z.string(),
     description: z.string(),
-    projectId: z.string(),
     copyFromEnvId: z.string(),
   })
   .required();
 
-export const UpdateEnvironmentInput = z
-  .object({
-    // this prop is used on the createProtectedRouter Middleware to validated user project permissions
-    projectId: z.string(),
+export const update = withProjectId
+  .extend({
     environmentId: z.string().min(1),
     name: z.string(),
     description: z.string(),
   })
   .required();
 
-export const DeleteEnvironmentInput = z
-  .object({
-    // this prop is used on the createProtectedRouter Middleware to validated user project permissions
-    projectId: z.string(),
+export const deleteInput = withProjectId
+  .extend({
     environmentId: z.string(),
   })
   .required();
+
+const environmentSchema = {
+  input: {
+    all,
+    create,
+    update,
+    delete: deleteInput,
+  },
+};
+
+export default environmentSchema;
