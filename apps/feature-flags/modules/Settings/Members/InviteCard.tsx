@@ -13,12 +13,18 @@ import { RouterOutput, trpc } from "libs/trpc";
 import { useStore } from "store";
 // Utils
 import { createTable } from "utils/table";
+// Auth
+import { useSession } from "next-auth/react";
+// Router
+import { useRouter } from "next/router";
 
 interface Props {
   project: RouterOutput["project"]["bySlug"]["project"];
 }
 
 const InviteCard = ({ project }: Props) => {
+  const session = useSession();
+  const router = useRouter();
   const trpcContext = trpc.useContext();
   const setInviteMemberModalOpen = useStore(
     (state) => state.setInviteMemberModalOpen
@@ -30,6 +36,7 @@ const InviteCard = ({ project }: Props) => {
   );
 
   const removeUserFromProject = trpc.project.removeMember.useMutation();
+  const updateUserRole = trpc.project.updateMember.useMutation();
 
   const onHandleInvite = useCallback(() => {
     if (project) {
@@ -45,6 +52,28 @@ const InviteCard = ({ project }: Props) => {
           { projectId: project.id, userId },
           {
             onSuccess: async (result) => {
+              if (session?.data?.user.id === userId) {
+                // the user removed himself from the project, so we redirect him to the dashboard
+                await router.push("/");
+              } else {
+                // TODO: migrate this to use cache from useQuery
+                await trpcContext.project.members.invalidate();
+              }
+            },
+          }
+        );
+      }
+    },
+    [project, removeUserFromProject, trpcContext, session, router]
+  );
+
+  const onHandleUpdateRole = useCallback(
+    async (userId: string, isAdmin: boolean) => {
+      if (project) {
+        updateUserRole.mutate(
+          { projectId: project.id, userId, role: isAdmin ? "USER" : "ADMIN" },
+          {
+            onSuccess: async (result) => {
               // TODO: migrate this to use cache from useQuery
               await trpcContext.project.members.invalidate();
             },
@@ -52,32 +81,40 @@ const InviteCard = ({ project }: Props) => {
         );
       }
     },
-    [project, removeUserFromProject, trpcContext]
+    [project, updateUserRole, trpcContext]
   );
 
-  const getTable = useMemo(
-    () =>
-      createTable(
-        !isLoading && !!data ? data.users : [],
-        ["Name", "Email", "Role"],
-        (item) => [
-          {
-            image: {
-              userName: item.user.name!,
-              src: item.user.image!,
-            },
-            title: item.user.name!,
+  const getTable = useMemo(() => {
+    const numberOfAdmins = data?.users.filter(
+      (item) => item.role === "ADMIN"
+    ).length;
+
+    console.log("numberOfAdmins = ", numberOfAdmins);
+
+    return createTable(
+      !isLoading && !!data ? data.users : [],
+      ["Name", "Email", "Role"],
+      (item) => [
+        {
+          image: {
+            userName: item.user.name!,
+            src: item.user.image!,
           },
-          { title: item.user.email! },
-          { title: item.role === "ADMIN" ? "Admin" : "User" },
-        ],
-        (item) => [
-          ...(item.role === "USER"
+          title: item.user.name!,
+        },
+        { title: item.user.email! },
+        { title: item.role === "ADMIN" ? "Admin" : "User" },
+      ],
+      (item) => {
+        const isAdmin = item.role === "ADMIN";
+
+        return [
+          ...(!isAdmin || numberOfAdmins! > 1
             ? [
                 {
                   icon: "shield",
-                  text: "Set as Admin",
-                  onClick: () => console.log(""),
+                  text: `Set as ${isAdmin ? "User" : "Admin"}`,
+                  onClick: () => onHandleUpdateRole(item.userId, isAdmin),
                 },
               ]
             : []),
@@ -86,13 +123,12 @@ const InviteCard = ({ project }: Props) => {
             text: "Remove",
             variant: ButtonVariant.Danger,
             onClick: () => onHandleDelete(item.userId),
-            isDisabled: item.role === "ADMIN",
+            isDisabled: isAdmin && numberOfAdmins! === 1,
           },
-        ]
-      ),
-
-    [isLoading, data, onHandleDelete]
-  );
+        ];
+      }
+    );
+  }, [isLoading, data, onHandleDelete, onHandleUpdateRole]);
 
   return (
     <SettingCard

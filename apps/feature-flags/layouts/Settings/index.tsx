@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, {  useMemo } from "react";
 // Router
 import { useRouter } from "next/router";
 // Server
@@ -90,13 +90,6 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
       }),
     []
   );
-
-  useEffect(() => {
-    // Verify if the project is still available
-    if (!isLoadingProject && data && !data.project) {
-      router.push("/");
-    }
-  }, [isLoadingProject, data, router]);
 
   return (
     <MainLayout>

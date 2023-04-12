@@ -5,15 +5,16 @@ import { TRPCError } from "@trpc/server";
 export const getUserInProject = async (
   prisma: PrismaClient,
   userId: string,
-  projectId: string
+  projectId: string,
+  projectSlug: string
 ) => {
   try {
+    const condition = !!projectId ? { id: projectId } : { slug: projectSlug };
+
     return await prisma.project.findFirst({
       where: {
         AND: [
-          {
-            id: projectId,
-          },
+          condition,
           {
             users: {
               some: {

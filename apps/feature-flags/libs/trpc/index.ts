@@ -1,7 +1,8 @@
 import { TRPCClientErrorLike } from "@trpc/react-query";
 import { createTRPCNext } from "@trpc/next";
 import { loggerLink } from "@trpc/client/links/loggerLink";
-import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
+import { createTRPCProxyClient, httpBatchLink, TRPCLink } from "@trpc/client";
+import { observable } from "@trpc/server/observable";
 // Types
 import type { AppRouter } from "server/routers/_app";
 import type {
@@ -16,10 +17,39 @@ import { getBaseUrl } from "utils/url";
 export type RouterInput = inferRouterInputs<AppRouter>;
 export type RouterOutput = inferRouterOutputs<AppRouter>;
 
+export const customLink: TRPCLink<AppRouter> = () => {
+  // here we just got initialized in the app - this happens once per app
+  // useful for storing cache for instance
+  return ({ next, op }) => {
+    // this is when passing the result to the next link
+    // each link needs to return an observable which propagates results
+    return observable((observer) => {
+      return next(op).subscribe({
+        next(value) {
+          observer.next(value);
+        },
+        error(err) {
+          console.log("we received error", err);
+          observer.error(err);
+          if (err?.data?.code === "FORBIDDEN") {
+            const win: Window = window;
+            // TODO: find a better way to do this
+            win.location = "/";
+          }
+        },
+        complete() {
+          observer.complete();
+        },
+      });
+    });
+  };
+};
+
 export const trpc = createTRPCNext<AppRouter>({
   config() {
     return {
       links: [
+        customLink,
         loggerLink({
           enabled: (opts) =>
             process.env.NODE_ENV === "development" ||
@@ -63,6 +93,7 @@ export const trpc = createTRPCNext<AppRouter>({
 
 export const vanillaClient = createTRPCProxyClient<AppRouter>({
   links: [
+    customLink,
     loggerLink({
       enabled: (opts) =>
         process.env.NODE_ENV === "development" ||

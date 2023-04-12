@@ -60,13 +60,16 @@ const useFlagForm = ({
     return null;
   }, [projectSlug, isModalOpen, trpcContext]);
 
-  useEffect(() => {
-    if (isModalOpen && project && isCreate) {
-      const cache = trpcContext.environment.all.getData({
-        projectId: project.id,
-      });
+  const { data, isLoading } = trpc.environment.all.useQuery(
+    { projectId: project?.id! },
+    {
+      enabled: !!project?.id,
+    }
+  );
 
-      const environments = ((cache && cache.environments) || []).map(
+  useEffect(() => {
+    if (isModalOpen && !isLoading && isCreate) {
+      const environments = ((data && data.environments) || []).map(
         ({ id, name }) => ({
           id,
           name,
@@ -75,7 +78,7 @@ const useFlagForm = ({
       );
       setValue("environments", environments);
     }
-  }, [isModalOpen, project, trpcContext, setValue, isCreate]);
+  }, [isModalOpen, data, isLoading, setValue, isCreate]);
 
   const onRenderTab = (isLoading: boolean = false) => {
     switch (selectedTab) {

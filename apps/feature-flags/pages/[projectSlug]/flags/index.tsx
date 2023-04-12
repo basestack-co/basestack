@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 // SEO
 import Head from "next/head";
 // Layout
@@ -20,17 +20,6 @@ const FlagsPage = () => {
       enabled: !!projectSlug,
     }
   );
-
-  useEffect(() => {
-    // Verify if the project is still available
-    if (!isLoading && data && !data.project) {
-      router.push("/");
-    }
-  }, [isLoading, data, router]);
-
-  if (isError) {
-    return <div>Error</div>;
-  }
 
   return (
     <>

@@ -5,8 +5,6 @@ import { useTheme } from "styled-components";
 import { Segment, Input, Pill } from "@basestack/design-system";
 import { Container, PillsUl, PillLi } from "./styles";
 import EnvironmentsMenu from "./EnvironmentsMenu";
-// Server
-import { trpc } from "libs/trpc";
 // Hooks
 import { useDebounce } from "@basestack/hooks";
 
@@ -18,6 +16,42 @@ export interface ToolbarProps extends SpaceProps {
   isDesktop?: boolean;
 }
 
+const mock = [
+  {
+    id: "clgdztobh000968rk171q8gzj",
+    name: "develop",
+    description: "The default develop environment",
+    slug: "belligerent-clever-disease",
+    key: "clgdztobh000a68rk2z6khtk2",
+    isDefault: true,
+    createdAt: "2023-04-12T17:56:34.779Z",
+    updatedAt: "2023-04-12T17:56:34.779Z",
+    projectId: "clgdztobh000768rk6rqpn63x",
+  },
+  {
+    id: "clgdztobh000b68rkvffsdlff",
+    name: "staging",
+    description: "The default staging environment",
+    slug: "rough-flaky-kangaroo",
+    key: "clgdztobh000c68rka5ugomm9",
+    isDefault: false,
+    createdAt: "2023-04-12T17:56:34.779Z",
+    updatedAt: "2023-04-12T17:56:34.779Z",
+    projectId: "clgdztobh000768rk6rqpn63x",
+  },
+  {
+    id: "clgdztobh000d68rk2zsmix4u",
+    name: "production",
+    description: "The default production environment",
+    slug: "fit-immense-honey",
+    key: "clgdztobh000e68rkjtk7cipe",
+    isDefault: false,
+    createdAt: "2023-04-12T17:56:34.779Z",
+    updatedAt: "2023-04-12T17:56:34.779Z",
+    projectId: "clgdztobh000768rk6rqpn63x",
+  },
+];
+
 const Toolbar = ({
   projectId,
   isDesktop = true,
@@ -28,22 +62,13 @@ const Toolbar = ({
   const theme = useTheme();
   const [selected, setSelected] = useState("all");
   const [searchValue, setSearchValue] = useState<string>("");
-  const { data, isLoading } = trpc.environment.all.useQuery({ projectId });
 
   useDebounce(() => onSearchCallback(searchValue), 500, [searchValue]);
 
   const onRenderDesktopPills = useCallback(() => {
-    if (isLoading) {
-      return <div>...loading envs</div>;
-    }
-
-    if (!data || !data.environments) {
-      return <div>no Envs</div>;
-    }
-
     return (
       <PillsUl data-testid="pills">
-        {data.environments.map(({ name, id }) => {
+        {mock.map(({ name, id }) => {
           return (
             <PillLi key={id}>
               <Pill
@@ -59,7 +84,7 @@ const Toolbar = ({
         })}
       </PillsUl>
     );
-  }, [data, isLoading, selected, onSelect]);
+  }, [selected, onSelect]);
 
   return (
     <Container data-testid="toolbar" my={theme.spacing.s5}>
@@ -78,10 +103,11 @@ const Toolbar = ({
         value={searchValue}
       />
       {isDesktop && onRenderDesktopPills()}
-      {!isDesktop && !isLoading && (
+      {!isDesktop && (
         <EnvironmentsMenu
           title={selected}
-          data={data}
+          // @ts-ignore
+          data={{ environments: mock }}
           onSelect={(environment) => setSelected(environment.toLowerCase())}
         />
       )}

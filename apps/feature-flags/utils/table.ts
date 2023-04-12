@@ -4,14 +4,14 @@ import { PopupItems } from "@basestack/design-system/molecules/Popup";
 export function createTable<T>(
   data: Array<T>,
   headers: Array<string>,
-  cols: (item: T) => Array<Col>,
-  more: (item: T) => Array<PopupItems>
+  cols: (item: T, index: number, length: number) => Array<Col>,
+  more: (item: T, index: number, length: number) => Array<PopupItems>
 ) {
   if (!!data) {
-    const rows = data.map((item) => {
+    const rows = data.map((item, index, { length }) => {
       const row: Row = {
-        cols: cols(item),
-        more: more(item),
+        cols: cols(item, index, length),
+        more: more(item, index, length),
       };
 
       return row;

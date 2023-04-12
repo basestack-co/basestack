@@ -14,6 +14,7 @@ import { RouterOutput } from "libs/trpc";
 import { useStore } from "store";
 // Auth
 import { useSession } from "next-auth/react";
+import { TabType } from "../../../types/flags";
 
 export interface LinkItem {
   text: string;

@@ -3,6 +3,7 @@ import { protectedProcedure, router } from "server/trpc";
 import { generateSlug } from "random-word-slugs";
 // Inputs
 import schemas from "server/schemas";
+import { updateMember } from "../schemas/project";
 
 export const projectRouter = router({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -26,6 +27,9 @@ export const projectRouter = router({
     return { projects };
   }),
   bySlug: protectedProcedure
+    .meta({
+      restricted: true,
+    })
     .input(schemas.project.input.BySlug)
     .query(async ({ ctx, input }) => {
       const project = await ctx.prisma.project.findUnique({
@@ -187,6 +191,30 @@ export const projectRouter = router({
 
       return { connection };
     }),
+  updateMember: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(schemas.project.input.updateMember)
+    .mutation(async ({ ctx, input }) => {
+      const connection = await ctx.prisma.projectsOnUsers.update({
+        where: {
+          projectId_userId: {
+            projectId: input.projectId,
+            userId: input.userId,
+          },
+        },
+        data: {
+          role: input.role,
+        },
+        select: {
+          role: true,
+        },
+      });
+
+      return { connection };
+    }),
+
   removeMember: protectedProcedure
     .meta({
       restricted: true,

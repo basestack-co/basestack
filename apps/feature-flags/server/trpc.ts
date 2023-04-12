@@ -50,19 +50,21 @@ export const isAuthenticated = middleware(
 
     const restricted = getValue(meta, "restricted", false);
     const projectId = getValue(rawInput, "projectId", "");
+    const projectSlug = getValue(rawInput, "projectSlug", "");
 
     // This is for routes that need to verify any action if the user allowed in that project
-    if (restricted && projectId) {
+    if (restricted && (projectId || projectSlug)) {
       // checks if the user is in the project
       const isUserAllowedInProject = await getUserInProject(
         ctx.prisma,
         ctx.session.user.id,
-        projectId
+        projectId!,
+        projectSlug!
       );
 
       // If the user does not exist in the project, return an error
       if (isEmpty(isUserAllowedInProject)) {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
+        throw new TRPCError({ code: "FORBIDDEN" });
       }
     }
 

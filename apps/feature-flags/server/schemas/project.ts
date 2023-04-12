@@ -1,4 +1,6 @@
 import { z } from "zod";
+// Types
+import { Role } from "@prisma/client";
 // utils
 import {
   withProjectId,
@@ -35,6 +37,12 @@ const addMember = withProjectIdAndUserId.required();
 
 const removeMember = withProjectIdAndUserId.required();
 
+export const updateMember = withProjectIdAndUserId
+  .extend({
+    role: z.enum(["USER", "ADMIN"]),
+  })
+  .required();
+
 const projectSchema = {
   input: {
     BySlug,
@@ -45,6 +53,7 @@ const projectSchema = {
     members,
     addMember,
     removeMember,
+    updateMember,
   },
 };
 

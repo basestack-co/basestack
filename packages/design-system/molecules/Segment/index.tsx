@@ -32,9 +32,9 @@ const Segment = ({ items, onSelect, ...props }: SegmentProps) => {
         const buttonProps = selected === index ? { className: "active" } : {};
         return (
           <Button
+            key={index.toString()}
             data-testid="segment-button"
             {...buttonProps}
-            key={index.toString()}
             onClick={() => {
               setTranslateX(index * 100);
               onSelect(item.id);
