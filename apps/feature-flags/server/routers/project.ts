@@ -56,6 +56,32 @@ export const projectRouter = router({
 
       return { keys };
     }),
+  members: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(schemas.project.input.members)
+    .query(async ({ ctx, input }) => {
+      const users = await ctx.prisma.projectsOnUsers.findMany({
+        where: {
+          projectId: input.projectId,
+        },
+        select: {
+          userId: true,
+          projectId: true,
+          role: true,
+          user: {
+            select: {
+              name: true,
+              email: true,
+              image: true,
+            },
+          },
+        },
+      });
+
+      return { users };
+    }),
   create: protectedProcedure
     .input(schemas.project.input.create)
     .mutation(async ({ ctx, input }) => {
@@ -136,5 +162,46 @@ export const projectRouter = router({
       });
 
       return { project };
+    }),
+  addMember: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(schemas.project.input.addMember)
+    .mutation(async ({ ctx, input }) => {
+      const connection = await ctx.prisma.projectsOnUsers.create({
+        data: {
+          project: {
+            connect: {
+              id: input.projectId,
+            },
+          },
+          user: {
+            connect: {
+              id: input.userId,
+            },
+          },
+          role: "USER",
+        },
+      });
+
+      return { connection };
+    }),
+  removeMember: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(schemas.project.input.removeMember)
+    .mutation(async ({ ctx, input }) => {
+      const connection = await ctx.prisma.projectsOnUsers.delete({
+        where: {
+          projectId_userId: {
+            projectId: input.projectId,
+            userId: input.userId,
+          },
+        },
+      });
+
+      return { connection };
     }),
 });

@@ -2,8 +2,6 @@ import { z } from "zod";
 // utils
 import { withProjectId, withProjectIdAndUserId } from "./utils";
 
-const byProjectId = withProjectId.required();
-
 const all = z
   .object({
     excludeProjectId: z.string(),
@@ -16,17 +14,10 @@ const bySearch = withProjectId
   })
   .required();
 
-const addUserToProject = withProjectIdAndUserId.required();
-
-const removeUserFromProject = withProjectIdAndUserId.required();
-
 const userSchema = {
   input: {
     all,
-    byProjectId,
     bySearch,
-    addUserToProject,
-    removeUserFromProject,
   },
 };
 

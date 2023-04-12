@@ -29,32 +29,6 @@ export const userRouter = router({
 
       return { users };
     }),
-  byProjectId: protectedProcedure
-    .meta({
-      restricted: true,
-    })
-    .input(schemas.user.input.byProjectId)
-    .query(async ({ ctx, input }) => {
-      const users = await ctx.prisma.projectsOnUsers.findMany({
-        where: {
-          projectId: input.projectId,
-        },
-        select: {
-          userId: true,
-          projectId: true,
-          role: true,
-          user: {
-            select: {
-              name: true,
-              email: true,
-              image: true,
-            },
-          },
-        },
-      });
-
-      return { users };
-    }),
   bySearch: protectedProcedure
     .input(schemas.user.input.bySearch)
     .query(async ({ ctx, input }) => {
@@ -79,46 +53,5 @@ export const userRouter = router({
       });
 
       return { users };
-    }),
-  addToProject: protectedProcedure
-    .meta({
-      restricted: true,
-    })
-    .input(schemas.user.input.addUserToProject)
-    .mutation(async ({ ctx, input }) => {
-      const connection = await ctx.prisma.projectsOnUsers.create({
-        data: {
-          project: {
-            connect: {
-              id: input.projectId,
-            },
-          },
-          user: {
-            connect: {
-              id: input.userId,
-            },
-          },
-          role: "USER",
-        },
-      });
-
-      return { connection };
-    }),
-  removeFromProject: protectedProcedure
-    .meta({
-      restricted: true,
-    })
-    .input(schemas.user.input.removeUserFromProject)
-    .mutation(async ({ ctx, input }) => {
-      const connection = await ctx.prisma.projectsOnUsers.delete({
-        where: {
-          projectId_userId: {
-            projectId: input.projectId,
-            userId: input.userId,
-          },
-        },
-      });
-
-      return { connection };
     }),
 });

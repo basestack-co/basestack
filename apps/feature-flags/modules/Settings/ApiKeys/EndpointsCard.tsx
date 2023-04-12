@@ -1,12 +1,12 @@
-import React, { useMemo, useCallback } from "react";
+import React from "react";
 // Components
-import { SettingCard, Table } from "@basestack/design-system";
+import { SettingCard } from "@basestack/design-system";
 // Libs
 import { RouterOutput } from "libs/trpc";
 // Styles
 import { CardList, CardListItem } from "../styles";
-// Mocks
-import { apiKeysTableMock } from "__mocks__/settings";
+// Utils
+import { getBaseUrl } from "utils/url";
 
 interface Props {
   project: RouterOutput["project"]["bySlug"]["project"];
@@ -20,7 +20,7 @@ const EndpointsCard = ({ project }: Props) => {
         description="API keys can be used with our SDK’s (Javascript, React)."
         hasFooter={false}
       >
-        <p>list here</p>
+        <p>base url: {getBaseUrl()}</p>
       </SettingCard>
     </CardListItem>
   );

@@ -33,7 +33,7 @@ const InviteMemberModal = () => {
     }
   );
 
-  const addUserToProject = trpc.user.addToProject.useMutation();
+  const addUserToProject = trpc.project.addMember.useMutation();
 
   const {
     control,
@@ -72,7 +72,7 @@ const InviteMemberModal = () => {
           {
             onSuccess: async (result) => {
               // TODO: migrate this to use cache from useQuery
-              await trpcContext.user.byProjectId.invalidate();
+              await trpcContext.project.members.invalidate();
               onClose();
             },
           }

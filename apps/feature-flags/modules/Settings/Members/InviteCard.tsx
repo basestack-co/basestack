@@ -24,12 +24,12 @@ const InviteCard = ({ project }: Props) => {
     (state) => state.setInviteMemberModalOpen
   );
 
-  const { data, isLoading } = trpc.user.byProjectId.useQuery(
+  const { data, isLoading } = trpc.project.members.useQuery(
     { projectId: project?.id! },
     { enabled: !!project?.id }
   );
 
-  const removeUserFromProject = trpc.user.removeFromProject.useMutation();
+  const removeUserFromProject = trpc.project.removeMember.useMutation();
 
   const onHandleInvite = useCallback(() => {
     if (project) {
@@ -46,7 +46,7 @@ const InviteCard = ({ project }: Props) => {
           {
             onSuccess: async (result) => {
               // TODO: migrate this to use cache from useQuery
-              await trpcContext.user.byProjectId.invalidate();
+              await trpcContext.project.members.invalidate();
             },
           }
         );
@@ -72,6 +72,15 @@ const InviteCard = ({ project }: Props) => {
           { title: item.role === "ADMIN" ? "Admin" : "User" },
         ],
         (item) => [
+          ...(item.role === "USER"
+            ? [
+                {
+                  icon: "shield",
+                  text: "Set as Admin",
+                  onClick: () => console.log(""),
+                },
+              ]
+            : []),
           {
             icon: "delete",
             text: "Remove",

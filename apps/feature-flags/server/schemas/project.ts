@@ -1,6 +1,10 @@
 import { z } from "zod";
 // utils
-import { withProjectId, withProjectSlug } from "./utils";
+import {
+  withProjectId,
+  withProjectIdAndUserId,
+  withProjectSlug,
+} from "./utils";
 
 const BySlug = z
   .object({
@@ -25,6 +29,12 @@ const deleteInput = withProjectId.required();
 
 const allKeys = withProjectSlug.required();
 
+const members = withProjectId.required();
+
+const addMember = withProjectIdAndUserId.required();
+
+const removeMember = withProjectIdAndUserId.required();
+
 const projectSchema = {
   input: {
     BySlug,
@@ -32,6 +42,9 @@ const projectSchema = {
     update,
     delete: deleteInput,
     allKeys,
+    members,
+    addMember,
+    removeMember,
   },
 };
 
