@@ -71,7 +71,8 @@ const AdvanceTab = ({ setValue, payload, expiredAt }: Props) => {
       <ReactJsonContainer>
         <ReactJson
           name="data"
-          iconStyle="square"
+          theme="chalk"
+          iconStyle="triangle"
           defaultValue="string"
           src={typeof payload === "string" ? JSON.parse(payload) : payload}
           onEdit={onChangeJson}
