@@ -10,7 +10,7 @@ interface Props {
   project: RouterOutput["project"]["bySlug"]["project"];
 }
 
-const DeleteProject = ({ project }: Props) => {
+const DeleteProjectCard = ({ project }: Props) => {
   const router = useRouter();
   const trpcContext = trpc.useContext();
   const deleteProject = trpc.project.delete.useMutation();
@@ -59,4 +59,4 @@ const DeleteProject = ({ project }: Props) => {
   );
 };
 
-export default DeleteProject;
+export default DeleteProjectCard;

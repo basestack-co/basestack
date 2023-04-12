@@ -11,7 +11,7 @@ import type {
 } from "@trpc/server";
 // Utils
 import superjson from "superjson";
-import { getBaseUrl } from "utils/functions";
+import { getBaseUrl } from "utils/url";
 
 export type RouterInput = inferRouterInputs<AppRouter>;
 export type RouterOutput = inferRouterOutputs<AppRouter>;

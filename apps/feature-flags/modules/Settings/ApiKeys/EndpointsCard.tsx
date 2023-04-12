@@ -12,11 +12,11 @@ interface Props {
   project: RouterOutput["project"]["bySlug"]["project"];
 }
 
-const Endpoints = ({ project }: Props) => {
+const EndpointsCard = ({ project }: Props) => {
   return (
     <CardListItem>
       <SettingCard
-        title="Endpoints"
+        title="EndpointsCard"
         description="API keys can be used with our SDK’s (Javascript, React)."
         hasFooter={false}
       >
@@ -26,4 +26,4 @@ const Endpoints = ({ project }: Props) => {
   );
 };
 
-export default Endpoints;
+export default EndpointsCard;

@@ -3,9 +3,9 @@ import React from "react";
 import { RouterOutput } from "libs/trpc";
 // Styles
 import { CardList, CardListItem } from "../styles";
-// Modules
-import Endpoints from "./Endpoints";
-import Keys from "./Keys";
+// Cards Modules
+import EndpointsCard from "./EndpointsCard";
+import KeysCard from "./KeysCard";
 
 interface Props {
   project: RouterOutput["project"]["bySlug"]["project"];
@@ -15,10 +15,10 @@ const ApiKeysModule = ({ project }: Props) => {
   return (
     <CardList>
       <CardListItem>
-        <Endpoints project={project} />
+        <EndpointsCard project={project} />
       </CardListItem>
       <CardListItem>
-        <Keys project={project} />
+        <KeysCard project={project} />
       </CardListItem>
     </CardList>
   );

@@ -3,9 +3,9 @@ import React from "react";
 import { CardList, CardListItem } from "../styles";
 // Libs
 import { RouterOutput } from "libs/trpc";
-// Modules
-import ProjectName from "./ProjectName";
-import DeleteProject from "./DeleteProject";
+// Card Modules
+import ProjectNameCard from "./ProjectNameCard";
+import DeleteProjectCard from "./DeleteProjectCard";
 
 interface Props {
   project: RouterOutput["project"]["bySlug"]["project"];
@@ -15,10 +15,10 @@ const GeneralModule = ({ project }: Props) => {
   return (
     <CardList>
       <CardListItem>
-        <ProjectName project={project} />
+        <ProjectNameCard project={project} />
       </CardListItem>
       <CardListItem>
-        <DeleteProject project={project} />
+        <DeleteProjectCard project={project} />
       </CardListItem>
     </CardList>
   );

@@ -21,7 +21,7 @@ export const FormSchema = z.object({
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
-const ProjectName = ({ project }: Props) => {
+const ProjectNameCard = ({ project }: Props) => {
   const trpcContext = trpc.useContext();
 
   const updateProject = trpc.project.update.useMutation();
@@ -115,4 +115,4 @@ const ProjectName = ({ project }: Props) => {
   );
 };
 
-export default ProjectName;
+export default ProjectNameCard;
