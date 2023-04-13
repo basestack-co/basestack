@@ -22,9 +22,37 @@ export const LeftContainer = styled.div`
 `;
 
 export const RightContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   overflow: auto;
+  height: 100%;
+`;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+
+  &::before {
+    content: "";
+    background: rgba(238, 238, 238, 0.7);
+    -webkit-backdrop-filter: saturate(180%) blur(150px);
+    backdrop-filter: saturate(180%) blur(150px);
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.7;
+  }
 `;
 
 export const RightWrapper = styled.div`
