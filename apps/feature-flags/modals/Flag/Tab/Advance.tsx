@@ -49,6 +49,7 @@ const AdvanceTab = ({ setValue, payload, expiredAt }: Props) => {
           placeholder: "mm/dd/yyyy",
           name: "date",
           value: !!expiredAt ? dayjs(expiredAt).format("MM/DD/YYYY") : "",
+          autoComplete: "off",
         }}
         calendarProps={{
           onChange: (date: Date) => {
