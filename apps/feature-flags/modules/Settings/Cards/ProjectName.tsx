@@ -41,7 +41,7 @@ const ProjectNameCard = ({ project }: Props) => {
     if (project) {
       updateProject.mutate(
         {
-          projectId: project.id,
+          projectId: project.id!,
           name: input.name,
         },
         {
@@ -69,6 +69,7 @@ const ProjectNameCard = ({ project }: Props) => {
               trpcContext.project.bySlug.setData(
                 { projectSlug: result.project.slug },
                 {
+                  // @ts-ignore
                   project,
                 }
               );
@@ -81,7 +82,7 @@ const ProjectNameCard = ({ project }: Props) => {
 
   useEffect(() => {
     if (project) {
-      setValue("name", project.name);
+      setValue("name", project.name!);
     }
   }, [project, setValue]);
 

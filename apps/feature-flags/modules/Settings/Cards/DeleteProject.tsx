@@ -19,7 +19,7 @@ const DeleteProjectCard = ({ project }: Props) => {
     if (project) {
       deleteProject.mutate(
         {
-          projectId: project.id,
+          projectId: project.id!,
         },
         {
           onSuccess: async (result) => {

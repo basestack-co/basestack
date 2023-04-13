@@ -41,7 +41,7 @@ const KeysCard = ({ project }: Props) => {
   return (
     <CardListItem>
       <SettingCard
-        title="API KeysCard"
+        title="API Keys"
         description="API keys can be used with our SDK’s (Javascript, React)."
         hasFooter={false}
       >

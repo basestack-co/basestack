@@ -601,7 +601,7 @@ exports[`Settings Layout tests render SettingsLayout correctly 1`] = `
               font-weight="400"
               href="/settings/api-keys"
             >
-              Api KeysCard
+              Api Keys
             </a>
           </div>
         </li>

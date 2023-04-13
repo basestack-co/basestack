@@ -30,9 +30,11 @@ const InviteCard = ({ project }: Props) => {
     (state) => state.setInviteMemberModalOpen
   );
 
+  const projectId = project?.id ?? "";
+
   const { data, isLoading } = trpc.project.members.useQuery(
-    { projectId: project?.id! },
-    { enabled: !!project?.id }
+    { projectId },
+    { enabled: !!projectId }
   );
 
   const removeUserFromProject = trpc.project.removeMember.useMutation();
@@ -49,7 +51,7 @@ const InviteCard = ({ project }: Props) => {
     async (userId: string) => {
       if (project) {
         removeUserFromProject.mutate(
-          { projectId: project.id, userId },
+          { projectId, userId },
           {
             onSuccess: async (result) => {
               if (session?.data?.user.id === userId) {
@@ -71,7 +73,7 @@ const InviteCard = ({ project }: Props) => {
     async (userId: string, isAdmin: boolean) => {
       if (project) {
         updateUserRole.mutate(
-          { projectId: project.id, userId, role: isAdmin ? "USER" : "ADMIN" },
+          { projectId, userId, role: isAdmin ? "USER" : "ADMIN" },
           {
             onSuccess: async (result) => {
               // TODO: migrate this to use cache from useQuery

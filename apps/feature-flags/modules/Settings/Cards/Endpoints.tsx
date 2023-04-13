@@ -14,7 +14,7 @@ const EndpointsCard = ({ project }: Props) => {
   return (
     <CardListItem>
       <SettingCard
-        title="EndpointsCard"
+        title="Endpoints"
         description="API keys can be used with our SDK’s (Javascript, React)."
         hasFooter={false}
       >
