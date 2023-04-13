@@ -45,6 +45,45 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   font-size: 1.5rem;
 }
 
+.c10 {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: transparent;
+  color: #000000;
+  height: 2rem;
+  width: 2rem;
+}
+
+.c10 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c10:hover {
+  background-color: #EEEEEE;
+}
+
+.c10:active {
+  background-color: #E2E2E2;
+}
+
 .c0 {
   padding: 1.25rem;
   display: -webkit-box;
@@ -90,45 +129,6 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   line-height: 1rem;
   font-weight: 400;
   color: #545454;
-  background-color: #E2E2E2;
-}
-
-.c10 {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  cursor: pointer;
-  border-radius: 50%;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  background-color: transparent;
-  color: #000000;
-  height: 2rem;
-  width: 2rem;
-}
-
-.c10 .material-symbols-sharp {
-  color: inherit;
-}
-
-.c10:hover {
-  background-color: #EEEEEE;
-}
-
-.c10:active {
   background-color: #E2E2E2;
 }
 
@@ -276,6 +276,45 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   font-size: 1.5rem;
 }
 
+.c10 {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  background-color: transparent;
+  color: #000000;
+  height: 2rem;
+  width: 2rem;
+}
+
+.c10 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c10:hover {
+  background-color: #EEEEEE;
+}
+
+.c10:active {
+  background-color: #E2E2E2;
+}
+
 .c0 {
   padding: 1.25rem;
   display: -webkit-box;
@@ -321,45 +360,6 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   line-height: 1rem;
   font-weight: 400;
   color: #545454;
-  background-color: #E2E2E2;
-}
-
-.c10 {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  cursor: pointer;
-  border-radius: 50%;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  background-color: transparent;
-  color: #000000;
-  height: 2rem;
-  width: 2rem;
-}
-
-.c10 .material-symbols-sharp {
-  color: inherit;
-}
-
-.c10:hover {
-  background-color: #EEEEEE;
-}
-
-.c10:active {
   background-color: #E2E2E2;
 }
 

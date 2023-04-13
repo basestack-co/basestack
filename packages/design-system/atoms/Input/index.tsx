@@ -45,6 +45,10 @@ export interface InputProps extends SpaceProps, LayoutProps {
    */
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   /**
+   * Input onFocus
+   */
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  /**
    * Input optional testID
    */
   testId?: string;
@@ -56,6 +60,10 @@ export interface InputProps extends SpaceProps, LayoutProps {
    * Input disabled state
    */
   isDisabled?: boolean;
+  /**
+   * Input autoComplete on or off
+   */
+  autoComplete?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -70,8 +78,10 @@ const Input: React.FC<InputProps> = ({
   testId = "input-container",
   onChange,
   onBlur,
+  onFocus,
   hasError = false,
   isDisabled = false,
+  autoComplete,
   ...props
 }) => {
   const theme = useTheme();
@@ -91,6 +101,7 @@ const Input: React.FC<InputProps> = ({
         data-testid="input"
         onChange={onChange}
         onBlur={onBlur}
+        onFocus={onFocus}
         placeholder={placeholder}
         name={name}
         value={value}
@@ -101,6 +112,7 @@ const Input: React.FC<InputProps> = ({
         hasRightIcon={hasRightIcon}
         hasError={hasError}
         disabled={isDisabled}
+        autoComplete={autoComplete}
       />
       {hasRightIcon && (
         <RightIcon

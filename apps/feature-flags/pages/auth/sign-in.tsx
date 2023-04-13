@@ -1,56 +1,21 @@
-import { useEffect, useState, useCallback } from "react";
+import React, { useEffect } from "react";
 // Auth
-import { signIn, useSession, getProviders } from "next-auth/react";
+import { getProviders, useSession } from "next-auth/react";
 // Router
 import { useRouter } from "next/router";
-// UI
-import { Button } from "@basestack/design-system";
-// Types
-import { Provider } from "types/nextAuth";
+import { Provider } from "../../types/nextAuth";
+// Components
+import SignIn from "../../modules/SignIn";
 
-const EmailPassword = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const onSignInWithEmailPassword = useCallback(() => {
-    if (!!email && !!password) {
-      signIn("email-password", { email, password, redirect: false });
-    }
-  }, [email, password]);
-
-  return (
-    <div>
-      <input
-        type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="email address"
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="password"
-        required
-      />
-
-      <Button onClick={onSignInWithEmailPassword}>
-        Sign in or Create account
-      </Button>
-
-      <br />
-    </div>
-  );
-};
-
-interface Props {
+interface SignInPageProps {
   providers: Provider;
 }
 
-const SignInPage = ({ providers }: Props) => {
+const SignInPage = ({ providers }: SignInPageProps) => {
   const { status } = useSession();
   const router = useRouter();
+
+  console.log("status = ", status);
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -58,17 +23,7 @@ const SignInPage = ({ providers }: Props) => {
     }
   }, [status, router]);
 
-  return (
-    <div>
-      {Object.values(providers).map((provider) => (
-        <div key={provider.name}>
-          <Button onClick={() => signIn(provider.id, { callbackUrl: "/" })}>
-            Sign in with {provider.name}
-          </Button>
-        </div>
-      ))}
-    </div>
-  );
+  return <SignIn providers={providers} isLoading={status === "loading"} />;
 };
 
 export async function getServerSideProps() {
