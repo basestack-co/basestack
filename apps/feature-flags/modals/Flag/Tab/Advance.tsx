@@ -1,19 +1,19 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+// Hooks
+import { useClickAway } from "@basestack/hooks";
 // Components
 import { useTheme } from "styled-components";
-import { InputGroup, Text } from "@basestack/design-system";
+import { Text, CalendarInput } from "@basestack/design-system";
 // Types
 import { FlagFormInputs } from "../types";
 import { UseFormSetValue } from "react-hook-form";
 import type { InteractionProps } from "react-json-view";
-// Calendar
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 // JSON Editor
 const ReactJson = dynamic(import("react-json-view"), { ssr: false });
 // Utils
 import dayjs from "dayjs";
+import { ReactJsonContainer } from "../styles";
 
 export interface Props {
   setValue: UseFormSetValue<FlagFormInputs>;
@@ -23,6 +23,8 @@ export interface Props {
 
 const AdvanceTab = ({ setValue, payload, expiredAt }: Props) => {
   const theme = useTheme();
+  const calendarInputRef = useRef(null);
+  const [isCalenderOpen, setIsCalendarOpen] = useState(false);
 
   const onChangeJson = useCallback(
     ({ updated_src }: InteractionProps) => {
@@ -31,47 +33,61 @@ const AdvanceTab = ({ setValue, payload, expiredAt }: Props) => {
     [setValue]
   );
 
+  useClickAway(calendarInputRef, () => {
+    setIsCalendarOpen(false);
+  });
+
   return (
     <>
-      <Text size="small">
-        The same content will be applied in all environments. Later it is
-        possible to edit the content by environment.
-      </Text>
-
-      <br />
-
-      <InputGroup
-        title="Expiration Date"
+      <CalendarInput
+        ref={calendarInputRef}
+        isCalenderOpen={isCalenderOpen}
+        inputTitle="Expiration Date"
         inputProps={{
+          onFocus: () => setIsCalendarOpen(true),
           onChange: (text) => console.log("text = ", text),
           placeholder: "mm/dd/yyyy",
           name: "date",
           value: !!expiredAt ? dayjs(expiredAt).format("MM/DD/YYYY") : "",
+          autoComplete: "off",
         }}
-        mb={theme.spacing.s6}
+        calendarProps={{
+          onChange: (date: Date) => {
+            setValue("expiredAt", date);
+            setIsCalendarOpen(false);
+          },
+          value: expiredAt,
+          locale: "en-US",
+          minDate: new Date(),
+        }}
       />
-      <Calendar
-        onChange={(date) => setValue("expiredAt", date as Date)}
-        value={expiredAt}
-        locale="en-US"
-        minDate={new Date()}
-      />
-      <br />
-      <Text fontWeight={500} size="small">
+      <Text
+        fontWeight={500}
+        size="small"
+        mt={theme.spacing.s6}
+        mb={theme.spacing.s2}
+      >
         Payload
       </Text>
-      <br />
-      <ReactJson
-        name="data"
-        iconStyle="square"
-        defaultValue="string"
-        src={typeof payload === "string" ? JSON.parse(payload) : payload}
-        onEdit={onChangeJson}
-        onAdd={onChangeJson}
-        onDelete={onChangeJson}
-        enableClipboard={false}
-        collapsed={false}
-      />
+      <ReactJsonContainer>
+        <ReactJson
+          name="data"
+          theme="chalk"
+          iconStyle="triangle"
+          defaultValue="string"
+          src={typeof payload === "string" ? JSON.parse(payload) : payload}
+          onEdit={onChangeJson}
+          onAdd={onChangeJson}
+          onDelete={onChangeJson}
+          enableClipboard={false}
+          collapsed={false}
+        />
+      </ReactJsonContainer>
+      <Text size="small" muted mt={theme.spacing.s6}>
+        To ensure consistency, the identical content will be utilized across all
+        environments. However, it will be possible to modify the content for
+        each environment at a later stage.
+      </Text>
     </>
   );
 };
