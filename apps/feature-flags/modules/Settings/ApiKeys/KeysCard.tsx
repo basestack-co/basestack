@@ -2,16 +2,15 @@ import React, { useMemo } from "react";
 // Components
 import { Loader, SettingCard, Spinner, Table } from "@basestack/design-system";
 // Libs
-import { RouterOutput, trpc } from "libs/trpc";
+import { trpc } from "libs/trpc";
 // Styles
 import { CardListItem } from "../styles";
 // Utils
 import { createTable } from "utils/table";
+// Types
+import { ProjectSettings } from "types";
 
-interface Props {
-  project: RouterOutput["project"]["bySlug"]["project"];
-}
-
+type Props = ProjectSettings;
 const KeysCard = ({ project }: Props) => {
   const { data, isLoading } = trpc.project.allKeys.useQuery(
     { projectSlug: project?.slug! },

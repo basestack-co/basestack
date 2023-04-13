@@ -1,3 +1,40 @@
+import { RouterOutput } from "libs/trpc";
+import { Role } from "@prisma/client";
+
+/*
+ *
+ *  PROJECT
+ *
+ * */
+
+export type ProjectOutput = RouterOutput["project"]["bySlug"]["project"];
+export type ProjectRole = Role;
+export type Project = ProjectOutput | null;
+
+export interface ProjectSettings {
+  project: Project;
+}
+
+/*
+ *
+ *  FLAG
+ *
+ * */
+
+export type SelectedView = "cards" | "table";
+
+export enum TabType {
+  CORE = "core",
+  ADVANCED = "advanced",
+  HISTORY = "history",
+}
+
+/*
+ *
+ *  HISTORY
+ *
+ * */
+
 export enum HistoryAction {
   createProject = "CREATE_PROJECT",
   updateProject = "UPDATE_PROJECT",

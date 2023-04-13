@@ -1,7 +1,6 @@
 import { StateCreator } from "zustand/esm";
 import { PersistOptions } from "zustand/middleware";
-import { TabType, SelectedView } from "types/flags";
-import { RouterOutput } from "../libs/trpc";
+import { TabType, SelectedView, Project } from "types";
 
 /**
  * Middleware
@@ -23,12 +22,12 @@ export interface FlagModalPayload {
 }
 
 export interface InviteMemberModalPayload {
-  project: RouterOutput["project"]["bySlug"]["project"];
+  project: Project;
 }
 
 export interface EnvironmentModalPayload {
   environment?: { id: string };
-  project: RouterOutput["project"]["bySlug"]["project"];
+  project: Project;
 }
 
 export interface ModalPayload<T> {

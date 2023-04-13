@@ -1,6 +1,6 @@
 import React from "react";
 import { Skeleton } from "@basestack/design-system";
-import { SelectedView } from "types/flags";
+import { SelectedView } from "types";
 import { FlagsCardContainer, FlagsTableContainer } from "./styles";
 
 interface LoadingProps {

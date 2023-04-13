@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FlagFormInputs, FlagFormSchema } from "./types";
 // Types
-import { TabType } from "types/flags";
+import { TabType } from "types";
 // Server
 import { trpc } from "libs/trpc";
 // Tabs

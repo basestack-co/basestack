@@ -4,13 +4,13 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // Server
-import { RouterOutput, trpc } from "libs/trpc";
+import { trpc } from "libs/trpc";
 // Components
 import { Input, SettingCard } from "@basestack/design-system";
+// Types
+import { ProjectSettings } from "types";
 
-interface Props {
-  project: RouterOutput["project"]["bySlug"]["project"];
-}
+type Props = ProjectSettings;
 
 export const FormSchema = z.object({
   name: z

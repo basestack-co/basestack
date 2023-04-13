@@ -3,15 +3,12 @@ import React from "react";
 import Head from "next/head";
 // Layout
 import SettingsLayout from "layouts/Settings";
-// Libs
-import { RouterOutput } from "libs/trpc";
 // Modules
 import ApiKeysModule from "modules/Settings/ApiKeys";
+// Types
+import { ProjectSettings } from "types";
 
-interface Props {
-  project: RouterOutput["project"]["bySlug"]["project"];
-}
-
+type Props = ProjectSettings;
 const ApiKeysPage = ({ project }: Props) => {
   return (
     <>

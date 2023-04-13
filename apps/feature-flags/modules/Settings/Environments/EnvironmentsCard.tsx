@@ -9,17 +9,16 @@ import {
   Table,
 } from "@basestack/design-system";
 // Server
-import { trpc, RouterOutput } from "libs/trpc";
+import { trpc } from "libs/trpc";
 // Store
 import { useStore } from "store";
 // Utils
 import dayjs from "dayjs";
 import { createTable } from "utils/table";
+// Types
+import { ProjectSettings } from "types";
 
-export interface Props {
-  project: RouterOutput["project"]["bySlug"]["project"];
-}
-
+type Props = ProjectSettings;
 const EnvironmentsCard = ({ project }: Props) => {
   const trpcContext = trpc.useContext();
   const setCreateEnvironmentModalOpen = useStore(

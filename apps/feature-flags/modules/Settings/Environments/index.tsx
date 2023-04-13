@@ -1,15 +1,12 @@
 import React from "react";
-// Server
-import { trpc, RouterOutput } from "libs/trpc";
 // Styles
 import { CardList, CardListItem } from "../styles";
 // Card Modules
 import EnvironmentsCard from "./EnvironmentsCard";
+// Types
+import { ProjectSettings } from "types";
 
-export interface Props {
-  project: RouterOutput["project"]["bySlug"]["project"];
-}
-
+type Props = ProjectSettings;
 const EnvironmentsModule = ({ project }: Props) => {
   return (
     <CardList>

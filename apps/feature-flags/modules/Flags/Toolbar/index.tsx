@@ -8,7 +8,7 @@ import EnvironmentsMenu from "./EnvironmentsMenu";
 // Hooks
 import { useDebounce } from "@basestack/hooks";
 // Types
-import { SelectedView } from "types/flags";
+import { SelectedView } from "types";
 
 export interface ToolbarProps extends SpaceProps {
   projectId: string;

@@ -7,12 +7,13 @@ import SettingsLayout from "layouts/Settings";
 import { RouterOutput } from "libs/trpc";
 // Modules
 import GeneralModule from "modules/Settings/General";
+// Types
+import { ProjectSettings } from "types";
 
-interface Props {
-  project: RouterOutput["project"]["bySlug"]["project"];
-}
+type Props = ProjectSettings;
 
 const GeneralPage = ({ project }: Props) => {
+  console.log("project =? ", project?.role);
   return (
     <>
       <Head>

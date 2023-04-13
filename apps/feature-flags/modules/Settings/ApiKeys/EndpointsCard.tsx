@@ -1,16 +1,14 @@
 import React from "react";
 // Components
 import { SettingCard } from "@basestack/design-system";
-// Libs
-import { RouterOutput } from "libs/trpc";
 // Styles
-import { CardList, CardListItem } from "../styles";
+import { CardListItem } from "../styles";
 // Utils
 import { getBaseUrl } from "utils/url";
+// Types
+import { ProjectSettings } from "types";
 
-interface Props {
-  project: RouterOutput["project"]["bySlug"]["project"];
-}
+type Props = ProjectSettings;
 
 const EndpointsCard = ({ project }: Props) => {
   return (

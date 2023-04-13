@@ -8,7 +8,7 @@ import {
   Table,
 } from "@basestack/design-system";
 // Libs
-import { RouterOutput, trpc } from "libs/trpc";
+import { trpc } from "libs/trpc";
 // Store
 import { useStore } from "store";
 // Utils
@@ -17,10 +17,10 @@ import { createTable } from "utils/table";
 import { useSession } from "next-auth/react";
 // Router
 import { useRouter } from "next/router";
+// Types
+import { ProjectSettings } from "types";
 
-interface Props {
-  project: RouterOutput["project"]["bySlug"]["project"];
-}
+type Props = ProjectSettings;
 
 const InviteCard = ({ project }: Props) => {
   const session = useSession();

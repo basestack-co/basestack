@@ -2,20 +2,18 @@ import React from "react";
 // Components
 import { SettingCard } from "@basestack/design-system";
 // Server
-import { RouterOutput, trpc } from "libs/trpc";
+import { trpc } from "libs/trpc";
 // Router
 import { useRouter } from "next/router";
+// Types
+import { ProjectSettings } from "types";
 
-interface Props {
-  project: RouterOutput["project"]["bySlug"]["project"];
-}
+type Props = ProjectSettings;
 
 const DeleteProjectCard = ({ project }: Props) => {
   const router = useRouter();
   const trpcContext = trpc.useContext();
   const deleteProject = trpc.project.delete.useMutation();
-
-  deleteProject.isLoading;
 
   const onDeleteProject = () => {
     if (project) {

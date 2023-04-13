@@ -32,12 +32,32 @@ export const projectRouter = router({
     })
     .input(schemas.project.input.BySlug)
     .query(async ({ ctx, input }) => {
-      const project = await ctx.prisma.project.findUnique({
-        where: {
-          slug: input.projectSlug,
-        },
+      const userId = ctx.session.user.id;
+
+      return await ctx.prisma.$transaction(async (tx) => {
+        const project = await tx.project.findUnique({
+          where: {
+            slug: input.projectSlug,
+          },
+        });
+
+        const role = await tx.projectsOnUsers.findFirst({
+          where: {
+            projectId: project?.id,
+            userId,
+          },
+          select: {
+            role: true,
+          },
+        });
+
+        return {
+          project: {
+            ...project,
+            role: role?.role,
+          },
+        };
       });
-      return { project };
     }),
   allKeys: protectedProcedure
     .input(schemas.project.input.allKeys)
@@ -86,6 +106,7 @@ export const projectRouter = router({
 
       return { users };
     }),
+
   create: protectedProcedure
     .input(schemas.project.input.create)
     .mutation(async ({ ctx, input }) => {
