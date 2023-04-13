@@ -1,12 +1,15 @@
 import React from "react";
 import { rem } from "polished";
 import { useTheme } from "styled-components";
+// Router
+import { useRouter } from "next/router";
 // UI
 import { Text, Label, Button, ButtonVariant } from "@basestack/design-system";
 // Components
 import { Container, ContentContainer } from "./styles";
 
 const PageNotFound = () => {
+  const router = useRouter();
   const theme = useTheme();
 
   return (
@@ -29,6 +32,7 @@ const PageNotFound = () => {
           Sorry, the page you are looking for doesn't exist or has been moved.
         </Text>
         <Button
+          onClick={() => router.push("/")}
           iconPlacement="left"
           icon="arrow_back"
           variant={ButtonVariant.Outlined}
