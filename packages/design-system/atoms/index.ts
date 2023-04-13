@@ -3,7 +3,7 @@ export { default as Text } from "./Text";
 
 export * from "./Button";
 export type { ButtonProps } from "./Button/types";
-export { ButtonVariant } from "./Button/types";
+export { ButtonVariant, ButtonSize } from "./Button/types";
 
 export { default as Icon } from "./Icon";
 export { default as Card } from "./Card";

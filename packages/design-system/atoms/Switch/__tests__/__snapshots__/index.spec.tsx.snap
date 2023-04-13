@@ -6,6 +6,7 @@ exports[`Switch Atom tests should render Switch checked by default 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
+  font-family: roboto;
   margin-right: 0.75rem;
   font-family: 'Roboto',sans-serif;
   color: #757575;
@@ -119,6 +120,7 @@ exports[`Switch Atom tests should render Switch checked by default 1`] = `
   >
     <p
       class="c1"
+      font-family="roboto"
     >
       Lorem ipsum
     </p>
@@ -267,6 +269,7 @@ exports[`Switch Atom tests should render Switch with text 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
+  font-family: roboto;
   margin-right: 0.75rem;
   font-family: 'Roboto',sans-serif;
   color: #757575;
@@ -380,6 +383,7 @@ exports[`Switch Atom tests should render Switch with text 1`] = `
   >
     <p
       class="c1"
+      font-family="roboto"
     >
       Lorem ipsum
     </p>

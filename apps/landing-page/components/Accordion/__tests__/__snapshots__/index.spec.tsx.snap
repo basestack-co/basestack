@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Accordion tests render Accordion correctly 1`] = `
+<DocumentFragment>
+  .c2 {
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  font-weight: 500;
+  font-family: roboto;
+  text-align: left;
+  font-family: 'Roboto',sans-serif;
+  color: #000000;
+}
+
+.c3 {
+  height: 2rem;
+  width: 2rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c4 {
+  color: #000000;
+  font-size: 2rem;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border-bottom: 1px solid #E2E2E2;
+}
+
+.c1 {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 1.25rem 0;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.c1:hover {
+  opacity: 0.7;
+}
+
+<div
+    class="c0"
+  >
+    <button
+      class="c1"
+    >
+      <h3
+        class="c2"
+        font-family="roboto"
+      >
+        My Accordion
+      </h3>
+      <div
+        class="c3"
+        data-testid="icon-container"
+        size="32"
+      >
+        <span
+          class="c4 material-symbols-sharp"
+          data-testid="icon"
+          size="32"
+        >
+          expand_more
+        </span>
+      </div>
+    </button>
+  </div>
+</DocumentFragment>
+`;

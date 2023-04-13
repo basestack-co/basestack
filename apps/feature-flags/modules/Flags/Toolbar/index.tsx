@@ -7,6 +7,8 @@ import { Container, PillsUl, PillLi } from "./styles";
 import EnvironmentsMenu from "./EnvironmentsMenu";
 // Hooks
 import { useDebounce } from "@basestack/hooks";
+// Types
+import { SelectedView } from "types/flags";
 
 export interface ToolbarProps extends SpaceProps {
   projectId: string;
@@ -14,6 +16,7 @@ export interface ToolbarProps extends SpaceProps {
   onSelect: (environmentId: string) => void;
   onChangeView: (selected: string) => void;
   isDesktop?: boolean;
+  selectedView: SelectedView;
 }
 
 const mock = [
@@ -58,6 +61,7 @@ const Toolbar = ({
   onSelect,
   onChangeView,
   onSearchCallback,
+  selectedView,
 }: ToolbarProps) => {
   const theme = useTheme();
   const [selected, setSelected] = useState("all");
@@ -118,6 +122,7 @@ const Toolbar = ({
             { icon: "view_module", id: "cards" },
             { icon: "view_stream", id: "table" },
           ]}
+          selectedIndex={selectedView === "table" ? 1 : 0}
         />
       )}
     </Container>
