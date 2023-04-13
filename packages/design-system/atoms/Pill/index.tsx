@@ -4,7 +4,7 @@ import Text from "../Text";
 import { Container } from "./styles";
 import { useTheme } from "styled-components";
 
-interface PillProps extends SpaceProps {
+export interface PillProps extends SpaceProps {
   /**
    * Changes styles to selected Pill
    */
