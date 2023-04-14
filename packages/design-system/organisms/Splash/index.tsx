@@ -7,11 +7,10 @@ const Splash = () => (
   <Container>
     <Content>
       <Text
-        size="xxLarge"
+        size="xLarge"
+        fontWeight={700}
+        lineHeight="1.6"
         fontFamily="robotoFlex"
-        fontWeight={800}
-        fontSize="32px"
-        lineHeight={1.4}
       >
         MoonFlags
       </Text>
