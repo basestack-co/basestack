@@ -7,13 +7,38 @@ exports[`Label Atom tests render Label correctly 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 0.25rem 0.375rem;
   border-radius: 4px;
+  padding: 0.25rem 0.375rem;
   font-size: 0.875rem;
   line-height: 1rem;
   font-weight: 400;
   color: #545454;
   background-color: #E2E2E2;
+}
+
+<div
+    class="c0"
+    data-testid="label-container"
+  >
+    label
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Label Atom tests render isTranslucent Label 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 4px;
+  padding: 0.25rem 0.375rem;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  font-weight: 400;
+  color: #1E54B7;
+  background-color: rgba(39,110,241,0.1);
 }
 
 <div
@@ -32,8 +57,8 @@ exports[`Label Atom tests should render success Label 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 0.25rem 0.375rem;
   border-radius: 4px;
+  padding: 0.25rem 0.375rem;
   font-size: 0.875rem;
   line-height: 1rem;
   font-weight: 400;

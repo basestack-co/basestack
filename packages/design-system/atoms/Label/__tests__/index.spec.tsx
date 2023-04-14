@@ -12,6 +12,13 @@ describe("Label Atom tests", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  test("render isTranslucent Label", () => {
+    const { asFragment } = renderWithTheme(
+      <Label text="label" variant="info" isTranslucent />
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
   test("should render success Label", () => {
     const { asFragment, getByTestId } = renderWithTheme(
       <Label text="Green label" variant="success" />
