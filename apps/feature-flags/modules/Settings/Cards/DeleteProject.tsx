@@ -16,31 +16,29 @@ const DeleteProjectCard = ({ project }: Props) => {
   const deleteProject = trpc.project.delete.useMutation();
 
   const onDeleteProject = () => {
-    if (project) {
-      deleteProject.mutate(
-        {
-          projectId: project.id!,
+    deleteProject.mutate(
+      {
+        projectId: project.id,
+      },
+      {
+        onSuccess: async (result) => {
+          // Get all the projects on the cache
+          const prev = trpcContext.project.all.getData();
+
+          if (prev && prev.projects) {
+            // Find the project and remove from the list
+            const projects = prev.projects.filter(
+              (project) => project.id !== result.project.id
+            );
+
+            // Update the cache with the new data
+            trpcContext.project.all.setData(undefined, { projects });
+          }
+
+          await router.replace("/");
         },
-        {
-          onSuccess: async (result) => {
-            // Get all the projects on the cache
-            const prev = trpcContext.project.all.getData();
-
-            if (prev && prev.projects) {
-              // Find the project and remove from the list
-              const projects = prev.projects.filter(
-                (project) => project.id !== result.project.id
-              );
-
-              // Update the cache with the new data
-              trpcContext.project.all.setData(undefined, { projects });
-            }
-
-            await router.replace("/");
-          },
-        }
-      );
-    }
+      }
+    );
   };
 
   return (

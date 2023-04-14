@@ -1,4 +1,6 @@
 import React, { useMemo } from "react";
+// SEO
+import Head from "next/head";
 // Router
 import { useRouter } from "next/router";
 // Server
@@ -6,7 +8,7 @@ import { trpc } from "libs/trpc";
 // Theme
 import { useTheme } from "styled-components";
 // Components
-import { Tabs, Text } from "@basestack/design-system";
+import { Loader, Skeleton, Tabs, Text } from "@basestack/design-system";
 import {
   StyledLink,
   Container,
@@ -92,31 +94,52 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   );
 
   return (
-    <MainLayout>
-      <Container>
-        <Text size="xLarge" mb={theme.spacing.s5}>
-          Settings
-        </Text>
-        <SettingsContainer>
-          {isDesktop && (
-            <List top={activeButtonIndex * 100}>{renderButton}</List>
-          )}
-          {!isDesktop && (
-            <Tabs
-              items={items}
-              onSelect={(item) =>
-                router.push(item.replace(/\s+/g, "-").toLowerCase())
-              }
-              sliderPosition={activeButtonIndex}
-              backgroundColor="transparent"
-            />
-          )}
-          {React.cloneElement(children, {
-            project: !isLoadingProject && data ? data.project : null,
-          })}
-        </SettingsContainer>
-      </Container>
-    </MainLayout>
+    <>
+      <Head>
+        <title>API Keys for {data?.project.name ?? ""}</title>
+      </Head>
+
+      <MainLayout>
+        <Container>
+          <Text size="xLarge" mb={theme.spacing.s5}>
+            Settings
+          </Text>
+          <SettingsContainer>
+            {isDesktop && (
+              <List top={activeButtonIndex * 100}>{renderButton}</List>
+            )}
+            {!isDesktop && (
+              <Tabs
+                items={items}
+                onSelect={(item) =>
+                  router.push(item.replace(/\s+/g, "-").toLowerCase())
+                }
+                sliderPosition={activeButtonIndex}
+                backgroundColor="transparent"
+              />
+            )}
+            {isLoadingProject || !data ? (
+              <Loader>
+                <Skeleton
+                  items={[
+                    { h: 24, w: "15%", mb: 10 },
+                    { h: 18, w: "40%", mb: 20 },
+                    { h: 100, w: "100%", mb: 20 },
+                    { h: 1, w: "100%", mb: 16 },
+                    { h: 36, w: 120, mb: 0, ml: "auto" },
+                  ]}
+                  padding={20}
+                />
+              </Loader>
+            ) : (
+              React.cloneElement(children, {
+                project: data.project,
+              })
+            )}
+          </SettingsContainer>
+        </Container>
+      </MainLayout>
+    </>
   );
 };
 

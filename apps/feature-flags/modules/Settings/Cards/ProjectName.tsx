@@ -9,6 +9,7 @@ import { trpc } from "libs/trpc";
 import { Input, SettingCard } from "@basestack/design-system";
 // Types
 import { ProjectSettings } from "types";
+import { Role } from "@prisma/client";
 
 type Props = ProjectSettings;
 
@@ -23,8 +24,9 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const ProjectNameCard = ({ project }: Props) => {
   const trpcContext = trpc.useContext();
-
   const updateProject = trpc.project.update.useMutation();
+
+  const isAdmin = project.role === Role.ADMIN;
 
   const {
     control,
@@ -38,46 +40,44 @@ const ProjectNameCard = ({ project }: Props) => {
   });
 
   const onSaveProjectName: SubmitHandler<FormInputs> = async (input) => {
-    if (project) {
-      updateProject.mutate(
-        {
-          projectId: project.id!,
-          name: input.name,
+    updateProject.mutate(
+      {
+        projectId: project.id,
+        name: input.name,
+      },
+      {
+        onSuccess: async (result) => {
+          // Get all the projects on the cache
+          const prev = trpcContext.project.all.getData();
+
+          if (prev && prev.projects) {
+            // Find the project and update with the new name
+            const projects = prev.projects.map((project) =>
+              project.id === result.project.id
+                ? { ...project, name: result.project.name }
+                : project
+            );
+
+            // Find the current selected and updated project
+            const project =
+              projects.find((project) => project.id === result.project.id) ??
+              null;
+
+            // Update the cache with the new data
+            // This updates in the navigation list
+            trpcContext.project.all.setData(undefined, { projects });
+            // Updates the current active project in the cache
+            trpcContext.project.bySlug.setData(
+              { projectSlug: result.project.slug },
+              {
+                // @ts-ignore
+                project,
+              }
+            );
+          }
         },
-        {
-          onSuccess: async (result) => {
-            // Get all the projects on the cache
-            const prev = trpcContext.project.all.getData();
-
-            if (prev && prev.projects) {
-              // Find the project and update with the new name
-              const projects = prev.projects.map((project) =>
-                project.id === result.project.id
-                  ? { ...project, name: result.project.name }
-                  : project
-              );
-
-              // Find the current selected and updated project
-              const project =
-                projects.find((project) => project.id === result.project.id) ??
-                null;
-
-              // Update the cache with the new data
-              // This updates in the navigation list
-              trpcContext.project.all.setData(undefined, { projects });
-              // Updates the current active project in the cache
-              trpcContext.project.bySlug.setData(
-                { projectSlug: result.project.slug },
-                {
-                  // @ts-ignore
-                  project,
-                }
-              );
-            }
-          },
-        }
-      );
-    }
+      }
+    );
   };
 
   useEffect(() => {
@@ -94,6 +94,7 @@ const ProjectNameCard = ({ project }: Props) => {
       onClick={handleSubmit(onSaveProjectName)}
       isDisabled={isSubmitting || !project || updateProject.isLoading}
       isLoading={isSubmitting || updateProject.isLoading}
+      hasFooter={isAdmin}
     >
       <Controller
         name="name"
@@ -108,7 +109,7 @@ const ProjectNameCard = ({ project }: Props) => {
             name={field.name}
             value={field.value}
             hasError={!!errors.name}
-            isDisabled={isSubmitting || !project}
+            isDisabled={isSubmitting || !project || !isAdmin}
           />
         )}
       />

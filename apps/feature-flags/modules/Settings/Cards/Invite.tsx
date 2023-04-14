@@ -19,6 +19,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 // Types
 import { ProjectSettings } from "types";
+import { Role } from "@prisma/client";
 
 type Props = ProjectSettings;
 
@@ -30,58 +31,51 @@ const InviteCard = ({ project }: Props) => {
     (state) => state.setInviteMemberModalOpen
   );
 
-  const projectId = project?.id ?? "";
-
   const { data, isLoading } = trpc.project.members.useQuery(
-    { projectId },
-    { enabled: !!projectId }
+    { projectId: project.id },
+    { enabled: !!project.id }
   );
 
   const removeUserFromProject = trpc.project.removeMember.useMutation();
   const updateUserRole = trpc.project.updateMember.useMutation();
 
+  const isAdmin = project.role === Role.ADMIN;
+
   const onHandleInvite = useCallback(() => {
-    if (project) {
-      console.log("create here");
-      setInviteMemberModalOpen({ isOpen: true, data: { project } });
-    }
+    setInviteMemberModalOpen({ isOpen: true, data: { project } });
   }, [project, setInviteMemberModalOpen]);
 
   const onHandleDelete = useCallback(
     async (userId: string) => {
-      if (project) {
-        removeUserFromProject.mutate(
-          { projectId, userId },
-          {
-            onSuccess: async (result) => {
-              if (session?.data?.user.id === userId) {
-                // the user removed himself from the project, so we redirect him to the dashboard
-                await router.push("/");
-              } else {
-                // TODO: migrate this to use cache from useQuery
-                await trpcContext.project.members.invalidate();
-              }
-            },
-          }
-        );
-      }
+      removeUserFromProject.mutate(
+        { projectId: project.id, userId },
+        {
+          onSuccess: async (result) => {
+            if (session?.data?.user.id === userId) {
+              // the user removed himself from the project, so we redirect him to the dashboard
+              await router.push("/");
+            } else {
+              // TODO: migrate this to use cache from useQuery
+              await trpcContext.project.members.invalidate();
+            }
+          },
+        }
+      );
     },
     [project, removeUserFromProject, trpcContext, session, router]
   );
 
   const onHandleUpdateRole = useCallback(
     async (userId: string, isAdmin: boolean) => {
-      if (project) {
-        updateUserRole.mutate(
-          { projectId, userId, role: isAdmin ? "USER" : "ADMIN" },
-          {
-            onSuccess: async (result) => {
-              // TODO: migrate this to use cache from useQuery
-              await trpcContext.project.members.invalidate();
-            },
-          }
-        );
-      }
+      updateUserRole.mutate(
+        { projectId: project.id, userId, role: isAdmin ? "USER" : "ADMIN" },
+        {
+          onSuccess: async (result) => {
+            // TODO: migrate this to use cache from useQuery
+            await trpcContext.project.members.invalidate();
+          },
+        }
+      );
     },
     [project, updateUserRole, trpcContext]
   );
@@ -105,13 +99,12 @@ const InviteCard = ({ project }: Props) => {
           title: item.user.name!,
         },
         { title: item.user.email! },
-        { title: item.role === "ADMIN" ? "Admin" : "User" },
+        { title: item.role === Role.ADMIN ? "Admin" : "User" },
       ],
       (item) => {
-        const isAdmin = item.role === "ADMIN";
-
+        const isSameUser = session?.data?.user.id === item.userId;
         return [
-          ...(!isAdmin || numberOfAdmins! > 1
+          ...(isAdmin || numberOfAdmins! > 1
             ? [
                 {
                   icon: "shield",
@@ -122,7 +115,7 @@ const InviteCard = ({ project }: Props) => {
             : []),
           {
             icon: "delete",
-            text: "Remove",
+            text: isSameUser ? "Leave" : "Remove",
             variant: ButtonVariant.Danger,
             onClick: () => onHandleDelete(item.userId),
             isDisabled: isAdmin && numberOfAdmins! === 1,
@@ -130,7 +123,14 @@ const InviteCard = ({ project }: Props) => {
         ];
       }
     );
-  }, [isLoading, data, onHandleDelete, onHandleUpdateRole]);
+  }, [
+    data,
+    isLoading,
+    session?.data?.user.id,
+    isAdmin,
+    onHandleUpdateRole,
+    onHandleDelete,
+  ]);
 
   return (
     <SettingCard
@@ -138,6 +138,7 @@ const InviteCard = ({ project }: Props) => {
       description="Manage Team Members."
       button="Invite Member"
       onClick={onHandleInvite}
+      hasFooter={isAdmin}
     >
       {isLoading || !data ? (
         <Loader>

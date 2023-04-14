@@ -3,13 +3,26 @@ import { Role } from "@prisma/client";
 
 /*
  *
+ *  UTILS
+ *
+ * */
+
+export type RemoveNullAndUndefined<T> = T extends null | undefined
+  ? never
+  : T extends object
+  ? {
+      [K in keyof T]-?: RemoveNullAndUndefined<T[K]>;
+    }
+  : T;
+
+/*
+ *
  *  PROJECT
  *
  * */
 
 export type ProjectOutput = RouterOutput["project"]["bySlug"]["project"];
-export type ProjectRole = Role;
-export type Project = ProjectOutput | null;
+export type Project = RemoveNullAndUndefined<ProjectOutput>;
 
 export interface ProjectSettings {
   project: Project;

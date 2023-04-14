@@ -13,8 +13,8 @@ import { ProjectSettings } from "types";
 type Props = ProjectSettings;
 const KeysCard = ({ project }: Props) => {
   const { data, isLoading } = trpc.project.allKeys.useQuery(
-    { projectSlug: project?.slug! },
-    { enabled: !!project?.id }
+    { projectSlug: project.slug },
+    { enabled: !!project.id }
   );
 
   const getTable = useMemo(() => {
