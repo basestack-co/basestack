@@ -9,6 +9,8 @@ import CreateEnvironmentModal from "./Environment/Create";
 import UpdateEnvironmentModal from "./Environment/Update";
 // Settings
 import InviteMemberModal from "./InviteMember";
+// Confirm
+import ConfirmModal from "./Confirm";
 
 const Modals = () => {
   return (
@@ -19,6 +21,7 @@ const Modals = () => {
       <UpdateEnvironmentModal />
       <CreateFlagModal />
       <UpdateFlagModal />
+      <ConfirmModal />
     </Fragment>
   );
 };

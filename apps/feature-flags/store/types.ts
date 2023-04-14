@@ -16,6 +16,16 @@ export type Persist = (
  * Modals
  */
 
+export type ConfirmModalType = "delete" | "info";
+
+export interface ConfirmModalPayload {
+  type?: ConfirmModalType;
+  title: string;
+  description: string;
+  buttonText: string;
+  onClick: () => void;
+}
+
 export interface FlagModalPayload {
   flag: { id: string; slug: string };
   selectedTab: TabType;
@@ -47,6 +57,7 @@ export interface ModalsSliceActions {
   setCreateProjectModalOpen: ModalAction<ModalPayload<null>, void>;
   setCreateFlagModalOpen: ModalAction<ModalPayload<null>, void>;
   setUpdateFlagModalOpen: ModalAction<ModalPayload<FlagModalPayload>, void>;
+  setConfirmModalOpen: ModalAction<ModalPayload<ConfirmModalPayload>, void>;
 }
 
 export interface ModalsSliceState extends ModalsSliceActions {
@@ -58,6 +69,8 @@ export interface ModalsSliceState extends ModalsSliceActions {
   isUpdateFlagModalOpen: boolean;
   flagModalPayload: FlagModalPayload | null;
   environmentModalPayload: EnvironmentModalPayload | null;
+  isConfirmModalOpen: boolean;
+  confirmModalPayload: ConfirmModalPayload | null;
 }
 
 /**

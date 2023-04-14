@@ -35,6 +35,7 @@ const FlagCards = ({
 }: FlagCardsProps) => {
   const trpcContext = trpc.useContext();
   const router = useRouter();
+  const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
   const setCreateFlagModalOpen = useStore(
     (state) => state.setCreateFlagModalOpen
   );
@@ -155,7 +156,22 @@ const FlagCards = ({
                 icon: "delete",
                 text: "Delete",
                 variant: ButtonVariant.Danger,
-                onClick: () => onDelete(flag.slug),
+                onClick: () =>
+                  setConfirmModalOpen({
+                    isOpen: true,
+                    data: {
+                      title: "Are you sure?",
+                      description: `This action cannot be undone. This will permanently delete the ${flag.slug} flag, comments, history and remove all collaborator associations. `,
+                      type: "delete",
+                      buttonText: "Delete Flag",
+                      onClick: () => {
+                        onDelete(flag.slug);
+                        setConfirmModalOpen({
+                          isOpen: false,
+                        });
+                      },
+                    },
+                  }),
               },
             ]}
           />

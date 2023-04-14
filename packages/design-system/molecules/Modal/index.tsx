@@ -74,7 +74,9 @@ const Modal: React.FC<ModalProps> = ({
                           <Button
                             key={index.toString()}
                             variant={
-                              isLastItem
+                              item.variant
+                                ? item.variant
+                                : isLastItem
                                 ? ButtonVariant.Primary
                                 : ButtonVariant.Neutral
                             }
