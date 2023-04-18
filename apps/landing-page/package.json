@@ -19,7 +19,7 @@
     "@basestack/hooks": "*",
     "@basestack/utils": "*",
     "@floating-ui/react-dom": "^1.0.1",
-    "@hookform/resolvers": "^3.0.1",
+    "@hookform/resolvers": "^3.1.0",
     "@piwikpro/next-piwik-pro": "^1.0.4",
     "eslint-config-next": "^13.0.6",
     "isomorphic-unfetch": "^4.0.2",
@@ -45,7 +45,7 @@
     "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.2.4",
     "@types/node": "^18.11.11",
-    "@types/react": "18.0.35",
+    "@types/react": "18.0.37",
     "@types/react-dom": "^18.0.9",
     "@types/react-syntax-highlighter": "^15.5.6",
     "@types/styled-components": "^5.1.25",
@@ -59,7 +59,7 @@
     "lint-staged": "^13.1.0",
     "next-transpile-modules": "10.0.0",
     "node-mocks-http": "^1.12.1",
-    "turbo": "1.9.1",
+    "turbo": "1.9.3",
     "typescript": "^5.0.4"
   },
   "overrides": {

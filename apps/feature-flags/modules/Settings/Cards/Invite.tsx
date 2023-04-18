@@ -20,6 +20,8 @@ import { useRouter } from "next/router";
 // Types
 import { ProjectSettings } from "types";
 import { Role } from "@prisma/client";
+// Utils
+import dayjs from "dayjs";
 
 type Props = ProjectSettings;
 
@@ -39,7 +41,7 @@ const InviteCard = ({ project }: Props) => {
   const removeUserFromProject = trpc.project.removeMember.useMutation();
   const updateUserRole = trpc.project.updateMember.useMutation();
 
-  const isAdmin = project.role === Role.ADMIN;
+  const isCurrentUserAdmin = project.role === Role.ADMIN;
 
   const onHandleInvite = useCallback(() => {
     setInviteMemberModalOpen({ isOpen: true, data: { project } });
@@ -68,7 +70,11 @@ const InviteCard = ({ project }: Props) => {
   const onHandleUpdateRole = useCallback(
     async (userId: string, isAdmin: boolean) => {
       updateUserRole.mutate(
-        { projectId: project.id, userId, role: isAdmin ? "USER" : "ADMIN" },
+        {
+          projectId: project.id,
+          userId,
+          role: isAdmin ? "USER" : "ADMIN",
+        },
         {
           onSuccess: async (result) => {
             // TODO: migrate this to use cache from useQuery
@@ -85,11 +91,11 @@ const InviteCard = ({ project }: Props) => {
       (item) => item.role === "ADMIN"
     ).length;
 
-    console.log("numberOfAdmins = ", numberOfAdmins);
+    console.log("data = ", data);
 
     return createTable(
       !isLoading && !!data ? data.users : [],
-      ["Name", "Email", "Role"],
+      ["Name", "Email", "Role", "Invited At"],
       (item) => [
         {
           image: {
@@ -100,11 +106,14 @@ const InviteCard = ({ project }: Props) => {
         },
         { title: item.user.email! },
         { title: item.role === Role.ADMIN ? "Admin" : "User" },
+        { title: dayjs(item.createdAt).fromNow() },
       ],
       (item) => {
         const isSameUser = session?.data?.user.id === item.userId;
+        const isAdmin = item.role === Role.ADMIN;
+
         return [
-          ...(isAdmin || numberOfAdmins! > 1
+          ...(isCurrentUserAdmin && !isSameUser
             ? [
                 {
                   icon: "shield",
@@ -113,13 +122,18 @@ const InviteCard = ({ project }: Props) => {
                 },
               ]
             : []),
-          {
-            icon: "delete",
-            text: isSameUser ? "Leave" : "Remove",
-            variant: ButtonVariant.Danger,
-            onClick: () => onHandleDelete(item.userId),
-            isDisabled: isAdmin && numberOfAdmins! === 1,
-          },
+
+          ...(isCurrentUserAdmin || isSameUser
+            ? [
+                {
+                  icon: isSameUser ? "exit_to_app" : "delete",
+                  text: isSameUser ? "Leave" : "Remove",
+                  variant: ButtonVariant.Danger,
+                  onClick: () => onHandleDelete(item.userId),
+                  isDisabled: isAdmin && (numberOfAdmins ?? 0) <= 1,
+                },
+              ]
+            : []),
         ];
       }
     );
@@ -127,7 +141,7 @@ const InviteCard = ({ project }: Props) => {
     data,
     isLoading,
     session?.data?.user.id,
-    isAdmin,
+    isCurrentUserAdmin,
     onHandleUpdateRole,
     onHandleDelete,
   ]);
@@ -138,7 +152,7 @@ const InviteCard = ({ project }: Props) => {
       description="Manage Team Members."
       button="Invite Member"
       onClick={onHandleInvite}
-      hasFooter={isAdmin}
+      hasFooter={isCurrentUserAdmin}
     >
       {isLoading || !data ? (
         <Loader>

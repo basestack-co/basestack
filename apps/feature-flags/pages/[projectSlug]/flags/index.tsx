@@ -24,9 +24,10 @@ const FlagsPage = () => {
   return (
     <>
       <Head>
-        <title>Flags for {data?.project?.name}</title>
+        <title>{data?.project?.name ?? "Project"} / Flags</title>
       </Head>
-      <Flags project={data?.project ?? null} />
+      {/* @ts-ignore */}
+      <Flags project={data?.project!} />
     </>
   );
 };

@@ -96,7 +96,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   return (
     <>
       <Head>
-        <title>API Keys for {data?.project.name ?? ""}</title>
+        <title>{data?.project.name ?? "Project"} / Settings</title>
       </Head>
 
       <MainLayout>

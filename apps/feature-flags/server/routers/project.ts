@@ -101,12 +101,15 @@ export const projectRouter = router({
               image: true,
             },
           },
+          createdAt: true,
+        },
+        orderBy: {
+          createdAt: "desc",
         },
       });
 
       return { users };
     }),
-
   create: protectedProcedure
     .input(schemas.project.input.create)
     .mutation(async ({ ctx, input }) => {
@@ -235,7 +238,6 @@ export const projectRouter = router({
 
       return { connection };
     }),
-
   removeMember: protectedProcedure
     .meta({
       restricted: true,
