@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
 // Form
@@ -49,10 +49,7 @@ const CreateEnvironmentModal = () => {
   const { handleSubmit, onRenderForm, reset, isSubmitting } =
     useEnvironmentForm({ isCreate: true, options });
 
-  const onClose = useCallback(() => {
-    setCreateEnvironmentModalOpen({ isOpen: false });
-    reset();
-  }, [reset, setCreateEnvironmentModalOpen]);
+  const onClose = () => setCreateEnvironmentModalOpen({ isOpen: false });
 
   const onSubmit: SubmitHandler<FormInputs> = (input: FormInputs) => {
     if (project) {
@@ -104,6 +101,7 @@ const CreateEnvironmentModal = () => {
             isLoading: isSubmitting,
           },
         ]}
+        onAnimationEnd={reset}
       >
         {onRenderForm()}
       </Modal>

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 // Router
 import { useRouter } from "next/router";
 // Form
@@ -61,10 +61,7 @@ const CreateProjectModal = () => {
 
   const watchName = watch("name");
 
-  const onClose = useCallback(() => {
-    setCreateProjectModalOpen({ isOpen: false });
-    reset();
-  }, [reset]);
+  const onClose = () => setCreateProjectModalOpen({ isOpen: false });
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     await createProject.mutate(data, {
@@ -114,6 +111,7 @@ const CreateProjectModal = () => {
             onClick: handleSubmit(onSubmit),
           },
         ]}
+        onAnimationEnd={reset}
       >
         <Controller
           name="name"

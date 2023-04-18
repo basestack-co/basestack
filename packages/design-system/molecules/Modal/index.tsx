@@ -33,8 +33,8 @@ const Modal: React.FC<ModalProps> = ({
   const transitionModal = useTransition(isOpen, {
     config: { ...config.stiff, duration: 300 },
     ...fadeIn,
-    onRest: (result: any) => {
-      if (!result && onAnimationEnd) {
+    onRest: () => {
+      if (!isOpen && typeof onAnimationEnd === "function") {
         onAnimationEnd();
       }
     },

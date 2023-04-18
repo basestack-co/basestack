@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 // Router
 import { useRouter } from "next/router";
 // Components
@@ -39,10 +39,7 @@ const CreateFlagModal = () => {
 
   const createFlag = trpc.flag.create.useMutation();
 
-  const onClose = useCallback(() => {
-    setCreateFlagModalOpen({ isOpen: false });
-    setTimeout(reset, 250);
-  }, [setCreateFlagModalOpen, reset]);
+  const onClose = () => setCreateFlagModalOpen({ isOpen: false });
 
   const onSubmit: SubmitHandler<FlagFormInputs> = async (input) => {
     if (project) {
@@ -84,6 +81,7 @@ const CreateFlagModal = () => {
             isLoading: isSubmitting,
           },
         ]}
+        onAnimationEnd={reset}
       >
         <Tabs
           items={[

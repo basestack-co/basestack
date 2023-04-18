@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 // Router
 import { useRouter } from "next/router";
 // Components
@@ -51,10 +51,7 @@ const UpdateFlagModal = () => {
     { enabled: !!project?.id && !!modalPayload?.flag.slug }
   );
 
-  const onClose = useCallback(() => {
-    setUpdateFlagModalOpen({ isOpen: false });
-    setTimeout(reset, 250);
-  }, [setUpdateFlagModalOpen, reset]);
+  const onClose = () => setUpdateFlagModalOpen({ isOpen: false });
 
   const onSubmit: SubmitHandler<FlagFormInputs> = async (input) => {
     if (project && bySlugData) {
@@ -122,6 +119,7 @@ const UpdateFlagModal = () => {
             isLoading: isSubmitting,
           },
         ]}
+        onAnimationEnd={reset}
       >
         <Tabs
           items={[
