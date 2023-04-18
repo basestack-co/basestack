@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FlagFormInputs, FlagFormSchema } from "./types";
 // Types
-import { TabType } from "types/flags";
+import { TabType } from "types";
 // Server
 import { trpc } from "libs/trpc";
 // Tabs
@@ -43,7 +43,8 @@ const useFlagForm = ({
     reset,
     getValues,
   } = useForm<FlagFormInputs>({
-    resolver: zodResolver(FlagFormSchema),
+    // @ts-ignore
+    resolver: zodResolver(FlagFormSchema), // TODO: fix this, broken after the 3.0.0 release
     mode: "onChange",
   });
 
@@ -59,13 +60,16 @@ const useFlagForm = ({
     return null;
   }, [projectSlug, isModalOpen, trpcContext]);
 
-  useEffect(() => {
-    if (isModalOpen && project && isCreate) {
-      const cache = trpcContext.environment.all.getData({
-        projectId: project.id,
-      });
+  const { data, isLoading } = trpc.environment.all.useQuery(
+    { projectId: project?.id! },
+    {
+      enabled: !!project?.id,
+    }
+  );
 
-      const environments = ((cache && cache.environments) || []).map(
+  useEffect(() => {
+    if (isModalOpen && !isLoading && isCreate) {
+      const environments = ((data && data.environments) || []).map(
         ({ id, name }) => ({
           id,
           name,
@@ -74,7 +78,7 @@ const useFlagForm = ({
       );
       setValue("environments", environments);
     }
-  }, [isModalOpen, project, trpcContext, setValue, isCreate]);
+  }, [isModalOpen, data, isLoading, setValue, isCreate]);
 
   const onRenderTab = (isLoading: boolean = false) => {
     switch (selectedTab) {

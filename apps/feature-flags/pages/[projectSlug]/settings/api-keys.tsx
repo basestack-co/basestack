@@ -1,25 +1,24 @@
 import React from "react";
-// SEO
-import Head from "next/head";
 // Layout
 import SettingsLayout from "layouts/Settings";
-// Libs
-import { RouterOutput } from "libs/trpc";
 // Modules
-import ApiKeysModule from "modules/Settings/ApiKeys";
+import { CardList, CardListItem } from "modules/Settings/styles";
+import Endpoints from "modules/Settings/Cards/Endpoints";
+import Keys from "modules/Settings/Cards/Keys";
+// Types
+import { ProjectSettings } from "types";
 
-interface Props {
-  project: RouterOutput["project"]["bySlug"]["project"];
-}
-
+type Props = ProjectSettings;
 const ApiKeysPage = ({ project }: Props) => {
   return (
-    <>
-      <Head>
-        <title>API Keys for {project?.name}</title>
-      </Head>
-      <ApiKeysModule project={project} />
-    </>
+    <CardList>
+      <CardListItem>
+        <Endpoints project={project} />
+      </CardListItem>
+      <CardListItem>
+        <Keys project={project} />
+      </CardListItem>
+    </CardList>
   );
 };
 

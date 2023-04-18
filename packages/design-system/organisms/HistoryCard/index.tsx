@@ -20,6 +20,7 @@ const HistoryCard = ({
   type,
   hasPaddingTop = true,
   hasPaddingBottom = true,
+  avatar,
 }: HistoryCardProps) => {
   const theme = useTheme();
 
@@ -45,6 +46,7 @@ const HistoryCard = ({
           />
         </IconContainer>
         <Avatar
+          src={avatar}
           userName={userName}
           alt={`${userName} profile picture`}
           size="small"

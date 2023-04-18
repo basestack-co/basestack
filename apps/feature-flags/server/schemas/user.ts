@@ -1,14 +1,24 @@
 import { z } from "zod";
+// utils
+import { withProjectId, withProjectIdAndUserId } from "./utils";
 
-export const UserByProjectIdInput = z
+const all = z
   .object({
-    projectId: z.string(),
+    excludeProjectId: z.string(),
   })
   .required();
 
-export const UserBySearchInput = z
-  .object({
-    projectId: z.string(),
+const bySearch = withProjectId
+  .extend({
     search: z.string(),
   })
   .required();
+
+const userSchema = {
+  input: {
+    all,
+    bySearch,
+  },
+};
+
+export default userSchema;

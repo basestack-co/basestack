@@ -8,6 +8,10 @@ export const List = styled.ul<SpaceProps>`
   flex-direction: column;
 `;
 
+export const Container = styled.div<SpaceProps>`
+  ${space};
+`;
+
 export const ListItem = styled.li<SpaceProps>`
   ${space};
 `;

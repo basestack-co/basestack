@@ -2,20 +2,15 @@ import { protectedProcedure, router } from "server/trpc";
 import { TRPCError } from "@trpc/server";
 // Utils
 import { getValue } from "@basestack/utils";
-import {
-  CreateFlagInput,
-  DeleteFlagInput,
-  FlagBySlugInput,
-  UpdateFlagInput,
-  AllFlagsInput,
-} from "../schemas/flag";
+// Inputs
+import schemas from "server/schemas";
 
 export const flagRouter = router({
   all: protectedProcedure
     .meta({
       restricted: true,
     })
-    .input(AllFlagsInput)
+    .input(schemas.flag.input.all)
     .query(async ({ ctx, input }) => {
       const skip = getValue(input.pagination, "skip", 0);
       const take = getValue(input.pagination, "take", 50);
@@ -106,7 +101,7 @@ export const flagRouter = router({
     .meta({
       restricted: true,
     })
-    .input(FlagBySlugInput)
+    .input(schemas.flag.input.bySlug)
     .query(async ({ ctx, input }) => {
       const flags = await ctx.prisma.flag.findMany({
         where: {
@@ -150,7 +145,7 @@ export const flagRouter = router({
     .meta({
       restricted: true,
     })
-    .input(CreateFlagInput)
+    .input(schemas.flag.input.create)
     .mutation(async ({ ctx, input }) => {
       // TODO: this is workaround for prisma bug on createMany not returning the created data
       const flags = await ctx.prisma.$transaction(async (tx) => {
@@ -167,7 +162,7 @@ export const flagRouter = router({
     .meta({
       restricted: true,
     })
-    .input(UpdateFlagInput)
+    .input(schemas.flag.input.update)
     .mutation(async ({ ctx, input }) => {
       const flags = await ctx.prisma.$transaction(async (tx) => {
         return await Promise.all(
@@ -192,7 +187,7 @@ export const flagRouter = router({
     .meta({
       restricted: true,
     })
-    .input(DeleteFlagInput)
+    .input(schemas.flag.input.delete)
     .mutation(async ({ ctx, input }) => {
       const flags = await ctx.prisma.flag.deleteMany({
         where: {

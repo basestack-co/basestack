@@ -8,6 +8,7 @@ describe("HistoryCard Molecule tests", () => {
   test("should render HistoryCard correctly", () => {
     const { asFragment } = renderWithTheme(
       <HistoryCard
+        avatar=""
         userName="Joana Lopes"
         description="toggled off"
         flagName="user_image"

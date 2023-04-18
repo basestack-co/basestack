@@ -8,7 +8,7 @@ const MainPage = () => {
   return (
     <div>
       <Head>
-        <title>Remote Flags</title>
+        <title>Basestack / Feature Flags</title>
       </Head>
 
       <GetStarted />

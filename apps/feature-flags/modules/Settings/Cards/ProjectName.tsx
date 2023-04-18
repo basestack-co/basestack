@@ -4,13 +4,14 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // Server
-import { RouterOutput, trpc } from "libs/trpc";
+import { trpc } from "libs/trpc";
 // Components
 import { Input, SettingCard } from "@basestack/design-system";
+// Types
+import { ProjectSettings } from "types";
+import { Role } from "@prisma/client";
 
-interface Props {
-  project: RouterOutput["project"]["bySlug"]["project"];
-}
+type Props = ProjectSettings;
 
 export const FormSchema = z.object({
   name: z
@@ -21,10 +22,11 @@ export const FormSchema = z.object({
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
-const ProjectName = ({ project }: Props) => {
+const ProjectNameCard = ({ project }: Props) => {
   const trpcContext = trpc.useContext();
-
   const updateProject = trpc.project.update.useMutation();
+
+  const isAdmin = project.role === Role.ADMIN;
 
   const {
     control,
@@ -32,55 +34,58 @@ const ProjectName = ({ project }: Props) => {
     formState: { errors, isSubmitting },
     setValue,
   } = useForm<FormInputs>({
-    resolver: zodResolver(FormSchema),
+    // @ts-ignore
+    resolver: zodResolver(FormSchema), // TODO: fix this, broken after the 3.0.0 release
     mode: "onChange",
   });
 
   const onSaveProjectName: SubmitHandler<FormInputs> = async (input) => {
-    if (project) {
-      updateProject.mutate(
-        {
-          projectId: project.id,
-          name: input.name,
-        },
-        {
-          onSuccess: async (result) => {
-            // Get all the projects on the cache
-            const prev = trpcContext.project.all.getData();
+    updateProject.mutate(
+      {
+        projectId: project.id,
+        name: input.name,
+      },
+      {
+        onSuccess: (result) => {
+          // Get all the projects on the cache
+          const cacheAllProjects = trpcContext.project.all.getData();
 
-            if (prev && prev.projects) {
-              // Find the project and update with the new name
-              const projects = prev.projects.map((project) =>
+          if (cacheAllProjects && cacheAllProjects.projects) {
+            // Update the cache with the new data
+            // This updates in the navigation list
+            trpcContext.project.all.setData(undefined, {
+              projects: cacheAllProjects.projects.map((project) =>
                 project.id === result.project.id
                   ? { ...project, name: result.project.name }
                   : project
-              );
+              ),
+            });
+          }
 
-              // Find the current selected and updated project
-              const project =
-                projects.find((project) => project.id === result.project.id) ??
-                null;
+          const cacheProject = trpcContext.project.bySlug.getData({
+            projectSlug: result.project.slug,
+          });
 
-              // Update the cache with the new data
-              // This updates in the navigation list
-              trpcContext.project.all.setData(undefined, { projects });
-              // Updates the current active project in the cache
-              trpcContext.project.bySlug.setData(
-                { projectSlug: result.project.slug },
-                {
-                  project,
-                }
-              );
-            }
-          },
-        }
-      );
-    }
+          if (cacheProject && cacheProject.project) {
+            // Updates the current active project in the cache
+            trpcContext.project.bySlug.setData(
+              { projectSlug: result.project.slug },
+              {
+                project: {
+                  ...cacheProject.project,
+                  name: result.project.name,
+                },
+              }
+            );
+          }
+        },
+      }
+    );
   };
 
   useEffect(() => {
     if (project) {
-      setValue("name", project.name);
+      setValue("name", project.name!);
     }
   }, [project, setValue]);
 
@@ -92,6 +97,7 @@ const ProjectName = ({ project }: Props) => {
       onClick={handleSubmit(onSaveProjectName)}
       isDisabled={isSubmitting || !project || updateProject.isLoading}
       isLoading={isSubmitting || updateProject.isLoading}
+      hasFooter={isAdmin}
     >
       <Controller
         name="name"
@@ -106,7 +112,7 @@ const ProjectName = ({ project }: Props) => {
             name={field.name}
             value={field.value}
             hasError={!!errors.name}
-            isDisabled={isSubmitting || !project}
+            isDisabled={isSubmitting || !project || !isAdmin}
           />
         )}
       />
@@ -114,4 +120,4 @@ const ProjectName = ({ project }: Props) => {
   );
 };
 
-export default ProjectName;
+export default ProjectNameCard;

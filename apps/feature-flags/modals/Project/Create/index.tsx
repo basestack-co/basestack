@@ -5,8 +5,6 @@ import { useRouter } from "next/router";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-// Types
-import { HistoryAction } from "types/history";
 // Theme
 import { useTheme } from "styled-components";
 // Components
@@ -55,7 +53,8 @@ const CreateProjectModal = () => {
     setValue,
     reset,
   } = useForm<FormInputs>({
-    resolver: zodResolver(FormSchema),
+    // @ts-ignore
+    resolver: zodResolver(FormSchema), // TODO: fix this, broken after the 3.0.0 release
     mode: "onChange",
   });
 

@@ -1,17 +1,17 @@
 import { protectedProcedure, router } from "server/trpc";
-// Utils
-import { UserByProjectIdInput, UserBySearchInput } from "../schemas/user";
+// Inputs
+import schemas from "server/schemas";
 
 export const userRouter = router({
-  byProjectId: protectedProcedure
-    .input(UserByProjectIdInput)
+  all: protectedProcedure
+    .input(schemas.user.input.all)
     .query(async ({ ctx, input }) => {
       const users = await ctx.prisma.user.findMany({
         where: {
-          projects: {
-            some: {
-              project: {
-                id: input.projectId,
+          NOT: {
+            projects: {
+              some: {
+                projectId: input.excludeProjectId,
               },
             },
           },
@@ -30,11 +30,14 @@ export const userRouter = router({
       return { users };
     }),
   bySearch: protectedProcedure
-    .input(UserBySearchInput)
+    .input(schemas.user.input.bySearch)
     .query(async ({ ctx, input }) => {
       const users = await ctx.prisma.user.findMany({
         where: {
           name: {
+            search: input.search,
+          },
+          email: {
             search: input.search,
           },
         },
@@ -48,6 +51,7 @@ export const userRouter = router({
           createdAt: "desc",
         },
       });
+
       return { users };
     }),
 });

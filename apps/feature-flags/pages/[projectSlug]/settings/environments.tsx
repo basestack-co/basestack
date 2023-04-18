@@ -1,25 +1,21 @@
 import React from "react";
-// SEO
-import Head from "next/head";
 // Layout
 import SettingsLayout from "layouts/Settings";
-// Libs
-import { RouterOutput } from "libs/trpc";
 // Modules
-import EnvironmentsModule from "modules/Settings/Environments";
+import { CardList, CardListItem } from "modules/Settings/styles";
+import Environments from "modules/Settings/Cards/Environments";
+// Types
+import { ProjectSettings } from "types";
 
-interface Props {
-  project: RouterOutput["project"]["bySlug"]["project"];
-}
+type Props = ProjectSettings;
 
 const EnvironmentsPage = ({ project }: Props) => {
   return (
-    <>
-      <Head>
-        <title>Environments for {project?.name}</title>
-      </Head>
-      <EnvironmentsModule project={project} />
-    </>
+    <CardList>
+      <CardListItem>
+        <Environments project={project} />
+      </CardListItem>
+    </CardList>
   );
 };
 
