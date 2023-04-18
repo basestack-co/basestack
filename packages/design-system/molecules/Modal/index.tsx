@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from "react";
+import React, { memo } from "react";
 import { Button, ButtonVariant, IconButton, Text } from "../../atoms";
 import {
   Body,
