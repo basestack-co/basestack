@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import { StateCreator } from "zustand/esm";
 import { PersistOptions } from "zustand/middleware";
 import { TabType, SelectedView } from "types/flags";
@@ -24,6 +25,7 @@ export interface ConfirmModalPayload {
   description: string;
   buttonText: string;
   onClick: () => void;
+  children?: ReactElement;
 }
 
 export interface FlagModalPayload {

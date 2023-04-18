@@ -9,6 +9,7 @@ import {
   ButtonVariant,
   Empty,
   Loader,
+  Input,
 } from "@basestack/design-system";
 // Store
 import { useStore } from "store";
@@ -161,7 +162,7 @@ const FlagCards = ({
                     isOpen: true,
                     data: {
                       title: "Are you sure?",
-                      description: `This action cannot be undone. This will permanently delete the ${flag.slug} flag, comments, history and remove all collaborator associations. `,
+                      description: `This action cannot be undone. This will permanently delete the <b>${flag.slug}</b> flag, comments, history and remove all collaborator associations. `,
                       type: "delete",
                       buttonText: "Delete Flag",
                       onClick: () => {

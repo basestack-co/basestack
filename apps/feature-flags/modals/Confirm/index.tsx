@@ -1,9 +1,11 @@
 import React, { useCallback } from "react";
+import { useTheme } from "styled-components";
 import Portal from "@basestack/design-system/global/Portal";
-import { Modal, ButtonVariant, Text } from "@basestack/design-system";
+import { Modal, ButtonVariant } from "@basestack/design-system";
 // Store
 import { useStore } from "store";
 import { ConfirmModalType } from "store/types";
+import { Content } from "./styles";
 
 const getButtonVariant = (type: ConfirmModalType) => {
   const variant = {
@@ -15,11 +17,10 @@ const getButtonVariant = (type: ConfirmModalType) => {
 };
 
 const ConfirmModal = () => {
+  const theme = useTheme();
   const confirmModal = useStore((state) => state.confirmModalPayload);
   const isModalOpen = useStore((state) => state.isConfirmModalOpen);
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
-
-  // TODO pass children to the modal
 
   // TODO do the same to the other modals for reset using the onAnimationEnd callback
 
@@ -44,9 +45,11 @@ const ConfirmModal = () => {
           },
         ]}
       >
-        <Text size="small" muted>
-          {confirmModal?.description}
-        </Text>
+        <Content
+          dangerouslySetInnerHTML={{ __html: confirmModal?.description! }}
+          mb={confirmModal?.children ? theme.spacing.s5 : 0}
+        />
+        {confirmModal?.children}
       </Modal>
     </Portal>
   );
