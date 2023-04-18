@@ -36,7 +36,7 @@ const EnvironmentsCard = ({ project }: Props) => {
 
   const deleteEnvironment = trpc.environment.delete.useMutation();
 
-  const isAdmin = project.role === Role.ADMIN;
+  const isCurrentUserAdmin = project.role === Role.ADMIN;
 
   const onHandleEdit = useCallback(
     (environmentId: string) => {
@@ -120,10 +120,12 @@ const EnvironmentsCard = ({ project }: Props) => {
   return (
     <SettingCard
       title="Environments"
-      description="Create and edit environments for feature flags and their rules."
+      description={`${
+        isCurrentUserAdmin ? "Create and edit" : "All the"
+      } environments for this project.`}
       button="Create New Environment"
       onClick={onHandleCreate}
-      hasFooter={isAdmin}
+      hasFooter={isCurrentUserAdmin}
     >
       {isLoading || !data ? (
         <Loader>

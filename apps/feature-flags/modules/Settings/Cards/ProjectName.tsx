@@ -46,32 +46,35 @@ const ProjectNameCard = ({ project }: Props) => {
         name: input.name,
       },
       {
-        onSuccess: async (result) => {
+        onSuccess: (result) => {
           // Get all the projects on the cache
-          const prev = trpcContext.project.all.getData();
+          const cacheAllProjects = trpcContext.project.all.getData();
 
-          if (prev && prev.projects) {
-            // Find the project and update with the new name
-            const projects = prev.projects.map((project) =>
-              project.id === result.project.id
-                ? { ...project, name: result.project.name }
-                : project
-            );
-
-            // Find the current selected and updated project
-            const project =
-              projects.find((project) => project.id === result.project.id) ??
-              null;
-
+          if (cacheAllProjects && cacheAllProjects.projects) {
             // Update the cache with the new data
             // This updates in the navigation list
-            trpcContext.project.all.setData(undefined, { projects });
+            trpcContext.project.all.setData(undefined, {
+              projects: cacheAllProjects.projects.map((project) =>
+                project.id === result.project.id
+                  ? { ...project, name: result.project.name }
+                  : project
+              ),
+            });
+          }
+
+          const cacheProject = trpcContext.project.bySlug.getData({
+            projectSlug: result.project.slug,
+          });
+
+          if (cacheProject && cacheProject.project) {
             // Updates the current active project in the cache
             trpcContext.project.bySlug.setData(
               { projectSlug: result.project.slug },
               {
-                // @ts-ignore
-                project,
+                project: {
+                  ...cacheProject.project,
+                  name: result.project.name,
+                },
               }
             );
           }

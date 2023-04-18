@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 // tRPC
 import { TRPCError } from "@trpc/server";
 
