@@ -11,7 +11,7 @@ import { FlagFormInputs } from "../types";
 // Store
 import { useStore } from "store";
 // Types
-import { TabType } from "types/flags";
+import { TabType } from "types";
 // Server
 import { trpc } from "libs/trpc";
 // Hooks
@@ -43,12 +43,12 @@ const UpdateFlagModal = () => {
     isModalOpen,
     projectSlug,
     isCreate: false,
-    flagId: modalPayload?.flag.id,
+    flagId: modalPayload?.flag?.id,
   });
 
   const { isLoading, data: bySlugData } = trpc.flag.bySlug.useQuery(
-    { slug: modalPayload?.flag.slug!, projectId: project?.id! },
-    { enabled: !!project?.id && !!modalPayload?.flag.slug }
+    { slug: modalPayload?.flag?.slug!, projectId: project?.id! },
+    { enabled: !!project?.id && !!modalPayload?.flag?.slug }
   );
 
   const onClose = useCallback(() => {

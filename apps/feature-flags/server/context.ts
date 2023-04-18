@@ -6,6 +6,8 @@ import * as trpcNext from "@trpc/server/adapters/next";
 // Auth
 import { authOptions } from "libs/auth/authOptions";
 import { getServerSession } from "next-auth/next";
+// Types
+import { Role } from "@prisma/client";
 
 export const createContext = async ({
   req,
@@ -18,6 +20,9 @@ export const createContext = async ({
     res,
     prisma,
     session,
+    project: {
+      role: "USER", // default as fallback
+    },
   };
 };
 

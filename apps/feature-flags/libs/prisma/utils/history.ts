@@ -4,7 +4,7 @@ import { Session } from "next-auth";
 // Utils
 import { getValue } from "@basestack/utils";
 // Types
-import { HistoryAction, Environment } from "types/history";
+import { HistoryAction, Environment } from "types";
 import { Type } from "@basestack/design-system/organisms/HistoryCard/types";
 import { RouterOutput } from "libs/trpc";
 

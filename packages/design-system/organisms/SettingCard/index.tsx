@@ -3,7 +3,7 @@ import { useTheme } from "styled-components";
 import { Button, ButtonVariant, HorizontalRule, Text } from "../../atoms";
 import { Container, Footer, StyledCard } from "./styles";
 
-interface SettingCard {
+interface Props<T> {
   /**
    * Card title
    */
@@ -16,14 +16,7 @@ interface SettingCard {
    * Card footer text
    */
   text?: string;
-  /**
-   * Card onClick callback
-   */
-  onClick: () => void;
-  /**
-   * Card button text
-   */
-  button: string;
+
   /**
    * Card body content, input, table or other elements
    */
@@ -40,7 +33,26 @@ interface SettingCard {
    * Card button loading state
    */
   isLoading?: boolean;
+  /**
+   * Card footer visibility
+   */
+  hasFooter?: T;
 }
+
+interface ButtonProps {
+  /**
+   * Card onClick callback
+   */
+  onClick: () => void;
+  /**
+   * Card button text
+   */
+  button: string;
+}
+
+type SettingCard<T = boolean> = T extends true
+  ? Props<T> & ButtonProps
+  : Props<T> & Partial<ButtonProps>;
 
 const SettingCard = ({
   title,
@@ -52,6 +64,7 @@ const SettingCard = ({
   isDisabled,
   variant = "default",
   isLoading = false,
+  hasFooter = true,
 }: SettingCard) => {
   const theme = useTheme();
 
@@ -66,30 +79,34 @@ const SettingCard = ({
         </Text>
         {children}
       </Container>
-      <HorizontalRule />
-      <Footer>
-        <Text
-          muted
-          mr={theme.spacing.s3}
-          data-testid="setting-title"
-          size="small"
-        >
-          {text}
-        </Text>
-        <Button
-          variant={
-            variant === "danger"
-              ? ButtonVariant.DangerFilled
-              : ButtonVariant.Secondary
-          }
-          ml="auto"
-          onClick={onClick}
-          isDisabled={isDisabled}
-          isLoading={isLoading}
-        >
-          {button}
-        </Button>
-      </Footer>
+      {hasFooter && (
+        <>
+          <HorizontalRule />
+          <Footer>
+            <Text
+              muted
+              mr={theme.spacing.s3}
+              data-testid="setting-title"
+              size="small"
+            >
+              {text}
+            </Text>
+            <Button
+              variant={
+                variant === "danger"
+                  ? ButtonVariant.DangerFilled
+                  : ButtonVariant.Secondary
+              }
+              ml="auto"
+              onClick={onClick}
+              isDisabled={isDisabled}
+              isLoading={isLoading}
+            >
+              {button}
+            </Button>
+          </Footer>{" "}
+        </>
+      )}
     </StyledCard>
   );
 };

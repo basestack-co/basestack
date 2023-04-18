@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 // SEO
 import Head from "next/head";
 // Layout
@@ -21,23 +21,13 @@ const FlagsPage = () => {
     }
   );
 
-  useEffect(() => {
-    // Verify if the project is still available
-    if (!isLoading && data && !data.project) {
-      router.push("/");
-    }
-  }, [isLoading, data, router]);
-
-  if (isError) {
-    return <div>Error</div>;
-  }
-
   return (
     <>
       <Head>
-        <title>Flags for {data?.project?.name}</title>
+        <title>{data?.project?.name ?? "Project"} / Flags</title>
       </Head>
-      <Flags project={data?.project ?? null} />
+      {/* @ts-ignore */}
+      <Flags project={data?.project!} />
     </>
   );
 };

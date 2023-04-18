@@ -16,10 +16,10 @@
     "@basestack/hooks": "*",
     "@basestack/tsconfig": "*",
     "@basestack/utils": "*",
-    "@types/react": "18.0.28",
+    "@types/react": "18.0.37",
     "@types/react-dom": "^18.0.11",
     "jest-styled-components": "^7.0.8",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.4"
   },
   "peerDependencies": {
     "@floating-ui/react-dom": "^1.1.0",

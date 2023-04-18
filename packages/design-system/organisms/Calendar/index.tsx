@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 // Calendar
+// @ts-ignore
 import Calendar, { CalendarProps } from "react-calendar";
 // Components
 import { Container } from "./styles";

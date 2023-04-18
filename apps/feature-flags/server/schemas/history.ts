@@ -1,16 +1,24 @@
 import { z } from "zod";
+import { withProjectId } from "./utils";
 
-export const AllHistoryInput = z
-  .object({
-    projectId: z.string(),
+export const all = withProjectId
+  .extend({
     flagId: z.string().optional(),
   })
   .required();
 
-export const CreateHistoryInput = z
-  .object({
-    projectId: z.string(),
+export const create = withProjectId
+  .extend({
     action: z.string(),
     payload: z.object({}),
   })
   .required();
+
+const historySchema = {
+  input: {
+    all,
+    create,
+  },
+};
+
+export default historySchema;

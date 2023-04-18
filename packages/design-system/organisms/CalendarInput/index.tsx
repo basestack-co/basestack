@@ -1,5 +1,6 @@
 import React, { forwardRef, memo } from "react";
 // Calendar
+// @ts-ignore
 import { CalendarProps } from "react-calendar";
 // Components
 import { Container } from "./styles";

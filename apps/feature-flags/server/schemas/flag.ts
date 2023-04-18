@@ -1,8 +1,27 @@
 import { z } from "zod";
+// utils
+import { withProjectId, withEnvironment, withFlagData } from "./utils";
 
-export const AllFlagsInput = z
-  .object({
-    projectId: z.string(),
+const environments = z.array(
+  z.object({
+    name: z.string(),
+    id: z.string(),
+    enabled: z.boolean(),
+  })
+);
+
+const data = z.object({
+  slug: z.string(),
+  enabled: z.boolean(),
+  payload: z.any().optional().nullable(),
+  expiredAt: z.date().optional().nullable(),
+  description: z.string().optional(),
+});
+
+// Inputs
+
+const all = withProjectId
+  .extend({
     search: z.string().optional().nullable(),
     pagination: z
       .object({
@@ -13,57 +32,48 @@ export const AllFlagsInput = z
   })
   .required();
 
-export const FlagBySlugInput = z
-  .object({
-    projectId: z.string(),
+export const bySlug = withProjectId
+  .extend({
     slug: z.string(),
   })
   .required();
 
-export const EnvironmentsInput = z.array(
-  z.object({
-    name: z.string(),
-    id: z.string(),
-    enabled: z.boolean(),
-  })
-);
-
-export const flagDataInput = z.object({
-  slug: z.string(),
-  enabled: z.boolean(),
-  payload: z.any().optional().nullable(),
-  expiredAt: z.date().optional().nullable(),
-  description: z.string().optional(),
-});
-
-export const CreateFlagInput = z.object({
-  // this prop is used on the createProtectedRouter Middleware to validated user project permissions
-  projectId: z.string(),
-  environments: EnvironmentsInput,
-  data: z.array(
-    flagDataInput.extend({
-      environmentId: z.string(),
-    })
-  ),
-});
-
-export const UpdateFlagInput = z
-  .object({
-    // this prop is used on the createProtectedRouter Middleware to validated user project permissions
-    projectId: z.string(),
-    environments: EnvironmentsInput,
+export const create = withProjectId
+  .extend({
+    environments: z.array(withEnvironment),
     data: z.array(
-      flagDataInput.extend({
+      withFlagData.extend({
+        environmentId: z.string(),
+      })
+    ),
+  })
+  .required();
+
+export const update = withProjectId
+  .extend({
+    environments: z.array(withEnvironment),
+    data: z.array(
+      withFlagData.extend({
         id: z.string(),
       })
     ),
   })
   .required();
 
-export const DeleteFlagInput = z
-  .object({
-    // this prop is used on the createProtectedRouter Middleware to validated user project permissions
-    projectId: z.string(),
+export const deleteFlag = withProjectId
+  .extend({
     flagSlug: z.string(),
   })
   .required();
+
+const projectSchema = {
+  input: {
+    all,
+    bySlug,
+    update,
+    create,
+    delete: deleteFlag,
+  },
+};
+
+export default projectSchema;
