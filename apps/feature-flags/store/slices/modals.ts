@@ -48,6 +48,6 @@ export const createModalsSlice: StateCreator<
   setConfirmModalOpen: ({ isOpen, data }) =>
     set((state) => ({
       isConfirmModalOpen: isOpen,
-      confirmModalPayload: data,
+      ...(!isOpen ? {} : { confirmModalPayload: data }),
     })),
 });

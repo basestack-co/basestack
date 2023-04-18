@@ -19,18 +19,20 @@ const ConfirmModal = () => {
   const isModalOpen = useStore((state) => state.isConfirmModalOpen);
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
 
+  // TODO pass children to the modal
+
+  // TODO do the same to the other modals for reset using the onAnimationEnd callback
+
+  // TODO fix the ui on the inputs when they are already filled looks like its a placeholder
+
   const onClose = useCallback(() => {
     setConfirmModalOpen({ isOpen: false });
   }, [setConfirmModalOpen]);
 
-  if (!isModalOpen) {
-    return null;
-  }
-
   return (
     <Portal selector="#portal">
       <Modal
-        title={confirmModal?.title}
+        title={confirmModal?.title!}
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[

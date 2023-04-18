@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { Button, ButtonVariant, IconButton, Text } from "../../atoms";
 import {
   Body,
@@ -26,12 +26,18 @@ const Modal: React.FC<ModalProps> = ({
   buttons,
   minHeight,
   children,
+  onAnimationEnd,
 }) => {
   const theme = useTheme();
 
   const transitionModal = useTransition(isOpen, {
     config: { ...config.stiff, duration: 300 },
     ...fadeIn,
+    onRest: (result: any) => {
+      if (!result && onAnimationEnd) {
+        onAnimationEnd();
+      }
+    },
   });
 
   const transitionSheet = useTransition(isOpen, {
