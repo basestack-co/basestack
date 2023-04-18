@@ -3,7 +3,7 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import { Context } from "./context";
 // Utils
 import superjson from "superjson";
-import { getValue, isEmpty } from "@basestack/utils";
+import { getValue } from "@basestack/utils";
 // Prisma
 import { getUserInProject } from "libs/prisma/utils/user";
 import { createHistory } from "libs/prisma/utils/history";
@@ -44,28 +44,34 @@ const logger = t.middleware(async ({ path, type, next, rawInput, ctx }) => {
 
 export const isAuthenticated = middleware(
   async ({ next, ctx, meta, rawInput }) => {
+    // Check if the user is logged in
     if (!ctx.session) {
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
 
     const restricted = getValue(meta, "restricted", false);
-    const projectId = getValue(rawInput, "projectId", "");
-    const projectSlug = getValue(rawInput, "projectSlug", "");
 
     // This is for routes that need to verify any action if the user allowed in that project
-    if (restricted && (projectId || projectSlug)) {
+    if (restricted) {
+      const projectId = getValue(rawInput, "projectId", "");
+      const projectSlug = getValue(rawInput, "projectSlug", "");
+
       // checks if the user is in the project
-      const isUserAllowedInProject = await getUserInProject(
+      const project = await getUserInProject(
         ctx.prisma,
-        ctx.session.user.id,
+        ctx?.session?.user.id!,
         projectId!,
         projectSlug!
       );
 
       // If the user does not exist in the project, return an error
-      if (isEmpty(isUserAllowedInProject)) {
+      if (!project) {
         throw new TRPCError({ code: "FORBIDDEN" });
       }
+
+      ctx.project = {
+        role: project.role,
+      };
     }
 
     return next({

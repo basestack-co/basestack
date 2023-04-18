@@ -11,23 +11,44 @@ export const getUserInProject = async (
   try {
     const condition = !!projectId ? { id: projectId } : { slug: projectSlug };
 
-    return await prisma.project.findFirst({
-      where: {
-        AND: [
-          condition,
-          {
-            users: {
-              some: {
-                user: {
-                  id: userId,
+    return await prisma.$transaction(async (tx) => {
+      const project = await tx.project.findFirst({
+        where: {
+          AND: [
+            condition,
+            {
+              users: {
+                some: {
+                  user: {
+                    id: userId,
+                  },
                 },
               },
             },
+          ],
+        },
+      });
+
+      if (project) {
+        const role = await tx.projectsOnUsers.findFirst({
+          where: {
+            projectId: project.id,
+            userId,
           },
-        ],
-      },
+          select: {
+            role: true,
+          },
+        });
+
+        return {
+          ...project,
+          role: role?.role ?? "USER",
+        };
+      }
+
+      return null;
     });
   } catch {
-    throw new TRPCError({ code: "UNAUTHORIZED" });
+    throw new TRPCError({ code: "FORBIDDEN" });
   }
 };
