@@ -94,6 +94,7 @@
   "overrides": {
     "@types/react": "^18.0.0"
   },
+  "packageManager": "^yarn@1.22.18",
   "engines": {
     "node": ">=16 <17"
   }
