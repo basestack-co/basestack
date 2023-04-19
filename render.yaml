@@ -44,7 +44,7 @@ services:
   - type: pserv
     name: basestack-feature-flags-db-pgbouncer
     env: docker
-    plan: free
+    plan: starter
     repo: https://github.com/render-oss/docker-pgbouncer
     envVars:
       - key: DATABASE_URL
