@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+#  my_db:
+#    image: postgres:14.2
+#    restart: always
+#    volumes:
+#      - db-data:/var/lib/postgresql/data
+#    environment:
+#      - POSTGRES_PASSWORD=postgres
+#      - POSTGRES_DB=db
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready -U postgres"]
+#      interval: 5s
+#      timeout: 5s
+#      retries: 5
+  web:
+    container_name: basestack-feature-flags
+    build:
+      context: .
+      dockerfile: ./apps/feature-flags/Dockerfile
+    restart: always
+#    depends_on:
+#      my_db:
+#        condition: service_healthy
+    ports:
+      - 3000:3000
+    environment:
+      - DATABASE_URL=
+      - MIGRATE_DATABASE_URL=
+      - GITHUB_CLIENT_ID=
+      - GITHUB_CLIENT_SECRET=
+      - NEXTAUTH_SECRET=
+      - NEXTAUTH_URL=
+    networks:
+      - app_network
+
+# Define a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+networks:
+  app_network:
+    external: true
+
+volumes:
+  db-data:
+    driver: local

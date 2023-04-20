@@ -24,7 +24,8 @@
     "db:push": "prisma db push --schema=./prisma/schema.prisma",
     "db:seed": "npx prisma db seed",
     "db:studio": "prisma studio --schema=./prisma/schema.prisma",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next",
+    "deploy": "yarn build:deploy"
   },
   "dependencies": {
     "@basestack/design-system": "*",
