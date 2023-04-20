@@ -1,9 +1,1 @@
 node_modules
-.git
-.github
-.vscode
-tsconfig.tsbuildinfo
-.env
-Dockerfile
-docker-compose.yml
-README.md
