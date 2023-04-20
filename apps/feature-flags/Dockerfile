@@ -1,7 +1,7 @@
 FROM node:16 AS builder
 
 WORKDIR /app
-RUN yarn global add turbo
+RUN yarn global add turbo@1.7.0
 COPY . .
 RUN turbo prune --scope=@basestack/feature-flags --docker
 
