@@ -24,7 +24,7 @@ const ProjectsMenu = ({
 }: ProjectsMenuProps) => {
   const menuWrapperRef = useRef(null);
   const [isProjectsPopupOpen, setIsProjectsPopupOpen] = useState(false);
-  const { x, y, reference, floating, strategy } = useFloating({
+  const { x, y, refs, strategy } = useFloating({
     placement: "bottom-start",
     whileElementsMounted: autoUpdate,
     middleware: [offset(4)],
@@ -57,7 +57,7 @@ const ProjectsMenu = ({
   return (
     <ListItem ref={menuWrapperRef}>
       <Button
-        ref={reference}
+        ref={refs.setReference}
         iconPlacement="right"
         icon={isProjectsPopupOpen ? "expand_less" : "expand_more"}
         variant={ButtonVariant.PrimaryNeutral}
@@ -70,7 +70,7 @@ const ProjectsMenu = ({
           item && (
             <AnimatedProjectsPopup
               style={styles}
-              ref={floating}
+              ref={refs.setFloating}
               position={strategy}
               top={y}
               left={x}

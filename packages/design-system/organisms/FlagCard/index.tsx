@@ -16,7 +16,7 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
     const theme = useTheme();
     const popupWrapperRef = useRef(null);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const { x, y, reference, floating, strategy } = useFloating({
+    const { x, y, strategy, refs } = useFloating({
       placement: "bottom-end",
       whileElementsMounted: autoUpdate,
     });
@@ -67,7 +67,7 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
         </Text>
         <PopupWrapper ref={popupWrapperRef}>
           <IconButton
-            ref={reference}
+            ref={refs.setReference}
             position="absolute"
             top="14px"
             right="14px"
@@ -80,7 +80,7 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
               popupItems.length > 0 && (
                 <AnimatedPopup
                   style={styles}
-                  ref={floating}
+                  ref={refs.setFloating}
                   position={strategy}
                   top={y}
                   left={x}

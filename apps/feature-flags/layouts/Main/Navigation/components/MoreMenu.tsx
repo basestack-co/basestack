@@ -11,7 +11,7 @@ const AnimatedMorePopup = animated(Popup);
 const MoreButton = () => {
   const menuWrapperRef = useRef(null);
   const [isMorePopupOpen, setIsMorePopupOpen] = useState(false);
-  const { x, y, reference, floating, strategy } = useFloating({
+  const { x, y, refs, strategy } = useFloating({
     placement: "bottom-end",
     whileElementsMounted: autoUpdate,
     middleware: [offset(4)],
@@ -33,7 +33,7 @@ const MoreButton = () => {
   return (
     <ListItem ref={menuWrapperRef}>
       <Button
-        ref={reference}
+        ref={refs.setReference}
         iconPlacement="left"
         icon={isMorePopupOpen ? "expand_less" : "expand_more"}
         variant={ButtonVariant.PrimaryNeutral}
@@ -46,7 +46,7 @@ const MoreButton = () => {
           item && (
             <AnimatedMorePopup
               style={styles}
-              ref={floating}
+              ref={refs.setFloating}
               position={strategy}
               top={y}
               left={x}
