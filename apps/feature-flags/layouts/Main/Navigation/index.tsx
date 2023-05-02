@@ -78,7 +78,10 @@ const Navigation = ({ isDesktop, data }: NavigationProps) => {
             <ButtonLink
               href={to.replace("[projectSlug]", projectSlug)}
               isExternal={isExternal}
-              isActive={router.pathname === to}
+              isActive={
+                router.pathname === to ||
+                router.pathname.includes(text.toLowerCase())
+              }
             >
               {text}
             </ButtonLink>

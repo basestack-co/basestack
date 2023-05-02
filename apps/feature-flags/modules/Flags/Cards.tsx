@@ -25,7 +25,6 @@ import Loading from "./Loading";
 interface FlagCardsProps {
   selectedView: SelectedView;
   projectId: string;
-  environmentId: string;
   searchValue: string;
 }
 
