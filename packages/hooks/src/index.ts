@@ -8,5 +8,4 @@ export { default as useRafState } from "./useRafState";
 export { default as useUnmount } from "./useUnmount";
 export { default as useWindowSize } from "./useWindowSize";
 export { default as useMediaQuery } from "./useMediaQuery";
-export { default as useRect } from "./useRect";
 export { default as useIsTop } from "./useIsTop";
