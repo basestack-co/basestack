@@ -160,6 +160,7 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
         button
       </button>
     </div>
+     
   </div>
 </DocumentFragment>
 `;
@@ -382,6 +383,7 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
         button
       </button>
     </div>
+     
   </div>
 </DocumentFragment>
 `;
@@ -548,6 +550,7 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
         button
       </button>
     </div>
+     
   </div>
 </DocumentFragment>
 `;

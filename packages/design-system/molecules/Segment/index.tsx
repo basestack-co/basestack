@@ -56,9 +56,9 @@ const Segment = ({
         const buttonProps = selected === index ? { className: "active" } : {};
         return (
           <Button
+            key={index.toString()}
             data-testid="segment-button"
             {...buttonProps}
-            key={index.toString()}
             onClick={() => {
               dispatch({
                 type: "SET_SELECTED_VALUES",

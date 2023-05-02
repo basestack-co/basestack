@@ -1,25 +1,29 @@
 import React from "react";
-// SEO
-import Head from "next/head";
 // Layout
 import SettingsLayout from "layouts/Settings";
-// Libs
-import { RouterOutput } from "libs/trpc";
 // Modules
-import GeneralModule from "modules/Settings/General";
+import { CardList, CardListItem } from "modules/Settings/styles";
+import ProjectName from "modules/Settings/Cards/ProjectName";
+import DeleteProject from "modules/Settings/Cards/DeleteProject";
+// Types
+import { ProjectSettings } from "types";
+import { Role } from "@prisma/client";
 
-interface Props {
-  project: RouterOutput["project"]["bySlug"]["project"];
-}
+type Props = ProjectSettings;
 
 const GeneralPage = ({ project }: Props) => {
   return (
-    <>
-      <Head>
-        <title>Settings for {project?.name}</title>
-      </Head>
-      <GeneralModule project={project} />
-    </>
+    <CardList>
+      <CardListItem>
+        <ProjectName project={project} />
+      </CardListItem>
+
+      {project.role === Role.ADMIN && (
+        <CardListItem>
+          <DeleteProject project={project} />
+        </CardListItem>
+      )}
+    </CardList>
   );
 };
 

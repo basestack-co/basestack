@@ -30,11 +30,7 @@ const ProviderCard = ({
         {providerLogo ? (
           providerLogo
         ) : (
-          <Icon
-            icon="domain"
-            size="xLarge"
-            color={theme.colors.black}
-          />
+          <Icon icon="domain" size="xLarge" color={theme.colors.black} />
         )}
       </ProviderContainer>
       <TextContainer>

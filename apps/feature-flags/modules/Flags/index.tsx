@@ -3,7 +3,7 @@ import { useTheme } from "styled-components";
 // Hooks
 import { useMediaQuery } from "@basestack/hooks";
 // Types
-import { SelectedView } from "types/flags";
+import { Project, SelectedView } from "types";
 // Store
 import { useStore } from "store";
 // Components
@@ -12,11 +12,9 @@ import FlagCards from "./Cards";
 import { Container } from "../styles";
 // Containers
 import Toolbar from "./Toolbar";
-// Libs
-import { RouterOutput, trpc } from "libs/trpc";
 
 export interface Props {
-  project: RouterOutput["project"]["bySlug"]["project"];
+  project: Project;
 }
 
 const Flags = ({ project }: Props) => {

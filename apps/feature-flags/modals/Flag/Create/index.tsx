@@ -11,7 +11,7 @@ import { FlagFormInputs } from "../types";
 // Store
 import { useStore } from "store";
 // Types
-import { TabType } from "types/flags";
+import { TabType } from "types";
 // Server
 import { trpc } from "libs/trpc";
 // Hooks

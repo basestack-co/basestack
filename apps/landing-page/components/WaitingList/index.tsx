@@ -93,7 +93,8 @@ const WaitingList = ({ data }: WaitingListProps) => {
     formState: { errors, isSubmitting },
     reset,
   } = useForm<FormInputs>({
-    resolver: zodResolver(FormSchema),
+    // @ts-ignore
+    resolver: zodResolver(FormSchema), // TODO: fix this, broken after the 3.0.0 release
     mode: "onChange",
   });
 

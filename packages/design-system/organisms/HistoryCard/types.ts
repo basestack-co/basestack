@@ -8,6 +8,7 @@ export type Type =
   | "toggledOff";
 
 export interface HistoryCardProps extends SpaceProps {
+  avatar: string;
   userName: string;
   description: string;
   flagName: string;

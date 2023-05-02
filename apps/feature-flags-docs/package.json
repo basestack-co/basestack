@@ -11,21 +11,21 @@
   "license": "MIT",
   "dependencies": {
     "@basestack/design-system": "*",
-    "material-symbols": "^0.4.4",
-    "next": "^13.1.6",
-    "nextra": "2.2.14",
-    "nextra-theme-docs": "2.2.14",
+    "material-symbols": "^0.5.5",
+    "next": "^13.3.0",
+    "nextra": "2.4.0",
+    "nextra-theme-docs": "2.4.0",
     "polished": "^4.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "^5.3.5",
+    "styled-components": "^5.3.9",
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "@types/node": "18.13.0",
+    "@types/node": "18.15.11",
     "next-transpile-modules": "^10.0.0",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.4"
   }
 }

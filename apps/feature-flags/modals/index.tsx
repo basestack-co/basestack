@@ -8,7 +8,7 @@ import UpdateFlagModal from "./Flag/Update";
 import CreateEnvironmentModal from "./Environment/Create";
 import UpdateEnvironmentModal from "./Environment/Update";
 // Settings
-import InviteMemberModal from "./InviteMember";
+import InviteMemberModal from "./Member/Invite";
 // Confirm
 import ConfirmModal from "./Confirm";
 

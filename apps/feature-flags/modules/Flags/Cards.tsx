@@ -14,7 +14,7 @@ import {
 // Store
 import { useStore } from "store";
 // Types
-import { SelectedView, TabType } from "types/flags";
+import { SelectedView, TabType } from "types";
 // Utils
 import { getValue } from "@basestack/utils";
 import dayjs from "dayjs";

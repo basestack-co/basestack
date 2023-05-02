@@ -30,7 +30,7 @@ const CreateEnvironmentModal = () => {
   const [options, environments] = useMemo(() => {
     if (project) {
       const cache = trpcContext.environment.all.getData({
-        projectId: project.id,
+        projectId: project.id!,
       });
 
       const environments = (cache && cache.environments) || [];
@@ -57,7 +57,7 @@ const CreateEnvironmentModal = () => {
         {
           name: input.name,
           description: input.description,
-          projectId: project.id,
+          projectId: project.id!,
           copyFromEnvId: input.environmentId ?? "",
         },
         {
@@ -70,7 +70,7 @@ const CreateEnvironmentModal = () => {
 
                 // Update the cache with the new data
                 trpcContext.environment.all.setData(
-                  { projectId: project.id },
+                  { projectId: project.id! },
                   {
                     environments: updated,
                   }

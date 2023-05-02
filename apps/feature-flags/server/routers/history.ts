@@ -1,11 +1,12 @@
 import { protectedProcedure, router } from "server/trpc";
 // Utils
 import { isEmpty } from "@basestack/utils";
-import { AllHistoryInput, CreateHistoryInput } from "../schemas/history";
+// Inputs
+import schemas from "server/schemas";
 
 export const historyRouter = router({
   all: protectedProcedure
-    .input(AllHistoryInput)
+    .input(schemas.history.input.all)
     .query(async ({ ctx, input }) => {
       console.log("input.flagId = ", input.flagId);
 
@@ -30,7 +31,7 @@ export const historyRouter = router({
       return { history };
     }),
   create: protectedProcedure
-    .input(CreateHistoryInput)
+    .input(schemas.history.input.create)
     .mutation(async ({ ctx, input }) => {
       const history = await ctx.prisma.history.create({
         data: {

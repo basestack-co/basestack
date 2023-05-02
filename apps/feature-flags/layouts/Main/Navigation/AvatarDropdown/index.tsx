@@ -21,6 +21,7 @@ import {
   ThemeContainer,
   List,
   HrContainer,
+  Container,
 } from "./styles";
 import theme from "@basestack/design-system/theme";
 
@@ -56,7 +57,7 @@ const AvatarDropdown = ({ name, email, src }: AvatarMenuProps) => {
   });
 
   return (
-    <ListItem ref={menuWrapperRef}>
+    <Container ref={menuWrapperRef}>
       <AvatarButton ref={reference} onClick={onClickMenu}>
         <Avatar userName={name} alt="User Image" src={src} />
       </AvatarButton>
@@ -155,7 +156,7 @@ const AvatarDropdown = ({ name, email, src }: AvatarMenuProps) => {
             </AnimatedAvatarDropdown>
           )
       )}
-    </ListItem>
+    </Container>
   );
 };
 

@@ -12,7 +12,6 @@ import { trpc } from "libs/trpc";
 import { FormInputs } from "../types";
 // Form
 import useEnvironmentForm from "../useEnvironmentForm";
-import { HistoryAction } from "types/history";
 
 const EditEnvironmentModal = () => {
   const trpcContext = trpc.useContext();
@@ -34,7 +33,7 @@ const EditEnvironmentModal = () => {
         {
           name: input.name,
           description: input.description,
-          projectId: data.project.id,
+          projectId: data.project.id!,
           environmentId: data.environment.id,
         },
         {
@@ -43,7 +42,7 @@ const EditEnvironmentModal = () => {
               // Get all the environments by project on the cache
 
               const prev = trpcContext.environment.all.getData({
-                projectId: data.project.id,
+                projectId: data.project.id!,
               });
 
               if (prev && prev.environments) {
@@ -63,7 +62,7 @@ const EditEnvironmentModal = () => {
 
                 // Update the cache with the new data
                 trpcContext.environment.all.setData(
-                  { projectId: data.project.id },
+                  { projectId: data.project.id! },
                   {
                     environments,
                   }
@@ -82,7 +81,7 @@ const EditEnvironmentModal = () => {
     if (data && data.project && isModalOpen && data.environment) {
       // Get all the environments by project on the cache
       const cache = trpcContext.environment.all.getData({
-        projectId: data.project.id,
+        projectId: data.project.id!,
       });
 
       if (cache && cache.environments) {
