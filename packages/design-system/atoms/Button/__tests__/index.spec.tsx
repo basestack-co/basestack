@@ -8,10 +8,10 @@ describe("Button Atom tests", () => {
   afterEach(cleanup);
 
   test("should render Button correctly", () => {
-    const { asFragment, getByText } = renderWithTheme(
+    const { asFragment, getByTestId } = renderWithTheme(
       <Button size={ButtonSize.Normal}>button</Button>
     );
-    const button = getByText(/button/);
+    const button = getByTestId(/button/);
 
     expect(button).toHaveStyle(`display: flex`);
     expect(button).toHaveStyle(`align-items: center`);
@@ -59,76 +59,76 @@ describe("Button Atom tests", () => {
   });
 
   test("should render primary Button", () => {
-    const { getByText } = renderWithTheme(
+    const { getByTestId } = renderWithTheme(
       <Button variant={ButtonVariant.Primary}>primary</Button>
     );
-    const button = getByText(/primary/);
+    const button = getByTestId(/button/);
     expect(button).toHaveStyle(`color: #FFFFFF`);
     expect(button).toHaveStyle(`background-color: #276EF1`);
   });
 
   test("should render primaryNeutral Button", () => {
-    const { getByText } = renderWithTheme(
+    const { getByTestId } = renderWithTheme(
       <Button variant={ButtonVariant.PrimaryNeutral}>primaryNeutral</Button>
     );
-    const button = getByText(/primaryNeutral/);
+    const button = getByTestId(/button/);
     expect(button).toHaveStyle(`color: #000000`);
     expect(button).toHaveStyle(`background-color: transparent`);
   });
 
   test("should render secondary Button", () => {
-    const { getByText } = renderWithTheme(
+    const { getByTestId } = renderWithTheme(
       <Button variant={ButtonVariant.Secondary}>secondary</Button>
     );
-    const button = getByText(/secondary/);
+    const button = getByTestId(/button/);
     expect(button).toHaveStyle(`color: #FFFFFF`);
     expect(button).toHaveStyle(`background-color: #000000`);
   });
 
   test("should render tertiary Button", () => {
-    const { getByText } = renderWithTheme(
+    const { getByTestId } = renderWithTheme(
       <Button variant={ButtonVariant.Tertiary}>tertiary</Button>
     );
-    const button = getByText(/tertiary/);
+    const button = getByTestId(/button/);
     expect(button).toHaveStyle(`color: #000000`);
     expect(button).toHaveStyle(`background-color: #EEEEEE`);
   });
 
   test("should render tertiary Button", () => {
-    const { getByText } = renderWithTheme(
+    const { getByTestId } = renderWithTheme(
       <Button variant={ButtonVariant.Outlined}>outlined</Button>
     );
-    const button = getByText(/outlined/);
+    const button = getByTestId(/button/);
     expect(button).toHaveStyle(`color: #000000`);
     expect(button).toHaveStyle(`background-color: transparent`);
     expect(button).toHaveStyle(`border: 2px solid #000000`);
   });
 
   test("should render neutral Button", () => {
-    const { getByText } = renderWithTheme(
+    const { getByTestId } = renderWithTheme(
       <Button variant={ButtonVariant.Neutral}>neutral</Button>
     );
-    const button = getByText(/neutral/);
+    const button = getByTestId(/button/);
     expect(button).toHaveStyle(`color: #000000`);
     expect(button).toHaveStyle(`background-color: transparent`);
   });
 
   test("should render danger Button", () => {
-    const { getByText } = renderWithTheme(
+    const { getByTestId } = renderWithTheme(
       <Button variant={ButtonVariant.Danger}>danger</Button>
     );
-    const button = getByText(/danger/);
+    const button = getByTestId(/button/);
     expect(button).toHaveStyle(`color: #E11900`);
     expect(button).toHaveStyle(`background-color: transparent`);
   });
 
   test("should render fullWidth Button", () => {
-    const { getByText } = renderWithTheme(
+    const { getByTestId } = renderWithTheme(
       <Button variant={ButtonVariant.Secondary} fullWidth>
         fullWidth
       </Button>
     );
-    const button = getByText(/fullWidth/);
+    const button = getByTestId(/button/);
     expect(button).toHaveStyle(`width: 100%`);
   });
 

@@ -48,6 +48,7 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   height: 2.25rem;
   padding: 0 0.75rem;
   font-size: 0.875rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -94,6 +95,7 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   height: 2.25rem;
   padding: 0 0.75rem;
   font-size: 0.875rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -181,6 +183,7 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
   >
     <button
       class="c1"
+      data-testid="button"
     >
       <div
         class="c2"
@@ -195,7 +198,11 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
           chevron_left
         </span>
       </div>
-      Prev
+      <span
+        class=""
+      >
+        Prev
+      </span>
     </button>
     <div
       class="c4"
@@ -217,8 +224,13 @@ exports[`Pagination Molecule tests should render Pagination correctly 1`] = `
     </p>
     <button
       class="c8"
+      data-testid="button"
     >
-      Next
+      <span
+        class=""
+      >
+        Next
+      </span>
       <div
         class="c9"
         data-testid="icon-container"

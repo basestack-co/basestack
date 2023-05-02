@@ -43,6 +43,7 @@ exports[`PopupActions Molecule tests should render PopupActions correctly 1`] = 
   height: 2.25rem;
   padding: 0 0.75rem;
   font-size: 0.875rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -236,8 +237,13 @@ exports[`PopupActions Molecule tests should render PopupActions correctly 1`] = 
     </ul>
     <button
       class="c9"
+      data-testid="button"
     >
-      Create Project
+      <span
+        class=""
+      >
+        Create Project
+      </span>
     </button>
   </div>
 </DocumentFragment>
