@@ -35,4 +35,8 @@ export interface ModalProps {
    * A React Element
    */
   children: ReactNode;
+  /**
+   * Callback when the animation ends
+   */
+  onAnimationEnd?: () => void
 }

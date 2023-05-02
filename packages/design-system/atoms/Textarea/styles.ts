@@ -18,10 +18,13 @@ export const StyledTextarea = styled.textarea<{
   font-weight: 400;
   width: 100%;
   padding: ${rem("16px")};
-  color: ${({ theme }) => theme.colors.gray500};
+  color: ${({ theme }) => theme.colors.black};
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray500};
+  }
 
   &:focus {
     outline: 2px solid ${({ theme }) => theme.colors.black};
-    color: ${({ theme }) => theme.colors.black};
   }
 `;

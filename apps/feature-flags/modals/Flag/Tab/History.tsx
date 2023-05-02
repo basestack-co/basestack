@@ -44,7 +44,8 @@ const HistoryTab = ({ projectId, flagId }: Props) => {
             date={dayjs(createdAt).fromNow()}
             environment={environments.map(({ name }) => name).join(", ")}
             type={type}
-            hasPaddingTop={index !== 0 && index !== length - 1}
+            hasPaddingTop={index !== 0}
+            hasPaddingBottom={index + 1 !== length}
           />
         );
       });

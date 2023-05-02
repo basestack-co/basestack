@@ -1,4 +1,5 @@
-import React, { useCallback } from "react";
+import React, { useState } from "react";
+import { animated, config, useSpring } from "react-spring";
 // Router
 import { useRouter } from "next/router";
 // Form
@@ -9,7 +10,7 @@ import { z } from "zod";
 import { useTheme } from "styled-components";
 // Components
 import Portal from "@basestack/design-system/global/Portal";
-import { Modal, InputGroup } from "@basestack/design-system";
+import { Modal, InputGroup, IconButton } from "@basestack/design-system";
 // Store
 import { useStore } from "store";
 // Server
@@ -19,6 +20,7 @@ import { generateSlug } from "random-word-slugs";
 import { slugify } from "@basestack/utils";
 // Hooks
 import { useDebounce } from "@basestack/hooks";
+import { IconButtonContainer, SlugContainer } from "./styles";
 
 export const FormSchema = z.object({
   name: z
@@ -33,10 +35,13 @@ export const FormSchema = z.object({
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
+const AnimatedIconButton = animated(IconButtonContainer);
+
 const CreateProjectModal = () => {
   const theme = useTheme();
   const router = useRouter();
   const trpcContext = trpc.useContext();
+  const [numberOfRefresh, setNumberOfRefresh] = useState(0);
 
   const isModalOpen = useStore((state) => state.isCreateProjectModalOpen);
   const setCreateProjectModalOpen = useStore(
@@ -60,10 +65,7 @@ const CreateProjectModal = () => {
 
   const watchName = watch("name");
 
-  const onClose = useCallback(() => {
-    setCreateProjectModalOpen({ isOpen: false });
-    reset();
-  }, [reset]);
+  const onClose = () => setCreateProjectModalOpen({ isOpen: false });
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     await createProject.mutate(data, {
@@ -99,6 +101,11 @@ const CreateProjectModal = () => {
     [watchName]
   );
 
+  const refreshTransition = useSpring({
+    from: { transform: "rotate(0deg)" },
+    to: { transform: `rotate(${360 * numberOfRefresh}deg)` },
+  });
+
   return (
     <Portal selector="#portal">
       <Modal
@@ -113,6 +120,7 @@ const CreateProjectModal = () => {
             onClick: handleSubmit(onSubmit),
           },
         ]}
+        onAnimationEnd={reset}
       >
         <Controller
           name="name"
@@ -136,33 +144,38 @@ const CreateProjectModal = () => {
             />
           )}
         />
-        <Controller
-          name="slug"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <InputGroup
-              title="Project slug"
-              hint={errors.slug?.message}
-              inputProps={{
-                name: "slug",
-                value: slugify(field.value),
-                onChange: field.onChange,
-                onBlur: field.onBlur,
-                placeholder: "pr-chat",
-                hasError: !!errors.slug,
-                isDisabled: isSubmitting,
+        <SlugContainer>
+          <Controller
+            name="slug"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <InputGroup
+                title="Project slug"
+                hint={errors.slug?.message}
+                inputProps={{
+                  name: "slug",
+                  value: slugify(field.value),
+                  onChange: field.onChange,
+                  onBlur: field.onBlur,
+                  placeholder: "pr-chat",
+                  hasError: !!errors.slug,
+                  isDisabled: isSubmitting,
+                }}
+              />
+            )}
+          />
+          <AnimatedIconButton style={refreshTransition}>
+            <IconButton
+              size="medium"
+              icon="refresh"
+              onClick={() => {
+                setNumberOfRefresh((prevState) => prevState + 1);
+                setValue("slug", generateSlug());
               }}
             />
-          )}
-        />
-        <button
-          onClick={() => {
-            setValue("slug", generateSlug());
-          }}
-        >
-          generate
-        </button>
+          </AnimatedIconButton>
+        </SlugContainer>
       </Modal>
     </Portal>
   );

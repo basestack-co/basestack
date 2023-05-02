@@ -281,12 +281,27 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
   font-weight: 400;
   width: 100%;
   padding: 0 1rem;
+  color: #000000;
+}
+
+.c5::-webkit-input-placeholder {
+  color: #757575;
+}
+
+.c5::-moz-placeholder {
+  color: #757575;
+}
+
+.c5:-ms-input-placeholder {
+  color: #757575;
+}
+
+.c5::placeholder {
   color: #757575;
 }
 
 .c5:focus {
   outline: 2px solid #000000;
-  color: #000000;
 }
 
 .c1 {
