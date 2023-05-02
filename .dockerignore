@@ -1,1 +1,12 @@
 node_modules
+.gitignore
+.git
+Dockerfile
+.env
+.dockerignore
+.github
+.vscode
+tsconfig.tsbuildinfo
+docker-compose.yml
+README.md
+.idea
