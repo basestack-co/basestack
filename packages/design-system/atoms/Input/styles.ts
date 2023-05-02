@@ -31,13 +31,16 @@ export const StyledInput = styled.input<{
   font-weight: 400;
   width: 100%;
   padding: 0 ${rem("16px")};
-  color: ${({ theme }) => theme.colors.gray500};
+  color: ${({ theme }) => theme.colors.black};
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray500};
+  }
 
   &:focus {
     outline: 2px solid
       ${({ theme, hasError }) =>
         hasError ? theme.colors.red200 : theme.colors.black};
-    color: ${({ theme }) => theme.colors.black};
   }
 
   ${({ hasLeftIcon }) =>

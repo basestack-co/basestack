@@ -23,12 +23,27 @@ exports[`Input Atom tests should render Input correctly 1`] = `
   font-weight: 400;
   width: 100%;
   padding: 0 1rem;
+  color: #000000;
+}
+
+.c1::-webkit-input-placeholder {
+  color: #757575;
+}
+
+.c1::-moz-placeholder {
+  color: #757575;
+}
+
+.c1:-ms-input-placeholder {
+  color: #757575;
+}
+
+.c1::placeholder {
   color: #757575;
 }
 
 .c1:focus {
   outline: 2px solid #000000;
-  color: #000000;
 }
 
 <div

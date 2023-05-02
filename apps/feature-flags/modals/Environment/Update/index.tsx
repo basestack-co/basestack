@@ -26,11 +26,7 @@ const EditEnvironmentModal = () => {
   const { handleSubmit, onRenderForm, reset, isSubmitting, setValue } =
     useEnvironmentForm({});
 
-  const onClose = useCallback(() => {
-    setUpdateEnvironmentModalOpen({ isOpen: false });
-    reset();
-  }, [reset, setUpdateEnvironmentModalOpen]);
-
+  const onClose = () => setUpdateEnvironmentModalOpen({ isOpen: false });
   const onSubmit: SubmitHandler<FormInputs> = (input: FormInputs) => {
     if (data && data.project && data.environment) {
       updateEnvironment.mutate(
@@ -117,6 +113,7 @@ const EditEnvironmentModal = () => {
             isLoading: isSubmitting,
           },
         ]}
+        onAnimationEnd={reset}
       >
         {onRenderForm()}
       </Modal>
