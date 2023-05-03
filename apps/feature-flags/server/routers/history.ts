@@ -8,8 +8,6 @@ export const historyRouter = router({
   all: protectedProcedure
     .input(schemas.history.input.all)
     .query(async ({ ctx, input }) => {
-      console.log("input.flagId = ", input.flagId);
-
       const getId = isEmpty(input.flagId)
         ? { projectId: input.projectId }
         : {
