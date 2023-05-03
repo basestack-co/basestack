@@ -36,6 +36,7 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
   height: 2.25rem;
   padding: 0 0.75rem;
   font-size: 0.875rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -156,8 +157,13 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
       />
       <button
         class="c7"
+        data-testid="button"
       >
-        button
+        <span
+          class=""
+        >
+          button
+        </span>
       </button>
     </div>
      
@@ -201,6 +207,7 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
   height: 2.25rem;
   padding: 0 0.75rem;
   font-size: 0.875rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -379,8 +386,13 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
       </p>
       <button
         class="c9"
+        data-testid="button"
       >
-        button
+        <span
+          class=""
+        >
+          button
+        </span>
       </button>
     </div>
      
@@ -424,6 +436,7 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
   height: 2.25rem;
   padding: 0 0.75rem;
   font-size: 0.875rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -546,8 +559,13 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
       </p>
       <button
         class="c7"
+        data-testid="button"
       >
-        button
+        <span
+          class=""
+        >
+          button
+        </span>
       </button>
     </div>
      

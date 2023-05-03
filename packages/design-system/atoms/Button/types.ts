@@ -82,4 +82,5 @@ export interface StyledButtonProps {
   fullWidth: boolean;
   variant: ButtonVariant;
   size: ButtonSize;
+  isLoading: boolean;
 }

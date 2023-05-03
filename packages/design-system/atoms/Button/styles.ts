@@ -11,6 +11,7 @@ import { darken, lighten, rem } from "polished";
 import { ButtonSize, ButtonVariant, StyledButtonProps } from "./types";
 
 const sharedButtonStyles = css`
+  position: relative;
   border: none;
   display: flex;
   align-items: center;
@@ -185,4 +186,22 @@ export const StyledButton = styled.button<StyledButtonProps>`
   &:disabled {
     cursor: not-allowed;
   }
+
+  ${({ isLoading }) =>
+    isLoading &&
+    css`
+      justify-content: center;
+    `}
+`;
+
+export const TextContainer = styled.span<{ isLoading: boolean }>`
+  ${({ isLoading }) =>
+    isLoading &&
+    css`
+      opacity: 0;
+    `}
+`;
+
+export const SpinnerContainer = styled.div`
+  position: absolute;
 `;

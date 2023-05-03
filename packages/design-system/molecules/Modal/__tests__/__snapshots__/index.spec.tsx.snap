@@ -31,6 +31,7 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   height: 2.25rem;
   padding: 0 0.75rem;
   font-size: 0.875rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -77,6 +78,7 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   height: 2.25rem;
   padding: 0 0.75rem;
   font-size: 0.875rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -286,13 +288,23 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
       >
         <button
           class="c9"
+          data-testid="button"
         >
-          Close
+          <span
+            class=""
+          >
+            Close
+          </span>
         </button>
         <button
           class="c10"
+          data-testid="button"
         >
-          Create
+          <span
+            class=""
+          >
+            Create
+          </span>
         </button>
       </div>
     </div>
@@ -332,6 +344,7 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
   height: 2.25rem;
   padding: 0 0.75rem;
   font-size: 0.875rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -378,6 +391,7 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
   height: 2.25rem;
   padding: 0 0.75rem;
   font-size: 0.875rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -587,13 +601,23 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
       >
         <button
           class="c9"
+          data-testid="button"
         >
-          Close
+          <span
+            class=""
+          >
+            Close
+          </span>
         </button>
         <button
           class="c10"
+          data-testid="button"
         >
-          Create
+          <span
+            class=""
+          >
+            Create
+          </span>
         </button>
       </div>
     </div>

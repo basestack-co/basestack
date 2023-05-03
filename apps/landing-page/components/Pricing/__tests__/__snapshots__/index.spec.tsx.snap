@@ -155,6 +155,7 @@ exports[`Pricing tests render Pricing correctly 1`] = `
   height: 2.625rem;
   padding: 0 1rem;
   font-size: 1rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -497,8 +498,13 @@ exports[`Pricing tests render Pricing correctly 1`] = `
           </ul>
           <button
             class="c18"
+            data-testid="button"
           >
-            Get Started
+            <span
+              class=""
+            >
+              Get Started
+            </span>
           </button>
         </div>
         <div
@@ -641,8 +647,13 @@ exports[`Pricing tests render Pricing correctly 1`] = `
           </ul>
           <button
             class="c18 c25"
+            data-testid="button"
           >
-            Contact Sales
+            <span
+              class=""
+            >
+              Contact Sales
+            </span>
           </button>
         </div>
       </div>

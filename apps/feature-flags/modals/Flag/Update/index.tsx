@@ -131,7 +131,7 @@ const UpdateFlagModal = () => {
           sliderPosition={tabPosition[selectedTab]}
           mb={theme.spacing.s6}
         />
-        {onRenderTab(isLoading)}
+        {onRenderTab(isLoading, true)}
       </Modal>
     </Portal>
   );
