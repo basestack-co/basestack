@@ -5,7 +5,6 @@ import {
   Loader,
   SettingCard,
   Skeleton,
-  Spinner,
   Table,
 } from "@basestack/design-system";
 // Server
@@ -28,6 +27,7 @@ const EnvironmentsCard = ({ project }: Props) => {
   const setUpdateEnvironmentModalOpen = useStore(
     (state) => state.setUpdateEnvironmentModalOpen
   );
+  const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
 
   const { data, isLoading } = trpc.environment.all.useQuery(
     { projectId: project.id },
@@ -108,7 +108,7 @@ const EnvironmentsCard = ({ project }: Props) => {
             icon: "delete",
             text: "Delete",
             variant: ButtonVariant.Danger,
-            onClick: () => onHandleDelete(item.id),
+            onClick: () => onClickDeleteEnvironment(item.id, item.name),
             isDisabled: !!item.isDefault,
           },
         ]
@@ -116,6 +116,24 @@ const EnvironmentsCard = ({ project }: Props) => {
 
     [isLoading, data, onHandleEdit, onHandleDelete]
   );
+
+  const onClickDeleteEnvironment = (id: string, name: string) => {
+    setConfirmModalOpen({
+      isOpen: true,
+      data: {
+        title: "Are you sure?",
+        description: `This action cannot be undone. This will permanently delete the <b>${name}</b> environment, flags, history and remove all collaborator associations. `,
+        type: "delete",
+        buttonText: "Delete Environment",
+        onClick: () => {
+          onHandleDelete(id);
+          setConfirmModalOpen({
+            isOpen: false,
+          });
+        },
+      },
+    });
+  };
 
   return (
     <SettingCard
@@ -129,7 +147,15 @@ const EnvironmentsCard = ({ project }: Props) => {
     >
       {isLoading || !data ? (
         <Loader>
-          <Spinner size="large" />
+          <Skeleton
+            items={[
+              { h: 25, w: "15%", mb: 10 },
+              { h: 1, w: "100%", mb: 10 },
+              { h: 50, w: "100%" },
+            ]}
+            padding={20}
+            hasShadow={false}
+          />
         </Loader>
       ) : (
         <Table data={getTable} />
