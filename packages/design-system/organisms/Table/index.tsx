@@ -80,22 +80,30 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
           );
         })}
       <Col>
-        <PopupWrapper ref={popupWrapperRef}>
-          <IconButton ref={reference} icon="more_horiz" onClick={onClickMore} />
-          {transitionPopup(
-            (styles, item) =>
-              item && (
-                <AnimatedPopup
-                  style={styles}
-                  ref={floating}
-                  position={strategy}
-                  top={y}
-                  left={x}
-                  items={more}
-                />
-              )
-          )}
-        </PopupWrapper>
+        {more.length > 0 ? (
+          <PopupWrapper ref={popupWrapperRef}>
+            <IconButton
+              ref={reference}
+              icon="more_horiz"
+              onClick={onClickMore}
+            />
+            {transitionPopup(
+              (styles, item) =>
+                item && (
+                  <AnimatedPopup
+                    style={styles}
+                    ref={floating}
+                    position={strategy}
+                    top={y}
+                    left={x}
+                    items={more}
+                  />
+                )
+            )}
+          </PopupWrapper>
+        ) : (
+          <Placeholder />
+        )}
       </Col>
     </StyledRow>
   );
@@ -124,7 +132,7 @@ const Table = ({ data, ...props }: TableProps) => {
             <Row
               key={`${index.toString()}-row`}
               cols={row.cols}
-              more={row.more}
+              more={data.rows.length > 1 ? row.more : []}
               numberOfCols={numberOfCols}
             />
           );

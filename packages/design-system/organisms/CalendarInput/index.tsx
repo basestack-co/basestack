@@ -1,4 +1,5 @@
 import React, { forwardRef, memo } from "react";
+import { SpaceProps } from "styled-system";
 // Calendar
 // @ts-ignore
 import { CalendarProps } from "react-calendar";
@@ -8,7 +9,7 @@ import { Icon, InputProps } from "../../atoms";
 import { InputGroup } from "../../molecules";
 import Calendar from "../Calendar";
 
-interface CalendarInput {
+interface CalendarInput extends SpaceProps {
   isCalenderOpen: boolean;
   calendarProps: CalendarProps;
   inputTitle: string;
@@ -16,8 +17,11 @@ interface CalendarInput {
 }
 
 const CalendarInput = forwardRef<HTMLDivElement, CalendarInput>(
-  ({ inputTitle, inputProps, isCalenderOpen, calendarProps }, ref) => (
-    <Container ref={ref}>
+  (
+    { inputTitle, inputProps, isCalenderOpen, calendarProps, ...props },
+    ref
+  ) => (
+    <Container ref={ref} {...props}>
       <InputGroup title={inputTitle} inputProps={inputProps} />
       {isCalenderOpen && (
         <Calendar

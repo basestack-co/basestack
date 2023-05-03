@@ -6,6 +6,7 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
   height: 2.25rem;
   padding: 0 0.75rem;
   font-size: 0.875rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -89,21 +90,36 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
       >
         <button
           class="c3"
+          data-testid="button"
           font-weight="400"
         >
-          Edit
+          <span
+            class=""
+          >
+            Edit
+          </span>
         </button>
         <button
           class="c3"
+          data-testid="button"
           font-weight="400"
         >
-          History
+          <span
+            class=""
+          >
+            History
+          </span>
         </button>
         <button
           class="c3"
+          data-testid="button"
           font-weight="400"
         >
-          Delete
+          <span
+            class=""
+          >
+            Delete
+          </span>
         </button>
       </li>
     </ul>
@@ -131,6 +147,7 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
   height: 2.25rem;
   padding: 0 0.75rem;
   font-size: 0.875rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -214,6 +231,7 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
       >
         <button
           class="c3"
+          data-testid="button"
           font-weight="400"
         >
           <div
@@ -229,10 +247,15 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
               edit
             </span>
           </div>
-          Edit
+          <span
+            class=""
+          >
+            Edit
+          </span>
         </button>
         <button
           class="c3"
+          data-testid="button"
           font-weight="400"
         >
           <div
@@ -248,10 +271,15 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
               edit
             </span>
           </div>
-          History
+          <span
+            class=""
+          >
+            History
+          </span>
         </button>
         <button
           class="c3"
+          data-testid="button"
           font-weight="400"
         >
           <div
@@ -267,7 +295,11 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
               edit
             </span>
           </div>
-          Delete
+          <span
+            class=""
+          >
+            Delete
+          </span>
         </button>
       </li>
     </ul>

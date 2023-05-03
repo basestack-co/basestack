@@ -1,4 +1,6 @@
 import React from "react";
+// Store
+import { useStore } from "store";
 // Components
 import { SettingCard } from "@basestack/design-system";
 // Server
@@ -14,6 +16,7 @@ const DeleteProjectCard = ({ project }: Props) => {
   const router = useRouter();
   const trpcContext = trpc.useContext();
   const deleteProject = trpc.project.delete.useMutation();
+  const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
 
   const onDeleteProject = () => {
     deleteProject.mutate(
@@ -41,12 +44,30 @@ const DeleteProjectCard = ({ project }: Props) => {
     );
   };
 
+  const onClickDeleteProject = () => {
+    setConfirmModalOpen({
+      isOpen: true,
+      data: {
+        title: "Are you sure?",
+        description: `This action cannot be undone. This will permanently delete the <b>${project.name}</b> project, flags, history and remove all collaborator associations. `,
+        type: "delete",
+        buttonText: "Delete Project",
+        onClick: () => {
+          onDeleteProject();
+          setConfirmModalOpen({
+            isOpen: false,
+          });
+        },
+      },
+    });
+  };
+
   return (
     <SettingCard
       title="Delete Project"
       description="The project will be permanently deleted, including its environments and feature flags."
       button="Delete"
-      onClick={onDeleteProject}
+      onClick={onClickDeleteProject}
       text="Warning: This action is not reversible. Please be certain."
       isDisabled={deleteProject.isLoading}
       variant="danger"

@@ -37,6 +37,7 @@ exports[`Footer tests render Footer correctly 1`] = `
   height: 2.625rem;
   padding: 0 1rem;
   font-size: 1rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -355,8 +356,13 @@ exports[`Footer tests render Footer correctly 1`] = `
           />
           <button
             class="c13"
+            data-testid="button"
           >
-            Send
+            <span
+              class=""
+            >
+              Send
+            </span>
           </button>
         </div>
       </div>

@@ -18,6 +18,7 @@ exports[`Banner tests render Banner correctly 1`] = `
   height: 2.625rem;
   padding: 0 1rem;
   font-size: 1rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -60,6 +61,7 @@ exports[`Banner tests render Banner correctly 1`] = `
   height: 2.625rem;
   padding: 0 1rem;
   font-size: 1rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -241,13 +243,23 @@ exports[`Banner tests render Banner correctly 1`] = `
           >
             <button
               class="c6 c7"
+              data-testid="button"
             >
-              Get Started
+              <span
+                class=""
+              >
+                Get Started
+              </span>
             </button>
             <button
               class="c8"
+              data-testid="button"
             >
-              Talk To Sales
+              <span
+                class=""
+              >
+                Talk To Sales
+              </span>
             </button>
           </div>
         </div>

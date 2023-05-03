@@ -4,6 +4,7 @@ import { ButtonProps, ButtonVariant, ButtonSize } from "./types";
 import Spinner from "../Spinner";
 import Icon from "../Icon";
 import {
+  SpinnerContainer,
   StyledButton,
   outlinedButtonStyles,
   neutralButtonStyles,
@@ -12,6 +13,7 @@ import {
   primaryButtonStyles,
   secondaryButtonStyles,
   tertiaryButtonStyles,
+  TextContainer,
 } from "./styles";
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -61,6 +63,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       // @ts-ignore
       <StyledButton
+        data-testid="button"
         onClick={onClick}
         ref={ref}
         hasLeftIcon={hasLeftIcon}
@@ -69,6 +72,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         fullWidth={fullWidth}
         disabled={isDisabled}
         size={size}
+        isLoading={isLoading}
         {...props}
         {...(!!as && { as })}
       >
@@ -76,17 +80,18 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           {hasLeftIcon && (
             <Icon icon={icon} size={iconSize} mr={theme.spacing.s2} />
           )}
-          {children}
+          <TextContainer isLoading={isLoading}>{children}</TextContainer>
           {hasRightIcon && (
             <Icon icon={icon} size={iconSize} ml={theme.spacing.s2} />
           )}
           {isLoading && (
-            <Spinner
-              size="small"
-              ml={theme.spacing.s2}
-              bg={spinnerBg[variant]}
-              color={spinnerColor[variant]}
-            />
+            <SpinnerContainer>
+              <Spinner
+                size="small"
+                bg={spinnerBg[variant]}
+                color={spinnerColor[variant]}
+              />
+            </SpinnerContainer>
           )}
         </>
       </StyledButton>
