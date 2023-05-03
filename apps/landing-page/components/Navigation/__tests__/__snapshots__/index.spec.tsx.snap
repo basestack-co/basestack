@@ -6,6 +6,7 @@ exports[`Navigation tests render Navigation in dark mode 1`] = `
   height: 2.625rem;
   padding: 0 1rem;
   font-size: 1rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -49,6 +50,7 @@ exports[`Navigation tests render Navigation in dark mode 1`] = `
   height: 2.625rem;
   padding: 0 1rem;
   font-size: 1rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -189,13 +191,23 @@ exports[`Navigation tests render Navigation in dark mode 1`] = `
       >
         <button
           class="c5"
+          data-testid="button"
         >
-          Sign In
+          <span
+            class=""
+          >
+            Sign In
+          </span>
         </button>
         <button
           class="c6"
+          data-testid="button"
         >
-          Get Started
+          <span
+            class=""
+          >
+            Get Started
+          </span>
         </button>
       </div>
     </div>
@@ -209,6 +221,7 @@ exports[`Navigation tests renders Navigation correctly 1`] = `
   height: 2.625rem;
   padding: 0 1rem;
   font-size: 1rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -252,6 +265,7 @@ exports[`Navigation tests renders Navigation correctly 1`] = `
   height: 2.625rem;
   padding: 0 1rem;
   font-size: 1rem;
+  position: relative;
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -392,13 +406,23 @@ exports[`Navigation tests renders Navigation correctly 1`] = `
       >
         <button
           class="c5"
+          data-testid="button"
         >
-          Sign In
+          <span
+            class=""
+          >
+            Sign In
+          </span>
         </button>
         <button
           class="c6"
+          data-testid="button"
         >
-          Get Started
+          <span
+            class=""
+          >
+            Get Started
+          </span>
         </button>
       </div>
     </div>
