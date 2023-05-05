@@ -1,38 +1,30 @@
-import React, { memo, forwardRef, useState, useCallback, useRef } from "react";
-import { useFloating, autoUpdate } from "@floating-ui/react-dom";
-import { useClickAway } from "@basestack/hooks";
+import React, { memo, forwardRef } from "react";
 import { useTheme } from "styled-components";
-import { useTransition, animated, config } from "react-spring";
+import { animated } from "react-spring";
+import { useFloatingPopup } from "@basestack/hooks";
+// Components
 import { IconButton, Text } from "../../atoms";
 import { Popup } from "../../molecules";
 import { Labels, StyledCard, StyledLabel, PopupWrapper } from "./styles";
 import { FlagCardProps } from "./types";
-import { scaleInTopRight } from "../../animations/springs";
 
 const AnimatedPopup = animated(Popup);
 
 const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
   ({ title, description, environments, date, popupItems, ...props }, ref) => {
     const theme = useTheme();
-    const popupWrapperRef = useRef(null);
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const { x, y, refs, strategy } = useFloating({
-      placement: "bottom-end",
-      whileElementsMounted: autoUpdate,
-    });
 
-    const onClickMore = useCallback(() => {
-      setIsPopupOpen((prevState) => !prevState);
-    }, []);
-
-    const transitionPopup = useTransition(isPopupOpen, {
-      config: { ...config.default, duration: 150 },
-      ...scaleInTopRight,
-    });
-
-    useClickAway(popupWrapperRef, () => {
-      setIsPopupOpen(false);
-    });
+    const {
+      popupWrapperRef,
+      x,
+      y,
+      refs,
+      strategy,
+      transition,
+      getReferenceProps,
+      getFloatingProps,
+      onClickMore,
+    } = useFloatingPopup();
 
     return (
       <StyledCard
@@ -67,6 +59,7 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
         </Text>
         <PopupWrapper ref={popupWrapperRef}>
           <IconButton
+            {...getReferenceProps}
             ref={refs.setReference}
             position="absolute"
             top="14px"
@@ -74,13 +67,14 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
             icon="more_horiz"
             onClick={onClickMore}
           />
-          {transitionPopup(
+          {transition(
             (styles, item) =>
               item &&
               popupItems.length > 0 && (
                 <AnimatedPopup
-                  style={styles}
+                  {...getFloatingProps}
                   ref={refs.setFloating}
+                  style={styles}
                   position={strategy}
                   top={y}
                   left={x}

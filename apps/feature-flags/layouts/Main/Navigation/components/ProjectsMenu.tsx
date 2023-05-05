@@ -2,7 +2,7 @@ import React, { memo, useCallback, useRef, useState, useMemo } from "react";
 import { useClickAway } from "@basestack/hooks";
 import { animated, config, useTransition } from "react-spring";
 // Components
-import { autoUpdate, offset, useFloating } from "@floating-ui/react-dom";
+import { autoUpdate, offset, useFloating } from "@floating-ui/react";
 import { Button, ButtonVariant, PopupActions } from "@basestack/design-system";
 import { scaleInTopLeft } from "@basestack/design-system/animations/springs";
 // Types

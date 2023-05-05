@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useRef, useState, useMemo } from "react";
 import { useClickAway } from "@basestack/hooks";
-import { autoUpdate, useFloating } from "@floating-ui/react-dom";
+import { autoUpdate, useFloating } from "@floating-ui/react;
 import { useTheme } from "styled-components";
 import { animated, config, useTransition } from "react-spring";
 import { Popup, Button, ButtonVariant } from "@basestack/design-system";

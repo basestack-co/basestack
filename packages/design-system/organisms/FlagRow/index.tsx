@@ -1,13 +1,12 @@
-import React, { memo, forwardRef, useState, useCallback, useRef } from "react";
+import React, { memo, forwardRef } from "react";
 import { useTheme } from "styled-components";
-import { useFloating, autoUpdate } from "@floating-ui/react-dom";
-import { useTransition, animated, config } from "react-spring";
+import { useFloatingPopup } from "@basestack/hooks";
+import { animated } from "react-spring";
+// Components
 import { Text, IconButton } from "../../atoms";
-import { Labels, StyledCard, Label, CardWrapper, PopupWrapper } from "./styles";
-import { scaleInTopRight } from "../../animations/springs";
 import { Popup } from "../../molecules";
+import { Labels, StyledCard, Label, CardWrapper, PopupWrapper } from "./styles";
 import { FlagRowProps } from "./types";
-import { useClickAway } from "@basestack/hooks";
 
 const AnimatedPopup = animated(Popup);
 
@@ -17,25 +16,18 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
     ref
   ) => {
     const theme = useTheme();
-    const popupWrapperRef = useRef(null);
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const { x, y, refs, strategy } = useFloating({
-      placement: "bottom-end",
-      whileElementsMounted: autoUpdate,
-    });
 
-    const onClickMore = useCallback(() => {
-      setIsPopupOpen((prevState) => !prevState);
-    }, []);
-
-    const transitionPopup = useTransition(isPopupOpen, {
-      config: { ...config.default, duration: 150 },
-      ...scaleInTopRight,
-    });
-
-    useClickAway(popupWrapperRef, () => {
-      setIsPopupOpen(false);
-    });
+    const {
+      popupWrapperRef,
+      x,
+      y,
+      refs,
+      strategy,
+      transition,
+      getReferenceProps,
+      getFloatingProps,
+      onClickMore,
+    } = useFloatingPopup();
 
     return (
       <StyledCard
@@ -70,17 +62,19 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
           </Text>
           <PopupWrapper ref={popupWrapperRef}>
             <IconButton
+              {...getReferenceProps}
               ref={refs.setReference}
               icon="more_horiz"
               onClick={onClickMore}
             />
-            {transitionPopup(
+            {transition(
               (styles, item) =>
                 item &&
                 popupItems.length > 0 && (
                   <AnimatedPopup
-                    style={styles}
+                    {...getFloatingProps}
                     ref={refs.setFloating}
+                    style={styles}
                     position={strategy}
                     top={y}
                     left={x}
