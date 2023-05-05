@@ -19,7 +19,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
     const theme = useTheme();
     const popupWrapperRef = useRef(null);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const { x, y, reference, floating, strategy } = useFloating({
+    const { x, y, refs, strategy } = useFloating({
       placement: "bottom-end",
       whileElementsMounted: autoUpdate,
     });
@@ -70,7 +70,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
           </Text>
           <PopupWrapper ref={popupWrapperRef}>
             <IconButton
-              ref={reference}
+              ref={refs.setReference}
               icon="more_horiz"
               onClick={onClickMore}
             />
@@ -80,7 +80,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
                 popupItems.length > 0 && (
                   <AnimatedPopup
                     style={styles}
-                    ref={floating}
+                    ref={refs.setFloating}
                     position={strategy}
                     top={y}
                     left={x}

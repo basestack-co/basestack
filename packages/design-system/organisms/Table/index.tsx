@@ -24,7 +24,7 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
   const theme = useTheme();
   const popupWrapperRef = useRef(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const { x, y, reference, floating, strategy } = useFloating({
+  const { x, y, refs, strategy } = useFloating({
     placement: "bottom-end",
     whileElementsMounted: autoUpdate,
   });
@@ -83,7 +83,7 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
         {more.length > 0 ? (
           <PopupWrapper ref={popupWrapperRef}>
             <IconButton
-              ref={reference}
+              ref={refs.setReference}
               icon="more_horiz"
               onClick={onClickMore}
             />
@@ -92,7 +92,7 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
                 item && (
                   <AnimatedPopup
                     style={styles}
-                    ref={floating}
+                    ref={refs.setFloating}
                     position={strategy}
                     top={y}
                     left={x}
