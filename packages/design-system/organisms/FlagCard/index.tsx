@@ -3,15 +3,54 @@ import { useTheme } from "styled-components";
 import { animated } from "react-spring";
 import { useFloatingPopup } from "@basestack/hooks";
 // Components
-import { IconButton, Text } from "../../atoms";
-import { Popup } from "../../molecules";
-import { Labels, StyledCard, StyledLabel, PopupWrapper } from "./styles";
+import { IconButton, Text, Icon } from "../../atoms";
+import {
+  Popup,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "../../molecules";
+import {
+  Labels,
+  StyledCard,
+  StyledLabel,
+  PopupWrapper,
+  Footer,
+  TooltipContainer,
+} from "./styles";
 import { FlagCardProps } from "./types";
 
 const AnimatedPopup = animated(Popup);
 
+const TooltipIcon = ({ icon, text }: { icon: string; text: string }) => {
+  const theme = useTheme();
+
+  return (
+    <TooltipContainer>
+      <Tooltip placement="top">
+        <TooltipTrigger>
+          <Icon icon={icon} color={theme.colors.gray500} size="small" />
+        </TooltipTrigger>
+        <TooltipContent>{text}</TooltipContent>
+      </Tooltip>
+    </TooltipContainer>
+  );
+};
+
 const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
-  ({ title, description, environments, date, popupItems, ...props }, ref) => {
+  (
+    {
+      title,
+      description,
+      environments,
+      date,
+      popupItems,
+      hasPayload = false,
+      isExpired = false,
+      ...props
+    },
+    ref
+  ) => {
     const theme = useTheme();
 
     const {
@@ -55,9 +94,13 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
             );
           })}
         </Labels>
-        <Text data-testid="flag-date" mt="auto" size="small" muted>
-          {date}
-        </Text>
+        <Footer>
+          <Text data-testid="flag-date" mt="auto" size="small" muted mr="auto">
+            {date}
+          </Text>
+          {hasPayload && <TooltipIcon icon="data_object" text="Payload" />}
+          {isExpired && <TooltipIcon icon="timer_off" text="Expired" />}
+        </Footer>
         <PopupWrapper ref={popupWrapperRef}>
           <IconButton
             {...getReferenceProps}
