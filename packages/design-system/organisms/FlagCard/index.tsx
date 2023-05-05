@@ -24,6 +24,7 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
       getReferenceProps,
       getFloatingProps,
       onClickMore,
+      onCloseMenu,
     } = useFloatingPopup();
 
     return (
@@ -79,6 +80,7 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
                   top={y}
                   left={x}
                   items={popupItems}
+                  onClickList={onCloseMenu}
                 />
               )
           )}

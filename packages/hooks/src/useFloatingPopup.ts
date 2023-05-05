@@ -41,6 +41,10 @@ const useFloatingPopup = () => {
     setIsPopupOpen((prevState) => !prevState);
   }, []);
 
+  const onCloseMenu = useCallback(() => {
+    setIsPopupOpen(false);
+  }, []);
+
   return {
     popupWrapperRef,
     x,
@@ -51,6 +55,7 @@ const useFloatingPopup = () => {
     getReferenceProps,
     getFloatingProps,
     onClickMore,
+    onCloseMenu,
   } as const;
 };
 

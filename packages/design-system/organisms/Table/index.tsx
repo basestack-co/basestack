@@ -32,6 +32,7 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
     getReferenceProps,
     getFloatingProps,
     onClickMore,
+    onCloseMenu,
   } = useFloatingPopup();
 
   return (
@@ -91,6 +92,7 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
                     top={y}
                     left={x}
                     items={more}
+                    onClickList={onCloseMenu}
                   />
                 )
             )}

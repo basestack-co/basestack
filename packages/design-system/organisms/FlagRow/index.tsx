@@ -27,6 +27,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
       getReferenceProps,
       getFloatingProps,
       onClickMore,
+      onCloseMenu,
     } = useFloatingPopup();
 
     return (
@@ -79,6 +80,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
                     top={y}
                     left={x}
                     items={popupItems}
+                    onClickList={onCloseMenu}
                   />
                 )
             )}
