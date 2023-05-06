@@ -128,6 +128,7 @@ export const TooltipTrigger = React.forwardRef<
       ref={ref}
       // The user can style the trigger based on the state
       data-state={context.open ? "open" : "closed"}
+      // @ts-ignore
       {...context.getReferenceProps(props)}
     >
       {children}
@@ -149,6 +150,7 @@ export const TooltipContent = React.forwardRef<
       <StyledContent
         ref={ref}
         style={context.floatingStyles}
+        // @ts-ignore
         {...context.getFloatingProps(props)}
       />
     </FloatingPortal>

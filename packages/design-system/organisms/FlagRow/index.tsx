@@ -4,8 +4,20 @@ import { useFloatingPopup } from "@basestack/hooks";
 import { animated } from "react-spring";
 // Components
 import { Text, IconButton } from "../../atoms";
-import { Popup } from "../../molecules";
-import { Labels, StyledCard, Label, CardWrapper, PopupWrapper } from "./styles";
+import {
+  Popup,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "../../molecules";
+import {
+  Labels,
+  StyledCard,
+  Label,
+  CardWrapper,
+  PopupWrapper,
+  TooltipContainer,
+} from "./styles";
 import { FlagRowProps } from "./types";
 
 const AnimatedPopup = animated(Popup);
@@ -42,13 +54,21 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
           <Labels data-testid="flag-labels">
             {environments.map((environment, index, { length }) => {
               return (
-                <Label
+                <TooltipContainer
                   key={environment.id}
                   index={index}
                   length={length}
-                  data-testid={`${environment.name}-flag-label`}
-                  isActive={environment.enabled}
-                />
+                >
+                  <Tooltip placement="top">
+                    <TooltipTrigger>
+                      <Label
+                        data-testid={`${environment.name}-flag-label`}
+                        isActive={environment.enabled}
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent>{environment.name}</TooltipContent>
+                  </Tooltip>
+                </TooltipContainer>
               );
             })}
           </Labels>
