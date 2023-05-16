@@ -38,5 +38,5 @@ export interface ModalProps {
   /**
    * Callback when the animation ends
    */
-  onAnimationEnd?: () => void
+  onAnimationEnd?: () => void;
 }

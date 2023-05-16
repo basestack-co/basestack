@@ -60,8 +60,6 @@ const useFlagForm = ({
     return null;
   }, [projectSlug, isModalOpen, trpcContext]);
 
-
-
   const { data, isLoading } = trpc.environment.all.useQuery(
     { projectId: project?.id! },
     {
