@@ -8,8 +8,6 @@ import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
 import "material-symbols";
 // Utils
 import { Toaster } from "react-hot-toast";
-// Analytics
-import PiwikProProvider from "@piwikpro/next-piwik-pro";
 
 const Noop = ({ children }: { children: React.ReactNode }) => children;
 
@@ -18,20 +16,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   const Layout = Component.Layout || Noop;
 
   return (
-    <PiwikProProvider
-      containerUrl={process.env.NEXT_PUBLIC_PIWIK_PRO_ACCOUNT_URL}
-      containerId={process.env.NEXT_PUBLIC_PIWIK_PRO_CONTAINER_ID!}
-    >
-      <ThemeProvider theme={theme}>
-        <>
-          <GlobalStyle />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-          <Toaster position="bottom-right" />
-        </>
-      </ThemeProvider>
-    </PiwikProProvider>
+    <ThemeProvider theme={theme}>
+      <>
+        <GlobalStyle />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+        <Toaster position="bottom-right" />
+      </>
+    </ThemeProvider>
   );
 }
 
