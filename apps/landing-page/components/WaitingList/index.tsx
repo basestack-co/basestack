@@ -118,24 +118,20 @@ const WaitingList = ({ data }: WaitingListProps) => {
       }
 
       // @ts-ignore
-      umami.track((props) => ({
-        ...props,
-        type: "GetEarlyAccessButton",
+      umami.track("request-access-submit", {
         title: "Success",
         description: "Successfully added to the waiting list",
-      }));
+      });
 
       toast.success("Thank you for your interest! We will be in touch soon.");
       reset();
     } catch (error) {
       const { message } = error as Error;
       // @ts-ignore
-      umami.track((props) => ({
-        ...props,
-        type: "GetEarlyAccessButton",
+      umami.track("request-access-submit", {
         title: "Error",
         description: message,
-      }));
+      });
       toast.error(message ?? "Something went wrong, please try again.");
     }
   };
@@ -200,12 +196,10 @@ const WaitingList = ({ data }: WaitingListProps) => {
                       disabled={isSubmitting}
                       onFocus={() =>
                         // @ts-ignore
-                        umami.track((props) => ({
-                          ...props,
-                          type: "GetEarlyAccessInputFocus",
+                        umami.track("email-input-focus", {
                           title: "onFocus",
                           description: "Email Input Field Focus",
-                        }))
+                        })
                       }
                     />
                   )}
@@ -262,12 +256,11 @@ const WaitingList = ({ data }: WaitingListProps) => {
                     text={item.text}
                     onClick={() => {
                       // @ts-ignore
-                      umami.track((props) => ({
-                        ...props,
-                        type: "Slider",
+                      umami.track("slider-card-button", {
                         title: "Feature Slider",
                         description: item.title,
-                      }));
+                      });
+
                       setCurrentImage(index);
                     }}
                   />
@@ -288,12 +281,10 @@ const WaitingList = ({ data }: WaitingListProps) => {
               href="/legal/privacy"
               onClick={() =>
                 // @ts-ignore
-                umami.track((props) => ({
-                  ...props,
-                  type: "Link",
+                umami.track("privacy-link", {
                   title: "onClick",
                   description: "Privacy Policy Link",
-                }))
+                })
               }
             >
               Privacy Policy
