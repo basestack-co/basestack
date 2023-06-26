@@ -52,7 +52,7 @@ const AdvanceTab = ({ setValue, payload, expiredAt }: Props) => {
           autoComplete: "off",
         }}
         calendarProps={{
-          onChange: (date: Date) => {
+          onChange: (date: any) => {
             setValue("expiredAt", date);
             setIsCalendarOpen(false);
           },

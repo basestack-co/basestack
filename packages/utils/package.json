@@ -22,7 +22,7 @@
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
     "ts-jest": "^29.1.0",
-    "tsup": "^6.7.0",
-    "typescript": "^5.0.4"
+    "tsup": "^7.0.0",
+    "typescript": "^5.1.3"
   }
 }

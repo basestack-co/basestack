@@ -5,7 +5,7 @@
   "types": "./src/index.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "email dev --port 3333 --dir ./src/templates",
+    "start": "email dev --port 3333 --dir ./src/templates",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
@@ -16,11 +16,11 @@
     "build": "email export"
   },
   "devDependencies": {
-    "@react-email/components": "0.0.6",
-    "react-email": "1.9.3",
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
+    "@react-email/components": "0.0.7",
+    "react-email": "1.9.4",
     "ts-jest": "^29.1.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.3"
   }
 }
