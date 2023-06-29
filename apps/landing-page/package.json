@@ -18,7 +18,7 @@
     "@basestack/design-system": "*",
     "@basestack/hooks": "*",
     "@basestack/utils": "*",
-    "@floating-ui/react-dom": "^1.0.1",
+    "@floating-ui/react": "^0.24.0",
     "@hookform/resolvers": "^3.1.0",
     "eslint-config-next": "^13.0.6",
     "isomorphic-unfetch": "^4.0.2",

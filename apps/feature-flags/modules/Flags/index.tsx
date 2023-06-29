@@ -8,6 +8,7 @@ import { Project, SelectedView } from "types";
 import { useStore } from "store";
 // Components
 import { Text } from "@basestack/design-system";
+import toast from "react-hot-toast";
 import FlagCards from "./Cards";
 import { Container } from "../styles";
 // Containers

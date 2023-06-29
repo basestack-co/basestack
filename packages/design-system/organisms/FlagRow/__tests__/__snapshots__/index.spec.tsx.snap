@@ -2,7 +2,7 @@
 
 exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
 <DocumentFragment>
-  .c8 {
+  .c11 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
@@ -11,7 +11,7 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
   color: #000000;
 }
 
-.c9 {
+.c12 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
@@ -20,7 +20,7 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
   color: #757575;
 }
 
-.c7 {
+.c10 {
   font-size: 1.125rem;
   line-height: 1.625rem;
   font-weight: 500;
@@ -29,7 +29,7 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
   color: #000000;
 }
 
-.c12 {
+.c15 {
   height: 1.5rem;
   width: 1.5rem;
   -webkit-flex-shrink: 0;
@@ -37,12 +37,12 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
   flex-shrink: 0;
 }
 
-.c13 {
+.c16 {
   color: #000000;
   font-size: 1.5rem;
 }
 
-.c11 {
+.c14 {
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -66,15 +66,15 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
   width: 2rem;
 }
 
-.c11 .material-symbols-sharp {
+.c14 .material-symbols-sharp {
   color: inherit;
 }
 
-.c11:hover {
+.c14:hover {
   background-color: #EEEEEE;
 }
 
-.c11:active {
+.c14:active {
   background-color: #E2E2E2;
 }
 
@@ -96,6 +96,12 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
 
 .c0:hover {
   box-shadow: rgba(0,0,0,0.1) 0px 10px 15px -3px,rgba(0,0,0,0.05) 0px 4px 6px -2px;
+}
+
+.c5 {
+  background-color: transparent;
+  border: none;
+  cursor: default;
 }
 
 .c1 {
@@ -120,7 +126,7 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
   display: flex;
 }
 
-.c4 {
+.c6 {
   height: 0.875rem;
   width: 0.875rem;
   border: 1px solid #FFFFFF;
@@ -128,8 +134,27 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  z-index: 3;
   background-color: #05944F;
+}
+
+.c8 {
+  height: 0.875rem;
+  width: 0.875rem;
+  border: 1px solid #FFFFFF;
+  border-radius: 50%;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  background-color: #CBCBCB;
+}
+
+.c13 {
+  height: 2rem;
+  width: 2rem;
+}
+
+.c4 {
+  z-index: 3;
 }
 
 .c4:not(:first-child) {
@@ -142,53 +167,32 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
   z-index: 4;
 }
 
-.c5 {
-  height: 0.875rem;
-  width: 0.875rem;
-  border: 1px solid #FFFFFF;
-  border-radius: 50%;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+.c7 {
   z-index: 2;
-  background-color: #CBCBCB;
 }
 
-.c5:not(:first-child) {
+.c7:not(:first-child) {
   -webkit-transform: translateX(-4px);
   -ms-transform: translateX(-4px);
   transform: translateX(-4px);
 }
 
-.c5:hover {
+.c7:hover {
   z-index: 4;
 }
 
-.c6 {
-  height: 0.875rem;
-  width: 0.875rem;
-  border: 1px solid #FFFFFF;
-  border-radius: 50%;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+.c9 {
   z-index: 1;
-  background-color: #CBCBCB;
 }
 
-.c6:not(:first-child) {
+.c9:not(:first-child) {
   -webkit-transform: translateX(-8px);
   -ms-transform: translateX(-8px);
   transform: translateX(-8px);
 }
 
-.c6:hover {
+.c9:hover {
   z-index: 4;
-}
-
-.c10 {
-  height: 2rem;
-  width: 2rem;
 }
 
 <div
@@ -204,51 +208,78 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
       >
         <div
           class="c4"
-          data-testid="Development-flag-label"
-        />
+        >
+          <div
+            class="c5"
+            data-state="closed"
+          >
+            <div
+              class="c6"
+              data-testid="Development-flag-label"
+            />
+          </div>
+        </div>
         <div
-          class="c5"
-          data-testid="Staging-flag-label"
-        />
+          class="c7"
+        >
+          <div
+            class="c5"
+            data-state="closed"
+          >
+            <div
+              class="c8"
+              data-testid="Staging-flag-label"
+            />
+          </div>
+        </div>
         <div
-          class="c6"
-          data-testid="Production-flag-label"
-        />
+          class="c9"
+        >
+          <div
+            class="c5"
+            data-state="closed"
+          >
+            <div
+              class="c8"
+              data-testid="Production-flag-label"
+            />
+          </div>
+        </div>
       </div>
       <h3
-        class="c7"
+        class="c10"
         data-testid="flag-title"
         font-family="roboto"
       >
         header_size
       </h3>
       <p
-        class="c8"
+        class="c11"
         data-testid="flag-description"
         font-family="roboto"
       >
         Display new header for only a number of users
       </p>
       <p
-        class="c9"
+        class="c12"
         data-testid="flag-date"
         font-family="roboto"
       >
         Created 11 jan 2022
       </p>
       <div
-        class="c10"
+        class="c13"
       >
         <button
-          class="c11"
+          class="c14"
         >
           <div
-            class="c12"
+            class="c15"
             data-testid="icon-container"
             size="24"
           >
             <span
-              class="c13 material-symbols-sharp"
+              class="c16 material-symbols-sharp"
               color="#000000"
               data-testid="icon"
               size="24"
@@ -265,7 +296,7 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
 
 exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
 <DocumentFragment>
-  .c8 {
+  .c11 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
@@ -274,7 +305,7 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
   color: #000000;
 }
 
-.c9 {
+.c12 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
@@ -283,7 +314,7 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
   color: #757575;
 }
 
-.c7 {
+.c10 {
   font-size: 1.125rem;
   line-height: 1.625rem;
   font-weight: 500;
@@ -292,7 +323,7 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
   color: #000000;
 }
 
-.c12 {
+.c15 {
   height: 1.5rem;
   width: 1.5rem;
   -webkit-flex-shrink: 0;
@@ -300,12 +331,12 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
   flex-shrink: 0;
 }
 
-.c13 {
+.c16 {
   color: #000000;
   font-size: 1.5rem;
 }
 
-.c11 {
+.c14 {
   border: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -329,15 +360,15 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
   width: 2rem;
 }
 
-.c11 .material-symbols-sharp {
+.c14 .material-symbols-sharp {
   color: inherit;
 }
 
-.c11:hover {
+.c14:hover {
   background-color: #EEEEEE;
 }
 
-.c11:active {
+.c14:active {
   background-color: #E2E2E2;
 }
 
@@ -359,6 +390,12 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
 
 .c0:hover {
   box-shadow: rgba(0,0,0,0.1) 0px 10px 15px -3px,rgba(0,0,0,0.05) 0px 4px 6px -2px;
+}
+
+.c5 {
+  background-color: transparent;
+  border: none;
+  cursor: default;
 }
 
 .c1 {
@@ -383,7 +420,7 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
   display: flex;
 }
 
-.c4 {
+.c6 {
   height: 0.875rem;
   width: 0.875rem;
   border: 1px solid #FFFFFF;
@@ -391,8 +428,27 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  z-index: 3;
   background-color: #05944F;
+}
+
+.c8 {
+  height: 0.875rem;
+  width: 0.875rem;
+  border: 1px solid #FFFFFF;
+  border-radius: 50%;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  background-color: #CBCBCB;
+}
+
+.c13 {
+  height: 2rem;
+  width: 2rem;
+}
+
+.c4 {
+  z-index: 3;
 }
 
 .c4:not(:first-child) {
@@ -405,53 +461,32 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
   z-index: 4;
 }
 
-.c5 {
-  height: 0.875rem;
-  width: 0.875rem;
-  border: 1px solid #FFFFFF;
-  border-radius: 50%;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+.c7 {
   z-index: 2;
-  background-color: #CBCBCB;
 }
 
-.c5:not(:first-child) {
+.c7:not(:first-child) {
   -webkit-transform: translateX(-4px);
   -ms-transform: translateX(-4px);
   transform: translateX(-4px);
 }
 
-.c5:hover {
+.c7:hover {
   z-index: 4;
 }
 
-.c6 {
-  height: 0.875rem;
-  width: 0.875rem;
-  border: 1px solid #FFFFFF;
-  border-radius: 50%;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
+.c9 {
   z-index: 1;
-  background-color: #CBCBCB;
 }
 
-.c6:not(:first-child) {
+.c9:not(:first-child) {
   -webkit-transform: translateX(-8px);
   -ms-transform: translateX(-8px);
   transform: translateX(-8px);
 }
 
-.c6:hover {
+.c9:hover {
   z-index: 4;
-}
-
-.c10 {
-  height: 2rem;
-  width: 2rem;
 }
 
 <div
@@ -467,51 +502,78 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
       >
         <div
           class="c4"
-          data-testid="Development-flag-label"
-        />
+        >
+          <div
+            class="c5"
+            data-state="closed"
+          >
+            <div
+              class="c6"
+              data-testid="Development-flag-label"
+            />
+          </div>
+        </div>
         <div
-          class="c5"
-          data-testid="Staging-flag-label"
-        />
+          class="c7"
+        >
+          <div
+            class="c5"
+            data-state="closed"
+          >
+            <div
+              class="c8"
+              data-testid="Staging-flag-label"
+            />
+          </div>
+        </div>
         <div
-          class="c6"
-          data-testid="Production-flag-label"
-        />
+          class="c9"
+        >
+          <div
+            class="c5"
+            data-state="closed"
+          >
+            <div
+              class="c8"
+              data-testid="Production-flag-label"
+            />
+          </div>
+        </div>
       </div>
       <h3
-        class="c7"
+        class="c10"
         data-testid="flag-title"
         font-family="roboto"
       >
         header_size
       </h3>
       <p
-        class="c8"
+        class="c11"
         data-testid="flag-description"
         font-family="roboto"
       >
         Display new header for only a number of users
       </p>
       <p
-        class="c9"
+        class="c12"
         data-testid="flag-date"
         font-family="roboto"
       >
         Created 11 jan 2022
       </p>
       <div
-        class="c10"
+        class="c13"
       >
         <button
-          class="c11"
+          class="c14"
         >
           <div
-            class="c12"
+            class="c15"
             data-testid="icon-container"
             size="24"
           >
             <span
-              class="c13 material-symbols-sharp"
+              class="c16 material-symbols-sharp"
               color="#000000"
               data-testid="icon"
               size="24"

@@ -123,6 +123,8 @@ const FlagCards = ({
 
         return (
           <FlagComponent
+            isExpired={false}
+            hasPayload={false}
             key={index.toString()}
             zIndex={flags.length - index}
             title={flag.slug}

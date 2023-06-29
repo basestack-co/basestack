@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useRef, useState, useMemo } from "react";
 import { useClickAway } from "@basestack/hooks";
-import { autoUpdate, useFloating } from "@floating-ui/react-dom";
+import { autoUpdate, useFloating } from "@floating-ui/react";
 import { useTheme } from "styled-components";
 import { animated, config, useTransition } from "react-spring";
 import { Popup, Button, ButtonVariant } from "@basestack/design-system";
@@ -19,7 +19,7 @@ const EnvironmentsMenu = ({ title, data, onSelect }: EnvironmentsMenuProps) => {
   const theme = useTheme();
   const menuWrapperRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { x, y, reference, floating, strategy } = useFloating({
+  const { x, y, refs, strategy } = useFloating({
     placement: "bottom-start",
     whileElementsMounted: autoUpdate,
   });
@@ -56,7 +56,7 @@ const EnvironmentsMenu = ({ title, data, onSelect }: EnvironmentsMenuProps) => {
   return (
     <div ref={menuWrapperRef}>
       <Button
-        ref={reference}
+        ref={refs.setReference}
         iconPlacement="right"
         icon={isMenuOpen ? "expand_less" : "expand_more"}
         variant={ButtonVariant.Tertiary}
@@ -73,7 +73,7 @@ const EnvironmentsMenu = ({ title, data, onSelect }: EnvironmentsMenuProps) => {
           item && (
             <AnimatedMenu
               style={styles}
-              ref={floating}
+              ref={refs.setFloating}
               position={strategy}
               top={y}
               left={x}

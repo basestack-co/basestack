@@ -1,13 +1,24 @@
-import React, { memo, forwardRef, useState, useCallback, useRef } from "react";
+import React, { memo, forwardRef } from "react";
 import { useTheme } from "styled-components";
-import { useFloating, autoUpdate } from "@floating-ui/react-dom";
-import { useTransition, animated, config } from "react-spring";
+import { useFloatingPopup } from "@basestack/hooks";
+import { animated } from "react-spring";
+// Components
 import { Text, IconButton } from "../../atoms";
-import { Labels, StyledCard, Label, CardWrapper, PopupWrapper } from "./styles";
-import { scaleInTopRight } from "../../animations/springs";
-import { Popup } from "../../molecules";
+import {
+  Popup,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "../../molecules";
+import {
+  Labels,
+  StyledCard,
+  Label,
+  CardWrapper,
+  PopupWrapper,
+  TooltipContainer,
+} from "./styles";
 import { FlagRowProps } from "./types";
-import { useClickAway } from "@basestack/hooks";
 
 const AnimatedPopup = animated(Popup);
 
@@ -17,25 +28,19 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
     ref
   ) => {
     const theme = useTheme();
-    const popupWrapperRef = useRef(null);
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const { x, y, reference, floating, strategy } = useFloating({
-      placement: "bottom-end",
-      whileElementsMounted: autoUpdate,
-    });
 
-    const onClickMore = useCallback(() => {
-      setIsPopupOpen((prevState) => !prevState);
-    }, []);
-
-    const transitionPopup = useTransition(isPopupOpen, {
-      config: { ...config.default, duration: 150 },
-      ...scaleInTopRight,
-    });
-
-    useClickAway(popupWrapperRef, () => {
-      setIsPopupOpen(false);
-    });
+    const {
+      popupWrapperRef,
+      x,
+      y,
+      refs,
+      strategy,
+      transition,
+      getReferenceProps,
+      getFloatingProps,
+      onClickMore,
+      onCloseMenu,
+    } = useFloatingPopup();
 
     return (
       <StyledCard
@@ -49,13 +54,21 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
           <Labels data-testid="flag-labels">
             {environments.map((environment, index, { length }) => {
               return (
-                <Label
+                <TooltipContainer
                   key={environment.id}
                   index={index}
                   length={length}
-                  data-testid={`${environment.name}-flag-label`}
-                  isActive={environment.enabled}
-                />
+                >
+                  <Tooltip placement="top">
+                    <TooltipTrigger>
+                      <Label
+                        data-testid={`${environment.name}-flag-label`}
+                        isActive={environment.enabled}
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent>{environment.name}</TooltipContent>
+                  </Tooltip>
+                </TooltipContainer>
               );
             })}
           </Labels>
@@ -70,21 +83,24 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
           </Text>
           <PopupWrapper ref={popupWrapperRef}>
             <IconButton
-              ref={reference}
+              {...getReferenceProps}
+              ref={refs.setReference}
               icon="more_horiz"
               onClick={onClickMore}
             />
-            {transitionPopup(
+            {transition(
               (styles, item) =>
                 item &&
                 popupItems.length > 0 && (
                   <AnimatedPopup
+                    {...getFloatingProps}
+                    ref={refs.setFloating}
                     style={styles}
-                    ref={floating}
                     position={strategy}
                     top={y}
                     left={x}
                     items={popupItems}
+                    onClickList={onCloseMenu}
                   />
                 )
             )}

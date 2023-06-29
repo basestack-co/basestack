@@ -26,4 +26,12 @@ export interface FlagCardProps extends SpaceProps, PositionProps {
    * Popup items array
    */
   popupItems: Array<PopupItems>;
+  /**
+   * Shows icon with tooltip alerting the flag is expired
+   */
+  isExpired?: boolean;
+  /**
+   * Shows icon with tooltip alerting the flag has payload
+   */
+  hasPayload?: boolean;
 }

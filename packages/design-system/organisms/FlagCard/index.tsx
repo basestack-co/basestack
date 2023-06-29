@@ -1,38 +1,70 @@
-import React, { memo, forwardRef, useState, useCallback, useRef } from "react";
-import { useFloating, autoUpdate } from "@floating-ui/react-dom";
-import { useClickAway } from "@basestack/hooks";
+import React, { memo, forwardRef } from "react";
 import { useTheme } from "styled-components";
-import { useTransition, animated, config } from "react-spring";
-import { IconButton, Text } from "../../atoms";
-import { Popup } from "../../molecules";
-import { Labels, StyledCard, StyledLabel, PopupWrapper } from "./styles";
+import { animated } from "react-spring";
+import { useFloatingPopup } from "@basestack/hooks";
+// Components
+import { IconButton, Text, Icon } from "../../atoms";
+import {
+  Popup,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "../../molecules";
+import {
+  Labels,
+  StyledCard,
+  StyledLabel,
+  PopupWrapper,
+  Footer,
+  TooltipContainer,
+} from "./styles";
 import { FlagCardProps } from "./types";
-import { scaleInTopRight } from "../../animations/springs";
 
 const AnimatedPopup = animated(Popup);
 
+const TooltipIcon = ({ icon, text }: { icon: string; text: string }) => {
+  const theme = useTheme();
+
+  return (
+    <TooltipContainer>
+      <Tooltip placement="top">
+        <TooltipTrigger>
+          <Icon icon={icon} color={theme.colors.gray500} size="small" />
+        </TooltipTrigger>
+        <TooltipContent>{text}</TooltipContent>
+      </Tooltip>
+    </TooltipContainer>
+  );
+};
+
 const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
-  ({ title, description, environments, date, popupItems, ...props }, ref) => {
+  (
+    {
+      title,
+      description,
+      environments,
+      date,
+      popupItems,
+      hasPayload = false,
+      isExpired = false,
+      ...props
+    },
+    ref
+  ) => {
     const theme = useTheme();
-    const popupWrapperRef = useRef(null);
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const { x, y, reference, floating, strategy } = useFloating({
-      placement: "bottom-end",
-      whileElementsMounted: autoUpdate,
-    });
 
-    const onClickMore = useCallback(() => {
-      setIsPopupOpen((prevState) => !prevState);
-    }, []);
-
-    const transitionPopup = useTransition(isPopupOpen, {
-      config: { ...config.default, duration: 150 },
-      ...scaleInTopRight,
-    });
-
-    useClickAway(popupWrapperRef, () => {
-      setIsPopupOpen(false);
-    });
+    const {
+      popupWrapperRef,
+      x,
+      y,
+      refs,
+      strategy,
+      transition,
+      getReferenceProps,
+      getFloatingProps,
+      onClickMore,
+      onCloseMenu,
+    } = useFloatingPopup();
 
     return (
       <StyledCard
@@ -62,29 +94,36 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
             );
           })}
         </Labels>
-        <Text data-testid="flag-date" mt="auto" size="small" muted>
-          {date}
-        </Text>
+        <Footer>
+          <Text data-testid="flag-date" mt="auto" size="small" muted mr="auto">
+            {date}
+          </Text>
+          {hasPayload && <TooltipIcon icon="data_object" text="Payload" />}
+          {isExpired && <TooltipIcon icon="timer_off" text="Expired" />}
+        </Footer>
         <PopupWrapper ref={popupWrapperRef}>
           <IconButton
-            ref={reference}
+            {...getReferenceProps}
+            ref={refs.setReference}
             position="absolute"
             top="14px"
             right="14px"
             icon="more_horiz"
             onClick={onClickMore}
           />
-          {transitionPopup(
+          {transition(
             (styles, item) =>
               item &&
               popupItems.length > 0 && (
                 <AnimatedPopup
+                  {...getFloatingProps}
+                  ref={refs.setFloating}
                   style={styles}
-                  ref={floating}
                   position={strategy}
                   top={y}
                   left={x}
                   items={popupItems}
+                  onClickList={onCloseMenu}
                 />
               )
           )}
