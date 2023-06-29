@@ -32,28 +32,31 @@ export interface PopupItems {
 
 export interface PopupProps extends PositionProps {
   /**
+   * Callback onClick the list
+   */
+  onClickList?: () => void;
+  /**
    * List of actions
    */
   items: Array<PopupItems>;
 }
 
 const Popup = forwardRef<HTMLDivElement, PopupProps>(
-  ({ items, ...props }, ref) => (
+  ({ items, onClickList, ...props }, ref) => (
     <Container ref={ref} {...props}>
-      <List>
-        <ListItem>
-          {items &&
-            items.map(({ isVisible = true, ...item }, index) => {
-              const iconProps = !!item.icon
-                ? {
-                    icon: item.icon,
-                    iconPlacement: "left",
-                    iconSize: "small",
-                  }
-                : {};
-              return isVisible ? (
+      <List onClick={onClickList}>
+        {items &&
+          items.map(({ isVisible = true, ...item }, index) => {
+            const iconProps = !!item.icon
+              ? {
+                  icon: item.icon,
+                  iconPlacement: "left",
+                  iconSize: "small",
+                }
+              : {};
+            return isVisible ? (
+              <ListItem key={index.toString()}>
                 <Button
-                  key={index.toString()}
                   {...(iconProps as ButtonProps)}
                   onClick={item.onClick}
                   fontWeight={400}
@@ -63,9 +66,9 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>(
                 >
                   {item.text}
                 </Button>
-              ) : null;
-            })}
-        </ListItem>
+              </ListItem>
+            ) : null;
+          })}
       </List>
     </Container>
   )

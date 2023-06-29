@@ -10,3 +10,4 @@ export { default as useWindowSize } from "./useWindowSize";
 export { default as useMediaQuery } from "./useMediaQuery";
 export { default as useRect } from "./useRect";
 export { default as useIsTop } from "./useIsTop";
+export { default as useFloatingPopup } from "./useFloatingPopup";

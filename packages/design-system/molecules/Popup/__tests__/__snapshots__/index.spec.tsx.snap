@@ -99,6 +99,10 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
             Edit
           </span>
         </button>
+      </li>
+      <li
+        class="c2"
+      >
         <button
           class="c3"
           data-testid="button"
@@ -110,6 +114,10 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
             History
           </span>
         </button>
+      </li>
+      <li
+        class="c2"
+      >
         <button
           class="c3"
           data-testid="button"
@@ -253,6 +261,10 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
             Edit
           </span>
         </button>
+      </li>
+      <li
+        class="c2"
+      >
         <button
           class="c3"
           data-testid="button"
@@ -277,6 +289,10 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
             History
           </span>
         </button>
+      </li>
+      <li
+        class="c2"
+      >
         <button
           class="c3"
           data-testid="button"

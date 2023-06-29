@@ -21,23 +21,12 @@ export const Labels = styled.div`
 
 export const Label = styled.div<{
   isActive: boolean;
-  index: number;
-  length: number;
 }>`
   height: ${rem("14px")};
   width: ${rem("14px")};
   border: 1px solid ${({ theme }) => theme.colors.white};
   border-radius: 50%;
   flex-shrink: 0;
-  z-index: ${({ length, index }) => length - index};
-
-  &:not(:first-child) {
-    transform: ${({ index }) => `translateX(-${index * 4}px)`};
-  }
-
-  &:hover {
-    z-index: ${({ length }) => length + 1};
-  }
 
   ${({ isActive }) =>
     isActive
@@ -52,4 +41,16 @@ export const Label = styled.div<{
 export const PopupWrapper = styled.div`
   height: ${rem("32px")};
   width: ${rem("32px")};
+`;
+
+export const TooltipContainer = styled.div<{ index: number; length: number }>`
+  z-index: ${({ length, index }) => length - index};
+
+  &:not(:first-child) {
+    transform: ${({ index }) => `translateX(-${index * 4}px)`};
+  }
+
+  &:hover {
+    z-index: ${({ length }) => length + 1};
+  }
 `;

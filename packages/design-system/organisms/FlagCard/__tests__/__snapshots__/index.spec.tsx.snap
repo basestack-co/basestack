@@ -12,12 +12,13 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   color: #000000;
 }
 
-.c8 {
+.c9 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
   font-family: roboto;
   margin-top: auto;
+  margin-right: auto;
   font-family: 'Roboto',sans-serif;
   color: #757575;
 }
@@ -32,7 +33,7 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   color: #000000;
 }
 
-.c11 {
+.c12 {
   height: 1.5rem;
   width: 1.5rem;
   -webkit-flex-shrink: 0;
@@ -40,12 +41,12 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   flex-shrink: 0;
 }
 
-.c12 {
+.c13 {
   color: #000000;
   font-size: 1.5rem;
 }
 
-.c10 {
+.c11 {
   position: absolute;
   top: 14px;
   right: 14px;
@@ -72,15 +73,15 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   width: 2rem;
 }
 
-.c10 .material-symbols-sharp {
+.c11 .material-symbols-sharp {
   color: inherit;
 }
 
-.c10:hover {
+.c11:hover {
   background-color: #EEEEEE;
 }
 
-.c10:active {
+.c11:active {
   background-color: #E2E2E2;
 }
 
@@ -153,8 +154,19 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   margin-bottom: 0.25rem;
 }
 
-.c9 {
+.c10 {
   height: 0;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 <div
@@ -198,26 +210,30 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
         Production
       </div>
     </div>
-    <p
-      class="c8"
-      data-testid="flag-date"
-      font-family="roboto"
-    >
-      Created 11 jan 2022
-    </p>
     <div
-      class="c9"
+      class="c8"
+    >
+      <p
+        class="c9"
+        data-testid="flag-date"
+        font-family="roboto"
+      >
+        Created 11 jan 2022
+      </p>
+    </div>
+    <div
+      class="c10"
     >
       <button
-        class="c10"
+        class="c11"
       >
         <div
-          class="c11"
+          class="c12"
           data-testid="icon-container"
           size="24"
         >
           <span
-            class="c12 material-symbols-sharp"
+            class="c13 material-symbols-sharp"
             color="#000000"
             data-testid="icon"
             size="24"
@@ -243,12 +259,13 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   color: #000000;
 }
 
-.c8 {
+.c9 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
   font-family: roboto;
   margin-top: auto;
+  margin-right: auto;
   font-family: 'Roboto',sans-serif;
   color: #757575;
 }
@@ -263,7 +280,7 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   color: #000000;
 }
 
-.c11 {
+.c12 {
   height: 1.5rem;
   width: 1.5rem;
   -webkit-flex-shrink: 0;
@@ -271,12 +288,12 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   flex-shrink: 0;
 }
 
-.c12 {
+.c13 {
   color: #000000;
   font-size: 1.5rem;
 }
 
-.c10 {
+.c11 {
   position: absolute;
   top: 14px;
   right: 14px;
@@ -303,15 +320,15 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   width: 2rem;
 }
 
-.c10 .material-symbols-sharp {
+.c11 .material-symbols-sharp {
   color: inherit;
 }
 
-.c10:hover {
+.c11:hover {
   background-color: #EEEEEE;
 }
 
-.c10:active {
+.c11:active {
   background-color: #E2E2E2;
 }
 
@@ -384,8 +401,19 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   margin-bottom: 0.25rem;
 }
 
-.c9 {
+.c10 {
   height: 0;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 <div
@@ -429,26 +457,30 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
         Production
       </div>
     </div>
-    <p
-      class="c8"
-      data-testid="flag-date"
-      font-family="roboto"
-    >
-      Created 11 jan 2022
-    </p>
     <div
-      class="c9"
+      class="c8"
+    >
+      <p
+        class="c9"
+        data-testid="flag-date"
+        font-family="roboto"
+      >
+        Created 11 jan 2022
+      </p>
+    </div>
+    <div
+      class="c10"
     >
       <button
-        class="c10"
+        class="c11"
       >
         <div
-          class="c11"
+          class="c12"
           data-testid="icon-container"
           size="24"
         >
           <span
-            class="c12 material-symbols-sharp"
+            class="c13 material-symbols-sharp"
             color="#000000"
             data-testid="icon"
             size="24"

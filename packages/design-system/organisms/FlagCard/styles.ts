@@ -21,3 +21,12 @@ export const StyledLabel = styled(Label)`
 export const PopupWrapper = styled.div`
   height: 0;
 `;
+
+export const Footer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const TooltipContainer = styled.div`
+  margin-left: ${({ theme }) => theme.spacing.s2};
+`;

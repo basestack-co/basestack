@@ -1,5 +1,6 @@
 import React from "react";
 import { AppProps } from "next/app";
+import { Toaster } from "react-hot-toast";
 //Styles
 import { ThemeProvider } from "styled-components";
 import theme from "@basestack/design-system/theme";
@@ -15,6 +16,7 @@ import "material-symbols";
 // Dates
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { toastOptions } from "utils/toastOptions";
 
 dayjs.extend(relativeTime);
 
@@ -32,6 +34,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Component {...pageProps} />
           </Layout>
           <Modals />
+          <Toaster position="bottom-right" toastOptions={toastOptions} />
         </>
       </ThemeProvider>
     </SessionProvider>

@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useRef, useState } from "react";
-import { autoUpdate, offset, useFloating } from "@floating-ui/react-dom";
+import { autoUpdate, offset, useFloating } from "@floating-ui/react";
 import { animated, config, useTransition } from "react-spring";
 import { useClickAway } from "@basestack/hooks";
 import {
@@ -37,7 +37,7 @@ const AvatarDropdown = ({ name, email, src }: AvatarMenuProps) => {
   const menuWrapperRef = useRef(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { x, y, reference, floating, strategy } = useFloating({
+  const { x, y, refs, strategy } = useFloating({
     placement: "bottom-end",
     whileElementsMounted: autoUpdate,
     middleware: [offset(4)],
@@ -58,7 +58,7 @@ const AvatarDropdown = ({ name, email, src }: AvatarMenuProps) => {
 
   return (
     <Container ref={menuWrapperRef}>
-      <AvatarButton ref={reference} onClick={onClickMenu}>
+      <AvatarButton ref={refs.setReference} onClick={onClickMenu}>
         <Avatar userName={name} alt="User Image" src={src} />
       </AvatarButton>
       {transitionMorePopup(
@@ -66,7 +66,7 @@ const AvatarDropdown = ({ name, email, src }: AvatarMenuProps) => {
           item && (
             <AnimatedAvatarDropdown
               style={styles}
-              ref={floating}
+              ref={refs.setFloating}
               position={strategy}
               top={y}
               left={x}
