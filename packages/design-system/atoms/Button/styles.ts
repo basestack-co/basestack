@@ -11,6 +11,7 @@ import { darken, lighten, rem } from "polished";
 import { ButtonSize, ButtonVariant, StyledButtonProps } from "./types";
 
 const sharedButtonStyles = css`
+  position: relative;
   border: none;
   display: flex;
   align-items: center;
@@ -121,26 +122,21 @@ export const dangerFilledButtonStyles = css`
   }
 `;
 
-const handleButtonVariant = (variant?: ButtonVariant) => {
-  switch (variant) {
-    default:
-    case ButtonVariant.Primary:
-      return primaryButtonStyles;
-    case ButtonVariant.PrimaryNeutral:
-      return primaryNeutralButtonStyles;
-    case ButtonVariant.Secondary:
-      return secondaryButtonStyles;
-    case ButtonVariant.Tertiary:
-      return tertiaryButtonStyles;
-    case ButtonVariant.Outlined:
-      return outlinedButtonStyles;
-    case ButtonVariant.Neutral:
-      return neutralButtonStyles;
-    case ButtonVariant.Danger:
-      return dangerButtonStyles;
-    case ButtonVariant.DangerFilled:
-      return dangerFilledButtonStyles;
-  }
+const handleButtonVariant = (
+  variant: ButtonVariant = ButtonVariant.Primary
+) => {
+  const buttonVariant = {
+    [ButtonVariant.Primary]: primaryButtonStyles,
+    [ButtonVariant.PrimaryNeutral]: primaryNeutralButtonStyles,
+    [ButtonVariant.Secondary]: secondaryButtonStyles,
+    [ButtonVariant.Tertiary]: tertiaryButtonStyles,
+    [ButtonVariant.Outlined]: outlinedButtonStyles,
+    [ButtonVariant.Neutral]: neutralButtonStyles,
+    [ButtonVariant.Danger]: dangerButtonStyles,
+    [ButtonVariant.DangerFilled]: dangerFilledButtonStyles,
+  };
+
+  return buttonVariant[variant];
 };
 
 const handleButtonSize = (size?: ButtonSize) => {
@@ -162,10 +158,7 @@ const handleButtonSize = (size?: ButtonSize) => {
 };
 
 export const StyledButton = styled.button<StyledButtonProps>`
-  height: ${({ size }) => handleButtonSize(size).height};
-  padding: ${({ size }) => handleButtonSize(size).padding};
-  font-size: ${({ size }) => handleButtonSize(size).fontSize};
-
+  ${({ size }) => handleButtonSize(size)};
   ${({ variant }) => handleButtonVariant(variant)};
   ${compose(flexbox, space, layout, typography, color)};
 
@@ -185,4 +178,22 @@ export const StyledButton = styled.button<StyledButtonProps>`
   &:disabled {
     cursor: not-allowed;
   }
+
+  ${({ isLoading }) =>
+    isLoading &&
+    css`
+      justify-content: center;
+    `}
+`;
+
+export const TextContainer = styled.span<{ isLoading: boolean }>`
+  ${({ isLoading }) =>
+    isLoading &&
+    css`
+      opacity: 0;
+    `}
+`;
+
+export const SpinnerContainer = styled.div`
+  position: absolute;
 `;

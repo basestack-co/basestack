@@ -80,7 +80,10 @@ const useFlagForm = ({
     }
   }, [isModalOpen, data, isLoading, setValue, isCreate]);
 
-  const onRenderTab = (isLoading: boolean = false) => {
+  const onRenderTab = (
+    isLoading: boolean = false,
+    isUpdate: boolean = false
+  ) => {
     switch (selectedTab) {
       case TabType.CORE:
       default:
@@ -100,6 +103,8 @@ const useFlagForm = ({
             setValue={setValue}
             payload={watch("payload") ?? "{}"}
             expiredAt={watch("expiredAt")}
+            isUpdate={isUpdate}
+            environments={watch("environments")}
           />
         );
       case TabType.HISTORY:

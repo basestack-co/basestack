@@ -237,7 +237,7 @@ const PrivacyPolicyPage = () => {
           </ul>
           <p>Third parties we currently use include: </p>
           <ul>
-            <li>Piwik Pro</li>
+            <li>Umami Cloud</li>
             <li>Sendinblue</li>
           </ul>
           <h3>Your Rights and Controlling Your Personal Information</h3>

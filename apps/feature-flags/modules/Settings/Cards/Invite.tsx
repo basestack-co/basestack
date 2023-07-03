@@ -1,9 +1,11 @@
 import React, { useMemo, useCallback } from "react";
+import { useTheme } from "styled-components";
 // Components
 import {
   ButtonVariant,
   Loader,
   SettingCard,
+  Skeleton,
   Spinner,
   Table,
 } from "@basestack/design-system";
@@ -26,6 +28,7 @@ import dayjs from "dayjs";
 type Props = ProjectSettings;
 
 const InviteCard = ({ project }: Props) => {
+  const theme = useTheme();
   const session = useSession();
   const router = useRouter();
   const trpcContext = trpc.useContext();
@@ -91,8 +94,6 @@ const InviteCard = ({ project }: Props) => {
       (item) => item.role === "ADMIN"
     ).length;
 
-    console.log("data = ", data);
-
     return createTable(
       !isLoading && !!data ? data.users : [],
       ["Name", "Email", "Role", "Invited At"],
@@ -156,7 +157,15 @@ const InviteCard = ({ project }: Props) => {
     >
       {isLoading || !data ? (
         <Loader>
-          <Spinner size="large" />
+          <Skeleton
+            items={[
+              { h: 25, w: "15%", mb: 10 },
+              { h: 1, w: "100%", mb: 10 },
+              { h: 50, w: "100%" },
+            ]}
+            padding={20}
+            hasShadow={false}
+          />
         </Loader>
       ) : (
         <Table data={getTable} />

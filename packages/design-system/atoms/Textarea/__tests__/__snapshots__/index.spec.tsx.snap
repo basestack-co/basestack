@@ -14,12 +14,15 @@ exports[`Textarea Atom tests should render Textarea correctly 1`] = `
   font-weight: 400;
   width: 100%;
   padding: 1rem;
+  color: #000000;
+}
+
+.c0::placeholder {
   color: #757575;
 }
 
 .c0:focus {
   outline: 2px solid #000000;
-  color: #000000;
 }
 
 <textarea

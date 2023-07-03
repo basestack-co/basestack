@@ -39,6 +39,7 @@ export const List = styled.ul<{ top: number }>`
     background-color: ${({ theme }) => theme.colors.black};
     transition: transform 0.2s ease-in-out;
     transform: translateY(${({ top }) => `${top}%`});
+    z-index: 10;
   }
 `;
 
@@ -46,7 +47,7 @@ export const ListItem = styled.li`
   display: flex;
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink: any = styled(Link)`
   display: flex;
   flex-direction: column;
   flex-grow: 1;

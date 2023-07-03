@@ -11,8 +11,6 @@ import { z } from "zod";
 import { useMediaQuery } from "@basestack/hooks";
 import { redirectionUrl } from "utils/constants";
 import toast from "react-hot-toast";
-// Analytics
-import { usePiwikPro } from "@piwikpro/next-piwik-pro";
 // Components
 import Image from "../Image";
 import { Button, ButtonSize, Text } from "@basestack/design-system";
@@ -54,7 +52,6 @@ export const FormSchema = z.object({
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const WaitingList = ({ data }: WaitingListProps) => {
-  const { PageViews, CustomEvent } = usePiwikPro();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.device.max.md);
   const [currentImage, setCurrentImage] = useState(0);
@@ -74,10 +71,6 @@ const WaitingList = ({ data }: WaitingListProps) => {
       });
     }
   }, [cardRef, currentImage, isMobile]);
-
-  useEffect(() => {
-    PageViews.trackPageView("Early Access Page View");
-  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -124,15 +117,21 @@ const WaitingList = ({ data }: WaitingListProps) => {
         throw new Error(data.message);
       }
 
-      CustomEvent.trackEvent(
-        "Success",
-        "Successfully added to the waiting list"
-      );
+      // @ts-ignore
+      umami.track("request-access-submit", {
+        title: "Success",
+        description: "Successfully added to the waiting list",
+      });
+
       toast.success("Thank you for your interest! We will be in touch soon.");
       reset();
     } catch (error) {
       const { message } = error as Error;
-      CustomEvent.trackEvent("Error", message);
+      // @ts-ignore
+      umami.track("request-access-submit", {
+        title: "Error",
+        description: message,
+      });
       toast.error(message ?? "Something went wrong, please try again.");
     }
   };
@@ -196,10 +195,11 @@ const WaitingList = ({ data }: WaitingListProps) => {
                       onBlur={field.onBlur}
                       disabled={isSubmitting}
                       onFocus={() =>
-                        CustomEvent.trackEvent(
-                          "onFocus",
-                          "Email Input Field Focus"
-                        )
+                        // @ts-ignore
+                        umami.track("email-input-focus", {
+                          title: "onFocus",
+                          description: "Email Input Field Focus",
+                        })
                       }
                     />
                   )}
@@ -255,7 +255,12 @@ const WaitingList = ({ data }: WaitingListProps) => {
                     title={item.title}
                     text={item.text}
                     onClick={() => {
-                      CustomEvent.trackEvent("Feature Slider", item.title);
+                      // @ts-ignore
+                      umami.track("slider-card-button", {
+                        title: "Feature Slider",
+                        description: item.title,
+                      });
+
                       setCurrentImage(index);
                     }}
                   />
@@ -275,7 +280,11 @@ const WaitingList = ({ data }: WaitingListProps) => {
               style={{ color: "black" }}
               href="/legal/privacy"
               onClick={() =>
-                CustomEvent.trackEvent("onClick", "Privacy Policy Link")
+                // @ts-ignore
+                umami.track("privacy-link", {
+                  title: "onClick",
+                  description: "Privacy Policy Link",
+                })
               }
             >
               Privacy Policy

@@ -13,24 +13,13 @@ exports[`Switch Atom tests should render Switch checked by default 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
 .c2 {
   position: relative;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
   display: inline-flex;
   cursor: pointer;
   width: 34px;
@@ -44,24 +33,22 @@ exports[`Switch Atom tests should render Switch checked by default 1`] = `
   width: 0;
 }
 
-.c3:checked ~ span {
+.c3:checked~span {
   background-color: #A0BFF8;
 }
 
-.c3:checked ~ span::before {
+.c3:checked~span::before {
   background-color: #276EF1;
 }
 
-.c3:checked ~ span::before,
-.c3:checked ~ span::after {
-  -webkit-transform: translateX(16px);
-  -ms-transform: translateX(16px);
+.c3:checked~span::before,
+.c3:checked~span::after {
   -webkit-transform: translateX(16px);
   -ms-transform: translateX(16px);
   transform: translateX(16px);
 }
 
-.c3:checked ~ span::after {
+.c3:checked~span::after {
   background-color: rgba(39,110,241,0.1);
 }
 
@@ -73,7 +60,6 @@ exports[`Switch Atom tests should render Switch checked by default 1`] = `
   right: 0;
   bottom: 0;
   background-color: #E2E2E2;
-  -webkit-transition: 0.3s;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   border-radius: 12px;
@@ -87,8 +73,7 @@ exports[`Switch Atom tests should render Switch checked by default 1`] = `
   left: -1px;
   top: -3px;
   background-color: #FFFFFF;
-  box-shadow: rgba(0,0,0,0.1) 0px 4px 6px -1px,rgba(0,0,0,0.06) 0px 2px 4px -1px;
-  -webkit-transition: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   border-radius: 50%;
@@ -102,7 +87,6 @@ exports[`Switch Atom tests should render Switch checked by default 1`] = `
   left: -7px;
   top: -9px;
   background-color: transparent;
-  -webkit-transition: 0.3s;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   border-radius: 50%;
@@ -121,6 +105,7 @@ exports[`Switch Atom tests should render Switch checked by default 1`] = `
     <p
       class="c1"
       font-family="roboto"
+      mr="0.75rem"
     >
       Lorem ipsum
     </p>
@@ -143,24 +128,13 @@ exports[`Switch Atom tests should render Switch checked by default 1`] = `
 exports[`Switch Atom tests should render Switch with default props 1`] = `
 <DocumentFragment>
   .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
 .c1 {
   position: relative;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
   display: inline-flex;
   cursor: pointer;
   width: 34px;
@@ -174,24 +148,22 @@ exports[`Switch Atom tests should render Switch with default props 1`] = `
   width: 0;
 }
 
-.c2:checked ~ span {
+.c2:checked~span {
   background-color: #A0BFF8;
 }
 
-.c2:checked ~ span::before {
+.c2:checked~span::before {
   background-color: #276EF1;
 }
 
-.c2:checked ~ span::before,
-.c2:checked ~ span::after {
-  -webkit-transform: translateX(16px);
-  -ms-transform: translateX(16px);
+.c2:checked~span::before,
+.c2:checked~span::after {
   -webkit-transform: translateX(16px);
   -ms-transform: translateX(16px);
   transform: translateX(16px);
 }
 
-.c2:checked ~ span::after {
+.c2:checked~span::after {
   background-color: rgba(39,110,241,0.1);
 }
 
@@ -203,7 +175,6 @@ exports[`Switch Atom tests should render Switch with default props 1`] = `
   right: 0;
   bottom: 0;
   background-color: #E2E2E2;
-  -webkit-transition: 0.3s;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   border-radius: 12px;
@@ -217,8 +188,7 @@ exports[`Switch Atom tests should render Switch with default props 1`] = `
   left: -1px;
   top: -3px;
   background-color: #FFFFFF;
-  box-shadow: rgba(0,0,0,0.1) 0px 4px 6px -1px,rgba(0,0,0,0.06) 0px 2px 4px -1px;
-  -webkit-transition: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   border-radius: 50%;
@@ -232,7 +202,6 @@ exports[`Switch Atom tests should render Switch with default props 1`] = `
   left: -7px;
   top: -9px;
   background-color: transparent;
-  -webkit-transition: 0.3s;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   border-radius: 50%;
@@ -276,24 +245,13 @@ exports[`Switch Atom tests should render Switch with text 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
 .c2 {
   position: relative;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
   display: inline-flex;
   cursor: pointer;
   width: 34px;
@@ -307,24 +265,22 @@ exports[`Switch Atom tests should render Switch with text 1`] = `
   width: 0;
 }
 
-.c3:checked ~ span {
+.c3:checked~span {
   background-color: #A0BFF8;
 }
 
-.c3:checked ~ span::before {
+.c3:checked~span::before {
   background-color: #276EF1;
 }
 
-.c3:checked ~ span::before,
-.c3:checked ~ span::after {
-  -webkit-transform: translateX(16px);
-  -ms-transform: translateX(16px);
+.c3:checked~span::before,
+.c3:checked~span::after {
   -webkit-transform: translateX(16px);
   -ms-transform: translateX(16px);
   transform: translateX(16px);
 }
 
-.c3:checked ~ span::after {
+.c3:checked~span::after {
   background-color: rgba(39,110,241,0.1);
 }
 
@@ -336,7 +292,6 @@ exports[`Switch Atom tests should render Switch with text 1`] = `
   right: 0;
   bottom: 0;
   background-color: #E2E2E2;
-  -webkit-transition: 0.3s;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   border-radius: 12px;
@@ -350,8 +305,7 @@ exports[`Switch Atom tests should render Switch with text 1`] = `
   left: -1px;
   top: -3px;
   background-color: #FFFFFF;
-  box-shadow: rgba(0,0,0,0.1) 0px 4px 6px -1px,rgba(0,0,0,0.06) 0px 2px 4px -1px;
-  -webkit-transition: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   border-radius: 50%;
@@ -365,7 +319,6 @@ exports[`Switch Atom tests should render Switch with text 1`] = `
   left: -7px;
   top: -9px;
   background-color: transparent;
-  -webkit-transition: 0.3s;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   border-radius: 50%;
@@ -384,6 +337,7 @@ exports[`Switch Atom tests should render Switch with text 1`] = `
     <p
       class="c1"
       font-family="roboto"
+      mr="0.75rem"
     >
       Lorem ipsum
     </p>

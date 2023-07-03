@@ -6,34 +6,25 @@ exports[`Navigation tests render Navigation in dark mode 1`] = `
   height: 2.625rem;
   padding: 0 1rem;
   font-size: 1rem;
+  position: relative;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
-  -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: #000000;
   color: #FFFFFF;
   width: medium;
   height: medium;
   margin-right: 0.75rem;
   background-color: transparent;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
 }
 
-.c5:hover:not(:active,:disabled) {
+.c5:hover:not(:active, :disabled) {
   background-color: #333;
 }
 
@@ -49,32 +40,23 @@ exports[`Navigation tests render Navigation in dark mode 1`] = `
   height: 2.625rem;
   padding: 0 1rem;
   font-size: 1rem;
+  position: relative;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
-  -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: #276EF1;
   color: #FFFFFF;
   width: medium;
   height: medium;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
 }
 
-.c6:hover:not(:active,:disabled) {
+.c6:hover:not(:active, :disabled) {
   background-color: #0e55d7;
 }
 
@@ -87,39 +69,22 @@ exports[`Navigation tests render Navigation in dark mode 1`] = `
 }
 
 .c0 {
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 1000;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   height: 5rem;
   padding: 0 1.25rem;
-  -webkit-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
-  background: rgba(31,31,31,0.6);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(31, 31, 31, 0.6);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
 }
 
 .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   margin: 0 auto;
   width: 100%;
@@ -127,32 +92,17 @@ exports[`Navigation tests render Navigation in dark mode 1`] = `
 }
 
 .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 }
 
 .c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   margin-left: auto;
 }
 
 .c3 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   position: relative;
   height: 2.5rem;
@@ -188,14 +138,28 @@ exports[`Navigation tests render Navigation in dark mode 1`] = `
         class="c4"
       >
         <button
+          backgroundcolor="transparent"
           class="c5"
+          data-testid="button"
+          mr="0.75rem"
+          variant="secondary"
         >
-          Sign In
+          <span
+            class=""
+          >
+            Sign In
+          </span>
         </button>
         <button
           class="c6"
+          data-testid="button"
+          variant="primary"
         >
-          Get Started
+          <span
+            class=""
+          >
+            Get Started
+          </span>
         </button>
       </div>
     </div>
@@ -209,34 +173,25 @@ exports[`Navigation tests renders Navigation correctly 1`] = `
   height: 2.625rem;
   padding: 0 1rem;
   font-size: 1rem;
+  position: relative;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
-  -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: #EEEEEE;
   color: #000000;
   width: medium;
   height: medium;
   margin-right: 0.75rem;
   background-color: transparent;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
 }
 
-.c5:hover:not(:active,:disabled) {
+.c5:hover:not(:active, :disabled) {
   background-color: #E2E2E2;
 }
 
@@ -252,32 +207,23 @@ exports[`Navigation tests renders Navigation correctly 1`] = `
   height: 2.625rem;
   padding: 0 1rem;
   font-size: 1rem;
+  position: relative;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
-  -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: #276EF1;
   color: #FFFFFF;
   width: medium;
   height: medium;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
 }
 
-.c6:hover:not(:active,:disabled) {
+.c6:hover:not(:active, :disabled) {
   background-color: #0e55d7;
 }
 
@@ -290,39 +236,22 @@ exports[`Navigation tests renders Navigation correctly 1`] = `
 }
 
 .c0 {
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 1000;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   height: 5rem;
   padding: 0 1.25rem;
-  -webkit-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
-  background: rgba(238,238,238,0.7);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(238, 238, 238, 0.7);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
 }
 
 .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   margin: 0 auto;
   width: 100%;
@@ -330,32 +259,17 @@ exports[`Navigation tests renders Navigation correctly 1`] = `
 }
 
 .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 }
 
 .c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   margin-left: auto;
 }
 
 .c3 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   position: relative;
   height: 2.5rem;
@@ -391,14 +305,28 @@ exports[`Navigation tests renders Navigation correctly 1`] = `
         class="c4"
       >
         <button
+          backgroundcolor="transparent"
           class="c5"
+          data-testid="button"
+          mr="0.75rem"
+          variant="tertiary"
         >
-          Sign In
+          <span
+            class=""
+          >
+            Sign In
+          </span>
         </button>
         <button
           class="c6"
+          data-testid="button"
+          variant="primary"
         >
-          Get Started
+          <span
+            class=""
+          >
+            Get Started
+          </span>
         </button>
       </div>
     </div>

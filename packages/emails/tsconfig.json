@@ -1,6 +1,7 @@
 {
   "extends": "@basestack/tsconfig/react-library.json",
   "compilerOptions": {
+    "baseUrl": "src",
     "noEmit": true
   },
   "include": ["."],

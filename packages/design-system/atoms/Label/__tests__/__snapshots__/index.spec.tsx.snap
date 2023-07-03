@@ -3,9 +3,6 @@
 exports[`Label Atom tests render Label correctly 1`] = `
 <DocumentFragment>
   .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   border-radius: 4px;
   padding: 0.25rem 0.375rem;
@@ -19,6 +16,7 @@ exports[`Label Atom tests render Label correctly 1`] = `
 <div
     class="c0"
     data-testid="label-container"
+    variant="default"
   >
     label
   </div>
@@ -28,9 +26,6 @@ exports[`Label Atom tests render Label correctly 1`] = `
 exports[`Label Atom tests render isTranslucent Label 1`] = `
 <DocumentFragment>
   .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   border-radius: 4px;
   padding: 0.25rem 0.375rem;
@@ -44,6 +39,7 @@ exports[`Label Atom tests render isTranslucent Label 1`] = `
 <div
     class="c0"
     data-testid="label-container"
+    variant="info"
   >
     label
   </div>

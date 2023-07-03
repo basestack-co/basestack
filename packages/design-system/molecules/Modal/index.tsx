@@ -26,12 +26,18 @@ const Modal: React.FC<ModalProps> = ({
   buttons,
   minHeight,
   children,
+  onAnimationEnd,
 }) => {
   const theme = useTheme();
 
   const transitionModal = useTransition(isOpen, {
     config: { ...config.stiff, duration: 300 },
     ...fadeIn,
+    onRest: () => {
+      if (!isOpen && typeof onAnimationEnd === "function") {
+        onAnimationEnd();
+      }
+    },
   });
 
   const transitionSheet = useTransition(isOpen, {
@@ -56,7 +62,7 @@ const Modal: React.FC<ModalProps> = ({
                 <AnimatedSheet
                   expandMobile={expandMobile}
                   size={size}
-                  minHeight={minHeight}
+                  minHeight={minHeight ?? 0}
                   style={styles}
                 >
                   <Header>
@@ -74,7 +80,9 @@ const Modal: React.FC<ModalProps> = ({
                           <Button
                             key={index.toString()}
                             variant={
-                              isLastItem
+                              item.variant
+                                ? item.variant
+                                : isLastItem
                                 ? ButtonVariant.Primary
                                 : ButtonVariant.Neutral
                             }

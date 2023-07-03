@@ -8,6 +8,7 @@ import { Project, SelectedView } from "types";
 import { useStore } from "store";
 // Components
 import { Text } from "@basestack/design-system";
+import toast from "react-hot-toast";
 import FlagCards from "./Cards";
 import { Container } from "../styles";
 // Containers
@@ -22,8 +23,6 @@ const Flags = ({ project }: Props) => {
   const isDesktop = useMediaQuery(theme.device.min.lg);
   const setSelectedView = useStore((state) => state.setSelectedView);
   const selectedView = useStore((state) => state.selectedView);
-  const [selectedEnvironmentId, setSelectedEnvironmentId] =
-    useState<string>("");
   const [searchValue, setSearchValue] = useState<string>("");
 
   useEffect(() => {
@@ -44,17 +43,13 @@ const Flags = ({ project }: Props) => {
     <Container>
       <Text size="xLarge">Flags</Text>
       <Toolbar
-        projectId={project?.id!}
         onChangeView={onChangeView}
         onSearchCallback={(value) => setSearchValue(value)}
-        onSelect={(id: string) => setSelectedEnvironmentId(id)}
         isDesktop={isDesktop}
         selectedView={selectedView}
       />
-
       <FlagCards
         projectId={project?.id!}
-        environmentId={selectedEnvironmentId}
         selectedView={selectedView}
         searchValue={searchValue}
       />

@@ -1,10 +1,11 @@
-import React, { useCallback, useRef, useState } from "react";
-import { useFloating, autoUpdate } from "@floating-ui/react-dom";
-import { useTransition, animated, config } from "react-spring";
-import { useClickAway } from "@basestack/hooks";
+import React from "react";
+import { useTheme } from "styled-components";
+import { animated } from "react-spring";
 import { getValue } from "@basestack/utils";
+import { useFloatingPopup } from "@basestack/hooks";
+// Components
 import { Text, IconButton, Avatar } from "../../atoms";
-import { scaleInTopRight } from "../../animations/springs";
+import { Popup } from "../../molecules";
 import {
   Col,
   Container,
@@ -14,33 +15,25 @@ import {
   StyledLink,
   StyledRow,
 } from "./styles";
-import { Popup } from "../../molecules";
 import { TableProps, RowProps } from "./types";
-import { useTheme } from "styled-components";
 
 const AnimatedPopup = animated(Popup);
 
 const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
   const theme = useTheme();
-  const popupWrapperRef = useRef(null);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const { x, y, refs, strategy } = useFloating({
-    placement: "bottom-end",
-    whileElementsMounted: autoUpdate,
-  });
 
-  const onClickMore = useCallback(() => {
-    setIsPopupOpen((prevState) => !prevState);
-  }, []);
-
-  const transitionPopup = useTransition(isPopupOpen, {
-    config: { ...config.default, duration: 150 },
-    ...scaleInTopRight,
-  });
-
-  useClickAway(popupWrapperRef, () => {
-    setIsPopupOpen(false);
-  });
+  const {
+    popupWrapperRef,
+    x,
+    y,
+    refs,
+    strategy,
+    transition,
+    getReferenceProps,
+    getFloatingProps,
+    onClickMore,
+    onCloseMenu,
+  } = useFloatingPopup();
 
   return (
     <StyledRow numberOfColumns={numberOfCols} data-testid="row">
@@ -80,26 +73,33 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
           );
         })}
       <Col>
-        <PopupWrapper ref={popupWrapperRef}>
-          <IconButton
-            ref={refs.setReference}
-            icon="more_horiz"
-            onClick={onClickMore}
-          />
-          {transitionPopup(
-            (styles, item) =>
-              item && (
-                <AnimatedPopup
-                  style={styles}
-                  ref={refs.setFloating}
-                  position={strategy}
-                  top={y}
-                  left={x}
-                  items={more}
-                />
-              )
-          )}
-        </PopupWrapper>
+        {more.length > 0 ? (
+          <PopupWrapper ref={popupWrapperRef}>
+            <IconButton
+              {...getReferenceProps}
+              ref={refs.setReference}
+              icon="more_horiz"
+              onClick={onClickMore}
+            />
+            {transition(
+              (styles, item) =>
+                item && (
+                  <AnimatedPopup
+                    {...getFloatingProps}
+                    ref={refs.setFloating}
+                    style={styles}
+                    position={strategy}
+                    top={y}
+                    left={x}
+                    items={more}
+                    onClickList={onCloseMenu}
+                  />
+                )
+            )}
+          </PopupWrapper>
+        ) : (
+          <Placeholder />
+        )}
       </Col>
     </StyledRow>
   );
@@ -128,7 +128,7 @@ const Table = ({ data, ...props }: TableProps) => {
             <Row
               key={`${index.toString()}-row`}
               cols={row.cols}
-              more={row.more}
+              more={data.rows.length > 1 ? row.more : []}
               numberOfCols={numberOfCols}
             />
           );

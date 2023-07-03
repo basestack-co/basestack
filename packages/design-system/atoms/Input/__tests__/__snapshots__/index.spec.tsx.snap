@@ -4,13 +4,7 @@ exports[`Input Atom tests should render Input correctly 1`] = `
 <DocumentFragment>
   .c0 {
   position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -23,12 +17,15 @@ exports[`Input Atom tests should render Input correctly 1`] = `
   font-weight: 400;
   width: 100%;
   padding: 0 1rem;
+  color: #000000;
+}
+
+.c1::placeholder {
   color: #757575;
 }
 
 .c1:focus {
   outline: 2px solid #000000;
-  color: #000000;
 }
 
 <div

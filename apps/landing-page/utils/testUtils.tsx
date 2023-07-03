@@ -22,6 +22,7 @@ const renderWithAllProviders = (
   options?: Omit<RenderOptions, "wrapper">
 ) =>
   render(ui, {
+    // @ts-ignore
     wrapper: (props) => <AllProviders initialState={initialState} {...props} />,
     ...options,
   });
@@ -33,6 +34,7 @@ const WithThemeProvider = ({ children }: WithChildrenProps) => (
 const renderWithTheme = (
   ui: React.ReactElement,
   options?: Omit<RenderOptions, "wrapper">
+  // @ts-ignore
 ) => render(ui, { wrapper: WithThemeProvider, ...options });
 
 export { renderWithAllProviders, renderWithTheme };

@@ -9,6 +9,7 @@ import {
   ButtonVariant,
   Empty,
   Loader,
+  Input,
 } from "@basestack/design-system";
 // Store
 import { useStore } from "store";
@@ -24,7 +25,6 @@ import Loading from "./Loading";
 interface FlagCardsProps {
   selectedView: SelectedView;
   projectId: string;
-  environmentId: string;
   searchValue: string;
 }
 
@@ -35,6 +35,7 @@ const FlagCards = ({
 }: FlagCardsProps) => {
   const trpcContext = trpc.useContext();
   const router = useRouter();
+  const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
   const setCreateFlagModalOpen = useStore(
     (state) => state.setCreateFlagModalOpen
   );
@@ -122,6 +123,8 @@ const FlagCards = ({
 
         return (
           <FlagComponent
+            isExpired={false}
+            hasPayload={false}
             key={index.toString()}
             zIndex={flags.length - index}
             title={flag.slug}
@@ -155,7 +158,22 @@ const FlagCards = ({
                 icon: "delete",
                 text: "Delete",
                 variant: ButtonVariant.Danger,
-                onClick: () => onDelete(flag.slug),
+                onClick: () =>
+                  setConfirmModalOpen({
+                    isOpen: true,
+                    data: {
+                      title: "Are you sure?",
+                      description: `This action cannot be undone. This will permanently delete the <b>${flag.slug}</b> flag, comments, history and remove all collaborator associations. `,
+                      type: "delete",
+                      buttonText: "Delete Flag",
+                      onClick: () => {
+                        onDelete(flag.slug);
+                        setConfirmModalOpen({
+                          isOpen: false,
+                        });
+                      },
+                    },
+                  }),
               },
             ]}
           />

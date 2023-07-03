@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import { StateCreator } from "zustand/esm";
 import { PersistOptions } from "zustand/middleware";
 import { TabType, SelectedView, Project } from "types";
@@ -14,6 +15,17 @@ export type Persist = (
 /**
  * Modals
  */
+
+export type ConfirmModalType = "delete" | "info";
+
+export interface ConfirmModalPayload {
+  type?: ConfirmModalType;
+  title: string;
+  description: string;
+  buttonText: string;
+  onClick: () => void;
+  children?: ReactElement;
+}
 
 export interface FlagModalPayload {
   flag: { id: string; slug: string };
@@ -53,6 +65,7 @@ export interface ModalsSliceActions {
   setCreateProjectModalOpen: ModalAction<ModalPayload<null>, void>;
   setCreateFlagModalOpen: ModalAction<ModalPayload<null>, void>;
   setUpdateFlagModalOpen: ModalAction<ModalPayload<FlagModalPayload>, void>;
+  setConfirmModalOpen: ModalAction<ModalPayload<ConfirmModalPayload>, void>;
 }
 
 export interface ModalsSliceState extends ModalsSliceActions {
@@ -65,6 +78,8 @@ export interface ModalsSliceState extends ModalsSliceActions {
   flagModalPayload: FlagModalPayload | null;
   environmentModalPayload: EnvironmentModalPayload | null;
   inviteMemberModalPayload: InviteMemberModalPayload | null;
+  isConfirmModalOpen: boolean;
+  confirmModalPayload: ConfirmModalPayload | null;
 }
 
 /**

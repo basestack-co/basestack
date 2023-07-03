@@ -7,8 +7,6 @@ exports[`HistoryCard Molecule tests should render HistoryCard correctly 1`] = `
   width: 1.75rem;
   border-radius: 50%;
   overflow: hidden;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
   margin-right: 0.75rem;
   border-radius: 50%;
@@ -42,8 +40,6 @@ exports[`HistoryCard Molecule tests should render HistoryCard correctly 1`] = `
 .c3 {
   height: 1.5rem;
   width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -53,21 +49,13 @@ exports[`HistoryCard Molecule tests should render HistoryCard correctly 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
 
 .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   position: relative;
 }
@@ -83,35 +71,19 @@ exports[`HistoryCard Molecule tests should render HistoryCard correctly 1`] = `
 }
 
 .c2 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   background-color: #EEEEEE;
   margin-right: 1.25rem;
 }
 
 .c7 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
   margin-top: 3px;
 }
@@ -148,6 +120,7 @@ exports[`HistoryCard Molecule tests should render HistoryCard correctly 1`] = `
       <div
         class="c5"
         data-testid="avatar"
+        mr="0.75rem"
         size="28"
       >
         <img
