@@ -16,7 +16,7 @@ describe("SettingCard Molecule tests", () => {
         onClick={jest.fn()}
       >
         <div>renders correctly</div>
-      </SettingCard>
+      </SettingCard>,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -31,7 +31,7 @@ describe("SettingCard Molecule tests", () => {
         text="text"
       >
         <div>renders with text</div>
-      </SettingCard>
+      </SettingCard>,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -52,7 +52,7 @@ describe("SettingCard Molecule tests", () => {
           name="feature"
           value=""
         />
-      </SettingCard>
+      </SettingCard>,
     );
     expect(asFragment()).toMatchSnapshot();
   });

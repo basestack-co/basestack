@@ -22,7 +22,7 @@ const useRect = (): [RefCallback<HTMLElement | null>, DOMRect | undefined] => {
         };
       }
     },
-    []
+    [],
   );
 
   return [ref, dimensions];

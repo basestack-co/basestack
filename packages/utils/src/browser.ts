@@ -11,7 +11,7 @@ export function on<T extends Document | HTMLElement | EventTarget>(
     // @ts-ignore
     obj.addEventListener(
       // @ts-ignore
-      ...(args as Parameters<HTMLElement["addEventListener"]>)
+      ...(args as Parameters<HTMLElement["addEventListener"]>),
     );
   }
 }
@@ -26,7 +26,7 @@ export function off<T extends Document | HTMLElement | EventTarget>(
     // @ts-ignore
     obj.removeEventListener(
       // @ts-ignore
-      ...(args as Parameters<HTMLElement["removeEventListener"]>)
+      ...(args as Parameters<HTMLElement["removeEventListener"]>),
     );
   }
 }
@@ -43,7 +43,7 @@ export const validURL = (str: string) => {
       "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
       "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
       "(\\#[-a-z\\d_]*)?$",
-    "i"
+    "i",
   );
   return pattern.test(str);
 };

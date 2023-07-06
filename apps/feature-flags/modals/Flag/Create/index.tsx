@@ -23,7 +23,7 @@ const CreateFlagModal = () => {
   const router = useRouter();
   const isModalOpen = useStore((state) => state.isCreateFlagModalOpen);
   const setCreateFlagModalOpen = useStore(
-    (state) => state.setCreateFlagModalOpen
+    (state) => state.setCreateFlagModalOpen,
   );
   const projectSlug = router.query.projectSlug as string;
 
@@ -56,11 +56,11 @@ const CreateFlagModal = () => {
         { projectId: project.id, environments: input.environments, data },
         {
           onSuccess: async (result) => {
-            // TODO: migrate this to use cache from useQuery
+            // Refresh the flag list and close the modal
             await trpcContext.flag.all.invalidate();
             onClose();
           },
-        }
+        },
       );
     }
   };

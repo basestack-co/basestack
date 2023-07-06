@@ -32,7 +32,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       size = ButtonSize.Normal,
       ...props
     },
-    ref
+    ref,
   ) => {
     const theme = useTheme();
     const hasLeftIcon = !!icon && iconPlacement === "left";
@@ -96,7 +96,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         </>
       </StyledButton>
     );
-  }
+  },
 );
 
 Button.displayName = "Button";

@@ -41,3 +41,5 @@ dist
 .vscode/settings.json
 .vercel
 .tool-versions
+
+.react-email

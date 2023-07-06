@@ -13,7 +13,7 @@ describe("SectionHeader tests", () => {
         titleSize="normal"
         isDarkMode={false}
         hasMarginBottom={false}
-      />
+      />,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -27,7 +27,7 @@ describe("SectionHeader tests", () => {
         titleSize="large"
         isDarkMode
         hasMarginBottom
-      />
+      />,
     );
 
     expect(asFragment()).toMatchSnapshot();

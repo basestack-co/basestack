@@ -33,10 +33,10 @@ describe("useTimeoutFn", () => {
 
   function getHook(
     ms = 5,
-    fn = jest.fn()
+    fn = jest.fn(),
   ): [
     () => void,
-    RenderHookResult<{ delay: number; cb: () => void }, UseTimeoutFnReturn>
+    RenderHookResult<{ delay: number; cb: () => void }, UseTimeoutFnReturn>,
   ] {
     return [
       fn,

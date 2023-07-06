@@ -15,8 +15,6 @@ exports[`Accordion tests render Accordion correctly 1`] = `
 .c3 {
   height: 2rem;
   width: 2rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -26,12 +24,7 @@ exports[`Accordion tests render Accordion correctly 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
   border-bottom: 1px solid #E2E2E2;
 }
@@ -40,20 +33,10 @@ exports[`Accordion tests render Accordion correctly 1`] = `
   border: none;
   background-color: transparent;
   cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
   padding: 1.25rem 0;
-  -webkit-transition: opacity 0.2s ease-in-out;
   transition: opacity 0.2s ease-in-out;
 }
 
@@ -70,6 +53,7 @@ exports[`Accordion tests render Accordion correctly 1`] = `
       <h3
         class="c2"
         font-family="roboto"
+        textalign="left"
       >
         My Accordion
       </h3>

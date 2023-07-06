@@ -5,8 +5,6 @@ exports[`Icon Atom tests render Icon correctly 1`] = `
   .c0 {
   height: 1.5rem;
   width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 

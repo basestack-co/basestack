@@ -5,8 +5,6 @@ exports[`Segment Molecule tests should render Segment correctly 1`] = `
   .c2 {
   height: 1.5rem;
   width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -17,13 +15,7 @@ exports[`Segment Molecule tests should render Segment correctly 1`] = `
 
 .c0 {
   position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   background-color: #EEEEEE;
   height: 2.25rem;
@@ -35,22 +27,13 @@ exports[`Segment Molecule tests should render Segment correctly 1`] = `
   border: none;
   background-color: transparent;
   cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-flex: 1 0 0;
-  -ms-flex: 1 0 0;
   flex: 1 0 0;
   height: 100%;
   padding: 0 0.75rem;
   z-index: 1;
   border-radius: 0.25rem;
-  -webkit-transition: background-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out;
 }
 
@@ -74,12 +57,8 @@ exports[`Segment Molecule tests should render Segment correctly 1`] = `
   background-color: #FFFFFF;
   width: calc((100% / 2));
   border-radius: 0.25rem;
-  box-shadow: rgba(0,0,0,0.1) 0px 1px 3px 0px,rgba(0,0,0,0.06) 0px 1px 2px 0px;
-  -webkit-transition: -webkit-transform 0.2s ease-in-out;
-  -webkit-transition: transform 0.2s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   transition: transform 0.2s ease-in-out;
-  -webkit-transform: translateX(0%);
-  -ms-transform: translateX(0%);
   transform: translateX(0%);
 }
 
@@ -127,6 +106,8 @@ exports[`Segment Molecule tests should render Segment correctly 1`] = `
     </button>
     <div
       class="c4"
+      numberofitems="2"
+      translatex="0"
     />
   </div>
 </DocumentFragment>
@@ -147,8 +128,6 @@ exports[`Segment Molecule tests should render Segment with icons and test 1`] = 
 .c2 {
   height: 1.5rem;
   width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -159,13 +138,7 @@ exports[`Segment Molecule tests should render Segment with icons and test 1`] = 
 
 .c0 {
   position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   background-color: #EEEEEE;
   height: 2.25rem;
@@ -177,22 +150,13 @@ exports[`Segment Molecule tests should render Segment with icons and test 1`] = 
   border: none;
   background-color: transparent;
   cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-flex: 1 0 0;
-  -ms-flex: 1 0 0;
   flex: 1 0 0;
   height: 100%;
   padding: 0 0.75rem;
   z-index: 1;
   border-radius: 0.25rem;
-  -webkit-transition: background-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out;
 }
 
@@ -216,12 +180,8 @@ exports[`Segment Molecule tests should render Segment with icons and test 1`] = 
   background-color: #FFFFFF;
   width: calc((100% / 2));
   border-radius: 0.25rem;
-  box-shadow: rgba(0,0,0,0.1) 0px 1px 3px 0px,rgba(0,0,0,0.06) 0px 1px 2px 0px;
-  -webkit-transition: -webkit-transform 0.2s ease-in-out;
-  -webkit-transition: transform 0.2s ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   transition: transform 0.2s ease-in-out;
-  -webkit-transform: translateX(0%);
-  -ms-transform: translateX(0%);
   transform: translateX(0%);
 }
 
@@ -250,6 +210,7 @@ exports[`Segment Molecule tests should render Segment with icons and test 1`] = 
       <p
         class="c4"
         font-family="roboto"
+        ml="0.25rem"
       >
         Item 1
       </p>
@@ -275,12 +236,15 @@ exports[`Segment Molecule tests should render Segment with icons and test 1`] = 
       <p
         class="c4"
         font-family="roboto"
+        ml="0.25rem"
       >
         Item 2
       </p>
     </button>
     <div
       class="c5"
+      numberofitems="2"
+      translatex="0"
     />
   </div>
 </DocumentFragment>

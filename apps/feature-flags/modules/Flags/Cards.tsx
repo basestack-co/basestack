@@ -37,10 +37,10 @@ const FlagCards = ({
   const router = useRouter();
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
   const setCreateFlagModalOpen = useStore(
-    (state) => state.setCreateFlagModalOpen
+    (state) => state.setCreateFlagModalOpen,
   );
   const setUpdateFlagModalOpen = useStore(
-    (state) => state.setUpdateFlagModalOpen
+    (state) => state.setUpdateFlagModalOpen,
   );
   const deleteFlag = trpc.flag.delete.useMutation();
 
@@ -50,7 +50,7 @@ const FlagCards = ({
       pagination: { skip: 0, take: 10 },
       search: searchValue,
     },
-    { enabled: !!projectId }
+    { enabled: !!projectId },
   );
 
   const projectSlug = router.query.projectSlug as string;
@@ -62,7 +62,7 @@ const FlagCards = ({
       flagId: string,
       flagSlug: string,
       environmentId: string,
-      selectedTab: TabType
+      selectedTab: TabType,
     ) => {
       setUpdateFlagModalOpen({
         isOpen: true,
@@ -73,7 +73,7 @@ const FlagCards = ({
         },
       });
     },
-    [setUpdateFlagModalOpen]
+    [setUpdateFlagModalOpen],
   );
 
   const onDelete = useCallback(
@@ -85,11 +85,11 @@ const FlagCards = ({
             // TODO: migrate this to use cache from useQuery
             await trpcContext.flag.all.invalidate();
           },
-        }
+        },
       );
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [projectId, deleteFlag]
+    [projectId, deleteFlag],
   );
 
   if (isLoading)
@@ -140,7 +140,7 @@ const FlagCards = ({
                     flag.id,
                     flag.slug,
                     environmentId,
-                    TabType.CORE
+                    TabType.CORE,
                   ),
               },
               {
@@ -151,7 +151,7 @@ const FlagCards = ({
                     flag.id,
                     flag.slug,
                     environmentId,
-                    TabType.HISTORY
+                    TabType.HISTORY,
                   ),
               },
               {

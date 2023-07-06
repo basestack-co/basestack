@@ -8,21 +8,13 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
   font-size: 0.875rem;
   position: relative;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
-  -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
   width: normal;
@@ -52,7 +44,7 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
   right: 0;
   top: 0;
   background-color: #FFFFFF;
-  box-shadow: rgba(0,0,0,0.25) 0px 25px 50px -12px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
   padding: 0.25rem;
   border-radius: 4px;
   width: 9.375rem;
@@ -60,27 +52,20 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
 }
 
 .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
 }
 
 .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
 }
 
 <div
     class="c0"
+    position="absolute"
+    right="0"
+    top="0"
   >
     <ul
       class="c1"
@@ -92,6 +77,7 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
           class="c3"
           data-testid="button"
           font-weight="400"
+          variant="neutral"
         >
           <span
             class=""
@@ -107,6 +93,7 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
           class="c3"
           data-testid="button"
           font-weight="400"
+          variant="neutral"
         >
           <span
             class=""
@@ -122,6 +109,7 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
           class="c3"
           data-testid="button"
           font-weight="400"
+          variant="neutral"
         >
           <span
             class=""
@@ -140,8 +128,6 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
   .c4 {
   height: 1.125rem;
   width: 1.125rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
   margin-right: 0.5rem;
 }
@@ -157,21 +143,13 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
   font-size: 0.875rem;
   position: relative;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
-  -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
   width: normal;
@@ -201,7 +179,7 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
   right: 0;
   top: 0;
   background-color: #FFFFFF;
-  box-shadow: rgba(0,0,0,0.25) 0px 25px 50px -12px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
   padding: 0.25rem;
   border-radius: 4px;
   width: 9.375rem;
@@ -209,27 +187,20 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
 }
 
 .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
 }
 
 .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
 }
 
 <div
     class="c0"
+    position="absolute"
+    right="0"
+    top="0"
   >
     <ul
       class="c1"
@@ -241,10 +212,12 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
           class="c3"
           data-testid="button"
           font-weight="400"
+          variant="neutral"
         >
           <div
             class="c4"
             data-testid="icon-container"
+            mr="0.5rem"
             size="18"
           >
             <span
@@ -269,10 +242,12 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
           class="c3"
           data-testid="button"
           font-weight="400"
+          variant="neutral"
         >
           <div
             class="c4"
             data-testid="icon-container"
+            mr="0.5rem"
             size="18"
           >
             <span
@@ -297,10 +272,12 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
           class="c3"
           data-testid="button"
           font-weight="400"
+          variant="neutral"
         >
           <div
             class="c4"
             data-testid="icon-container"
+            mr="0.5rem"
             size="18"
           >
             <span

@@ -14,14 +14,14 @@ describe("Table Organism tests", () => {
 
   test("should render Table with space utils", () => {
     const { asFragment } = renderWithTheme(
-      <Table data={mockTableData} mt={30} />
+      <Table data={mockTableData} mt={30} />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   test("should render Table with images", () => {
     const { asFragment, getAllByTestId } = renderWithTheme(
-      <Table data={mockMembersTable} />
+      <Table data={mockMembersTable} />,
     );
 
     const avatars = getAllByTestId("avatar");

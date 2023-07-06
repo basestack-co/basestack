@@ -13,7 +13,7 @@ const useIsTop = ({ offSet = 0 }: Props) => {
       setIsTop(
         element.current
           ? element.current.getBoundingClientRect().top <= offSet
-          : false
+          : false,
       );
     };
     window.addEventListener("scroll", handleScroll);

@@ -13,5 +13,5 @@ const Provider = ({
 
 export const renderWithTheme = (
   ui: React.ReactElement,
-  options?: any
+  options?: any,
 ): RenderResult => render(ui, { wrapper: Provider, ...options });

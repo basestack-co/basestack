@@ -75,7 +75,7 @@ export const trpc = createTRPCNext<AppRouter>({
               // Don't let an UNAUTHORIZED user to retry queries
               if (
                 ["BAD_REQUEST", "FORBIDDEN", "UNAUTHORIZED"].includes(
-                  code as string
+                  code as string,
                 )
               ) {
                 return false;

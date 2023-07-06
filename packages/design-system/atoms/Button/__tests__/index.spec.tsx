@@ -9,7 +9,7 @@ describe("Button Atom tests", () => {
 
   test("should render Button correctly", () => {
     const { asFragment, getByTestId } = renderWithTheme(
-      <Button size={ButtonSize.Normal}>button</Button>
+      <Button size={ButtonSize.Normal}>button</Button>,
     );
     const button = getByTestId(/button/);
 
@@ -25,7 +25,7 @@ describe("Button Atom tests", () => {
 
   test("should render Button with onClick", () => {
     const { asFragment } = renderWithTheme(
-      <Button onClick={jest.fn()}>button link</Button>
+      <Button onClick={jest.fn()}>button link</Button>,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -39,7 +39,7 @@ describe("Button Atom tests", () => {
         iconPlacement="left"
       >
         button icon
-      </Button>
+      </Button>,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -48,7 +48,7 @@ describe("Button Atom tests", () => {
     const { asFragment } = renderWithTheme(
       <Button flexDirection="column" mb={100}>
         button link
-      </Button>
+      </Button>,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -60,7 +60,7 @@ describe("Button Atom tests", () => {
 
   test("should render primary Button", () => {
     const { getByTestId } = renderWithTheme(
-      <Button variant={ButtonVariant.Primary}>primary</Button>
+      <Button variant={ButtonVariant.Primary}>primary</Button>,
     );
     const button = getByTestId(/button/);
     expect(button).toHaveStyle(`color: #FFFFFF`);
@@ -69,7 +69,7 @@ describe("Button Atom tests", () => {
 
   test("should render primaryNeutral Button", () => {
     const { getByTestId } = renderWithTheme(
-      <Button variant={ButtonVariant.PrimaryNeutral}>primaryNeutral</Button>
+      <Button variant={ButtonVariant.PrimaryNeutral}>primaryNeutral</Button>,
     );
     const button = getByTestId(/button/);
     expect(button).toHaveStyle(`color: #000000`);
@@ -78,7 +78,7 @@ describe("Button Atom tests", () => {
 
   test("should render secondary Button", () => {
     const { getByTestId } = renderWithTheme(
-      <Button variant={ButtonVariant.Secondary}>secondary</Button>
+      <Button variant={ButtonVariant.Secondary}>secondary</Button>,
     );
     const button = getByTestId(/button/);
     expect(button).toHaveStyle(`color: #FFFFFF`);
@@ -87,7 +87,7 @@ describe("Button Atom tests", () => {
 
   test("should render tertiary Button", () => {
     const { getByTestId } = renderWithTheme(
-      <Button variant={ButtonVariant.Tertiary}>tertiary</Button>
+      <Button variant={ButtonVariant.Tertiary}>tertiary</Button>,
     );
     const button = getByTestId(/button/);
     expect(button).toHaveStyle(`color: #000000`);
@@ -96,7 +96,7 @@ describe("Button Atom tests", () => {
 
   test("should render tertiary Button", () => {
     const { getByTestId } = renderWithTheme(
-      <Button variant={ButtonVariant.Outlined}>outlined</Button>
+      <Button variant={ButtonVariant.Outlined}>outlined</Button>,
     );
     const button = getByTestId(/button/);
     expect(button).toHaveStyle(`color: #000000`);
@@ -106,7 +106,7 @@ describe("Button Atom tests", () => {
 
   test("should render neutral Button", () => {
     const { getByTestId } = renderWithTheme(
-      <Button variant={ButtonVariant.Neutral}>neutral</Button>
+      <Button variant={ButtonVariant.Neutral}>neutral</Button>,
     );
     const button = getByTestId(/button/);
     expect(button).toHaveStyle(`color: #000000`);
@@ -115,7 +115,7 @@ describe("Button Atom tests", () => {
 
   test("should render danger Button", () => {
     const { getByTestId } = renderWithTheme(
-      <Button variant={ButtonVariant.Danger}>danger</Button>
+      <Button variant={ButtonVariant.Danger}>danger</Button>,
     );
     const button = getByTestId(/button/);
     expect(button).toHaveStyle(`color: #E11900`);
@@ -126,7 +126,7 @@ describe("Button Atom tests", () => {
     const { getByTestId } = renderWithTheme(
       <Button variant={ButtonVariant.Secondary} fullWidth>
         fullWidth
-      </Button>
+      </Button>,
     );
     const button = getByTestId(/button/);
     expect(button).toHaveStyle(`width: 100%`);
@@ -134,14 +134,14 @@ describe("Button Atom tests", () => {
 
   test("should render Button with spinner", () => {
     const { asFragment } = renderWithTheme(
-      <Button isLoading>fullWidth</Button>
+      <Button isLoading>fullWidth</Button>,
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   test("should render Button disabled", () => {
     const { asFragment } = renderWithTheme(
-      <Button isDisabled>fullWidth</Button>
+      <Button isDisabled>fullWidth</Button>,
     );
     expect(asFragment()).toMatchSnapshot();
   });

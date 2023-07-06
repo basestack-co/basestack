@@ -1,12 +1,10 @@
 import React, { useMemo, useCallback } from "react";
-import { useTheme } from "styled-components";
 // Components
 import {
   ButtonVariant,
   Loader,
   SettingCard,
   Skeleton,
-  Spinner,
   Table,
 } from "@basestack/design-system";
 // Libs
@@ -28,17 +26,16 @@ import dayjs from "dayjs";
 type Props = ProjectSettings;
 
 const InviteCard = ({ project }: Props) => {
-  const theme = useTheme();
   const session = useSession();
   const router = useRouter();
   const trpcContext = trpc.useContext();
   const setInviteMemberModalOpen = useStore(
-    (state) => state.setInviteMemberModalOpen
+    (state) => state.setInviteMemberModalOpen,
   );
 
   const { data, isLoading } = trpc.project.members.useQuery(
     { projectId: project.id },
-    { enabled: !!project.id }
+    { enabled: !!project.id },
   );
 
   const removeUserFromProject = trpc.project.removeMember.useMutation();
@@ -60,14 +57,28 @@ const InviteCard = ({ project }: Props) => {
               // the user removed himself from the project, so we redirect him to the dashboard
               await router.push("/");
             } else {
-              // TODO: migrate this to use cache from useQuery
-              await trpcContext.project.members.invalidate();
+              const prev = trpcContext.project.members.getData({
+                projectId: project.id,
+              });
+
+              if (prev?.users) {
+                const users = prev.users.filter(
+                  (item) => item.userId !== result.connection.userId,
+                );
+
+                trpcContext.project.members.setData(
+                  {
+                    projectId: project.id,
+                  },
+                  { users },
+                );
+              }
             }
           },
-        }
+        },
       );
     },
-    [project, removeUserFromProject, trpcContext, session, router]
+    [project, removeUserFromProject, trpcContext, session, router],
   );
 
   const onHandleUpdateRole = useCallback(
@@ -80,19 +91,39 @@ const InviteCard = ({ project }: Props) => {
         },
         {
           onSuccess: async (result) => {
-            // TODO: migrate this to use cache from useQuery
-            await trpcContext.project.members.invalidate();
+            const prev = trpcContext.project.members.getData({
+              projectId: project.id,
+            });
+
+            if (prev?.users) {
+              const users = prev.users.map((item) => {
+                if (item.userId === result.connection.userId) {
+                  return {
+                    ...item,
+                    role: result.connection.role,
+                  };
+                }
+
+                return item;
+              });
+
+              trpcContext.project.members.setData(
+                {
+                  projectId: project.id,
+                },
+                { users },
+              );
+            }
           },
-        }
+        },
       );
     },
-    [project, updateUserRole, trpcContext]
+    [project, updateUserRole, trpcContext],
   );
 
   const getTable = useMemo(() => {
-    const numberOfAdmins = data?.users.filter(
-      (item) => item.role === "ADMIN"
-    ).length;
+    const numberOfAdmins = data?.users.filter((item) => item.role === "ADMIN")
+      .length;
 
     return createTable(
       !isLoading && !!data ? data.users : [],
@@ -136,7 +167,7 @@ const InviteCard = ({ project }: Props) => {
               ]
             : []),
         ];
-      }
+      },
     );
   }, [
     data,

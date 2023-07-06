@@ -5,8 +5,6 @@ exports[`IconButton Atom tests should render IconButton correctly 1`] = `
   .c1 {
   height: 1.5rem;
   width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -17,22 +15,12 @@ exports[`IconButton Atom tests should render IconButton correctly 1`] = `
 
 .c0 {
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   cursor: pointer;
   border-radius: 50%;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
   height: 2rem;
@@ -53,6 +41,8 @@ exports[`IconButton Atom tests should render IconButton correctly 1`] = `
 
 <button
     class="c0"
+    iconsize="32px"
+    variant="neutral"
   >
     <div
       class="c1"
@@ -77,8 +67,6 @@ exports[`IconButton Atom tests should render IconButton with different size 1`] 
   .c1 {
   height: 2rem;
   width: 2rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -89,22 +77,12 @@ exports[`IconButton Atom tests should render IconButton with different size 1`] 
 
 .c0 {
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   cursor: pointer;
   border-radius: 50%;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: #EEEEEE;
   color: #FFFFFF;
   height: 2.5rem;
@@ -117,6 +95,8 @@ exports[`IconButton Atom tests should render IconButton with different size 1`] 
 
 <button
     class="c0"
+    iconsize="40px"
+    variant="secondary"
   >
     <div
       class="c1"
@@ -141,8 +121,6 @@ exports[`IconButton Atom tests should render primary IconButton 1`] = `
   .c1 {
   height: 1.5rem;
   width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -153,22 +131,12 @@ exports[`IconButton Atom tests should render primary IconButton 1`] = `
 
 .c0 {
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   cursor: pointer;
   border-radius: 50%;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: #276EF1;
   color: #FFFFFF;
   height: 2rem;
@@ -181,6 +149,8 @@ exports[`IconButton Atom tests should render primary IconButton 1`] = `
 
 <button
     class="c0"
+    iconsize="32px"
+    variant="primary"
   >
     <div
       class="c1"
@@ -205,8 +175,6 @@ exports[`IconButton Atom tests should render primaryNeutral IconButton 1`] = `
   .c1 {
   height: 1.5rem;
   width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -217,22 +185,12 @@ exports[`IconButton Atom tests should render primaryNeutral IconButton 1`] = `
 
 .c0 {
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   cursor: pointer;
   border-radius: 50%;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
   height: 2rem;
@@ -254,6 +212,8 @@ exports[`IconButton Atom tests should render primaryNeutral IconButton 1`] = `
 
 <button
     class="c0"
+    iconsize="32px"
+    variant="primaryNeutral"
   >
     <div
       class="c1"
@@ -278,8 +238,6 @@ exports[`IconButton Atom tests should render secondary IconButton 1`] = `
   .c1 {
   height: 1.5rem;
   width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -290,22 +248,12 @@ exports[`IconButton Atom tests should render secondary IconButton 1`] = `
 
 .c0 {
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   cursor: pointer;
   border-radius: 50%;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: #EEEEEE;
   color: #FFFFFF;
   height: 2rem;
@@ -318,6 +266,8 @@ exports[`IconButton Atom tests should render secondary IconButton 1`] = `
 
 <button
     class="c0"
+    iconsize="32px"
+    variant="secondary"
   >
     <div
       class="c1"

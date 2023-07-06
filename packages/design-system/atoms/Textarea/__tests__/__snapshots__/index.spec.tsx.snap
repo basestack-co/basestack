@@ -17,18 +17,6 @@ exports[`Textarea Atom tests should render Textarea correctly 1`] = `
   color: #000000;
 }
 
-.c0::-webkit-input-placeholder {
-  color: #757575;
-}
-
-.c0::-moz-placeholder {
-  color: #757575;
-}
-
-.c0:-ms-input-placeholder {
-  color: #757575;
-}
-
 .c0::placeholder {
   color: #757575;
 }

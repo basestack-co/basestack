@@ -56,7 +56,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
     { projectSlug },
     {
       enabled: !!projectSlug,
-    }
+    },
   );
 
   const renderButton = useMemo(() => {
@@ -79,7 +79,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
 
   const activeButtonIndex = useMemo(
     () => buttons.findIndex((button) => button.href === router.pathname),
-    [router.pathname]
+    [router.pathname],
   );
 
   const items = useMemo(
@@ -90,7 +90,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
           text,
         };
       }),
-    []
+    [],
   );
 
   return (

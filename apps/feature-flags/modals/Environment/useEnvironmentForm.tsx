@@ -25,8 +25,7 @@ const useEnvironmentForm = ({ isCreate = false, options = [] }: Props) => {
     watch,
     reset,
   } = useForm<FormInputs>({
-    // @ts-ignore
-    resolver: zodResolver(FormSchema), // TODO: fix this, broken after the 3.0.0 release
+    resolver: zodResolver(FormSchema),
     mode: "onChange",
   });
 
@@ -39,7 +38,7 @@ const useEnvironmentForm = ({ isCreate = false, options = [] }: Props) => {
 
       setValue("description", text);
     },
-    [textareaLength, setValue]
+    [textareaLength, setValue],
   );
 
   const onRenderForm = () => {

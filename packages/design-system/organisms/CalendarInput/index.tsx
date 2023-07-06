@@ -19,7 +19,7 @@ interface CalendarInput extends SpaceProps {
 const CalendarInput = forwardRef<HTMLDivElement, CalendarInput>(
   (
     { inputTitle, inputProps, isCalenderOpen, calendarProps, ...props },
-    ref
+    ref,
   ) => (
     <Container ref={ref} {...props}>
       <InputGroup title={inputTitle} inputProps={inputProps} />
@@ -33,7 +33,7 @@ const CalendarInput = forwardRef<HTMLDivElement, CalendarInput>(
         />
       )}
     </Container>
-  )
+  ),
 );
 
 CalendarInput.displayName = "CalendarInput";

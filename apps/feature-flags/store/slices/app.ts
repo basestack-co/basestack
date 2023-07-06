@@ -3,7 +3,7 @@ import { StateCreator } from "zustand";
 import { AppSliceState, Store } from "../types";
 
 export const createAppSlice: StateCreator<Store, [], [], AppSliceState> = (
-  set
+  set,
 ) => ({
   isDarkMode: false,
   selectedView: "cards",

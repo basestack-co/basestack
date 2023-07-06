@@ -19,7 +19,7 @@ describe("Modal Molecule tests", () => {
         buttons={buttons}
       >
         Body Content
-      </Modal>
+      </Modal>,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -29,7 +29,7 @@ describe("Modal Molecule tests", () => {
     const { asFragment } = renderWithTheme(
       <Modal title="Create Flag" isOpen onClose={jest.fn()} buttons={buttons}>
         Body Content
-      </Modal>
+      </Modal>,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -46,7 +46,7 @@ describe("Modal Molecule tests", () => {
         minHeight={300}
       >
         Body Content
-      </Modal>
+      </Modal>,
     );
 
     expect(asFragment()).toMatchSnapshot();

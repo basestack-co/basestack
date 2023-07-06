@@ -8,7 +8,7 @@ import { getValue } from "@basestack/utils";
 export const getFlagsByProjectSlugAndEnvSlug = async (
   projectKey: string,
   envKey: string,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) => {
   try {
     const flags = await prisma.flag.findMany({
@@ -55,7 +55,7 @@ const RestApiFlags = async (req: NextApiRequest, res: NextApiResponse) => {
       await getFlagsByProjectSlugAndEnvSlug(
         projectKey as string,
         envKey as string,
-        res
+        res,
       );
       break;
 

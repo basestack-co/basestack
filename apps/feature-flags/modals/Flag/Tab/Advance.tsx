@@ -60,7 +60,7 @@ const AdvanceTab = ({
     ({ updated_src }: InteractionProps) => {
       setValue("payload", JSON.stringify(updated_src));
     },
-    [setValue]
+    [setValue],
   );
 
   useClickAway(calendarInputRef, () => {
@@ -104,7 +104,7 @@ const AdvanceTab = ({
           autoComplete: "off",
         }}
         calendarProps={{
-          onChange: (date: Date) => {
+          onChange: (date: any) => {
             setValue("expiredAt", date);
             setIsCalendarOpen(false);
           },

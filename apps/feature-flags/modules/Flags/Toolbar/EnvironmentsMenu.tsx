@@ -79,7 +79,7 @@ const EnvironmentsMenu = ({ title, data, onSelect }: EnvironmentsMenuProps) => {
               left={x}
               items={items}
             />
-          )
+          ),
       )}
     </div>
   );

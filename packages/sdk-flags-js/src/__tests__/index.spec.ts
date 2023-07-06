@@ -45,7 +45,7 @@ describe("FlagsJS features tests", () => {
     expect(flag).toHaveProperty("error", true);
     expect(flag).toHaveProperty(
       "message",
-      "Flag with name does_not_exist does not exist"
+      "Flag with name does_not_exist does not exist",
     );
   });
 });

@@ -23,7 +23,7 @@ describe("Card Atom tests", () => {
 
   test("render Card with hover animation", () => {
     const { getByTestId } = renderWithTheme(
-      <Card hasHoverAnimation>Content</Card>
+      <Card hasHoverAnimation>Content</Card>,
     );
     const card = getByTestId("card");
   });

@@ -18,7 +18,7 @@ const EditEnvironmentModal = () => {
   const isModalOpen = useStore((state) => state.isUpdateEnvironmentModalOpen);
   const data = useStore((state) => state.environmentModalPayload);
   const setUpdateEnvironmentModalOpen = useStore(
-    (state) => state.setUpdateEnvironmentModalOpen
+    (state) => state.setUpdateEnvironmentModalOpen,
   );
 
   const updateEnvironment = trpc.environment.update.useMutation();
@@ -54,10 +54,10 @@ const EditEnvironmentModal = () => {
                           name: result.environment.name,
                           description: result.environment.description,
                         }
-                      : environment
+                      : environment,
                   )
                   .sort(
-                    (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
+                    (a, b) => a.createdAt.getTime() - b.createdAt.getTime(),
                   );
 
                 // Update the cache with the new data
@@ -65,14 +65,14 @@ const EditEnvironmentModal = () => {
                   { projectId: data.project.id! },
                   {
                     environments,
-                  }
+                  },
                 );
               }
 
               onClose();
             }
           },
-        }
+        },
       );
     }
   };
@@ -86,7 +86,7 @@ const EditEnvironmentModal = () => {
 
       if (cache && cache.environments) {
         const environment = cache.environments.find(
-          ({ id }) => id === data?.environment?.id
+          ({ id }) => id === data?.environment?.id,
         );
 
         if (environment) {

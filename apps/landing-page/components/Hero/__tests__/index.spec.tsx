@@ -26,7 +26,7 @@ describe("Hero tests", () => {
     };
 
     const { getByAltText } = renderWithTheme(
-      <Hero title={title} text={text} image={image} />
+      <Hero title={title} text={text} image={image} />,
     );
 
     expect(getByAltText(image.alt)).toBeInTheDocument();

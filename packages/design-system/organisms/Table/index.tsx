@@ -94,7 +94,7 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
                     items={more}
                     onClickList={onCloseMenu}
                   />
-                )
+                ),
             )}
           </PopupWrapper>
         ) : (

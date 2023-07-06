@@ -41,7 +41,7 @@ describe.skip("MainLayout", () => {
     const { getByText } = renderWithAllProviders(
       <MainLayout>
         <div>Hello World</div>
-      </MainLayout>
+      </MainLayout>,
     );
     expect(getByText("Hello World")).toBeInTheDocument();
   });
@@ -50,7 +50,7 @@ describe.skip("MainLayout", () => {
     const { getByText } = renderWithAllProviders(
       <MainLayout>
         <div>Hello World</div>
-      </MainLayout>
+      </MainLayout>,
     );
     expect(getByText("...isLoading")).toBeInTheDocument();
   });
@@ -59,7 +59,7 @@ describe.skip("MainLayout", () => {
     const { getByTestId } = renderWithAllProviders(
       <MainLayout>
         <div>Hello World</div>
-      </MainLayout>
+      </MainLayout>,
     );
     expect(getByTestId("navigation")).toBeInTheDocument();
   });
@@ -68,7 +68,7 @@ describe.skip("MainLayout", () => {
     const { getByTestId } = renderWithAllProviders(
       <MainLayout>
         <div>Hello World</div>
-      </MainLayout>
+      </MainLayout>,
     );
     expect(getByTestId("tab-bar")).toBeInTheDocument();
   });
@@ -77,7 +77,7 @@ describe.skip("MainLayout", () => {
     const { getByTestId } = renderWithAllProviders(
       <MainLayout>
         <div>Hello World</div>
-      </MainLayout>
+      </MainLayout>,
     );
     fireEvent.click(getByTestId("create-flag-button"));
     expect(getByTestId("create-flag-modal")).toBeInTheDocument();

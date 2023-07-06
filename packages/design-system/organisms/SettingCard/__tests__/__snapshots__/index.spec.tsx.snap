@@ -38,32 +38,22 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
   font-size: 0.875rem;
   position: relative;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
-  -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: #000000;
   color: #FFFFFF;
   width: normal;
   height: normal;
   margin-left: auto;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
 }
 
-.c7:hover:not(:active,:disabled) {
+.c7:hover:not(:active, :disabled) {
   background-color: #333;
 }
 
@@ -83,37 +73,21 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  box-shadow: rgba(0,0,0,0.1) 0px 1px 3px 0px,rgba(0,0,0,0.06) 0px 1px 2px 0px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   background-color: #FFFFFF;
   border-radius: 0.375rem;
 }
 
 .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
   padding: 1.25rem;
 }
 
 .c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   padding: 1rem 1.25rem;
 }
@@ -121,6 +95,7 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
 <div
     class="c0 "
     data-testid="card"
+    variant="default"
   >
     <div
       class="c1"
@@ -129,6 +104,7 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
         class="c2"
         data-testid="setting-title"
         font-family="roboto"
+        mb="0.25rem"
       >
         title
       </h3>
@@ -136,6 +112,7 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
         class="c3"
         data-testid="setting-title"
         font-family="roboto"
+        mb="1.25rem"
       >
         description
       </p>
@@ -154,10 +131,13 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
         class="c6"
         data-testid="setting-title"
         font-family="roboto"
+        mr="0.75rem"
       />
       <button
         class="c7"
         data-testid="button"
+        ml="auto"
+        variant="secondary"
       >
         <span
           class=""
@@ -209,32 +189,22 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
   font-size: 0.875rem;
   position: relative;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
-  -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: #000000;
   color: #FFFFFF;
   width: normal;
   height: normal;
   margin-left: auto;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
 }
 
-.c9:hover:not(:active,:disabled) {
+.c9:hover:not(:active, :disabled) {
   background-color: #333;
 }
 
@@ -254,14 +224,9 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  box-shadow: rgba(0,0,0,0.1) 0px 1px 3px 0px,rgba(0,0,0,0.06) 0px 1px 2px 0px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   background-color: #FFFFFF;
   border-radius: 0.375rem;
 }
@@ -269,13 +234,7 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
 .c4 {
   max-width: 400px;
   position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -291,18 +250,6 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
   color: #000000;
 }
 
-.c5::-webkit-input-placeholder {
-  color: #757575;
-}
-
-.c5::-moz-placeholder {
-  color: #757575;
-}
-
-.c5:-ms-input-placeholder {
-  color: #757575;
-}
-
 .c5::placeholder {
   color: #757575;
 }
@@ -312,24 +259,13 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
 }
 
 .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
   padding: 1.25rem;
 }
 
 .c7 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   padding: 1rem 1.25rem;
 }
@@ -337,6 +273,7 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
 <div
     class="c0 "
     data-testid="card"
+    variant="default"
   >
     <div
       class="c1"
@@ -345,6 +282,7 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
         class="c2"
         data-testid="setting-title"
         font-family="roboto"
+        mb="0.25rem"
       >
         title
       </h3>
@@ -352,12 +290,14 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
         class="c3"
         data-testid="setting-title"
         font-family="roboto"
+        mb="1.25rem"
       >
         description
       </p>
       <div
         class="c4"
         data-testid="input-container"
+        maxwidth="400"
       >
         <input
           class="c5"
@@ -381,12 +321,15 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
         class="c8"
         data-testid="setting-title"
         font-family="roboto"
+        mr="0.75rem"
       >
         text
       </p>
       <button
         class="c9"
         data-testid="button"
+        ml="auto"
+        variant="secondary"
       >
         <span
           class=""
@@ -438,32 +381,22 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
   font-size: 0.875rem;
   position: relative;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
-  -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: #000000;
   color: #FFFFFF;
   width: normal;
   height: normal;
   margin-left: auto;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
 }
 
-.c7:hover:not(:active,:disabled) {
+.c7:hover:not(:active, :disabled) {
   background-color: #333;
 }
 
@@ -483,37 +416,21 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  box-shadow: rgba(0,0,0,0.1) 0px 1px 3px 0px,rgba(0,0,0,0.06) 0px 1px 2px 0px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   background-color: #FFFFFF;
   border-radius: 0.375rem;
 }
 
 .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
   padding: 1.25rem;
 }
 
 .c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   padding: 1rem 1.25rem;
 }
@@ -521,6 +438,7 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
 <div
     class="c0 "
     data-testid="card"
+    variant="default"
   >
     <div
       class="c1"
@@ -529,6 +447,7 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
         class="c2"
         data-testid="setting-title"
         font-family="roboto"
+        mb="0.25rem"
       >
         title
       </h3>
@@ -536,6 +455,7 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
         class="c3"
         data-testid="setting-title"
         font-family="roboto"
+        mb="1.25rem"
       >
         description
       </p>
@@ -554,12 +474,15 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
         class="c6"
         data-testid="setting-title"
         font-family="roboto"
+        mr="0.75rem"
       >
         text
       </p>
       <button
         class="c7"
         data-testid="button"
+        ml="auto"
+        variant="secondary"
       >
         <span
           class=""

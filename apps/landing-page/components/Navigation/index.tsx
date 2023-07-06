@@ -167,7 +167,7 @@ const Navigation = ({
                       {item.text}
                     </Button>
                   </AnimatedPopupItem>
-                )
+                ),
             )}
           </AnimatedPopup>
         </PopupContainer>
