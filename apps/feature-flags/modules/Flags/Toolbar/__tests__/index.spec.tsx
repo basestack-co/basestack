@@ -25,7 +25,7 @@ describe.skip("Toolbar Organism tests", () => {
         // @ts-ignore
         environments={[]}
         onSearch={jest.fn()}
-      />
+      />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -38,7 +38,7 @@ describe.skip("Toolbar Organism tests", () => {
         // @ts-ignore
         environments={[]}
         onSearch={jest.fn()}
-      />
+      />,
     );
 
     const search = getByTestId("search-input");

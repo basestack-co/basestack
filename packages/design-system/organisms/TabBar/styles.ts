@@ -9,7 +9,9 @@ export const Container = styled.nav`
   align-items: center;
   flex-shrink: 0;
   background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: rgb(0 0 0 / 10%) 0 0 3px 0, rgb(0 0 0 / 6%) 0 0 2px 0;
+  box-shadow:
+    rgb(0 0 0 / 10%) 0 0 3px 0,
+    rgb(0 0 0 / 6%) 0 0 2px 0;
   height: ${rem("64px")};
   margin-top: auto;
 `;

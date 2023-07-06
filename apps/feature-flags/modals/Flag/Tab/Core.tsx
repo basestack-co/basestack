@@ -33,12 +33,12 @@ const CoreTab = ({
   const onChangeEnvironmentSwitch = useCallback(
     (id: string, enabled: boolean) => {
       const updated = environments.map((item: EnvironmentInput) =>
-        item.id === id ? { ...item, enabled } : item
+        item.id === id ? { ...item, enabled } : item,
       );
 
       setValue("environments", updated);
     },
-    [environments, setValue]
+    [environments, setValue],
   );
 
   const onChangeTextarea = useCallback(
@@ -50,7 +50,7 @@ const CoreTab = ({
 
       setValue("description", text);
     },
-    [textareaLength, setValue]
+    [textareaLength, setValue],
   );
 
   return (

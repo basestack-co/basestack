@@ -36,18 +36,6 @@ exports[`InputGroup Molecule tests should render InputGroup as textarea 1`] = `
   color: #000000;
 }
 
-.c3::-webkit-input-placeholder {
-  color: #757575;
-}
-
-.c3::-moz-placeholder {
-  color: #757575;
-}
-
-.c3:-ms-input-placeholder {
-  color: #757575;
-}
-
 .c3::placeholder {
   color: #757575;
 }
@@ -57,17 +45,8 @@ exports[`InputGroup Molecule tests should render InputGroup as textarea 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   margin-bottom: 0.5rem;
 }
@@ -126,13 +105,7 @@ exports[`InputGroup Molecule tests should render InputGroup correctly 1`] = `
 
 .c3 {
   position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -148,18 +121,6 @@ exports[`InputGroup Molecule tests should render InputGroup correctly 1`] = `
   color: #000000;
 }
 
-.c4::-webkit-input-placeholder {
-  color: #757575;
-}
-
-.c4::-moz-placeholder {
-  color: #757575;
-}
-
-.c4:-ms-input-placeholder {
-  color: #757575;
-}
-
 .c4::placeholder {
   color: #757575;
 }
@@ -169,17 +130,8 @@ exports[`InputGroup Molecule tests should render InputGroup correctly 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   margin-bottom: 0.5rem;
 }
@@ -226,9 +178,6 @@ exports[`InputGroup Molecule tests should render InputGroup correctly 1`] = `
 exports[`InputGroup Molecule tests should render InputGroup with hint 1`] = `
 <DocumentFragment>
   .c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   font-size: 0.75rem;
   line-height: 0.875rem;
@@ -260,13 +209,7 @@ exports[`InputGroup Molecule tests should render InputGroup with hint 1`] = `
 
 .c3 {
   position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -282,18 +225,6 @@ exports[`InputGroup Molecule tests should render InputGroup with hint 1`] = `
   color: #000000;
 }
 
-.c4::-webkit-input-placeholder {
-  color: #757575;
-}
-
-.c4::-moz-placeholder {
-  color: #757575;
-}
-
-.c4:-ms-input-placeholder {
-  color: #757575;
-}
-
 .c4::placeholder {
   color: #757575;
 }
@@ -303,17 +234,8 @@ exports[`InputGroup Molecule tests should render InputGroup with hint 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   margin-bottom: 0.5rem;
 }
@@ -358,6 +280,7 @@ exports[`InputGroup Molecule tests should render InputGroup with hint 1`] = `
       color="#757575"
       data-testid="input-group-hint"
       font-family="roboto"
+      mt="0.5rem"
     >
       no special characters
     </span>
@@ -388,13 +311,7 @@ exports[`InputGroup Molecule tests should render InputGroup with label 1`] = `
 
 .c3 {
   position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -410,18 +327,6 @@ exports[`InputGroup Molecule tests should render InputGroup with label 1`] = `
   color: #000000;
 }
 
-.c4::-webkit-input-placeholder {
-  color: #757575;
-}
-
-.c4::-moz-placeholder {
-  color: #757575;
-}
-
-.c4:-ms-input-placeholder {
-  color: #757575;
-}
-
 .c4::placeholder {
   color: #757575;
 }
@@ -431,17 +336,8 @@ exports[`InputGroup Molecule tests should render InputGroup with label 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   margin-bottom: 0.5rem;
 }

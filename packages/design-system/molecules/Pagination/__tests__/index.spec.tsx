@@ -12,7 +12,7 @@ describe("Pagination Molecule tests", () => {
         totalPages={11}
         onNext={jest.fn()}
         onPrev={jest.fn()}
-      />
+      />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -24,7 +24,7 @@ describe("Pagination Molecule tests", () => {
         totalPages={11}
         onNext={jest.fn()}
         onPrev={jest.fn()}
-      />
+      />,
     );
     const prevButton = getByText(/Prev/);
     const nextButton = getByText(/Next/);

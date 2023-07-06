@@ -61,7 +61,7 @@ export const isAuthenticated = middleware(
         ctx.prisma,
         ctx?.session?.user.id!,
         projectId!,
-        projectSlug!
+        projectSlug!,
       );
 
       // If the user does not exist in the project, return an error
@@ -80,7 +80,7 @@ export const isAuthenticated = middleware(
         session: ctx.session,
       },
     });
-  }
+  },
 );
 
 // ROUTERS

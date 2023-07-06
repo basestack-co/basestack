@@ -16,7 +16,7 @@ export type Session = DefaultSession & {
 };
 
 export async function getSession(
-  options: GetSessionParams
+  options: GetSessionParams,
 ): Promise<Session | null> {
   const session = await getNextSession(options);
 

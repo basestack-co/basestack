@@ -30,7 +30,7 @@ describe("PopupActions Molecule tests", () => {
           text: "Create Project",
           onClick: jest.fn(),
         }}
-      />
+      />,
     );
 
     expect(asFragment()).toMatchSnapshot();

@@ -38,9 +38,6 @@ exports[`Code tests render Code correctly 1`] = `
 }
 
 .c6 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   background-color: #333333;
   position: relative;
@@ -51,23 +48,11 @@ exports[`Code tests render Code correctly 1`] = `
   background-color: transparent;
   cursor: pointer;
   height: 2.75rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-flex: 1 0 0;
-  -ms-flex: 1 0 0;
   flex: 1 0 0;
   padding: 0 0.75rem;
-  -webkit-transition: background-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out;
   border-bottom: 2px solid #545454;
 }
@@ -85,37 +70,20 @@ exports[`Code tests render Code correctly 1`] = `
   background-color: #5B91F5;
   height: 2px;
   width: calc((100% / 4));
-  -webkit-transition: -webkit-transform 0.2s ease-in-out;
-  -webkit-transition: transform 0.2s ease-in-out;
   transition: transform 0.2s ease-in-out;
-  -webkit-transform: translateX(100%);
-  -ms-transform: translateX(100%);
   transform: translateX(100%);
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
   padding: 6.25rem 1.25rem;
   background-color: #1F1F1F;
 }
 
 .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   max-width: 1440px;
   width: 100%;
@@ -123,12 +91,7 @@ exports[`Code tests render Code correctly 1`] = `
 }
 
 .c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
   width: 100%;
   max-width: 780px;
@@ -136,7 +99,7 @@ exports[`Code tests render Code correctly 1`] = `
   border-radius: 20px;
   overflow: hidden;
   font-size: 1rem;
-  box-shadow: rgba(0,0,0,0.1) 0px 4px 6px -1px,rgba(0,0,0,0.06) 0px 2px 4px -1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 
 .c5 pre {
@@ -145,16 +108,8 @@ exports[`Code tests render Code correctly 1`] = `
 }
 
 .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   max-width: 720px;
   margin-bottom: 3.125rem;
@@ -174,6 +129,9 @@ exports[`Code tests render Code correctly 1`] = `
           color="#F6F6F6"
           font-family="robotoFlex"
           font-size="2.625rem"
+          lineheight="1.4"
+          mb="0.5rem"
+          textalign="center"
         >
           Available in Frontend Frameworks
         </h2>
@@ -182,6 +140,8 @@ exports[`Code tests render Code correctly 1`] = `
           color="#CBCBCB"
           font-family="roboto"
           font-weight="400"
+          lineheight="1.6"
+          textalign="center"
         >
           We currently support these popular languages and frameworks
         </p>
@@ -190,12 +150,15 @@ exports[`Code tests render Code correctly 1`] = `
         class="c5"
       >
         <div
+          backgroundcolor="#333333"
           class="c6"
           data-testid="tabs-component"
         >
           <button
+            bordercolor="#545454"
             class="c7"
             data-testid="tab-button"
+            hoverbgcolor="#545454"
           >
             <p
               class="c8"
@@ -207,8 +170,10 @@ exports[`Code tests render Code correctly 1`] = `
             </p>
           </button>
           <button
+            bordercolor="#545454"
             class="c7"
             data-testid="tab-button"
+            hoverbgcolor="#545454"
           >
             <p
               class="c8"
@@ -220,8 +185,10 @@ exports[`Code tests render Code correctly 1`] = `
             </p>
           </button>
           <button
+            bordercolor="#545454"
             class="c7"
             data-testid="tab-button"
+            hoverbgcolor="#545454"
           >
             <p
               class="c8"
@@ -233,8 +200,10 @@ exports[`Code tests render Code correctly 1`] = `
             </p>
           </button>
           <button
+            bordercolor="#545454"
             class="c7"
             data-testid="tab-button"
+            hoverbgcolor="#545454"
           >
             <p
               class="c8"
@@ -246,7 +215,10 @@ exports[`Code tests render Code correctly 1`] = `
             </p>
           </button>
           <div
+            activebordercolor="#5B91F5"
             class="c9"
+            numberofitems="4"
+            translatex="100"
           />
         </div>
         <pre

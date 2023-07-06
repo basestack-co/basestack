@@ -24,8 +24,6 @@ exports[`Table Organism tests should render Table correctly 1`] = `
 .c9 {
   height: 1.5rem;
   width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -36,22 +34,12 @@ exports[`Table Organism tests should render Table correctly 1`] = `
 
 .c8 {
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   cursor: pointer;
   border-radius: 50%;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
   height: 2rem;
@@ -78,7 +66,7 @@ exports[`Table Organism tests should render Table correctly 1`] = `
 
 .c1 {
   display: grid;
-  grid-template-columns: repeat(3,1fr) auto;
+  grid-template-columns: repeat(3, 1fr) auto;
   grid-gap: 1.25rem;
 }
 
@@ -93,27 +81,13 @@ exports[`Table Organism tests should render Table correctly 1`] = `
 
 .c2 {
   height: 2.8125rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
 }
 
 .c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -129,6 +103,7 @@ exports[`Table Organism tests should render Table correctly 1`] = `
     <div
       class="c1"
       data-testid="header"
+      numberofcolumns="3"
     >
       <div
         class="c2"
@@ -167,6 +142,7 @@ exports[`Table Organism tests should render Table correctly 1`] = `
     <div
       class="c1"
       data-testid="row"
+      numberofcolumns="3"
     >
       <div
         class="c2"
@@ -221,6 +197,8 @@ exports[`Table Organism tests should render Table correctly 1`] = `
         >
           <button
             class="c8"
+            iconsize="32px"
+            variant="neutral"
           >
             <div
               class="c9"
@@ -243,6 +221,7 @@ exports[`Table Organism tests should render Table correctly 1`] = `
     <div
       class="c1"
       data-testid="row"
+      numberofcolumns="3"
     >
       <div
         class="c2"
@@ -297,6 +276,8 @@ exports[`Table Organism tests should render Table correctly 1`] = `
         >
           <button
             class="c8"
+            iconsize="32px"
+            variant="neutral"
           >
             <div
               class="c9"
@@ -327,8 +308,6 @@ exports[`Table Organism tests should render Table with images 1`] = `
   width: 1.75rem;
   border-radius: 50%;
   overflow: hidden;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
   margin-right: 0.75rem;
   border-radius: 50%;
@@ -362,8 +341,6 @@ exports[`Table Organism tests should render Table with images 1`] = `
 .c11 {
   height: 1.5rem;
   width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -374,22 +351,12 @@ exports[`Table Organism tests should render Table with images 1`] = `
 
 .c10 {
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   cursor: pointer;
   border-radius: 50%;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
   height: 2rem;
@@ -416,7 +383,7 @@ exports[`Table Organism tests should render Table with images 1`] = `
 
 .c1 {
   display: grid;
-  grid-template-columns: repeat(3,1fr) auto;
+  grid-template-columns: repeat(3, 1fr) auto;
   grid-gap: 1.25rem;
 }
 
@@ -431,27 +398,13 @@ exports[`Table Organism tests should render Table with images 1`] = `
 
 .c2 {
   height: 2.8125rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
 }
 
 .c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -467,6 +420,7 @@ exports[`Table Organism tests should render Table with images 1`] = `
     <div
       class="c1"
       data-testid="header"
+      numberofcolumns="3"
     >
       <div
         class="c2"
@@ -505,6 +459,7 @@ exports[`Table Organism tests should render Table with images 1`] = `
     <div
       class="c1"
       data-testid="row"
+      numberofcolumns="3"
     >
       <div
         class="c2"
@@ -515,6 +470,7 @@ exports[`Table Organism tests should render Table with images 1`] = `
           <div
             class="c6"
             data-testid="avatar"
+            mr="0.75rem"
             size="28"
           >
             <img
@@ -570,6 +526,8 @@ exports[`Table Organism tests should render Table with images 1`] = `
         >
           <button
             class="c10"
+            iconsize="32px"
+            variant="neutral"
           >
             <div
               class="c11"
@@ -592,6 +550,7 @@ exports[`Table Organism tests should render Table with images 1`] = `
     <div
       class="c1"
       data-testid="row"
+      numberofcolumns="3"
     >
       <div
         class="c2"
@@ -602,6 +561,7 @@ exports[`Table Organism tests should render Table with images 1`] = `
           <div
             class="c6"
             data-testid="avatar"
+            mr="0.75rem"
             size="28"
           >
             <img
@@ -657,6 +617,8 @@ exports[`Table Organism tests should render Table with images 1`] = `
         >
           <button
             class="c10"
+            iconsize="32px"
+            variant="neutral"
           >
             <div
               class="c11"
@@ -679,6 +641,7 @@ exports[`Table Organism tests should render Table with images 1`] = `
     <div
       class="c1"
       data-testid="row"
+      numberofcolumns="3"
     >
       <div
         class="c2"
@@ -689,6 +652,7 @@ exports[`Table Organism tests should render Table with images 1`] = `
           <div
             class="c6"
             data-testid="avatar"
+            mr="0.75rem"
             size="28"
           >
             <img
@@ -744,6 +708,8 @@ exports[`Table Organism tests should render Table with images 1`] = `
         >
           <button
             class="c10"
+            iconsize="32px"
+            variant="neutral"
           >
             <div
               class="c11"
@@ -766,6 +732,7 @@ exports[`Table Organism tests should render Table with images 1`] = `
     <div
       class="c1"
       data-testid="row"
+      numberofcolumns="3"
     >
       <div
         class="c2"
@@ -776,6 +743,7 @@ exports[`Table Organism tests should render Table with images 1`] = `
           <div
             class="c6"
             data-testid="avatar"
+            mr="0.75rem"
             size="28"
           >
             <img
@@ -831,6 +799,8 @@ exports[`Table Organism tests should render Table with images 1`] = `
         >
           <button
             class="c10"
+            iconsize="32px"
+            variant="neutral"
           >
             <div
               class="c11"
@@ -878,8 +848,6 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
 .c9 {
   height: 1.5rem;
   width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -890,22 +858,12 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
 
 .c8 {
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   cursor: pointer;
   border-radius: 50%;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
   height: 2rem;
@@ -933,7 +891,7 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
 
 .c1 {
   display: grid;
-  grid-template-columns: repeat(3,1fr) auto;
+  grid-template-columns: repeat(3, 1fr) auto;
   grid-gap: 1.25rem;
 }
 
@@ -948,27 +906,13 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
 
 .c2 {
   height: 2.8125rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
 }
 
 .c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -980,10 +924,12 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
 <div
     class="c0"
     data-testid="table"
+    mt="30"
   >
     <div
       class="c1"
       data-testid="header"
+      numberofcolumns="3"
     >
       <div
         class="c2"
@@ -1022,6 +968,7 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
     <div
       class="c1"
       data-testid="row"
+      numberofcolumns="3"
     >
       <div
         class="c2"
@@ -1076,6 +1023,8 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
         >
           <button
             class="c8"
+            iconsize="32px"
+            variant="neutral"
           >
             <div
               class="c9"
@@ -1098,6 +1047,7 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
     <div
       class="c1"
       data-testid="row"
+      numberofcolumns="3"
     >
       <div
         class="c2"
@@ -1152,6 +1102,8 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
         >
           <button
             class="c8"
+            iconsize="32px"
+            variant="neutral"
           >
             <div
               class="c9"

@@ -13,7 +13,7 @@ describe("Textarea Atom tests", () => {
         onChange={jest.fn}
         name="test1"
         value=""
-      />
+      />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -26,7 +26,7 @@ describe("Textarea Atom tests", () => {
         name="test1"
         value=""
         isDarker
-      />
+      />,
     );
     const textarea = getByTestId("textarea");
 

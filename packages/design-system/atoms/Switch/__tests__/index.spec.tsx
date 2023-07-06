@@ -12,14 +12,14 @@ describe("Switch Atom tests", () => {
 
   test("should render Switch with text", () => {
     const { asFragment } = renderWithTheme(
-      <Switch text="Lorem ipsum" onChange={jest.fn()} />
+      <Switch text="Lorem ipsum" onChange={jest.fn()} />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   test("should render Switch checked by default", () => {
     const { asFragment } = renderWithTheme(
-      <Switch text="Lorem ipsum" onChange={jest.fn()} checked />
+      <Switch text="Lorem ipsum" onChange={jest.fn()} checked />,
     );
     expect(asFragment()).toMatchSnapshot();
   });

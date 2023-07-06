@@ -15,20 +15,21 @@
     "test": "turbo run test",
     "clean": "turbo run clean && rm -rf node_modules",
     "prepare": "npx husky install",
-    "precommit": "yarn format && yarn lint && yarn test && lint-staged",
+    "precommit": "yarn format && yarn lint && lint-staged",
     "commit": "git-cz",
     "update:packages": "yarn upgrade-interactive --latest",
     "build:packages": "turbo run build --filter=./packages/*",
     "build:feature-flags": "turbo run build --filter=feature-flags...",
-    "build:landing-page": "turbo run build --filter=landing-page..."
+    "build:landing-page": "turbo run build --filter=landing-page...",
+    "deploy:feature-flags": "turbo run @basestack/feature-flags#deploy"
   },
   "devDependencies": {
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.1",
-    "prettier": "^2.8.7",
-    "turbo": "1.9.3"
+    "lint-staged": "^13.2.2",
+    "prettier": "^3.0.0",
+    "turbo": "1.10.7"
   },
   "engines": {
     "npm": ">=7.0.0",

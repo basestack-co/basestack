@@ -4,7 +4,7 @@ export type UseTimeoutFnReturn = [() => boolean | null, () => void, () => void];
 
 export default function useTimeoutFn(
   fn: () => void,
-  ms = 0
+  ms = 0,
 ): UseTimeoutFnReturn {
   const ready = useRef<boolean | null>(false);
   const timeout = useRef<ReturnType<typeof setTimeout>>();

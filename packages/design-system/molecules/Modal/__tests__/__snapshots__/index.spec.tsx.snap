@@ -17,8 +17,6 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
 .c5 {
   height: 1.5rem;
   width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -33,28 +31,18 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   font-size: 0.875rem;
   position: relative;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
-  -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
   width: normal;
   height: normal;
   margin-left: 0.25rem;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
 }
 
@@ -80,32 +68,22 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   font-size: 0.875rem;
   position: relative;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
-  -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: #276EF1;
   color: #FFFFFF;
   width: normal;
   height: normal;
   margin-left: 0.25rem;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
 }
 
-.c10:hover:not(:active,:disabled) {
+.c10:hover:not(:active, :disabled) {
   background-color: #0e55d7;
 }
 
@@ -120,22 +98,12 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
 .c4 {
   margin-left: auto;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   cursor: pointer;
   border-radius: 50%;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
   height: 2rem;
@@ -158,20 +126,9 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   position: fixed;
   inset: 0;
   z-index: 102;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   padding: 0 1.25rem;
 }
@@ -179,16 +136,11 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
 .c1 {
   max-width: 576px;
   width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  min-height: undefinedpx;
+  min-height: 0px;
   background-color: #FFFFFF;
-  box-shadow: rgba(0,0,0,0.1) 0px 10px 15px -3px,rgba(0,0,0,0.05) 0px 4px 6px -2px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
   border-radius: 4px;
   z-index: 1;
 }
@@ -196,40 +148,20 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
 .c2 {
   height: 4.6875rem;
   padding: 0 1.25rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 }
 
 .c7 {
   padding: 0 1.25rem 1.25rem 1.25rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
 }
 
 .c8 {
   padding: 1.25rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
   justify-content: flex-end;
   margin-top: auto;
 }
@@ -248,6 +180,7 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   >
     <div
       class="c1"
+      minheight="0"
       style="opacity: 0; transform: translate3d(0px, 50px, 0px);"
     >
       <div
@@ -256,11 +189,15 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
         <h2
           class="c3"
           font-family="roboto"
+          mr="0.5rem"
         >
           Create Flag
         </h2>
         <button
           class="c4"
+          iconsize="32px"
+          ml="auto"
+          variant="neutral"
         >
           <div
             class="c5"
@@ -289,6 +226,8 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
         <button
           class="c9"
           data-testid="button"
+          ml="0.25rem"
+          variant="neutral"
         >
           <span
             class=""
@@ -299,6 +238,8 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
         <button
           class="c10"
           data-testid="button"
+          ml="0.25rem"
+          variant="primary"
         >
           <span
             class=""
@@ -330,8 +271,6 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
 .c5 {
   height: 1.5rem;
   width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -346,28 +285,18 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
   font-size: 0.875rem;
   position: relative;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
-  -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
   width: normal;
   height: normal;
   margin-left: 0.25rem;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
 }
 
@@ -393,32 +322,22 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
   font-size: 0.875rem;
   position: relative;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   font-weight: 500;
   cursor: pointer;
   border-radius: 4px;
-  -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: #276EF1;
   color: #FFFFFF;
   width: normal;
   height: normal;
   margin-left: 0.25rem;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
 }
 
-.c10:hover:not(:active,:disabled) {
+.c10:hover:not(:active, :disabled) {
   background-color: #0e55d7;
 }
 
@@ -433,22 +352,12 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
 .c4 {
   margin-left: auto;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   cursor: pointer;
   border-radius: 50%;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
   height: 2rem;
@@ -471,20 +380,9 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
   position: fixed;
   inset: 0;
   z-index: 102;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   padding: 0 1.25rem;
 }
@@ -492,16 +390,11 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
 .c1 {
   max-width: 992px;
   width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
   min-height: 300px;
   background-color: #FFFFFF;
-  box-shadow: rgba(0,0,0,0.1) 0px 10px 15px -3px,rgba(0,0,0,0.05) 0px 4px 6px -2px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
   border-radius: 4px;
   z-index: 1;
 }
@@ -509,40 +402,20 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
 .c2 {
   height: 4.6875rem;
   padding: 0 1.25rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 }
 
 .c7 {
   padding: 0 1.25rem 1.25rem 1.25rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
 }
 
 .c8 {
   padding: 1.25rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
   justify-content: flex-end;
   margin-top: auto;
 }
@@ -561,6 +434,7 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
   >
     <div
       class="c1"
+      minheight="300"
       style="opacity: 0; transform: translate3d(0px, 50px, 0px);"
     >
       <div
@@ -569,11 +443,15 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
         <h2
           class="c3"
           font-family="roboto"
+          mr="0.5rem"
         >
           Create Flag Large
         </h2>
         <button
           class="c4"
+          iconsize="32px"
+          ml="auto"
+          variant="neutral"
         >
           <div
             class="c5"
@@ -602,6 +480,8 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
         <button
           class="c9"
           data-testid="button"
+          ml="0.25rem"
+          variant="neutral"
         >
           <span
             class=""
@@ -612,6 +492,8 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
         <button
           class="c10"
           data-testid="button"
+          ml="0.25rem"
+          variant="primary"
         >
           <span
             class=""

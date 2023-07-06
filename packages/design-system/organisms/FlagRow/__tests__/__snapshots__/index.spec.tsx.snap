@@ -32,8 +32,6 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
 .c15 {
   height: 1.5rem;
   width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -44,22 +42,12 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
 
 .c14 {
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   cursor: pointer;
   border-radius: 50%;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
   height: 2rem;
@@ -80,22 +68,16 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
 
 .c0 {
   padding: 1.25rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  box-shadow: rgba(0,0,0,0.1) 0px 1px 3px 0px,rgba(0,0,0,0.06) 0px 1px 2px 0px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   background-color: #FFFFFF;
   border-radius: 0.375rem;
-  -webkit-transition: box-shadow 0.2s ease-in-out;
   transition: box-shadow 0.2s ease-in-out;
 }
 
 .c0:hover {
-  box-shadow: rgba(0,0,0,0.1) 0px 10px 15px -3px,rgba(0,0,0,0.05) 0px 4px 6px -2px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
 
 .c5 {
@@ -111,18 +93,12 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
 
 .c2 {
   display: grid;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   grid-template-columns: auto 1fr 2fr 1fr auto;
   grid-gap: 1.25rem;
 }
 
 .c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
 }
 
@@ -131,8 +107,6 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
   width: 0.875rem;
   border: 1px solid #FFFFFF;
   border-radius: 50%;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
   background-color: #05944F;
 }
@@ -142,8 +116,6 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
   width: 0.875rem;
   border: 1px solid #FFFFFF;
   border-radius: 50%;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
   background-color: #CBCBCB;
 }
@@ -158,8 +130,6 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
 }
 
 .c4:not(:first-child) {
-  -webkit-transform: translateX(-0px);
-  -ms-transform: translateX(-0px);
   transform: translateX(-0px);
 }
 
@@ -172,8 +142,6 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
 }
 
 .c7:not(:first-child) {
-  -webkit-transform: translateX(-4px);
-  -ms-transform: translateX(-4px);
   transform: translateX(-4px);
 }
 
@@ -186,8 +154,6 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
 }
 
 .c9:not(:first-child) {
-  -webkit-transform: translateX(-8px);
-  -ms-transform: translateX(-8px);
   transform: translateX(-8px);
 }
 
@@ -198,6 +164,7 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
 <div
     class="c0 c1"
     data-testid="flag-card"
+    p="1.25rem"
   >
     <div
       class="c2"
@@ -208,6 +175,8 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
       >
         <div
           class="c4"
+          index="0"
+          length="3"
         >
           <div
             class="c5"
@@ -221,6 +190,8 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
         </div>
         <div
           class="c7"
+          index="1"
+          length="3"
         >
           <div
             class="c5"
@@ -234,6 +205,8 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
         </div>
         <div
           class="c9"
+          index="2"
+          length="3"
         >
           <div
             class="c5"
@@ -272,6 +245,8 @@ exports[`FlagRow Organism tests should render FlagRow correctly 1`] = `
       >
         <button
           class="c14"
+          iconsize="32px"
+          variant="neutral"
         >
           <div
             class="c15"
@@ -326,8 +301,6 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
 .c15 {
   height: 1.5rem;
   width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -338,22 +311,12 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
 
 .c14 {
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
   cursor: pointer;
   border-radius: 50%;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
   height: 2rem;
@@ -374,22 +337,16 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
 
 .c0 {
   padding: 1.25rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  box-shadow: rgba(0,0,0,0.1) 0px 1px 3px 0px,rgba(0,0,0,0.06) 0px 1px 2px 0px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   background-color: #FFFFFF;
   border-radius: 0.375rem;
-  -webkit-transition: box-shadow 0.2s ease-in-out;
   transition: box-shadow 0.2s ease-in-out;
 }
 
 .c0:hover {
-  box-shadow: rgba(0,0,0,0.1) 0px 10px 15px -3px,rgba(0,0,0,0.05) 0px 4px 6px -2px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
 
 .c5 {
@@ -405,18 +362,12 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
 
 .c2 {
   display: grid;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   grid-template-columns: auto 1fr 2fr 1fr auto;
   grid-gap: 1.25rem;
 }
 
 .c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
 }
 
@@ -425,8 +376,6 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
   width: 0.875rem;
   border: 1px solid #FFFFFF;
   border-radius: 50%;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
   background-color: #05944F;
 }
@@ -436,8 +385,6 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
   width: 0.875rem;
   border: 1px solid #FFFFFF;
   border-radius: 50%;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
   background-color: #CBCBCB;
 }
@@ -452,8 +399,6 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
 }
 
 .c4:not(:first-child) {
-  -webkit-transform: translateX(-0px);
-  -ms-transform: translateX(-0px);
   transform: translateX(-0px);
 }
 
@@ -466,8 +411,6 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
 }
 
 .c7:not(:first-child) {
-  -webkit-transform: translateX(-4px);
-  -ms-transform: translateX(-4px);
   transform: translateX(-4px);
 }
 
@@ -480,8 +423,6 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
 }
 
 .c9:not(:first-child) {
-  -webkit-transform: translateX(-8px);
-  -ms-transform: translateX(-8px);
   transform: translateX(-8px);
 }
 
@@ -492,6 +433,7 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
 <div
     class="c0 c1"
     data-testid="flag-card"
+    p="1.25rem"
   >
     <div
       class="c2"
@@ -502,6 +444,8 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
       >
         <div
           class="c4"
+          index="0"
+          length="3"
         >
           <div
             class="c5"
@@ -515,6 +459,8 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
         </div>
         <div
           class="c7"
+          index="1"
+          length="3"
         >
           <div
             class="c5"
@@ -528,6 +474,8 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
         </div>
         <div
           class="c9"
+          index="2"
+          length="3"
         >
           <div
             class="c5"
@@ -566,6 +514,8 @@ exports[`FlagRow Organism tests should render FlagRow with popup items 1`] = `
       >
         <button
           class="c14"
+          iconsize="32px"
+          variant="neutral"
         >
           <div
             class="c15"

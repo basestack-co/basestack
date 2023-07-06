@@ -62,7 +62,7 @@ const Modal: React.FC<ModalProps> = ({
                 <AnimatedSheet
                   expandMobile={expandMobile}
                   size={size}
-                  minHeight={minHeight}
+                  minHeight={minHeight ?? 0}
                   style={styles}
                 >
                   <Header>
@@ -97,11 +97,11 @@ const Modal: React.FC<ModalProps> = ({
                       })}
                   </Footer>
                 </AnimatedSheet>
-              )
+              ),
           )}
           <Overlay onClick={onClose} />
         </AnimatedModal>
-      )
+      ),
   );
 };
 

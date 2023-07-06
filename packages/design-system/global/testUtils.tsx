@@ -14,7 +14,7 @@ const WithThemeProvider = ({ children }: Props) => (
 
 const renderWithTheme = (
   ui: React.ReactElement,
-  options?: Omit<RenderOptions, "wrapper">
+  options?: Omit<RenderOptions, "wrapper">,
 ) => render(ui, { wrapper: WithThemeProvider, ...options });
 
 export { renderWithTheme };

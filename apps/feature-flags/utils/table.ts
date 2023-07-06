@@ -5,7 +5,7 @@ export function createTable<T>(
   data: Array<T>,
   headers: Array<string>,
   cols: (item: T, index: number, length: number) => Array<Col>,
-  more: (item: T, index: number, length: number) => Array<PopupItems>
+  more: (item: T, index: number, length: number) => Array<PopupItems>,
 ) {
   if (!!data) {
     const rows = data.map((item, index, { length }) => {

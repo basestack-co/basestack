@@ -13,7 +13,9 @@ export const Card = styled.button`
   box-shadow: ${({ theme }) => theme.shadow.elevation2};
   border: 1px solid ${({ theme }) => theme.colors.white};
   cursor: pointer;
-  transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  transition:
+    box-shadow 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
 
   .arrow-icon {
     visibility: hidden;

@@ -21,7 +21,7 @@ const CreateEnvironmentModal = () => {
       data: state.environmentModalPayload,
       setCreateEnvironmentModalOpen: state.setCreateEnvironmentModalOpen,
     }),
-    shallow
+    shallow,
   );
 
   const project = data && data.project;
@@ -65,7 +65,7 @@ const CreateEnvironmentModal = () => {
             if (project && result) {
               if (environments) {
                 const updated = [result.environment, ...environments].sort(
-                  (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
+                  (a, b) => a.createdAt.getTime() - b.createdAt.getTime(),
                 );
 
                 // Update the cache with the new data
@@ -73,14 +73,14 @@ const CreateEnvironmentModal = () => {
                   { projectId: project.id! },
                   {
                     environments: updated,
-                  }
+                  },
                 );
               }
 
               onClose();
             }
           },
-        }
+        },
       );
     }
   };

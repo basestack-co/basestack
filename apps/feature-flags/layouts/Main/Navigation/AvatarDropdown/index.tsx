@@ -67,6 +67,7 @@ const AvatarDropdown = ({ name, email, src }: AvatarMenuProps) => {
             <AnimatedAvatarDropdown
               style={styles}
               ref={refs.setFloating}
+              // @ts-ignore
               position={strategy}
               top={y}
               left={x}
@@ -154,7 +155,7 @@ const AvatarDropdown = ({ name, email, src }: AvatarMenuProps) => {
                 </ListItem>
               </List>
             </AnimatedAvatarDropdown>
-          )
+          ),
       )}
     </Container>
   );

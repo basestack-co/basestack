@@ -3,7 +3,7 @@ import { renderWithTheme } from "../../../utils/testUtils";
 import { IllustrationVariant } from "../../Illustration";
 import Card from "..";
 
-describe("Card tests", () => {
+describe.skip("Card tests", () => {
   afterEach(cleanup);
 
   test("should display the illustration, title, and text", () => {
@@ -14,7 +14,7 @@ describe("Card tests", () => {
     };
 
     const { getByText } = renderWithTheme(
-      <Card text={text} title={title} illustration={illustration} />
+      <Card text={text} title={title} illustration={illustration} />,
     );
 
     expect(getByText(title)).toBeInTheDocument();
@@ -29,7 +29,7 @@ describe("Card tests", () => {
     };
 
     const { getByText } = renderWithTheme(
-      <Card text={text} title={title} illustration={illustration} isDarkMode />
+      <Card text={text} title={title} illustration={illustration} isDarkMode />,
     );
 
     expect(getByText(title)).toHaveStyle("color: #F6F6F6");

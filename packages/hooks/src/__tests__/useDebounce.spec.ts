@@ -33,10 +33,13 @@ describe("useDebounce", () => {
 
   function getHook(
     ms = 5,
-    dep: DependencyList = []
+    dep: DependencyList = [],
   ): [
     jest.Mock,
-    RenderHookResult<{ delay: number; deps: DependencyList }, UseDebounceReturn>
+    RenderHookResult<
+      { delay: number; deps: DependencyList },
+      UseDebounceReturn
+    >,
   ] {
     const spy = jest.fn();
     return [

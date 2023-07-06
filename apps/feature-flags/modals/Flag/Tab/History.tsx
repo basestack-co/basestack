@@ -18,7 +18,7 @@ const HistoryTab = ({ projectId, flagId }: Props) => {
       flagId,
       projectId,
     },
-    { enabled: !!projectId && !!flagId }
+    { enabled: !!projectId && !!flagId },
   );
 
   const getHistory = useMemo(() => {

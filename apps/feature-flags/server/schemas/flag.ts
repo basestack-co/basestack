@@ -7,7 +7,7 @@ const environments = z.array(
     name: z.string(),
     id: z.string(),
     enabled: z.boolean(),
-  })
+  }),
 );
 
 const data = z.object({
@@ -44,7 +44,7 @@ export const create = withProjectId
     data: z.array(
       withFlagData.extend({
         environmentId: z.string(),
-      })
+      }),
     ),
   })
   .required();
@@ -55,7 +55,7 @@ export const update = withProjectId
     data: z.array(
       withFlagData.extend({
         id: z.string(),
-      })
+      }),
     ),
   })
   .required();

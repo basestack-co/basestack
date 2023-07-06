@@ -45,7 +45,7 @@ const Accordion = ({ title, text }: AccordionProps) => {
                 </Text>
               </ContentWrapper>
             </AnimatedContent>
-          )
+          ),
       )}
     </Container>
   );

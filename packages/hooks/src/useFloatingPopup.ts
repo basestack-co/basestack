@@ -1,5 +1,4 @@
 import { useState, useRef, useCallback } from "react";
-import { scaleInTopRight } from "@basestack/design-system";
 import { useTransition, config } from "react-spring";
 import {
   useFloating,
@@ -9,6 +8,12 @@ import {
   useRole,
   useInteractions,
 } from "@floating-ui/react";
+
+const scaleInTopRight = {
+  from: { opacity: 0, scale: 0, transformOrigin: "100% 0%" },
+  enter: { opacity: 1, scale: 1, transformOrigin: "100% 0%" },
+  leave: { opacity: 0, scale: 0, transformOrigin: "100% 0%" },
+};
 
 const useFloatingPopup = () => {
   const popupWrapperRef = useRef(null);

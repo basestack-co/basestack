@@ -16,7 +16,7 @@ describe("Popup Molecule tests", () => {
           { text: "History", onClick: () => console.log("") },
           { text: "Delete", onClick: () => console.log("") },
         ]}
-      />
+      />,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -33,7 +33,7 @@ describe("Popup Molecule tests", () => {
           { icon: "edit", text: "History", onClick: () => console.log("") },
           { icon: "edit", text: "Delete", onClick: () => console.log("") },
         ]}
-      />
+      />,
     );
 
     expect(asFragment()).toMatchSnapshot();

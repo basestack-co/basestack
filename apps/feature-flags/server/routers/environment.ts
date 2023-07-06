@@ -72,7 +72,7 @@ export const environmentRouter = router({
               },
             },
           });
-        })
+        }),
       );
 
       const environment = await authorized();
@@ -94,7 +94,7 @@ export const environmentRouter = router({
             name: input.name,
             description: input.description,
           },
-        })
+        }),
       );
 
       const environment = await authorized();
@@ -127,7 +127,7 @@ export const environmentRouter = router({
               message: "You cannot delete the default environment",
             });
           }
-        })
+        }),
       );
 
       const environment = await authorized();

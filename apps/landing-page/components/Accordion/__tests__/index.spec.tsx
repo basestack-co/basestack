@@ -10,7 +10,7 @@ describe("Accordion tests", () => {
     const text = "This is the content of the accordion.";
 
     const { asFragment } = renderWithTheme(
-      <Accordion text={text} title={title} />
+      <Accordion text={text} title={title} />,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -21,7 +21,7 @@ describe("Accordion tests", () => {
     const text = "This is the content of the accordion.";
 
     const { getByText } = renderWithTheme(
-      <Accordion title={title} text={text} />
+      <Accordion title={title} text={text} />,
     );
 
     const header = getByText(title);

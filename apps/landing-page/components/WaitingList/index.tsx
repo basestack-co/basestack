@@ -86,8 +86,7 @@ const WaitingList = ({ data }: WaitingListProps) => {
     formState: { errors, isSubmitting },
     reset,
   } = useForm<FormInputs>({
-    // @ts-ignore
-    resolver: zodResolver(FormSchema), // TODO: fix this, broken after the 3.0.0 release
+    resolver: zodResolver(FormSchema),
     mode: "onChange",
   });
 
@@ -108,7 +107,7 @@ const WaitingList = ({ data }: WaitingListProps) => {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       const data = await res.json();

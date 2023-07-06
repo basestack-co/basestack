@@ -19,7 +19,9 @@ const sharedButtonStyles = css`
   cursor: pointer;
   border-radius: 4px;
   text-decoration: none;
-  transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out,
+  transition:
+    background-color 0.1s ease-in-out,
+    color 0.1s ease-in-out,
     border-color 0.1s ease-in-out;
 `;
 
@@ -123,7 +125,7 @@ export const dangerFilledButtonStyles = css`
 `;
 
 const handleButtonVariant = (
-  variant: ButtonVariant = ButtonVariant.Primary
+  variant: ButtonVariant = ButtonVariant.Primary,
 ) => {
   const buttonVariant = {
     [ButtonVariant.Primary]: primaryButtonStyles,

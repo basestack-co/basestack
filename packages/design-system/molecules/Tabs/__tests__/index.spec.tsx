@@ -13,7 +13,7 @@ describe("Tabs Molecule tests", () => {
           { text: "Advanced", id: "advanced" },
         ]}
         onSelect={jest.fn()}
-      />
+      />,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -28,7 +28,7 @@ describe("Tabs Molecule tests", () => {
         ]}
         onSelect={jest.fn()}
         mb={20}
-      />
+      />,
     );
 
     expect(asFragment()).toMatchSnapshot();

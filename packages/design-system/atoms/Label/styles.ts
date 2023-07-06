@@ -1,6 +1,7 @@
-import styled, { ThemedStyledProps } from "styled-components";
+import styled from "styled-components";
 import { rem, transparentize } from "polished";
 import { LabelVariant, LabelSize } from "./types";
+import { ThemeInterface } from "../../types/styled-components";
 
 const getSizeStyles = (size: LabelSize) => {
   const styles = {
@@ -21,10 +22,7 @@ const getSizeStyles = (size: LabelSize) => {
   return styles[size];
 };
 
-const getSolidStyles = (
-  theme: ThemedStyledProps<any, any>,
-  variant: LabelVariant
-) => {
+const getSolidStyles = (theme: ThemeInterface, variant: LabelVariant) => {
   const colors = {
     success: {
       color: theme.colors.white,
@@ -43,10 +41,7 @@ const getSolidStyles = (
   return colors[variant];
 };
 
-const getTranslucentStyles = (
-  theme: ThemedStyledProps<any, any>,
-  variant: LabelVariant
-) => {
+const getTranslucentStyles = (theme: ThemeInterface, variant: LabelVariant) => {
   const colors = {
     success: {
       color: theme.colors.green600,

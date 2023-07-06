@@ -28,16 +28,8 @@ exports[`SectionHeader tests render default SectionHeader correctly 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   max-width: 720px;
 }
@@ -50,6 +42,9 @@ exports[`SectionHeader tests render default SectionHeader correctly 1`] = `
       color="#000000"
       font-family="robotoFlex"
       font-size="2.625rem"
+      lineheight="1.4"
+      mb="0.5rem"
+      textalign="center"
     >
       Section Title
     </h2>
@@ -58,6 +53,8 @@ exports[`SectionHeader tests render default SectionHeader correctly 1`] = `
       color="#757575"
       font-family="roboto"
       font-weight="400"
+      lineheight="1.6"
+      textalign="center"
     >
       Section Text
     </p>
@@ -93,16 +90,8 @@ exports[`SectionHeader tests render large SectionHeader in dark mode 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   max-width: 720px;
   margin-bottom: 3.125rem;
@@ -116,6 +105,9 @@ exports[`SectionHeader tests render large SectionHeader in dark mode 1`] = `
       color="#F6F6F6"
       font-family="robotoFlex"
       font-size="3.75rem"
+      lineheight="1.4"
+      mb="0.5rem"
+      textalign="center"
     >
       Section Title
     </h1>
@@ -124,6 +116,8 @@ exports[`SectionHeader tests render large SectionHeader in dark mode 1`] = `
       color="#CBCBCB"
       font-family="roboto"
       font-weight="400"
+      lineheight="1.6"
+      textalign="center"
     >
       Section Text
     </p>

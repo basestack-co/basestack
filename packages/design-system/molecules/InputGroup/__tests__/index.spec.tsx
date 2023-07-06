@@ -15,7 +15,7 @@ describe("InputGroup Molecule tests", () => {
           name: "feature",
           value: "",
         }}
-      />
+      />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -31,7 +31,7 @@ describe("InputGroup Molecule tests", () => {
           value: "",
         }}
         hint="no special characters"
-      />
+      />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -47,7 +47,7 @@ describe("InputGroup Molecule tests", () => {
           value: "",
         }}
         label="0 / 120"
-      />
+      />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -63,7 +63,7 @@ describe("InputGroup Molecule tests", () => {
           onChange: jest.fn(),
           placeholder: "Description",
         }}
-      />
+      />,
     );
     expect(asFragment()).toMatchSnapshot();
   });

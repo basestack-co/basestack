@@ -77,7 +77,7 @@ export interface HistoryItemDetails {
 const createFlagPayload = (
   data: FlagData,
   input: FlagInput,
-  path: string
+  path: string,
 ): FlagPayload => {
   const isDelete = path === "flag.delete";
   const { flags } = data;
@@ -138,7 +138,7 @@ export const createHistory = async (
   session: Session,
   path: string,
   data: any,
-  input: any
+  input: any,
 ) => {
   const action = pathActionMap[path];
 
@@ -174,7 +174,7 @@ export const createHistory = async (
 };
 
 export const getHistoryItemDetails = (
-  item: RouterOutput["history"]["all"]["history"][0]
+  item: RouterOutput["history"]["all"]["history"][0],
 ): HistoryItemDetails => {
   const { payload, action, createdAt } = item;
   const { user, flag } = payload as any;

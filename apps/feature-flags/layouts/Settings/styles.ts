@@ -47,7 +47,7 @@ export const ListItem = styled.li`
   display: flex;
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink: any = styled(Link)`
   display: flex;
   flex-direction: column;
   flex-grow: 1;

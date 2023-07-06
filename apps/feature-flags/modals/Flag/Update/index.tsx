@@ -24,7 +24,7 @@ const UpdateFlagModal = () => {
   const isModalOpen = useStore((state) => state.isUpdateFlagModalOpen);
   const modalPayload = useStore((state) => state.flagModalPayload);
   const setUpdateFlagModalOpen = useStore(
-    (state) => state.setUpdateFlagModalOpen
+    (state) => state.setUpdateFlagModalOpen,
   );
 
   const projectSlug = router.query.projectSlug as string;
@@ -48,7 +48,7 @@ const UpdateFlagModal = () => {
 
   const { isLoading, data: bySlugData } = trpc.flag.bySlug.useQuery(
     { slug: modalPayload?.flag?.slug!, projectId: project?.id! },
-    { enabled: !!project?.id && !!modalPayload?.flag?.slug }
+    { enabled: !!project?.id && !!modalPayload?.flag?.slug },
   );
 
   const onClose = () => setUpdateFlagModalOpen({ isOpen: false });
@@ -57,7 +57,7 @@ const UpdateFlagModal = () => {
     if (project && bySlugData) {
       const data = input.environments.map((env) => {
         const current = bySlugData.content.find(
-          ({ environmentId }) => environmentId === env.id
+          ({ environmentId }) => environmentId === env.id,
         );
 
         return {
@@ -82,7 +82,7 @@ const UpdateFlagModal = () => {
             await trpcContext.flag.all.invalidate();
             onClose();
           },
-        }
+        },
       );
     }
   };

@@ -1,6 +1,7 @@
 {
   "extends": "@basestack/tsconfig/base.json",
   "compilerOptions": {
+    "baseUrl": "src",
     "module": "commonjs",
     "declaration": true,
     "outDir": "./lib",

@@ -41,7 +41,7 @@ describe("Slider tests", () => {
         title="Release with Confidence"
         text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
         data={slides}
-      />
+      />,
     );
 
     expect(asFragment()).toMatchSnapshot();

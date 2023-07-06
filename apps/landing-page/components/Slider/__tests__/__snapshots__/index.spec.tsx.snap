@@ -3,27 +3,14 @@
 exports[`Slider tests render Slider correctly 1`] = `
 <DocumentFragment>
   .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
   padding: 6.25rem 1.25rem;
 }
 
 .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   max-width: 1440px;
   width: 100%;
@@ -32,7 +19,7 @@ exports[`Slider tests render Slider correctly 1`] = `
 
 .c5 {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 1.25rem;
   max-width: 1100px;
   width: 100%;
@@ -88,8 +75,6 @@ exports[`Slider tests render Slider correctly 1`] = `
 .c8 {
   height: 1.5rem;
   width: 1.5rem;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
@@ -106,20 +91,14 @@ exports[`Slider tests render Slider correctly 1`] = `
 .c6 {
   position: relative;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
   text-align: left;
   background-color: #FFFFFF;
   border-radius: 1.25rem;
   padding: 1.25rem 1.25rem 1.5625rem 1.25rem;
-  box-shadow: rgba(0,0,0,0.1) 0px 4px 6px -1px,rgba(0,0,0,0.06) 0px 2px 4px -1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   cursor: pointer;
-  -webkit-transition: scale 0.2s ease-in-out;
   transition: scale 0.2s ease-in-out;
   overflow: hidden;
 }
@@ -129,7 +108,6 @@ exports[`Slider tests render Slider correctly 1`] = `
   position: absolute;
   bottom: 0;
   left: 0;
-  -webkit-animation: bHTXJE 10s linear;
   animation: bHTXJE 10s linear;
   height: 5px;
   background-color: #276EF1;
@@ -138,46 +116,29 @@ exports[`Slider tests render Slider correctly 1`] = `
 .c12 {
   position: relative;
   border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
   text-align: left;
   background-color: #F6F6F6;
   border-radius: 1.25rem;
   padding: 1.25rem 1.25rem 1.5625rem 1.25rem;
-  box-shadow: rgba(0,0,0,0.1) 0px 4px 6px -1px,rgba(0,0,0,0.06) 0px 2px 4px -1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   cursor: pointer;
-  -webkit-transition: scale 0.2s ease-in-out;
   transition: scale 0.2s ease-in-out;
   overflow: hidden;
 }
 
 .c7 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   margin-bottom: 0.75rem;
 }
 
 .c14 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
   background-color: #F6F6F6;
-  box-shadow: rgba(0,0,0,0.25) 0px 25px 50px -12px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
   border-radius: 1.25rem;
   width: 100%;
   overflow: hidden;
@@ -190,28 +151,20 @@ exports[`Slider tests render Slider correctly 1`] = `
 }
 
 .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   max-width: 720px;
   margin-bottom: 3.125rem;
 }
 
-@media screen and (max-width:991.98px) {
+@media screen and (max-width: 991.98px) {
   .c5 {
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media screen and (max-width:767.98px) {
+@media screen and (max-width: 767.98px) {
   .c5 {
     grid-template-columns: 1fr;
   }
@@ -231,6 +184,9 @@ exports[`Slider tests render Slider correctly 1`] = `
           color="#000000"
           font-family="robotoFlex"
           font-size="2.625rem"
+          lineheight="1.4"
+          mb="0.5rem"
+          textalign="center"
         >
           Release with Confidence
         </h2>
@@ -239,6 +195,8 @@ exports[`Slider tests render Slider correctly 1`] = `
           color="#757575"
           font-family="roboto"
           font-weight="400"
+          lineheight="1.6"
+          textalign="center"
         >
           MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags.
         </p>
@@ -247,6 +205,7 @@ exports[`Slider tests render Slider correctly 1`] = `
         class="c5"
       >
         <button
+          animationtime="10"
           class="c6"
         >
           <div
@@ -269,6 +228,7 @@ exports[`Slider tests render Slider correctly 1`] = `
             <h3
               class="c10"
               font-family="roboto"
+              ml="0.75rem"
             >
               User traits
             </h3>
@@ -277,11 +237,13 @@ exports[`Slider tests render Slider correctly 1`] = `
             class="c11"
             font-family="roboto"
             font-weight="400"
+            lineheight="1.6"
           >
             MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.
           </p>
         </button>
         <button
+          animationtime="10"
           class="c12"
         >
           <div
@@ -304,6 +266,7 @@ exports[`Slider tests render Slider correctly 1`] = `
             <h3
               class="c10"
               font-family="roboto"
+              ml="0.75rem"
             >
               Staged feature rollouts
             </h3>
@@ -312,11 +275,13 @@ exports[`Slider tests render Slider correctly 1`] = `
             class="c11"
             font-family="roboto"
             font-weight="400"
+            lineheight="1.6"
           >
             MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.
           </p>
         </button>
         <button
+          animationtime="10"
           class="c12"
         >
           <div
@@ -339,6 +304,7 @@ exports[`Slider tests render Slider correctly 1`] = `
             <h3
               class="c10"
               font-family="roboto"
+              ml="0.75rem"
             >
               Track Changes
             </h3>
@@ -347,6 +313,7 @@ exports[`Slider tests render Slider correctly 1`] = `
             class="c11"
             font-family="roboto"
             font-weight="400"
+            lineheight="1.6"
           >
             MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.
           </p>

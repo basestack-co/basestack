@@ -20,7 +20,7 @@ describe("Questions tests", () => {
     ];
 
     const { getByText } = renderWithTheme(
-      <Questions title={title} text={text} data={data} />
+      <Questions title={title} text={text} data={data} />,
     );
 
     expect(getByText(title)).toBeInTheDocument();

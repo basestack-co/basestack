@@ -7,7 +7,7 @@ describe("IconButton Atom tests", () => {
 
   test("should render IconButton correctly", () => {
     const { asFragment } = renderWithTheme(
-      <IconButton onClick={jest.fn()} icon="help" />
+      <IconButton onClick={jest.fn()} icon="help" />,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -15,7 +15,7 @@ describe("IconButton Atom tests", () => {
 
   test("should render primary IconButton", () => {
     const { asFragment } = renderWithTheme(
-      <IconButton onClick={jest.fn()} icon="help" variant="primary" />
+      <IconButton onClick={jest.fn()} icon="help" variant="primary" />,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -23,7 +23,7 @@ describe("IconButton Atom tests", () => {
 
   test("should render primaryNeutral IconButton", () => {
     const { asFragment } = renderWithTheme(
-      <IconButton onClick={jest.fn()} icon="help" variant="primaryNeutral" />
+      <IconButton onClick={jest.fn()} icon="help" variant="primaryNeutral" />,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -31,7 +31,7 @@ describe("IconButton Atom tests", () => {
 
   test("should render secondary IconButton", () => {
     const { asFragment } = renderWithTheme(
-      <IconButton onClick={jest.fn()} icon="help" variant="secondary" />
+      <IconButton onClick={jest.fn()} icon="help" variant="secondary" />,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -44,7 +44,7 @@ describe("IconButton Atom tests", () => {
         icon="help"
         variant="secondary"
         size="large"
-      />
+      />,
     );
 
     expect(asFragment()).toMatchSnapshot();

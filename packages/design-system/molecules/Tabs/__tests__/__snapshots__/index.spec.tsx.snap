@@ -13,9 +13,6 @@ exports[`Tabs Molecule tests should render Tabs correctly 1`] = `
 }
 
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   background-color: #FFFFFF;
   position: relative;
@@ -26,23 +23,11 @@ exports[`Tabs Molecule tests should render Tabs correctly 1`] = `
   background-color: transparent;
   cursor: pointer;
   height: 2.75rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-flex: 1 0 0;
-  -ms-flex: 1 0 0;
   flex: 1 0 0;
   padding: 0 0.75rem;
-  -webkit-transition: background-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out;
   border-bottom: 2px solid #E2E2E2;
 }
@@ -60,11 +45,7 @@ exports[`Tabs Molecule tests should render Tabs correctly 1`] = `
   background-color: #000000;
   height: 2px;
   width: calc((100% / 2));
-  -webkit-transition: -webkit-transform 0.2s ease-in-out;
-  -webkit-transition: transform 0.2s ease-in-out;
   transition: transform 0.2s ease-in-out;
-  -webkit-transform: translateX(0%);
-  -ms-transform: translateX(0%);
   transform: translateX(0%);
 }
 
@@ -100,6 +81,8 @@ exports[`Tabs Molecule tests should render Tabs correctly 1`] = `
     </button>
     <div
       class="c3"
+      numberofitems="2"
+      translatex="0"
     />
   </div>
 </DocumentFragment>
@@ -119,9 +102,6 @@ exports[`Tabs Molecule tests should render Tabs with space utils 1`] = `
 
 .c0 {
   margin-bottom: 20px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   background-color: #FFFFFF;
   position: relative;
@@ -132,23 +112,11 @@ exports[`Tabs Molecule tests should render Tabs with space utils 1`] = `
   background-color: transparent;
   cursor: pointer;
   height: 2.75rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-flex: 1 0 0;
-  -ms-flex: 1 0 0;
   flex: 1 0 0;
   padding: 0 0.75rem;
-  -webkit-transition: background-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out;
   border-bottom: 2px solid #E2E2E2;
 }
@@ -166,17 +134,14 @@ exports[`Tabs Molecule tests should render Tabs with space utils 1`] = `
   background-color: #000000;
   height: 2px;
   width: calc((100% / 2));
-  -webkit-transition: -webkit-transform 0.2s ease-in-out;
-  -webkit-transition: transform 0.2s ease-in-out;
   transition: transform 0.2s ease-in-out;
-  -webkit-transform: translateX(0%);
-  -ms-transform: translateX(0%);
   transform: translateX(0%);
 }
 
 <div
     class="c0"
     data-testid="tabs-component"
+    mb="20"
   >
     <button
       class="c1"
@@ -206,6 +171,8 @@ exports[`Tabs Molecule tests should render Tabs with space utils 1`] = `
     </button>
     <div
       class="c3"
+      numberofitems="2"
+      translatex="0"
     />
   </div>
 </DocumentFragment>

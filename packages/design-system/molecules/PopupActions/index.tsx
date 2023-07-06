@@ -42,7 +42,7 @@ const PopupActions = forwardRef<HTMLDivElement, PopupActionsProps>(
           onCallback();
         }
       },
-      [onCallback]
+      [onCallback],
     );
 
     return (
@@ -84,7 +84,7 @@ const PopupActions = forwardRef<HTMLDivElement, PopupActionsProps>(
         </Button>
       </Container>
     );
-  }
+  },
 );
 
 PopupActions.displayName = "PopupActions";

@@ -82,7 +82,7 @@ const ProjectsMenu = ({
                 onClick: onClickCreate,
               }}
             />
-          )
+          ),
       )}
     </ListItem>
   );

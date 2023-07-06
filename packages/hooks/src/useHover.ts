@@ -13,7 +13,7 @@ const useHover = () => {
         setHovered(false);
       },
     }),
-    []
+    [],
   );
 
   return [hovered, eventHandlers];

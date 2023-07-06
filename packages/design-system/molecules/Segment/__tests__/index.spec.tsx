@@ -13,7 +13,7 @@ describe("Segment Molecule tests", () => {
           { icon: "view_module", id: "cards" },
           { icon: "view_stream", id: "table" },
         ]}
-      />
+      />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -26,7 +26,7 @@ describe("Segment Molecule tests", () => {
           { text: "Item 1", icon: "view_module", id: "cards" },
           { text: "Item 2", icon: "view_stream", id: "table" },
         ]}
-      />
+      />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -39,7 +39,7 @@ describe("Segment Molecule tests", () => {
           { text: "Item 1", id: "cards" },
           { text: "Item 2", id: "table" },
         ]}
-      />
+      />,
     );
     const item1 = getAllByTestId("segment-button")[0];
 

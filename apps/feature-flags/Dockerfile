@@ -1,15 +1,11 @@
-# This Dockerfile is copy-pasted into our main docs at /docs/handbook/deploying-with-docker.
-# Make sure you update both files!
-
 FROM node:alpine AS builder
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
 RUN apk update
 # Set working directory
 WORKDIR /app
 RUN yarn global add turbo
 COPY . .
-RUN turbo prune --scope=feature-flags --docker
+RUN turbo prune --scope=@basestack/feature-flags --docker
 
 # Add lockfile and package.json's of isolated subworkspace
 FROM node:alpine AS installer
@@ -25,16 +21,10 @@ RUN yarn install
 
 # Build the project
 COPY --from=builder /app/out/full/ .
-COPY turbo.json turbo.json
+RUN yarn deploy:feature-flags
 
-# Uncomment and use build args to enable remote caching
-# ARG TURBO_TEAM
-# ENV TURBO_TEAM=$TURBO_TEAM
-
-# ARG TURBO_TOKEN
-# ENV TURBO_TOKEN=$TURBO_TOKEN
-
-RUN yarn turbo run build --filter=feature-flags...
+ARG APP_VERSION
+ENV NEXT_PUBLIC_APP_VERSION=$APP_VERSION
 
 FROM node:alpine AS runner
 WORKDIR /app
@@ -47,9 +37,13 @@ USER nextjs
 COPY --from=installer /app/apps/feature-flags/next.config.js .
 COPY --from=installer /app/apps/feature-flags/package.json .
 
+ENV PORT 3000
+EXPOSE 3000
+
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=installer --chown=nextjs:nodejs /app/apps/feature-flags/.next/standalone ./
-COPY --from=installer --chown=nextjs:nodejs /app/apps/feature-flags/.next/static ./apps/feature-flags/.next/static
+COPY --from=installer --chown=nextjs:nodejs /app/apps/feature-flags/.next/static ./apps/web/.next/static
+COPY --from=installer --chown=nextjs:nodejs /app/apps/feature-flags/public ./apps/web/public
 
 CMD node apps/feature-flags/server.js
