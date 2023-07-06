@@ -71,7 +71,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>(
           })}
       </List>
     </Container>
-  )
+  ),
 );
 
 Popup.displayName = "Popup";

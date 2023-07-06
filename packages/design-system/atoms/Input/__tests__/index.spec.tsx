@@ -13,7 +13,7 @@ describe("Input Atom tests", () => {
         onChange={jest.fn()}
         name="feature"
         value=""
-      />
+      />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -25,7 +25,7 @@ describe("Input Atom tests", () => {
         onChange={jest.fn()}
         name="feature"
         value=""
-      />
+      />,
     );
     const container = getByTestId("input-container");
 
@@ -42,7 +42,7 @@ describe("Input Atom tests", () => {
         format="normal"
         name="feature"
         value=""
-      />
+      />,
     );
     const input = getByTestId("input");
 
@@ -61,7 +61,7 @@ describe("Input Atom tests", () => {
         onChange={jest.fn()}
         name="feature"
         value=""
-      />
+      />,
     );
     const input = getByTestId("input");
 
@@ -77,7 +77,7 @@ describe("Input Atom tests", () => {
         onChange={jest.fn()}
         name="feature"
         value=""
-      />
+      />,
     );
     const input = getByTestId("input");
     const iconContainer = getByTestId("icon-container");
@@ -98,7 +98,7 @@ describe("Input Atom tests", () => {
         onChange={jest.fn()}
         name="feature"
         value=""
-      />
+      />,
     );
     const input = getByTestId("input");
     const iconContainer = getByTestId("icon-container");

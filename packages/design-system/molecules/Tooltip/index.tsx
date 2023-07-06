@@ -70,7 +70,7 @@ export function useTooltip({
       ...interactions,
       ...data,
     }),
-    [open, setOpen, interactions, data]
+    [open, setOpen, interactions, data],
   );
 }
 
@@ -119,7 +119,7 @@ export const TooltipTrigger = React.forwardRef<
         ...props,
         ...children.props,
         "data-state": context.open ? "open" : "closed",
-      })
+      }),
     );
   }
 

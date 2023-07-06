@@ -18,7 +18,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const isMobile = useMediaQuery(theme.device.max.lg);
   const router = useRouter();
   const setCreateFlagModalOpen = useStore(
-    (state) => state.setCreateFlagModalOpen
+    (state) => state.setCreateFlagModalOpen,
   );
   const { status } = useSession({
     required: true,
@@ -29,7 +29,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   const { data, isLoading: isLoadingProjects } = trpc.project.all.useQuery(
     undefined,
-    { enabled: status === "authenticated" }
+    { enabled: status === "authenticated" },
   );
 
   if (status === "loading" || isLoadingProjects) {

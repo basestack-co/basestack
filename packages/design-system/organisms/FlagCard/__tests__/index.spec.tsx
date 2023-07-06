@@ -17,7 +17,7 @@ describe("FlagCard Molecule tests", () => {
         ]}
         date="Created 11 jan 2022"
         popupItems={[]}
-      />
+      />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -38,7 +38,7 @@ describe("FlagCard Molecule tests", () => {
           { text: "History", onClick: () => console.log("") },
           { text: "Delete", onClick: () => console.log("") },
         ]}
-      />
+      />,
     );
     expect(asFragment()).toMatchSnapshot();
   });

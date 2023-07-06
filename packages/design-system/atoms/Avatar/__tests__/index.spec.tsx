@@ -8,7 +8,7 @@ describe("Avatar Atom tests", () => {
 
   test("render Avatar correctly", () => {
     const { asFragment, getByTestId } = renderWithTheme(
-      <Avatar alt="avatar" />
+      <Avatar alt="avatar" />,
     );
     const avatar = getByTestId("avatar");
 
@@ -20,7 +20,7 @@ describe("Avatar Atom tests", () => {
 
   test("should render Avatar with user name initials", () => {
     const { asFragment } = renderWithTheme(
-      <Avatar userName="Flávio Amaral" alt="user_avatar" />
+      <Avatar userName="Flávio Amaral" alt="user_avatar" />,
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -28,7 +28,7 @@ describe("Avatar Atom tests", () => {
 
   test("should render squared Avatar", () => {
     const { getByTestId } = renderWithTheme(
-      <Avatar userName="Flávio Amaral" alt="user_avatar" round={false} />
+      <Avatar userName="Flávio Amaral" alt="user_avatar" round={false} />,
     );
     const avatar = getByTestId("avatar");
 
@@ -37,7 +37,7 @@ describe("Avatar Atom tests", () => {
 
   test("should render large Avatar", () => {
     const { getByTestId } = renderWithTheme(
-      <Avatar size="large" alt="avatar" />
+      <Avatar size="large" alt="avatar" />,
     );
     const avatar = getByTestId("avatar");
 
@@ -47,7 +47,7 @@ describe("Avatar Atom tests", () => {
 
   test("should render medium Avatar", () => {
     const { getByTestId } = renderWithTheme(
-      <Avatar size="medium" alt="avatar" />
+      <Avatar size="medium" alt="avatar" />,
     );
     const avatar = getByTestId("avatar");
 
@@ -57,7 +57,7 @@ describe("Avatar Atom tests", () => {
 
   test("should render small Avatar", () => {
     const { getByTestId } = renderWithTheme(
-      <Avatar size="small" alt="avatar" />
+      <Avatar size="small" alt="avatar" />,
     );
     const avatar = getByTestId("avatar");
 

@@ -61,11 +61,11 @@ const Navigation = ({ isDesktop, data }: NavigationProps) => {
   const router = useRouter();
 
   const setCreateProjectModalOpen = useStore(
-    (state) => state.setCreateProjectModalOpen
+    (state) => state.setCreateProjectModalOpen,
   );
 
   const setCreateFlagModalOpen = useStore(
-    (state) => state.setCreateFlagModalOpen
+    (state) => state.setCreateFlagModalOpen,
   );
 
   const projectSlug = router.query.projectSlug as string;
@@ -88,7 +88,7 @@ const Navigation = ({ isDesktop, data }: NavigationProps) => {
           </ListItem>
         );
       }),
-    [router.pathname, projectSlug]
+    [router.pathname, projectSlug],
   );
 
   const onSelectProject = useCallback(
@@ -98,7 +98,7 @@ const Navigation = ({ isDesktop, data }: NavigationProps) => {
         query: { projectSlug },
       });
     },
-    [router]
+    [router],
   );
 
   const projects = useMemo(
@@ -111,7 +111,7 @@ const Navigation = ({ isDesktop, data }: NavigationProps) => {
           text: item.name,
         };
       }),
-    [data, onSelectProject]
+    [data, onSelectProject],
   );
 
   return (

@@ -27,7 +27,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
     >
       {children}
     </Container>
-  )
+  ),
 );
 
 Card.displayName = "Card";

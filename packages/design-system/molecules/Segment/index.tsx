@@ -24,7 +24,7 @@ export interface SegmentProps extends SpaceProps {
 
 const reducer = (
   state: any,
-  action: { type: any; payload: { selected: number; translateX: number } }
+  action: { type: any; payload: { selected: number; translateX: number } },
 ) => {
   switch (action.type) {
     case "SET_SELECTED_VALUES":

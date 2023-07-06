@@ -177,7 +177,7 @@ export const projectRouter = router({
           data: {
             name: input.name,
           },
-        })
+        }),
       );
 
       const project = await authorized();
@@ -195,7 +195,7 @@ export const projectRouter = router({
           where: {
             id: input.projectId,
           },
-        })
+        }),
       );
 
       const project = await authorized();
@@ -223,7 +223,7 @@ export const projectRouter = router({
             },
             role: "USER",
           },
-        })
+        }),
       );
 
       const connection = await authorized();
@@ -248,9 +248,10 @@ export const projectRouter = router({
             role: input.role,
           },
           select: {
+            userId: true,
             role: true,
           },
-        })
+        }),
       );
 
       const connection = await authorized();
@@ -271,7 +272,7 @@ export const projectRouter = router({
               userId: input.userId,
             },
           },
-        })
+        }),
       );
 
       const connection = await authorized();

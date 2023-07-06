@@ -26,7 +26,7 @@ const AllProviders = ({ children, initialState = {} }: AllProvidersProps) => {
 const renderWithAllProviders = (
   ui: React.ReactElement,
   initialState?: {},
-  options?: Omit<RenderOptions, "wrapper">
+  options?: Omit<RenderOptions, "wrapper">,
 ) =>
   render(ui, {
     // @ts-ignore
@@ -40,7 +40,7 @@ const WithThemeProvider = ({ children }: WithChildrenProps) => (
 
 const renderWithTheme = (
   ui: React.ReactElement,
-  options?: Omit<RenderOptions, "wrapper">
+  options?: Omit<RenderOptions, "wrapper">,
   // @ts-ignore
 ) => render(ui, { wrapper: WithThemeProvider, ...options });
 

@@ -60,7 +60,7 @@ const AdvanceTab = ({
     ({ updated_src }: InteractionProps) => {
       setValue("payload", JSON.stringify(updated_src));
     },
-    [setValue]
+    [setValue],
   );
 
   useClickAway(calendarInputRef, () => {

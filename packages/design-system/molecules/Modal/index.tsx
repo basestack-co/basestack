@@ -97,11 +97,11 @@ const Modal: React.FC<ModalProps> = ({
                       })}
                   </Footer>
                 </AnimatedSheet>
-              )
+              ),
           )}
           <Overlay onClick={onClose} />
         </AnimatedModal>
-      )
+      ),
   );
 };
 

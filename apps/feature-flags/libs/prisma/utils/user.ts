@@ -6,7 +6,7 @@ export const getUserInProject = async (
   prisma: PrismaClient,
   userId: string,
   projectId: string,
-  projectSlug: string
+  projectSlug: string,
 ) => {
   try {
     const condition = !!projectId ? { id: projectId } : { slug: projectSlug };

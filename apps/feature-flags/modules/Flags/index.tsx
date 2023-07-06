@@ -36,7 +36,7 @@ const Flags = ({ project }: Props) => {
     (selected: string) => {
       setSelectedView({ view: selected as SelectedView });
     },
-    [setSelectedView]
+    [setSelectedView],
   );
 
   return (

@@ -155,7 +155,7 @@ const AvatarDropdown = ({ name, email, src }: AvatarMenuProps) => {
                 </ListItem>
               </List>
             </AnimatedAvatarDropdown>
-          )
+          ),
       )}
     </Container>
   );

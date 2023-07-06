@@ -6,7 +6,7 @@ export type UseDebounceReturn = [() => boolean | null, () => void];
 export default function useDebounce(
   fn: () => void,
   ms = 0,
-  deps: DependencyList = []
+  deps: DependencyList = [],
 ): UseDebounceReturn {
   const [isReady, cancel, reset] = useTimeoutFn(fn, ms);
 

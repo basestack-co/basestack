@@ -43,8 +43,7 @@ const useFlagForm = ({
     reset,
     getValues,
   } = useForm<FlagFormInputs>({
-    // @ts-ignore
-    resolver: zodResolver(FlagFormSchema), // TODO: fix this, broken after the 3.0.0 release
+    resolver: zodResolver(FlagFormSchema),
     mode: "onChange",
   });
 
@@ -53,7 +52,7 @@ const useFlagForm = ({
       const cache = trpcContext.project.all.getData();
 
       return ((cache && cache.projects) || []).find(
-        (project) => project.slug === projectSlug
+        (project) => project.slug === projectSlug,
       );
     }
 
@@ -64,7 +63,7 @@ const useFlagForm = ({
     { projectId: project?.id! },
     {
       enabled: !!project?.id,
-    }
+    },
   );
 
   useEffect(() => {
@@ -74,7 +73,7 @@ const useFlagForm = ({
           id,
           name,
           enabled: false,
-        })
+        }),
       );
       setValue("environments", environments);
     }
@@ -82,7 +81,7 @@ const useFlagForm = ({
 
   const onRenderTab = (
     isLoading: boolean = false,
-    isUpdate: boolean = false
+    isUpdate: boolean = false,
   ) => {
     switch (selectedTab) {
       case TabType.CORE:

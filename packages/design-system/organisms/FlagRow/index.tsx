@@ -25,7 +25,7 @@ const AnimatedPopup = animated(Popup);
 const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
   (
     { title, description, environments, popupItems = [], date, ...props },
-    ref
+    ref,
   ) => {
     const theme = useTheme();
 
@@ -102,13 +102,13 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
                     items={popupItems}
                     onClickList={onCloseMenu}
                   />
-                )
+                ),
             )}
           </PopupWrapper>
         </CardWrapper>
       </StyledCard>
     );
-  }
+  },
 );
 
 FlagRow.displayName = "FlagRow";

@@ -8,7 +8,7 @@ describe("Portal Component", () => {
     const { container } = render(
       <div id="portal">
         <Portal selector="#portal">Portal Content</Portal>
-      </div>
+      </div>,
     );
     // @ts-ignore
     expect(container.firstChild).toMatchSnapshot();

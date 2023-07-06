@@ -34,8 +34,7 @@ const ProjectNameCard = ({ project }: Props) => {
     formState: { errors, isSubmitting },
     setValue,
   } = useForm<FormInputs>({
-    // @ts-ignore
-    resolver: zodResolver(FormSchema), // TODO: fix this, broken after the 3.0.0 release
+    resolver: zodResolver(FormSchema),
     mode: "onChange",
   });
 
@@ -57,7 +56,7 @@ const ProjectNameCard = ({ project }: Props) => {
               projects: cacheAllProjects.projects.map((project) =>
                 project.id === result.project.id
                   ? { ...project, name: result.project.name }
-                  : project
+                  : project,
               ),
             });
           }
@@ -75,11 +74,11 @@ const ProjectNameCard = ({ project }: Props) => {
                   ...cacheProject.project,
                   name: result.project.name,
                 },
-              }
+              },
             );
           }
         },
-      }
+      },
     );
   };
 

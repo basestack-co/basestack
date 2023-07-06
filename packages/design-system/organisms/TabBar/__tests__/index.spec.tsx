@@ -19,7 +19,7 @@ describe("TabBar Organism tests", () => {
 
   test("should render TabBar correctly", () => {
     const { asFragment } = renderWithTheme(
-      <TabBar onCreateFlag={jest.fn} pathname="/settings" />
+      <TabBar onCreateFlag={jest.fn} pathname="/settings" />,
     );
     expect(asFragment()).toMatchSnapshot();
   });

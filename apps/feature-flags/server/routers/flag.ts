@@ -75,7 +75,7 @@ export const flagRouter = router({
                   enabled: item.enabled,
                 })),
               };
-            })
+            }),
           );
 
           const totalFlags = await tx.flag.count();
@@ -151,8 +151,8 @@ export const flagRouter = router({
       const flags = await ctx.prisma.$transaction(async (tx) => {
         return await Promise.all(
           input.data.map(async (flagCreateData) =>
-            tx.flag.create({ data: flagCreateData })
-          )
+            tx.flag.create({ data: flagCreateData }),
+          ),
         );
       });
 
@@ -177,7 +177,7 @@ export const flagRouter = router({
             return {
               ...updatedFlag,
             };
-          })
+          }),
         );
       });
 

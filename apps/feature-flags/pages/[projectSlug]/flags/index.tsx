@@ -18,7 +18,7 @@ const FlagsPage = () => {
     { projectSlug },
     {
       enabled: !!projectSlug,
-    }
+    },
   );
 
   return (

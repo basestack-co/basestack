@@ -109,7 +109,7 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
                   title={provider.name}
                   text={`Sign in with ${provider.name}`}
                   providerLogo={getProviderLogo(
-                    provider.name.toLowerCase() as providers
+                    provider.name.toLowerCase() as providers,
                   )}
                 />
               </CardsItem>
@@ -122,7 +122,7 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
                     title={provider}
                     text={`Sign in with ${provider}`}
                     providerLogo={getProviderLogo(
-                      provider.toLowerCase() as providers
+                      provider.toLowerCase() as providers,
                     )}
                   />
                 </CardsItem>

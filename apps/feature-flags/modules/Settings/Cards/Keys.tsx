@@ -14,7 +14,7 @@ type Props = ProjectSettings;
 const KeysCard = ({ project }: Props) => {
   const { data, isLoading } = trpc.project.allKeys.useQuery(
     { projectSlug: project.slug },
-    { enabled: !!project.id }
+    { enabled: !!project.id },
   );
 
   const getTable = useMemo(() => {
@@ -34,7 +34,7 @@ const KeysCard = ({ project }: Props) => {
           text: "Copy",
           onClick: () => console.log("delete"),
         },
-      ]
+      ],
     );
   }, [isLoading, data]);
 

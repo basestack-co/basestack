@@ -56,7 +56,7 @@ const MoreButton = () => {
                 { text: "Github", onClick: () => console.log("") },
               ]}
             />
-          )
+          ),
       )}
     </ListItem>
   );

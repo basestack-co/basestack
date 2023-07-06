@@ -20,7 +20,7 @@ const InviteMemberModal = () => {
   const trpcContext = trpc.useContext();
   const isModalOpen = useStore((state) => state.isInviteMemberModalOpen);
   const setInviteMemberModalOpen = useStore(
-    (state) => state.setInviteMemberModalOpen
+    (state) => state.setInviteMemberModalOpen,
   );
   const payload = useStore((state) => state.inviteMemberModalPayload);
 
@@ -30,7 +30,7 @@ const InviteMemberModal = () => {
     },
     {
       enabled: isModalOpen && !!payload?.project?.id,
-    }
+    },
   );
 
   const addUserToProject = trpc.project.addMember.useMutation();
@@ -41,8 +41,7 @@ const InviteMemberModal = () => {
     formState: { errors, isSubmitting },
     reset,
   } = useForm<FormInputs>({
-    // @ts-ignore
-    resolver: zodResolver(FormSchema), // TODO: fix this, broken after the 3.0.0 release
+    resolver: zodResolver(FormSchema),
     mode: "onChange",
   });
 
@@ -71,15 +70,14 @@ const InviteMemberModal = () => {
           { projectId: payload?.project?.id!, userId: input.memberId },
           {
             onSuccess: async (result) => {
-              // TODO: migrate this to use cache from useQuery
               await trpcContext.project.members.invalidate();
               onClose();
             },
-          }
+          },
         );
       }
     },
-    [addUserToProject, payload, onClose, trpcContext]
+    [addUserToProject, payload, onClose, trpcContext],
   );
 
   const onChangeMember = useCallback((option: unknown, setField: any) => {

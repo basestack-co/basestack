@@ -7,14 +7,14 @@ describe("Pill Atom tests", () => {
 
   test("render Pill correctly", () => {
     const { asFragment } = renderWithTheme(
-      <Pill isSelected={false} onClick={jest.fn()} text="pill" />
+      <Pill isSelected={false} onClick={jest.fn()} text="pill" />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   test("should render selected Pill", () => {
     const { asFragment, getByTestId } = renderWithTheme(
-      <Pill isSelected onClick={jest.fn()} text="pill" />
+      <Pill isSelected onClick={jest.fn()} text="pill" />,
     );
     const pill = getByTestId("pill-container");
     const pillText = getByTestId("pill-text");

@@ -41,18 +41,18 @@ export type GetFieldType<T, P> = P extends `${infer Left}.${infer Right}`
 export function getValue<
   TData,
   TPath extends string,
-  TDefault = GetFieldType<TData, TPath>
+  TDefault = GetFieldType<TData, TPath>,
 >(
   data: TData,
   path: TPath,
-  defaultValue?: TDefault
+  defaultValue?: TDefault,
 ): GetFieldType<TData, TPath> | TDefault {
   const value = path
     .split(/[.[\]]/)
     .filter(Boolean)
     .reduce<GetFieldType<TData, TPath>>(
       (value, key) => (value as any)?.[key],
-      data as any
+      data as any,
     );
 
   return value !== undefined ? value : (defaultValue as TDefault);

@@ -30,7 +30,7 @@ describe.skip("Settings Layout tests", () => {
     const { asFragment } = renderWithAllProviders(
       <SettingsLayout>
         <div>Page content</div>
-      </SettingsLayout>
+      </SettingsLayout>,
     );
 
     expect(asFragment()).toMatchSnapshot();

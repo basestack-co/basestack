@@ -11,7 +11,9 @@ const sharedStyles = css`
   justify-content: center;
   cursor: pointer;
   border-radius: 50%;
-  transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out,
+  transition:
+    background-color 0.1s ease-in-out,
+    color 0.1s ease-in-out,
     border-color 0.1s ease-in-out;
 `;
 

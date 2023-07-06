@@ -14,7 +14,7 @@ describe.skip("Card tests", () => {
     };
 
     const { getByText } = renderWithTheme(
-      <Card text={text} title={title} illustration={illustration} />
+      <Card text={text} title={title} illustration={illustration} />,
     );
 
     expect(getByText(title)).toBeInTheDocument();
@@ -29,7 +29,7 @@ describe.skip("Card tests", () => {
     };
 
     const { getByText } = renderWithTheme(
-      <Card text={text} title={title} illustration={illustration} isDarkMode />
+      <Card text={text} title={title} illustration={illustration} isDarkMode />,
     );
 
     expect(getByText(title)).toHaveStyle("color: #F6F6F6");

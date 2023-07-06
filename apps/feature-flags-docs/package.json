@@ -25,7 +25,7 @@
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "@types/node": "20.3.3",
+    "@types/node": "20.4.0",
     "next-transpile-modules": "^10.0.0",
     "typescript": "^5.1.3"
   }

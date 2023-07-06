@@ -15,7 +15,7 @@ describe("HistoryCard Molecule tests", () => {
         date="1 hour ago"
         environment="Development"
         type="toggledOff"
-      />
+      />,
     );
 
     expect(asFragment()).toMatchSnapshot();

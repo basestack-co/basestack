@@ -21,8 +21,8 @@ export const useStore = create<Store>(
         isDarkMode: state.isDarkMode,
         selectedView: state.selectedView,
       }),
-    }
-  )
+    },
+  ),
 );
 
 // @ts-ignore

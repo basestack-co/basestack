@@ -22,16 +22,16 @@ type Props = ProjectSettings;
 const EnvironmentsCard = ({ project }: Props) => {
   const trpcContext = trpc.useContext();
   const setCreateEnvironmentModalOpen = useStore(
-    (state) => state.setCreateEnvironmentModalOpen
+    (state) => state.setCreateEnvironmentModalOpen,
   );
   const setUpdateEnvironmentModalOpen = useStore(
-    (state) => state.setUpdateEnvironmentModalOpen
+    (state) => state.setUpdateEnvironmentModalOpen,
   );
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
 
   const { data, isLoading } = trpc.environment.all.useQuery(
     { projectId: project.id },
-    { enabled: !!project.id }
+    { enabled: !!project.id },
   );
 
   const deleteEnvironment = trpc.environment.delete.useMutation();
@@ -48,7 +48,7 @@ const EnvironmentsCard = ({ project }: Props) => {
         },
       });
     },
-    [project, setUpdateEnvironmentModalOpen]
+    [project, setUpdateEnvironmentModalOpen],
   );
 
   const onHandleCreate = () => {
@@ -73,7 +73,7 @@ const EnvironmentsCard = ({ project }: Props) => {
 
             if (prev && prev.environments) {
               const environments = prev.environments.filter(
-                ({ id }) => id !== result.environment.id
+                ({ id }) => id !== result.environment.id,
               );
 
               // Update the cache with the new data
@@ -81,14 +81,14 @@ const EnvironmentsCard = ({ project }: Props) => {
                 { projectId: project.id },
                 {
                   environments,
-                }
+                },
               );
             }
           },
-        }
+        },
       );
     },
-    [project, deleteEnvironment, trpcContext.environment.all]
+    [project, deleteEnvironment, trpcContext.environment.all],
   );
 
   const getTable = useMemo(
@@ -111,10 +111,10 @@ const EnvironmentsCard = ({ project }: Props) => {
             onClick: () => onClickDeleteEnvironment(item.id, item.name),
             isDisabled: !!item.isDefault,
           },
-        ]
+        ],
       ),
 
-    [isLoading, data, onHandleEdit, onHandleDelete]
+    [isLoading, data, onHandleEdit, onHandleDelete],
   );
 
   const onClickDeleteEnvironment = (id: string, name: string) => {

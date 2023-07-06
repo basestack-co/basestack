@@ -66,7 +66,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         />
       </StyledButton>
     );
-  }
+  },
 );
 
 IconButton.displayName = "IconButton";

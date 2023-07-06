@@ -40,7 +40,7 @@ export const isBlank = (str: any) => {
 };
 
 export const isEmpty = <T extends string | object | any[] | undefined | null>(
-  value: T
+  value: T,
 ): value is never => {
   if (isString(value) || isArray(value)) {
     return value.length === 0;

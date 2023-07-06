@@ -31,7 +31,7 @@ const DeleteProjectCard = ({ project }: Props) => {
           if (prev && prev.projects) {
             // Find the project and remove from the list
             const projects = prev.projects.filter(
-              (project) => project.id !== result.project.id
+              (project) => project.id !== result.project.id,
             );
 
             // Update the cache with the new data
@@ -40,7 +40,7 @@ const DeleteProjectCard = ({ project }: Props) => {
 
           await router.replace("/");
         },
-      }
+      },
     );
   };
 

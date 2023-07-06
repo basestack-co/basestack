@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { animated, config, useSpring } from "react-spring";
+import { animated, useSpring } from "react-spring";
 // Router
 import { useRouter } from "next/router";
 // Form
@@ -45,7 +45,7 @@ const CreateProjectModal = () => {
 
   const isModalOpen = useStore((state) => state.isCreateProjectModalOpen);
   const setCreateProjectModalOpen = useStore(
-    (state) => state.setCreateProjectModalOpen
+    (state) => state.setCreateProjectModalOpen,
   );
 
   const createProject = trpc.project.create.useMutation();
@@ -58,12 +58,12 @@ const CreateProjectModal = () => {
     setValue,
     reset,
   } = useForm<FormInputs>({
-    // @ts-ignore
-    resolver: zodResolver(FormSchema), // TODO: fix this, broken after the 3.0.0 release
+    resolver: zodResolver(FormSchema),
     mode: "onChange",
   });
 
   const watchName = watch("name");
+  const watchSlug = watch("slug");
 
   const onClose = () => setCreateProjectModalOpen({ isOpen: false });
 
@@ -93,12 +93,13 @@ const CreateProjectModal = () => {
 
   useDebounce(
     () => {
-      if (watchName) {
+      // Only update the slug if the user hasn't typed anything
+      if (watchName && !watchSlug) {
         setValue("slug", watchName);
       }
     },
     500,
-    [watchName]
+    [watchName],
   );
 
   const refreshTransition = useSpring({
