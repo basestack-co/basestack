@@ -22,7 +22,7 @@ const up = new FlagsJS(paramsMock);
 
 describe("FlagsJS features tests", () => {
   it("Get All Flag", async () => {
-    const flags = await up.flags();
+    const flags = await up.flagsAsync();
 
     expect(flags).toEqual(flagsMock);
 
@@ -30,7 +30,7 @@ describe("FlagsJS features tests", () => {
   });
 
   it("Get Feature Flag by Id", async () => {
-    const flag = await up.flag("flag");
+    const flag = await up.flagAsync("flag");
 
     expect(flag).toEqual(flagMock);
 
@@ -39,7 +39,7 @@ describe("FlagsJS features tests", () => {
   });
 
   it("Should return the default values if a flag does not exist", async () => {
-    const flag = await up.flag("does_not_exist");
+    const flag = await up.flagAsync("does_not_exist");
 
     expect(flag).toHaveProperty("enabled", false);
     expect(flag).toHaveProperty("error", true);
