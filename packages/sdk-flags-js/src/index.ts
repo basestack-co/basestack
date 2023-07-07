@@ -1,12 +1,16 @@
+// Store
+import store from "./store";
+// Utils
 import fetch from "isomorphic-unfetch";
+import { verifyFlag } from "./utils/helpers";
 // Types
-import { Params, FlagsResponse, Flag } from "./types";
+import { Params, FlagResult, Flag } from "./types";
 
-// TODO: change the name in the future for the real product name
 class FlagsJS {
-  readonly apiUrl: string;
-  readonly projectKey: string;
-  readonly envKey: string;
+  private readonly apiUrl: string;
+  private readonly projectKey: string;
+  private readonly envKey: string;
+  public isInitialized: boolean = false;
 
   constructor({ apiUrl, projectKey, envKey }: Params) {
     this.apiUrl = apiUrl;
@@ -14,41 +18,48 @@ class FlagsJS {
     this.envKey = envKey;
   }
 
-  async flags() {
+  async initialize() {
+    await this.flagsAsync();
+    this.isInitialized = true;
+  }
+
+  async flagsAsync(): Promise<Flag[]> {
     try {
+      const { setFlags } = store.getState();
       const url = `${this.apiUrl}/${this.projectKey}/${this.envKey}/flags`;
 
       const response = await fetch(url);
-      const data = (await response.json()) as FlagsResponse;
+      const { flags } = await response.json();
 
-      return {
-        ...data,
-      };
+      // Update the store
+      setFlags(flags);
+
+      // Return the flags
+      return flags;
     } catch (e) {
       throw e;
     }
   }
 
-  async flag(slug: string) {
+  async flagAsync(slug: string): Promise<FlagResult<Flag | null>> {
     try {
       const url = `${this.apiUrl}/${this.projectKey}/${this.envKey}/flags`;
-
       const response = await fetch(url);
-      const { flags } = (await response.json()) as FlagsResponse;
-
-      const flag = flags.find((flag: Flag) => flag.slug === slug) as Flag;
-      const isEmpty = Object.keys(flag).length === 0;
-
-      return isEmpty
-        ? {
-            enabled: false,
-            error: true,
-            message: `Flag with name ${slug} does not exist`,
-          }
-        : { ...flag };
+      const { flags } = await response.json();
+      return verifyFlag(flags, slug);
     } catch (e) {
       throw e;
     }
+  }
+
+  flags(): Flag[] {
+    const { flags } = store.getState();
+    return flags;
+  }
+
+  flag(slug: string): FlagResult<Flag | null> {
+    const { flags } = store.getState();
+    return verifyFlag(flags, slug);
   }
 }
 

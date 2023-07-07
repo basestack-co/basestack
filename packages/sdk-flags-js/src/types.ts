@@ -6,11 +6,18 @@ export interface Flag {
   createdAt: Date;
   updatedAt: Date;
   description: string;
+  error: boolean;
 }
 
-export interface FlagsResponse {
-  flags: Flag[];
+export interface FlagNotFoundError {
+  enabled: boolean;
+  error: boolean;
+  message: string;
 }
+
+// export type FlagResult = Flag | FlagNotFoundError;
+
+export type FlagResult<T> = T extends null ? FlagNotFoundError : Flag;
 
 export interface Params {
   apiUrl: string;
