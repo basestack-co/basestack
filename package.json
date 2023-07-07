@@ -31,10 +31,6 @@
     "prettier": "^3.0.0",
     "turbo": "1.10.7"
   },
-  "engines": {
-    "npm": ">=7.0.0",
-    "node": ">=14.0.0"
-  },
   "packageManager": "yarn@1.22.15",
   "husky": {
     "hooks": {
@@ -43,8 +39,7 @@
   },
   "lint-staged": {
     "*.{js,ts,tsx,json,css,md}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "config": {

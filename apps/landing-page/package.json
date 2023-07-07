@@ -60,8 +60,5 @@
     "node-mocks-http": "^1.12.1",
     "turbo": "1.10.7",
     "typescript": "^5.0.4"
-  },
-  "engines": {
-    "node": ">=16 <17"
   }
 }
