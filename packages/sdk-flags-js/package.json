@@ -1,6 +1,6 @@
 {
   "name": "@basestack/flags-js-sdk",
-  "version": "0.0.12-alpha",
+  "version": "0.0.13-alpha",
   "author": "Basestack",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -12,8 +12,8 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
-    "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
+    "build": "tsup src/index.ts --dts",
+    "dev": "tsup src/index.ts --watch --dts",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
@@ -23,7 +23,8 @@
     "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
-    "isomorphic-unfetch": "^3.1.0"
+    "isomorphic-unfetch": "^3.1.0",
+    "zustand": "^4.3.9"
   },
   "devDependencies": {
     "@basestack/config": "*",
