@@ -14,7 +14,6 @@ export interface FlagNotFoundError {
   error: boolean;
   message: string;
 }
-
 export type FlagResult<T> = T extends null ? FlagNotFoundError : Flag;
 
 export interface Params {
