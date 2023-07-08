@@ -1,73 +1,31 @@
-import React, { createContext, useEffect, useReducer, useMemo } from "react";
-// SDK
-import FlagsJS from "@basestack/flags-js-sdk";
-
-export type SdkType = typeof FlagsJS;
-
-export interface ConfigParams {
-  apiUrl: string;
-  projectKey: string;
-  envKey: string;
-}
-
-export interface State {
-  sdk: SdkType | null;
-}
+import React, { createContext, useEffect, useMemo } from "react";
+// Types
+import { SDK } from "../types";
 
 export interface ContextState {
-  state: State;
+  sdk: SDK;
 }
 
-export interface ProviderProps extends ConfigParams {
+export interface ProviderProps {
   onSuccessfulInit?: (isInitialized: boolean) => void;
   children: React.ReactNode;
+  sdk: SDK;
 }
 
-export type ReducerSetSdk = {
-  type: "set-sdk";
-  payload: {
-    sdk: SdkType | null;
-  };
-};
+export const FlagsContext = createContext<ContextState>({} as ContextState);
 
-export type ReducerActions = ReducerSetSdk;
-
-export const Context = createContext<ContextState>({} as ContextState);
-
-let reducer = (state: State, action: ReducerActions) => {
-  switch (action.type) {
-    case "set-sdk":
-      return { ...state, ...action.payload };
-
-    default:
-      throw new Error(`Unhandled action type`);
-  }
-};
-
-export const UpStampsProvider: React.FC<ProviderProps> = ({
+export const FlagsProvider: React.FC<ProviderProps> = ({
   children,
-  apiUrl,
-  envKey,
-  projectKey,
   onSuccessfulInit,
+  sdk,
 }) => {
-  const [state, dispatch] = useReducer(reducer, {
-    sdk: null,
-  });
-
-  const value = useMemo(() => ({ state, dispatch }), [state, dispatch]);
+  const value = useMemo(() => ({ sdk }), [sdk]);
 
   // Initialize SDK on mount
   useEffect(() => {
     // Initialize SDK with provided values
     const initializeSdk = async () => {
       try {
-        const sdk = new FlagsJS({
-          apiUrl,
-          projectKey,
-          envKey,
-        });
-
         // Initialize SDK
         await sdk.initialize();
 
@@ -82,7 +40,9 @@ export const UpStampsProvider: React.FC<ProviderProps> = ({
     };
 
     initializeSdk();
-  }, [apiUrl, projectKey, envKey, onSuccessfulInit]);
+  }, [onSuccessfulInit, sdk]);
 
-  return <Context.Provider value={value}>{children}</Context.Provider>;
+  return (
+    <FlagsContext.Provider value={value}>{children}</FlagsContext.Provider>
+  );
 };

@@ -1,11 +1,13 @@
 /**
  * PROVIDERS
  */
-export * from "./provider";
+export * from "./context";
 
 /**
  * HOOKS
  */
+
+export * from "./hooks/useFlag";
 
 /**
  * COMPONENTS
