@@ -9,6 +9,7 @@ export default defineConfig((options) => {
     clean: true,
     minify: !options.watch,
     // noExternal: [/^node-fetch($|\/)/],
+    // external: ["cross-fetch", "zustand"],
     target: "es5",
   };
 });

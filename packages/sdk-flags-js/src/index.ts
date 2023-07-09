@@ -1,7 +1,7 @@
 // Store
 import store from "./store";
 // Utils
-import fetch from "isomorphic-unfetch";
+import fetch from "cross-fetch";
 import { verifyFlag } from "./utils/helpers";
 // Types
 import { Params, FlagResult, Flag } from "./types";
