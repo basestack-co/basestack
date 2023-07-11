@@ -2,14 +2,12 @@ import { defineConfig } from "tsup";
 
 export default defineConfig((options) => {
   return {
-    entry: ["src/index.ts", "src/utils/helpers.ts"],
+    entry: ["src/index.ts"],
     format: ["cjs", "esm"],
+    dts: true,
     splitting: true,
-    sourcemap: false,
+    sourcemap: true,
     clean: true,
     minify: !options.watch,
-    // noExternal: [/^node-fetch($|\/)/],
-    // external: ["cross-fetch", "zustand"],
-    target: "es5",
   };
 });

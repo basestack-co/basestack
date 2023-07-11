@@ -14,7 +14,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "test": "turbo run test",
     "clean": "turbo run clean && rm -rf node_modules",
-    "prepare": "npx husky install",
+    "prepare": "is-ci || npx husky install",
     "precommit": "yarn format && yarn lint && lint-staged",
     "commit": "git-cz",
     "update:packages": "yarn upgrade-interactive --latest",
@@ -27,13 +27,10 @@
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.3",
+    "is-ci": "^3.0.1",
     "lint-staged": "^13.2.2",
     "prettier": "^3.0.0",
     "turbo": "1.10.7"
-  },
-  "engines": {
-    "npm": ">=7.0.0",
-    "node": ">=14.0.0"
   },
   "packageManager": "yarn@1.22.15",
   "husky": {
@@ -43,8 +40,7 @@
   },
   "lint-staged": {
     "*.{js,ts,tsx,json,css,md}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "config": {

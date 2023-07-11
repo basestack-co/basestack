@@ -11,9 +11,6 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
-  "engines": {
-    "node": ">=16.0.0"
-  },
   "dependencies": {
     "@radix-ui/colors": "0.1.8",
     "@radix-ui/react-collapsible": "1.0.1",
