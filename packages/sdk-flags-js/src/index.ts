@@ -1,7 +1,7 @@
 // Store
 import store from "./store";
 // Utils
-import fetch from "isomorphic-unfetch";
+import fetch from "cross-fetch";
 import { verifyFlag } from "./utils/helpers";
 // Types
 import { Params, FlagResult, Flag } from "./types";
@@ -41,12 +41,12 @@ class FlagsJS {
     }
   }
 
-  async flagAsync(slug: string): Promise<FlagResult<Flag | null>> {
+  async flagAsync(name: string): Promise<FlagResult<Flag | null>> {
     try {
       const url = `${this.apiUrl}/${this.projectKey}/${this.envKey}/flags`;
       const response = await fetch(url);
       const { flags } = await response.json();
-      return verifyFlag(flags, slug);
+      return verifyFlag(flags, name);
     } catch (e) {
       throw e;
     }
@@ -57,9 +57,9 @@ class FlagsJS {
     return flags;
   }
 
-  flag(slug: string): FlagResult<Flag | null> {
+  flag(name: string): FlagResult<Flag | null> {
     const { flags } = store.getState();
-    return verifyFlag(flags, slug);
+    return verifyFlag(flags, name);
   }
 }
 
