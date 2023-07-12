@@ -65,6 +65,8 @@ const CreateProjectModal = () => {
   const watchName = watch("name");
   const watchSlug = watch("slug");
 
+  const isSubmittingOrMutating = isSubmitting || createProject.isLoading;
+
   const onClose = () => setCreateProjectModalOpen({ isOpen: false });
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
@@ -119,6 +121,8 @@ const CreateProjectModal = () => {
           {
             children: "Create",
             onClick: handleSubmit(onSubmit),
+            isLoading: isSubmittingOrMutating,
+            isDisabled: isSubmittingOrMutating,
           },
         ]}
         onAnimationEnd={reset}

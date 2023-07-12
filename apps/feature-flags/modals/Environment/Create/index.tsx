@@ -49,6 +49,8 @@ const CreateEnvironmentModal = () => {
   const { handleSubmit, onRenderForm, reset, isSubmitting } =
     useEnvironmentForm({ isCreate: true, options });
 
+  const isSubmittingOrMutating = isSubmitting || createEnvironment.isLoading;
+
   const onClose = () => setCreateEnvironmentModalOpen({ isOpen: false });
 
   const onSubmit: SubmitHandler<FormInputs> = (input: FormInputs) => {
@@ -97,8 +99,8 @@ const CreateEnvironmentModal = () => {
           {
             children: "Create",
             onClick: handleSubmit(onSubmit),
-            isDisabled: isSubmitting,
-            isLoading: isSubmitting,
+            isDisabled: isSubmittingOrMutating,
+            isLoading: isSubmittingOrMutating,
           },
         ]}
         onAnimationEnd={reset}

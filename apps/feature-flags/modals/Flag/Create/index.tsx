@@ -39,6 +39,8 @@ const CreateFlagModal = () => {
 
   const createFlag = trpc.flag.create.useMutation();
 
+  const isSubmittingOrMutating = isSubmitting || createFlag.isLoading;
+
   const onClose = () => setCreateFlagModalOpen({ isOpen: false });
 
   const onSubmit: SubmitHandler<FlagFormInputs> = async (input) => {
@@ -77,8 +79,8 @@ const CreateFlagModal = () => {
           {
             children: "Create",
             onClick: handleSubmit(onSubmit),
-            isDisabled: !project?.id,
-            isLoading: isSubmitting,
+            isDisabled: !project?.id || isSubmittingOrMutating,
+            isLoading: isSubmittingOrMutating,
           },
         ]}
         onAnimationEnd={reset}
