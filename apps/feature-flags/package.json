@@ -30,6 +30,7 @@
     "@basestack/design-system": "*",
     "@basestack/hooks": "*",
     "@basestack/utils": "*",
+    "@emotion/is-prop-valid": "^1.2.1",
     "@floating-ui/react": "^0.24.6",
     "@hookform/resolvers": "^3.1.0",
     "@next-auth/prisma-adapter": "^1.0.4",

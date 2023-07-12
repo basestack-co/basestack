@@ -1,7 +1,12 @@
-import { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useTheme } from "styled-components";
 // Components
-import { Avatar, Button, ButtonVariant } from "@basestack/design-system";
+import {
+  Avatar,
+  Button,
+  ButtonVariant,
+  IconButton,
+} from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
 import AvatarDropdown from "./AvatarDropdown";
 import { ButtonLink, MoreMenu, ProjectsMenu } from "./components";
@@ -53,9 +58,14 @@ const rightItems = [
 interface NavigationProps {
   isDesktop: boolean;
   data?: RouterOutput["project"]["all"];
+  onClickMenuButton: () => void;
 }
 
-const Navigation = ({ isDesktop, data }: NavigationProps) => {
+const Navigation = ({
+  isDesktop,
+  data,
+  onClickMenuButton,
+}: NavigationProps) => {
   const theme = useTheme();
   const { data: session } = useSession();
   const router = useRouter();
@@ -117,6 +127,16 @@ const Navigation = ({ isDesktop, data }: NavigationProps) => {
   return (
     <Container data-testid="navigation">
       <List data-testid="navigation-left-ul">
+        {!isDesktop && (
+          <ListItem>
+            <IconButton
+              mr={theme.spacing.s3}
+              icon="menu"
+              size="large"
+              onClick={onClickMenuButton}
+            />
+          </ListItem>
+        )}
         <ListItem>
           <Link href="/">
             <LogoContainer>
@@ -124,38 +144,42 @@ const Navigation = ({ isDesktop, data }: NavigationProps) => {
             </LogoContainer>
           </Link>
         </ListItem>
-        <ProjectsMenu
-          onClickCreateProject={() =>
-            setCreateProjectModalOpen({ isOpen: true })
-          }
-          projectSlug={projectSlug}
-          projects={projects ?? []}
-        />
-        {isDesktop && !!projectSlug && (
+        {isDesktop && (
           <>
-            {onRenderItems(leftItems, "left")}
-            <ListItem ml={theme.spacing.s5}>
-              <Button
-                onClick={() => setCreateFlagModalOpen({ isOpen: true })}
-                variant={ButtonVariant.Primary}
-              >
-                Create flag
-              </Button>
-            </ListItem>
+            <ProjectsMenu
+              onClickCreateProject={() =>
+                setCreateProjectModalOpen({ isOpen: true })
+              }
+              projectSlug={projectSlug}
+              projects={projects ?? []}
+            />
+            {!!projectSlug && (
+              <>
+                {onRenderItems(leftItems, "left")}
+                <ListItem ml={theme.spacing.s5}>
+                  <Button
+                    onClick={() => setCreateFlagModalOpen({ isOpen: true })}
+                    variant={ButtonVariant.Primary}
+                  >
+                    Create flag
+                  </Button>
+                </ListItem>
+              </>
+            )}
           </>
         )}
       </List>
-      <List ml="auto" data-testid="navigation-right-ul">
-        {isDesktop && <>{onRenderItems(rightItems, "right")}</>}
-        {!isDesktop && <MoreMenu />}
-        <ListItem ml={theme.spacing.s3}>
-          <AvatarDropdown
-            name={session?.user.name || "User Name"}
-            email={session?.user.email || ""}
-            src={session?.user.image || ""}
-          />
-        </ListItem>
-      </List>
+      {isDesktop && (
+        <List ml="auto" data-testid="navigation-right-ul">
+          <ListItem ml={theme.spacing.s3}>
+            <AvatarDropdown
+              name={session?.user.name || "User Name"}
+              email={session?.user.email || ""}
+              src={session?.user.image || ""}
+            />
+          </ListItem>
+        </List>
+      )}
     </Container>
   );
 };

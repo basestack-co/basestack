@@ -12,6 +12,7 @@ export const Container = styled.main`
 export const ContentContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 400px;
+  align-items: start;
   grid-gap: ${({ theme }) => theme.spacing.s5};
 
   @media screen and ${({ theme }) => theme.device.max.md} {
@@ -37,10 +38,6 @@ export const StyledLink = styled.a`
   &:hover {
     text-decoration: underline;
   }
-`;
-
-export const StyledCard = styled(Card)`
-  align-self: self-start;
 `;
 
 export const IconContainer = styled.div<{ bg: string }>`
