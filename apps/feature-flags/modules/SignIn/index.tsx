@@ -40,8 +40,6 @@ const getProviderLogo = (provider: providers) => {
   return logo[provider];
 };
 
-const mockProviders = ["Okta", "Auth0", "Google", "Microsoft"];
-
 const SignIn = ({ providers, isLoading = false }: SignInProps) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const theme = useTheme();
@@ -114,20 +112,6 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
                 />
               </CardsItem>
             ))}
-            {mockProviders.map((provider) => {
-              return (
-                <CardsItem key={provider}>
-                  <ProviderCard
-                    onClick={() => console.log("yo")}
-                    title={provider}
-                    text={`Sign in with ${provider}`}
-                    providerLogo={getProviderLogo(
-                      provider.toLowerCase() as providers,
-                    )}
-                  />
-                </CardsItem>
-              );
-            })}
           </CardsList>
         </RightWrapper>
       </RightContainer>
