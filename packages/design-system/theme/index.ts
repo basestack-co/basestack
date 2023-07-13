@@ -60,10 +60,11 @@ const colors = {
 };
 
 const zIndex = {
-  modal: 102,
-  popup: 101,
-  navigation: 100,
-  tabBar: 99,
+  modal: 110,
+  popup: 109,
+  navigationDrawer: 108,
+  backDropCover: 107,
+  navigation: 106,
 };
 
 const spacing = {

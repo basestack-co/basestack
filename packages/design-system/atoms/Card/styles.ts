@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
-import { space } from "styled-system";
+import { space, position, compose } from "styled-system";
 import { rem } from "polished";
 
 export const Container = styled.div<{ hasHoverAnimation: boolean }>`
-  ${space};
+  ${compose(space, position)};
   display: flex;
   flex-direction: column;
   box-shadow: ${({ theme }) => theme.shadow.elevation2};

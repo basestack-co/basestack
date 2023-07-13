@@ -3,21 +3,14 @@ import { useTheme } from "styled-components";
 import { animated } from "react-spring";
 import { useFloatingPopup } from "@basestack/hooks";
 // Components
-import { IconButton, Text, Icon } from "../../atoms";
+import { IconButton, Text, Icon, Label, Card } from "../../atoms";
 import {
   Popup,
   Tooltip,
   TooltipTrigger,
   TooltipContent,
 } from "../../molecules";
-import {
-  Labels,
-  StyledCard,
-  StyledLabel,
-  PopupWrapper,
-  Footer,
-  TooltipContainer,
-} from "./styles";
+import { Labels, PopupWrapper, Footer, TooltipContainer } from "./styles";
 import { FlagCardProps } from "./types";
 
 const AnimatedPopup = animated(Popup);
@@ -67,11 +60,12 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
     } = useFloatingPopup();
 
     return (
-      <StyledCard
+      <Card
         ref={ref}
         testId="flag-card"
         hasHoverAnimation
         p={theme.spacing.s5}
+        position="relative"
         {...props}
       >
         <Text data-testid="flag-title" size="large" mb={theme.spacing.s2}>
@@ -81,18 +75,16 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
           {description}
         </Text>
         <Labels data-testid="flag-labels">
-          {environments.map((environment) => {
-            return (
-              !!environment.name && (
-                <StyledLabel
-                  key={environment.id}
-                  testId={`${environment.name}-flag-label`}
-                  text={environment.name}
-                  variant={environment.enabled ? "success" : "default"}
-                />
-              )
-            );
-          })}
+          {environments
+            .filter((item) => !!item.name)
+            .map((environment) => (
+              <Label
+                key={environment.id}
+                testId={`${environment.name}-flag-label`}
+                text={environment.name}
+                variant={environment.enabled ? "success" : "default"}
+              />
+            ))}
         </Labels>
         <Footer>
           <Text data-testid="flag-date" mt="auto" size="small" muted mr="auto">
@@ -128,7 +120,7 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
               ),
           )}
         </PopupWrapper>
-      </StyledCard>
+      </Card>
     );
   },
 );

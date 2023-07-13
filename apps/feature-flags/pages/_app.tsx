@@ -2,7 +2,8 @@ import React from "react";
 import { AppProps } from "next/app";
 import { Toaster } from "react-hot-toast";
 //Styles
-import { ThemeProvider } from "styled-components";
+import isPropValid from "@emotion/is-prop-valid";
+import { ThemeProvider, StyleSheetManager } from "styled-components";
 import theme from "@basestack/design-system/theme";
 import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
 // Modals
@@ -28,14 +29,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider session={pageProps.session}>
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <>
+        <StyleSheetManager shouldForwardProp={isPropValid}>
+          <GlobalStyle />
           <Layout>
             <Component {...pageProps} />
           </Layout>
           <Modals />
           <Toaster position="bottom-right" toastOptions={toastOptions} />
-        </>
+        </StyleSheetManager>
       </ThemeProvider>
     </SessionProvider>
   );

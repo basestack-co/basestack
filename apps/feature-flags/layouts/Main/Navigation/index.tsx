@@ -1,7 +1,13 @@
-import { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useTheme } from "styled-components";
 // Components
-import { Avatar, Button, ButtonVariant } from "@basestack/design-system";
+import {
+  Avatar,
+  Button,
+  ButtonVariant,
+  IconButton,
+  Text,
+} from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
 import AvatarDropdown from "./AvatarDropdown";
 import { ButtonLink, MoreMenu, ProjectsMenu } from "./components";
@@ -53,9 +59,14 @@ const rightItems = [
 interface NavigationProps {
   isDesktop: boolean;
   data?: RouterOutput["project"]["all"];
+  onClickMenuButton: () => void;
 }
 
-const Navigation = ({ isDesktop, data }: NavigationProps) => {
+const Navigation = ({
+  isDesktop,
+  data,
+  onClickMenuButton,
+}: NavigationProps) => {
   const theme = useTheme();
   const { data: session } = useSession();
   const router = useRouter();
@@ -114,48 +125,75 @@ const Navigation = ({ isDesktop, data }: NavigationProps) => {
     [data, onSelectProject],
   );
 
+  const currentProject = useMemo(() => {
+    const project = projects?.find(({ slug }) => slug === projectSlug);
+
+    return project?.text ?? "";
+  }, [projectSlug, projects]);
+
   return (
     <Container data-testid="navigation">
       <List data-testid="navigation-left-ul">
-        <ListItem>
-          <Link href="/">
-            <LogoContainer>
-              <Avatar round={false} alt="user image" userName="Logo" />
-            </LogoContainer>
-          </Link>
-        </ListItem>
-        <ProjectsMenu
-          onClickCreateProject={() =>
-            setCreateProjectModalOpen({ isOpen: true })
-          }
-          projectSlug={projectSlug}
-          projects={projects ?? []}
-        />
-        {isDesktop && !!projectSlug && (
+        {!isDesktop && (
           <>
-            {onRenderItems(leftItems, "left")}
-            <ListItem ml={theme.spacing.s5}>
-              <Button
-                onClick={() => setCreateFlagModalOpen({ isOpen: true })}
-                variant={ButtonVariant.Primary}
-              >
-                Create flag
-              </Button>
+            <ListItem>
+              <IconButton
+                mr={theme.spacing.s3}
+                icon="menu"
+                size="large"
+                onClick={onClickMenuButton}
+              />
             </ListItem>
+            {!!currentProject && (
+              <ListItem>
+                <Text size="medium">{currentProject}</Text>
+              </ListItem>
+            )}
+          </>
+        )}
+        {isDesktop && (
+          <>
+            <ListItem>
+              <Link href="/">
+                <LogoContainer>
+                  <Avatar round={false} alt="user image" userName="Logo" />
+                </LogoContainer>
+              </Link>
+            </ListItem>
+            <ProjectsMenu
+              onClickCreateProject={() =>
+                setCreateProjectModalOpen({ isOpen: true })
+              }
+              currentProject={currentProject}
+              projects={projects ?? []}
+            />
+            {!!projectSlug && (
+              <>
+                {onRenderItems(leftItems, "left")}
+                <ListItem ml={theme.spacing.s5}>
+                  <Button
+                    onClick={() => setCreateFlagModalOpen({ isOpen: true })}
+                    variant={ButtonVariant.Primary}
+                  >
+                    Create flag
+                  </Button>
+                </ListItem>
+              </>
+            )}
           </>
         )}
       </List>
-      <List ml="auto" data-testid="navigation-right-ul">
-        {isDesktop && <>{onRenderItems(rightItems, "right")}</>}
-        {!isDesktop && <MoreMenu />}
-        <ListItem ml={theme.spacing.s3}>
-          <AvatarDropdown
-            name={session?.user.name || "User Name"}
-            email={session?.user.email || ""}
-            src={session?.user.image || ""}
-          />
-        </ListItem>
-      </List>
+      {isDesktop && (
+        <List ml="auto" data-testid="navigation-right-ul">
+          <ListItem ml={theme.spacing.s3}>
+            <AvatarDropdown
+              name={session?.user.name || "User Name"}
+              email={session?.user.email || ""}
+              src={session?.user.image || ""}
+            />
+          </ListItem>
+        </List>
+      )}
     </Container>
   );
 };

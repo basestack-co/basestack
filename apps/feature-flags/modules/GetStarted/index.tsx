@@ -5,13 +5,13 @@ import {
   HorizontalRule,
   Icon,
   ButtonVariant,
+  Card,
 } from "@basestack/design-system";
 import {
   Container,
   ContentContainer,
   ContentWrapper,
   IconContainer,
-  StyledCard,
 } from "./styles";
 
 import GetStartedCard from "./GetStartedCard";
@@ -71,7 +71,7 @@ const GetStarted = () => {
             }}
           />
         </ContentWrapper>
-        <StyledCard hasHoverAnimation p={theme.spacing.s5}>
+        <Card hasHoverAnimation p={theme.spacing.s5}>
           <IconContainer bg={theme.colors.gray50}>
             <Icon icon="folder_open" color={theme.colors.gray500} />
           </IconContainer>
@@ -111,7 +111,7 @@ const GetStarted = () => {
             link={{ text: "Slack channel", href: "/" }}
             hasMarginBottom={false}
           />
-        </StyledCard>
+        </Card>
       </ContentContainer>
     </Container>
   );

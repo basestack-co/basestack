@@ -18,6 +18,18 @@ export const slideTop = {
   leave: { opacity: 0, transform: `translate3d(0px, 10px, 0px)` },
 };
 
+export const slideInLeft = {
+  from: { opacity: 0, transform: `translateX(-50px)` },
+  enter: { opacity: 1, transform: `translateX(0)` },
+  leave: { opacity: 0, transform: `translateX(-50px)` },
+};
+
+export const slideBottom = {
+  from: { opacity: 0, transform: `translate3d(0px, -10px, 0px)` },
+  enter: { opacity: 1, transform: `translate3d(0px, 0px, 0px)` },
+  leave: { opacity: 0, transform: `translate3d(0px, -10px, 0px)` },
+};
+
 export const fadeIn = {
   from: { opacity: 0 },
   enter: { opacity: 1 },
