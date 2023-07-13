@@ -9,12 +9,7 @@ import Select from "react-select";
 // Types
 import { FormInputs, FormSchema } from "./types";
 
-export interface Props {
-  isCreate?: boolean;
-  options?: Array<{ value: string; label: string }>;
-}
-
-const useEnvironmentForm = ({ isCreate = false, options = [] }: Props) => {
+const useEnvironmentForm = (isCreate: boolean = false) => {
   const theme = useTheme();
   const [textareaLength, setTextareaLength] = useState("");
   const {
@@ -22,12 +17,15 @@ const useEnvironmentForm = ({ isCreate = false, options = [] }: Props) => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
-    watch,
     reset,
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
   });
+
+  const defaultFallbackHint = isCreate
+    ? "The feature flags will be copied based on the default environment"
+    : "";
 
   const onChangeTextarea = useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -44,45 +42,6 @@ const useEnvironmentForm = ({ isCreate = false, options = [] }: Props) => {
   const onRenderForm = () => {
     return (
       <>
-        {isCreate && (
-          <>
-            <Controller
-              name="environmentId"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <Select
-                  ref={field.ref}
-                  placeholder="Select environment"
-                  options={options}
-                  value={
-                    (options &&
-                      options.find((option) => option.value === field.value)) ||
-                    []
-                  }
-                  onChange={(val) => field.onChange((val && val.value) || "")}
-                  isDisabled={!options.length}
-                  isLoading={!options.length}
-                  styles={{
-                    control: (baseStyles, state) => ({
-                      ...baseStyles,
-                      ...(state.isFocused
-                        ? {
-                            outline: `2px solid ${theme.colors.black}`,
-                          }
-                        : {}),
-                      backgroundColor: theme.colors.gray50,
-                      border: "none",
-                    }),
-                  }}
-                  isClearable
-                />
-              )}
-            />
-            <br />
-          </>
-        )}
-
         <Controller
           name="name"
           control={control}
@@ -90,7 +49,7 @@ const useEnvironmentForm = ({ isCreate = false, options = [] }: Props) => {
           render={({ field }) => (
             <InputGroup
               title="Environment name"
-              hint={errors.name?.message}
+              hint={errors.name?.message ?? defaultFallbackHint}
               inputProps={{
                 type: "text",
                 name: field.name,

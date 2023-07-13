@@ -24,7 +24,7 @@ const EditEnvironmentModal = () => {
   const updateEnvironment = trpc.environment.update.useMutation();
 
   const { handleSubmit, onRenderForm, reset, isSubmitting, setValue } =
-    useEnvironmentForm({});
+    useEnvironmentForm();
 
   const isSubmittingOrMutating = isSubmitting || updateEnvironment.isLoading;
 

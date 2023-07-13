@@ -27,27 +27,23 @@ const CreateEnvironmentModal = () => {
   const project = data && data.project;
   const createEnvironment = trpc.environment.create.useMutation();
 
-  const [options, environments] = useMemo(() => {
+  const [environments, defaultEnvironment] = useMemo(() => {
     if (project) {
       const cache = trpcContext.environment.all.getData({
         projectId: project.id!,
       });
 
       const environments = (cache && cache.environments) || [];
+      const defaultEnvironment = environments.find((env) => env.isDefault);
 
-      const options = environments.map((item) => ({
-        value: item.id,
-        label: item.name,
-      }));
-
-      return [options, environments] as const;
+      return [environments, defaultEnvironment] as const;
     }
 
     return [] as const;
   }, [project, trpcContext]);
 
   const { handleSubmit, onRenderForm, reset, isSubmitting } =
-    useEnvironmentForm({ isCreate: true, options });
+    useEnvironmentForm(true);
 
   const isSubmittingOrMutating = isSubmitting || createEnvironment.isLoading;
 
@@ -60,7 +56,7 @@ const CreateEnvironmentModal = () => {
           name: input.name,
           description: input.description,
           projectId: project.id!,
-          copyFromEnvId: input.environmentId ?? "",
+          copyFromEnvId: defaultEnvironment?.id ?? "",
         },
         {
           onSuccess: async (result) => {
