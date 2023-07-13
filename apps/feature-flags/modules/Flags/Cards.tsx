@@ -44,14 +44,22 @@ const FlagCards = ({
   );
   const deleteFlag = trpc.flag.delete.useMutation();
 
-  const { data, isLoading } = trpc.flag.all.useQuery(
-    {
-      projectId,
-      pagination: { skip: 0, take: 10 },
-      search: searchValue,
-    },
-    { enabled: !!projectId },
-  );
+  const [{ data, isLoading }] = trpc.useQueries((t) => [
+    t.flag.all(
+      {
+        projectId,
+        pagination: { skip: 0, take: 10 },
+        search: searchValue,
+      },
+      { enabled: !!projectId },
+    ),
+    t.environment.all(
+      { projectId: projectId! },
+      {
+        enabled: !!projectId,
+      },
+    ),
+  ]);
 
   const projectSlug = router.query.projectSlug as string;
 
