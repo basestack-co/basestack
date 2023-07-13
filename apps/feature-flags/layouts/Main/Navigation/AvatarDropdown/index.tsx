@@ -1,4 +1,7 @@
 import React, { memo, useCallback, useRef, useState } from "react";
+// Auth
+import { signOut } from "next-auth/react";
+// Components
 import { autoUpdate, offset, useFloating } from "@floating-ui/react";
 import { animated, config, useTransition } from "react-spring";
 import { useClickAway } from "@basestack/hooks";
@@ -148,7 +151,7 @@ const AvatarDropdown = ({ name, email, src }: AvatarMenuProps) => {
                     iconPlacement="left"
                     variant={ButtonVariant.Neutral}
                     fullWidth
-                    onClick={() => console.log("damm")}
+                    onClick={signOut}
                   >
                     Logout
                   </Button>
