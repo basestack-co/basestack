@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { position, space, SpaceProps } from "styled-system";
 import { rem } from "polished";
 
@@ -20,6 +20,28 @@ export const AvatarButton = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
+`;
+
+export const AvatarDetailedButton = styled.button`
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background-color: transparent;
+  padding: ${({ theme }) => theme.spacing.s3};
+  border-radius: 4px;
+  transition: background-color 0.1s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.colors.gray100};
+  }
+
+  &:active {
+    background-color: ${({ theme }) => theme.colors.gray200};
+  }
 `;
 
 export const Dropdown = styled.div`
@@ -45,11 +67,17 @@ export const HeaderWrapper = styled.div`
   align-items: center;
 `;
 
-export const ThemeContainer = styled.div`
+export const ThemeContainer = styled.div<{ showFullButton?: boolean }>`
   display: flex;
   align-items: center;
   height: ${rem("32px")};
   margin: ${({ theme }) => theme.spacing.s3} 0;
+
+  ${({ showFullButton, theme }) =>
+    showFullButton &&
+    css`
+      margin-top: ${theme.spacing.s1};
+    `}
 `;
 
 export const HrContainer = styled.div`

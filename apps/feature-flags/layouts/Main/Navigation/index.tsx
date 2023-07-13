@@ -6,6 +6,7 @@ import {
   Button,
   ButtonVariant,
   IconButton,
+  Text,
 } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
 import AvatarDropdown from "./AvatarDropdown";
@@ -124,33 +125,46 @@ const Navigation = ({
     [data, onSelectProject],
   );
 
+  const currentProject = useMemo(() => {
+    const project = projects?.find(({ slug }) => slug === projectSlug);
+
+    return project?.text ?? "";
+  }, [projectSlug, projects]);
+
   return (
     <Container data-testid="navigation">
       <List data-testid="navigation-left-ul">
         {!isDesktop && (
-          <ListItem>
-            <IconButton
-              mr={theme.spacing.s3}
-              icon="menu"
-              size="large"
-              onClick={onClickMenuButton}
-            />
-          </ListItem>
+          <>
+            <ListItem>
+              <IconButton
+                mr={theme.spacing.s3}
+                icon="menu"
+                size="large"
+                onClick={onClickMenuButton}
+              />
+            </ListItem>
+            {!!currentProject && (
+              <ListItem>
+                <Text size="medium">{currentProject}</Text>
+              </ListItem>
+            )}
+          </>
         )}
-        <ListItem>
-          <Link href="/">
-            <LogoContainer>
-              <Avatar round={false} alt="user image" userName="Logo" />
-            </LogoContainer>
-          </Link>
-        </ListItem>
         {isDesktop && (
           <>
+            <ListItem>
+              <Link href="/">
+                <LogoContainer>
+                  <Avatar round={false} alt="user image" userName="Logo" />
+                </LogoContainer>
+              </Link>
+            </ListItem>
             <ProjectsMenu
               onClickCreateProject={() =>
                 setCreateProjectModalOpen({ isOpen: true })
               }
-              projectSlug={projectSlug}
+              currentProject={currentProject}
               projects={projects ?? []}
             />
             {!!projectSlug && (

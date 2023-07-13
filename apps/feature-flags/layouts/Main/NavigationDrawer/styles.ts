@@ -1,10 +1,22 @@
-import styled, { css } from "styled-components";
+import styled, { createGlobalStyle, css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
+import { scrollbar } from "@basestack/design-system/styles";
 import { rem, transparentize } from "polished";
+
+export const GlobalStyle = createGlobalStyle`
+  body {
+    overflow: hidden;
+  }
+`;
 
 const flexColumn = css`
   display: flex;
   flex-direction: column;
+`;
+
+const flexCenter = css`
+  display: flex;
+  align-items: center;
 `;
 
 export const Container = styled.nav`
@@ -21,6 +33,12 @@ export const Container = styled.nav`
   box-shadow: ${({ theme }) => theme.shadow.elevation2};
 `;
 
+export const ContentContainer = styled.div`
+  ${flexColumn};
+  flex-grow: 1;
+  overflow-y: auto;
+`;
+
 export const BackDropCover = styled.div`
   position: absolute;
   left: 0;
@@ -32,7 +50,8 @@ export const BackDropCover = styled.div`
 `;
 
 export const Header = styled.div`
-  display: flex;
+  ${flexCenter};
+  justify-content: space-between;
   padding: ${({ theme }) => theme.spacing.s5};
 `;
 
@@ -44,10 +63,18 @@ export const TitleContainer = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.s2};
 `;
 
-export const List = styled.ul`
+export const List = styled.ul<{ enableScroll?: boolean }>`
   ${flexColumn};
   list-style-type: none;
   padding: 0 ${({ theme }) => theme.spacing.s2};
+
+  ${({ enableScroll, theme }) =>
+    enableScroll &&
+    css`
+      ${scrollbar};
+      overflow-y: auto;
+      padding-bottom: ${theme.spacing.s5};
+    `}
 `;
 
 export const ListItem = styled.li`
@@ -59,10 +86,15 @@ export const ListItem = styled.li`
   }
 `;
 
-export const Divider = styled.hr`
+export const Divider = styled.hr<SpaceProps>`
+  ${space};
   ${flexColumn};
   height: 1px;
   border: none;
   background-color: ${({ theme }) => theme.colors.gray100};
-  margin: ${({ theme }) => theme.spacing.s5};
+`;
+
+export const Footer = styled.div`
+  ${flexColumn};
+  padding: ${({ theme }) => theme.spacing.s2};
 `;
