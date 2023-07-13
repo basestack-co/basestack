@@ -1,5 +1,5 @@
 {
-  "name": "@basestack/feature-flags-docs",
+  "name": "@basestack/docs",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "next start",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
   },
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "dependencies": {
     "@basestack/design-system": "*",
     "material-symbols": "^0.9.0",

@@ -1,10 +1,11 @@
 {
+  "index": "Overview",
   "quick-start": "Quick Start",
+  "features": "Dashboard & Concepts",
   "sdks": "SDKs",
-  "guides": "Guides & Examples",
+  "guides": "Guides",
   "deployment": "Deployment",
   "-": {
     "type": "separator"
-  },
-  "guides2": "More"
+  }
 }

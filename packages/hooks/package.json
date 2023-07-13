@@ -7,7 +7,7 @@
   "files": [
     "dist/**"
   ],
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react --minify",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",

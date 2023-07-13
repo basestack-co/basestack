@@ -10,7 +10,7 @@
     "dist/**",
     "src"
   ],
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "scripts": {
     "build": "tsup src/index.ts --dts",
     "dev": "tsup src/index.ts --watch --dts",
