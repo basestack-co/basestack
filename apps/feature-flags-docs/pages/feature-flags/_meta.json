@@ -1,0 +1,10 @@
+{
+  "quick-start": "Quick Start",
+  "sdks": "SDKs",
+  "guides": "Guides & Examples",
+  "deployment": "Deployment",
+  "-": {
+    "type": "separator"
+  },
+  "guides2": "More"
+}

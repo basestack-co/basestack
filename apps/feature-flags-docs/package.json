@@ -18,14 +18,14 @@
     "polished": "^4.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "^6.0.3",
+    "styled-components": "^6.0.4",
     "styled-system": "^5.1.5",
     "stylis": "^4.0.0"
   },
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "@types/node": "20.4.1",
+    "@types/node": "20.4.2",
     "next-transpile-modules": "^10.0.0",
     "typescript": "^5.1.3"
   }
