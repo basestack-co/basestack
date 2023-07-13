@@ -28,13 +28,7 @@ const KeysCard = ({ project }: Props) => {
         { title: projectKey! },
         { title: item.key! },
       ],
-      (item) => [
-        {
-          icon: "content_copy",
-          text: "Copy",
-          onClick: () => console.log("delete"),
-        },
-      ],
+      () => [],
     );
   }, [isLoading, data]);
 

@@ -4,7 +4,7 @@ import { SettingCard } from "@basestack/design-system";
 // Styles
 import { CardListItem } from "../styles";
 // Utils
-import { getBaseUrl } from "utils/url";
+import { getBrowserUrl } from "utils/url";
 // Types
 import { ProjectSettings } from "types";
 
@@ -18,7 +18,7 @@ const EndpointsCard = ({ project }: Props) => {
         description="API keys can be used with our SDK’s (Javascript, React)."
         hasFooter={false}
       >
-        <p>base url: {getBaseUrl()}</p>
+        <p>base url: {`${getBrowserUrl()}/api/v1`}</p>
       </SettingCard>
     </CardListItem>
   );

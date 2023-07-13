@@ -24,7 +24,9 @@ const EditEnvironmentModal = () => {
   const updateEnvironment = trpc.environment.update.useMutation();
 
   const { handleSubmit, onRenderForm, reset, isSubmitting, setValue } =
-    useEnvironmentForm({});
+    useEnvironmentForm();
+
+  const isSubmittingOrMutating = isSubmitting || updateEnvironment.isLoading;
 
   const onClose = () => setUpdateEnvironmentModalOpen({ isOpen: false });
   const onSubmit: SubmitHandler<FormInputs> = (input: FormInputs) => {
@@ -109,8 +111,8 @@ const EditEnvironmentModal = () => {
           {
             children: "Update",
             onClick: handleSubmit(onSubmit),
-            isDisabled: isSubmitting,
-            isLoading: isSubmitting,
+            isDisabled: isSubmittingOrMutating,
+            isLoading: isSubmittingOrMutating,
           },
         ]}
         onAnimationEnd={reset}
