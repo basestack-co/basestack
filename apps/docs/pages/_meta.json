@@ -1,0 +1,30 @@
+{
+  "index": {
+    "title": "Home",
+    "type": "page"
+  },
+  "feature-flags": {
+    "title": "Feature Flags",
+    "type": "page"
+  },
+  "company": {
+    "title": "Platform",
+    "type": "menu",
+    "items": {
+      "Contributing": {
+        "title": "Contributing ↗",
+        "href": "https://basestack.co/",
+        "newWindow": true
+      },
+      "about": {
+        "title": "About ↗",
+        "href": "https://basestack.co/",
+        "newWindow": true
+      },
+      "contact": {
+        "title": "Contact Us",
+        "href": "mailto:support@basestack.co"
+      }
+    }
+  }
+}

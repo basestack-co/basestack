@@ -2,7 +2,7 @@
   "name": "react-email-client",
   "version": "0.0.14",
   "description": "The React Email preview application",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

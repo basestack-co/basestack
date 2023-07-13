@@ -1,5 +1,5 @@
 {
-  "name": "@basestack/feature-flags-docs",
+  "name": "@basestack/docs",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "next start",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
   },
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "dependencies": {
     "@basestack/design-system": "*",
     "material-symbols": "^0.9.0",
@@ -18,14 +18,14 @@
     "polished": "^4.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "^6.0.3",
+    "styled-components": "^6.0.4",
     "styled-system": "^5.1.5",
     "stylis": "^4.0.0"
   },
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "@types/node": "20.4.1",
+    "@types/node": "20.4.2",
     "next-transpile-modules": "^10.0.0",
     "typescript": "^5.1.3"
   }
