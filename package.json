@@ -21,7 +21,8 @@
     "build:packages": "turbo run build --filter=./packages/*",
     "build:feature-flags": "turbo run build --filter=feature-flags...",
     "build:landing-page": "turbo run build --filter=landing-page...",
-    "deploy:feature-flags": "turbo run @basestack/feature-flags#deploy"
+    "deploy:feature-flags": "turbo run @basestack/feature-flags#deploy",
+    "deploy:landing-page": "turbo run @basestack/landing-page#deploy"
   },
   "devDependencies": {
     "commitizen": "^4.3.0",

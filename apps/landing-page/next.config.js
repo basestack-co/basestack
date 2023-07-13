@@ -1,6 +1,7 @@
 const withTM = require("next-transpile-modules")(["@basestack/design-system"]);
 
 module.exports = withTM({
+  // output: "export",
   reactStrictMode: true,
   async redirects() {
     return [
@@ -11,7 +12,4 @@ module.exports = withTM({
       },
     ];
   },
-  /* typescript: {
-    ignoreBuildErrors: true,
-  }, */
 });

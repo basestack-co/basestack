@@ -10,7 +10,7 @@
     "dist/**",
     "src"
   ],
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "scripts": {
     "build": "tsup src/index.ts",
     "dev": "tsup src/index.ts --watch",
@@ -29,8 +29,8 @@
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "@swc/core": "^1.3.68",
-    "@types/node": "^20.4.1",
+    "@swc/core": "^1.3.69",
+    "@types/node": "^20.4.2",
     "tsup": "^7.1.0",
     "typescript": "^5.1.3"
   },

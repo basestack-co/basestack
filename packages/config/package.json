@@ -2,7 +2,7 @@
   "name": "@basestack/config",
   "version": "0.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "files": [
     "eslint-preset.js",
     "jest.config.js",
