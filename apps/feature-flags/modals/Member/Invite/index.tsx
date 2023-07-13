@@ -38,12 +38,14 @@ const InviteMemberModal = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
     reset,
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
   });
+
+  const isSubmittingOrMutating = isSubmitting || addUserToProject.isLoading;
 
   const options = useMemo(() => {
     if (!isLoading && data) {
@@ -64,8 +66,6 @@ const InviteMemberModal = () => {
   const onSubmit: SubmitHandler<FormInputs> = useCallback(
     (input: FormInputs) => {
       if (payload && payload.project) {
-        console.log("input = ", input);
-
         addUserToProject.mutate(
           { projectId: payload?.project?.id!, userId: input.memberId },
           {
@@ -100,8 +100,10 @@ const InviteMemberModal = () => {
             children: "Add member",
             onClick: handleSubmit(onSubmit),
             isDisabled:
-              !payload?.project?.id || !options.length || isSubmitting,
-            isLoading: isSubmitting,
+              !payload?.project?.id ||
+              !options.length ||
+              isSubmittingOrMutating,
+            isLoading: isSubmittingOrMutating,
           },
         ]}
       >

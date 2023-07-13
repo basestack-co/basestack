@@ -9,7 +9,6 @@ export const FormSchema = z.object({
     .string()
     .max(250, "Must be 250 characters or less")
     .min(1, "Required field"),
-  environmentId: z.string().optional(),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;

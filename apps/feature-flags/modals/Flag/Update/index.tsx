@@ -51,6 +51,8 @@ const UpdateFlagModal = () => {
     { enabled: !!project?.id && !!modalPayload?.flag?.slug },
   );
 
+  const isSubmittingOrMutating = isSubmitting || updateFlag.isLoading;
+
   const onClose = () => setUpdateFlagModalOpen({ isOpen: false });
 
   const onSubmit: SubmitHandler<FlagFormInputs> = async (input) => {
@@ -115,8 +117,8 @@ const UpdateFlagModal = () => {
           {
             children: "Update",
             onClick: handleSubmit(onSubmit),
-            isDisabled: !project?.id || isLoading,
-            isLoading: isSubmitting,
+            isDisabled: isSubmittingOrMutating || isLoading || !project?.id,
+            isLoading: isSubmittingOrMutating,
           },
         ]}
         onAnimationEnd={reset}

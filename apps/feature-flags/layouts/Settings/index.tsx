@@ -38,11 +38,6 @@ const buttons = [
     text: "Environments",
     href: "/[projectSlug]/settings/environments",
   },
-  {
-    id: 4,
-    text: "Endpoints & API Keys",
-    href: "/[projectSlug]/settings/api-keys",
-  },
 ];
 
 const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
