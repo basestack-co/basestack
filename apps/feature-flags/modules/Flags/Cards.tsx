@@ -9,7 +9,6 @@ import {
   ButtonVariant,
   Empty,
   Loader,
-  Input,
 } from "@basestack/design-system";
 // Store
 import { useStore } from "store";

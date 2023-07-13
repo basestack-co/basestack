@@ -19,3 +19,6 @@ export function getBaseUrl() {
   // assume localhost
   return `http://localhost:${process.env.PORT ?? 3000}`;
 }
+
+export const getBrowserUrl = () =>
+  typeof window !== "undefined" ? window.location.origin : "localhost";
