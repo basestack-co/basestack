@@ -1,3 +1,4 @@
 {
-  "deploy-vercel": "Deploy to Vercel"
+  "config": "Configuration",
+  "deploy-vercel": "Vercel"
 }

@@ -4,7 +4,7 @@
   "features": "Dashboard & Concepts",
   "sdks": "SDKs",
   "guides": "Guides",
-  "deployment": "Deployment",
+  "deployment": "Self-Hosting",
   "-": {
     "type": "separator"
   }
