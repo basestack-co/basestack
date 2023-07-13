@@ -1,7 +1,8 @@
 import React, { memo } from "react";
 import { useTheme } from "styled-components";
 import { SpaceProps, LayoutProps } from "styled-system";
-import { Container, StyledInput, LeftIcon, RightIcon } from "./styles";
+import Icon from "../Icon";
+import { Container, StyledInput, IconContainer } from "./styles";
 
 export interface InputProps extends SpaceProps, LayoutProps {
   /**
@@ -91,11 +92,13 @@ const Input: React.FC<InputProps> = ({
   return (
     <Container data-testid={testId} {...props}>
       {hasLeftIcon && (
-        <LeftIcon
-          icon={icon}
-          size="medium"
-          color={hasError ? theme.colors.red400 : theme.colors.gray400}
-        />
+        <IconContainer iconPlacement={iconPlacement}>
+          <Icon
+            icon={icon}
+            size="medium"
+            color={hasError ? theme.colors.red400 : theme.colors.gray400}
+          />
+        </IconContainer>
       )}
       <StyledInput
         data-testid="input"
@@ -115,11 +118,13 @@ const Input: React.FC<InputProps> = ({
         autoComplete={autoComplete}
       />
       {hasRightIcon && (
-        <RightIcon
-          icon={icon}
-          size="medium"
-          color={hasError ? theme.colors.red400 : theme.colors.gray400}
-        />
+        <IconContainer iconPlacement={iconPlacement}>
+          <Icon
+            icon={icon}
+            size="medium"
+            color={hasError ? theme.colors.red400 : theme.colors.gray400}
+          />
+        </IconContainer>
       )}
     </Container>
   );

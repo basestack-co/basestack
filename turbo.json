@@ -33,6 +33,15 @@
         "GITHUB_CLIENT_ID",
         "GITHUB_CLIENT_SECRET"
       ]
+    },
+    "@basestack/landing-page#deploy": {
+      "dependsOn": [
+        "lint",
+        "@basestack/design-system#build",
+        "@basestack/hooks#build",
+        "@basestack/utils#build"
+      ],
+      "outputs": ["out/**", ".next/**"]
     }
   }
 }

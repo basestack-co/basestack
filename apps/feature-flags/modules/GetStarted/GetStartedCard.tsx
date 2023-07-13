@@ -1,8 +1,8 @@
 import React from "react";
 import { useTheme } from "styled-components";
-import { Text, Button, Icon } from "@basestack/design-system";
+import { Text, Button, Icon, Card } from "@basestack/design-system";
 import { ButtonVariant } from "@basestack/design-system/atoms/Button/types";
-import { IconContainer, StyledCard } from "./styles";
+import { IconContainer } from "./styles";
 
 interface GetStartedCardProps {
   title: string;
@@ -28,7 +28,7 @@ const GetStartedCard = ({
   const theme = useTheme();
 
   return (
-    <StyledCard hasHoverAnimation p={theme.spacing.s5}>
+    <Card hasHoverAnimation p={theme.spacing.s5}>
       <IconContainer bg={icon.bg}>
         <Icon icon={icon.name} color={icon.color} />
       </IconContainer>
@@ -41,7 +41,7 @@ const GetStartedCard = ({
       <Button mt="auto" variant={button.variant} onClick={button.onClick}>
         {button.text}
       </Button>
-    </StyledCard>
+    </Card>
   );
 };
 

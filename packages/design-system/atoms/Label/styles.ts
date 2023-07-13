@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { space } from "styled-system";
 import { rem, transparentize } from "polished";
 import { LabelVariant, LabelSize } from "./types";
 import { ThemeInterface } from "../../types/styled-components";
@@ -65,6 +66,7 @@ export const StyledLabel = styled.div<{
   size: LabelSize;
   isTranslucent: boolean;
 }>`
+  ${space};
   display: flex;
   border-radius: 4px;
   ${({ size }) => getSizeStyles(size)};

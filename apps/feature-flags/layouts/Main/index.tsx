@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useMediaQuery } from "@basestack/hooks";
 import { useTheme } from "styled-components";
 // Router
@@ -8,13 +8,15 @@ import { useStore } from "store";
 // Auth
 import { useSession } from "next-auth/react";
 // Components
-import { TabBar, Splash, Loader } from "@basestack/design-system";
+import { Splash, Loader } from "@basestack/design-system";
+import NavigationDrawer from "./NavigationDrawer";
 import Navigation from "./Navigation";
 // Server
 import { trpc } from "libs/trpc";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isMobile = useMediaQuery(theme.device.max.lg);
   const router = useRouter();
   const setCreateFlagModalOpen = useStore(
@@ -26,6 +28,12 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       router.push("/auth/sign-in");
     },
   });
+
+  useEffect(() => {
+    if (!isMobile) {
+      setIsDrawerOpen(false);
+    }
+  }, [isMobile]);
 
   const { data, isLoading: isLoadingProjects } = trpc.project.all.useQuery(
     undefined,
@@ -42,14 +50,17 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Fragment>
-      <Navigation isDesktop={!isMobile} data={data} />
+      <Navigation
+        onClickMenuButton={() => setIsDrawerOpen(true)}
+        isDesktop={!isMobile}
+        data={data}
+      />
+      <NavigationDrawer
+        data={data}
+        onClose={() => setIsDrawerOpen(false)}
+        isDrawerOpen={isDrawerOpen}
+      />
       {children}
-      {isMobile && (
-        <TabBar
-          pathname={router.pathname}
-          onCreateFlag={() => setCreateFlagModalOpen({ isOpen: true })}
-        />
-      )}
     </Fragment>
   );
 };

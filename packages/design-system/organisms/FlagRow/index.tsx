@@ -3,7 +3,7 @@ import { useTheme } from "styled-components";
 import { useFloatingPopup } from "@basestack/hooks";
 import { animated } from "react-spring";
 // Components
-import { Text, IconButton } from "../../atoms";
+import { Text, IconButton, Card } from "../../atoms";
 import {
   Popup,
   Tooltip,
@@ -12,7 +12,6 @@ import {
 } from "../../molecules";
 import {
   Labels,
-  StyledCard,
   Label,
   CardWrapper,
   PopupWrapper,
@@ -43,34 +42,32 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
     } = useFloatingPopup();
 
     return (
-      <StyledCard
+      <Card
         ref={ref}
         testId="flag-card"
         hasHoverAnimation
-        p={theme.spacing.s5}
+        p={`${theme.spacing.s2} ${theme.spacing.s3}`}
         {...props}
       >
         <CardWrapper>
           <Labels data-testid="flag-labels">
-            {environments.map((environment, index, { length }) => {
-              return (
-                <TooltipContainer
-                  key={environment.id}
-                  index={index}
-                  length={length}
-                >
-                  <Tooltip placement="top">
-                    <TooltipTrigger>
-                      <Label
-                        data-testid={`${environment.name}-flag-label`}
-                        isActive={environment.enabled}
-                      />
-                    </TooltipTrigger>
-                    <TooltipContent>{environment.name}</TooltipContent>
-                  </Tooltip>
-                </TooltipContainer>
-              );
-            })}
+            {environments.map((environment, index, { length }) => (
+              <TooltipContainer
+                key={environment.id}
+                index={index}
+                length={length}
+              >
+                <Tooltip placement="top">
+                  <TooltipTrigger>
+                    <Label
+                      data-testid={`${environment.name}-flag-label`}
+                      isActive={environment.enabled}
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>{environment.name}</TooltipContent>
+                </Tooltip>
+              </TooltipContainer>
+            ))}
           </Labels>
           <Text data-testid="flag-title" size="large">
             {title}
@@ -106,7 +103,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
             )}
           </PopupWrapper>
         </CardWrapper>
-      </StyledCard>
+      </Card>
     );
   },
 );

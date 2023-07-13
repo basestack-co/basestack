@@ -14,7 +14,10 @@ import {
   Icon,
   Switch,
 } from "@basestack/design-system";
-import { scaleInTopRight } from "@basestack/design-system/animations/springs";
+import {
+  slideTop,
+  slideBottom,
+} from "@basestack/design-system/animations/springs";
 import {
   ListItem,
   AvatarButton,
@@ -25,6 +28,7 @@ import {
   List,
   HrContainer,
   Container,
+  AvatarDetailedButton,
 } from "./styles";
 import theme from "@basestack/design-system/theme";
 
@@ -34,14 +38,22 @@ interface AvatarMenuProps {
   name: string;
   email: string;
   src: string;
+  showFullButton?: boolean;
+  popupPlacement?: "bottom-end" | "top";
 }
 
-const AvatarDropdown = ({ name, email, src }: AvatarMenuProps) => {
+const AvatarDropdown = ({
+  name,
+  email,
+  src,
+  showFullButton,
+  popupPlacement = "bottom-end",
+}: AvatarMenuProps) => {
   const menuWrapperRef = useRef(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { x, y, refs, strategy } = useFloating({
-    placement: "bottom-end",
+    placement: popupPlacement,
     whileElementsMounted: autoUpdate,
     middleware: [offset(4)],
   });
@@ -50,9 +62,12 @@ const AvatarDropdown = ({ name, email, src }: AvatarMenuProps) => {
     setIsMenuOpen((prevState) => !prevState);
   }, []);
 
+  const animationDirection =
+    popupPlacement === "bottom-end" ? slideBottom : slideTop;
+
   const transitionMorePopup = useTransition(isMenuOpen, {
     config: { ...config.default, duration: 150 },
-    ...scaleInTopRight,
+    ...animationDirection,
   });
 
   useClickAway(menuWrapperRef, () => {
@@ -61,9 +76,28 @@ const AvatarDropdown = ({ name, email, src }: AvatarMenuProps) => {
 
   return (
     <Container ref={menuWrapperRef}>
-      <AvatarButton ref={refs.setReference} onClick={onClickMenu}>
-        <Avatar userName={name} alt="User Image" src={src} />
-      </AvatarButton>
+      {showFullButton ? (
+        <AvatarDetailedButton ref={refs.setReference} onClick={onClickMenu}>
+          <Avatar
+            round
+            alt="user image"
+            src={src}
+            userName={name}
+            mr={theme.spacing.s3}
+          />
+          <div>
+            <Text size="medium">{name}</Text>
+            <Text size="small" muted lineHeight="1.2">
+              {email}
+            </Text>
+          </div>
+          <Icon icon={isMenuOpen ? "expand_less" : "expand_more"} ml="auto" />
+        </AvatarDetailedButton>
+      ) : (
+        <AvatarButton ref={refs.setReference} onClick={onClickMenu}>
+          <Avatar userName={name} alt="User Image" src={src} />
+        </AvatarButton>
+      )}
       {transitionMorePopup(
         (styles, item) =>
           item && (
@@ -76,22 +110,24 @@ const AvatarDropdown = ({ name, email, src }: AvatarMenuProps) => {
               left={x}
             >
               <Header>
-                <HeaderWrapper>
-                  <Avatar
-                    size="large"
-                    userName={name}
-                    alt="User Image"
-                    src={src}
-                    mr={theme.spacing.s3}
-                  />
-                  <div>
-                    <Text size="medium">{name}</Text>
-                    <Text size="small" muted lineHeight="1.2">
-                      {email}
-                    </Text>
-                  </div>
-                </HeaderWrapper>
-                <ThemeContainer>
+                {!showFullButton && (
+                  <HeaderWrapper>
+                    <Avatar
+                      size="large"
+                      userName={name}
+                      alt="User Image"
+                      src={src}
+                      mr={theme.spacing.s3}
+                    />
+                    <div>
+                      <Text size="medium">{name}</Text>
+                      <Text size="small" muted lineHeight="1.2">
+                        {email}
+                      </Text>
+                    </div>
+                  </HeaderWrapper>
+                )}
+                <ThemeContainer showFullButton={showFullButton}>
                   <Icon
                     icon={isDarkMode ? "dark_mode" : "light_mode"}
                     color={theme.colors.black}

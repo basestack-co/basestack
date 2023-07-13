@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
 import { space, compose, layout } from "styled-system";
-import Icon from "../Icon";
 
 export const Container = styled.div`
   ${compose(space, layout)};
@@ -62,12 +61,11 @@ export const StyledInput = styled.input<{
     `};
 `;
 
-export const LeftIcon = styled(Icon)`
+export const IconContainer = styled.div<{ iconPlacement?: "left" | "right" }>`
+  display: inline-flex;
   position: absolute;
-  left: ${rem("12px")};
-`;
-
-export const RightIcon = styled(Icon)`
-  position: absolute;
-  right: ${rem("12px")};
+  left: ${({ iconPlacement }) =>
+    iconPlacement === "left" ? rem("12px") : "initial"};
+  right: ${({ iconPlacement }) =>
+    iconPlacement === "right" ? rem("12px") : "initial"};
 `;
