@@ -1,25 +1,23 @@
 services:
   - type: web
     name: basestack-landing-page
-    rootDir: apps/landing-page
+    # rootDir: no need to specify rootDir
     env: static
-    buildCommand: cd ../.. && yarn install && yarn build:packages; cd apps/landing-page/ && yarn build && yarn next export
-    staticPublishPath: out
+    buildCommand: yarn deploy:landing-page
+    staticPublishPath: apps/landing-page/out
     pullRequestPreviewsEnabled: true
     envVars:
       - key: SKIP_INSTALL_DEPS
         value: true # disables npm install to use yarn
-      - key: NEXT_PUBLIC_PIWIK_PRO_ACCOUNT_URL
-        sync: false # placeholder for a value to be added in the dashboard
-      - key: NEXT_PUBLIC_PIWIK_PRO_CONTAINER_ID
-        sync: false # placeholder for a value to be added in the dashboard
+      - key: NODE_VERSION
+        value: 16.8.0
   - type: web
     name: basestack-feature-flags-app
-    rootDir: apps/feature-flags
+    # rootDir: no need to specify rootDir
     env: node
-    buildCommand: cd ../.. && yarn && yarn build:packages; cd apps/feature-flags/ && yarn build:deploy
+    buildCommand: yarn deploy:feature-flags
     startCommand: yarn start
-    staticPublishPath: .next
+    staticPublishPath: apps/feature-flags/.next
     pullRequestPreviewsEnabled: false
     plan: free
     autoDeploy: true
