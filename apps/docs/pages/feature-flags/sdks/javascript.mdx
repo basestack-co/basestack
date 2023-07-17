@@ -1,3 +1,159 @@
-# JavaScript SDK
+import { Steps, Callout } from "nextra/components";
 
-Satori (悟り) is a Japanese Buddhist term for awakening, "comprehension; understanding".
+# JavaScript & Node SDK Reference
+
+Seamless integration with JavaScript Vanilla streamlines the testing and development of features across production and various environments. The vanilla version effortlessly integrates into any JavaScript-based environment, allowing you to leverage this capability in projects like Vue, Svelte, or other JavaScript frameworks.
+
+## Getting started
+
+<Steps>
+  ### Install
+
+First, let's install some packages!
+
+```sh copy npm2yarn
+npm i @basestack/flags-js-sdk
+```
+
+or with Script Tag
+
+```js copy
+<script type="module" src="https://unpkg.com/@basestack/flags-js-sdk"></script>
+```
+
+### Create a new instance
+
+You can find these parameter values in your project's settings
+
+```js copy filename="main.js"
+import FlagsJS from "@basestack/flags-js-sdk";
+
+const sdk = new FlagsJS({
+  apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
+  projectKey: "xxxxx",
+  envKey: "xxxxx",
+});
+```
+
+That's it! Your app is now fully equipped to leverage feature flags and other powerful functionalities. To make the most of Basestack's capabilities, simply follow the instructions provided in the supported methods documentation.
+
+### Usage
+
+```jsx copy filename="main.js"
+const MyFeature = async () => {
+  try {
+    const flag = await sdk.flagAsync("header");
+    //flag.enabled true | false
+    //  ...code
+  } catch (e) {
+    throw e;
+  }
+};
+```
+
+</Steps>
+
+## Node Implementation
+
+In a Node environment, you should utilize the flagAsync and flagsAsync methods. Please note that the flags and flag methods are not supported in Node environments due to missing features from the browser.
+
+```js copy filename="main.js"
+const FlagsJS = require("@basestack/flags-js-sdk").default;
+
+const sdk = new FlagsJS({
+  apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
+  projectKey: "xxxxx",
+  envKey: "xxxxx",
+});
+
+// ...
+
+await sdk.flagsAsync();
+```
+
+## Fetching and Caching Feature Flags
+
+To enhance your application's performance, our SDK includes caching features that enable you to utilize methods like flags and flags, providing instantaneous responses. To take advantage of this functionality, it's essential to initialize the request for the cache.
+
+```js copy filename="main.js"
+const sdk = new FlagsJS({
+  apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
+  projectKey: "xxxxx",
+  envKey: "xxxxx",
+});
+
+await sdk.initialize();
+
+if (sdk.isInitialized) {
+  // get the flag from the cache
+  const response = sdk.flag("name");
+}
+```
+
+## Cache vs Async
+
+The SDK provides two alternatives for fetching a feature flag: the 'flag' and 'flagAsync' methods. Both serve the same purpose of retrieving a flag by its name. However, the 'flag' method utilizes the cached version, resulting in faster access, while 'flagAsync' fetches the latest version directly from the server.
+
+Which method should you choose? It depends on your specific needs. If having the most up-to-date version of the flag is crucial and it changes frequently, then opt for the async methods. On the other hand, if the flag doesn't undergo frequent changes and you prioritize performance, the methods with cache support are the ideal choice. Assess your requirements and select the method that aligns best with your priorities.
+
+<Callout>
+  The cache functions as a state container that automatically updates every time
+  your app is restarted or updated.
+</Callout>
+
+```js copy filename="main.js"
+const FlagsJS = require("@basestack/flags-js-sdk").default;
+
+const sdk = new FlagsJS({
+  apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
+  projectKey: "xxxxx",
+  envKey: "xxxxx",
+});
+
+// ...
+
+// This will fetch the latest version from the server
+await sdk.flagAsync("header");
+
+// This will get the version from the cache
+sdk.flag("header");
+```
+
+## TypeScript Support
+
+The SDK is built with TypeScript. Therefore, when utilized in a TypeScript project, it comes with basic type inference out of the box.
+
+```js copy filename="main.ts"
+const flag = sdk.flag("name");
+
+flag.enabled; // boolean
+flag.createdAt; // Date
+flag.slug; // string
+flag.description; // string
+// ...
+```
+
+## SDK Reference
+
+## Initialisation options
+
+| Property             | Description                                                     | Required | Default Value |
+| -------------------- | --------------------------------------------------------------- | -------- | ------------- |
+| `apiUrl: string`     | Specifies the target URL to point to.                           | true     | null          |
+| `projectKey: string` | Specifies the project to retrieve data from.                    | true     | null          |
+| `envKey: string`     | Specifies the project environment from which to retrieve flags. | true     | null          |
+
+## Available Methods
+
+| Property                                            | Description                                                                                       | Environment    |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------- | -------------- |
+| `initialize() => Promise<void>`                     | Initiates the flags request, enabling caching capabilities.                                       | Browser        |
+| `isInitialized: boolean = false`                    | Verifies if the SDK has been initialized and ensures the safe usage of cached flags.              | Browser        |
+| `flags(): Flag[]`                                   | Retrieve all flags from the cache. To do so, make sure to initialize the SDK.                     | Browser        |
+| `flag(name: string): FlagResult<Flag>`              | Retrieve a specific flag by name from the cache. Please ensure that you have initialized the SDK. | Browser        |
+| `flagsAsync(): Promise<Flag[]>`                     | Asynchronously fetch all flags, triggering a new request and refreshing the cache.                | Browser & Node |
+| `flagAsync(name: string): Promise<FlagResult<Flag>` | Asynchronously fetch a specific flag by name, triggering a new request.                           | Browser & Node |
+
+## Examples
+
+**coming soon**

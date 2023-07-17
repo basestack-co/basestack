@@ -48,7 +48,7 @@ That's it! Now your app is ready to start using feature flags and other features
 ## Usage
 
 ```js
-import UpStamps from "upstamps-js";
+import FlagsJS from "@basestack/flags-js-sdk";
 
 const sdk = new FlagsJS({
   apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
