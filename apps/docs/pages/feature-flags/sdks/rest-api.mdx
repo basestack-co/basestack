@@ -1,3 +1,65 @@
-# REST API
+# Rest API Reference
 
-Satori (悟り) is a Japanese Buddhist term for awakening, "comprehension; understanding".
+Basestack Feature Flags is designed with a client/server architecture to offer seamless functionality and efficient communication. The core of this architecture lies in the REST API server, which serves as the backbone for handling feature flags across the system.
+
+When you integrate the Basestack SDK into your application, it acts as the client, enabling you to interact with the REST API server effortlessly. This client-server communication empowers you to easily manage feature flags and utilize various functionalities within your application
+
+## API Explorer
+
+These two main endpoints are essential for consuming the SDK aspect of the API.
+
+### Get All Flags
+
+```sh copy
+curl "https://your-basestack-hosted-app-domain.com/api/v1/:projectKey/:envKey/flags"
+```
+
+#### Example JSON Object
+
+Retrieve all feature flags associated with a particular project and a specific environment (e.g., Develop, Staging, etc)
+
+```json copy
+[
+  {
+    "slug": "footer",
+    "enabled": false,
+    "payload": {},
+    "expiredAt": null,
+    "description": "footer",
+    "createdAt": "2023-07-07T17:20:43.446Z",
+    "updatedAt": "2023-07-07T17:20:43.446Z"
+  },
+  {
+    "slug": "header",
+    "enabled": false,
+    "payload": "{}",
+    "expiredAt": null,
+    "description": "header",
+    "createdAt": "2023-07-07T17:20:26.324Z",
+    "updatedAt": "2023-07-11T17:12:48.271Z"
+  }
+]
+```
+
+### Get Flag by Name
+
+Retrieve a specific feature flag linked to a particular project and environment (e.g., Develop, Staging, etc).
+
+```sh copy
+curl "https://your-basestack-hosted-app-domain.com/api/v1/:projectKey/:envKey/flags/:name"
+```
+
+#### Typescript Type Definition
+
+```sh copy
+export interface Flag {
+  slug: string;
+  enabled: boolean;
+  payload?: unknown;
+  expiredAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  description: string;
+  error: boolean;
+}
+```

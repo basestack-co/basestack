@@ -55,7 +55,7 @@ const MyFeature = async () => {
 
 ## Node Implementation
 
-In a Node environment, you should utilize the flagAsync and flagsAsync methods. Please note that the flags and flag methods are not supported in Node environments due to missing features from the browser.
+In a Node environment, you should utilize the flagAsync and **flagsAsync** methods. Please note that the flags and flag methods are not supported in Node environments due to missing features from the browser.
 
 ```js copy filename="main.js"
 const FlagsJS = require("@basestack/flags-js-sdk").default;
@@ -73,7 +73,7 @@ await sdk.flagsAsync();
 
 ## Fetching and Caching Feature Flags
 
-To enhance your application's performance, our SDK includes caching features that enable you to utilize methods like flags and flags, providing instantaneous responses. To take advantage of this functionality, it's essential to initialize the request for the cache.
+To enhance your application's performance, our SDK includes caching features that enable you to utilize methods like **flags** and **flags**, providing instantaneous responses. To take advantage of this functionality, it's essential to initialize the request for the cache.
 
 ```js copy filename="main.js"
 const sdk = new FlagsJS({
