@@ -11,10 +11,10 @@
   "license": "AGPL-3.0",
   "dependencies": {
     "@basestack/design-system": "*",
-    "material-symbols": "^0.9.0",
+    "material-symbols": "^0.10.0",
     "next": "^13.4.7",
-    "nextra": "2.9.0",
-    "nextra-theme-docs": "2.9.0",
+    "nextra": "2.10.0",
+    "nextra-theme-docs": "2.10.0",
     "polished": "^4.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
