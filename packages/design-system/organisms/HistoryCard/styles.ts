@@ -53,14 +53,15 @@ export const TextContainer = styled.div`
   margin-top: 3px;
 `;
 
-export const Description = styled(Text)`
-  font-weight: 400;
-`;
+export const TitleContainer = styled.div<{ type: Type }>`
+  display: flex;
+  align-items: center;
 
-export const StyledText = styled(Text)<{ type: Type }>`
   ${({ type }) =>
     type === "deleted" &&
     css`
-      text-decoration: line-through;
+      p:last-child {
+        text-decoration: line-through;
+      }
     `}
 `;

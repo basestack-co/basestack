@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { space, typography, compose } from "styled-system";
+import { space, typography, flexbox, compose } from "styled-system";
 import { rem } from "polished";
 import { TextProps, FontFamily } from "./types";
 
@@ -16,11 +16,12 @@ const sharedStyles = ({
   fontFamily,
   lineTruncate,
 }: sharedStylesProps) => css`
-  ${compose(space, typography)};
+  ${compose(space, typography, flexbox)};
   font-family: ${({ theme }) =>
     fontFamily === "robotoFlex"
       ? theme.typography.robotoFlex
       : theme.typography.roboto};
+  word-break: break-word;
   color: ${({ theme }) =>
     color || (muted ? theme.colors.gray500 : theme.colors.black)};
 

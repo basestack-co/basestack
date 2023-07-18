@@ -3,10 +3,9 @@ import { useTheme } from "styled-components";
 import { Text, Avatar, Icon } from "../../atoms";
 import {
   Container,
-  Description,
   IconContainer,
-  StyledText,
   TextContainer,
+  TitleContainer,
   Wrapper,
 } from "./styles";
 import { HistoryCardProps } from "./types";
@@ -53,12 +52,19 @@ const HistoryCard = ({
           mr={theme.spacing.s3}
         />
         <TextContainer>
-          <Text fontWeight={500}>
-            {userName} <Description as="span">{description}</Description>{" "}
-            <StyledText type={type} as="span">
+          <TitleContainer type={type}>
+            <Text flexShrink={0} fontWeight={500}>
+              {userName}
+            </Text>
+            &nbsp;
+            <Text flexShrink={0} fontWeight={400}>
+              {description}
+            </Text>
+            &nbsp;
+            <Text fontWeight={500} lineTruncate>
               {flagName}
-            </StyledText>
-          </Text>
+            </Text>
+          </TitleContainer>
           <Text muted>{`${date} - ${environment}`}</Text>
         </TextContainer>
       </Wrapper>
