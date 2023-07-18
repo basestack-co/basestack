@@ -15,12 +15,14 @@ const Text = ({
   color,
   children,
   fontFamily = "roboto",
+  lineTruncate = false,
   ...props
 }: TextProps) => {
   const sharedProps = {
     muted,
     color,
     fontFamily,
+    lineTruncate,
   };
 
   switch (size) {

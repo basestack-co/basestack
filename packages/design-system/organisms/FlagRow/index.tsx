@@ -69,13 +69,13 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
               </TooltipContainer>
             ))}
           </Labels>
-          <Text data-testid="flag-title" size="large">
+          <Text data-testid="flag-title" size="large" lineTruncate>
             {title}
           </Text>
-          <Text data-testid="flag-description" size="small">
-            {description}
+          <Text data-testid="flag-description" size="small" lineTruncate>
+            {!!description ? description : "-"}
           </Text>
-          <Text data-testid="flag-date" size="small" muted>
+          <Text data-testid="flag-date" size="small" muted lineTruncate>
             {date}
           </Text>
           <PopupWrapper ref={popupWrapperRef}>

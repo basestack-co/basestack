@@ -14,6 +14,7 @@ export const PopupWrapper = styled.div`
 export const Footer = styled.div`
   display: flex;
   align-items: center;
+  margin-top: auto;
 `;
 
 export const TooltipContainer = styled.div`

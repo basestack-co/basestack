@@ -68,9 +68,17 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
         position="relative"
         {...props}
       >
-        <Text data-testid="flag-title" size="large" mb={theme.spacing.s2}>
-          {title}
-        </Text>
+        <div>
+          <Text
+            data-testid="flag-title"
+            size="large"
+            mb={theme.spacing.s2}
+            pr={theme.spacing.s7}
+            lineTruncate
+          >
+            {title}
+          </Text>
+        </div>
         <Text data-testid="flag-description" size="small" mb={theme.spacing.s3}>
           {description}
         </Text>

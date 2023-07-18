@@ -32,4 +32,8 @@ export interface TextProps extends SpaceProps, TypographyProps {
    * Change text fontFamily
    */
   fontFamily?: FontFamily;
+  /**
+   * Truncate text to one line
+   */
+  lineTruncate?: boolean;
 }

@@ -4,7 +4,7 @@ import { rem } from "polished";
 export const CardWrapper = styled.div`
   display: grid;
   align-items: center;
-  grid-template-columns: auto 1fr 2fr 1fr auto;
+  grid-template-columns: auto minmax(0, 2fr) 2fr minmax(0, 1fr) auto;
   grid-gap: ${({ theme }) => theme.spacing.s5};
 `;
 
