@@ -10,7 +10,7 @@ import {
 } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
 import AvatarDropdown from "./AvatarDropdown";
-import { ButtonLink, MoreMenu, ProjectsMenu } from "./components";
+import { ButtonLink, ProjectsMenu } from "./components";
 // Router
 import { useRouter } from "next/router";
 import Link from "next/link";

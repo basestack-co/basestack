@@ -4,7 +4,7 @@ import { animated, config, useTransition } from "react-spring";
 // Components
 import { autoUpdate, offset, useFloating } from "@floating-ui/react";
 import { Button, ButtonVariant, PopupActions } from "@basestack/design-system";
-import { scaleInTopLeft } from "@basestack/design-system/animations/springs";
+import { slideBottom } from "@basestack/design-system/animations/springs";
 // Types
 import { PopupItem } from "@basestack/design-system/molecules/PopupActions";
 import { ListItem } from "../styles";
@@ -36,7 +36,7 @@ const ProjectsMenu = ({
 
   const transitionProjectsPopup = useTransition(isProjectsPopupOpen, {
     config: { ...config.default, duration: 150 },
-    ...scaleInTopLeft,
+    ...slideBottom,
   });
 
   useClickAway(menuWrapperRef, () => {

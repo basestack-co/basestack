@@ -28,10 +28,17 @@ export interface PopupActionsProps extends PositionProps {
     onClick: () => void;
   };
   onCallback?: () => void;
+  /**
+   * Truncates list item text to one line
+   */
+  truncateText?: boolean;
 }
 
 const PopupActions = forwardRef<HTMLDivElement, PopupActionsProps>(
-  ({ items, button, title, onCallback, ...props }, ref) => {
+  (
+    { items, button, title, onCallback, truncateText = true, ...props },
+    ref,
+  ) => {
     const theme = useTheme();
 
     const onHandleClick = useCallback(
@@ -67,7 +74,9 @@ const PopupActions = forwardRef<HTMLDivElement, PopupActionsProps>(
                       alt={`Select ${item.text} from the list`}
                       size="small"
                     />
-                    <Text ml={theme.spacing.s2}>{item.text}</Text>
+                    <Text ml={theme.spacing.s2} lineTruncate={truncateText}>
+                      {item.text}
+                    </Text>
                   </PopUpButton>
                 );
               })}

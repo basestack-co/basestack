@@ -1,4 +1,7 @@
 import React, { memo, useCallback, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import theme from "@basestack/design-system/theme";
+import { useStore } from "store";
 // Auth
 import { signOut } from "next-auth/react";
 // Components
@@ -30,7 +33,6 @@ import {
   Container,
   AvatarDetailedButton,
 } from "./styles";
-import theme from "@basestack/design-system/theme";
 
 const AnimatedAvatarDropdown = animated(Dropdown);
 
@@ -49,6 +51,7 @@ const AvatarDropdown = ({
   showFullButton,
   popupPlacement = "bottom-end",
 }: AvatarMenuProps) => {
+  const router = useRouter();
   const menuWrapperRef = useRef(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -73,6 +76,16 @@ const AvatarDropdown = ({
   useClickAway(menuWrapperRef, () => {
     setIsMenuOpen(false);
   });
+
+  const setCreateProjectModalOpen = useStore(
+    (state) => state.setCreateProjectModalOpen,
+  );
+
+  const setInviteMemberModalOpen = useStore(
+    (state) => state.setInviteMemberModalOpen,
+  );
+
+  const projectSlug = router.query.projectSlug as string;
 
   return (
     <Container ref={menuWrapperRef}>
@@ -151,7 +164,10 @@ const AvatarDropdown = ({
                     iconPlacement="left"
                     variant={ButtonVariant.Neutral}
                     fullWidth
-                    onClick={() => console.log("damm")}
+                    onClick={() => {
+                      setCreateProjectModalOpen({ isOpen: true });
+                      setIsMenuOpen(false);
+                    }}
                   >
                     Create Project
                   </Button>
@@ -162,9 +178,12 @@ const AvatarDropdown = ({
                     iconPlacement="left"
                     variant={ButtonVariant.Neutral}
                     fullWidth
-                    onClick={() => console.log("damm")}
+                    onClick={() => {
+                      setInviteMemberModalOpen({ isOpen: true });
+                      setIsMenuOpen(false);
+                    }}
                   >
-                    Invite Team
+                    Invite Member
                   </Button>
                 </ListItem>
                 <HrContainer>
@@ -176,7 +195,12 @@ const AvatarDropdown = ({
                     iconPlacement="left"
                     variant={ButtonVariant.Neutral}
                     fullWidth
-                    onClick={() => console.log("damm")}
+                    onClick={() => {
+                      router.push({
+                        pathname: "/[projectSlug]/settings/general",
+                        query: { projectSlug },
+                      });
+                    }}
                   >
                     Settings
                   </Button>
