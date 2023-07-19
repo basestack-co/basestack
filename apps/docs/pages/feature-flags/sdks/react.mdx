@@ -1,3 +1,259 @@
-# ReactJS & NextJS SDK
+import { Steps, Callout } from "nextra/components";
 
-Satori (悟り) is a Japanese Buddhist term for awakening, "comprehension; understanding".
+# React SDK Reference
+
+Integration with React helps and facilitates the process of testing and developing features in production and other environments. This integration consists of a set of plug-and-play components to accelerate the development process in your project.
+
+## Getting started
+
+<Steps>
+  ### Install
+
+First, let's install some packages!
+
+```sh copy npm2yarn
+npm i @basestack/flags-js-sdk @basestack/flags-react-sdk
+```
+
+### Create a client provider
+
+In your index.js file, import FlagsProvider from @basestack/flags-react-sdk and include the configuration parameters specific to your Basestack project. You can find these parameter values on your project settings page.
+
+```js copy filename="index.js"
+import FlagsJS from "@basestack/flags-js-sdk";
+import { FlagsProvider } from "@basestack/flags-react-sdk";
+
+const sdk = new FlagsJS({
+  apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
+  projectKey: "xxxxx",
+  envKey: "xxxxx",
+});
+
+root.render(
+  <FlagsProvider
+    sdk={sdk}
+    onSuccessfulInit={() => console.log("Successful Init FlagsJS SDK")}
+  >
+    <App />
+  </FlagsProvider>,
+);
+```
+
+Your app is now fully equipped to take advantage of feature flags and other powerful functionalities offered by Basestack. To maximize the potential of Basestack, refer to the instructions provided in the supported hooks and components documentation.
+
+### Usage
+
+```jsx copy filename="MyComponent.js"
+import { useFlag } from "@basestack/flags-react-sdk";
+
+const AppComponent = () => {
+  const { enabled } = useFlag("private_msg_2");
+  const privateChat = useFlag("private_chat");
+
+  return (
+    <div>
+      {enabled && <div>This is a great feature</div>}
+      {privateChat.enabled && <div>This is a great private chat</div>}
+    </div>
+  );
+};
+```
+
+</Steps>
+
+## Cache vs Async
+
+The SDK provides two alternatives for fetching a feature flag: the **useFlag** and **useFlagAsync** hooks. Both serve the same purpose of retrieving a flag by its name. However, the 'useFlag' hook utilizes the cached version, resulting in faster access, while 'useFlagAsync' hook fetches the latest version directly from the server.
+
+Which hook should you choose? It depends on your specific needs. If having the most up-to-date version of the flag is crucial and it changes frequently, then opt for the async hooks. On the other hand, if the flag doesn't undergo frequent changes and you prioritize performance, the hook with cache support are the ideal choice. Assess your requirements and select the method that aligns best with your priorities.
+
+<Callout>
+  The cache functions as a state container that automatically updates every time
+  your app is restarted or updated.
+</Callout>
+
+```js copy filename="main.js"
+import { useFlag, useFlagAsync } from "@basestack/flags-react-sdk";
+
+const MyComponent = () => {
+  // Get from the cache, no call for the server
+  const cache = useFlag("header");
+  // Get a new fresh version from the server
+  const server = useFlagAsync("header");
+
+  return (
+    <div>
+      {!server.isLoading && server.flag.enabled && (
+        <div>
+          This feature is waiting for the server response to check if we can
+          enabled
+        </div>
+      )}
+      {cache.enabled && <div>This is enabled feature from the cache</div>}
+    </div>
+  );
+};
+```
+
+## Hooks
+
+The library fully supports React hooks, providing the **useFlag**, **useFlagAsync**, **useFlags** and **useFlagsAsync** hook for a programmatic approach.
+
+### useFlag & useFlagAsync Hooks
+
+With **useFlag** or **useFlagAsync**, you can create and utilize multiple flags without any restrictions; simply change the names as needed. For practical implementation, refer to the examples provided.
+
+```js copy
+import { useFlag, useFlagAsync } from "@basestack/flags-react-sdk";
+
+const MyComponent = () => {
+  const { enabled } = useFlag("private_msg_2");
+  const privateChat = useFlag("private_chat");
+  // Get a new fresh version from the server
+  const server = useFlagAsync("header");
+
+  return (
+    <div>
+      {!server.isLoading && server.flag.enabled && (
+        <div>
+          This feature is waiting for the server response to check if we can
+          enabled
+        </div>
+      )}
+      {enabled && <div>This is a great feature</div>}
+      {privateChat.enabled && <div>This is a great private chat</div>}
+    </div>
+  );
+};
+```
+
+#### Remote Flags
+
+Remote Flags share the same characteristics as regular Flags, but they come with an additional advantage – a data payload.
+
+This payload empowers you to furnish real-time properties to your project's features. For instance, if certain features of a project require dynamic color changes, size adjustments, or any other data variations across different environments, utilizing the data payload of a Remote Flag becomes the ideal solution.
+
+```js copy
+import { useFlag, useFlagAsync } from "@basestack/flags-react-sdk";
+
+const MyComponent = () => {
+  const { enabled, payload } = useFlag("my_remote_flag");
+  // Get a new fresh version from the server
+  const server = useFlagAsync("header");
+
+  return (
+    <div>
+      {!server.isLoading && server.flag.enabled && (
+        <div style={{ color: server.flag.payload.color }}>
+          This feature is waiting for the server response to check if we can
+          enabled
+        </div>
+      )}
+      {enabled && (
+        <div style={{ color: payload.color }}>
+          This is a great remote feature
+        </div>
+      )}
+    </div>
+  );
+};
+```
+
+### useFlags & useFlagsAsync Hooks
+
+For scenarios where you need to fetch all flags simultaneously, make use of the **useFlags** and **useFlagsAsync** hooks. These hooks enable efficient retrieval of multiple flags in a single operation.
+
+```js copy
+import { useFlags, useFlagsAsync } from "@basestack/flags-react-sdk";
+
+const MyComponent = () => {
+  const allFlags = useFlags();
+  // Or use the useFlagsAsync to get fresh list from the server, this will update the cache state
+  const allFlagsFromServer = useFlagsAsync();
+
+  return (
+    <div>
+      {allFlags.map(({ enabled, slug }) => {
+        if (!enabled) return null;
+
+        return <p>{slug}</p>;
+      })}
+    </div>
+  );
+};
+```
+
+## Components
+
+### Flag & FlagAsync Components
+
+The pre-built components **Flag** or **FlagAsync** accepts one or multiple child components. Any components placed inside the **Flag** wrapper will only be rendered when the flag exists or enabled.
+
+```js copy
+import { Flag, FlagAsync } from "@basestack/flags-react-sdk";
+
+const AppComponent = () => {
+  return (
+    <div>
+      {/* Get a Flag from the cache */}
+      <Flag name="private_msg_2">
+        <YourFeature />
+      </Flag>
+
+      {/* Get a Flag from the cache and use as a Remote Flag. Ps. You can do the same with the FlagAsync Component */}
+      <Flag name="my_remote_flag">
+        {(flag) => (
+          <div style={{ color: flag.payload.color }}>
+            A Remote flag inside a component
+          </div>
+        )}
+      </Flag>
+
+      {/* Get a Flag from the server */}
+      <FlagAsync name="private_msg_2">
+        <YourFeature />
+      </FlagAsync>
+    </div>
+  );
+};
+```
+
+## TypeScript Support
+
+The SDK is built with TypeScript. Therefore, when utilized in a TypeScript project, it comes with basic type inference out of the box.
+
+```js copy filename="main.ts"
+import { useFlag } from "@basestack/flags-react-sdk";
+
+const flag = useFlag("new_header_v2");
+
+flag.enabled; // boolean
+flag.createdAt; // Date
+flag.slug; // string
+flag.description; // string
+// ...
+```
+
+#### Typescript Type Definition
+
+```sh copy
+interface Flag {
+  slug: string;
+  enabled: boolean;
+  payload?: unknown;
+  expiredAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  description: string;
+}
+```
+
+## SDK Reference
+
+## Initialisation options
+
+For details regarding the initialization options of @basestack/flags-js-sdk, please refer to the documentation related to the [Javascript SDK](/feature-flags/sdks/javascript#initialisation-options).
+
+## Examples
+
+**coming soon**
