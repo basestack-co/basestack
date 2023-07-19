@@ -28,7 +28,7 @@
     "polished": "^4.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.40.0",
+    "react-hook-form": "^7.45.2",
     "react-hot-toast": "^2.4.0",
     "react-select": "^5.7.4",
     "react-spring": "^9.5.2",
@@ -41,7 +41,7 @@
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.5.3",
@@ -59,7 +59,7 @@
     "lint-staged": "^13.1.0",
     "next-transpile-modules": "10.0.0",
     "node-mocks-http": "^1.12.1",
-    "turbo": "1.10.7",
+    "turbo": "1.10.8",
     "typescript": "^5.0.4"
   }
 }
