@@ -3,10 +3,10 @@ import React, { useMemo, useCallback } from "react";
 import {
   ButtonVariant,
   Loader,
-  SettingCard,
   Skeleton,
   Table,
 } from "@basestack/design-system";
+import { SettingCard } from "components";
 // Libs
 import { trpc } from "libs/trpc";
 // Store

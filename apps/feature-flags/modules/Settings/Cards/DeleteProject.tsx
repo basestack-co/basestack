@@ -2,7 +2,7 @@ import React from "react";
 // Store
 import { useStore } from "store";
 // Components
-import { SettingCard } from "@basestack/design-system";
+import { SettingCard } from "components";
 // Server
 import { trpc } from "libs/trpc";
 // Router

@@ -4,14 +4,13 @@ import { useRouter } from "next/router";
 import { trpc } from "libs/trpc";
 // Components
 import {
-  FlagCard,
-  FlagRow,
   ButtonVariant,
   Empty,
   Loader,
   Button,
   Text,
 } from "@basestack/design-system";
+import { FlagCard, FlagRow } from "components";
 // Store
 import { useStore } from "store";
 // Types

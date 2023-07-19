@@ -1,6 +1,6 @@
 import React from "react";
 // Components
-import { SettingCard } from "@basestack/design-system";
+import { SettingCard } from "components";
 // Styles
 import { CardListItem } from "../styles";
 // Utils
