@@ -2,7 +2,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Pagination from "..";
 
-describe("Pagination Molecule tests", () => {
+describe("Pagination tests", () => {
   afterEach(cleanup);
 
   test("should render Pagination correctly", () => {

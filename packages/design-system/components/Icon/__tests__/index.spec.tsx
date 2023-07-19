@@ -3,7 +3,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Icon from "..";
 
-describe("Icon Atom tests", () => {
+describe("Icon tests", () => {
   afterEach(cleanup);
 
   test("render Icon correctly", () => {

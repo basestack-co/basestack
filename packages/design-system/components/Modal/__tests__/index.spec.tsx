@@ -2,7 +2,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Modal from "../index";
 
-describe("Modal Molecule tests", () => {
+describe("Modal tests", () => {
   afterEach(cleanup);
 
   const buttons = [

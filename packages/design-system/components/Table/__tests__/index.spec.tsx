@@ -4,7 +4,7 @@ import Table from "../index";
 import { mockTableData } from "../__mocks__/mockData";
 import { mockMembersTable } from "../__mocks__/mockMembersTable";
 
-describe("Table Organism tests", () => {
+describe("Table tests", () => {
   afterEach(cleanup);
 
   test("should render Table correctly", () => {

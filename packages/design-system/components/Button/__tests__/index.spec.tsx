@@ -4,7 +4,7 @@ import { renderWithTheme } from "../../../utils/testUtils";
 import { ButtonSize, ButtonVariant } from "../types";
 import { Button } from "..";
 
-describe("Button Atom tests", () => {
+describe("Button tests", () => {
   afterEach(cleanup);
 
   test("should render Button correctly", () => {

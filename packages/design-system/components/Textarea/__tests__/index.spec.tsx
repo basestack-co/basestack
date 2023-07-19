@@ -3,7 +3,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Textarea from "..";
 
-describe("Textarea Atom tests", () => {
+describe("Textarea tests", () => {
   afterEach(cleanup);
 
   test("should render Textarea correctly", () => {

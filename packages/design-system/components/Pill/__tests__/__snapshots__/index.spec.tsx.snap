@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Pill Atom tests render Pill correctly 1`] = `
+exports[`Pill tests render Pill correctly 1`] = `
 <DocumentFragment>
   .c1 {
   font-size: 0.875rem;
@@ -8,6 +8,7 @@ exports[`Pill Atom tests render Pill correctly 1`] = `
   font-weight: 400;
   font-family: roboto;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
 }
 
@@ -34,56 +35,6 @@ exports[`Pill Atom tests render Pill correctly 1`] = `
     <p
       class="c1"
       color="#000000"
-      data-testid="pill-text"
-      font-family="roboto"
-    >
-      pill
-    </p>
-  </button>
-</DocumentFragment>
-`;
-
-exports[`Pill Atom tests should render selected Pill 1`] = `
-<DocumentFragment>
-  .c1 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: roboto;
-  font-family: 'Roboto',sans-serif;
-  color: #276EF1;
-}
-
-.c0 {
-  border: none;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 2.25rem;
-  border-radius: 1.125rem;
-  padding: 0 0.75rem;
-  background-color: #D4E2FC;
-  -webkit-transition: background-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out;
-}
-
-.c0:hover:not(:active) {
-  background-color: #c1d5fb;
-}
-
-<button
-    class="c0"
-    data-testid="pill-container"
-  >
-    <p
-      class="c1"
-      color="#276EF1"
       data-testid="pill-text"
       font-family="roboto"
     >

@@ -2,7 +2,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Popup from "..";
 
-describe("Popup Molecule tests", () => {
+describe("Popup tests", () => {
   afterEach(cleanup);
 
   test("should render Popup correctly", () => {

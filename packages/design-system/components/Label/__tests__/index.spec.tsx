@@ -2,7 +2,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Label from "..";
 
-describe("Label Atom tests", () => {
+describe("Label tests", () => {
   afterEach(cleanup);
 
   test("render Label correctly", () => {

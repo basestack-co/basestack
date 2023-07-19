@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Text Atom tests should render text correctly 1`] = `
+exports[`Text tests should render text correctly 1`] = `
 <DocumentFragment>
   .c0 {
   font-size: 0.875rem;
@@ -8,6 +8,7 @@ exports[`Text Atom tests should render text correctly 1`] = `
   font-weight: 400;
   font-family: roboto;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
 }
 

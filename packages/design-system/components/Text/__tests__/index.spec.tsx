@@ -3,7 +3,7 @@ import { rem } from "polished";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Text from "..";
 
-describe("Text Atom tests", () => {
+describe("Text tests", () => {
   afterEach(cleanup);
 
   test("should render text correctly", () => {

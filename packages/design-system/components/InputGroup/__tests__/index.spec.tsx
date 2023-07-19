@@ -2,7 +2,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import InputGroup from "..";
 
-describe("InputGroup Molecule tests", () => {
+describe("InputGroup tests", () => {
   afterEach(cleanup);
 
   test("should render InputGroup correctly", () => {

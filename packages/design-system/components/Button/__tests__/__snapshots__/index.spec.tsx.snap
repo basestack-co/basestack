@@ -1,63 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button Atom tests should render Button correctly 1`] = `
-<DocumentFragment>
-  .c0 {
-  height: 2.25rem;
-  padding: 0 0.75rem;
-  font-size: 0.875rem;
-  position: relative;
-  border: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-weight: 500;
-  cursor: pointer;
-  border-radius: 4px;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  -webkit-transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  background-color: #276EF1;
-  color: #FFFFFF;
-  width: normal;
-  height: normal;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-
-.c0:hover:not(:active,:disabled) {
-  background-color: #0e55d7;
-}
-
-.c0 .material-symbols-sharp {
-  color: inherit;
-}
-
-.c0:disabled {
-  cursor: not-allowed;
-}
-
-<button
-    class="c0"
-    data-testid="button"
-  >
-    <span
-      class=""
-    >
-      button
-    </span>
-  </button>
-</DocumentFragment>
-`;
-
-exports[`Button Atom tests should render Button disabled 1`] = `
+exports[`Button tests should render Button disabled 1`] = `
 <DocumentFragment>
   .c0 {
   height: 2.25rem;
@@ -106,7 +49,7 @@ exports[`Button Atom tests should render Button disabled 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Button Atom tests should render Button link 1`] = `
+exports[`Button tests should render Button link 1`] = `
 <DocumentFragment>
   .c0 {
   height: 2.25rem;
@@ -154,7 +97,7 @@ exports[`Button Atom tests should render Button link 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Button Atom tests should render Button with icon 1`] = `
+exports[`Button tests should render Button with icon 1`] = `
 <DocumentFragment>
   .c1 {
   height: 1.5rem;
@@ -228,7 +171,7 @@ exports[`Button Atom tests should render Button with icon 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Button Atom tests should render Button with onClick 1`] = `
+exports[`Button tests should render Button with onClick 1`] = `
 <DocumentFragment>
   .c0 {
   height: 2.25rem;
@@ -276,7 +219,7 @@ exports[`Button Atom tests should render Button with onClick 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Button Atom tests should render Button with spinner 1`] = `
+exports[`Button tests should render Button with spinner 1`] = `
 <DocumentFragment>
   .c3 {
   display: inline-flex;
@@ -355,7 +298,7 @@ exports[`Button Atom tests should render Button with spinner 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Button Atom tests should render Button with styled system utilities 1`] = `
+exports[`Button tests should render Button with styled system utilities 1`] = `
 <DocumentFragment>
   .c0 {
   height: 2.25rem;

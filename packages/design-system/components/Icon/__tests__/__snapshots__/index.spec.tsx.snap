@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Icon Atom tests render Icon correctly 1`] = `
+exports[`Icon tests render Icon correctly 1`] = `
 <DocumentFragment>
   .c0 {
   height: 1.5rem;

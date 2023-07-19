@@ -2,17 +2,18 @@
 
 exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
 <DocumentFragment>
-  .c3 {
+  .c2 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
   font-family: roboto;
   margin-bottom: 0.75rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
 }
 
-.c9 {
+.c7 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
@@ -20,31 +21,37 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   margin-top: auto;
   margin-right: auto;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #757575;
 }
 
-.c2 {
+.c1 {
   font-size: 1.125rem;
   line-height: 1.625rem;
   font-weight: 500;
   font-family: roboto;
   margin-bottom: 0.5rem;
+  padding-right: 2.5rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.c12 {
+.c10 {
   height: 1.5rem;
   width: 1.5rem;
   flex-shrink: 0;
 }
 
-.c13 {
+.c11 {
   color: #000000;
   font-size: 1.5rem;
 }
 
-.c11 {
+.c9 {
   position: absolute;
   top: 14px;
   right: 14px;
@@ -61,20 +68,21 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   width: 2rem;
 }
 
-.c11 .material-symbols-sharp {
+.c9 .material-symbols-sharp {
   color: inherit;
 }
 
-.c11:hover {
+.c9:hover {
   background-color: #EEEEEE;
 }
 
-.c11:active {
+.c9:active {
   background-color: #E2E2E2;
 }
 
 .c0 {
   padding: 1.25rem;
+  position: relative;
   display: flex;
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
@@ -87,7 +95,7 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
 
-.c5 {
+.c4 {
   display: flex;
   border-radius: 4px;
   padding: 0.25rem 0.375rem;
@@ -98,7 +106,7 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   background-color: #05944F;
 }
 
-.c7 {
+.c5 {
   display: flex;
   border-radius: 4px;
   padding: 0.25rem 0.375rem;
@@ -109,46 +117,42 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
   background-color: #E2E2E2;
 }
 
-.c1 {
-  padding: 1.25rem;
-  position: relative;
-}
-
-.c4 {
+.c3 {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 0.75rem;
-}
-
-.c6 {
-  margin-right: 0.25rem;
-  margin-bottom: 0.25rem;
-}
-
-.c10 {
-  height: 0;
+  gap: 0.25rem;
 }
 
 .c8 {
+  height: 0;
+}
+
+.c6 {
   display: flex;
   align-items: center;
+  margin-top: auto;
 }
 
 <div
-    class="c0 c1"
+    class="c0"
     data-testid="flag-card"
     p="1.25rem"
+    position="relative"
   >
-    <h3
-      class="c2"
-      data-testid="flag-title"
-      font-family="roboto"
-      mb="0.5rem"
-    >
-      header_size
-    </h3>
+    <div>
+      <h3
+        class="c1"
+        data-testid="flag-title"
+        font-family="roboto"
+        mb="0.5rem"
+        pr="2.5rem"
+      >
+        header_size
+      </h3>
+    </div>
     <p
-      class="c3"
+      class="c2"
       data-testid="flag-description"
       font-family="roboto"
       mb="0.75rem"
@@ -156,25 +160,25 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
       Display new header for only a number of users
     </p>
     <div
-      class="c4"
+      class="c3"
       data-testid="flag-labels"
     >
       <div
-        class="c5 c6"
+        class="c4"
         data-testid="Development-flag-label"
         variant="success"
       >
         Development
       </div>
       <div
-        class="c7 c6"
+        class="c5"
         data-testid="Staging-flag-label"
         variant="default"
       >
         Staging
       </div>
       <div
-        class="c7 c6"
+        class="c5"
         data-testid="Production-flag-label"
         variant="default"
       >
@@ -182,10 +186,10 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
       </div>
     </div>
     <div
-      class="c8"
+      class="c6"
     >
       <p
-        class="c9"
+        class="c7"
         data-testid="flag-date"
         font-family="roboto"
         mr="auto"
@@ -195,10 +199,10 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
       </p>
     </div>
     <div
-      class="c10"
+      class="c8"
     >
       <button
-        class="c11"
+        class="c9"
         iconsize="32px"
         position="absolute"
         right="14px"
@@ -206,12 +210,12 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
         variant="neutral"
       >
         <div
-          class="c12"
+          class="c10"
           data-testid="icon-container"
           size="24"
         >
           <span
-            class="c13 material-symbols-sharp"
+            class="c11 material-symbols-sharp"
             color="#000000"
             data-testid="icon"
             size="24"
@@ -227,17 +231,18 @@ exports[`FlagCard Molecule tests should render FlagCard correctly 1`] = `
 
 exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
 <DocumentFragment>
-  .c3 {
+  .c2 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
   font-family: roboto;
   margin-bottom: 0.75rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
 }
 
-.c9 {
+.c7 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
@@ -245,31 +250,37 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   margin-top: auto;
   margin-right: auto;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #757575;
 }
 
-.c2 {
+.c1 {
   font-size: 1.125rem;
   line-height: 1.625rem;
   font-weight: 500;
   font-family: roboto;
   margin-bottom: 0.5rem;
+  padding-right: 2.5rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.c12 {
+.c10 {
   height: 1.5rem;
   width: 1.5rem;
   flex-shrink: 0;
 }
 
-.c13 {
+.c11 {
   color: #000000;
   font-size: 1.5rem;
 }
 
-.c11 {
+.c9 {
   position: absolute;
   top: 14px;
   right: 14px;
@@ -286,20 +297,21 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   width: 2rem;
 }
 
-.c11 .material-symbols-sharp {
+.c9 .material-symbols-sharp {
   color: inherit;
 }
 
-.c11:hover {
+.c9:hover {
   background-color: #EEEEEE;
 }
 
-.c11:active {
+.c9:active {
   background-color: #E2E2E2;
 }
 
 .c0 {
   padding: 1.25rem;
+  position: relative;
   display: flex;
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
@@ -312,7 +324,7 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 }
 
-.c5 {
+.c4 {
   display: flex;
   border-radius: 4px;
   padding: 0.25rem 0.375rem;
@@ -323,7 +335,7 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   background-color: #05944F;
 }
 
-.c7 {
+.c5 {
   display: flex;
   border-radius: 4px;
   padding: 0.25rem 0.375rem;
@@ -334,46 +346,42 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
   background-color: #E2E2E2;
 }
 
-.c1 {
-  padding: 1.25rem;
-  position: relative;
-}
-
-.c4 {
+.c3 {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 0.75rem;
-}
-
-.c6 {
-  margin-right: 0.25rem;
-  margin-bottom: 0.25rem;
-}
-
-.c10 {
-  height: 0;
+  gap: 0.25rem;
 }
 
 .c8 {
+  height: 0;
+}
+
+.c6 {
   display: flex;
   align-items: center;
+  margin-top: auto;
 }
 
 <div
-    class="c0 c1"
+    class="c0"
     data-testid="flag-card"
     p="1.25rem"
+    position="relative"
   >
-    <h3
-      class="c2"
-      data-testid="flag-title"
-      font-family="roboto"
-      mb="0.5rem"
-    >
-      header_size
-    </h3>
+    <div>
+      <h3
+        class="c1"
+        data-testid="flag-title"
+        font-family="roboto"
+        mb="0.5rem"
+        pr="2.5rem"
+      >
+        header_size
+      </h3>
+    </div>
     <p
-      class="c3"
+      class="c2"
       data-testid="flag-description"
       font-family="roboto"
       mb="0.75rem"
@@ -381,25 +389,25 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
       Display new header for only a number of users
     </p>
     <div
-      class="c4"
+      class="c3"
       data-testid="flag-labels"
     >
       <div
-        class="c5 c6"
+        class="c4"
         data-testid="Development-flag-label"
         variant="success"
       >
         Development
       </div>
       <div
-        class="c7 c6"
+        class="c5"
         data-testid="Staging-flag-label"
         variant="default"
       >
         Staging
       </div>
       <div
-        class="c7 c6"
+        class="c5"
         data-testid="Production-flag-label"
         variant="default"
       >
@@ -407,10 +415,10 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
       </div>
     </div>
     <div
-      class="c8"
+      class="c6"
     >
       <p
-        class="c9"
+        class="c7"
         data-testid="flag-date"
         font-family="roboto"
         mr="auto"
@@ -420,10 +428,10 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
       </p>
     </div>
     <div
-      class="c10"
+      class="c8"
     >
       <button
-        class="c11"
+        class="c9"
         iconsize="32px"
         position="absolute"
         right="14px"
@@ -431,12 +439,12 @@ exports[`FlagCard Molecule tests should render FlagCard with popup items 1`] = `
         variant="neutral"
       >
         <div
-          class="c12"
+          class="c10"
           data-testid="icon-container"
           size="24"
         >
           <span
-            class="c13 material-symbols-sharp"
+            class="c11 material-symbols-sharp"
             color="#000000"
             data-testid="icon"
             size="24"

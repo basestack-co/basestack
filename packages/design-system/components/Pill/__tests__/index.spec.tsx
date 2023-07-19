@@ -2,7 +2,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Pill from "..";
 
-describe("Pill Atom tests", () => {
+describe("Pill tests", () => {
   afterEach(cleanup);
 
   test("render Pill correctly", () => {

@@ -2,7 +2,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Spinner from "..";
 
-describe("Spinner Atom tests", () => {
+describe("Spinner tests", () => {
   afterEach(cleanup);
 
   test("should render Spinner correctly", () => {

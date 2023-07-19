@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
-import { Text } from "../../atoms";
 import { Type } from "./types";
 
 export const Container = styled.div<{

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Tabs Molecule tests should render Tabs correctly 1`] = `
+exports[`Tabs tests should render Tabs correctly 1`] = `
 <DocumentFragment>
   .c2 {
   font-size: 0.875rem;
@@ -9,6 +9,7 @@ exports[`Tabs Molecule tests should render Tabs correctly 1`] = `
   font-family: roboto;
   font-weight: 500;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
 }
 
@@ -88,7 +89,7 @@ exports[`Tabs Molecule tests should render Tabs correctly 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Tabs Molecule tests should render Tabs with space utils 1`] = `
+exports[`Tabs tests should render Tabs with space utils 1`] = `
 <DocumentFragment>
   .c2 {
   font-size: 0.875rem;
@@ -97,6 +98,7 @@ exports[`Tabs Molecule tests should render Tabs with space utils 1`] = `
   font-family: roboto;
   font-weight: 500;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
 }
 

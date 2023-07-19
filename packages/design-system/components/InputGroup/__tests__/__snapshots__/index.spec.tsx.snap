@@ -1,27 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`InputGroup Molecule tests should render InputGroup as textarea 1`] = `
+exports[`InputGroup tests should render InputGroup as textarea 1`] = `
 <DocumentFragment>
-  .c1 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: roboto;
-  font-weight: 500;
-  font-family: 'Roboto',sans-serif;
-  color: #000000;
-}
-
-.c2 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: roboto;
-  font-family: 'Roboto',sans-serif;
-  color: #757575;
-}
-
-.c3 {
+  .c3 {
   border: none;
   background-color: #F6F6F6;
   min-height: 9.375rem;
@@ -42,6 +23,27 @@ exports[`InputGroup Molecule tests should render InputGroup as textarea 1`] = `
 
 .c3:focus {
   outline: 2px solid #000000;
+}
+
+.c1 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #000000;
+}
+
+.c2 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #757575;
 }
 
 .c0 {
@@ -82,28 +84,9 @@ exports[`InputGroup Molecule tests should render InputGroup as textarea 1`] = `
 </DocumentFragment>
 `;
 
-exports[`InputGroup Molecule tests should render InputGroup correctly 1`] = `
+exports[`InputGroup tests should render InputGroup correctly 1`] = `
 <DocumentFragment>
-  .c1 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: roboto;
-  font-weight: 500;
-  font-family: 'Roboto',sans-serif;
-  color: #000000;
-}
-
-.c2 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: roboto;
-  font-family: 'Roboto',sans-serif;
-  color: #757575;
-}
-
-.c3 {
+  .c3 {
   position: relative;
   display: flex;
   align-items: center;
@@ -127,6 +110,27 @@ exports[`InputGroup Molecule tests should render InputGroup correctly 1`] = `
 
 .c4:focus {
   outline: 2px solid #000000;
+}
+
+.c1 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #000000;
+}
+
+.c2 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #757575;
 }
 
 .c0 {
@@ -175,39 +179,9 @@ exports[`InputGroup Molecule tests should render InputGroup correctly 1`] = `
 </DocumentFragment>
 `;
 
-exports[`InputGroup Molecule tests should render InputGroup with hint 1`] = `
+exports[`InputGroup tests should render InputGroup with hint 1`] = `
 <DocumentFragment>
-  .c5 {
-  display: flex;
-  font-size: 0.75rem;
-  line-height: 0.875rem;
-  font-weight: 400;
-  font-family: roboto;
-  margin-top: 0.5rem;
-  font-family: 'Roboto',sans-serif;
-  color: #757575;
-}
-
-.c1 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: roboto;
-  font-weight: 500;
-  font-family: 'Roboto',sans-serif;
-  color: #000000;
-}
-
-.c2 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: roboto;
-  font-family: 'Roboto',sans-serif;
-  color: #757575;
-}
-
-.c3 {
+  .c3 {
   position: relative;
   display: flex;
   align-items: center;
@@ -231,6 +205,39 @@ exports[`InputGroup Molecule tests should render InputGroup with hint 1`] = `
 
 .c4:focus {
   outline: 2px solid #000000;
+}
+
+.c5 {
+  display: flex;
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+  font-weight: 400;
+  font-family: roboto;
+  margin-top: 0.5rem;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #757575;
+}
+
+.c1 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #000000;
+}
+
+.c2 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #757575;
 }
 
 .c0 {
@@ -288,28 +295,9 @@ exports[`InputGroup Molecule tests should render InputGroup with hint 1`] = `
 </DocumentFragment>
 `;
 
-exports[`InputGroup Molecule tests should render InputGroup with label 1`] = `
+exports[`InputGroup tests should render InputGroup with label 1`] = `
 <DocumentFragment>
-  .c1 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: roboto;
-  font-weight: 500;
-  font-family: 'Roboto',sans-serif;
-  color: #000000;
-}
-
-.c2 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: roboto;
-  font-family: 'Roboto',sans-serif;
-  color: #757575;
-}
-
-.c3 {
+  .c3 {
   position: relative;
   display: flex;
   align-items: center;
@@ -333,6 +321,27 @@ exports[`InputGroup Molecule tests should render InputGroup with label 1`] = `
 
 .c4:focus {
   outline: 2px solid #000000;
+}
+
+.c1 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #000000;
+}
+
+.c2 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #757575;
 }
 
 .c0 {

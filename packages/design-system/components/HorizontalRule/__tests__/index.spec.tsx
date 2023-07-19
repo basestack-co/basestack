@@ -2,7 +2,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Hr from "..";
 
-describe("Hr Atom tests", () => {
+describe("Hr tests", () => {
   afterEach(cleanup);
 
   test("render Hr correctly", () => {

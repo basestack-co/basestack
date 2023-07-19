@@ -2,7 +2,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Tabs from "..";
 
-describe("Tabs Molecule tests", () => {
+describe("Tabs tests", () => {
   afterEach(cleanup);
 
   test("should render Tabs correctly", () => {

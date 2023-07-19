@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`IconButton Atom tests should render IconButton correctly 1`] = `
+exports[`IconButton tests should render IconButton correctly 1`] = `
 <DocumentFragment>
   .c1 {
   height: 1.5rem;
@@ -62,7 +62,7 @@ exports[`IconButton Atom tests should render IconButton correctly 1`] = `
 </DocumentFragment>
 `;
 
-exports[`IconButton Atom tests should render IconButton with different size 1`] = `
+exports[`IconButton tests should render IconButton with different size 1`] = `
 <DocumentFragment>
   .c1 {
   height: 2rem;
@@ -116,7 +116,7 @@ exports[`IconButton Atom tests should render IconButton with different size 1`] 
 </DocumentFragment>
 `;
 
-exports[`IconButton Atom tests should render primary IconButton 1`] = `
+exports[`IconButton tests should render primary IconButton 1`] = `
 <DocumentFragment>
   .c1 {
   height: 1.5rem;
@@ -170,7 +170,7 @@ exports[`IconButton Atom tests should render primary IconButton 1`] = `
 </DocumentFragment>
 `;
 
-exports[`IconButton Atom tests should render primaryNeutral IconButton 1`] = `
+exports[`IconButton tests should render primaryNeutral IconButton 1`] = `
 <DocumentFragment>
   .c1 {
   height: 1.5rem;
@@ -233,7 +233,7 @@ exports[`IconButton Atom tests should render primaryNeutral IconButton 1`] = `
 </DocumentFragment>
 `;
 
-exports[`IconButton Atom tests should render secondary IconButton 1`] = `
+exports[`IconButton tests should render secondary IconButton 1`] = `
 <DocumentFragment>
   .c1 {
   height: 1.5rem;

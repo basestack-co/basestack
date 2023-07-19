@@ -3,7 +3,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Input from "..";
 
-describe("Input Atom tests", () => {
+describe("Input tests", () => {
   afterEach(cleanup);
 
   test("should render Input correctly", () => {

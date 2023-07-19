@@ -2,7 +2,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Segment from "..";
 
-describe("Segment Molecule tests", () => {
+describe("Segment tests", () => {
   afterEach(cleanup);
 
   test("should render Segment correctly", () => {

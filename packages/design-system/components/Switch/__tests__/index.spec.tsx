@@ -2,7 +2,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Switch from "..";
 
-describe("Switch Atom tests", () => {
+describe("Switch tests", () => {
   afterEach(cleanup);
 
   test("should render Switch with default props", () => {

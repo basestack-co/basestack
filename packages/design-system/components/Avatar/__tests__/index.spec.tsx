@@ -3,7 +3,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Avatar from "..";
 
-describe("Avatar Atom tests", () => {
+describe("Avatar tests", () => {
   afterEach(cleanup);
 
   test("render Avatar correctly", () => {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Switch Atom tests should render Switch checked by default 1`] = `
+exports[`Switch tests should render Switch checked by default 1`] = `
 <DocumentFragment>
   .c1 {
   font-size: 0.875rem;
@@ -9,6 +9,7 @@ exports[`Switch Atom tests should render Switch checked by default 1`] = `
   font-family: roboto;
   margin-right: 0.75rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #757575;
 }
 
@@ -125,7 +126,7 @@ exports[`Switch Atom tests should render Switch checked by default 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Switch Atom tests should render Switch with default props 1`] = `
+exports[`Switch tests should render Switch with default props 1`] = `
 <DocumentFragment>
   .c0 {
   display: flex;
@@ -232,7 +233,7 @@ exports[`Switch Atom tests should render Switch with default props 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Switch Atom tests should render Switch with text 1`] = `
+exports[`Switch tests should render Switch with text 1`] = `
 <DocumentFragment>
   .c1 {
   font-size: 0.875rem;
@@ -241,6 +242,7 @@ exports[`Switch Atom tests should render Switch with text 1`] = `
   font-family: roboto;
   margin-right: 0.75rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #757575;
 }
 

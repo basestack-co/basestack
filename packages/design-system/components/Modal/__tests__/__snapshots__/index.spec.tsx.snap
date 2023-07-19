@@ -1,20 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Modal Molecule tests render Modal correctly 1`] = `<DocumentFragment />`;
+exports[`Modal tests render Modal correctly 1`] = `<DocumentFragment />`;
 
-exports[`Modal Molecule tests render Modal correctly open 1`] = `
+exports[`Modal tests render Modal correctly open 1`] = `
 <DocumentFragment>
-  .c3 {
-  font-size: 1.25rem;
-  line-height: 1.875rem;
-  font-weight: 500;
-  font-family: roboto;
-  margin-right: 0.5rem;
-  font-family: 'Roboto',sans-serif;
-  color: #000000;
-}
-
-.c5 {
+  .c5 {
   height: 1.5rem;
   width: 1.5rem;
   flex-shrink: 0;
@@ -122,10 +112,21 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
   background-color: #E2E2E2;
 }
 
+.c3 {
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+  font-weight: 500;
+  font-family: roboto;
+  margin-right: 0.5rem;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #000000;
+}
+
 .c0 {
   position: fixed;
   inset: 0;
-  z-index: 102;
+  z-index: 110;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -256,19 +257,9 @@ exports[`Modal Molecule tests render Modal correctly open 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Modal Molecule tests render Modal with custom props 1`] = `
+exports[`Modal tests render Modal with custom props 1`] = `
 <DocumentFragment>
-  .c3 {
-  font-size: 1.25rem;
-  line-height: 1.875rem;
-  font-weight: 500;
-  font-family: roboto;
-  margin-right: 0.5rem;
-  font-family: 'Roboto',sans-serif;
-  color: #000000;
-}
-
-.c5 {
+  .c5 {
   height: 1.5rem;
   width: 1.5rem;
   flex-shrink: 0;
@@ -376,10 +367,21 @@ exports[`Modal Molecule tests render Modal with custom props 1`] = `
   background-color: #E2E2E2;
 }
 
+.c3 {
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+  font-weight: 500;
+  font-family: roboto;
+  margin-right: 0.5rem;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #000000;
+}
+
 .c0 {
   position: fixed;
   inset: 0;
-  z-index: 102;
+  z-index: 110;
   display: flex;
   flex-direction: column;
   align-items: center;

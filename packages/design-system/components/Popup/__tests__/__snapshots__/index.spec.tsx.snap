@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Popup Molecule tests should render Popup correctly 1`] = `
+exports[`Popup tests should render Popup correctly 1`] = `
 <DocumentFragment>
   .c3 {
   height: 2.25rem;
@@ -48,7 +48,7 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
   padding: 0.25rem;
   border-radius: 4px;
   width: 9.375rem;
-  z-index: 101;
+  z-index: 109;
 }
 
 .c1 {
@@ -123,7 +123,7 @@ exports[`Popup Molecule tests should render Popup correctly 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Popup Molecule tests should render Popup with icons 1`] = `
+exports[`Popup tests should render Popup with icons 1`] = `
 <DocumentFragment>
   .c4 {
   height: 1.125rem;
@@ -183,7 +183,7 @@ exports[`Popup Molecule tests should render Popup with icons 1`] = `
   padding: 0.25rem;
   border-radius: 4px;
   width: 9.375rem;
-  z-index: 101;
+  z-index: 109;
 }
 
 .c1 {

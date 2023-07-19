@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Textarea Atom tests should render Textarea correctly 1`] = `
+exports[`Textarea tests should render Textarea correctly 1`] = `
 <DocumentFragment>
   .c0 {
   border: none;

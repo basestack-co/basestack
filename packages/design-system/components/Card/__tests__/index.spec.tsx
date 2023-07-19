@@ -3,7 +3,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Card from "..";
 
-describe("Card Atom tests", () => {
+describe("Card tests", () => {
   afterEach(cleanup);
 
   test("render Card correctly", () => {

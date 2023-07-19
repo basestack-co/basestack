@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Spinner Atom tests should render Spinner correctly 1`] = `
+exports[`Spinner tests should render Spinner correctly 1`] = `
 <DocumentFragment>
   .c0 {
   display: inline-flex;
@@ -21,7 +21,7 @@ exports[`Spinner Atom tests should render Spinner correctly 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Spinner Atom tests should render custom styled Spinner 1`] = `
+exports[`Spinner tests should render custom styled Spinner 1`] = `
 <DocumentFragment>
   .c0 {
   display: inline-flex;
@@ -44,7 +44,7 @@ exports[`Spinner Atom tests should render custom styled Spinner 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Spinner Atom tests should render large Spinner 1`] = `
+exports[`Spinner tests should render large Spinner 1`] = `
 <DocumentFragment>
   .c0 {
   display: inline-flex;
@@ -65,7 +65,7 @@ exports[`Spinner Atom tests should render large Spinner 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Spinner Atom tests should render medium Spinner 1`] = `
+exports[`Spinner tests should render medium Spinner 1`] = `
 <DocumentFragment>
   .c0 {
   display: inline-flex;
@@ -86,7 +86,7 @@ exports[`Spinner Atom tests should render medium Spinner 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Spinner Atom tests should render small Spinner 1`] = `
+exports[`Spinner tests should render small Spinner 1`] = `
 <DocumentFragment>
   .c0 {
   display: inline-flex;
@@ -107,7 +107,7 @@ exports[`Spinner Atom tests should render small Spinner 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Spinner Atom tests should render xLarge Spinner 1`] = `
+exports[`Spinner tests should render xLarge Spinner 1`] = `
 <DocumentFragment>
   .c0 {
   display: inline-flex;
@@ -128,7 +128,7 @@ exports[`Spinner Atom tests should render xLarge Spinner 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Spinner Atom tests should render xxLarge Spinner 1`] = `
+exports[`Spinner tests should render xxLarge Spinner 1`] = `
 <DocumentFragment>
   .c0 {
   display: inline-flex;

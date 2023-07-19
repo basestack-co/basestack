@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Table Organism tests should render Table correctly 1`] = `
+exports[`Table tests should render Table correctly 1`] = `
 <DocumentFragment>
   .c3 {
   font-size: 0.875rem;
@@ -8,6 +8,7 @@ exports[`Table Organism tests should render Table correctly 1`] = `
   font-weight: 400;
   font-family: roboto;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #757575;
 }
 
@@ -18,6 +19,7 @@ exports[`Table Organism tests should render Table correctly 1`] = `
   font-family: roboto;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
 }
 
@@ -301,30 +303,15 @@ exports[`Table Organism tests should render Table correctly 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Table Organism tests should render Table with images 1`] = `
+exports[`Table tests should render Table with images 1`] = `
 <DocumentFragment>
-  .c6 {
-  height: 1.75rem;
-  width: 1.75rem;
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
-  margin-right: 0.75rem;
-  border-radius: 50%;
-}
-
-.c7 {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-
-.c3 {
+  .c3 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
   font-family: roboto;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #757575;
 }
 
@@ -335,6 +322,7 @@ exports[`Table Organism tests should render Table with images 1`] = `
   font-family: roboto;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
 }
 
@@ -373,6 +361,22 @@ exports[`Table Organism tests should render Table with images 1`] = `
 
 .c10:active {
   background-color: #E2E2E2;
+}
+
+.c6 {
+  height: 1.75rem;
+  width: 1.75rem;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-right: 0.75rem;
+  border-radius: 50%;
+}
+
+.c7 {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .c0 {
@@ -824,7 +828,7 @@ exports[`Table Organism tests should render Table with images 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Table Organism tests should render Table with space utils 1`] = `
+exports[`Table tests should render Table with space utils 1`] = `
 <DocumentFragment>
   .c3 {
   font-size: 0.875rem;
@@ -832,6 +836,7 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
   font-weight: 400;
   font-family: roboto;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #757575;
 }
 
@@ -842,6 +847,7 @@ exports[`Table Organism tests should render Table with space utils 1`] = `
   font-family: roboto;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
 }
 

@@ -9,6 +9,7 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
   font-family: roboto;
   margin-bottom: 1.25rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
 }
 
@@ -19,6 +20,7 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
   font-family: roboto;
   margin-right: 0.75rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #757575;
 }
 
@@ -29,6 +31,7 @@ exports[`SettingCard Molecule tests should render SettingCard correctly 1`] = `
   font-family: roboto;
   margin-bottom: 0.25rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
 }
 
@@ -160,6 +163,7 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
   font-family: roboto;
   margin-bottom: 1.25rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
 }
 
@@ -170,6 +174,7 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
   font-family: roboto;
   margin-right: 0.75rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #757575;
 }
 
@@ -180,6 +185,7 @@ exports[`SettingCard Molecule tests should render SettingCard with Input as chil
   font-family: roboto;
   margin-bottom: 0.25rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
 }
 
@@ -352,6 +358,7 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
   font-family: roboto;
   margin-bottom: 1.25rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
 }
 
@@ -362,6 +369,7 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
   font-family: roboto;
   margin-right: 0.75rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #757575;
 }
 
@@ -372,6 +380,7 @@ exports[`SettingCard Molecule tests should render SettingCard with text 1`] = `
   font-family: roboto;
   margin-bottom: 0.25rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-all;
   color: #000000;
 }
 

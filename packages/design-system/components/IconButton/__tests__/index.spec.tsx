@@ -2,7 +2,7 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import IconButton from "..";
 
-describe("IconButton Atom tests", () => {
+describe("IconButton tests", () => {
   afterEach(cleanup);
 
   test("should render IconButton correctly", () => {

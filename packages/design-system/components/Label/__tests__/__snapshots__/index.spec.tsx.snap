@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Label Atom tests render Label correctly 1`] = `
+exports[`Label tests render Label correctly 1`] = `
 <DocumentFragment>
   .c0 {
   display: flex;
@@ -23,7 +23,7 @@ exports[`Label Atom tests render Label correctly 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Label Atom tests render isTranslucent Label 1`] = `
+exports[`Label tests render isTranslucent Label 1`] = `
 <DocumentFragment>
   .c0 {
   display: flex;
@@ -42,31 +42,6 @@ exports[`Label Atom tests render isTranslucent Label 1`] = `
     variant="info"
   >
     label
-  </div>
-</DocumentFragment>
-`;
-
-exports[`Label Atom tests should render success Label 1`] = `
-<DocumentFragment>
-  .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  border-radius: 4px;
-  padding: 0.25rem 0.375rem;
-  font-size: 0.875rem;
-  line-height: 1rem;
-  font-weight: 400;
-  color: #FFFFFF;
-  background-color: #05944F;
-}
-
-<div
-    class="c0"
-    data-testid="label-container"
-  >
-    Green label
   </div>
 </DocumentFragment>
 `;
