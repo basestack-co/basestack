@@ -1,5 +1,5 @@
 import { PositionProps, SpaceProps } from "styled-system";
-import { PopupItems } from "@basestack/design-system";
+import { PopupItemsProps } from "@basestack/design-system";
 
 export interface FlagCardProps extends SpaceProps, PositionProps {
   /**
@@ -25,7 +25,7 @@ export interface FlagCardProps extends SpaceProps, PositionProps {
   /**
    * Popup items array
    */
-  popupItems: Array<PopupItems>;
+  popupItems: Array<PopupItemsProps>;
   /**
    * Shows icon with tooltip alerting the flag is expired
    */

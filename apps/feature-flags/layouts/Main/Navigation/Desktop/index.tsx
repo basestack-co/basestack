@@ -9,8 +9,8 @@ import {
   Text,
 } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
-import AvatarDropdown from "./AvatarDropdown";
-import { ButtonLink, ProjectsMenu } from "./components";
+import { ButtonLink, ProjectsMenu, AvatarDropdown } from "../components";
+import { internalLinks, externalLinks } from "../data";
 // Router
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -26,35 +26,6 @@ export interface LinkItem {
   to: string;
   isExternal?: boolean;
 }
-
-const leftItems = [
-  {
-    text: "Features",
-    to: "/[projectSlug]/flags",
-  },
-  {
-    text: "Settings",
-    to: "/[projectSlug]/settings/general",
-  },
-];
-
-const rightItems = [
-  {
-    text: "Documentation",
-    to: "/documentation",
-    isExternal: true,
-  },
-  {
-    text: "Resources",
-    to: "/resources",
-    isExternal: true,
-  },
-  {
-    text: "Github",
-    to: "https://github.com/",
-    isExternal: true,
-  },
-];
 
 interface NavigationProps {
   isDesktop: boolean;
@@ -169,7 +140,7 @@ const Navigation = ({
             />
             {!!projectSlug && (
               <>
-                {onRenderItems(leftItems, "left")}
+                {onRenderItems(internalLinks, "left")}
                 <ListItem ml={theme.spacing.s5}>
                   <Button
                     onClick={() => setCreateFlagModalOpen({ isOpen: true })}
@@ -185,6 +156,7 @@ const Navigation = ({
       </List>
       {isDesktop && (
         <List ml="auto" data-testid="navigation-right-ul">
+          {onRenderItems(externalLinks, "right")}
           <ListItem ml={theme.spacing.s3}>
             <AvatarDropdown
               name={session?.user.name || "User Name"}

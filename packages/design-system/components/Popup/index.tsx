@@ -3,7 +3,7 @@ import { PositionProps } from "styled-system";
 import { Button, ButtonVariant, ButtonProps } from "../Button";
 import { Container, List, ListItem } from "./styles";
 
-export interface PopupItems {
+export interface PopupItemsProps {
   /**
    * onClick list item callback
    */
@@ -38,7 +38,7 @@ export interface PopupProps extends PositionProps {
   /**
    * List of actions
    */
-  items: Array<PopupItems>;
+  items: Array<PopupItemsProps>;
 }
 
 const Popup = forwardRef<HTMLDivElement, PopupProps>(

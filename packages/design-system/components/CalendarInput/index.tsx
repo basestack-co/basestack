@@ -11,14 +11,14 @@ import InputGroup from "../InputGroup";
 
 import Calendar from "../Calendar";
 
-interface CalendarInput extends SpaceProps {
+export interface CalendarInputProps extends SpaceProps {
   isCalenderOpen: boolean;
   calendarProps: CalendarProps;
   inputTitle: string;
   inputProps: InputProps;
 }
 
-const CalendarInput = forwardRef<HTMLDivElement, CalendarInput>(
+const CalendarInput = forwardRef<HTMLDivElement, CalendarInputProps>(
   (
     { inputTitle, inputProps, isCalenderOpen, calendarProps, ...props },
     ref,

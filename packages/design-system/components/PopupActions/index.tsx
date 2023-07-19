@@ -6,7 +6,7 @@ import { Button, ButtonVariant } from "../Button";
 import { Container, Header, List, ListItem, PopUpButton } from "./styles";
 import { useTheme } from "styled-components";
 
-export interface PopupItem {
+export interface PopupActionProps {
   id: string;
   slug: string;
   onClick: () => void;
@@ -21,7 +21,7 @@ export interface PopupActionsProps extends PositionProps {
   /**
    * List of actions
    */
-  items: Array<PopupItem>;
+  items: Array<PopupActionProps>;
   /**
    * Button props
    */

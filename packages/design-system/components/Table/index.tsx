@@ -17,7 +17,7 @@ import {
   StyledLink,
   StyledRow,
 } from "./styles";
-import { TableProps, RowProps } from "./types";
+import { TableProps, RowProps, TableRowProps, TableColProps } from "./types";
 
 const AnimatedPopup = animated(Popup);
 
@@ -138,5 +138,7 @@ const Table = ({ data, ...props }: TableProps) => {
     </Container>
   );
 };
+
+export { type TableProps, type TableRowProps, type TableColProps };
 
 export default Table;

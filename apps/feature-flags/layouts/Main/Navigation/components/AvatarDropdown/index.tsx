@@ -16,11 +16,9 @@ import {
   HorizontalRule,
   Icon,
   Switch,
-} from "@basestack/design-system";
-import {
   slideTop,
   slideBottom,
-} from "@basestack/design-system/animations/springs";
+} from "@basestack/design-system";
 import {
   ListItem,
   AvatarButton,

@@ -1,20 +1,22 @@
 import React, { useCallback } from "react";
 import { useTheme } from "styled-components";
 import { animated, config, useTransition } from "react-spring";
-import {
-  fadeIn,
-  slideInLeft,
-} from "@basestack/design-system/animations/springs";
+import { RouterOutput } from "libs/trpc";
 import { useStore } from "store";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import { internalLinks, externalLinks } from "../data";
+// Components
 import {
+  fadeIn,
+  slideInLeft,
   IconButton,
   Text,
   Button,
   ButtonVariant,
   Avatar,
 } from "@basestack/design-system";
+import { AvatarDropdown } from "../components";
 import {
   BackDropCover,
   Container,
@@ -26,9 +28,9 @@ import {
   TitleContainer,
   ContentContainer,
   GlobalStyle,
+  ScrollableContent,
+  StyledLink,
 } from "./styles";
-import AvatarDropdown from "../Navigation/AvatarDropdown";
-import { RouterOutput } from "../../../libs/trpc";
 
 const AnimatedBackDropCover = animated(BackDropCover);
 const AnimatedNavigation = animated(Container);
@@ -76,6 +78,8 @@ const NavigationDrawer = ({
     ...fadeIn,
   });
 
+  const projectSlug = router.query.projectSlug as string;
+
   return (
     <>
       {transitionNavigation(
@@ -93,26 +97,24 @@ const NavigationDrawer = ({
               </Header>
               <ContentContainer>
                 <List>
-                  <ListItem>
-                    <Button
-                      iconPlacement="left"
-                      icon="flag"
-                      variant={ButtonVariant.Neutral}
-                      fullWidth
-                    >
-                      Features
-                    </Button>
-                  </ListItem>
-                  <ListItem>
-                    <Button
-                      iconPlacement="left"
-                      icon="settings"
-                      variant={ButtonVariant.Neutral}
-                      fullWidth
-                    >
-                      Settings
-                    </Button>
-                  </ListItem>
+                  {internalLinks.map((item, index) => (
+                    <ListItem key={index}>
+                      <Button
+                        iconPlacement="left"
+                        icon={item.icon}
+                        variant={ButtonVariant.Neutral}
+                        fullWidth
+                        onClick={() => {
+                          router.push({
+                            pathname: item.to,
+                            query: { projectSlug },
+                          });
+                        }}
+                      >
+                        {item.text}
+                      </Button>
+                    </ListItem>
+                  ))}
                   <ListItem>
                     <Button
                       iconPlacement="left"
@@ -125,40 +127,69 @@ const NavigationDrawer = ({
                     </Button>
                   </ListItem>
                 </List>
-                <Divider m={theme.spacing.s5} />
-                <TitleContainer>
-                  <Text muted fontWeight={500}>
-                    Projects
-                  </Text>
-                </TitleContainer>
-                <List enableScroll>
-                  {data?.projects.map((item) => (
-                    <ListItem key={item.id}>
+                <Divider m={theme.spacing.s5} mb={0} />
+                <ScrollableContent>
+                  <TitleContainer>
+                    <Text muted fontWeight={500}>
+                      Projects
+                    </Text>
+                  </TitleContainer>
+                  <List>
+                    {data?.projects.map((item) => (
+                      <ListItem key={item.id}>
+                        <Button
+                          iconPlacement="left"
+                          icon="tag"
+                          variant={ButtonVariant.Neutral}
+                          onClick={() => onSelectProject(item.slug)}
+                          fullWidth
+                        >
+                          {item.name}
+                        </Button>
+                      </ListItem>
+                    ))}
+                    <ListItem>
                       <Button
                         iconPlacement="left"
-                        icon="tag"
+                        icon="add"
                         variant={ButtonVariant.Neutral}
-                        onClick={() => onSelectProject(item.slug)}
                         fullWidth
+                        onClick={() =>
+                          setCreateProjectModalOpen({ isOpen: true })
+                        }
                       >
-                        {item.name}
+                        Create Project
                       </Button>
                     </ListItem>
-                  ))}
-                  <ListItem>
-                    <Button
-                      iconPlacement="left"
-                      icon="add"
-                      variant={ButtonVariant.Neutral}
-                      fullWidth
-                      onClick={() =>
-                        setCreateProjectModalOpen({ isOpen: true })
-                      }
-                    >
-                      Create Project
-                    </Button>
-                  </ListItem>
-                </List>
+                  </List>
+                  <Divider m={theme.spacing.s5} />
+                  <TitleContainer>
+                    <Text muted fontWeight={500}>
+                      Documentation
+                    </Text>
+                  </TitleContainer>
+                  <List>
+                    {externalLinks.map((item, index) => (
+                      <ListItem key={index}>
+                        <StyledLink
+                          href={item.to}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Button
+                            as="div"
+                            iconPlacement="left"
+                            icon={item.icon}
+                            variant={ButtonVariant.Neutral}
+                            fullWidth
+                          >
+                            {item.text}
+                          </Button>
+                        </StyledLink>
+                      </ListItem>
+                    ))}
+                  </List>
+                </ScrollableContent>
               </ContentContainer>
               <Divider mx={theme.spacing.s5} my={0} />
               <Footer>

@@ -59,7 +59,9 @@ const ButtonLink = ({
   return (
     <ButtonContainer isActive={isActive}>
       <Anchor href={href} {...anchorProps} style={{ textDecoration: "none" }}>
-        <Button variant={ButtonVariant.PrimaryNeutral}>{children}</Button>
+        <Button as="div" variant={ButtonVariant.PrimaryNeutral}>
+          {children}
+        </Button>
       </Anchor>
     </ButtonContainer>
   );

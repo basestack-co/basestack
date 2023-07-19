@@ -1,7 +1,7 @@
 import { SpaceProps } from "styled-system";
-import { PopupItems } from "../Popup";
+import { PopupItemsProps } from "../Popup";
 
-export type Col = {
+export type TableColProps = {
   /**
    * Column title
    */
@@ -19,20 +19,20 @@ export type Col = {
   };
 };
 
-export type Row = {
+export type TableRowProps = {
   /**
    * PCols
    */
-  cols: Array<Col>;
+  cols: Array<TableColProps>;
   /**
    * Popup items array
    */
-  more: Array<PopupItems>;
+  more: Array<PopupItemsProps>;
 };
 
 export interface TableData {
   headers: Array<string>;
-  rows: Array<Row>;
+  rows: Array<TableRowProps>;
 }
 
 export interface TableProps extends SpaceProps {
@@ -43,7 +43,7 @@ export interface TableProps extends SpaceProps {
 }
 
 export interface RowProps {
-  cols: Array<Col>;
-  more: Array<PopupItems>;
+  cols: Array<TableColProps>;
+  more: Array<PopupItemsProps>;
   numberOfCols: number;
 }

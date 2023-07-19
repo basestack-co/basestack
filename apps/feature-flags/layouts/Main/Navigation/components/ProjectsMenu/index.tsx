@@ -1,17 +1,21 @@
-import React, { memo, useCallback, useRef, useState, useMemo } from "react";
+import React, { memo, useCallback, useRef, useState } from "react";
 import { useClickAway } from "@basestack/hooks";
 import { animated, config, useTransition } from "react-spring";
 // Components
 import { autoUpdate, offset, useFloating } from "@floating-ui/react";
-import { Button, ButtonVariant, PopupActions } from "@basestack/design-system";
-import { slideBottom } from "@basestack/design-system/animations/springs";
+import {
+  Button,
+  ButtonVariant,
+  PopupActions,
+  PopupActionProps,
+  slideBottom,
+} from "@basestack/design-system";
 // Types
-import { PopupItem } from "@basestack/design-system/molecules/PopupActions";
-import { ListItem } from "../styles";
+import { ListItem } from "./styles";
 
 export interface ProjectsMenuProps {
   currentProject: string;
-  projects: Array<PopupItem>;
+  projects: Array<PopupActionProps>;
   onClickCreateProject: () => void;
 }
 

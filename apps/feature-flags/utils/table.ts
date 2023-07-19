@@ -1,15 +1,18 @@
-import { Col, Row } from "@basestack/design-system/organisms/Table/types";
-import { PopupItems } from "@basestack/design-system/molecules/Popup";
+import {
+  PopupItemsProps,
+  TableRowProps,
+  TableColProps,
+} from "@basestack/design-system";
 
 export function createTable<T>(
   data: Array<T>,
   headers: Array<string>,
-  cols: (item: T, index: number, length: number) => Array<Col>,
-  more: (item: T, index: number, length: number) => Array<PopupItems>,
+  cols: (item: T, index: number, length: number) => Array<TableColProps>,
+  more: (item: T, index: number, length: number) => Array<PopupItemsProps>,
 ) {
   if (!!data) {
     const rows = data.map((item, index, { length }) => {
-      const row: Row = {
+      const row: TableRowProps = {
         cols: cols(item, index, length),
         more: more(item, index, length),
       };

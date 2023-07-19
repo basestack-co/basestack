@@ -18,23 +18,50 @@ export { default as Spinner, type SpinnerProps } from "./components/Spinner";
 export { default as Loader, type LoaderProps } from "./components/Loader";
 
 // Medium Components
-export { default as Pagination } from "./components/Pagination";
-export { default as Segment } from "./components/Segment";
-export { default as Modal } from "./components/Modal";
-export { default as InputGroup } from "./components/InputGroup";
-export { default as Popup, type PopupItems } from "./components/Popup";
-export { default as Tabs } from "./components/Tabs";
-export { default as PopupActions } from "./components/PopupActions";
+export {
+  default as Pagination,
+  type PaginationProps,
+} from "./components/Pagination";
+export { default as Segment, type SegmentProps } from "./components/Segment";
+export { default as Modal, type ModalProps } from "./components/Modal";
+export {
+  default as InputGroup,
+  type InputGroupProps,
+} from "./components/InputGroup";
+export {
+  default as Popup,
+  type PopupItemsProps,
+  type PopupProps,
+} from "./components/Popup";
+export { default as Tabs, type TabsProps } from "./components/Tabs";
+export {
+  default as PopupActions,
+  type PopupActionProps,
+  type PopupActionsProps,
+} from "./components/PopupActions";
 export { default as Select } from "./components/Select";
-export { Tooltip, TooltipTrigger, TooltipContent } from "./components/Tooltip";
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  type TooltipProps,
+} from "./components/Tooltip";
 
 // Large Components
-export { default as Table } from "./components/Table";
-export { default as Empty } from "./components/Empty";
-export { default as Skeleton } from "./components/Skeleton";
+export {
+  default as Table,
+  type TableRowProps,
+  type TableColProps,
+  type TableProps,
+} from "./components/Table";
+export { default as Empty, type EmptyProps } from "./components/Empty";
+export { default as Skeleton, type SkeletonProps } from "./components/Skeleton";
 export { default as Splash } from "./components/Splash";
 export { default as Calendar } from "./components/Calendar";
-export { default as CalendarInput } from "./components/CalendarInput";
+export {
+  default as CalendarInput,
+  type CalendarInputProps,
+} from "./components/CalendarInput";
 
 // Other
 export * from "./animations/springs";

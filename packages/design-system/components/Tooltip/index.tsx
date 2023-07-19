@@ -16,7 +16,7 @@ import {
 import type { Placement } from "@floating-ui/react";
 import { StyledContent, StyledTrigger } from "./styles";
 
-interface TooltipProps {
+export interface TooltipProps {
   initialOpen?: boolean;
   placement?: Placement;
   open?: boolean;

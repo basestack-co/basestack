@@ -6,7 +6,7 @@ import Text from "../Text";
 import { Button } from "../Button";
 import { Container, IconContainer } from "./styles";
 
-interface EmptyProps {
+export interface EmptyProps {
   title: string;
   description: string;
   button?: {

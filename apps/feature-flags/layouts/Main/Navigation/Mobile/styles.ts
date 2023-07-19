@@ -63,18 +63,17 @@ export const TitleContainer = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.s2};
 `;
 
-export const List = styled.ul<{ enableScroll?: boolean }>`
+export const ScrollableContent = styled.div`
+  ${flexColumn};
+  ${scrollbar};
+  overflow-y: auto;
+  padding: ${({ theme }) => theme.spacing.s5} 0;
+`;
+
+export const List = styled.ul`
   ${flexColumn};
   list-style-type: none;
   padding: 0 ${({ theme }) => theme.spacing.s2};
-
-  ${({ enableScroll, theme }) =>
-    enableScroll &&
-    css`
-      ${scrollbar};
-      overflow-y: auto;
-      padding-bottom: ${theme.spacing.s5};
-    `}
 `;
 
 export const ListItem = styled.li`
@@ -89,6 +88,7 @@ export const ListItem = styled.li`
 export const Divider = styled.hr<SpaceProps>`
   ${space};
   ${flexColumn};
+  flex-shrink: 0;
   height: 1px;
   border: none;
   background-color: ${({ theme }) => theme.colors.gray100};
@@ -97,4 +97,9 @@ export const Divider = styled.hr<SpaceProps>`
 export const Footer = styled.div`
   ${flexColumn};
   padding: ${({ theme }) => theme.spacing.s2};
+`;
+
+export const StyledLink = styled.a`
+  ${flexColumn};
+  text-decoration: none;
 `;

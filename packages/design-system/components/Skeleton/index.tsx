@@ -2,7 +2,7 @@ import React, { memo } from "react";
 // Components
 import { Container, Item, Wrapper } from "./styles";
 
-interface SkeletonProps {
+export interface SkeletonProps {
   backgroundColor?: string;
   padding?: number;
   displayInline?: boolean;
