@@ -45,6 +45,10 @@
         "@basestack/utils#build"
       ],
       "outputs": ["out/**", ".next/**"]
+    },
+    "@basestack/docs#deploy": {
+      "dependsOn": ["lint"],
+      "outputs": ["out/**", ".next/**"]
     }
   }
 }
