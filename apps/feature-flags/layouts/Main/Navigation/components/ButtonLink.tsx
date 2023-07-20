@@ -1,6 +1,6 @@
 import React, { memo, ReactNode } from "react";
+import { useRouter } from "next/router";
 import { rem } from "polished";
-import Link from "next/link";
 import styled, { css } from "styled-components";
 import { Button, ButtonVariant } from "@basestack/design-system";
 
@@ -23,7 +23,9 @@ export interface ButtonLinkProps {
   isExternal?: boolean;
 }
 
-export const ExternalLink = styled.a``;
+export const ExternalLink = styled.a`
+  text-decoration: none;
+`;
 
 export const ButtonContainer = styled.div<{ isActive: boolean }>`
   display: flex;
@@ -51,16 +53,28 @@ const ButtonLink = ({
   children,
   isExternal = false,
 }: ButtonLinkProps) => {
-  const Anchor = isExternal ? ExternalLink : Link;
-  const anchorProps = isExternal
-    ? { target: "_blank", rel: "noopener noreferrer" }
-    : { passHref: true };
+  const router = useRouter();
 
   return (
     <ButtonContainer isActive={isActive}>
-      <Anchor href={href} {...anchorProps} style={{ textDecoration: "none" }}>
-        <Button variant={ButtonVariant.PrimaryNeutral}>{children}</Button>
-      </Anchor>
+      {isExternal ? (
+        <ExternalLink href={href} target="_blank" rel="noopener noreferrer">
+          <Button as="div" variant={ButtonVariant.PrimaryNeutral}>
+            {children}
+          </Button>
+        </ExternalLink>
+      ) : (
+        <Button
+          onClick={() => {
+            router.push({
+              pathname: href,
+            });
+          }}
+          variant={ButtonVariant.PrimaryNeutral}
+        >
+          {children}
+        </Button>
+      )}
     </ButtonContainer>
   );
 };

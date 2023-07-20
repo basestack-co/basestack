@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Select tests render Select correctly 1`] = `
+<DocumentFragment>
+  .c0 {
+  height: 1.5rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+}
+
+.c1 {
+  color: #757575;
+  font-size: 1.5rem;
+}
+
+<div
+    class=" css-b62m3t-container"
+  >
+    <span
+      class="css-1f43avz-a11yText-A11yText"
+      id="react-select-2-live-region"
+    />
+    <span
+      aria-atomic="false"
+      aria-live="polite"
+      aria-relevant="additions text"
+      class="css-1f43avz-a11yText-A11yText"
+    />
+    <div
+      class=" css-19wf9l7-control"
+    >
+      <div
+        class=" css-1fdsijx-ValueContainer"
+      >
+        <div
+          class=" css-16e3emz-placeholder"
+          id="react-select-2-placeholder"
+        >
+          Select...
+        </div>
+        <div
+          class=" css-qbdosj-Input"
+          data-value=""
+        >
+          <input
+            aria-autocomplete="list"
+            aria-describedby="react-select-2-placeholder"
+            aria-expanded="false"
+            aria-haspopup="true"
+            autocapitalize="none"
+            autocomplete="off"
+            autocorrect="off"
+            class=""
+            id="react-select-2-input"
+            role="combobox"
+            spellcheck="false"
+            style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+            tabindex="0"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class=" css-1hb7zxy-IndicatorsContainer"
+      >
+        <span
+          class=" css-1u9des2-indicatorSeparator"
+        />
+        <div
+          aria-hidden="true"
+          class=" css-1xc3v61-indicatorContainer"
+        >
+          <div
+            class="c0"
+            data-testid="icon-container"
+            size="24"
+          >
+            <span
+              class="c1 material-symbols-sharp"
+              color="#757575"
+              data-testid="icon"
+              size="24"
+            >
+              expand_more
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

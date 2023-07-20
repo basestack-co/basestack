@@ -9,8 +9,8 @@ import { useStore } from "store";
 import { useSession } from "next-auth/react";
 // Components
 import { Splash, Loader } from "@basestack/design-system";
-import NavigationDrawer from "./NavigationDrawer";
-import Navigation from "./Navigation";
+import NavigationDrawer from "./Navigation/Mobile";
+import Navigation from "./Navigation/Desktop";
 // Server
 import { trpc } from "libs/trpc";
 

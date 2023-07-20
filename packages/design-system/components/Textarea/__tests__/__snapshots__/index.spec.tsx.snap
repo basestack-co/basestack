@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Textarea tests should render Textarea correctly 1`] = `
+<DocumentFragment>
+  .c0 {
+  border: none;
+  background-color: #F6F6F6;
+  min-height: 9.375rem;
+  max-height: 31.25rem;
+  min-width: 100%;
+  max-width: 100%;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  width: 100%;
+  padding: 1rem;
+  color: #000000;
+}
+
+.c0::placeholder {
+  color: #757575;
+}
+
+.c0:focus {
+  outline: 2px solid #000000;
+}
+
+<textarea
+    class="c0"
+    data-testid="textarea"
+    name="test1"
+    placeholder="Search here..."
+  />
+</DocumentFragment>
+`;

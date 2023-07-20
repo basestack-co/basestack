@@ -5,7 +5,7 @@ import { Session } from "next-auth";
 import { getValue } from "@basestack/utils";
 // Types
 import { HistoryAction, Environment } from "types";
-import { Type } from "@basestack/design-system/organisms/HistoryCard/types";
+import { Type } from "components/HistoryCard/types";
 import { RouterOutput } from "libs/trpc";
 
 export const pathActionMap: { [id: string]: string } = {

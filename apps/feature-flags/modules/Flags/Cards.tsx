@@ -1,15 +1,16 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useRouter } from "next/router";
 // Server
 import { trpc } from "libs/trpc";
 // Components
 import {
-  FlagCard,
-  FlagRow,
   ButtonVariant,
   Empty,
   Loader,
+  Button,
+  Text,
 } from "@basestack/design-system";
+import { FlagCard, FlagRow } from "components";
 // Store
 import { useStore } from "store";
 // Types
@@ -18,8 +19,14 @@ import { SelectedView, TabType } from "types";
 import { getValue } from "@basestack/utils";
 import dayjs from "dayjs";
 // Styles
-import { FlagsCardContainer, FlagsTableContainer } from "./styles";
+import {
+  FlagsCardGrid,
+  FlagsTableGrid,
+  Container,
+  LoadMoreContainer,
+} from "./styles";
 import Loading from "./Loading";
+import { useTheme } from "styled-components";
 
 interface FlagCardsProps {
   selectedView: SelectedView;
@@ -32,6 +39,7 @@ const FlagCards = ({
   projectId,
   searchValue,
 }: FlagCardsProps) => {
+  const theme = useTheme();
   const trpcContext = trpc.useContext();
   const router = useRouter();
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
@@ -42,20 +50,23 @@ const FlagCards = ({
     (state) => state.setUpdateFlagModalOpen,
   );
   const deleteFlag = trpc.flag.delete.useMutation();
+  const paginationTake = 10;
+  const [flagsLoaded, setFlagsLoaded] = useState(paginationTake);
 
   const [{ data, isLoading }] = trpc.useQueries((t) => [
     t.flag.all(
       {
         projectId,
-        pagination: { skip: 0, take: 10 },
+        pagination: { skip: 0, take: flagsLoaded },
         search: searchValue,
       },
-      { enabled: !!projectId },
+      { enabled: !!projectId, keepPreviousData: true },
     ),
     t.environment.all(
       { projectId: projectId! },
       {
         enabled: !!projectId,
+        keepPreviousData: true,
       },
     ),
   ]);
@@ -119,73 +130,96 @@ const FlagCards = ({
       />
     );
 
-  const Container =
-    selectedView === "cards" ? FlagsCardContainer : FlagsTableContainer;
+  const Grid = selectedView === "cards" ? FlagsCardGrid : FlagsTableGrid;
 
   return (
     <Container>
-      {flags.map((flag, index) => {
-        const FlagComponent = selectedView === "cards" ? FlagCard : FlagRow;
-        const environmentId = getValue(flag, "environments[0].id", "");
+      <Grid>
+        {flags.map((flag, index) => {
+          const FlagComponent = selectedView === "cards" ? FlagCard : FlagRow;
+          const environmentId = getValue(flag, "environments[0].id", "");
+          const hasPayload =
+            !!flag.payload &&
+            typeof flag.payload === "object" &&
+            Object.keys(flag.payload).length !== 0;
 
-        return (
-          <FlagComponent
-            isExpired={false}
-            hasPayload={false}
-            key={index.toString()}
-            zIndex={flags.length - index}
-            title={flag.slug}
-            description={flag.description ?? ""}
-            environments={flag.environments}
-            date={`Created ${dayjs(flag.createdAt).fromNow()}`}
-            popupItems={[
-              {
-                icon: "edit",
-                text: "Edit",
-                onClick: () =>
-                  onUpdateOrHistory(
-                    flag.id,
-                    flag.slug,
-                    environmentId,
-                    TabType.CORE,
-                  ),
-              },
-              {
-                icon: "history",
-                text: "History",
-                onClick: () =>
-                  onUpdateOrHistory(
-                    flag.id,
-                    flag.slug,
-                    environmentId,
-                    TabType.HISTORY,
-                  ),
-              },
-              {
-                icon: "delete",
-                text: "Delete",
-                variant: ButtonVariant.Danger,
-                onClick: () =>
-                  setConfirmModalOpen({
-                    isOpen: true,
-                    data: {
-                      title: "Are you sure?",
-                      description: `This action cannot be undone. This will permanently delete the <b>${flag.slug}</b> flag, comments, history and remove all collaborator associations. `,
-                      type: "delete",
-                      buttonText: "Delete Flag",
-                      onClick: () => {
-                        onDelete(flag.slug);
-                        setConfirmModalOpen({
-                          isOpen: false,
-                        });
+          return (
+            <FlagComponent
+              isExpired={dayjs().isAfter(dayjs(flag.expiredAt))}
+              hasPayload={hasPayload}
+              key={index.toString()}
+              zIndex={flags.length - index}
+              title={flag.slug}
+              description={flag.description ?? ""}
+              environments={flag.environments}
+              date={`Created ${dayjs(flag.createdAt).fromNow()}`}
+              popupItems={[
+                {
+                  icon: "edit",
+                  text: "Edit",
+                  onClick: () =>
+                    onUpdateOrHistory(
+                      flag.id,
+                      flag.slug,
+                      environmentId,
+                      TabType.CORE,
+                    ),
+                },
+                {
+                  icon: "history",
+                  text: "History",
+                  onClick: () =>
+                    onUpdateOrHistory(
+                      flag.id,
+                      flag.slug,
+                      environmentId,
+                      TabType.HISTORY,
+                    ),
+                },
+                {
+                  icon: "delete",
+                  text: "Delete",
+                  variant: ButtonVariant.Danger,
+                  onClick: () =>
+                    setConfirmModalOpen({
+                      isOpen: true,
+                      data: {
+                        title: "Are you sure?",
+                        description: `This action cannot be undone. This will permanently delete the <b>${flag.slug}</b> flag, comments, history and remove all collaborator associations. `,
+                        type: "delete",
+                        buttonText: "Delete Flag",
+                        onClick: () => {
+                          onDelete(flag.slug);
+                          setConfirmModalOpen({
+                            isOpen: false,
+                          });
+                        },
                       },
-                    },
-                  }),
-              },
-            ]}
-          />
-        );
-      })}
+                    }),
+                },
+              ]}
+            />
+          );
+        })}
+      </Grid>
+      <LoadMoreContainer>
+        <Text mb={theme.spacing.s2} muted>
+          Showing{" "}
+          {flagsLoaded >= data?.pagination.total!
+            ? data?.pagination.total!
+            : flagsLoaded}{" "}
+          of {data?.pagination.total} Flags
+        </Text>
+        <Button
+          isDisabled={flagsLoaded >= data?.pagination.total!}
+          variant={ButtonVariant.Tertiary}
+          onClick={() =>
+            setFlagsLoaded((prevState) => prevState + paginationTake)
+          }
+        >
+          Load More
+        </Button>
+      </LoadMoreContainer>
     </Container>
   );
 };
