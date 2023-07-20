@@ -5,16 +5,26 @@ const body = {
   backgroundColor: colors.gray900,
 };
 
+const navigation = {
+  backgroundColor: colors.gray800,
+  divider: {
+    backgroundColor: colors.gray600,
+  },
+  button: {
+    underline: colors.blue400,
+  },
+};
+
 const button = {
   primary: {
-    backgroundColor: colors.primary,
-    color: colors.white,
+    backgroundColor: colors.blue500,
+    color: colors.gray200,
     hover: {
-      backgroundColor: darken(0.1, colors.primary),
+      backgroundColor: darken(0.1, colors.blue500),
     },
     spinner: {
-      backgroundColor: colors.blue500,
-      color: colors.white,
+      backgroundColor: colors.blue400,
+      color: colors.gray300,
     },
   },
   secondary: {
@@ -54,12 +64,12 @@ const button = {
   },
   neutral: {
     backgroundColor: "transparent",
-    color: colors.black,
+    color: colors.gray300,
     hover: {
-      backgroundColor: colors.gray100,
+      backgroundColor: colors.gray700,
     },
     active: {
-      backgroundColor: colors.gray200,
+      backgroundColor: colors.gray600,
     },
     spinner: {
       backgroundColor: colors.gray200,
@@ -68,13 +78,13 @@ const button = {
   },
   primaryNeutral: {
     backgroundColor: "transparent",
-    color: colors.black,
+    color: colors.gray300,
     hover: {
-      color: colors.blue400,
-      backgroundColor: colors.blue50,
+      color: colors.blue600,
+      backgroundColor: colors.blue200,
     },
     active: {
-      backgroundColor: colors.blue100,
+      backgroundColor: colors.blue300,
     },
     spinner: {
       backgroundColor: colors.gray200,
@@ -83,12 +93,13 @@ const button = {
   },
   danger: {
     backgroundColor: "transparent",
-    color: colors.red400,
+    color: colors.red300,
     hover: {
-      backgroundColor: colors.red50,
+      color: colors.red600,
+      backgroundColor: colors.red200,
     },
     active: {
-      backgroundColor: colors.red100,
+      backgroundColor: colors.red300,
     },
     spinner: {
       backgroundColor: colors.gray200,
@@ -96,13 +107,13 @@ const button = {
     },
   },
   dangerFilled: {
-    backgroundColor: colors.red400,
-    color: colors.white,
+    backgroundColor: colors.red500,
+    color: colors.gray300,
     hover: {
-      backgroundColor: colors.red500,
+      backgroundColor: colors.red600,
     },
     active: {
-      backgroundColor: colors.red400,
+      backgroundColor: colors.red500,
     },
     spinner: {
       backgroundColor: colors.red200,
@@ -222,8 +233,34 @@ const segment = {
   },
 };
 
+const splash = {
+  backgroundColor: colors.gray900,
+  loader: {
+    backgroundColor: colors.gray600,
+    color: colors.blue400,
+  },
+};
+
+const popup = {
+  backgroundColor: colors.gray800,
+};
+
+const popupActions = {
+  backgroundColor: colors.gray800,
+  button: {
+    backgroundColor: "transparent",
+    hover: {
+      backgroundColor: colors.gray700,
+    },
+    active: {
+      backgroundColor: colors.gray600,
+    },
+  },
+};
+
 const theme = {
   body,
+  navigation,
   button,
   card,
   text,
@@ -232,6 +269,9 @@ const theme = {
   label,
   input,
   segment,
+  splash,
+  popup,
+  popupActions,
   typography,
   colors,
   spacing,

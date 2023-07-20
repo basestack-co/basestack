@@ -5,6 +5,16 @@ const body = {
   backgroundColor: colors.gray50,
 };
 
+const navigation = {
+  backgroundColor: colors.white,
+  divider: {
+    backgroundColor: colors.gray100,
+  },
+  button: {
+    underline: colors.blue400,
+  },
+};
+
 const button = {
   primary: {
     backgroundColor: colors.primary,
@@ -86,6 +96,7 @@ const button = {
     color: colors.red400,
     hover: {
       backgroundColor: colors.red50,
+      color: colors.red400,
     },
     active: {
       backgroundColor: colors.red100,
@@ -222,8 +233,34 @@ const segment = {
   },
 };
 
+const splash = {
+  backgroundColor: colors.gray50,
+  loader: {
+    backgroundColor: colors.gray300,
+    color: colors.primary,
+  },
+};
+
+const popup = {
+  backgroundColor: colors.white,
+};
+
+const popupActions = {
+  backgroundColor: colors.white,
+  button: {
+    backgroundColor: "transparent",
+    hover: {
+      backgroundColor: colors.gray100,
+    },
+    active: {
+      backgroundColor: colors.gray200,
+    },
+  },
+};
+
 const theme = {
   body,
+  navigation,
   button,
   card,
   text,
@@ -232,6 +269,9 @@ const theme = {
   label,
   input,
   segment,
+  splash,
+  popup,
+  popupActions,
   typography,
   colors,
   spacing,

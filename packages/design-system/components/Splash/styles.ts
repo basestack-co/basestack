@@ -11,7 +11,7 @@ export const Container = styled.div`
   height: 100vh;
   position: relative;
   padding: ${({ theme }) => theme.spacing.s5};
-  background-color: ${({ theme }) => theme.colors.gray50};
+  background-color: ${({ theme }) => theme.splash.backgroundColor};
   align-items: center;
   overflow: hidden;
 `;
@@ -45,7 +45,7 @@ export const Loader = styled.div`
   display: inline-block;
   position: relative;
   overflow: hidden;
-  background: ${({ theme }) => theme.colors.gray300};
+  background: ${({ theme }) => theme.splash.loader.backgroundColor};
   border-radius: 2px;
 
   &::after {
@@ -53,7 +53,7 @@ export const Loader = styled.div`
     width: ${rem("80px")};
     height: 2px;
     border-radius: 1px;
-    background: ${({ theme }) => theme.colors.primary};
+    background: ${({ theme }) => theme.splash.loader.color};
     position: absolute;
     top: 0;
     left: 0;

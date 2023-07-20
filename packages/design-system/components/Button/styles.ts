@@ -112,6 +112,7 @@ export const dangerButtonStyles = css`
   color: ${({ theme }) => theme.button.danger.color};
 
   &:hover:not(:disabled) {
+    color: ${({ theme }) => theme.button.danger.hover.color};
     background-color: ${({ theme }) =>
       theme.button.danger.hover.backgroundColor};
   }

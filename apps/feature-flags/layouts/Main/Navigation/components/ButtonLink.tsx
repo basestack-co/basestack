@@ -42,7 +42,7 @@ export const ButtonContainer = styled.div<{ isActive: boolean }>`
         bottom: 0;
         left: 0;
         height: 3px;
-        background-color: ${({ theme }) => theme.colors.blue400};
+        background-color: ${({ theme }) => theme.navigation.button.underline};
       }
     `};
 `;
