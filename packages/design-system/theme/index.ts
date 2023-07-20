@@ -1,11 +1,11 @@
 import { rem } from "polished";
 
-const typography = {
+export const typography = {
   roboto: "'Roboto', sans-serif",
   robotoFlex: "'Roboto Flex', sans-serif",
 };
 
-const colors = {
+export const colors = {
   primary: "#276EF1",
   white: "#FFFFFF",
   black: "#000000",
@@ -59,7 +59,7 @@ const colors = {
   purple50: "#F4F1FA",
 };
 
-const zIndex = {
+export const zIndex = {
   modal: 110,
   popup: 109,
   navigationDrawer: 108,
@@ -67,7 +67,7 @@ const zIndex = {
   navigation: 106,
 };
 
-const spacing = {
+export const spacing = {
   s1: rem("4px"),
   s2: rem("8px"),
   s3: rem("12px"),
@@ -78,7 +78,7 @@ const spacing = {
   s8: rem("50px"),
 };
 
-const shadow = {
+export const shadow = {
   elevation1: "rgba(0, 0, 0, 0.05) 0px 1px 2px 0px",
   elevation2:
     "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px",
