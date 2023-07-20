@@ -1,21 +1,49 @@
-import React from "react";
-import { DocsThemeConfig } from "nextra-theme-docs";
+import React, { useState, useEffect } from "react";
+import { useConfig, type DocsThemeConfig } from "nextra-theme-docs";
 // Utils
-import { repoUrl } from "utils/helpers";
+import { REPO_URL } from "utils/helpers";
 
 const config: DocsThemeConfig = {
   logo: <span>Basestack</span>,
+  logoLink: true,
   project: {
-    link: repoUrl,
+    link: REPO_URL,
   },
-  docsRepositoryBase: `${repoUrl}/blob/master/apps/feature-flags-docs/pages`,
-  footer: {
-    text: "Basestack Docs",
-  },
-  useNextSeoProps() {
+  docsRepositoryBase: `${REPO_URL}/blob/master/apps/feature-flags-docs/pages`,
+  useNextSeoProps: function SEO() {
+    const { frontMatter } = useConfig();
+    const section = "Basestack Docs";
+    const defaultTitle = frontMatter.overrideTitle || section;
+
     return {
-      titleTemplate: "%s – Basestack Docs",
+      description: frontMatter.description,
+      defaultTitle,
+      titleTemplate: `%s – ${section}`,
     };
+  },
+  // Code retrieve from https://github.com/vercel/turbo/blob/main/docs/theme.config.tsx
+  // This will add a "Last updated on" message to the footer of every page.
+  gitTimestamp({ timestamp }) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [dateString, setDateString] = useState(timestamp.toISOString());
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      try {
+        setDateString(
+          timestamp.toLocaleDateString(navigator.language, {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          }),
+        );
+      } catch (e) {
+        // Ignore errors here; they get the ISO string.
+        // At least one person out there has manually misconfigured navigator.language.
+      }
+    }, [timestamp]);
+
+    return <>Last updated on {dateString}</>;
   },
   head: (
     <>
@@ -27,6 +55,28 @@ const config: DocsThemeConfig = {
       />
     </>
   ),
+  /* navbar: {
+    component: Navigation,
+    extraContent: (
+      <>
+        <Github />
+        <Discord />
+      </>
+    ),
+  }, */
+  footer: {
+    text: "Basestack Docs",
+  },
+  /* footer: {
+    component: () => <p>Basestack Docs</p>,
+  }, */
+  search: {
+    placeholder: "Search documentation…",
+  },
+  i18n: [],
+  editLink: {
+    text: "Edit this page on GitHub",
+  },
 };
 
 export default config;
