@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { space } from "styled-system";
-import { rem, transparentize } from "polished";
+import { rem } from "polished";
 import { LabelVariant, LabelSize } from "./types";
-import { ThemeInterface } from "../../types/styled-components";
 
 const getSizeStyles = (size: LabelSize) => {
   const styles = {
@@ -23,44 +22,6 @@ const getSizeStyles = (size: LabelSize) => {
   return styles[size];
 };
 
-const getSolidStyles = (theme: ThemeInterface, variant: LabelVariant) => {
-  const colors = {
-    success: {
-      color: theme.colors.white,
-      backgroundColor: theme.colors.green400,
-    },
-    default: {
-      color: theme.colors.gray600,
-      backgroundColor: theme.colors.gray200,
-    },
-    info: {
-      color: theme.colors.white,
-      backgroundColor: theme.colors.primary,
-    },
-  };
-
-  return colors[variant];
-};
-
-const getTranslucentStyles = (theme: ThemeInterface, variant: LabelVariant) => {
-  const colors = {
-    success: {
-      color: theme.colors.green600,
-      backgroundColor: transparentize(0.9, theme.colors.green400),
-    },
-    default: {
-      color: theme.colors.gray600,
-      backgroundColor: transparentize(0.9, theme.colors.gray400),
-    },
-    info: {
-      color: theme.colors.blue500,
-      backgroundColor: transparentize(0.9, theme.colors.blue400),
-    },
-  };
-
-  return colors[variant];
-};
-
 export const StyledLabel = styled.div<{
   variant: LabelVariant;
   size: LabelSize;
@@ -72,6 +33,6 @@ export const StyledLabel = styled.div<{
   ${({ size }) => getSizeStyles(size)};
   ${({ theme, variant, isTranslucent }) =>
     isTranslucent
-      ? getTranslucentStyles(theme, variant)
-      : getSolidStyles(theme, variant)};
+      ? theme.label.translucent[variant]
+      : theme.label.solid[variant]};
 `;

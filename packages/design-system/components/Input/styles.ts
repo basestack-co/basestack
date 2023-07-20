@@ -20,26 +20,26 @@ export const StyledInput = styled.input<{
   border: none;
   background-color: ${({ theme, isDarker, hasError }) =>
     hasError
-      ? theme.colors.red50
+      ? theme.input.error.backgroundColor
       : isDarker
-      ? theme.colors.gray100
-      : theme.colors.gray50};
+      ? theme.input.isDarker.backgroundColor
+      : theme.input.backgroundColor};
   height: ${({ format }) => (format === "normal" ? rem("44px") : rem("36px"))};
   border-radius: ${rem("4px")};
   font-size: ${rem("14px")};
   font-weight: 400;
   width: 100%;
   padding: 0 ${rem("16px")};
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.input.color};
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.gray500};
+    color: ${({ theme }) => theme.input.placeholder.color};
   }
 
   &:focus {
     outline: 2px solid
       ${({ theme, hasError }) =>
-        hasError ? theme.colors.red200 : theme.colors.black};
+        hasError ? theme.input.error.focus.outline : theme.input.focus.outline};
   }
 
   ${({ hasLeftIcon }) =>

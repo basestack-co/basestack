@@ -23,7 +23,7 @@ const sharedStyles = ({
       : theme.typography.roboto};
   word-break: break-all;
   color: ${({ theme }) =>
-    color || (muted ? theme.colors.gray500 : theme.colors.black)};
+    color || (muted ? theme.text.muted : theme.text.color)};
 
   ${lineTruncate &&
   css`

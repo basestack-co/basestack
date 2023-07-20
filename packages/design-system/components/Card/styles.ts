@@ -7,7 +7,7 @@ export const Container = styled.div<{ hasHoverAnimation: boolean }>`
   display: flex;
   flex-direction: column;
   box-shadow: ${({ theme }) => theme.shadow.elevation2};
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.card.backgroundColor};
   border-radius: ${rem("6px")};
 
   ${({ hasHoverAnimation }) =>

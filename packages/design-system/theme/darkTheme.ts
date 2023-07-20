@@ -1,8 +1,8 @@
 import { typography, colors, spacing, zIndex, shadow, device } from "./index";
-import { darken, lighten } from "polished";
+import { darken, lighten, transparentize } from "polished";
 
 const body = {
-  backgroundColor: colors.gray800,
+  backgroundColor: colors.gray900,
 };
 
 const button = {
@@ -29,10 +29,10 @@ const button = {
     },
   },
   tertiary: {
-    backgroundColor: colors.gray100,
-    color: colors.black,
+    backgroundColor: colors.gray700,
+    color: colors.gray300,
     hover: {
-      backgroundColor: colors.gray200,
+      backgroundColor: colors.gray600,
     },
     spinner: {
       backgroundColor: colors.gray300,
@@ -111,9 +111,127 @@ const button = {
   },
 };
 
+const card = {
+  backgroundColor: colors.gray800,
+};
+
+const text = {
+  color: colors.gray300,
+  muted: colors.gray400,
+};
+
+const icon = {
+  color: colors.gray300,
+  muted: colors.gray400,
+};
+
+const iconButton = {
+  primary: {
+    backgroundColor: colors.primary,
+    color: colors.white,
+    hover: { backgroundColor: darken(0.1, colors.primary) },
+  },
+  primaryNeutral: {
+    backgroundColor: "transparent",
+    color: colors.black,
+    hover: { color: colors.blue400, backgroundColor: colors.blue50 },
+    active: { backgroundColor: colors.blue100 },
+  },
+  secondary: {
+    backgroundColor: colors.gray100,
+    color: colors.white,
+    hover: { backgroundColor: colors.gray200 },
+  },
+  neutral: {
+    backgroundColor: "transparent",
+    color: colors.gray300,
+    hover: { backgroundColor: colors.gray700 },
+    active: { backgroundColor: colors.gray600 },
+  },
+};
+
+const label = {
+  solid: {
+    success: {
+      color: colors.gray100,
+      backgroundColor: colors.green600,
+    },
+    default: {
+      color: colors.gray300,
+      backgroundColor: colors.gray600,
+    },
+    info: {
+      color: colors.white,
+      backgroundColor: colors.primary,
+    },
+  },
+  translucent: {
+    success: {
+      color: colors.green600,
+      backgroundColor: transparentize(0.9, colors.green400),
+    },
+    default: {
+      color: colors.gray600,
+      backgroundColor: transparentize(0.9, colors.gray400),
+    },
+    info: {
+      color: colors.blue500,
+      backgroundColor: transparentize(0.9, colors.blue400),
+    },
+  },
+};
+
+const input = {
+  backgroundColor: colors.gray800,
+  color: colors.gray300,
+  error: {
+    backgroundColor: colors.red50,
+    focus: {
+      outline: colors.red200,
+    },
+    icon: {
+      color: colors.red400,
+    },
+  },
+  isDarker: {
+    backgroundColor: colors.gray800,
+  },
+  placeholder: {
+    color: colors.gray400,
+  },
+  focus: {
+    outline: colors.gray600,
+  },
+  icon: {
+    color: colors.gray500,
+  },
+};
+
+const segment = {
+  backgroundColor: colors.gray800,
+  button: {
+    hover: {
+      backgroundColor: colors.gray700,
+    },
+  },
+  slider: {
+    backgroundColor: colors.gray600,
+  },
+  icon: {
+    color: colors.gray300,
+  },
+};
+
 const theme = {
   body,
   button,
+  card,
+  text,
+  icon,
+  iconButton,
+  label,
+  input,
+  segment,
   typography,
   colors,
   spacing,
