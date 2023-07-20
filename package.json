@@ -31,7 +31,7 @@
     "is-ci": "^3.0.1",
     "lint-staged": "^13.2.2",
     "prettier": "^3.0.0",
-    "turbo": "1.10.8"
+    "turbo": "1.10.9"
   },
   "packageManager": "yarn@1.22.15",
   "husky": {

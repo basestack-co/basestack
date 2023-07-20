@@ -2,7 +2,6 @@
 import store from "./store";
 // Utils
 import fetch from "cross-fetch";
-import { verifyFlag } from "./utils/helpers";
 // Types
 import { Params, FlagResult, Flag } from "./types";
 
@@ -26,9 +25,15 @@ class FlagsJS {
   async flagsAsync(): Promise<Flag[]> {
     try {
       const { setFlags } = store.getState();
-      const url = `${this.apiUrl}/${this.projectKey}/${this.envKey}/flags`;
+      const url = `${this.apiUrl}/flags`;
 
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        headers: {
+          "x-project-key": this.projectKey,
+          "x-environment-key": this.envKey,
+        },
+      });
+
       const { flags } = await response.json();
 
       // Update the store
@@ -43,10 +48,14 @@ class FlagsJS {
 
   async flagAsync(name: string): Promise<FlagResult<Flag | null>> {
     try {
-      const url = `${this.apiUrl}/${this.projectKey}/${this.envKey}/flags`;
-      const response = await fetch(url);
-      const { flags } = await response.json();
-      return verifyFlag(flags, name);
+      const url = `${this.apiUrl}/flags/${name}`;
+      const response = await fetch(url, {
+        headers: {
+          "x-project-key": this.projectKey,
+          "x-environment-key": this.envKey,
+        },
+      });
+      return await response.json();
     } catch (e) {
       throw e;
     }
@@ -59,7 +68,17 @@ class FlagsJS {
 
   flag(name: string): FlagResult<Flag | null> {
     const { flags } = store.getState();
-    return verifyFlag(flags, name);
+    const flag = flags.find((flag) => flag.slug === name);
+
+    if (!flag) {
+      return {
+        enabled: false,
+        error: true,
+        message: `Flag with name ${name} does not exist`,
+      };
+    }
+
+    return { ...flag, error: false };
   }
 }
 
