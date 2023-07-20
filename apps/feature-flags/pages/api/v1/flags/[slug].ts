@@ -46,6 +46,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
 
     default:
+      res.setHeader("Allow", ["GET"]);
       res.status(405).json(methodNotAllowed);
   }
 };
