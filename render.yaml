@@ -3,7 +3,7 @@ services:
     name: basestack-landing-page
     # rootDir: no need to specify rootDir
     runtime: static
-    buildCommand: yarn deploy:landing-page
+    buildCommand: yarn; yarn deploy:landing-page
     staticPublishPath: apps/landing-page/out
     pullRequestPreviewsEnabled: false
     envVars:
@@ -15,7 +15,7 @@ services:
     name: basestack-docs
     # rootDir: no need to specify rootDir
     runtime: static
-    buildCommand: yarn deploy:docs
+    buildCommand: yarn; yarn deploy:docs
     staticPublishPath: apps/docs/out
     pullRequestPreviewsEnabled: false
     envVars:
@@ -27,7 +27,7 @@ services:
     name: basestack-feature-flags-app
     # rootDir: no need to specify rootDir
     runtime: node
-    buildCommand: yarn deploy:feature-flags
+    buildCommand: yarn; yarn deploy:feature-flags
     startCommand: yarn start
     pullRequestPreviewsEnabled: false
     plan: free
