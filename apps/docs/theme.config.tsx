@@ -1,6 +1,5 @@
 import React from "react";
-import { useRouter } from "next/router";
-import { DocsThemeConfig, useConfig } from "nextra-theme-docs";
+import { DocsThemeConfig } from "nextra-theme-docs";
 // Utils
 import { repoUrl } from "utils/helpers";
 

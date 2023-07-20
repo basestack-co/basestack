@@ -5,7 +5,19 @@ services:
     env: static
     buildCommand: yarn deploy:landing-page
     staticPublishPath: apps/landing-page/out
-    pullRequestPreviewsEnabled: true
+    pullRequestPreviewsEnabled: false
+    envVars:
+      - key: SKIP_INSTALL_DEPS
+        value: true # disables npm install to use yarn
+      - key: NODE_VERSION
+        value: 16.8.0
+  - type: web
+    name: basestack-docs
+    # rootDir: no need to specify rootDir
+    env: static
+    buildCommand: yarn deploy:docs
+    staticPublishPath: apps/docs/out
+    pullRequestPreviewsEnabled: false
     envVars:
       - key: SKIP_INSTALL_DEPS
         value: true # disables npm install to use yarn
