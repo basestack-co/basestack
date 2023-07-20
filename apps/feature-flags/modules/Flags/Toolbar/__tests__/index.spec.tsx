@@ -20,11 +20,10 @@ describe.skip("Toolbar Organism tests", () => {
   test("should render Toolbar correctly", () => {
     const { asFragment } = renderWithTheme(
       <Toolbar
+        isDesktop
         onChangeView={jest.fn()}
-        onSelect={jest.fn()}
-        // @ts-ignore
-        environments={[]}
-        onSearch={jest.fn()}
+        onSearchCallback={jest.fn()}
+        selectedView="cards"
       />,
     );
     expect(asFragment()).toMatchSnapshot();
@@ -33,11 +32,10 @@ describe.skip("Toolbar Organism tests", () => {
   test("should render Toolbar with core elements", () => {
     const { getByTestId } = renderWithTheme(
       <Toolbar
+        isDesktop
         onChangeView={jest.fn()}
-        onSelect={jest.fn()}
-        // @ts-ignore
-        environments={[]}
-        onSearch={jest.fn()}
+        onSearchCallback={jest.fn()}
+        selectedView="cards"
       />,
     );
 

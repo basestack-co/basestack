@@ -1,0 +1,359 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Switch tests should render Switch checked by default 1`] = `
+<DocumentFragment>
+  .c1 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  margin-right: 0.75rem;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #757575;
+}
+
+.c0 {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.c2 {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+  width: 34px;
+  height: 14px;
+}
+
+.c3 {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.c3:checked~span {
+  background-color: #A0BFF8;
+}
+
+.c3:checked~span::before {
+  background-color: #276EF1;
+}
+
+.c3:checked~span::before,
+.c3:checked~span::after {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+.c3:checked~span::after {
+  background-color: rgba(39,110,241,0.1);
+}
+
+.c4 {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #E2E2E2;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border-radius: 12px;
+}
+
+.c4::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: -1px;
+  top: -3px;
+  background-color: #FFFFFF;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.c4::after {
+  position: absolute;
+  height: 32px;
+  width: 32px;
+  left: -7px;
+  top: -9px;
+  background-color: transparent;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.c4:hover::after {
+  content: "";
+  background-color: rgba(255,255,255,0.4);
+}
+
+<div
+    class="c0"
+  >
+    <p
+      class="c1"
+      font-family="roboto"
+      mr="0.75rem"
+    >
+      Lorem ipsum
+    </p>
+    <label
+      class="c2"
+    >
+      <input
+        checked=""
+        class="c3"
+        type="checkbox"
+      />
+      <span
+        class="c4"
+      />
+    </label>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Switch tests should render Switch with default props 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.c1 {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+  width: 34px;
+  height: 14px;
+}
+
+.c2 {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.c2:checked~span {
+  background-color: #A0BFF8;
+}
+
+.c2:checked~span::before {
+  background-color: #276EF1;
+}
+
+.c2:checked~span::before,
+.c2:checked~span::after {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+.c2:checked~span::after {
+  background-color: rgba(39,110,241,0.1);
+}
+
+.c3 {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #E2E2E2;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border-radius: 12px;
+}
+
+.c3::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: -1px;
+  top: -3px;
+  background-color: #FFFFFF;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.c3::after {
+  position: absolute;
+  height: 32px;
+  width: 32px;
+  left: -7px;
+  top: -9px;
+  background-color: transparent;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.c3:hover::after {
+  content: "";
+  background-color: rgba(255,255,255,0.4);
+}
+
+<div
+    class="c0"
+  >
+    <label
+      class="c1"
+    >
+      <input
+        class="c2"
+        type="checkbox"
+      />
+      <span
+        class="c3"
+      />
+    </label>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Switch tests should render Switch with text 1`] = `
+<DocumentFragment>
+  .c1 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  margin-right: 0.75rem;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #757575;
+}
+
+.c0 {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.c2 {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+  width: 34px;
+  height: 14px;
+}
+
+.c3 {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.c3:checked~span {
+  background-color: #A0BFF8;
+}
+
+.c3:checked~span::before {
+  background-color: #276EF1;
+}
+
+.c3:checked~span::before,
+.c3:checked~span::after {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+.c3:checked~span::after {
+  background-color: rgba(39,110,241,0.1);
+}
+
+.c4 {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #E2E2E2;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border-radius: 12px;
+}
+
+.c4::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: -1px;
+  top: -3px;
+  background-color: #FFFFFF;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.c4::after {
+  position: absolute;
+  height: 32px;
+  width: 32px;
+  left: -7px;
+  top: -9px;
+  background-color: transparent;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.c4:hover::after {
+  content: "";
+  background-color: rgba(255,255,255,0.4);
+}
+
+<div
+    class="c0"
+  >
+    <p
+      class="c1"
+      font-family="roboto"
+      mr="0.75rem"
+    >
+      Lorem ipsum
+    </p>
+    <label
+      class="c2"
+    >
+      <input
+        class="c3"
+        type="checkbox"
+      />
+      <span
+        class="c4"
+      />
+    </label>
+  </div>
+</DocumentFragment>
+`;

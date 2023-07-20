@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 // Components
-import { HistoryCard, Loader, Spinner } from "@basestack/design-system";
+import { Loader, Spinner } from "@basestack/design-system";
+import { HistoryCard } from "components";
 // Server
 import { trpc } from "libs/trpc";
 // Utils

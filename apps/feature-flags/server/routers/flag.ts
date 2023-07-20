@@ -50,6 +50,8 @@ export const flagRouter = router({
               description: true,
               enabled: true,
               createdAt: true,
+              expiredAt: true,
+              payload: true,
             },
           });
 

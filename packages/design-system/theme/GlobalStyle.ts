@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
     
     html,
     body {
-      min-height: 100%;
+      height: 100%;
     }
     
     body {

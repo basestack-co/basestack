@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tooltip tests render Tooltip correctly 1`] = `
+<DocumentFragment>
+  .c1 {
+  height: 1.125rem;
+  width: 1.125rem;
+  flex-shrink: 0;
+}
+
+.c2 {
+  color: black;
+  font-size: 1.125rem;
+}
+
+.c0 {
+  background-color: transparent;
+  border: none;
+  cursor: default;
+}
+
+<div
+    class="c0"
+    data-state="closed"
+  >
+    <div
+      class="c1"
+      data-testid="icon-container"
+      size="18"
+    >
+      <span
+        class="c2 material-symbols-sharp"
+        color="black"
+        data-testid="icon"
+        size="18"
+      >
+        info
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;

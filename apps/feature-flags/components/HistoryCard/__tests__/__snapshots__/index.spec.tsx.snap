@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HistoryCard Molecule tests should render HistoryCard correctly 1`] = `
+<DocumentFragment>
+  .c5 {
+  height: 1.75rem;
+  width: 1.75rem;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-right: 0.75rem;
+  border-radius: 50%;
+}
+
+.c6 {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.c9 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  flex-shrink: 0;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #000000;
+}
+
+.c10 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  flex-shrink: 0;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #000000;
+}
+
+.c11 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #000000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c12 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-all;
+  color: #757575;
+}
+
+.c3 {
+  height: 1.5rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+}
+
+.c4 {
+  color: #545454;
+  font-size: 1.5rem;
+}
+
+.c0 {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.c1 {
+  display: flex;
+  position: relative;
+}
+
+.c1::before {
+  content: "";
+  position: absolute;
+  top: 45px;
+  left: 19px;
+  bottom: -19px;
+  width: 2px;
+  background-color: #EEEEEE;
+}
+
+.c2 {
+  display: inline-flex;
+  flex-shrink: 0;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  background-color: #EEEEEE;
+  margin-right: 1.25rem;
+}
+
+.c7 {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3px;
+}
+
+.c8 {
+  display: flex;
+  align-items: center;
+}
+
+<div
+    class="c0"
+  >
+    <div
+      class="c1"
+      type="toggledOff"
+    >
+      <div
+        class="c2"
+      >
+        <div
+          class="c3"
+          data-testid="icon-container"
+          size="24"
+        >
+          <span
+            class="c4 material-symbols-sharp"
+            color="#545454"
+            data-testid="icon"
+            size="24"
+          >
+            toggle_off
+          </span>
+        </div>
+      </div>
+      <div
+        class="c5"
+        data-testid="avatar"
+        mr="0.75rem"
+        size="28"
+      >
+        <img
+          alt="Joana Lopes profile picture"
+          class="c6"
+          src="https://avatars.dicebear.com/api/initials/Joana Lopes.svg?size=28&fontSize=40"
+        />
+      </div>
+      <div
+        class="c7"
+      >
+        <div
+          class="c8"
+          type="toggledOff"
+        >
+          <p
+            class="c9"
+            flexshrink="0"
+            font-family="roboto"
+            font-weight="500"
+          >
+            Joana Lopes
+          </p>
+           
+          <p
+            class="c10"
+            flexshrink="0"
+            font-family="roboto"
+            font-weight="400"
+          >
+            toggled off
+          </p>
+           
+          <p
+            class="c11"
+            font-family="roboto"
+            font-weight="500"
+          >
+            user_image
+          </p>
+        </div>
+        <p
+          class="c12"
+          font-family="roboto"
+        >
+          1 hour ago - Development
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

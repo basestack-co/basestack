@@ -8,6 +8,7 @@ export const Container = styled.main`
 
 export const Content = styled.p<SpaceProps>`
   ${space};
+  word-break: break-all;
   font-size: ${rem("14px")};
   line-height: ${rem("22px")};
   font-weight: 400;

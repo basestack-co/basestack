@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 // Components
-import { Loader, SettingCard, Spinner, Table } from "@basestack/design-system";
+import { Loader, Spinner, Table } from "@basestack/design-system";
+import { SettingCard } from "components";
 // Libs
 import { trpc } from "libs/trpc";
 // Styles

@@ -27,8 +27,7 @@ const Flags = ({ project }: Props) => {
 
   useEffect(() => {
     if (!isDesktop) {
-      // TODO: Update this to be desktop first
-      // setSelectedView({ view: "cards" });
+      setSelectedView({ view: "cards" });
     }
   }, [isDesktop, setSelectedView]);
 

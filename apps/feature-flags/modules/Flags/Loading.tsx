@@ -1,7 +1,7 @@
 import React from "react";
 import { Skeleton } from "@basestack/design-system";
 import { SelectedView } from "types";
-import { FlagsCardContainer, FlagsTableContainer } from "./styles";
+import { FlagsCardGrid, FlagsTableGrid } from "./styles";
 
 interface LoadingProps {
   selectedView: SelectedView;
@@ -20,8 +20,7 @@ const Loading = ({ selectedView }: LoadingProps) => {
   ];
   const items = selectedView === "cards" ? cardItems : rowItems;
 
-  const Container =
-    selectedView === "cards" ? FlagsCardContainer : FlagsTableContainer;
+  const Container = selectedView === "cards" ? FlagsCardGrid : FlagsTableGrid;
 
   return (
     <Container>
