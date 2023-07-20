@@ -2,7 +2,7 @@ services:
   - type: web
     name: basestack-landing-page
     # rootDir: no need to specify rootDir
-    env: static
+    runtime: static
     buildCommand: yarn deploy:landing-page
     staticPublishPath: apps/landing-page/out
     pullRequestPreviewsEnabled: false
@@ -14,7 +14,7 @@ services:
   - type: web
     name: basestack-docs
     # rootDir: no need to specify rootDir
-    env: static
+    runtime: static
     buildCommand: yarn deploy:docs
     staticPublishPath: apps/docs/out
     pullRequestPreviewsEnabled: false
@@ -26,10 +26,9 @@ services:
   - type: web
     name: basestack-feature-flags-app
     # rootDir: no need to specify rootDir
-    env: node
+    runtime: node
     buildCommand: yarn deploy:feature-flags
     startCommand: yarn start
-    staticPublishPath: apps/feature-flags/.next
     pullRequestPreviewsEnabled: false
     plan: free
     autoDeploy: true
@@ -53,7 +52,7 @@ services:
         sync: false
   - type: pserv
     name: basestack-feature-flags-db-pgbouncer
-    env: docker
+    runtime: docker
     plan: starter
     repo: https://github.com/render-oss/docker-pgbouncer
     envVars:
