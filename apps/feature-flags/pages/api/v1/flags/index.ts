@@ -4,22 +4,19 @@ import { getAllFlagsBySlugs } from "libs/prisma/utils/flag";
 // Utils
 import { methodNotAllowed, somethingWentWrong } from "utils/responses";
 import { getValue } from "@basestack/utils";
+// Middlewares
+import withRateLimit from "utils/middleware/rateLimit";
+import withHeaders from "utils/middleware/headers";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "GET":
       try {
-        const projectKey = req.headers["x-project-key"] as string;
-        const envKey = req.headers["x-environment-key"] as string;
-
-        if (!projectKey || !envKey) {
-          return res.status(400).json({
-            error: "Missing Project Key or Environment Key in headers",
-          });
-        }
-
         // Get flags by project slug and env slug
-        const flags = await getAllFlagsBySlugs(projectKey, envKey);
+        const flags = await getAllFlagsBySlugs(
+          req.headers["x-project-key"] as string,
+          req.headers["x-environment-key"] as string,
+        );
 
         res.status(200).json({
           flags,
@@ -38,4 +35,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default handler;
+export default withRateLimit(
+  withHeaders(["x-project-key", "x-environment-key"], handler),
+);

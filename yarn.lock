@@ -3059,6 +3059,13 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
+"@types/request-ip@^0.0.38":
+  version "0.0.38"
+  resolved "https://registry.yarnpkg.com/@types/request-ip/-/request-ip-0.0.38.tgz#05e5c2098c6e0c83dbfc4453177d0e0374a744d0"
+  integrity sha512-1yeq8UuK/tUBqLXRY24gjeFvrSNaGNcOcZLQjHlnuw8iu+qE/vTQ64TUcLWorr607NKLfFakdoYEXXHXrLLKCw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/scheduler@*":
   version "0.16.3"
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.3.tgz#cef09e3ec9af1d63d2a6cc5b383a737e24e6dcf5"
@@ -7687,6 +7694,11 @@ lowlight@^1.17.0:
     fault "^1.0.0"
     highlight.js "~10.7.0"
 
+lru-cache@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-10.0.0.tgz#b9e2a6a72a129d81ab317202d93c7691df727e61"
+  integrity sha512-svTf/fzsKHffP42sujkO/Rjs37BCIsQVRCeNYIm9WN8rgT7ffoUnRtZCqU+6BqcSBdv8gwJeTz8knJpgACeQMw==
+
 lru-cache@^4.0.1, lru-cache@^4.1.5:
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-4.1.5.tgz#8bbe50ea85bed59bc9e33dcab8235ee9bcf443cd"
@@ -9827,6 +9839,11 @@ remove-accents@0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/remove-accents/-/remove-accents-0.4.2.tgz#0a43d3aaae1e80db919e07ae254b285d9e1c7bb5"
   integrity sha512-7pXIJqJOq5tFgG1A2Zxti3Ht8jJF337m4sowbuHsW30ZnkQFnDzy9qBNhgzX8ZLW4+UBcXiiR7SwR6pokHsxiA==
+
+request-ip@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/request-ip/-/request-ip-3.3.0.tgz#863451e8fec03847d44f223e30a5d63e369fa611"
+  integrity sha512-cA6Xh6e0fDBBBwH77SLJaJPBmD3nWVAcF9/XAcsrIHdjhFzFiB5aNQFytdjCGPezU3ROwrR11IddKAM08vohxA==
 
 require-directory@^2.1.1:
   version "2.1.1"
