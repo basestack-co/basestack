@@ -46,6 +46,7 @@
     "dayjs": "^1.11.7",
     "eslint-config-next": "^13.4.10",
     "isomorphic-unfetch": "^4.0.2",
+    "lru-cache": "^10.0.0",
     "material-symbols": "^0.10.0",
     "next": "^13.3.0",
     "next-auth": "^4.22.3",
