@@ -1,5 +1,7 @@
 // Types
 import type { NextApiRequest, NextApiResponse } from "next";
+// Utils
+import requestIp from "request-ip";
 // Cache
 import rateLimit from "./cache";
 import * as process from "process";
@@ -19,10 +21,11 @@ const withRateLimit = (
 ) => {
   return async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
     try {
+      const identifier = requestIp.getClientIp(req);
       await limiter.check(
         res,
         Number(process.env.RATE_LIMIT_MAX) ?? 60,
-        "FLAGS_CACHE_TOKEN",
+        `${identifier}`,
       );
       return handler(req, res);
     } catch {
