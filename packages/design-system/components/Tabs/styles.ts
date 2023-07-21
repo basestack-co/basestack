@@ -6,7 +6,7 @@ export const Container = styled.div<{ backgroundColor?: string }>`
   ${space};
   display: flex;
   background-color: ${({ theme, backgroundColor }) =>
-    backgroundColor || theme.colors.white};
+    backgroundColor || theme.tabs.backgroundColor};
   position: relative;
 `;
 
@@ -15,7 +15,7 @@ export const Button = styled.button<{
   hoverBgColor?: string;
 }>`
   border: none;
-  background-color: transparent;
+  background-color: ${({ theme }) => theme.tabs.button.backgroundColor};
   cursor: pointer;
   height: ${rem("44px")};
   display: flex;
@@ -25,11 +25,12 @@ export const Button = styled.button<{
   padding: 0 ${rem("12px")};
   transition: background-color 0.1s ease-in-out;
   border-bottom: 2px solid
-    ${({ theme, borderColor }) => borderColor || theme.colors.gray200};
+    ${({ theme, borderColor }) =>
+      borderColor || theme.tabs.button.backgroundColor};
 
   &:hover {
     background-color: ${({ theme, hoverBgColor }) =>
-      hoverBgColor || theme.colors.gray100};
+      hoverBgColor || theme.tabs.button.hover.backgroundColor};
   }
 `;
 
@@ -44,7 +45,7 @@ export const Slider = styled.div<{
   left: 0;
   bottom: 0;
   background-color: ${({ theme, activeBorderColor }) =>
-    activeBorderColor || theme.colors.black};
+    activeBorderColor || theme.tabs.slider.backgroundColor};
   height: 2px;
   width: calc((100% / ${({ numberOfItems }) => numberOfItems}));
   transition: transform 0.2s ease-in-out;

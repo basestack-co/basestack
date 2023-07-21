@@ -21,7 +21,7 @@ const sharedStyles = ({
     fontFamily === "robotoFlex"
       ? theme.typography.robotoFlex
       : theme.typography.roboto};
-  word-break: break-all;
+  word-break: break-word;
   color: ${({ theme }) =>
     color || (muted ? theme.text.muted : theme.text.color)};
 

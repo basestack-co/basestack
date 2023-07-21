@@ -5,7 +5,7 @@ export const StyledCard = styled(Card)<{ variant: "default" | "danger" }>`
   ${({ variant }) =>
     variant === "danger" &&
     css`
-      border: 1px solid ${({ theme }) => theme.colors.red400};
+      border: 1px solid ${({ theme }) => theme.settingsCard.danger.border};
     `};
 `;
 export const Container = styled.div`

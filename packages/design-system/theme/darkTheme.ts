@@ -1,18 +1,9 @@
 import { typography, colors, spacing, zIndex, shadow, device } from "./index";
+import { navigation, settingsCard } from "./feature-flags/darkTheme";
 import { darken, lighten, transparentize } from "polished";
 
 const body = {
   backgroundColor: colors.gray900,
-};
-
-const navigation = {
-  backgroundColor: colors.gray800,
-  divider: {
-    backgroundColor: colors.gray600,
-  },
-  button: {
-    underline: colors.blue400,
-  },
 };
 
 const button = {
@@ -28,10 +19,10 @@ const button = {
     },
   },
   secondary: {
-    backgroundColor: colors.black,
-    color: colors.white,
+    backgroundColor: colors.gray600,
+    color: colors.gray200,
     hover: {
-      backgroundColor: lighten(0.2, colors.black),
+      backgroundColor: colors.gray700,
     },
     spinner: {
       backgroundColor: colors.gray500,
@@ -122,6 +113,12 @@ const button = {
   },
 };
 
+const calendar = {};
+
+const calendarInput = {};
+
+const empty = {};
+
 const card = {
   backgroundColor: colors.gray800,
 };
@@ -192,23 +189,36 @@ const label = {
   },
 };
 
-const input = {
+const loader = {};
+
+const modal = {
   backgroundColor: colors.gray800,
+  overlay: {
+    backgroundColor: transparentize("0.5", colors.black),
+  },
+};
+
+const pagination = {};
+
+const pill = {};
+
+const input = {
+  backgroundColor: colors.gray700,
   color: colors.gray300,
   error: {
-    backgroundColor: colors.red50,
+    backgroundColor: colors.gray700,
     focus: {
-      outline: colors.red200,
+      outline: colors.red500,
     },
     icon: {
-      color: colors.red400,
+      color: colors.red500,
     },
   },
   isDarker: {
     backgroundColor: colors.gray800,
   },
   placeholder: {
-    color: colors.gray400,
+    color: colors.gray500,
   },
   focus: {
     outline: colors.gray600,
@@ -217,6 +227,22 @@ const input = {
     color: colors.gray500,
   },
 };
+
+const textarea = {
+  backgroundColor: colors.gray700,
+  color: colors.gray300,
+  isDarker: {
+    backgroundColor: colors.gray800,
+  },
+  placeholder: {
+    color: colors.gray500,
+  },
+  focus: {
+    outline: colors.gray600,
+  },
+};
+
+const inputGroup = {};
 
 const segment = {
   backgroundColor: colors.gray800,
@@ -233,13 +259,21 @@ const segment = {
   },
 };
 
+const select = {};
+
+const skeleton = {};
+
+const spinner = {};
+
 const splash = {
   backgroundColor: colors.gray900,
   loader: {
     backgroundColor: colors.gray600,
-    color: colors.blue400,
+    color: colors.blue300,
   },
 };
+
+const switchComp = {};
 
 const popup = {
   backgroundColor: colors.gray800,
@@ -258,9 +292,40 @@ const popupActions = {
   },
 };
 
+const table = {
+  backgroundColor: colors.gray900,
+  border: colors.gray700,
+  link: {
+    color: colors.blue300,
+  },
+};
+
+const tabs = {
+  backgroundColor: "transparent",
+  color: colors.gray300,
+  button: {
+    backgroundColor: "transparent",
+    border: colors.gray700,
+    hover: { backgroundColor: colors.gray700 },
+  },
+  slider: {
+    backgroundColor: colors.gray400,
+  },
+};
+
+const tooltip = {
+  backgroundColor: colors.gray800,
+  color: colors.white,
+};
+
+const horizontalRule = {
+  backgroundColor: colors.gray700,
+};
+
 const theme = {
-  body,
   navigation,
+  settingsCard,
+  body,
   button,
   card,
   text,
@@ -272,6 +337,23 @@ const theme = {
   splash,
   popup,
   popupActions,
+  table,
+  horizontalRule,
+  calendar,
+  calendarInput,
+  empty,
+  inputGroup,
+  loader,
+  modal,
+  pagination,
+  pill,
+  select,
+  skeleton,
+  spinner,
+  switchComp,
+  tabs,
+  tooltip,
+  textarea,
   typography,
   colors,
   spacing,

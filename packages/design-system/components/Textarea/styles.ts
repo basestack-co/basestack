@@ -8,7 +8,9 @@ export const StyledTextarea = styled.textarea<{
   ${space};
   border: none;
   background-color: ${({ theme, isDarker }) =>
-    isDarker ? theme.colors.gray100 : theme.colors.gray50};
+    isDarker
+      ? theme.textarea.isDarker.backgroundColor
+      : theme.textarea.backgroundColor};
   min-height: ${rem("150px")};
   max-height: ${rem("500px")};
   min-width: 100%;
@@ -18,13 +20,13 @@ export const StyledTextarea = styled.textarea<{
   font-weight: 400;
   width: 100%;
   padding: ${rem("16px")};
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.textarea.color};
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.gray500};
+    color: ${({ theme }) => theme.textarea.placeholder.color};
   }
 
   &:focus {
-    outline: 2px solid ${({ theme }) => theme.colors.black};
+    outline: 2px solid ${({ theme }) => theme.textarea.focus.outline};
   }
 `;

@@ -1,18 +1,9 @@
 import { darken, lighten, transparentize } from "polished";
+import { navigation, settingsCard } from "./feature-flags/lightTheme";
 import { typography, colors, spacing, zIndex, shadow, device } from "./index";
 
 const body = {
   backgroundColor: colors.gray50,
-};
-
-const navigation = {
-  backgroundColor: colors.white,
-  divider: {
-    backgroundColor: colors.gray100,
-  },
-  button: {
-    underline: colors.blue400,
-  },
 };
 
 const button = {
@@ -122,6 +113,12 @@ const button = {
   },
 };
 
+const calendar = {};
+
+const calendarInput = {};
+
+const empty = {};
+
 const card = {
   backgroundColor: colors.white,
 };
@@ -192,6 +189,19 @@ const label = {
   },
 };
 
+const loader = {};
+
+const modal = {
+  backgroundColor: colors.white,
+  overlay: {
+    backgroundColor: transparentize("0.5", colors.black),
+  },
+};
+
+const pagination = {};
+
+const pill = {};
+
 const input = {
   backgroundColor: colors.gray50,
   color: colors.black,
@@ -218,6 +228,22 @@ const input = {
   },
 };
 
+const textarea = {
+  backgroundColor: colors.gray50,
+  color: colors.black,
+  isDarker: {
+    backgroundColor: colors.gray100,
+  },
+  placeholder: {
+    color: colors.gray500,
+  },
+  focus: {
+    outline: colors.black,
+  },
+};
+
+const inputGroup = {};
+
 const segment = {
   backgroundColor: colors.gray100,
   button: {
@@ -233,6 +259,12 @@ const segment = {
   },
 };
 
+const select = {};
+
+const skeleton = {};
+
+const spinner = {};
+
 const splash = {
   backgroundColor: colors.gray50,
   loader: {
@@ -240,6 +272,8 @@ const splash = {
     color: colors.primary,
   },
 };
+
+const switchComp = {};
 
 const popup = {
   backgroundColor: colors.white,
@@ -258,9 +292,41 @@ const popupActions = {
   },
 };
 
+const table = {
+  backgroundColor: colors.gray50,
+  settingsCard,
+  border: colors.gray200,
+  link: {
+    color: colors.primary,
+  },
+};
+
+const tabs = {
+  backgroundColor: colors.white,
+  color: colors.black,
+  button: {
+    backgroundColor: "transparent",
+    border: colors.gray200,
+    hover: { backgroundColor: colors.gray100 },
+  },
+  slider: {
+    backgroundColor: colors.black,
+  },
+};
+
+const tooltip = {
+  backgroundColor: colors.gray800,
+  color: colors.white,
+};
+
+const horizontalRule = {
+  backgroundColor: colors.gray100,
+};
+
 const theme = {
-  body,
   navigation,
+  settingsCard,
+  body,
   button,
   card,
   text,
@@ -272,6 +338,23 @@ const theme = {
   splash,
   popup,
   popupActions,
+  table,
+  horizontalRule,
+  calendar,
+  calendarInput,
+  empty,
+  inputGroup,
+  loader,
+  modal,
+  pagination,
+  pill,
+  select,
+  skeleton,
+  spinner,
+  switchComp,
+  tabs,
+  tooltip,
+  textarea,
   typography,
   colors,
   spacing,
