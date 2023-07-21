@@ -113,7 +113,65 @@ const button = {
   },
 };
 
-const calendar = {};
+const calendar = {
+  backgroundColor: colors.white,
+  navigation: {
+    button: {
+      hover: {
+        backgroundColor: colors.gray100,
+      },
+      disabled: {
+        backgroundColor: colors.white,
+        color: colors.gray400,
+      },
+    },
+  },
+  day: {
+    color: colors.black,
+    disabled: {
+      color: colors.gray400,
+    },
+    weekend: {
+      color: colors.black,
+    },
+    neighboringMonth: {
+      color: colors.gray400,
+    },
+  },
+  title: {
+    color: colors.black,
+    disabled: {
+      color: colors.gray400,
+      backgroundColor: colors.white,
+    },
+    hover: {
+      backgroundColor: colors.gray100,
+    }
+  },
+  now: {
+    backgroundColor: colors.gray100,
+    hover: {
+      backgroundColor: colors.gray200,
+    }
+  },
+  hasActive: {
+    backgroundColor: colors.primary,
+    color: colors.white,
+    hover: {
+      backgroundColor: colors.primary,
+    }
+  },
+  active: {
+    backgroundColor: colors.primary,
+    color: colors.white,
+    hover: {
+      backgroundColor: colors.primary,
+    }
+  },
+  selectRange: {
+    backgroundColor: colors.gray100,
+  }
+};
 
 const calendarInput = {};
 
@@ -292,7 +350,7 @@ const select = {
   },
   indicator: {
     backgroundColor: colors.gray200,
-  }
+  },
 };
 
 const skeleton = {

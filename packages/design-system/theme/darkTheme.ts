@@ -113,7 +113,65 @@ const button = {
   },
 };
 
-const calendar = {};
+const calendar = {
+  backgroundColor: colors.gray800,
+  navigation: {
+    button: {
+      hover: {
+        backgroundColor: colors.gray700,
+      },
+      disabled: {
+        backgroundColor: colors.gray800,
+        color: colors.gray500,
+      },
+    },
+  },
+  day: {
+    color: colors.gray300,
+    disabled: {
+      color: colors.gray500,
+    },
+    weekend: {
+      color: colors.gray300,
+    },
+    neighboringMonth: {
+      color: colors.gray500,
+    },
+  },
+  title: {
+    color: colors.gray300,
+    disabled: {
+      color: colors.gray500,
+      backgroundColor: colors.gray800,
+    },
+    hover: {
+      backgroundColor: colors.gray700,
+    },
+  },
+  now: {
+    backgroundColor: colors.gray700,
+    hover: {
+      backgroundColor: colors.gray600,
+    },
+  },
+  hasActive: {
+    backgroundColor: colors.blue500,
+    color: colors.gray300,
+    hover: {
+      backgroundColor: colors.blue500,
+    },
+  },
+  active: {
+    backgroundColor: colors.blue500,
+    color: colors.gray300,
+    hover: {
+      backgroundColor: colors.blue500,
+    },
+  },
+  selectRange: {
+    backgroundColor: colors.gray700,
+  },
+};
 
 const calendarInput = {};
 
