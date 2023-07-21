@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import theme from "@basestack/design-system/theme";
+import { useTheme } from "styled-components";
 import { useStore } from "store";
 // Auth
 import { signOut } from "next-auth/react";
@@ -50,6 +50,7 @@ const AvatarDropdown = ({
   popupPlacement = "bottom-end",
 }: AvatarMenuProps) => {
   const router = useRouter();
+  const theme = useTheme();
   const setIsDarkMode = useStore((state) => state.setDarkMode);
   const isDarkMode = useStore((state) => state.isDarkMode);
 

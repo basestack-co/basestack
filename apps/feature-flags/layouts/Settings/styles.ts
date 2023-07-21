@@ -2,6 +2,8 @@ import styled, { css } from "styled-components";
 import { rem } from "polished";
 import Link from "next/link";
 import { neutralButtonStyles } from "@basestack/design-system";
+import { settingPage } from "@basestack/design-system/theme/feature-flags/lightTheme";
+import { colors } from "@basestack/design-system/theme";
 
 const flexColumn = css`
   display: flex;
@@ -36,7 +38,8 @@ export const List = styled.ul<{ top: number }>`
     left: 0;
     width: 2px;
     height: ${rem("44px")};
-    background-color: ${({ theme }) => theme.colors.black};
+    background-color: ${({ theme }) =>
+      theme.colors[theme.isDarkMode ? "gray300" : "black"]};
     transition: transform 0.2s ease-in-out;
     transform: translateY(${({ top }) => `${top}%`});
     z-index: 10;
@@ -68,6 +71,6 @@ export const StyledButton = styled.div<StyledButtonProps>`
   ${({ isActive, theme }) =>
     isActive &&
     css`
-      background-color: ${theme.colors.gray100};
+      background-color: ${theme.colors[theme.isDarkMode ? "gray800" : "gray100"]};
     `};
 `;

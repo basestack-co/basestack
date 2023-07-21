@@ -1,5 +1,5 @@
 import React from "react";
-import theme from "@basestack/design-system/theme";
+import theme from "@basestack/design-system/theme/lightTheme";
 import { rem } from "polished";
 import { Icon, Spinner } from "@basestack/design-system";
 import { DefaultToastOptions } from "react-hot-toast";

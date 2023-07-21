@@ -1,11 +1,13 @@
 import styled, { css } from "styled-components";
 import { Card } from "@basestack/design-system";
 
-export const StyledCard = styled(Card)<{ variant: "default" | "danger" }>`
-  ${({ variant }) =>
+export const StyledCard = styled(Card)<{
+  variant: "default" | "danger";
+}>`
+  ${({ variant, theme }) =>
     variant === "danger" &&
     css`
-      border: 1px solid ${({ theme }) => theme.settingsCard.danger.border};
+      border: 1px solid ${theme.colors[theme.isDarkMode ? "red500" : "red400"]};
     `};
 `;
 export const Container = styled.div`

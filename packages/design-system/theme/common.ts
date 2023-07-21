@@ -108,7 +108,7 @@ export const device = {
   },
 };
 
-const theme = {
+export const theme = {
   typography,
   colors,
   spacing,
@@ -116,5 +116,3 @@ const theme = {
   shadow,
   device,
 };
-
-export default theme;

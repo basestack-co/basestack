@@ -1,4 +1,4 @@
-import theme from "@basestack/design-system/theme";
+import theme from "@basestack/design-system/theme/lightTheme";
 
 export type ThemeInterface = typeof theme;
 

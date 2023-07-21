@@ -9,7 +9,8 @@ export const Container = styled.nav`
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  background-color: ${({ theme }) => theme.navigation.backgroundColor};
+  background-color: ${({ theme }) =>
+    theme.colors[theme.isDarkMode ? "gray800" : "white"]};
   box-shadow: ${({ theme }) => theme.shadow.elevation2};
   height: ${rem("64px")};
   padding: 0 ${({ theme }) => theme.spacing.s5};
@@ -43,6 +44,6 @@ export const LogoContainer = styled.div`
     right: -1px;
     width: 2px;
     background-color: ${({ theme }) =>
-      theme.navigation.divider.backgroundColor};
+      theme.colors[theme.isDarkMode ? "gray600" : "gray100"]};
   }
 `;

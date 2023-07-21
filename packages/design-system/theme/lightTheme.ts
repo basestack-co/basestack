@@ -1,6 +1,5 @@
 import { darken, lighten, transparentize } from "polished";
-import { navigation, settingsCard } from "./feature-flags/lightTheme";
-import { typography, colors, spacing, zIndex, shadow, device } from "./index";
+import { typography, colors, spacing, zIndex, shadow, device } from "./common";
 
 const body = {
   backgroundColor: colors.gray50,
@@ -412,7 +411,6 @@ const popupActions = {
 
 const table = {
   backgroundColor: colors.gray50,
-  settingsCard,
   border: colors.gray200,
   link: {
     color: colors.primary,
@@ -442,8 +440,7 @@ const horizontalRule = {
 };
 
 const theme = {
-  navigation,
-  settingsCard,
+  isDarkMode: false,
   body,
   button,
   card,

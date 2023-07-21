@@ -1,6 +1,5 @@
-import { typography, colors, spacing, zIndex, shadow, device } from "./index";
-import { navigation, settingsCard } from "./feature-flags/darkTheme";
-import { darken, lighten, transparentize } from "polished";
+import { darken, transparentize } from "polished";
+import { typography, colors, spacing, zIndex, shadow, device } from "./common";
 
 const body = {
   backgroundColor: colors.gray900,
@@ -30,13 +29,13 @@ const button = {
     },
   },
   tertiary: {
-    backgroundColor: colors.gray800,
+    backgroundColor: colors.gray700,
     color: colors.gray300,
     hover: {
-      backgroundColor: colors.gray700,
+      backgroundColor: colors.gray600,
     },
     spinner: {
-      backgroundColor: colors.gray900,
+      backgroundColor: colors.gray800,
       color: colors.gray300,
     },
   },
@@ -231,22 +230,22 @@ const label = {
       backgroundColor: colors.gray600,
     },
     info: {
-      color: colors.white,
-      backgroundColor: colors.primary,
+      color: colors.gray300,
+      backgroundColor: colors.blue500,
     },
   },
   translucent: {
     success: {
-      color: colors.green600,
-      backgroundColor: transparentize(0.9, colors.green400),
+      color: colors.green200,
+      backgroundColor: transparentize(0.8, colors.green200),
     },
     default: {
-      color: colors.gray600,
-      backgroundColor: transparentize(0.9, colors.gray400),
+      color: colors.gray200,
+      backgroundColor: transparentize(0.8, colors.gray200),
     },
     info: {
-      color: colors.blue500,
-      backgroundColor: transparentize(0.9, colors.blue400),
+      color: colors.blue200,
+      backgroundColor: transparentize(0.8, colors.blue200),
     },
   },
 };
@@ -441,8 +440,7 @@ const horizontalRule = {
 };
 
 const theme = {
-  navigation,
-  settingsCard,
+  isDarkMode: true,
   body,
   button,
   card,
