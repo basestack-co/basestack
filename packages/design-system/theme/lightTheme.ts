@@ -146,34 +146,32 @@ const calendar = {
     },
     hover: {
       backgroundColor: colors.gray100,
-    }
+    },
   },
   now: {
     backgroundColor: colors.gray100,
     hover: {
       backgroundColor: colors.gray200,
-    }
+    },
   },
   hasActive: {
     backgroundColor: colors.primary,
     color: colors.white,
     hover: {
       backgroundColor: colors.primary,
-    }
+    },
   },
   active: {
     backgroundColor: colors.primary,
     color: colors.white,
     hover: {
       backgroundColor: colors.primary,
-    }
+    },
   },
   selectRange: {
     backgroundColor: colors.gray100,
-  }
+  },
 };
-
-const calendarInput = {};
 
 const empty = {
   backgroundColor: colors.gray100,
@@ -253,8 +251,6 @@ const label = {
   },
 };
 
-const loader = {};
-
 const modal = {
   backgroundColor: colors.white,
   overlay: {
@@ -262,9 +258,20 @@ const modal = {
   },
 };
 
-const pagination = {};
-
-const pill = {};
+const pill = {
+  color: colors.black,
+  backgroundColor: colors.gray100,
+  selected: {
+    color: colors.primary,
+    backgroundColor: colors.blue100,
+  },
+  hover: {
+    backgroundColor: colors.gray200,
+    selected: {
+      backgroundColor: darken(0.04, colors.blue100),
+    },
+  },
+};
 
 const input = {
   backgroundColor: colors.gray50,
@@ -452,12 +459,9 @@ const theme = {
   table,
   horizontalRule,
   calendar,
-  calendarInput,
   empty,
   inputGroup,
-  loader,
   modal,
-  pagination,
   pill,
   select,
   skeleton,
