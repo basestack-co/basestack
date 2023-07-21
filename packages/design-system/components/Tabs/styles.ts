@@ -26,7 +26,7 @@ export const Button = styled.button<{
   transition: background-color 0.1s ease-in-out;
   border-bottom: 2px solid
     ${({ theme, borderColor }) =>
-      borderColor || theme.tabs.button.backgroundColor};
+      borderColor || theme.tabs.button.border};
 
   &:hover {
     background-color: ${({ theme, hoverBgColor }) =>

@@ -117,7 +117,13 @@ const calendar = {};
 
 const calendarInput = {};
 
-const empty = {};
+const empty = {
+  backgroundColor: colors.gray100,
+  icon: {
+    color: colors.primary,
+    backgroundColor: colors.blue100,
+  },
+};
 
 const card = {
   backgroundColor: colors.white,
@@ -259,11 +265,45 @@ const segment = {
   },
 };
 
-const select = {};
+const select = {
+  backgroundColor: colors.gray50,
+  color: colors.black,
+  menu: {
+    backgroundColor: colors.white,
+  },
+  option: {
+    color: colors.black,
+    backgroundColor: colors.white,
+    selected: {
+      backgroundColor: colors.gray100,
+    },
+    hover: {
+      backgroundColor: colors.gray100,
+    },
+  },
+  placeholder: {
+    color: colors.gray500,
+  },
+  focus: {
+    outline: colors.black,
+  },
+  icon: {
+    color: colors.gray500,
+  },
+  indicator: {
+    backgroundColor: colors.gray200,
+  }
+};
 
-const skeleton = {};
+const skeleton = {
+  backgroundColor: colors.white,
+  color: colors.gray100,
+};
 
-const spinner = {};
+const spinner = {
+  backgroundColor: colors.gray100,
+  color: colors.primary,
+};
 
 const splash = {
   backgroundColor: colors.gray50,
@@ -273,7 +313,20 @@ const splash = {
   },
 };
 
-const switchComp = {};
+const switchComp = {
+  backgroundColor: colors.gray200,
+  color: colors.white,
+  checked: {
+    backgroundColor: colors.blue200,
+    color: colors.primary,
+  },
+  after: {
+    backgroundColor: transparentize(0.6, colors.white),
+    checked: {
+      backgroundColor: transparentize(0.9, colors.primary),
+    },
+  },
+};
 
 const popup = {
   backgroundColor: colors.white,

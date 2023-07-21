@@ -24,13 +24,13 @@ export const StyledSpinner = styled.div<{
   border-radius: 50%;
 
   border-top: ${({ strokeSize }) => rem(strokeSize)} solid
-    ${({ theme, bg }) => bg || theme.colors.gray100};
+    ${({ theme, bg }) => bg || theme.spinner.backgroundColor};
   border-right: ${({ strokeSize }) => rem(strokeSize)} solid
-    ${({ theme, bg }) => bg || theme.colors.gray100};
+    ${({ theme, bg }) => bg || theme.spinner.backgroundColor};
   border-bottom: ${({ strokeSize }) => rem(strokeSize)} solid
-    ${({ theme, bg }) => bg || theme.colors.gray100};
+    ${({ theme, bg }) => bg || theme.spinner.backgroundColor};
 
   border-left: ${({ strokeSize }) => rem(strokeSize)} solid
-    ${({ theme, color }) => color || theme.colors.primary};
+    ${({ theme, color }) => color || theme.spinner.color};
   animation: ${rotate} 1.1s infinite linear;
 `;

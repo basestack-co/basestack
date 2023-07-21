@@ -117,7 +117,13 @@ const calendar = {};
 
 const calendarInput = {};
 
-const empty = {};
+const empty = {
+  backgroundColor: colors.gray800,
+  icon: {
+    color: colors.primary,
+    backgroundColor: colors.blue100,
+  },
+};
 
 const card = {
   backgroundColor: colors.gray800,
@@ -259,11 +265,45 @@ const segment = {
   },
 };
 
-const select = {};
+const select = {
+  backgroundColor: colors.gray700,
+  color: colors.gray300,
+  menu: {
+    backgroundColor: colors.gray700,
+  },
+  option: {
+    color: colors.gray300,
+    backgroundColor: colors.gray700,
+    selected: {
+      backgroundColor: colors.gray600,
+    },
+    hover: {
+      backgroundColor: colors.gray600,
+    },
+  },
+  placeholder: {
+    color: colors.gray500,
+  },
+  focus: {
+    outline: colors.gray600,
+  },
+  icon: {
+    color: colors.gray400,
+  },
+  indicator: {
+    backgroundColor: colors.gray500,
+  },
+};
 
-const skeleton = {};
+const skeleton = {
+  backgroundColor: colors.gray800,
+  color: colors.gray600,
+};
 
-const spinner = {};
+const spinner = {
+  backgroundColor: colors.gray600,
+  color: colors.blue300,
+};
 
 const splash = {
   backgroundColor: colors.gray900,
@@ -273,7 +313,20 @@ const splash = {
   },
 };
 
-const switchComp = {};
+const switchComp = {
+  backgroundColor: colors.gray600,
+  color: colors.gray300,
+  checked: {
+    backgroundColor: colors.blue200,
+    color: colors.blue500,
+  },
+  after: {
+    backgroundColor: transparentize(0.7, colors.gray300),
+    checked: {
+      backgroundColor: transparentize(0.7, colors.blue500),
+    },
+  },
+};
 
 const popup = {
   backgroundColor: colors.gray800,
@@ -305,7 +358,7 @@ const tabs = {
   color: colors.gray300,
   button: {
     backgroundColor: "transparent",
-    border: colors.gray700,
+    border: colors.gray600,
     hover: { backgroundColor: colors.gray700 },
   },
   slider: {

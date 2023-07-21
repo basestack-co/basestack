@@ -46,7 +46,7 @@ export const AvatarDetailedButton = styled.button`
 
 export const Dropdown = styled.div`
   ${position};
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.popup.backgroundColor};
   box-shadow: ${({ theme }) => theme.shadow.elevation6};
   padding: ${({ theme }) => theme.spacing.s1};
   border-radius: 4px;

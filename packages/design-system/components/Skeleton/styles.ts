@@ -30,7 +30,7 @@ export const Container = styled.div<{
 }>`
   ${flexColumn};
   background-color: ${({ theme, backgroundColor }) =>
-    backgroundColor || theme.colors.white};
+    backgroundColor || theme.skeleton.backgroundColor};
   border-radius: ${rem("4px")};
   padding: ${({ theme, padding }) =>
     padding ? rem(`${padding}px`) : theme.spacing.s5};
@@ -58,7 +58,7 @@ export const Item = styled.div<{
   marginLeft?: number | string;
 }>`
   ${flexColumn};
-  background-color: ${({ theme }) => theme.colors.gray100};
+  background-color: ${({ theme }) => theme.skeleton.color};
   border-radius: ${rem("6px")};
   height: ${({ height }) => rem(`${height}px`)};
   width: ${({ width }) => getValue(width || 0)};

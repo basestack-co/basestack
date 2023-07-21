@@ -27,7 +27,7 @@ const Empty = ({
   return (
     <Container>
       <IconContainer>
-        <Icon icon={iconName} size="medium" color={theme.colors.primary} />
+        <Icon icon={iconName} size="medium" color={theme.empty.icon.color} />
       </IconContainer>
       <Text size="large" mb={theme.spacing.s1}>
         {title}

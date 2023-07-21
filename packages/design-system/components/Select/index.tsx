@@ -13,7 +13,7 @@ const DropdownIndicator = ({ children, ...props }: DropdownIndicatorProps) => {
 
   return (
     <components.DropdownIndicator {...props}>
-      <Icon icon="expand_more" color={theme.colors.gray500} />
+      <Icon icon="expand_more" color={theme.select.icon.color} />
       {children}
     </components.DropdownIndicator>
   );
@@ -27,7 +27,7 @@ const ClearIndicator = (props: ClearIndicatorProps) => {
 
   return (
     <div {...restInnerProps} ref={ref} style={{ padding: "8px" }}>
-      <Icon icon="close" color={theme.colors.gray500} />
+      <Icon icon="close" color={theme.select.icon.color} />
     </div>
   );
 };
@@ -47,10 +47,10 @@ const Select = forwardRef<any, Props>((props, ref) => {
           ...baseStyles,
           ...(state.isFocused
             ? {
-                outline: `2px solid ${theme.colors.black}`,
+                outline: `2px solid ${theme.select.focus.outline}`,
               }
             : {}),
-          backgroundColor: theme.colors.gray50,
+          backgroundColor: theme.select.backgroundColor,
           border: "none",
           fontWeight: 400,
           fontSize: "14px",
@@ -66,6 +66,7 @@ const Select = forwardRef<any, Props>((props, ref) => {
         menu: (baseStyles) => ({
           ...baseStyles,
           boxShadow: theme.shadow.elevation3,
+          backgroundColor: theme.select.menu.backgroundColor,
         }),
         menuList: (baseStyles) => ({
           ...baseStyles,
@@ -73,14 +74,14 @@ const Select = forwardRef<any, Props>((props, ref) => {
         }),
         placeholder: (baseStyles) => ({
           ...baseStyles,
-          color: theme.colors.gray500,
+          color: theme.select.placeholder.color,
         }),
         option: (baseStyles, { isSelected }) => ({
           ...baseStyles,
-          color: theme.colors.black,
+          color: theme.select.option.color,
           backgroundColor: isSelected
-            ? theme.colors.gray100
-            : theme.colors.white,
+            ? theme.select.option.selected.backgroundColor
+            : theme.select.option.backgroundColor,
           fontWeight: 400,
           fontSize: "14px",
           borderRadius: "4px",
@@ -89,9 +90,21 @@ const Select = forwardRef<any, Props>((props, ref) => {
           alignItems: "center",
           ":hover": {
             ...baseStyles[":hover"],
-            backgroundColor: theme.colors.gray100,
+            backgroundColor: theme.select.option.hover.backgroundColor,
             cursor: "pointer",
           },
+        }),
+        indicatorSeparator: (baseStyles) => ({
+          ...baseStyles,
+          backgroundColor: theme.select.indicator.backgroundColor,
+        }),
+        valueContainer: (baseStyles) => ({
+          ...baseStyles,
+          color: theme.select.color,
+        }),
+        singleValue: (baseStyles) => ({
+          ...baseStyles,
+          color: theme.select.color,
         }),
       }}
       {...props}

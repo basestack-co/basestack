@@ -24,10 +24,11 @@ export const Input = styled.input`
   width: 0;
 
   &:checked ~ span {
-    background-color: ${({ theme }) => theme.colors.blue200};
+    background-color: ${({ theme }) =>
+      theme.switchComp.checked.backgroundColor};
 
     &::before {
-      background-color: ${({ theme }) => theme.colors.primary};
+      background-color: ${({ theme }) => theme.switchComp.checked.color};
     }
 
     &::before,
@@ -39,7 +40,7 @@ export const Input = styled.input`
 
     &::after {
       background-color: ${({ theme }) =>
-        transparentize(0.9, theme.colors.primary)};
+        theme.switchComp.after.checked.backgroundColor};
     }
   }
 `;
@@ -51,7 +52,7 @@ export const Slider = styled.span`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: ${({ theme }) => theme.colors.gray200};
+  background-color: ${({ theme }) => theme.switchComp.backgroundColor};
   -webkit-transition: 0.3s;
   transition: 0.3s;
   border-radius: 12px;
@@ -63,7 +64,7 @@ export const Slider = styled.span`
     width: 20px;
     left: -1px;
     top: -3px;
-    background-color: ${({ theme }) => theme.colors.white};
+    background-color: ${({ theme }) => theme.switchComp.color};
     box-shadow: ${({ theme }) => theme.shadow.elevation3};
     -webkit-transition: 0.3s;
     transition: 0.3s;
@@ -89,7 +90,7 @@ export const Slider = styled.span`
     &::after {
       content: "";
       background-color: ${({ theme }) =>
-        transparentize(0.6, theme.colors.white)};
+        theme.switchComp.after.backgroundColor};
     }
   }
 `;
