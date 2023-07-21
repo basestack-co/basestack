@@ -1,8 +1,7 @@
 import React from "react";
 import { AppProps } from "next/app";
 import { Toaster } from "react-hot-toast";
-// hooks
-import { useCookieEffect } from "@basestack/hooks";
+import { useStore } from "store";
 //Styles
 import isPropValid from "@emotion/is-prop-valid";
 import { ThemeProvider, StyleSheetManager } from "styled-components";
@@ -29,7 +28,7 @@ const Noop = ({ children }: { children: React.ReactNode }) => children;
 function MyApp({ Component, pageProps }: AppProps) {
   //@ts-ignore
   const Layout = Component.Layout || Noop;
-  const { cookieValue: isDarkMode } = useCookieEffect("isDarkMode");
+  const isDarkMode = useStore((state) => state.isDarkMode);
   const theme = isDarkMode ? darkTheme : lightTheme;
 
   return (

@@ -7,7 +7,7 @@ import { signOut } from "next-auth/react";
 // Components
 import { autoUpdate, offset, useFloating } from "@floating-ui/react";
 import { animated, config, useTransition } from "react-spring";
-import { useClickAway, useCookieEffect } from "@basestack/hooks";
+import { useClickAway } from "@basestack/hooks";
 import {
   Avatar,
   Text,
@@ -50,6 +50,9 @@ const AvatarDropdown = ({
   popupPlacement = "bottom-end",
 }: AvatarMenuProps) => {
   const router = useRouter();
+  const setIsDarkMode = useStore((state) => state.setDarkMode);
+  const isDarkMode = useStore((state) => state.isDarkMode);
+
   const menuWrapperRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { x, y, refs, strategy } = useFloating({
@@ -57,8 +60,6 @@ const AvatarDropdown = ({
     whileElementsMounted: autoUpdate,
     middleware: [offset(4)],
   });
-  const { cookieValue: isDarkMode, setCookie: setIsDarkMode } =
-    useCookieEffect("isDarkMode");
 
   const onClickMenu = useCallback(() => {
     setIsMenuOpen((prevState) => !prevState);
@@ -150,11 +151,9 @@ const AvatarDropdown = ({
                   </Text>
                   <Switch
                     onChange={(event) => {
-                      setIsDarkMode(event.target.checked, 30);
+                      setIsDarkMode(event.target.checked);
                     }}
-                    checked={
-                      typeof isDarkMode === "boolean" ? isDarkMode : false
-                    }
+                    checked={isDarkMode}
                     ml="auto"
                   />
                 </ThemeContainer>
