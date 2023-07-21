@@ -37,7 +37,8 @@
         "AUTH0_DOMAIN",
         "RATE_LIMIT_MAX",
         "RATE_LIMIT_WINDOW_MS",
-        "RATE_LIMIT_UNIQUE_TOKEN_PER_SECOND"
+        "RATE_LIMIT_UNIQUE_TOKEN_PER_SECOND",
+        "ACCESS_CONTROL_ALLOW_ORIGIN"
       ]
     },
     "@basestack/landing-page#deploy": {
