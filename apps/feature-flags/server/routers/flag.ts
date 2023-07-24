@@ -5,8 +5,116 @@ import { getValue } from "@basestack/utils";
 // Inputs
 import schemas from "server/schemas";
 
+import { z } from "zod";
+
 export const flagRouter = router({
   all: protectedProcedure
+    .input(
+      z.object({
+        projectId: z.string(),
+        limit: z.number().min(1).max(100).nullish(),
+        cursor: z.string().nullish(), // <-- "cursor" needs to exist, but can be any type
+        search: z.string().optional().nullable(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const limit = input.limit ?? 50;
+
+      const search = input.search
+        ? {
+            slug: {
+              search: input.search,
+            },
+          }
+        : {};
+
+      return await ctx.prisma.$transaction(async (tx) => {
+        const env = await tx.environment.findFirst({
+          where: { isDefault: true, projectId: input.projectId },
+        });
+
+        if (env) {
+          const flags = await tx.flag.findMany({
+            where: {
+              environment: {
+                id: env.id,
+                project: {
+                  id: input.projectId,
+                },
+              },
+              ...search,
+            },
+            take: limit + 1, // get an extra item at the end which we'll use as next cursor
+            cursor: input.cursor ? { id: input.cursor } : undefined,
+            orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+            select: {
+              id: true,
+              slug: true,
+              description: true,
+              enabled: true,
+              createdAt: true,
+              expiredAt: true,
+              payload: true,
+            },
+          });
+
+          let nextCursor: typeof input.cursor | undefined = undefined;
+
+          if (flags.length > limit) {
+            const nextItem = flags.pop();
+            nextCursor = nextItem!.id;
+          }
+
+          return {
+            flags,
+            nextCursor,
+          };
+        } else {
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "Could not find the default environment",
+          });
+        }
+      });
+    }),
+
+  total: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(schemas.flag.input.total)
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.$transaction(async (tx) => {
+        const env = await tx.environment.findFirst({
+          where: { isDefault: true, projectId: input.projectId },
+        });
+
+        if (env) {
+          const { _count } = await tx.flag.aggregate({
+            _count: { id: true },
+            where: {
+              environment: {
+                id: env.id,
+                project: {
+                  id: input.projectId,
+                },
+              },
+            },
+          });
+
+          return {
+            total: _count.id,
+          };
+        } else {
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "Could not find the default environment",
+          });
+        }
+      });
+    }),
+
+  allOld: protectedProcedure
     .meta({
       restricted: true,
     })
@@ -80,14 +188,24 @@ export const flagRouter = router({
             }),
           );
 
-          const totalFlags = await tx.flag.count();
+          const { _count } = await tx.flag.aggregate({
+            _count: { id: true },
+            where: {
+              environment: {
+                id: env.id,
+                project: {
+                  id: input.projectId,
+                },
+              },
+            },
+          });
 
           return {
             flags,
             pagination: {
               skip,
               take,
-              total: totalFlags,
+              total: _count.id,
             },
           };
         } else {

@@ -24,7 +24,7 @@
     "eslint-config-next": "^13.4.12",
     "isomorphic-unfetch": "^4.0.2",
     "material-symbols": "^0.10.1",
-    "next": "^13.0.6",
+    "next": "^13.4.12",
     "polished": "^4.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

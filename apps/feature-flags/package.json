@@ -48,7 +48,7 @@
     "isomorphic-unfetch": "^4.0.2",
     "lru-cache": "^10.0.0",
     "material-symbols": "^0.10.1",
-    "next": "^13.3.0",
+    "next": "^13.4.12",
     "next-auth": "^4.22.3",
     "polished": "^4.2.2",
     "random-word-slugs": "^0.1.7",

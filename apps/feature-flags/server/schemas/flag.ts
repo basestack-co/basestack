@@ -32,6 +32,8 @@ const all = withProjectId
   })
   .required();
 
+const total = withProjectId.required();
+
 export const bySlug = withProjectId
   .extend({
     slug: z.string(),
@@ -69,6 +71,7 @@ export const deleteFlag = withProjectId
 const projectSchema = {
   input: {
     all,
+    total,
     bySlug,
     update,
     create,
