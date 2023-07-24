@@ -87,7 +87,7 @@ export interface ModalsSliceState extends ModalsSliceActions {
  */
 
 export interface AppSliceActions {
-  setDarkMode: () => void;
+  setDarkMode: (value: boolean) => void;
   setSelectedView: (payload: { view: SelectedView }) => void;
 }
 

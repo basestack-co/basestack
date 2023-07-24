@@ -12,10 +12,12 @@ export const Content = styled.p<SpaceProps>`
   font-size: ${rem("14px")};
   line-height: ${rem("22px")};
   font-weight: 400;
-  color: ${({ theme }) => theme.colors.gray500};
+  color: ${({ theme }) =>
+    theme.colors[theme.isDarkMode ? "gray400" : "gray500"]};
 
   b {
-    color: ${({ theme }) => theme.colors.black};
+    color: ${({ theme }) =>
+      theme.colors[theme.isDarkMode ? "gray300" : "black"]};
     font-weight: 500;
   }
 `;

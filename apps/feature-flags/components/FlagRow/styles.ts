@@ -17,17 +17,20 @@ export const Label = styled.div<{
 }>`
   height: ${rem("14px")};
   width: ${rem("14px")};
-  border: 1px solid ${({ theme }) => theme.colors.white};
+  border: 1px solid
+    ${({ theme }) => theme.colors[theme.isDarkMode ? "gray800" : "white"]};
   border-radius: 50%;
   flex-shrink: 0;
 
   ${({ isActive }) =>
     isActive
       ? css`
-          background-color: ${({ theme }) => theme.colors.green400};
+          background-color: ${({ theme }) =>
+            theme.colors[theme.isDarkMode ? "green300" : "green400"]};
         `
       : css`
-          background-color: ${({ theme }) => theme.colors.gray300};
+          background-color: ${({ theme }) =>
+            theme.colors[theme.isDarkMode ? "gray600" : "gray300"]};
         `};
 `;
 

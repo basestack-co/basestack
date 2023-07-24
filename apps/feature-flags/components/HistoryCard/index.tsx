@@ -41,7 +41,7 @@ const HistoryCard = ({
           <Icon
             icon={type ? icon[type] : "help"}
             size="medium"
-            color={theme.colors.gray600}
+            color={theme.colors[theme.isDarkMode ? "gray400" : "gray600"]}
           />
         </IconContainer>
         <Avatar

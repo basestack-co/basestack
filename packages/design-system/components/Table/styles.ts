@@ -4,7 +4,7 @@ import { rem } from "polished";
 
 export const Container = styled.div`
   ${space};
-  background-color: ${({ theme }) => theme.colors.gray50};
+  background-color: ${({ theme }) => theme.table.backgroundColor};
   padding: ${({ theme }) => theme.spacing.s5};
   border-radius: 4px;
 `;
@@ -17,7 +17,7 @@ export const StyledRow = styled.div<{ numberOfColumns: number }>`
   grid-gap: ${({ theme }) => theme.spacing.s5};
 
   &:not(:last-child) {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.gray200};
+    border-bottom: 1px solid ${({ theme }) => theme.table.border};
   }
 `;
 
@@ -39,7 +39,7 @@ export const StyledLink = styled.a`
 
   &:hover {
     text-decoration: underline;
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.table.link.color};
   }
 `;
 

@@ -20,7 +20,7 @@ export const Container = styled.div`
     padding: ${({ theme }) => theme.spacing.s2};
     width: 350px;
     max-width: 100%;
-    background: ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.calendar.backgroundColor};
     box-shadow: ${({ theme }) => theme.shadow.elevation4};
     border-radius: ${rem("8px")};
     overflow: hidden;
@@ -71,15 +71,18 @@ export const Container = styled.div`
 
         &:enabled:hover,
         &:enabled:focus {
-          background-color: ${({ theme }) => theme.colors.gray100};
+          background-color: ${({ theme }) =>
+            theme.calendar.navigation.button.hover.backgroundColor};
         }
 
         &[disabled] {
-          background-color: ${({ theme }) => theme.colors.white};
+          background-color: ${({ theme }) =>
+            theme.calendar.navigation.button.disabled.backgroundColor};
         }
       }
 
       &__label {
+        color: ${({ theme }) => theme.calendar.day.color};
         align-items: center;
         justify-content: center;
         padding: ${({ theme }) => theme.spacing.s1};
@@ -93,7 +96,8 @@ export const Container = styled.div`
         justify-content: center;
 
         &:disabled span {
-          color: ${({ theme }) => theme.colors.gray400};
+          color: ${({ theme }) =>
+            theme.calendar.navigation.button.disabled.color};
         }
       }
     }
@@ -106,6 +110,7 @@ export const Container = styled.div`
       margin-bottom: ${({ theme }) => theme.spacing.s1};
 
       &__weekday {
+        color: ${({ theme }) => theme.calendar.day.color};
         padding: ${({ theme }) => theme.spacing.s2}
           ${({ theme }) => theme.spacing.s1};
       }
@@ -127,24 +132,25 @@ export const Container = styled.div`
 
     &__month-view__days {
       &__day {
-        color: ${({ theme }) => theme.colors.black};
+        color: ${({ theme }) => theme.calendar.day.color};
         font-size: ${rem("14px")};
 
         &:disabled {
-          color: ${({ theme }) => theme.colors.gray400};
+          color: ${({ theme }) => theme.calendar.day.disabled.color};
         }
 
         &--weekend {
-          color: ${({ theme }) => theme.colors.black};
+          color: ${({ theme }) => theme.calendar.day.weekend.color};
         }
 
         &--neighboringMonth {
-          color: ${({ theme }) => theme.colors.gray400};
+          color: ${({ theme }) => theme.calendar.day.neighboringMonth.color};
         }
       }
     }
 
     &__tile {
+      color: ${({ theme }) => theme.calendar.title.color};
       max-width: 100%;
       text-align: center;
       padding: ${({ theme }) => theme.spacing.s3}
@@ -153,47 +159,54 @@ export const Container = styled.div`
       border-radius: ${rem("4px")};
 
       &:disabled {
-        background-color: ${({ theme }) => theme.colors.white};
+        color: ${({ theme }) => theme.calendar.title.disabled.color};
+        background-color: ${({ theme }) =>
+          theme.calendar.title.disabled.backgroundColor};
       }
 
       &:enabled:hover,
       &:enabled:focus {
-        background-color: ${({ theme }) => theme.colors.gray100};
+        background-color: ${({ theme }) =>
+          theme.calendar.title.hover.backgroundColor};
       }
 
       &--now {
-        background: ${({ theme }) => theme.colors.gray100};
+        background: ${({ theme }) => theme.calendar.now.backgroundColor};
 
         &:enabled:hover,
         &:enabled:focus {
-          background: ${({ theme }) => theme.colors.gray200};
+          background: ${({ theme }) =>
+            theme.calendar.now.hover.backgroundColor};
         }
       }
 
       &--hasActive {
-        background: ${({ theme }) => theme.colors.primary};
-        color: ${({ theme }) => theme.colors.white};
+        background: ${({ theme }) => theme.calendar.hasActive.backgroundColor};
+        color: ${({ theme }) => theme.calendar.hasActive.color};
 
         &:enabled:hover,
         &:enabled:focus {
-          background: ${({ theme }) => theme.colors.primary};
+          background: ${({ theme }) =>
+            theme.calendar.hasActive.hover.backgroundColor};
         }
       }
 
       &--active {
-        background: ${({ theme }) => theme.colors.primary};
-        color: ${({ theme }) => theme.colors.white};
+        background: ${({ theme }) => theme.calendar.active.backgroundColor};
+        color: ${({ theme }) => theme.calendar.active.color};
 
         &:enabled:hover,
         &:enabled:focus {
-          background: ${({ theme }) => theme.colors.primary};
+          background: ${({ theme }) =>
+            theme.calendar.active.hover.backgroundColor};
         }
       }
     }
 
     &--selectRange {
       .react-calendar__tile--hover {
-        background-color: ${({ theme }) => theme.colors.gray100};
+        background-color: ${({ theme }) =>
+          theme.calendar.selectRange.backgroundColor};
       }
     }
 

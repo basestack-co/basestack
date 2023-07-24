@@ -109,7 +109,7 @@ const SettingCard = ({
             >
               {button}
             </Button>
-          </Footer>{" "}
+          </Footer>
         </>
       )}
     </StyledCard>

@@ -1,11 +1,11 @@
 import { rem } from "polished";
 
-const typography = {
+export const typography = {
   roboto: "'Roboto', sans-serif",
   robotoFlex: "'Roboto Flex', sans-serif",
 };
 
-const colors = {
+export const colors = {
   primary: "#276EF1",
   white: "#FFFFFF",
   black: "#000000",
@@ -59,7 +59,7 @@ const colors = {
   purple50: "#F4F1FA",
 };
 
-const zIndex = {
+export const zIndex = {
   modal: 110,
   popup: 109,
   navigationDrawer: 108,
@@ -67,7 +67,7 @@ const zIndex = {
   navigation: 106,
 };
 
-const spacing = {
+export const spacing = {
   s1: rem("4px"),
   s2: rem("8px"),
   s3: rem("12px"),
@@ -76,19 +76,6 @@ const spacing = {
   s6: rem("30px"),
   s7: rem("40px"),
   s8: rem("50px"),
-};
-
-const shadow = {
-  elevation1: "rgba(0, 0, 0, 0.05) 0px 1px 2px 0px",
-  elevation2:
-    "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px",
-  elevation3:
-    "rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px",
-  elevation4:
-    "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
-  elevation5:
-    "rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px",
-  elevation6: "rgba(0, 0, 0, 0.25) 0px 25px 50px -12px",
 };
 
 export const device = {
@@ -108,13 +95,10 @@ export const device = {
   },
 };
 
-const theme = {
+export const theme = {
   typography,
   colors,
   spacing,
   zIndex,
-  shadow,
   device,
 };
-
-export default theme;

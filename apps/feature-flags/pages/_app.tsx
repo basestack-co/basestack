@@ -1,10 +1,12 @@
 import React from "react";
 import { AppProps } from "next/app";
 import { Toaster } from "react-hot-toast";
+import { useStore } from "store";
 //Styles
 import isPropValid from "@emotion/is-prop-valid";
 import { ThemeProvider, StyleSheetManager } from "styled-components";
-import theme from "@basestack/design-system/theme";
+import darkTheme from "@basestack/design-system/theme/darkTheme";
+import lightTheme from "@basestack/design-system/theme/lightTheme";
 import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
 // Modals
 import Modals from "modals";
@@ -26,6 +28,9 @@ const Noop = ({ children }: { children: React.ReactNode }) => children;
 function MyApp({ Component, pageProps }: AppProps) {
   //@ts-ignore
   const Layout = Component.Layout || Noop;
+  const isDarkMode = useStore((state) => state.isDarkMode);
+  const theme = isDarkMode ? darkTheme : lightTheme;
+
   return (
     <SessionProvider session={pageProps.session}>
       <ThemeProvider theme={theme}>

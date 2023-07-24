@@ -83,7 +83,7 @@ const Tabs = ({
                 <Text
                   fontWeight="500"
                   size={textSize}
-                  color={textColor || theme.colors.black}
+                  color={textColor || theme.tabs.color}
                 >
                   {item.text}
                 </Text>

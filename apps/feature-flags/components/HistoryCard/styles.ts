@@ -29,7 +29,8 @@ export const Wrapper = styled.div<{ type: Type }>`
         left: 19px;
         bottom: -19px;
         width: 2px;
-        background-color: ${theme.colors.gray100};
+        background-color: ${({ theme }) =>
+          theme.colors[theme.isDarkMode ? "gray700" : "gray100"]};
       }
     `}
 `;
@@ -42,7 +43,8 @@ export const IconContainer = styled.div`
   border-radius: 50%;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.colors.gray100};
+  background-color: ${({ theme }) =>
+    theme.colors[theme.isDarkMode ? "gray700" : "gray100"]};
   margin-right: ${({ theme }) => theme.spacing.s5};
 `;
 

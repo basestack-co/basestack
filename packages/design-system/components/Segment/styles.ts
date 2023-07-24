@@ -7,7 +7,7 @@ export const Container = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.gray100};
+  background-color: ${({ theme }) => theme.segment.backgroundColor};
   height: ${rem("36px")};
   border-radius: ${rem("4px")};
   padding: ${rem("4px")};
@@ -27,7 +27,8 @@ export const Button = styled.button`
   transition: background-color 0.1s ease-in-out;
 
   &:hover:not(.active) {
-    background-color: ${({ theme }) => theme.colors.gray200};
+    background-color: ${({ theme }) =>
+      theme.segment.button.hover.backgroundColor};
   }
 `;
 
@@ -46,7 +47,7 @@ export const Slider = styled.div<{
     left: 0;
     top: 0;
     bottom: 0;
-    background-color: ${({ theme }) => theme.colors.white};
+    background-color: ${({ theme }) => theme.segment.slider.backgroundColor};
     width: calc((100% / ${({ numberOfItems }) => numberOfItems}));
     border-radius: ${rem("4px")};
     box-shadow: ${({ theme }) => theme.shadow.elevation2};

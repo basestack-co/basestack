@@ -1,5 +1,6 @@
 import React from "react";
 // Components
+import { Text } from "@basestack/design-system";
 import { SettingCard } from "components";
 // Styles
 import { CardListItem } from "../styles";
@@ -18,7 +19,7 @@ const EndpointsCard = ({ project }: Props) => {
         description="API keys can be used with our SDK’s (Javascript, React)."
         hasFooter={false}
       >
-        <p>base url: {`${getBrowserUrl()}/api/v1`}</p>
+        <Text>Base url: {`${getBrowserUrl()}/api/v1`}</Text>
       </SettingCard>
     </CardListItem>
   );

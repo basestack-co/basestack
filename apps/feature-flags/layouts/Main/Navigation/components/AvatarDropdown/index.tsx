@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import theme from "@basestack/design-system/theme";
+import { useTheme } from "styled-components";
 import { useStore } from "store";
 // Auth
 import { signOut } from "next-auth/react";
@@ -50,8 +50,11 @@ const AvatarDropdown = ({
   popupPlacement = "bottom-end",
 }: AvatarMenuProps) => {
   const router = useRouter();
+  const theme = useTheme();
+  const setIsDarkMode = useStore((state) => state.setDarkMode);
+  const isDarkMode = useStore((state) => state.isDarkMode);
+
   const menuWrapperRef = useRef(null);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { x, y, refs, strategy } = useFloating({
     placement: popupPlacement,
@@ -139,16 +142,14 @@ const AvatarDropdown = ({
                   </HeaderWrapper>
                 )}
                 <ThemeContainer showFullButton={showFullButton}>
-                  <Icon
-                    icon={isDarkMode ? "dark_mode" : "light_mode"}
-                    color={theme.colors.black}
-                    mr={theme.spacing.s2}
-                  />
+                  <Icon icon="dark_mode" mr={theme.spacing.s2} />
                   <Text size="small" fontWeight={500} mr={theme.spacing.s2}>
-                    {isDarkMode ? "Dark Mode" : "Light Mode"}
+                    Dark Mode
                   </Text>
                   <Switch
-                    onChange={(event) => setIsDarkMode(event.target.checked)}
+                    onChange={(event) => {
+                      setIsDarkMode(event.target.checked);
+                    }}
                     checked={isDarkMode}
                     ml="auto"
                   />

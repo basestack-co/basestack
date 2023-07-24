@@ -89,15 +89,15 @@ const Input: React.FC<InputProps> = ({
   const hasLeftIcon = !!icon && iconPlacement === "left";
   const hasRightIcon = !!icon && iconPlacement === "right";
 
+  const iconColor = hasError
+    ? theme.input.error.icon.color
+    : theme.input.icon.color;
+
   return (
     <Container data-testid={testId} {...props}>
       {hasLeftIcon && (
         <IconContainer iconPlacement={iconPlacement}>
-          <Icon
-            icon={icon}
-            size="medium"
-            color={hasError ? theme.colors.red400 : theme.colors.gray400}
-          />
+          <Icon icon={icon} size="medium" color={iconColor} />
         </IconContainer>
       )}
       <StyledInput
@@ -119,11 +119,7 @@ const Input: React.FC<InputProps> = ({
       />
       {hasRightIcon && (
         <IconContainer iconPlacement={iconPlacement}>
-          <Icon
-            icon={icon}
-            size="medium"
-            color={hasError ? theme.colors.red400 : theme.colors.gray400}
-          />
+          <Icon icon={icon} size="medium" color={iconColor} />
         </IconContainer>
       )}
     </Container>

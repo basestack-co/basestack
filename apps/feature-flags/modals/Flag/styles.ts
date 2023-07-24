@@ -10,7 +10,6 @@ export const Environments = styled.div`
 export const ReactJsonContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.gray50};
 
   .react-json-view {
     font-size: ${rem("14px")};
