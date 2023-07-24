@@ -6,13 +6,9 @@ import {
   Icon,
   ButtonVariant,
   Card,
+  IconBox,
 } from "@basestack/design-system";
-import {
-  Container,
-  ContentContainer,
-  ContentWrapper,
-  IconContainer,
-} from "./styles";
+import { Container, ContentContainer, ContentWrapper } from "./styles";
 
 import GetStartedCard from "./GetStartedCard";
 import TextLink from "./TextLink";
@@ -31,8 +27,7 @@ const GetStarted = () => {
           <GetStartedCard
             icon={{
               name: "downloading",
-              bg: theme.colors.green50,
-              color: theme.colors.green500,
+              color: "green",
             }}
             title="Install our SDK"
             description="Integrate Moonflags into your Javascript, React, Go, PHP. More languages are coming soon!"
@@ -45,8 +40,7 @@ const GetStarted = () => {
           <GetStartedCard
             icon={{
               name: "flag",
-              bg: theme.colors.blue50,
-              color: theme.colors.blue500,
+              color: "blue",
             }}
             title="Create your first feature"
             description="Create a feature within Moonflags. Use features to toggle app behavior, do gradual rollouts, and run A/B testing."
@@ -59,8 +53,7 @@ const GetStarted = () => {
           <GetStartedCard
             icon={{
               name: "groups",
-              bg: theme.colors.purple50,
-              color: theme.colors.purple500,
+              color: "purple",
             }}
             title="Invite team"
             description="Invite teammates to your account."
@@ -72,9 +65,7 @@ const GetStarted = () => {
           />
         </ContentWrapper>
         <Card hasHoverAnimation p={theme.spacing.s5}>
-          <IconContainer bg={theme.colors.gray50}>
-            <Icon icon="folder_open" color={theme.colors.gray500} />
-          </IconContainer>
+          <IconBox icon="folder_open" color="gray" />
           <Text size="large" mb={theme.spacing.s2}>
             Documentation, help and support
           </Text>

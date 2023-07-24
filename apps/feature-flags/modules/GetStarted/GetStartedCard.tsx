@@ -6,8 +6,9 @@ import {
   Icon,
   Card,
   ButtonVariant,
+  IconBox,
+  IconBoxColor,
 } from "@basestack/design-system";
-import { IconContainer } from "./styles";
 
 interface GetStartedCardProps {
   title: string;
@@ -19,8 +20,7 @@ interface GetStartedCardProps {
   };
   icon: {
     name: string;
-    color: string;
-    bg: string;
+    color: IconBoxColor;
   };
 }
 
@@ -34,9 +34,7 @@ const GetStartedCard = ({
 
   return (
     <Card hasHoverAnimation p={theme.spacing.s5}>
-      <IconContainer bg={icon.bg}>
-        <Icon icon={icon.name} color={icon.color} />
-      </IconContainer>
+      <IconBox icon={icon.name} color={icon.color} />
       <Text size="large" mb={theme.spacing.s2}>
         {title}
       </Text>

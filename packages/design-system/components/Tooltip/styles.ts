@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const StyledContent = styled.div`
-  background-color: ${({ theme }) => theme.colors.gray800};
-  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.tooltip.backgroundColor};
+  color: ${({ theme }) => theme.tooltip.color};
   padding: 4px 8px;
   border-radius: 4px;
   box-sizing: border-box;

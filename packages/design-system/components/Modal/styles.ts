@@ -59,7 +59,7 @@ export const Sheet = styled.div<{
   width: 100%;
   ${flexColumn};
   min-height: ${({ minHeight }) => `${minHeight}px`};
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.modal.backgroundColor};
   box-shadow: ${({ theme }) => theme.shadow.elevation4};
   border-radius: 4px;
   z-index: 1;
@@ -95,5 +95,5 @@ export const Overlay = styled.div`
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-color: ${({ theme }) => transparentize("0.5", theme.colors.black)};
+  background-color: ${({ theme }) => theme.modal.overlay.backgroundColor};
 `;

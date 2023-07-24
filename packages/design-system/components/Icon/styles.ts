@@ -15,6 +15,6 @@ export const Icon = styled.span<{
   color?: string;
 }>`
   color: ${({ theme, color, muted }) =>
-    color || (muted ? theme.colors.gray600 : theme.colors.black)};
+    color || (muted ? theme.icon.muted : theme.icon.color)};
   font-size: ${({ size }) => rem(`${size}px`)};
 `;

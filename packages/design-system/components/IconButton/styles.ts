@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { flexbox, space, position, compose } from "styled-system";
-import { rem, darken } from "polished";
+import { rem } from "polished";
 import { Variant } from "./types";
 
 const sharedStyles = css`
@@ -19,54 +19,62 @@ const sharedStyles = css`
 
 const primaryStyles = css`
   ${sharedStyles};
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.iconButton.primary.backgroundColor};
+  color: ${({ theme }) => theme.iconButton.primary.color};
 
   &:hover:not(:active) {
-    background-color: ${({ theme }) => darken(0.1, theme.colors.primary)};
+    background-color: ${({ theme }) =>
+      theme.iconButton.primary.hover.backgroundColor};
   }
 `;
 
 const secondaryStyles = css`
   ${sharedStyles};
-  background-color: ${({ theme }) => theme.colors.gray100};
-  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) =>
+    theme.iconButton.secondary.backgroundColor};
+  color: ${({ theme }) => theme.iconButton.secondary.color};
 
   &:hover:not(:active) {
-    background-color: ${({ theme }) => theme.colors.gray200};
+    background-color: ${({ theme }) =>
+      theme.iconButton.secondary.hover.backgroundColor};
   }
 `;
 
 const neutralStyles = css`
   ${sharedStyles};
-  background-color: transparent;
-  color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.iconButton.neutral.backgroundColor};
+  color: ${({ theme }) => theme.iconButton.neutral.color};
 
   .material-symbols-sharp {
     color: inherit;
   }
   &:hover {
-    background-color: ${({ theme }) => theme.colors.gray100};
+    background-color: ${({ theme }) =>
+      theme.iconButton.neutral.hover.backgroundColor};
   }
   &:active {
-    background-color: ${({ theme }) => theme.colors.gray200};
+    background-color: ${({ theme }) =>
+      theme.iconButton.neutral.active.backgroundColor};
   }
 `;
 
 const primaryNeutralStyles = css`
   ${sharedStyles};
-  background-color: transparent;
-  color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) =>
+    theme.iconButton.primaryNeutral.backgroundColor};
+  color: ${({ theme }) => theme.iconButton.primaryNeutral.color};
 
   .material-symbols-sharp {
     color: inherit;
   }
   &:hover {
-    color: ${({ theme }) => theme.colors.blue400};
-    background-color: ${({ theme }) => theme.colors.blue50};
+    color: ${({ theme }) => theme.iconButton.primaryNeutral.hover.color};
+    background-color: ${({ theme }) =>
+      theme.iconButton.primaryNeutral.hover.backgroundColor};
   }
   &:active {
-    background-color: ${({ theme }) => theme.colors.blue100};
+    background-color: ${({ theme }) =>
+      theme.iconButton.primaryNeutral.active.backgroundColor};
   }
 `;
 

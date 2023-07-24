@@ -16,6 +16,11 @@ export { default as Switch, type SwitchProps } from "./components/Switch";
 export { default as Label, type LabelProps } from "./components/Label";
 export { default as Spinner, type SpinnerProps } from "./components/Spinner";
 export { default as Loader, type LoaderProps } from "./components/Loader";
+export {
+  default as IconBox,
+  type IconBoxProps,
+  type IconBoxColor,
+} from "./components/IconBox";
 
 // Medium Components
 export {

@@ -38,26 +38,28 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const hasLeftIcon = !!icon && iconPlacement === "left";
     const hasRightIcon = !!icon && iconPlacement === "right";
 
-    const spinnerColor = {
-      [ButtonVariant.Primary]: theme.colors.white,
-      [ButtonVariant.Secondary]: theme.colors.white,
-      [ButtonVariant.Tertiary]: theme.colors.black,
-      [ButtonVariant.PrimaryNeutral]: theme.colors.black,
-      [ButtonVariant.Danger]: theme.colors.red400,
-      [ButtonVariant.Neutral]: theme.colors.black,
-      [ButtonVariant.Outlined]: theme.colors.black,
-      [ButtonVariant.DangerFilled]: theme.colors.white,
+    const spinnerBg = {
+      [ButtonVariant.Primary]: theme.button.primary.spinner.backgroundColor,
+      [ButtonVariant.Secondary]: theme.button.secondary.spinner.backgroundColor,
+      [ButtonVariant.Tertiary]: theme.button.tertiary.spinner.backgroundColor,
+      [ButtonVariant.PrimaryNeutral]:
+        theme.button.primaryNeutral.spinner.backgroundColor,
+      [ButtonVariant.Danger]: theme.button.danger.spinner.backgroundColor,
+      [ButtonVariant.Neutral]: theme.button.neutral.spinner.backgroundColor,
+      [ButtonVariant.Outlined]: theme.button.outlined.spinner.backgroundColor,
+      [ButtonVariant.DangerFilled]:
+        theme.button.dangerFilled.spinner.backgroundColor,
     };
 
-    const spinnerBg = {
-      [ButtonVariant.Primary]: theme.colors.blue500,
-      [ButtonVariant.Secondary]: theme.colors.gray500,
-      [ButtonVariant.Tertiary]: theme.colors.gray300,
-      [ButtonVariant.PrimaryNeutral]: theme.colors.gray200,
-      [ButtonVariant.Danger]: theme.colors.gray200,
-      [ButtonVariant.Neutral]: theme.colors.gray200,
-      [ButtonVariant.Outlined]: theme.colors.gray200,
-      [ButtonVariant.DangerFilled]: theme.colors.red200,
+    const spinnerColor = {
+      [ButtonVariant.Primary]: theme.button.primary.spinner.color,
+      [ButtonVariant.Secondary]: theme.button.secondary.spinner.color,
+      [ButtonVariant.Tertiary]: theme.button.tertiary.spinner.color,
+      [ButtonVariant.PrimaryNeutral]: theme.button.primaryNeutral.spinner.color,
+      [ButtonVariant.Danger]: theme.button.danger.spinner.color,
+      [ButtonVariant.Neutral]: theme.button.neutral.spinner.color,
+      [ButtonVariant.Outlined]: theme.button.outlined.spinner.color,
+      [ButtonVariant.DangerFilled]: theme.button.dangerFilled.spinner.color,
     };
 
     return (

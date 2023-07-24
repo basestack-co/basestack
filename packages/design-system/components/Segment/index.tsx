@@ -69,7 +69,7 @@ const Segment = ({
             }}
           >
             {!!item.icon && (
-              <Icon icon={item.icon} color={theme.colors.black} />
+              <Icon icon={item.icon} color={theme.segment.icon.color} />
             )}
             {!!item.text && (
               <Text size="small" ml={!!item.icon ? theme.spacing.s1 : 0}>

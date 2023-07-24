@@ -31,7 +31,7 @@ const Pill = ({ isSelected = true, onClick, text, ...props }: PillProps) => {
     >
       <Text
         data-testid="pill-text"
-        color={isSelected ? theme.colors.primary : theme.colors.black}
+        color={isSelected ? theme.pill.selected.color : theme.pill.color}
         size="small"
       >
         {text}

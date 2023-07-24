@@ -5,7 +5,7 @@ import { scrollbar } from "../../styles";
 
 export const Container = styled.div`
   ${position};
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.popupActions.backgroundColor};
   box-shadow: ${({ theme }) => theme.shadow.elevation6};
   padding: ${({ theme }) => theme.spacing.s1};
   border-radius: 4px;
@@ -36,16 +36,18 @@ export const ListItem = styled.li`
 export const PopUpButton = styled.button`
   display: flex;
   align-items: center;
-  background-color: transparent;
+  background-color: ${({ theme }) => theme.popupActions.button.backgroundColor};
   border: none;
   padding: ${rem("8px")};
   cursor: pointer;
   border-radius: 4px;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.gray100};
+    background-color: ${({ theme }) =>
+      theme.popupActions.button.hover.backgroundColor};
   }
   &:active {
-    background-color: ${({ theme }) => theme.colors.gray200};
+    background-color: ${({ theme }) =>
+      theme.popupActions.button.active.backgroundColor};
   }
 `;
