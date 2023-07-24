@@ -142,12 +142,9 @@ const AvatarDropdown = ({
                   </HeaderWrapper>
                 )}
                 <ThemeContainer showFullButton={showFullButton}>
-                  <Icon
-                    icon={isDarkMode ? "dark_mode" : "light_mode"}
-                    mr={theme.spacing.s2}
-                  />
+                  <Icon icon="dark_mode" mr={theme.spacing.s2} />
                   <Text size="small" fontWeight={500} mr={theme.spacing.s2}>
-                    {isDarkMode ? "Dark Mode" : "Light Mode"}
+                    Dark Mode
                   </Text>
                   <Switch
                     onChange={(event) => {

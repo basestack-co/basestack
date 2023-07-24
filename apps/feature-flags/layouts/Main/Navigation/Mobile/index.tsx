@@ -15,12 +15,12 @@ import {
   Button,
   ButtonVariant,
   Avatar,
+  HorizontalRule,
 } from "@basestack/design-system";
 import { AvatarDropdown } from "../components";
 import {
   BackDropCover,
   Container,
-  Divider,
   Footer,
   Header,
   List,
@@ -127,7 +127,7 @@ const NavigationDrawer = ({
                     </Button>
                   </ListItem>
                 </List>
-                <Divider m={theme.spacing.s5} mb={0} />
+                <HorizontalRule m={theme.spacing.s5} mb={0} />
                 <ScrollableContent>
                   <TitleContainer>
                     <Text muted fontWeight={500}>
@@ -162,7 +162,7 @@ const NavigationDrawer = ({
                       </Button>
                     </ListItem>
                   </List>
-                  <Divider m={theme.spacing.s5} />
+                  <HorizontalRule m={theme.spacing.s5} />
                   <TitleContainer>
                     <Text muted fontWeight={500}>
                       Documentation
@@ -191,7 +191,7 @@ const NavigationDrawer = ({
                   </List>
                 </ScrollableContent>
               </ContentContainer>
-              <Divider mx={theme.spacing.s5} my={0} />
+              <HorizontalRule mx={theme.spacing.s5} my={0} />
               <Footer>
                 <AvatarDropdown
                   name={session?.user.name || "User Name"}

@@ -1,5 +1,20 @@
 import { darken, transparentize } from "polished";
-import { typography, colors, spacing, zIndex, shadow, device } from "./common";
+import { typography, colors, spacing, zIndex, device } from "./common";
+
+const shadow = {
+  elevation1:
+    "0px 1px 1px 0px hsla(0,0%,0%,0.14), 0px 2px 1px -1px hsla(0,0%,0%,0.12), 0px 1px 3px 0px hsla(0,0%,0%,0.2)",
+  elevation2:
+    "0px 2px 2px 0px hsla(0,0%,0%,0.14), 0px 3px 1px -2px hsla(0,0%,0%,0.12), 0px 1px 5px 0px hsla(0,0%,0%,0.2)",
+  elevation3:
+    "0px 3px 4px 0px hsla(0,0%,0%,0.14), 0px 3px 3px -2px hsla(0,0%,0%,0.12), 0px 1px 8px 0px hsla(0,0%,0%,0.2)",
+  elevation4:
+    "0px 4px 5px 0px hsla(0,0%,0%,0.14), 0px 1px 10px 0px hsla(0,0%,0%,0.12), 0px 2px 4px -1px hsla(0,0%,0%,0.2)",
+  elevation5:
+    "0px 6px 10px 0px hsla(0,0%,0%,0.14), 0px 1px 18px 0px hsla(0,0%,0%,0.12), 0px 3px 5px -1px hsla(0,0%,0%,0.2)",
+  elevation6:
+    "0px 8px 10px 1px hsla(0,0%,0%,0.14), 0px 3px 14px 2px hsla(0,0%,0%,0.12), 0px 5px 5px -3px hsla(0,0%,0%,0.2)",
+};
 
 const body = {
   backgroundColor: colors.gray900,
@@ -431,8 +446,8 @@ const tabs = {
 };
 
 const tooltip = {
-  backgroundColor: colors.gray800,
-  color: colors.white,
+  backgroundColor: colors.gray700,
+  color: colors.gray300,
 };
 
 const horizontalRule = {

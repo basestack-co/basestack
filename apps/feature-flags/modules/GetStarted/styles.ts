@@ -16,10 +16,6 @@ export const ContentContainer = styled.div`
   grid-gap: ${({ theme }) => theme.spacing.s5};
 
   @media screen and ${({ theme }) => theme.device.max.md} {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @media screen and ${({ theme }) => theme.device.max.sm} {
     grid-template-columns: 1fr;
   }
 `;
@@ -32,21 +28,11 @@ export const ContentWrapper = styled.div`
 
 export const StyledLink = styled.a`
   text-decoration: none;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) =>
+    theme.colors[theme.isDarkMode ? "blue300" : "primary"]};
   cursor: pointer;
 
   &:hover {
     text-decoration: underline;
   }
-`;
-
-export const IconContainer = styled.div<{ bg: string }>`
-  background-color: ${({ bg }) => bg};
-  height: ${rem("48px")};
-  width: ${rem("48px")};
-  border-radius: ${rem("8px")};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: ${({ theme }) => theme.spacing.s5};
 `;
