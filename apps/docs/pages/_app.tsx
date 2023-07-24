@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 //Styles
 import { ThemeProvider } from "styled-components";
-import theme from "@basestack/design-system/theme";
+import theme from "@basestack/design-system/theme/lightTheme";
 // Fonts
 import "material-symbols";
 

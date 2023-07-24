@@ -2,7 +2,7 @@ import React from "react";
 import { AppProps } from "next/app";
 //Styles
 import { ThemeProvider } from "styled-components";
-import theme from "@basestack/design-system/theme";
+import theme from "@basestack/design-system/theme/lightTheme";
 import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
 // Fonts
 import "material-symbols";

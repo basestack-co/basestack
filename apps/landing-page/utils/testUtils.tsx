@@ -2,7 +2,7 @@ import React from "react";
 import { render, RenderOptions } from "@testing-library/react";
 // Styles
 import { ThemeProvider } from "styled-components";
-import theme from "@basestack/design-system/theme";
+import theme from "@basestack/design-system/theme/lightTheme";
 
 interface WithChildrenProps {
   children: React.ReactNode;
