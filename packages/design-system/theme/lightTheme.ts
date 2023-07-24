@@ -14,10 +14,6 @@ const shadow = {
   elevation6: "rgba(0, 0, 0, 0.25) 0px 25px 50px -12px",
 };
 
-const body = {
-  backgroundColor: colors.gray50,
-};
-
 const button = {
   primary: {
     backgroundColor: colors.primary,
@@ -454,7 +450,6 @@ const horizontalRule = {
 
 const theme = {
   isDarkMode: false,
-  body,
   button,
   card,
   text,
