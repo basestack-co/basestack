@@ -10,9 +10,9 @@ const defaultInterval = 60 * 1000; // 60 seconds
 const defaultUniqueTokenPerInterval = 1000; // Max users per second
 
 const limiter = rateLimit({
-  interval: Number(process.env.RATE_LIMIT_WINDOW_MS) ?? defaultInterval,
+  interval: Number(process.env.API_RATE_LIMIT_WINDOW_MS) ?? defaultInterval,
   uniqueTokenPerInterval:
-    Number(process.env.RATE_LIMIT_UNIQUE_TOKEN_PER_SECOND) ??
+    Number(process.env.API_RATE_LIMIT_UNIQUE_TOKEN_PER_SECOND) ??
     defaultUniqueTokenPerInterval,
 });
 
@@ -24,7 +24,7 @@ const withRateLimit = (
       const identifier = requestIp.getClientIp(req);
       await limiter.check(
         res,
-        Number(process.env.RATE_LIMIT_MAX) ?? 60,
+        Number(process.env.API_RATE_LIMIT_MAX) ?? 60,
         `${identifier}`,
       );
       return handler(req, res);

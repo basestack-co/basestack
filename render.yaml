@@ -50,12 +50,14 @@ services:
         sync: false
       - key: NEXTAUTH_URL
         sync: false
-      - key: RATE_LIMIT_MAX
+      - key: API_RATE_LIMIT_MAX
         value: 60
-      - key: RATE_LIMIT_WINDOW_MS
+      - key: API_RATE_LIMIT_WINDOW_MS
         value: 60*1000
-      - key: RATE_LIMIT_UNIQUE_TOKEN_PER_SECOND
+      - key: API_RATE_LIMIT_UNIQUE_TOKEN_PER_SECOND
         value: 1000
+      - key: API_ACCESS_CONTROL_ALLOW_ORIGIN
+        sync: false
   - type: pserv
     name: basestack-feature-flags-db-pgbouncer
     runtime: docker
