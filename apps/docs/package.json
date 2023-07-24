@@ -6,27 +6,21 @@
     "dev": "next dev --port 3001",
     "build": "next build",
     "start": "next start",
+    "deploy": "yarn build",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
   },
   "license": "AGPL-3.0",
   "dependencies": {
-    "@basestack/design-system": "*",
-    "material-symbols": "^0.10.0",
     "next": "^13.4.7",
     "nextra": "2.10.0",
     "nextra-theme-docs": "2.10.0",
-    "polished": "^4.2.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "styled-components": "^6.0.4",
-    "styled-system": "^5.1.5",
-    "stylis": "^4.0.0"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
     "@types/node": "20.4.2",
-    "next-transpile-modules": "^10.0.0",
     "typescript": "^5.1.3"
   }
 }

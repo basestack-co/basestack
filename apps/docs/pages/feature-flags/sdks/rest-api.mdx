@@ -8,48 +8,114 @@ When you integrate the Basestack SDK into your application, it acts as the clien
 
 These two main endpoints are essential for consuming the SDK aspect of the API.
 
-### Get All Flags
-
-```sh copy
-curl "https://your-basestack-hosted-app-domain.com/api/v1/:projectKey/:envKey/flags"
-```
-
-#### Example JSON Object
-
-Retrieve all feature flags associated with a particular project and a specific environment (e.g., Develop, Staging, etc)
-
-```json copy
-[
-  {
-    "slug": "footer",
-    "enabled": false,
-    "payload": {},
-    "expiredAt": null,
-    "description": "footer",
-    "createdAt": "2023-07-07T17:20:43.446Z",
-    "updatedAt": "2023-07-07T17:20:43.446Z"
-  },
-  {
-    "slug": "header",
-    "enabled": false,
-    "payload": "{}",
-    "expiredAt": null,
-    "description": "header",
-    "createdAt": "2023-07-07T17:20:26.324Z",
-    "updatedAt": "2023-07-11T17:12:48.271Z"
-  }
-]
-```
-
-### Get Flag by Name
+### Get a Flag by Slug/Name
 
 Retrieve a specific feature flag linked to a particular project and environment (e.g., Develop, Staging, etc).
 
 ```sh copy
-curl "https://your-basestack-hosted-app-domain.com/api/v1/:projectKey/:envKey/flags/:name"
+## Get Flag By Slug/Name
+curl "https://your-basestack-hosted-app-domain.com/api/v1/flags/:slug" \
+     -H 'x-project-key: xxxx-xxxx-xxxx' \
+     -H 'x-environment-key: xxxx-xxxx-xxxx'
 ```
 
-#### Typescript Type Definition
+You can find these parameter values in your project's settings
+
+#### Responses
+
+##### Success:
+
+```json copy
+{
+  "slug": "header",
+  "enabled": true,
+  "payload": {},
+  "expiredAt": null,
+  "description": "header",
+  "createdAt": "2023-07-20T14:08:16.433Z",
+  "updatedAt": "2023-07-20T14:08:16.433Z"
+}
+```
+
+##### Error:
+
+```json copy
+{
+  "enabled": false,
+  "error": true,
+  "message": "Flag with slug header does not exist"
+}
+```
+
+### Get All Flags
+
+Retrieve all feature flags associated with a particular project and a specific environment (e.g., Develop, Staging, etc)
+
+```sh copy
+## Get All Flags
+curl "https://your-basestack-hosted-app-domain.com/api/v1/flags" \
+     -H 'x-project-key: xxxx-xxxx-xxxx' \
+     -H 'x-environment-key: xxxx-xxxx-xxxx'
+```
+
+You can find these parameter values in your project's settings
+
+#### Responses
+
+##### Success:
+
+```json copy
+{
+  "flags": [
+    {
+      "slug": "footer",
+      "enabled": true,
+      "payload": {},
+      "expiredAt": null,
+      "description": "footer",
+      "createdAt": "2023-07-20T14:08:27.284Z",
+      "updatedAt": "2023-07-20T14:08:27.284Z"
+    },
+    {
+      "slug": "header",
+      "enabled": true,
+      "payload": {},
+      "expiredAt": null,
+      "description": "header",
+      "createdAt": "2023-07-20T14:08:16.433Z",
+      "updatedAt": "2023-07-20T14:08:16.433Z"
+    }
+  ]
+}
+```
+
+##### Error:
+
+```json copy
+{
+  "flags": []
+}
+```
+
+### Missing Parameters
+
+#### Missing Project Key or Environment Key in headers
+
+```sh copy
+{
+  "error": "Missing Project Key or Environment Key in headers"
+}
+```
+
+#### Missing Flag Slug in query params
+
+```sh copy
+{
+  "error": "Missing flag slug in query params"
+}
+```
+
+### Typescript Type Definition
 
 ```sh copy
 export interface Flag {
