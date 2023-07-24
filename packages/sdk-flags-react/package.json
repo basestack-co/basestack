@@ -30,7 +30,7 @@
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
     "@swc/core": "^1.3.70",
-    "@types/node": "^20.4.2",
+    "@types/node": "^20.4.4",
     "tsup": "^7.1.0",
     "typescript": "^5.1.3"
   },

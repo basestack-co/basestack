@@ -20,7 +20,7 @@
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "@types/node": "20.4.2",
+    "@types/node": "20.4.4",
     "typescript": "^5.1.3"
   }
 }
