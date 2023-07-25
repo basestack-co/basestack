@@ -77,7 +77,6 @@ export const flagRouter = router({
         }
       });
     }),
-
   total: protectedProcedure
     .meta({
       restricted: true,
@@ -113,110 +112,32 @@ export const flagRouter = router({
         }
       });
     }),
-
-  allOld: protectedProcedure
+  environments: protectedProcedure
     .meta({
       restricted: true,
     })
-    .input(schemas.flag.input.all)
+    .input(schemas.flag.input.environments)
     .query(async ({ ctx, input }) => {
-      const skip = getValue(input.pagination, "skip", 0);
-      const take = getValue(input.pagination, "take", 50);
-
-      const search = input.search
-        ? {
-            slug: {
-              search: input.search,
-            },
-          }
-        : {};
-
-      return await ctx.prisma.$transaction(async (tx) => {
-        const env = await tx.environment.findFirst({
-          where: { isDefault: true, projectId: input.projectId },
-        });
-
-        if (env) {
-          const allFlags = await tx.flag.findMany({
-            where: {
-              environment: {
-                id: env.id,
-                project: {
-                  id: input.projectId,
-                },
-              },
-              ...search,
-            },
-            skip,
-            take,
-            orderBy: {
-              createdAt: "desc",
-            },
+      const allEnvironments = await ctx.prisma.flag.findMany({
+        where: { slug: input.slug },
+        select: {
+          enabled: true,
+          environment: {
             select: {
               id: true,
-              slug: true,
-              description: true,
-              enabled: true,
-              createdAt: true,
-              expiredAt: true,
-              payload: true,
+              name: true,
             },
-          });
-
-          const flags = await Promise.all(
-            allFlags.map(async (flag) => {
-              const allEnvironments = await tx.flag.findMany({
-                where: { slug: flag.slug },
-                select: {
-                  enabled: true,
-                  environment: {
-                    select: {
-                      id: true,
-                      name: true,
-                    },
-                  },
-                },
-              });
-
-              return {
-                ...flag,
-                environments: allEnvironments.map((item) => ({
-                  ...item.environment,
-                  enabled: item.enabled,
-                })),
-              };
-            }),
-          );
-
-          const { _count } = await tx.flag.aggregate({
-            _count: { id: true },
-            where: {
-              environment: {
-                id: env.id,
-                project: {
-                  id: input.projectId,
-                },
-              },
-            },
-          });
-
-          return {
-            flags,
-            pagination: {
-              skip,
-              take,
-              total: _count.id,
-            },
-          };
-        } else {
-          throw new TRPCError({
-            code: "NOT_FOUND",
-            message: "Could not find the default environment",
-          });
-        }
+          },
+        },
       });
-    }),
 
+      return {
+        environments: allEnvironments.map((item) => ({
+          ...item.environment,
+          enabled: item.enabled,
+        })),
+      };
+    }),
   bySlug: protectedProcedure
     .meta({
       restricted: true,

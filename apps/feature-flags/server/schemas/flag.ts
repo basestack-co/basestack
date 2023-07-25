@@ -2,22 +2,6 @@ import { z } from "zod";
 // utils
 import { withProjectId, withEnvironment, withFlagData } from "./utils";
 
-const environments = z.array(
-  z.object({
-    name: z.string(),
-    id: z.string(),
-    enabled: z.boolean(),
-  }),
-);
-
-const data = z.object({
-  slug: z.string(),
-  enabled: z.boolean(),
-  payload: z.any().optional().nullable(),
-  expiredAt: z.date().optional().nullable(),
-  description: z.string().optional(),
-});
-
 // Inputs
 
 const all = withProjectId
@@ -33,6 +17,12 @@ const all = withProjectId
   .required();
 
 const total = withProjectId.required();
+
+const environments = withProjectId
+  .extend({
+    slug: z.string(),
+  })
+  .required();
 
 export const bySlug = withProjectId
   .extend({
@@ -72,6 +62,7 @@ const projectSchema = {
   input: {
     all,
     total,
+    environments,
     bySlug,
     update,
     create,

@@ -1,7 +1,8 @@
 import React, { memo, forwardRef } from "react";
-import { useTheme } from "styled-components";
+// Hooks
 import { useFloatingPopup } from "@basestack/hooks";
-import { animated } from "react-spring";
+// Server
+import { trpc } from "libs/trpc";
 // Components
 import {
   Text,
@@ -12,6 +13,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@basestack/design-system";
+// Styles
+import { useTheme } from "styled-components";
+import { animated } from "react-spring";
 import {
   Labels,
   Label,
@@ -25,7 +29,7 @@ const AnimatedPopup = animated(Popup);
 
 const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
   (
-    { title, description, environments, popupItems = [], date, ...props },
+    { projectId, title, slug, description, popupItems = [], date, ...props },
     ref,
   ) => {
     const theme = useTheme();
@@ -43,6 +47,16 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
       onCloseMenu,
     } = useFloatingPopup();
 
+    const { data } = trpc.flag.environments.useQuery(
+      {
+        projectId,
+        slug,
+      },
+      {
+        enabled: !!projectId,
+      },
+    );
+
     return (
       <Card
         ref={ref}
@@ -53,7 +67,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
       >
         <CardWrapper>
           <Labels data-testid="flag-labels">
-            {environments.map((environment, index, { length }) => (
+            {data?.environments.map((environment, index, { length }) => (
               <TooltipContainer
                 key={environment.id}
                 index={index}

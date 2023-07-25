@@ -53,24 +53,6 @@ const FlagCards = ({
   );
   const deleteFlag = trpc.flag.delete.useMutation();
 
-  /* const [{ data, isLoading }] = trpc.useQueries((t) => [
-    t.flag.all(
-      {
-        projectId,
-        // pagination: { skip: 0, take },
-        pagination,
-        search: searchValue,
-      },
-      { enabled: !!projectId, keepPreviousData: true },
-    ),
-    t.environment.all(
-      { projectId: projectId! },
-      {
-        enabled: !!projectId,
-      },
-    ),
-  ]); */
-
   const { data: count } = trpc.flag.total.useQuery(
     {
       projectId,
@@ -94,12 +76,8 @@ const FlagCards = ({
     );
 
   const initialDataLength = getValue(data, "pages[0].flags.length", 0)!;
-
-  const projectSlug = router.query.projectSlug as string;
-
-  const currentPointer = getValue(data, "pages.length", 0)! * defaultLimit;
-
-  const total = count?.total ?? 0;
+  const currentPage = getValue(data, "pages.length", 0)! * defaultLimit;
+  const totalPages = count?.total ?? 0;
 
   const onUpdateOrHistory = useCallback(
     (
@@ -148,7 +126,9 @@ const FlagCards = ({
       <Empty
         iconName="flag"
         title="No flags available"
-        description={`There is no flags available for ${projectSlug}`}
+        description={`There is no flags available for ${
+          router.query.projectSlug as string
+        }`}
         button={{
           text: "Create flag",
           onClick: () => setCreateFlagModalOpen({ isOpen: true }),
@@ -167,7 +147,6 @@ const FlagCards = ({
               {flags.map((flag) => {
                 const FlagComponent =
                   selectedView === "cards" ? FlagCard : FlagRow;
-                const environmentId = getValue(flag, "environments[0].id", "");
                 const hasPayload =
                   !!flag.payload &&
                   typeof flag.payload === "object" &&
@@ -175,13 +154,14 @@ const FlagCards = ({
 
                 return (
                   <FlagComponent
+                    projectId={projectId}
                     isExpired={dayjs().isAfter(dayjs(flag.expiredAt))}
                     hasPayload={hasPayload}
                     key={flag.id}
                     zIndex={flags.length - index}
                     title={flag.slug}
+                    slug={flag.slug}
                     description={flag.description ?? ""}
-                    environments={[]}
                     date={`Created ${dayjs(flag.createdAt).fromNow()}`}
                     popupItems={[
                       {
@@ -235,42 +215,21 @@ const FlagCards = ({
           );
         })}
       </Grid>
-      <LoadMoreContainer>
-        <Text mb={theme.spacing.s2} muted>
-          Showing {currentPointer >= total ? total : currentPointer} of {total}{" "}
-          Flags
-        </Text>
-        <Button
-          isDisabled={!hasNextPage}
-          variant={ButtonVariant.Tertiary}
-          onClick={fetchNextPage}
-        >
-          Load More
-        </Button>
-      </LoadMoreContainer>
-
-      {/* <LoadMoreContainer>
-        <Text mb={theme.spacing.s2} muted>
-          Showing{" "}
-          {pagination.skip >= data?.pagination.total!
-            ? data?.pagination.total!
-            : pagination.skip}{" "}
-          of {data?.pagination.total} Flags
-        </Text>
-        <Button
-          isDisabled={pagination.skip >= data?.pagination.total!}
-          variant={ButtonVariant.Tertiary}
-          // onClick={() => setTake((prevState) => prevState + 10)}
-          onClick={() =>
-            setPagination((prevState) => ({
-              ...prevState,
-              skip: prevState.skip + defaultPaginationTake,
-            }))
-          }
-        >
-          Load More
-        </Button>
-      </LoadMoreContainer> */}
+      {!searchValue && (
+        <LoadMoreContainer>
+          <Text mb={theme.spacing.s2} muted>
+            Showing {currentPage >= totalPages ? totalPages : currentPage} of{" "}
+            {totalPages} Flags
+          </Text>
+          <Button
+            isDisabled={!hasNextPage}
+            variant={ButtonVariant.Tertiary}
+            onClick={fetchNextPage}
+          >
+            Load More
+          </Button>
+        </LoadMoreContainer>
+      )}
     </Container>
   );
 };
