@@ -1,5 +1,4 @@
 import styled, { createGlobalStyle, css } from "styled-components";
-import { space, SpaceProps } from "styled-system";
 import { scrollbar } from "@basestack/design-system/styles";
 import { rem, transparentize } from "polished";
 

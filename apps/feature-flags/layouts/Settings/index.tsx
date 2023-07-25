@@ -106,9 +106,12 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
             {!isDesktop && (
               <Tabs
                 items={items}
-                onSelect={(item) =>
-                  router.push(item.replace(/\s+/g, "-").toLowerCase())
-                }
+                onSelect={(item) => {
+                  router.push({
+                    pathname: `/[projectSlug]/settings/${item.toLowerCase()}`,
+                    query: { projectSlug },
+                  });
+                }}
                 sliderPosition={activeButtonIndex}
                 backgroundColor="transparent"
               />

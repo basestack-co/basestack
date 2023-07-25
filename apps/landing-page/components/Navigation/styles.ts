@@ -1,10 +1,5 @@
 import styled, { css, createGlobalStyle } from "styled-components";
-import {
-  Button,
-  ButtonVariant,
-  ButtonSize,
-  IconButton,
-} from "@basestack/design-system";
+import { IconButton } from "@basestack/design-system";
 import { rem } from "polished";
 
 export const GlobalStyle = createGlobalStyle<{ isMenuOpen: boolean }>`
