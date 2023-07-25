@@ -6,7 +6,10 @@ import {
   Skeleton,
   Table,
 } from "@basestack/design-system";
-import { SettingCard } from "components";
+import { useTheme } from "styled-components";
+import { useMediaQuery } from "@basestack/hooks";
+import SettingCard from "../SettingCard";
+import MobileCard from "../MobileCard";
 // Libs
 import { trpc } from "libs/trpc";
 // Store
@@ -26,6 +29,8 @@ import dayjs from "dayjs";
 type Props = ProjectSettings;
 
 const InviteCard = ({ project }: Props) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.device.max.md);
   const session = useSession();
   const router = useRouter();
   const trpcContext = trpc.useContext();
@@ -178,6 +183,30 @@ const InviteCard = ({ project }: Props) => {
     onHandleDelete,
   ]);
 
+  const getContent = () => {
+    if (isMobile) {
+      const users = !isLoading && !!data ? data.users : [];
+
+      return users?.map(({ user, role, createdAt }, index) => (
+        <MobileCard
+          key={index}
+          title={user.name || ""}
+          data={[
+            { icon: "mail", text: user.email || "" },
+            {
+              icon:
+                role === Role.ADMIN ? "admin_panel_settings" : "account_circle",
+              text: role,
+            },
+            { icon: "calendar_month", text: dayjs(createdAt).fromNow() },
+          ]}
+        />
+      ));
+    }
+
+    return <Table data={getTable} />;
+  };
+
   return (
     <SettingCard
       title="Team members"
@@ -199,7 +228,7 @@ const InviteCard = ({ project }: Props) => {
           />
         </Loader>
       ) : (
-        <Table data={getTable} />
+        <>{getContent()}</>
       )}
     </SettingCard>
   );

@@ -7,7 +7,7 @@ import { z } from "zod";
 import { trpc } from "libs/trpc";
 // Components
 import { Input } from "@basestack/design-system";
-import { SettingCard } from "components";
+import SettingCard from "../SettingCard";
 // Types
 import { ProjectSettings } from "types";
 import { Role } from "@prisma/client";

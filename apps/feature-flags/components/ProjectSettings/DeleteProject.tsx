@@ -2,7 +2,7 @@ import React from "react";
 // Store
 import { useStore } from "store";
 // Components
-import { SettingCard } from "components";
+import SettingCard from "../SettingCard";
 // Server
 import { trpc } from "libs/trpc";
 // Router

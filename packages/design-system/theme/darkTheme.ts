@@ -16,10 +16,6 @@ const shadow = {
     "0px 8px 10px 1px hsla(0,0%,0%,0.14), 0px 3px 14px 2px hsla(0,0%,0%,0.12), 0px 5px 5px -3px hsla(0,0%,0%,0.2)",
 };
 
-const body = {
-  backgroundColor: colors.gray900,
-};
-
 const button = {
   primary: {
     backgroundColor: colors.blue500,
@@ -456,7 +452,6 @@ const horizontalRule = {
 
 const theme = {
   isDarkMode: true,
-  body,
   button,
   card,
   text,
