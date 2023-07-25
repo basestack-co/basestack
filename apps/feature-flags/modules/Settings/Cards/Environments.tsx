@@ -1,4 +1,6 @@
 import React, { useMemo, useCallback } from "react";
+import { useTheme } from "styled-components";
+import { useMediaQuery } from "@basestack/hooks";
 // Components
 import {
   ButtonVariant,
@@ -17,9 +19,12 @@ import { createTable } from "utils/table";
 // Types
 import { ProjectSettings } from "types";
 import { Role } from "@prisma/client";
+import MobileCard from "./MobileCard";
 
 type Props = ProjectSettings;
 const EnvironmentsCard = ({ project }: Props) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.device.max.md);
   const trpcContext = trpc.useContext();
   const setCreateEnvironmentModalOpen = useStore(
     (state) => state.setCreateEnvironmentModalOpen,
@@ -91,10 +96,12 @@ const EnvironmentsCard = ({ project }: Props) => {
     [project, deleteEnvironment, trpcContext.environment.all],
   );
 
+  const environments = !isLoading && !!data ? data.environments : [];
+
   const getTable = useMemo(
     () =>
       createTable(
-        !isLoading && !!data ? data.environments : [],
+        environments,
         ["Environment", "Slug", "Description", "Created At"],
         (item) => [
           { title: item.name },
@@ -114,7 +121,7 @@ const EnvironmentsCard = ({ project }: Props) => {
         ],
       ),
 
-    [isLoading, data, onHandleEdit, onHandleDelete],
+    [isLoading, data, onHandleEdit, onHandleDelete, environments],
   );
 
   const onClickDeleteEnvironment = (id: string, name: string) => {
@@ -133,6 +140,24 @@ const EnvironmentsCard = ({ project }: Props) => {
         },
       },
     });
+  };
+
+  const getContent = () => {
+    if (isMobile) {
+      return environments?.map(({ id, slug, name, description, createdAt }) => (
+        <MobileCard
+          key={id}
+          title={name}
+          data={[
+            { icon: "tag", text: slug },
+            { icon: "description", text: description || "" },
+            { icon: "calendar_month", text: dayjs(createdAt).fromNow() },
+          ]}
+        />
+      ));
+    }
+
+    return <Table data={getTable} />;
   };
 
   return (
@@ -158,7 +183,7 @@ const EnvironmentsCard = ({ project }: Props) => {
           />
         </Loader>
       ) : (
-        <Table data={getTable} />
+        <>{getContent()}</>
       )}
     </SettingCard>
   );
