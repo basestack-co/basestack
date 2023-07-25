@@ -1,9 +1,9 @@
 import React from "react";
 // Layout
 import SettingsLayout from "layouts/Settings";
-// Modules
-import { CardList, CardListItem } from "modules/Settings/styles";
-import Environments from "modules/Settings/Cards/Environments";
+// Components
+import { CardList, CardListItem } from "components/ProjectSettings/styles";
+import Environments from "components/ProjectSettings/Environments";
 // Types
 import { ProjectSettings } from "types";
 

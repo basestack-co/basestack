@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 // Form
 import { useForm, Controller } from "react-hook-form";
 // Hooks
-import { useClickAway } from "@basestack/hooks";
+import { useClickAway } from "react-use";
 // Components
 import { useTheme } from "styled-components";
 import { Text, CalendarInput, Select } from "@basestack/design-system";

@@ -1,5 +1,5 @@
 import React from "react";
-import PageNotFound from "../modules/PageNotFound";
+import PageNotFound from "components/PageNotFound";
 
 const Custom404 = () => {
   return <PageNotFound />;
