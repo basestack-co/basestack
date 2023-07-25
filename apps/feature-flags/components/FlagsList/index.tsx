@@ -93,8 +93,6 @@ const FlagCards = ({
       },
     );
 
-  console.log("data = ", data)
-
   const initialDataLength = getValue(data, "pages[0].flags.length", 0)!;
 
   const projectSlug = router.query.projectSlug as string;

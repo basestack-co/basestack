@@ -29,7 +29,8 @@ const PageNotFound = () => {
           This page could not be found
         </Text>
         <Text size="medium" fontWeight={400} lineHeight="1.6" muted>
-          Sorry, the page you are looking for doesn't exist or has been moved.
+          Sorry, the page you are looking for doesn&apos;t exist or has been
+          moved.
         </Text>
         <Button
           onClick={() => router.push("/")}

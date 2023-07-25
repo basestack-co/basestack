@@ -1,12 +1,12 @@
 import React from "react";
 // Layout
 import SettingsLayout from "layouts/Settings";
-// Modules
-import { CardList, CardListItem } from "modules/Settings/styles";
-import ProjectName from "modules/Settings/Cards/ProjectName";
-import DeleteProject from "modules/Settings/Cards/DeleteProject";
-import Endpoints from "modules/Settings/Cards/Endpoints";
-import Keys from "modules/Settings/Cards/Keys";
+// Components
+import { CardList, CardListItem } from "components/ProjectSettings/styles";
+import ProjectName from "components/ProjectSettings/ProjectName";
+import DeleteProject from "components/ProjectSettings/DeleteProject";
+import Endpoints from "components/ProjectSettings/Endpoints";
+import Keys from "components/ProjectSettings/Keys";
 // Types
 import { ProjectSettings } from "types";
 import { Role } from "@prisma/client";

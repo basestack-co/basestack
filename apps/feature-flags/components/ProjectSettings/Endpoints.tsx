@@ -3,7 +3,7 @@ import React from "react";
 import { Text } from "@basestack/design-system";
 import { SettingCard } from "components";
 // Styles
-import { CardListItem } from "../styles";
+import { CardListItem } from "./styles";
 // Utils
 import { getBrowserUrl } from "utils/url";
 // Types

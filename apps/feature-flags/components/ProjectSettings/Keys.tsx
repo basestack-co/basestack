@@ -5,7 +5,7 @@ import { SettingCard } from "components";
 // Libs
 import { trpc } from "libs/trpc";
 // Styles
-import { CardListItem } from "../styles";
+import { CardListItem } from "./styles";
 // Utils
 import { createTable } from "utils/table";
 // Types
