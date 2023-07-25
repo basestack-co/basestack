@@ -79,7 +79,7 @@
     "@types/bcryptjs": "^2.4.2",
     "@types/jest": "^29.5.3",
     "@types/node": "^20.4.4",
-    "@types/react": "18.2.15",
+    "@types/react": "18.2.16",
     "@types/react-calendar": "^4.1.0",
     "@types/react-dom": "^18.2.7",
     "@types/request-ip": "^0.0.38",
@@ -95,7 +95,7 @@
     "next-transpile-modules": "10.0.1",
     "node-mocks-http": "^1.12.2",
     "prisma": "^5.0.0",
-    "turbo": "1.10.9",
+    "turbo": "1.10.11",
     "typescript": "^5.0.4"
   }
 }

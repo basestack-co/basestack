@@ -17,7 +17,7 @@ import {
   Avatar,
   HorizontalRule,
 } from "@basestack/design-system";
-import { AvatarDropdown } from "../components";
+import AvatarDropdown from "../../AvatarDropdown";
 import {
   BackDropCover,
   Container,

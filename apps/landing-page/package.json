@@ -46,7 +46,7 @@
     "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.5.3",
     "@types/node": "^20.4.4",
-    "@types/react": "18.2.15",
+    "@types/react": "18.2.16",
     "@types/react-dom": "^18.2.7",
     "@types/react-syntax-highlighter": "^15.5.6",
     "@types/styled-system": "^5.1.15",
@@ -59,7 +59,7 @@
     "lint-staged": "^13.1.0",
     "next-transpile-modules": "10.0.1",
     "node-mocks-http": "^1.12.1",
-    "turbo": "1.10.9",
+    "turbo": "1.10.11",
     "typescript": "^5.0.4"
   }
 }

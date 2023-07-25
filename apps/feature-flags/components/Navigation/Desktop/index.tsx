@@ -9,7 +9,9 @@ import {
   Text,
 } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
-import { ButtonLink, ProjectsMenu, AvatarDropdown } from "../components";
+import ButtonLink from "../ButtonLink";
+import ProjectsMenu from "../../ProjectsMenu";
+import AvatarDropdown from "../../AvatarDropdown";
 import { internalLinks, externalLinks } from "../data";
 // Router
 import { useRouter } from "next/router";
