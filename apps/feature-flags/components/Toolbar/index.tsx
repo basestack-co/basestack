@@ -5,7 +5,7 @@ import { useTheme } from "styled-components";
 import { Segment, Input, Pill } from "@basestack/design-system";
 import { Container, SegmentContainer } from "./styles";
 // Hooks
-import { useDebounce } from "@basestack/hooks";
+import { useDebounce } from "react-use";
 // Types
 import { SelectedView } from "types";
 

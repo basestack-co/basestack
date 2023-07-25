@@ -19,7 +19,7 @@ import { trpc } from "libs/trpc";
 import { generateSlug } from "random-word-slugs";
 import { slugify } from "@basestack/utils";
 // Hooks
-import { useDebounce } from "@basestack/hooks";
+import { useDebounce } from "react-use";
 import { IconButtonContainer, SlugContainer } from "./styles";
 
 export const FormSchema = z.object({
