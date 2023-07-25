@@ -5,7 +5,7 @@ import { getProviders, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Provider } from "../../types/nextAuth";
 // Components
-import SignIn from "../../modules/SignIn";
+import SignIn from "components/SignIn";
 
 interface SignInPageProps {
   providers: Provider;
@@ -14,8 +14,6 @@ interface SignInPageProps {
 const SignInPage = ({ providers }: SignInPageProps) => {
   const { status } = useSession();
   const router = useRouter();
-
-  console.log("status = ", status);
 
   useEffect(() => {
     if (status === "authenticated") {

@@ -5,15 +5,20 @@ import { getValue } from "@basestack/utils";
 // Inputs
 import schemas from "server/schemas";
 
+import { z } from "zod";
+
 export const flagRouter = router({
   all: protectedProcedure
-    .meta({
-      restricted: true,
-    })
-    .input(schemas.flag.input.all)
+    .input(
+      z.object({
+        projectId: z.string(),
+        limit: z.number().min(1).max(100).nullish(),
+        cursor: z.string().nullish(), // <-- "cursor" needs to exist, but can be any type
+        search: z.string().optional().nullable(),
+      }),
+    )
     .query(async ({ ctx, input }) => {
-      const skip = getValue(input.pagination, "skip", 0);
-      const take = getValue(input.pagination, "take", 50);
+      const limit = input.limit ?? 50;
 
       const search = input.search
         ? {
@@ -29,7 +34,7 @@ export const flagRouter = router({
         });
 
         if (env) {
-          const allFlags = await tx.flag.findMany({
+          const flags = await tx.flag.findMany({
             where: {
               environment: {
                 id: env.id,
@@ -39,11 +44,9 @@ export const flagRouter = router({
               },
               ...search,
             },
-            skip,
-            take,
-            orderBy: {
-              createdAt: "desc",
-            },
+            take: limit + 1, // get an extra item at the end which we'll use as next cursor
+            cursor: input.cursor ? { id: input.cursor } : undefined,
+            orderBy: [{ createdAt: "desc" }, { id: "desc" }],
             select: {
               id: true,
               slug: true,
@@ -55,40 +58,16 @@ export const flagRouter = router({
             },
           });
 
-          const flags = await Promise.all(
-            allFlags.map(async (flag) => {
-              const allEnvironments = await tx.flag.findMany({
-                where: { slug: flag.slug },
-                select: {
-                  enabled: true,
-                  environment: {
-                    select: {
-                      id: true,
-                      name: true,
-                    },
-                  },
-                },
-              });
+          let nextCursor: typeof input.cursor | undefined = undefined;
 
-              return {
-                ...flag,
-                environments: allEnvironments.map((item) => ({
-                  ...item.environment,
-                  enabled: item.enabled,
-                })),
-              };
-            }),
-          );
-
-          const totalFlags = await tx.flag.count();
+          if (flags.length > limit) {
+            const nextItem = flags.pop();
+            nextCursor = nextItem!.id;
+          }
 
           return {
             flags,
-            pagination: {
-              skip,
-              take,
-              total: totalFlags,
-            },
+            nextCursor,
           };
         } else {
           throw new TRPCError({
@@ -98,7 +77,67 @@ export const flagRouter = router({
         }
       });
     }),
+  total: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(schemas.flag.input.total)
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.$transaction(async (tx) => {
+        const env = await tx.environment.findFirst({
+          where: { isDefault: true, projectId: input.projectId },
+        });
 
+        if (env) {
+          const { _count } = await tx.flag.aggregate({
+            _count: { id: true },
+            where: {
+              environment: {
+                id: env.id,
+                project: {
+                  id: input.projectId,
+                },
+              },
+            },
+          });
+
+          return {
+            total: _count.id,
+          };
+        } else {
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "Could not find the default environment",
+          });
+        }
+      });
+    }),
+  environments: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(schemas.flag.input.environments)
+    .query(async ({ ctx, input }) => {
+      const allEnvironments = await ctx.prisma.flag.findMany({
+        where: { slug: input.slug },
+        select: {
+          enabled: true,
+          environment: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      });
+
+      return {
+        environments: allEnvironments.map((item) => ({
+          ...item.environment,
+          enabled: item.enabled,
+        })),
+      };
+    }),
   bySlug: protectedProcedure
     .meta({
       restricted: true,

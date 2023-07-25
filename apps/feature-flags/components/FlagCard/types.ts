@@ -15,14 +15,6 @@ export interface FlagCardProps extends SpaceProps, PositionProps {
    */
   date: string;
   /**
-   * Environments where flag is created
-   */
-  environments: Array<{
-    id: string;
-    name: string;
-    enabled: boolean;
-  }>;
-  /**
    * Popup items array
    */
   popupItems: Array<PopupItemsProps>;
@@ -34,4 +26,12 @@ export interface FlagCardProps extends SpaceProps, PositionProps {
    * Shows icon with tooltip alerting the flag has payload
    */
   hasPayload?: boolean;
+  /**
+   * Card slug
+   */
+  slug: string;
+  /**
+   * Card project id
+   */
+  projectId: string;
 }

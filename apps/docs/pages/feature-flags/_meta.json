@@ -1,11 +1,7 @@
 {
   "index": "Overview",
   "quick-start": "Quick Start",
-  "features": "Dashboard & Concepts",
   "sdks": "SDKs",
   "guides": "Guides",
-  "deployment": "Self-Hosting",
-  "-": {
-    "type": "separator"
-  }
+  "deployment": "Self-Hosting"
 }

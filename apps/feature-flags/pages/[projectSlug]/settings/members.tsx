@@ -2,8 +2,8 @@ import React from "react";
 // Layout
 import SettingsLayout from "layouts/Settings";
 // Modules
-import { CardList, CardListItem } from "modules/Settings/styles";
-import Invite from "modules/Settings/Cards/Invite";
+import { CardList, CardListItem } from "components/ProjectSettings/styles";
+import Invite from "components/ProjectSettings/Invite";
 // Types
 import { ProjectSettings } from "types";
 
