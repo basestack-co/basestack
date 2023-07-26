@@ -6,7 +6,7 @@ export interface SkeletonProps {
   numberOfItems?: number;
   gapBetweenItems?: number;
   backgroundColor?: string;
-  padding?: number;
+  padding?: number | string;
   displayInline?: boolean;
   hasShadow?: boolean;
   items: Array<{
@@ -18,8 +18,6 @@ export interface SkeletonProps {
     isRound?: boolean;
   }>;
 }
-
-// {Array.from(Array(3).keys()).map((item) => (
 
 const Skeleton = ({
   numberOfItems = 1,

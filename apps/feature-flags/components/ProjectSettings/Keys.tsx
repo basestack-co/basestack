@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { useTheme } from "styled-components";
 import { useMediaQuery } from "@basestack/hooks";
 // Components
-import { Loader, Spinner, Table } from "@basestack/design-system";
+import { Loader, Skeleton, Table } from "@basestack/design-system";
 import SettingCard from "../SettingCard";
 import MobileCard from "../MobileCard";
 // Libs
@@ -64,7 +64,16 @@ const KeysCard = ({ project }: Props) => {
     >
       {isLoading || !data ? (
         <Loader>
-          <Spinner size="large" />
+          <Skeleton
+            items={[
+              { h: 25, w: "15%", mb: 10 },
+              { h: 1, w: "100%", mb: 10 },
+              { h: 50, w: "100%", mb: 10 },
+              { h: 50, w: "100%" },
+            ]}
+            padding={20}
+            hasShadow={false}
+          />
         </Loader>
       ) : (
         <>{getContent()}</>

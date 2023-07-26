@@ -23,9 +23,12 @@ const flexRow = css`
   flex-direction: row;
 `;
 
+const getValue = (value: number | string) =>
+  typeof value === "string" ? value : rem(`${value}px`);
+
 export const Container = styled.div<{
   backgroundColor?: string;
-  padding?: number;
+  padding?: number | string;
   hasShadow?: boolean;
   marginBottom: number;
 }>`
@@ -33,8 +36,7 @@ export const Container = styled.div<{
   background-color: ${({ theme, backgroundColor }) =>
     backgroundColor || theme.skeleton.backgroundColor};
   border-radius: ${rem("4px")};
-  padding: ${({ theme, padding }) =>
-    typeof padding === "number" ? rem(`${padding}px`) : theme.spacing.s5};
+  padding: ${({ theme, padding }) => getValue(padding || theme.spacing.s5)};
 
   ${({ hasShadow, theme }) =>
     hasShadow &&
@@ -51,9 +53,6 @@ export const Wrapper = styled.div<{ displayInline?: boolean }>`
   ${({ displayInline }) => (displayInline ? flexRow : flexColumn)};
   animation: ${pulsate} 1.2s infinite linear;
 `;
-
-const getValue = (value: number | string) =>
-  typeof value === "string" ? value : rem(`${value}px`);
 
 export const Item = styled.div<{
   height: number;
