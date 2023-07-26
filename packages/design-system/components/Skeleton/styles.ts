@@ -36,7 +36,12 @@ export const Container = styled.div<{
   background-color: ${({ theme, backgroundColor }) =>
     backgroundColor || theme.skeleton.backgroundColor};
   border-radius: ${rem("4px")};
-  padding: ${({ theme, padding }) => getValue(padding || theme.spacing.s5)};
+  padding: ${({ theme, padding }) =>
+    getValue(
+      typeof padding === "string" || typeof padding === "number"
+        ? padding
+        : theme.spacing.s5,
+    )};
 
   ${({ hasShadow, theme }) =>
     hasShadow &&
