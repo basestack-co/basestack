@@ -7,6 +7,12 @@ export const Labels = styled.div`
   gap: ${({ theme }) => theme.spacing.s1};
 `;
 
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: ${({ theme }) => theme.spacing.s3};
+`;
+
 export const PopupWrapper = styled.div`
   height: 0;
 `;
