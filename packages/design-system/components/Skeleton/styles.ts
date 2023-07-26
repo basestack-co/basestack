@@ -27,19 +27,24 @@ export const Container = styled.div<{
   backgroundColor?: string;
   padding?: number;
   hasShadow?: boolean;
+  marginBottom: number;
 }>`
   ${flexColumn};
   background-color: ${({ theme, backgroundColor }) =>
     backgroundColor || theme.skeleton.backgroundColor};
   border-radius: ${rem("4px")};
   padding: ${({ theme, padding }) =>
-    padding ? rem(`${padding}px`) : theme.spacing.s5};
+    typeof padding === "number" ? rem(`${padding}px`) : theme.spacing.s5};
 
   ${({ hasShadow, theme }) =>
     hasShadow &&
     css`
       box-shadow: ${theme.shadow.elevation2};
     `}
+
+  &:not(:last-child) {
+    margin-bottom: ${({ marginBottom }) => `${marginBottom}px`};
+  }
 `;
 
 export const Wrapper = styled.div<{ displayInline?: boolean }>`
@@ -56,13 +61,16 @@ export const Item = styled.div<{
   marginBottom?: number | string;
   marginRight?: number | string;
   marginLeft?: number | string;
+  isRound?: boolean;
 }>`
   ${flexColumn};
   background-color: ${({ theme }) => theme.skeleton.color};
-  border-radius: ${rem("6px")};
   height: ${({ height }) => rem(`${height}px`)};
   width: ${({ width }) => getValue(width || 0)};
   margin-bottom: ${({ marginBottom }) => getValue(marginBottom || 0)};
   margin-right: ${({ marginRight }) => getValue(marginRight || 0)};
   margin-left: ${({ marginLeft }) => getValue(marginLeft || 0)};
+  border-radius: ${({ isRound }) => (isRound ? "50%" : rem("6px"))};
+  flex-shrink: ${({ width }) =>
+    typeof width === "string" && width.includes("%") ? "initial" : 0};
 `;
