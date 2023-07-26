@@ -15,15 +15,15 @@ export interface FlagRowProps extends SpaceProps, PositionProps {
    */
   date: string;
   /**
-   * Environments where flag is created
-   */
-  environments: Array<{
-    id: string;
-    name: string;
-    enabled: boolean;
-  }>;
-  /**
    * Popup items array
    */
   popupItems: Array<PopupItemsProps>;
+  /**
+   * Card slug
+   */
+  slug: string;
+  /**
+   * Card project id
+   */
+  projectId: string;
 }
