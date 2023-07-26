@@ -16,8 +16,11 @@ const GlobalStyle = createGlobalStyle`
     
     body {
       font-family: ${({ theme }) => theme.typography.roboto};
-      background-color: ${({ theme }) =>
-        theme.colors[theme.isDarkMode ? "gray900" : "gray50"]};
+      ${({ theme }) =>
+        typeof window !== "undefined" &&
+        `background-color: ${
+          theme.colors[theme.isDarkMode ? "gray900" : "gray50"]
+        };`}
     }
     
     #__next {
