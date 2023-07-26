@@ -1,6 +1,6 @@
 import { forwardRef, memo } from "react";
 import { useTheme } from "styled-components";
-import { IconButtonProps } from "./types";
+import { IconButtonProps, Variant as IconButtonVariant } from "./types";
 import Icon, { Size as IconSize } from "../Icon";
 import { StyledButton } from "./styles";
 
@@ -71,6 +71,6 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 
 IconButton.displayName = "IconButton";
 
-export { type IconButtonProps };
+export { type IconButtonProps, type IconButtonVariant };
 
 export default memo(IconButton);

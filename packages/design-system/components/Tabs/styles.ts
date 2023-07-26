@@ -2,7 +2,27 @@ import styled from "styled-components";
 import { rem } from "polished";
 import { space } from "styled-system";
 
-export const Container = styled.div<{ backgroundColor?: string }>`
+export const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+`;
+
+export const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  scroll-behavior: smooth;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+export const Wrapper = styled.div<{ backgroundColor?: string }>`
   ${space};
   display: flex;
   background-color: ${({ theme, backgroundColor }) =>
@@ -17,6 +37,7 @@ export const Button = styled.button<{
   border: none;
   background-color: ${({ theme }) => theme.tabs.button.backgroundColor};
   cursor: pointer;
+  min-width: ${rem("110px")};
   height: ${rem("44px")};
   display: flex;
   align-items: center;
@@ -38,6 +59,7 @@ export const Slider = styled.div<{
   translateX: number | string;
   activeBorderColor?: string;
 }>`
+  min-width: ${rem("110px")};
   position: absolute;
   pointer-events: none;
   z-index: 2;
