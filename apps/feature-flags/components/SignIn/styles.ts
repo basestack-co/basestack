@@ -13,7 +13,8 @@ export const Container = styled.div`
 `;
 
 export const LeftContainer = styled.div`
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) =>
+    theme.colors[theme.isDarkMode ? "blue500" : "primary"]};
   padding: ${({ theme }) => theme.spacing.s8};
 
   @media screen and ${({ theme }) => theme.device.max.lg} {

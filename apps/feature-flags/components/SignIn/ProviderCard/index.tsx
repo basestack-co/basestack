@@ -22,15 +22,19 @@ const ProviderCard = ({
   onClick,
   providerLogo,
 }: ProviderCardProps) => {
-  const theme = useTheme();
+  const { colors, isDarkMode } = useTheme();
 
   return (
     <Card onClick={onClick}>
-      <ProviderContainer>
+      <ProviderContainer hasProviderLogo={!!providerLogo}>
         {providerLogo ? (
           providerLogo
         ) : (
-          <Icon icon="domain" size="xLarge" color={theme.colors.black} />
+          <Icon
+            icon="domain"
+            size="xLarge"
+            color={colors[isDarkMode ? "gray400" : "black"]}
+          />
         )}
       </ProviderContainer>
       <TextContainer>
@@ -40,7 +44,11 @@ const ProviderCard = ({
         </Text>
       </TextContainer>
       <IconContainer className="arrow-icon">
-        <Icon icon="arrow_forward" size="medium" color={theme.colors.primary} />
+        <Icon
+          icon="arrow_forward"
+          size="medium"
+          color={colors[isDarkMode ? "gray300" : "primary"]}
+        />
       </IconContainer>
     </Card>
   );

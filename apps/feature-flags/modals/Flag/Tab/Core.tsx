@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 // Components
 import { useTheme } from "styled-components";
-import { InputGroup, Text, Switch } from "@basestack/design-system";
+import { InputGroup, Text, Switch, Skeleton } from "@basestack/design-system";
 // Form
 import { Controller } from "react-hook-form";
 import { FlagFormInputs, EnvironmentInput } from "../types";
@@ -105,7 +105,6 @@ const CoreTab = ({
           />
         )}
       />
-
       <Text
         fontWeight={500}
         mb={theme.spacing.s2}
@@ -114,9 +113,21 @@ const CoreTab = ({
       >
         Environment{isCreate ? "s" : ""}
       </Text>
-      <Environments>
-        {environments &&
-          environments.map(({ id, name, enabled }) => {
+      {!environments && (
+        <Skeleton
+          displayInline
+          items={[
+            { h: 24, w: "20%", mr: 10 },
+            { h: 24, w: "25%", mr: 10 },
+            { h: 24, w: "20%" },
+          ]}
+          hasShadow={false}
+          padding="8px 0"
+        />
+      )}
+      {environments && (
+        <Environments>
+          {environments.map(({ id, name, enabled }) => {
             return (
               <Switch
                 key={`create-flag-env-${id}`}
@@ -130,7 +141,8 @@ const CoreTab = ({
               />
             );
           })}
-      </Environments>
+        </Environments>
+      )}
     </>
   );
 };

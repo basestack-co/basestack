@@ -14,11 +14,18 @@ import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
+  Skeleton,
 } from "@basestack/design-system";
 // Styles
 import { useTheme } from "styled-components";
 import { animated } from "react-spring";
-import { Labels, PopupWrapper, Footer, TooltipContainer } from "./styles";
+import {
+  Labels,
+  PopupWrapper,
+  Footer,
+  TooltipContainer,
+  LoadingContainer,
+} from "./styles";
 // Types
 import { FlagCardProps } from "./types";
 
@@ -102,18 +109,34 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
         <Text data-testid="flag-description" size="small" mb={theme.spacing.s3}>
           {description}
         </Text>
-        <Labels data-testid="flag-labels">
-          {data?.environments
-            .filter((item) => !!item.name)
-            .map((environment) => (
-              <Label
-                key={environment.id}
-                testId={`${environment.name}-flag-label`}
-                text={environment.name}
-                variant={environment.enabled ? "success" : "default"}
-              />
-            ))}
-        </Labels>
+        {!data?.environments && (
+          <LoadingContainer>
+            <Skeleton
+              displayInline
+              items={[
+                { h: 24, w: "20%", mr: 4 },
+                { h: 24, w: "25%", mr: 4 },
+                { h: 24, w: "20%" },
+              ]}
+              hasShadow={false}
+              padding={0}
+            />
+          </LoadingContainer>
+        )}
+        {!!data?.environments && (
+          <Labels data-testid="flag-labels">
+            {data?.environments
+              .filter((item) => !!item.name)
+              .map((environment) => (
+                <Label
+                  key={environment.id}
+                  testId={`${environment.name}-flag-label`}
+                  text={environment.name}
+                  variant={environment.enabled ? "success" : "default"}
+                />
+              ))}
+          </Labels>
+        )}
         <Footer>
           <Text data-testid="flag-date" mt="auto" size="small" muted mr="auto">
             {date}
