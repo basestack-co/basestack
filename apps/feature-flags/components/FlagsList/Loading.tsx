@@ -24,14 +24,12 @@ const Loading = ({ selectedView }: LoadingProps) => {
 
   return (
     <Container>
-      {Array.from(Array(3).keys()).map((item) => (
-        <Skeleton
-          key={item}
-          items={items}
-          padding={selectedView === "cards" ? 20 : 14}
-          displayInline={selectedView !== "cards"}
-        />
-      ))}
+      <Skeleton
+        numberOfItems={3}
+        items={items}
+        padding={selectedView === "cards" ? 20 : 14}
+        displayInline={selectedView !== "cards"}
+      />
     </Container>
   );
 };

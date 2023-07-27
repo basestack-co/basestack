@@ -12,6 +12,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
+  Skeleton,
 } from "@basestack/design-system";
 // Styles
 import { useTheme } from "styled-components";
@@ -67,6 +68,18 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
       >
         <CardWrapper>
           <Labels data-testid="flag-labels">
+            {!data?.environments && (
+              <Skeleton
+                displayInline
+                items={[
+                  { h: 14, w: 14, isRound: true },
+                  { h: 14, w: 14, ml: -4, isRound: true },
+                  { h: 14, w: 14, ml: -4, isRound: true },
+                ]}
+                hasShadow={false}
+                padding={0}
+              />
+            )}
             {data?.environments.map((environment, index, { length }) => (
               <TooltipContainer
                 key={environment.id}

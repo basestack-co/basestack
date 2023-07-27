@@ -42,8 +42,8 @@ const getProviderLogo = (provider: providers) => {
 
 const SignIn = ({ providers, isLoading = false }: SignInProps) => {
   const [isProcessing, setIsProcessing] = useState(false);
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.device.min.lg);
+  const { colors, isDarkMode, device, spacing } = useTheme();
+  const isDesktop = useMediaQuery(device.min.lg);
 
   return (
     <Container>
@@ -53,7 +53,7 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
           fontWeight={700}
           lineHeight="1.6"
           fontFamily="robotoFlex"
-          color={theme.colors.white}
+          color={colors[isDarkMode ? "gray200" : "white"]}
         >
           Basestack
         </Text>
@@ -61,8 +61,8 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
           size="xxLarge"
           lineHeight="1.4"
           fontFamily="robotoFlex"
-          color={theme.colors.white}
-          mt={isDesktop ? rem("120px") : theme.spacing.s6}
+          color={colors[isDarkMode ? "gray200" : "white"]}
+          mt={isDesktop ? rem("120px") : spacing.s6}
           fontWeight={800}
         >
           The Open-Source Stack for Developers and Startups
@@ -71,8 +71,8 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
           size="medium"
           fontWeight={400}
           lineHeight="1.6"
-          color={theme.colors.gray100}
-          mt={theme.spacing[isDesktop ? "s6" : "s4"]}
+          color={colors[isDarkMode ? "gray300" : "gray100"]}
+          mt={spacing[isDesktop ? "s6" : "s4"]}
         >
           Unlock Your Product Potential: Empower Your Team with Feature Flagging
         </Text>
@@ -84,7 +84,11 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
           </LoadingContainer>
         )}
         <RightWrapper>
-          <Text size="xxLarge" lineHeight="1.6" color={theme.colors.black}>
+          <Text
+            size="xxLarge"
+            lineHeight="1.6"
+            color={colors[isDarkMode ? "gray300" : "black"]}
+          >
             Choose the type of login
           </Text>
           <Text
@@ -92,7 +96,7 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
             fontWeight={400}
             lineHeight="1.6"
             muted
-            mt={theme.spacing.s2}
+            mt={spacing.s2}
           >
             Select Your Destination: Choose Your Login Service to Access.
           </Text>

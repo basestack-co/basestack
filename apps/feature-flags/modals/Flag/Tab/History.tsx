@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 // Components
-import { Loader, Spinner } from "@basestack/design-system";
+import { Skeleton } from "@basestack/design-system";
 import { HistoryCard } from "components";
 // Server
 import { trpc } from "libs/trpc";
@@ -55,11 +55,20 @@ const HistoryTab = ({ projectId, flagId }: Props) => {
     return <div>No history for this feature flag.</div>;
   }, [data]);
 
-  if (isLoading) {
+  if (isLoading || !data?.history.length) {
     return (
-      <Loader>
-        <Spinner size="large" />
-      </Loader>
+      <Skeleton
+        numberOfItems={2}
+        gapBetweenItems={24}
+        displayInline
+        items={[
+          { h: 40, w: 40, mr: 20, isRound: true },
+          { h: 28, w: 28, mr: 12, isRound: true },
+          { h: 47, w: "100%" },
+        ]}
+        hasShadow={false}
+        padding={0}
+      />
     );
   }
 

@@ -40,13 +40,11 @@ export const PopupWrapper = styled.div`
 `;
 
 export const TooltipContainer = styled.div<{ index: number; length: number }>`
-  z-index: ${({ length, index }) => length - index};
-
   &:not(:first-child) {
-    transform: ${({ index }) => `translateX(-${index * 4}px)`};
+    margin-left: -4px;
   }
 
   &:hover {
-    z-index: ${({ length }) => length + 1};
+    z-index: 10;
   }
 `;

@@ -1,9 +1,10 @@
-import { memo } from "react";
+import { memo, useEffect, useState, useRef } from "react";
 import { useTheme } from "styled-components";
 import { SpaceProps } from "styled-system";
+import IconButton from "../IconButton";
 import Text from "../Text";
 import { Size } from "../Text/types";
-import { Container, Button, Slider } from "./styles";
+import { Container, Button, Slider, Wrapper, ContentContainer } from "./styles";
 
 type Item = {
   id: string;
@@ -62,40 +63,102 @@ const Tabs = ({
   ...props
 }: TabsProps) => {
   const theme = useTheme();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const checkScrollPossibility = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth, scrollWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth);
+    }
+  };
+
+  useEffect(() => {
+    checkScrollPossibility();
+
+    if (scrollRef.current) {
+      scrollRef.current.addEventListener("scroll", checkScrollPossibility);
+    }
+
+    const handleWindowResize = () => {
+      checkScrollPossibility();
+    };
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      if (scrollRef.current) {
+        scrollRef.current.removeEventListener("scroll", checkScrollPossibility);
+      }
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
+  const renderIconButton = (position: "right" | "left") => {
+    const isLeftButton = position === "left";
+    return (
+      <IconButton
+        onClick={() => {
+          if (scrollRef.current) {
+            isLeftButton
+              ? (scrollRef.current.scrollLeft -= 110)
+              : (scrollRef.current.scrollLeft += 110);
+          }
+        }}
+        variant="secondary"
+        position="absolute"
+        top="6px"
+        zIndex={3}
+        {...(isLeftButton
+          ? { left: "-1px", icon: "arrow_back" }
+          : { right: "-1px", icon: "arrow_forward" })}
+      />
+    );
+  };
 
   return (
-    <Container
-      backgroundColor={backgroundColor}
-      data-testid="tabs-component"
-      {...props}
-    >
-      {items &&
-        items.map((item: Item) => {
-          return (
-            <Button
-              key={`tab-${item.id}`}
-              data-testid="tab-button"
-              onClick={() => onSelect(item.id)}
-              borderColor={borderColor}
-              hoverBgColor={hoverBgColor}
-            >
-              {!!item.text && (
-                <Text
-                  fontWeight="500"
-                  size={textSize}
-                  color={textColor || theme.tabs.color}
+    <Container>
+      {canScrollLeft && renderIconButton("left")}
+      {canScrollRight && renderIconButton("right")}
+      <ContentContainer ref={scrollRef}>
+        <Wrapper
+          backgroundColor={backgroundColor}
+          data-testid="tabs-component"
+          {...props}
+        >
+          {items &&
+            items.map((item: Item, index) => {
+              return (
+                <Button
+                  key={`tab-${item.id}`}
+                  data-testid="tab-button"
+                  onClick={() => onSelect(item.id)}
+                  borderColor={borderColor}
+                  hoverBgColor={hoverBgColor}
                 >
-                  {item.text}
-                </Text>
-              )}
-            </Button>
-          );
-        })}
-      <Slider
-        activeBorderColor={activeBorderColor}
-        translateX={sliderPosition * 100}
-        numberOfItems={items.length}
-      />
+                  {!!item.text && (
+                    <Text
+                      fontWeight="500"
+                      size={textSize}
+                      color={textColor || theme.tabs.color}
+                      flexShrink={0}
+                      lineTruncate
+                    >
+                      {item.text}
+                    </Text>
+                  )}
+                </Button>
+              );
+            })}
+          <Slider
+            activeBorderColor={activeBorderColor}
+            translateX={sliderPosition * 100}
+            numberOfItems={items.length}
+          />
+        </Wrapper>
+      </ContentContainer>
     </Container>
   );
 };

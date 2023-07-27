@@ -34,7 +34,7 @@ interface FlagCardsProps {
   searchValue: string;
 }
 
-const defaultLimit = 2;
+const defaultLimit = 4;
 
 const FlagCards = ({
   selectedView,
@@ -158,7 +158,6 @@ const FlagCards = ({
                     isExpired={dayjs().isAfter(dayjs(flag.expiredAt))}
                     hasPayload={hasPayload}
                     key={flag.id}
-                    zIndex={flags.length - index}
                     title={flag.slug}
                     slug={flag.slug}
                     description={flag.description ?? ""}
