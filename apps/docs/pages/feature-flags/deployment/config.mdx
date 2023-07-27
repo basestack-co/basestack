@@ -1,3 +1,105 @@
-# Deploy to Vercel
+import { Callout } from "nextra/components";
 
-Satori (悟り) is a Japanese Buddhist term for awakening, "comprehension; understanding".
+# Deployment Configuration
+
+## Environment Variables
+
+The platform has a simple configuration so we have a set of environment variables necessary to configure the services to run the platform.
+
+### Database Configuration
+
+Ensure that the PostgreSQL service or instance supports serverless environments. Any traditional instance of PostgreSQL with connection pooling, such as [PgBouncer ↗](https://www.pgbouncer.org/), will work effectively.
+
+Examples:
+
+- [Neon - Serverless Postgres](/feature-flags/guides/database/neon)
+
+| Property              | Description                                               | Required |
+| --------------------- | --------------------------------------------------------- | -------- |
+| `DATABASE_URL`        | Connection URL to your database using PgBouncer.          | true     |
+| `DIRECT_DATABASE_URL` | Direct connection URL to the database used for migrations | true     |
+
+### Authentication Configuration
+
+### General
+
+For the `NEXTAUTH_SECRET` variable you can use `openssl rand -base64 32` or generate a [random value](https://generate-secret.vercel.app/32).
+
+| Property          | Description                                                                 | Required | Example                                           |
+| ----------------- | --------------------------------------------------------------------------- | -------- | ------------------------------------------------- |
+| `NEXTAUTH_SECRET` | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. | true     | [generate](https://generate-secret.vercel.app/32) |
+| `NEXTAUTH_URL`    | Set to the canonical URL of your site                                       | true     | https://your-basestack-instance.com               |
+
+### Providers
+
+Authentication Providers in the Platform are services that can be used for you and your team to sign in. Check the list below for the supported providers.
+
+<Callout type="info" emoji="ℹ️">
+  You can have more than one Auth providers on the platform providing more
+  options but at least one has to be configured
+</Callout>
+
+- [Github Configuration](/feature-flags/guides/authentication/github-config)
+- [Auth0 Configuration](/feature-flags/guides/authentication/auth0-config)
+
+### API Configuration
+
+#### Rate Limit Configuration
+
+| Property                                 | Description          | Required | Example  |
+| ---------------------------------------- | -------------------- | -------- | -------- |
+| `API_RATE_LIMIT_MAX`                     | Requests per minute  | false    | 60       |
+| `API_RATE_LIMIT_WINDOW_MS`               | In seconds           | false    | 60\*1000 |
+| `API_RATE_LIMIT_UNIQUE_TOKEN_PER_SECOND` | Max users per second | false    | 1000     |
+
+#### CORS Configuration
+
+| Property                          | Description                                                                             | Required | Example |
+| --------------------------------- | --------------------------------------------------------------------------------------- | -------- | ------- |
+| `API_ACCESS_CONTROL_ALLOW_ORIGIN` | Indicates whether the response can be shared with requesting code from the given origin | false    | \*      |
+
+### Local File
+
+```bash copy showLineNumbers filename=".env"
+# DATABASE
+
+# Connection URL to your database using PgBouncer.
+DATABASE_URL=
+
+# Direct connection URL to the database used for migrations
+DIRECT_DATABASE_URL=
+
+# AUTHENTICATION
+
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=
+
+# AUTHENTICATION - GITHUB
+# NextAuth.js with GitHub as a provider
+# See more documentation here: https://next-auth.js.org/providers/github
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+
+# AUTHENTICATION - AUTH0
+# NextAuth.js with Auth0 as a provider
+# See more documentation here: https://next-auth.js.org/providers/auth0
+AUTH0_CLIENT_ID=
+AUTH0_CLIENT_SECRET=
+AUTH0_DOMAIN=
+
+
+# RATE LIMIT - API CONFIGURATION
+
+# Requests per minute
+API_RATE_LIMIT_MAX=60
+
+# in seconds
+API_RATE_LIMIT_WINDOW_MS=60*1000
+
+# Max users per second
+API_RATE_LIMIT_UNIQUE_TOKEN_PER_SECOND=1000
+
+# CORS - API CONFIGURATION
+
+API_ACCESS_CONTROL_ALLOW_ORIGIN="http://localhost:3000"
+```

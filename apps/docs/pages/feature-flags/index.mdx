@@ -1,8 +1,8 @@
 import { Card, Cards, Callout } from "nextra/components";
 
-export function FAQBox({ title, children }) {
+export function FAQBox({ title, children, isOpen = true }) {
   return (
-    <details open>
+    <details open={isOpen}>
       <summary>
         <strong className="text-lg">{title}</strong>
       </summary>
@@ -19,7 +19,7 @@ In this quick start guide, we demonstrate just how effortless it is to host the 
 
 ## Quick Start
 
-The purpose of this quick start is to simplify the platform launch process, allowing you to start testing your product's features with ease. We've chosen the Vercel option for its widespread recognition and prioritization of user experience within the community. Let's get you up and running smoothly!
+The purpose of this quick start is to simplify the platform deployment process, allowing you to start testing your product's features with ease. We've chosen the Vercel option for its widespread recognition and prioritization of user experience within the community. Let's get you up and running smoothly!
 
 ### Deploy to Vercel
 
@@ -30,9 +30,10 @@ Quick deploy to [Vercel ↗](https://vercel.com/) with a simple click on the dep
 Clicking on the button above [Vercel ↗](https://vercel.com/) will fork the [Basestack Platform](https://github.com/Storytics/monolock) repository and deploy the platform for you. After the initial deployment, every commit made to the forked repository will trigger automatic deployment. This ensures seamless control over platform updates, bug fixes, and new feature releases.
 
 <FAQBox title="Vercel Configuration">
-  Please review the detailed configuration for aspects such as Environment Variables, Database Configuration, Start and Build Commands, and more.
+  Please review the detailed [configuration](/feature-flags/deployment/deploy-vercel) for aspects such as Environment Variables, Database Configuration, Start and Build Commands, and more.
 
 - [Environment Variables](/feature-flags/deployment/deploy-vercel)
+- [Authentication Configuration](/feature-flags/deployment/deploy-vercel)
 - [Database Configuration](/feature-flags/deployment/deploy-vercel)
 - [Start and Build Commands](/feature-flags/deployment/deploy-vercel)
 - [Getting Platform Updates](/feature-flags/deployment/updates)
@@ -54,11 +55,29 @@ Alternatively, you have the option to manually fork the [Basestack Platform repo
 
 After hosting our Feature Flags Platform, take a look at our official SDKs designed to accelerate feature releases in your products.
 
+<Cards>
+  <Card
+    icon={<span className="material-symbols-outlined">data_object</span>}
+    title="Rest API"
+    href="/feature-flags/sdks/rest-api"
+  />
+  <Card
+    icon={<span className="material-symbols-outlined">javascript</span>}
+    title="Javascript & Node"
+    href="/feature-flags/sdks/javascript"
+  />
+  <Card
+    icon={<span className="material-symbols-outlined">code</span>}
+    title="React"
+    href="/feature-flags/sdks/react"
+  />
+</Cards>
+
 ## Frequently Asked Questions (FAQs)
 
 Explore our collection of useful questions and answers about the Feature Flags Platform. If you don't find the answer to your question here, feel free to [open a discussion](https://github.com/Storytics/monolock/discussions). We're here to help!
 
-<FAQBox title="What are the requirements for self-hosting">
+<FAQBox title="What are the requirements for self-hosting" isOpen={false}>
   Any service that can host your [NextJS ↗](https://nextjs.org/) applications
   with serverless function support and provide a Postgres database compatible
   with serverless environments will work seamlessly. Consider services such as
@@ -67,8 +86,8 @@ Explore our collection of useful questions and answers about the Feature Flags P
   ↗](https://www.pgbouncer.org/).
 </FAQBox>
 
-<FAQBox title="What are the supported databases?">
-  The platform utilizes PostgreSQL as the database. The crucial aspect here is to ensure that the PostgreSQL service or instance supports serverless environments. To facilitate the hosting of the Feature Flags Platform, we have some suggestions that can simplify the launch process.
+<FAQBox title="What are the supported databases?" isOpen={false}>
+  The platform uses PostgreSQL as the database. The crucial aspect here is to ensure that the PostgreSQL service or instance supports serverless environments. To facilitate the hosting of the Feature Flags Platform, we have some suggestions that can simplify the deployment process.
 
 If you prefer not to use a third-party service, keep in mind that any traditional instance of PostgreSQL with connection pooling, such as [PgBouncer ↗](https://www.pgbouncer.org/), will work effectively.
 
