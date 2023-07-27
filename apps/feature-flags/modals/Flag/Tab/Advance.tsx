@@ -6,7 +6,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useClickAway } from "react-use";
 // Components
 import { useTheme } from "styled-components";
-import { Text, CalendarInput, Select } from "@basestack/design-system";
+import { Text, CalendarInput, Select, Tabs } from "@basestack/design-system";
 // Types
 import { EnvironmentInput, FlagFormInputs } from "../types";
 import { UseFormSetValue } from "react-hook-form";
@@ -69,28 +69,24 @@ const AdvanceTab = ({
 
   return (
     <>
-      {isUpdate && (
-        <>
-          <Text fontWeight={500} size="small" mb={theme.spacing.s2}>
-            Environment
-          </Text>
-          <Controller
-            name="memberId"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <Select
-                placeholder="Select environment to edit"
-                options={options}
-                onChange={(option) => console.log(option)}
-                isDisabled={false}
-                isLoading={false}
-                isClearable
-              />
-            )}
+      <Text fontWeight={500} size="small" mb={theme.spacing.s2}>
+        Environment
+      </Text>
+      <Controller
+        name="memberId"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Select
+            placeholder="Select environment to edit"
+            options={options}
+            onChange={(option) => console.log(option)}
+            isDisabled={false}
+            isLoading={false}
+            isClearable
           />
-        </>
-      )}
+        )}
+      />
       <CalendarInput
         ref={calendarInputRef}
         isCalenderOpen={isCalenderOpen}
@@ -112,7 +108,7 @@ const AdvanceTab = ({
           locale: "en-US",
           minDate: new Date(),
         }}
-        mt={isUpdate ? theme.spacing.s6 : 0}
+        mt={theme.spacing.s6}
       />
       <Text
         fontWeight={500}
