@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const StyledContent = styled.div`
   background-color: ${({ theme }) => theme.tooltip.backgroundColor};
+  box-shadow: ${({ theme }) => theme.shadow.elevation3};
   color: ${({ theme }) => theme.tooltip.color};
   padding: 4px 8px;
   border-radius: 4px;

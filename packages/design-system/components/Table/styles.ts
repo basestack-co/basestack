@@ -13,17 +13,12 @@ export const StyledRow = styled.div<{ numberOfColumns: number }>`
   display: grid;
   grid-template-columns:
     repeat(${({ numberOfColumns }) => numberOfColumns || 3}, 1fr)
-    auto;
+    36px;
   grid-gap: ${({ theme }) => theme.spacing.s5};
 
   &:not(:last-child) {
     border-bottom: 1px solid ${({ theme }) => theme.table.border};
   }
-`;
-
-export const Placeholder = styled.div`
-  min-width: ${rem("36px")};
-  pointer-events: none;
 `;
 
 export const Col = styled.div`

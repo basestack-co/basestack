@@ -119,6 +119,7 @@ const EnvironmentsCard = ({ project }: Props) => {
             isDisabled: !!item.isDefault,
           },
         ],
+        "",
       ),
 
     [isLoading, data, onHandleEdit, onHandleDelete, environments],

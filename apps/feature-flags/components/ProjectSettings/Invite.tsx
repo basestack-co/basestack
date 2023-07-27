@@ -173,6 +173,7 @@ const InviteCard = ({ project }: Props) => {
             : []),
         ];
       },
+      "",
     );
   }, [
     data,

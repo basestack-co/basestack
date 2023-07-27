@@ -25,17 +25,12 @@ const KeysCard = ({ project }: Props) => {
     !isLoading && !!data && !!data.keys ? data.keys.environments : [];
 
   const getTable = useMemo(() => {
-    const projectKey = data?.keys?.key;
-
     return createTable(
       environments,
-      ["Name", "Project Key", "Environment Key"],
-      (item) => [
-        { title: item.name },
-        { title: projectKey! },
-        { title: item.key! },
-      ],
+      ["Name", "Environment Key"],
+      (item) => [{ title: item.name }, { title: item.key!, hideText: true }],
       () => [],
+      "test",
     );
   }, [isLoading, data]);
 

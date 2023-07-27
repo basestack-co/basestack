@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
 import { useTheme } from "styled-components";
 import { animated } from "react-spring";
 import { getValue } from "@basestack/utils";
@@ -13,7 +13,6 @@ import {
   Container,
   ContentRow,
   PopupWrapper,
-  Placeholder,
   StyledLink,
   StyledRow,
 } from "./styles";
@@ -21,7 +20,32 @@ import { TableProps, RowProps, TableRowProps, TableColProps } from "./types";
 
 const AnimatedPopup = animated(Popup);
 
-const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
+const HideText = ({ title }: { title: string }) => {
+  const theme = useTheme();
+  const [isEyeVisible, setIsEyeVisible] = useState(false);
+
+  const renderDots = () =>
+    Array.from(Array(title.length).keys()).map((item) => (
+      <Fragment key={item}>•</Fragment>
+    ));
+
+  return (
+    <>
+      <IconButton
+        onClick={() => setIsEyeVisible((prevState) => !prevState)}
+        icon={isEyeVisible ? "visibility_off" : "visibility"}
+        variant="neutral"
+        mr={theme.spacing.s2}
+        size="small"
+      />
+      <Text fontWeight="400" size={isEyeVisible ? "small" : "large"}>
+        {isEyeVisible ? title : renderDots()}
+      </Text>
+    </>
+  );
+};
+
+const Row = ({ cols = [], more, numberOfCols, copyToClipboard }: RowProps) => {
   const theme = useTheme();
 
   const {
@@ -66,16 +90,20 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
                       mr={theme.spacing.s3}
                     />
                   )}
-                  <Text fontWeight="400" size="small">
-                    {col.title}
-                  </Text>
+                  {col.hideText ? (
+                    <HideText title={col.title} />
+                  ) : (
+                    <Text fontWeight="400" size="small">
+                      {col.title}
+                    </Text>
+                  )}
                 </ContentRow>
               )}
             </Col>
           );
         })}
-      <Col>
-        {more.length > 0 ? (
+      {!copyToClipboard && more.length > 0 && (
+        <Col>
           <PopupWrapper ref={popupWrapperRef}>
             <IconButton
               {...getReferenceProps}
@@ -99,10 +127,13 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
                 ),
             )}
           </PopupWrapper>
-        ) : (
-          <Placeholder />
-        )}
-      </Col>
+        </Col>
+      )}
+      {!!copyToClipboard && (
+        <Col>
+          <span>{copyToClipboard}</span>
+        </Col>
+      )}
     </StyledRow>
   );
 };
@@ -122,7 +153,6 @@ const Table = ({ data, ...props }: TableProps) => {
               </Col>
             );
           })}
-        <Placeholder />
       </StyledRow>
       {data.rows &&
         data.rows.map((row, index) => {
@@ -132,6 +162,7 @@ const Table = ({ data, ...props }: TableProps) => {
               cols={row.cols}
               more={data.rows.length > 1 ? row.more : []}
               numberOfCols={numberOfCols}
+              copyToClipboard={row.copyToClipboard}
             />
           );
         })}

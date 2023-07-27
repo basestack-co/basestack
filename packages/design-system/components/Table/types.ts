@@ -17,6 +17,10 @@ export type TableColProps = {
     src?: string;
     userName?: string;
   };
+  /**
+   * Optional eye icon to show and hide text
+   */
+  hideText?: boolean;
 };
 
 export type TableRowProps = {
@@ -28,6 +32,10 @@ export type TableRowProps = {
    * Popup items array
    */
   more: Array<PopupItemsProps>;
+  /**
+   * Optional copy at te end of the table
+   */
+  copyToClipboard?: string;
 };
 
 export interface TableData {
@@ -46,4 +54,5 @@ export interface RowProps {
   cols: Array<TableColProps>;
   more: Array<PopupItemsProps>;
   numberOfCols: number;
+  copyToClipboard?: string;
 }

@@ -448,6 +448,13 @@ const horizontalRule = {
   backgroundColor: colors.gray100,
 };
 
+const copyCard = {
+  backgroundColor: colors.gray50,
+  title: {
+    backgroundColor: colors.gray100,
+  }
+};
+
 const theme = {
   isDarkMode: false,
   button,
@@ -475,6 +482,7 @@ const theme = {
   tabs,
   tooltip,
   textarea,
+  copyCard,
   typography,
   colors,
   spacing,
