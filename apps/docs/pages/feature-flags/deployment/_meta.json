@@ -1,4 +1,5 @@
 {
   "config": "Configuration",
+  "updates": "Updates",
   "deploy-vercel": "Vercel"
 }

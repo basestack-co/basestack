@@ -1,0 +1,16 @@
+# Getting Updates
+
+When a platform fork is made, a copy of the code is made to your Github account or another Git-compatible service.
+
+When we make a new release your fork version will ask to fetch the new updates. By pulling these new changes to your copy and if you have a service like Vercel where you have automatic releases you will have the latest features in your hosted version
+
+You can also have control over the release by disabling automatic releases on platforms like Vercel and with this control you can locally test new changes in your version and see if it matches what you want before manually making a release.
+
+In order to get the latest updates, first pull the changes from the git repository:
+
+```bash copy"
+git pull
+yarn install
+yarn build
+yarn dev
+```

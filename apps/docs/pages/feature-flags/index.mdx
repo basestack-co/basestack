@@ -1,1 +1,81 @@
-# Overview
+import { Card, Cards } from "nextra/components";
+
+export function FAQBox({ title, children }) {
+  return (
+    <details open>
+      <summary>
+        <strong className="text-lg">{title}</strong>
+      </summary>
+      <div className="nx-p-2">{children}</div>
+    </details>
+  );
+}
+
+# Feature Flags Platform
+
+The Basestack Feature Flags is a self-hosting platform that offers a simple way to host your own Feature Flags management platform. The simplicity of hosting on services like Vercel allows any developer whether indie or in a startup to control their own features and control their own data. At the end of the day, the platform is housed in your account, in your services you control the data.
+
+In this quick start we show how easy it is to host the platform at Vercel and with a Database hosted at Neon. All services shown in this quick start have perfect free plans to experience the platform and evolve from there
+
+## Quick Start
+
+### Deploy to Vercel
+
+Quick deploy to [Vercel ↗](https://vercel.com/) using the on-click-deploy button below:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FStorytics%2Fmonolock&env=DATABASE_URL,DIRECT_DATABASE_URL,NEXTAUTH_SECRET,NEXTAUTH_URL,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET,API_RATE_LIMIT_MAX,API_RATE_LIMIT_WINDOW_MS,API_RATE_LIMIT_UNIQUE_TOKEN_PER_SECOND,API_ACCESS_CONTROL_ALLOW_ORIGIN&envDescription=Environment%20Variable%20Keys%20needed%20for%20Features%20Flags%20Platform&envLink=https%3A%2F%2Fdocs.basestack.co%2F&project-name=basestack-feature-flags&repository-name=basestack-feature-flags)
+
+[Vercel ↗](https://vercel.com/) will fork the
+[Basestack Platform](https://github.com/Storytics/monolock) and
+deploy the platform for you. Once done, every commit in the fork repository will be
+deployed automatically, this will be important to control updates to the platform, to receive bugs fixes and new features.
+
+<FAQBox title="Configuration">
+  Check detailed configuration for things like Environment Variables, Database Configuration, Start and Build Commands, etc.
+
+- [Environment Variables](/feature-flags/deployment/deploy-vercel)
+- [Database Configuration](/feature-flags/deployment/deploy-vercel)
+- [Start and Build Commands](/feature-flags/deployment/deploy-vercel)
+- [Getting Platform Updates](/feature-flags/deployment/updates)
+
+</FAQBox>
+
+### Fork the Platform
+
+You can also manually fork the
+[Basestack Platform repository](https://github.com/Storytics/monolock).
+
+## SDK´s
+
+After hosting our Feature Flags Platform check out our official SDK´s to help you accelarate feature release in your products.
+
+<Cards>
+  <Card
+    icon={<span className="material-symbols-outlined">data_object</span>}
+    title="Rest API"
+    href="/feature-flags/sdks/rest-api"
+  />
+  <Card
+    icon={<span className="material-symbols-outlined">javascript</span>}
+    title="Javascript & Node"
+    href="/feature-flags/sdks/javascript"
+  />
+  <Card
+    icon={<span className="material-symbols-outlined">code</span>}
+    title="React"
+    href="/feature-flags/sdks/react"
+  />
+</Cards>
+
+## Frequently Asked Questions (FAQs)
+
+A collection of useful questions and answers about the
+Feature Flags Platform. If you have a question that isn't answered here, please
+[open a discussion](https://github.com/Storytics/monolock/discussions).
+
+<FAQBox title="What are the requirements for self-hosting">
+  Any service that can host me NextJS applications with support for serverless
+  functions and a Postgress database with support for serverless environments,
+  like Neon, Supabase or a tradicional Postgress with support for a connection
+  pooling like PgBouncer.
+</FAQBox>
