@@ -9,14 +9,14 @@ export function createTable<T>(
   headers: Array<string>,
   cols: (item: T, index: number, length: number) => Array<TableColProps>,
   more: (item: T, index: number, length: number) => Array<PopupItemsProps>,
-  copyToClipboard: string,
+  copy: (item: T) => string,
 ) {
   if (!!data) {
     const rows = data.map((item, index, { length }) => {
       const row: TableRowProps = {
         cols: cols(item, index, length),
         more: more(item, index, length),
-        copyToClipboard,
+        copyToClipboard: copy(item),
       };
 
       return row;

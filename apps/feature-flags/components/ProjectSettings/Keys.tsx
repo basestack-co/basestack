@@ -30,7 +30,7 @@ const KeysCard = ({ project }: Props) => {
       ["Name", "Environment Key"],
       (item) => [{ title: item.name }, { title: item.key!, hideText: true }],
       () => [],
-      "test",
+      () => "Key",
     );
   }, [isLoading, data]);
 

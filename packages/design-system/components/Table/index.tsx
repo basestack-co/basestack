@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React from "react";
 import { useTheme } from "styled-components";
 import { animated } from "react-spring";
 import { getValue } from "@basestack/utils";
@@ -8,6 +8,7 @@ import Text from "../Text";
 import IconButton from "../IconButton";
 import Avatar from "../Avatar";
 import Popup from "../Popup";
+import TextVisibility from "./TextVisibility";
 import {
   Col,
   Container,
@@ -17,33 +18,9 @@ import {
   StyledRow,
 } from "./styles";
 import { TableProps, RowProps, TableRowProps, TableColProps } from "./types";
+import CopyClipboard from "./CopyClipboard";
 
 const AnimatedPopup = animated(Popup);
-
-const HideText = ({ title }: { title: string }) => {
-  const theme = useTheme();
-  const [isEyeVisible, setIsEyeVisible] = useState(false);
-
-  const renderDots = () =>
-    Array.from(Array(title.length).keys()).map((item) => (
-      <Fragment key={item}>•</Fragment>
-    ));
-
-  return (
-    <>
-      <IconButton
-        onClick={() => setIsEyeVisible((prevState) => !prevState)}
-        icon={isEyeVisible ? "visibility_off" : "visibility"}
-        variant="neutral"
-        mr={theme.spacing.s2}
-        size="small"
-      />
-      <Text fontWeight="400" size={isEyeVisible ? "small" : "large"}>
-        {isEyeVisible ? title : renderDots()}
-      </Text>
-    </>
-  );
-};
 
 const Row = ({ cols = [], more, numberOfCols, copyToClipboard }: RowProps) => {
   const theme = useTheme();
@@ -91,7 +68,7 @@ const Row = ({ cols = [], more, numberOfCols, copyToClipboard }: RowProps) => {
                     />
                   )}
                   {col.hideText ? (
-                    <HideText title={col.title} />
+                    <TextVisibility title={col.title} />
                   ) : (
                     <Text fontWeight="400" size="small">
                       {col.title}
@@ -131,7 +108,7 @@ const Row = ({ cols = [], more, numberOfCols, copyToClipboard }: RowProps) => {
       )}
       {!!copyToClipboard && (
         <Col>
-          <span>{copyToClipboard}</span>
+          <CopyClipboard text={copyToClipboard} />
         </Col>
       )}
     </StyledRow>
