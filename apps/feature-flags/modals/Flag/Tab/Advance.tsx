@@ -35,6 +35,7 @@ const AdvanceTab = ({
   const theme = useTheme();
   const calendarInputRef = useRef(null);
   const [isCalenderOpen, setIsCalendarOpen] = useState(false);
+  const [selectedTabId, setSelectedTabId] = useState("");
 
   const {
     control,
@@ -45,16 +46,21 @@ const AdvanceTab = ({
     mode: "onChange",
   });
 
-  const options = useMemo(() => {
+  const tabs = useMemo(() => {
     if (environments) {
       return environments.map((item) => ({
-        value: item.id,
-        label: item.name,
+        id: item.id,
+        text: item.name,
       }));
     }
 
     return [];
   }, [environments]);
+
+  const activeTabIndex = useMemo(
+    () => environments?.findIndex((env) => env.id === selectedTabId),
+    [environments, selectedTabId],
+  );
 
   const onChangeJson = useCallback(
     ({ updated_src }: InteractionProps) => {
@@ -69,23 +75,11 @@ const AdvanceTab = ({
 
   return (
     <>
-      <Text fontWeight={500} size="small" mb={theme.spacing.s2}>
-        Environment
-      </Text>
-      <Controller
-        name="memberId"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Select
-            placeholder="Select environment to edit"
-            options={options}
-            onChange={(option) => console.log(option)}
-            isDisabled={false}
-            isLoading={false}
-            isClearable
-          />
-        )}
+      <Tabs
+        sliderPosition={activeTabIndex >= 0 ? activeTabIndex : 0}
+        onSelect={(item) => setSelectedTabId(item)}
+        items={tabs}
+        type="buttons"
       />
       <CalendarInput
         ref={calendarInputRef}
@@ -132,13 +126,6 @@ const AdvanceTab = ({
           collapsed={false}
         />
       </ReactJsonContainer>
-      {!isUpdate && (
-        <Text size="small" muted mt={theme.spacing.s6}>
-          To ensure consistency, the identical content will be utilized across
-          all environments. However, it will be possible to modify the content
-          for each environment at a later stage.
-        </Text>
-      )}
     </>
   );
 };

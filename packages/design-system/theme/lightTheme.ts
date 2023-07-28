@@ -429,10 +429,20 @@ const table = {
 const tabs = {
   backgroundColor: colors.white,
   color: colors.black,
-  button: {
+  tab: {
     backgroundColor: "transparent",
     border: colors.gray200,
     hover: { backgroundColor: colors.gray100 },
+  },
+  button: {
+    backgroundColor: colors.gray100,
+    hover: { backgroundColor: colors.gray200 },
+    active: {
+      backgroundColor: colors.gray900,
+      text: {
+        color: colors.white,
+      },
+    },
   },
   slider: {
     backgroundColor: colors.black,
@@ -452,7 +462,7 @@ const copyCard = {
   backgroundColor: colors.gray50,
   title: {
     backgroundColor: colors.gray100,
-  }
+  },
 };
 
 const theme = {

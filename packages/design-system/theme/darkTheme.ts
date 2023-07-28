@@ -431,10 +431,20 @@ const table = {
 const tabs = {
   backgroundColor: "transparent",
   color: colors.gray300,
-  button: {
+  tab: {
     backgroundColor: "transparent",
     border: colors.gray600,
     hover: { backgroundColor: colors.gray700 },
+  },
+  button: {
+    backgroundColor: colors.gray700,
+    hover: { backgroundColor: colors.gray600 },
+    active: {
+      backgroundColor: colors.gray600,
+      text: {
+        color: colors.gray300,
+      },
+    },
   },
   slider: {
     backgroundColor: colors.gray400,
