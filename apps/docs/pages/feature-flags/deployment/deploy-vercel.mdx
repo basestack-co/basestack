@@ -1,54 +1,58 @@
-import { Steps, Callout } from "nextra/components";
+import { Steps, Callout, Card, Cards } from "nextra/components";
 
 # Deploy to Vercel
 
-Vercel is the company behind the framework Next.js which is used by Basestack. They also provide a free hosting service which is ideal for Next.js applications.
-
-<Callout type="info" emoji="ℹ️">
-  For more detailed deployment checkout out the [Configuration
-  Page](/feature-flags/deployment)
-</Callout>
+[Vercel ↗](https://vercel.com/) is the company behind the Next.js framework, which is used by Basestack. [Vercel Pricing ↗](https://vercel.com/pricing) also offers a free hosting service perfectly suited for Next.js applications. Continue with the steps below to get started deploying the platform to your account and begin creating new flags.
 
 ## Getting started
 
 <Steps>
-  ### Create a database
+  ### To begin, create a database.
 
-You should already have a PostgreSQL database server running and accepting remote connections.
+Ensure that you have an operational PostgreSQL database server capable of accepting remote connections.
 
 <Callout type="info" emoji="ℹ️">
   Any traditional instance of PostgreSQL with connection pooling, such as
   [PgBouncer ↗](https://www.pgbouncer.org/), will work effectively.
 </Callout>
 
-If you don't already have a database choose one from the recommended list below:
+If you do not already have a database, consider selecting one from the recommended list below:
 
 - [Neon - Serverless Postgres](/feature-flags/guides/database/neon)
 
-In the deployment step it will ask you for two environment variables to the database. The `DATABASE_URL` which is the Connection URL to your database using PgBouncer and `DIRECT_DATABASE_URL` which is a direct connection URL to the database used for migrations
+  During the deployment step, you will be prompted to provide two environment variables for the database. The first is `DATABASE_URL`, which is the Connection URL to your database using PgBouncer. The second is `DIRECT_DATABASE_URL`, which serves as the direct connection URL to the database, used for migrations.
 
-### Setup Authentication
+### Next, set up authentication.
 
-To simplify this guide we will use Github as the authentication provider to create and log in with an account on the Platform and allow other members of the organization to log in.
+To simplify this guide, we will use Github as the authentication provider, allowing you to create an account and log in to the Platform. Additionally, this setup will allow other members of your organization to log in as well.
 
-**Create a new [OAuth App](https://github.com/settings/developers) filling the form with the following settings:**
+**Create a new [OAuth App](https://github.com/settings/developers) by filling out the form with the following settings:**
 
-```bash
-  "Application name": "Feature Flags by Basestack"
-  "Homepage URL": "https://your-basestack-instance.com"
-  "Authorization callback URL": "https://your-basestack-instance.com"
-```
+{" "}
 
-After the creation of a new [OAuth App](https://github.com/settings/developers) it will return two improtant keys: `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` safe this for later use in the deployment step on the envirnoment variables.
-
-<Callout type="warning" emoji="⚠️">
-  For greater granular control over authentication aspects such as rules,
-  turning account creation on or off, allowing account creation with credentials
-  (email and password) we recommend using
-  [Auth0](/feature-flags/guides/authentication/auth0-config)
+<Callout type="info" emoji="ℹ️">
+  If you don't have a Project URL yet, you can leave it blank for now. Check out
+  the [Troubleshooting
+  section](/feature-flags/deployment/deploy-vercel#i-still-dont-have-a-project-domain-or-url)
+  for further assistance.
 </Callout>
 
-### Deployment
+```bash
+"Application name": "Feature Flags by Basestack"
+"Homepage URL": "https://your-basestack-instance.com"
+"Authorization callback URL": "https://your-basestack-instance.com"
+```
+
+Once you've successfully created a new [OAuth App](https://github.com/settings/developers), it will generate two important keys: `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET`. Be sure to save these keys for later use during the deployment step, as they will be needed as environment variables.
+
+<Callout type="warning" emoji="⚠️">
+  For more granular control over authentication aspects, including rules,
+  enabling or disabling account creation, and allowing account creation with
+  credentials (email and password), we recommend using
+  [Auth0](/feature-flags/guides/authentication/auth0-config).
+</Callout>
+
+### Finally, proceed with the deployment.
 
 Quick deploy to [Vercel ↗](https://vercel.com/) with a simple click on the deploy button below:
 
@@ -58,8 +62,7 @@ Clicking on the button above [Vercel ↗](https://vercel.com/) will fork the [Ba
 
 #### Environment Variables
 
-The platform requires a minimum of environment variables to function. The list below are the environment variables that you will have to fill in order to have a successful launch in Vercel. To see the complete list of Environment Variables follow this [Configuration
-Page](/feature-flags/deployment#environment-variables)
+To ensure a successful deployment on Vercel, the platform requires a minimum set of environment variables. Below is the list of environment variables that you must fill in. For the complete list of Environment Variables, please refer to the [Configuration Page](/feature-flags/deployment#environment-variables).
 
 | Property               | Description                                                                                 |
 | ---------------------- | ------------------------------------------------------------------------------------------- |
@@ -77,7 +80,7 @@ Page](/feature-flags/deployment#environment-variables)
 
 #### Vercel Project Settings
 
-In your new Project Settings in Vercel go to **Build & Development Settings** section and fill the form with the following settings:
+In your new Project Settings on Vercel, navigate to the **Build & Development Settings** section and complete the form with the following settings:
 
 ```bash
   "Build Command": "yarn deploy:feature-flags"
@@ -88,19 +91,54 @@ In your new Project Settings in Vercel go to **Build & Development Settings** se
 
 </Steps>
 
+## What's next?
+
+Begin by familiarizing yourself with the platform. Create projects, add new feature flags, invite members, and implement the feature flags in your product using our official SDKs.
+
+<Cards>
+  <Card
+    icon={<span className="material-symbols-outlined">data_object</span>}
+    title="Rest API"
+    href="/feature-flags/sdks/rest-api"
+  />
+  <Card
+    icon={<span className="material-symbols-outlined">javascript</span>}
+    title="Javascript & Node"
+    href="/feature-flags/sdks/javascript"
+  />
+  <Card
+    icon={<span className="material-symbols-outlined">code</span>}
+    title="React"
+    href="/feature-flags/sdks/react"
+  />
+</Cards>
+
+Lastly, stay tuned about updates, including new features and bug fixes. To ensure your platform is always up-to-date with the latest improvements, refer to our guide on updating the platform by visiting the [Updates Page](/feature-flags/deployment/updates).
+
+<Callout type="info" emoji="ℹ️">
+  For more comprehensive information about the deployment process, please check
+  out the [Configuration Page](/feature-flags/deployment). This page provides
+  detailed guidance to ensure a successful and seamless deployment of the
+  Feature Flags Platform.
+</Callout>
+
 ## Troubleshooting
 
-### I still don't have a URL for my instance to be able to fill in the fields in the environment variables
+### I still don't have a Project domain or URL
 
-If you still don't have a domain, fill in the following fields:
+If you don't have a domain yet, feel free to leave the fields below empty or use dummy information. Proceed with the deployment as usual. Once the deployment is complete, Vercel will generate a URL for your project.
 
-Environment Variables:
+Copy this URL and update the information in your Github [OAuth App](https://github.com/settings/developers). Next, modify the environment variables in the project settings on Vercel and initiate a new deployment on Vercel once again.
+
+**Environment Variables:**
 
 - `NEXTAUTH_URL`,
 
-Github [OAuth App](https://github.com/settings/developers) Fields
+**Github [OAuth App](https://github.com/settings/developers) Fields:**
 
 - `Homepage URL`,
 - `Authorization callback URL`,
 
-Just continue with them empty or with dummy information and continue with the deployment. When the deployment has completed Vercel will generate a URL for your project. Copy that url and edit the information in your Github application and edit the environment variables in the project settings on Vercel and create a new deployment on Vercel again
+## Help & Support
+
+If you need assistance with anything, whether it's a new feature, a bug, a guide, or if you'd like to contribute feedback, don't hesitate to [open a discussion](https://github.com/Storytics/monolock/discussions).
