@@ -1,0 +1,83 @@
+---
+title: How to Contribute
+description: First and foremost, thank you for dedicating your time to enhance the platform.
+---
+
+import { Steps, Callout, FileTree } from "nextra/components";
+
+
+# How to Contribute
+
+First and foremost, thank you for dedicating your time to enhance the platform. We warmly welcome all contributions. We appreciate your support in making our platform even better!
+
+Before creating a PR, let's [discuss](https://github.com/Storytics/monolock/discussions) your implementation ideas if you have any uncertainties regarding the requirements or vision of Basestack. We value collaboration and want to ensure a smooth process for your contributions. Feel free to reach out, and let's work together to make Basestack even better!
+
+The project is a Monorepo powered by [Turborepo ↗](https://turborepo.org/), which enhances the development process. The project follows the following main structure:
+
+<FileTree>
+  <FileTree.Folder name="apps" defaultOpen>
+    <FileTree.Folder name="docs" />
+    <FileTree.Folder name="feature-flags" />
+    <FileTree.Folder name="..." />
+  </FileTree.Folder>
+  <FileTree.Folder name="packages" defaultOpen>
+    <FileTree.Folder name="design-system" />
+    <FileTree.Folder name="hooks" />
+    <FileTree.Folder name="..." />
+  </FileTree.Folder>
+  <FileTree.File name="config files" />
+</FileTree>
+
+## Getting started
+
+<Steps>
+  ### To get started, fork the Platform.
+
+To begin, fork the [Basestack Platform repository](https://github.com/Storytics/monolock) to your GitHub account, and subsequently, clone it to your local machine.
+
+{" "}
+<Callout type="info" emoji="ℹ️">
+  To configure the Environment Variables file in the project, refer to the
+  [Configuration Page](/feature-flags/deployment#environment-variables). Each
+  app can have its own `env` file; however, this guide specifically pertains to
+  the Feature Flags App.
+</Callout>
+
+### Create a new branch to start working on your changes.
+
+```sh copy
+git checkout -b FEAT_BRANCH_NAME
+```
+
+### To run the project locally, follow these steps:
+
+##### 1 - To install the dependencies, use the following command:
+
+```sh copy
+yarn install
+```
+
+##### 2 - Configure the environment variables as follows:
+
+```sh
+copy apps/feature-flags/.env.example to apps/feature-flags/.env
+```
+
+##### 3 - Build the project using the following command:
+
+```sh copy
+yarn build
+```
+
+##### 4 - Run the project by executing the following command:
+
+```sh copy
+yarn dev
+```
+
+- Feature Flags is available at `http://localhost:3000`
+- Feature Flags API is available at `http://localhost:3000/api/v1`
+- Docs is available at `http://localhost:3001`
+- Landing Page is available at `http://localhost:3002`
+
+</Steps>

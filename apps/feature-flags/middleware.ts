@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
   response.headers.append("Access-Control-Allow-Credentials", "true");
   response.headers.append(
     "Access-Control-Allow-Origin",
-    process.env.API_ACCESS_CONTROL_ALLOW_ORIGIN!,
+    process.env.API_ACCESS_CONTROL_ALLOW_ORIGIN! ?? "*",
   );
   response.headers.append("Access-Control-Allow-Methods", "GET");
   response.headers.append(
@@ -18,7 +18,7 @@ export function middleware(request: NextRequest) {
 
   return response;
 }
-
+call
 export const config = {
   matcher: "/api/v1/:path*",
 };
