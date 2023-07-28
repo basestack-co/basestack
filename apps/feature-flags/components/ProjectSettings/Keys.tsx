@@ -30,7 +30,11 @@ const KeysCard = ({ project }: Props) => {
       ["Name", "Environment Key"],
       (item) => [{ title: item.name }, { title: item.key!, hideText: true }],
       () => [],
-      () => "Key",
+      (item) => ({
+        textToCopy: item.key || "",
+        defaultText: "Copy Key",
+        successText: "Copied Key to Clipboard",
+      }),
     );
   }, [isLoading, data]);
 

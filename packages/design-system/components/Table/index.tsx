@@ -22,7 +22,7 @@ import CopyClipboard from "./CopyClipboard";
 
 const AnimatedPopup = animated(Popup);
 
-const Row = ({ cols = [], more, numberOfCols, copyToClipboard }: RowProps) => {
+const Row = ({ cols = [], more, numberOfCols, tooltip }: RowProps) => {
   const theme = useTheme();
 
   const {
@@ -79,7 +79,7 @@ const Row = ({ cols = [], more, numberOfCols, copyToClipboard }: RowProps) => {
             </Col>
           );
         })}
-      {!copyToClipboard && more.length > 0 && (
+      {!tooltip && more.length > 0 && (
         <Col>
           <PopupWrapper ref={popupWrapperRef}>
             <IconButton
@@ -106,9 +106,9 @@ const Row = ({ cols = [], more, numberOfCols, copyToClipboard }: RowProps) => {
           </PopupWrapper>
         </Col>
       )}
-      {!!copyToClipboard && (
+      {tooltip && (
         <Col>
-          <CopyClipboard text={copyToClipboard} />
+          <CopyClipboard tooltip={tooltip} />
         </Col>
       )}
     </StyledRow>
@@ -139,7 +139,7 @@ const Table = ({ data, ...props }: TableProps) => {
               cols={row.cols}
               more={data.rows.length > 1 ? row.more : []}
               numberOfCols={numberOfCols}
-              copyToClipboard={row.copyToClipboard}
+              tooltip={row.tooltip}
             />
           );
         })}

@@ -21,6 +21,10 @@ const EndpointsCard = ({ project }: Props) => {
         maxWidth={400}
         title="Base Url"
         description={`${getBrowserUrl()}/api/v1`}
+        tooltip={{
+          defaultText: "Copy Url",
+          successText: "Copied Url to Clipboard",
+        }}
       />
     </SettingCard>
   );

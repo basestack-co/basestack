@@ -1,34 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 // Components
 import IconButton from "../IconButton";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../Tooltip";
+import { tooltip } from "./types";
 
-const CopyClipboard = ({ text }: { text: string }) => {
-  const [showTooltip, setShowTooltip] = useState(false);
+export interface CopyClipboardProps {
+  tooltip: tooltip;
+}
 
-  useEffect(() => {
-    if (showTooltip) {
-      const timer = setTimeout(() => {
-        setShowTooltip(false);
-      }, 2000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [showTooltip]);
+const CopyClipboard = ({ tooltip }: CopyClipboardProps) => {
+  const [showTooltipSuccess, setShowTooltipSuccess] = useState(false);
 
   return (
-    <Tooltip open={showTooltip} placement="top">
-      <TooltipTrigger>
+    <Tooltip placement="top">
+      <TooltipTrigger onMouseLeave={() => setShowTooltipSuccess(false)}>
         <IconButton
           variant="neutral"
           icon="content_copy"
           onClick={() => {
-            navigator.clipboard.writeText(text);
-            setShowTooltip(true);
+            navigator.clipboard.writeText(tooltip.textToCopy);
+            setShowTooltipSuccess(true);
           }}
         />
       </TooltipTrigger>
-      <TooltipContent>{`${text} copied to clipboard`}</TooltipContent>
+      <TooltipContent>
+        {showTooltipSuccess ? tooltip.successText : tooltip.defaultText}
+      </TooltipContent>
     </Tooltip>
   );
 };

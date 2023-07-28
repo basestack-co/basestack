@@ -14,7 +14,15 @@ const ProjectKey = ({ projectKey }: ProjectKeyProps) => {
       description="This is your project key."
       hasFooter={false}
     >
-      <CopyCard maxWidth={400} title="Key" description={projectKey} />
+      <CopyCard
+        maxWidth={400}
+        title="Key"
+        description={projectKey}
+        tooltip={{
+          defaultText: "Copy Key",
+          successText: "Copied Key to Clipboard",
+        }}
+      />
     </SettingCard>
   );
 };

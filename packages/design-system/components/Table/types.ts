@@ -1,6 +1,12 @@
 import { SpaceProps } from "styled-system";
 import { PopupItemsProps } from "../Popup";
 
+export type tooltip = {
+  textToCopy: string;
+  defaultText: string;
+  successText: string;
+};
+
 export type TableColProps = {
   /**
    * Column title
@@ -35,7 +41,7 @@ export type TableRowProps = {
   /**
    * Optional copy at te end of the table
    */
-  copyToClipboard?: string;
+  tooltip?: tooltip;
 };
 
 export interface TableData {
@@ -54,5 +60,5 @@ export interface RowProps {
   cols: Array<TableColProps>;
   more: Array<PopupItemsProps>;
   numberOfCols: number;
-  copyToClipboard?: string;
+  tooltip?: tooltip;
 }

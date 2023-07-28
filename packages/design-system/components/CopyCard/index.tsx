@@ -15,20 +15,14 @@ export interface CopyCardProps extends LayoutProps, SpaceProps {
   title?: string;
   description: string;
   size?: boolean;
+  tooltip: {
+    defaultText: string;
+    successText: string;
+  };
 }
 
-const CopyCard = ({ title, description, ...props }: CopyCardProps) => {
-  const [showTooltip, setShowTooltip] = useState(false);
-
-  useEffect(() => {
-    if (showTooltip) {
-      const timer = setTimeout(() => {
-        setShowTooltip(false);
-      }, 2000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [showTooltip]);
+const CopyCard = ({ title, description, tooltip, ...props }: CopyCardProps) => {
+  const [showTooltipSuccess, setShowTooltipSuccess] = useState(false);
 
   return (
     <Container {...props}>
@@ -39,18 +33,20 @@ const CopyCard = ({ title, description, ...props }: CopyCardProps) => {
         <Text lineTruncate>{description}</Text>
       </DescriptionContainer>
       <IconButtonContainer>
-        <Tooltip open={showTooltip} placement="top">
-          <TooltipTrigger>
+        <Tooltip placement="top">
+          <TooltipTrigger onMouseLeave={() => setShowTooltipSuccess(false)}>
             <IconButton
               variant="neutral"
               icon="content_copy"
               onClick={() => {
                 navigator.clipboard.writeText(description);
-                setShowTooltip(true);
+                setShowTooltipSuccess(true);
               }}
             />
           </TooltipTrigger>
-          <TooltipContent>{`${description} copied to clipboard`}</TooltipContent>
+          <TooltipContent>
+            {showTooltipSuccess ? tooltip.successText : tooltip.defaultText}
+          </TooltipContent>
         </Tooltip>
       </IconButtonContainer>
     </Container>
