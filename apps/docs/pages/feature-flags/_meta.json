@@ -2,5 +2,6 @@
   "index": "Overview & Quick Start",
   "sdks": "SDKs",
   "guides": "Guides",
-  "deployment": "Self-Hosting"
+  "deployment": "Self-Hosting",
+  "contribute": "How to Contribute"
 }
