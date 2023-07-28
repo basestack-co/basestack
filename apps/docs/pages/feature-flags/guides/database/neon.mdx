@@ -1,3 +1,43 @@
-# Overview Database Configuration
+import { Callout } from "nextra/components";
 
-Satori (悟り) is a Japanese Buddhist term for awakening, "comprehension; understanding".
+# Neon Configuration Guide
+
+[Neon ↗](https://neon.tech/) is an open-source serverless Postgres built for the cloud. It offers a contemporary developer experience by separating compute and storage, providing features like autoscaling, branching, bottomless storage, and more.
+
+For detailed guidance on how to implement this, please follow the official links from the provider.
+
+- [Register for a free account](https://console.neon.tech/sign_in)
+- [Documentation](https://neon.tech/docs/introduction)
+
+### Database URL vs Direct Database URL
+
+Our platform requires a direct connection to the database for conducting migrations. To avoid encountering migrations issues, make sure you are using a direct connection to the database for migrations. Neon supports both pooled and direct connections to the same database, which can be added in the Environment Variables for deploying our platform.
+
+You should be able to retrieve from Neon project dashboard the following connections examples:
+
+```sh
+DATABASE_URL="postgres://daniel:<password>@ep-restless-rice-862380-pooler.us-east-2.aws.neon.tech:5432/neondb?pgbouncer=true"
+DIRECT_DATABASE_URL="postgres://daniel:<password>@ep-restless-rice-862380.us-east-2.aws.neon.tech:5432/neondb"
+```
+
+### Environment Variables
+
+| Property              | Description                                               | Required |
+| --------------------- | --------------------------------------------------------- | -------- |
+| `DATABASE_URL`        | Connection URL to your database using PgBouncer.          | true     |
+| `DIRECT_DATABASE_URL` | Direct connection URL to the database used for migrations | true     |
+
+<Callout type="info" emoji="ℹ️">
+  For more comprehensive information about the deployment process, please check
+  out the [Configuration Page](/feature-flags/deployment).
+</Callout>
+
+## Troubleshooting
+
+### Migration Errors
+
+Ensure that you are using a direct connection to the database for migrations. Neon supports both pooled and direct connections to the same database. For more information, refer to [Enable connection pooling](https://neon.tech/docs/connect/connection-pooling#enable-connection-pooling).
+
+## Help & Support
+
+If you need assistance with anything, whether it's a new feature, a bug, a guide, or if you'd like to contribute feedback, don't hesitate to [open a discussion](https://github.com/Storytics/monolock/discussions).
