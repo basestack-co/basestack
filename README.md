@@ -22,4 +22,8 @@ Want to self-host Basestack Tools on your server? Explore the [self-hosting inst
 
 ## How to Contribute
 
-First and foremost, thank you for dedicating your time to enhance the platform. We warmly welcome all contributions. To get started, please review the [Contribute guidelines](http://localhost:3001/feature-flags/contribute). We appreciate your support in making our platform even better!
+First and foremost, thank you for dedicating your time to enhance the platform. We warmly welcome all contributions. To get started, please review the [Contribute guidelines](https://docs.basestack.co/contributing). We appreciate your support in making our platform even better!
+
+## License
+
+Basestack is an open-source project licensed under the GNU Affero General Public License Version 3 (AGPLv3). For more information about the license and how to comply with its requirements, please refer to [here](https://docs.basestack.co/license).

@@ -7,14 +7,20 @@
     "title": "Feature Flags",
     "type": "page"
   },
+  "---": {
+    "type": "separator"
+  },
   "company": {
     "title": "Platform",
     "type": "menu",
     "items": {
-      "Contributing": {
-        "title": "Contributing ↗",
-        "href": "https://basestack.co/",
-        "newWindow": true
+      "contributing": {
+        "title": "Contributing",
+        "href": "/contributing"
+      },
+      "license": {
+        "title": "License",
+        "href": "/license"
       },
       "about": {
         "title": "About ↗",
