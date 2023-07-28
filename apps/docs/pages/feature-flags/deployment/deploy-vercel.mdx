@@ -1,3 +1,106 @@
+import { Steps, Callout } from "nextra/components";
+
 # Deploy to Vercel
 
-Satori (悟り) is a Japanese Buddhist term for awakening, "comprehension; understanding".
+Vercel is the company behind the framework Next.js which is used by Basestack. They also provide a free hosting service which is ideal for Next.js applications.
+
+<Callout type="info" emoji="ℹ️">
+  For more detailed deployment checkout out the [Configuration
+  Page](/feature-flags/deployment)
+</Callout>
+
+## Getting started
+
+<Steps>
+  ### Create a database
+
+You should already have a PostgreSQL database server running and accepting remote connections.
+
+<Callout type="info" emoji="ℹ️">
+  Any traditional instance of PostgreSQL with connection pooling, such as
+  [PgBouncer ↗](https://www.pgbouncer.org/), will work effectively.
+</Callout>
+
+If you don't already have a database choose one from the recommended list below:
+
+- [Neon - Serverless Postgres](/feature-flags/guides/database/neon)
+
+In the deployment step it will ask you for two environment variables to the database. The `DATABASE_URL` which is the Connection URL to your database using PgBouncer and `DIRECT_DATABASE_URL` which is a direct connection URL to the database used for migrations
+
+### Setup Authentication
+
+To simplify this guide we will use Github as the authentication provider to create and log in with an account on the Platform and allow other members of the organization to log in.
+
+**Create a new [OAuth App](https://github.com/settings/developers) filling the form with the following settings:**
+
+```bash
+  "Application name": "Feature Flags by Basestack"
+  "Homepage URL": "https://your-basestack-instance.com"
+  "Authorization callback URL": "https://your-basestack-instance.com"
+```
+
+After the creation of a new [OAuth App](https://github.com/settings/developers) it will return two improtant keys: `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` safe this for later use in the deployment step on the envirnoment variables.
+
+<Callout type="warning" emoji="⚠️">
+  For greater granular control over authentication aspects such as rules,
+  turning account creation on or off, allowing account creation with credentials
+  (email and password) we recommend using
+  [Auth0](/feature-flags/guides/authentication/auth0-config)
+</Callout>
+
+### Deployment
+
+Quick deploy to [Vercel ↗](https://vercel.com/) with a simple click on the deploy button below:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FStorytics%2Fmonolock&env=DATABASE_URL,DIRECT_DATABASE_URL,NEXTAUTH_SECRET,NEXTAUTH_URL,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET,API_RATE_LIMIT_MAX,API_RATE_LIMIT_WINDOW_MS,API_RATE_LIMIT_UNIQUE_TOKEN_PER_SECOND,API_ACCESS_CONTROL_ALLOW_ORIGIN&envDescription=Environment%20Variable%20Keys%20needed%20for%20Features%20Flags%20Platform&envLink=https%3A%2F%2Fdocs.basestack.co%2F&project-name=basestack-feature-flags&repository-name=basestack-feature-flags)
+
+Clicking on the button above [Vercel ↗](https://vercel.com/) will fork the [Basestack Platform](https://github.com/Storytics/monolock) repository and deploy the platform for you.
+
+#### Environment Variables
+
+The platform requires a minimum of environment variables to function. The list below are the environment variables that you will have to fill in order to have a successful launch in Vercel. To see the complete list of Environment Variables follow this [Configuration
+Page](/feature-flags/deployment#environment-variables)
+
+| Property               | Description                                                                                 |
+| ---------------------- | ------------------------------------------------------------------------------------------- |
+| `DATABASE_URL`         | Connection URL to your database using PgBouncer.                                            |
+| `DIRECT_DATABASE_URL`  | Direct connection URL to the database used for migrations                                   |
+| `NEXTAUTH_SECRET`      | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens.                 |
+| `NEXTAUTH_URL`         | Set to the canonical URL of your site                                                       |
+| `GITHUB_CLIENT_ID`     | Client Id generated in the [OAuth App](https://github.com/settings/developers) creation     |
+| `GITHUB_CLIENT_SECRET` | Client Secret generated in the [OAuth App](https://github.com/settings/developers) creation |
+
+<Callout type="info" emoji="ℹ️">
+  For the `NEXTAUTH_SECRET` variable you can use `openssl rand -base64 32` or
+  generate a [random value](https://generate-secret.vercel.app/32).
+</Callout>
+
+#### Vercel Project Settings
+
+In your new Project Settings in Vercel go to **Build & Development Settings** section and fill the form with the following settings:
+
+```bash
+  "Build Command": "yarn deploy:feature-flags"
+  "Output Directory": "apps/feature-flags/.next"
+  "Install Command": "yarn install"
+  "Development Command": "next"
+```
+
+</Steps>
+
+## Troubleshooting
+
+### I still don't have a URL for my instance to be able to fill in the fields in the environment variables
+
+If you still don't have a domain, fill in the following fields:
+
+Environment Variables:
+
+- `NEXTAUTH_URL`,
+
+Github [OAuth App](https://github.com/settings/developers) Fields
+
+- `Homepage URL`,
+- `Authorization callback URL`,
+
+Just continue with them empty or with dummy information and continue with the deployment. When the deployment has completed Vercel will generate a URL for your project. Copy that url and edit the information in your Github application and edit the environment variables in the project settings on Vercel and create a new deployment on Vercel again
