@@ -8,20 +8,21 @@ import Text from "../Text";
 import IconButton from "../IconButton";
 import Avatar from "../Avatar";
 import Popup from "../Popup";
+import TextVisibility from "./TextVisibility";
 import {
   Col,
   Container,
   ContentRow,
   PopupWrapper,
-  Placeholder,
   StyledLink,
   StyledRow,
 } from "./styles";
 import { TableProps, RowProps, TableRowProps, TableColProps } from "./types";
+import CopyClipboard from "./CopyClipboard";
 
 const AnimatedPopup = animated(Popup);
 
-const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
+const Row = ({ cols = [], more, numberOfCols, tooltip }: RowProps) => {
   const theme = useTheme();
 
   const {
@@ -66,16 +67,20 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
                       mr={theme.spacing.s3}
                     />
                   )}
-                  <Text fontWeight="400" size="small">
-                    {col.title}
-                  </Text>
+                  {col.hideText ? (
+                    <TextVisibility title={col.title} />
+                  ) : (
+                    <Text fontWeight="400" size="small">
+                      {col.title}
+                    </Text>
+                  )}
                 </ContentRow>
               )}
             </Col>
           );
         })}
-      <Col>
-        {more.length > 0 ? (
+      {!tooltip && more.length > 0 && (
+        <Col>
           <PopupWrapper ref={popupWrapperRef}>
             <IconButton
               {...getReferenceProps}
@@ -99,10 +104,13 @@ const Row = ({ cols = [], more, numberOfCols }: RowProps) => {
                 ),
             )}
           </PopupWrapper>
-        ) : (
-          <Placeholder />
-        )}
-      </Col>
+        </Col>
+      )}
+      {tooltip && (
+        <Col>
+          <CopyClipboard tooltip={tooltip} />
+        </Col>
+      )}
     </StyledRow>
   );
 };
@@ -122,7 +130,6 @@ const Table = ({ data, ...props }: TableProps) => {
               </Col>
             );
           })}
-        <Placeholder />
       </StyledRow>
       {data.rows &&
         data.rows.map((row, index) => {
@@ -132,6 +139,7 @@ const Table = ({ data, ...props }: TableProps) => {
               cols={row.cols}
               more={data.rows.length > 1 ? row.more : []}
               numberOfCols={numberOfCols}
+              tooltip={row.tooltip}
             />
           );
         })}

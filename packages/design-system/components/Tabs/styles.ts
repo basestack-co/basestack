@@ -1,12 +1,17 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { rem } from "polished";
 import { space } from "styled-system";
 
-export const Container = styled.div`
+export const Container = styled.div<{ isButtonGroup: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  ${({ isButtonGroup }) =>
+    isButtonGroup &&
+    css`
+      border-radius: 4px;
+    `};
 `;
 
 export const ContentContainer = styled.div`
@@ -30,28 +35,52 @@ export const Wrapper = styled.div<{ backgroundColor?: string }>`
   position: relative;
 `;
 
-export const Button = styled.button<{
-  borderColor?: string;
-  hoverBgColor?: string;
-}>`
+const sharedButtonStyles = css`
   border: none;
-  background-color: ${({ theme }) => theme.tabs.button.backgroundColor};
   cursor: pointer;
   min-width: ${rem("110px")};
-  height: ${rem("44px")};
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 1 0 0;
   padding: 0 ${rem("12px")};
+`;
+
+export const Tab = styled.button<{
+  borderColor?: string;
+  hoverBgColor?: string;
+}>`
+  ${sharedButtonStyles};
+  background-color: ${({ theme }) => theme.tabs.tab.backgroundColor};
+  height: ${rem("44px")};
   transition: background-color 0.1s ease-in-out;
   border-bottom: 2px solid
-    ${({ theme, borderColor }) => borderColor || theme.tabs.button.border};
+    ${({ theme, borderColor }) => borderColor || theme.tabs.tab.border};
 
   &:hover {
     background-color: ${({ theme, hoverBgColor }) =>
-      hoverBgColor || theme.tabs.button.hover.backgroundColor};
+      hoverBgColor || theme.tabs.tab.hover.backgroundColor};
   }
+`;
+
+export const Button = styled.button<{
+  isActive: boolean;
+}>`
+  ${sharedButtonStyles};
+  background-color: ${({ theme, isActive }) =>
+    isActive
+      ? theme.tabs.button.active.backgroundColor
+      : theme.tabs.button.backgroundColor};
+  height: ${rem("36px")};
+  transition: background-color 0.3s ease-in-out;
+  ${({ isActive }) =>
+    !isActive &&
+    css`
+      &:hover {
+        background-color: ${({ theme }) =>
+          theme.tabs.button.hover.backgroundColor};
+      }
+    `};
 `;
 
 export const Slider = styled.div<{

@@ -4,7 +4,14 @@ import { SpaceProps } from "styled-system";
 import IconButton from "../IconButton";
 import Text from "../Text";
 import { Size } from "../Text/types";
-import { Container, Button, Slider, Wrapper, ContentContainer } from "./styles";
+import {
+  Container,
+  Button,
+  Slider,
+  Wrapper,
+  ContentContainer,
+  Tab,
+} from "./styles";
 
 type Item = {
   id: string;
@@ -48,6 +55,10 @@ export interface TabsProps extends SpaceProps {
    * Change text size
    */
   textSize?: Size;
+  /**
+   * Changes tabs styling
+   */
+  type?: "tabs" | "buttons";
 }
 
 const Tabs = ({
@@ -60,6 +71,7 @@ const Tabs = ({
   textColor,
   sliderPosition = 0,
   textSize = "small",
+  type = "tabs",
   ...props
 }: TabsProps) => {
   const theme = useTheme();
@@ -109,7 +121,7 @@ const Tabs = ({
         }}
         variant="secondary"
         position="absolute"
-        top="6px"
+        top={type === "tabs" ? "6px" : "2px"}
         zIndex={3}
         {...(isLeftButton
           ? { left: "-1px", icon: "arrow_back" }
@@ -119,7 +131,7 @@ const Tabs = ({
   };
 
   return (
-    <Container>
+    <Container isButtonGroup={type === "buttons"}>
       {canScrollLeft && renderIconButton("left")}
       {canScrollRight && renderIconButton("right")}
       <ContentContainer ref={scrollRef}>
@@ -130,8 +142,10 @@ const Tabs = ({
         >
           {items &&
             items.map((item: Item, index) => {
-              return (
-                <Button
+              const isActive = index === sliderPosition;
+
+              return type === "tabs" ? (
+                <Tab
                   key={`tab-${item.id}`}
                   data-testid="tab-button"
                   onClick={() => onSelect(item.id)}
@@ -149,14 +163,38 @@ const Tabs = ({
                       {item.text}
                     </Text>
                   )}
+                </Tab>
+              ) : (
+                <Button
+                  key={`tab-${item.id}`}
+                  onClick={() => onSelect(item.id)}
+                  isActive={isActive}
+                >
+                  {!!item.text && (
+                    <Text
+                      fontWeight="500"
+                      size={textSize}
+                      color={
+                        isActive
+                          ? theme.tabs.button.active.text.color
+                          : theme.tabs.color
+                      }
+                      flexShrink={0}
+                      lineTruncate
+                    >
+                      {item.text}
+                    </Text>
+                  )}
                 </Button>
               );
             })}
-          <Slider
-            activeBorderColor={activeBorderColor}
-            translateX={sliderPosition * 100}
-            numberOfItems={items.length}
-          />
+          {type === "tabs" && (
+            <Slider
+              activeBorderColor={activeBorderColor}
+              translateX={sliderPosition * 100}
+              numberOfItems={items.length}
+            />
+          )}
         </Wrapper>
       </ContentContainer>
     </Container>

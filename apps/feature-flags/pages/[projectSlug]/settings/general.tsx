@@ -7,6 +7,7 @@ import ProjectName from "components/ProjectSettings/ProjectName";
 import DeleteProject from "components/ProjectSettings/DeleteProject";
 import Endpoints from "components/ProjectSettings/Endpoints";
 import Keys from "components/ProjectSettings/Keys";
+import ProjectKey from "components/ProjectSettings/ProjectKey";
 // Types
 import { ProjectSettings } from "types";
 import { Role } from "@prisma/client";
@@ -21,6 +22,9 @@ const GeneralPage = ({ project }: Props) => {
       </CardListItem>
       <CardListItem>
         <Endpoints project={project} />
+      </CardListItem>
+      <CardListItem>
+        <ProjectKey projectKey={project.key} />
       </CardListItem>
       <CardListItem>
         <Keys project={project} />
