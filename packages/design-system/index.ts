@@ -67,6 +67,7 @@ export {
   default as CalendarInput,
   type CalendarInputProps,
 } from "./components/CalendarInput";
+export { default as CopyCard, type CopyCardProps } from "./components/CopyCard";
 
 // Other
 export * from "./animations/springs";

@@ -7,6 +7,7 @@ const flexColumn = css`
 
 export const CardList = styled.ul`
   ${flexColumn};
+  overflow: hidden;
 `;
 
 export const CardListItem = styled.li`

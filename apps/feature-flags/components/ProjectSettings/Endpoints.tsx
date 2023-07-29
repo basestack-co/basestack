@@ -1,6 +1,7 @@
 import React from "react";
+
 // Components
-import { Text } from "@basestack/design-system";
+import { Text, CopyCard } from "@basestack/design-system";
 import SettingCard from "../SettingCard";
 // Utils
 import { getBrowserUrl } from "utils/url";
@@ -16,7 +17,15 @@ const EndpointsCard = ({ project }: Props) => {
       description="API keys can be used with our SDK’s (Javascript, React)."
       hasFooter={false}
     >
-      <Text>Base url: {`${getBrowserUrl()}/api/v1`}</Text>
+      <CopyCard
+        maxWidth={400}
+        title="Base Url"
+        description={`${getBrowserUrl()}/api/v1`}
+        tooltip={{
+          defaultText: "Copy Url",
+          successText: "Copied Url to Clipboard",
+        }}
+      />
     </SettingCard>
   );
 };
