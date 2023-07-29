@@ -5,7 +5,6 @@ description: First and foremost, thank you for dedicating your time to enhance t
 
 import { Steps, Callout, FileTree } from "nextra/components";
 
-
 # How to Contribute
 
 First and foremost, thank you for dedicating your time to enhance the platform. We warmly welcome all contributions. We appreciate your support in making our platform even better!
@@ -28,6 +27,24 @@ The project is a Monorepo powered by [Turborepo ↗](https://turborepo.org/), wh
   <FileTree.File name="config files" />
 </FileTree>
 
+## Initial Requirements
+
+<Steps>
+  ### Create a database
+  Ensure that you have an operational PostgreSQL database server running on your local machine. If you are using a Mac, you can use a tool like [Postgres.app ↗](https://postgresapp.com/) to quickly get started and create databases.
+
+### Authentication
+
+Use [Github ↗](https://github.com/) as the authentication provider, and create a new [OAuth App](https://github.com/settings/developers) by filling out the form with the following settings:
+
+```bash
+"Application name": "Feature Flags by Basestack"
+"Homepage URL": "http://localhost:3000"
+"Authorization callback URL": "http://localhost:3000"
+```
+
+</Steps>
+
 ## Getting started
 
 <Steps>
@@ -36,6 +53,7 @@ The project is a Monorepo powered by [Turborepo ↗](https://turborepo.org/), wh
 To begin, fork the [Basestack Platform repository](https://github.com/Storytics/monolock) to your GitHub account, and subsequently, clone it to your local machine.
 
 {" "}
+
 <Callout type="info" emoji="ℹ️">
   To configure the Environment Variables file in the project, refer to the
   [Configuration Page](/feature-flags/deployment#environment-variables). Each
@@ -57,10 +75,50 @@ git checkout -b FEAT_BRANCH_NAME
 yarn install
 ```
 
-##### 2 - Configure the environment variables as follows:
+##### 2 - Configure the environment variables for Feature Flags as follows:
 
 ```sh
 copy apps/feature-flags/.env.example to apps/feature-flags/.env
+```
+
+Example:
+
+```sh copy filename=".env"
+# DATABASE
+
+# Connection URL to your database using PgBouncer.
+DATABASE_URL="postgres://your-name@localhost:5434/your-name"
+
+# Direct connection URL to the database used for migrations
+DIRECT_DATABASE_URL="postgres://your-name@localhost:5434/your-name"
+
+# AUTHENTICATION
+
+  # generate a https://generate-secret.vercel.app/32
+NEXTAUTH_SECRET="b923d5f6f5a06e99ad97f8b99ea57741"
+NEXTAUTH_URL="http://localhost:3000"
+
+# AUTHENTICATION - GITHUB
+# NextAuth.js with GitHub as a provider
+# See more documentation here: https://next-auth.js.org/providers/github
+GITHUB_CLIENT_ID="xxxx-xxx-xxxx-xxx"
+GITHUB_CLIENT_SECRET="xxxx-xxx-xxxx-xxx"
+
+
+# RATE LIMIT - API CONFIGURATION
+
+# Requests per minute
+API_RATE_LIMIT_MAX=60
+
+# in seconds
+API_RATE_LIMIT_WINDOW_MS=60*1000
+
+# Max users per second
+API_RATE_LIMIT_UNIQUE_TOKEN_PER_SECOND=1000
+
+# CORS - API CONFIGURATION
+
+API_ACCESS_CONTROL_ALLOW_ORIGIN="http://localhost:3000"
 ```
 
 ##### 3 - Build the project using the following command:

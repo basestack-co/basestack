@@ -20,7 +20,7 @@ export function createTable<T>(
       const row: TableRowProps = {
         cols: cols(item, index, length),
         more: more(item, index, length),
-        tooltip: copy ? copy(item) : null,
+        ...(copy ? { tooltip: copy(item) } : {}),
       };
 
       return row;

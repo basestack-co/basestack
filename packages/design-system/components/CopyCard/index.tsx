@@ -14,7 +14,6 @@ import {
 export interface CopyCardProps extends LayoutProps, SpaceProps {
   title?: string;
   description: string;
-  size?: boolean;
   tooltip: {
     defaultText: string;
     successText: string;
