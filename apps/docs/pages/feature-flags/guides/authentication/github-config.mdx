@@ -20,19 +20,21 @@ Create a new [OAuth App](https://github.com/settings/developers) by filling out 
 ```bash
 "Application name": "Feature Flags by Basestack"
 "Homepage URL": "https://your-basestack-instance.com"
-"Authorization callback URL": "https://your-basestack-instance.com"
+"Authorization callback URL": "https://your-basestack-instance.com/api/auth/callback/github"
 ```
 
 #### Self-Hosting Environment Variables
+
+For more comprehensive information about the deployment process, please check
+out the [Configuration Page](/feature-flags/deployment).
 
 | Property               | Required |
 | ---------------------- | -------- |
 | `GITHUB_CLIENT_ID`     | true     |
 | `GITHUB_CLIENT_SECRET` | true     |
 
-<Callout type="info" emoji="ℹ️">
-  For more comprehensive information about the deployment process, please check
-  out the [Configuration Page](/feature-flags/deployment).
+<Callout type="warning" emoji="⚠️">
+  Only one callback URL per Client ID / Client Secret.
 </Callout>
 
 ## Help & Support
