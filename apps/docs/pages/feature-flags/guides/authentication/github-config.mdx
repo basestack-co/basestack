@@ -13,7 +13,17 @@ Authentication through [Github ↗](https://github.com/) enables you to sign in 
 - [Configuration](https://github.com/settings/apps)
 - [OAuth App](https://github.com/settings/developers)
 
-### Environment Variables
+#### Github OAuth App Settings
+
+Create a new [OAuth App](https://github.com/settings/developers) by filling out the form with the following settings:
+
+```bash
+"Application name": "Feature Flags by Basestack"
+"Homepage URL": "https://your-basestack-instance.com"
+"Authorization callback URL": "https://your-basestack-instance.com"
+```
+
+#### Self-Hosting Environment Variables
 
 | Property               | Required |
 | ---------------------- | -------- |

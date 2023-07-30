@@ -16,6 +16,19 @@ For detailed guidance on how to implement this, please follow the official links
 - [Documentation](https://auth0.com/docs/api/authentication#authorize-application)
 - [Configuration](https://manage.auth0.com/dashboard)
 
+#### Auth0 Application Settings
+
+In your new Application Settings on Auth0, navigate to the following settings and add the following configurations in the corresponding inputs:
+
+```bash
+  "Allowed Callback URLs": "https://your-basestack-instance.com/api/auth/callback/auth0"
+  "Allowed Logout URLs": "https://your-basestack-instance.com"
+  "Allowed Web Origins": "https://your-basestack-instance.com"
+  "Allow Cross-Origin Authentication": "https://your-basestack-instance.com"
+```
+
+#### Self-Hosting Environment Variables
+
 | Property              | Required |
 | --------------------- | -------- |
 | `AUTH0_CLIENT_ID`     | true     |
