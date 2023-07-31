@@ -47,8 +47,6 @@ const AdvanceTab = ({ setValue, environments }: Props) => {
     [environments, activeTabIndex],
   );
 
-  console.log("activeTabData = ", activeTabData);
-
   const createOnChangeHandler = <T extends Value | InteractionProps>(
     propName: string,
   ) => {

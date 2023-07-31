@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Router
 import { useRouter } from "next/router";
 // Components
@@ -35,9 +35,17 @@ const CreateFlagModal = () => {
     reset,
     onRenderTab,
     project,
-  } = useFlagForm({ isModalOpen, projectSlug, isCreate: true });
+    setValue,
+  } = useFlagForm({ isModalOpen, projectSlug });
 
   const createFlag = trpc.flag.create.useMutation();
+
+  const { data, isLoading } = trpc.environment.all.useQuery(
+    { projectId: project?.id! },
+    {
+      enabled: !!project?.id,
+    },
+  );
 
   const isSubmittingOrMutating = isSubmitting || createFlag.isLoading;
 
@@ -65,6 +73,21 @@ const CreateFlagModal = () => {
       );
     }
   };
+
+  useEffect(() => {
+    if (isModalOpen && !isLoading) {
+      const environments = ((data && data.environments) || []).map(
+        ({ id, name }) => ({
+          id,
+          name,
+          enabled: false,
+          payload: JSON.stringify({}),
+          expiredAt: null,
+        }),
+      );
+      setValue("environments", environments);
+    }
+  }, [isModalOpen, data, isLoading, setValue]);
 
   return (
     <Portal selector="#portal">

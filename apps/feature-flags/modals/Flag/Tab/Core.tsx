@@ -16,7 +16,6 @@ export interface Props {
   errors: FieldErrors<FlagFormInputs>;
   control: Control<FlagFormInputs, any>;
   isSubmitting: boolean;
-  isCreate?: boolean;
 }
 
 const CoreTab = ({
@@ -25,7 +24,6 @@ const CoreTab = ({
   errors,
   control,
   isSubmitting,
-  isCreate = true,
 }: Props) => {
   const theme = useTheme();
   const [textareaLength, setTextareaLength] = useState("");
@@ -111,7 +109,7 @@ const CoreTab = ({
         data-testid="input-group-title"
         size="small"
       >
-        Environment{isCreate ? "s" : ""}
+        Environments
       </Text>
       {!environments && (
         <Skeleton

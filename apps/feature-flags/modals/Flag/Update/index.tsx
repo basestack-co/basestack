@@ -42,7 +42,6 @@ const UpdateFlagModal = () => {
   } = useFlagForm({
     isModalOpen,
     projectSlug,
-    isCreate: false,
     flagId: modalPayload?.flag?.id,
   });
 
@@ -50,8 +49,6 @@ const UpdateFlagModal = () => {
     { slug: modalPayload?.flag?.slug!, projectId: project?.id! },
     { enabled: !!project?.id && !!modalPayload?.flag?.slug },
   );
-
-  console.log("bySlugData = ", bySlugData);
 
   const isSubmittingOrMutating = isSubmitting || updateFlag.isLoading;
 
