@@ -53,6 +53,7 @@ const handleSheetSize = (size: Size) => {
 export const Sheet = styled.div<{
   size: Size;
   minHeight: number;
+  expandMobile: boolean;
 }>`
   max-width: ${({ size }) => handleSheetSize(size)};
   width: 100%;
@@ -62,6 +63,14 @@ export const Sheet = styled.div<{
   box-shadow: ${({ theme }) => theme.shadow.elevation4};
   border-radius: 4px;
   z-index: 1;
+
+  ${({ expandMobile }) =>
+    expandMobile &&
+    css`
+      @media screen and ${({ theme }) => theme.device.max.sm} {
+        max-height: calc(100vh - ${({ theme }) => theme.spacing.s6});
+      }
+    `};
 `;
 
 export const Header = styled.div`

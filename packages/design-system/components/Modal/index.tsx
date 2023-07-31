@@ -65,6 +65,7 @@ const Modal: React.FC<ModalProps> = ({
                   size={size}
                   minHeight={minHeight ?? 0}
                   style={styles}
+                  expandMobile={expandMobile}
                 >
                   <Header>
                     <Text size="xLarge" mr={theme.spacing.s2}>

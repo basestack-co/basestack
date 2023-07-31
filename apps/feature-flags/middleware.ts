@@ -18,7 +18,7 @@ export function middleware(request: NextRequest) {
 
   return response;
 }
-call
+call;
 export const config = {
   matcher: "/api/v1/:path*",
 };
