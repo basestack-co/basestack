@@ -7,8 +7,7 @@ import {
   ButtonVariant,
   Empty,
   Loader,
-  Button,
-  Text,
+  Pagination,
 } from "@basestack/design-system";
 import { FlagCard, FlagRow } from "components";
 // Store
@@ -214,19 +213,15 @@ const FlagCards = ({
           );
         })}
       </Grid>
+
       {!searchValue && (
         <LoadMoreContainer>
-          <Text mb={theme.spacing.s2} muted>
-            Showing {currentPage >= totalPages ? totalPages : currentPage} of{" "}
-            {totalPages} Flags
-          </Text>
-          <Button
-            isDisabled={!hasNextPage}
-            variant={ButtonVariant.Tertiary}
+          <Pagination
             onClick={fetchNextPage}
-          >
-            Load More
-          </Button>
+            currentPage={currentPage >= totalPages ? totalPages : currentPage}
+            totalPages={totalPages}
+            isLoading={isLoading}
+          />
         </LoadMoreContainer>
       )}
     </Container>
