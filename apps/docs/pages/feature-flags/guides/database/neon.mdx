@@ -3,8 +3,6 @@ title: Neon Configuration Guide
 description: Neon is an open-source serverless Postgres built for the cloud.
 ---
 
-import { Callout } from "nextra/components";
-
 # Neon Configuration Guide
 
 [Neon ↗](https://neon.tech/) is an open-source serverless Postgres built for the cloud. It offers a contemporary developer experience by separating compute and storage, providing features like autoscaling, branching, bottomless storage, and more.
@@ -25,17 +23,15 @@ DATABASE_URL="postgres://daniel:<password>@ep-restless-rice-862380-pooler.us-eas
 DIRECT_DATABASE_URL="postgres://daniel:<password>@ep-restless-rice-862380.us-east-2.aws.neon.tech:5432/neondb"
 ```
 
-### Environment Variables
+### Self-Hosting Environment Variables
+
+For more comprehensive information about the deployment process, please check
+out the [Configuration Page](/feature-flags/deployment).
 
 | Property              | Description                                               | Required |
 | --------------------- | --------------------------------------------------------- | -------- |
 | `DATABASE_URL`        | Connection URL to your database using PgBouncer.          | true     |
 | `DIRECT_DATABASE_URL` | Direct connection URL to the database used for migrations | true     |
-
-<Callout type="info" emoji="ℹ️">
-  For more comprehensive information about the deployment process, please check
-  out the [Configuration Page](/feature-flags/deployment).
-</Callout>
 
 ## Troubleshooting
 
