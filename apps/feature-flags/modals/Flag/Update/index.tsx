@@ -51,26 +51,22 @@ const UpdateFlagModal = () => {
     { enabled: !!project?.id && !!modalPayload?.flag?.slug },
   );
 
+  console.log("bySlugData = ", bySlugData);
+
   const isSubmittingOrMutating = isSubmitting || updateFlag.isLoading;
 
   const onClose = () => setUpdateFlagModalOpen({ isOpen: false });
 
   const onSubmit: SubmitHandler<FlagFormInputs> = async (input) => {
     if (project && bySlugData) {
-      const data = input.environments.map((env) => {
-        const current = bySlugData.content.find(
-          ({ environmentId }) => environmentId === env.id,
-        );
-
-        return {
-          id: current?.flagId!,
-          slug: input.name,
-          description: input.description ?? "",
-          enabled: env.enabled,
-          payload: JSON.stringify({}),
-          expiredAt: null,
-        };
-      });
+      const data = input.environments.map((env) => ({
+        id: env?.flagId!,
+        slug: input.name,
+        description: input.description ?? "",
+        enabled: env.enabled,
+        payload: JSON.parse(env.payload),
+        expiredAt: env.expiredAt,
+      }));
 
       updateFlag.mutate(
         {
@@ -99,8 +95,6 @@ const UpdateFlagModal = () => {
     if (!isLoading && bySlugData) {
       setValue("name", bySlugData.slug ?? "");
       setValue("description", bySlugData.description ?? "");
-      // setValue("payload", (data.payload ?? "{}") as string);
-      // setValue("expiredAt", data.expiredAt ?? null);
       setValue("environments", bySlugData.environments);
     }
   }, [isLoading, bySlugData, setValue]);
@@ -133,7 +127,7 @@ const UpdateFlagModal = () => {
           sliderPosition={tabPosition[selectedTab]}
           mb={theme.spacing.s6}
         />
-        {onRenderTab(isLoading, true)}
+        {onRenderTab(isLoading)}
       </Modal>
     </Portal>
   );

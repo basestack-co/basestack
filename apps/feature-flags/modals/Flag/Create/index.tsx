@@ -46,12 +46,11 @@ const CreateFlagModal = () => {
   const onSubmit: SubmitHandler<FlagFormInputs> = async (input) => {
     if (project) {
       const data = input.environments.map((env) => ({
+        ...env,
         slug: input.name,
         description: input.description,
         environmentId: env.id,
-        enabled: env.enabled,
-        payload: input.payload,
-        expiredAt: input.expiredAt,
+        payload: JSON.parse(env.payload),
       }));
 
       createFlag.mutate(

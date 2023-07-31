@@ -26,7 +26,7 @@ export interface TabsProps extends SpaceProps {
   /**
    * Selected item
    */
-  onSelect: (selected: string) => void;
+  onSelect: (selected: string, index: number) => void;
   /**
    * Change Tabs borderColor
    */
@@ -148,7 +148,7 @@ const Tabs = ({
                 <Tab
                   key={`tab-${item.id}`}
                   data-testid="tab-button"
-                  onClick={() => onSelect(item.id)}
+                  onClick={() => onSelect(item.id, index)}
                   borderColor={borderColor}
                   hoverBgColor={hoverBgColor}
                 >
@@ -167,7 +167,7 @@ const Tabs = ({
               ) : (
                 <Button
                   key={`tab-${item.id}`}
-                  onClick={() => onSelect(item.id)}
+                  onClick={() => onSelect(item.id, index)}
                   isActive={isActive}
                 >
                   {!!item.text && (

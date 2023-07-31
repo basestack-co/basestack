@@ -1,49 +1,34 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-// Form
-import { useForm, Controller } from "react-hook-form";
 // Hooks
 import { useClickAway } from "react-use";
 // Components
 import { useTheme } from "styled-components";
-import { Text, CalendarInput, Select, Tabs } from "@basestack/design-system";
+import { Text, CalendarInput, Tabs } from "@basestack/design-system";
 // Types
 import { EnvironmentInput, FlagFormInputs } from "../types";
 import { UseFormSetValue } from "react-hook-form";
 import type { InteractionProps } from "react-json-view";
+import { Value } from "react-calendar/src/shared/types";
 // JSON Editor
 const ReactJson = dynamic(import("react-json-view"), { ssr: false });
 // Utils
 import dayjs from "dayjs";
+// Styles
 import { ReactJsonContainer } from "../styles";
 
 export interface Props {
   setValue: UseFormSetValue<FlagFormInputs>;
-  payload: string;
-  expiredAt?: Date | null;
-  isUpdate?: boolean;
   environments: EnvironmentInput[];
 }
-
-const AdvanceTab = ({
-  setValue,
-  payload,
-  expiredAt,
-  isUpdate = false,
-  environments,
-}: Props) => {
+const AdvanceTab = ({ setValue, environments }: Props) => {
   const theme = useTheme();
   const calendarInputRef = useRef(null);
   const [isCalenderOpen, setIsCalendarOpen] = useState(false);
-  const [selectedTabId, setSelectedTabId] = useState("");
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm({
-    mode: "onChange",
+  useClickAway(calendarInputRef, () => {
+    setIsCalendarOpen(false);
   });
 
   const tabs = useMemo(() => {
@@ -57,27 +42,53 @@ const AdvanceTab = ({
     return [];
   }, [environments]);
 
-  const activeTabIndex = useMemo(
-    () => environments?.findIndex((env) => env.id === selectedTabId),
-    [environments, selectedTabId],
+  const activeTabData = useMemo(
+    () => environments?.[activeTabIndex],
+    [environments, activeTabIndex],
   );
 
-  const onChangeJson = useCallback(
-    ({ updated_src }: InteractionProps) => {
-      setValue("payload", JSON.stringify(updated_src));
-    },
-    [setValue],
-  );
+  console.log("activeTabData = ", activeTabData);
 
-  useClickAway(calendarInputRef, () => {
-    setIsCalendarOpen(false);
-  });
+  const createOnChangeHandler = <T extends Value | InteractionProps>(
+    propName: string,
+  ) => {
+    return (data: T) => {
+      let value = "";
+
+      if (propName === "expiredAt") {
+        value = (data ?? null) as unknown as string;
+      }
+
+      if (propName === "payload") {
+        value = JSON.stringify((data as InteractionProps)?.updated_src ?? "{}");
+      }
+
+      setValue(
+        "environments",
+        environments.map((item, index) =>
+          index === activeTabIndex
+            ? {
+                ...item,
+                [propName]: value,
+              }
+            : item,
+        ),
+      );
+
+      if (propName === "expiredAt") {
+        setIsCalendarOpen(false);
+      }
+    };
+  };
+
+  const onChangeJson = createOnChangeHandler<InteractionProps>("payload");
+  const onChangeDate = createOnChangeHandler<Value>("expiredAt");
 
   return (
     <>
       <Tabs
-        sliderPosition={activeTabIndex >= 0 ? activeTabIndex : 0}
-        onSelect={(item) => setSelectedTabId(item)}
+        sliderPosition={activeTabIndex}
+        onSelect={(_, index) => setActiveTabIndex(index)}
         items={tabs}
         type="buttons"
       />
@@ -88,17 +99,16 @@ const AdvanceTab = ({
         inputProps={{
           onFocus: () => setIsCalendarOpen(true),
           onChange: (text) => console.log("text = ", text),
-          placeholder: "mm/dd/yyyy",
+          placeholder: "dd/mm/yyyy",
           name: "date",
-          value: !!expiredAt ? dayjs(expiredAt).format("MM/DD/YYYY") : "",
+          value: !!activeTabData?.expiredAt
+            ? dayjs(activeTabData.expiredAt).format("DD/MM/YYYY")
+            : "",
           autoComplete: "off",
         }}
         calendarProps={{
-          onChange: (date: any) => {
-            setValue("expiredAt", date);
-            setIsCalendarOpen(false);
-          },
-          value: expiredAt,
+          onChange: onChangeDate,
+          value: activeTabData?.expiredAt,
           locale: "en-US",
           minDate: new Date(),
         }}
@@ -118,7 +128,7 @@ const AdvanceTab = ({
           theme="chalk"
           iconStyle="triangle"
           defaultValue="string"
-          src={typeof payload === "string" ? JSON.parse(payload) : payload}
+          src={JSON.parse(activeTabData?.payload ?? "{}")}
           onEdit={onChangeJson}
           onAdd={onChangeJson}
           onDelete={onChangeJson}

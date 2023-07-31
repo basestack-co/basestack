@@ -4,6 +4,9 @@ export const EnvironmentSchema = z.object({
   id: z.string(),
   name: z.string(),
   enabled: z.boolean(),
+  payload: z.any().optional(),
+  expiredAt: z.date().nullish().optional(),
+  flagId: z.string().nullish().optional(),
 });
 
 export const FlagFormSchema = z.object({
@@ -13,8 +16,6 @@ export const FlagFormSchema = z.object({
     .min(1, "Required field"),
   description: z.string().max(150, "Must be 120 characters or less").optional(),
   environments: z.array(EnvironmentSchema),
-  payload: z.string().optional(),
-  expiredAt: z.date().nullish().optional(),
 });
 
 export type FlagFormInputs = z.TypeOf<typeof FlagFormSchema>;

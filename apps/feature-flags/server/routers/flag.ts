@@ -169,17 +169,22 @@ export const flagRouter = router({
       return {
         slug: getValue(flags, "[0].slug", ""),
         description: getValue(flags, "[0].description", ""),
-        content: data.map(({ id, environment, payload, expiredAt }) => ({
-          flagId: id,
-          environmentId: environment.id,
-          payload,
-          expiredAt,
-        })),
-        environments: data.map(({ environment: { id, name }, enabled }) => ({
-          id,
-          name,
-          enabled,
-        })),
+        environments: data.map(
+          ({
+            environment: { id, name },
+            id: flagId,
+            enabled,
+            payload,
+            expiredAt,
+          }) => ({
+            id,
+            name,
+            enabled,
+            flagId,
+            payload: JSON.stringify(payload),
+            expiredAt,
+          }),
+        ),
       };
     }),
   create: protectedProcedure

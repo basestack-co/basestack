@@ -73,16 +73,15 @@ const useFlagForm = ({
           id,
           name,
           enabled: false,
+          payload: JSON.stringify({}),
+          expiredAt: null,
         }),
       );
       setValue("environments", environments);
     }
   }, [isModalOpen, data, isLoading, setValue, isCreate]);
 
-  const onRenderTab = (
-    isLoading: boolean = false,
-    isUpdate: boolean = false,
-  ) => {
+  const onRenderTab = (isLoading: boolean = false) => {
     switch (selectedTab) {
       case TabType.CORE:
       default:
@@ -98,13 +97,7 @@ const useFlagForm = ({
         );
       case TabType.ADVANCED:
         return (
-          <Advance
-            setValue={setValue}
-            payload={watch("payload") ?? "{}"}
-            expiredAt={watch("expiredAt")}
-            isUpdate={isUpdate}
-            environments={watch("environments")}
-          />
+          <Advance setValue={setValue} environments={watch("environments")} />
         );
       case TabType.HISTORY:
         return <History flagId={flagId} projectId={project?.id!} />;

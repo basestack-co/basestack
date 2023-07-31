@@ -70,7 +70,7 @@ const CreateProjectModal = () => {
   const onClose = () => setCreateProjectModalOpen({ isOpen: false });
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    await createProject.mutate(data, {
+    createProject.mutate(data, {
       onSuccess: async (result) => {
         // Get all the projects on the cache
         const prev = trpcContext.project.all.getData();
