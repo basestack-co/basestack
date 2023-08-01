@@ -9,15 +9,16 @@ export const Container = styled.div`
 `;
 
 export const StyledText = styled(Text)`
+  ${space};
   display: flex;
   font-weight: 500;
 `;
 
 export const Number = styled.div<{ highlight?: boolean }>`
-  background-color: ${({ theme }) => theme.colors.gray100};
-  height: 36px;
-  min-width: 36px;
-  padding: 0 10px;
+  background-color: ${({ theme }) => theme.pagination.number.backgroundColor};
+  height: 32px;
+  min-width: 32px;
+  padding: 0 ${({ theme }) => theme.spacing.s2};
   border-radius: 4px;
   display: flex;
   align-items: center;

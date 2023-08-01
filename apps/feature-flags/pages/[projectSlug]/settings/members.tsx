@@ -2,7 +2,11 @@ import React from "react";
 // Layout
 import SettingsLayout from "layouts/Settings";
 // Modules
-import { CardList, CardListItem } from "components/ProjectSettings/styles";
+import {
+  CardList,
+  CardListItem,
+  SettingCardContainer,
+} from "components/ProjectSettings/styles";
 import Invite from "components/ProjectSettings/Invite";
 // Types
 import { ProjectSettings } from "types";
@@ -13,7 +17,9 @@ const MembersPage = ({ project }: Props) => {
   return (
     <CardList>
       <CardListItem>
-        <Invite project={project} />
+        <SettingCardContainer>
+          <Invite project={project} />
+        </SettingCardContainer>
       </CardListItem>
     </CardList>
   );

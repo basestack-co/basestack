@@ -68,7 +68,7 @@ export const Sheet = styled.div<{
     expandMobile &&
     css`
       @media screen and ${({ theme }) => theme.device.max.sm} {
-        height: calc(100vh - ${({ theme }) => theme.spacing.s6});
+        max-height: calc(100vh - ${({ theme }) => theme.spacing.s6});
       }
     `};
 `;

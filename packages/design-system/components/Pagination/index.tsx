@@ -6,13 +6,9 @@ import { Container, Number, StyledText } from "./styles";
 
 export interface PaginationProps extends SpaceProps {
   /**
-   * onChange prev callback
+   * onClick load more
    */
-  onPrev: () => void;
-  /**
-   * onChange prev callback
-   */
-  onNext: () => void;
+  onClick: () => void;
   /**
    * current page
    */
@@ -21,27 +17,31 @@ export interface PaginationProps extends SpaceProps {
    * number of pages
    */
   totalPages: number;
+  /**
+   * show loading spinner
+   */
+  isLoading: boolean;
 }
 
 const Pagination = ({
-  onPrev,
-  onNext,
+  onClick,
   currentPage = 1,
   totalPages = 1,
+  isLoading = false,
   ...props
 }: PaginationProps) => {
   const theme = useTheme();
 
   return (
     <Container data-testid="pagination" {...props}>
-      <Button
-        iconPlacement="left"
-        icon="chevron_left"
-        variant={ButtonVariant.Neutral}
-        mr={theme.spacing.s3}
+      <StyledText
+        data-testid="pagination-current-page"
+        size="small"
+        muted
+        mr={theme.spacing.s1}
       >
-        Prev
-      </Button>
+        Showing
+      </StyledText>
       <Number>
         <StyledText data-testid="pagination-current-page" size="small">
           {currentPage}
@@ -49,19 +49,21 @@ const Pagination = ({
       </Number>
       <StyledText
         data-testid="pagination-total-pages"
-        ml={theme.spacing.s3}
+        ml={theme.spacing.s1}
         size="small"
+        muted
       >
         of {""}
         {totalPages}
       </StyledText>
       <Button
-        iconPlacement="right"
-        icon="chevron_right"
+        onClick={onClick}
         variant={ButtonVariant.Neutral}
-        ml={theme.spacing.s3}
+        ml={theme.spacing.s1}
+        isLoading={isLoading}
+        isDisabled={currentPage >= totalPages}
       >
-        Next
+        Load More
       </Button>
     </Container>
   );

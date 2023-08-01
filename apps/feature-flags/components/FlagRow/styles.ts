@@ -4,12 +4,19 @@ import { rem } from "polished";
 export const CardWrapper = styled.div`
   display: grid;
   align-items: center;
-  grid-template-columns: auto minmax(0, 2fr) 2fr minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 2fr) 2fr minmax(0, 1fr) auto auto;
   grid-gap: ${({ theme }) => theme.spacing.s5};
 `;
 
 export const Labels = styled.div`
   display: flex;
+`;
+
+export const IconsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  min-width: 44px;
+  justify-content: flex-end;
 `;
 
 export const Label = styled.div<{

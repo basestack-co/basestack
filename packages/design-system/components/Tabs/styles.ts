@@ -2,16 +2,11 @@ import styled, { css } from "styled-components";
 import { rem } from "polished";
 import { space } from "styled-system";
 
-export const Container = styled.div<{ isButtonGroup: boolean }>`
+export const Container = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  ${({ isButtonGroup }) =>
-    isButtonGroup &&
-    css`
-      border-radius: 4px;
-    `};
 `;
 
 export const ContentContainer = styled.div`
@@ -27,12 +22,21 @@ export const ContentContainer = styled.div`
   }
 `;
 
-export const Wrapper = styled.div<{ backgroundColor?: string }>`
+export const Wrapper = styled.div<{
+  backgroundColor?: string;
+  isButtonGroup: boolean;
+}>`
   ${space};
   display: flex;
   background-color: ${({ theme, backgroundColor }) =>
     backgroundColor || theme.tabs.backgroundColor};
   position: relative;
+
+  ${({ isButtonGroup }) =>
+    isButtonGroup &&
+    css`
+      gap: 4px;
+    `};
 `;
 
 const sharedButtonStyles = css`
@@ -67,12 +71,13 @@ export const Button = styled.button<{
   isActive: boolean;
 }>`
   ${sharedButtonStyles};
+  border-radius: 4px;
   background-color: ${({ theme, isActive }) =>
     isActive
       ? theme.tabs.button.active.backgroundColor
       : theme.tabs.button.backgroundColor};
   height: ${rem("36px")};
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
   ${({ isActive }) =>
     !isActive &&
     css`

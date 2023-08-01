@@ -1,8 +1,8 @@
 import { memo, ReactNode, forwardRef } from "react";
-import { SpaceProps, PositionProps } from "styled-system";
+import { SpaceProps, PositionProps, LayoutProps } from "styled-system";
 import { Container } from "./styles";
 
-export interface CardProps extends SpaceProps, PositionProps {
+export interface CardProps extends SpaceProps, PositionProps, LayoutProps {
   /**
    * Content
    */

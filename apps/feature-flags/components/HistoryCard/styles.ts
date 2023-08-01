@@ -57,6 +57,7 @@ export const TextContainer = styled.div`
 export const TitleContainer = styled.div<{ type: Type }>`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 
   ${({ type }) =>
     type === "deleted" &&

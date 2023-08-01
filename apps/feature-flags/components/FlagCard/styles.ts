@@ -22,7 +22,3 @@ export const Footer = styled.div`
   align-items: center;
   margin-top: auto;
 `;
-
-export const TooltipContainer = styled.div`
-  margin-left: ${({ theme }) => theme.spacing.s2};
-`;

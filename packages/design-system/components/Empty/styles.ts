@@ -11,14 +11,3 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-export const IconContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: ${rem("48px")};
-  width: ${rem("48px")};
-  border-radius: ${rem("8px")};
-  background-color: ${({ theme }) => theme.empty.icon.backgroundColor};
-  margin-bottom: ${({ theme }) => theme.spacing.s3};
-`;
