@@ -18,7 +18,7 @@ export interface FlagNotFoundError {
 export type FlagResult<T> = T extends null ? FlagNotFoundError : Flag;
 
 export interface SDK {
-  isInitialized: boolean;
+  getIsInitialized: () => boolean;
   initialize(): Promise<void>;
   flagsAsync(): Promise<Flag[]>;
   flagAsync(name: string): Promise<FlagResult<Flag | null>>;

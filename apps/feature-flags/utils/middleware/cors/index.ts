@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 // Utils
 import Cors from "cors";
 
+// More at https://github.com/expressjs/cors
 const cors = Cors({
   methods: ["GET"],
   origin: process.env.API_ACCESS_CONTROL_ALLOW_ORIGIN ?? "*",

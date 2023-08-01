@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 // Prisma
 import { getAllFlagsBySlugs } from "libs/prisma/utils/flag";
 // Utils
-import { methodNotAllowed, somethingWentWrong } from "utils/responses";
+import { methodNotAllowed, somethingWentWrong } from "utils/helpers/responses";
 import { getValue } from "@basestack/utils";
 // Middlewares
 import withRateLimit from "utils/middleware/rateLimit";

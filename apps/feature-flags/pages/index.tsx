@@ -30,6 +30,13 @@ import {
   Row,
   Section,
 } from "components/GetStarted/styles";
+// Utils
+import {
+  DOCS_CONTRIBUTE_URL,
+  DOCS_OVERVIEW_URL,
+  DOCS_SDKS_URL,
+  GITHUB_REPO_URL,
+} from "utils/helpers/constants";
 // Layout
 import MainLayout from "../layouts/Main";
 
@@ -178,7 +185,7 @@ const MainPage = () => {
                 color: "green",
               }}
               title="Install our SDK"
-              description="Integrate Moonflags into your Javascript, React, Go, PHP. More languages are coming soon!"
+              description="Create projects, add new feature flags, invite members, and implement the feature flags in your product using our official SDKs."
               button={{
                 text: "View Instructions",
                 onClick: () => console.log("instructions"),
@@ -191,20 +198,32 @@ const MainPage = () => {
                 Documentation, help and support
               </Text>
               <TextLink
-                text="Read our"
-                link={{ text: "user guide", href: "/" }}
+                text="Read the"
+                link={{
+                  text: "Documentation",
+                  href: DOCS_OVERVIEW_URL,
+                  target: "_blank",
+                }}
               />
               <TextLink
-                text="Watch a quick"
-                link={{ text: "video tour", href: "/" }}
+                text="Check out the"
+                link={{ text: "SDK’s", href: DOCS_SDKS_URL, target: "_blank" }}
               />
               <TextLink
-                text="View docs for our"
-                link={{ text: "SDK’s", href: "/" }}
+                text="How to"
+                link={{
+                  text: "Contribute?",
+                  href: DOCS_CONTRIBUTE_URL,
+                  target: "_blank",
+                }}
               />
               <TextLink
                 text=" Open an issue on"
-                link={{ text: "Github", href: "/" }}
+                link={{
+                  text: "Github",
+                  href: GITHUB_REPO_URL,
+                  target: "_blank",
+                }}
                 hasMarginBottom={false}
               />
             </Card>

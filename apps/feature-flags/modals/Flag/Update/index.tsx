@@ -99,7 +99,7 @@ const UpdateFlagModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title="Edit Flag"
+        title="Edit Feature Flag"
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}

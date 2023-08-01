@@ -1,5 +1,5 @@
 import React from "react";
-import { renderWithAllProviders } from "../../../utils/testUtils";
+import { renderWithAllProviders } from "utils/helpers/testUtils";
 import { cleanup } from "@testing-library/react";
 import SettingsLayout from "..";
 

@@ -148,7 +148,7 @@ const Navigation = ({
                     onClick={() => setCreateFlagModalOpen({ isOpen: true })}
                     variant={ButtonVariant.Primary}
                   >
-                    Create flag
+                    Create
                   </Button>
                 </ListItem>
               </>

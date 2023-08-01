@@ -1,5 +1,5 @@
 import { cleanup } from "@testing-library/react";
-import { renderWithTheme } from "utils/testUtils";
+import { renderWithTheme } from "utils/helpers/testUtils";
 import Navigation from "..";
 
 describe.skip("Navigation Organism tests", () => {
@@ -18,7 +18,9 @@ describe.skip("Navigation Organism tests", () => {
   afterEach(cleanup);
 
   test("should render Navigation correctly", () => {
-    const { asFragment } = renderWithTheme(<Navigation isDesktop />);
+    const { asFragment } = renderWithTheme(
+      <Navigation isDesktop onClickMenuButton={jest.fn} />,
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 });

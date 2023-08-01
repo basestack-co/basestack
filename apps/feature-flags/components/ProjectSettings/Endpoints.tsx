@@ -4,7 +4,7 @@ import React from "react";
 import { Text, CopyCard } from "@basestack/design-system";
 import SettingCard from "../SettingCard";
 // Utils
-import { getBrowserUrl } from "utils/url";
+import { getBrowserUrl } from "utils/helpers/url";
 // Types
 import { ProjectSettings } from "types";
 

@@ -15,7 +15,7 @@ import { trpc } from "libs/trpc";
 // Store
 import { useStore } from "store";
 // Utils
-import { createTable } from "utils/table";
+import { createTable } from "utils/helpers/table";
 // Auth
 import { useSession } from "next-auth/react";
 // Router

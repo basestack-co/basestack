@@ -1,9 +1,10 @@
-import React, { createContext, useEffect, useMemo } from "react";
+import React, { createContext, useEffect, useMemo, useState } from "react";
 // Types
 import { SDK } from "../types";
 
 export interface ContextState {
   sdk: SDK;
+  isInitialized: boolean;
 }
 
 export interface ProviderProps {
@@ -19,7 +20,8 @@ export const FlagsProvider: React.FC<ProviderProps> = ({
   onSuccessfulInit,
   sdk,
 }) => {
-  const value = useMemo(() => ({ sdk }), [sdk]);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const value = useMemo(() => ({ sdk, isInitialized }), [sdk, isInitialized]);
 
   // Initialize SDK on mount
   useEffect(() => {
@@ -30,6 +32,7 @@ export const FlagsProvider: React.FC<ProviderProps> = ({
         await sdk.initialize();
 
         if (typeof onSuccessfulInit === "function") {
+          setIsInitialized(true);
           onSuccessfulInit(true);
         }
       } catch (error) {

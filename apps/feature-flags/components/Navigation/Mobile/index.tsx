@@ -123,7 +123,7 @@ const NavigationDrawer = ({
                       fullWidth
                       onClick={() => setCreateFlagModalOpen({ isOpen: true })}
                     >
-                      Create Flag
+                      Create Feature Flag
                     </Button>
                   </ListItem>
                 </List>

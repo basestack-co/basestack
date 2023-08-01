@@ -92,7 +92,7 @@ const CreateFlagModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title="Create Flag"
+        title="Create Feature Flag"
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}

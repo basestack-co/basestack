@@ -1,5 +1,5 @@
 import React from "react";
-import { renderWithAllProviders } from "../../../utils/testUtils";
+import { renderWithAllProviders } from "utils/helpers/testUtils";
 import { cleanup, fireEvent } from "@testing-library/react";
 import "libs/trpc";
 import MainLayout from "..";
