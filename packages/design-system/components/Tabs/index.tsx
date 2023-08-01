@@ -131,11 +131,12 @@ const Tabs = ({
   };
 
   return (
-    <Container isButtonGroup={type === "buttons"}>
+    <Container>
       {canScrollLeft && renderIconButton("left")}
       {canScrollRight && renderIconButton("right")}
       <ContentContainer ref={scrollRef}>
         <Wrapper
+          isButtonGroup={type === "buttons"}
           backgroundColor={backgroundColor}
           data-testid="tabs-component"
           {...props}

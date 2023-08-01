@@ -2,7 +2,11 @@ import React from "react";
 // Layout
 import SettingsLayout from "layouts/Settings";
 // Components
-import { CardList, CardListItem } from "components/ProjectSettings/styles";
+import {
+  CardList,
+  CardListItem,
+  SettingCardContainer,
+} from "components/ProjectSettings/styles";
 import ProjectName from "components/ProjectSettings/ProjectName";
 import DeleteProject from "components/ProjectSettings/DeleteProject";
 import Endpoints from "components/ProjectSettings/Endpoints";
@@ -18,20 +22,30 @@ const GeneralPage = ({ project }: Props) => {
   return (
     <CardList>
       <CardListItem>
-        <ProjectName project={project} />
+        <SettingCardContainer>
+          <ProjectName project={project} />
+        </SettingCardContainer>
       </CardListItem>
       <CardListItem>
-        <Endpoints project={project} />
+        <SettingCardContainer>
+          <Endpoints project={project} />
+        </SettingCardContainer>
       </CardListItem>
       <CardListItem>
-        <ProjectKey projectKey={project.key} />
+        <SettingCardContainer>
+          <ProjectKey projectKey={project.key} />
+        </SettingCardContainer>
       </CardListItem>
       <CardListItem>
-        <Keys project={project} />
+        <SettingCardContainer>
+          <Keys project={project} />
+        </SettingCardContainer>
       </CardListItem>
       {project.role === Role.ADMIN && (
         <CardListItem>
-          <DeleteProject project={project} />
+          <SettingCardContainer>
+            <DeleteProject project={project} />
+          </SettingCardContainer>
         </CardListItem>
       )}
     </CardList>

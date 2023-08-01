@@ -113,7 +113,7 @@ const Navigation = ({
               <IconButton
                 mr={theme.spacing.s3}
                 icon="menu"
-                size="large"
+                size="medium"
                 onClick={onClickMenuButton}
               />
             </ListItem>

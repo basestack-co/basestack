@@ -1,10 +1,10 @@
 import React, { memo } from "react";
 import { useTheme } from "styled-components";
 // Components
-import Icon from "../Icon";
 import Text from "../Text";
 import { Button } from "../Button";
-import { Container, IconContainer } from "./styles";
+import IconBox, { IconBoxColor } from "../IconBox";
+import { Container } from "./styles";
 
 export interface EmptyProps {
   title: string;
@@ -14,6 +14,7 @@ export interface EmptyProps {
     onClick: () => void;
   };
   iconName?: string;
+  iconColor?: IconBoxColor;
 }
 
 const Empty = ({
@@ -21,14 +22,13 @@ const Empty = ({
   description,
   button,
   iconName = "info",
+  iconColor = "blue",
 }: EmptyProps) => {
   const theme = useTheme();
 
   return (
     <Container>
-      <IconContainer>
-        <Icon icon={iconName} size="medium" color={theme.empty.icon.color} />
-      </IconContainer>
+      <IconBox icon={iconName} color={iconColor} />
       <Text size="large" mb={theme.spacing.s1}>
         {title}
       </Text>
