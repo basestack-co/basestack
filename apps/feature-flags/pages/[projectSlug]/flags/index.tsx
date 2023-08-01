@@ -56,7 +56,7 @@ const FlagsPage = () => {
         <title>{data?.project?.name ?? "Project"} / Flags</title>
       </Head>
       <FlagsListContainer>
-        <Text size="xLarge">Flags</Text>
+        <Text size="xLarge">Feature Flags</Text>
         <Toolbar
           onChangeView={onChangeView}
           onSearchCallback={(value) => setSearchValue(value)}

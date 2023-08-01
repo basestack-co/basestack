@@ -1,6 +1,7 @@
-import React, { useMemo, Fragment } from "react";
+import React, { Fragment } from "react";
 // Context
-import useFlag from "../hooks/useFlag";
+import useFlagAsync from "../hooks/useFlagAsync";
+// Hooks
 // Types
 import { FlagResult, Flag } from "../types";
 
@@ -9,8 +10,8 @@ export interface Props {
   name: string;
   render?: (flag: FlagResult<Flag | null>) => React.ReactNode;
 }
-const Flag = ({ name, render, children }: Props) => {
-  const flag = useFlag(name);
+const FlagAsync = ({ name, render, children }: Props) => {
+  const { isLoading, flag } = useFlagAsync(name);
 
   if (render && children) {
     throw new Error(
@@ -18,9 +19,9 @@ const Flag = ({ name, render, children }: Props) => {
     );
   }
 
-  return flag.enabled ? (
+  return !isLoading && flag?.enabled ? (
     <Fragment>{render ? render(flag) : children}</Fragment>
   ) : null;
 };
 
-export default Flag;
+export default FlagAsync;

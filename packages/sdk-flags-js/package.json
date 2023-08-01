@@ -1,6 +1,6 @@
 {
   "name": "@basestack/flags-js-sdk",
-  "version": "0.0.14-alpha",
+  "version": "0.0.15-alpha",
   "author": "Basestack",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

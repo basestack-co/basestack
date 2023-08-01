@@ -7,6 +7,7 @@ import { getValue } from "@basestack/utils";
 // Middlewares
 import withRateLimit from "utils/middleware/rateLimit";
 import withHeaders from "utils/middleware/headers";
+import withCors from "utils/middleware/cors";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
@@ -35,6 +36,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default withRateLimit(
-  withHeaders(["x-project-key", "x-environment-key"], handler),
+export default withCors(
+  withRateLimit(withHeaders(["x-project-key", "x-environment-key"], handler)),
 );
