@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { rem } from "polished";
 
 const flexColumn = css`
   display: flex;
@@ -7,12 +8,17 @@ const flexColumn = css`
 
 export const CardList = styled.ul`
   ${flexColumn};
-  overflow: hidden;
 `;
 
 export const CardListItem = styled.li`
   ${flexColumn};
   &:not(:last-child) {
     margin-bottom: ${({ theme }) => theme.spacing.s5};
+  }
+`;
+
+export const SettingCardContainer = styled.li`
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    max-width: calc(100vw - ${rem("40px")});
   }
 `;

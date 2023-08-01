@@ -1,5 +1,15 @@
-import styled from "styled-components";
-import { scrollbar } from "@basestack/design-system/styles";
+import styled, { css } from "styled-components";
+import { space, SpaceProps } from "styled-system";
+
+const flexCenter = css`
+  display: flex;
+  align-items: center;
+`;
+
+const flexColumn = css`
+  display: flex;
+  flex-direction: column;
+`;
 
 export const Container = styled.main`
   padding: ${({ theme }) => theme.spacing.s6} ${({ theme }) => theme.spacing.s5};
@@ -8,14 +18,24 @@ export const Container = styled.main`
   width: 100%;
 `;
 
-export const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.s5};
+export const Section = styled.section<SpaceProps>`
+  ${flexColumn};
+  ${space};
+`;
 
-  @media screen and ${({ theme }) => theme.device.max.md} {
-    grid-template-columns: 1fr;
-  }
+export const Box = styled.div<SpaceProps>`
+  ${flexColumn};
+  ${space};
+`;
+
+export const Row = styled.div`
+  ${flexCenter};
+`;
+
+export const Header = styled.div`
+  ${flexCenter};
+  justify-content: space-between;
+  margin-bottom: ${({ theme }) => theme.spacing.s5};
 `;
 
 export const StyledLink = styled.a`
@@ -30,31 +50,37 @@ export const StyledLink = styled.a`
 `;
 
 export const ProjectsList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.s3};
-  max-height: 244px;
-  overflow: auto;
-  ${scrollbar};
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: ${({ theme }) => theme.spacing.s3};
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const ProjectsListItem = styled.li`
-  display: flex;
-  flex-direction: column;
+  ${flexColumn};
 `;
 
-export const ProjectButton = styled.button`
+export const ProjectCardButton = styled.button`
+  ${flexColumn};
+  flex-grow: 1;
   border: none;
-  display: flex;
-  align-items: center;
-  border-radius: 4px;
-  padding: ${({ theme }) => theme.spacing.s3};
-  background-color: ${({ theme }) =>
-    theme.colors[theme.isDarkMode ? "gray700" : "gray50"]};
+  background-color: transparent;
+  cursor: pointer;
+`;
 
-  &:hover:not(:active) {
-    cursor: pointer;
-    background-color: ${({ theme }) =>
-      theme.colors[theme.isDarkMode ? "gray600" : "gray100"]};
+export const ContentContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: ${({ theme }) => theme.spacing.s3};
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    grid-template-columns: 1fr;
   }
 `;

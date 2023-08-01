@@ -62,7 +62,7 @@ export const outlinedButtonStyles = css`
   ${sharedButtonStyles};
   background-color: ${({ theme }) => theme.button.outlined.backgroundColor};
   color: ${({ theme }) => theme.button.outlined.color};
-  border: 2px solid ${({ theme }) => theme.button.outlined.border};
+  border: 1px solid ${({ theme }) => theme.button.outlined.border};
 
   &:hover:not(:active, :disabled) {
     color: ${({ theme }) => theme.button.outlined.hover.color};
