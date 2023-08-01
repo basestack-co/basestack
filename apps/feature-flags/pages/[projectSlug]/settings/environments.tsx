@@ -2,7 +2,11 @@ import React from "react";
 // Layout
 import SettingsLayout from "layouts/Settings";
 // Components
-import { CardList, CardListItem } from "components/ProjectSettings/styles";
+import {
+  CardList,
+  CardListItem,
+  SettingCardContainer,
+} from "components/ProjectSettings/styles";
 import Environments from "components/ProjectSettings/Environments";
 // Types
 import { ProjectSettings } from "types";
@@ -13,7 +17,9 @@ const EnvironmentsPage = ({ project }: Props) => {
   return (
     <CardList>
       <CardListItem>
-        <Environments project={project} />
+        <SettingCardContainer>
+          <Environments project={project} />
+        </SettingCardContainer>
       </CardListItem>
     </CardList>
   );

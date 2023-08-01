@@ -465,6 +465,12 @@ const copyCard = {
   },
 };
 
+const pagination = {
+  number: {
+    backgroundColor: colors.gray100,
+  },
+};
+
 const theme = {
   isDarkMode: false,
   button,
@@ -493,6 +499,7 @@ const theme = {
   tooltip,
   textarea,
   copyCard,
+  pagination,
   typography,
   colors,
   spacing,

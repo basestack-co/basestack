@@ -1,4 +1,6 @@
 import React, { memo, forwardRef } from "react";
+import { useTheme } from "styled-components";
+import { animated } from "react-spring";
 // Hooks
 import { useFloatingPopup } from "@basestack/hooks";
 // Server
@@ -7,44 +9,18 @@ import { trpc } from "libs/trpc";
 import {
   IconButton,
   Text,
-  Icon,
   Label,
   Card,
   Popup,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
   Skeleton,
 } from "@basestack/design-system";
+import TooltipIcon from "../TooltipIcon";
 // Styles
-import { useTheme } from "styled-components";
-import { animated } from "react-spring";
-import {
-  Labels,
-  PopupWrapper,
-  Footer,
-  TooltipContainer,
-  LoadingContainer,
-} from "./styles";
+import { Labels, PopupWrapper, Footer, LoadingContainer } from "./styles";
 // Types
 import { FlagCardProps } from "./types";
 
 const AnimatedPopup = animated(Popup);
-
-const TooltipIcon = ({ icon, text }: { icon: string; text: string }) => {
-  const theme = useTheme();
-
-  return (
-    <TooltipContainer>
-      <Tooltip placement="top">
-        <TooltipTrigger>
-          <Icon icon={icon} color={theme.colors.gray500} size="small" />
-        </TooltipTrigger>
-        <TooltipContent>{text}</TooltipContent>
-      </Tooltip>
-    </TooltipContainer>
-  );
-};
 
 const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
   (
@@ -141,8 +117,20 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
           <Text data-testid="flag-date" mt="auto" size="small" muted mr="auto">
             {date}
           </Text>
-          {hasPayload && <TooltipIcon icon="data_object" text="Payload" />}
-          {isExpired && <TooltipIcon icon="timer_off" text="Expired" />}
+          {hasPayload && (
+            <TooltipIcon
+              ml={theme.spacing.s2}
+              icon="data_object"
+              text="Payload"
+            />
+          )}
+          {isExpired && (
+            <TooltipIcon
+              ml={theme.spacing.s2}
+              icon="timer_off"
+              text="Expired"
+            />
+          )}
         </Footer>
         <PopupWrapper ref={popupWrapperRef}>
           <IconButton

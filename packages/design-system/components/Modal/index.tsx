@@ -62,10 +62,10 @@ const Modal: React.FC<ModalProps> = ({
             (styles, item) =>
               item && (
                 <AnimatedSheet
-                  expandMobile={expandMobile}
                   size={size}
                   minHeight={minHeight ?? 0}
                   style={styles}
+                  expandMobile={expandMobile}
                 >
                   <Header>
                     <Text size="xLarge" mr={theme.spacing.s2}>

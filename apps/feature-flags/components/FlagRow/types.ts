@@ -26,4 +26,12 @@ export interface FlagRowProps extends SpaceProps, PositionProps {
    * Card project id
    */
   projectId: string;
+  /**
+   * Show icon indicating flag has payload
+   */
+  hasPayload?: boolean;
+  /**
+   * Show icon indicating flag has expired
+   */
+  isExpired?: boolean;
 }

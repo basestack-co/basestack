@@ -61,9 +61,7 @@ const HistoryCard = ({
               {description}
             </Text>
             &nbsp;
-            <Text fontWeight={500} lineTruncate>
-              {flagName}
-            </Text>
+            <Text fontWeight={500}>{flagName}</Text>
           </TitleContainer>
           <Text muted>{`${date} - ${environment}`}</Text>
         </TextContainer>

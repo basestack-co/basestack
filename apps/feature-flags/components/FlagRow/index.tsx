@@ -1,4 +1,6 @@
 import React, { memo, forwardRef } from "react";
+import { useTheme } from "styled-components";
+import { animated } from "react-spring";
 // Hooks
 import { useFloatingPopup } from "@basestack/hooks";
 // Server
@@ -14,15 +16,15 @@ import {
   TooltipTrigger,
   Skeleton,
 } from "@basestack/design-system";
+import TooltipIcon from "../TooltipIcon";
 // Styles
-import { useTheme } from "styled-components";
-import { animated } from "react-spring";
 import {
   Labels,
   Label,
   CardWrapper,
   PopupWrapper,
   TooltipContainer,
+  IconsContainer,
 } from "./styles";
 import { FlagRowProps } from "./types";
 
@@ -30,7 +32,17 @@ const AnimatedPopup = animated(Popup);
 
 const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
   (
-    { projectId, title, slug, description, popupItems = [], date, ...props },
+    {
+      isExpired,
+      hasPayload,
+      projectId,
+      title,
+      slug,
+      description,
+      popupItems = [],
+      date,
+      ...props
+    },
     ref,
   ) => {
     const theme = useTheme();
@@ -107,6 +119,16 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
           <Text data-testid="flag-date" size="small" muted lineTruncate>
             {date}
           </Text>
+          <IconsContainer>
+            {hasPayload && <TooltipIcon icon="data_object" text="Payload" />}
+            {isExpired && (
+              <TooltipIcon
+                ml={theme.spacing.s2}
+                icon="timer_off"
+                text="Expired"
+              />
+            )}
+          </IconsContainer>
           <PopupWrapper ref={popupWrapperRef}>
             <IconButton
               {...getReferenceProps}
