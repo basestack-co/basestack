@@ -87,8 +87,6 @@ const MainPage = () => {
     enabled: status === "authenticated",
   });
 
-  console.log("data = ", data);
-
   const setCreateProjectModalOpen = useStore(
     (state) => state.setCreateProjectModalOpen,
   );
