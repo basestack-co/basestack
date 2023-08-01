@@ -83,15 +83,14 @@ const MainPage = () => {
   const router = useRouter();
   const theme = useTheme();
 
-  const { status } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/auth/sign-in");
-    },
-  });
-
   const { data } = trpc.project.all.useQuery(undefined, {
-    enabled: status === "authenticated",
+    select: (data) =>
+      data?.projects.map((item) => ({
+        id: item.id,
+        slug: item.slug,
+        onClick: () => onSelectProject(item.slug),
+        text: item.name,
+      })),
   });
 
   const setCreateProjectModalOpen = useStore(
@@ -108,19 +107,6 @@ const MainPage = () => {
     [router],
   );
 
-  const projects = useMemo(
-    () =>
-      data?.projects.map((item) => {
-        return {
-          id: item.id,
-          slug: item.slug,
-          onClick: () => onSelectProject(item.slug),
-          text: item.name,
-        };
-      }),
-    [data, onSelectProject],
-  );
-
   return (
     <div>
       <Head>
@@ -132,7 +118,7 @@ const MainPage = () => {
             <Text size="xLarge" mr={theme.spacing.s5}>
               Recent projects
             </Text>
-            {projects?.length && (
+            {data?.length && (
               <Button
                 flexShrink={0}
                 variant={ButtonVariant.Tertiary}
@@ -142,7 +128,7 @@ const MainPage = () => {
               </Button>
             )}
           </Header>
-          {!projects?.length && (
+          {!data?.length && (
             <GetStartedCard
               icon={{
                 name: "folder_open",
@@ -157,9 +143,9 @@ const MainPage = () => {
               }}
             />
           )}
-          {projects?.length && (
+          {data?.length && (
             <ProjectsList>
-              {projects.slice(0, 4).map((project) => (
+              {data.slice(0, 4).map((project) => (
                 <ProjectCard
                   key={project.id}
                   text={project.text}

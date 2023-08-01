@@ -1,12 +1,12 @@
-import React, { useCallback } from "react";
-import { useTheme } from "styled-components";
-import { animated, config, useTransition } from "react-spring";
-import { RouterOutput } from "libs/trpc";
+import React from "react";
+// Store
 import { useStore } from "store";
+// Router
 import { useRouter } from "next/router";
+// Auth
 import { useSession } from "next-auth/react";
-import { internalLinks, externalLinks } from "../data";
 // Components
+import { animated, config, useTransition } from "react-spring";
 import {
   fadeIn,
   slideInLeft,
@@ -16,8 +16,11 @@ import {
   ButtonVariant,
   Avatar,
   HorizontalRule,
+  PopupActionProps,
 } from "@basestack/design-system";
 import AvatarDropdown from "../../AvatarDropdown";
+// Styles
+import { useTheme } from "styled-components";
 import {
   BackDropCover,
   Container,
@@ -31,6 +34,8 @@ import {
   ScrollableContent,
   StyledLink,
 } from "./styles";
+// Data
+import { internalLinks, externalLinks } from "../data";
 
 const AnimatedBackDropCover = animated(BackDropCover);
 const AnimatedNavigation = animated(Container);
@@ -38,7 +43,7 @@ const AnimatedNavigation = animated(Container);
 interface NavigationDrawerProps {
   isDrawerOpen: boolean;
   onClose: () => void;
-  data?: RouterOutput["project"]["all"];
+  data?: Array<PopupActionProps>;
 }
 
 const NavigationDrawer = ({
@@ -49,6 +54,7 @@ const NavigationDrawer = ({
   const theme = useTheme();
   const { data: session } = useSession();
   const router = useRouter();
+  const projectSlug = router.query.projectSlug as string;
 
   const setCreateProjectModalOpen = useStore(
     (state) => state.setCreateProjectModalOpen,
@@ -56,16 +62,6 @@ const NavigationDrawer = ({
 
   const setCreateFlagModalOpen = useStore(
     (state) => state.setCreateFlagModalOpen,
-  );
-
-  const onSelectProject = useCallback(
-    (projectSlug: string) => {
-      router.push({
-        pathname: "/[projectSlug]/flags",
-        query: { projectSlug },
-      });
-    },
-    [router],
   );
 
   const transitionNavigation = useTransition(isDrawerOpen, {
@@ -77,8 +73,6 @@ const NavigationDrawer = ({
     config: { ...config.default, duration: 150 },
     ...fadeIn,
   });
-
-  const projectSlug = router.query.projectSlug as string;
 
   return (
     <>
@@ -135,16 +129,16 @@ const NavigationDrawer = ({
                     </Text>
                   </TitleContainer>
                   <List>
-                    {data?.projects.map((item) => (
-                      <ListItem key={item.id}>
+                    {data?.map(({ id, text, onClick }) => (
+                      <ListItem key={id}>
                         <Button
                           iconPlacement="left"
                           icon="tag"
                           variant={ButtonVariant.Neutral}
-                          onClick={() => onSelectProject(item.slug)}
+                          onClick={onClick}
                           fullWidth
                         >
-                          {item.name}
+                          {text}
                         </Button>
                       </ListItem>
                     ))}
