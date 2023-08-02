@@ -47,3 +47,10 @@ export const CodeContainer = styled.div`
     background: ${({ theme }) => theme.colors.gray700}!important;
   }
 `;
+
+export const CopyButtonContainer = styled.div`
+  display: inline-flex;
+  position: absolute;
+  right: ${({ theme }) => theme.spacing.s3};
+  top: ${({ theme }) => theme.spacing.s3};
+`;

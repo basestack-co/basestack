@@ -1,7 +1,7 @@
 import React from "react";
-import { Card, Text, Icon } from "@basestack/design-system";
+import { Text, Icon } from "@basestack/design-system";
 import { useTheme } from "styled-components";
-import { CardButton, CardContent } from "./styles";
+import { CardButton } from "./styles";
 
 export interface LanguageCardProps {
   text: string;
@@ -73,14 +73,10 @@ const LanguageCard = ({
 
   return (
     <CardButton isSelected={isSelected} onClick={onSelect}>
-      <Card hasHoverAnimation p={theme.spacing.s3}>
-        <CardContent>
-          {getIcon()}
-          <Text ml={theme.spacing.s2} size="small">
-            {text}
-          </Text>
-        </CardContent>
-      </Card>
+      {getIcon()}
+      <Text ml={theme.spacing.s2} size="small">
+        {text}
+      </Text>
     </CardButton>
   );
 };

@@ -16,11 +16,11 @@ import {
   ContentContainer,
   ListItem,
   StyledLink,
+  CopyButtonContainer,
 } from "./styles";
 // Data
 import { buttons, javascript, react, rest } from "./data";
 import CopyButton from "./CopyButton";
-import { CopyButtonContainer } from "./LanguageCard/styles";
 
 SyntaxHighlighter.registerLanguage("typescript", ts);
 

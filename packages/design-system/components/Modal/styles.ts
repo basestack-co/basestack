@@ -62,18 +62,24 @@ export const Sheet = styled.div<{
   background-color: ${({ theme }) => theme.modal.backgroundColor};
   box-shadow: ${({ theme }) => theme.shadow.elevation4};
   border-radius: 4px;
+  overflow: hidden;
   z-index: 1;
   max-height: calc(100vh - ${({ theme }) => theme.spacing.s6});
 `;
 
 export const ContentContainer = styled.div`
   ${flexColumn};
+`;
+
+export const ContentWrapper = styled.div`
   overflow: auto;
   ${scrollbar};
+  ${flexColumn};
+  max-height: calc(100vh - ${rem("182px")});
 `;
 
 export const Header = styled.div`
-  height: ${rem("75px")};
+  height: ${rem("76px")};
   padding: 0 ${rem("20px")};
   ${flexRowCenter};
   background-color: ${({ theme }) => theme.modal.backgroundColor};
@@ -81,13 +87,15 @@ export const Header = styled.div`
 `;
 
 export const Body = styled.div`
-  padding: 0 ${rem("20px")} ${rem("20px")} ${rem("20px")};
+  padding: 0 ${rem("20px")};
   ${flexColumn};
 `;
 
 export const Footer = styled.div`
-  padding: ${rem("20px")};
+  height: ${rem("76px")};
+  padding: 0 ${rem("20px")};
   ${flexRowCenter};
+  flex-shrink: 0;
   justify-content: flex-end;
   margin-top: auto;
 `;

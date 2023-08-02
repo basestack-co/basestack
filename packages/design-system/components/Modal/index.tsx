@@ -6,6 +6,7 @@ import {
   Body,
   Container,
   ContentContainer,
+  ContentWrapper,
   Footer,
   GlobalStyle,
   Header,
@@ -74,7 +75,9 @@ const Modal: React.FC<ModalProps> = ({
                     <IconButton ml="auto" onClick={onClose} icon="close" />
                   </Header>
                   <ContentContainer>
-                    <Body>{children}</Body>
+                    <ContentWrapper>
+                      <Body>{children}</Body>
+                    </ContentWrapper>
                     <Footer>
                       {buttons &&
                         buttons.map((item, index, { length }) => {
