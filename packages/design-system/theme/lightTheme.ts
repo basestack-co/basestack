@@ -217,7 +217,7 @@ const iconButton = {
   },
   secondary: {
     backgroundColor: colors.gray100,
-    color: colors.white,
+    color: colors.black,
     hover: { backgroundColor: colors.gray200 },
   },
   neutral: {

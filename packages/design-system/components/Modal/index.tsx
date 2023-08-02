@@ -5,6 +5,7 @@ import Text from "../Text";
 import {
   Body,
   Container,
+  ContentContainer,
   Footer,
   GlobalStyle,
   Header,
@@ -65,7 +66,6 @@ const Modal: React.FC<ModalProps> = ({
                   size={size}
                   minHeight={minHeight ?? 0}
                   style={styles}
-                  expandMobile={expandMobile}
                 >
                   <Header>
                     <Text size="xLarge" mr={theme.spacing.s2}>
@@ -73,31 +73,33 @@ const Modal: React.FC<ModalProps> = ({
                     </Text>
                     <IconButton ml="auto" onClick={onClose} icon="close" />
                   </Header>
-                  <Body>{children}</Body>
-                  <Footer>
-                    {buttons &&
-                      buttons.map((item, index, { length }) => {
-                        const isLastItem = index + 1 === length;
-                        return (
-                          <Button
-                            key={index.toString()}
-                            variant={
-                              item.variant
-                                ? item.variant
-                                : isLastItem
-                                ? ButtonVariant.Primary
-                                : ButtonVariant.Neutral
-                            }
-                            onClick={item.onClick}
-                            isDisabled={item.isDisabled}
-                            isLoading={item.isLoading}
-                            ml={theme.spacing.s1}
-                          >
-                            {item.children}
-                          </Button>
-                        );
-                      })}
-                  </Footer>
+                  <ContentContainer>
+                    <Body>{children}</Body>
+                    <Footer>
+                      {buttons &&
+                        buttons.map((item, index, { length }) => {
+                          const isLastItem = index + 1 === length;
+                          return (
+                            <Button
+                              key={index.toString()}
+                              variant={
+                                item.variant
+                                  ? item.variant
+                                  : isLastItem
+                                  ? ButtonVariant.Primary
+                                  : ButtonVariant.Neutral
+                              }
+                              onClick={item.onClick}
+                              isDisabled={item.isDisabled}
+                              isLoading={item.isLoading}
+                              ml={theme.spacing.s1}
+                            >
+                              {item.children}
+                            </Button>
+                          );
+                        })}
+                    </Footer>
+                  </ContentContainer>
                 </AnimatedSheet>
               ),
           )}

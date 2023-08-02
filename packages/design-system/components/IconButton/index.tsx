@@ -11,14 +11,14 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     const handleIconColor = () => {
       switch (variant) {
         case "primary":
-          return theme.colors.white;
+          return theme.iconButton.primary.color;
         case "primaryNeutral":
-          return theme.colors.blue400;
+          return theme.iconButton.primaryNeutral.color;
         case "secondary":
-          return theme.colors.black;
+          return theme.iconButton.secondary.color;
         default:
         case "neutral":
-          return theme.colors.black;
+          return theme.iconButton.neutral.color;
       }
     };
 

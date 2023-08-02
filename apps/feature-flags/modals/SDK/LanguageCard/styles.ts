@@ -18,3 +18,10 @@ export const CardContent = styled.div`
   display: flex;
   align-items: center;
 `;
+
+export const CopyButtonContainer = styled.div`
+  display: inline-flex;
+  position: absolute;
+  right: ${({ theme }) => theme.spacing.s3};
+  top: ${({ theme }) => theme.spacing.s3};
+`;

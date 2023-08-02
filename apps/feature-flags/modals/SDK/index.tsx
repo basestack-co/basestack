@@ -18,15 +18,9 @@ import {
   StyledLink,
 } from "./styles";
 // Data
-import { javascript, vue, jquery, react, angular } from "./codeData";
-
-const data = [
-  { id: "javascript", text: "Javascript" },
-  { id: "react", text: "React" },
-  { id: "angular", text: "Angular" },
-  { id: "vue", text: "Vue" },
-  { id: "jquery", text: "Jquery" },
-];
+import { buttons, javascript, react, rest } from "./data";
+import CopyButton from "./CopyButton";
+import { CopyButtonContainer } from "./LanguageCard/styles";
 
 SyntaxHighlighter.registerLanguage("typescript", ts);
 
@@ -40,9 +34,7 @@ const SDKModal = () => {
   const codeStringIndex: { [key: number]: string } = {
     0: javascript,
     1: react,
-    2: angular,
-    3: vue,
-    4: jquery,
+    2: rest,
   };
 
   const codeString = codeStringIndex[selectedListIndex];
@@ -64,10 +56,11 @@ const SDKModal = () => {
       >
         <Container>
           <CardsList>
-            {data.map(({ id, text }, index) => (
+            {buttons.map(({ id, text }, index) => (
               <ListItem key={id}>
                 <LanguageCard
                   text={text}
+                  icon={id}
                   onSelect={() => setSelectedListIndex(index)}
                   isSelected={selectedListIndex === index}
                 />
@@ -76,17 +69,20 @@ const SDKModal = () => {
           </CardsList>
           <ContentContainer>
             <Text size="large" mb={theme.spacing.s1}>
-              {data[selectedListIndex].text} Usage Instructions
+              {buttons[selectedListIndex].text} Usage Instructions
             </Text>
             <Text size="small" muted>
               Read the{" "}
               <StyledLink href="">
-                {data[selectedListIndex].text} SDK docs
+                {buttons[selectedListIndex].text} SDK docs
               </StyledLink>{" "}
               or view a{" "}
               <StyledLink href="">complete implementation example</StyledLink>.
             </Text>
             <CodeContainer>
+              <CopyButtonContainer>
+                <CopyButton text={codeString} />
+              </CopyButtonContainer>
               <SyntaxHighlighter
                 language="javascript"
                 style={a11yDark}

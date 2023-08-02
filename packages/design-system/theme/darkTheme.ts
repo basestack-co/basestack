@@ -207,26 +207,29 @@ const icon = {
 
 const iconButton = {
   primary: {
-    backgroundColor: colors.primary,
-    color: colors.white,
-    hover: { backgroundColor: darken(0.1, colors.primary) },
+    backgroundColor: colors.blue500,
+    color: colors.gray300,
+    hover: { backgroundColor: colors.blue400 },
   },
   primaryNeutral: {
     backgroundColor: "transparent",
-    color: colors.black,
-    hover: { color: colors.blue400, backgroundColor: colors.blue50 },
-    active: { backgroundColor: colors.blue100 },
+    color: colors.gray300,
+    hover: {
+      color: colors.blue200,
+      backgroundColor: transparentize(0.8, colors.blue200),
+    },
+    active: { backgroundColor: transparentize(0.9, colors.blue200) },
   },
   secondary: {
-    backgroundColor: colors.gray100,
-    color: colors.white,
-    hover: { backgroundColor: colors.gray200 },
+    backgroundColor: colors.gray600,
+    color: colors.gray300,
+    hover: { backgroundColor: colors.gray500 },
   },
   neutral: {
     backgroundColor: "transparent",
     color: colors.gray300,
-    hover: { backgroundColor: colors.gray700 },
-    active: { backgroundColor: colors.gray600 },
+    hover: { backgroundColor: colors.gray600 },
+    active: { backgroundColor: colors.gray700 },
   },
 };
 

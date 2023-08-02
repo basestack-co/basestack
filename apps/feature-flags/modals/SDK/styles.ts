@@ -34,6 +34,7 @@ export const StyledLink = styled.a`
 `;
 
 export const CodeContainer = styled.div`
+  position: relative;
   margin-top: ${({ theme }) => theme.spacing.s5};
   display: flex;
   flex-direction: column;
