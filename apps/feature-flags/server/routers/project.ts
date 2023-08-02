@@ -28,6 +28,65 @@ export const projectRouter = router({
 
     return { projects };
   }),
+  recent: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.session.user.id;
+
+    return await ctx.prisma.$transaction(async (tx) => {
+      const projects = await tx.project.findMany({
+        where: {
+          users: {
+            some: {
+              user: {
+                id: userId,
+              },
+            },
+          },
+        },
+        skip: 0,
+        take: 4,
+        select: {
+          id: true,
+          slug: true,
+          name: true,
+          environments: {
+            select: {
+              flags: {
+                orderBy: {
+                  updatedAt: "desc",
+                },
+              },
+            },
+          },
+        },
+
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+
+      return await Promise.all(
+        projects.map(async (project) => {
+          const count = await tx.flag.count({
+            where: {
+              environment: {
+                isDefault: true,
+                project: {
+                  id: project.id,
+                },
+              },
+            },
+          });
+
+          return {
+            ...project,
+            flags: {
+              count,
+            },
+          };
+        }),
+      );
+    });
+  }),
   bySlug: protectedProcedure
     .meta({
       restricted: true,

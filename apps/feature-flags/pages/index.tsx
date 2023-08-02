@@ -83,13 +83,14 @@ const MainPage = () => {
   const router = useRouter();
   const theme = useTheme();
 
-  const { data } = trpc.project.all.useQuery(undefined, {
-    select: (data) =>
-      data?.projects.map((item) => ({
+  const { data } = trpc.project.recent.useQuery(undefined, {
+    select: (projects) =>
+      projects?.map((item) => ({
         id: item.id,
         slug: item.slug,
         onClick: () => onSelectProject(item.slug),
         text: item.name,
+        flags: item.flags,
       })),
   });
 
@@ -151,7 +152,7 @@ const MainPage = () => {
                   text={project.text}
                   id={project.id}
                   onClick={project.onClick}
-                  flags={0}
+                  flags={project.flags.count}
                 />
               ))}
             </ProjectsList>
