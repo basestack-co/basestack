@@ -43,6 +43,14 @@ const GlobalStyle = createGlobalStyle`
     ul {
       list-style-type: none;
     }
+
+    input,
+    textarea,
+    button,
+    select,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
 `;
 
 export default GlobalStyle;
