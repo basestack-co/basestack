@@ -1,61 +1,60 @@
-export const buttons = [
-  { id: "javascript", text: "Javascript" },
-  { id: "react", text: "React" },
-  { id: "rest", text: "Rest API" },
-];
+// Utils
+import {
+  DOCS_SDKS_JS_URL,
+  DOCS_SDKS_REST_URL,
+  DOCS_SDKS_REACT_URL,
+} from "utils/helpers/constants";
 
-export const javascript = `
-  const currentClients = 1000;
-  const newClients = 50;
-  
-  function sum(a: number, b: number) {
-    return a + b;
+export const javascriptCode = `
+import FlagsJS from "@basestack/flags-js-sdk";
+ 
+const sdk = new FlagsJS({
+  apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
+  projectKey: "xxxxx",
+  envKey: "xxxxx",
+});
+
+const MyFeature = async () => {
+  try {
+    const flag = await sdk.flagAsync("header");
+    //flag.enabled true | false
+    //  ...code
+  } catch (e) {
+    throw e;
   }
-  
-  const numberOfClients = sum(currentClients, newClients);
-  
-  if (numberOfClients > 3000) {
-    alert("Party Time");
-  }
+};
  `;
 
-export const react = `
-  import React, { useState } from "react";
-
-  const currentClients = 1000;
-  const newClients = 50;
-
-  function sum(a, b) {
-    return a + b;
-  }
-
-  const numberOfClients = sum(currentClients, newClients);
-
-  function App() {
-    const [alertMessage, setAlertMessage] = useState("");
-
-    if (numberOfClients > 3000) {
-      setAlertMessage("Party Time");
-    }
-
-    return alertMessage;
-  }
-
-  export default App;
-  
+export const reactCode = `
+import { useFlag } from "@basestack/flags-react-sdk";
+ 
+const AppComponent = () => {
+  const { enabled } = useFlag("private_msg_2");
+ 
+  return (
+    <div>
+      {enabled && <div>This is a great feature</div>}
+    </div>
+  );
+};
 `;
 
-export const rest = `
-  const currentClients = 1000;
-  const newClients = 50;
-  
-  function sum(a: number, b: number) {
-    return a + b;
-  }
-  
-  const numberOfClients = sum(currentClients, newClients);
-  
-  if (numberOfClients > 3000) {
-    alert("Party Time");
-  }
+export const restCode = `
+## Get Flag By Slug/Name
+curl "https://your-basestack-hosted-app-domain.com/api/v1/flags/:slug" \\
+     -H 'x-project-key: xxxx-xxxx-xxxx' \\
+     -H 'x-environment-key: xxxx-xxxx-xxxx'
  `;
+
+const data = [
+  {
+    id: "javascript",
+    text: "Javascript",
+    href: DOCS_SDKS_JS_URL,
+    code: javascriptCode,
+  },
+  { id: "react", text: "React", href: DOCS_SDKS_REACT_URL, code: reactCode },
+  { id: "rest", text: "Rest API", href: DOCS_SDKS_REST_URL, code: restCode },
+];
+
+export default data;

@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
+// Store
 import { useStore } from "store";
-import { useTheme } from "styled-components";
-import Portal from "@basestack/design-system/global/Portal";
-import { ButtonVariant, Modal, Text } from "@basestack/design-system";
 // Code
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
 // Components
+import Portal from "@basestack/design-system/global/Portal";
+import { ButtonVariant, Modal, Text } from "@basestack/design-system";
 import LanguageCard from "./LanguageCard";
+import CopyButton from "./CopyButton";
+
+// Styles
+import { useTheme } from "styled-components";
 import {
   CardsList,
   CodeContainer,
@@ -19,8 +23,7 @@ import {
   CopyButtonContainer,
 } from "./styles";
 // Data
-import { buttons, javascript, react, rest } from "./data";
-import CopyButton from "./CopyButton";
+import data from "./data";
 
 SyntaxHighlighter.registerLanguage("typescript", ts);
 
@@ -29,20 +32,17 @@ const SDKModal = () => {
   const [selectedListIndex, setSelectedListIndex] = useState(0);
   const isModalOpen = useStore((state) => state.isSDKModalOpen);
   const setSDKModalOpen = useStore((state) => state.setSDKModalOpen);
+
   const onClose = () => setSDKModalOpen({ isOpen: false });
 
-  const codeStringIndex: { [key: number]: string } = {
-    0: javascript,
-    1: react,
-    2: rest,
-  };
-
-  const codeString = codeStringIndex[selectedListIndex];
+  const tab = useMemo(() => {
+    return data[selectedListIndex];
+  }, [selectedListIndex]);
 
   return (
     <Portal selector="#portal">
       <Modal
-        title="Feature Implementation"
+        title="Implementing Feature Flags"
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
@@ -56,7 +56,7 @@ const SDKModal = () => {
       >
         <Container>
           <CardsList>
-            {buttons.map(({ id, text }, index) => (
+            {data.map(({ id, text }, index) => (
               <ListItem key={id}>
                 <LanguageCard
                   text={text}
@@ -69,26 +69,25 @@ const SDKModal = () => {
           </CardsList>
           <ContentContainer>
             <Text size="large" mb={theme.spacing.s1}>
-              {buttons[selectedListIndex].text} Usage Instructions
+              {tab.text} SDK Reference
             </Text>
             <Text size="small" muted>
-              Read the{" "}
-              <StyledLink href="">
-                {buttons[selectedListIndex].text} SDK docs
+              Explore the{" "}
+              <StyledLink href={tab.href} target="_blank">
+                {tab.text} SDK
               </StyledLink>{" "}
-              or view a{" "}
-              <StyledLink href="">complete implementation example</StyledLink>.
+              Docs to learn how to install and use the SDK.
             </Text>
             <CodeContainer>
               <CopyButtonContainer>
-                <CopyButton text={codeString} />
+                <CopyButton text={tab.code} />
               </CopyButtonContainer>
               <SyntaxHighlighter
                 language="javascript"
                 style={a11yDark}
                 wrapLongLines
               >
-                {codeString}
+                {tab.code}
               </SyntaxHighlighter>
             </CodeContainer>
           </ContentContainer>

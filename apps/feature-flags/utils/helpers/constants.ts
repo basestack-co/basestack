@@ -7,3 +7,12 @@ export const DOCS_SDKS_URL =
 export const DOCS_CONTRIBUTE_URL = "https://docs.basestack.co/contributing";
 
 export const GITHUB_REPO_URL = "https://github.com/Storytics/monolock";
+
+export const DOCS_SDKS_JS_URL =
+  "https://docs.basestack.co/feature-flags/sdks/javascript";
+
+export const DOCS_SDKS_REACT_URL =
+  "https://docs.basestack.co/feature-flags/sdks/react";
+
+export const DOCS_SDKS_REST_URL =
+  "https://docs.basestack.co/feature-flags/sdks/rest-api";
