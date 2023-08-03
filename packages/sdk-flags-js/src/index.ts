@@ -15,11 +15,16 @@ class FlagsJS {
     this.apiUrl = apiUrl;
     this.projectKey = projectKey;
     this.envKey = envKey;
+
+    store.subscribe((state) => {
+      this.isInitialized = state.isInitialized;
+    });
   }
 
   async initialize() {
+    const { setIsInitialized } = store.getState();
     await this.flagsAsync();
-    this.isInitialized = true;
+    setIsInitialized(true);
   }
 
   async flagsAsync(): Promise<Flag[]> {

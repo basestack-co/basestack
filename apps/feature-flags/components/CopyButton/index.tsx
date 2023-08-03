@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// Components
 import {
   IconButton,
   Tooltip,
@@ -6,7 +7,11 @@ import {
   TooltipTrigger,
 } from "@basestack/design-system";
 
-const CopyButton = ({ text }: { text: string }) => {
+export interface Props {
+  text: string;
+}
+
+const CopyButton = ({ text }: Props) => {
   const [showTooltipSuccess, setShowTooltipSuccess] = useState(false);
 
   return (

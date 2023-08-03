@@ -3,8 +3,6 @@ import { useMediaQuery } from "@basestack/hooks";
 import { useTheme } from "styled-components";
 // Router
 import { useRouter } from "next/router";
-// Store
-import { useStore } from "store";
 // Auth
 import { useSession } from "next-auth/react";
 // Components
@@ -19,9 +17,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isMobile = useMediaQuery(theme.device.max.lg);
   const router = useRouter();
-  const setCreateFlagModalOpen = useStore(
-    (state) => state.setCreateFlagModalOpen,
-  );
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -37,7 +32,20 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   const { data, isLoading: isLoadingProjects } = trpc.project.all.useQuery(
     undefined,
-    { enabled: status === "authenticated" },
+    {
+      enabled: status === "authenticated",
+      select: (data) =>
+        data?.projects.map((item) => ({
+          id: item.id,
+          slug: item.slug,
+          onClick: () =>
+            router.push({
+              pathname: "/[projectSlug]/flags",
+              query: { projectSlug: item.slug },
+            }),
+          text: item.name,
+        })),
+    },
   );
 
   if (status === "loading" || isLoadingProjects) {

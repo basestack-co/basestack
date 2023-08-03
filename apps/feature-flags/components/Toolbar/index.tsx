@@ -36,7 +36,7 @@ const Toolbar = ({
         isDarker
         icon="search"
         iconPlacement="left"
-        placeholder="Filter by title"
+        placeholder="Filter by name"
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           setSearchValue(event.target.value)
         }

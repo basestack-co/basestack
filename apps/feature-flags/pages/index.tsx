@@ -1,10 +1,10 @@
-import { useCallback, useMemo } from "react";
-import { useTheme } from "styled-components";
 import Head from "next/head";
+// Router
 import { useRouter } from "next/router";
+// Store
 import { useStore } from "store";
+// Server
 import { trpc } from "libs/trpc";
-import { useSession } from "next-auth/react";
 // Components
 import {
   Avatar,
@@ -15,10 +15,12 @@ import {
   Text,
   HorizontalRule,
   Icon,
+  Skeleton,
 } from "@basestack/design-system";
 import GetStartedCard from "components/GetStarted/GetStartedCard";
 import TextLink from "components/GetStarted/TextLink";
 // Styles
+import { useTheme } from "styled-components";
 import {
   Box,
   Container,
@@ -30,8 +32,16 @@ import {
   Row,
   Section,
 } from "components/GetStarted/styles";
+// Utils
+import {
+  DOCS_CONTRIBUTE_URL,
+  DOCS_OVERVIEW_URL,
+  DOCS_SDKS_URL,
+  GITHUB_REPO_URL,
+} from "utils/helpers/constants";
 // Layout
 import MainLayout from "../layouts/Main";
+import React from "react";
 
 interface ProjectCardProps {
   id: string;
@@ -76,44 +86,27 @@ const MainPage = () => {
   const router = useRouter();
   const theme = useTheme();
 
-  const setSDKModalOpen = useStore((state) => state.setSDKModalOpen);
+  const setIntegrationModalOpen = useStore(
+    (state) => state.setIntegrationModalOpen,
+  );
 
-  const { status } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/auth/sign-in");
-    },
-  });
-
-  const { data } = trpc.project.all.useQuery(undefined, {
-    enabled: status === "authenticated",
+  const { data, isLoading } = trpc.project.recent.useQuery(undefined, {
+    select: (projects) =>
+      projects?.map((item) => ({
+        id: item.id,
+        slug: item.slug,
+        onClick: () =>
+          router.push({
+            pathname: "/[projectSlug]/flags",
+            query: { projectSlug: item.slug },
+          }),
+        text: item.name,
+        flags: item.flags,
+      })),
   });
 
   const setCreateProjectModalOpen = useStore(
     (state) => state.setCreateProjectModalOpen,
-  );
-
-  const onSelectProject = useCallback(
-    (projectSlug: string) => {
-      router.push({
-        pathname: "/[projectSlug]/flags",
-        query: { projectSlug },
-      });
-    },
-    [router],
-  );
-
-  const projects = useMemo(
-    () =>
-      data?.projects.map((item) => {
-        return {
-          id: item.id,
-          slug: item.slug,
-          onClick: () => onSelectProject(item.slug),
-          text: item.name,
-        };
-      }),
-    [data, onSelectProject],
   );
 
   return (
@@ -127,7 +120,7 @@ const MainPage = () => {
             <Text size="xLarge" mr={theme.spacing.s5}>
               Recent projects
             </Text>
-            {projects?.length && (
+            {!!data?.length && (
               <Button
                 flexShrink={0}
                 variant={ButtonVariant.Tertiary}
@@ -137,7 +130,7 @@ const MainPage = () => {
               </Button>
             )}
           </Header>
-          {!projects?.length && (
+          {!isLoading && !data?.length && (
             <GetStartedCard
               icon={{
                 name: "folder_open",
@@ -152,21 +145,33 @@ const MainPage = () => {
               }}
             />
           )}
-          {projects?.length && (
+          {isLoading && (
             <ProjectsList>
-              {projects.slice(0, 4).map((project) => (
+              <Skeleton
+                numberOfItems={3}
+                items={[
+                  { h: 28, w: 28, mb: 12 },
+                  { h: 22, w: "50%", mb: 32 },
+                  { h: 22, w: 28 },
+                ]}
+                padding="20px 20px 12px 20px"
+              />
+            </ProjectsList>
+          )}
+          {!isLoading && !!data?.length && (
+            <ProjectsList>
+              {data.slice(0, 4).map((project) => (
                 <ProjectCard
                   key={project.id}
                   text={project.text}
                   id={project.id}
                   onClick={project.onClick}
-                  flags={0}
+                  flags={project.flags.count}
                 />
               ))}
             </ProjectsList>
           )}
         </Section>
-
         <Section>
           <Header>
             <Text size="xLarge" mr={theme.spacing.s5}>
@@ -180,33 +185,45 @@ const MainPage = () => {
                 color: "green",
               }}
               title="Install our SDK"
-              description="Integrate Moonflags into your Javascript, React, Go, PHP. More languages are coming soon!"
+              description="Create projects, add new feature flags, invite members, and implement the feature flags in your product using our official SDKs."
               button={{
                 text: "View Instructions",
-                onClick: () => setSDKModalOpen({ isOpen: true }),
+                onClick: () => setIntegrationModalOpen({ isOpen: true }),
                 variant: ButtonVariant.Tertiary,
               }}
             />
             <Card hasHoverAnimation p={theme.spacing.s5}>
               <IconBox icon="folder_open" color="gray" />
               <Text size="large" mb={theme.spacing.s2}>
-                Documentation, help and support
+                Documentation, Help and Support
               </Text>
               <TextLink
-                text="Read our"
-                link={{ text: "user guide", href: "/" }}
+                text="Read the"
+                link={{
+                  text: "Documentation",
+                  href: DOCS_OVERVIEW_URL,
+                  target: "_blank",
+                }}
               />
               <TextLink
-                text="Watch a quick"
-                link={{ text: "video tour", href: "/" }}
+                text="Check out the"
+                link={{ text: "SDK’s", href: DOCS_SDKS_URL, target: "_blank" }}
               />
               <TextLink
-                text="View docs for our"
-                link={{ text: "SDK’s", href: "/" }}
+                text="How to"
+                link={{
+                  text: "Contribute?",
+                  href: DOCS_CONTRIBUTE_URL,
+                  target: "_blank",
+                }}
               />
               <TextLink
                 text=" Open an issue on"
-                link={{ text: "Github", href: "/" }}
+                link={{
+                  text: "Github",
+                  href: GITHUB_REPO_URL,
+                  target: "_blank",
+                }}
                 hasMarginBottom={false}
               />
             </Card>

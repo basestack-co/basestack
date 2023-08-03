@@ -16,7 +16,7 @@ import { trpc } from "libs/trpc";
 import { useStore } from "store";
 // Utils
 import dayjs from "dayjs";
-import { createTable } from "utils/table";
+import { createTable } from "utils/helpers/table";
 // Types
 import { ProjectSettings } from "types";
 import { Role } from "@prisma/client";

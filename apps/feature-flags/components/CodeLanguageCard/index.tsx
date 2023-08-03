@@ -1,6 +1,8 @@
 import React from "react";
+// Components
 import { Text, Icon } from "@basestack/design-system";
 import { useTheme } from "styled-components";
+// Styles
 import { CardButton } from "./styles";
 
 export interface LanguageCardProps {
@@ -12,7 +14,7 @@ export interface LanguageCardProps {
 
 type IconMap = { [key: string]: JSX.Element };
 
-const LanguageCard = ({
+const CodeLanguageCard = ({
   text,
   onSelect,
   isSelected = false,
@@ -81,4 +83,4 @@ const LanguageCard = ({
   );
 };
 
-export default LanguageCard;
+export default CodeLanguageCard;

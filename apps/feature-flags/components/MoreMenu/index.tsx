@@ -56,7 +56,6 @@ const MoreButton = () => {
               left={x}
               items={[
                 { text: "Documentation", onClick: () => console.log("") },
-                { text: "Resources", onClick: () => console.log("") },
                 { text: "Github", onClick: () => console.log("") },
               ]}
             />

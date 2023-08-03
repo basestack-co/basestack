@@ -11,8 +11,8 @@ import UpdateEnvironmentModal from "./Environment/Update";
 import InviteMemberModal from "./Member/Invite";
 // Confirm
 import ConfirmModal from "./Confirm";
-// SDK
-import SDKModal from "./SDK";
+// SDK Integration
+import IntegrationModal from "./Integration";
 
 const Modals = () => {
   return (
@@ -24,7 +24,7 @@ const Modals = () => {
       <CreateFlagModal />
       <UpdateFlagModal />
       <ConfirmModal />
-      <SDKModal />
+      <IntegrationModal />
     </Fragment>
   );
 };

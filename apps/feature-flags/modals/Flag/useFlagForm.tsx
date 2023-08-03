@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 // Form
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,7 +16,6 @@ export interface UseFlagFormProps {
   isModalOpen: boolean;
   projectSlug: string;
   flagId?: string;
-  isCreate?: boolean;
 }
 
 export const tabPosition: { [key in TabType]: number } = {
@@ -29,7 +28,6 @@ const useFlagForm = ({
   isModalOpen,
   projectSlug,
   flagId = "",
-  isCreate = true,
 }: UseFlagFormProps) => {
   const trpcContext = trpc.useContext();
   const [selectedTab, setSelectedTab] = useState<TabType>(TabType.CORE);
@@ -59,30 +57,7 @@ const useFlagForm = ({
     return null;
   }, [projectSlug, isModalOpen, trpcContext]);
 
-  const { data, isLoading } = trpc.environment.all.useQuery(
-    { projectId: project?.id! },
-    {
-      enabled: !!project?.id,
-    },
-  );
-
-  useEffect(() => {
-    if (isModalOpen && !isLoading && isCreate) {
-      const environments = ((data && data.environments) || []).map(
-        ({ id, name }) => ({
-          id,
-          name,
-          enabled: false,
-        }),
-      );
-      setValue("environments", environments);
-    }
-  }, [isModalOpen, data, isLoading, setValue, isCreate]);
-
-  const onRenderTab = (
-    isLoading: boolean = false,
-    isUpdate: boolean = false,
-  ) => {
+  const onRenderTab = (isLoading: boolean = false) => {
     switch (selectedTab) {
       case TabType.CORE:
       default:
@@ -93,18 +68,11 @@ const useFlagForm = ({
             errors={errors}
             control={control}
             isSubmitting={isSubmitting || isLoading}
-            isCreate={isCreate}
           />
         );
       case TabType.ADVANCED:
         return (
-          <Advance
-            setValue={setValue}
-            payload={watch("payload") ?? "{}"}
-            expiredAt={watch("expiredAt")}
-            isUpdate={isUpdate}
-            environments={watch("environments")}
-          />
+          <Advance setValue={setValue} environments={watch("environments")} />
         );
       case TabType.HISTORY:
         return <History flagId={flagId} projectId={project?.id!} />;

@@ -33,7 +33,7 @@ interface FlagCardsProps {
   searchValue: string;
 }
 
-const defaultLimit = 4;
+const defaultLimit = 20;
 
 const FlagCards = ({
   selectedView,
@@ -124,12 +124,12 @@ const FlagCards = ({
     return (
       <Empty
         iconName="flag"
-        title="No flags available"
-        description={`There is no flags available for ${
+        title="This project has no Feature Flags"
+        description={`There are currently no flags available for ${
           router.query.projectSlug as string
         }`}
         button={{
-          text: "Create flag",
+          text: "Create new Feature Flag",
           onClick: () => setCreateFlagModalOpen({ isOpen: true }),
         }}
       />

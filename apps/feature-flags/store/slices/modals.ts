@@ -19,7 +19,7 @@ export const createModalsSlice: StateCreator<
   inviteMemberModalPayload: null,
   isConfirmModalOpen: false,
   confirmModalPayload: null,
-  isSDKModalOpen: false,
+  isIntegrationModalOpen: false,
   setCreateEnvironmentModalOpen: ({ isOpen, data }) =>
     set((state) => ({
       isCreateEnvironmentModalOpen: isOpen,
@@ -53,8 +53,8 @@ export const createModalsSlice: StateCreator<
       isConfirmModalOpen: isOpen,
       ...(!isOpen ? {} : { confirmModalPayload: data }),
     })),
-  setSDKModalOpen: ({ isOpen }) =>
+  setIntegrationModalOpen: ({ isOpen }) =>
     set((state) => ({
-      isSDKModalOpen: isOpen,
+      isIntegrationModalOpen: isOpen,
     })),
 });
