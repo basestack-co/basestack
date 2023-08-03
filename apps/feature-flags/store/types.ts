@@ -66,7 +66,7 @@ export interface ModalsSliceActions {
   setCreateFlagModalOpen: ModalAction<ModalPayload<null>, void>;
   setUpdateFlagModalOpen: ModalAction<ModalPayload<FlagModalPayload>, void>;
   setConfirmModalOpen: ModalAction<ModalPayload<ConfirmModalPayload>, void>;
-  setSDKModalOpen: ModalAction<ModalPayload<null>, void>;
+  setIntegrationModalOpen: ModalAction<ModalPayload<null>, void>;
 }
 
 export interface ModalsSliceState extends ModalsSliceActions {
@@ -81,7 +81,7 @@ export interface ModalsSliceState extends ModalsSliceActions {
   inviteMemberModalPayload: InviteMemberModalPayload | null;
   isConfirmModalOpen: boolean;
   confirmModalPayload: ConfirmModalPayload | null;
-  isSDKModalOpen: boolean;
+  isIntegrationModalOpen: boolean;
 }
 
 /**

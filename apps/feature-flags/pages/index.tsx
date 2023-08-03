@@ -84,7 +84,9 @@ const MainPage = () => {
   const router = useRouter();
   const theme = useTheme();
 
-  const setSDKModalOpen = useStore((state) => state.setSDKModalOpen);
+  const setIntegrationModalOpen = useStore(
+    (state) => state.setIntegrationModalOpen,
+  );
 
   const { data } = trpc.project.recent.useQuery(undefined, {
     select: (projects) =>
@@ -171,14 +173,14 @@ const MainPage = () => {
               description="Create projects, add new feature flags, invite members, and implement the feature flags in your product using our official SDKs."
               button={{
                 text: "View Instructions",
-                onClick: () => setSDKModalOpen({ isOpen: true }),
+                onClick: () => setIntegrationModalOpen({ isOpen: true }),
                 variant: ButtonVariant.Tertiary,
               }}
             />
             <Card hasHoverAnimation p={theme.spacing.s5}>
               <IconBox icon="folder_open" color="gray" />
               <Text size="large" mb={theme.spacing.s2}>
-                Documentation, help and support
+                Documentation, Help and Support
               </Text>
               <TextLink
                 text="Read the"

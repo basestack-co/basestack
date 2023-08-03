@@ -8,9 +8,8 @@ import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
 // Components
 import Portal from "@basestack/design-system/global/Portal";
 import { ButtonVariant, Modal, Text } from "@basestack/design-system";
-import LanguageCard from "./LanguageCard";
-import CopyButton from "./CopyButton";
-
+import CopyButton from "components/CopyButton";
+import CodeLanguageCard from "components/CodeLanguageCard";
 // Styles
 import { useTheme } from "styled-components";
 import {
@@ -27,13 +26,15 @@ import data from "./data";
 
 SyntaxHighlighter.registerLanguage("typescript", ts);
 
-const SDKModal = () => {
+const IntegrationModal = () => {
   const theme = useTheme();
   const [selectedListIndex, setSelectedListIndex] = useState(0);
-  const isModalOpen = useStore((state) => state.isSDKModalOpen);
-  const setSDKModalOpen = useStore((state) => state.setSDKModalOpen);
+  const isModalOpen = useStore((state) => state.isIntegrationModalOpen);
+  const setIntegrationModalOpen = useStore(
+    (state) => state.setIntegrationModalOpen,
+  );
 
-  const onClose = () => setSDKModalOpen({ isOpen: false });
+  const onClose = () => setIntegrationModalOpen({ isOpen: false });
 
   const tab = useMemo(() => {
     return data[selectedListIndex];
@@ -58,7 +59,7 @@ const SDKModal = () => {
           <CardsList>
             {data.map(({ id, text }, index) => (
               <ListItem key={id}>
-                <LanguageCard
+                <CodeLanguageCard
                   text={text}
                   icon={id}
                   onSelect={() => setSelectedListIndex(index)}
@@ -74,9 +75,9 @@ const SDKModal = () => {
             <Text size="small" muted>
               Explore the{" "}
               <StyledLink href={tab.href} target="_blank">
-                {tab.text} SDK
+                {tab.text} SDK Docs
               </StyledLink>{" "}
-              Docs to learn how to install and use the SDK.
+              to learn how to install and use the SDK.
             </Text>
             <CodeContainer>
               <CopyButtonContainer>
@@ -97,4 +98,4 @@ const SDKModal = () => {
   );
 };
 
-export default SDKModal;
+export default IntegrationModal;
