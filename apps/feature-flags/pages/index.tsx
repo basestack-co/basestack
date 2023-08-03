@@ -1,10 +1,10 @@
-import { useCallback, useMemo } from "react";
-import { useTheme } from "styled-components";
 import Head from "next/head";
+// Router
 import { useRouter } from "next/router";
+// Store
 import { useStore } from "store";
+// Server
 import { trpc } from "libs/trpc";
-import { useSession } from "next-auth/react";
 // Components
 import {
   Avatar,
@@ -19,6 +19,7 @@ import {
 import GetStartedCard from "components/GetStarted/GetStartedCard";
 import TextLink from "components/GetStarted/TextLink";
 // Styles
+import { useTheme } from "styled-components";
 import {
   Box,
   Container,
@@ -83,12 +84,18 @@ const MainPage = () => {
   const router = useRouter();
   const theme = useTheme();
 
+  const setSDKModalOpen = useStore((state) => state.setSDKModalOpen);
+
   const { data } = trpc.project.recent.useQuery(undefined, {
     select: (projects) =>
       projects?.map((item) => ({
         id: item.id,
         slug: item.slug,
-        onClick: () => onSelectProject(item.slug),
+        onClick: () =>
+          router.push({
+            pathname: "/[projectSlug]/flags",
+            query: { projectSlug: item.slug },
+          }),
         text: item.name,
         flags: item.flags,
       })),
@@ -96,16 +103,6 @@ const MainPage = () => {
 
   const setCreateProjectModalOpen = useStore(
     (state) => state.setCreateProjectModalOpen,
-  );
-
-  const onSelectProject = useCallback(
-    (projectSlug: string) => {
-      router.push({
-        pathname: "/[projectSlug]/flags",
-        query: { projectSlug },
-      });
-    },
-    [router],
   );
 
   return (
@@ -158,7 +155,6 @@ const MainPage = () => {
             </ProjectsList>
           )}
         </Section>
-
         <Section>
           <Header>
             <Text size="xLarge" mr={theme.spacing.s5}>
@@ -175,7 +171,7 @@ const MainPage = () => {
               description="Create projects, add new feature flags, invite members, and implement the feature flags in your product using our official SDKs."
               button={{
                 text: "View Instructions",
-                onClick: () => console.log("instructions"),
+                onClick: () => setSDKModalOpen({ isOpen: true }),
                 variant: ButtonVariant.Tertiary,
               }}
             />

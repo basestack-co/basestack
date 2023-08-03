@@ -3,10 +3,10 @@ import React from "react";
 import { useStore } from "store";
 // Router
 import { useRouter } from "next/router";
+import Link from "next/link";
 // Auth
 import { useSession } from "next-auth/react";
 // Components
-import { animated, config, useTransition } from "react-spring";
 import {
   fadeIn,
   slideInLeft,
@@ -18,6 +18,7 @@ import {
   HorizontalRule,
   PopupActionProps,
 } from "@basestack/design-system";
+import { animated, config, useTransition } from "react-spring";
 import AvatarDropdown from "../../AvatarDropdown";
 // Styles
 import { useTheme } from "styled-components";
@@ -82,7 +83,9 @@ const NavigationDrawer = ({
             <AnimatedNavigation style={styles}>
               <GlobalStyle />
               <Header>
-                <Avatar round={false} alt="user image" userName="Logo" />
+                <Link href="/">
+                  <Avatar round={false} alt="user image" userName="Logo" />
+                </Link>
                 <IconButton
                   icon="chevron_left"
                   onClick={onClose}

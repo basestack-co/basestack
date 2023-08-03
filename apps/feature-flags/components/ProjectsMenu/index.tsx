@@ -52,6 +52,10 @@ const ProjectsMenu = ({
     onClickCreateProject();
   }, [onClickCreateProject]);
 
+  const truncateText = (str: string) => {
+    return str.length <= 18 ? str : str.slice(0, 18) + "...";
+  };
+
   return (
     <ListItem ref={menuWrapperRef}>
       <Button
@@ -61,7 +65,7 @@ const ProjectsMenu = ({
         variant={ButtonVariant.PrimaryNeutral}
         onClick={onClickProjects}
       >
-        {!!currentProject ? currentProject : "Select Project"}
+        {!!currentProject ? truncateText(currentProject) : "Select Project"}
       </Button>
       {transitionProjectsPopup(
         (styles, item) =>
