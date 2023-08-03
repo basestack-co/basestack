@@ -96,7 +96,7 @@ const AdvanceTab = ({ setValue, environments }: Props) => {
         inputTitle="Expiration Date"
         inputProps={{
           onFocus: () => setIsCalendarOpen(true),
-          onChange: (text) => console.log("text = ", text),
+          onChange: () => null,
           placeholder: "dd/mm/yyyy",
           name: "date",
           value: !!activeTabData?.expiredAt

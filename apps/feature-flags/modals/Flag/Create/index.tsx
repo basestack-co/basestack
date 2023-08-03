@@ -66,7 +66,7 @@ const CreateFlagModal = () => {
         {
           onSuccess: async (result) => {
             // Refresh the flag list and close the modal
-            await trpcContext.flag.all.invalidate();
+            await trpcContext.flag.all.invalidate({ projectId: project.id });
             onClose();
           },
         },

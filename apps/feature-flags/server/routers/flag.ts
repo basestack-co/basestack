@@ -129,6 +129,9 @@ export const flagRouter = router({
             },
           },
         },
+        orderBy: {
+          createdAt: "desc",
+        },
       });
 
       return {

@@ -74,7 +74,11 @@ const UpdateFlagModal = () => {
         {
           onSuccess: async (result) => {
             // doing this instead of the above because the above doesn't work
-            await trpcContext.flag.all.invalidate();
+            await trpcContext.flag.all.invalidate({ projectId: project.id });
+            await trpcContext.flag.environments.invalidate({
+              projectId: project.id,
+              slug: modalPayload?.flag.slug,
+            });
             onClose();
           },
         },
