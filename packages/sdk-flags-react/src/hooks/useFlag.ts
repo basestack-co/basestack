@@ -5,10 +5,10 @@ import { useFlagsContext } from "./useFlagsContext";
 import { FlagResult, Flag } from "../types";
 
 const useFlag = (name: string): FlagResult<Flag | null> => {
-  const { sdk } = useFlagsContext();
+  const { sdk, isInitialized } = useFlagsContext();
 
   return useMemo(() => {
-    if (!sdk.isInitialized) {
+    if (!isInitialized) {
       return {
         enabled: false,
         error: true,
@@ -17,7 +17,7 @@ const useFlag = (name: string): FlagResult<Flag | null> => {
     }
 
     return sdk.flag(name);
-  }, [sdk, name]);
+  }, [sdk, name, isInitialized]);
 };
 
 export default useFlag;

@@ -9,6 +9,7 @@ interface TextLinkProps {
   link: {
     text: string;
     href: string;
+    target?: string;
   };
 }
 
@@ -17,7 +18,17 @@ const TextLink = ({ text, link, hasMarginBottom = true }: TextLinkProps) => {
 
   return (
     <Text muted size="small" mb={hasMarginBottom ? theme.spacing.s2 : 0}>
-      {text} <StyledLink href={link.href}>{link.text}</StyledLink>
+      {text}{" "}
+      <StyledLink
+        href={link.href}
+        {...(link?.target
+          ? {
+              target: link.target,
+            }
+          : {})}
+      >
+        {link.text}
+      </StyledLink>
     </Text>
   );
 };

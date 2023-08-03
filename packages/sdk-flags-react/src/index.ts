@@ -17,3 +17,4 @@ export { default as useFlagsAsync } from "./hooks/useFlagsAsync";
  */
 
 export { default as Flag } from "./components/Flag";
+export { default as FlagAsync } from "./components/FlagAsync";

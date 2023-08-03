@@ -5,15 +5,15 @@ import { useFlagsContext } from "./useFlagsContext";
 import { Flag } from "../types";
 
 const useFlags = (): Flag[] => {
-  const { sdk } = useFlagsContext();
+  const { sdk, isInitialized } = useFlagsContext();
 
   return useMemo(() => {
-    if (!sdk.isInitialized) {
+    if (!isInitialized) {
       return [];
     }
 
     return sdk.flags();
-  }, [sdk]);
+  }, [sdk, isInitialized]);
 };
 
 export default useFlags;

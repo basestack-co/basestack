@@ -8,7 +8,7 @@ import MobileCard from "../MobileCard";
 // Libs
 import { trpc } from "libs/trpc";
 // Utils
-import { createTable } from "utils/table";
+import { createTable } from "utils/helpers/table";
 // Types
 import { ProjectSettings } from "types";
 

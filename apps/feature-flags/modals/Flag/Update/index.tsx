@@ -42,7 +42,6 @@ const UpdateFlagModal = () => {
   } = useFlagForm({
     isModalOpen,
     projectSlug,
-    isCreate: false,
     flagId: modalPayload?.flag?.id,
   });
 
@@ -57,20 +56,14 @@ const UpdateFlagModal = () => {
 
   const onSubmit: SubmitHandler<FlagFormInputs> = async (input) => {
     if (project && bySlugData) {
-      const data = input.environments.map((env) => {
-        const current = bySlugData.content.find(
-          ({ environmentId }) => environmentId === env.id,
-        );
-
-        return {
-          id: current?.flagId!,
-          slug: input.name,
-          description: input.description ?? "",
-          enabled: env.enabled,
-          payload: JSON.stringify({}),
-          expiredAt: null,
-        };
-      });
+      const data = input.environments.map((env) => ({
+        id: env?.flagId!,
+        slug: input.name,
+        description: input.description ?? "",
+        enabled: env.enabled,
+        payload: JSON.parse(env.payload),
+        expiredAt: env.expiredAt,
+      }));
 
       updateFlag.mutate(
         {
@@ -81,7 +74,11 @@ const UpdateFlagModal = () => {
         {
           onSuccess: async (result) => {
             // doing this instead of the above because the above doesn't work
-            await trpcContext.flag.all.invalidate();
+            await trpcContext.flag.all.invalidate({ projectId: project.id });
+            await trpcContext.flag.environments.invalidate({
+              projectId: project.id,
+              slug: modalPayload?.flag.slug,
+            });
             onClose();
           },
         },
@@ -99,8 +96,6 @@ const UpdateFlagModal = () => {
     if (!isLoading && bySlugData) {
       setValue("name", bySlugData.slug ?? "");
       setValue("description", bySlugData.description ?? "");
-      // setValue("payload", (data.payload ?? "{}") as string);
-      // setValue("expiredAt", data.expiredAt ?? null);
       setValue("environments", bySlugData.environments);
     }
   }, [isLoading, bySlugData, setValue]);
@@ -108,7 +103,7 @@ const UpdateFlagModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title="Edit Flag"
+        title="Edit Feature Flag"
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
@@ -133,7 +128,7 @@ const UpdateFlagModal = () => {
           sliderPosition={tabPosition[selectedTab]}
           mb={theme.spacing.s6}
         />
-        {onRenderTab(isLoading, true)}
+        {onRenderTab(isLoading)}
       </Modal>
     </Portal>
   );

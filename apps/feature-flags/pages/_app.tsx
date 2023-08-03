@@ -19,7 +19,7 @@ import "material-symbols";
 // Dates
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { toastOptions } from "utils/toastOptions";
+import { toastOptions } from "utils/helpers/toastOptions";
 
 dayjs.extend(relativeTime);
 

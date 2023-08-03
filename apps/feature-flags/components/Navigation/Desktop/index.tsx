@@ -6,6 +6,7 @@ import {
   Button,
   ButtonVariant,
   IconButton,
+  PopupActionProps,
   Text,
 } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
@@ -16,8 +17,6 @@ import { internalLinks, externalLinks } from "../data";
 // Router
 import { useRouter } from "next/router";
 import Link from "next/link";
-// Types
-import { RouterOutput } from "libs/trpc";
 // Store
 import { useStore } from "store";
 // Auth
@@ -31,7 +30,7 @@ export interface LinkItem {
 
 interface NavigationProps {
   isDesktop: boolean;
-  data?: RouterOutput["project"]["all"];
+  data?: Array<PopupActionProps>;
   onClickMenuButton: () => void;
 }
 
@@ -75,34 +74,11 @@ const Navigation = ({
     [router.pathname, projectSlug],
   );
 
-  const onSelectProject = useCallback(
-    (projectSlug: string) => {
-      router.push({
-        pathname: "/[projectSlug]/flags",
-        query: { projectSlug },
-      });
-    },
-    [router],
-  );
-
-  const projects = useMemo(
-    () =>
-      data?.projects.map((item) => {
-        return {
-          id: item.id,
-          slug: item.slug,
-          onClick: () => onSelectProject(item.slug),
-          text: item.name,
-        };
-      }),
-    [data, onSelectProject],
-  );
-
   const currentProject = useMemo(() => {
-    const project = projects?.find(({ slug }) => slug === projectSlug);
+    const project = data?.find(({ slug }) => slug === projectSlug);
 
     return project?.text ?? "";
-  }, [projectSlug, projects]);
+  }, [projectSlug, data]);
 
   const truncateProjectName = (str: string) => {
     return str.length <= 18 ? str : str.slice(0, 18) + "...";
@@ -142,7 +118,7 @@ const Navigation = ({
                 setCreateProjectModalOpen({ isOpen: true })
               }
               currentProject={currentProject}
-              projects={projects ?? []}
+              projects={data ?? []}
             />
             {!!projectSlug && (
               <>
@@ -152,7 +128,7 @@ const Navigation = ({
                     onClick={() => setCreateFlagModalOpen({ isOpen: true })}
                     variant={ButtonVariant.Primary}
                   >
-                    Create flag
+                    Create
                   </Button>
                 </ListItem>
               </>

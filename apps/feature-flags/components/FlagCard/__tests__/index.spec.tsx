@@ -1,5 +1,5 @@
 import { cleanup } from "@testing-library/react";
-import { renderWithTheme } from "../../../utils/testUtils";
+import { renderWithTheme } from "utils/helpers/testUtils";
 import FlagCard from "../index";
 
 describe("FlagCard Molecule tests", () => {
@@ -10,6 +10,7 @@ describe("FlagCard Molecule tests", () => {
       <FlagCard
         title="header_size"
         description="Display new header for only a number of users"
+        // @ts-ignore
         environments={[
           { name: "Development", enabled: true, id: "1" },
           { name: "Staging", enabled: false, id: "2" },
@@ -27,6 +28,7 @@ describe("FlagCard Molecule tests", () => {
       <FlagCard
         title="header_size"
         description="Display new header for only a number of users"
+        // @ts-ignore
         environments={[
           { name: "Development", enabled: true, id: "1" },
           { name: "Staging", enabled: false, id: "2" },

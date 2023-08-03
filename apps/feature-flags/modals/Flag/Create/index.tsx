@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Router
 import { useRouter } from "next/router";
 // Components
@@ -35,9 +35,17 @@ const CreateFlagModal = () => {
     reset,
     onRenderTab,
     project,
-  } = useFlagForm({ isModalOpen, projectSlug, isCreate: true });
+    setValue,
+  } = useFlagForm({ isModalOpen, projectSlug });
 
   const createFlag = trpc.flag.create.useMutation();
+
+  const { data, isLoading } = trpc.environment.all.useQuery(
+    { projectId: project?.id! },
+    {
+      enabled: !!project?.id,
+    },
+  );
 
   const isSubmittingOrMutating = isSubmitting || createFlag.isLoading;
 
@@ -46,12 +54,11 @@ const CreateFlagModal = () => {
   const onSubmit: SubmitHandler<FlagFormInputs> = async (input) => {
     if (project) {
       const data = input.environments.map((env) => ({
+        ...env,
         slug: input.name,
         description: input.description,
         environmentId: env.id,
-        enabled: env.enabled,
-        payload: input.payload,
-        expiredAt: input.expiredAt,
+        payload: JSON.parse(env.payload),
       }));
 
       createFlag.mutate(
@@ -59,7 +66,7 @@ const CreateFlagModal = () => {
         {
           onSuccess: async (result) => {
             // Refresh the flag list and close the modal
-            await trpcContext.flag.all.invalidate();
+            await trpcContext.flag.all.invalidate({ projectId: project.id });
             onClose();
           },
         },
@@ -67,10 +74,25 @@ const CreateFlagModal = () => {
     }
   };
 
+  useEffect(() => {
+    if (isModalOpen && !isLoading) {
+      const environments = ((data && data.environments) || []).map(
+        ({ id, name }) => ({
+          id,
+          name,
+          enabled: false,
+          payload: JSON.stringify({}),
+          expiredAt: null,
+        }),
+      );
+      setValue("environments", environments);
+    }
+  }, [isModalOpen, data, isLoading, setValue]);
+
   return (
     <Portal selector="#portal">
       <Modal
-        title="Create Flag"
+        title="Create Feature Flag"
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}

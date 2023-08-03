@@ -1,3 +1,6 @@
+// Utils
+import { DOCS_URL, GITHUB_REPO_URL } from "utils/helpers/constants";
+
 export const internalLinks = [
   {
     icon: "flag",
@@ -15,19 +18,13 @@ export const externalLinks = [
   {
     icon: "description",
     text: "Documentation",
-    to: "/documentation",
-    isExternal: true,
-  },
-  {
-    icon: "folder_open",
-    text: "Resources",
-    to: "/resources",
+    to: DOCS_URL,
     isExternal: true,
   },
   {
     icon: "link",
     text: "Github",
-    to: "https://github.com/",
+    to: GITHUB_REPO_URL,
     isExternal: true,
   },
 ];
