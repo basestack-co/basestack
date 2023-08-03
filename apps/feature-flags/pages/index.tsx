@@ -15,6 +15,7 @@ import {
   Text,
   HorizontalRule,
   Icon,
+  Skeleton,
 } from "@basestack/design-system";
 import GetStartedCard from "components/GetStarted/GetStartedCard";
 import TextLink from "components/GetStarted/TextLink";
@@ -40,6 +41,7 @@ import {
 } from "utils/helpers/constants";
 // Layout
 import MainLayout from "../layouts/Main";
+import React from "react";
 
 interface ProjectCardProps {
   id: string;
@@ -88,7 +90,7 @@ const MainPage = () => {
     (state) => state.setIntegrationModalOpen,
   );
 
-  const { data } = trpc.project.recent.useQuery(undefined, {
+  const { data, isLoading } = trpc.project.recent.useQuery(undefined, {
     select: (projects) =>
       projects?.map((item) => ({
         id: item.id,
@@ -118,7 +120,7 @@ const MainPage = () => {
             <Text size="xLarge" mr={theme.spacing.s5}>
               Recent projects
             </Text>
-            {data?.length && (
+            {!!data?.length && (
               <Button
                 flexShrink={0}
                 variant={ButtonVariant.Tertiary}
@@ -128,7 +130,7 @@ const MainPage = () => {
               </Button>
             )}
           </Header>
-          {!data?.length && (
+          {!isLoading && !data?.length && (
             <GetStartedCard
               icon={{
                 name: "folder_open",
@@ -143,7 +145,20 @@ const MainPage = () => {
               }}
             />
           )}
-          {data?.length && (
+          {isLoading && (
+            <ProjectsList>
+              <Skeleton
+                numberOfItems={3}
+                items={[
+                  { h: 28, w: 28, mb: 12 },
+                  { h: 22, w: "50%", mb: 32 },
+                  { h: 22, w: 28 },
+                ]}
+                padding="20px 20px 12px 20px"
+              />
+            </ProjectsList>
+          )}
+          {!isLoading && !!data?.length && (
             <ProjectsList>
               {data.slice(0, 4).map((project) => (
                 <ProjectCard
