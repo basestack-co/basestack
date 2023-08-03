@@ -206,13 +206,14 @@ const AppComponent = () => {
       </Flag>
 
       {/* Get a Flag from the cache and use as a Remote Flag. Ps. You can do the same with the FlagAsync Component */}
-      <Flag name="my_remote_flag">
-        {(flag) => (
+      <Flag
+        name="my_remote_flag"
+        render={(flag) => (
           <div style={{ color: flag.payload.color }}>
             A Remote flag inside a component
           </div>
         )}
-      </Flag>
+      />
 
       {/* Get a Flag from the server */}
       <FlagAsync name="private_msg_2">
@@ -258,6 +259,29 @@ interface Flag {
 ## Initialisation options
 
 For details regarding the initialization options of @basestack/flags-js-sdk, please refer to the documentation related to the [Javascript SDK](/feature-flags/sdks/javascript#initialisation-options).
+
+## Troubleshooting
+
+### Why are my components rendering twice?
+
+It's normal. Check if your App/Component is wrapped inside [React.StrictMode ↗](https://react.dev/docs/strict-mode). The purpose of `React.StrictMode` is to help identify potential problems in your application by highlighting some unsafe practices or potential bugs during development.
+
+When you wrap a component in `React.StrictMode`, it can cause some components to be rendered twice. This is expected behavior and is not specific to your code. Rendering twice is intentional and done by React on purpose.
+
+```js copy filename="main.ts"
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(
+  <React.StrictMode>
+    <FlagsProvider
+      sdk={sdk}
+      onSuccessfulInit={() => console.log("Successful Init FlagsJS SDK")}
+    >
+      <App />
+    </FlagsProvider>
+  </React.StrictMode>,
+);
+```
 
 ## Examples
 
