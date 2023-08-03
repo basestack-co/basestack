@@ -104,6 +104,10 @@ const Navigation = ({
     return project?.text ?? "";
   }, [projectSlug, projects]);
 
+  const truncateProjectName = (str: string) => {
+    return str.length <= 18 ? str : str.slice(0, 18) + "...";
+  };
+
   return (
     <Container data-testid="navigation">
       <List data-testid="navigation-left-ul">
@@ -119,7 +123,7 @@ const Navigation = ({
             </ListItem>
             {!!currentProject && (
               <ListItem>
-                <Text size="medium">{currentProject}</Text>
+                <Text size="medium">{truncateProjectName(currentProject)}</Text>
               </ListItem>
             )}
           </>

@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import { useTheme } from "styled-components";
+import Link from "next/link";
 import { animated, config, useTransition } from "react-spring";
 import { RouterOutput } from "libs/trpc";
 import { useStore } from "store";
@@ -88,7 +89,9 @@ const NavigationDrawer = ({
             <AnimatedNavigation style={styles}>
               <GlobalStyle />
               <Header>
-                <Avatar round={false} alt="user image" userName="Logo" />
+                <Link href="/">
+                  <Avatar round={false} alt="user image" userName="Logo" />
+                </Link>
                 <IconButton
                   icon="chevron_left"
                   onClick={onClose}

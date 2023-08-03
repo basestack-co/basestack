@@ -29,10 +29,10 @@ const Empty = ({
   return (
     <Container>
       <IconBox icon={iconName} color={iconColor} />
-      <Text size="large" mb={theme.spacing.s1}>
+      <Text size="large" textAlign="center" mb={theme.spacing.s1}>
         {title}
       </Text>
-      <Text size="small" muted mb={theme.spacing.s5}>
+      <Text size="small" textAlign="center" muted mb={theme.spacing.s5}>
         {description}
       </Text>
       {button && <Button onClick={button.onClick}>{button.text}</Button>}

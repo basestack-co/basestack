@@ -76,6 +76,8 @@ const MainPage = () => {
   const router = useRouter();
   const theme = useTheme();
 
+  const setSDKModalOpen = useStore((state) => state.setSDKModalOpen);
+
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -181,7 +183,7 @@ const MainPage = () => {
               description="Integrate Moonflags into your Javascript, React, Go, PHP. More languages are coming soon!"
               button={{
                 text: "View Instructions",
-                onClick: () => console.log("instructions"),
+                onClick: () => setSDKModalOpen({ isOpen: true }),
                 variant: ButtonVariant.Tertiary,
               }}
             />
