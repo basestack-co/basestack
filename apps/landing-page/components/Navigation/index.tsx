@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+// Router
+import { useRouter } from "next/router";
 // Utils
 import { config as defaults } from "@basestack/utils";
 // Theme
@@ -31,13 +33,24 @@ import {
 
 const links = [
   {
-    text: "Platform",
+    text: "Explore the Platform",
+    href: "#platform",
   },
   {
-    text: "Features",
+    text: "Discover Features",
+    href: "#features",
   },
   {
-    text: "Documentation",
+    text: "Integration",
+    href: "#code",
+  },
+  {
+    text: "Why Choose Feature Flags?",
+    href: "#why",
+  },
+  {
+    text: "FAQs",
+    href: "#questions",
   },
 ];
 
@@ -55,6 +68,7 @@ const Navigation = ({
 }: NavigationProps) => {
   const theme = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
   // const isMobile = useMediaQuery(theme.device.max.md);
   // const isDesktop = useMediaQuery(theme.device.min.md);
 
@@ -113,7 +127,7 @@ const Navigation = ({
                             ? ButtonVariant.Secondary
                             : ButtonVariant.Tertiary
                         }
-                        onClick={() => console.log("yeah")}
+                        onClick={() => router.push(link.href)}
                         size={ButtonSize.Medium}
                         backgroundColor="transparent"
                       >
@@ -126,17 +140,21 @@ const Navigation = ({
             )}
           </LeftColumn>
           <RightColumn>
-            {/*<Button
+            <Button
               variant={
                 isDarkMode ? ButtonVariant.Secondary : ButtonVariant.Tertiary
               }
               mr={theme.spacing.s3}
-              onClick={() => console.log("yeah")}
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.open(defaults.urls.repo, "_blank");
+                }
+              }}
               size={ButtonSize.Medium}
               backgroundColor="transparent"
             >
-              Sign In
-            </Button> */}
+              Github
+            </Button>
             <Button
               onClick={() => {
                 if (typeof window !== "undefined") {

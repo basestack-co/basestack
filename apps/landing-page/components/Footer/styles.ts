@@ -68,6 +68,10 @@ export const ListItem = styled.li`
   padding: 0 ${({ theme }) => theme.spacing.s4};
   margin-right: ${({ theme }) => theme.spacing.s2};
 
+  &:hover {
+    cursor: pointer;
+  }
+
   @media screen and ${({ theme }) => theme.device.max.lg} {
     padding: 0;
     margin: 0 0 ${({ theme }) => theme.spacing.s2} 0;

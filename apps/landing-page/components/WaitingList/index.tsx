@@ -99,7 +99,9 @@ const WaitingList = ({ data }: WaitingListProps) => {
       });
 
       const res = await fetch(
-        `https://basestack-email.vercel.app/api/v1/contacts/create?${params.toString()}`,
+        `${
+          process.env.NEXT_PUBLIC_EMAIL_SERVICE
+        }/contacts/create?${params.toString()}`,
         {
           method: "POST",
           headers: {

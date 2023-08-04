@@ -1,6 +1,9 @@
 import React from "react";
-import { useTheme } from "styled-components";
+// Utils
+import { config as defaults, config } from "@basestack/utils";
 // Components
+import { useTheme } from "styled-components";
+import { rem } from "polished";
 import { Button, ButtonSize, Text } from "@basestack/design-system";
 import Illustration, { IllustrationVariant } from "../Illustration";
 import {
@@ -13,13 +16,15 @@ import {
   PlanetIllustration,
   HalfPlanetIllustration,
 } from "./styles";
-import { rem } from "polished";
 
-const BannerComp = () => {
+export interface Props {
+  id?: string;
+}
+const BannerComp = ({ id = "banner" }: Props) => {
   const theme = useTheme();
 
   return (
-    <Container>
+    <Container id={id}>
       <ContentContainer>
         <Banner>
           <BannerContent>
@@ -33,21 +38,29 @@ const BannerComp = () => {
               // @ts-ignore
               as="h2"
             >
-              Ready to start shipping your code with confidence?
+              Ready to Ship Your Code with Confidence?
             </Text>
             <ButtonsContainer>
               <StyledButton
                 mr={theme.spacing.s3}
-                onClick={() => console.log("yeah")}
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    window.open(config.urls.docs.flags.base, "_blank");
+                  }
+                }}
                 size={ButtonSize.Medium}
               >
                 Get Started
               </StyledButton>
               <Button
-                onClick={() => console.log("yeah")}
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    window.open(defaults.urls.repo, "_blank");
+                  }
+                }}
                 size={ButtonSize.Medium}
               >
-                Talk To Sales
+                Star Us on GitHub
               </Button>
             </ButtonsContainer>
           </BannerContent>

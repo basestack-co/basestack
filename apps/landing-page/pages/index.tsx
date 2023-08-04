@@ -14,7 +14,7 @@ import {
 } from "components";
 import { DarkContainer } from "styles";
 // Data
-import { cards, questions, slides } from "content/landing-page";
+import { platform, why, questions, slides } from "content/landing-page";
 
 const LandingPage = () => {
   const [isDarkSectionTop, darkContainer] = useIsTop({ offSet: 80 });
@@ -34,7 +34,7 @@ const LandingPage = () => {
         id="platform"
         title="Introducing the Platform"
         text="Basestack Feature Flags is a user-friendly platform that simplifies the development, implementation, and management of your feature flags."
-        cards={cards}
+        cards={platform}
       />
       <Slider
         id="features"
@@ -45,17 +45,19 @@ const LandingPage = () => {
       <DarkContainer ref={darkContainer}>
         <Code id="code" />
         <Cards
-          title="Feature flags"
-          text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
-          cards={cards}
+          id="why"
+          title="Unconvinced about Feature Flags?"
+          text="Feature flagging is a powerful technique where developers wrap a new feature in an if/then statement to gain greater control over its release and behavior."
+          cards={why}
           isDarkMode
         />
         <Questions
+          id="questions"
           title="Frequently Asked Questions"
-          text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
+          text="Explore our collection of useful questions and answers about the Feature Flags Platform. If you don't find the answer to your question here, feel free to open a discussion on Github."
           data={questions}
         />
-        <Banner />
+        <Banner id="banner" />
         <Footer />
       </DarkContainer>
     </>

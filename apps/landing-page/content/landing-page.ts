@@ -1,6 +1,6 @@
 import { IllustrationVariant } from "../components";
 
-export const cards = [
+export const platform = [
   {
     title: "Release Features",
     text: "Unlock release flexibility with Feature Flags. Manage everything in one dashboard and get started with our SDKs.",
@@ -18,22 +18,32 @@ export const cards = [
   },
 ];
 
+export const why = [
+  {
+    title: "Maximize Flag Benefits",
+    text: "Feature flags (also known as feature switches, feature toggles, conditional features, etc.) are a powerful technique that allows developers and teams to modify system behavior without changing the underlying code.",
+    illustration: IllustrationVariant.Binoculars,
+  },
+  {
+    title: "Minimize Implementation Debt",
+    text: "Feature Flags are like variables used in conditional statements. They allow you to toggle 'on or off' blocks of code, similar to commenting out code. This gives developers the flexibility to control the flow of their software and bypass features that are not ready for deployment.",
+    illustration: IllustrationVariant.WindowLoading,
+  },
+  {
+    title: "Feature Flags vs. Branching",
+    text: "Feature branching allows developers to collaborate effectively around a central code base by keeping all changes to a specific feature in its own branch. By adding feature flags to the mix, feature branching becomes even more powerful and faster, separating feature release management from code deployment.",
+    illustration: IllustrationVariant.Browser,
+  },
+];
+
 export const questions = [
   {
-    title: "Can i use MoonFlags on my enterprice projects?",
-    text: "You can use MoonFlags for personal use, but for enterprice you have to pay mother fucker",
+    title: "What are the requirements for self-hosting?",
+    text: "Any service that can host a NextJS applications with serverless function support and provide a Postgres database compatible with serverless environments will work seamlessly. Consider services such as Neon, Supabase, or traditional Postgres with connection pooling like PgBouncer.",
   },
   {
-    title: "Can i add extra seats or API calls?",
-    text: "You can do what ever you want to do, just be happy",
-  },
-  {
-    title: "How to calculate API calls per month?",
-    text: "You can do what ever you want to do, just be happy",
-  },
-  {
-    title: "What happens if i go over my plan limit?",
-    text: "You can do what ever you want to do, just be happy",
+    title: "What are the supported databases?",
+    text: "The platform uses PostgreSQL as the database. The crucial aspect here is to ensure that the PostgreSQL service or instance supports serverless environments.",
   },
 ];
 
