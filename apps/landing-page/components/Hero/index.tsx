@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+// Theme
 import { useTheme } from "styled-components";
 import { rem } from "polished";
+// Utils
+import { config as defaults, config } from "@basestack/utils";
 // Components
 import Image, { ImageProps } from "../Image";
 import { Button, ButtonVariant, ButtonSize } from "@basestack/design-system";
@@ -31,16 +34,33 @@ const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
           hasMarginBottom={false}
         />
         <ButtonsContainer>
-          <Button onClick={() => console.log("yeah")} size={ButtonSize.Medium}>
-            Get Started
+          <Button
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                window.open(
+                  `${defaults.urls.docs.base}/feature-flags/deployment/deploy-vercel`,
+                  "_blank",
+                );
+              }
+            }}
+            size={ButtonSize.Medium}
+          >
+            Deploy to Vercel
           </Button>
           <Button
             variant={ButtonVariant.Secondary}
             ml={theme.spacing.s3}
-            onClick={() => console.log("yeah")}
             size={ButtonSize.Medium}
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                window.open(
+                  `${defaults.urls.docs.base}/feature-flags/deployment`,
+                  "_blank",
+                );
+              }
+            }}
           >
-            Talk To Sales
+            Explore more options
           </Button>
         </ButtonsContainer>
         {image?.src && (

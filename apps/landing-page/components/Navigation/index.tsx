@@ -31,16 +31,13 @@ import {
 
 const links = [
   {
-    text: "Product",
+    text: "Platform",
   },
   {
-    text: "Solutions",
+    text: "Features",
   },
   {
-    text: "Resources",
-  },
-  {
-    text: "Pricing",
+    text: "Documentation",
   },
 ];
 
@@ -129,7 +126,7 @@ const Navigation = ({
             )}
           </LeftColumn>
           <RightColumn>
-            <Button
+            {/*<Button
               variant={
                 isDarkMode ? ButtonVariant.Secondary : ButtonVariant.Tertiary
               }
@@ -139,12 +136,17 @@ const Navigation = ({
               backgroundColor="transparent"
             >
               Sign In
-            </Button>
+            </Button> */}
             <Button
-              onClick={() => console.log("yeah")}
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.open(defaults.urls.docs.base, "_blank");
+                }
+              }}
               size={ButtonSize.Medium}
+              variant={ButtonVariant.Secondary}
             >
-              Get Started
+              Documentation
             </Button>
           </RightColumn>
         </ContentContainer>

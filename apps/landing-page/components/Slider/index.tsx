@@ -6,6 +6,7 @@ import Image from "../Image";
 import SectionHeader from "../SectionHeader";
 
 export interface SliderProps {
+  id?: string;
   title: string;
   text: string;
   data: Array<{
@@ -16,7 +17,7 @@ export interface SliderProps {
   }>;
 }
 
-const Slider = ({ title, text, data }: SliderProps) => {
+const Slider = ({ title, text, data, id = "slider" }: SliderProps) => {
   const [currentImage, setCurrentImage] = useState(0);
 
   const image = {
@@ -33,7 +34,7 @@ const Slider = ({ title, text, data }: SliderProps) => {
   }, [currentImage, data]);
 
   return (
-    <Container>
+    <Container id={id}>
       <ContentContainer>
         <SectionHeader title={title} text={text} />
         <CardsContainer>

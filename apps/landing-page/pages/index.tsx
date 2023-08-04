@@ -23,38 +23,37 @@ const LandingPage = () => {
     <>
       <Navigation isDarkMode={isDarkSectionTop} />
       <Hero
-        title="Feature Flag Service"
-        text="Release features with confidence, manage feature flags across web,
-        mobile, and server side applications. Use our hosted API, deploy to your
-        own private cloud, or run on-premises"
+        title="The Open-Source Feature Flag Platform"
+        text="Basestack Feature Flags is a self-hosted platform that offers an effortless way to host your own Feature Flags management system."
         image={{
-          src: "https://images.pexels.com/photos/3912477/pexels-photo-3912477.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          src: "/images/flags_cards_popups.png",
           alt: "product demo",
         }}
       />
       <Cards
-        title="Feature flags"
-        text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
+        id="platform"
+        title="Introducing the Platform"
+        text="Basestack Feature Flags is a user-friendly platform that simplifies the development, implementation, and management of your feature flags."
         cards={cards}
       />
       <Slider
-        title="Release with Confidence"
-        text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
+        id="features"
+        title="Discover the Features"
+        text="Discover a complete platform for creating, implementing, and managing your feature flags with Basestack Feature Flags."
         data={slides}
       />
-      <Pricing />
-      <Questions
-        title="Frequently Asked Questions"
-        text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
-        data={questions}
-      />
       <DarkContainer ref={darkContainer}>
-        <Code />
+        <Code id="code" />
         <Cards
           title="Feature flags"
           text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
           cards={cards}
           isDarkMode
+        />
+        <Questions
+          title="Frequently Asked Questions"
+          text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
+          data={questions}
         />
         <Banner />
         <Footer />
