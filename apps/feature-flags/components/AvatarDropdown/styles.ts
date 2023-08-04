@@ -36,11 +36,13 @@ export const AvatarDetailedButton = styled.button`
 
   &:hover {
     cursor: pointer;
-    background-color: ${({ theme }) => theme.colors.gray100};
+    background-color: ${({ theme }) =>
+      theme.colors[theme.isDarkMode ? "gray700" : "gray100"]};
   }
 
   &:active {
-    background-color: ${({ theme }) => theme.colors.gray200};
+    background-color: ${({ theme }) =>
+      theme.colors[theme.isDarkMode ? "gray600" : "gray200"]};
   }
 `;
 
