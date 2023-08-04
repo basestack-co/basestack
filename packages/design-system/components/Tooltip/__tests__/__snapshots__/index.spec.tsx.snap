@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Tooltip tests render Tooltip correctly 1`] = `
+exports[`Tooltip tests should render Tooltip correctly 1`] = `
 <DocumentFragment>
   .c1 {
   height: 1.125rem;

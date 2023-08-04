@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Accordion tests render Accordion correctly 1`] = `
+exports[`Accordion tests should render Accordion correctly 1`] = `
 <DocumentFragment>
   .c2 {
   font-size: 1.125rem;
@@ -9,6 +9,7 @@ exports[`Accordion tests render Accordion correctly 1`] = `
   font-family: roboto;
   text-align: left;
   font-family: 'Roboto',sans-serif;
+  word-break: break-word;
   color: #000000;
 }
 
@@ -53,7 +54,6 @@ exports[`Accordion tests render Accordion correctly 1`] = `
       <h3
         class="c2"
         font-family="roboto"
-        textalign="left"
       >
         My Accordion
       </h3>

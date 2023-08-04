@@ -17,6 +17,9 @@ export const ListItem = styled.li<SpaceProps>`
 `;
 
 export const AvatarButton = styled.button`
+  position: relative;
+  display: inline-flex;
+  align-items: center;
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -36,11 +39,13 @@ export const AvatarDetailedButton = styled.button`
 
   &:hover {
     cursor: pointer;
-    background-color: ${({ theme }) => theme.colors.gray100};
+    background-color: ${({ theme }) =>
+      theme.colors[theme.isDarkMode ? "gray700" : "gray100"]};
   }
 
   &:active {
-    background-color: ${({ theme }) => theme.colors.gray200};
+    background-color: ${({ theme }) =>
+      theme.colors[theme.isDarkMode ? "gray600" : "gray200"]};
   }
 `;
 

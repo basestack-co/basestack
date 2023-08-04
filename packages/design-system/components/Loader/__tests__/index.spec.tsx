@@ -5,7 +5,7 @@ import Loader from "..";
 describe("Loader tests", () => {
   afterEach(cleanup);
 
-  test("render Loader correctly", () => {
+  test("should render Loader correctly", () => {
     const { asFragment } = renderWithTheme(<Loader />);
     expect(asFragment()).toMatchSnapshot();
   });

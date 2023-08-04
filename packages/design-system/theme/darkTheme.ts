@@ -302,13 +302,13 @@ const input = {
     backgroundColor: colors.gray800,
   },
   placeholder: {
-    color: colors.gray500,
+    color: colors.gray400,
   },
   focus: {
-    outline: colors.gray600,
+    outline: colors.gray500,
   },
   icon: {
-    color: colors.gray500,
+    color: colors.gray400,
   },
 };
 
@@ -319,14 +319,21 @@ const textarea = {
     backgroundColor: colors.gray800,
   },
   placeholder: {
-    color: colors.gray500,
+    color: colors.gray400,
   },
   focus: {
-    outline: colors.gray600,
+    outline: colors.gray500,
   },
 };
 
-const inputGroup = {};
+const inputGroup = {
+  hint: {
+    color: colors.gray400,
+    error: {
+      color: colors.red500,
+    },
+  },
+};
 
 const segment = {
   backgroundColor: colors.gray800,

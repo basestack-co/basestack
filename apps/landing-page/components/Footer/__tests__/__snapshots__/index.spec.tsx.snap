@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Footer tests render Footer correctly 1`] = `
+exports[`Footer tests should render Footer correctly 1`] = `
 <DocumentFragment>
   .c6 {
   font-size: 1rem;
@@ -9,6 +9,7 @@ exports[`Footer tests render Footer correctly 1`] = `
   font-family: roboto;
   font-weight: 400;
   font-family: 'Roboto',sans-serif;
+  word-break: break-word;
   color: #CBCBCB;
 }
 
@@ -20,6 +21,7 @@ exports[`Footer tests render Footer correctly 1`] = `
   font-weight: 400;
   margin-bottom: 0.5rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-word;
   color: #CBCBCB;
 }
 
@@ -30,6 +32,7 @@ exports[`Footer tests render Footer correctly 1`] = `
   font-family: roboto;
   margin-bottom: 0.5rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-word;
   color: #CBCBCB;
 }
 
@@ -63,6 +66,7 @@ exports[`Footer tests render Footer correctly 1`] = `
 
 .c13:disabled {
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .c0 {
@@ -194,7 +198,6 @@ exports[`Footer tests render Footer correctly 1`] = `
           class="c3"
           color="#CBCBCB"
           font-family="roboto"
-          mb="0.5rem"
         >
           MoonFlags
         </h2>
@@ -263,7 +266,6 @@ exports[`Footer tests render Footer correctly 1`] = `
           color="#CBCBCB"
           font-family="roboto"
           font-weight="400"
-          mb="0.5rem"
         >
           Updates right to your inbox
         </p>
@@ -277,7 +279,6 @@ exports[`Footer tests render Footer correctly 1`] = `
           <button
             class="c13"
             data-testid="button"
-            variant="primary"
           >
             <span
               class=""

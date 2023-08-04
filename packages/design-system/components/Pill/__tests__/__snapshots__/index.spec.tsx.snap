@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Pill tests render Pill correctly 1`] = `
+exports[`Pill tests should render Pill correctly 1`] = `
 <DocumentFragment>
   .c1 {
   font-size: 0.875rem;
@@ -8,7 +8,7 @@ exports[`Pill tests render Pill correctly 1`] = `
   font-weight: 400;
   font-family: roboto;
   font-family: 'Roboto',sans-serif;
-  word-break: break-all;
+  word-break: break-word;
   color: #000000;
 }
 

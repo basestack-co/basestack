@@ -5,7 +5,7 @@ import Illustration, { IllustrationVariant } from "..";
 describe("Illustration tests", () => {
   afterEach(cleanup);
 
-  test("render Browser Illustration correctly", () => {
+  test("should render Browser Illustration correctly", () => {
     const { asFragment } = renderWithTheme(
       <Illustration variant={IllustrationVariant.Browser} />,
     );
@@ -13,7 +13,7 @@ describe("Illustration tests", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("render Planet Illustration correctly", () => {
+  test("should render Planet Illustration correctly", () => {
     const { asFragment } = renderWithTheme(
       <Illustration variant={IllustrationVariant.Planet} />,
     );
@@ -21,7 +21,7 @@ describe("Illustration tests", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("render Binoculars Illustration correctly", () => {
+  test("should render Binoculars Illustration correctly", () => {
     const { asFragment } = renderWithTheme(
       <Illustration variant={IllustrationVariant.Binoculars} />,
     );
@@ -29,7 +29,7 @@ describe("Illustration tests", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("render WindowLoading Illustration correctly", () => {
+  test("should render WindowLoading Illustration correctly", () => {
     const { asFragment } = renderWithTheme(
       <Illustration variant={IllustrationVariant.WindowLoading} />,
     );
@@ -37,7 +37,7 @@ describe("Illustration tests", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("render HalfPlanet Illustration correctly", () => {
+  test("should render HalfPlanet Illustration correctly", () => {
     const { asFragment } = renderWithTheme(
       <Illustration variant={IllustrationVariant.HalfPlanet} />,
     );

@@ -74,7 +74,7 @@ const PopupActions = forwardRef<HTMLDivElement, PopupActionsProps>(
                       round={false}
                       userName={item.text}
                       alt={`Select ${item.text} from the list`}
-                      size="small"
+                      size="xSmall"
                     />
                     <Text ml={theme.spacing.s2} lineTruncate={truncateText}>
                       {item.text}

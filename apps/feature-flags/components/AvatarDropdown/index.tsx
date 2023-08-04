@@ -109,7 +109,11 @@ const AvatarDropdown = ({
         </AvatarDetailedButton>
       ) : (
         <AvatarButton ref={refs.setReference} onClick={onClickMenu}>
-          <Avatar userName={name} alt="User Image" src={src} />
+          <Icon
+            mr="2px"
+            icon={isMenuOpen ? "arrow_drop_up" : "arrow_drop_down"}
+          />
+          <Avatar size="small" userName={name} alt="User Image" src={src} />
         </AvatarButton>
       )}
       {transitionMorePopup(
@@ -177,12 +181,13 @@ const AvatarDropdown = ({
                     iconPlacement="left"
                     variant={ButtonVariant.Neutral}
                     fullWidth
+                    isDisabled
                     onClick={() => {
                       setInviteMemberModalOpen({ isOpen: true });
                       setIsMenuOpen(false);
                     }}
                   >
-                    Invite Member
+                    Invite Member (Coming soon)
                   </Button>
                 </ListItem>
                 <HrContainer>
@@ -194,6 +199,7 @@ const AvatarDropdown = ({
                     iconPlacement="left"
                     variant={ButtonVariant.Neutral}
                     fullWidth
+                    isDisabled
                     onClick={() => {
                       router.push({
                         pathname: "/[projectSlug]/settings/general",
@@ -201,7 +207,7 @@ const AvatarDropdown = ({
                       });
                     }}
                   >
-                    Settings
+                    Settings (Coming soon)
                   </Button>
                 </ListItem>
                 <ListItem>

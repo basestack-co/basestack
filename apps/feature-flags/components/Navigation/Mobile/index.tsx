@@ -118,7 +118,10 @@ const NavigationDrawer = ({
                       icon="add"
                       variant={ButtonVariant.Neutral}
                       fullWidth
-                      onClick={() => setCreateFlagModalOpen({ isOpen: true })}
+                      onClick={() => {
+                        onClose();
+                        setCreateFlagModalOpen({ isOpen: true });
+                      }}
                     >
                       Create Feature Flag
                     </Button>
@@ -151,9 +154,10 @@ const NavigationDrawer = ({
                         icon="add"
                         variant={ButtonVariant.Neutral}
                         fullWidth
-                        onClick={() =>
-                          setCreateProjectModalOpen({ isOpen: true })
-                        }
+                        onClick={() => {
+                          onClose();
+                          setCreateProjectModalOpen({ isOpen: true });
+                        }}
                       >
                         Create Project
                       </Button>

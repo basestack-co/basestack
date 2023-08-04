@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Icon tests render Icon correctly 1`] = `
+exports[`Icon tests should render Icon correctly 1`] = `
 <DocumentFragment>
   .c0 {
   height: 1.5rem;
@@ -22,6 +22,181 @@ exports[`Icon tests render Icon correctly 1`] = `
       class="c1 material-symbols-sharp"
       data-testid="icon"
       size="24"
+    >
+      help
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Icon tests should render large Icon 1`] = `
+<DocumentFragment>
+  .c0 {
+  height: 2rem;
+  width: 2rem;
+  flex-shrink: 0;
+}
+
+.c1 {
+  color: #000000;
+  font-size: 2rem;
+}
+
+<div
+    class="c0"
+    data-testid="icon-container"
+    size="32"
+  >
+    <span
+      class="c1 material-symbols-sharp"
+      data-testid="icon"
+      size="32"
+    >
+      help
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Icon tests should render medium Icon 1`] = `
+<DocumentFragment>
+  .c0 {
+  height: 1.5rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+}
+
+.c1 {
+  color: #000000;
+  font-size: 1.5rem;
+}
+
+<div
+    class="c0"
+    data-testid="icon-container"
+    size="24"
+  >
+    <span
+      class="c1 material-symbols-sharp"
+      data-testid="icon"
+      size="24"
+    >
+      help
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Icon tests should render muted Icon 1`] = `
+<DocumentFragment>
+  .c0 {
+  height: 1.5rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+}
+
+.c1 {
+  color: #545454;
+  font-size: 1.5rem;
+}
+
+<div
+    class="c0"
+    data-testid="icon-container"
+    size="24"
+  >
+    <span
+      class="c1 material-symbols-sharp"
+      data-testid="icon"
+      size="24"
+    >
+      help
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Icon tests should render red Icon 1`] = `
+<DocumentFragment>
+  .c0 {
+  height: 1.5rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+}
+
+.c1 {
+  color: red;
+  font-size: 1.5rem;
+}
+
+<div
+    class="c0"
+    data-testid="icon-container"
+    size="24"
+  >
+    <span
+      class="c1 material-symbols-sharp"
+      color="red"
+      data-testid="icon"
+      size="24"
+    >
+      help
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Icon tests should render small Icon 1`] = `
+<DocumentFragment>
+  .c0 {
+  height: 1.125rem;
+  width: 1.125rem;
+  flex-shrink: 0;
+}
+
+.c1 {
+  color: #000000;
+  font-size: 1.125rem;
+}
+
+<div
+    class="c0"
+    data-testid="icon-container"
+    size="18"
+  >
+    <span
+      class="c1 material-symbols-sharp"
+      data-testid="icon"
+      size="18"
+    >
+      help
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Icon tests should render xLarge Icon 1`] = `
+<DocumentFragment>
+  .c0 {
+  height: 3rem;
+  width: 3rem;
+  flex-shrink: 0;
+}
+
+.c1 {
+  color: #000000;
+  font-size: 3rem;
+}
+
+<div
+    class="c0"
+    data-testid="icon-container"
+    size="48"
+  >
+    <span
+      class="c1 material-symbols-sharp"
+      data-testid="icon"
+      size="48"
     >
       help
     </span>

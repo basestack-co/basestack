@@ -61,7 +61,7 @@ const ProjectsMenu = ({
       <Button
         ref={refs.setReference}
         iconPlacement="right"
-        icon={isProjectsPopupOpen ? "expand_less" : "expand_more"}
+        icon={isProjectsPopupOpen ? "arrow_drop_up" : "arrow_drop_down"}
         variant={ButtonVariant.PrimaryNeutral}
         onClick={onClickProjects}
       >
