@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+// Utils
+import { config as defaults } from "@basestack/utils";
+// Theme
 import { useTheme } from "styled-components";
 import { useMediaQuery } from "@basestack/hooks";
 import {
@@ -55,8 +58,11 @@ const Navigation = ({
 }: NavigationProps) => {
   const theme = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isMobile = useMediaQuery(theme.device.max.md);
-  const isDesktop = useMediaQuery(theme.device.min.md);
+  // const isMobile = useMediaQuery(theme.device.max.md);
+  // const isDesktop = useMediaQuery(theme.device.min.md);
+
+  const isMobile = false;
+  const isDesktop = true;
 
   const springApi = useSpringRef();
   const { size, ...rest } = useSpring({

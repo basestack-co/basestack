@@ -1,7 +1,8 @@
 import React from "react";
 import { AppProps } from "next/app";
 //Styles
-import { ThemeProvider } from "styled-components";
+import isPropValid from "@emotion/is-prop-valid";
+import { ThemeProvider, StyleSheetManager } from "styled-components";
 import theme from "@basestack/design-system/theme/lightTheme";
 import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
 // Fonts
@@ -17,13 +18,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider theme={theme}>
-      <>
+      <StyleSheetManager shouldForwardProp={isPropValid}>
         <GlobalStyle />
         <Layout>
           <Component {...pageProps} />
         </Layout>
         <Toaster position="bottom-right" />
-      </>
+      </StyleSheetManager>
     </ThemeProvider>
   );
 }

@@ -1,50 +1,66 @@
 import React from "react";
-import Head from "next/head";
+import { useIsTop } from "@basestack/hooks";
 // Components
-import { WaitingList } from "../components";
-// Content
-import { waitingList } from "../content/landing-page";
+import {
+  Navigation,
+  Hero,
+  Footer,
+  Banner,
+  Cards,
+  Questions,
+  Pricing,
+  Slider,
+  Code,
+} from "components";
+import { DarkContainer } from "styles";
+// Data
+import { cards, questions, slides } from "content/landing-page";
 
-const MainPage = () => {
+const LandingPage = () => {
+  const [isDarkSectionTop, darkContainer] = useIsTop({ offSet: 80 });
+
   return (
     <>
-      <Head>
-        <title>Basestack - Early Access</title>
-        <meta name="title" content="Basestack - Early Access" />
-        <meta
-          name="description"
-          content="The Essential Stack for Developers and Startups"
+      <Navigation isDarkMode={isDarkSectionTop} />
+      <Hero
+        title="Feature Flag Service"
+        text="Release features with confidence, manage feature flags across web,
+        mobile, and server side applications. Use our hosted API, deploy to your
+        own private cloud, or run on-premises"
+        image={{
+          src: "https://images.pexels.com/photos/3912477/pexels-photo-3912477.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          alt: "product demo",
+        }}
+      />
+      <Cards
+        title="Feature flags"
+        text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
+        cards={cards}
+      />
+      <Slider
+        title="Release with Confidence"
+        text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
+        data={slides}
+      />
+      <Pricing />
+      <Questions
+        title="Frequently Asked Questions"
+        text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
+        data={questions}
+      />
+      <DarkContainer ref={darkContainer}>
+        <Code />
+        <Cards
+          title="Feature flags"
+          text="MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags."
+          cards={cards}
+          isDarkMode
         />
-
-        {/* <!-- Open Graph / Facebook -->*/}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://basestack.co/" />
-        <meta property="og:title" content="Basestack - Early Access" />
-        <meta
-          property="og:description"
-          content="The Essential Stack for Developers and Startups"
-        />
-        <meta
-          property="og:image"
-          content="https://www.vitoramaral.co/api/og?title=⛳,🌐,💻"
-        />
-
-        {/* <!-- Twitter -->*/}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://basestack.co/" />
-        <meta property="twitter:title" content="Basestack - Early Access" />
-        <meta
-          property="twitter:description"
-          content="The Essential Stack for Developers and Startups"
-        />
-        <meta
-          property="twitter:image"
-          content="https://www.vitoramaral.co/api/og?title=⛳,🌐,💻"
-        />
-      </Head>
-      <WaitingList data={waitingList} />
+        <Banner />
+        <Footer />
+      </DarkContainer>
     </>
   );
 };
 
-export default MainPage;
+export default LandingPage;

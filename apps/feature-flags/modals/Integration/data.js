@@ -1,9 +1,5 @@
 // Utils
-import {
-  DOCS_SDKS_JS_URL,
-  DOCS_SDKS_REST_URL,
-  DOCS_SDKS_REACT_URL,
-} from "utils/helpers/constants";
+import { config } from "@basestack/utils";
 
 export const javascriptCode = `
 import FlagsJS from "@basestack/flags-js-sdk";
@@ -50,11 +46,21 @@ const data = [
   {
     id: "javascript",
     text: "Javascript",
-    href: DOCS_SDKS_JS_URL,
+    href: config.urls.docs.flags.sdk.javascript,
     code: javascriptCode,
   },
-  { id: "react", text: "React", href: DOCS_SDKS_REACT_URL, code: reactCode },
-  { id: "rest", text: "Rest API", href: DOCS_SDKS_REST_URL, code: restCode },
+  {
+    id: "react",
+    text: "React",
+    href: config.urls.docs.flags.sdk.react,
+    code: reactCode,
+  },
+  {
+    id: "rest",
+    text: "Rest API",
+    href: config.urls.docs.flags.sdk.rest,
+    code: restCode,
+  },
 ];
 
 export default data;

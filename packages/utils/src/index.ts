@@ -1,5 +1,8 @@
-export * from "./browser";
-export * from "./getValue";
-export * from "./groupBy";
-export * from "./is";
-export * from "./formatters";
+// Helpers
+export * from "./helpers/browser";
+export * from "./helpers/getValue";
+export * from "./helpers/groupBy";
+export * from "./helpers/is";
+export * from "./helpers/formatters";
+// Configs
+export { default as config } from "./config";

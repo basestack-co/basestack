@@ -33,12 +33,7 @@ import {
   Section,
 } from "components/GetStarted/styles";
 // Utils
-import {
-  DOCS_CONTRIBUTE_URL,
-  DOCS_OVERVIEW_URL,
-  DOCS_SDKS_URL,
-  GITHUB_REPO_URL,
-} from "utils/helpers/constants";
+import { config } from "@basestack/utils";
 // Layout
 import MainLayout from "../layouts/Main";
 import React from "react";
@@ -201,19 +196,23 @@ const MainPage = () => {
                 text="Read the"
                 link={{
                   text: "Documentation",
-                  href: DOCS_OVERVIEW_URL,
+                  href: config.urls.docs.flags.base,
                   target: "_blank",
                 }}
               />
               <TextLink
                 text="Check out the"
-                link={{ text: "SDK’s", href: DOCS_SDKS_URL, target: "_blank" }}
+                link={{
+                  text: "SDK’s",
+                  href: config.urls.docs.flags.sdk.base,
+                  target: "_blank",
+                }}
               />
               <TextLink
                 text="How to"
                 link={{
                   text: "Contribute?",
-                  href: DOCS_CONTRIBUTE_URL,
+                  href: config.urls.docs.contribute,
                   target: "_blank",
                 }}
               />
@@ -221,7 +220,7 @@ const MainPage = () => {
                 text=" Open an issue on"
                 link={{
                   text: "Github",
-                  href: GITHUB_REPO_URL,
+                  href: config.urls.repo,
                   target: "_blank",
                 }}
                 hasMarginBottom={false}

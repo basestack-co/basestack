@@ -9,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // Utils
 import { z } from "zod";
 import { useMediaQuery } from "@basestack/hooks";
-import { redirectionUrl } from "utils/constants";
 import toast from "react-hot-toast";
 // Components
 import Image from "../Image";

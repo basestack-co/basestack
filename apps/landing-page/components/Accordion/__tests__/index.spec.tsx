@@ -1,5 +1,5 @@
 import { cleanup, fireEvent } from "@testing-library/react";
-import { renderWithTheme } from "../../../utils/testUtils";
+import { renderWithTheme } from "utils/helpers/testUtils";
 import Accordion from "..";
 
 describe("Accordion tests", () => {
