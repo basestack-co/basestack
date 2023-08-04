@@ -37,7 +37,7 @@ const handleSize = (size: Size) => {
     case "small":
       return 36;
     case "xSmall":
-      return 32;
+      return 28;
   }
 };
 

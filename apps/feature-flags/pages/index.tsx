@@ -58,7 +58,7 @@ const ProjectCard = ({ id, onClick, text, flags = 0 }: ProjectCardProps) => {
         <Card height="100%" width="100%" hasHoverAnimation>
           <Box mb="auto" p={theme.spacing.s5}>
             <Avatar
-              size="small"
+              size="xSmall"
               userName={text}
               alt={`${text} project`}
               round={false}
