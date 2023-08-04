@@ -67,7 +67,9 @@ const InputGroup = ({
           size="xSmall"
           mt={theme.spacing.s2}
           color={
-            inputProps?.hasError ? theme.colors.red400 : theme.colors.gray500
+            inputProps?.hasError
+              ? theme.inputGroup.hint.error.color
+              : theme.inputGroup.hint.color
           }
         >
           {hint}

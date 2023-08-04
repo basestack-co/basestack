@@ -17,6 +17,9 @@ export const ListItem = styled.li<SpaceProps>`
 `;
 
 export const AvatarButton = styled.button`
+  position: relative;
+  display: inline-flex;
+  align-items: center;
   background-color: transparent;
   border: none;
   cursor: pointer;

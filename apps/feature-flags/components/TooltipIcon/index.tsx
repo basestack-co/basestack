@@ -21,7 +21,11 @@ const TooltipIcon = ({ icon, text, ...props }: TooltipIconProps) => {
     <TooltipContainer {...props}>
       <Tooltip placement="top">
         <TooltipTrigger>
-          <Icon icon={icon} color={theme.colors.gray500} size="small" />
+          <Icon
+            icon={icon}
+            color={theme.colors[theme.isDarkMode ? "gray400" : "gray500"]}
+            size="small"
+          />
         </TooltipTrigger>
         <TooltipContent>{text}</TooltipContent>
       </Tooltip>

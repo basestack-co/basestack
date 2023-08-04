@@ -2,7 +2,7 @@ import { memo } from "react";
 import { SpaceProps } from "styled-system";
 import { Container, Image } from "./styles";
 
-export type Size = "large" | "medium" | "small";
+export type Size = "large" | "medium" | "small" | "xSmall";
 
 export interface AvatarProps extends SpaceProps {
   /**
@@ -35,7 +35,9 @@ const handleSize = (size: Size) => {
     case "medium":
       return 40;
     case "small":
-      return 28;
+      return 36;
+    case "xSmall":
+      return 32;
   }
 };
 
