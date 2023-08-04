@@ -5,7 +5,7 @@ import Hero from "..";
 describe("Hero tests", () => {
   afterEach(cleanup);
 
-  test("renders the title, text, and buttons", () => {
+  test("should renders the title, text, and buttons", () => {
     const title = "Welcome to my app";
     const text = "Discover the power of my app";
 
@@ -17,7 +17,7 @@ describe("Hero tests", () => {
     expect(getByText("Talk To Sales")).toBeInTheDocument();
   });
 
-  test("renders the image if provided", () => {
+  test("should renders the image if provided", () => {
     const title = "Welcome to my app";
     const text = "Discover the power of my app";
     const image = {

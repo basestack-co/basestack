@@ -6,7 +6,6 @@ import {
   Body,
   Container,
   ContentContainer,
-  ContentWrapper,
   Footer,
   GlobalStyle,
   Header,
@@ -75,10 +74,8 @@ const Modal: React.FC<ModalProps> = ({
                     <IconButton ml="auto" onClick={onClose} icon="close" />
                   </Header>
                   <ContentContainer>
-                    <ContentWrapper>
-                      <Body>{children}</Body>
-                    </ContentWrapper>
-                    <Footer>
+                    <Body>{children}</Body>
+                    <Footer expandMobile={expandMobile}>
                       {buttons &&
                         buttons.map((item, index, { length }) => {
                           const isLastItem = index + 1 === length;

@@ -1,4 +1,3 @@
-import { rem } from "polished";
 import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Textarea from "..";
@@ -19,7 +18,7 @@ describe("Textarea tests", () => {
   });
 
   test("should render textarea dark", () => {
-    const { getByTestId } = renderWithTheme(
+    const { asFragment } = renderWithTheme(
       <Textarea
         placeholder="Search here..."
         onChange={jest.fn}
@@ -28,10 +27,6 @@ describe("Textarea tests", () => {
         isDarker
       />,
     );
-    const textarea = getByTestId("textarea");
-
-    expect(textarea).toHaveStyle(`background-color: #EEEEEE`);
-    expect(textarea).toHaveStyle(`min-height: ${rem("150px")}`);
-    expect(textarea).toHaveStyle(`font-size: ${rem("14px")}`);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

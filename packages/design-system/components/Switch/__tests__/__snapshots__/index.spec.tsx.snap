@@ -9,7 +9,7 @@ exports[`Switch tests should render Switch checked by default 1`] = `
   font-family: roboto;
   margin-right: 0.75rem;
   font-family: 'Roboto',sans-serif;
-  word-break: break-all;
+  word-break: break-word;
   color: #757575;
 }
 
@@ -106,7 +106,6 @@ exports[`Switch tests should render Switch checked by default 1`] = `
     <p
       class="c1"
       font-family="roboto"
-      mr="0.75rem"
     >
       Lorem ipsum
     </p>
@@ -242,7 +241,7 @@ exports[`Switch tests should render Switch with text 1`] = `
   font-family: roboto;
   margin-right: 0.75rem;
   font-family: 'Roboto',sans-serif;
-  word-break: break-all;
+  word-break: break-word;
   color: #757575;
 }
 
@@ -339,7 +338,6 @@ exports[`Switch tests should render Switch with text 1`] = `
     <p
       class="c1"
       font-family="roboto"
-      mr="0.75rem"
     >
       Lorem ipsum
     </p>

@@ -1,7 +1,8 @@
 import React from "react";
-import defaultTheme from "../theme";
+import isPropValid from "@emotion/is-prop-valid";
+import { ThemeProvider, StyleSheetManager } from "styled-components";
+import defaultTheme from "@basestack/design-system/theme/lightTheme";
 import { render, RenderResult } from "@testing-library/react";
-import { ThemeProvider } from "styled-components";
 
 const Provider = ({
   children,
@@ -9,7 +10,13 @@ const Provider = ({
 }: {
   children: React.ReactNode;
   theme: any;
-}) => <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+}) => (
+  <ThemeProvider theme={theme}>
+    <StyleSheetManager shouldForwardProp={isPropValid}>
+      {children}
+    </StyleSheetManager>
+  </ThemeProvider>
+);
 
 export const renderWithTheme = (
   ui: React.ReactElement,

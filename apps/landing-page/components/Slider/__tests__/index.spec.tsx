@@ -35,7 +35,7 @@ describe("Slider tests", () => {
     },
   ];
 
-  test("render Slider correctly", () => {
+  test("should render Slider correctly", () => {
     const { asFragment } = renderWithTheme(
       <Slider
         title="Release with Confidence"

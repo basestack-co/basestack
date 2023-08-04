@@ -5,7 +5,7 @@ import Accordion from "..";
 describe("Accordion tests", () => {
   afterEach(cleanup);
 
-  test("render Accordion correctly", () => {
+  test("should render Accordion correctly", () => {
     const title = "My Accordion";
     const text = "This is the content of the accordion.";
 
@@ -16,7 +16,7 @@ describe("Accordion tests", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("should toggle the content visibility when the header is clicked", () => {
+  test("should should toggle the content visibility when the header is clicked", () => {
     const title = "My Accordion";
     const text = "This is the content of the accordion.";
 

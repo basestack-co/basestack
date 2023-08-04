@@ -1,3 +1,4 @@
+import React from "react";
 import Head from "next/head";
 // Router
 import { useRouter } from "next/router";
@@ -36,7 +37,6 @@ import {
 import { config } from "@basestack/utils";
 // Layout
 import MainLayout from "../layouts/Main";
-import React from "react";
 
 interface ProjectCardProps {
   id: string;
@@ -53,7 +53,7 @@ const ProjectCard = ({ id, onClick, text, flags = 0 }: ProjectCardProps) => {
         <Card height="100%" width="100%" hasHoverAnimation>
           <Box mb="auto" p={theme.spacing.s5}>
             <Avatar
-              size="small"
+              size="xSmall"
               userName={text}
               alt={`${text} project`}
               round={false}

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SectionHeader tests render default SectionHeader correctly 1`] = `
+exports[`SectionHeader tests should render default SectionHeader correctly 1`] = `
 <DocumentFragment>
   .c2 {
   font-size: 1.25rem;
@@ -11,6 +11,7 @@ exports[`SectionHeader tests render default SectionHeader correctly 1`] = `
   text-align: center;
   line-height: 1.6;
   font-family: 'Roboto',sans-serif;
+  word-break: break-word;
   color: #757575;
 }
 
@@ -24,6 +25,7 @@ exports[`SectionHeader tests render default SectionHeader correctly 1`] = `
   text-align: center;
   margin-bottom: 0.5rem;
   font-family: 'Roboto Flex',sans-serif;
+  word-break: break-word;
   color: #000000;
 }
 
@@ -42,9 +44,6 @@ exports[`SectionHeader tests render default SectionHeader correctly 1`] = `
       color="#000000"
       font-family="robotoFlex"
       font-size="2.625rem"
-      lineheight="1.4"
-      mb="0.5rem"
-      textalign="center"
     >
       Section Title
     </h2>
@@ -53,8 +52,6 @@ exports[`SectionHeader tests render default SectionHeader correctly 1`] = `
       color="#757575"
       font-family="roboto"
       font-weight="400"
-      lineheight="1.6"
-      textalign="center"
     >
       Section Text
     </p>
@@ -62,7 +59,7 @@ exports[`SectionHeader tests render default SectionHeader correctly 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SectionHeader tests render large SectionHeader in dark mode 1`] = `
+exports[`SectionHeader tests should render large SectionHeader in dark mode 1`] = `
 <DocumentFragment>
   .c2 {
   font-size: 1.25rem;
@@ -73,6 +70,7 @@ exports[`SectionHeader tests render large SectionHeader in dark mode 1`] = `
   text-align: center;
   line-height: 1.6;
   font-family: 'Roboto',sans-serif;
+  word-break: break-word;
   color: #CBCBCB;
 }
 
@@ -86,6 +84,7 @@ exports[`SectionHeader tests render large SectionHeader in dark mode 1`] = `
   text-align: center;
   margin-bottom: 0.5rem;
   font-family: 'Roboto Flex',sans-serif;
+  word-break: break-word;
   color: #F6F6F6;
 }
 
@@ -105,9 +104,6 @@ exports[`SectionHeader tests render large SectionHeader in dark mode 1`] = `
       color="#F6F6F6"
       font-family="robotoFlex"
       font-size="3.75rem"
-      lineheight="1.4"
-      mb="0.5rem"
-      textalign="center"
     >
       Section Title
     </h1>
@@ -116,8 +112,6 @@ exports[`SectionHeader tests render large SectionHeader in dark mode 1`] = `
       color="#CBCBCB"
       font-family="roboto"
       font-weight="400"
-      lineheight="1.6"
-      textalign="center"
     >
       Section Text
     </p>

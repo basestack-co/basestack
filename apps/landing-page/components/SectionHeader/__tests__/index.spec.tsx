@@ -5,7 +5,7 @@ import SectionHeader from "..";
 describe("SectionHeader tests", () => {
   afterEach(cleanup);
 
-  test("render default SectionHeader correctly", () => {
+  test("should render default SectionHeader correctly", () => {
     const { asFragment } = renderWithTheme(
       <SectionHeader
         title="Section Title"
@@ -19,7 +19,7 @@ describe("SectionHeader tests", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("render large SectionHeader in dark mode", () => {
+  test("should render large SectionHeader in dark mode", () => {
     const { asFragment } = renderWithTheme(
       <SectionHeader
         title="Section Title"

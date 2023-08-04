@@ -5,7 +5,7 @@ import Banner from "..";
 describe("Banner tests", () => {
   afterEach(cleanup);
 
-  test("render Banner correctly", () => {
+  test("should render Banner correctly", () => {
     const { asFragment } = renderWithTheme(<Banner />);
 
     expect(asFragment()).toMatchSnapshot();

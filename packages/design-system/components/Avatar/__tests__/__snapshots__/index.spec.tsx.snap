@@ -1,5 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Avatar tests render Avatar correctly 1`] = `
+<DocumentFragment>
+  .c0 {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.c1 {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+<div
+    class="c0"
+    data-testid="avatar"
+    size="40"
+  >
+    <img
+      alt="avatar"
+      class="c1"
+      src="https://avatars.dicebear.com/api/initials/user name.svg?size=40&fontSize=40"
+    />
+  </div>
+</DocumentFragment>
+`;
+
 exports[`Avatar tests should render Avatar with user name initials 1`] = `
 <DocumentFragment>
   .c0 {
@@ -9,6 +40,130 @@ exports[`Avatar tests should render Avatar with user name initials 1`] = `
   overflow: hidden;
   flex-shrink: 0;
   border-radius: 50%;
+}
+
+.c1 {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+<div
+    class="c0"
+    data-testid="avatar"
+    size="40"
+  >
+    <img
+      alt="user_avatar"
+      class="c1"
+      src="https://avatars.dicebear.com/api/initials/Flávio Amaral.svg?size=40&fontSize=40"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Avatar tests should render large Avatar 1`] = `
+<DocumentFragment>
+  .c0 {
+  height: 3.5rem;
+  width: 3.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.c1 {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+<div
+    class="c0"
+    data-testid="avatar"
+    size="56"
+  >
+    <img
+      alt="avatar"
+      class="c1"
+      src="https://avatars.dicebear.com/api/initials/user name.svg?size=56&fontSize=40"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Avatar tests should render medium Avatar 1`] = `
+<DocumentFragment>
+  .c0 {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.c1 {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+<div
+    class="c0"
+    data-testid="avatar"
+    size="40"
+  >
+    <img
+      alt="avatar"
+      class="c1"
+      src="https://avatars.dicebear.com/api/initials/user name.svg?size=40&fontSize=40"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Avatar tests should render small Avatar 1`] = `
+<DocumentFragment>
+  .c0 {
+  height: 2.25rem;
+  width: 2.25rem;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.c1 {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+<div
+    class="c0"
+    data-testid="avatar"
+    size="36"
+  >
+    <img
+      alt="avatar"
+      class="c1"
+      src="https://avatars.dicebear.com/api/initials/user name.svg?size=36&fontSize=40"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Avatar tests should render squared Avatar 1`] = `
+<DocumentFragment>
+  .c0 {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 4px;
 }
 
 .c1 {

@@ -68,6 +68,7 @@ const useFlagForm = ({
             errors={errors}
             control={control}
             isSubmitting={isSubmitting || isLoading}
+            isLoading={isLoading}
           />
         );
       case TabType.ADVANCED:

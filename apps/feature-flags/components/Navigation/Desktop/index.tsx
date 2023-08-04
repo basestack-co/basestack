@@ -109,7 +109,12 @@ const Navigation = ({
             <ListItem>
               <Link href="/">
                 <LogoContainer>
-                  <Avatar round={false} alt="user image" userName="Logo" />
+                  <Avatar
+                    size="small"
+                    round={false}
+                    alt="user image"
+                    userName="Logo"
+                  />
                 </LogoContainer>
               </Link>
             </ListItem>
@@ -139,7 +144,7 @@ const Navigation = ({
       {isDesktop && (
         <List ml="auto" data-testid="navigation-right-ul">
           {onRenderItems(externalLinks, "right")}
-          <ListItem ml={theme.spacing.s3}>
+          <ListItem ml={theme.spacing.s2}>
             <AvatarDropdown
               name={session?.user.name || "User Name"}
               email={session?.user.email || ""}

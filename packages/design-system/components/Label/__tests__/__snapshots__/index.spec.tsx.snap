@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Label tests render Label correctly 1`] = `
+exports[`Label tests should render Label correctly 1`] = `
 <DocumentFragment>
   .c0 {
   display: flex;
@@ -16,14 +16,13 @@ exports[`Label tests render Label correctly 1`] = `
 <div
     class="c0"
     data-testid="label-container"
-    variant="default"
   >
     label
   </div>
 </DocumentFragment>
 `;
 
-exports[`Label tests render isTranslucent Label 1`] = `
+exports[`Label tests should render isTranslucent Label 1`] = `
 <DocumentFragment>
   .c0 {
   display: flex;
@@ -39,7 +38,6 @@ exports[`Label tests render isTranslucent Label 1`] = `
 <div
     class="c0"
     data-testid="label-container"
-    variant="info"
   >
     label
   </div>

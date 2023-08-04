@@ -5,7 +5,7 @@ import Splash from "..";
 describe("Splash tests", () => {
   afterEach(cleanup);
 
-  test("render Splash correctly", () => {
+  test("should render Splash correctly", () => {
     const { asFragment } = renderWithTheme(<Splash />);
     expect(asFragment()).toMatchSnapshot();
   });

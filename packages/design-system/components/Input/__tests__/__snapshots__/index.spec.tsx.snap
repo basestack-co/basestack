@@ -44,3 +44,212 @@ exports[`Input tests should render Input correctly 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`Input tests should render input with left icon 1`] = `
+<DocumentFragment>
+  .c2 {
+  height: 1.5rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+}
+
+.c3 {
+  color: #AFAFAF;
+  font-size: 1.5rem;
+}
+
+.c0 {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.c4 {
+  border: none;
+  background-color: #F6F6F6;
+  height: 2.75rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  width: 100%;
+  padding: 0 1rem;
+  color: #000000;
+  padding-left: 2.75rem;
+}
+
+.c4::placeholder {
+  color: #757575;
+}
+
+.c4:focus {
+  outline: 2px solid #000000;
+}
+
+.c1 {
+  display: inline-flex;
+  position: absolute;
+  left: 0.75rem;
+  right: initial;
+}
+
+<div
+    class="c0"
+    data-testid="input-container"
+  >
+    <div
+      class="c1"
+    >
+      <div
+        class="c2"
+        data-testid="icon-container"
+        size="24"
+      >
+        <span
+          class="c3 material-symbols-sharp"
+          color="#AFAFAF"
+          data-testid="icon"
+          size="24"
+        >
+          search
+        </span>
+      </div>
+    </div>
+    <input
+      class="c4"
+      data-testid="input"
+      format="normal"
+      name="feature"
+      placeholder="Search here..."
+      type="text"
+      value=""
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Input tests should render input with right icon 1`] = `
+<DocumentFragment>
+  .c3 {
+  height: 1.5rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+}
+
+.c4 {
+  color: #AFAFAF;
+  font-size: 1.5rem;
+}
+
+.c0 {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.c1 {
+  border: none;
+  background-color: #F6F6F6;
+  height: 2.75rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  width: 100%;
+  padding: 0 1rem;
+  color: #000000;
+  padding-right: 2.75rem;
+}
+
+.c1::placeholder {
+  color: #757575;
+}
+
+.c1:focus {
+  outline: 2px solid #000000;
+}
+
+.c2 {
+  display: inline-flex;
+  position: absolute;
+  left: initial;
+  right: 0.75rem;
+}
+
+<div
+    class="c0"
+    data-testid="input-container"
+  >
+    <input
+      class="c1"
+      data-testid="input"
+      format="normal"
+      name="feature"
+      placeholder="Search here..."
+      type="text"
+      value=""
+    />
+    <div
+      class="c2"
+    >
+      <div
+        class="c3"
+        data-testid="icon-container"
+        size="24"
+      >
+        <span
+          class="c4 material-symbols-sharp"
+          color="#AFAFAF"
+          data-testid="icon"
+          size="24"
+        >
+          search
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Input tests should render small input 1`] = `
+<DocumentFragment>
+  .c0 {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.c1 {
+  border: none;
+  background-color: #F6F6F6;
+  height: 2.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  width: 100%;
+  padding: 0 1rem;
+  color: #000000;
+}
+
+.c1::placeholder {
+  color: #757575;
+}
+
+.c1:focus {
+  outline: 2px solid #000000;
+}
+
+<div
+    class="c0"
+    data-testid="input-container"
+  >
+    <input
+      class="c1"
+      data-testid="input"
+      format="small"
+      name="feature"
+      placeholder="Search here..."
+      type="text"
+      value=""
+    />
+  </div>
+</DocumentFragment>
+`;

@@ -61,9 +61,11 @@ export const Tab = styled.button<{
   border-bottom: 2px solid
     ${({ theme, borderColor }) => borderColor || theme.tabs.tab.border};
 
-  &:hover {
-    background-color: ${({ theme, hoverBgColor }) =>
-      hoverBgColor || theme.tabs.tab.hover.backgroundColor};
+  @media screen and ${({ theme }) => theme.device.min.sm} {
+    &:hover {
+      background-color: ${({ theme, hoverBgColor }) =>
+        hoverBgColor || theme.tabs.tab.hover.backgroundColor};
+    }
   }
 `;
 
@@ -81,9 +83,11 @@ export const Button = styled.button<{
   ${({ isActive }) =>
     !isActive &&
     css`
-      &:hover {
-        background-color: ${({ theme }) =>
-          theme.tabs.button.hover.backgroundColor};
+      @media screen and ${({ theme }) => theme.device.max.sm} {
+        &:hover {
+          background-color: ${({ theme }) =>
+            theme.tabs.button.hover.backgroundColor};
+        }
       }
     `};
 `;
