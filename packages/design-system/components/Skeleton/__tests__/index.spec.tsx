@@ -5,7 +5,7 @@ import Skeleton from "..";
 describe("Skeleton tests", () => {
   afterEach(cleanup);
 
-  test("render Skeleton correctly", () => {
+  test("should render Skeleton correctly", () => {
     const { asFragment } = renderWithTheme(
       <Skeleton
         items={[

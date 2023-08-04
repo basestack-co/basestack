@@ -1,17 +1,19 @@
 import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
-import Empty from "..";
+import CopyCard from "..";
 
-describe("Empty tests", () => {
+describe("CopyCard tests", () => {
   afterEach(cleanup);
 
-  test("should render Empty correctly", () => {
+  test("should render CopyCard correctly", () => {
     const { asFragment } = renderWithTheme(
-      <Empty
+      <CopyCard
         title="title"
-        button={{ text: "button", onClick: jest.fn() }}
         description="description"
-        iconName="info"
+        tooltip={{
+          defaultText: "defaultText",
+          successText: "successText",
+        }}
       />,
     );
     expect(asFragment()).toMatchSnapshot();

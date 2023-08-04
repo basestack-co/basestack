@@ -1,5 +1,4 @@
-import { cleanup } from "@testing-library/react";
-import { rem } from "polished";
+import { cleanup, fireEvent } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import { ButtonSize, ButtonVariant } from "../types";
 import { Button } from "..";
@@ -8,30 +7,26 @@ describe("Button tests", () => {
   afterEach(cleanup);
 
   test("should render Button correctly", () => {
-    const { asFragment, getByTestId } = renderWithTheme(
+    const { asFragment } = renderWithTheme(
       <Button size={ButtonSize.Normal}>button</Button>,
     );
-    const button = getByTestId(/button/);
-
-    expect(button).toHaveStyle(`display: flex`);
-    expect(button).toHaveStyle(`align-items: center`);
-    expect(button).toHaveStyle(`font-size: ${rem("14px")}`);
-    expect(button).toHaveStyle(`font-weight: 500`);
-    expect(button).toHaveStyle(`cursor: pointer`);
-    expect(button).toHaveStyle(`border-radius: 4px`);
-    expect(button).toHaveStyle(`padding: 0 ${rem("12px")}`);
     expect(asFragment()).toMatchSnapshot();
   });
 
   test("should render Button with onClick", () => {
-    const { asFragment } = renderWithTheme(
-      <Button onClick={jest.fn()}>button link</Button>,
+    const onClick = jest.fn();
+    const { getByTestId } = renderWithTheme(
+      <Button onClick={onClick}>button link</Button>,
     );
-    expect(asFragment()).toMatchSnapshot();
+
+    const button = getByTestId("button");
+    fireEvent.click(button);
+
+    expect(onClick).toHaveBeenCalled();
   });
 
   test("should render Button with icon", () => {
-    const { asFragment } = renderWithTheme(
+    const { asFragment, getByTestId } = renderWithTheme(
       <Button
         icon="help"
         onClick={jest.fn()}
@@ -41,6 +36,10 @@ describe("Button tests", () => {
         button icon
       </Button>,
     );
+
+    const icon = getByTestId("icon");
+
+    expect(icon).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -58,90 +57,51 @@ describe("Button tests", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("should render primary Button", () => {
-    const { getByTestId } = renderWithTheme(
-      <Button variant={ButtonVariant.Primary}>primary</Button>,
-    );
-    const button = getByTestId(/button/);
-    expect(button).toHaveStyle(`color: #FFFFFF`);
-    expect(button).toHaveStyle(`background-color: #276EF1`);
-  });
-
-  test("should render primaryNeutral Button", () => {
-    const { getByTestId } = renderWithTheme(
-      <Button variant={ButtonVariant.PrimaryNeutral}>primaryNeutral</Button>,
-    );
-    const button = getByTestId(/button/);
-    expect(button).toHaveStyle(`color: #000000`);
-    expect(button).toHaveStyle(`background-color: transparent`);
-  });
-
-  test("should render secondary Button", () => {
-    const { getByTestId } = renderWithTheme(
-      <Button variant={ButtonVariant.Secondary}>secondary</Button>,
-    );
-    const button = getByTestId(/button/);
-    expect(button).toHaveStyle(`color: #FFFFFF`);
-    expect(button).toHaveStyle(`background-color: #000000`);
-  });
-
-  test("should render tertiary Button", () => {
-    const { getByTestId } = renderWithTheme(
-      <Button variant={ButtonVariant.Tertiary}>tertiary</Button>,
-    );
-    const button = getByTestId(/button/);
-    expect(button).toHaveStyle(`color: #000000`);
-    expect(button).toHaveStyle(`background-color: #EEEEEE`);
-  });
-
-  test("should render tertiary Button", () => {
-    const { getByTestId } = renderWithTheme(
-      <Button variant={ButtonVariant.Outlined}>outlined</Button>,
-    );
-    const button = getByTestId(/button/);
-    expect(button).toHaveStyle(`color: #000000`);
-    expect(button).toHaveStyle(`background-color: transparent`);
-    expect(button).toHaveStyle(`border: 2px solid #000000`);
-  });
-
-  test("should render neutral Button", () => {
-    const { getByTestId } = renderWithTheme(
-      <Button variant={ButtonVariant.Neutral}>neutral</Button>,
-    );
-    const button = getByTestId(/button/);
-    expect(button).toHaveStyle(`color: #000000`);
-    expect(button).toHaveStyle(`background-color: transparent`);
-  });
-
-  test("should render danger Button", () => {
-    const { getByTestId } = renderWithTheme(
-      <Button variant={ButtonVariant.Danger}>danger</Button>,
-    );
-    const button = getByTestId(/button/);
-    expect(button).toHaveStyle(`color: #E11900`);
-    expect(button).toHaveStyle(`background-color: transparent`);
-  });
-
-  test("should render fullWidth Button", () => {
-    const { getByTestId } = renderWithTheme(
-      <Button variant={ButtonVariant.Secondary} fullWidth>
-        fullWidth
-      </Button>,
-    );
-    const button = getByTestId(/button/);
-    expect(button).toHaveStyle(`width: 100%`);
-  });
-
-  test("should render Button with spinner", () => {
+  test("should render Neutral Button", () => {
     const { asFragment } = renderWithTheme(
-      <Button isLoading>fullWidth</Button>,
+      <Button variant={ButtonVariant.Neutral}>button</Button>,
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("should render Button disabled", () => {
+  test("should render Secondary Button", () => {
     const { asFragment } = renderWithTheme(
-      <Button isDisabled>fullWidth</Button>,
+      <Button variant={ButtonVariant.Secondary}>button</Button>,
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test("should render Tertiary Button", () => {
+    const { asFragment } = renderWithTheme(
+      <Button variant={ButtonVariant.Tertiary}>button</Button>,
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test("should render PrimaryNeutral Button", () => {
+    const { asFragment } = renderWithTheme(
+      <Button variant={ButtonVariant.PrimaryNeutral}>button</Button>,
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test("should render DangerFilled Button", () => {
+    const { asFragment } = renderWithTheme(
+      <Button variant={ButtonVariant.DangerFilled}>button</Button>,
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test("should render Outlined Button", () => {
+    const { asFragment } = renderWithTheme(
+      <Button variant={ButtonVariant.Outlined}>button</Button>,
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test("should render Danger Button", () => {
+    const { asFragment } = renderWithTheme(
+      <Button variant={ButtonVariant.Danger}>button</Button>,
     );
     expect(asFragment()).toMatchSnapshot();
   });

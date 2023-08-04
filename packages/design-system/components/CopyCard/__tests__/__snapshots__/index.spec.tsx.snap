@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CopyCard tests should render CopyCard correctly 1`] = `
+<DocumentFragment>
+  .c2 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #000000;
+}
+
+.c4 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #000000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c6 {
+  background-color: transparent;
+  border: none;
+  cursor: default;
+}
+
+.c8 {
+  height: 1.5rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+}
+
+.c9 {
+  color: #000000;
+  font-size: 1.5rem;
+}
+
+.c7 {
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
+  background-color: transparent;
+  color: #000000;
+  height: 2rem;
+  width: 2rem;
+}
+
+.c7 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c7:hover {
+  background-color: #EEEEEE;
+}
+
+.c7:active {
+  background-color: #E2E2E2;
+}
+
+.c0 {
+  height: 2.75rem;
+  display: flex;
+  background-color: #F6F6F6;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.c1 {
+  display: flex;
+  align-items: center;
+  background-color: #EEEEEE;
+  padding: 0 1rem;
+  flex-shrink: 0;
+}
+
+.c3 {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  overflow: hidden;
+}
+
+.c5 {
+  display: flex;
+  align-items: center;
+  padding-right: 0.5rem;
+  margin-left: auto;
+}
+
+<div
+    class="c0"
+  >
+    <div
+      class="c1"
+    >
+      <p
+        class="c2"
+        font-family="roboto"
+      >
+        title
+      </p>
+    </div>
+    <div
+      class="c3"
+    >
+      <p
+        class="c4"
+        font-family="roboto"
+      >
+        description
+      </p>
+    </div>
+    <div
+      class="c5"
+    >
+      <div
+        class="c6"
+        data-state="closed"
+      >
+        <button
+          class="c7"
+        >
+          <div
+            class="c8"
+            data-testid="icon-container"
+            size="24"
+          >
+            <span
+              class="c9 material-symbols-sharp"
+              color="#000000"
+              data-testid="icon"
+              size="24"
+            >
+              content_copy
+            </span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

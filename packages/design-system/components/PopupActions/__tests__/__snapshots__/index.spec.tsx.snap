@@ -9,7 +9,7 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
   font-family: roboto;
   font-weight: 500;
   font-family: 'Roboto',sans-serif;
-  word-break: break-all;
+  word-break: break-word;
   color: #757575;
 }
 
@@ -20,7 +20,7 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
   font-family: roboto;
   margin-left: 0.5rem;
   font-family: 'Roboto',sans-serif;
-  word-break: break-all;
+  word-break: break-word;
   color: #000000;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -74,6 +74,7 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
 
 .c9:disabled {
   cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .c0 {
@@ -143,9 +144,6 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
 
 <div
     class="c0"
-    left="0"
-    position="absolute"
-    top="0"
   >
     <div
       class="c1"
@@ -181,7 +179,6 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
           <p
             class="c8"
             font-family="roboto"
-            ml="0.5rem"
           >
             Moon flags
           </p>
@@ -203,7 +200,6 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
           <p
             class="c8"
             font-family="roboto"
-            ml="0.5rem"
           >
             Teams kids
           </p>
@@ -213,9 +209,6 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
     <button
       class="c9"
       data-testid="button"
-      justifycontent="center"
-      mt="0.25rem"
-      variant="tertiary"
     >
       <span
         class=""

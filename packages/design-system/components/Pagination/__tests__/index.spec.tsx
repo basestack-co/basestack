@@ -10,29 +10,27 @@ describe("Pagination tests", () => {
       <Pagination
         currentPage={10}
         totalPages={11}
-        onNext={jest.fn()}
-        onPrev={jest.fn()}
+        isLoading={false}
+        onClick={jest.fn()}
       />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("should render Pagination correctly", () => {
+  test("should render Pagination with core elements", () => {
     const { getByTestId, getByText } = renderWithTheme(
       <Pagination
         currentPage={10}
         totalPages={11}
-        onNext={jest.fn()}
-        onPrev={jest.fn()}
+        isLoading={false}
+        onClick={jest.fn()}
       />,
     );
-    const prevButton = getByText(/Prev/);
-    const nextButton = getByText(/Next/);
+    const leftText = getByTestId("pagination-left-text");
     const currentPage = getByTestId("pagination-current-page");
     const totalPages = getByTestId("pagination-total-pages");
 
-    expect(prevButton).toBeVisible();
-    expect(nextButton).toBeVisible();
+    expect(leftText).toHaveTextContent("Showing");
     expect(currentPage).toHaveTextContent("10");
     expect(totalPages).toHaveTextContent("of 11");
   });

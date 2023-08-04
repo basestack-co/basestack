@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hr tests render Hr correctly 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  height: 1px;
+  border: none;
+  background-color: #EEEEEE;
+}
+
+<hr
+    class="c0"
+    data-testid="horizontal-rule"
+  />
+</DocumentFragment>
+`;

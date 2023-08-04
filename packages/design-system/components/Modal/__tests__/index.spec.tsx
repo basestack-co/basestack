@@ -10,7 +10,7 @@ describe("Modal tests", () => {
     { children: "Create", onClick: jest.fn },
   ];
 
-  test("render Modal correctly", () => {
+  test("should render Modal correctly", () => {
     const { asFragment } = renderWithTheme(
       <Modal
         title="Create Flag"
@@ -25,7 +25,7 @@ describe("Modal tests", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("render Modal correctly open", () => {
+  test("should render Modal correctly open", () => {
     const { asFragment } = renderWithTheme(
       <Modal title="Create Flag" isOpen onClose={jest.fn()} buttons={buttons}>
         Body Content
@@ -35,7 +35,7 @@ describe("Modal tests", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("render Modal with custom props", () => {
+  test("should render Modal with custom props", () => {
     const { asFragment } = renderWithTheme(
       <Modal
         title="Create Flag Large"

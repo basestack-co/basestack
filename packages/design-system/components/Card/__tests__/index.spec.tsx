@@ -1,4 +1,3 @@
-import { rem } from "polished";
 import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Card from "..";
@@ -6,25 +5,20 @@ import Card from "..";
 describe("Card tests", () => {
   afterEach(cleanup);
 
-  test("render Card correctly", () => {
-    const { asFragment, getByTestId } = renderWithTheme(<Card>Content</Card>);
-    const card = getByTestId("card");
-
-    expect(card).toHaveStyle(`border-radius: ${rem("6px")}`);
-    expect(card).toHaveStyle(`background-color: #FFFFFF`);
+  test("should render Card correctly", () => {
+    const { asFragment } = renderWithTheme(<Card>Content</Card>);
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("render Card with style system utils", () => {
-    const { getByTestId } = renderWithTheme(<Card mb={20}>Content</Card>);
-    const card = getByTestId("card");
-    expect(card).toHaveStyle(`margin-bottom: 20px`);
+  test("should render Card with style system utils", () => {
+    const { asFragment } = renderWithTheme(<Card mb={20}>Content</Card>);
+    expect(asFragment()).toMatchSnapshot();
   });
 
-  test("render Card with hover animation", () => {
-    const { getByTestId } = renderWithTheme(
+  test("should render Card with hover animation", () => {
+    const { asFragment } = renderWithTheme(
       <Card hasHoverAnimation>Content</Card>,
     );
-    const card = getByTestId("card");
+    expect(asFragment()).toMatchSnapshot();
   });
 });
