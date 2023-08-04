@@ -35,7 +35,7 @@ const Pagination = ({
   return (
     <Container data-testid="pagination" {...props}>
       <StyledText
-        data-testid="pagination-current-page"
+        data-testid="pagination-left-text"
         size="small"
         muted
         mr={theme.spacing.s1}

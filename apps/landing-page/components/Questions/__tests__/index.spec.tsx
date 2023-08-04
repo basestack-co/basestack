@@ -5,7 +5,7 @@ import Questions from "..";
 describe("Questions tests", () => {
   afterEach(cleanup);
 
-  test("renders the title and text passed as props", () => {
+  test("should render the title and text passed as props", () => {
     const title = "FAQ";
     const text = "Find answers to your questions";
     const data = [

@@ -106,8 +106,6 @@ exports[`Segment tests should render Segment correctly 1`] = `
     </button>
     <div
       class="c4"
-      numberofitems="2"
-      translatex="0"
     />
   </div>
 </DocumentFragment>
@@ -122,7 +120,7 @@ exports[`Segment tests should render Segment with icons and test 1`] = `
   font-family: roboto;
   margin-left: 0.25rem;
   font-family: 'Roboto',sans-serif;
-  word-break: break-all;
+  word-break: break-word;
   color: #000000;
 }
 
@@ -211,7 +209,6 @@ exports[`Segment tests should render Segment with icons and test 1`] = `
       <p
         class="c4"
         font-family="roboto"
-        ml="0.25rem"
       >
         Item 1
       </p>
@@ -237,15 +234,12 @@ exports[`Segment tests should render Segment with icons and test 1`] = `
       <p
         class="c4"
         font-family="roboto"
-        ml="0.25rem"
       >
         Item 2
       </p>
     </button>
     <div
       class="c5"
-      numberofitems="2"
-      translatex="0"
     />
   </div>
 </DocumentFragment>

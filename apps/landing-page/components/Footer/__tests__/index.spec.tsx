@@ -5,7 +5,7 @@ import Footer from "..";
 describe("Footer tests", () => {
   afterEach(cleanup);
 
-  test("render Footer correctly", () => {
+  test("should render Footer correctly", () => {
     const { asFragment } = renderWithTheme(<Footer />);
 
     expect(asFragment()).toMatchSnapshot();

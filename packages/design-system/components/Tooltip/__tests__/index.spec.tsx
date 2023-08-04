@@ -6,7 +6,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "..";
 describe("Tooltip tests", () => {
   afterEach(cleanup);
 
-  test("render Tooltip correctly", () => {
+  test("should render Tooltip correctly", () => {
     const { asFragment } = renderWithTheme(
       <Tooltip placement="top">
         <TooltipTrigger>

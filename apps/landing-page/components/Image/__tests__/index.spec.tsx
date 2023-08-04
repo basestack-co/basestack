@@ -5,7 +5,7 @@ import Image from "..";
 describe("Image tests", () => {
   afterEach(cleanup);
 
-  test("renders image with src and alt", () => {
+  test("should render image with src and alt", () => {
     const src = "image-src";
     const alt = "image-alt";
     const { getByAltText } = renderWithTheme(<Image src={src} alt={alt} />);

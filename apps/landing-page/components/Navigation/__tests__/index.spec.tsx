@@ -21,13 +21,13 @@ Object.defineProperty(window, "matchMedia", {
 describe("Navigation tests", () => {
   afterEach(cleanup);
 
-  test("renders Navigation correctly", () => {
+  test("should renders Navigation correctly", () => {
     const { asFragment } = renderWithTheme(<Navigation isDarkMode={false} />);
 
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("render Navigation in dark mode", () => {
+  test("should render Navigation in dark mode", () => {
     const { asFragment } = renderWithTheme(<Navigation isDarkMode />);
 
     expect(asFragment()).toMatchSnapshot();

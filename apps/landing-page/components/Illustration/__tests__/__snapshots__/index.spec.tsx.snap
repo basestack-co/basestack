@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Illustration tests render Binoculars Illustration correctly 1`] = `
+exports[`Illustration tests should render Binoculars Illustration correctly 1`] = `
 <DocumentFragment>
   <svg
     fill="none"
@@ -19,7 +19,7 @@ exports[`Illustration tests render Binoculars Illustration correctly 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Illustration tests render Browser Illustration correctly 1`] = `
+exports[`Illustration tests should render Browser Illustration correctly 1`] = `
 <DocumentFragment>
   <svg
     fill="none"
@@ -38,7 +38,7 @@ exports[`Illustration tests render Browser Illustration correctly 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Illustration tests render HalfPlanet Illustration correctly 1`] = `
+exports[`Illustration tests should render HalfPlanet Illustration correctly 1`] = `
 <DocumentFragment>
   <svg
     fill="none"
@@ -57,7 +57,7 @@ exports[`Illustration tests render HalfPlanet Illustration correctly 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Illustration tests render Planet Illustration correctly 1`] = `
+exports[`Illustration tests should render Planet Illustration correctly 1`] = `
 <DocumentFragment>
   <svg
     fill="none"
@@ -76,7 +76,7 @@ exports[`Illustration tests render Planet Illustration correctly 1`] = `
 </DocumentFragment>
 `;
 
-exports[`Illustration tests render WindowLoading Illustration correctly 1`] = `
+exports[`Illustration tests should render WindowLoading Illustration correctly 1`] = `
 <DocumentFragment>
   <svg
     fill="none"

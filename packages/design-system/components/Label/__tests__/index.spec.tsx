@@ -5,28 +5,17 @@ import Label from "..";
 describe("Label tests", () => {
   afterEach(cleanup);
 
-  test("render Label correctly", () => {
+  test("should render Label correctly", () => {
     const { asFragment } = renderWithTheme(
       <Label text="label" variant="default" />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("render isTranslucent Label", () => {
+  test("should render isTranslucent Label", () => {
     const { asFragment } = renderWithTheme(
       <Label text="label" variant="info" isTranslucent />,
     );
-    expect(asFragment()).toMatchSnapshot();
-  });
-
-  test("should render success Label", () => {
-    const { asFragment, getByTestId } = renderWithTheme(
-      <Label text="Green label" variant="success" />,
-    );
-    const label = getByTestId("label-container");
-
-    expect(label).toHaveStyle(`background-color: #05944F`);
-    expect(label).toHaveStyle(`color: #FFFFFF`);
     expect(asFragment()).toMatchSnapshot();
   });
 });

@@ -216,7 +216,7 @@ const InviteCard = ({ project }: Props) => {
       hasFooter={isCurrentUserAdmin}
     >
       {isLoading || !data ? (
-        <Loader>
+        <Loader hasDelay={false}>
           <Skeleton
             items={[
               { h: 25, w: "15%", mb: 10 },

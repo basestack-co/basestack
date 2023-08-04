@@ -5,7 +5,7 @@ import Code from "..";
 describe("Code tests", () => {
   afterEach(cleanup);
 
-  test("render Code correctly", () => {
+  test("should render Code correctly", () => {
     const { asFragment } = renderWithTheme(<Code />);
 
     expect(asFragment()).toMatchSnapshot();

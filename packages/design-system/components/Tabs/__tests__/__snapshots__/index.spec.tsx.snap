@@ -2,42 +2,64 @@
 
 exports[`Tabs tests should render Tabs correctly 1`] = `
 <DocumentFragment>
-  .c2 {
+  .c4 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
   font-family: roboto;
   font-weight: 500;
+  flex-shrink: 0;
   font-family: 'Roboto',sans-serif;
-  word-break: break-all;
+  word-break: break-word;
   color: #000000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .c0 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.c1 {
+  display: flex;
+  flex-direction: column;
+  scroll-behavior: smooth;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.c1::-webkit-scrollbar {
+  display: none;
+}
+
+.c2 {
   display: flex;
   background-color: #FFFFFF;
   position: relative;
 }
 
-.c1 {
+.c3 {
   border: none;
-  background-color: transparent;
   cursor: pointer;
-  height: 2.75rem;
+  min-width: 6.875rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 1 0 0;
   padding: 0 0.75rem;
+  background-color: transparent;
+  height: 2.75rem;
   transition: background-color 0.1s ease-in-out;
   border-bottom: 2px solid #E2E2E2;
 }
 
-.c1:hover {
-  background-color: #EEEEEE;
-}
-
-.c3 {
+.c5 {
+  min-width: 6.875rem;
   position: absolute;
   pointer-events: none;
   z-index: 2;
@@ -50,84 +72,118 @@ exports[`Tabs tests should render Tabs correctly 1`] = `
   transform: translateX(0%);
 }
 
+@media screen and (min-width: 576px) {
+  .c3:hover {
+    background-color: #EEEEEE;
+  }
+}
+
 <div
     class="c0"
-    data-testid="tabs-component"
   >
-    <button
-      class="c1"
-      data-testid="tab-button"
-    >
-      <p
-        class="c2"
-        color="#000000"
-        font-family="roboto"
-        font-weight="500"
-      >
-        Core
-      </p>
-    </button>
-    <button
-      class="c1"
-      data-testid="tab-button"
-    >
-      <p
-        class="c2"
-        color="#000000"
-        font-family="roboto"
-        font-weight="500"
-      >
-        Advanced
-      </p>
-    </button>
     <div
-      class="c3"
-      numberofitems="2"
-      translatex="0"
-    />
+      class="c1"
+    >
+      <div
+        class="c2"
+        data-testid="tabs-component"
+      >
+        <button
+          class="c3"
+          data-testid="tab-button"
+        >
+          <p
+            class="c4"
+            color="#000000"
+            font-family="roboto"
+            font-weight="500"
+          >
+            Core
+          </p>
+        </button>
+        <button
+          class="c3"
+          data-testid="tab-button"
+        >
+          <p
+            class="c4"
+            color="#000000"
+            font-family="roboto"
+            font-weight="500"
+          >
+            Advanced
+          </p>
+        </button>
+        <div
+          class="c5"
+        />
+      </div>
+    </div>
   </div>
 </DocumentFragment>
 `;
 
 exports[`Tabs tests should render Tabs with space utils 1`] = `
 <DocumentFragment>
-  .c2 {
+  .c4 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
   font-family: roboto;
   font-weight: 500;
+  flex-shrink: 0;
   font-family: 'Roboto',sans-serif;
-  word-break: break-all;
+  word-break: break-word;
   color: #000000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .c0 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.c1 {
+  display: flex;
+  flex-direction: column;
+  scroll-behavior: smooth;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.c1::-webkit-scrollbar {
+  display: none;
+}
+
+.c2 {
   margin-bottom: 20px;
   display: flex;
   background-color: #FFFFFF;
   position: relative;
 }
 
-.c1 {
+.c3 {
   border: none;
-  background-color: transparent;
   cursor: pointer;
-  height: 2.75rem;
+  min-width: 6.875rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 1 0 0;
   padding: 0 0.75rem;
+  background-color: transparent;
+  height: 2.75rem;
   transition: background-color 0.1s ease-in-out;
   border-bottom: 2px solid #E2E2E2;
 }
 
-.c1:hover {
-  background-color: #EEEEEE;
-}
-
-.c3 {
+.c5 {
+  min-width: 6.875rem;
   position: absolute;
   pointer-events: none;
   z-index: 2;
@@ -140,42 +196,53 @@ exports[`Tabs tests should render Tabs with space utils 1`] = `
   transform: translateX(0%);
 }
 
+@media screen and (min-width: 576px) {
+  .c3:hover {
+    background-color: #EEEEEE;
+  }
+}
+
 <div
     class="c0"
-    data-testid="tabs-component"
-    mb="20"
   >
-    <button
-      class="c1"
-      data-testid="tab-button"
-    >
-      <p
-        class="c2"
-        color="#000000"
-        font-family="roboto"
-        font-weight="500"
-      >
-        Core
-      </p>
-    </button>
-    <button
-      class="c1"
-      data-testid="tab-button"
-    >
-      <p
-        class="c2"
-        color="#000000"
-        font-family="roboto"
-        font-weight="500"
-      >
-        Advanced
-      </p>
-    </button>
     <div
-      class="c3"
-      numberofitems="2"
-      translatex="0"
-    />
+      class="c1"
+    >
+      <div
+        class="c2"
+        data-testid="tabs-component"
+      >
+        <button
+          class="c3"
+          data-testid="tab-button"
+        >
+          <p
+            class="c4"
+            color="#000000"
+            font-family="roboto"
+            font-weight="500"
+          >
+            Core
+          </p>
+        </button>
+        <button
+          class="c3"
+          data-testid="tab-button"
+        >
+          <p
+            class="c4"
+            color="#000000"
+            font-family="roboto"
+            font-weight="500"
+          >
+            Advanced
+          </p>
+        </button>
+        <div
+          class="c5"
+        />
+      </div>
+    </div>
   </div>
 </DocumentFragment>
 `;

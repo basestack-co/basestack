@@ -62,7 +62,7 @@ const KeysCard = ({ project }: Props) => {
       hasFooter={false}
     >
       {isLoading || !data ? (
-        <Loader>
+        <Loader hasDelay={false}>
           <Skeleton
             items={[
               { h: 25, w: "15%", mb: 10 },

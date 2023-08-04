@@ -5,7 +5,7 @@ import Pricing from "..";
 describe("Pricing tests", () => {
   afterEach(cleanup);
 
-  test("render Pricing correctly", () => {
+  test("should render Pricing correctly", () => {
     const { asFragment } = renderWithTheme(<Pricing />);
 
     expect(asFragment()).toMatchSnapshot();

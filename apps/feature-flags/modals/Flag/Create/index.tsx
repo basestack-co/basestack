@@ -116,7 +116,7 @@ const CreateFlagModal = () => {
           sliderPosition={tabPosition[selectedTab]}
           mb={theme.spacing.s6}
         />
-        {onRenderTab()}
+        {onRenderTab(isLoading)}
       </Modal>
     </Portal>
   );

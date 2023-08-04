@@ -1,5 +1,111 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Text tests should render large text 1`] = `
+<DocumentFragment>
+  .c0 {
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #000000;
+}
+
+<h3
+    class="c0"
+    font-family="roboto"
+  >
+    large
+  </h3>
+</DocumentFragment>
+`;
+
+exports[`Text tests should render medium text 1`] = `
+<DocumentFragment>
+  .c0 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #000000;
+}
+
+<p
+    class="c0"
+    font-family="roboto"
+  >
+    medium
+  </p>
+</DocumentFragment>
+`;
+
+exports[`Text tests should render muted text 1`] = `
+<DocumentFragment>
+  .c0 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #757575;
+}
+
+<p
+    class="c0"
+    font-family="roboto"
+  >
+    muted
+  </p>
+</DocumentFragment>
+`;
+
+exports[`Text tests should render red text 1`] = `
+<DocumentFragment>
+  .c0 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: red;
+}
+
+<p
+    class="c0"
+    color="red"
+    font-family="roboto"
+  >
+    red
+  </p>
+</DocumentFragment>
+`;
+
+exports[`Text tests should render small text 1`] = `
+<DocumentFragment>
+  .c0 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #000000;
+}
+
+<p
+    class="c0"
+    font-family="roboto"
+  >
+    small
+  </p>
+</DocumentFragment>
+`;
+
 exports[`Text tests should render text correctly 1`] = `
 <DocumentFragment>
   .c0 {
@@ -8,7 +114,7 @@ exports[`Text tests should render text correctly 1`] = `
   font-weight: 400;
   font-family: roboto;
   font-family: 'Roboto',sans-serif;
-  word-break: break-all;
+  word-break: break-word;
   color: #000000;
 }
 
@@ -18,5 +124,69 @@ exports[`Text tests should render text correctly 1`] = `
   >
     Text
   </p>
+</DocumentFragment>
+`;
+
+exports[`Text tests should render xLarge text 1`] = `
+<DocumentFragment>
+  .c0 {
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #000000;
+}
+
+<h2
+    class="c0"
+    font-family="roboto"
+  >
+    xLarge
+  </h2>
+</DocumentFragment>
+`;
+
+exports[`Text tests should render xSmall text 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: flex;
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #000000;
+}
+
+<span
+    class="c0"
+    font-family="roboto"
+  >
+    xSmall
+  </span>
+</DocumentFragment>
+`;
+
+exports[`Text tests should render xxLarge text 1`] = `
+<DocumentFragment>
+  .c0 {
+  font-size: 1.5rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  font-family: roboto;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #000000;
+}
+
+<h1
+    class="c0"
+    font-family="roboto"
+  >
+    xxLarge
+  </h1>
 </DocumentFragment>
 `;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Splash tests render Splash correctly 1`] = `
+exports[`Splash tests should render Splash correctly 1`] = `
 <DocumentFragment>
   .c2 {
   font-size: 1.25rem;
@@ -10,7 +10,7 @@ exports[`Splash tests render Splash correctly 1`] = `
   font-weight: 700;
   line-height: 1.6;
   font-family: 'Roboto Flex',sans-serif;
-  word-break: break-all;
+  word-break: break-word;
   color: #000000;
 }
 
@@ -72,7 +72,6 @@ exports[`Splash tests render Splash correctly 1`] = `
         class="c2"
         font-family="robotoFlex"
         font-weight="700"
-        lineheight="1.6"
       >
         MoonFlags
       </h2>

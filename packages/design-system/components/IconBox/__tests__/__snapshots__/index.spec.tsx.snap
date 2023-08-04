@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IconBox tests should render IconBox blue 1`] = `
+<DocumentFragment>
+  .c1 {
+  height: 1.5rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+}
+
+.c2 {
+  color: #1E54B7;
+  font-size: 1.5rem;
+}
+
+.c0 {
+  background-color: #EFF3FE;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+<div
+    class="c0"
+  >
+    <div
+      class="c1"
+      data-testid="icon-container"
+      size="24"
+    >
+      <span
+        class="c2 material-symbols-sharp"
+        color="#1E54B7"
+        data-testid="icon"
+        size="24"
+      >
+        help
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`IconBox tests should render IconBox gray 1`] = `
+<DocumentFragment>
+  .c1 {
+  height: 1.5rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+}
+
+.c2 {
+  color: #757575;
+  font-size: 1.5rem;
+}
+
+.c0 {
+  background-color: #F6F6F6;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+<div
+    class="c0"
+  >
+    <div
+      class="c1"
+      data-testid="icon-container"
+      size="24"
+    >
+      <span
+        class="c2 material-symbols-sharp"
+        color="#757575"
+        data-testid="icon"
+        size="24"
+      >
+        help
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`IconBox tests should render IconBox green 1`] = `
+<DocumentFragment>
+  .c1 {
+  height: 1.5rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+}
+
+.c2 {
+  color: #03703C;
+  font-size: 1.5rem;
+}
+
+.c0 {
+  background-color: #E6F2ED;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+<div
+    class="c0"
+  >
+    <div
+      class="c1"
+      data-testid="icon-container"
+      size="24"
+    >
+      <span
+        class="c2 material-symbols-sharp"
+        color="#03703C"
+        data-testid="icon"
+        size="24"
+      >
+        help
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`IconBox tests should render IconBox purple 1`] = `
+<DocumentFragment>
+  .c1 {
+  height: 1.5rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+}
+
+.c2 {
+  color: #574191;
+  font-size: 1.5rem;
+}
+
+.c0 {
+  background-color: #F4F1FA;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+<div
+    class="c0"
+  >
+    <div
+      class="c1"
+      data-testid="icon-container"
+      size="24"
+    >
+      <span
+        class="c2 material-symbols-sharp"
+        color="#574191"
+        data-testid="icon"
+        size="24"
+      >
+        help
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;

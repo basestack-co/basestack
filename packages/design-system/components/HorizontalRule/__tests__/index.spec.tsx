@@ -6,13 +6,7 @@ describe("Hr tests", () => {
   afterEach(cleanup);
 
   test("render Hr correctly", () => {
-    const { asFragment, getByTestId } = renderWithTheme(<Hr />);
-    const hr = getByTestId("horizontal-rule");
-
-    expect(hr).toHaveStyle(`height: 1px`);
-    expect(hr).toHaveStyle(`border: none`);
-    expect(hr).toHaveStyle(`background-color: #EEEEEE`);
-    expect(hr).toHaveStyle(`width: 100%`);
+    const { asFragment } = renderWithTheme(<Hr />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

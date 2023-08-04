@@ -5,7 +5,7 @@ import Empty from "..";
 describe("Empty tests", () => {
   afterEach(cleanup);
 
-  test("render Empty correctly", () => {
+  test("should render Empty correctly", () => {
     const { asFragment } = renderWithTheme(
       <Empty
         title="title"

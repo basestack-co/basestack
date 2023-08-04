@@ -321,7 +321,14 @@ const textarea = {
   },
 };
 
-const inputGroup = {};
+const inputGroup = {
+  hint: {
+    color: colors.gray500,
+    error: {
+      color: colors.red400,
+    },
+  },
+};
 
 const segment = {
   backgroundColor: colors.gray100,
