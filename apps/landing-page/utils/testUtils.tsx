@@ -1,7 +1,8 @@
 import React from "react";
 import { render, RenderOptions } from "@testing-library/react";
 // Styles
-import { ThemeProvider } from "styled-components";
+import isPropValid from "@emotion/is-prop-valid";
+import { ThemeProvider, StyleSheetManager } from "styled-components";
 import theme from "@basestack/design-system/theme/lightTheme";
 
 interface WithChildrenProps {
@@ -28,7 +29,11 @@ const renderWithAllProviders = (
   });
 
 const WithThemeProvider = ({ children }: WithChildrenProps) => (
-  <ThemeProvider theme={theme}>{children}</ThemeProvider>
+  <ThemeProvider theme={theme}>
+    <StyleSheetManager shouldForwardProp={isPropValid}>
+      {children}
+    </StyleSheetManager>
+  </ThemeProvider>
 );
 
 const renderWithTheme = (

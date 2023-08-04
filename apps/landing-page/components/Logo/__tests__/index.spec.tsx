@@ -1,12 +1,12 @@
 import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
-import Code from "..";
+import Logo from "..";
 
-describe("Code tests", () => {
+describe("Logo tests", () => {
   afterEach(cleanup);
 
-  test("should render Code correctly", () => {
-    const { asFragment } = renderWithTheme(<Code />);
+  test("should render Logo correctly", () => {
+    const { asFragment } = renderWithTheme(<Logo />);
 
     expect(asFragment()).toMatchSnapshot();
   });

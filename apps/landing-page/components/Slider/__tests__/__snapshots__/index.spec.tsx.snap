@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Slider tests render Slider correctly 1`] = `
+exports[`Slider tests should render Slider correctly 1`] = `
 <DocumentFragment>
   .c0 {
   display: flex;
@@ -34,6 +34,7 @@ exports[`Slider tests render Slider correctly 1`] = `
   font-weight: 400;
   line-height: 1.6;
   font-family: 'Roboto',sans-serif;
+  word-break: break-word;
   color: #757575;
 }
 
@@ -44,6 +45,7 @@ exports[`Slider tests render Slider correctly 1`] = `
   font-family: roboto;
   margin-left: 0.75rem;
   font-family: 'Roboto',sans-serif;
+  word-break: break-word;
   color: #000000;
 }
 
@@ -56,6 +58,7 @@ exports[`Slider tests render Slider correctly 1`] = `
   text-align: center;
   line-height: 1.6;
   font-family: 'Roboto',sans-serif;
+  word-break: break-word;
   color: #757575;
 }
 
@@ -69,6 +72,7 @@ exports[`Slider tests render Slider correctly 1`] = `
   text-align: center;
   margin-bottom: 0.5rem;
   font-family: 'Roboto Flex',sans-serif;
+  word-break: break-word;
   color: #000000;
 }
 
@@ -184,9 +188,6 @@ exports[`Slider tests render Slider correctly 1`] = `
           color="#000000"
           font-family="robotoFlex"
           font-size="2.625rem"
-          lineheight="1.4"
-          mb="0.5rem"
-          textalign="center"
         >
           Release with Confidence
         </h2>
@@ -195,8 +196,6 @@ exports[`Slider tests render Slider correctly 1`] = `
           color="#757575"
           font-family="roboto"
           font-weight="400"
-          lineheight="1.6"
-          textalign="center"
         >
           MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags.
         </p>
@@ -205,7 +204,6 @@ exports[`Slider tests render Slider correctly 1`] = `
         class="c5"
       >
         <button
-          animationtime="10"
           class="c6"
         >
           <div
@@ -228,7 +226,6 @@ exports[`Slider tests render Slider correctly 1`] = `
             <h3
               class="c10"
               font-family="roboto"
-              ml="0.75rem"
             >
               User traits
             </h3>
@@ -237,13 +234,11 @@ exports[`Slider tests render Slider correctly 1`] = `
             class="c11"
             font-family="roboto"
             font-weight="400"
-            lineheight="1.6"
           >
             MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.
           </p>
         </button>
         <button
-          animationtime="10"
           class="c12"
         >
           <div
@@ -266,7 +261,6 @@ exports[`Slider tests render Slider correctly 1`] = `
             <h3
               class="c10"
               font-family="roboto"
-              ml="0.75rem"
             >
               Staged feature rollouts
             </h3>
@@ -275,13 +269,11 @@ exports[`Slider tests render Slider correctly 1`] = `
             class="c11"
             font-family="roboto"
             font-weight="400"
-            lineheight="1.6"
           >
             MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.
           </p>
         </button>
         <button
-          animationtime="10"
           class="c12"
         >
           <div
@@ -304,7 +296,6 @@ exports[`Slider tests render Slider correctly 1`] = `
             <h3
               class="c10"
               font-family="roboto"
-              ml="0.75rem"
             >
               Track Changes
             </h3>
@@ -313,7 +304,6 @@ exports[`Slider tests render Slider correctly 1`] = `
             class="c11"
             font-family="roboto"
             font-weight="400"
-            lineheight="1.6"
           >
             MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.
           </p>

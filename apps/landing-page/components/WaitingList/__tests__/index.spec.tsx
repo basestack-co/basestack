@@ -1,6 +1,6 @@
 import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
-import Navigation from "..";
+import WaitingList from "..";
 
 Object.defineProperty(window, "matchMedia", {
   writable: true,
@@ -18,17 +18,22 @@ Object.defineProperty(window, "matchMedia", {
   }),
 });
 
-describe("Navigation tests", () => {
+describe("WaitingList tests", () => {
   afterEach(cleanup);
 
-  test("should renders Navigation correctly", () => {
-    const { asFragment } = renderWithTheme(<Navigation isDarkMode={false} />);
-
-    expect(asFragment()).toMatchSnapshot();
-  });
-
-  test("should render Navigation in dark mode", () => {
-    const { asFragment } = renderWithTheme(<Navigation isDarkMode />);
+  test("should render WaitingList correctly", () => {
+    const { asFragment } = renderWithTheme(
+      <WaitingList
+        data={[
+          {
+            icon: "help",
+            title: "title",
+            text: "text",
+            image: { src: "", alt: "" },
+          },
+        ]}
+      />,
+    );
 
     expect(asFragment()).toMatchSnapshot();
   });

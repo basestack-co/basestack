@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Banner tests render Banner correctly 1`] = `
+exports[`Banner tests should render Banner correctly 1`] = `
 <DocumentFragment>
   .c4 {
   font-size: 1.5rem;
@@ -11,6 +11,7 @@ exports[`Banner tests render Banner correctly 1`] = `
   line-height: 1.3;
   margin-bottom: 0.5rem;
   font-family: 'Roboto Flex',sans-serif;
+  word-break: break-word;
   color: #F6F6F6;
 }
 
@@ -31,7 +32,6 @@ exports[`Banner tests render Banner correctly 1`] = `
   color: #FFFFFF;
   width: medium;
   height: medium;
-  margin-right: 0.75rem;
   width: fit-content;
 }
 
@@ -45,38 +45,7 @@ exports[`Banner tests render Banner correctly 1`] = `
 
 .c6:disabled {
   cursor: not-allowed;
-}
-
-.c8 {
-  height: 2.625rem;
-  padding: 0 1rem;
-  font-size: 1rem;
-  position: relative;
-  border: none;
-  display: flex;
-  align-items: center;
-  font-weight: 500;
-  cursor: pointer;
-  border-radius: 4px;
-  text-decoration: none;
-  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
-  background-color: #276EF1;
-  color: #FFFFFF;
-  width: medium;
-  height: medium;
-  width: fit-content;
-}
-
-.c8:hover:not(:active, :disabled) {
-  background-color: #0e55d7;
-}
-
-.c8 .material-symbols-sharp {
-  color: inherit;
-}
-
-.c8:disabled {
-  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .c0 {
@@ -130,7 +99,7 @@ exports[`Banner tests render Banner correctly 1`] = `
   color: #000000;
 }
 
-.c10 {
+.c9 {
   display: flex;
   position: absolute;
   z-index: 0;
@@ -139,7 +108,7 @@ exports[`Banner tests render Banner correctly 1`] = `
   bottom: 0;
 }
 
-.c9 {
+.c8 {
   display: flex;
   position: absolute;
   z-index: 0;
@@ -159,7 +128,7 @@ exports[`Banner tests render Banner correctly 1`] = `
 }
 
 @media screen and (max-width: 767.98px) {
-  .c9 {
+  .c8 {
     top: -200px;
   }
 }
@@ -181,8 +150,6 @@ exports[`Banner tests render Banner correctly 1`] = `
             color="#F6F6F6"
             font-family="robotoFlex"
             font-size="2.625rem"
-            lineheight="1.3"
-            mb="0.5rem"
           >
             Ready to start shipping your code with confidence?
           </h2>
@@ -192,8 +159,6 @@ exports[`Banner tests render Banner correctly 1`] = `
             <button
               class="c6 c7"
               data-testid="button"
-              mr="0.75rem"
-              variant="primary"
             >
               <span
                 class=""
@@ -202,9 +167,8 @@ exports[`Banner tests render Banner correctly 1`] = `
               </span>
             </button>
             <button
-              class="c8"
+              class="c6"
               data-testid="button"
-              variant="primary"
             >
               <span
                 class=""
@@ -215,7 +179,7 @@ exports[`Banner tests render Banner correctly 1`] = `
           </div>
         </div>
         <div
-          class="c9"
+          class="c8"
         >
           <svg
             fill="none"
@@ -233,7 +197,7 @@ exports[`Banner tests render Banner correctly 1`] = `
           </svg>
         </div>
         <div
-          class="c10"
+          class="c9"
         >
           <svg
             fill="none"

@@ -1,3 +1,4 @@
+import React from "react";
 import Head from "next/head";
 // Router
 import { useRouter } from "next/router";
@@ -41,7 +42,6 @@ import {
 } from "utils/helpers/constants";
 // Layout
 import MainLayout from "../layouts/Main";
-import React from "react";
 
 interface ProjectCardProps {
   id: string;
