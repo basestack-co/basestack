@@ -442,12 +442,12 @@ const tabs = {
     hover: { backgroundColor: colors.gray100 },
   },
   button: {
-    backgroundColor: colors.gray100,
+    backgroundColor: colors.gray50,
     hover: { backgroundColor: colors.gray200 },
     active: {
-      backgroundColor: colors.gray900,
+      backgroundColor: colors.gray200,
       text: {
-        color: colors.white,
+        color: colors.black,
       },
     },
   },

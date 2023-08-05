@@ -1,2 +1,2 @@
 export type LabelVariant = "success" | "default" | "info";
-export type LabelSize = "normal" | "medium";
+export type LabelSize = "normal" | "medium" | "small";
