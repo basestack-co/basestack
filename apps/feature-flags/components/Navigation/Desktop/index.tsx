@@ -133,7 +133,7 @@ const Navigation = ({
                     onClick={() => setCreateFlagModalOpen({ isOpen: true })}
                     variant={ButtonVariant.Primary}
                   >
-                    Create
+                    Create Flag
                   </Button>
                 </ListItem>
               </>

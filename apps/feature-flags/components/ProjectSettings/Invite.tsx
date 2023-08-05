@@ -209,9 +209,10 @@ const InviteCard = ({ project }: Props) => {
 
   return (
     <SettingCard
-      title="Team members"
-      description="Manage Team Members."
-      button="Invite Member"
+      title="Team Members"
+      description="Add members of your organization to manage this project. Developers can also be invited to access API keys for code integration."
+      button="Add Member"
+      text="Note: Users must already have an account to appear in the list (Email Invites Coming Soon)."
       onClick={onHandleInvite}
       hasFooter={isCurrentUserAdmin}
     >
