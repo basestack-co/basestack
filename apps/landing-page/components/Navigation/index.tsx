@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // Router
 import { useRouter } from "next/router";
 // Utils
-import { config as defaults } from "@basestack/utils";
+import { config as defaults, events } from "@basestack/utils";
 // Theme
 import { useTheme } from "styled-components";
 import { useMediaQuery } from "@basestack/hooks";
@@ -45,7 +45,7 @@ const links = [
     href: "#code",
   },
   {
-    text: "Why Choose Feature Flags?",
+    text: "Why use Feature Flags?",
     href: "#why",
   },
   {
@@ -127,7 +127,10 @@ const Navigation = ({
                             ? ButtonVariant.Secondary
                             : ButtonVariant.Tertiary
                         }
-                        onClick={() => router.push(link.href)}
+                        onClick={() => {
+                          events.landing.navigation(link.href);
+                          router.push(link.href);
+                        }}
                         size={ButtonSize.Medium}
                         backgroundColor="transparent"
                       >

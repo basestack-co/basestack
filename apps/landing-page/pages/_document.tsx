@@ -59,11 +59,6 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
             rel="stylesheet"
           />
-          <script
-            async
-            src="https://analytics.umami.is/script.js"
-            data-website-id="e83a1f9e-b620-4150-9df5-8ffa76da0336"
-          ></script>
         </Head>
         <body>
           <Main />

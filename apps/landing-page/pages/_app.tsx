@@ -1,5 +1,6 @@
 import React from "react";
 import { AppProps } from "next/app";
+import Script from "next/script";
 //Styles
 import isPropValid from "@emotion/is-prop-valid";
 import { ThemeProvider, StyleSheetManager } from "styled-components";
@@ -17,15 +18,24 @@ function MyApp({ Component, pageProps }: AppProps) {
   const Layout = Component.Layout || Noop;
 
   return (
-    <ThemeProvider theme={theme}>
-      <StyleSheetManager shouldForwardProp={isPropValid}>
-        <GlobalStyle />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-        <Toaster position="bottom-right" />
-      </StyleSheetManager>
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={theme}>
+        <StyleSheetManager shouldForwardProp={isPropValid}>
+          <GlobalStyle />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+          <Toaster position="bottom-right" />
+        </StyleSheetManager>
+      </ThemeProvider>
+      {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
+        <Script
+          data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID!}
+          src="https://analytics.umami.is/script.js"
+          strategy="lazyOnload"
+        />
+      )}
+    </>
   );
 }
 

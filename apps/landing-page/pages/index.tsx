@@ -8,7 +8,6 @@ import {
   Banner,
   Cards,
   Questions,
-  Pricing,
   Slider,
   Code,
 } from "components";
