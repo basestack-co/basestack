@@ -2,9 +2,6 @@ import styled from "styled-components";
 import { rem } from "polished";
 
 export const Container = styled.div`
-  position: relative;
-  height: 0;
-
   .react-calendar,
   .react-calendar *,
   .react-calendar *:before,
@@ -13,10 +10,6 @@ export const Container = styled.div`
   }
 
   .react-calendar {
-    z-index: 100;
-    position: absolute;
-    left: 0;
-    top: ${({ theme }) => theme.spacing.s1};
     padding: ${({ theme }) => theme.spacing.s2};
     width: 350px;
     max-width: 100%;

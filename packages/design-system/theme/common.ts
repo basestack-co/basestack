@@ -60,6 +60,7 @@ export const colors = {
 };
 
 export const zIndex = {
+  calendar: 111,
   modal: 110,
   popup: 109,
   navigationDrawer: 108,
