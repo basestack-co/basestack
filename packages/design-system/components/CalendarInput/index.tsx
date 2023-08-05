@@ -49,13 +49,14 @@ const CalendarInput = ({
   });
 
   return (
-    <Container ref={calendarRef} {...props}>
+    <Container {...props}>
       <InputGroup title={inputTitle} inputProps={inputProps} />
       <CalendarReference ref={refs.setReference}></CalendarReference>
       {isCalenderOpen && (
         <FloatingPortal id="portal">
           <CalendarWrapper ref={refs.setFloating} style={floatingStyles}>
             <Calendar
+              ref={calendarRef}
               {...calendarProps}
               prevLabel={<Icon icon="chevron_left" size="small" />}
               prev2Label={
