@@ -16,7 +16,6 @@ export interface Props {
   errors: FieldErrors<FlagFormInputs>;
   control: Control<FlagFormInputs, any>;
   isSubmitting: boolean;
-  isLoading: boolean;
 }
 
 const CoreTab = ({
@@ -25,7 +24,6 @@ const CoreTab = ({
   errors,
   control,
   isSubmitting,
-  isLoading,
 }: Props) => {
   const theme = useTheme();
   const [textareaLength, setTextareaLength] = useState("");
@@ -111,9 +109,9 @@ const CoreTab = ({
         data-testid="input-group-title"
         size="small"
       >
-        Environments
+        Enabled Environments
       </Text>
-      {(isLoading || !environments) && (
+      {!environments ? (
         <Skeleton
           displayInline
           items={[
@@ -124,8 +122,7 @@ const CoreTab = ({
           hasShadow={false}
           padding="8px 0"
         />
-      )}
-      {!isLoading && environments && (
+      ) : (
         <Environments>
           {environments.map(({ id, name, enabled }) => {
             return (
