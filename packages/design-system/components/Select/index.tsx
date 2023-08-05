@@ -42,7 +42,13 @@ const Select = forwardRef<any, Props>((props, ref) => {
         ClearIndicator,
         DropdownIndicator,
       }}
+      menuPlacement="auto"
+      menuPortalTarget={document.body}
       styles={{
+        menuPortal: (baseStyles) => ({
+          ...baseStyles,
+          zIndex: theme.zIndex.reactSelect,
+        }),
         control: (baseStyles, state) => ({
           ...baseStyles,
           ...(state.isFocused

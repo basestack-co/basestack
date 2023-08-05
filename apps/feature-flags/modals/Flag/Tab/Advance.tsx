@@ -1,7 +1,5 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
-// Hooks
-import { useClickAway } from "react-use";
 // Components
 import { useTheme } from "styled-components";
 import { Text, CalendarInput, Tabs } from "@basestack/design-system";
@@ -23,13 +21,8 @@ export interface Props {
 }
 const AdvanceTab = ({ setValue, environments }: Props) => {
   const theme = useTheme();
-  const calendarInputRef = useRef(null);
   const [isCalenderOpen, setIsCalendarOpen] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-
-  useClickAway(calendarInputRef, () => {
-    setIsCalendarOpen(false);
-  });
 
   const tabs = useMemo(() => {
     if (environments) {
@@ -91,8 +84,8 @@ const AdvanceTab = ({ setValue, environments }: Props) => {
         type="buttons"
       />
       <CalendarInput
-        ref={calendarInputRef}
         isCalenderOpen={isCalenderOpen}
+        onClickAway={() => setIsCalendarOpen(false)}
         inputTitle="Expiration Date"
         inputProps={{
           onFocus: () => setIsCalendarOpen(true),

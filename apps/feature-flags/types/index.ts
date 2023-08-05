@@ -64,6 +64,7 @@ export interface Environment {
   name?: string;
   slug?: string;
   description?: string;
+  enabled?: boolean;
 }
 
 export interface HistoryPayload {
