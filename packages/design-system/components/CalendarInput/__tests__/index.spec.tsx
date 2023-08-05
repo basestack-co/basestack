@@ -17,6 +17,7 @@ describe("CalendarInput tests", () => {
           name: "name",
           onChange: jest.fn(),
         }}
+        onClickAway={jest.fn()}
       />,
     );
     expect(asFragment()).toMatchSnapshot();

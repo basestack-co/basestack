@@ -23,7 +23,7 @@ export interface CalendarInputProps extends SpaceProps {
   calendarProps: CalendarProps;
   inputTitle: string;
   inputProps: InputProps;
-  onClickAway: () => void;
+  onClickAway?: () => void;
 }
 
 const CalendarInput = ({
@@ -43,7 +43,9 @@ const CalendarInput = ({
   });
 
   useClickAway(calendarRef, () => {
-    onClickAway();
+    if (typeof onClickAway === "function") {
+      onClickAway();
+    }
   });
 
   return (
