@@ -35,6 +35,11 @@ const HistoryTab = ({ projectId, flagId }: Props) => {
           avatar,
         } = getHistoryItemDetails(item);
 
+        const envs = environments.map(({ name, enabled }) => ({
+          name: name ?? "",
+          enabled: enabled ?? false,
+        }));
+
         return (
           <HistoryCard
             key={`history-entry-${item.id}`}
@@ -43,7 +48,7 @@ const HistoryTab = ({ projectId, flagId }: Props) => {
             description={description}
             flagName={slug}
             date={dayjs(createdAt).fromNow()}
-            environment={environments.map(({ name }) => name).join(", ")}
+            environments={envs}
             type={type}
             hasPaddingTop={index !== 0}
             hasPaddingBottom={index + 1 !== length}

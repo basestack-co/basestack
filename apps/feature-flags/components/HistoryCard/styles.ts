@@ -67,3 +67,8 @@ export const TitleContainer = styled.div<{ type: Type }>`
       }
     `}
 `;
+
+export const BottomContentContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;

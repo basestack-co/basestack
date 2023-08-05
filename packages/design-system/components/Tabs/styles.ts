@@ -83,7 +83,7 @@ export const Button = styled.button<{
   ${({ isActive }) =>
     !isActive &&
     css`
-      @media screen and ${({ theme }) => theme.device.max.sm} {
+      @media screen and ${({ theme }) => theme.device.min.sm} {
         &:hover {
           background-color: ${({ theme }) =>
             theme.tabs.button.hover.backgroundColor};
