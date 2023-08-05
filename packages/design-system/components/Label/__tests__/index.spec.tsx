@@ -18,4 +18,18 @@ describe("Label tests", () => {
     );
     expect(asFragment()).toMatchSnapshot();
   });
+
+  test("should render small Label", () => {
+    const { asFragment } = renderWithTheme(
+      <Label text="label" variant="info" size="small" />,
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test("should render medium Label", () => {
+    const { asFragment } = renderWithTheme(
+      <Label text="label" variant="info" size="medium" />,
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
 });
