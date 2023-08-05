@@ -3,7 +3,7 @@ import React from "react";
 import { useTheme } from "styled-components";
 import { rem } from "polished";
 // Utils
-import { config as defaults, config } from "@basestack/utils";
+import { config, events } from "@basestack/utils";
 // Components
 import Image, { ImageProps } from "../Image";
 import { Button, ButtonVariant, ButtonSize } from "@basestack/design-system";
@@ -14,6 +14,7 @@ import {
   ImageContainer,
 } from "./styles";
 import SectionHeader from "../SectionHeader";
+import { deploy } from "@basestack/utils/src/events/landing";
 
 interface HeroProps {
   title: string;
@@ -36,9 +37,10 @@ const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
         <ButtonsContainer>
           <Button
             onClick={() => {
+              events.landing.deploy("Deploy to Vercel");
               if (typeof window !== "undefined") {
                 window.open(
-                  `${defaults.urls.docs.base}/feature-flags/deployment/deploy-vercel`,
+                  `${config.urls.docs.base}/feature-flags/deployment/deploy-vercel`,
                   "_blank",
                 );
               }
@@ -52,9 +54,10 @@ const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
             ml={theme.spacing.s3}
             size={ButtonSize.Medium}
             onClick={() => {
+              events.landing.deploy("Explore more options");
               if (typeof window !== "undefined") {
                 window.open(
-                  `${defaults.urls.docs.base}/feature-flags/deployment`,
+                  `${config.urls.docs.base}/feature-flags/deployment`,
                   "_blank",
                 );
               }

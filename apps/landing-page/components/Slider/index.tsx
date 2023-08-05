@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+// Utils
+import { events } from "@basestack/utils";
 // Components
 import { CardsContainer, Container, ContentContainer } from "./styles";
 import SlideCard from "../SlideCard";
@@ -45,7 +47,10 @@ const Slider = ({ title, text, data, id = "slider" }: SliderProps) => {
               icon={item.icon}
               title={item.title}
               text={item.text}
-              onClick={() => setCurrentImage(index)}
+              onClick={() => {
+                events.landing.slider(item.title, item.text);
+                setCurrentImage(index);
+              }}
             />
           ))}
         </CardsContainer>

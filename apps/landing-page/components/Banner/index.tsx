@@ -1,6 +1,6 @@
 import React from "react";
 // Utils
-import { config as defaults, config } from "@basestack/utils";
+import { config, events } from "@basestack/utils";
 // Components
 import { useTheme } from "styled-components";
 import { rem } from "polished";
@@ -44,9 +44,8 @@ const BannerComp = ({ id = "banner" }: Props) => {
               <StyledButton
                 mr={theme.spacing.s3}
                 onClick={() => {
-                  if (typeof window !== "undefined") {
-                    window.open(config.urls.docs.flags.base, "_blank");
-                  }
+                  events.landing.goToDocs();
+                  window.open(config.urls.docs.flags.base, "_blank");
                 }}
                 size={ButtonSize.Medium}
               >
@@ -54,9 +53,8 @@ const BannerComp = ({ id = "banner" }: Props) => {
               </StyledButton>
               <Button
                 onClick={() => {
-                  if (typeof window !== "undefined") {
-                    window.open(defaults.urls.repo, "_blank");
-                  }
+                  events.landing.gotToGitHubRepo();
+                  window.open(config.urls.repo, "_blank");
                 }}
                 size={ButtonSize.Medium}
               >

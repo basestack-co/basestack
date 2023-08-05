@@ -1,5 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { useTheme } from "styled-components";
+// Utils
+import { events } from "@basestack/utils";
 // Code
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
@@ -36,9 +38,10 @@ const Code = ({ id = "code" }: Props) => {
         <CodeContainer>
           <Tabs
             sliderPosition={sliderPosition}
-            onSelect={(item) =>
-              setSliderPosition(data.findIndex((tab) => tab.id === item))
-            }
+            onSelect={(item) => {
+              events.landing.code(`Selected ${item} tab`);
+              setSliderPosition(data.findIndex((tab) => tab.id === item));
+            }}
             items={data}
             backgroundColor={theme.colors.gray700}
             borderColor={theme.colors.gray600}

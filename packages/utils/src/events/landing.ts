@@ -1,44 +1,63 @@
 // Util
 import umamiTracker from "./init";
 
-export const navigation = (message: string) => {
+export const navigation = (title: string, description: string) => {
   umamiTracker.track("landing-page-navigation", {
-    title: "Go to",
-    description: message,
+    title,
+    description,
   });
 };
 
-export const newsletterSuccess = () => {
-  umamiTracker.track("request-newsletter-submit", {
-    title: "Success",
-    description: "Successfully added to the waiting list",
+export const deploy = (title: string) => {
+  umamiTracker.track("deploy-option-button", {
+    title,
   });
 };
 
-export const newsletterError = (message: string) => {
-  umamiTracker.track("request-newsletter-submit", {
-    title: "Error",
-    description: message,
+export const slider = (title: string, description: string) => {
+  umamiTracker.track("features-slider-button", {
+    title,
+    description,
   });
 };
 
-export const emailInputFocus = () => {
-  umamiTracker.track("email-input-focus", {
-    title: "onFocus",
-    description: "Email Input Field Focus",
+export const code = (title: string) => {
+  umamiTracker.track("code-tab-select", {
+    title,
   });
 };
 
-export const featureSliderButton = (message: string) => {
-  umamiTracker.track("slider-card-button", {
-    title: "Feature Slider",
-    description: message,
+export const question = (title: string, description: string) => {
+  umamiTracker.track("accordion-question-click", {
+    title,
+    description,
   });
 };
 
-export const privacyLink = () => {
-  umamiTracker.track("privacy-link", {
-    title: "onClick",
-    description: "Privacy Policy Link",
+export const goToDocs = () => {
+  umamiTracker.track("go-to-documentation-click", {
+    title: "Explore the documentation",
+    description: "Clicked to go to the documentation",
+  });
+};
+
+export const gotToGitHubRepo = () => {
+  umamiTracker.track("go-to-github-repo-click", {
+    title: "Explore the Github Repo",
+    description: "Clicked to go to the source code repo",
+  });
+};
+
+export const link = (title: string, description: string) => {
+  umamiTracker.track("landing-link-click", {
+    title,
+    description,
+  });
+};
+
+export const newsletter = (title: string, description: string) => {
+  umamiTracker.track("landing-newsletter-button-click", {
+    title,
+    description,
   });
 };

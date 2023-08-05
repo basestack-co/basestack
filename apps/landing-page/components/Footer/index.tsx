@@ -1,6 +1,8 @@
 import React from "react";
 // Router
 import { useRouter } from "next/router";
+// Utils
+import { events } from "@basestack/utils";
 // Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -87,11 +89,16 @@ const Footer = () => {
         throw new Error(data.message);
       }
 
+      events.landing.newsletter(
+        "Subscribe Success",
+        "Subscribe with success to the Newsletter",
+      );
       toast.success("Thank you for your interest! We will be in touch soon.");
       reset();
     } catch (error) {
       const { message } = error as Error;
 
+      events.landing.newsletter("Subscribe Error", message);
       toast.error(message ?? "Something went wrong, please try again.");
     }
   };
@@ -118,7 +125,10 @@ const Footer = () => {
                 return (
                   <ListItem
                     key={index.toString()}
-                    onClick={() => router.push(link.href)}
+                    onClick={() => {
+                      events.landing.link(link.text, link.href);
+                      router.push(link.href);
+                    }}
                   >
                     <Text
                       size="medium"

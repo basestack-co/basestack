@@ -33,7 +33,7 @@ import {
 
 const links = [
   {
-    text: "Explore the Platform",
+    text: "The Platform",
     href: "#platform",
   },
   {
@@ -45,7 +45,7 @@ const links = [
     href: "#code",
   },
   {
-    text: "Why use Feature Flags?",
+    text: "Why Feature Flags?",
     href: "#why",
   },
   {
@@ -128,7 +128,7 @@ const Navigation = ({
                             : ButtonVariant.Tertiary
                         }
                         onClick={() => {
-                          events.landing.navigation(link.href);
+                          events.landing.navigation(link.text, link.href);
                           router.push(link.href);
                         }}
                         size={ButtonSize.Medium}

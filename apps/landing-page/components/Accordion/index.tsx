@@ -7,11 +7,12 @@ import { Container, Header, ContentContainer, ContentWrapper } from "./styles";
 export interface AccordionProps {
   title: string;
   text: string;
+  onClick?: () => void;
 }
 
 const AnimatedContent = animated(ContentContainer);
 
-const Accordion = ({ title, text }: AccordionProps) => {
+const Accordion = ({ title, text, onClick }: AccordionProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const transitionContent = useTransition(isOpen, {
@@ -23,7 +24,15 @@ const Accordion = ({ title, text }: AccordionProps) => {
 
   return (
     <Container>
-      <Header onClick={() => setIsOpen((prev) => !prev)}>
+      <Header
+        onClick={() => {
+          setIsOpen((prev) => !prev);
+
+          if (onClick) {
+            onClick();
+          }
+        }}
+      >
         <Text size="large" textAlign="left">
           {title}
         </Text>
