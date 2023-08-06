@@ -76,26 +76,6 @@ export const RightColumn = styled.div`
   margin-left: auto;
 `;
 
-export const Logo = styled.div`
-  display: inline-flex;
-  justify-content: center;
-  position: relative;
-  height: ${rem("40px")};
-  width: ${rem("40px")};
-  border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.black};
-
-  &::before {
-    content: "";
-    position: absolute;
-    bottom: ${rem("5px")};
-    border-radius: 50%;
-    height: ${rem("20px")};
-    width: ${rem("20px")};
-    background-color: ${({ theme }) => theme.colors.white};
-  }
-`;
-
 export const PopupContainer = styled.div<{ isMenuOpen: boolean }>`
   position: fixed;
   z-index: 999;
