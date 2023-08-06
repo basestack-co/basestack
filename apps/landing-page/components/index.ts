@@ -9,4 +9,3 @@ export { default as Pricing } from "./Pricing";
 export { default as Slider } from "./Slider";
 export { default as Code } from "./Code";
 export { default as WaitingList } from "./WaitingList";
-export { default as Logo } from "./Logo";

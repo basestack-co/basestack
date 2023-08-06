@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import { useTheme } from "styled-components";
 // Components
 import {
-  Avatar,
+  Logo,
   Button,
   ButtonVariant,
   IconButton,
@@ -109,12 +109,7 @@ const Navigation = ({
             <ListItem>
               <Link href="/">
                 <LogoContainer>
-                  <Avatar
-                    size="small"
-                    round={false}
-                    alt="user image"
-                    userName="Logo"
-                  />
+                  <Logo size={36} />
                 </LogoContainer>
               </Link>
             </ListItem>
