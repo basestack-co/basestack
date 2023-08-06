@@ -27,7 +27,7 @@ const KeysCard = ({ project }: Props) => {
   const getTable = useMemo(() => {
     return createTable(
       environments,
-      ["Name", "Environment Key"],
+      ["Environment Name", "Environment Key"],
       (item) => [{ title: item.name }, { title: item.key!, hideText: true }],
       () => [],
       (item) => ({
@@ -58,7 +58,7 @@ const KeysCard = ({ project }: Props) => {
   return (
     <SettingCard
       title="API Keys"
-      description="API keys can be used with our SDK’s (Javascript, React)."
+      description="API keys are used with our SDKs, such as JavaScript, React, etc."
       hasFooter={false}
     >
       {isLoading || !data ? (

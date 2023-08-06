@@ -175,7 +175,7 @@ const FlagCards = ({
                       },
                       {
                         icon: "history",
-                        text: "History",
+                        text: "Activity",
                         onClick: () =>
                           onUpdateOrHistory(
                             flag.id,
@@ -192,8 +192,8 @@ const FlagCards = ({
                           setConfirmModalOpen({
                             isOpen: true,
                             data: {
-                              title: "Are you sure?",
-                              description: `This action cannot be undone. This will permanently delete the <b>${flag.slug}</b> flag, comments, history and remove all collaborator associations. `,
+                              title: "Are you sure you want to proceed?",
+                              description: `This action is irreversible. Deleting the <b>${flag.slug}</b> flag will permanently remove associated comments, activity, and collaborator associations. Please proceed with caution.`,
                               type: "delete",
                               buttonText: "Delete Flag",
                               onClick: () => {

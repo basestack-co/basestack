@@ -74,7 +74,7 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
           color={colors[isDarkMode ? "gray300" : "gray100"]}
           mt={spacing[isDesktop ? "s6" : "s4"]}
         >
-          Unlock Your Product Potential: Empower Your Team with Feature Flagging
+          Unlock Your Product Potential: Empower Your Team with Feature Flags
         </Text>
       </LeftContainer>
       <RightContainer>
@@ -89,7 +89,7 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
             lineHeight="1.6"
             color={colors[isDarkMode ? "gray300" : "black"]}
           >
-            Choose the type of login
+            Select Login Service
           </Text>
           <Text
             size="medium"
@@ -98,7 +98,8 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
             muted
             mt={spacing.s2}
           >
-            Select Your Destination: Choose Your Login Service to Access.
+            Welcome to the Platform! Please choose your preferred Login Service
+            from the options below to access your features flags.
           </Text>
           <CardsList>
             {Object.values(providers).map((provider) => (
