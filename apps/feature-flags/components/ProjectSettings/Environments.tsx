@@ -64,7 +64,7 @@ const EnvironmentsCard = ({ project }: Props) => {
 
   const onHandleDelete = useCallback(
     async (environmentId: string) => {
-      await deleteEnvironment.mutate(
+      deleteEnvironment.mutate(
         {
           environmentId,
           projectId: project.id,
@@ -165,7 +165,7 @@ const EnvironmentsCard = ({ project }: Props) => {
       title="Environments"
       description={`${
         isCurrentUserAdmin ? "Create and edit" : "All the"
-      } environments for this project.`}
+      } environments for this project. Environments allow you to control how your feature flags behave in different settings or stages of development.`}
       button="Create New Environment"
       onClick={onHandleCreate}
       hasFooter={isCurrentUserAdmin}

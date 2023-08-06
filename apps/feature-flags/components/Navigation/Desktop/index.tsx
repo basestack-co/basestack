@@ -133,7 +133,7 @@ const Navigation = ({
                     onClick={() => setCreateFlagModalOpen({ isOpen: true })}
                     variant={ButtonVariant.Primary}
                   >
-                    Create
+                    Create Flag
                   </Button>
                 </ListItem>
               </>
@@ -144,7 +144,7 @@ const Navigation = ({
       {isDesktop && (
         <List ml="auto" data-testid="navigation-right-ul">
           {onRenderItems(externalLinks, "right")}
-          <ListItem ml={theme.spacing.s2}>
+          <ListItem ml={theme.spacing.s3}>
             <AvatarDropdown
               name={session?.user.name || "User Name"}
               email={session?.user.email || ""}

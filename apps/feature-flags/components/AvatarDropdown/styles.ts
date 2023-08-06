@@ -23,6 +23,19 @@ export const AvatarButton = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
+  border-radius: 18px;
+  transition:
+    background-color 0.1s ease-in-out,
+    color 0.1s ease-in-out;
+
+  &:hover {
+    background-color: ${({ theme }) =>
+      theme.button.primaryNeutral.hover.backgroundColor};
+
+    span {
+      color: ${({ theme }) => theme.button.primaryNeutral.hover.color};
+    }
+  }
 `;
 
 export const AvatarDetailedButton = styled.button`

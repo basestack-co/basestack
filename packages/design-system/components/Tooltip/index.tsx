@@ -146,7 +146,7 @@ export const TooltipContent = React.forwardRef<
   if (!context.open) return null;
 
   return (
-    <FloatingPortal>
+    <FloatingPortal id="portal">
       <StyledContent
         ref={ref}
         style={context.floatingStyles}

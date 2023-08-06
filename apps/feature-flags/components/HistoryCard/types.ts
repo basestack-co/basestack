@@ -13,7 +13,7 @@ export interface HistoryCardProps extends SpaceProps {
   description: string;
   flagName: string;
   date: string;
-  environment: string;
+  environments: Array<{ name: string; enabled: boolean }>;
   type: Type;
   hasPaddingTop?: boolean;
   hasPaddingBottom?: boolean;

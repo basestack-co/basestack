@@ -83,7 +83,7 @@ export const Header = styled.div`
 `;
 
 export const Body = styled.div`
-  padding: 0 ${rem("20px")};
+  padding: 2px ${rem("20px")};
   ${flexColumn};
 `;
 
@@ -95,6 +95,8 @@ export const Footer = styled.div<{ expandMobile: boolean }>`
   flex-shrink: 0;
   justify-content: flex-end;
   margin-top: auto;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
 
   ${({ expandMobile }) =>
     expandMobile &&

@@ -43,3 +43,47 @@ exports[`Label tests should render isTranslucent Label 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`Label tests should render medium Label 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: flex;
+  border-radius: 4px;
+  padding: 0.375rem 0.5rem;
+  font-size: 1rem;
+  line-height: 1.125rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  background-color: #276EF1;
+}
+
+<div
+    class="c0"
+    data-testid="label-container"
+  >
+    label
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Label tests should render small Label 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: flex;
+  border-radius: 4px;
+  padding: 0.125rem 0.25rem;
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+  font-weight: 400;
+  color: #FFFFFF;
+  background-color: #276EF1;
+}
+
+<div
+    class="c0"
+    data-testid="label-container"
+  >
+    label
+  </div>
+</DocumentFragment>
+`;

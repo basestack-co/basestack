@@ -11,7 +11,7 @@ const ProjectKey = ({ projectKey }: ProjectKeyProps) => {
   return (
     <SettingCard
       title="Project Key"
-      description="This is your project key."
+      description="Here is your project key, which you can use to integrate and access the features in your project."
       hasFooter={false}
     >
       <CopyCard

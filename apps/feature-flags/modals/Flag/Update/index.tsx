@@ -122,7 +122,7 @@ const UpdateFlagModal = () => {
           items={[
             { text: "Core", id: TabType.CORE },
             { text: "Advanced", id: TabType.ADVANCED },
-            { text: "History", id: TabType.HISTORY },
+            { text: "Activity", id: TabType.HISTORY },
           ]}
           onSelect={(tab: string) => setSelectedTab(tab as TabType)}
           sliderPosition={tabPosition[selectedTab]}

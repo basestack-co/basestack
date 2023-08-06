@@ -1,7 +1,8 @@
 import React, { memo } from "react";
 import { useTheme } from "styled-components";
-import { Text, Avatar, Icon } from "@basestack/design-system";
+import { Text, Avatar, Icon, Label } from "@basestack/design-system";
 import {
+  BottomContentContainer,
   Container,
   IconContainer,
   TextContainer,
@@ -15,7 +16,7 @@ const HistoryCard = ({
   description,
   flagName,
   date,
-  environment,
+  environments,
   type,
   hasPaddingTop = true,
   hasPaddingBottom = true,
@@ -63,7 +64,18 @@ const HistoryCard = ({
             &nbsp;
             <Text fontWeight={500}>{flagName}</Text>
           </TitleContainer>
-          <Text muted>{`${date} - ${environment}`}</Text>
+          <BottomContentContainer>
+            <Text muted>{date}</Text>
+            {environments.map(({ name, enabled }, index) => (
+              <Label
+                key={index}
+                text={name}
+                variant={enabled ? "success" : "default"}
+                ml={theme.spacing.s1}
+                size="small"
+              />
+            ))}
+          </BottomContentContainer>
         </TextContainer>
       </Wrapper>
     </Container>
