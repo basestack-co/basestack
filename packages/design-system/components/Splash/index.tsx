@@ -1,19 +1,12 @@
 import React, { memo } from "react";
 // Components
-import Text from "../Text";
+import Logo from "../Logo";
 import { Container, Content, Loader, LoaderContainer } from "./styles";
 
 const Splash = () => (
   <Container>
     <Content>
-      <Text
-        size="xLarge"
-        fontWeight={700}
-        lineHeight="1.6"
-        fontFamily="robotoFlex"
-      >
-        MoonFlags
-      </Text>
+      <Logo size={42} />
       <LoaderContainer>
         <Loader />
       </LoaderContainer>

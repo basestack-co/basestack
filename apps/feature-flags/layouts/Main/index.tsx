@@ -48,7 +48,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     },
   );
 
-  if (status === "loading" || isLoadingProjects) {
+  if (true || status === "loading" || isLoadingProjects) {
     return (
       <Loader>
         <Splash />

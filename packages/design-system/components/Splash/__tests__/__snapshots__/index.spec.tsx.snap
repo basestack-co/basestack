@@ -2,19 +2,7 @@
 
 exports[`Splash tests should render Splash correctly 1`] = `
 <DocumentFragment>
-  .c2 {
-  font-size: 1.25rem;
-  line-height: 1.875rem;
-  font-weight: 500;
-  font-family: robotoFlex;
-  font-weight: 700;
-  line-height: 1.6;
-  font-family: 'Roboto Flex',sans-serif;
-  word-break: break-word;
-  color: #000000;
-}
-
-.c0 {
+  .c0 {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -32,14 +20,14 @@ exports[`Splash tests should render Splash correctly 1`] = `
   margin-top: 7.5rem;
 }
 
-.c3 {
+.c2 {
   display: flex;
   flex-direction: column;
   width: 12.5rem;
   margin-top: 1.25rem;
 }
 
-.c4 {
+.c3 {
   width: 100%;
   height: 2px;
   display: inline-block;
@@ -49,7 +37,7 @@ exports[`Splash tests should render Splash correctly 1`] = `
   border-radius: 2px;
 }
 
-.c4::after {
+.c3::after {
   content: "";
   width: 5rem;
   height: 2px;
@@ -68,18 +56,45 @@ exports[`Splash tests should render Splash correctly 1`] = `
     <div
       class="c1"
     >
-      <h2
-        class="c2"
-        font-family="robotoFlex"
-        font-weight="700"
+      <svg
+        fill="none"
+        height="42"
+        viewBox="0 0 36 36"
+        width="42"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        MoonFlags
-      </h2>
+        <rect
+          fill="black"
+          height="36"
+          rx="4"
+          width="36"
+        />
+        <g
+          clip-path="url(#clip0_3_10)"
+        >
+          <path
+            d="M20.4 12L20.16 10.8C20.07 10.34 19.66 10 19.18 10H12C11.45 10 11 10.45 11 11V26C11 26.55 11.45 27 12 27C12.55 27 13 26.55 13 26V20H18.6L18.84 21.2C18.93 21.67 19.34 22 19.82 22H25C25.55 22 26 21.55 26 21V13C26 12.45 25.55 12 25 12H20.4Z"
+            fill="white"
+          />
+        </g>
+        <defs>
+          <clippath
+            id="clip0_3_10"
+          >
+            <rect
+              fill="white"
+              height="24"
+              transform="translate(6 6)"
+              width="24"
+            />
+          </clippath>
+        </defs>
+      </svg>
       <div
-        class="c3"
+        class="c2"
       >
         <div
-          class="c4"
+          class="c3"
         />
       </div>
     </div>
