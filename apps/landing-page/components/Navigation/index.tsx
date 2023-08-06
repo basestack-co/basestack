@@ -15,14 +15,18 @@ import {
   useSpringRef,
 } from "react-spring";
 // Components
-import { Button, ButtonVariant, ButtonSize } from "@basestack/design-system";
+import {
+  Button,
+  ButtonVariant,
+  ButtonSize,
+  Logo,
+} from "@basestack/design-system";
 import {
   Container,
   ContentContainer,
   LeftColumn,
   List,
   ListItem,
-  Logo,
   PopupContainer,
   PopupWrapper,
   PopupItem,
