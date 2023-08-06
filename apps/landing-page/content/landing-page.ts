@@ -53,7 +53,7 @@ export const slides = [
     title: "Manage Multiple Projects Easily",
     text: "Control feature releases across multiple projects and environments.",
     image: {
-      src: "/images/flags_cards_popups.png",
+      src: "/images/flags_multiple_projects.png",
       alt: "An image of a feature flag control panel displaying multiple projects and environments, with intuitive controls for easily managing feature releases.",
     },
   },
