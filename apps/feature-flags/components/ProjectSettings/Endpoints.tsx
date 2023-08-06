@@ -14,7 +14,7 @@ const EndpointsCard = ({ project }: Props) => {
   return (
     <SettingCard
       title="Endpoints"
-      description="API keys can be used with our SDK’s (Javascript, React)."
+      description="Endpoints are essential for our SDKs to access and interact with features."
       hasFooter={false}
     >
       <CopyCard
@@ -22,8 +22,8 @@ const EndpointsCard = ({ project }: Props) => {
         title="Base Url"
         description={`${getBrowserUrl()}/api/v1`}
         tooltip={{
-          defaultText: "Copy Url",
-          successText: "Copied Url to Clipboard",
+          defaultText: "Copy URL",
+          successText: "Copied URL to Clipboard",
         }}
       />
     </SettingCard>

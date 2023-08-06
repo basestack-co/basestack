@@ -48,8 +48,8 @@ const DeleteProjectCard = ({ project }: Props) => {
     setConfirmModalOpen({
       isOpen: true,
       data: {
-        title: "Are you sure?",
-        description: `This action cannot be undone. This will permanently delete the <b>${project.name}</b> project, flags, history and remove all collaborator associations. `,
+        title: "Are you sure about this action?",
+        description: `Warning: This action cannot be undone. It will permanently delete the <b>${project.name}</b> project, including flags, history, and all collaborator associations.`,
         type: "delete",
         buttonText: "Delete Project",
         onClick: () => {
@@ -65,10 +65,10 @@ const DeleteProjectCard = ({ project }: Props) => {
   return (
     <SettingCard
       title="Delete Project"
-      description="The project will be permanently deleted, including its environments and feature flags."
+      description="Deleting the project will permanently remove all its environments and feature flags."
       button="Delete"
       onClick={onClickDeleteProject}
-      text="Warning: This action is not reversible. Please be certain."
+      text="Warning: This action is irreversible. Proceed with caution."
       isDisabled={deleteProject.isLoading}
       variant="danger"
       isLoading={deleteProject.isLoading}

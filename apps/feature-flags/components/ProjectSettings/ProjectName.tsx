@@ -92,7 +92,7 @@ const ProjectNameCard = ({ project }: Props) => {
   return (
     <SettingCard
       title="Project Name"
-      description="Used to identify your Project on the Dashboard."
+      description="A name used to identify your project on the dashboard."
       button="Update"
       onClick={handleSubmit(onSaveProjectName)}
       isDisabled={isSubmitting || !project || updateProject.isLoading}
