@@ -115,7 +115,7 @@ const FlagCards = ({
 
   if (isLoading)
     return (
-      <Loader>
+      <Loader hasDelay={false}>
         <Loading selectedView={selectedView} />
       </Loader>
     );

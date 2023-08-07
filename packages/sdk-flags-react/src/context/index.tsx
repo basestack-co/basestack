@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useEffect, useMemo } from "react";
 // Types
 import FlagsJS from "@basestack/flags-js-sdk";
 
@@ -12,15 +12,14 @@ export interface ProviderProps {
   sdk: FlagsJS;
 }
 
-export const FlagsContext = createContext<ContextState>({} as ContextState);
+export const FlagsContext = createContext<ContextState | undefined>(undefined);
 
 export const FlagsProvider: React.FC<ProviderProps> = ({
   children,
   onSuccessfulInit,
   sdk,
 }) => {
-  const [isInitialized, setIsInitialized] = useState(false);
-  const value = useMemo(() => ({ sdk, isInitialized }), [sdk, isInitialized]);
+  const value = useMemo(() => ({ sdk }), [sdk]);
 
   // Initialize SDK on mount
   useEffect(() => {
@@ -29,14 +28,9 @@ export const FlagsProvider: React.FC<ProviderProps> = ({
       try {
         // Initialize SDK
         await sdk.initialize();
-
-        if (typeof onSuccessfulInit === "function") {
-          onSuccessfulInit(true);
-        }
+        if (onSuccessfulInit) onSuccessfulInit(true);
       } catch (error) {
-        if (typeof onSuccessfulInit === "function") {
-          onSuccessfulInit(false);
-        }
+        if (onSuccessfulInit) onSuccessfulInit(false);
       }
     };
 

@@ -4,7 +4,7 @@ import { Flag } from "@basestack/flags-js-sdk";
 import { useFlagsContext } from "./useFlagsContext";
 
 const useFlags = (): Flag[] => {
-  const { sdk, isInitialized } = useFlagsContext();
+  const { sdk } = useFlagsContext();
 
   if (!sdk.isInitialized) {
     return [];
