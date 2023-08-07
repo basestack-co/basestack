@@ -61,15 +61,12 @@ const PopupActions = forwardRef<HTMLDivElement, PopupActionsProps>(
             {title}
           </Text>
         </Header>
-        <List>
-          <ListItem>
-            {items &&
-              items.map((item, index) => {
-                return (
-                  <PopUpButton
-                    onClick={() => onHandleClick(item.onClick)}
-                    key={`pop-up-button-${item.id}`}
-                  >
+        {items && (
+          <List>
+            {items.map((item, index) => {
+              return (
+                <ListItem key={`pop-up-button-${item.id}`}>
+                  <PopUpButton onClick={() => onHandleClick(item.onClick)}>
                     <Avatar
                       round={false}
                       userName={item.text}
@@ -80,10 +77,11 @@ const PopupActions = forwardRef<HTMLDivElement, PopupActionsProps>(
                       {item.text}
                     </Text>
                   </PopUpButton>
-                );
-              })}
-          </ListItem>
-        </List>
+                </ListItem>
+              );
+            })}
+          </List>
+        )}
         <Button
           mt={theme.spacing.s1}
           justifyContent="center"
