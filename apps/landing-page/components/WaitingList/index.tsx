@@ -223,8 +223,7 @@ const WaitingList = ({ data }: WaitingListProps) => {
                     !!errors.email ? theme.colors.red400 : theme.colors.gray500
                   }
                 >
-                  {errors.email?.message ||
-                    "Be an early adopter and get a commercial license!"}
+                  {errors.email?.message || "Be an early adopter!"}
                 </ErrorText>
               </ErrorContainer>
 
