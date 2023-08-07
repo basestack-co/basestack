@@ -33,7 +33,18 @@ export const CodeContainer = styled.div`
   box-shadow: ${({ theme }) => theme.shadow.elevation3};
 
   pre {
-    min-height: 448px;
+    min-height: 360px;
     background: ${({ theme }) => theme.colors.gray700}!important;
   }
+`;
+
+export const TabsContainer = styled.div<{ isDarkMode: boolean }>`
+  display: flex;
+  flex-direction: column;
+
+  ${({ isDarkMode }) =>
+    isDarkMode &&
+    css`
+      background-color: ${({ theme }) => theme.colors.gray800};
+    `}
 `;

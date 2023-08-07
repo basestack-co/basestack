@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { animated, config, useTransition } from "react-spring";
+import { useTheme } from "styled-components";
 // Components
 import { Text, Icon } from "@basestack/design-system";
 import { Container, Header, ContentContainer, ContentWrapper } from "./styles";
@@ -13,12 +14,13 @@ export interface AccordionProps {
 const AnimatedContent = animated(ContentContainer);
 
 const Accordion = ({ title, text, onClick }: AccordionProps) => {
+  const theme = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
   const transitionContent = useTransition(isOpen, {
-    config: { ...config.stiff, duration: 200 },
+    config: { ...config.stiff, duration: 300 },
     from: { opacity: 0, maxHeight: "0" },
-    enter: { opacity: 1, maxHeight: "100px" },
+    enter: { opacity: 1, maxHeight: "500px" },
     leave: { opacity: 0, maxHeight: "0" },
   });
 
@@ -33,10 +35,14 @@ const Accordion = ({ title, text, onClick }: AccordionProps) => {
           }
         }}
       >
-        <Text size="large" textAlign="left">
+        <Text size="large" textAlign="left" color={theme.colors.gray300}>
           {title}
         </Text>
-        <Icon size="large" icon={isOpen ? "expand_less" : "expand_more"} />
+        <Icon
+          color={theme.colors.gray300}
+          size="large"
+          icon={isOpen ? "expand_less" : "expand_more"}
+        />
       </Header>
       {transitionContent(
         (styles, item) =>
@@ -44,7 +50,7 @@ const Accordion = ({ title, text, onClick }: AccordionProps) => {
             <AnimatedContent style={styles}>
               <ContentWrapper>
                 <Text
-                  muted
+                  color={theme.colors.gray50}
                   size="medium"
                   fontWeight={400}
                   lineHeight={1.4}

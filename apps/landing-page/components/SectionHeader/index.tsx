@@ -1,6 +1,7 @@
 import React from "react";
 import { rem } from "polished";
 import { useTheme } from "styled-components";
+import { useMediaQuery } from "@basestack/hooks";
 // Components
 import { Text } from "@basestack/design-system";
 import { Container } from "./styles";
@@ -21,12 +22,19 @@ const SectionHeader = ({
   isDarkMode = false,
 }: SectionHeaderProps) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.device.max.md);
 
   return (
     <Container hasMarginBottom={hasMarginBottom}>
       <Text
         size="xxLarge"
-        fontSize={titleSize === "normal" ? rem("42px") : rem("60px")}
+        fontSize={
+          isMobile
+            ? rem("32px")
+            : titleSize === "normal"
+            ? rem("42px")
+            : rem("60px")
+        }
         lineHeight="1.4"
         textAlign="center"
         mb={theme.spacing.s2}
@@ -38,7 +46,7 @@ const SectionHeader = ({
         {title}
       </Text>
       <Text
-        size="xLarge"
+        size={isMobile ? "large" : "xLarge"}
         fontWeight={400}
         textAlign="center"
         lineHeight="1.6"

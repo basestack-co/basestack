@@ -10,7 +10,7 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
   text-align: left;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
-  color: #000000;
+  color: #CBCBCB;
 }
 
 .c3 {
@@ -20,14 +20,14 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
 }
 
 .c4 {
-  color: #000000;
+  color: #CBCBCB;
   font-size: 2rem;
 }
 
 .c0 {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #E2E2E2;
+  border-bottom: 1px solid #545454;
 }
 
 .c1 {
@@ -53,6 +53,7 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
     >
       <h3
         class="c2"
+        color="#CBCBCB"
         font-family="roboto"
       >
         My Accordion
@@ -64,6 +65,7 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
       >
         <span
           class="c4 material-symbols-sharp"
+          color="#CBCBCB"
           data-testid="icon"
           size="32"
         >

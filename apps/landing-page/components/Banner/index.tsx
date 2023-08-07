@@ -1,6 +1,7 @@
 import React from "react";
 // Utils
 import { config, events } from "@basestack/utils";
+import { useMediaQuery } from "@basestack/hooks";
 // Components
 import { useTheme } from "styled-components";
 import { rem } from "polished";
@@ -22,6 +23,7 @@ export interface Props {
 }
 const BannerComp = ({ id = "banner" }: Props) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.device.max.md);
 
   return (
     <Container id={id}>
@@ -30,7 +32,7 @@ const BannerComp = ({ id = "banner" }: Props) => {
           <BannerContent>
             <Text
               size="xxLarge"
-              fontSize={rem("42px")}
+              fontSize={rem(isMobile ? "32px" : "42px")}
               lineHeight="1.3"
               color={theme.colors.gray50}
               mb={theme.spacing.s2}

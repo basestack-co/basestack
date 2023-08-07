@@ -17,7 +17,7 @@ const Questions = ({ title, text, data, id = "questions" }: QuestionsProps) => {
   return (
     <Container id={id}>
       <ContentContainer>
-        <SectionHeader title={title} text={text} />
+        <SectionHeader isDarkMode title={title} text={text} />
         <AccordionsContainer>
           {data?.map((item, index) => (
             <Accordion

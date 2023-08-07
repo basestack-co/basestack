@@ -65,10 +65,14 @@ export const LeftColumn = styled.div`
 export const List = styled.ul`
   display: flex;
   margin-left: ${({ theme }) => theme.spacing.s3};
+
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    display: none;
+  }
 `;
 
 export const ListItem = styled.li`
-  margin-right: ${({ theme }) => theme.spacing.s2};
+  margin-right: ${({ theme }) => theme.spacing.s1};
 `;
 
 export const RightColumn = styled.div`
@@ -93,6 +97,10 @@ export const PopupContainer = styled.div<{ isMenuOpen: boolean }>`
     css`
       pointer-events: none;
     `};
+
+  @media screen and ${({ theme }) => theme.device.min.lg} {
+    display: none;
+  }
 `;
 
 export const PopupWrapper = styled.ul<{ isDarkMode: boolean }>`
@@ -109,16 +117,22 @@ export const PopupItem = styled.li`
   }
 `;
 
-export const BurgerMenu = styled(IconButton)<{ isDarkMode: boolean }>`
+export const BurgerMenu = styled.div<{ isDarkMode: boolean }>`
   ${({ isDarkMode }) =>
     isDarkMode &&
     css`
-      background-color: transparent;
-      color: ${({ theme }) => theme.colors.gray300};
-      transition: background-color 0.1s ease-in-out;
+      & > button {
+        background-color: transparent;
+        color: ${({ theme }) => theme.colors.gray300};
+        transition: background-color 0.1s ease-in-out;
 
-      &:hover {
-        background-color: ${({ theme }) => theme.colors.gray700};
+        &:hover {
+          background-color: ${({ theme }) => theme.colors.gray700};
+        }
       }
-    `}
+    `};
+
+  @media screen and ${({ theme }) => theme.device.min.lg} {
+    display: none;
+  }
 `;
