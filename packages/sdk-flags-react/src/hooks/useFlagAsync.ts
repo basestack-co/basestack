@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+// Types
+import { FlagNotFoundError, Flag } from "@basestack/flags-js-sdk";
 // Context
 import { useFlagsContext } from "./useFlagsContext";
-// Types
-import { Flag, FlagNotFoundError } from "../types";
 
 const useFlagAsync = (name: string) => {
   const { sdk } = useFlagsContext();

@@ -1,9 +1,8 @@
 import React, { Fragment } from "react";
+// Types
+import { Flag, FlagResult } from "@basestack/flags-js-sdk";
 // Context
 import useFlagAsync from "../hooks/useFlagAsync";
-// Hooks
-// Types
-import { FlagResult, Flag } from "../types";
 
 export interface Props {
   children?: React.ReactNode;

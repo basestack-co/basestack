@@ -1,8 +1,8 @@
-import React, { useMemo, Fragment } from "react";
+import React, { Fragment } from "react";
+// Types
+import { Flag, FlagResult } from "@basestack/flags-js-sdk";
 // Context
 import useFlag from "../hooks/useFlag";
-// Types
-import { FlagResult, Flag } from "../types";
 
 export interface Props {
   children?: React.ReactNode;

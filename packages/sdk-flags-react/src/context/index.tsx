@@ -1,16 +1,15 @@
 import React, { createContext, useEffect, useMemo, useState } from "react";
 // Types
-import { SDK } from "../types";
+import FlagsJS from "@basestack/flags-js-sdk";
 
 export interface ContextState {
-  sdk: SDK;
-  isInitialized: boolean;
+  sdk: FlagsJS;
 }
 
 export interface ProviderProps {
   onSuccessfulInit?: (isInitialized: boolean) => void;
   children: React.ReactNode;
-  sdk: SDK;
+  sdk: FlagsJS;
 }
 
 export const FlagsContext = createContext<ContextState>({} as ContextState);
@@ -32,7 +31,6 @@ export const FlagsProvider: React.FC<ProviderProps> = ({
         await sdk.initialize();
 
         if (typeof onSuccessfulInit === "function") {
-          setIsInitialized(true);
           onSuccessfulInit(true);
         }
       } catch (error) {
