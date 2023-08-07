@@ -100,11 +100,10 @@ const FlagCards = ({
   const onDelete = useCallback(
     (flagSlug: string) => {
       deleteFlag.mutate(
-        { projectId: projectId, flagSlug },
+        { projectId, flagSlug },
         {
           onSuccess: async () => {
-            // TODO: migrate this to use cache from useQuery
-            await trpcContext.flag.all.invalidate();
+            await trpcContext.flag.all.invalidate({ projectId });
           },
         },
       );

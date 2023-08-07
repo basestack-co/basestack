@@ -11,6 +11,10 @@ services:
         value: true # disables npm install to use yarn
       - key: NODE_VERSION
         value: 16.8.0
+      - key: NEXT_PUBLIC_EMAIL_SERVICE
+        sync: false
+      - key: NEXT_PUBLIC_UMAMI_WEBSITE_ID
+        sync: false
   - type: web
     name: basestack-docs
     # rootDir: no need to specify rootDir
