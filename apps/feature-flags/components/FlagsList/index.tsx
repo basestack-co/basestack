@@ -25,7 +25,6 @@ import {
   LoadMoreContainer,
 } from "./styles";
 import Loading from "./Loading";
-import { useTheme } from "styled-components";
 
 interface FlagCardsProps {
   selectedView: SelectedView;
@@ -40,7 +39,6 @@ const FlagCards = ({
   projectId,
   searchValue,
 }: FlagCardsProps) => {
-  const theme = useTheme();
   const trpcContext = trpc.useContext();
   const router = useRouter();
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
@@ -61,18 +59,17 @@ const FlagCards = ({
     },
   );
 
-  const { data, isLoading, hasNextPage, fetchNextPage } =
-    trpc.flag.all.useInfiniteQuery(
-      {
-        projectId,
-        limit: defaultLimit,
-        search: searchValue,
-      },
-      {
-        enabled: !!projectId,
-        getNextPageParam: (lastPage) => lastPage.nextCursor,
-      },
-    );
+  const { data, isLoading, fetchNextPage } = trpc.flag.all.useInfiniteQuery(
+    {
+      projectId,
+      limit: defaultLimit,
+      search: searchValue,
+    },
+    {
+      enabled: !!projectId,
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+    },
+  );
 
   const initialDataLength = getValue(data, "pages[0].flags.length", 0)!;
   const currentPage = getValue(data, "pages.length", 0)! * defaultLimit;

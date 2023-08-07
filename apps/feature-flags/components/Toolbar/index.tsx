@@ -2,7 +2,7 @@ import React, { useState, memo } from "react";
 // Components
 import { SpaceProps } from "styled-system";
 import { useTheme } from "styled-components";
-import { Segment, Input, Pill } from "@basestack/design-system";
+import { Segment, Input } from "@basestack/design-system";
 import { Container, SegmentContainer } from "./styles";
 // Hooks
 import { useDebounce } from "react-use";

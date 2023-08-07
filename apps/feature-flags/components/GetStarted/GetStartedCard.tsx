@@ -3,7 +3,6 @@ import { useTheme } from "styled-components";
 import {
   Text,
   Button,
-  Icon,
   Card,
   ButtonVariant,
   IconBox,
