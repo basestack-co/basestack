@@ -10,7 +10,6 @@ module.exports = {
     "@typescript-eslint/no-empty-function": "off",
     "no-unused-vars": "warn",
     "no-console": "warn",
-    "no-undef": "error",
     "no-extra-semi": "error",
   },
 };

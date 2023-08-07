@@ -4,7 +4,6 @@ import { CopyCard } from "@basestack/design-system";
 import SettingCard from "../SettingCard";
 // Utils
 import { getBrowserUrl } from "utils/helpers/url";
-
 const EndpointsCard = () => {
   return (
     <SettingCard
