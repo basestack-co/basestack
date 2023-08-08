@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 // Types
-import { FlagNotFoundError, Flag } from "@basestack/flags-js-sdk";
+import type { FlagNotFoundError, Flag } from "@basestack/flags-js-sdk";
 // Context
 import { useFlagsContext } from "./useFlagsContext";
 

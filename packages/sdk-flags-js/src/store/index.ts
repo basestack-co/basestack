@@ -1,7 +1,7 @@
 import { createStore } from "zustand/vanilla";
 import { persist, createJSONStorage } from "zustand/middleware";
 // Types
-import { Store, Persist } from "./types";
+import type { Store, Persist } from "./types";
 // Slices
 import { createSdkSlice } from "./slices/sdk";
 import { createFlagsSlice } from "./slices/flags";

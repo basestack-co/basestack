@@ -1,12 +1,12 @@
 // Types
-import { Flag } from "@basestack/flags-js-sdk";
+import type { Flag } from "@basestack/flags-js-sdk";
 // Context
 import { useFlagsContext } from "./useFlagsContext";
 
 const useFlags = (): Flag[] => {
-  const { sdk } = useFlagsContext();
+  const { sdk, isInitialized } = useFlagsContext();
 
-  if (!sdk.isInitialized) {
+  if (!isInitialized) {
     return [];
   }
 

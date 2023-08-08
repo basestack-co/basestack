@@ -16,7 +16,7 @@
     "@basestack/hooks": "*",
     "@basestack/tsconfig": "*",
     "@basestack/utils": "*",
-    "@types/react": "18.2.18",
+    "@types/react": "18.2.19",
     "@types/react-dom": "^18.2.7",
     "jest-styled-components": "^7.0.8",
     "typescript": "^5.1.3"

@@ -60,7 +60,7 @@ const KeysCard = ({ project }: Props) => {
   return (
     <SettingCard
       title="API Keys"
-      description="API keys are used with our SDKs, such as JavaScript, React, etc."
+      description="API keys are used with the SDKs, such as JavaScript, React, etc."
       hasFooter={false}
     >
       {isLoading || !data ? (

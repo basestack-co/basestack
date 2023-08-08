@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 // Types
-import { Flag, FlagResult } from "@basestack/flags-js-sdk";
+import type { Flag, FlagResult } from "@basestack/flags-js-sdk";
 // Context
 import useFlagAsync from "../hooks/useFlagAsync";
 

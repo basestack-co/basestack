@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 // Types
-import { Flag, FlagResult } from "@basestack/flags-js-sdk";
+import type { Flag, FlagResult } from "@basestack/flags-js-sdk";
 // Context
 import useFlag from "../hooks/useFlag";
 
@@ -9,7 +9,7 @@ export interface Props {
   name: string;
   render?: (flag: FlagResult<Flag | null>) => React.ReactNode;
 }
-const Flag = ({ name, render, children }: Props) => {
+const FlagComponent = ({ name, render, children }: Props) => {
   const flag = useFlag(name);
 
   if (render && children) {
@@ -23,4 +23,4 @@ const Flag = ({ name, render, children }: Props) => {
   ) : null;
 };
 
-export default Flag;
+export default FlagComponent;

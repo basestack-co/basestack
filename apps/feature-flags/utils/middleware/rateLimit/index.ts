@@ -6,8 +6,8 @@ import requestIp from "request-ip";
 import rateLimit from "./cache";
 import * as process from "process";
 
-const defaultInterval = 60 * 1000; // 60 seconds
-const defaultUniqueTokenPerInterval = 1000; // Max users per second
+const defaultInterval = 60000; // 60 seconds
+const defaultUniqueTokenPerInterval = 2000; // Max users per second
 
 const limiter = rateLimit({
   interval: Number(process.env.API_RATE_LIMIT_WINDOW_MS) ?? defaultInterval,
@@ -24,7 +24,7 @@ const withRateLimit = (
       const identifier = requestIp.getClientIp(req);
       await limiter.check(
         res,
-        Number(process.env.API_RATE_LIMIT_MAX) ?? 60,
+        Number(process.env.API_RATE_LIMIT_MAX) ?? 120,
         `${identifier}`,
       );
       return handler(req, res);

@@ -1,6 +1,6 @@
 import { StateCreator } from "zustand/esm";
 import { PersistOptions } from "zustand/middleware";
-import { Flag } from "../types";
+import type { Flag } from "../types";
 
 /**
  * Middleware
@@ -17,12 +17,10 @@ export type Persist = (
 
 export interface SdkSliceActions {
   setVersion: (payload: string) => void;
-  setIsInitialized: (payload: boolean) => void;
 }
 
 export interface SdkSliceState extends SdkSliceActions {
   version: string;
-  isInitialized: boolean;
 }
 
 /**

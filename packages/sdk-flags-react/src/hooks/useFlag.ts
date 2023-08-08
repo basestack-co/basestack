@@ -1,12 +1,13 @@
+import { useMemo } from "react";
 // Types
-import { FlagResult, Flag } from "@basestack/flags-js-sdk";
+import type { FlagResult, Flag } from "@basestack/flags-js-sdk";
 // Context
 import { useFlagsContext } from "./useFlagsContext";
 
 const useFlag = (name: string): FlagResult<Flag | null> => {
-  const { sdk } = useFlagsContext();
+  const { sdk, isInitialized } = useFlagsContext();
 
-  if (!sdk.isInitialized) {
+  if (!isInitialized) {
     return {
       enabled: false,
       error: true,

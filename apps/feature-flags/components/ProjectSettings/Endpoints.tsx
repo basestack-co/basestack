@@ -8,7 +8,7 @@ const EndpointsCard = () => {
   return (
     <SettingCard
       title="Endpoints"
-      description="Endpoints are essential for our SDKs to access and interact with features."
+      description="Endpoints are essential for the SDKs to access and interact with features."
       hasFooter={false}
     >
       <CopyCard

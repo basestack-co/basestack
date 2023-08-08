@@ -3,7 +3,7 @@ import store from "../store";
 // Utils
 import fetch from "cross-fetch";
 // Types
-import { Params, FlagResult, Flag } from "../types";
+import type { Params, FlagResult, Flag } from "../types";
 
 class FlagsJS {
   private readonly apiUrl: string;
@@ -15,16 +15,12 @@ class FlagsJS {
     this.apiUrl = apiUrl;
     this.projectKey = projectKey;
     this.envKey = envKey;
-
-    store.subscribe((state) => {
-      this.isInitialized = state.isInitialized;
-    });
   }
 
-  async initialize() {
-    const { setIsInitialized } = store.getState();
+  async initialize(): Promise<boolean> {
     await this.flagsAsync();
-    setIsInitialized(true);
+    this.isInitialized = true;
+    return true;
   }
 
   async flagsAsync(): Promise<Flag[]> {
@@ -73,7 +69,7 @@ class FlagsJS {
 
   flag(name: string): FlagResult<Flag | null> {
     const { flags } = store.getState();
-    const flag = flags.find((flag) => flag.slug === name);
+    const flag = (flags ?? []).find((flag) => flag.slug === name);
 
     if (!flag) {
       return {
