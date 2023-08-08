@@ -1,5 +1,5 @@
 import { cleanup, fireEvent } from "@testing-library/react";
-import { renderWithTheme } from "utils/helpers/testUtils";
+import { renderWithTheme } from "../../../utils/testUtils";
 import Accordion from "..";
 
 jest.mock("@basestack/hooks", () => ({

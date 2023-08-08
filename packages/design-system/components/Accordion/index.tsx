@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { animated, config, useTransition } from "react-spring";
+import React, { useState, useEffect, useRef } from "react";
+import { animated, useSpring } from "react-spring";
 import { useTheme } from "styled-components";
 // Components
-import { Text, Icon } from "@basestack/design-system";
+import Text from "../Text";
+import Icon from "../Icon";
 import { Container, Header, ContentContainer, ContentWrapper } from "./styles";
 
 export interface AccordionProps {
@@ -15,14 +16,22 @@ const AnimatedContent = animated(ContentContainer);
 
 const Accordion = ({ title, text, onClick }: AccordionProps) => {
   const theme = useTheme();
+  const contentRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  const transitionContent = useTransition(isOpen, {
-    config: { ...config.stiff, duration: 300 },
-    from: { opacity: 0, maxHeight: "0" },
-    enter: { opacity: 1, maxHeight: "500px" },
-    leave: { opacity: 0, maxHeight: "0" },
-  });
+  const [style, animate] = useSpring(
+    () => ({ opacity: 0, height: 0, config: { duration: 200 } }),
+    [],
+  );
+
+  useEffect(() => {
+    if (contentRef.current) {
+      animate({
+        height: isOpen ? contentRef.current.offsetHeight : 0,
+        opacity: isOpen ? 1 : 0,
+      });
+    }
+  }, [animate, isOpen]);
 
   return (
     <Container>
@@ -44,24 +53,19 @@ const Accordion = ({ title, text, onClick }: AccordionProps) => {
           icon={isOpen ? "expand_less" : "expand_more"}
         />
       </Header>
-      {transitionContent(
-        (styles, item) =>
-          item && (
-            <AnimatedContent style={styles}>
-              <ContentWrapper>
-                <Text
-                  color={theme.colors.gray50}
-                  size="medium"
-                  fontWeight={400}
-                  lineHeight={1.4}
-                  textAlign="left"
-                >
-                  {text}
-                </Text>
-              </ContentWrapper>
-            </AnimatedContent>
-          ),
-      )}
+      <AnimatedContent style={style}>
+        <ContentWrapper ref={contentRef}>
+          <Text
+            color={theme.colors.gray50}
+            size="medium"
+            fontWeight={400}
+            lineHeight={1.4}
+            textAlign="left"
+          >
+            {text}
+          </Text>
+        </ContentWrapper>
+      </AnimatedContent>
     </Container>
   );
 };

@@ -2,7 +2,7 @@ import React from "react";
 // Utils
 import { events } from "@basestack/utils";
 // Components
-import Accordion from "../Accordion";
+import { Accordion } from "@basestack/design-system";
 import { AccordionsContainer, Container, ContentContainer } from "./styles";
 import SectionHeader from "../SectionHeader";
 
