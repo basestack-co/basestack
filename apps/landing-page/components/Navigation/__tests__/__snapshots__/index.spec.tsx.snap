@@ -3,6 +3,51 @@
 exports[`Navigation tests should render Navigation in dark mode 1`] = `
 <DocumentFragment>
   .c5 {
+  height: 2rem;
+  width: 2rem;
+  flex-shrink: 0;
+}
+
+.c6 {
+  color: #000000;
+  font-size: 2rem;
+}
+
+.c9 {
+  height: 2.625rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+  position: relative;
+  border: none;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
+  background-color: #000000;
+  color: #FFFFFF;
+  width: medium;
+  height: medium;
+  background-color: transparent;
+  width: fit-content;
+}
+
+.c9:hover:not(:active, :disabled) {
+  background-color: #333;
+}
+
+.c9 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c9:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.c11 {
   height: 2.625rem;
   padding: 0 1rem;
   font-size: 1rem;
@@ -24,20 +69,20 @@ exports[`Navigation tests should render Navigation in dark mode 1`] = `
   width: fit-content;
 }
 
-.c5:hover:not(:active, :disabled) {
+.c11:hover:not(:active, :disabled) {
   background-color: #333;
 }
 
-.c5 .material-symbols-sharp {
+.c11 .material-symbols-sharp {
   color: inherit;
 }
 
-.c5:disabled {
+.c11:disabled {
   cursor: not-allowed;
   opacity: 0.6;
 }
 
-.c6 {
+.c12 {
   height: 2.625rem;
   padding: 0 1rem;
   font-size: 1rem;
@@ -50,24 +95,51 @@ exports[`Navigation tests should render Navigation in dark mode 1`] = `
   border-radius: 4px;
   text-decoration: none;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
-  background-color: #276EF1;
+  background-color: #000000;
   color: #FFFFFF;
   width: medium;
   height: medium;
   width: fit-content;
 }
 
-.c6:hover:not(:active, :disabled) {
-  background-color: #0e55d7;
+.c12:hover:not(:active, :disabled) {
+  background-color: #333;
 }
 
-.c6 .material-symbols-sharp {
+.c12 .material-symbols-sharp {
   color: inherit;
 }
 
-.c6:disabled {
+.c12:disabled {
   cursor: not-allowed;
   opacity: 0.6;
+}
+
+.c4 {
+  margin-right: 0.75rem;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
+  background-color: transparent;
+  color: #000000;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.c4 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c4:hover {
+  background-color: #EEEEEE;
+}
+
+.c4:active {
+  background-color: #E2E2E2;
 }
 
 .c0 {
@@ -98,29 +170,44 @@ exports[`Navigation tests should render Navigation in dark mode 1`] = `
   align-items: center;
 }
 
-.c4 {
+.c7 {
+  display: flex;
+  margin-left: 0.75rem;
+}
+
+.c8 {
+  margin-right: 0.25rem;
+}
+
+.c10 {
   display: flex;
   margin-left: auto;
 }
 
-.c3 {
-  display: inline-flex;
-  justify-content: center;
-  position: relative;
-  height: 2.5rem;
-  width: 2.5rem;
-  border-radius: 50%;
-  background-color: #000000;
+.c3>button {
+  background-color: transparent;
+  color: #CBCBCB;
+  transition: background-color 0.1s ease-in-out;
 }
 
-.c3::before {
-  content: "";
-  position: absolute;
-  bottom: 0.3125rem;
-  border-radius: 50%;
-  height: 1.25rem;
-  width: 1.25rem;
-  background-color: #FFFFFF;
+.c3>button:hover {
+  background-color: #333333;
+}
+
+@media screen and (max-width: 991.98px) {
+  .c7 {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 992px) {
+
+}
+
+@media screen and (min-width: 992px) {
+  .c3 {
+    display: none;
+  }
 }
 
 <nav
@@ -134,40 +221,258 @@ exports[`Navigation tests should render Navigation in dark mode 1`] = `
       >
         <div
           class="c3"
-        />
+        >
+          <button
+            class="c4"
+          >
+            <div
+              class="c5"
+              data-testid="icon-container"
+              size="32"
+            >
+              <span
+                class="c6 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="32"
+              >
+                menu
+              </span>
+            </div>
+          </button>
+        </div>
+        <svg
+          fill="none"
+          height="42"
+          viewBox="0 0 36 36"
+          width="42"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            fill="black"
+            height="36"
+            rx="4"
+            width="36"
+          />
+          <g
+            clip-path="url(#clip0_3_10)"
+          >
+            <path
+              d="M20.4 12L20.16 10.8C20.07 10.34 19.66 10 19.18 10H12C11.45 10 11 10.45 11 11V26C11 26.55 11.45 27 12 27C12.55 27 13 26.55 13 26V20H18.6L18.84 21.2C18.93 21.67 19.34 22 19.82 22H25C25.55 22 26 21.55 26 21V13C26 12.45 25.55 12 25 12H20.4Z"
+              fill="white"
+            />
+          </g>
+          <defs>
+            <clippath
+              id="clip0_3_10"
+            >
+              <rect
+                fill="white"
+                height="24"
+                transform="translate(6 6)"
+                width="24"
+              />
+            </clippath>
+          </defs>
+        </svg>
+        <ul
+          class="c7"
+        >
+          <li
+            class="c8"
+          >
+            <button
+              class="c9"
+              data-testid="button"
+            >
+              <span
+                class=""
+              >
+                Platform
+              </span>
+            </button>
+          </li>
+          <li
+            class="c8"
+          >
+            <button
+              class="c9"
+              data-testid="button"
+            >
+              <span
+                class=""
+              >
+                Discover Features
+              </span>
+            </button>
+          </li>
+          <li
+            class="c8"
+          >
+            <button
+              class="c9"
+              data-testid="button"
+            >
+              <span
+                class=""
+              >
+                Integration
+              </span>
+            </button>
+          </li>
+          <li
+            class="c8"
+          >
+            <button
+              class="c9"
+              data-testid="button"
+            >
+              <span
+                class=""
+              >
+                Why Feature Flags?
+              </span>
+            </button>
+          </li>
+          <li
+            class="c8"
+          >
+            <button
+              class="c9"
+              data-testid="button"
+            >
+              <span
+                class=""
+              >
+                FAQs
+              </span>
+            </button>
+          </li>
+        </ul>
       </div>
       <div
-        class="c4"
+        class="c10"
       >
         <button
-          class="c5"
+          class="c11"
           data-testid="button"
         >
           <span
             class=""
           >
-            Sign In
+            Github
           </span>
         </button>
         <button
-          class="c6"
+          class="c12"
           data-testid="button"
         >
           <span
             class=""
           >
-            Get Started
+            Documentation
           </span>
         </button>
       </div>
     </div>
   </nav>
+  .c0 {
+  position: fixed;
+  z-index: 999;
+  top: 79px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.c1 {
+  display: flex;
+  flex-direction: column;
+  background: rgba(31, 31, 31, 0.6);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  padding: 0.75rem;
+}
+
+@media screen and (max-width: 991.98px) {
+
+}
+
+@media screen and (min-width: 992px) {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 992px) {
+
+}
+
+<div
+    class="c0"
+  >
+    <ul
+      class="c1"
+      style="opacity: 0; width: 0px; height: 0px;"
+    />
+  </div>
 </DocumentFragment>
 `;
 
 exports[`Navigation tests should renders Navigation correctly 1`] = `
 <DocumentFragment>
   .c5 {
+  height: 2rem;
+  width: 2rem;
+  flex-shrink: 0;
+}
+
+.c6 {
+  color: #000000;
+  font-size: 2rem;
+}
+
+.c9 {
+  height: 2.625rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+  position: relative;
+  border: none;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
+  background-color: #EEEEEE;
+  color: #000000;
+  width: medium;
+  height: medium;
+  background-color: transparent;
+  width: fit-content;
+}
+
+.c9:hover:not(:active, :disabled) {
+  background-color: #E2E2E2;
+}
+
+.c9 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c9:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.c11 {
   height: 2.625rem;
   padding: 0 1rem;
   font-size: 1rem;
@@ -189,20 +494,20 @@ exports[`Navigation tests should renders Navigation correctly 1`] = `
   width: fit-content;
 }
 
-.c5:hover:not(:active, :disabled) {
+.c11:hover:not(:active, :disabled) {
   background-color: #E2E2E2;
 }
 
-.c5 .material-symbols-sharp {
+.c11 .material-symbols-sharp {
   color: inherit;
 }
 
-.c5:disabled {
+.c11:disabled {
   cursor: not-allowed;
   opacity: 0.6;
 }
 
-.c6 {
+.c12 {
   height: 2.625rem;
   padding: 0 1rem;
   font-size: 1rem;
@@ -215,24 +520,51 @@ exports[`Navigation tests should renders Navigation correctly 1`] = `
   border-radius: 4px;
   text-decoration: none;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
-  background-color: #276EF1;
+  background-color: #000000;
   color: #FFFFFF;
   width: medium;
   height: medium;
   width: fit-content;
 }
 
-.c6:hover:not(:active, :disabled) {
-  background-color: #0e55d7;
+.c12:hover:not(:active, :disabled) {
+  background-color: #333;
 }
 
-.c6 .material-symbols-sharp {
+.c12 .material-symbols-sharp {
   color: inherit;
 }
 
-.c6:disabled {
+.c12:disabled {
   cursor: not-allowed;
   opacity: 0.6;
+}
+
+.c4 {
+  margin-right: 0.75rem;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
+  background-color: transparent;
+  color: #000000;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.c4 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c4:hover {
+  background-color: #EEEEEE;
+}
+
+.c4:active {
+  background-color: #E2E2E2;
 }
 
 .c0 {
@@ -263,29 +595,34 @@ exports[`Navigation tests should renders Navigation correctly 1`] = `
   align-items: center;
 }
 
-.c4 {
+.c7 {
+  display: flex;
+  margin-left: 0.75rem;
+}
+
+.c8 {
+  margin-right: 0.25rem;
+}
+
+.c10 {
   display: flex;
   margin-left: auto;
 }
 
-.c3 {
-  display: inline-flex;
-  justify-content: center;
-  position: relative;
-  height: 2.5rem;
-  width: 2.5rem;
-  border-radius: 50%;
-  background-color: #000000;
+@media screen and (max-width: 991.98px) {
+  .c7 {
+    display: none;
+  }
 }
 
-.c3::before {
-  content: "";
-  position: absolute;
-  bottom: 0.3125rem;
-  border-radius: 50%;
-  height: 1.25rem;
-  width: 1.25rem;
-  background-color: #FFFFFF;
+@media screen and (min-width: 992px) {
+
+}
+
+@media screen and (min-width: 992px) {
+  .c3 {
+    display: none;
+  }
 }
 
 <nav
@@ -299,33 +636,206 @@ exports[`Navigation tests should renders Navigation correctly 1`] = `
       >
         <div
           class="c3"
-        />
+        >
+          <button
+            class="c4"
+          >
+            <div
+              class="c5"
+              data-testid="icon-container"
+              size="32"
+            >
+              <span
+                class="c6 material-symbols-sharp"
+                color="#000000"
+                data-testid="icon"
+                size="32"
+              >
+                menu
+              </span>
+            </div>
+          </button>
+        </div>
+        <svg
+          fill="none"
+          height="42"
+          viewBox="0 0 36 36"
+          width="42"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            fill="black"
+            height="36"
+            rx="4"
+            width="36"
+          />
+          <g
+            clip-path="url(#clip0_3_10)"
+          >
+            <path
+              d="M20.4 12L20.16 10.8C20.07 10.34 19.66 10 19.18 10H12C11.45 10 11 10.45 11 11V26C11 26.55 11.45 27 12 27C12.55 27 13 26.55 13 26V20H18.6L18.84 21.2C18.93 21.67 19.34 22 19.82 22H25C25.55 22 26 21.55 26 21V13C26 12.45 25.55 12 25 12H20.4Z"
+              fill="white"
+            />
+          </g>
+          <defs>
+            <clippath
+              id="clip0_3_10"
+            >
+              <rect
+                fill="white"
+                height="24"
+                transform="translate(6 6)"
+                width="24"
+              />
+            </clippath>
+          </defs>
+        </svg>
+        <ul
+          class="c7"
+        >
+          <li
+            class="c8"
+          >
+            <button
+              class="c9"
+              data-testid="button"
+            >
+              <span
+                class=""
+              >
+                Platform
+              </span>
+            </button>
+          </li>
+          <li
+            class="c8"
+          >
+            <button
+              class="c9"
+              data-testid="button"
+            >
+              <span
+                class=""
+              >
+                Discover Features
+              </span>
+            </button>
+          </li>
+          <li
+            class="c8"
+          >
+            <button
+              class="c9"
+              data-testid="button"
+            >
+              <span
+                class=""
+              >
+                Integration
+              </span>
+            </button>
+          </li>
+          <li
+            class="c8"
+          >
+            <button
+              class="c9"
+              data-testid="button"
+            >
+              <span
+                class=""
+              >
+                Why Feature Flags?
+              </span>
+            </button>
+          </li>
+          <li
+            class="c8"
+          >
+            <button
+              class="c9"
+              data-testid="button"
+            >
+              <span
+                class=""
+              >
+                FAQs
+              </span>
+            </button>
+          </li>
+        </ul>
       </div>
       <div
-        class="c4"
+        class="c10"
       >
         <button
-          class="c5"
+          class="c11"
           data-testid="button"
         >
           <span
             class=""
           >
-            Sign In
+            Github
           </span>
         </button>
         <button
-          class="c6"
+          class="c12"
           data-testid="button"
         >
           <span
             class=""
           >
-            Get Started
+            Documentation
           </span>
         </button>
       </div>
     </div>
   </nav>
+  .c0 {
+  position: fixed;
+  z-index: 999;
+  top: 79px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.c1 {
+  display: flex;
+  flex-direction: column;
+  background: rgba(238, 238, 238, 0.7);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  padding: 0.75rem;
+}
+
+@media screen and (max-width: 991.98px) {
+
+}
+
+@media screen and (min-width: 992px) {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 992px) {
+
+}
+
+<div
+    class="c0"
+  >
+    <ul
+      class="c1"
+      style="opacity: 0; width: 0px; height: 0px;"
+    />
+  </div>
 </DocumentFragment>
 `;

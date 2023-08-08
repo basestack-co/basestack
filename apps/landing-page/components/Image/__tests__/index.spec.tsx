@@ -2,6 +2,11 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "utils/helpers/testUtils";
 import Image from "..";
 
+jest.mock("@basestack/hooks", () => ({
+  ...jest.requireActual("@basestack/hooks"),
+  useMediaQuery: jest.fn(() => false),
+}));
+
 describe("Image tests", () => {
   afterEach(cleanup);
 

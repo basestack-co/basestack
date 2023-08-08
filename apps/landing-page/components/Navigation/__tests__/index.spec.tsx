@@ -2,21 +2,14 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "utils/helpers/testUtils";
 import Navigation from "..";
 
-Object.defineProperty(window, "matchMedia", {
-  writable: true,
-  value: jest.fn().mockImplementation((query) => {
-    return {
-      matches: false,
-      media: query,
-      onchange: null,
-      addListener: jest.fn(), // deprecated
-      removeListener: jest.fn(), // deprecated
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      dispatchEvent: jest.fn(),
-    };
-  }),
-});
+jest.mock("@basestack/hooks", () => ({
+  ...jest.requireActual("@basestack/hooks"),
+  useMediaQuery: jest.fn(() => false),
+}));
+
+jest.mock("next/router", () => ({
+  useRouter: jest.fn(),
+}));
 
 describe("Navigation tests", () => {
   afterEach(cleanup);

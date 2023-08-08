@@ -3,6 +3,11 @@ import { renderWithTheme } from "utils/helpers/testUtils";
 import { IllustrationVariant } from "../../Illustration";
 import Cards, { CardsProps } from "..";
 
+jest.mock("@basestack/hooks", () => ({
+  ...jest.requireActual("@basestack/hooks"),
+  useMediaQuery: jest.fn(() => false),
+}));
+
 describe("Cards tests", () => {
   afterEach(cleanup);
 

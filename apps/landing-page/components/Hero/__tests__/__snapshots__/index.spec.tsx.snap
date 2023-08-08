@@ -1,0 +1,195 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hero tests should renders Hero correctly 1`] = `
+<DocumentFragment>
+  .c4 {
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.6;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #757575;
+}
+
+.c3 {
+  font-size: 1.5rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  font-family: robotoFlex;
+  font-size: 3.75rem;
+  line-height: 1.4;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-family: 'Roboto Flex',sans-serif;
+  word-break: break-word;
+  color: #000000;
+}
+
+.c6 {
+  height: 2.625rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+  position: relative;
+  border: none;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
+  background-color: #276EF1;
+  color: #FFFFFF;
+  width: medium;
+  height: medium;
+  width: fit-content;
+}
+
+.c6:hover:not(:active, :disabled) {
+  background-color: #0e55d7;
+}
+
+.c6 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c6:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.c7 {
+  height: 2.625rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+  position: relative;
+  border: none;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
+  background-color: #000000;
+  color: #FFFFFF;
+  width: medium;
+  height: medium;
+  margin-left: 0.75rem;
+  width: fit-content;
+}
+
+.c7:hover:not(:active, :disabled) {
+  background-color: #333;
+}
+
+.c7 .material-symbols-sharp {
+  color: inherit;
+}
+
+.c7:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.c0 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 6.25rem 1.25rem;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.c0::before {
+  content: "";
+  background: rgba(238, 238, 238, 0.7);
+  -webkit-backdrop-filter: saturate(180%) blur(150px);
+  backdrop-filter: saturate(180%) blur(150px);
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.c5 {
+  display: flex;
+  margin-top: 1.25rem;
+}
+
+.c2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 720px;
+}
+
+<section
+    class="c0"
+  >
+    <div
+      class="c1"
+    >
+      <div
+        class="c2"
+      >
+        <h1
+          class="c3"
+          color="#000000"
+          font-family="robotoFlex"
+          font-size="3.75rem"
+        >
+          Welcome to my app
+        </h1>
+        <p
+          class="c4"
+          color="#757575"
+          font-family="roboto"
+          font-weight="400"
+        >
+          Discover the power of my app
+        </p>
+      </div>
+      <div
+        class="c5"
+      >
+        <button
+          class="c6"
+          data-testid="button"
+        >
+          <span
+            class=""
+          >
+            Deploy to Vercel
+          </span>
+        </button>
+        <button
+          class="c7"
+          data-testid="button"
+        >
+          <span
+            class=""
+          >
+            Explore more options
+          </span>
+        </button>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

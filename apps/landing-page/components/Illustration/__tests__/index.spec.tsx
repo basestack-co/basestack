@@ -2,6 +2,11 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "utils/helpers/testUtils";
 import Illustration, { IllustrationVariant } from "..";
 
+jest.mock("@basestack/hooks", () => ({
+  ...jest.requireActual("@basestack/hooks"),
+  useMediaQuery: jest.fn(() => false),
+}));
+
 describe("Illustration tests", () => {
   afterEach(cleanup);
 

@@ -176,6 +176,7 @@ exports[`Slider tests should render Slider correctly 1`] = `
 
 <section
     class="c0"
+    id="slider"
   >
     <div
       class="c1"

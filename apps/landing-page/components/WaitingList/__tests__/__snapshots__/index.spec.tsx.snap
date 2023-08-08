@@ -486,7 +486,7 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
                 color="#757575"
                 font-family="roboto"
               >
-                Be an early adopter and get a commercial license!
+                Be an early adopter!
               </p>
             </div>
           </div>

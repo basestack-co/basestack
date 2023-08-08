@@ -135,6 +135,7 @@ exports[`Banner tests should render Banner correctly 1`] = `
 
 <section
     class="c0"
+    id="banner"
   >
     <div
       class="c1"
@@ -151,7 +152,7 @@ exports[`Banner tests should render Banner correctly 1`] = `
             font-family="robotoFlex"
             font-size="2.625rem"
           >
-            Ready to start shipping your code with confidence?
+            Ready to Ship Your Code with Confidence?
           </h2>
           <div
             class="c5"
@@ -173,7 +174,7 @@ exports[`Banner tests should render Banner correctly 1`] = `
               <span
                 class=""
               >
-                Talk To Sales
+                Star Us on GitHub
               </span>
             </button>
           </div>

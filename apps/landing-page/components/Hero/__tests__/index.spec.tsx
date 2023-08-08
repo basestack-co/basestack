@@ -2,33 +2,20 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "utils/helpers/testUtils";
 import Hero from "..";
 
+jest.mock("@basestack/hooks", () => ({
+  ...jest.requireActual("@basestack/hooks"),
+  useMediaQuery: jest.fn(() => false),
+}));
+
 describe("Hero tests", () => {
   afterEach(cleanup);
 
-  test("should renders the title, text, and buttons", () => {
+  test("should renders Hero correctly", () => {
     const title = "Welcome to my app";
     const text = "Discover the power of my app";
 
-    const { getByText } = renderWithTheme(<Hero title={title} text={text} />);
+    const { asFragment } = renderWithTheme(<Hero title={title} text={text} />);
 
-    expect(getByText(title)).toBeInTheDocument();
-    expect(getByText(text)).toBeInTheDocument();
-    expect(getByText("Get Started")).toBeInTheDocument();
-    expect(getByText("Talk To Sales")).toBeInTheDocument();
-  });
-
-  test("should renders the image if provided", () => {
-    const title = "Welcome to my app";
-    const text = "Discover the power of my app";
-    const image = {
-      src: "image.jpg",
-      alt: "An illustration of a hero image",
-    };
-
-    const { getByAltText } = renderWithTheme(
-      <Hero title={title} text={text} image={image} />,
-    );
-
-    expect(getByAltText(image.alt)).toBeInTheDocument();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

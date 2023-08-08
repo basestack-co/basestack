@@ -49,6 +49,7 @@ exports[`Code tests should render Code correctly 1`] = `
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background-color: #333333;
 }
 
 .c7 {
@@ -94,7 +95,7 @@ exports[`Code tests should render Code correctly 1`] = `
   bottom: 0;
   background-color: #5B91F5;
   height: 2px;
-  width: calc((100% / 4));
+  width: calc((100% / 3));
   transition: transform 0.2s ease-in-out;
   transform: translateX(100%);
 }
@@ -128,7 +129,7 @@ exports[`Code tests should render Code correctly 1`] = `
 }
 
 .c5 pre {
-  min-height: 448px;
+  min-height: 360px;
   background: #333333!important;
 }
 
@@ -148,6 +149,7 @@ exports[`Code tests should render Code correctly 1`] = `
 
 <section
     class="c0"
+    id="code"
   >
     <div
       class="c1"
@@ -161,7 +163,7 @@ exports[`Code tests should render Code correctly 1`] = `
           font-family="robotoFlex"
           font-size="2.625rem"
         >
-          Available in Frontend Frameworks
+          Explore our SDK Options
         </h2>
         <p
           class="c4"
@@ -169,7 +171,7 @@ exports[`Code tests should render Code correctly 1`] = `
           font-family="roboto"
           font-weight="400"
         >
-          We currently support these popular languages and frameworks
+          Discover our supported SDKs tailored to meet your development needs, enabling faster releases. Explore our comprehensive documentation for more in-depth information and guidance.
         </p>
       </div>
       <div
@@ -221,20 +223,7 @@ exports[`Code tests should render Code correctly 1`] = `
                   font-family="roboto"
                   font-weight="500"
                 >
-                  Vue
-                </p>
-              </button>
-              <button
-                class="c9"
-                data-testid="tab-button"
-              >
-                <p
-                  class="c10"
-                  color="#CBCBCB"
-                  font-family="roboto"
-                  font-weight="500"
-                >
-                  jquery
+                  Rest API
                 </p>
               </button>
               <div
@@ -258,7 +247,7 @@ exports[`Code tests should render Code correctly 1`] = `
             </span>
             <span>
               <span>
-                  
+                    
               </span>
               <span
                 style="color: rgb(220, 198, 224);"
@@ -266,7 +255,7 @@ exports[`Code tests should render Code correctly 1`] = `
                 import
               </span>
               <span>
-                 React, { useState } 
+                 { useFlag } 
               </span>
               <span
                 style="color: rgb(220, 198, 224);"
@@ -279,7 +268,7 @@ exports[`Code tests should render Code correctly 1`] = `
               <span
                 style="color: rgb(171, 227, 56);"
               >
-                "react"
+                "@basestack/flags-react-sdk"
               </span>
               <span>
                 ;
@@ -287,174 +276,8 @@ exports[`Code tests should render Code correctly 1`] = `
               </span>
             </span>
             <span>
-              
+                   
 
-            </span>
-            <span>
-              <span>
-                  
-              </span>
-              <span
-                style="color: rgb(220, 198, 224);"
-              >
-                const
-              </span>
-              <span>
-                 currentClients = 
-              </span>
-              <span
-                style="color: rgb(245, 171, 53);"
-              >
-                1000
-              </span>
-              <span>
-                ;
-
-              </span>
-            </span>
-            <span>
-              <span>
-                  
-              </span>
-              <span
-                style="color: rgb(220, 198, 224);"
-              >
-                const
-              </span>
-              <span>
-                 newClients = 
-              </span>
-              <span
-                style="color: rgb(245, 171, 53);"
-              >
-                50
-              </span>
-              <span>
-                ;
-
-              </span>
-            </span>
-            <span>
-              
-
-            </span>
-            <span>
-              <span>
-                  
-              </span>
-              <span
-                class="hljs-function"
-                style="color: rgb(220, 198, 224);"
-              >
-                function
-              </span>
-              <span
-                class="hljs-function"
-              >
-                 
-              </span>
-              <span
-                class="hljs-function"
-                style="color: rgb(0, 224, 224);"
-              >
-                sum
-              </span>
-              <span
-                class="hljs-function"
-              >
-                (
-              </span>
-              <span
-                class="hljs-function"
-                style="color: rgb(245, 171, 53);"
-              >
-                a, b
-              </span>
-              <span
-                class="hljs-function"
-              >
-                ) 
-              </span>
-              <span>
-                {
-
-              </span>
-            </span>
-            <span>
-              <span>
-                    
-              </span>
-              <span
-                style="color: rgb(220, 198, 224);"
-              >
-                return
-              </span>
-              <span>
-                 a + b;
-
-              </span>
-            </span>
-            <span>
-                }
-
-            </span>
-            <span>
-              
-
-            </span>
-            <span>
-              <span>
-                  
-              </span>
-              <span
-                style="color: rgb(220, 198, 224);"
-              >
-                const
-              </span>
-              <span>
-                 numberOfClients = sum(currentClients, newClients);
-
-              </span>
-            </span>
-            <span>
-              
-
-            </span>
-            <span>
-              <span>
-                  
-              </span>
-              <span
-                class="hljs-function"
-                style="color: rgb(220, 198, 224);"
-              >
-                function
-              </span>
-              <span
-                class="hljs-function"
-              >
-                 
-              </span>
-              <span
-                class="hljs-function"
-                style="color: rgb(0, 224, 224);"
-              >
-                App
-              </span>
-              <span
-                class="hljs-function"
-              >
-                (
-              </span>
-              <span
-                class="hljs-function"
-              >
-                ) 
-              </span>
-              <span>
-                {
-
-              </span>
             </span>
             <span>
               <span>
@@ -466,12 +289,34 @@ exports[`Code tests should render Code correctly 1`] = `
                 const
               </span>
               <span>
-                 [alertMessage, setAlertMessage] = useState(
+                 AppComponent = 
+              </span>
+              <span
+                class="hljs-function"
+              >
+                () =&gt;
+              </span>
+              <span>
+                 {
+
+              </span>
+            </span>
+            <span>
+              <span>
+                      
+              </span>
+              <span
+                style="color: rgb(220, 198, 224);"
+              >
+                const
+              </span>
+              <span>
+                 { enabled } = useFlag(
               </span>
               <span
                 style="color: rgb(171, 227, 56);"
               >
-                ""
+                "private_msg_2"
               </span>
               <span>
                 );
@@ -479,56 +324,12 @@ exports[`Code tests should render Code correctly 1`] = `
               </span>
             </span>
             <span>
-              
+                   
 
             </span>
             <span>
               <span>
-                    
-              </span>
-              <span
-                style="color: rgb(220, 198, 224);"
-              >
-                if
-              </span>
-              <span>
-                 (numberOfClients &gt; 
-              </span>
-              <span
-                style="color: rgb(245, 171, 53);"
-              >
-                3000
-              </span>
-              <span>
-                ) {
-
-              </span>
-            </span>
-            <span>
-              <span>
-                      setAlertMessage(
-              </span>
-              <span
-                style="color: rgb(171, 227, 56);"
-              >
-                "Party Time"
-              </span>
-              <span>
-                );
-
-              </span>
-            </span>
-            <span>
-                  }
-
-            </span>
-            <span>
-              
-
-            </span>
-            <span>
-              <span>
-                    
+                      
               </span>
               <span
                 style="color: rgb(220, 198, 224);"
@@ -536,42 +337,128 @@ exports[`Code tests should render Code correctly 1`] = `
                 return
               </span>
               <span>
-                 alertMessage;
+                 (
 
               </span>
             </span>
             <span>
-                }
-
-            </span>
-            <span>
-              
-
-            </span>
-            <span>
               <span>
-                  
+                        
               </span>
               <span
-                style="color: rgb(220, 198, 224);"
+                class="xml"
+                style="color: rgb(255, 160, 122);"
               >
-                export
-              </span>
-              <span>
-                 
+                &lt;
               </span>
               <span
-                style="color: rgb(220, 198, 224);"
+                class="xml"
+                style="color: rgb(255, 160, 122);"
               >
-                default
+                div
               </span>
-              <span>
-                 App;
-
+              <span
+                class="xml"
+                style="color: rgb(255, 160, 122);"
+              >
+                &gt;
               </span>
-            </span>
-            <span>
+              <span
+                class="xml"
+              >
                 
+
+              </span>
+            </span>
+            <span>
+              <span
+                class="xml"
+              >
+                          {enabled && 
+              </span>
+              <span
+                class="xml"
+                style="color: rgb(255, 160, 122);"
+              >
+                &lt;
+              </span>
+              <span
+                class="xml"
+                style="color: rgb(255, 160, 122);"
+              >
+                div
+              </span>
+              <span
+                class="xml"
+                style="color: rgb(255, 160, 122);"
+              >
+                &gt;
+              </span>
+              <span
+                class="xml"
+              >
+                This is a great feature
+              </span>
+              <span
+                class="xml"
+                style="color: rgb(255, 160, 122);"
+              >
+                &lt;/
+              </span>
+              <span
+                class="xml"
+                style="color: rgb(255, 160, 122);"
+              >
+                div
+              </span>
+              <span
+                class="xml"
+                style="color: rgb(255, 160, 122);"
+              >
+                &gt;
+              </span>
+              <span
+                class="xml"
+              >
+                }
+
+              </span>
+            </span>
+            <span>
+              <span
+                class="xml"
+              >
+                        
+              </span>
+              <span
+                class="xml"
+                style="color: rgb(255, 160, 122);"
+              >
+                &lt;/
+              </span>
+              <span
+                class="xml"
+                style="color: rgb(255, 160, 122);"
+              >
+                div
+              </span>
+              <span
+                class="xml"
+                style="color: rgb(255, 160, 122);"
+              >
+                &gt;
+              </span>
+              <span>
+                
+
+              </span>
+            </span>
+            <span>
+                    );
+
+            </span>
+            <span>
+                  };
 
             </span>
             <span />
