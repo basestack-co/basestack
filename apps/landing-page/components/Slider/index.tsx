@@ -1,8 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useTheme } from "styled-components";
+import { useMediaQuery } from "@basestack/hooks";
 // Utils
 import { events } from "@basestack/utils";
 // Components
-import { CardsContainer, Container, ContentContainer } from "./styles";
+import {
+  CardsContainer,
+  CardWrapper,
+  Container,
+  ContentContainer,
+  HeaderContainer,
+  ImageContainer,
+} from "./styles";
 import SlideCard from "../SlideCard";
 import Image from "../Image";
 import SectionHeader from "../SectionHeader";
@@ -20,12 +29,25 @@ export interface SliderProps {
 }
 
 const Slider = ({ title, text, data, id = "slider" }: SliderProps) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.device.max.md);
   const [currentImage, setCurrentImage] = useState(0);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const image = {
     src: data[currentImage].image.src,
     alt: data[currentImage].image.alt,
   };
+
+  useEffect(() => {
+    if (cardRef.current && isMobile) {
+      cardRef.current.scrollIntoView({
+        behavior: "smooth",
+        inline: "start",
+        block: "nearest",
+      });
+    }
+  }, [cardRef, currentImage, isMobile]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -38,23 +60,31 @@ const Slider = ({ title, text, data, id = "slider" }: SliderProps) => {
   return (
     <Container id={id}>
       <ContentContainer>
-        <SectionHeader title={title} text={text} />
+        <HeaderContainer>
+          <SectionHeader title={title} text={text} />
+        </HeaderContainer>
         <CardsContainer>
           {data?.map((item, index) => (
-            <SlideCard
+            <CardWrapper
               key={index}
-              isActive={index === currentImage}
-              icon={item.icon}
-              title={item.title}
-              text={item.text}
-              onClick={() => {
-                events.landing.slider(item.title, item.text);
-                setCurrentImage(index);
-              }}
-            />
+              ref={index === currentImage ? cardRef : null}
+            >
+              <SlideCard
+                isActive={index === currentImage}
+                icon={item.icon}
+                title={item.title}
+                text={item.text}
+                onClick={() => {
+                  events.landing.slider(item.title, item.text);
+                  setCurrentImage(index);
+                }}
+              />
+            </CardWrapper>
           ))}
         </CardsContainer>
-        <Image src={image.src} alt={image.alt} />
+        <ImageContainer>
+          <Image src={image.src} alt={image.alt} />
+        </ImageContainer>
       </ContentContainer>
     </Container>
   );

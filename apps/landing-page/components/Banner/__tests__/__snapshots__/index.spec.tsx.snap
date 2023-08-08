@@ -58,7 +58,7 @@ exports[`Banner tests should render Banner correctly 1`] = `
 .c1 {
   display: flex;
   flex-direction: column;
-  max-width: 1440px;
+  max-width: 90rem;
   width: 100%;
   margin: 0 auto;
 }

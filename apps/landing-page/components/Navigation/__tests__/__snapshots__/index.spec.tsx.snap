@@ -162,7 +162,7 @@ exports[`Navigation tests should render Navigation in dark mode 1`] = `
   align-items: center;
   margin: 0 auto;
   width: 100%;
-  max-width: 1440px;
+  max-width: 90rem;
 }
 
 .c2 {
@@ -587,7 +587,7 @@ exports[`Navigation tests should renders Navigation correctly 1`] = `
   align-items: center;
   margin: 0 auto;
   width: 100%;
-  max-width: 1440px;
+  max-width: 90rem;
 }
 
 .c2 {
