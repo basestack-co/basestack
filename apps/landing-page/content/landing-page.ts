@@ -1,15 +1,16 @@
 import { IllustrationVariant } from "../components";
+import Calendar from "../components/Illustration/Calendar";
 
 export const platform = [
   {
     title: "Release Features",
     text: "Unlock release flexibility with Feature Flags. Manage everything in one dashboard and get started with our SDKs.",
-    illustration: IllustrationVariant.Binoculars,
+    illustration: IllustrationVariant.WindowLoading,
   },
   {
     title: "Decision Making",
     text: "Empower your decisions with Feature Flags. Optimize product releases without the Developer involvement.",
-    illustration: IllustrationVariant.WindowLoading,
+    illustration: IllustrationVariant.Calendar,
   },
   {
     title: "Flexible Workflow",
@@ -22,17 +23,17 @@ export const why = [
   {
     title: "Maximize Flag Benefits",
     text: "Feature flags (also known as feature switches, feature toggles, conditional features, etc.) are a powerful technique that allows developers and teams to modify system behavior without changing the underlying code.",
-    illustration: IllustrationVariant.Binoculars,
+    illustration: IllustrationVariant.Planet,
   },
   {
     title: "Minimize Implementation Debt",
     text: "Feature Flags are like variables used in conditional statements. They allow you to toggle 'on or off' blocks of code, similar to commenting out code. This gives developers the flexibility to control the flow of their software and bypass features that are not ready for deployment.",
-    illustration: IllustrationVariant.WindowLoading,
+    illustration: IllustrationVariant.ClickBrowser,
   },
   {
     title: "Feature Flags vs. Branching",
     text: "Feature branching allows developers to collaborate effectively around a central code base by keeping all changes to a specific feature in its own branch. By adding feature flags to the mix, feature branching becomes even more powerful and faster, separating feature release management from code deployment.",
-    illustration: IllustrationVariant.Browser,
+    illustration: IllustrationVariant.ClickApp,
   },
 ];
 

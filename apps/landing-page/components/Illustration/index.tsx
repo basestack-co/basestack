@@ -4,6 +4,9 @@ import Planet from "./Planet";
 import Browser from "./Browser";
 import WindowLoading from "./WindowLoading";
 import Binoculars from "./Binoculars";
+import Calendar from "./Calendar";
+import ClickBrowser from "./ClickBrowser";
+import ClickApp from "./ClickApp";
 
 export enum IllustrationVariant {
   HalfPlanet = "halfPlanet",
@@ -11,6 +14,9 @@ export enum IllustrationVariant {
   Browser = "browser",
   WindowLoading = "windowLoading",
   Binoculars = "binoculars",
+  Calendar = "calendar",
+  ClickBrowser = "clickBrowser",
+  ClickApp = "clickApp",
 }
 
 export interface IllustrationProps {
@@ -19,26 +25,29 @@ export interface IllustrationProps {
   width?: number | string;
 }
 
+const illustrationComponents = {
+  [IllustrationVariant.HalfPlanet]: HalfPlanet,
+  [IllustrationVariant.Planet]: Planet,
+  [IllustrationVariant.Browser]: Browser,
+  [IllustrationVariant.WindowLoading]: WindowLoading,
+  [IllustrationVariant.Binoculars]: Binoculars,
+  [IllustrationVariant.Calendar]: Calendar,
+  [IllustrationVariant.ClickBrowser]: ClickBrowser,
+  [IllustrationVariant.ClickApp]: ClickApp,
+};
+
 const Illustration = ({
   variant,
   color = "black",
   width = 200,
 }: IllustrationProps) => {
-  const illustration = {
-    [IllustrationVariant.HalfPlanet]: (
-      <HalfPlanet color={color} width={width} />
-    ),
-    [IllustrationVariant.Planet]: <Planet color={color} width={width} />,
-    [IllustrationVariant.Browser]: <Browser color={color} width={width} />,
-    [IllustrationVariant.WindowLoading]: (
-      <WindowLoading color={color} width={width} />
-    ),
-    [IllustrationVariant.Binoculars]: (
-      <Binoculars color={color} width={width} />
-    ),
-  };
+  const Component = illustrationComponents[variant];
 
-  return illustration[variant];
+  if (!Component) {
+    return null;
+  }
+
+  return <Component color={color} width={width} />;
 };
 
 export default Illustration;

@@ -18,6 +18,18 @@ describe("Illustration tests", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  test("should render Illustration with color and width", () => {
+    const { asFragment } = renderWithTheme(
+      <Illustration
+        color="red"
+        width={400}
+        variant={IllustrationVariant.Browser}
+      />,
+    );
+
+    expect(asFragment()).toMatchSnapshot();
+  });
+
   test("should render Planet Illustration correctly", () => {
     const { asFragment } = renderWithTheme(
       <Illustration variant={IllustrationVariant.Planet} />,
@@ -45,6 +57,30 @@ describe("Illustration tests", () => {
   test("should render HalfPlanet Illustration correctly", () => {
     const { asFragment } = renderWithTheme(
       <Illustration variant={IllustrationVariant.HalfPlanet} />,
+    );
+
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test("should render Calendar Illustration correctly", () => {
+    const { asFragment } = renderWithTheme(
+      <Illustration variant={IllustrationVariant.Calendar} />,
+    );
+
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test("should render ClickApp Illustration correctly", () => {
+    const { asFragment } = renderWithTheme(
+      <Illustration variant={IllustrationVariant.ClickApp} />,
+    );
+
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test("should render ClickBrowser Illustration correctly", () => {
+    const { asFragment } = renderWithTheme(
+      <Illustration variant={IllustrationVariant.ClickBrowser} />,
     );
 
     expect(asFragment()).toMatchSnapshot();
