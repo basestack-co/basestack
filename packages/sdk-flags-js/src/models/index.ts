@@ -3,7 +3,7 @@ import store from "../store";
 // Utils
 import fetch from "cross-fetch";
 // Types
-import type { Params, FlagResult, Flag } from "../types";
+import type { Params, Flag } from "../types";
 
 class FlagsJS {
   private readonly apiUrl: string;
@@ -47,7 +47,7 @@ class FlagsJS {
     }
   }
 
-  async flagAsync(name: string): Promise<FlagResult<Flag | null>> {
+  async flagAsync(name: string): Promise<Flag> {
     try {
       const url = `${this.apiUrl}/flags/${name}`;
       const response = await fetch(url, {
@@ -67,7 +67,7 @@ class FlagsJS {
     return flags;
   }
 
-  flag(name: string): FlagResult<Flag | null> {
+  flag(name: string): Flag {
     const { flags } = store.getState();
     const flag = (flags ?? []).find((flag) => flag.slug === name);
 
@@ -75,7 +75,8 @@ class FlagsJS {
       return {
         enabled: false,
         error: true,
-        message: `Flag with name ${name} does not exist`,
+        slug: "",
+        description: `Flag with name ${name} does not exist`,
       };
     }
 

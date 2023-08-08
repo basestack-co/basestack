@@ -1,6 +1,6 @@
 {
   "name": "@basestack/flags-react-sdk",
-  "version": "0.0.21-alpha",
+  "version": "0.0.22-alpha",
   "author": "Basestack",
   "main": "dist/index.cjs",
   "module": "dist/index.js",

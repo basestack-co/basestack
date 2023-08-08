@@ -1,13 +1,13 @@
 import React, { Fragment } from "react";
 // Types
-import type { Flag, FlagResult } from "@basestack/flags-js-sdk";
+import type { Flag } from "@basestack/flags-js-sdk";
 // Context
 import useFlag from "../hooks/useFlag";
 
 export interface Props {
   children?: React.ReactNode;
   name: string;
-  render?: (flag: FlagResult<Flag | null>) => React.ReactNode;
+  render?: (flag: Flag) => React.ReactNode;
 }
 const FlagComponent = ({ name, render, children }: Props) => {
   const flag = useFlag(name);
