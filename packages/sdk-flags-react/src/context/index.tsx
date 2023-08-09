@@ -1,16 +1,16 @@
 import React, { createContext, useEffect, useMemo, useState } from "react";
 // Types
-import type FlagsJS from "@basestack/flags-js-sdk";
+import type { SDKType } from "../types";
 
 export interface ContextState {
-  sdk: FlagsJS;
+  sdk: SDKType;
   isInitialized: boolean;
 }
 
 export interface ProviderProps {
   onSuccessfulInit?: (isInitialized: boolean) => void;
   children: React.ReactNode;
-  sdk: FlagsJS;
+  sdk: SDKType;
 }
 
 export const FlagsContext = createContext<ContextState | undefined>(undefined);

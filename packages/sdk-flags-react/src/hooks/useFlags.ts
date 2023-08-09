@@ -1,5 +1,5 @@
 // Types
-import type { Flag } from "@basestack/flags-js-sdk";
+import type { Flag } from "../types";
 // Context
 import { useFlagsContext } from "./useFlagsContext";
 
