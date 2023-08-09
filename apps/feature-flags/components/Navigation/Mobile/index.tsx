@@ -14,9 +14,9 @@ import {
   Text,
   Button,
   ButtonVariant,
-  Avatar,
   HorizontalRule,
   PopupActionProps,
+  Logo,
 } from "@basestack/design-system";
 import { animated, config, useTransition } from "react-spring";
 import AvatarDropdown from "../../AvatarDropdown";
@@ -84,7 +84,7 @@ const NavigationDrawer = ({
               <GlobalStyle />
               <Header>
                 <Link href="/">
-                  <Avatar round={false} alt="user image" userName="Logo" />
+                  <Logo size={40} />
                 </Link>
                 <IconButton
                   icon="chevron_left"

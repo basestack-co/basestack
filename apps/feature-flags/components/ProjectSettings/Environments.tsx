@@ -40,8 +40,11 @@ const EnvironmentsCard = ({ project }: Props) => {
   );
 
   const deleteEnvironment = trpc.environment.delete.useMutation();
-
   const isCurrentUserAdmin = project.role === Role.ADMIN;
+  const environments = useMemo(
+    () => (!isLoading && !!data ? data.environments : []),
+    [isLoading, data],
+  );
 
   const onHandleEdit = useCallback(
     (environmentId: string) => {
@@ -96,7 +99,26 @@ const EnvironmentsCard = ({ project }: Props) => {
     [project, deleteEnvironment, trpcContext.environment.all],
   );
 
-  const environments = !isLoading && !!data ? data.environments : [];
+  const onClickDeleteEnvironment = useCallback(
+    (id: string, name: string) => {
+      setConfirmModalOpen({
+        isOpen: true,
+        data: {
+          title: "Are you sure?",
+          description: `This action cannot be undone. This will permanently delete the <b>${name}</b> environment, flags, history and remove all collaborator associations. `,
+          type: "delete",
+          buttonText: "Delete Environment",
+          onClick: async () => {
+            await onHandleDelete(id);
+            setConfirmModalOpen({
+              isOpen: false,
+            });
+          },
+        },
+      });
+    },
+    [onHandleDelete, setConfirmModalOpen],
+  );
 
   const getTable = useMemo(
     () =>
@@ -121,26 +143,8 @@ const EnvironmentsCard = ({ project }: Props) => {
         ],
       ),
 
-    [isLoading, data, onHandleEdit, onHandleDelete, environments],
+    [onHandleEdit, environments, onClickDeleteEnvironment],
   );
-
-  const onClickDeleteEnvironment = (id: string, name: string) => {
-    setConfirmModalOpen({
-      isOpen: true,
-      data: {
-        title: "Are you sure?",
-        description: `This action cannot be undone. This will permanently delete the <b>${name}</b> environment, flags, history and remove all collaborator associations. `,
-        type: "delete",
-        buttonText: "Delete Environment",
-        onClick: () => {
-          onHandleDelete(id);
-          setConfirmModalOpen({
-            isOpen: false,
-          });
-        },
-      },
-    });
-  };
 
   const getContent = () => {
     if (isMobile) {

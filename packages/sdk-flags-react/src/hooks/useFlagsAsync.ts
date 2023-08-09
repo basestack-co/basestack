@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+// Types
+import type { Flag } from "../types";
 // Context
 import { useFlagsContext } from "./useFlagsContext";
-// Types
-import { Flag } from "../types";
 
 const useFlagsAsync = () => {
   const { sdk } = useFlagsContext();

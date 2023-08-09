@@ -92,7 +92,7 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
 .c1 {
   display: flex;
   align-items: center;
-  height: 32px;
+  height: 2rem;
   padding: 0 0.5rem;
 }
 
@@ -183,6 +183,10 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
             Moon flags
           </p>
         </button>
+      </li>
+      <li
+        class="c4"
+      >
         <button
           class="c5"
         >

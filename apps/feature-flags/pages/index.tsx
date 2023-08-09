@@ -44,13 +44,12 @@ import {
 import MainLayout from "../layouts/Main";
 
 interface ProjectCardProps {
-  id: string;
   text: string;
   onClick: () => void;
   flags: number;
 }
 
-const ProjectCard = ({ id, onClick, text, flags = 0 }: ProjectCardProps) => {
+const ProjectCard = ({ onClick, text, flags = 0 }: ProjectCardProps) => {
   const theme = useTheme();
   return (
     <ProjectsListItem>
@@ -164,7 +163,6 @@ const MainPage = () => {
                 <ProjectCard
                   key={project.id}
                   text={project.text}
-                  id={project.id}
                   onClick={project.onClick}
                   flags={project.flags.count}
                 />
@@ -184,8 +182,8 @@ const MainPage = () => {
                 name: "downloading",
                 color: "green",
               }}
-              title="Install our SDK"
-              description="Create projects, add new feature flags, invite members, and implement the feature flags in your product using our official SDKs."
+              title="Set Up the SDK"
+              description="Integrate Feature Flags into your Product using the official SDKs. Discover the available libraries."
               button={{
                 text: "View Instructions",
                 onClick: () => setIntegrationModalOpen({ isOpen: true }),

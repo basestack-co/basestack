@@ -1,6 +1,13 @@
 /**
+ * Types
+ */
+
+export * from "./types";
+
+/**
  * PROVIDERS
  */
+
 export * from "./context";
 
 /**

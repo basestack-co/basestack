@@ -29,8 +29,9 @@ export const Wrapper = styled.div<{ type: Type }>`
         left: 19px;
         bottom: -19px;
         width: 2px;
-        background-color: ${({ theme }) =>
-          theme.colors[theme.isDarkMode ? "gray700" : "gray100"]};
+        background-color: ${theme.colors[
+          theme.isDarkMode ? "gray700" : "gray100"
+        ]};
       }
     `}
 `;
