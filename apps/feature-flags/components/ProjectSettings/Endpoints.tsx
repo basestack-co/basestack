@@ -1,20 +1,14 @@
 import React from "react";
-
 // Components
-import { Text, CopyCard } from "@basestack/design-system";
+import { CopyCard } from "@basestack/design-system";
 import SettingCard from "../SettingCard";
 // Utils
 import { getBrowserUrl } from "utils/helpers/url";
-// Types
-import { ProjectSettings } from "types";
-
-type Props = ProjectSettings;
-
-const EndpointsCard = ({ project }: Props) => {
+const EndpointsCard = () => {
   return (
     <SettingCard
       title="Endpoints"
-      description="Endpoints are essential for our SDKs to access and interact with features."
+      description="Endpoints are essential for the SDKs to access and interact with features."
       hasFooter={false}
     >
       <CopyCard

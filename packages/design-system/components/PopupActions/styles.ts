@@ -16,7 +16,7 @@ export const Container = styled.div`
 export const Header = styled.div`
   display: flex;
   align-items: center;
-  height: 32px;
+  height: ${rem("32px")};
   padding: 0 ${({ theme }) => theme.spacing.s2};
 `;
 

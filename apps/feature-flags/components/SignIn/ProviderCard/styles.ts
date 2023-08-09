@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { rem, transparentize } from "polished";
+import { rem } from "polished";
 
 export const Card = styled.button`
   position: relative;

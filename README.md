@@ -14,11 +14,11 @@ Quick Start with the following [Guide](https://docs.basestack.co/feature-flags#q
 
 ## Help & Support
 
-If you need assistance with anything, whether it's a new feature, a bug, a guide, or if you'd like to contribute feedback, don't hesitate to [open a discussion](https://github.com/Storytics/monolock/discussions).
+If you need assistance with anything, whether it's a new feature, a bug, a guide, or if you'd like to contribute feedback, don't hesitate to [open a discussion](https://github.com/basestack-co/basestack/discussions).
 
 ## Deployment & Self-hosting
 
-Want to self-host Basestack Tools on your server? Explore the [self-hosting installation instructions](http://localhost:3001/feature-flags/deployment) for detailed guidance.
+Want to self-host Basestack Tools on your server? Explore the [self-hosting installation instructions](https://docs.basestack.co/feature-flags/deployment) for detailed guidance.
 
 ## How to Contribute
 

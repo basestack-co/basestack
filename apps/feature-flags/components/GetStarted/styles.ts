@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
+import { rem } from "polished";
 
 const flexCenter = css`
   display: flex;
@@ -36,6 +37,7 @@ export const Header = styled.div`
   ${flexCenter};
   justify-content: space-between;
   margin-bottom: ${({ theme }) => theme.spacing.s5};
+  min-height: ${rem("36px")};
 `;
 
 export const StyledLink = styled.a`

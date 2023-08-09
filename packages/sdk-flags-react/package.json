@@ -1,6 +1,6 @@
 {
   "name": "@basestack/flags-react-sdk",
-  "version": "0.0.13-alpha",
+  "version": "0.0.22-alpha",
   "author": "Basestack",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -29,21 +29,21 @@
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "@swc/core": "^1.3.74",
-    "@types/node": "^20.4.7",
+    "@swc/core": "^1.3.75",
+    "@types/node": "^20.4.9",
     "tsup": "^7.2.0",
     "typescript": "^5.1.3"
   },
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/Storytics/monolock",
+  "homepage": "https://github.com/basestack-co/basestack",
   "bugs": {
-    "url": "https://github.com/Storytics/monolock/issues"
+    "url": "https://github.com/basestack-co/basestack/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Storytics/monolock.git"
+    "url": "git+https://github.com/basestack-co/basestack.git"
   },
   "description": ""
 }

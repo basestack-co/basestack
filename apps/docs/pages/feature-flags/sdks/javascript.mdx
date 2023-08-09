@@ -63,7 +63,8 @@ const MyFeature = async () => {
 In a Node environment, you should use the **flagAsync** and **flagsAsync** methods. Please note that the flags and flag methods are not supported in Node environments due to missing features from the browser.
 
 ```js copy filename="main.js"
-const FlagsJS = require("@basestack/flags-js-sdk").default;
+import FlagsJS from "@basestack/flags-js-sdk";
+// or const FlagsJS = require("@basestack/flags-js-sdk").default;
 
 const sdk = new FlagsJS({
   apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",

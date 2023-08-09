@@ -30,7 +30,7 @@ const FlagsPage = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const projectSlug = router.query.projectSlug as string;
 
-  const { data, isLoading, isError } = trpc.project.bySlug.useQuery(
+  const { data } = trpc.project.bySlug.useQuery(
     { projectSlug },
     {
       enabled: !!projectSlug,

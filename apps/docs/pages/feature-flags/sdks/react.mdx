@@ -66,6 +66,42 @@ const AppComponent = () => {
 
 </Steps>
 
+## Nextjs Support
+
+When working with a Next.js project, you can use the React SDK. However, if you're using the **App dir**, make sure to add the `use client` on top of the file. While we're working on adding support for Server Components, you have the option to use the [JavaScript SDK with Node](/feature-flags/sdks/javascript) or explore the [REST API](/feature-flags/sdks/rest-api) in the meantime.
+
+```js copy filename="layout.tsx"
+"use client";
+
+import FlagsJS from "@basestack/flags-js-sdk";
+import { FlagsProvider } from "@basestack/flags-react-sdk";
+
+const sdk = new FlagsJS({
+  apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
+  projectKey: "xxxxx",
+  envKey: "xxxxx",
+});
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <FlagsProvider
+          sdk={sdk}
+          onSuccessfulInit={() => console.log("Successful Init FlagsJS SDK")}
+        >
+          {children}
+        </FlagsProvider>
+      </body>
+    </html>
+  );
+}
+```
+
 ## Cache vs Async
 
 The SDK provides two alternatives for fetching a feature flag: the **useFlag** and **useFlagAsync** hooks. Both serve the same purpose of retrieving a flag by its name. However, the 'useFlag' hook utilizes the cached version, resulting in faster access, while 'useFlagAsync' hook fetches the latest version directly from the server.

@@ -28,7 +28,7 @@ const GeneralPage = ({ project }: Props) => {
       </CardListItem>
       <CardListItem>
         <SettingCardContainer>
-          <Endpoints project={project} />
+          <Endpoints />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>
