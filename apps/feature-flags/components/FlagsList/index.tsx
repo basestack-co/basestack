@@ -121,11 +121,9 @@ const FlagCards = ({
       <Empty
         iconName="flag"
         title="This project has no Feature Flags"
-        description={`There are currently no flags available for ${
-          router.query.projectSlug as string
-        }`}
+        description="No Feature Flags are currently available for this project."
         button={{
-          text: "Create new Feature Flag",
+          text: "Create Feature Flag",
           onClick: () => setCreateFlagModalOpen({ isOpen: true }),
         }}
       />
