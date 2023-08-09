@@ -25,7 +25,6 @@ import {
   LoadMoreContainer,
 } from "./styles";
 import Loading from "./Loading";
-import { useTheme } from "styled-components";
 
 interface FlagCardsProps {
   selectedView: SelectedView;
@@ -40,7 +39,6 @@ const FlagCards = ({
   projectId,
   searchValue,
 }: FlagCardsProps) => {
-  const theme = useTheme();
   const trpcContext = trpc.useContext();
   const router = useRouter();
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
@@ -61,18 +59,17 @@ const FlagCards = ({
     },
   );
 
-  const { data, isLoading, hasNextPage, fetchNextPage } =
-    trpc.flag.all.useInfiniteQuery(
-      {
-        projectId,
-        limit: defaultLimit,
-        search: searchValue,
-      },
-      {
-        enabled: !!projectId,
-        getNextPageParam: (lastPage) => lastPage.nextCursor,
-      },
-    );
+  const { data, isLoading, fetchNextPage } = trpc.flag.all.useInfiniteQuery(
+    {
+      projectId,
+      limit: defaultLimit,
+      search: searchValue,
+    },
+    {
+      enabled: !!projectId,
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+    },
+  );
 
   const initialDataLength = getValue(data, "pages[0].flags.length", 0)!;
   const currentPage = getValue(data, "pages.length", 0)! * defaultLimit;
@@ -100,11 +97,10 @@ const FlagCards = ({
   const onDelete = useCallback(
     (flagSlug: string) => {
       deleteFlag.mutate(
-        { projectId: projectId, flagSlug },
+        { projectId, flagSlug },
         {
           onSuccess: async () => {
-            // TODO: migrate this to use cache from useQuery
-            await trpcContext.flag.all.invalidate();
+            await trpcContext.flag.all.invalidate({ projectId });
           },
         },
       );
@@ -115,7 +111,7 @@ const FlagCards = ({
 
   if (isLoading)
     return (
-      <Loader>
+      <Loader hasDelay={false}>
         <Loading selectedView={selectedView} />
       </Loader>
     );
@@ -125,11 +121,9 @@ const FlagCards = ({
       <Empty
         iconName="flag"
         title="This project has no Feature Flags"
-        description={`There are currently no flags available for ${
-          router.query.projectSlug as string
-        }`}
+        description="No Feature Flags are currently available for this project."
         button={{
-          text: "Create new Feature Flag",
+          text: "Create Feature Flag",
           onClick: () => setCreateFlagModalOpen({ isOpen: true }),
         }}
       />

@@ -1,14 +1,13 @@
 import React, { Fragment } from "react";
+// Types
+import type { Flag } from "../types";
 // Context
 import useFlagAsync from "../hooks/useFlagAsync";
-// Hooks
-// Types
-import { FlagResult, Flag } from "../types";
 
 export interface Props {
   children?: React.ReactNode;
   name: string;
-  render?: (flag: FlagResult<Flag | null>) => React.ReactNode;
+  render?: (flag: Flag) => React.ReactNode;
 }
 const FlagAsync = ({ name, render, children }: Props) => {
   const { isLoading, flag } = useFlagAsync(name);

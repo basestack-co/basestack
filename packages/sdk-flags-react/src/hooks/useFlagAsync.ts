@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
+// Types
+import type { Flag } from "../types";
 // Context
 import { useFlagsContext } from "./useFlagsContext";
-// Types
-import { Flag, FlagNotFoundError } from "../types";
 
 const useFlagAsync = (name: string) => {
   const { sdk } = useFlagsContext();
   const [isLoading, setIsLoading] = useState(true);
-  const [flag, setFlag] = useState<Flag | FlagNotFoundError | null>(null);
+  const [flag, setFlag] = useState<Flag | null>(null);
   const [error, setError] = useState(false);
 
   useEffect(() => {

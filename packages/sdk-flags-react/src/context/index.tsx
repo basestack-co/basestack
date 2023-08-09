@@ -1,19 +1,19 @@
 import React, { createContext, useEffect, useMemo, useState } from "react";
 // Types
-import { SDK } from "../types";
+import type { SDKType } from "../types";
 
 export interface ContextState {
-  sdk: SDK;
+  sdk: SDKType;
   isInitialized: boolean;
 }
 
 export interface ProviderProps {
   onSuccessfulInit?: (isInitialized: boolean) => void;
   children: React.ReactNode;
-  sdk: SDK;
+  sdk: SDKType;
 }
 
-export const FlagsContext = createContext<ContextState>({} as ContextState);
+export const FlagsContext = createContext<ContextState | undefined>(undefined);
 
 export const FlagsProvider: React.FC<ProviderProps> = ({
   children,
@@ -29,16 +29,14 @@ export const FlagsProvider: React.FC<ProviderProps> = ({
     const initializeSdk = async () => {
       try {
         // Initialize SDK
-        await sdk.initialize();
+        const isInit = await sdk.initialize();
 
-        if (typeof onSuccessfulInit === "function") {
+        if (isInit) {
+          if (onSuccessfulInit) onSuccessfulInit(true);
           setIsInitialized(true);
-          onSuccessfulInit(true);
         }
       } catch (error) {
-        if (typeof onSuccessfulInit === "function") {
-          onSuccessfulInit(false);
-        }
+        if (onSuccessfulInit) onSuccessfulInit(false);
       }
     };
 

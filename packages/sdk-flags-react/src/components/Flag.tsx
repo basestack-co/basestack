@@ -1,15 +1,15 @@
-import React, { useMemo, Fragment } from "react";
+import React, { Fragment } from "react";
+// Types
+import type { Flag } from "../types";
 // Context
 import useFlag from "../hooks/useFlag";
-// Types
-import { FlagResult, Flag } from "../types";
 
 export interface Props {
   children?: React.ReactNode;
   name: string;
-  render?: (flag: FlagResult<Flag | null>) => React.ReactNode;
+  render?: (flag: Flag) => React.ReactNode;
 }
-const Flag = ({ name, render, children }: Props) => {
+const FlagComponent = ({ name, render, children }: Props) => {
   const flag = useFlag(name);
 
   if (render && children) {
@@ -23,4 +23,4 @@ const Flag = ({ name, render, children }: Props) => {
   ) : null;
 };
 
-export default Flag;
+export default FlagComponent;

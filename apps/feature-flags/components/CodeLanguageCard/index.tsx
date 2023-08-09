@@ -12,7 +12,7 @@ export interface LanguageCardProps {
   icon: string;
 }
 
-type IconMap = { [key: string]: JSX.Element };
+type IconMap = { [key: string]: React.ReactNode };
 
 const CodeLanguageCard = ({
   text,

@@ -44,6 +44,7 @@ const CreateFlagModal = () => {
     { projectId: project?.id! },
     {
       enabled: !!project?.id,
+      keepPreviousData: true,
     },
   );
 

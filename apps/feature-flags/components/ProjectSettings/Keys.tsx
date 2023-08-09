@@ -21,8 +21,10 @@ const KeysCard = ({ project }: Props) => {
     { enabled: !!project.id },
   );
 
-  const environments =
-    !isLoading && !!data && !!data.keys ? data.keys.environments : [];
+  const environments = useMemo(
+    () => (!isLoading && !!data && !!data.keys ? data.keys.environments : []),
+    [data, isLoading],
+  );
 
   const getTable = useMemo(() => {
     return createTable(
@@ -36,7 +38,7 @@ const KeysCard = ({ project }: Props) => {
         successText: "Copied Key to Clipboard",
       }),
     );
-  }, [isLoading, data]);
+  }, [environments]);
 
   const getContent = () => {
     if (isMobile) {
@@ -58,7 +60,7 @@ const KeysCard = ({ project }: Props) => {
   return (
     <SettingCard
       title="API Keys"
-      description="API keys are used with our SDKs, such as JavaScript, React, etc."
+      description="API keys are used with the SDKs, such as JavaScript, React, etc."
       hasFooter={false}
     >
       {isLoading || !data ? (

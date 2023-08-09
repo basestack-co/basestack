@@ -4,7 +4,7 @@ export const docsUrl = `${protocol}//docs.${domainUrl}`;
 
 export const urls = {
   base: `${protocol}${domainUrl}`,
-  repo: "https://github.com/Storytics/monolock",
+  repo: "https://github.com/basestack-co/basestack",
   docs: {
     base: docsUrl,
     contribute: `${docsUrl}/contributing`,
