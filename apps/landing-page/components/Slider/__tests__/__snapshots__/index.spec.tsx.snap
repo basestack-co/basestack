@@ -37,7 +37,7 @@ exports[`Slider tests should render Slider correctly 1`] = `
   flex: 1 0 0;
 }
 
-.c16 {
+.c14 {
   display: flex;
   flex-direction: column;
   padding: 0 1.25rem;
@@ -100,41 +100,11 @@ exports[`Slider tests should render Slider correctly 1`] = `
 }
 
 .c11 {
-  color: #276EF1;
-  font-size: 1.5rem;
-}
-
-.c15 {
   color: #000000;
   font-size: 1.5rem;
 }
 
 .c8 {
-  position: relative;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  background-color: #FFFFFF;
-  border-radius: 1.25rem;
-  padding: 1.25rem 1.25rem 1.5625rem 1.25rem;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-  cursor: pointer;
-  transition: scale 0.2s ease-in-out;
-  overflow: hidden;
-}
-
-.c8::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  animation: bHTXJE 10s linear;
-  height: 5px;
-  background-color: #276EF1;
-}
-
-.c14 {
   position: relative;
   border: none;
   display: flex;
@@ -155,7 +125,7 @@ exports[`Slider tests should render Slider correctly 1`] = `
   margin-bottom: 0.75rem;
 }
 
-.c17 {
+.c15 {
   display: flex;
   flex-direction: column;
   background-color: #F6F6F6;
@@ -166,7 +136,7 @@ exports[`Slider tests should render Slider correctly 1`] = `
   max-width: 68.75rem;
 }
 
-.c18 {
+.c16 {
   width: 100%;
   height: auto;
 }
@@ -182,6 +152,7 @@ exports[`Slider tests should render Slider correctly 1`] = `
 @media screen and (max-width: 767.98px) {
   .c6 {
     overflow-x: scroll;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
     scroll-padding: 1.25rem;
     -ms-overflow-style: none;
@@ -250,7 +221,7 @@ exports[`Slider tests should render Slider correctly 1`] = `
               >
                 <span
                   class="c11 material-symbols-sharp"
-                  color="#276EF1"
+                  color="#000000"
                   data-testid="icon"
                   size="24"
                 >
@@ -277,7 +248,7 @@ exports[`Slider tests should render Slider correctly 1`] = `
           class="c7"
         >
           <button
-            class="c14"
+            class="c8"
           >
             <div
               class="c9"
@@ -288,7 +259,7 @@ exports[`Slider tests should render Slider correctly 1`] = `
                 size="24"
               >
                 <span
-                  class="c15 material-symbols-sharp"
+                  class="c11 material-symbols-sharp"
                   color="#000000"
                   data-testid="icon"
                   size="24"
@@ -316,7 +287,7 @@ exports[`Slider tests should render Slider correctly 1`] = `
           class="c7"
         >
           <button
-            class="c14"
+            class="c8"
           >
             <div
               class="c9"
@@ -327,7 +298,7 @@ exports[`Slider tests should render Slider correctly 1`] = `
                 size="24"
               >
                 <span
-                  class="c15 material-symbols-sharp"
+                  class="c11 material-symbols-sharp"
                   color="#000000"
                   data-testid="icon"
                   size="24"
@@ -353,14 +324,14 @@ exports[`Slider tests should render Slider correctly 1`] = `
         </div>
       </div>
       <div
-        class="c16"
+        class="c14"
       >
         <div
-          class="c17"
+          class="c15"
         >
           <img
             alt="product demo"
-            class="c18"
+            class="c16"
             src="https://images.pexels.com/photos/3912477/pexels-photo-3912477.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           />
         </div>

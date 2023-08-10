@@ -41,6 +41,7 @@ const Cards = ({
                 color: isDarkMode ? theme.colors.gray50 : theme.colors.black,
                 width: "100%",
                 variant: card.illustration,
+                height: 180,
               }}
               isDarkMode={isDarkMode}
             />

@@ -32,6 +32,8 @@ const Slider = ({ title, text, data, id = "slider" }: SliderProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.device.max.md);
   const [currentImage, setCurrentImage] = useState(0);
+  const [autoAnimateSlider, setAutoAnimateSlider] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
 
   const image = {
@@ -50,15 +52,40 @@ const Slider = ({ title, text, data, id = "slider" }: SliderProps) => {
   }, [cardRef, currentImage, isMobile]);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      const nextIndex = (currentImage + 1) % data.length;
-      setCurrentImage(nextIndex);
-    }, 10000);
-    return () => clearInterval(intervalId);
-  }, [currentImage, data]);
+    if (autoAnimateSlider) {
+      const intervalId = setInterval(() => {
+        const nextIndex = (currentImage + 1) % data.length;
+        setCurrentImage(nextIndex);
+      }, 10000);
+      return () => clearInterval(intervalId);
+    }
+  }, [currentImage, data, autoAnimateSlider]);
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.15,
+    };
+
+    const callback = (entry: IntersectionObserverEntry[]) => {
+      setAutoAnimateSlider(entry[0].isIntersecting);
+    };
+
+    const observer = new IntersectionObserver(callback, options);
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, [containerRef]);
 
   return (
-    <Container id={id}>
+    <Container ref={containerRef} id={id}>
       <ContentContainer>
         <HeaderContainer>
           <SectionHeader title={title} text={text} />
@@ -67,10 +94,10 @@ const Slider = ({ title, text, data, id = "slider" }: SliderProps) => {
           {data?.map((item, index) => (
             <CardWrapper
               key={index}
-              ref={index === currentImage ? cardRef : null}
+              ref={index === currentImage && autoAnimateSlider ? cardRef : null}
             >
               <SlideCard
-                isActive={index === currentImage}
+                isActive={index === currentImage && autoAnimateSlider}
                 icon={item.icon}
                 title={item.title}
                 text={item.text}

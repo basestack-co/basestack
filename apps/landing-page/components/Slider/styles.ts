@@ -33,6 +33,7 @@ export const CardsContainer = styled.div`
 
   @media screen and ${({ theme }) => theme.device.max.md} {
     overflow-x: scroll;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
     scroll-padding: ${({ theme }) => theme.spacing.s5};
 

@@ -7,6 +7,7 @@ import Binoculars from "./Binoculars";
 import Calendar from "./Calendar";
 import ClickBrowser from "./ClickBrowser";
 import ClickApp from "./ClickApp";
+import { IllustrationProps } from "./types";
 
 export enum IllustrationVariant {
   HalfPlanet = "halfPlanet",
@@ -19,10 +20,8 @@ export enum IllustrationVariant {
   ClickApp = "clickApp",
 }
 
-export interface IllustrationProps {
+export interface IllustrationCompProps extends IllustrationProps {
   variant: IllustrationVariant;
-  color?: string;
-  width?: number | string;
 }
 
 const illustrationComponents = {
@@ -39,15 +38,16 @@ const illustrationComponents = {
 const Illustration = ({
   variant,
   color = "black",
-  width = 200,
-}: IllustrationProps) => {
+  width = "auto",
+  height = "auto",
+}: IllustrationCompProps) => {
   const Component = illustrationComponents[variant];
 
   if (!Component) {
     return null;
   }
 
-  return <Component color={color} width={width} />;
+  return <Component color={color} width={width} height={height} />;
 };
 
 export default Illustration;
