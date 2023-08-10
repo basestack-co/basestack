@@ -187,7 +187,11 @@ const Navigation = ({
                         ? ButtonVariant.Secondary
                         : ButtonVariant.Tertiary
                     }
-                    onClick={() => setIsMenuOpen((prevState) => !prevState)}
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      events.landing.navigation(item.text, item.href);
+                      router.push(item.href);
+                    }}
                     size={ButtonSize.Medium}
                     backgroundColor="transparent"
                     fullWidth
