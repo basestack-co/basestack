@@ -1,7 +1,7 @@
 import React from "react";
 // Utils
 import { config, events } from "@basestack/utils";
-import { useMediaQuery } from "@basestack/hooks";
+import { useMedia } from "react-use";
 // Components
 import { useTheme } from "styled-components";
 import { rem } from "polished";
@@ -23,7 +23,7 @@ export interface Props {
 }
 const BannerComp = ({ id = "banner" }: Props) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.device.max.md);
+  const isMobile = useMedia(theme.device.max.md);
 
   return (
     <Container id={id}>

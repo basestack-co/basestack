@@ -3,9 +3,9 @@ import { renderWithTheme } from "utils/helpers/testUtils";
 import { IllustrationVariant } from "../../Illustration";
 import Cards, { CardsProps } from "..";
 
-jest.mock("@basestack/hooks", () => ({
-  ...jest.requireActual("@basestack/hooks"),
-  useMediaQuery: jest.fn(() => false),
+jest.mock("react-use", () => ({
+  ...jest.requireActual("react-use"),
+  useMedia: jest.fn(() => false),
 }));
 
 describe("Cards tests", () => {

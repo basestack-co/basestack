@@ -8,7 +8,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Utils
 import { z } from "zod";
-import { useMediaQuery } from "@basestack/hooks";
+import { useMedia } from "react-use";
 import toast from "react-hot-toast";
 // Components
 import Image from "../Image";
@@ -52,7 +52,7 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const WaitingList = ({ data }: WaitingListProps) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.device.max.md);
+  const isMobile = useMedia(theme.device.max.md);
   const [currentImage, setCurrentImage] = useState(0);
   const cardRef = useRef<HTMLDivElement>(null);
 

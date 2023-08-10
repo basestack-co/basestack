@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback } from "react";
 import { useTheme } from "styled-components";
-import { useMediaQuery } from "@basestack/hooks";
+import { useMedia } from "react-use";
 // Components
 import {
   ButtonVariant,
@@ -24,7 +24,7 @@ import { Role } from "@prisma/client";
 type Props = ProjectSettings;
 const EnvironmentsCard = ({ project }: Props) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.device.max.md);
+  const isMobile = useMedia(theme.device.max.md);
   const trpcContext = trpc.useContext();
   const setCreateEnvironmentModalOpen = useStore(
     (state) => state.setCreateEnvironmentModalOpen,

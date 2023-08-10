@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTheme } from "styled-components";
-import { useMediaQuery } from "@basestack/hooks";
+import { useMedia } from "react-use";
 // Utils
 import { events } from "@basestack/utils";
 // Components
@@ -30,7 +30,7 @@ export interface SliderProps {
 
 const Slider = ({ title, text, data, id = "slider" }: SliderProps) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.device.max.md);
+  const isMobile = useMedia(theme.device.max.md);
   const [currentImage, setCurrentImage] = useState(0);
   const [autoAnimateSlider, setAutoAnimateSlider] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);

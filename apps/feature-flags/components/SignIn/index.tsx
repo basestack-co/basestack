@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useTheme } from "styled-components";
 import { rem } from "polished";
-import { useMediaQuery } from "@basestack/hooks";
+import { useMedia } from "react-use";
 // Auth
 import { signIn } from "next-auth/react";
 // UI
@@ -43,7 +43,7 @@ const getProviderLogo = (provider: providers) => {
 const SignIn = ({ providers, isLoading = false }: SignInProps) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const { colors, isDarkMode, device, spacing } = useTheme();
-  const isDesktop = useMediaQuery(device.min.lg);
+  const isDesktop = useMedia(device.min.lg);
 
   return (
     <Container>

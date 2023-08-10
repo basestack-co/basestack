@@ -2,9 +2,9 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "utils/helpers/testUtils";
 import Hero from "..";
 
-jest.mock("@basestack/hooks", () => ({
-  ...jest.requireActual("@basestack/hooks"),
-  useMediaQuery: jest.fn(() => false),
+jest.mock("react-use", () => ({
+  ...jest.requireActual("react-use"),
+  useMedia: jest.fn(() => false),
 }));
 
 describe("Hero tests", () => {

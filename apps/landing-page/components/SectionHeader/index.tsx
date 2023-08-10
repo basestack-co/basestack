@@ -1,7 +1,7 @@
 import React from "react";
 import { rem } from "polished";
 import { useTheme } from "styled-components";
-import { useMediaQuery } from "@basestack/hooks";
+import { useMedia } from "react-use";
 // Components
 import { Text } from "@basestack/design-system";
 import { AnimatedText, Container } from "./styles";
@@ -24,7 +24,7 @@ const SectionHeader = ({
   hasAnimatedText = false,
 }: SectionHeaderProps) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.device.max.md);
+  const isMobile = useMedia(theme.device.max.md);
 
   const TitleComponent = hasAnimatedText ? AnimatedText : Text;
 

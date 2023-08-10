@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { config as defaults, events } from "@basestack/utils";
 // Theme
 import { useTheme } from "styled-components";
-import { useMediaQuery } from "@basestack/hooks";
 import {
   useTransition,
   useSpring,
