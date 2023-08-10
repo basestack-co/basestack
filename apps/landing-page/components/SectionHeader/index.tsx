@@ -4,7 +4,7 @@ import { useTheme } from "styled-components";
 import { useMediaQuery } from "@basestack/hooks";
 // Components
 import { Text } from "@basestack/design-system";
-import { Container } from "./styles";
+import { AnimatedText, Container } from "./styles";
 
 export interface SectionHeaderProps {
   title: string;
@@ -12,6 +12,7 @@ export interface SectionHeaderProps {
   titleSize?: "normal" | "large";
   hasMarginBottom?: boolean;
   isDarkMode?: boolean;
+  hasAnimatedText?: boolean;
 }
 
 const SectionHeader = ({
@@ -20,13 +21,16 @@ const SectionHeader = ({
   titleSize = "normal",
   hasMarginBottom = true,
   isDarkMode = false,
+  hasAnimatedText = false,
 }: SectionHeaderProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.device.max.md);
 
+  const TitleComponent = hasAnimatedText ? AnimatedText : Text;
+
   return (
     <Container hasMarginBottom={hasMarginBottom}>
-      <Text
+      <TitleComponent
         size="xxLarge"
         fontSize={
           isMobile
@@ -35,16 +39,16 @@ const SectionHeader = ({
             ? rem("42px")
             : rem("60px")
         }
-        lineHeight="1.4"
+        lineHeight="1.3"
         textAlign="center"
         mb={theme.spacing.s2}
-        fontFamily="robotoFlex"
         // @ts-ignore
+        fontFamily={theme.typography.robotoFlex}
         as={titleSize === "normal" ? "h2" : "h1"}
         color={isDarkMode ? theme.colors.gray50 : theme.colors.black}
       >
         {title}
-      </Text>
+      </TitleComponent>
       <Text
         size={isMobile ? "large" : "xLarge"}
         fontWeight={400}
