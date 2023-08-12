@@ -1,5 +1,4 @@
 import { RouterOutput } from "libs/trpc";
-import { Role } from "@prisma/client";
 
 /*
  *
@@ -65,23 +64,4 @@ export interface Environment {
   slug?: string;
   description?: string;
   enabled?: boolean;
-}
-
-export interface HistoryPayload {
-  flag?: {
-    slug: string;
-    description?: string;
-    ids: string[];
-    environments: Array<{ id: string; enabled: boolean; name: string }>;
-  };
-  environment?: Environment | Environment[];
-  project?: {
-    name: string;
-    slug?: string;
-  };
-}
-
-export interface HistoryData {
-  projectId: string;
-  payload: HistoryPayload;
 }

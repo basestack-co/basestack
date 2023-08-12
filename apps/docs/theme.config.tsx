@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useConfig, type DocsThemeConfig } from "nextra-theme-docs";
-// Utils
-import { REPO_URL } from "utils/helpers";
+
+export const REPO_URL = "https://github.com/basestack-co/basestack";
 
 const config: DocsThemeConfig = {
   logo: <span>Basestack</span>,
