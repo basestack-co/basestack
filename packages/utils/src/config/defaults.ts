@@ -5,6 +5,7 @@ export const docsUrl = `${protocol}//docs.${domainUrl}`;
 export const urls = {
   base: `${protocol}${domainUrl}`,
   repo: "https://github.com/basestack-co/basestack",
+  twitter: "https://twitter.com/basestack_co",
   docs: {
     base: docsUrl,
     contribute: `${docsUrl}/contributing`,
