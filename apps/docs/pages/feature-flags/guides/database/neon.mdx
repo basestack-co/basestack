@@ -19,8 +19,8 @@ Our platform requires a direct connection to the database for conducting migrati
 You should be able to retrieve from Neon project dashboard the following connections examples:
 
 ```sh
-DATABASE_URL="postgres://daniel:<password>@ep-restless-rice-862380-pooler.us-east-2.aws.neon.tech:5432/neondb?pgbouncer=true"
-DIRECT_DATABASE_URL="postgres://daniel:<password>@ep-restless-rice-862380.us-east-2.aws.neon.tech:5432/neondb"
+DATABASE_URL="postgres://joe:<password>@ep-restless-rice-862380-pooler.us-east-2.aws.neon.tech:5432/neondb?pgbouncer=true"
+DIRECT_DATABASE_URL="postgres://joe:<password>@ep-restless-rice-862380.us-east-2.aws.neon.tech:5432/neondb"
 ```
 
 ### Self-Hosting Environment Variables
@@ -38,7 +38,3 @@ out the [Configuration Page](/feature-flags/deployment).
 ### Migration Errors
 
 Ensure that you are using a direct connection to the database for migrations. Neon supports both pooled and direct connections to the same database. For more information, refer to [Enable connection pooling](https://neon.tech/docs/connect/connection-pooling#enable-connection-pooling).
-
-## Help & Support
-
-If you need assistance with anything, whether it's a new feature, a bug, a guide, or if you'd like to contribute feedback, don't hesitate to [open a discussion](https://github.com/basestack-co/basestack/discussions).

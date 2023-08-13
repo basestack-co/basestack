@@ -3,9 +3,7 @@
   "compilerOptions": {
     "baseUrl": "src",
     "module": "commonjs",
-    "declaration": true,
-    "outDir": "./lib",
-    "strict": true
+    "outDir": "./lib"
   },
   "include": ["src"],
   "exclude": ["dist", "build", "node_modules"]

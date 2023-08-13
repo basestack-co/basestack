@@ -12,9 +12,9 @@ describe("Popup tests", () => {
         right={0}
         top={0}
         items={[
-          { text: "Edit", onClick: () => console.log("") },
-          { text: "History", onClick: () => console.log("") },
-          { text: "Delete", onClick: () => console.log("") },
+          { text: "Edit", onClick: jest.fn },
+          { text: "History", onClick: () => jest.fn },
+          { text: "Delete", onClick: () => jest.fn },
         ]}
       />,
     );
@@ -29,9 +29,9 @@ describe("Popup tests", () => {
         right={0}
         top={0}
         items={[
-          { icon: "edit", text: "Edit", onClick: () => console.log("") },
-          { icon: "edit", text: "History", onClick: () => console.log("") },
-          { icon: "edit", text: "Delete", onClick: () => console.log("") },
+          { icon: "edit", text: "Edit", onClick: () => jest.fn },
+          { icon: "edit", text: "History", onClick: () => jest.fn },
+          { icon: "edit", text: "Delete", onClick: () => jest.fn },
         ]}
       />,
     );
