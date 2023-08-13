@@ -4,7 +4,7 @@ import { rem } from "polished";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray200};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray600};
 `;
 
 export const Header = styled.button`

@@ -69,6 +69,10 @@ export {
 } from "./components/CalendarInput";
 export { default as CopyCard, type CopyCardProps } from "./components/CopyCard";
 export { default as Logo, type LogoProps } from "./components/Logo";
+export {
+  default as Accordion,
+  type AccordionProps,
+} from "./components/Accordion";
 
 // Other
 export * from "./animations/springs";

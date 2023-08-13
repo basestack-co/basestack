@@ -1,68 +1,79 @@
 import { IllustrationVariant } from "../components";
+import Calendar from "../components/Illustration/Calendar";
 
-export const cards = [
+export const platform = [
   {
-    title: "Manage Flags",
-    text: "MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications. Just wrap a section of code with a flag, and then use MoonFlags to manage that feature.",
-    illustration: IllustrationVariant.Browser,
-  },
-  {
-    title: "Powerful Segmenting rules",
-    text: "Manage feature flags by development environment, and for individual users, a segment of users, or a percentage. This means quickly implementing practices like canary deployments.",
+    title: "Release Features",
+    text: "Unlock release flexibility with Feature Flags. Manage everything in one dashboard and get started with our SDKs.",
     illustration: IllustrationVariant.WindowLoading,
   },
   {
-    title: "Drive A/B and Multivariate Tests",
-    text: "Multivariate flags allow you to use a percentage split across two or more variations for precise A/B/n testing and experimentation.",
-    illustration: IllustrationVariant.Binoculars,
+    title: "Decision Making",
+    text: "Empower your decisions with Feature Flags. Optimize product releases without the Developer involvement.",
+    illustration: IllustrationVariant.Calendar,
+  },
+  {
+    title: "Flexible Workflow",
+    text: "Our Platform adapts to your specific needs. The perfect feature flagging tool for your developers and testers.",
+    illustration: IllustrationVariant.Browser,
+  },
+];
+
+export const why = [
+  {
+    title: "Maximize Flag Benefits",
+    text: "Feature flags (also known as feature switches, feature toggles, conditional features, etc.) are a powerful technique that allows developers and teams to modify system behavior without changing the underlying code.",
+    illustration: IllustrationVariant.Planet,
+  },
+  {
+    title: "Minimize Implementation Debt",
+    text: "Feature Flags are like variables used in conditional statements. They allow you to toggle 'on or off' blocks of code, similar to commenting out code. This gives developers the flexibility to control the flow of their software and bypass features that are not ready for deployment.",
+    illustration: IllustrationVariant.ClickBrowser,
+  },
+  {
+    title: "Feature Flags vs. Branching",
+    text: "Feature branching allows developers to collaborate effectively around a central code base by keeping all changes to a specific feature in its own branch. By adding feature flags to the mix, feature branching becomes even more powerful and faster, separating feature release management from code deployment.",
+    illustration: IllustrationVariant.ClickApp,
   },
 ];
 
 export const questions = [
   {
-    title: "Can i use MoonFlags on my enterprice projects?",
-    text: "You can use MoonFlags for personal use, but for enterprice you have to pay mother fucker",
+    title: "What are the requirements for self-hosting?",
+    text: "Any service that can host a NextJS applications with serverless function support and provide a Postgres database compatible with serverless environments will work seamlessly. Consider services such as Neon, Supabase, or traditional Postgres with connection pooling like PgBouncer.",
   },
   {
-    title: "Can i add extra seats or API calls?",
-    text: "You can do what ever you want to do, just be happy",
-  },
-  {
-    title: "How to calculate API calls per month?",
-    text: "You can do what ever you want to do, just be happy",
-  },
-  {
-    title: "What happens if i go over my plan limit?",
-    text: "You can do what ever you want to do, just be happy",
+    title: "What are the supported databases?",
+    text: "The platform uses PostgreSQL as the database. The crucial aspect here is to ensure that the PostgreSQL service or instance supports serverless environments.",
   },
 ];
 
 export const slides = [
   {
-    icon: "person",
-    title: "User traits",
-    text: "MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.",
+    icon: "flag",
+    title: "Manage Multiple Projects Easily",
+    text: "Control feature releases across multiple projects and environments.",
     image: {
-      src: "https://images.pexels.com/photos/3912477/pexels-photo-3912477.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      alt: "product demo",
-    },
-  },
-  {
-    icon: "send",
-    title: "Staged feature rollouts",
-    text: "MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.",
-    image: {
-      src: "https://images.pexels.com/photos/1667088/pexels-photo-1667088.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      alt: "product demo",
+      src: "/images/flags_multiple_projects.png",
+      alt: "An image of a feature flag control panel displaying multiple projects and environments, with intuitive controls for easily managing feature releases.",
     },
   },
   {
     icon: "history",
-    title: "Track Changes",
-    text: "MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.",
+    title: "Confident Feature Flag Control",
+    text: "Streamlined management, monitoring, and automated change tracking.",
     image: {
-      src: "https://images.pexels.com/photos/335257/pexels-photo-335257.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      alt: "product demo",
+      src: "/images/flag_history.png",
+      alt: "An image of a feature flag dashboard displaying streamlined management, monitoring, and automated change tracking features. The dashboard provides clear and concise data visualization and intuitive controls for easy navigation and management.",
+    },
+  },
+  {
+    icon: "send",
+    title: "Efficient Remote Configuration",
+    text: "Optimize your feature flag config with dynamic payload data changes.",
+    image: {
+      src: "/images/create_flag_advanced.png",
+      alt: "An image of a feature flag configuration interface, displaying dynamic payload data changes. The interface provides intuitive controls for easily making and testing feature flag changes.",
     },
   },
 ];

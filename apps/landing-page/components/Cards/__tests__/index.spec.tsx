@@ -1,7 +1,12 @@
 import { cleanup } from "@testing-library/react";
-import { renderWithTheme } from "../../../utils/testUtils";
+import { renderWithTheme } from "utils/helpers/testUtils";
 import { IllustrationVariant } from "../../Illustration";
 import Cards, { CardsProps } from "..";
+
+jest.mock("react-use", () => ({
+  ...jest.requireActual("react-use"),
+  useMedia: jest.fn(() => false),
+}));
 
 describe("Cards tests", () => {
   afterEach(cleanup);

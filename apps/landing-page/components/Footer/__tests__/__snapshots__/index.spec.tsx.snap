@@ -78,7 +78,7 @@ exports[`Footer tests should render Footer correctly 1`] = `
 .c1 {
   display: flex;
   justify-content: space-between;
-  max-width: 1440px;
+  max-width: 90rem;
   width: 100%;
   margin: 0 auto;
 }
@@ -110,6 +110,10 @@ exports[`Footer tests should render Footer correctly 1`] = `
   align-items: center;
   padding: 0 1rem;
   margin-right: 0.5rem;
+}
+
+.c8:hover {
+  cursor: pointer;
 }
 
 .c9 {
@@ -199,7 +203,7 @@ exports[`Footer tests should render Footer correctly 1`] = `
           color="#CBCBCB"
           font-family="roboto"
         >
-          MoonFlags
+          The Open-Source Stack for Developers and Startups
         </h2>
         <div
           class="c4"
@@ -213,7 +217,7 @@ exports[`Footer tests should render Footer correctly 1`] = `
               font-family="roboto"
               font-weight="400"
             >
-              © MoonFlags 2023
+              © Basestack 2023
             </p>
           </div>
           <ul
@@ -228,7 +232,7 @@ exports[`Footer tests should render Footer correctly 1`] = `
                 font-family="roboto"
                 font-weight="400"
               >
-                Privacy policy
+                Privacy Policy
               </p>
             </li>
             <li
@@ -240,7 +244,7 @@ exports[`Footer tests should render Footer correctly 1`] = `
                 font-family="roboto"
                 font-weight="400"
               >
-                Cookies policy
+                Cookies Policy
               </p>
             </li>
             <li
@@ -252,7 +256,7 @@ exports[`Footer tests should render Footer correctly 1`] = `
                 font-family="roboto"
                 font-weight="400"
               >
-                Term of use
+                Term of Use
               </p>
             </li>
           </ul>
@@ -267,14 +271,17 @@ exports[`Footer tests should render Footer correctly 1`] = `
           font-family="roboto"
           font-weight="400"
         >
-          Updates right to your inbox
+          Get updates directly to your Inbox
         </p>
         <div
           class="c11"
         >
           <input
             class="c12"
+            name="email"
             placeholder="Enter your email"
+            type="email"
+            value=""
           />
           <button
             class="c13"
@@ -283,7 +290,7 @@ exports[`Footer tests should render Footer correctly 1`] = `
             <span
               class=""
             >
-              Send
+              Subscribe
             </span>
           </button>
         </div>

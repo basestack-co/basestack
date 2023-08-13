@@ -1,9 +1,25 @@
 import { cleanup } from "@testing-library/react";
-import { renderWithTheme } from "../../../utils/testUtils";
+import { renderWithTheme } from "utils/helpers/testUtils";
 import Slider from "..";
+
+jest.mock("react-use", () => ({
+  ...jest.requireActual("react-use"),
+  useMedia: jest.fn(() => false),
+}));
 
 describe("Slider tests", () => {
   afterEach(cleanup);
+
+  beforeEach(() => {
+    // IntersectionObserver isn't available in test environment
+    const mockIntersectionObserver = jest.fn();
+    mockIntersectionObserver.mockReturnValue({
+      observe: () => null,
+      unobserve: () => null,
+      disconnect: () => null,
+    });
+    window.IntersectionObserver = mockIntersectionObserver;
+  });
 
   const slides = [
     {

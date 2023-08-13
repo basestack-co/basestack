@@ -1,10 +1,14 @@
 import { IllustrationProps } from "./types";
 
-const WindowLoading = ({ color, width }: IllustrationProps) => (
+const WindowLoading = ({
+  color,
+  width = "auto",
+  height = "auto",
+}: IllustrationProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
-    height="auto"
+    height={height}
     viewBox="0 0 633 319"
     fill="none"
   >

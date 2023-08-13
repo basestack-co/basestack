@@ -1,10 +1,14 @@
 import { IllustrationProps } from "./types";
 
-const Browser = ({ color, width }: IllustrationProps) => (
+const Browser = ({
+  color,
+  width = "auto",
+  height = "auto",
+}: IllustrationProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
-    height="auto"
+    height={height}
     viewBox="0 0 352 287"
     fill="none"
   >

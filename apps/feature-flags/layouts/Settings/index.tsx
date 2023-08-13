@@ -18,7 +18,7 @@ import {
   StyledButton,
 } from "./styles";
 // Hooks
-import { useMediaQuery } from "@basestack/hooks";
+import { useMedia } from "react-use";
 // Layouts
 import MainLayout from "../Main";
 
@@ -42,7 +42,7 @@ const buttons = [
 
 const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.device.min.lg);
+  const isDesktop = useMedia(theme.device.min.lg);
   const router = useRouter();
 
   const projectSlug = router.query.projectSlug as string;
@@ -117,7 +117,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
               />
             )}
             {isLoadingProject || !data ? (
-              <Loader>
+              <Loader hasDelay={false}>
                 <Skeleton
                   items={[
                     { h: 24, w: "15%", mb: 10 },

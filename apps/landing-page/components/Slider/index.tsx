@@ -1,11 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useTheme } from "styled-components";
+import { useMedia } from "react-use";
+// Utils
+import { events } from "@basestack/utils";
 // Components
-import { CardsContainer, Container, ContentContainer } from "./styles";
+import {
+  CardsContainer,
+  CardWrapper,
+  Container,
+  ContentContainer,
+  HeaderContainer,
+  ImageContainer,
+} from "./styles";
 import SlideCard from "../SlideCard";
 import Image from "../Image";
 import SectionHeader from "../SectionHeader";
 
 export interface SliderProps {
+  id?: string;
   title: string;
   text: string;
   data: Array<{
@@ -16,8 +28,13 @@ export interface SliderProps {
   }>;
 }
 
-const Slider = ({ title, text, data }: SliderProps) => {
+const Slider = ({ title, text, data, id = "slider" }: SliderProps) => {
+  const theme = useTheme();
+  const isMobile = useMedia(theme.device.max.md);
   const [currentImage, setCurrentImage] = useState(0);
+  const [autoAnimateSlider, setAutoAnimateSlider] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const image = {
     src: data[currentImage].image.src,
@@ -25,30 +42,76 @@ const Slider = ({ title, text, data }: SliderProps) => {
   };
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      const nextIndex = (currentImage + 1) % data.length;
-      setCurrentImage(nextIndex);
-    }, 10000);
-    return () => clearInterval(intervalId);
-  }, [currentImage, data]);
+    if (cardRef.current && isMobile) {
+      cardRef.current.scrollIntoView({
+        behavior: "smooth",
+        inline: "start",
+        block: "nearest",
+      });
+    }
+  }, [cardRef, currentImage, isMobile]);
+
+  useEffect(() => {
+    if (autoAnimateSlider) {
+      const intervalId = setInterval(() => {
+        const nextIndex = (currentImage + 1) % data.length;
+        setCurrentImage(nextIndex);
+      }, 10000);
+      return () => clearInterval(intervalId);
+    }
+  }, [currentImage, data, autoAnimateSlider]);
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.15,
+    };
+
+    const callback = (entry: IntersectionObserverEntry[]) => {
+      setAutoAnimateSlider(entry[0].isIntersecting);
+    };
+
+    const observer = new IntersectionObserver(callback, options);
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, [containerRef]);
 
   return (
-    <Container>
+    <Container ref={containerRef} id={id}>
       <ContentContainer>
-        <SectionHeader title={title} text={text} />
+        <HeaderContainer>
+          <SectionHeader title={title} text={text} />
+        </HeaderContainer>
         <CardsContainer>
           {data?.map((item, index) => (
-            <SlideCard
+            <CardWrapper
               key={index}
-              isActive={index === currentImage}
-              icon={item.icon}
-              title={item.title}
-              text={item.text}
-              onClick={() => setCurrentImage(index)}
-            />
+              ref={index === currentImage && autoAnimateSlider ? cardRef : null}
+            >
+              <SlideCard
+                isActive={index === currentImage && autoAnimateSlider}
+                icon={item.icon}
+                title={item.title}
+                text={item.text}
+                onClick={() => {
+                  events.landing.slider(item.title, item.text);
+                  setCurrentImage(index);
+                }}
+              />
+            </CardWrapper>
           ))}
         </CardsContainer>
-        <Image src={image.src} alt={image.alt} />
+        <ImageContainer>
+          <Image src={image.src} alt={image.alt} />
+        </ImageContainer>
       </ContentContainer>
     </Container>
   );

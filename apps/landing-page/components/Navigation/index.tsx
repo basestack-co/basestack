@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+// Router
+import { useRouter } from "next/router";
+// Utils
+import { config as defaults, events } from "@basestack/utils";
+// Theme
 import { useTheme } from "styled-components";
-import { useMediaQuery } from "@basestack/hooks";
 import {
   useTransition,
   useSpring,
@@ -15,6 +19,7 @@ import {
   ButtonVariant,
   ButtonSize,
   Logo,
+  IconButton,
 } from "@basestack/design-system";
 import {
   Container,
@@ -32,16 +37,24 @@ import {
 
 const links = [
   {
-    text: "Product",
+    text: "Platform",
+    href: "#platform",
   },
   {
-    text: "Solutions",
+    text: "Discover Features",
+    href: "#features",
   },
   {
-    text: "Resources",
+    text: "Integration",
+    href: "#code",
   },
   {
-    text: "Pricing",
+    text: "Why Feature Flags?",
+    href: "#why",
+  },
+  {
+    text: "FAQs",
+    href: "#questions",
   },
 ];
 
@@ -59,8 +72,7 @@ const Navigation = ({
 }: NavigationProps) => {
   const theme = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isMobile = useMediaQuery(theme.device.max.md);
-  const isDesktop = useMediaQuery(theme.device.min.md);
+  const router = useRouter();
 
   const springApi = useSpringRef();
   const { size, ...rest } = useSpring({
@@ -93,38 +105,40 @@ const Navigation = ({
       <Container isDarkMode={isDarkMode} hasBackdropFilter={hasBackdropFilter}>
         <ContentContainer>
           <LeftColumn>
-            {isMobile && (
-              <BurgerMenu
-                isDarkMode={isDarkMode}
+            {/* Mobile Burger */}
+            <BurgerMenu isDarkMode={isDarkMode}>
+              <IconButton
                 size="large"
                 icon={isMenuOpen ? "menu_open" : "menu"}
                 onClick={() => setIsMenuOpen((prevState) => !prevState)}
                 mr={theme.spacing.s3}
               />
-            )}
+            </BurgerMenu>
             <Logo />
-            {isDesktop && (
-              <List>
-                {links.map((link, index) => {
-                  return (
-                    <ListItem key={index.toString()}>
-                      <Button
-                        variant={
-                          isDarkMode
-                            ? ButtonVariant.Secondary
-                            : ButtonVariant.Tertiary
-                        }
-                        onClick={() => console.log("yeah")}
-                        size={ButtonSize.Medium}
-                        backgroundColor="transparent"
-                      >
-                        {link.text}
-                      </Button>
-                    </ListItem>
-                  );
-                })}
-              </List>
-            )}
+            {/* Desktop List */}
+            <List>
+              {links.map((link, index) => {
+                return (
+                  <ListItem key={index.toString()}>
+                    <Button
+                      variant={
+                        isDarkMode
+                          ? ButtonVariant.Secondary
+                          : ButtonVariant.Tertiary
+                      }
+                      onClick={() => {
+                        events.landing.navigation(link.text, link.href);
+                        router.push(link.href);
+                      }}
+                      size={ButtonSize.Medium}
+                      backgroundColor="transparent"
+                    >
+                      {link.text}
+                    </Button>
+                  </ListItem>
+                );
+              })}
+            </List>
           </LeftColumn>
           <RightColumn>
             <Button
@@ -132,50 +146,62 @@ const Navigation = ({
                 isDarkMode ? ButtonVariant.Secondary : ButtonVariant.Tertiary
               }
               mr={theme.spacing.s3}
-              onClick={() => console.log("yeah")}
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.open(defaults.urls.repo, "_blank");
+                }
+              }}
               size={ButtonSize.Medium}
               backgroundColor="transparent"
             >
-              Sign In
+              Github
             </Button>
             <Button
-              onClick={() => console.log("yeah")}
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.open(defaults.urls.docs.base, "_blank");
+                }
+              }}
               size={ButtonSize.Medium}
+              variant={ButtonVariant.Secondary}
             >
-              Get Started
+              Documentation
             </Button>
           </RightColumn>
         </ContentContainer>
       </Container>
-      {isMobile && (
-        <PopupContainer isMenuOpen={isMenuOpen}>
-          <AnimatedPopup
-            style={{ ...rest, width: size, height: size }}
-            isDarkMode={isDarkMode}
-          >
-            {transition(
-              (style, item) =>
-                item && (
-                  <AnimatedPopupItem style={style}>
-                    <Button
-                      variant={
-                        isDarkMode
-                          ? ButtonVariant.Secondary
-                          : ButtonVariant.Tertiary
-                      }
-                      onClick={() => setIsMenuOpen((prevState) => !prevState)}
-                      size={ButtonSize.Medium}
-                      backgroundColor="transparent"
-                      fullWidth
-                    >
-                      {item.text}
-                    </Button>
-                  </AnimatedPopupItem>
-                ),
-            )}
-          </AnimatedPopup>
-        </PopupContainer>
-      )}
+      {/* Mobile Menu */}
+      <PopupContainer isMenuOpen={isMenuOpen}>
+        <AnimatedPopup
+          style={{ ...rest, width: size, height: size }}
+          isDarkMode={isDarkMode}
+        >
+          {transition(
+            (style, item) =>
+              item && (
+                <AnimatedPopupItem style={style}>
+                  <Button
+                    variant={
+                      isDarkMode
+                        ? ButtonVariant.Secondary
+                        : ButtonVariant.Tertiary
+                    }
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      events.landing.navigation(item.text, item.href);
+                      router.push(item.href);
+                    }}
+                    size={ButtonSize.Medium}
+                    backgroundColor="transparent"
+                    fullWidth
+                  >
+                    {item.text}
+                  </Button>
+                </AnimatedPopupItem>
+              ),
+          )}
+        </AnimatedPopup>
+      </PopupContainer>
     </>
   );
 };
