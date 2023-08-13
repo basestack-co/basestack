@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useMediaQuery } from "@basestack/hooks";
+import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
 // Router
 import { useRouter } from "next/router";
@@ -15,7 +15,7 @@ import { trpc } from "libs/trpc";
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const isMobile = useMediaQuery(theme.device.max.lg);
+  const isMobile = useMedia(theme.device.max.lg);
   const router = useRouter();
   const { status } = useSession({
     required: true,
@@ -50,7 +50,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   if (status === "loading" || isLoadingProjects) {
     return (
-      <Loader>
+      <Loader hasDelay={false}>
         <Splash />
       </Loader>
     );

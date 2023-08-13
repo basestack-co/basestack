@@ -32,7 +32,6 @@ export function off<T extends Document | HTMLElement | EventTarget>(
 }
 
 export const isBrowser = typeof window !== "undefined";
-
 export const isNavigator = typeof navigator !== "undefined";
 
 export const validURL = (str: string) => {

@@ -4,9 +4,9 @@ exports[`Logo tests should render Logo correctly 1`] = `
 <DocumentFragment>
   <svg
     fill="none"
-    height="60"
+    height="42"
     viewBox="0 0 36 36"
-    width="60"
+    width="42"
     xmlns="http://www.w3.org/2000/svg"
   >
     <rect

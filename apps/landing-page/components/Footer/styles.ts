@@ -10,7 +10,7 @@ export const Container = styled.footer`
 export const ContentContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  max-width: 1440px;
+  max-width: ${rem("1440px")};
   width: 100%;
   margin: 0 auto;
 
@@ -67,6 +67,10 @@ export const ListItem = styled.li`
   align-items: center;
   padding: 0 ${({ theme }) => theme.spacing.s4};
   margin-right: ${({ theme }) => theme.spacing.s2};
+
+  &:hover {
+    cursor: pointer;
+  }
 
   @media screen and ${({ theme }) => theme.device.max.lg} {
     padding: 0;

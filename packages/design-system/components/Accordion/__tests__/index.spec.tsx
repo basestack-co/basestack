@@ -2,6 +2,11 @@ import { cleanup, fireEvent } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Accordion from "..";
 
+jest.mock("@basestack/hooks", () => ({
+  ...jest.requireActual("@basestack/hooks"),
+  useMediaQuery: jest.fn(() => false),
+}));
+
 describe("Accordion tests", () => {
   afterEach(cleanup);
 

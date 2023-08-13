@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useTheme } from "styled-components";
-import { useMediaQuery } from "@basestack/hooks";
+import { useMedia } from "react-use";
 // Components
 import { Loader, Skeleton, Table } from "@basestack/design-system";
 import SettingCard from "../SettingCard";
@@ -15,7 +15,7 @@ import { ProjectSettings } from "types";
 type Props = ProjectSettings;
 const KeysCard = ({ project }: Props) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.device.max.md);
+  const isMobile = useMedia(theme.device.max.md);
   const { data, isLoading } = trpc.project.allKeys.useQuery(
     { projectSlug: project.slug },
     { enabled: !!project.id },

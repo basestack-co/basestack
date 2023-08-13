@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useTheme } from "styled-components";
+// Utils
+import { events } from "@basestack/utils";
 // Code
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
@@ -9,45 +11,38 @@ import { Tabs } from "@basestack/design-system";
 import { CodeContainer, Container, ContentContainer } from "./styles";
 import SectionHeader from "../SectionHeader";
 // Data
-import { javascript, vue, jquery, react } from "./data";
+import data from "./data";
 
 SyntaxHighlighter.registerLanguage("typescript", ts);
 
-const tabs = [
-  { id: "js", text: "Javascript" },
-  { id: "react", text: "React" },
-  { id: "vue", text: "Vue" },
-  { id: "jq", text: "jquery" },
-];
+export interface Props {
+  id?: string;
+}
 
-const Code = () => {
+const Code = ({ id = "code" }: Props) => {
   const theme = useTheme();
   const [sliderPosition, setSliderPosition] = useState(1);
 
-  const codeStringIndex: { [key: number]: string } = {
-    0: javascript,
-    1: react,
-    2: vue,
-    3: jquery,
-  };
-
-  const codeString = codeStringIndex[sliderPosition];
+  const tab = useMemo(() => {
+    return data[sliderPosition];
+  }, [sliderPosition]);
 
   return (
-    <Container isDarkMode>
+    <Container id={id} isDarkMode>
       <ContentContainer>
         <SectionHeader
           isDarkMode
-          title="Available in Frontend Frameworks"
-          text="We currently support these popular languages and frameworks"
+          title="Explore our SDK Options"
+          text="Discover our supported SDKs tailored to meet your development needs, enabling faster releases. Explore our comprehensive documentation for more in-depth information and guidance."
         />
         <CodeContainer>
           <Tabs
             sliderPosition={sliderPosition}
-            onSelect={(item) =>
-              setSliderPosition(tabs.findIndex((tab) => tab.id === item))
-            }
-            items={tabs}
+            onSelect={(item) => {
+              events.landing.code(`Selected ${item} tab`);
+              setSliderPosition(data.findIndex((tab) => tab.id === item));
+            }}
+            items={data}
             backgroundColor={theme.colors.gray700}
             borderColor={theme.colors.gray600}
             textColor={theme.colors.gray300}
@@ -60,7 +55,7 @@ const Code = () => {
             style={a11yDark}
             wrapLongLines
           >
-            {codeString}
+            {tab.code}
           </SyntaxHighlighter>
         </CodeContainer>
       </ContentContainer>

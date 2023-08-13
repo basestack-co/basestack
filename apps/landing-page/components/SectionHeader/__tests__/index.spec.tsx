@@ -1,6 +1,11 @@
 import { cleanup } from "@testing-library/react";
-import { renderWithTheme } from "../../../utils/testUtils";
+import { renderWithTheme } from "utils/helpers/testUtils";
 import SectionHeader from "..";
+
+jest.mock("react-use", () => ({
+  ...jest.requireActual("react-use"),
+  useMedia: jest.fn(() => false),
+}));
 
 describe("SectionHeader tests", () => {
   afterEach(cleanup);

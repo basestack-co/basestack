@@ -1,5 +1,5 @@
 // Utils
-import { DOCS_URL, GITHUB_REPO_URL } from "utils/helpers/constants";
+import { config } from "@basestack/utils";
 
 export const internalLinks = [
   {
@@ -18,13 +18,13 @@ export const externalLinks = [
   {
     icon: "description",
     text: "Documentation",
-    to: DOCS_URL,
+    to: config.urls.docs.base,
     isExternal: true,
   },
   {
     icon: "link",
     text: "Github",
-    to: GITHUB_REPO_URL,
+    to: config.urls.repo,
     isExternal: true,
   },
 ];

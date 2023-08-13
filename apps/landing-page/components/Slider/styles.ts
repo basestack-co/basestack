@@ -4,31 +4,60 @@ import { rem } from "polished";
 export const Container = styled.section`
   display: flex;
   flex-direction: column;
-  padding: ${rem("100px")} ${({ theme }) => theme.spacing.s5};
+  padding: ${rem("100px")} 0;
+`;
+
+export const HeaderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0 ${({ theme }) => theme.spacing.s5};
 `;
 
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1440px;
+  max-width: ${rem("1440px")};
   width: 100%;
   margin: 0 auto;
 `;
 
 export const CardsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: ${({ theme }) => theme.spacing.s5};
-  max-width: 1100px;
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.s5};
+  max-width: ${rem("1140px")};
   width: 100%;
-  margin: 0 auto ${({ theme }) => theme.spacing.s8} auto;
-
-  @media screen and ${({ theme }) => theme.device.max.lg} {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  margin: 0 auto;
+  padding: 0 ${({ theme }) => theme.spacing.s5}
+    ${({ theme }) => theme.spacing.s8} ${({ theme }) => theme.spacing.s5};
 
   @media screen and ${({ theme }) => theme.device.max.md} {
-    grid-template-columns: 1fr;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding: ${({ theme }) => theme.spacing.s5};
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
+`;
+
+export const CardWrapper = styled.div`
+  display: flex;
+  flex: 1 0 0;
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    min-width: 320px;
+    scroll-snap-align: start;
+  }
+`;
+
+export const ImageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0 ${({ theme }) => theme.spacing.s5};
 `;
