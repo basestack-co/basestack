@@ -2,7 +2,20 @@
 
 exports[`Accordion tests should render Accordion correctly 1`] = `
 <DocumentFragment>
-  .c2 {
+  .c7 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  font-family: roboto;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: left;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #F6F6F6;
+}
+
+.c2 {
   font-size: 1.125rem;
   line-height: 1.625rem;
   font-weight: 500;
@@ -10,7 +23,7 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
   text-align: left;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
-  color: #000000;
+  color: #CBCBCB;
 }
 
 .c3 {
@@ -20,14 +33,14 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
 }
 
 .c4 {
-  color: #000000;
+  color: #CBCBCB;
   font-size: 2rem;
 }
 
 .c0 {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #E2E2E2;
+  border-bottom: 1px solid #545454;
 }
 
 .c1 {
@@ -45,6 +58,18 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
   opacity: 0.7;
 }
 
+.c5 {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.c6 {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1.25rem;
+}
+
 <div
     class="c0"
   >
@@ -53,6 +78,7 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
     >
       <h3
         class="c2"
+        color="#CBCBCB"
         font-family="roboto"
       >
         My Accordion
@@ -64,6 +90,7 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
       >
         <span
           class="c4 material-symbols-sharp"
+          color="#CBCBCB"
           data-testid="icon"
           size="32"
         >
@@ -71,6 +98,23 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
         </span>
       </div>
     </button>
+    <div
+      class="c5"
+      style="opacity: 0; height: 0px;"
+    >
+      <div
+        class="c6"
+      >
+        <p
+          class="c7"
+          color="#F6F6F6"
+          font-family="roboto"
+          font-weight="400"
+        >
+          This is the content of the accordion.
+        </p>
+      </div>
+    </div>
   </div>
 </DocumentFragment>
 `;

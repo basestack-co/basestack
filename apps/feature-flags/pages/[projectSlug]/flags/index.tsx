@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 // SEO
 import Head from "next/head";
 // Hooks
-import { useMediaQuery } from "@basestack/hooks";
+import { useMedia } from "react-use";
 // Layout
 import MainLayout from "layouts/Main";
 // Store
@@ -24,7 +24,7 @@ import { trpc } from "libs/trpc";
 const FlagsPage = () => {
   const router = useRouter();
   const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.device.min.lg);
+  const isDesktop = useMedia(theme.device.min.lg);
   const setSelectedView = useStore((state) => state.setSelectedView);
   const selectedView = useStore((state) => state.selectedView);
   const [searchValue, setSearchValue] = useState<string>("");

@@ -7,6 +7,7 @@ import { CardsContainer, Container, ContentContainer } from "./styles";
 import SectionHeader from "../SectionHeader";
 
 export interface CardsProps {
+  id?: string;
   title: string;
   text: string;
   cards: Array<{
@@ -17,11 +18,17 @@ export interface CardsProps {
   isDarkMode?: boolean;
 }
 
-const Cards = ({ title, text, cards, isDarkMode = false }: CardsProps) => {
+const Cards = ({
+  title,
+  text,
+  cards,
+  isDarkMode = false,
+  id = "card",
+}: CardsProps) => {
   const theme = useTheme();
 
   return (
-    <Container isDarkMode={isDarkMode}>
+    <Container id={id} isDarkMode={isDarkMode}>
       <ContentContainer>
         <SectionHeader isDarkMode={isDarkMode} title={title} text={text} />
         <CardsContainer>
@@ -34,6 +41,7 @@ const Cards = ({ title, text, cards, isDarkMode = false }: CardsProps) => {
                 color: isDarkMode ? theme.colors.gray50 : theme.colors.black,
                 width: "100%",
                 variant: card.illustration,
+                height: 180,
               }}
               isDarkMode={isDarkMode}
             />

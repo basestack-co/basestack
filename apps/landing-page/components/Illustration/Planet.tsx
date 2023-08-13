@@ -1,10 +1,14 @@
 import { IllustrationProps } from "./types";
 
-const Planet = ({ color, width }: IllustrationProps) => (
+const Planet = ({
+  color,
+  width = "auto",
+  height = "auto",
+}: IllustrationProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
-    height="auto"
+    height={height}
     viewBox="0 0 370 335"
     fill="none"
   >

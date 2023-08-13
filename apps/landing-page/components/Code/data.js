@@ -1,83 +1,66 @@
-export const javascript = `
-  const currentClients = 1000;
-  const newClients = 50;
-  
-  function sum(a: number, b: number) {
-    return a + b;
-  }
-  
-  const numberOfClients = sum(currentClients, newClients);
-  
-  if (numberOfClients > 3000) {
-    alert("Party Time");
-  }
+// Utils
+import { config } from "@basestack/utils";
+
+export const javascriptCode = `
+    import FlagsJS from "@basestack/flags-js-sdk";
+     
+    const sdk = new FlagsJS({
+      apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
+      projectKey: "xxxxx",
+      envKey: "xxxxx",
+    });
+    
+    const MyFeature = async () => {
+      try {
+        const flag = await sdk.flagAsync("header");
+        //flag.enabled true | false
+        //  ...code
+      } catch (e) {
+        throw e;
+      }
+    };
  `;
 
-export const react = `
-  import React, { useState } from "react";
-
-  const currentClients = 1000;
-  const newClients = 50;
-
-  function sum(a, b) {
-    return a + b;
-  }
-
-  const numberOfClients = sum(currentClients, newClients);
-
-  function App() {
-    const [alertMessage, setAlertMessage] = useState("");
-
-    if (numberOfClients > 3000) {
-      setAlertMessage("Party Time");
-    }
-
-    return alertMessage;
-  }
-
-  export default App;
-  
+export const reactCode = `
+    import { useFlag } from "@basestack/flags-react-sdk";
+     
+    const AppComponent = () => {
+      const { enabled } = useFlag("private_msg_2");
+     
+      return (
+        <div>
+          {enabled && <div>This is a great feature</div>}
+        </div>
+      );
+    };
 `;
 
-export const vue = `
-  const currentClients = 1000;
-  const newClients = 50;
+export const restCode = `
+    # Get Flag By Slug/Name
+    curl "https://your-basestack-hosted-app-domain.com/api/v1/flags/:slug" \\
+         -H 'x-project-key: xxxx-xxxx-xxxx' \\
+         -H 'x-environment-key: xxxx-xxxx-xxxx'
+ `;
 
-  function sum(a, b) {
-    return a + b;
-  }
+const data = [
+  {
+    id: "javascript",
+    text: "Javascript",
+    href: config.urls.docs.flags.sdk.javascript,
+    code: javascriptCode,
+  },
+  {
+    id: "react",
+    text: "React",
+    href: config.urls.docs.flags.sdk.react,
+    code: reactCode,
+  },
+  {
+    id: "rest",
+    text: "Rest API",
+    href: config.urls.docs.flags.sdk.rest,
+    code: restCode,
+  },
+];
 
-  const numberOfClients = sum(currentClients, newClients);
-
-  export default {
-    data() {
-      return {
-        alertMessage: ""
-      };
-    },
-    created() {
-      if (numberOfClients > 3000) {
-        this.alertMessage = "Party Time";
-      }
-    }
-  };
-  
-`;
-
-export const jquery = `
-  const currentClients = 1000;
-  const newClients = 50;
-
-  function sum(a, b) {
-    return a + b;
-  }
-
-  const numberOfClients = sum(currentClients, newClients);
-
-  $(document).ready(function() {
-    if (numberOfClients > 3000) {
-      $("#app p").text("Party Time");
-    }
-  });
-  
-`;
+export default data;

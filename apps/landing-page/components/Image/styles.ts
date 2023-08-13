@@ -11,7 +11,7 @@ export const Container = styled.div`
   border-radius: ${rem("20px")};
   width: 100%;
   overflow: hidden;
-  max-width: 1100px;
+  max-width: ${rem("1100px")};
 `;
 
 export const Image = styled.img`

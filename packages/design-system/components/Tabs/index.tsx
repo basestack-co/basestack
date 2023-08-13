@@ -131,7 +131,7 @@ const Tabs = ({
   };
 
   return (
-    <Container>
+    <Container backgroundColor={backgroundColor}>
       {canScrollLeft && renderIconButton("left")}
       {canScrollRight && renderIconButton("right")}
       <ContentContainer ref={scrollRef}>

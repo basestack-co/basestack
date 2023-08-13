@@ -2,11 +2,15 @@ import styled, { css } from "styled-components";
 import { rem } from "polished";
 import { space } from "styled-system";
 
-export const Container = styled.div`
+export const Container = styled.div<{
+  backgroundColor?: string;
+}>`
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background-color: ${({ theme, backgroundColor }) =>
+    backgroundColor || theme.tabs.backgroundColor};
 `;
 
 export const ContentContainer = styled.div`

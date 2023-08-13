@@ -1,50 +1,66 @@
 import React from "react";
-import Head from "next/head";
+import { useIsTop } from "@basestack/hooks";
 // Components
-import { WaitingList } from "../components";
-// Content
-import { waitingList } from "../content/landing-page";
+import {
+  Navigation,
+  Hero,
+  Footer,
+  Banner,
+  Cards,
+  Questions,
+  Slider,
+  Code,
+} from "components";
+import { DarkContainer } from "styles";
+// Data
+import { platform, why, questions, slides } from "content/landing-page";
 
-const MainPage = () => {
+const LandingPage = () => {
+  const [isDarkSectionTop, darkContainer] = useIsTop({ offSet: 80 });
+
   return (
     <>
-      <Head>
-        <title>Basestack - Early Access</title>
-        <meta name="title" content="Basestack - Early Access" />
-        <meta
-          name="description"
-          content="The Essential Stack for Developers and Startups"
+      <Navigation isDarkMode={isDarkSectionTop} />
+      <Hero
+        title="The Open-Source Feature Flag Platform"
+        text="Basestack Feature Flags is a self-hosted platform that offers an effortless way to host your own Feature Flags management system."
+        image={{
+          src: "/images/flags_cards_popups.png",
+          alt: "product demo",
+        }}
+      />
+      <Cards
+        id="platform"
+        title="Introducing the Platform"
+        text="Basestack Feature Flags is a user-friendly platform that simplifies the development, implementation, and management of your feature flags."
+        cards={platform}
+      />
+      <Slider
+        id="features"
+        title="Discover the Features"
+        text="Discover a complete platform for creating, implementing, and managing your feature flags with Basestack Feature Flags."
+        data={slides}
+      />
+      <DarkContainer ref={darkContainer}>
+        <Code id="code" />
+        <Cards
+          id="why"
+          title="Unconvinced about Feature Flags?"
+          text="Feature flagging is a powerful technique where developers wrap a new feature in an if/then statement to gain greater control over its release and behavior."
+          cards={why}
+          isDarkMode
         />
-
-        {/* <!-- Open Graph / Facebook -->*/}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://basestack.co/" />
-        <meta property="og:title" content="Basestack - Early Access" />
-        <meta
-          property="og:description"
-          content="The Essential Stack for Developers and Startups"
+        <Questions
+          id="questions"
+          title="Frequently Asked Questions"
+          text="Explore our collection of useful questions and answers about the Feature Flags Platform. If you don't find the answer to your question here, feel free to open a discussion on Github."
+          data={questions}
         />
-        <meta
-          property="og:image"
-          content="https://www.vitoramaral.co/api/og?title=⛳,🌐,💻"
-        />
-
-        {/* <!-- Twitter -->*/}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://basestack.co/" />
-        <meta property="twitter:title" content="Basestack - Early Access" />
-        <meta
-          property="twitter:description"
-          content="The Essential Stack for Developers and Startups"
-        />
-        <meta
-          property="twitter:image"
-          content="https://www.vitoramaral.co/api/og?title=⛳,🌐,💻"
-        />
-      </Head>
-      <WaitingList data={waitingList} />
+        <Banner id="banner" />
+        <Footer />
+      </DarkContainer>
     </>
   );
 };
 
-export default MainPage;
+export default LandingPage;

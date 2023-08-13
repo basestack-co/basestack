@@ -5,28 +5,45 @@ exports[`Slider tests should render Slider correctly 1`] = `
   .c0 {
   display: flex;
   flex-direction: column;
-  padding: 6.25rem 1.25rem;
+  padding: 6.25rem 0;
+}
+
+.c2 {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.25rem;
 }
 
 .c1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1440px;
+  max-width: 90rem;
   width: 100%;
   margin: 0 auto;
 }
 
-.c5 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1.25rem;
-  max-width: 1100px;
+.c6 {
+  display: flex;
+  gap: 1.25rem;
+  max-width: 71.25rem;
   width: 100%;
-  margin: 0 auto 3.125rem auto;
+  margin: 0 auto;
+  padding: 0 1.25rem 3.125rem 1.25rem;
 }
 
-.c11 {
+.c7 {
+  display: flex;
+  flex: 1 0 0;
+}
+
+.c14 {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.25rem;
+}
+
+.c13 {
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 500;
@@ -38,7 +55,7 @@ exports[`Slider tests should render Slider correctly 1`] = `
   color: #757575;
 }
 
-.c10 {
+.c12 {
   font-size: 1.125rem;
   line-height: 1.625rem;
   font-weight: 500;
@@ -49,7 +66,7 @@ exports[`Slider tests should render Slider correctly 1`] = `
   color: #000000;
 }
 
-.c4 {
+.c5 {
   font-size: 1.25rem;
   line-height: 1.875rem;
   font-weight: 500;
@@ -62,62 +79,32 @@ exports[`Slider tests should render Slider correctly 1`] = `
   color: #757575;
 }
 
-.c3 {
+.c4 {
   font-size: 1.5rem;
   line-height: 2.25rem;
   font-weight: 700;
-  font-family: robotoFlex;
+  font-family: 'Roboto Flex',sans-serif;
   font-size: 2.625rem;
-  line-height: 1.4;
+  line-height: 1.3;
   text-align: center;
   margin-bottom: 0.5rem;
-  font-family: 'Roboto Flex',sans-serif;
+  font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #000000;
 }
 
-.c8 {
+.c10 {
   height: 1.5rem;
   width: 1.5rem;
   flex-shrink: 0;
 }
 
-.c9 {
-  color: #276EF1;
-  font-size: 1.5rem;
-}
-
-.c13 {
+.c11 {
   color: #000000;
   font-size: 1.5rem;
 }
 
-.c6 {
-  position: relative;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  background-color: #FFFFFF;
-  border-radius: 1.25rem;
-  padding: 1.25rem 1.25rem 1.5625rem 1.25rem;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-  cursor: pointer;
-  transition: scale 0.2s ease-in-out;
-  overflow: hidden;
-}
-
-.c6::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  animation: bHTXJE 10s linear;
-  height: 5px;
-  background-color: #276EF1;
-}
-
-.c12 {
+.c8 {
   position: relative;
   border: none;
   display: flex;
@@ -132,13 +119,13 @@ exports[`Slider tests should render Slider correctly 1`] = `
   overflow: hidden;
 }
 
-.c7 {
+.c9 {
   display: flex;
   align-items: center;
   margin-bottom: 0.75rem;
 }
 
-.c14 {
+.c15 {
   display: flex;
   flex-direction: column;
   background-color: #F6F6F6;
@@ -146,15 +133,15 @@ exports[`Slider tests should render Slider correctly 1`] = `
   border-radius: 1.25rem;
   width: 100%;
   overflow: hidden;
-  max-width: 1100px;
+  max-width: 68.75rem;
 }
 
-.c15 {
+.c16 {
   width: 100%;
   height: auto;
 }
 
-.c2 {
+.c3 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -162,20 +149,31 @@ exports[`Slider tests should render Slider correctly 1`] = `
   margin-bottom: 3.125rem;
 }
 
-@media screen and (max-width: 991.98px) {
-  .c5 {
-    grid-template-columns: repeat(2, 1fr);
+@media screen and (max-width: 767.98px) {
+  .c6 {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 1.25rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .c6::-webkit-scrollbar {
+    display: none;
   }
 }
 
 @media screen and (max-width: 767.98px) {
-  .c5 {
-    grid-template-columns: 1fr;
+  .c7 {
+    min-width: 320px;
+    scroll-snap-align: start;
   }
 }
 
 <section
     class="c0"
+    id="slider"
   >
     <div
       class="c1"
@@ -183,140 +181,160 @@ exports[`Slider tests should render Slider correctly 1`] = `
       <div
         class="c2"
       >
-        <h2
+        <div
           class="c3"
-          color="#000000"
-          font-family="robotoFlex"
-          font-size="2.625rem"
         >
-          Release with Confidence
-        </h2>
-        <p
-          class="c4"
-          color="#757575"
-          font-family="roboto"
-          font-weight="400"
-        >
-          MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags.
-        </p>
+          <h2
+            class="c4"
+            color="#000000"
+            font-family="'Roboto Flex', sans-serif"
+            font-size="2.625rem"
+          >
+            Release with Confidence
+          </h2>
+          <p
+            class="c5"
+            color="#757575"
+            font-family="roboto"
+            font-weight="400"
+          >
+            MoonFlags provides an all-in-one platform for developing, implementing, and managing your feature flags.
+          </p>
+        </div>
       </div>
       <div
-        class="c5"
+        class="c6"
       >
-        <button
-          class="c6"
+        <div
+          class="c7"
         >
-          <div
-            class="c7"
+          <button
+            class="c8"
           >
             <div
-              class="c8"
-              data-testid="icon-container"
-              size="24"
+              class="c9"
             >
-              <span
-                class="c9 material-symbols-sharp"
-                color="#276EF1"
-                data-testid="icon"
+              <div
+                class="c10"
+                data-testid="icon-container"
                 size="24"
               >
-                person
-              </span>
+                <span
+                  class="c11 material-symbols-sharp"
+                  color="#000000"
+                  data-testid="icon"
+                  size="24"
+                >
+                  person
+                </span>
+              </div>
+              <h3
+                class="c12"
+                font-family="roboto"
+              >
+                User traits
+              </h3>
             </div>
-            <h3
-              class="c10"
+            <p
+              class="c13"
               font-family="roboto"
+              font-weight="400"
             >
-              User traits
-            </h3>
-          </div>
-          <p
-            class="c11"
-            font-family="roboto"
-            font-weight="400"
-          >
-            MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.
-          </p>
-        </button>
-        <button
-          class="c12"
+              MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.
+            </p>
+          </button>
+        </div>
+        <div
+          class="c7"
         >
-          <div
-            class="c7"
+          <button
+            class="c8"
           >
             <div
-              class="c8"
-              data-testid="icon-container"
-              size="24"
+              class="c9"
             >
-              <span
-                class="c13 material-symbols-sharp"
-                color="#000000"
-                data-testid="icon"
+              <div
+                class="c10"
+                data-testid="icon-container"
                 size="24"
               >
-                send
-              </span>
+                <span
+                  class="c11 material-symbols-sharp"
+                  color="#000000"
+                  data-testid="icon"
+                  size="24"
+                >
+                  send
+                </span>
+              </div>
+              <h3
+                class="c12"
+                font-family="roboto"
+              >
+                Staged feature rollouts
+              </h3>
             </div>
-            <h3
-              class="c10"
+            <p
+              class="c13"
               font-family="roboto"
+              font-weight="400"
             >
-              Staged feature rollouts
-            </h3>
-          </div>
-          <p
-            class="c11"
-            font-family="roboto"
-            font-weight="400"
-          >
-            MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.
-          </p>
-        </button>
-        <button
-          class="c12"
+              MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.
+            </p>
+          </button>
+        </div>
+        <div
+          class="c7"
         >
-          <div
-            class="c7"
+          <button
+            class="c8"
           >
             <div
-              class="c8"
-              data-testid="icon-container"
-              size="24"
+              class="c9"
             >
-              <span
-                class="c13 material-symbols-sharp"
-                color="#000000"
-                data-testid="icon"
+              <div
+                class="c10"
+                data-testid="icon-container"
                 size="24"
               >
-                history
-              </span>
+                <span
+                  class="c11 material-symbols-sharp"
+                  color="#000000"
+                  data-testid="icon"
+                  size="24"
+                >
+                  history
+                </span>
+              </div>
+              <h3
+                class="c12"
+                font-family="roboto"
+              >
+                Track Changes
+              </h3>
             </div>
-            <h3
-              class="c10"
+            <p
+              class="c13"
               font-family="roboto"
+              font-weight="400"
             >
-              Track Changes
-            </h3>
-          </div>
-          <p
-            class="c11"
-            font-family="roboto"
-            font-weight="400"
-          >
-            MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.
-          </p>
-        </button>
+              MoonFlags makes it easy to create and manage feature toggles across web, mobile, and server-side applications.
+            </p>
+          </button>
+        </div>
       </div>
       <div
         class="c14"
       >
-        <img
-          alt="product demo"
+        <div
           class="c15"
-          src="https://images.pexels.com/photos/3912477/pexels-photo-3912477.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        />
+        >
+          <img
+            alt="product demo"
+            class="c16"
+            src="https://images.pexels.com/photos/3912477/pexels-photo-3912477.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          />
+        </div>
       </div>
     </div>
   </section>

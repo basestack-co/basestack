@@ -7,7 +7,7 @@ import {
   Table,
 } from "@basestack/design-system";
 import { useTheme } from "styled-components";
-import { useMediaQuery } from "@basestack/hooks";
+import { useMedia } from "react-use";
 import SettingCard from "../SettingCard";
 import MobileCard from "../MobileCard";
 // Libs
@@ -30,7 +30,7 @@ type Props = ProjectSettings;
 
 const InviteCard = ({ project }: Props) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.device.max.md);
+  const isMobile = useMedia(theme.device.max.md);
   const session = useSession();
   const router = useRouter();
   const trpcContext = trpc.useContext();
