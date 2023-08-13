@@ -102,15 +102,14 @@ export default function RootLayout({
 }
 ```
 
-## Cache vs Async
+## State vs Async
 
-The SDK provides two alternatives for fetching a feature flag: the **useFlag** and **useFlagAsync** hooks. Both serve the same purpose of retrieving a flag by its name. However, the 'useFlag' hook utilizes the cached version, resulting in faster access, while 'useFlagAsync' hook fetches the latest version directly from the server.
+The SDK provides two alternatives for fetching a feature flag: the **useFlag** and **useFlagAsync** hooks. Both serve the same purpose of retrieving a flag by its name. However, the 'useFlag' hook utilizes the state version, resulting in faster access, while 'useFlagAsync' hook fetches the latest version directly from the server.
 
-Which hook should you choose? It depends on your specific needs. If having the most up-to-date version of the flag is crucial and it changes frequently, then opt for the async hooks. On the other hand, if the flag doesn't undergo frequent changes and you prioritize performance, the hook with cache support are the ideal choice. Assess your requirements and select the method that aligns best with your priorities.
+Which hook should you choose? It depends on your specific needs. If having the most up-to-date version of the flag is crucial, and it changes frequently, then opt for the async hooks. On the other hand, if the flag doesn't undergo frequent changes, and you prioritize performance, the hook with state support are the ideal choice. Assess your requirements and select the method that aligns best with your priorities.
 
 <Callout>
-  The cache functions as a state container that automatically updates every time
-  your app is restarted or updated.
+  The state management updates every time your app is restarted or updated.
 </Callout>
 
 ```js copy filename="main.js"

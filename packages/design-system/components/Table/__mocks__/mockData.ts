@@ -17,9 +17,9 @@ export const mockTableData = {
         },
       ],
       more: [
-        { text: "Edit", onClick: () => console.log("") },
-        { text: "History", onClick: () => console.log("") },
-        { text: "Delete", onClick: () => console.log("") },
+        { text: "Edit", onClick: () => jest.fn },
+        { text: "History", onClick: () => jest.fn },
+        { text: "Delete", onClick: () => jest.fn },
       ],
     },
     {
@@ -38,9 +38,9 @@ export const mockTableData = {
         },
       ],
       more: [
-        { text: "Edit", onClick: () => console.log("") },
-        { text: "History", onClick: () => console.log("") },
-        { text: "Delete", onClick: () => console.log("") },
+        { text: "Edit", onClick: () => jest.fn },
+        { text: "History", onClick: () => jest.fn },
+        { text: "Delete", onClick: () => jest.fn },
       ],
     },
   ],

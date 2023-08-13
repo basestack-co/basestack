@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useConfig, type DocsThemeConfig } from "nextra-theme-docs";
-// Utils
-import { REPO_URL } from "utils/helpers";
+
+export const REPO_URL = "https://github.com/basestack-co/basestack";
 
 const config: DocsThemeConfig = {
   logo: <span>Basestack</span>,
@@ -9,7 +9,7 @@ const config: DocsThemeConfig = {
   project: {
     link: REPO_URL,
   },
-  docsRepositoryBase: `${REPO_URL}/blob/master/apps/feature-flags-docs/pages`,
+  docsRepositoryBase: `${REPO_URL}/blob/master/apps/docs/pages`,
   useNextSeoProps: function SEO() {
     const { frontMatter } = useConfig();
     const section = "Basestack Docs";
@@ -65,7 +65,7 @@ const config: DocsThemeConfig = {
     ),
   }, */
   footer: {
-    text: "Basestack Docs",
+    text: "© Basestack 2023",
   },
   /* footer: {
     component: () => <p>Basestack Docs</p>,

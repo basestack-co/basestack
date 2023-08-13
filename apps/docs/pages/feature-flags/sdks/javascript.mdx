@@ -64,7 +64,7 @@ In a Node environment, you should use the **flagAsync** and **flagsAsync** metho
 
 ```js copy filename="main.js"
 import FlagsJS from "@basestack/flags-js-sdk";
-// or const FlagsJS = require("@basestack/flags-js-sdk").default;
+// or const FlagsJS = require("@basestack/flags-js-sdk")
 
 const sdk = new FlagsJS({
   apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
@@ -77,9 +77,9 @@ const sdk = new FlagsJS({
 await sdk.flagsAsync();
 ```
 
-## Fetching and Caching Feature Flags
+## State vs Async
 
-To enhance your application's performance, our SDK includes caching features that enable you to use methods like **flags** and **flags**, providing instantaneous responses. To take advantage of this functionality, it's essential to initialize the request for the cache.
+To enhance your application's performance, our SDK includes state management features that enable you to use methods like **flags** and **flags**, providing instantaneous responses. To take advantage of this functionality, it's essential to initialize the request for the state management to work.
 
 ```js copy filename="main.js"
 const sdk = new FlagsJS({
@@ -96,15 +96,12 @@ if (sdk.isInitialized) {
 }
 ```
 
-## Cache vs Async
+The SDK provides two alternatives for fetching a feature flag: the 'flag' and 'flagAsync' methods. Both serve the same purpose of retrieving a flag by its name. However, the 'flag' method uses the state version, resulting in faster access, while 'flagAsync' fetches the latest version directly from the server.
 
-The SDK provides two alternatives for fetching a feature flag: the 'flag' and 'flagAsync' methods. Both serve the same purpose of retrieving a flag by its name. However, the 'flag' method uses the cached version, resulting in faster access, while 'flagAsync' fetches the latest version directly from the server.
-
-Which method should you choose? It depends on your specific needs. If having the most up-to-date version of the flag is crucial and it changes frequently, then opt for the async methods. On the other hand, if the flag doesn't undergo frequent changes and you prioritize performance, the methods with cache support are the ideal choice. Assess your requirements and select the method that aligns best with your priorities.
+Which method should you choose? It depends on your specific needs. If having the most up-to-date version of the flag is crucial, and it changes frequently, then opt for the async methods. On the other hand, if the flag doesn't undergo frequent changes, and you prioritize performance, the methods with state management support are the ideal choice. Assess your requirements and select the method that aligns best with your priorities.
 
 <Callout>
-  The cache functions as a state container that automatically updates every time
-  your app is restarted or updated.
+  The state management updates every time your app is restarted or updated.
 </Callout>
 
 ```js copy filename="main.js"

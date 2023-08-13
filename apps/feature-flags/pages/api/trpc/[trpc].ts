@@ -7,6 +7,7 @@ export default trpcNext.createNextApiHandler({
   createContext,
   onError({ error }) {
     if (error.code === "INTERNAL_SERVER_ERROR") {
+      /* eslint-disable no-console */
       console.error("Something went wrong", error);
     }
   },
