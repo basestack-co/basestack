@@ -136,3 +136,19 @@ export const BurgerMenu = styled.div<{ isDarkMode: boolean }>`
     display: none;
   }
 `;
+
+export const DocsFullText = styled.span`
+  display: none;
+
+  @media screen and ${({ theme }) => theme.device.min.lg} {
+    display: inline-flex;
+  }
+`;
+
+export const DocsShortText = styled.span`
+  display: none;
+
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    display: inline-flex;
+  }
+`;

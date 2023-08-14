@@ -7,7 +7,7 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
   flex-direction: column;
   background-color: #F6F6F6;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
-  border-radius: 1.25rem;
+  border-radius: 0.5rem;
   width: 100%;
   overflow: hidden;
   max-width: 68.75rem;
@@ -301,7 +301,7 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
   flex-direction: column;
   text-align: left;
   background-color: #FFFFFF;
-  border-radius: 1.25rem;
+  border-radius: 0.5rem;
   padding: 1.25rem 1.25rem 1.5625rem 1.25rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   cursor: pointer;

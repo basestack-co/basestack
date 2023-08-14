@@ -6,7 +6,7 @@ export const Container = styled.div<{ isDarkMode: boolean }>`
   flex-direction: column;
   background: ${({ theme, isDarkMode }) =>
     isDarkMode ? theme.colors.gray700 : theme.colors.white};
-  border-radius: ${rem("20px")};
+  border-radius: ${rem("8px")};
   padding: ${({ theme }) => theme.spacing.s5};
   box-shadow: ${({ theme }) => theme.shadow.elevation3};
 `;

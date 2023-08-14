@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
-import { space, typography, TypographyProps } from "styled-system";
+import { rem } from "polished";
+import { space, typography } from "styled-system";
 import { Text } from "@basestack/design-system";
 
 export const Container = styled.div<{ hasMarginBottom: boolean }>`
@@ -24,7 +25,12 @@ const animateText = keyframes`
   }
 `;
 
-export const AnimatedText = styled(Text)<TypographyProps>`
+interface AnimatedTextProps {
+  titleSize: "normal" | "large";
+  as: string;
+}
+
+export const AnimatedText = styled(Text)<AnimatedTextProps>`
   ${typography};
   ${space};
   background: linear-gradient(
@@ -40,4 +46,11 @@ export const AnimatedText = styled(Text)<TypographyProps>`
   text-fill-color: transparent;
   background-size: 500% auto;
   animation: ${animateText} 5s ease-in-out infinite alternate;
+  font-family: ${({ theme }) => theme.typography.robotoFlex};
+  font-size: ${({ titleSize }) =>
+    titleSize === "normal" ? rem("42px") : rem("60px")};
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    font-size: ${rem("32px")};
+  }
 `;

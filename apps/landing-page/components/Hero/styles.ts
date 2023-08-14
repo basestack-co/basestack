@@ -35,6 +35,12 @@ export const ContentContainer = styled.div`
 export const ButtonsContainer = styled.div`
   display: flex;
   margin-top: ${({ theme }) => theme.spacing.s5};
+  gap: ${({ theme }) => theme.spacing.s3};
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    align-items: center;
+    flex-direction: column;
+  }
 `;
 
 export const ImageContainer = styled.div`
