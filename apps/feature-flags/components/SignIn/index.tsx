@@ -43,7 +43,7 @@ const getProviderLogo = (provider: providers) => {
 const SignIn = ({ providers, isLoading = false }: SignInProps) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const { colors, isDarkMode, device, spacing } = useTheme();
-  const isDesktop = useMedia(device.min.lg);
+  const isDesktop = useMedia(device.min.lg, false);
 
   return (
     <Container>

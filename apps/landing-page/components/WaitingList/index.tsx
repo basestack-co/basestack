@@ -52,7 +52,7 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const WaitingList = ({ data }: WaitingListProps) => {
   const theme = useTheme();
-  const isMobile = useMedia(theme.device.max.md);
+  const isMobile = useMedia(theme.device.max.md, false);
   const [currentImage, setCurrentImage] = useState(0);
   const cardRef = useRef<HTMLDivElement>(null);
 

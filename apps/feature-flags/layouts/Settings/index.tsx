@@ -42,7 +42,7 @@ const buttons = [
 
 const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   const theme = useTheme();
-  const isDesktop = useMedia(theme.device.min.lg);
+  const isDesktop = useMedia(theme.device.min.lg, false);
   const router = useRouter();
 
   const projectSlug = router.query.projectSlug as string;

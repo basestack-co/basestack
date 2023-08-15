@@ -30,7 +30,7 @@ type Props = ProjectSettings;
 
 const InviteCard = ({ project }: Props) => {
   const theme = useTheme();
-  const isMobile = useMedia(theme.device.max.md);
+  const isMobile = useMedia(theme.device.max.md, false);
   const session = useSession();
   const router = useRouter();
   const trpcContext = trpc.useContext();
