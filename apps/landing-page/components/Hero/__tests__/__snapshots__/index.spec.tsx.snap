@@ -65,7 +65,6 @@ exports[`Hero tests should renders Hero correctly 1`] = `
   color: #FFFFFF;
   width: medium;
   height: medium;
-  margin-left: 0.75rem;
   width: fit-content;
 }
 
@@ -116,6 +115,7 @@ exports[`Hero tests should renders Hero correctly 1`] = `
 .c5 {
   display: flex;
   margin-top: 1.25rem;
+  gap: 0.75rem;
 }
 
 .c2 {
@@ -126,10 +126,8 @@ exports[`Hero tests should renders Hero correctly 1`] = `
 }
 
 .c3 {
-  font-size: 3.75rem;
   line-height: 1.3;
   text-align: center;
-  font-family: 'Roboto Flex',sans-serif;
   margin-bottom: 0.5rem;
   background: linear-gradient(     to right,     #000000 20%,     #1E54B7 30%,     #5B91F5 70%,     #574191 80%   );
   -webkit-background-clip: text;
@@ -138,6 +136,21 @@ exports[`Hero tests should renders Hero correctly 1`] = `
   text-fill-color: transparent;
   background-size: 500% auto;
   animation: fgyhpo 5s ease-in-out infinite alternate;
+  font-family: 'Roboto Flex',sans-serif;
+  font-size: 3.75rem;
+}
+
+@media screen and (max-width: 575.98px) {
+  .c5 {
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  .c3 {
+    font-size: 2rem;
+  }
 }
 
 <section
@@ -152,8 +165,6 @@ exports[`Hero tests should renders Hero correctly 1`] = `
         <h1
           class="c3"
           color="#000000"
-          font-family="'Roboto Flex', sans-serif"
-          font-size="3.75rem"
         >
           Welcome to my app
         </h1>

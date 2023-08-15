@@ -19,8 +19,7 @@ exports[`SectionHeader tests should render default SectionHeader correctly 1`] =
   font-size: 1.5rem;
   line-height: 2.25rem;
   font-weight: 700;
-  font-family: 'Roboto Flex',sans-serif;
-  font-size: 2.625rem;
+  font-family: roboto;
   line-height: 1.3;
   text-align: center;
   margin-bottom: 0.5rem;
@@ -42,8 +41,7 @@ exports[`SectionHeader tests should render default SectionHeader correctly 1`] =
     <h2
       class="c1"
       color="#000000"
-      font-family="'Roboto Flex', sans-serif"
-      font-size="2.625rem"
+      font-family="roboto"
     >
       Section Title
     </h2>
@@ -78,8 +76,7 @@ exports[`SectionHeader tests should render large SectionHeader in dark mode 1`] 
   font-size: 1.5rem;
   line-height: 2.25rem;
   font-weight: 700;
-  font-family: 'Roboto Flex',sans-serif;
-  font-size: 3.75rem;
+  font-family: roboto;
   line-height: 1.3;
   text-align: center;
   margin-bottom: 0.5rem;
@@ -102,8 +99,7 @@ exports[`SectionHeader tests should render large SectionHeader in dark mode 1`] 
     <h1
       class="c1"
       color="#F6F6F6"
-      font-family="'Roboto Flex', sans-serif"
-      font-size="3.75rem"
+      font-family="roboto"
     >
       Section Title
     </h1>
