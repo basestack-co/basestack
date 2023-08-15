@@ -3,7 +3,7 @@ import { useTheme } from "styled-components";
 import { useMedia } from "react-use";
 // Components
 import { Text } from "@basestack/design-system";
-import { AnimatedText, Container } from "./styles";
+import { Container, Title } from "./styles";
 
 export interface SectionHeaderProps {
   title: string;
@@ -25,21 +25,18 @@ const SectionHeader = ({
   const theme = useTheme();
   const isMobile = useMedia(theme.device.max.md);
 
-  const TitleComponent = hasAnimatedText ? AnimatedText : Text;
-
   return (
     <Container hasMarginBottom={hasMarginBottom}>
-      <TitleComponent
-        size="xxLarge"
+      <Title
         lineHeight="1.3"
         textAlign="center"
         mb={theme.spacing.s2}
-        as={titleSize === "normal" ? "h2" : "h1"}
         color={isDarkMode ? theme.colors.gray50 : theme.colors.black}
         titleSize={titleSize}
+        hasAnimatedText={hasAnimatedText}
       >
         {title}
-      </TitleComponent>
+      </Title>
       <Text
         size={isMobile ? "large" : "xLarge"}
         fontWeight={400}

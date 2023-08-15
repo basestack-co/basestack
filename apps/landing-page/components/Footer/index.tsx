@@ -68,12 +68,14 @@ const Footer = () => {
       const params = new URLSearchParams({
         includeListId: "4",
         email: input.email,
+        templateId: "1", // Default Template Double opt-in confirmation
+        redirectionUrl: "https://basestack.co",
       });
 
       const res = await fetch(
         `${
           process.env.NEXT_PUBLIC_EMAIL_SERVICE
-        }/contacts/create?${params.toString()}`,
+        }/email/subscribe?${params.toString()}`,
         {
           method: "POST",
           headers: {
