@@ -24,7 +24,7 @@ import { Role } from "@prisma/client";
 type Props = ProjectSettings;
 const EnvironmentsCard = ({ project }: Props) => {
   const theme = useTheme();
-  const isMobile = useMedia(theme.device.max.md);
+  const isMobile = useMedia(theme.device.max.md, false);
   const trpcContext = trpc.useContext();
   const setCreateEnvironmentModalOpen = useStore(
     (state) => state.setCreateEnvironmentModalOpen,

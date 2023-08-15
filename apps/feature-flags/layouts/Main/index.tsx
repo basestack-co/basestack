@@ -15,7 +15,7 @@ import { trpc } from "libs/trpc";
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const isMobile = useMedia(theme.device.max.lg);
+  const isMobile = useMedia(theme.device.max.lg, false);
   const router = useRouter();
   const { status } = useSession({
     required: true,

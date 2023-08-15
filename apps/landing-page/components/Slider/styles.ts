@@ -46,7 +46,7 @@ export const CardsContainer = styled.div`
   }
 `;
 
-export const CardWrapper = styled.div`
+export const CardContainer = styled.div`
   display: flex;
   flex: 1 0 0;
 
@@ -54,6 +54,11 @@ export const CardWrapper = styled.div`
     min-width: 320px;
     scroll-snap-align: start;
   }
+`;
+
+export const SlideCardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ImageContainer = styled.div`
