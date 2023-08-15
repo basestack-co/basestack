@@ -25,7 +25,7 @@ export const Banner = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   background-color: ${({ theme }) => theme.colors.primary};
-  border-radius: ${rem("20px")};
+  border-radius: ${rem("8px")};
   padding: ${({ theme }) => theme.spacing.s8};
   min-height: 425px;
   box-shadow: ${({ theme }) => theme.shadow.elevation3};

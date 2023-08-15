@@ -21,7 +21,7 @@ export const CardContainer = styled.button<{
   text-align: left;
   background-color: ${({ theme, isActive }) =>
     isActive ? theme.colors.white : theme.colors.gray50};
-  border-radius: ${rem("20px")};
+  border-radius: ${rem("8px")};
   padding: ${({ theme }) => theme.spacing.s5} ${({ theme }) => theme.spacing.s5}
     ${rem("25px")} ${({ theme }) => theme.spacing.s5};
   box-shadow: ${({ theme }) => theme.shadow.elevation3};
