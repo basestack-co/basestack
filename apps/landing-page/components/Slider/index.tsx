@@ -5,12 +5,13 @@ import { useMedia } from "react-use";
 import { events } from "@basestack/utils";
 // Components
 import {
+  CardContainer,
   CardsContainer,
-  CardWrapper,
   Container,
   ContentContainer,
   HeaderContainer,
   ImageContainer,
+  SlideCardContainer,
 } from "./styles";
 import SlideCard from "../SlideCard";
 import Image from "../Image";
@@ -28,7 +29,12 @@ export interface SliderProps {
   }>;
 }
 
-const Slider = ({ title, text, data, id = "slider" }: SliderProps) => {
+const Slider = ({
+  title,
+  text,
+  data,
+  id = "features-section",
+}: SliderProps) => {
   const theme = useTheme();
   const isMobile = useMedia(theme.device.max.md, false);
   const [currentImage, setCurrentImage] = useState(0);
@@ -65,21 +71,23 @@ const Slider = ({ title, text, data, id = "slider" }: SliderProps) => {
         </HeaderContainer>
         <CardsContainer>
           {data?.map((item, index) => (
-            <CardWrapper
+            <CardContainer
               key={index}
               ref={index === currentImage ? cardRef : null}
             >
-              <SlideCard
-                isActive={index === currentImage}
-                icon={item.icon}
-                title={item.title}
-                text={item.text}
-                onClick={() => {
-                  events.landing.slider(item.title, item.text);
-                  setCurrentImage(index);
-                }}
-              />
-            </CardWrapper>
+              <SlideCardContainer>
+                <SlideCard
+                  isActive={index === currentImage}
+                  icon={item.icon}
+                  title={item.title}
+                  text={item.text}
+                  onClick={() => {
+                    events.landing.slider(item.title, item.text);
+                    setCurrentImage(index);
+                  }}
+                />
+              </SlideCardContainer>
+            </CardContainer>
           ))}
         </CardsContainer>
         <ImageContainer>
