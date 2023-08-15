@@ -51,8 +51,9 @@
       "outputs": ["out/**", ".next/**"]
     },
     "@basestack/docs#deploy": {
-      "dependsOn": ["lint"],
-      "outputs": ["out/**", ".next/**"]
+      "dependsOn": ["lint", "@basestack/utils#build"],
+      "outputs": ["out/**", ".next/**"],
+      "env": ["NEXT_PUBLIC_UMAMI_WEBSITE_ID"]
     }
   }
 }
