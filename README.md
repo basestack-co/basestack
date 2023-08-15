@@ -2,13 +2,15 @@
 
 # Basestack Platform
 
-**Basestack** is an open-source stack designed specifically for developers and startups. It offers a comprehensive suite of tools, including Feature Flags, with additional tools such as Feedback, Forms, and more on the horizon. Our goal is to empower you in building great products.
+**Basestack** is an open-source stack designed specifically for developers and startups. It offers a suite of tools, including Feature Flags, with additional tools such as Feedback, Forms, and more on the horizon. Our goal is to empower you in building great products.
 
-#### Useful Links
+#### Tools
 
-- [Documentation](https://docs.basestack.co)
+- ⛳ Feature Flags (beta) [Docs](https://docs.basestack.co/feature-flags) | [Website](https://basestack.co/)
+- 📄 Forms (Planned)
+- 💬 Feedback (Planned)
 
-## Getting started
+## Getting started with Feature Flags
 
 Basestack is a self-hosting platform that provides an effortless method to host your very own Feature Flags management platform. By leveraging services like [Vercel ↗](https://vercel.com/), any developer, whether an indie or startup, gains full control over their features and data. Ultimately, the platform is housed in your account, under your management, giving you complete control over your data.
 
