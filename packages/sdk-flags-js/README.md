@@ -14,19 +14,19 @@ Quick links
 First, let's install some packages!
 
 ```bash
-npm install --save @basestack/flags-js-sdk
+npm install --save @basestack/flags-js
 ```
 
 or with yarn
 
 ```bash
-yarn add @basestack/flags-js-sdk
+yarn add @basestack/flags-js
 ```
 
 or with Script Tag
 
 ```bash
-<script type="module" src="https://unpkg.com/@basestack/flags-js-sdk"></script>
+<script type="module" src="https://unpkg.com/@basestack/flags-js"></script>
 ```
 
 ## Create a new instance
@@ -34,7 +34,7 @@ or with Script Tag
 This params values can be found on the on your project's settings
 
 ```js
-import FlagsJS from "@basestack/flags-js-sdk";
+import FlagsJS from "@basestack/flags-js";
 
 const sdk = new FlagsJS({
   apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
@@ -43,12 +43,12 @@ const sdk = new FlagsJS({
 });
 ```
 
-That's it! Now your app is ready to start using feature flags and other features. Follow the instructions of the supported methods to make the most of the UpStamps functionalities.
+That's it! Now your app is ready to start using feature flags and other features. Follow the instructions of the supported methods to make the most of the Basestack Feature Flags functionalities.
 
 ## Usage
 
 ```js
-import FlagsJS from "@basestack/flags-js-sdk";
+import FlagsJS from "@basestack/flags-js";
 
 const sdk = new FlagsJS({
   apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",

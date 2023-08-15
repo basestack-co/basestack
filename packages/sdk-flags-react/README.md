@@ -14,24 +14,24 @@ Quick links
 First, let's install some packages!
 
 ```bash
-npm install --save @basestack/flags-js-sdk @basestack/flags-react-sdk
+npm install --save @basestack/flags-js @basestack/flags-react
 ```
 
 or with yarn
 
 ```bash
-yarn add @basestack/flags-js-sdk @basestack/flags-react-sdk
+yarn add @basestack/flags-js @basestack/flags-react
 ```
 
 ## Create a client provider
 
 With all the dependencies you installed, let's create your Basestack FlagsJS Client.
 
-In our `index.js` file, let's import `FlagsProvider` from `@basestack/flags-react-sdk` and add the configuration params based on your Basestack project. This params values can be found on your project settings page.
+In our `index.js` file, let's import `FlagsProvider` from `@basestack/flags-react` and add the configuration params based on your Basestack project. This params values can be found on your project settings page.
 
 ```js
-import FlagsJS from "@basestack/flags-js-sdk";
-import { FlagsProvider } from "@basestack/flags-react-sdk";
+import FlagsJS from "@basestack/flags-js";
+import { FlagsProvider } from "@basestack/flags-react";
 
 const sdk = new FlagsJS({
   apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
@@ -49,7 +49,7 @@ root.render(
 );
 ```
 
-That's it! Now your app is ready to start using feature flags and other features. Let's start using by importing some pre-built components inside of `@basestack/flags-react-sdk`.
+That's it! Now your app is ready to start using feature flags and other features. Let's start using by importing some pre-built components inside of `@basestack/flags-react`.
 
 ## Flags
 
@@ -62,7 +62,7 @@ Feature flags are an excellent way to test features in production. Take advantag
 The library support React hooks. Use `useFlag` for a programmatical method. There's no limit to `useFlag`, just change the names. See the examples.
 
 ```js
-import {  useFlag } from "@basestack/flags-react-sdk";
+import {  useFlag } from "@basestack/flags-react";
 
 ...
 
@@ -86,7 +86,7 @@ const AppComponent = () => {
 Remote Flags have the same normal characteristics as a Flag but they can have a data payload. This data payload allows you to provide real-time properties to your project's features. If, for example, some of the features of a project need to change color, size or even other data in different environments, then the payload of data from a Remote Flag is the most suitable.
 
 ```js
-import { useFlag } from "@basestack/flags-react-sdk";
+import { useFlag } from "@basestack/flags-react";
 
 ...
 
@@ -103,12 +103,12 @@ const AppComponent = () => {
 
 ### Flag Component
 
-The pre-built component `Flag` accepts a component child or children, this component inside the `<Flag>` wrapper only showed when the flag exists in your UpStamps Project.
+The pre-built component `Flag` accepts a component child or children, this component inside the `<Flag>` wrapper only showed when the flag exists in your Basestack Feature Flags Project.
 
 Notice: The behavior of the flag can be based on the project or the environments.
 
 ```js
-import {  Flag } from "@basestack/flags-react-sdk";
+import {  Flag } from "@basestack/flags-react";
 
 ...
 

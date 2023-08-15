@@ -2,7 +2,7 @@
 import { config } from "@basestack/utils";
 
 export const javascriptCode = `
-    import FlagsJS from "@basestack/flags-js-sdk";
+    import FlagsJS from "@basestack/flags-js";
      
     const sdk = new FlagsJS({
       apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
@@ -22,7 +22,7 @@ export const javascriptCode = `
  `;
 
 export const reactCode = `
-    import { useFlag } from "@basestack/flags-react-sdk";
+    import { useFlag } from "@basestack/flags-react";
      
     const AppComponent = () => {
       const { enabled } = useFlag("private_msg_2");

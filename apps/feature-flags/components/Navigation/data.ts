@@ -18,7 +18,7 @@ export const externalLinks = [
   {
     icon: "description",
     text: "Documentation",
-    to: config.urls.docs.base,
+    to: config.urls.docs.flags.base,
     isExternal: true,
   },
   {
