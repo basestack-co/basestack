@@ -7,7 +7,7 @@ import "material-symbols";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
       {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
         <Script
           data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID!}
