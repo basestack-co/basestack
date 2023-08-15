@@ -30,10 +30,8 @@ export interface SliderProps {
 
 const Slider = ({ title, text, data, id = "slider" }: SliderProps) => {
   const theme = useTheme();
-  const isMobile = useMedia(theme.device.max.md);
+  const isMobile = useMedia(theme.device.max.md, false);
   const [currentImage, setCurrentImage] = useState(0);
-  const [autoAnimateSlider, setAutoAnimateSlider] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
 
   const image = {
@@ -52,40 +50,15 @@ const Slider = ({ title, text, data, id = "slider" }: SliderProps) => {
   }, [cardRef, currentImage, isMobile]);
 
   useEffect(() => {
-    if (autoAnimateSlider) {
-      const intervalId = setInterval(() => {
-        const nextIndex = (currentImage + 1) % data.length;
-        setCurrentImage(nextIndex);
-      }, 10000);
-      return () => clearInterval(intervalId);
-    }
-  }, [currentImage, data, autoAnimateSlider]);
-
-  useEffect(() => {
-    const options = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.15,
-    };
-
-    const callback = (entry: IntersectionObserverEntry[]) => {
-      setAutoAnimateSlider(entry[0].isIntersecting);
-    };
-
-    const observer = new IntersectionObserver(callback, options);
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
-      }
-    };
-  }, [containerRef]);
+    const intervalId = setInterval(() => {
+      const nextIndex = (currentImage + 1) % data.length;
+      setCurrentImage(nextIndex);
+    }, 10000);
+    return () => clearInterval(intervalId);
+  }, [currentImage, data]);
 
   return (
-    <Container ref={containerRef} id={id}>
+    <Container id={id}>
       <ContentContainer>
         <HeaderContainer>
           <SectionHeader title={title} text={text} />
@@ -94,10 +67,10 @@ const Slider = ({ title, text, data, id = "slider" }: SliderProps) => {
           {data?.map((item, index) => (
             <CardWrapper
               key={index}
-              ref={index === currentImage && autoAnimateSlider ? cardRef : null}
+              ref={index === currentImage ? cardRef : null}
             >
               <SlideCard
-                isActive={index === currentImage && autoAnimateSlider}
+                isActive={index === currentImage}
                 icon={item.icon}
                 title={item.title}
                 text={item.text}
