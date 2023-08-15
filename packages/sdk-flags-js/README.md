@@ -43,7 +43,7 @@ const sdk = new FlagsJS({
 });
 ```
 
-That's it! Now your app is ready to start using feature flags and other features. Follow the instructions of the supported methods to make the most of the UpStamps functionalities.
+That's it! Now your app is ready to start using feature flags and other features. Follow the instructions of the supported methods to make the most of the Basestack Feature Flags functionalities.
 
 ## Usage
 

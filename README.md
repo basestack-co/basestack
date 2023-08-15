@@ -6,7 +6,7 @@
 
 #### Tools
 
-- ⛳ Feature Flags (beta) [Docs](https://docs.basestack.co/feature-flags) | [Website](https://basestack.co/)
+- ⛳ Feature Flags (Beta) [Docs](https://docs.basestack.co/feature-flags) | [Website](https://basestack.co/)
 - 📄 Forms (Planned)
 - 💬 Feedback (Planned)
 

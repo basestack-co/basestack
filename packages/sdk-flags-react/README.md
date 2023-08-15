@@ -103,7 +103,7 @@ const AppComponent = () => {
 
 ### Flag Component
 
-The pre-built component `Flag` accepts a component child or children, this component inside the `<Flag>` wrapper only showed when the flag exists in your UpStamps Project.
+The pre-built component `Flag` accepts a component child or children, this component inside the `<Flag>` wrapper only showed when the flag exists in your Basestack Feature Flags Project.
 
 Notice: The behavior of the flag can be based on the project or the environments.
 
