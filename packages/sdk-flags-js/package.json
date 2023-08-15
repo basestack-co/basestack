@@ -1,6 +1,6 @@
 {
-  "name": "@basestack/flags-js-sdk",
-  "version": "0.0.26-alpha",
+  "name": "@basestack/flags-js",
+  "version": "1.0.1",
   "author": "Basestack",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

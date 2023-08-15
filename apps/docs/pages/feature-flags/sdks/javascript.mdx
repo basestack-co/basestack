@@ -17,13 +17,13 @@ Seamless integration with JavaScript Vanilla streamlines the testing and develop
 First, let's install some packages!
 
 ```sh copy npm2yarn
-npm i @basestack/flags-js-sdk
+npm i @basestack/flags-js
 ```
 
 or with Script Tag
 
 ```js copy
-<script type="module" src="https://unpkg.com/@basestack/flags-js-sdk"></script>
+<script type="module" src="https://unpkg.com/@basestack/flags-js"></script>
 ```
 
 ### Create a new instance
@@ -31,7 +31,7 @@ or with Script Tag
 You can find these parameter values in your project's settings
 
 ```js copy filename="main.js"
-import FlagsJS from "@basestack/flags-js-sdk";
+import FlagsJS from "@basestack/flags-js";
 
 const sdk = new FlagsJS({
   apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
@@ -63,8 +63,8 @@ const MyFeature = async () => {
 In a Node environment, you should use the **flagAsync** and **flagsAsync** methods. Please note that the flags and flag methods are not supported in Node environments due to missing features from the browser.
 
 ```js copy filename="main.js"
-import FlagsJS from "@basestack/flags-js-sdk";
-// or const FlagsJS = require("@basestack/flags-js-sdk")
+import FlagsJS from "@basestack/flags-js";
+// or const FlagsJS = require("@basestack/flags-js").default;
 
 const sdk = new FlagsJS({
   apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
@@ -105,7 +105,7 @@ Which method should you choose? It depends on your specific needs. If having the
 </Callout>
 
 ```js copy filename="main.js"
-const FlagsJS = require("@basestack/flags-js-sdk").default;
+const FlagsJS = require("@basestack/flags-js").default;
 
 const sdk = new FlagsJS({
   apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",

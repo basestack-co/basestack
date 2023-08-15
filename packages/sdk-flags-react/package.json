@@ -1,6 +1,6 @@
 {
-  "name": "@basestack/flags-react-sdk",
-  "version": "0.0.22-alpha",
+  "name": "@basestack/flags-react",
+  "version": "1.0.1",
   "author": "Basestack",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -23,7 +23,7 @@
     "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
-    "@basestack/flags-js-sdk": "*",
+    "@basestack/flags-js": "*",
     "react": "^18.2.0"
   },
   "devDependencies": {
