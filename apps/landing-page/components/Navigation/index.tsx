@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useMedia } from "react-use";
 // Router
 import { useRouter } from "next/router";
 // Utils
@@ -33,6 +34,8 @@ import {
   RightColumn,
   GlobalStyle,
   BurgerMenu,
+  DocsFullText,
+  DocsShortText,
 } from "./styles";
 
 const links = [
@@ -41,7 +44,7 @@ const links = [
     href: "#platform",
   },
   {
-    text: "Discover Features",
+    text: "Features",
     href: "#features",
   },
   {
@@ -165,7 +168,8 @@ const Navigation = ({
               size={ButtonSize.Medium}
               variant={ButtonVariant.Secondary}
             >
-              Documentation
+              <DocsFullText>Documentation</DocsFullText>
+              <DocsShortText>Docs</DocsShortText>
             </Button>
           </RightColumn>
         </ContentContainer>

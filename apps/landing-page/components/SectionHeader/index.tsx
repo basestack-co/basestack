@@ -1,5 +1,4 @@
 import React from "react";
-import { rem } from "polished";
 import { useTheme } from "styled-components";
 import { useMedia } from "react-use";
 // Components
@@ -32,20 +31,12 @@ const SectionHeader = ({
     <Container hasMarginBottom={hasMarginBottom}>
       <TitleComponent
         size="xxLarge"
-        fontSize={
-          isMobile
-            ? rem("32px")
-            : titleSize === "normal"
-            ? rem("42px")
-            : rem("60px")
-        }
         lineHeight="1.3"
         textAlign="center"
         mb={theme.spacing.s2}
-        // @ts-ignore
-        fontFamily={theme.typography.robotoFlex}
         as={titleSize === "normal" ? "h2" : "h1"}
         color={isDarkMode ? theme.colors.gray50 : theme.colors.black}
+        titleSize={titleSize}
       >
         {title}
       </TitleComponent>

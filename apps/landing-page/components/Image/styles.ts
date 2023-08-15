@@ -8,7 +8,7 @@ export const Container = styled.div`
   flex-direction: column;
   background-color: ${({ theme }) => theme.colors.gray50};
   box-shadow: ${({ theme }) => theme.shadow.elevation6};
-  border-radius: ${rem("20px")};
+  border-radius: ${rem("8px")};
   width: 100%;
   overflow: hidden;
   max-width: ${rem("1100px")};

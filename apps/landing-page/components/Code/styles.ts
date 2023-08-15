@@ -27,7 +27,7 @@ export const CodeContainer = styled.div`
   width: 100%;
   max-width: 780px;
   margin: 0 auto;
-  border-radius: 20px;
+  border-radius: ${rem("8px")};
   overflow: hidden;
   font-size: ${rem("16px")};
   box-shadow: ${({ theme }) => theme.shadow.elevation3};
