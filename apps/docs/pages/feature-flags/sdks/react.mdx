@@ -17,16 +17,16 @@ Integration with React helps and facilitates the process of testing and developi
 First, let's install some packages!
 
 ```sh copy npm2yarn
-npm i @basestack/flags-js-sdk @basestack/flags-react-sdk
+npm i @basestack/flags-js @basestack/flags-react
 ```
 
 ### Create a client provider
 
-In your index.js file, import FlagsProvider from @basestack/flags-react-sdk and include the configuration parameters specific to your Basestack project. You can find these parameter values on your project settings page.
+In your index.js file, import FlagsProvider from @basestack/flags-react and include the configuration parameters specific to your Basestack project. You can find these parameter values on your project settings page.
 
 ```js copy filename="index.js"
-import FlagsJS from "@basestack/flags-js-sdk";
-import { FlagsProvider } from "@basestack/flags-react-sdk";
+import FlagsJS from "@basestack/flags-js";
+import { FlagsProvider } from "@basestack/flags-react";
 
 const sdk = new FlagsJS({
   apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
@@ -49,7 +49,7 @@ Your app is now fully equipped to take advantage of feature flags and other powe
 ### Usage
 
 ```jsx copy filename="MyComponent.js"
-import { useFlag } from "@basestack/flags-react-sdk";
+import { useFlag } from "@basestack/flags-react";
 
 const AppComponent = () => {
   const { enabled } = useFlag("private_msg_2");
@@ -73,8 +73,8 @@ When working with a Next.js project, you can use the React SDK. However, if you'
 ```js copy filename="layout.tsx"
 "use client";
 
-import FlagsJS from "@basestack/flags-js-sdk";
-import { FlagsProvider } from "@basestack/flags-react-sdk";
+import FlagsJS from "@basestack/flags-js";
+import { FlagsProvider } from "@basestack/flags-react";
 
 const sdk = new FlagsJS({
   apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
@@ -113,7 +113,7 @@ Which hook should you choose? It depends on your specific needs. If having the m
 </Callout>
 
 ```js copy filename="main.js"
-import { useFlag, useFlagAsync } from "@basestack/flags-react-sdk";
+import { useFlag, useFlagAsync } from "@basestack/flags-react";
 
 const MyComponent = () => {
   // Get from the cache, no call for the server
@@ -144,7 +144,7 @@ The library fully supports React hooks, providing the **useFlag**, **useFlagAsyn
 With **useFlag** or **useFlagAsync**, you can create and utilize multiple flags without any restrictions; simply change the names as needed. For practical implementation, refer to the examples provided.
 
 ```js copy
-import { useFlag, useFlagAsync } from "@basestack/flags-react-sdk";
+import { useFlag, useFlagAsync } from "@basestack/flags-react";
 
 const MyComponent = () => {
   const { enabled } = useFlag("private_msg_2");
@@ -174,7 +174,7 @@ Remote Flags share the same characteristics as regular Flags, but they come with
 This payload empowers you to furnish real-time properties to your project's features. For instance, if certain features of a project require dynamic color changes, size adjustments, or any other data variations across different environments, utilizing the data payload of a Remote Flag becomes the ideal solution.
 
 ```js copy
-import { useFlag, useFlagAsync } from "@basestack/flags-react-sdk";
+import { useFlag, useFlagAsync } from "@basestack/flags-react";
 
 const MyComponent = () => {
   const { enabled, payload } = useFlag("my_remote_flag");
@@ -204,7 +204,7 @@ const MyComponent = () => {
 For scenarios where you need to fetch all flags simultaneously, make use of the **useFlags** and **useFlagsAsync** hooks. These hooks enable efficient retrieval of multiple flags in a single operation.
 
 ```js copy
-import { useFlags, useFlagsAsync } from "@basestack/flags-react-sdk";
+import { useFlags, useFlagsAsync } from "@basestack/flags-react";
 
 const MyComponent = () => {
   const allFlags = useFlags();
@@ -230,7 +230,7 @@ const MyComponent = () => {
 The pre-built components **Flag** or **FlagAsync** accepts one or multiple child components. Any components placed inside the **Flag** wrapper will only be rendered when the flag exists or enabled.
 
 ```js copy
-import { Flag, FlagAsync } from "@basestack/flags-react-sdk";
+import { Flag, FlagAsync } from "@basestack/flags-react";
 
 const AppComponent = () => {
   return (
@@ -264,7 +264,7 @@ const AppComponent = () => {
 The SDK is built with TypeScript. Therefore, when utilized in a TypeScript project, it comes with basic type inference out of the box.
 
 ```js copy filename="main.ts"
-import { useFlag } from "@basestack/flags-react-sdk";
+import { useFlag } from "@basestack/flags-react";
 
 const flag = useFlag("new_header_v2");
 
@@ -293,7 +293,7 @@ interface Flag {
 
 ## Initialisation options
 
-For details regarding the initialization options of @basestack/flags-js-sdk, please refer to the documentation related to the [Javascript SDK](/feature-flags/sdks/javascript#initialisation-options).
+For details regarding the initialization options of @basestack/flags-js, please refer to the documentation related to the [Javascript SDK](/feature-flags/sdks/javascript#initialisation-options).
 
 ## Troubleshooting
 
