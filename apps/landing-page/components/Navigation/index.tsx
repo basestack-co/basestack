@@ -168,8 +168,7 @@ const Navigation = ({
               size={ButtonSize.Medium}
               variant={ButtonVariant.Secondary}
             >
-              <DocsFullText>Documentation</DocsFullText>
-              <DocsShortText>Docs</DocsShortText>
+              Docs
             </Button>
           </RightColumn>
         </ContentContainer>

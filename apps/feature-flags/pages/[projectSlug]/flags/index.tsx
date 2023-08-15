@@ -24,7 +24,7 @@ import { trpc } from "libs/trpc";
 const FlagsPage = () => {
   const router = useRouter();
   const theme = useTheme();
-  const isDesktop = useMedia(theme.device.min.lg);
+  const isDesktop = useMedia(theme.device.min.lg, false);
   const setSelectedView = useStore((state) => state.setSelectedView);
   const selectedView = useStore((state) => state.selectedView);
   const [searchValue, setSearchValue] = useState<string>("");

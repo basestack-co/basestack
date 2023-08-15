@@ -23,7 +23,7 @@ const SectionHeader = ({
   hasAnimatedText = false,
 }: SectionHeaderProps) => {
   const theme = useTheme();
-  const isMobile = useMedia(theme.device.max.md);
+  const isMobile = useMedia(theme.device.max.md, false);
 
   return (
     <Container hasMarginBottom={hasMarginBottom}>
