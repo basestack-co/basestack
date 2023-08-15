@@ -52,7 +52,6 @@ const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
           </Button>
           <Button
             variant={ButtonVariant.Secondary}
-            ml={theme.spacing.s3}
             size={ButtonSize.Medium}
             onClick={() => {
               events.landing.deploy("Explore more options");

@@ -70,7 +70,7 @@ exports[`Banner tests should render Banner correctly 1`] = `
   flex-direction: column;
   justify-content: flex-end;
   background-color: #276EF1;
-  border-radius: 1.25rem;
+  border-radius: 0.5rem;
   padding: 3.125rem;
   min-height: 425px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
