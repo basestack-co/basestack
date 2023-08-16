@@ -20,6 +20,7 @@ export {
   default as IconBox,
   type IconBoxProps,
   type IconBoxColor,
+  type IconBoxVariant,
 } from "./components/IconBox";
 
 // Medium Components

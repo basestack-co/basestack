@@ -13,6 +13,7 @@ export interface CardsProps {
   cards: Array<{
     title: string;
     text: string;
+    icon: string;
     illustration: IllustrationVariant;
   }>;
   isDarkMode?: boolean;
@@ -37,6 +38,7 @@ const Cards = ({
               key={index}
               title={card.title}
               text={card.text}
+              icon={card.icon}
               illustration={{
                 color: isDarkMode ? theme.colors.gray50 : theme.colors.black,
                 width: "100%",
