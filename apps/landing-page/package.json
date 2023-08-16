@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
+    "test:update": "jest -u",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
     "test:log": "jest --no-coverage >& ./logs/jest.log",

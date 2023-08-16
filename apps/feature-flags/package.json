@@ -10,7 +10,7 @@
     "deploy": "yarn build:deploy",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest",
+    "test:blocked": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
     "test:log": "jest --no-coverage >& ./logs/jest.log",

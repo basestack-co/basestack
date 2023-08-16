@@ -194,14 +194,6 @@ exports[`Navigation tests should render Navigation in dark mode 1`] = `
   background-color: #333333;
 }
 
-.c13 {
-  display: none;
-}
-
-.c14 {
-  display: none;
-}
-
 @media screen and (max-width: 991.98px) {
   .c7 {
     display: none;
@@ -215,18 +207,6 @@ exports[`Navigation tests should render Navigation in dark mode 1`] = `
 @media screen and (min-width: 992px) {
   .c3 {
     display: none;
-  }
-}
-
-@media screen and (min-width: 992px) {
-  .c13 {
-    display: inline-flex;
-  }
-}
-
-@media screen and (max-width: 991.98px) {
-  .c14 {
-    display: inline-flex;
   }
 }
 
@@ -390,16 +370,7 @@ exports[`Navigation tests should render Navigation in dark mode 1`] = `
           <span
             class=""
           >
-            <span
-              class="c13"
-            >
-              Documentation
-            </span>
-            <span
-              class="c14"
-            >
-              Docs
-            </span>
+            Docs
           </span>
         </button>
       </div>
@@ -440,14 +411,6 @@ exports[`Navigation tests should render Navigation in dark mode 1`] = `
 }
 
 @media screen and (min-width: 992px) {
-
-}
-
-@media screen and (min-width: 992px) {
-
-}
-
-@media screen and (max-width: 991.98px) {
 
 }
 
@@ -646,14 +609,6 @@ exports[`Navigation tests should renders Navigation correctly 1`] = `
   margin-left: auto;
 }
 
-.c13 {
-  display: none;
-}
-
-.c14 {
-  display: none;
-}
-
 @media screen and (max-width: 991.98px) {
   .c7 {
     display: none;
@@ -667,18 +622,6 @@ exports[`Navigation tests should renders Navigation correctly 1`] = `
 @media screen and (min-width: 992px) {
   .c3 {
     display: none;
-  }
-}
-
-@media screen and (min-width: 992px) {
-  .c13 {
-    display: inline-flex;
-  }
-}
-
-@media screen and (max-width: 991.98px) {
-  .c14 {
-    display: inline-flex;
   }
 }
 
@@ -842,16 +785,7 @@ exports[`Navigation tests should renders Navigation correctly 1`] = `
           <span
             class=""
           >
-            <span
-              class="c13"
-            >
-              Documentation
-            </span>
-            <span
-              class="c14"
-            >
-              Docs
-            </span>
+            Docs
           </span>
         </button>
       </div>
@@ -892,14 +826,6 @@ exports[`Navigation tests should renders Navigation correctly 1`] = `
 }
 
 @media screen and (min-width: 992px) {
-
-}
-
-@media screen and (min-width: 992px) {
-
-}
-
-@media screen and (max-width: 991.98px) {
 
 }
 

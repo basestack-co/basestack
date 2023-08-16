@@ -13,6 +13,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "test": "turbo run test",
+    "test:update": "turbo run test:update",
     "clean": "turbo run clean && rm -rf node_modules",
     "prepare": "is-ci || npx husky install",
     "precommit": "yarn format && yarn lint && lint-staged",

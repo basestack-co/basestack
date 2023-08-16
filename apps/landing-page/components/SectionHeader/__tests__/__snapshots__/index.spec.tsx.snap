@@ -15,24 +15,26 @@ exports[`SectionHeader tests should render default SectionHeader correctly 1`] =
   color: #757575;
 }
 
-.c1 {
-  font-size: 1.5rem;
-  line-height: 2.25rem;
-  font-weight: 700;
-  font-family: roboto;
-  line-height: 1.3;
-  text-align: center;
-  margin-bottom: 0.5rem;
-  font-family: 'Roboto',sans-serif;
-  word-break: break-word;
-  color: #000000;
-}
-
 .c0 {
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 720px;
+}
+
+.c1 {
+  line-height: 1.3;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: #000000;
+  font-family: 'Roboto Flex',sans-serif;
+  font-size: 2.625rem;
+}
+
+@media screen and (max-width: 767.98px) {
+  .c1 {
+    font-size: 2rem;
+  }
 }
 
 <div
@@ -41,7 +43,6 @@ exports[`SectionHeader tests should render default SectionHeader correctly 1`] =
     <h2
       class="c1"
       color="#000000"
-      font-family="roboto"
     >
       Section Title
     </h2>
@@ -72,19 +73,6 @@ exports[`SectionHeader tests should render large SectionHeader in dark mode 1`] 
   color: #CBCBCB;
 }
 
-.c1 {
-  font-size: 1.5rem;
-  line-height: 2.25rem;
-  font-weight: 700;
-  font-family: roboto;
-  line-height: 1.3;
-  text-align: center;
-  margin-bottom: 0.5rem;
-  font-family: 'Roboto',sans-serif;
-  word-break: break-word;
-  color: #F6F6F6;
-}
-
 .c0 {
   display: flex;
   flex-direction: column;
@@ -93,16 +81,30 @@ exports[`SectionHeader tests should render large SectionHeader in dark mode 1`] 
   margin-bottom: 3.125rem;
 }
 
+.c1 {
+  line-height: 1.3;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: #F6F6F6;
+  font-family: 'Roboto Flex',sans-serif;
+  font-size: 3.75rem;
+}
+
+@media screen and (max-width: 767.98px) {
+  .c1 {
+    font-size: 2rem;
+  }
+}
+
 <div
     class="c0"
   >
-    <h1
+    <h2
       class="c1"
       color="#F6F6F6"
-      font-family="roboto"
     >
       Section Title
-    </h1>
+    </h2>
     <p
       class="c2"
       color="#CBCBCB"

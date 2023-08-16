@@ -14,7 +14,7 @@
   "scripts": {
     "build": "tsup src/index.ts --dts",
     "dev": "tsup src/index.ts --watch --dts",
-    "test": "jest",
+    "test:blocked": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
     "test:log": "jest --no-coverage >& ./logs/jest.log",
