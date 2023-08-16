@@ -16,7 +16,7 @@
     "test:update": "turbo run test:update",
     "clean": "turbo run clean && rm -rf node_modules",
     "prepare": "is-ci || npx husky install",
-    "precommit": "yarn format && yarn lint && lint-staged",
+    "precommit": "yarn format && yarn lint && yarn test && lint-staged",
     "commit": "git-cz",
     "update:packages": "yarn upgrade-interactive --latest",
     "build:packages": "turbo run build --filter=./packages/*",
