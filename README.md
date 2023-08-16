@@ -14,7 +14,9 @@
 
 Basestack is a self-hosting platform that provides an effortless method to host your very own Feature Flags management platform. By leveraging services like [Vercel ↗](https://vercel.com/), any developer, whether an indie or startup, gains full control over their features and data. Ultimately, the platform is housed in your account, under your management, giving you complete control over your data.
 
-Quick Start with the following [Guide](https://docs.basestack.co/feature-flags#quick-start).
+- Quick Start with the following [Guide](https://docs.basestack.co/feature-flags#quick-start).
+
+![Basestack Feature Flags Demo](https://i.imgur.com/Oq3YxXR.gif)
 
 ## Help & Support
 
