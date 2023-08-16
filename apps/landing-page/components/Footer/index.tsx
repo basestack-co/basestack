@@ -23,7 +23,6 @@ import {
   CopyWrightContainer,
 } from "./styles";
 import { z } from "zod";
-import toast from "react-hot-toast";
 
 const links = [
   {
@@ -95,13 +94,11 @@ const Footer = () => {
         "Subscribe Success",
         "Subscribe with success to the Newsletter",
       );
-      toast.success("Thank you for your interest! We will be in touch soon.");
       reset();
     } catch (error) {
       const { message } = error as Error;
 
       events.landing.newsletter("Subscribe Error", message);
-      toast.error(message ?? "Something went wrong, please try again.");
     }
   };
 

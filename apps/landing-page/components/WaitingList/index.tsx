@@ -9,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // Utils
 import { z } from "zod";
 import { useMedia } from "react-use";
-import toast from "react-hot-toast";
 // Components
 import Image from "../Image";
 import { Button, ButtonSize, Text } from "@basestack/design-system";
@@ -123,7 +122,6 @@ const WaitingList = ({ data }: WaitingListProps) => {
         description: "Successfully added to the waiting list",
       });
 
-      toast.success("Thank you for your interest! We will be in touch soon.");
       reset();
     } catch (error) {
       const { message } = error as Error;
@@ -132,7 +130,6 @@ const WaitingList = ({ data }: WaitingListProps) => {
         title: "Error",
         description: message,
       });
-      toast.error(message ?? "Something went wrong, please try again.");
     }
   };
 

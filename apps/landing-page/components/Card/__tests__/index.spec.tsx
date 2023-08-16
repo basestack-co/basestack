@@ -1,6 +1,5 @@
 import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "utils/helpers/testUtils";
-import { IllustrationVariant } from "../../Illustration";
 import Card from "..";
 
 jest.mock("react-use", () => ({
@@ -14,12 +13,9 @@ describe.skip("Card tests", () => {
   test("should display the illustration, title, and text", () => {
     const title = "My Card";
     const text = "This is the content of the card.";
-    const illustration = {
-      variant: IllustrationVariant.Binoculars,
-    };
 
     const { getByText } = renderWithTheme(
-      <Card text={text} title={title} illustration={illustration} />,
+      <Card text={text} title={title} icon="help" />,
     );
 
     expect(getByText(title)).toBeInTheDocument();
@@ -29,12 +25,9 @@ describe.skip("Card tests", () => {
   test("should display the text and title in white when isDarkMode is true", () => {
     const title = "My Card";
     const text = "This is the content of the card.";
-    const illustration = {
-      variant: IllustrationVariant.Binoculars,
-    };
 
     const { getByText } = renderWithTheme(
-      <Card text={text} title={title} illustration={illustration} isDarkMode />,
+      <Card text={text} title={title} icon="help" isDarkMode />,
     );
 
     expect(getByText(title)).toHaveStyle("color: #F6F6F6");
