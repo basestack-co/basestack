@@ -1,7 +1,6 @@
 import React from "react";
 import { useTheme } from "styled-components";
 // Components
-import { IllustrationVariant } from "../Illustration";
 import Card from "../Card";
 import { CardsContainer, Container, ContentContainer } from "./styles";
 import SectionHeader from "../SectionHeader";
@@ -13,7 +12,7 @@ export interface CardsProps {
   cards: Array<{
     title: string;
     text: string;
-    illustration: IllustrationVariant;
+    icon: string;
   }>;
   isDarkMode?: boolean;
 }
@@ -37,12 +36,7 @@ const Cards = ({
               key={index}
               title={card.title}
               text={card.text}
-              illustration={{
-                color: isDarkMode ? theme.colors.gray50 : theme.colors.black,
-                width: "100%",
-                variant: card.illustration,
-                height: 180,
-              }}
+              icon={card.icon}
               isDarkMode={isDarkMode}
             />
           ))}

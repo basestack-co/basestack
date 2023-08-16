@@ -2,16 +2,18 @@ import React from "react";
 import { transparentize } from "polished";
 import { useTheme } from "styled-components";
 import Icon from "../Icon";
-import { IconContainer } from "./styles";
+import { ContentContainer, IconContainer } from "./styles";
+import { IconBoxProps, IconBoxColor, IconBoxVariant } from "./types";
 
-export type IconBoxColor = "blue" | "purple" | "gray" | "green";
-
-export interface IconBoxProps {
-  icon: string;
-  color: IconBoxColor;
-}
-
-const IconBox = ({ icon, color }: IconBoxProps) => {
+const IconBox = ({
+  icon,
+  color = "gray",
+  variant = "outlined",
+  backgroundColor,
+  iconColor,
+  gradient,
+  ...props
+}: IconBoxProps) => {
   const { colors, isDarkMode } = useTheme();
 
   const lightStyles = {
@@ -47,18 +49,30 @@ const IconBox = ({ icon, color }: IconBoxProps) => {
       backgroundColor: transparentize(0.8, colors.purple200),
     },
     gray: {
-      iconColor: colors.gray200,
+      iconColor: colors.gray300,
       backgroundColor: transparentize(0.8, colors.gray200),
     },
   };
 
   const styles = isDarkMode ? darkStyles : lightStyles;
 
+  const iconColorVariant =
+    styles[variant === "outlined" ? "gray" : color].iconColor;
+
   return (
-    <IconContainer bg={styles[color].backgroundColor}>
-      <Icon icon={icon} color={styles[color].iconColor} />
+    <IconContainer
+      variant={variant}
+      filledBg={styles[color].backgroundColor}
+      outlinedBg={backgroundColor}
+      gradient={gradient}
+      {...props}
+    >
+      <ContentContainer>
+        <Icon icon={icon} color={iconColor || iconColorVariant} />
+      </ContentContainer>
     </IconContainer>
   );
 };
 
+export type { IconBoxProps, IconBoxColor, IconBoxVariant };
 export default IconBox;

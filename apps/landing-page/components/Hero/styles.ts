@@ -40,6 +40,8 @@ export const ButtonsContainer = styled.div`
   @media screen and ${({ theme }) => theme.device.max.sm} {
     align-items: center;
     flex-direction: column;
+    max-width: ${rem("400px")};
+    width: 100%;
   }
 `;
 
@@ -47,6 +49,11 @@ export const ImageContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  margin-top: ${rem("100px")};
+  min-height: ${rem("100px")};
+  max-width: ${rem("1100px")};
+  aspect-ratio: 1.482;
+  width: 100%;
 
   &::after {
     content: "";

@@ -186,8 +186,7 @@ const calendar = {
 const empty = {
   backgroundColor: colors.gray800,
   icon: {
-    color: colors.primary,
-    backgroundColor: colors.blue100,
+    backgroundColor: colors.gray800,
   },
 };
 
@@ -483,6 +482,13 @@ const pagination = {
   },
 };
 
+const iconBox = {
+  outlined: {
+    backgroundColor: colors.gray800,
+    gradient: [colors.gray700, colors.gray600, colors.gray500, colors.gray700],
+  },
+};
+
 const theme = {
   isDarkMode: true,
   button,
@@ -512,6 +518,7 @@ const theme = {
   textarea,
   copyCard,
   pagination,
+  iconBox,
   typography,
   colors,
   spacing,
