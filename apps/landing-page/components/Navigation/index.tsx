@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useMedia } from "react-use";
 // Router
 import { useRouter } from "next/router";
 // Utils

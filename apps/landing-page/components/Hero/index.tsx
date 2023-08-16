@@ -14,7 +14,7 @@ import {
   ImageContainer,
 } from "./styles";
 import SectionHeader from "../SectionHeader";
-import { deploy } from "@basestack/utils/src/events/landing";
+import { useMedia } from "react-use";
 
 interface HeroProps {
   title: string;
@@ -24,6 +24,7 @@ interface HeroProps {
 
 const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
   const theme = useTheme();
+  const isMobile = useMedia(theme.device.max.sm, false);
 
   return (
     <Container>
@@ -37,6 +38,8 @@ const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
         />
         <ButtonsContainer>
           <Button
+            justifyContent="center"
+            fullWidth={isMobile}
             onClick={() => {
               events.landing.deploy("Deploy to Vercel");
               if (typeof window !== "undefined") {
@@ -51,6 +54,8 @@ const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
             Deploy to Vercel
           </Button>
           <Button
+            justifyContent="center"
+            fullWidth={isMobile}
             variant={ButtonVariant.Secondary}
             size={ButtonSize.Medium}
             onClick={() => {
