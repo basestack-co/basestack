@@ -73,7 +73,7 @@ const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
         </ButtonsContainer>
         {image?.src && (
           <ImageContainer>
-            <Image mt={rem("100px")} {...image} />
+            <Image {...image} />
           </ImageContainer>
         )}
       </ContentContainer>

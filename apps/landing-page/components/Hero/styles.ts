@@ -49,6 +49,11 @@ export const ImageContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  margin-top: ${rem("100px")};
+  min-height: ${rem("100px")};
+  max-width: ${rem("1100px")};
+  aspect-ratio: 1.482;
+  width: 100%;
 
   &::after {
     content: "";
