@@ -3,7 +3,7 @@ import { useTheme } from "styled-components";
 // Components
 import Text from "../Text";
 import { Button } from "../Button";
-import IconBox, { IconBoxColor } from "../IconBox";
+import IconBox from "../IconBox";
 import { Container } from "./styles";
 
 export interface EmptyProps {
@@ -14,7 +14,6 @@ export interface EmptyProps {
     onClick: () => void;
   };
   iconName?: string;
-  iconColor?: IconBoxColor;
 }
 
 const Empty = ({
@@ -22,13 +21,16 @@ const Empty = ({
   description,
   button,
   iconName = "info",
-  iconColor = "blue",
 }: EmptyProps) => {
   const theme = useTheme();
 
   return (
     <Container>
-      <IconBox icon={iconName} color={iconColor} />
+      <IconBox
+        backgroundColor={theme.empty.icon.backgroundColor}
+        icon={iconName}
+        mb={theme.spacing.s5}
+      />
       <Text size="large" textAlign="center" mb={theme.spacing.s1}>
         {title}
       </Text>

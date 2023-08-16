@@ -10,7 +10,3 @@ export const Container = styled.div<{ isDarkMode: boolean }>`
   padding: ${({ theme }) => theme.spacing.s5};
   box-shadow: ${({ theme }) => theme.shadow.elevation3};
 `;
-
-export const ImageContainer = styled.div`
-  height: 180px;
-`;

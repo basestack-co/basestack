@@ -3,8 +3,6 @@ import { AppProps } from "next/app";
 import Script from "next/script";
 // Fonts
 import "material-symbols";
-// Utils
-import { Toaster } from "react-hot-toast";
 //Styles
 import isPropValid from "@emotion/is-prop-valid";
 import { ThemeProvider, StyleSheetManager } from "styled-components";
@@ -27,7 +25,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Layout>
             <Component {...pageProps} />
           </Layout>
-          <Toaster position="bottom-right" />
         </StyleSheetManager>
       </ThemeProvider>
       {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (

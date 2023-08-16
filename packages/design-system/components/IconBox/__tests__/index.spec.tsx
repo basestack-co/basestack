@@ -32,4 +32,11 @@ describe("IconBox tests", () => {
     );
     expect(asFragment()).toMatchSnapshot();
   });
+
+  test("should render IconBox outlined", () => {
+    const { asFragment } = renderWithTheme(
+      <IconBox icon="help" variant="outlined" />,
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
 });

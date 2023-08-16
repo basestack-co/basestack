@@ -128,7 +128,6 @@ const MainPage = () => {
             <GetStartedCard
               icon={{
                 name: "folder_open",
-                color: "blue",
               }}
               title="Create your first project"
               description="Create your first project to start creating flags!"
@@ -175,7 +174,6 @@ const MainPage = () => {
             <GetStartedCard
               icon={{
                 name: "downloading",
-                color: "green",
               }}
               title="Set Up the SDK"
               description="Integrate Feature Flags into your Product using the official SDKs. Discover the available libraries."
@@ -186,7 +184,7 @@ const MainPage = () => {
               }}
             />
             <Card hasHoverAnimation p={theme.spacing.s5}>
-              <IconBox icon="folder_open" color="gray" />
+              <IconBox icon="folder_open" mb={theme.spacing.s5} />
               <Text size="large" mb={theme.spacing.s2}>
                 Documentation, Help and Support
               </Text>
