@@ -14,9 +14,10 @@
     "dev": {
       "cache": false
     },
-    "test": {
-      "dependsOn": ["^build"],
-      "outputs": ["coverage/**"]
+    "test": {},
+    "test:update": {},
+    "test:watch": {
+      "cache": false
     },
     "deploy": {
       "dependsOn": ["build", "test", "lint"],
