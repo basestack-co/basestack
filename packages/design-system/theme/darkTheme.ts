@@ -51,12 +51,12 @@ const button = {
     },
   },
   outlined: {
-    backgroundColor: "transparent",
-    color: colors.gray400,
-    border: colors.gray400,
+    backgroundColor: colors.gray800,
+    color: colors.gray300,
+    border: colors.gray600,
     hover: {
-      color: colors.gray300,
-      border: colors.gray300,
+      color: colors.gray400,
+      border: colors.gray500,
     },
     spinner: {
       backgroundColor: colors.gray500,
