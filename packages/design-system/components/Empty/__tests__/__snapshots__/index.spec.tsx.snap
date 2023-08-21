@@ -2,7 +2,7 @@
 
 exports[`Empty tests should render Empty correctly 1`] = `
 <DocumentFragment>
-  .c5 {
+  .c6 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
@@ -14,7 +14,7 @@ exports[`Empty tests should render Empty correctly 1`] = `
   color: #757575;
 }
 
-.c4 {
+.c5 {
   font-size: 1.125rem;
   line-height: 1.625rem;
   font-weight: 500;
@@ -26,18 +26,18 @@ exports[`Empty tests should render Empty correctly 1`] = `
   color: #000000;
 }
 
-.c2 {
+.c3 {
   height: 1.5rem;
   width: 1.5rem;
   flex-shrink: 0;
 }
 
-.c3 {
-  color: #1E54B7;
+.c4 {
+  color: #757575;
   font-size: 1.5rem;
 }
 
-.c6 {
+.c7 {
   height: 2.25rem;
   padding: 0 0.75rem;
   font-size: 0.875rem;
@@ -57,28 +57,44 @@ exports[`Empty tests should render Empty correctly 1`] = `
   width: fit-content;
 }
 
-.c6:hover:not(:active, :disabled) {
+.c7:hover:not(:active, :disabled) {
   background-color: #0e55d7;
 }
 
-.c6 .material-symbols-sharp {
+.c7 .material-symbols-sharp {
   color: inherit;
 }
 
-.c6:disabled {
+.c7:disabled {
   cursor: not-allowed;
   opacity: 0.6;
 }
 
 .c1 {
-  background-color: #EFF3FE;
+  margin-bottom: 1.25rem;
+  position: relative;
   height: 3rem;
   width: 3rem;
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.25rem;
+  background: linear-gradient(220deg,          #F6F6F6 0%,          #CBCBCB 30%,          #AFAFAF 70%,          #F6F6F6 100%);
+}
+
+.c1::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: #EEEEEE;
+  border-radius: 0.4375rem;
+  z-index: 0;
+}
+
+.c2 {
+  position: relative;
+  display: inline-flex;
+  z-index: 1;
 }
 
 .c0 {
@@ -100,33 +116,37 @@ exports[`Empty tests should render Empty correctly 1`] = `
     >
       <div
         class="c2"
-        data-testid="icon-container"
-        size="24"
       >
-        <span
-          class="c3 material-symbols-sharp"
-          color="#1E54B7"
-          data-testid="icon"
+        <div
+          class="c3"
+          data-testid="icon-container"
           size="24"
         >
-          info
-        </span>
+          <span
+            class="c4 material-symbols-sharp"
+            color="#757575"
+            data-testid="icon"
+            size="24"
+          >
+            info
+          </span>
+        </div>
       </div>
     </div>
     <h3
-      class="c4"
+      class="c5"
       font-family="roboto"
     >
       title
     </h3>
     <p
-      class="c5"
+      class="c6"
       font-family="roboto"
     >
       description
     </p>
     <button
-      class="c6"
+      class="c7"
       data-testid="button"
     >
       <span

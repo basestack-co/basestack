@@ -10,7 +10,6 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
   border-radius: 0.5rem;
   width: 100%;
   overflow: hidden;
-  max-width: 68.75rem;
 }
 
 .c28 {

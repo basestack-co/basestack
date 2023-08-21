@@ -49,16 +49,16 @@ const button = {
     },
   },
   outlined: {
-    backgroundColor: "transparent",
+    backgroundColor: colors.white,
     color: colors.black,
-    border: colors.black,
+    border: colors.gray300,
     hover: {
-      color: lighten(0.3, colors.black),
-      border: lighten(0.3, colors.black),
+      color: colors.black,
+      border: colors.gray500,
     },
     spinner: {
       backgroundColor: colors.gray200,
-      color: colors.black,
+      color: colors.gray700,
     },
   },
   neutral: {

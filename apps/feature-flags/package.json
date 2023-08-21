@@ -57,7 +57,6 @@
     "react-calendar": "^4.6.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.4",
-    "react-hot-toast": "^2.4.0",
     "react-json-view": "^1.21.3",
     "react-select": "^5.7.4",
     "react-spring": "^9.7.1",

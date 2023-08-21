@@ -117,7 +117,7 @@ const MainPage = () => {
             {!!data?.length && (
               <Button
                 flexShrink={0}
-                variant={ButtonVariant.Tertiary}
+                variant={ButtonVariant.Outlined}
                 onClick={() => setCreateProjectModalOpen({ isOpen: true })}
               >
                 Create project
@@ -180,7 +180,7 @@ const MainPage = () => {
               button={{
                 text: "View Instructions",
                 onClick: () => setIntegrationModalOpen({ isOpen: true }),
-                variant: ButtonVariant.Tertiary,
+                variant: ButtonVariant.Outlined,
               }}
             />
             <Card hasHoverAnimation p={theme.spacing.s5}>

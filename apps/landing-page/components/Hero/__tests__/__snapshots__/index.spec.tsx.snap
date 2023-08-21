@@ -32,6 +32,7 @@ exports[`Hero tests should renders Hero correctly 1`] = `
   color: #FFFFFF;
   width: medium;
   height: medium;
+  justify-content: center;
   width: fit-content;
 }
 
@@ -65,6 +66,7 @@ exports[`Hero tests should renders Hero correctly 1`] = `
   color: #FFFFFF;
   width: medium;
   height: medium;
+  justify-content: center;
   width: fit-content;
 }
 
@@ -145,6 +147,8 @@ exports[`Hero tests should renders Hero correctly 1`] = `
   .c5 {
     align-items: center;
     flex-direction: column;
+    max-width: 25rem;
+    width: 100%;
   }
 }
 
