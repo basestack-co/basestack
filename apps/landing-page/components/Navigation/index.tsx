@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // Router
 import { useRouter } from "next/router";
 // Utils
@@ -75,7 +75,7 @@ const Navigation = ({
   const theme = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
-
+  const [stargazers, setsStargazers] = useState(0);
   const springApi = useSpringRef();
   const { size, ...rest } = useSpring({
     ref: springApi,
@@ -100,6 +100,14 @@ const Navigation = ({
     0,
     isMenuOpen ? 0.3 : 0.6,
   ]);
+
+  useEffect(() => {
+    fetch("https://api.github.com/repos/basestack-co/basestack")
+      .then((res) => res.json())
+      .then((data) => {
+        setsStargazers(data.stargazers_count ?? 0);
+      });
+  }, []);
 
   return (
     <>
@@ -156,7 +164,7 @@ const Navigation = ({
               size={ButtonSize.Medium}
               backgroundColor="transparent"
             >
-              Github
+              Github {stargazers > 0 ? `(${stargazers} ⭐)` : ""}
             </Button>
             <Button
               onClick={() => {

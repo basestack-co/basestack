@@ -2,26 +2,41 @@
 
 exports[`IconBox tests should render IconBox blue 1`] = `
 <DocumentFragment>
-  .c1 {
+  .c2 {
   height: 1.5rem;
   width: 1.5rem;
   flex-shrink: 0;
 }
 
-.c2 {
-  color: #1E54B7;
+.c3 {
+  color: #757575;
   font-size: 1.5rem;
 }
 
 .c0 {
-  background-color: #EFF3FE;
+  position: relative;
   height: 3rem;
   width: 3rem;
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.25rem;
+  background: linear-gradient(220deg,          #F6F6F6 0%,          #CBCBCB 30%,          #AFAFAF 70%,          #F6F6F6 100%);
+}
+
+.c0::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: #FFFFFF;
+  border-radius: 0.4375rem;
+  z-index: 0;
+}
+
+.c1 {
+  position: relative;
+  display: inline-flex;
+  z-index: 1;
 }
 
 <div
@@ -29,17 +44,21 @@ exports[`IconBox tests should render IconBox blue 1`] = `
   >
     <div
       class="c1"
-      data-testid="icon-container"
-      size="24"
     >
-      <span
-        class="c2 material-symbols-sharp"
-        color="#1E54B7"
-        data-testid="icon"
+      <div
+        class="c2"
+        data-testid="icon-container"
         size="24"
       >
-        help
-      </span>
+        <span
+          class="c3 material-symbols-sharp"
+          color="#757575"
+          data-testid="icon"
+          size="24"
+        >
+          help
+        </span>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -47,26 +66,41 @@ exports[`IconBox tests should render IconBox blue 1`] = `
 
 exports[`IconBox tests should render IconBox gray 1`] = `
 <DocumentFragment>
-  .c1 {
+  .c2 {
   height: 1.5rem;
   width: 1.5rem;
   flex-shrink: 0;
 }
 
-.c2 {
+.c3 {
   color: #757575;
   font-size: 1.5rem;
 }
 
 .c0 {
-  background-color: #F6F6F6;
+  position: relative;
   height: 3rem;
   width: 3rem;
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.25rem;
+  background: linear-gradient(220deg,          #F6F6F6 0%,          #CBCBCB 30%,          #AFAFAF 70%,          #F6F6F6 100%);
+}
+
+.c0::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: #FFFFFF;
+  border-radius: 0.4375rem;
+  z-index: 0;
+}
+
+.c1 {
+  position: relative;
+  display: inline-flex;
+  z-index: 1;
 }
 
 <div
@@ -74,17 +108,21 @@ exports[`IconBox tests should render IconBox gray 1`] = `
   >
     <div
       class="c1"
-      data-testid="icon-container"
-      size="24"
     >
-      <span
-        class="c2 material-symbols-sharp"
-        color="#757575"
-        data-testid="icon"
+      <div
+        class="c2"
+        data-testid="icon-container"
         size="24"
       >
-        help
-      </span>
+        <span
+          class="c3 material-symbols-sharp"
+          color="#757575"
+          data-testid="icon"
+          size="24"
+        >
+          help
+        </span>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -92,26 +130,41 @@ exports[`IconBox tests should render IconBox gray 1`] = `
 
 exports[`IconBox tests should render IconBox green 1`] = `
 <DocumentFragment>
-  .c1 {
+  .c2 {
   height: 1.5rem;
   width: 1.5rem;
   flex-shrink: 0;
 }
 
-.c2 {
-  color: #03703C;
+.c3 {
+  color: #757575;
   font-size: 1.5rem;
 }
 
 .c0 {
-  background-color: #E6F2ED;
+  position: relative;
   height: 3rem;
   width: 3rem;
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.25rem;
+  background: linear-gradient(220deg,          #F6F6F6 0%,          #CBCBCB 30%,          #AFAFAF 70%,          #F6F6F6 100%);
+}
+
+.c0::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: #FFFFFF;
+  border-radius: 0.4375rem;
+  z-index: 0;
+}
+
+.c1 {
+  position: relative;
+  display: inline-flex;
+  z-index: 1;
 }
 
 <div
@@ -119,17 +172,85 @@ exports[`IconBox tests should render IconBox green 1`] = `
   >
     <div
       class="c1"
-      data-testid="icon-container"
-      size="24"
     >
-      <span
-        class="c2 material-symbols-sharp"
-        color="#03703C"
-        data-testid="icon"
+      <div
+        class="c2"
+        data-testid="icon-container"
         size="24"
       >
-        help
-      </span>
+        <span
+          class="c3 material-symbols-sharp"
+          color="#757575"
+          data-testid="icon"
+          size="24"
+        >
+          help
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`IconBox tests should render IconBox outlined 1`] = `
+<DocumentFragment>
+  .c2 {
+  height: 1.5rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+}
+
+.c3 {
+  color: #757575;
+  font-size: 1.5rem;
+}
+
+.c0 {
+  position: relative;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(220deg,          #F6F6F6 0%,          #CBCBCB 30%,          #AFAFAF 70%,          #F6F6F6 100%);
+}
+
+.c0::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: #FFFFFF;
+  border-radius: 0.4375rem;
+  z-index: 0;
+}
+
+.c1 {
+  position: relative;
+  display: inline-flex;
+  z-index: 1;
+}
+
+<div
+    class="c0"
+  >
+    <div
+      class="c1"
+    >
+      <div
+        class="c2"
+        data-testid="icon-container"
+        size="24"
+      >
+        <span
+          class="c3 material-symbols-sharp"
+          color="#757575"
+          data-testid="icon"
+          size="24"
+        >
+          help
+        </span>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -137,26 +258,41 @@ exports[`IconBox tests should render IconBox green 1`] = `
 
 exports[`IconBox tests should render IconBox purple 1`] = `
 <DocumentFragment>
-  .c1 {
+  .c2 {
   height: 1.5rem;
   width: 1.5rem;
   flex-shrink: 0;
 }
 
-.c2 {
-  color: #574191;
+.c3 {
+  color: #757575;
   font-size: 1.5rem;
 }
 
 .c0 {
-  background-color: #F4F1FA;
+  position: relative;
   height: 3rem;
   width: 3rem;
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.25rem;
+  background: linear-gradient(220deg,          #F6F6F6 0%,          #CBCBCB 30%,          #AFAFAF 70%,          #F6F6F6 100%);
+}
+
+.c0::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: #FFFFFF;
+  border-radius: 0.4375rem;
+  z-index: 0;
+}
+
+.c1 {
+  position: relative;
+  display: inline-flex;
+  z-index: 1;
 }
 
 <div
@@ -164,17 +300,21 @@ exports[`IconBox tests should render IconBox purple 1`] = `
   >
     <div
       class="c1"
-      data-testid="icon-container"
-      size="24"
     >
-      <span
-        class="c2 material-symbols-sharp"
-        color="#574191"
-        data-testid="icon"
+      <div
+        class="c2"
+        data-testid="icon-container"
         size="24"
       >
-        help
-      </span>
+        <span
+          class="c3 material-symbols-sharp"
+          color="#757575"
+          data-testid="icon"
+          size="24"
+        >
+          help
+        </span>
+      </div>
     </div>
   </div>
 </DocumentFragment>
