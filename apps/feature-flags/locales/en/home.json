@@ -1,0 +1,11 @@
+{
+  "projects": {
+    "title": "Recent projects",
+    "action": "Create project"
+  },
+  "get-started": {
+    "title": "Create your first project",
+    "description": "Create your first project to start creating flags!",
+    "action": "Create Project"
+  }
+}

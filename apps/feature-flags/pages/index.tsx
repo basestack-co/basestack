@@ -1,5 +1,7 @@
 import React from "react";
 import Head from "next/head";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Router
 import { useRouter } from "next/router";
 // Store
@@ -77,6 +79,7 @@ const ProjectCard = ({ onClick, text, flags = 0 }: ProjectCardProps) => {
 };
 
 const MainPage = () => {
+  const { t } = useTranslation("home");
   const router = useRouter();
   const theme = useTheme();
 
@@ -112,7 +115,7 @@ const MainPage = () => {
         <Section mb={theme.spacing.s7}>
           <Header>
             <Text size="xLarge" mr={theme.spacing.s5}>
-              Recent projects
+              {t("projects.title")}
             </Text>
             {!!data?.length && (
               <Button
@@ -120,7 +123,7 @@ const MainPage = () => {
                 variant={ButtonVariant.Outlined}
                 onClick={() => setCreateProjectModalOpen({ isOpen: true })}
               >
-                Create project
+                {t("projects.action")}
               </Button>
             )}
           </Header>
@@ -129,10 +132,10 @@ const MainPage = () => {
               icon={{
                 name: "folder_open",
               }}
-              title="Create your first project"
-              description="Create your first project to start creating flags!"
+              title={t("get-started.title")}
+              description={t("get-started.description")}
               button={{
-                text: "Create Project",
+                text: t("get-started.action"),
                 onClick: () => setCreateProjectModalOpen({ isOpen: true }),
                 variant: ButtonVariant.Primary,
               }}
