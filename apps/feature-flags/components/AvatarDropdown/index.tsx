@@ -199,15 +199,14 @@ const AvatarDropdown = ({
                     iconPlacement="left"
                     variant={ButtonVariant.Neutral}
                     fullWidth
-                    isDisabled
                     onClick={() => {
                       router.push({
-                        pathname: "/[projectSlug]/settings/general",
+                        pathname: "/settings",
                         query: { projectSlug },
                       });
                     }}
                   >
-                    Settings (Coming soon)
+                    Settings
                   </Button>
                 </ListItem>
                 <ListItem>

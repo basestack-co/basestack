@@ -26,6 +26,9 @@ const CreateFlagModal = () => {
     (state) => state.setCreateFlagModalOpen,
   );
   const projectSlug = router.query.projectSlug as string;
+  const closeModalsOnClickOutside = useStore(
+    (state) => state.closeModalsOnClickOutside,
+  );
 
   const {
     selectedTab,
@@ -107,6 +110,7 @@ const CreateFlagModal = () => {
           },
         ]}
         onAnimationEnd={reset}
+        closeOnClickOutside={closeModalsOnClickOutside}
       >
         <Tabs
           items={[

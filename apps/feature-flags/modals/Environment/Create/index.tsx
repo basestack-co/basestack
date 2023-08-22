@@ -23,6 +23,9 @@ const CreateEnvironmentModal = () => {
     }),
     shallow,
   );
+  const closeModalsOnClickOutside = useStore(
+    (state) => state.closeModalsOnClickOutside,
+  );
 
   const project = data && data.project;
   const createEnvironment = trpc.environment.create.useMutation();
@@ -100,6 +103,7 @@ const CreateEnvironmentModal = () => {
           },
         ]}
         onAnimationEnd={reset}
+        closeOnClickOutside={closeModalsOnClickOutside}
       >
         {onRenderForm()}
       </Modal>

@@ -33,6 +33,9 @@ const IntegrationModal = () => {
   const setIntegrationModalOpen = useStore(
     (state) => state.setIntegrationModalOpen,
   );
+  const closeModalsOnClickOutside = useStore(
+    (state) => state.closeModalsOnClickOutside,
+  );
 
   const onClose = () => setIntegrationModalOpen({ isOpen: false });
 
@@ -54,6 +57,7 @@ const IntegrationModal = () => {
             variant: ButtonVariant.Neutral,
           },
         ]}
+        closeOnClickOutside={closeModalsOnClickOutside}
       >
         <Container>
           <CardsList>
