@@ -23,8 +23,3 @@ export const ListItem = styled.li`
     margin-bottom: ${({ theme }) => theme.spacing.s5};
   }
 `;
-
-export const Row = styled.div`
-  display: flex;
-  align-items: center;
-`;

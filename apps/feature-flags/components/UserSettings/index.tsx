@@ -1,19 +1,43 @@
 import React from "react";
-import { useStore } from "store";
 import { useTheme } from "styled-components";
-import { Text, Switch, Input } from "@basestack/design-system";
+// Store
+import { useStore } from "store";
+// Form
+import { z } from "zod";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+// Components
+import { Text, Input } from "@basestack/design-system";
 import SettingCard from "../SettingCard";
+import ModalCard from "./ModalCard";
 import AvatarCard from "./AvatarCard";
-import { Container, List, ListItem, Row } from "./styles";
+import { Container, List, ListItem } from "./styles";
+
+export const FormSchema = z.object({
+  numberOfFlags: z.string().min(1, "Required field").max(3, "Must be 999 less"),
+});
+
+export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const UserSettings = () => {
   const theme = useTheme();
-  const closeModalsOnClickOutside = useStore(
-    (state) => state.closeModalsOnClickOutside,
+  const numberOfFlagsPerPage = useStore((state) => state.numberOfFlagsPerPage);
+  const setNumberOfFlagsPerPage = useStore(
+    (state) => state.setNumberOfFlagsPerPage,
   );
-  const setCloseModalsOnClickOutside = useStore(
-    (state) => state.setCloseModalsOnClickOutside,
-  );
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormInputs>({
+    resolver: zodResolver(FormSchema),
+    mode: "onSubmit",
+  });
+
+  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    setNumberOfFlagsPerPage(+data.numberOfFlags);
+  };
 
   return (
     <Container>
@@ -25,37 +49,33 @@ const UserSettings = () => {
           <AvatarCard />
         </ListItem>
         <ListItem>
-          <SettingCard
-            title="Modal behavior"
-            description="Close modal when clicking outside main content"
-            hasFooter={false}
-          >
-            <Row>
-              <Text mr={theme.spacing.s2}>
-                {closeModalsOnClickOutside ? "On" : "Off"}
-              </Text>
-              <Switch
-                checked={closeModalsOnClickOutside}
-                onChange={(event) => {
-                  setCloseModalsOnClickOutside(event.target.checked);
-                }}
-              />
-            </Row>
-          </SettingCard>
+          <ModalCard />
         </ListItem>
         <ListItem>
           <SettingCard
             title="Number of flags"
             description="Number of flags to show per page"
-            hasFooter={false}
+            button="Save"
+            onClick={handleSubmit(onSubmit)}
           >
-            <Input
-              value="20"
-              name="number-of-flags-input"
-              placeholder="20"
-              type="number"
-              onChange={(event) => console.log("number of flags = ", event)}
-              maxWidth={400}
+            <Controller
+              name="numberOfFlags"
+              control={control}
+              defaultValue={numberOfFlagsPerPage.toString()}
+              render={({ field }) => (
+                <Input
+                  value={field.value}
+                  name={field.name}
+                  placeholder={field.value}
+                  type="number"
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  maxWidth={400}
+                  hasError={!!errors.numberOfFlags}
+                  min="1"
+                  max="999"
+                />
+              )}
             />
           </SettingCard>
         </ListItem>

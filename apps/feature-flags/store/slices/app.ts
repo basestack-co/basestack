@@ -5,6 +5,7 @@ import { AppSliceState, Store } from "../types";
 export const createAppSlice: StateCreator<Store, [], [], AppSliceState> = (
   set,
 ) => ({
+  numberOfFlagsPerPage: 20,
   closeModalsOnClickOutside: true,
   isDarkMode: false,
   selectedView: "cards",
@@ -21,5 +22,9 @@ export const createAppSlice: StateCreator<Store, [], [], AppSliceState> = (
   setCloseModalsOnClickOutside: () =>
     set((state) => ({
       closeModalsOnClickOutside: !state.closeModalsOnClickOutside,
+    })),
+  setNumberOfFlagsPerPage: (payload) =>
+    set(() => ({
+      numberOfFlagsPerPage: payload,
     })),
 });

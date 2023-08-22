@@ -200,9 +200,9 @@ const AvatarDropdown = ({
                     variant={ButtonVariant.Neutral}
                     fullWidth
                     onClick={() => {
+                      setIsMenuOpen(false);
                       router.push({
-                        pathname: "/settings",
-                        query: { projectSlug },
+                        pathname: "/profile/settings",
                       });
                     }}
                   >

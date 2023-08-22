@@ -65,6 +65,14 @@ export interface InputProps extends SpaceProps, LayoutProps {
    * Input autoComplete on or off
    */
   autoComplete?: string;
+  /**
+   * Input min chars
+   */
+  min?: string;
+  /**
+   * Input max chars
+   */
+  max?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -83,6 +91,8 @@ const Input: React.FC<InputProps> = ({
   hasError = false,
   isDisabled = false,
   autoComplete,
+  min,
+  max,
   ...props
 }) => {
   const theme = useTheme();
@@ -116,6 +126,8 @@ const Input: React.FC<InputProps> = ({
         hasError={hasError}
         disabled={isDisabled}
         autoComplete={autoComplete}
+        min={min}
+        max={max}
       />
       {hasRightIcon && (
         <IconContainer iconPlacement={iconPlacement}>

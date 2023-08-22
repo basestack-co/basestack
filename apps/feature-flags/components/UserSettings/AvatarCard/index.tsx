@@ -6,8 +6,14 @@ import {
   Text,
   Button,
   ButtonVariant,
+  HorizontalRule,
 } from "@basestack/design-system";
-import { Container, ContentContainer, UserDetailsContainer } from "./styles";
+import {
+  Container,
+  ContentContainer,
+  Footer,
+  UserDetailsContainer,
+} from "./styles";
 
 const AvatarCard = () => {
   const { data: session } = useSession();
@@ -24,20 +30,22 @@ const AvatarCard = () => {
           />
           <UserDetailsContainer>
             <Text size="large">{session?.user.name || "User Name"}</Text>
-            <Text muted>{session?.user.email || ""}</Text>
+            <Text>{session?.user.email || ""}</Text>
           </UserDetailsContainer>
-
-          <Button
-            variant={ButtonVariant.Secondary}
-            onClick={() => console.log("click")}
-            ml="auto"
-            iconPlacement="right"
-            icon="open_in_new"
-          >
-            Update
-          </Button>
         </ContentContainer>
       </Container>
+      <HorizontalRule />
+      <Footer>
+        <Button
+          variant={ButtonVariant.Secondary}
+          onClick={() => console.log("click")}
+          ml="auto"
+          iconPlacement="right"
+          icon="open_in_new"
+        >
+          Update
+        </Button>
+      </Footer>
     </Card>
   );
 };
