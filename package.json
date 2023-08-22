@@ -31,8 +31,8 @@
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.3",
     "is-ci": "^3.0.1",
-    "lint-staged": "^14.0.0",
-    "prettier": "^3.0.1",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.0.2",
     "turbo": "1.10.12"
   },
   "packageManager": "yarn@1.22.15",
