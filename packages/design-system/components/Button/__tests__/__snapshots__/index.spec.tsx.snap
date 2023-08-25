@@ -426,17 +426,17 @@ exports[`Button tests should render Outlined Button 1`] = `
   border-radius: 4px;
   text-decoration: none;
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
-  background-color: transparent;
+  background-color: #FFFFFF;
   color: #000000;
-  border: 1px solid #000000;
+  border: 1px solid #CBCBCB;
   width: normal;
   height: normal;
   width: fit-content;
 }
 
 .c0:hover:not(:active, :disabled) {
-  color: #4d4d4d;
-  border-color: #4d4d4d;
+  color: #000000;
+  border-color: #757575;
 }
 
 .c0:hover:not(:active, :disabled) .material-symbols-sharp {
