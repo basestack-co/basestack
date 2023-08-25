@@ -92,6 +92,7 @@ exports[`Banner tests should render Banner correctly 1`] = `
 .c5 {
   display: flex;
   margin-top: 1.25rem;
+  gap: 1rem;
 }
 
 .c7 {
@@ -125,10 +126,6 @@ exports[`Banner tests should render Banner correctly 1`] = `
 @media screen and (max-width: 575.98px) {
   .c5 {
     flex-direction: column;
-  }
-
-  .c5 button:first-child {
-    margin-bottom: 0.75rem;
   }
 }
 

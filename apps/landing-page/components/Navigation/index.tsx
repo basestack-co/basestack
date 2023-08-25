@@ -153,7 +153,7 @@ const Navigation = ({
               variant={
                 isDarkMode ? ButtonVariant.Secondary : ButtonVariant.Tertiary
               }
-              mr={theme.spacing.s3}
+              mr={theme.spacing.s4}
               onClick={() => {
                 if (typeof window !== "undefined") {
                   window.open(defaults.urls.repo, "_blank");

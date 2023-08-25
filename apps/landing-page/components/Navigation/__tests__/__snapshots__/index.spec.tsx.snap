@@ -76,7 +76,7 @@ exports[`Navigation tests should render Navigation in dark mode 1`] = `
   color: #FFFFFF;
   width: medium;
   height: medium;
-  margin-right: 0.75rem;
+  margin-right: 1rem;
   background-color: transparent;
   width: fit-content;
 }
@@ -194,11 +194,11 @@ exports[`Navigation tests should render Navigation in dark mode 1`] = `
 
 .c7 {
   display: flex;
-  margin-left: 0.75rem;
+  margin-left: 1rem;
 }
 
 .c8 {
-  margin-right: 0.25rem;
+  display: flex;
 }
 
 .c10 {
@@ -549,7 +549,7 @@ exports[`Navigation tests should renders Navigation correctly 1`] = `
   color: #000000;
   width: medium;
   height: medium;
-  margin-right: 0.75rem;
+  margin-right: 1rem;
   background-color: transparent;
   width: fit-content;
 }
@@ -667,11 +667,11 @@ exports[`Navigation tests should renders Navigation correctly 1`] = `
 
 .c7 {
   display: flex;
-  margin-left: 0.75rem;
+  margin-left: 1rem;
 }
 
 .c8 {
-  margin-right: 0.25rem;
+  display: flex;
 }
 
 .c10 {

@@ -63,7 +63,7 @@ export const LeftColumn = styled.div`
 
 export const List = styled.ul`
   display: flex;
-  margin-left: ${({ theme }) => theme.spacing.s3};
+  margin-left: ${({ theme }) => theme.spacing.s4};
 
   @media screen and ${({ theme }) => theme.device.max.lg} {
     display: none;
@@ -71,7 +71,7 @@ export const List = styled.ul`
 `;
 
 export const ListItem = styled.li`
-  margin-right: ${({ theme }) => theme.spacing.s1};
+  display: flex;
 `;
 
 export const RightColumn = styled.div`
