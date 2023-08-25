@@ -181,6 +181,11 @@ export const StyledButton = styled.button<StyledButtonProps>`
     color: inherit;
   }
 
+  svg,
+  svg g {
+    fill: ${({ theme, variant }) => theme.button[variant].color};
+  }
+
   ${({ fullWidth }) =>
     fullWidth
       ? css`

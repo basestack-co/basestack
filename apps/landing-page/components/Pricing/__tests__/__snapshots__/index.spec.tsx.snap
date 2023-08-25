@@ -177,6 +177,11 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
   color: inherit;
 }
 
+.c18 svg,
+.c18 svg g {
+  fill: #FFFFFF;
+}
+
 .c18:disabled {
   cursor: not-allowed;
   opacity: 0.6;
@@ -208,6 +213,11 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
 
 .c25 .material-symbols-sharp {
   color: inherit;
+}
+
+.c25 svg,
+.c25 svg g {
+  fill: #FFFFFF;
 }
 
 .c25:disabled {

@@ -120,25 +120,23 @@ const Footer = () => {
               </Text>
             </CopyWrightContainer>
             <List>
-              {links.map((link, index) => {
-                return (
-                  <ListItem
-                    key={index.toString()}
-                    onClick={() => {
-                      events.landing.link(link.text, link.href);
-                      router.push(link.href);
-                    }}
+              {links.map((link, index) => (
+                <ListItem
+                  key={index.toString()}
+                  onClick={() => {
+                    events.landing.link(link.text, link.href);
+                    router.push(link.href);
+                  }}
+                >
+                  <Text
+                    size="medium"
+                    fontWeight={400}
+                    color={theme.colors.gray300}
                   >
-                    <Text
-                      size="medium"
-                      fontWeight={400}
-                      color={theme.colors.gray300}
-                    >
-                      {link.text}
-                    </Text>
-                  </ListItem>
-                );
-              })}
+                    {link.text}
+                  </Text>
+                </ListItem>
+              ))}
             </List>
           </LeftColumnContent>
         </LeftColumn>
