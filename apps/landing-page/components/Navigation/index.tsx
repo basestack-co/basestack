@@ -164,7 +164,7 @@ const Navigation = ({
               iconPlacement="left"
               icon="github"
             >
-              <span>Github</span>
+              <span>Star</span>
               {stargazers > 0 && <span>&nbsp;{stargazers}</span>}
             </Button>
             <Button
