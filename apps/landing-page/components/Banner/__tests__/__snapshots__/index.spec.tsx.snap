@@ -43,6 +43,11 @@ exports[`Banner tests should render Banner correctly 1`] = `
   color: inherit;
 }
 
+.c6 svg,
+.c6 svg g {
+  fill: #FFFFFF;
+}
+
 .c6:disabled {
   cursor: not-allowed;
   opacity: 0.6;

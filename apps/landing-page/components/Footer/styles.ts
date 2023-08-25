@@ -66,7 +66,6 @@ export const ListItem = styled.li`
   height: ${rem("36px")};
   align-items: center;
   padding: 0 ${({ theme }) => theme.spacing.s4};
-  margin-right: ${({ theme }) => theme.spacing.s2};
 
   &:hover {
     cursor: pointer;

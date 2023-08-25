@@ -11,6 +11,8 @@ exports[`Label tests should render Label correctly 1`] = `
   font-weight: 400;
   color: #545454;
   background-color: #E2E2E2;
+  width: normal;
+  height: normal;
 }
 
 <div
@@ -33,6 +35,8 @@ exports[`Label tests should render isTranslucent Label 1`] = `
   font-weight: 400;
   color: #1E54B7;
   background-color: rgba(39,110,241,0.1);
+  width: normal;
+  height: normal;
 }
 
 <div
@@ -55,6 +59,8 @@ exports[`Label tests should render medium Label 1`] = `
   font-weight: 500;
   color: #FFFFFF;
   background-color: #276EF1;
+  width: medium;
+  height: medium;
 }
 
 <div
@@ -77,6 +83,8 @@ exports[`Label tests should render small Label 1`] = `
   font-weight: 400;
   color: #FFFFFF;
   background-color: #276EF1;
+  width: small;
+  height: small;
 }
 
 <div

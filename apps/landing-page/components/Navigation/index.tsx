@@ -33,8 +33,6 @@ import {
   RightColumn,
   GlobalStyle,
   BurgerMenu,
-  DocsFullText,
-  DocsShortText,
 } from "./styles";
 
 const links = [
@@ -163,8 +161,11 @@ const Navigation = ({
               }}
               size={ButtonSize.Medium}
               backgroundColor="transparent"
+              iconPlacement="left"
+              icon="github"
             >
-              Github {stargazers > 0 ? `(${stargazers} ⭐)` : ""}
+              <span>Github</span>
+              {stargazers > 0 && <span>&nbsp;{stargazers}</span>}
             </Button>
             <Button
               onClick={() => {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { space } from "styled-system";
+import { space, flexbox, layout, compose } from "styled-system";
 import { rem } from "polished";
 import { LabelVariant, LabelSize } from "./types";
 
@@ -33,7 +33,6 @@ export const StyledLabel = styled.div<{
   size: LabelSize;
   isTranslucent: boolean;
 }>`
-  ${space};
   display: flex;
   border-radius: 4px;
   ${({ size }) => getSizeStyles(size)};
@@ -41,18 +40,19 @@ export const StyledLabel = styled.div<{
     isTranslucent
       ? theme.label.translucent[variant]
       : theme.label.solid[variant]};
+  ${compose(flexbox, space, layout)};
 `;
 
 export const LabelDotContainer = styled.div<{
   variant: LabelVariant;
   size: LabelSize;
 }>`
-  ${space};
   display: flex;
   align-items: center;
   font-size: ${({ size }) => getSizeStyles(size).fontSize};
   font-weight: ${({ size }) => getSizeStyles(size).fontWeight};
   line-height: ${({ size }) => getSizeStyles(size).lineHeight};
+  ${compose(flexbox, space, layout)};
 `;
 
 export const LabelDot = styled.div<{

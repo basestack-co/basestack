@@ -1,5 +1,4 @@
 import styled, { css, createGlobalStyle } from "styled-components";
-import { IconButton } from "@basestack/design-system";
 import { rem } from "polished";
 
 export const GlobalStyle = createGlobalStyle<{ isMenuOpen: boolean }>`
