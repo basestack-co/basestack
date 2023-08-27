@@ -35,6 +35,8 @@ import {
   ScrollableContent,
   StyledLink,
 } from "./styles";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Data
 import { internalLinks, externalLinks } from "../data";
 
@@ -52,6 +54,7 @@ const NavigationDrawer = ({
   onClose,
   data,
 }: NavigationDrawerProps) => {
+  const { t } = useTranslation("navigation");
   const theme = useTheme();
   const { data: session } = useSession();
   const router = useRouter();
@@ -108,7 +111,7 @@ const NavigationDrawer = ({
                           });
                         }}
                       >
-                        {item.text}
+                        {t(item.i18nKey)}
                       </Button>
                     </ListItem>
                   ))}
@@ -123,7 +126,7 @@ const NavigationDrawer = ({
                         setCreateFlagModalOpen({ isOpen: true });
                       }}
                     >
-                      Create Feature Flag
+                      {t("create.flag")}
                     </Button>
                   </ListItem>
                 </List>
@@ -131,7 +134,7 @@ const NavigationDrawer = ({
                 <ScrollableContent>
                   <TitleContainer>
                     <Text muted fontWeight={500}>
-                      Projects
+                      {t("projects.title")}
                     </Text>
                   </TitleContainer>
                   <List>
@@ -159,14 +162,14 @@ const NavigationDrawer = ({
                           setCreateProjectModalOpen({ isOpen: true });
                         }}
                       >
-                        Create Project
+                        {t("create.project")}
                       </Button>
                     </ListItem>
                   </List>
                   <HorizontalRule m={theme.spacing.s5} />
                   <TitleContainer>
                     <Text muted fontWeight={500}>
-                      Documentation
+                      {t("external.docs")}
                     </Text>
                   </TitleContainer>
                   <List>
@@ -184,7 +187,7 @@ const NavigationDrawer = ({
                             variant={ButtonVariant.Neutral}
                             fullWidth
                           >
-                            {item.text}
+                            {t(item.i18nKey)}
                           </Button>
                         </StyledLink>
                       </ListItem>
@@ -195,7 +198,7 @@ const NavigationDrawer = ({
               <HorizontalRule mx={theme.spacing.s5} my={0} />
               <Footer>
                 <AvatarDropdown
-                  name={session?.user.name || "User Name"}
+                  name={session?.user.name || t("dropdown.username")}
                   email={session?.user.email || ""}
                   src={session?.user.image || ""}
                   showFullButton
