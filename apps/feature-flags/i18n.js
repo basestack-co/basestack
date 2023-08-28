@@ -3,10 +3,10 @@ module.exports = {
   defaultLocale: "en",
   pages: {
     "*": ["navigation"],
-    "/": ["home"],
-    "/[projectSlug]/flags": ["flags"],
-    "/[projectSlug]/settings/general": ["settings"],
-    "/[projectSlug]/settings/members": ["settings"],
-    "/[projectSlug]/settings/environments": ["settings"],
+    "/": ["home", "modals"],
+    "/[projectSlug]/flags": ["flags", "modals"],
+    "/[projectSlug]/settings/general": ["settings", "modals"],
+    "/[projectSlug]/settings/members": ["settings", "modals"],
+    "/[projectSlug]/settings/environments": ["settings", "modals"],
   },
 };

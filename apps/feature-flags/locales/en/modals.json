@@ -1,0 +1,15 @@
+{
+  "project": {
+    "create": {
+      "title": "Create Project",
+      "button": {
+        "cancel": "Close",
+        "submit": "Create"
+      },
+      "input": {
+        "project-name": "Project name",
+        "slug": "Project slug"
+      }
+    }
+  }
+}

@@ -20,6 +20,9 @@ import { generateSlug } from "random-word-slugs";
 import { slugify } from "@basestack/utils";
 // Hooks
 import { useDebounce } from "react-use";
+// Locales
+import useTranslation from "next-translate/useTranslation";
+// Styles
 import { IconButtonContainer, SlugContainer } from "./styles";
 
 export const FormSchema = z.object({
@@ -38,6 +41,7 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 const AnimatedIconButton = animated(IconButtonContainer);
 
 const CreateProjectModal = () => {
+  const { t } = useTranslation("modals");
   const theme = useTheme();
   const router = useRouter();
   const trpcContext = trpc.useContext();
@@ -112,14 +116,14 @@ const CreateProjectModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title="Create Project"
+        title={t("project.create.title")}
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { children: "Close", onClick: onClose },
+          { children: t("project.create.button.cancel"), onClick: onClose },
           {
-            children: "Create",
+            children: t("project.create.button.submit"),
             onClick: handleSubmit(onSubmit),
             isLoading: isSubmittingOrMutating,
             isDisabled: isSubmittingOrMutating,
@@ -133,7 +137,7 @@ const CreateProjectModal = () => {
           defaultValue=""
           render={({ field }) => (
             <InputGroup
-              title="Project name"
+              title={t("project.create.input.project-name")}
               hint={errors.name?.message}
               inputProps={{
                 type: "text",
@@ -156,7 +160,7 @@ const CreateProjectModal = () => {
             defaultValue=""
             render={({ field }) => (
               <InputGroup
-                title="Project slug"
+                title={t("project.create.input.slug")}
                 hint={errors.slug?.message}
                 inputProps={{
                   name: "slug",
