@@ -32,7 +32,7 @@ export interface InputProps extends SpaceProps, LayoutProps {
   /**
    * Input value
    */
-  value: string;
+  value: string | number;
   /**
    * Input name
    */
@@ -45,6 +45,10 @@ export interface InputProps extends SpaceProps, LayoutProps {
    * Input onBlur
    */
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  /**
+   * Input onInput
+   */
+  onInput?: (event: React.FocusEvent<HTMLInputElement>) => void;
   /**
    * Input onFocus
    */
@@ -68,11 +72,11 @@ export interface InputProps extends SpaceProps, LayoutProps {
   /**
    * Input min chars
    */
-  min?: string;
+  min?: number;
   /**
    * Input max chars
    */
-  max?: string;
+  max?: number;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -87,6 +91,7 @@ const Input: React.FC<InputProps> = ({
   testId = "input-container",
   onChange,
   onBlur,
+  onInput,
   onFocus,
   hasError = false,
   isDisabled = false,
@@ -114,6 +119,7 @@ const Input: React.FC<InputProps> = ({
         data-testid="input"
         onChange={onChange}
         onBlur={onBlur}
+        onInput={onInput}
         onFocus={onFocus}
         placeholder={placeholder}
         name={name}

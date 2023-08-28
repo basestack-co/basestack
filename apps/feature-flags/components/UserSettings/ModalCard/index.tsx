@@ -17,8 +17,11 @@ const ModalCard = () => {
     <Card p={theme.spacing.s5}>
       <ContentContainer>
         <TextContainer>
-          <Text size="large">Modal behavior</Text>
-          <Text>Close modal when clicking outside main content</Text>
+          <Text size="large">Modals Behavior</Text>
+          <Text>
+            Automatically dismiss the modal when clicking outside the main
+            content area.
+          </Text>
         </TextContainer>
         <Switch
           ml={theme.spacing.s5}

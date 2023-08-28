@@ -1,13 +1,6 @@
 import React from "react";
 import { useSession } from "next-auth/react";
-import {
-  Card,
-  Avatar,
-  Text,
-  Button,
-  ButtonVariant,
-  HorizontalRule,
-} from "@basestack/design-system";
+import { Card, Avatar, Text, HorizontalRule } from "@basestack/design-system";
 import {
   Container,
   ContentContainer,
@@ -36,15 +29,10 @@ const AvatarCard = () => {
       </Container>
       <HorizontalRule />
       <Footer>
-        <Button
-          variant={ButtonVariant.Secondary}
-          onClick={() => console.log("click")}
-          ml="auto"
-          iconPlacement="right"
-          icon="open_in_new"
-        >
-          Update
-        </Button>
+        <Text muted>
+          Please edit the user details through your service provider to update
+          the information.
+        </Text>
       </Footer>
     </Card>
   );

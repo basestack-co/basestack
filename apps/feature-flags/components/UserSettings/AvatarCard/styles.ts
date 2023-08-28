@@ -19,6 +19,13 @@ export const UserDetailsContainer = styled.div`
 
 export const Footer = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
   padding: ${({ theme }) => theme.spacing.s4} ${({ theme }) => theme.spacing.s5};
+`;
+
+export const MessageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: ${({ theme }) => theme.spacing.s2};
+  background-color: ${({ theme }) => theme.colors.gray100};
 `;

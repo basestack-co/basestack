@@ -14,7 +14,10 @@ import AvatarCard from "./AvatarCard";
 import { Container, List, ListItem } from "./styles";
 
 export const FormSchema = z.object({
-  numberOfFlags: z.string().min(1, "Required field").max(3, "Must be 999 less"),
+  numberOfFlags: z
+    .number()
+    .min(1, "Required field")
+    .max(3, "Must be a value between 1 and 100"),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
@@ -53,27 +56,41 @@ const UserSettings = () => {
         </ListItem>
         <ListItem>
           <SettingCard
-            title="Number of flags"
-            description="Number of flags to show per page"
+            title="Flags per Page"
+            description="Quantity of flags to display per page."
             button="Save"
             onClick={handleSubmit(onSubmit)}
           >
             <Controller
               name="numberOfFlags"
               control={control}
-              defaultValue={numberOfFlagsPerPage.toString()}
+              defaultValue={numberOfFlagsPerPage}
               render={({ field }) => (
                 <Input
                   value={field.value}
                   name={field.name}
-                  placeholder={field.value}
+                  placeholder={field.value.toString()}
                   type="number"
                   onChange={field.onChange}
-                  onBlur={field.onBlur}
+                  onBlur={(e) => {
+                    const inputValue = +e.target.value;
+                    if (inputValue <= 0) {
+                      e.currentTarget.value = "1";
+                      field.onChange(1);
+                    }
+                    field.onBlur();
+                  }}
                   maxWidth={400}
                   hasError={!!errors.numberOfFlags}
-                  min="1"
-                  max="999"
+                  onInput={(e) => {
+                    const inputValue = +e.target.value;
+                    if (inputValue > 100) {
+                      e.currentTarget.value = "100";
+                      field.onChange(100);
+                    }
+                  }}
+                  min={1}
+                  max={100}
                 />
               )}
             />
