@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 // Components
 import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
@@ -19,6 +19,9 @@ const EditEnvironmentModal = () => {
   const data = useStore((state) => state.environmentModalPayload);
   const setUpdateEnvironmentModalOpen = useStore(
     (state) => state.setUpdateEnvironmentModalOpen,
+  );
+  const closeModalsOnClickOutside = useStore(
+    (state) => state.closeModalsOnClickOutside,
   );
 
   const updateEnvironment = trpc.environment.update.useMutation();
@@ -116,6 +119,7 @@ const EditEnvironmentModal = () => {
           },
         ]}
         onAnimationEnd={reset}
+        closeOnClickOutside={closeModalsOnClickOutside}
       >
         {onRenderForm()}
       </Modal>

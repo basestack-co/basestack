@@ -23,6 +23,9 @@ const InviteMemberModal = () => {
     (state) => state.setInviteMemberModalOpen,
   );
   const payload = useStore((state) => state.inviteMemberModalPayload);
+  const closeModalsOnClickOutside = useStore(
+    (state) => state.closeModalsOnClickOutside,
+  );
 
   const { data, isLoading } = trpc.user.all.useQuery(
     {
@@ -106,6 +109,7 @@ const InviteMemberModal = () => {
             isLoading: isSubmittingOrMutating,
           },
         ]}
+        closeOnClickOutside={closeModalsOnClickOutside}
       >
         <Controller
           name="memberId"

@@ -21,6 +21,8 @@ export const useStore = createWithEqualityFn<Store>(
       partialize: (state) => ({
         isDarkMode: state.isDarkMode,
         selectedView: state.selectedView,
+        numberOfFlagsPerPage: state.numberOfFlagsPerPage,
+        closeModalsOnClickOutside: state.closeModalsOnClickOutside,
       }),
     },
   ),

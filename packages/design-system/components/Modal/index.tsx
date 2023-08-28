@@ -24,6 +24,7 @@ const Modal: React.FC<ModalProps> = ({
   size = "small",
   isOpen = false,
   expandMobile = false,
+  closeOnClickOutside = true,
   title,
   onClose,
   buttons,
@@ -103,7 +104,7 @@ const Modal: React.FC<ModalProps> = ({
                 </AnimatedSheet>
               ),
           )}
-          <Overlay onClick={onClose} />
+          <Overlay {...(closeOnClickOutside ? { onClick: onClose } : {})} />
         </AnimatedModal>
       ),
   );

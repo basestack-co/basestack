@@ -32,7 +32,7 @@ export interface InputProps extends SpaceProps, LayoutProps {
   /**
    * Input value
    */
-  value: string;
+  value: string | number;
   /**
    * Input name
    */
@@ -45,6 +45,10 @@ export interface InputProps extends SpaceProps, LayoutProps {
    * Input onBlur
    */
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  /**
+   * Input onInput
+   */
+  onInput?: (event: React.FocusEvent<HTMLInputElement>) => void;
   /**
    * Input onFocus
    */
@@ -65,6 +69,14 @@ export interface InputProps extends SpaceProps, LayoutProps {
    * Input autoComplete on or off
    */
   autoComplete?: string;
+  /**
+   * Input min chars
+   */
+  min?: number;
+  /**
+   * Input max chars
+   */
+  max?: number;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -79,10 +91,13 @@ const Input: React.FC<InputProps> = ({
   testId = "input-container",
   onChange,
   onBlur,
+  onInput,
   onFocus,
   hasError = false,
   isDisabled = false,
   autoComplete,
+  min,
+  max,
   ...props
 }) => {
   const theme = useTheme();
@@ -104,6 +119,7 @@ const Input: React.FC<InputProps> = ({
         data-testid="input"
         onChange={onChange}
         onBlur={onBlur}
+        onInput={onInput}
         onFocus={onFocus}
         placeholder={placeholder}
         name={name}
@@ -116,6 +132,8 @@ const Input: React.FC<InputProps> = ({
         hasError={hasError}
         disabled={isDisabled}
         autoComplete={autoComplete}
+        min={min}
+        max={max}
       />
       {hasRightIcon && (
         <IconContainer iconPlacement={iconPlacement}>

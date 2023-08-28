@@ -26,6 +26,9 @@ const UpdateFlagModal = () => {
   const setUpdateFlagModalOpen = useStore(
     (state) => state.setUpdateFlagModalOpen,
   );
+  const closeModalsOnClickOutside = useStore(
+    (state) => state.closeModalsOnClickOutside,
+  );
 
   const projectSlug = router.query.projectSlug as string;
   const updateFlag = trpc.flag.update.useMutation();
@@ -117,6 +120,7 @@ const UpdateFlagModal = () => {
           },
         ]}
         onAnimationEnd={reset}
+        closeOnClickOutside={closeModalsOnClickOutside}
       >
         <Tabs
           items={[

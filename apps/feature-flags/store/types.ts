@@ -89,11 +89,15 @@ export interface ModalsSliceState extends ModalsSliceActions {
  */
 
 export interface AppSliceActions {
+  setNumberOfFlagsPerPage: (value: number) => void;
+  setCloseModalsOnClickOutside: (value: boolean) => void;
   setDarkMode: (value: boolean) => void;
   setSelectedView: (payload: { view: SelectedView }) => void;
 }
 
 export interface AppSliceState extends AppSliceActions {
+  numberOfFlagsPerPage: number;
+  closeModalsOnClickOutside: boolean;
   isDarkMode: boolean;
   selectedView: SelectedView;
 }
