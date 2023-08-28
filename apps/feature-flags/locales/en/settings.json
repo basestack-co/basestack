@@ -1,0 +1,61 @@
+{
+  "common": {
+    "copy": {
+      "url": {
+        "default": "Copy URL",
+        "success": "Copied URL to Clipboard"
+      },
+      "key": {
+        "default": "Copy Key",
+        "success": "Copied Key to Clipboard"
+      }
+    }
+  },
+  "general": {
+    "project": {
+      "title": "Project Name",
+      "description": "A name used to identify your project on the dashboard.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Project Name"
+        }
+      }
+    },
+    "endpoints": {
+      "title": "Endpoints",
+      "description": "Endpoints are essential for the SDKs to access and interact with features.",
+      "copy": {
+        "title": "Base Url"
+      }
+    },
+    "project-key": {
+      "title": "Project Key",
+      "description": "Here is your project key, which you can use to integrate and access the features in your project.",
+      "copy": {
+        "title": "Key"
+      }
+    },
+    "keys": {
+      "title": "API Keys",
+      "description": "API keys are used with the SDKs, such as JavaScript, React, etc.",
+      "table": {
+        "headers": {
+          "name": "Environment Name",
+          "key": "Environment Key"
+        }
+      }
+    },
+    "delete": {
+      "title": "Delete Project",
+      "description": "Deleting the project will permanently remove all its environments and feature flags.",
+      "placeholder": "Warning: This action is irreversible. Proceed with caution.",
+      "action": "Delete",
+      "modal": {
+        "title": "Are you sure about this action?",
+        "description": "Warning: This action cannot be undone. It will permanently delete the {{name}} project, including flags, history, and all collaborator associations.",
+        "action": "Delete Project"
+      }
+    }
+  }
+}

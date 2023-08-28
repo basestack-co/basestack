@@ -155,7 +155,9 @@ const FlagCards = ({
                     title={flag.slug}
                     slug={flag.slug}
                     description={flag.description ?? ""}
-                    date={`Created ${dayjs(flag.createdAt).fromNow()}`}
+                    date={t("list.card.date", {
+                      date: dayjs(flag.createdAt).fromNow(),
+                    })}
                     popupItems={[
                       {
                         icon: "edit",

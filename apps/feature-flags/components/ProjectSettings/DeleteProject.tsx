@@ -9,10 +9,13 @@ import { trpc } from "libs/trpc";
 import { useRouter } from "next/router";
 // Types
 import { ProjectSettings } from "types";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 
 type Props = ProjectSettings;
 
 const DeleteProjectCard = ({ project }: Props) => {
+  const { t } = useTranslation("settings");
   const router = useRouter();
   const trpcContext = trpc.useContext();
   const deleteProject = trpc.project.delete.useMutation();
@@ -48,10 +51,12 @@ const DeleteProjectCard = ({ project }: Props) => {
     setConfirmModalOpen({
       isOpen: true,
       data: {
-        title: "Are you sure about this action?",
-        description: `Warning: This action cannot be undone. It will permanently delete the <b>${project.name}</b> project, including flags, history, and all collaborator associations.`,
+        title: t("general.delete.modal.title"),
+        description: t("general.delete.modal.description", {
+          name: `<b>${project.name}</b>`,
+        }),
         type: "delete",
-        buttonText: "Delete Project",
+        buttonText: t("general.delete.modal.action"),
         onClick: () => {
           onDeleteProject();
           setConfirmModalOpen({
@@ -64,11 +69,11 @@ const DeleteProjectCard = ({ project }: Props) => {
 
   return (
     <SettingCard
-      title="Delete Project"
-      description="Deleting the project will permanently remove all its environments and feature flags."
-      button="Delete"
+      title={t("general.delete.title")}
+      description={t("general.delete.description")}
+      button={t("general.delete.action")}
       onClick={onClickDeleteProject}
-      text="Warning: This action is irreversible. Proceed with caution."
+      text={t("general.delete.placeholder")}
       isDisabled={deleteProject.isLoading}
       variant="danger"
       isLoading={deleteProject.isLoading}

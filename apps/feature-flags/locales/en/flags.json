@@ -17,6 +17,7 @@
       "action": "Create Feature Flag"
     },
     "card": {
+      "date": "Created {{date}}",
       "actions": {
         "edit": "Edit",
         "delete": "Delete",

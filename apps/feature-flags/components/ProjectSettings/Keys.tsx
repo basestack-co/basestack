@@ -7,6 +7,8 @@ import SettingCard from "../SettingCard";
 import MobileCard from "../MobileCard";
 // Libs
 import { trpc } from "libs/trpc";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Utils
 import { createTable } from "utils/helpers/table";
 // Types
@@ -14,6 +16,7 @@ import { ProjectSettings } from "types";
 
 type Props = ProjectSettings;
 const KeysCard = ({ project }: Props) => {
+  const { t } = useTranslation("settings");
   const theme = useTheme();
   const isMobile = useMedia(theme.device.max.md, false);
   const { data, isLoading } = trpc.project.allKeys.useQuery(
@@ -29,16 +32,19 @@ const KeysCard = ({ project }: Props) => {
   const getTable = useMemo(() => {
     return createTable(
       environments,
-      ["Environment Name", "Environment Key"],
+      [
+        t("general.keys.table.headers.name"),
+        t("general.keys.table.headers.key"),
+      ],
       (item) => [{ title: item.name }, { title: item.key!, hideText: true }],
       () => [],
       (item) => ({
         textToCopy: item.key || "",
-        defaultText: "Copy Key",
-        successText: "Copied Key to Clipboard",
+        defaultText: t("common.copy.key.default"),
+        successText: t("common.copy.key.success"),
       }),
     );
-  }, [environments]);
+  }, [environments, t]);
 
   const getContent = () => {
     if (isMobile) {
@@ -59,8 +65,8 @@ const KeysCard = ({ project }: Props) => {
 
   return (
     <SettingCard
-      title="API Keys"
-      description="API keys are used with the SDKs, such as JavaScript, React, etc."
+      title={t("general.keys.title")}
+      description={t("general.keys.description")}
       hasFooter={false}
     >
       {isLoading || !data ? (

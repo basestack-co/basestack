@@ -11,6 +11,8 @@ import SettingCard from "../SettingCard";
 // Types
 import { ProjectSettings } from "types";
 import { Role } from "@prisma/client";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 
 type Props = ProjectSettings;
 
@@ -24,6 +26,7 @@ export const FormSchema = z.object({
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const ProjectNameCard = ({ project }: Props) => {
+  const { t } = useTranslation("settings");
   const trpcContext = trpc.useContext();
   const updateProject = trpc.project.update.useMutation();
 
@@ -91,9 +94,9 @@ const ProjectNameCard = ({ project }: Props) => {
 
   return (
     <SettingCard
-      title="Project Name"
-      description="A name used to identify your project on the dashboard."
-      button="Update"
+      title={t("general.project.title")}
+      description={t("general.project.description")}
+      button={t("general.project.action")!}
       onClick={handleSubmit(onSaveProjectName)}
       isDisabled={isSubmitting || !project || updateProject.isLoading}
       isLoading={isSubmitting || updateProject.isLoading}
@@ -108,7 +111,7 @@ const ProjectNameCard = ({ project }: Props) => {
             maxWidth={400}
             onChange={field.onChange}
             onBlur={field.onBlur}
-            placeholder="Project name"
+            placeholder={t("general.project.inputs.name.placeholder")}
             name={field.name}
             value={field.value}
             hasError={!!errors.name}
