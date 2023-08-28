@@ -8,6 +8,8 @@ import { Container, SegmentContainer } from "./styles";
 import { useDebounce } from "react-use";
 // Types
 import { SelectedView } from "types";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 
 export interface ToolbarProps extends SpaceProps {
   onSearchCallback: (value: string) => void;
@@ -22,6 +24,7 @@ const Toolbar = ({
   onSearchCallback,
   selectedView,
 }: ToolbarProps) => {
+  const { t } = useTranslation("flags");
   const theme = useTheme();
   const [searchValue, setSearchValue] = useState<string>("");
 
@@ -36,7 +39,7 @@ const Toolbar = ({
         isDarker
         icon="search"
         iconPlacement="left"
-        placeholder="Filter by name"
+        placeholder={t("toolbar.search.placeholder")}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           setSearchValue(event.target.value)
         }

@@ -4,5 +4,6 @@ module.exports = {
   pages: {
     "*": ["navigation"],
     "/": ["home"],
+    "/[projectSlug]/flags": ["flags"],
   },
 };

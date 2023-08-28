@@ -1,0 +1,32 @@
+{
+  "seo": {
+    "title": "Flags"
+  },
+  "page": {
+    "title": "Feature Flags"
+  },
+  "toolbar": {
+    "search": {
+      "placeholder": "Filter by name"
+    }
+  },
+  "list": {
+    "empty": {
+      "title": "This project has no Feature Flags",
+      "description": "No Feature Flags are currently available for this project.",
+      "action": "Create Feature Flag"
+    },
+    "card": {
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete",
+        "activity": "Activity"
+      },
+      "delete": {
+        "title": "Are you sure you want to proceed?",
+        "description": "This action is irreversible. Deleting the {{slug}} flag will permanently remove associated comments, activity, and collaborator associations. Please proceed with caution.",
+        "action": "Delete Flag"
+      }
+    }
+  }
+}

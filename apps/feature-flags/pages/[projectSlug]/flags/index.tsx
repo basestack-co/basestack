@@ -13,6 +13,8 @@ import FlagsList from "components/FlagsList";
 import Toolbar from "components/Toolbar";
 // Router
 import { useRouter } from "next/router";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Styles
 import { useTheme } from "styled-components";
 import { FlagsListContainer } from "components/FlagsList/styles";
@@ -22,6 +24,7 @@ import { SelectedView } from "types";
 import { trpc } from "libs/trpc";
 
 const FlagsPage = () => {
+  const { t } = useTranslation("flags");
   const router = useRouter();
   const theme = useTheme();
   const isDesktop = useMedia(theme.device.min.lg, false);
@@ -53,10 +56,12 @@ const FlagsPage = () => {
   return (
     <>
       <Head>
-        <title>{data?.project?.name ?? "Project"} / Flags</title>
+        <title>
+          {data?.project?.name ?? "Project"} / {t("seo.title")}
+        </title>
       </Head>
       <FlagsListContainer>
-        <Text size="xLarge">Feature Flags</Text>
+        <Text size="xLarge">{t("page.title")}</Text>
         <Toolbar
           onChangeView={onChangeView}
           onSearchCallback={(value) => setSearchValue(value)}
