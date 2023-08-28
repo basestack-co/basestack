@@ -20,6 +20,8 @@ import { createTable } from "utils/helpers/table";
 import { useSession } from "next-auth/react";
 // Router
 import { useRouter } from "next/router";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Types
 import { ProjectSettings } from "types";
 import { Role } from "@prisma/client";
@@ -29,6 +31,7 @@ import dayjs from "dayjs";
 type Props = ProjectSettings;
 
 const InviteCard = ({ project }: Props) => {
+  const { t } = useTranslation("settings");
   const theme = useTheme();
   const isMobile = useMedia(theme.device.max.md, false);
   const session = useSession();
@@ -132,7 +135,12 @@ const InviteCard = ({ project }: Props) => {
 
     return createTable(
       !isLoading && !!data ? data.users : [],
-      ["Name", "Email", "Role", "Invited At"],
+      [
+        t("members.invite.table.headers.name"),
+        t("members.invite.table.headers.email"),
+        t("members.invite.table.headers.role"),
+        t("members.invite.table.headers.invited-at"),
+      ],
       (item) => [
         {
           image: {
@@ -175,6 +183,7 @@ const InviteCard = ({ project }: Props) => {
       },
     );
   }, [
+    t,
     data,
     isLoading,
     session?.data?.user.id,
@@ -209,10 +218,10 @@ const InviteCard = ({ project }: Props) => {
 
   return (
     <SettingCard
-      title="Team Members"
-      description="Add members of your organization to manage this project. Developers can also be invited to access API keys for code integration."
-      button="Add Member"
-      text="Note: Users must already have an account to appear in the list (Email Invites Coming Soon)."
+      title={t("members.invite.title")}
+      description={t("members.invite.description")}
+      button={t("members.invite.action")!}
+      text={t("members.invite.placeholder")}
       onClick={onHandleInvite}
       hasFooter={isCurrentUserAdmin}
     >

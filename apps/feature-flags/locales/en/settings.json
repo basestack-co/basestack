@@ -57,5 +57,21 @@
         "action": "Delete Project"
       }
     }
+  },
+  "members": {
+    "invite": {
+      "title": "Team Members",
+      "description": "Add members of your organization to manage this project. Developers can also be invited to access API keys for code integration.",
+      "placeholder": "Note: Users must already have an account to appear in the list (Email Invites Coming Soon).",
+      "action": "Add Member",
+      "table": {
+        "headers": {
+          "name": "Name",
+          "email": "Email",
+          "role": "Role",
+          "invited-at": "Invited At"
+        }
+      }
+    }
   }
 }
