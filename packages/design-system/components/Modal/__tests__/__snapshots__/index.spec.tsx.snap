@@ -48,6 +48,11 @@ exports[`Modal tests should render Modal correctly open 1`] = `
   color: inherit;
 }
 
+.c10 svg,
+.c10 svg g {
+  fill: #000000;
+}
+
 .c10:disabled {
   cursor: not-allowed;
   opacity: 0.6;
@@ -80,6 +85,11 @@ exports[`Modal tests should render Modal correctly open 1`] = `
 
 .c11 .material-symbols-sharp {
   color: inherit;
+}
+
+.c11 svg,
+.c11 svg g {
+  fill: #FFFFFF;
 }
 
 .c11:disabled {
@@ -332,6 +342,11 @@ exports[`Modal tests should render Modal with custom props 1`] = `
   color: inherit;
 }
 
+.c10 svg,
+.c10 svg g {
+  fill: #000000;
+}
+
 .c10:disabled {
   cursor: not-allowed;
   opacity: 0.6;
@@ -364,6 +379,11 @@ exports[`Modal tests should render Modal with custom props 1`] = `
 
 .c11 .material-symbols-sharp {
   color: inherit;
+}
+
+.c11 svg,
+.c11 svg g {
+  fill: #FFFFFF;
 }
 
 .c11:disabled {

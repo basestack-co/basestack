@@ -151,6 +151,11 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
   color: inherit;
 }
 
+.c12 svg,
+.c12 svg g {
+  fill: #FFFFFF;
+}
+
 .c12:disabled {
   cursor: not-allowed;
   opacity: 0.6;

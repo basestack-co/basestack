@@ -35,6 +35,11 @@ exports[`Pagination tests should render Pagination correctly 1`] = `
   color: inherit;
 }
 
+.c7 svg,
+.c7 svg g {
+  fill: #000000;
+}
+
 .c7:disabled {
   cursor: not-allowed;
   opacity: 0.6;

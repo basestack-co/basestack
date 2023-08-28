@@ -42,13 +42,10 @@ export const BannerContent = styled.div`
 export const ButtonsContainer = styled.div`
   display: flex;
   margin-top: ${({ theme }) => theme.spacing.s5};
+  gap: ${({ theme }) => theme.spacing.s4};
 
   @media screen and ${({ theme }) => theme.device.max.sm} {
     flex-direction: column;
-
-    button:first-child {
-      margin-bottom: ${({ theme }) => theme.spacing.s3};
-    }
   }
 `;
 

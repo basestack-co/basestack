@@ -66,7 +66,6 @@ export const ListItem = styled.li`
   height: ${rem("36px")};
   align-items: center;
   padding: 0 ${({ theme }) => theme.spacing.s4};
-  margin-right: ${({ theme }) => theme.spacing.s2};
 
   &:hover {
     cursor: pointer;
@@ -95,7 +94,7 @@ export const Input = styled.input`
   width: 100%;
   border-radius: ${rem("4px")};
   border: none;
-  margin-right: ${({ theme }) => theme.spacing.s3};
+  margin-right: ${({ theme }) => theme.spacing.s4};
   padding: 0 ${({ theme }) => theme.spacing.s4};
   color: ${({ theme }) => theme.colors.gray50};
   background-color: ${({ theme }) => theme.colors.gray700};

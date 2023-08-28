@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // Router
 import { useRouter } from "next/router";
 // Utils
@@ -33,8 +33,6 @@ import {
   RightColumn,
   GlobalStyle,
   BurgerMenu,
-  DocsFullText,
-  DocsShortText,
 } from "./styles";
 
 const links = [
@@ -75,7 +73,7 @@ const Navigation = ({
   const theme = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
-
+  const [stargazers, setsStargazers] = useState(0);
   const springApi = useSpringRef();
   const { size, ...rest } = useSpring({
     ref: springApi,
@@ -100,6 +98,14 @@ const Navigation = ({
     0,
     isMenuOpen ? 0.3 : 0.6,
   ]);
+
+  useEffect(() => {
+    fetch("https://api.github.com/repos/basestack-co/basestack")
+      .then((res) => res.json())
+      .then((data) => {
+        setsStargazers(data.stargazers_count ?? 0);
+      });
+  }, []);
 
   return (
     <>
@@ -147,7 +153,7 @@ const Navigation = ({
               variant={
                 isDarkMode ? ButtonVariant.Secondary : ButtonVariant.Tertiary
               }
-              mr={theme.spacing.s3}
+              mr={theme.spacing.s4}
               onClick={() => {
                 if (typeof window !== "undefined") {
                   window.open(defaults.urls.repo, "_blank");
@@ -155,8 +161,11 @@ const Navigation = ({
               }}
               size={ButtonSize.Medium}
               backgroundColor="transparent"
+              iconPlacement="left"
+              icon="github"
             >
-              Github
+              <span>Star</span>
+              {stargazers > 0 && <span>&nbsp;{stargazers}</span>}
             </Button>
             <Button
               onClick={() => {

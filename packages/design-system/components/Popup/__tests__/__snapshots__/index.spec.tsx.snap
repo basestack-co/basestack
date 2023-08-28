@@ -35,6 +35,11 @@ exports[`Popup tests should render Popup correctly 1`] = `
   color: inherit;
 }
 
+.c3 svg,
+.c3 svg g {
+  fill: #000000;
+}
+
 .c3:disabled {
   cursor: not-allowed;
   opacity: 0.6;
@@ -163,6 +168,11 @@ exports[`Popup tests should render Popup with icons 1`] = `
 
 .c3 .material-symbols-sharp {
   color: inherit;
+}
+
+.c3 svg,
+.c3 svg g {
+  fill: #000000;
 }
 
 .c3:disabled {
