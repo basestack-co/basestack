@@ -73,5 +73,33 @@
         }
       }
     }
+  },
+  "others": {
+    "environments": {
+      "title": "Environments",
+      "description": "{{type}} environments for this project. Environments allow you to control how your feature flags behave in different settings or stages of development.",
+      "admin": "Create and edit",
+      "user": "All the",
+      "action": "Create New Environment",
+      "modal": {
+        "delete": {
+          "title": "Are you sure?",
+          "description": "This action cannot be undone. This will permanently delete the {{name}} environment, flags, history and remove all collaborator associations.",
+          "action": "Delete Environment"
+        }
+      },
+      "table": {
+        "headers": {
+          "environment": "Environment",
+          "slug": "Slug",
+          "description": "Description",
+          "created-at": "Created At"
+        }
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    }
   }
 }
