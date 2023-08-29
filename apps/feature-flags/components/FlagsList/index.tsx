@@ -33,8 +33,6 @@ interface FlagCardsProps {
   searchValue: string;
 }
 
-const defaultLimit = 20;
-
 const FlagCards = ({
   selectedView,
   projectId,
@@ -49,6 +47,7 @@ const FlagCards = ({
   const setUpdateFlagModalOpen = useStore(
     (state) => state.setUpdateFlagModalOpen,
   );
+  const numberOfFlagsPerPage = useStore((state) => state.numberOfFlagsPerPage);
   const deleteFlag = trpc.flag.delete.useMutation();
 
   const { data: count } = trpc.flag.total.useQuery(
@@ -63,7 +62,7 @@ const FlagCards = ({
   const { data, isLoading, fetchNextPage } = trpc.flag.all.useInfiniteQuery(
     {
       projectId,
-      limit: defaultLimit,
+      limit: numberOfFlagsPerPage,
       search: searchValue,
     },
     {
@@ -73,7 +72,7 @@ const FlagCards = ({
   );
 
   const initialDataLength = getValue(data, "pages[0].flags.length", 0)!;
-  const currentPage = getValue(data, "pages.length", 0)! * defaultLimit;
+  const currentPage = getValue(data, "pages.length", 0)! * numberOfFlagsPerPage;
   const totalPages = count?.total ?? 0;
 
   const onUpdateOrHistory = useCallback(

@@ -39,4 +39,8 @@ export interface ModalProps {
    * Callback when the animation ends
    */
   onAnimationEnd?: () => void;
+  /**
+   * Enables or disables close modal on click outside main content
+   */
+  closeOnClickOutside?: boolean;
 }

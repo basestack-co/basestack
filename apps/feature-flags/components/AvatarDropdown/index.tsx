@@ -202,11 +202,10 @@ const AvatarDropdown = ({
                     iconPlacement="left"
                     variant={ButtonVariant.Neutral}
                     fullWidth
-                    isDisabled
                     onClick={() => {
+                      setIsMenuOpen(false);
                       router.push({
-                        pathname: "/[projectSlug]/settings/general",
-                        query: { projectSlug },
+                        pathname: "/profile/settings",
                       });
                     }}
                   >

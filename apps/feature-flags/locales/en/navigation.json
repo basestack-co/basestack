@@ -10,7 +10,7 @@
   "dropdown": {
     "username": "User Name",
     "invite": "Invite Member (Coming soon)",
-    "settings": "Settings (Coming soon)",
+    "settings": "Settings",
     "logout": "Logout"
   },
   "external": {

@@ -13,6 +13,10 @@ export type FontFamily = "roboto" | "robotoFlex";
 
 export interface TextProps extends SpaceProps, TypographyProps, FlexboxProps {
   /**
+   * Change text tag
+   */
+  as?: string;
+  /**
    * Change text size
    */
   size?: Size;

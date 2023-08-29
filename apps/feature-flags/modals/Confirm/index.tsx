@@ -21,6 +21,9 @@ const ConfirmModal = () => {
   const confirmModal = useStore((state) => state.confirmModalPayload);
   const isModalOpen = useStore((state) => state.isConfirmModalOpen);
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
+  const closeModalsOnClickOutside = useStore(
+    (state) => state.closeModalsOnClickOutside,
+  );
 
   const onClose = useCallback(() => {
     setConfirmModalOpen({ isOpen: false });
@@ -40,6 +43,7 @@ const ConfirmModal = () => {
             variant: getButtonVariant(confirmModal?.type || "info"),
           },
         ]}
+        closeOnClickOutside={closeModalsOnClickOutside}
       >
         <Content
           dangerouslySetInnerHTML={{ __html: confirmModal?.description! }}

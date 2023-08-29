@@ -72,6 +72,11 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
   color: inherit;
 }
 
+.c9 svg,
+.c9 svg g {
+  fill: #000000;
+}
+
 .c9:disabled {
   cursor: not-allowed;
   opacity: 0.6;

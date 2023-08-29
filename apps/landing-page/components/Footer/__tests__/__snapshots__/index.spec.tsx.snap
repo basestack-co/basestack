@@ -64,6 +64,11 @@ exports[`Footer tests should render Footer correctly 1`] = `
   color: inherit;
 }
 
+.c13 svg,
+.c13 svg g {
+  fill: #FFFFFF;
+}
+
 .c13:disabled {
   cursor: not-allowed;
   opacity: 0.6;
@@ -109,7 +114,6 @@ exports[`Footer tests should render Footer correctly 1`] = `
   height: 2.25rem;
   align-items: center;
   padding: 0 1rem;
-  margin-right: 0.5rem;
 }
 
 .c8:hover {
@@ -133,7 +137,7 @@ exports[`Footer tests should render Footer correctly 1`] = `
   width: 100%;
   border-radius: 0.25rem;
   border: none;
-  margin-right: 0.75rem;
+  margin-right: 1rem;
   padding: 0 1rem;
   color: #F6F6F6;
   background-color: #333333;

@@ -51,6 +51,9 @@ const CreateProjectModal = () => {
   const setCreateProjectModalOpen = useStore(
     (state) => state.setCreateProjectModalOpen,
   );
+  const closeModalsOnClickOutside = useStore(
+    (state) => state.closeModalsOnClickOutside,
+  );
 
   const createProject = trpc.project.create.useMutation();
 
@@ -130,6 +133,7 @@ const CreateProjectModal = () => {
           },
         ]}
         onAnimationEnd={reset}
+        closeOnClickOutside={closeModalsOnClickOutside}
       >
         <Controller
           name="name"
