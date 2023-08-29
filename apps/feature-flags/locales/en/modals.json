@@ -11,5 +11,32 @@
         "slug": "Project slug"
       }
     }
+  },
+  "member": {
+    "invite": {
+      "title": "Add Team Member",
+      "button": {
+        "cancel": "Close",
+        "submit": "Add member"
+      },
+      "input": {
+        "member-id": {
+          "empty": "No members",
+          "default": "Select member"
+        }
+      }
+    }
+  },
+  "integration": {
+    "title": "Implementing Feature Flags",
+    "sdk": {
+      "reference": "SDK Reference",
+      "explore": "Explore the",
+      "docs": "SDK Docs",
+      "more": "to learn how to install and use the SDK."
+    },
+    "button": {
+      "cancel": "Close"
+    }
   }
 }

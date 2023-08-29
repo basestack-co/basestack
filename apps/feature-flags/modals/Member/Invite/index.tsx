@@ -9,6 +9,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // Libs
 import { trpc } from "libs/trpc";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 
 export const FormSchema = z.object({
   memberId: z.string().min(1, "Required field"),
@@ -17,6 +19,7 @@ export const FormSchema = z.object({
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const InviteMemberModal = () => {
+  const { t } = useTranslation("modals");
   const trpcContext = trpc.useContext();
   const isModalOpen = useStore((state) => state.isInviteMemberModalOpen);
   const setInviteMemberModalOpen = useStore(
@@ -93,14 +96,14 @@ const InviteMemberModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title="Add Team Member"
+        title={t("member.invite.title")}
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { children: "Close", onClick: onClose },
+          { children: t("member.invite.button.cancel"), onClick: onClose },
           {
-            children: "Add member",
+            children: t("member.invite.button.submit"),
             onClick: handleSubmit(onSubmit),
             isDisabled:
               !payload?.project?.id ||
@@ -118,7 +121,11 @@ const InviteMemberModal = () => {
           render={({ field }) => (
             <Select
               ref={field.ref}
-              placeholder={!options.length ? "No members" : "Select member"}
+              placeholder={
+                !options.length
+                  ? t("member.invite.input.member-id.empty")
+                  : t("member.invite.input.member-id.default")
+              }
               options={options}
               value={
                 (options &&

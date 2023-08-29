@@ -10,6 +10,8 @@ import Portal from "@basestack/design-system/global/Portal";
 import { ButtonVariant, Modal, Text } from "@basestack/design-system";
 import CopyButton from "components/CopyButton";
 import CodeLanguageCard from "components/CodeLanguageCard";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Styles
 import { useTheme } from "styled-components";
 import {
@@ -27,6 +29,7 @@ import data from "./data";
 SyntaxHighlighter.registerLanguage("typescript", ts);
 
 const IntegrationModal = () => {
+  const { t } = useTranslation("modals");
   const theme = useTheme();
   const [selectedListIndex, setSelectedListIndex] = useState(0);
   const isModalOpen = useStore((state) => state.isIntegrationModalOpen);
@@ -46,13 +49,13 @@ const IntegrationModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title="Implementing Feature Flags"
+        title={t("integration.title")}
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
           {
-            children: "Close",
+            children: t("integration.button.cancel"),
             onClick: onClose,
             variant: ButtonVariant.Neutral,
           },
@@ -74,21 +77,21 @@ const IntegrationModal = () => {
           </CardsList>
           <ContentContainer>
             <Text size="large" mb={theme.spacing.s1}>
-              {tab.text} SDK Reference
+              {tab.text} {t("integration.sdk.reference")}
             </Text>
             <Text size="small" muted>
-              Explore the{" "}
+              {t("integration.sdk.explore")}{" "}
               <StyledLink href={tab.href} target="_blank">
-                {tab.text} SDK Docs
+                {tab.text} {t("integration.sdk.docs")}
               </StyledLink>{" "}
-              to learn how to install and use the SDK.
+              {t("integration.sdk.more")}
             </Text>
             <CodeContainer>
               <CopyButtonContainer>
                 <CopyButton text={tab.code} />
               </CopyButtonContainer>
               <SyntaxHighlighter
-                language="javascript"
+                language="typescript"
                 style={a11yDark}
                 wrapLongLines
               >
