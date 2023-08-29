@@ -38,5 +38,46 @@
     "button": {
       "cancel": "Close"
     }
+  },
+  "flag": {
+    "tab": {
+      "core": {
+        "title": "Core",
+        "input": {
+          "name": {
+            "title": "Feature Key",
+            "hint": "No numbers, spaces, or special characters",
+            "placeholder": "E.g. header_size"
+          },
+          "description": {
+            "title": "Description",
+            "placeholder": "Flag description"
+          },
+          "environments": {
+            "title": "Enabled Environments"
+          }
+        }
+      },
+      "advanced": {
+        "title": "Advanced"
+      },
+      "activity": {
+        "title": "Activity"
+      }
+    },
+    "create": {
+      "title": "Create Feature Flag",
+      "button": {
+        "cancel": "Close",
+        "submit": "Create"
+      }
+    },
+    "update": {
+      "title": "Edit Feature Flag",
+      "button": {
+        "cancel": "Close",
+        "submit": "Update"
+      }
+    }
   }
 }

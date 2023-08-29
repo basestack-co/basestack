@@ -9,6 +9,8 @@ import { FlagFormInputs, EnvironmentInput } from "../types";
 import { Environments } from "../styles";
 // Types
 import { UseFormSetValue, FieldErrors, Control } from "react-hook-form";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 
 export interface Props {
   environments: EnvironmentInput[];
@@ -25,6 +27,7 @@ const CoreTab = ({
   control,
   isSubmitting,
 }: Props) => {
+  const { t } = useTranslation("modals");
   const theme = useTheme();
   const [textareaLength, setTextareaLength] = useState("");
 
@@ -59,18 +62,15 @@ const CoreTab = ({
         defaultValue=""
         render={({ field }) => (
           <InputGroup
-            title="Feature Key"
-            hint={
-              errors.name?.message ||
-              "No numbers, spaces, or special characters"
-            }
+            title={t("flag.tab.core.input.name.title")}
+            hint={errors.name?.message || t("flag.tab.core.input.name.hint")}
             inputProps={{
               type: "text",
               name: field.name,
               value: field.value.replace(/ /g, "_"),
               onChange: field.onChange,
               onBlur: field.onBlur,
-              placeholder: "E.g. header_size",
+              placeholder: t("flag.tab.core.input.name.placeholder"),
               hasError: !!errors.name,
               isDisabled: isSubmitting,
             }}
@@ -85,7 +85,7 @@ const CoreTab = ({
         defaultValue=""
         render={({ field }) => (
           <InputGroup
-            title="Description"
+            title={t("flag.tab.core.input.description.title")}
             label={`${textareaLength.length} / 120`}
             textarea
             hint={errors.description?.message}
@@ -94,7 +94,7 @@ const CoreTab = ({
               value: field.value ?? "",
               onChange: onChangeTextarea,
               onBlur: field.onBlur,
-              placeholder: "Flag description",
+              placeholder: t("flag.tab.core.input.description.placeholder"),
               maxlength: "120",
               hasError: !!errors.description,
               isDisabled: isSubmitting,
@@ -109,7 +109,7 @@ const CoreTab = ({
         data-testid="input-group-title"
         size="small"
       >
-        Enabled Environments
+        {t("flag.tab.core.input.environments.title")}
       </Text>
       {!environments ? (
         <Skeleton

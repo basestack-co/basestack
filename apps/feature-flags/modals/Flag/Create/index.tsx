@@ -14,10 +14,13 @@ import { useStore } from "store";
 import { TabType } from "types";
 // Server
 import { trpc } from "libs/trpc";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Hooks
 import useFlagForm, { tabPosition } from "../useFlagForm";
 
 const CreateFlagModal = () => {
+  const { t } = useTranslation("modals");
   const trpcContext = trpc.useContext();
   const theme = useTheme();
   const router = useRouter();
@@ -96,14 +99,14 @@ const CreateFlagModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title="Create Feature Flag"
+        title={t("flag.create.title")}
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { children: "Close", onClick: onClose },
+          { children: t("flag.create.button.cancel"), onClick: onClose },
           {
-            children: "Create",
+            children: t("flag.create.button.submit"),
             onClick: handleSubmit(onSubmit),
             isDisabled: !project?.id || isSubmittingOrMutating,
             isLoading: isSubmittingOrMutating,
@@ -114,8 +117,8 @@ const CreateFlagModal = () => {
       >
         <Tabs
           items={[
-            { text: "Core", id: TabType.CORE },
-            { text: "Advanced", id: TabType.ADVANCED },
+            { text: t("flag.tab.core.title"), id: TabType.CORE },
+            { text: t("flag.tab.advanced.title"), id: TabType.ADVANCED },
           ]}
           onSelect={(tab: string) => setSelectedTab(tab as TabType)}
           sliderPosition={tabPosition[selectedTab]}
