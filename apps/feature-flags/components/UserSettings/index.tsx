@@ -11,6 +11,7 @@ import { Text, Input } from "@basestack/design-system";
 import SettingCard from "../SettingCard";
 import ModalCard from "./ModalCard";
 import AvatarCard from "./AvatarCard";
+import ThemeCard from "./ThemeCard";
 import { Container, List, ListItem } from "./styles";
 
 export const FormSchema = z.object({
@@ -53,6 +54,9 @@ const UserSettings = () => {
         </ListItem>
         <ListItem>
           <ModalCard />
+        </ListItem>
+        <ListItem>
+          <ThemeCard />
         </ListItem>
         <ListItem>
           <SettingCard
