@@ -28,12 +28,12 @@ import { IconButtonContainer, SlugContainer } from "./styles";
 export const FormSchema = z.object({
   name: z
     .string()
-    .max(30, "Must be 30 characters or less")
-    .min(1, "Required field"),
+    .max(30, "project.create.input.project-name.error.max")
+    .min(1, "project.create.input.project-name.error.min"),
   slug: z
     .string()
-    .max(150, "Must be 150 characters or less")
-    .min(1, "Required field"),
+    .max(150, "project.create.input.slug.error.max")
+    .min(1, "project.create.input.slug.error.min"),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
@@ -141,8 +141,8 @@ const CreateProjectModal = () => {
           defaultValue=""
           render={({ field }) => (
             <InputGroup
-              title={t("project.create.input.project-name")}
-              hint={errors.name?.message}
+              title={t("project.create.input.project-name.title")}
+              hint={t(errors.name?.message!)}
               inputProps={{
                 type: "text",
                 name: field.name,
@@ -164,8 +164,8 @@ const CreateProjectModal = () => {
             defaultValue=""
             render={({ field }) => (
               <InputGroup
-                title={t("project.create.input.slug")}
-                hint={errors.slug?.message}
+                title={t("project.create.input.slug.title")}
+                hint={t(errors.slug?.message!)}
                 inputProps={{
                   name: "slug",
                   value: slugify(field.value),

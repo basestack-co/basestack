@@ -8,12 +8,15 @@ import { SubmitHandler } from "react-hook-form";
 import { useStore } from "store";
 // Server
 import { trpc } from "libs/trpc";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Types
 import { FormInputs } from "../types";
 // Form
 import useEnvironmentForm from "../useEnvironmentForm";
 
 const EditEnvironmentModal = () => {
+  const { t } = useTranslation("modals");
   const trpcContext = trpc.useContext();
   const isModalOpen = useStore((state) => state.isUpdateEnvironmentModalOpen);
   const data = useStore((state) => state.environmentModalPayload);
@@ -45,7 +48,6 @@ const EditEnvironmentModal = () => {
           onSuccess: async (result) => {
             if (data && data.project) {
               // Get all the environments by project on the cache
-
               const prev = trpcContext.environment.all.getData({
                 projectId: data.project.id!,
               });
@@ -105,14 +107,14 @@ const EditEnvironmentModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title="Edit Environment"
+        title={t("environment.update.title")}
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { children: "Close", onClick: onClose },
+          { children: t("environment.update.button.cancel"), onClick: onClose },
           {
-            children: "Update",
+            children: t("environment.update.button.submit"),
             onClick: handleSubmit(onSubmit),
             isDisabled: isSubmittingOrMutating,
             isLoading: isSubmittingOrMutating,

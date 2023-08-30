@@ -13,7 +13,7 @@ import { trpc } from "libs/trpc";
 import useTranslation from "next-translate/useTranslation";
 
 export const FormSchema = z.object({
-  memberId: z.string().min(1, "Required field"),
+  memberId: z.string().min(1, "member.invite.input.member-id.error.min"),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;

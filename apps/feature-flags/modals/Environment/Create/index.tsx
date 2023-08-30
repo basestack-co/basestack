@@ -8,12 +8,15 @@ import { trpc } from "libs/trpc";
 // Store
 import { useStore } from "store";
 import { shallow } from "zustand/shallow";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Types
 import { FormInputs } from "../types";
 // Form
 import useEnvironmentForm from "../useEnvironmentForm";
 
 const CreateEnvironmentModal = () => {
+  const { t } = useTranslation("modals");
   const trpcContext = trpc.useContext();
   const { isModalOpen, data, setCreateEnvironmentModalOpen } = useStore(
     (state) => ({
@@ -89,14 +92,14 @@ const CreateEnvironmentModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title="Create Environment"
+        title={t("environment.create.title")}
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { children: "Close", onClick: onClose },
+          { children: t("environment.create.button.cancel"), onClick: onClose },
           {
-            children: "Create",
+            children: t("environment.create.button.submit"),
             onClick: handleSubmit(onSubmit),
             isDisabled: isSubmittingOrMutating,
             isLoading: isSubmittingOrMutating,

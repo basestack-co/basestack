@@ -12,6 +12,8 @@ import { Value } from "react-calendar/src/shared/types";
 const ReactJson = dynamic(import("react-json-view"), { ssr: false });
 // Utils
 import dayjs from "dayjs";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Styles
 import { ReactJsonContainer } from "../styles";
 
@@ -20,6 +22,7 @@ export interface Props {
   environments: EnvironmentInput[];
 }
 const AdvanceTab = ({ setValue, environments }: Props) => {
+  const { t } = useTranslation("modals");
   const theme = useTheme();
   const [isCalenderOpen, setIsCalendarOpen] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -86,11 +89,11 @@ const AdvanceTab = ({ setValue, environments }: Props) => {
       <CalendarInput
         isCalenderOpen={isCalenderOpen}
         onClickAway={() => setIsCalendarOpen(false)}
-        inputTitle="Expiration Date"
+        inputTitle={t("flag.tab.advanced.input.calendar.title")}
         inputProps={{
           onFocus: () => setIsCalendarOpen(true),
           onChange: () => null,
-          placeholder: "dd/mm/yyyy",
+          placeholder: t("flag.tab.advanced.input.calendar.placeholder"),
           name: "date",
           value: !!activeTabData?.expiredAt
             ? dayjs(activeTabData.expiredAt).format("DD/MM/YYYY")
@@ -111,7 +114,7 @@ const AdvanceTab = ({ setValue, environments }: Props) => {
         mt={theme.spacing.s6}
         mb={theme.spacing.s2}
       >
-        Payload
+        {t("flag.tab.advanced.input.payload.title")}
       </Text>
       <ReactJsonContainer>
         <ReactJson

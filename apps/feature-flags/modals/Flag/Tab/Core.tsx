@@ -63,7 +63,9 @@ const CoreTab = ({
         render={({ field }) => (
           <InputGroup
             title={t("flag.tab.core.input.name.title")}
-            hint={errors.name?.message || t("flag.tab.core.input.name.hint")}
+            hint={
+              t(errors.name?.message!) || t("flag.tab.core.input.name.hint")
+            }
             inputProps={{
               type: "text",
               name: field.name,
@@ -88,7 +90,7 @@ const CoreTab = ({
             title={t("flag.tab.core.input.description.title")}
             label={`${textareaLength.length} / 120`}
             textarea
-            hint={errors.description?.message}
+            hint={t(errors.description?.message!)}
             textareaProps={{
               name: field.name,
               value: field.value ?? "",

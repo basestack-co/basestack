@@ -7,8 +7,20 @@
         "submit": "Create"
       },
       "input": {
-        "project-name": "Project name",
-        "slug": "Project slug"
+        "project-name": {
+          "title": "Project name",
+          "error": {
+            "max": "Must be 30 characters or less",
+            "min": "Required field"
+          }
+        },
+        "slug": {
+          "title": "Project slug",
+          "error": {
+            "max": "Must be 150 characters or less",
+            "min": "Required field"
+          }
+        }
       }
     }
   },
@@ -22,7 +34,10 @@
       "input": {
         "member-id": {
           "empty": "No members",
-          "default": "Select member"
+          "default": "Select member",
+          "error": {
+            "min": "Required field"
+          }
         }
       }
     }
@@ -46,12 +61,19 @@
         "input": {
           "name": {
             "title": "Feature Key",
-            "hint": "No numbers, spaces, or special characters",
-            "placeholder": "E.g. header_size"
+            "hint": "No spaces, or special characters",
+            "placeholder": "E.g. header_size",
+            "error": {
+              "max": "Must be 150 characters or less",
+              "min": "Required field"
+            }
           },
           "description": {
             "title": "Description",
-            "placeholder": "Flag description"
+            "placeholder": "Flag description",
+            "error": {
+              "max": "Must be 120 characters or less"
+            }
           },
           "environments": {
             "title": "Enabled Environments"
@@ -59,7 +81,16 @@
         }
       },
       "advanced": {
-        "title": "Advanced"
+        "title": "Advanced",
+        "input": {
+          "calendar": {
+            "title": "Expiration Date",
+            "placeholder": "dd/mm/yyyy"
+          },
+          "payload": {
+            "title": "Payload"
+          }
+        }
       },
       "activity": {
         "title": "Activity"
@@ -77,6 +108,46 @@
       "button": {
         "cancel": "Close",
         "submit": "Update"
+      }
+    }
+  },
+  "confirm": {
+    "button": {
+      "cancel": "Close"
+    }
+  },
+  "environment": {
+    "create": {
+      "title": "Create Environment",
+      "button": {
+        "cancel": "Close",
+        "submit": "Create"
+      }
+    },
+    "update": {
+      "title": "Edit Environment",
+      "button": {
+        "cancel": "Close",
+        "submit": "Create"
+      }
+    },
+    "input": {
+      "name": {
+        "title": "Environment name",
+        "placeholder": "E.g. development",
+        "hint": "The feature flags will be copied based on the default environment",
+        "error": {
+          "max": "Must be 30 characters or less",
+          "min": "Required field"
+        }
+      },
+      "description": {
+        "title": "Description",
+        "placeholder": "Environment description",
+        "error": {
+          "max": "Must be 250 characters or less",
+          "min": "Required field"
+        }
       }
     }
   }

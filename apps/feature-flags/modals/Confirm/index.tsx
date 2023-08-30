@@ -5,6 +5,9 @@ import { Modal, ButtonVariant } from "@basestack/design-system";
 // Store
 import { useStore } from "store";
 import { ConfirmModalType } from "store/types";
+// Locales
+import useTranslation from "next-translate/useTranslation";
+// Styles
 import { Content } from "./styles";
 
 const getButtonVariant = (type: ConfirmModalType) => {
@@ -17,6 +20,7 @@ const getButtonVariant = (type: ConfirmModalType) => {
 };
 
 const ConfirmModal = () => {
+  const { t } = useTranslation("modals");
   const theme = useTheme();
   const confirmModal = useStore((state) => state.confirmModalPayload);
   const isModalOpen = useStore((state) => state.isConfirmModalOpen);
@@ -36,7 +40,7 @@ const ConfirmModal = () => {
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { children: "Close", onClick: onClose },
+          { children: t("confirm.button.cancel"), onClick: onClose },
           {
             children: confirmModal?.buttonText,
             onClick: confirmModal?.onClick,
