@@ -1,6 +1,11 @@
 import React from "react";
+import { useTheme } from "styled-components";
+import { animated } from "react-spring";
+// Store
 import { useStore } from "store";
+// Hooks
 import { useFloatingPopup } from "@basestack/hooks";
+// Components
 import {
   Card,
   Text,
@@ -8,14 +13,12 @@ import {
   Button,
   ButtonVariant,
 } from "@basestack/design-system";
-import { useTheme } from "styled-components";
 import {
   ContentContainer,
   MenuContainer,
   PopupWrapper,
   TextContainer,
 } from "./styles";
-import { animated } from "react-spring";
 
 const AnimatedPopup = animated(Popup);
 
@@ -42,8 +45,10 @@ const ModalCard = () => {
     <Card p={theme.spacing.s5}>
       <ContentContainer>
         <TextContainer>
-          <Text size="large">App Theme</Text>
-          <Text>Choose between light and dark mode theme.</Text>
+          <Text size="large">Select Theme</Text>
+          <Text>
+            Switch between light and dark modes for a personalized look.
+          </Text>
         </TextContainer>
         <MenuContainer>
           <Button
