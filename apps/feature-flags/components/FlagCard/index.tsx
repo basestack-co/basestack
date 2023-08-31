@@ -50,7 +50,7 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
       getFloatingProps,
       onClickMore,
       onCloseMenu,
-    } = useFloatingPopup();
+    } = useFloatingPopup({});
 
     const { data } = trpc.flag.environments.useQuery(
       {

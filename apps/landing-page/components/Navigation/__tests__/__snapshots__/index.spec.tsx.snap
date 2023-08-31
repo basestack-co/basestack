@@ -407,7 +407,7 @@ exports[`Navigation tests should render Navigation in dark mode 1`] = `
             class=""
           >
             <span>
-              Github
+              Star
             </span>
           </span>
         </button>
@@ -870,7 +870,7 @@ exports[`Navigation tests should renders Navigation correctly 1`] = `
             class=""
           >
             <span>
-              Github
+              Star
             </span>
           </span>
         </button>
