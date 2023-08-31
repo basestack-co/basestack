@@ -36,7 +36,7 @@ const Row = ({ cols = [], more, numberOfCols, tooltip }: RowProps) => {
     getFloatingProps,
     onClickMore,
     onCloseMenu,
-  } = useFloatingPopup();
+  } = useFloatingPopup({});
 
   return (
     <StyledRow numberOfColumns={numberOfCols} data-testid="row">
