@@ -7,7 +7,18 @@ import {
   useDismiss,
   useRole,
   useInteractions,
+  Placement,
 } from "@floating-ui/react";
+
+interface AnimationConfig {
+  [key: string]: {
+    from: { opacity: number; scale: number; transformOrigin: string };
+  };
+}
+
+interface UseFloatingPopupProps {
+  placement?: Placement;
+}
 
 const scaleInTopRight = {
   from: { opacity: 0, scale: 0, transformOrigin: "100% 0%" },
@@ -15,7 +26,20 @@ const scaleInTopRight = {
   leave: { opacity: 0, scale: 0, transformOrigin: "100% 0%" },
 };
 
-const useFloatingPopup = () => {
+const scaleInTopLeft = {
+  from: { opacity: 0, scale: 0, transformOrigin: "0% 0%" },
+  enter: { opacity: 1, scale: 1, transformOrigin: "0% 0%" },
+  leave: { opacity: 0, scale: 0, transformOrigin: "0% 0%" },
+};
+
+const animationConfigs: AnimationConfig = {
+  "bottom-end": scaleInTopRight,
+  "bottom-start": scaleInTopLeft,
+};
+
+const useFloatingPopup = ({
+  placement = "bottom-end",
+}: UseFloatingPopupProps) => {
   const popupWrapperRef = useRef(null);
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -23,13 +47,13 @@ const useFloatingPopup = () => {
   const { x, y, refs, strategy, context } = useFloating({
     open: isPopupOpen,
     onOpenChange: setIsPopupOpen,
-    placement: "bottom-end",
+    placement,
     whileElementsMounted: autoUpdate,
   });
 
   const transition = useTransition(isPopupOpen, {
     config: { ...config.default, duration: 150 },
-    ...scaleInTopRight,
+    ...animationConfigs[placement],
   });
 
   const click = useClick(context);
@@ -61,6 +85,7 @@ const useFloatingPopup = () => {
     getFloatingProps,
     onClickMore,
     onCloseMenu,
+    isPopupOpen,
   } as const;
 };
 

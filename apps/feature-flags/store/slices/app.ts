@@ -11,9 +11,9 @@ export const createAppSlice: StateCreator<Store, [], [], AppSliceState> = (
   selectedView: "cards",
   // clears the entire store, actions included
   cleanStore: () => set({}, true),
-  setDarkMode: () =>
-    set((state) => ({
-      isDarkMode: !state.isDarkMode,
+  setDarkMode: (payload) =>
+    set(() => ({
+      isDarkMode: payload,
     })),
   setSelectedView: (payload) =>
     set(() => ({

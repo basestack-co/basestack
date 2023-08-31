@@ -58,7 +58,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
       getFloatingProps,
       onClickMore,
       onCloseMenu,
-    } = useFloatingPopup();
+    } = useFloatingPopup({});
 
     const { data } = trpc.flag.environments.useQuery(
       {
