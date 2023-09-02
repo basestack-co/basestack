@@ -4,6 +4,8 @@ import { useTheme } from "styled-components";
 import { useStore } from "store";
 // Auth
 import { signOut } from "next-auth/react";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Components
 import { autoUpdate, offset, useFloating } from "@floating-ui/react";
 import { animated, config, useTransition } from "react-spring";
@@ -49,6 +51,7 @@ const AvatarDropdown = ({
   showFullButton,
   popupPlacement = "bottom-end",
 }: AvatarMenuProps) => {
+  const { t } = useTranslation("navigation");
   const router = useRouter();
   const theme = useTheme();
   const setIsDarkMode = useStore((state) => state.setDarkMode);
@@ -172,7 +175,7 @@ const AvatarDropdown = ({
                       setIsMenuOpen(false);
                     }}
                   >
-                    Create Project
+                    {t("create.project")}
                   </Button>
                 </ListItem>
                 <ListItem>
@@ -187,7 +190,7 @@ const AvatarDropdown = ({
                       setIsMenuOpen(false);
                     }}
                   >
-                    Invite Member (Coming soon)
+                    {t("dropdown.invite")}
                   </Button>
                 </ListItem>
                 <HrContainer>
@@ -206,7 +209,7 @@ const AvatarDropdown = ({
                       });
                     }}
                   >
-                    Settings
+                    {t("dropdown.settings")}
                   </Button>
                 </ListItem>
                 <ListItem>
@@ -217,7 +220,7 @@ const AvatarDropdown = ({
                     fullWidth
                     onClick={signOut}
                   >
-                    Logout
+                    {t("dropdown.logout")}
                   </Button>
                 </ListItem>
               </List>

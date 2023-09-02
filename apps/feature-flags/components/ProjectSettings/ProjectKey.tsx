@@ -1,4 +1,6 @@
 import React from "react";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Components
 import { CopyCard } from "@basestack/design-system";
 import SettingCard from "../SettingCard";
@@ -8,19 +10,21 @@ interface ProjectKeyProps {
 }
 
 const ProjectKey = ({ projectKey }: ProjectKeyProps) => {
+  const { t } = useTranslation("settings");
+
   return (
     <SettingCard
-      title="Project Key"
-      description="Here is your project key, which you can use to integrate and access the features in your project."
+      title={t("general.project-key.title")}
+      description={t("general.project-key.description")}
       hasFooter={false}
     >
       <CopyCard
         maxWidth={400}
-        title="Key"
+        title={t("general.project-key.copy.title")}
         description={projectKey}
         tooltip={{
-          defaultText: "Copy Key",
-          successText: "Copied Key to Clipboard",
+          defaultText: t("common.copy.key.default"),
+          successText: t("common.copy.key.success"),
         }}
       />
     </SettingCard>

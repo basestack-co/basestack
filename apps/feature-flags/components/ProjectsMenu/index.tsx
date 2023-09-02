@@ -10,6 +10,8 @@ import {
   PopupActionProps,
   slideBottom,
 } from "@basestack/design-system";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Types
 import { ListItem } from "./styles";
 
@@ -26,6 +28,7 @@ const ProjectsMenu = ({
   currentProject,
   onClickCreateProject,
 }: ProjectsMenuProps) => {
+  const { t } = useTranslation("navigation");
   const menuWrapperRef = useRef(null);
   const [isProjectsPopupOpen, setIsProjectsPopupOpen] = useState(false);
   const { x, y, refs, strategy } = useFloating({
@@ -65,7 +68,7 @@ const ProjectsMenu = ({
         variant={ButtonVariant.PrimaryNeutral}
         onClick={onClickProjects}
       >
-        {!!currentProject ? truncateText(currentProject) : "Select Project"}
+        {!!currentProject ? truncateText(currentProject) : t("projects.select")}
       </Button>
       {transitionProjectsPopup(
         (styles, item) =>
@@ -76,11 +79,11 @@ const ProjectsMenu = ({
               position={strategy}
               top={y}
               left={x}
-              title="Projects"
+              title={t("projects.title")}
               items={projects}
               onCallback={onClickProjects}
               button={{
-                text: "Create Project",
+                text: t("create.project"),
                 onClick: onClickCreate,
               }}
             />

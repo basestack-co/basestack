@@ -1,0 +1,109 @@
+{
+  "common": {
+    "copy": {
+      "url": {
+        "default": "Copy URL",
+        "success": "Copied URL to Clipboard"
+      },
+      "key": {
+        "default": "Copy Key",
+        "success": "Copied Key to Clipboard"
+      }
+    }
+  },
+  "general": {
+    "project": {
+      "title": "Project Name",
+      "description": "A name used to identify your project on the dashboard.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Project Name",
+          "error": {
+            "max": "Must be 30 characters or less",
+            "min": "Required field"
+          }
+        }
+      }
+    },
+    "endpoints": {
+      "title": "Endpoints",
+      "description": "Endpoints are essential for the SDKs to access and interact with features.",
+      "copy": {
+        "title": "Base Url"
+      }
+    },
+    "project-key": {
+      "title": "Project Key",
+      "description": "Here is your project key, which you can use to integrate and access the features in your project.",
+      "copy": {
+        "title": "Key"
+      }
+    },
+    "keys": {
+      "title": "API Keys",
+      "description": "API keys are used with the SDKs, such as JavaScript, React, etc.",
+      "table": {
+        "headers": {
+          "name": "Environment Name",
+          "key": "Environment Key"
+        }
+      }
+    },
+    "delete": {
+      "title": "Delete Project",
+      "description": "Deleting the project will permanently remove all its environments and feature flags.",
+      "placeholder": "Warning: This action is irreversible. Proceed with caution.",
+      "action": "Delete",
+      "modal": {
+        "title": "Are you sure about this action?",
+        "description": "Warning: This action cannot be undone. It will permanently delete the {{name}} project, including flags, history, and all collaborator associations.",
+        "action": "Delete Project"
+      }
+    }
+  },
+  "members": {
+    "invite": {
+      "title": "Team Members",
+      "description": "Add members of your organization to manage this project. Developers can also be invited to access API keys for code integration.",
+      "placeholder": "Note: Users must already have an account to appear in the list (Email Invites Coming Soon).",
+      "action": "Add Member",
+      "table": {
+        "headers": {
+          "name": "Name",
+          "email": "Email",
+          "role": "Role",
+          "invited-at": "Invited At"
+        }
+      }
+    }
+  },
+  "others": {
+    "environments": {
+      "title": "Environments",
+      "description": "{{type}} environments for this project. Environments allow you to control how your feature flags behave in different settings or stages of development.",
+      "admin": "Create and edit",
+      "user": "All the",
+      "action": "Create New Environment",
+      "modal": {
+        "delete": {
+          "title": "Are you sure?",
+          "description": "This action cannot be undone. This will permanently delete the {{name}} environment, flags, history and remove all collaborator associations.",
+          "action": "Delete Environment"
+        }
+      },
+      "table": {
+        "headers": {
+          "environment": "Environment",
+          "slug": "Slug",
+          "description": "Description",
+          "created-at": "Created At"
+        }
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    }
+  }
+}

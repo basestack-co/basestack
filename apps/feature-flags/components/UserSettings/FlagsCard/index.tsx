@@ -6,6 +6,8 @@ import { useStore } from "store";
 import { z } from "zod";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Components
 import { Input, Text } from "@basestack/design-system";
 import SettingCard from "../../SettingCard";
@@ -13,13 +15,14 @@ import SettingCard from "../../SettingCard";
 export const FormSchema = z.object({
   numberOfFlags: z
     .number()
-    .min(1, "Required field")
-    .max(100, "Must be a value between 1 and 100."),
+    .min(1, "settings.card.flags.input.number-of-flags.error.min")
+    .max(100, "settings.card.flags.input.number-of-flags.error.max"),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const ModalCard = () => {
+  const { t } = useTranslation("profile");
   const theme = useTheme();
   const numberOfFlagsPerPage = useStore((state) => state.numberOfFlagsPerPage);
   const setNumberOfFlagsPerPage = useStore(
@@ -41,9 +44,9 @@ const ModalCard = () => {
 
   return (
     <SettingCard
-      title="Flags per Page"
-      description="Quantity of flags to display per page."
-      button="Save"
+      title={t("settings.card.flags.title")}
+      description={t("settings.card.flags.description")}
+      button={t("settings.card.flags.action")}
       onClick={handleSubmit(onSubmit)}
     >
       <>
@@ -82,7 +85,7 @@ const ModalCard = () => {
         />
         {!!errors?.numberOfFlags?.message && (
           <Text mt={theme.spacing.s1} color={theme.inputGroup.hint.error.color}>
-            {errors.numberOfFlags.message}
+            {t(errors.numberOfFlags.message)}
           </Text>
         )}
       </>

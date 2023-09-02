@@ -4,20 +4,25 @@ import { CopyCard } from "@basestack/design-system";
 import SettingCard from "../SettingCard";
 // Utils
 import { getBrowserUrl } from "utils/helpers/url";
+// Locales
+import useTranslation from "next-translate/useTranslation";
+
 const EndpointsCard = () => {
+  const { t } = useTranslation("settings");
+
   return (
     <SettingCard
-      title="Endpoints"
-      description="Endpoints are essential for the SDKs to access and interact with features."
+      title={t("general.endpoints.title")}
+      description={t("general.endpoints.description")}
       hasFooter={false}
     >
       <CopyCard
         maxWidth={400}
-        title="Base Url"
+        title={t("general.endpoints.copy.title")}
         description={`${getBrowserUrl()}/api/v1`}
         tooltip={{
-          defaultText: "Copy URL",
-          successText: "Copied URL to Clipboard",
+          defaultText: t("common.copy.url.default"),
+          successText: t("common.copy.url.success"),
         }}
       />
     </SettingCard>

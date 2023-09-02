@@ -1,5 +1,7 @@
 import React from "react";
 import Head from "next/head";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Router
 import { useRouter } from "next/router";
 // Store
@@ -77,6 +79,7 @@ const ProjectCard = ({ onClick, text, flags = 0 }: ProjectCardProps) => {
 };
 
 const MainPage = () => {
+  const { t } = useTranslation("home");
   const router = useRouter();
   const theme = useTheme();
 
@@ -112,7 +115,7 @@ const MainPage = () => {
         <Section mb={theme.spacing.s7}>
           <Header>
             <Text size="xLarge" mr={theme.spacing.s5}>
-              Recent projects
+              {t("projects.title")}
             </Text>
             {!!data?.length && (
               <Button
@@ -120,7 +123,7 @@ const MainPage = () => {
                 variant={ButtonVariant.Outlined}
                 onClick={() => setCreateProjectModalOpen({ isOpen: true })}
               >
-                Create project
+                {t("projects.action")}
               </Button>
             )}
           </Header>
@@ -129,10 +132,10 @@ const MainPage = () => {
               icon={{
                 name: "folder_open",
               }}
-              title="Create your first project"
-              description="Create your first project to start creating flags!"
+              title={t("projects.empty.title")}
+              description={t("projects.empty.description")}
               button={{
-                text: "Create Project",
+                text: t("projects.empty.action"),
                 onClick: () => setCreateProjectModalOpen({ isOpen: true }),
                 variant: ButtonVariant.Primary,
               }}
@@ -167,7 +170,7 @@ const MainPage = () => {
         <Section>
           <Header>
             <Text size="xLarge" mr={theme.spacing.s5}>
-              Quick links
+              {t("links.title")}
             </Text>
           </Header>
           <ContentContainer>
@@ -175,10 +178,10 @@ const MainPage = () => {
               icon={{
                 name: "downloading",
               }}
-              title="Set Up the SDK"
-              description="Integrate Feature Flags into your Product using the official SDKs. Discover the available libraries."
+              title={t("links.sdks.title")}
+              description={t("links.sdks.description")}
               button={{
-                text: "View Instructions",
+                text: t("links.sdks.action"),
                 onClick: () => setIntegrationModalOpen({ isOpen: true }),
                 variant: ButtonVariant.Outlined,
               }}
@@ -186,36 +189,36 @@ const MainPage = () => {
             <Card hasHoverAnimation p={theme.spacing.s5}>
               <IconBox icon="folder_open" mb={theme.spacing.s5} />
               <Text size="large" mb={theme.spacing.s2}>
-                Documentation, Help and Support
+                {t("links.external.title")}
               </Text>
               <TextLink
-                text="Read the"
+                text={t("links.external.read_the")}
                 link={{
-                  text: "Documentation",
+                  text: t("links.external.docs"),
                   href: config.urls.docs.flags.base,
                   target: "_blank",
                 }}
               />
               <TextLink
-                text="Check out the"
+                text={t("links.external.check_out_the")}
                 link={{
-                  text: "SDK’s",
+                  text: t("links.external.sdks"),
                   href: config.urls.docs.flags.sdk.base,
                   target: "_blank",
                 }}
               />
               <TextLink
-                text="How to"
+                text={t("links.external.how_to")}
                 link={{
-                  text: "Contribute?",
+                  text: t("links.external.contribute"),
                   href: config.urls.docs.contribute,
                   target: "_blank",
                 }}
               />
               <TextLink
-                text=" Open an issue on"
+                text={t("links.external.open_on")}
                 link={{
-                  text: "Github",
+                  text: t("links.external.github"),
                   href: config.urls.repo,
                   target: "_blank",
                 }}

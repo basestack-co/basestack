@@ -1,5 +1,4 @@
 import React, { useCallback, Fragment } from "react";
-import { useRouter } from "next/router";
 // Server
 import { trpc } from "libs/trpc";
 // Components
@@ -17,6 +16,8 @@ import { SelectedView, TabType } from "types";
 // Utils
 import { getValue } from "@basestack/utils";
 import dayjs from "dayjs";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Styles
 import {
   FlagsCardGrid,
@@ -38,7 +39,7 @@ const FlagCards = ({
   searchValue,
 }: FlagCardsProps) => {
   const trpcContext = trpc.useContext();
-  const router = useRouter();
+  const { t } = useTranslation("flags");
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
   const setCreateFlagModalOpen = useStore(
     (state) => state.setCreateFlagModalOpen,
@@ -119,10 +120,10 @@ const FlagCards = ({
     return (
       <Empty
         iconName="flag"
-        title="This project has no Feature Flags"
-        description="No Feature Flags are currently available for this project."
+        title={t("list.empty.title")}
+        description={t("list.empty.description")}
         button={{
-          text: "Create Feature Flag",
+          text: t("list.empty.action"),
           onClick: () => setCreateFlagModalOpen({ isOpen: true }),
         }}
       />
@@ -153,11 +154,13 @@ const FlagCards = ({
                     title={flag.slug}
                     slug={flag.slug}
                     description={flag.description ?? ""}
-                    date={`Created ${dayjs(flag.createdAt).fromNow()}`}
+                    date={t("list.card.date", {
+                      date: dayjs(flag.createdAt).fromNow(),
+                    })}
                     popupItems={[
                       {
                         icon: "edit",
-                        text: "Edit",
+                        text: t("list.card.actions.edit"),
                         onClick: () =>
                           onUpdateOrHistory(
                             flag.id,
@@ -168,7 +171,7 @@ const FlagCards = ({
                       },
                       {
                         icon: "history",
-                        text: "Activity",
+                        text: t("list.card.actions.activity"),
                         onClick: () =>
                           onUpdateOrHistory(
                             flag.id,
@@ -179,16 +182,18 @@ const FlagCards = ({
                       },
                       {
                         icon: "delete",
-                        text: "Delete",
+                        text: t("list.card.actions.delete"),
                         variant: ButtonVariant.Danger,
                         onClick: () =>
                           setConfirmModalOpen({
                             isOpen: true,
                             data: {
-                              title: "Are you sure you want to proceed?",
-                              description: `This action is irreversible. Deleting the <b>${flag.slug}</b> flag will permanently remove associated comments, activity, and collaborator associations. Please proceed with caution.`,
+                              title: t("list.card.delete.title"),
+                              description: t("list.card.delete.description", {
+                                slug: `<b>${flag.slug}</b>`,
+                              }),
                               type: "delete",
-                              buttonText: "Delete Flag",
+                              buttonText: t("list.card.delete.action"),
                               onClick: () => {
                                 onDelete(flag.slug);
                                 setConfirmModalOpen({

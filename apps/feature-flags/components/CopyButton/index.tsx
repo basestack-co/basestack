@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Components
 import {
   IconButton,
@@ -12,6 +14,7 @@ export interface Props {
 }
 
 const CopyButton = ({ text }: Props) => {
+  const { t } = useTranslation("modals");
   const [showTooltipSuccess, setShowTooltipSuccess] = useState(false);
 
   return (
@@ -27,7 +30,9 @@ const CopyButton = ({ text }: Props) => {
         />
       </TooltipTrigger>
       <TooltipContent>
-        {showTooltipSuccess ? "Copied Code to Clipboard" : "Copy Code"}
+        {showTooltipSuccess
+          ? t("common.copy.code.success")
+          : t("common.copy.code.default")}
       </TooltipContent>
     </Tooltip>
   );

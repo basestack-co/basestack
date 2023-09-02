@@ -20,9 +20,12 @@ import { createTable } from "utils/helpers/table";
 // Types
 import { ProjectSettings } from "types";
 import { Role } from "@prisma/client";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 
 type Props = ProjectSettings;
 const EnvironmentsCard = ({ project }: Props) => {
+  const { t } = useTranslation("settings");
   const theme = useTheme();
   const isMobile = useMedia(theme.device.max.md, false);
   const trpcContext = trpc.useContext();
@@ -104,10 +107,12 @@ const EnvironmentsCard = ({ project }: Props) => {
       setConfirmModalOpen({
         isOpen: true,
         data: {
-          title: "Are you sure?",
-          description: `This action cannot be undone. This will permanently delete the <b>${name}</b> environment, flags, history and remove all collaborator associations. `,
+          title: t("others.environments.modal.delete.title"),
+          description: t("others.environments.modal.delete.description", {
+            name: `<b>${name}</b>`,
+          }),
           type: "delete",
-          buttonText: "Delete Environment",
+          buttonText: t("others.environments.modal.delete.action"),
           onClick: async () => {
             await onHandleDelete(id);
             setConfirmModalOpen({
@@ -117,14 +122,19 @@ const EnvironmentsCard = ({ project }: Props) => {
         },
       });
     },
-    [onHandleDelete, setConfirmModalOpen],
+    [onHandleDelete, setConfirmModalOpen, t],
   );
 
   const getTable = useMemo(
     () =>
       createTable(
         environments,
-        ["Environment", "Slug", "Description", "Created At"],
+        [
+          t("others.environments.table.headers.environment"),
+          t("others.environments.table.headers.slug"),
+          t("others.environments.table.headers.description"),
+          t("others.environments.table.headers.created-at"),
+        ],
         (item) => [
           { title: item.name },
           { title: item.slug },
@@ -132,10 +142,14 @@ const EnvironmentsCard = ({ project }: Props) => {
           { title: dayjs(item.createdAt).fromNow() },
         ],
         (item) => [
-          { icon: "edit", text: "Edit", onClick: () => onHandleEdit(item.id) },
+          {
+            icon: "edit",
+            text: t("others.environments.actions.edit"),
+            onClick: () => onHandleEdit(item.id),
+          },
           {
             icon: "delete",
-            text: "Delete",
+            text: t("others.environments.actions.delete"),
             variant: ButtonVariant.Danger,
             onClick: () => onClickDeleteEnvironment(item.id, item.name),
             isDisabled: !!item.isDefault,
@@ -143,7 +157,7 @@ const EnvironmentsCard = ({ project }: Props) => {
         ],
       ),
 
-    [onHandleEdit, environments, onClickDeleteEnvironment],
+    [onHandleEdit, environments, onClickDeleteEnvironment, t],
   );
 
   const getContent = () => {
@@ -166,11 +180,11 @@ const EnvironmentsCard = ({ project }: Props) => {
 
   return (
     <SettingCard
-      title="Environments"
-      description={`${
-        isCurrentUserAdmin ? "Create and edit" : "All the"
-      } environments for this project. Environments allow you to control how your feature flags behave in different settings or stages of development.`}
-      button="Create New Environment"
+      title={t("others.environments.title")}
+      description={t("others.environments.description", {
+        type: t(`others.environments.${isCurrentUserAdmin ? "admin" : "user"}`),
+      })}
+      button={t("others.environments.action")!}
       onClick={onHandleCreate}
       hasFooter={isCurrentUserAdmin}
     >

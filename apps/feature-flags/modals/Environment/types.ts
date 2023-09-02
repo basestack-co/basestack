@@ -3,12 +3,12 @@ import { z } from "zod";
 export const FormSchema = z.object({
   name: z
     .string()
-    .max(30, "Must be 30 characters or less")
-    .min(1, "Required field"),
+    .max(30, "environment.input.name.error.max")
+    .min(1, "environment.input.name.error.min"),
   description: z
     .string()
-    .max(250, "Must be 250 characters or less")
-    .min(1, "Required field"),
+    .max(250, "environment.input.description.error.max")
+    .min(1, "environment.input.description.error.min"),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;

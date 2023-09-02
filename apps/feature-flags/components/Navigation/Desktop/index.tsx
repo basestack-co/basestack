@@ -17,6 +17,8 @@ import { internalLinks, externalLinks } from "../data";
 // Router
 import { useRouter } from "next/router";
 import Link from "next/link";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Store
 import { useStore } from "store";
 // Auth
@@ -26,6 +28,7 @@ export interface LinkItem {
   text: string;
   to: string;
   isExternal?: boolean;
+  i18nKey: string;
 }
 
 interface NavigationProps {
@@ -39,6 +42,7 @@ const Navigation = ({
   data,
   onClickMenuButton,
 }: NavigationProps) => {
+  const { t } = useTranslation("navigation");
   const theme = useTheme();
   const { data: session } = useSession();
   const router = useRouter();
@@ -55,7 +59,7 @@ const Navigation = ({
 
   const onRenderItems = useCallback(
     (items: LinkItem[], type: string) =>
-      items.map(({ text, to, isExternal }, i) => {
+      items.map(({ text, to, isExternal, i18nKey }, i) => {
         return (
           <ListItem key={`${type}-list-item-${i}`}>
             <ButtonLink
@@ -66,12 +70,12 @@ const Navigation = ({
                 router.pathname.includes(text.toLowerCase())
               }
             >
-              {text}
+              {t(i18nKey)}
             </ButtonLink>
           </ListItem>
         );
       }),
-    [router.pathname, projectSlug],
+    [router.pathname, projectSlug, t],
   );
 
   const currentProject = useMemo(() => {
@@ -128,7 +132,7 @@ const Navigation = ({
                     onClick={() => setCreateFlagModalOpen({ isOpen: true })}
                     variant={ButtonVariant.Primary}
                   >
-                    Create Flag
+                    {t("create.flag")}
                   </Button>
                 </ListItem>
               </>
@@ -141,7 +145,7 @@ const Navigation = ({
           {onRenderItems(externalLinks, "right")}
           <ListItem ml={theme.spacing.s3}>
             <AvatarDropdown
-              name={session?.user.name || "User Name"}
+              name={session?.user.name || t("dropdown.username")}
               email={session?.user.email || ""}
               src={session?.user.image || ""}
             />
