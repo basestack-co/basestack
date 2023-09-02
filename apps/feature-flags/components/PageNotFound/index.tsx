@@ -5,10 +5,13 @@ import { useTheme } from "styled-components";
 import { useRouter } from "next/router";
 // UI
 import { Text, Label, Button, ButtonVariant } from "@basestack/design-system";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Components
 import { Container, ContentContainer } from "./styles";
 
 const PageNotFound = () => {
+  const { t } = useTranslation("general");
   const router = useRouter();
   const theme = useTheme();
 
@@ -26,11 +29,10 @@ const PageNotFound = () => {
           mb={theme.spacing.s1}
           fontWeight={800}
         >
-          This page could not be found
+          {t("not-found.title")}
         </Text>
         <Text size="medium" fontWeight={400} lineHeight="1.6" muted>
-          Sorry, the page you are looking for doesn&apos;t exist or has been
-          moved.
+          {t("not-found.description")}
         </Text>
         <Button
           onClick={() => router.push("/")}
@@ -39,7 +41,7 @@ const PageNotFound = () => {
           variant={ButtonVariant.Outlined}
           mt={theme.spacing.s6}
         >
-          Back to Homepage
+          {t("not-found.action")}
         </Button>
       </ContentContainer>
     </Container>

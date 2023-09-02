@@ -2,7 +2,7 @@ module.exports = {
   locales: ["en"],
   defaultLocale: "en",
   pages: {
-    "*": ["navigation", "modals"],
+    "*": ["navigation", "modals", "general"],
     "/": ["home"],
     "/[projectSlug]/flags": ["flags"],
     "/[projectSlug]/settings/general": ["settings"],

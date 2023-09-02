@@ -1,4 +1,12 @@
 {
+  "common": {
+    "copy": {
+      "code": {
+        "default": "Copy Code",
+        "success": "Copied URL to Clipboard"
+      }
+    }
+  },
   "project": {
     "create": {
       "title": "Create Project",

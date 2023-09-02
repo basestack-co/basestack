@@ -18,7 +18,11 @@
       "action": "Update",
       "inputs": {
         "name": {
-          "placeholder": "Project Name"
+          "placeholder": "Project Name",
+          "error": {
+            "max": "Must be 30 characters or less",
+            "min": "Required field"
+          }
         }
       }
     },

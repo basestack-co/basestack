@@ -19,8 +19,8 @@ type Props = ProjectSettings;
 export const FormSchema = z.object({
   name: z
     .string()
-    .max(30, "Must be 30 characters or less")
-    .min(1, "Required field"),
+    .max(30, "general.project.inputs.name.error.max")
+    .min(1, "general.project.inputs.name.error.min"),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
