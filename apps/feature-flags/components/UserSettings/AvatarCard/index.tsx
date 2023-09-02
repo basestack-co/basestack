@@ -1,6 +1,11 @@
 import React from "react";
+// Auth
 import { useSession } from "next-auth/react";
+// Components
 import { Card, Avatar, Text, HorizontalRule } from "@basestack/design-system";
+// Locales
+import useTranslation from "next-translate/useTranslation";
+// Styles
 import {
   Container,
   ContentContainer,
@@ -9,6 +14,7 @@ import {
 } from "./styles";
 
 const AvatarCard = () => {
+  const { t } = useTranslation("profile");
   const { data: session } = useSession();
 
   return (
@@ -17,22 +23,21 @@ const AvatarCard = () => {
         <ContentContainer>
           <Avatar
             size="large"
-            userName={session?.user.name || "User Name"}
+            userName={session?.user.name || t("settings.card.avatar.title")}
             src={session?.user.image || ""}
-            alt="user image"
+            alt={t("settings.card.avatar.alt")}
           />
           <UserDetailsContainer>
-            <Text size="large">{session?.user.name || "User Name"}</Text>
+            <Text size="large">
+              {session?.user.name || t("settings.card.avatar.title")}
+            </Text>
             <Text>{session?.user.email || ""}</Text>
           </UserDetailsContainer>
         </ContentContainer>
       </Container>
       <HorizontalRule />
       <Footer>
-        <Text muted>
-          Please edit the user details through your service provider to update
-          the information.
-        </Text>
+        <Text muted>{t("settings.card.avatar.description")}</Text>
       </Footer>
     </Card>
   );

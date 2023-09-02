@@ -8,6 +8,8 @@ import { signIn } from "next-auth/react";
 import { Text, Spinner } from "@basestack/design-system";
 // Types
 import { Provider } from "types/nextAuth";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Components
 import ProviderCard from "./ProviderCard";
 import { Github, Auth0, Google, Okta, Microsoft } from "./icons";
@@ -41,6 +43,7 @@ const getProviderLogo = (provider: providers) => {
 };
 
 const SignIn = ({ providers, isLoading = false }: SignInProps) => {
+  const { t } = useTranslation("auth");
   const [isProcessing, setIsProcessing] = useState(false);
   const { colors, isDarkMode, device, spacing } = useTheme();
   const isDesktop = useMedia(device.min.lg, false);
@@ -55,7 +58,7 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
           fontFamily="robotoFlex"
           color={colors[isDarkMode ? "gray200" : "white"]}
         >
-          Basestack
+          {t("sign-in.panel.title")}
         </Text>
         <Text
           size="xxLarge"
@@ -65,7 +68,7 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
           mt={isDesktop ? rem("120px") : spacing.s6}
           fontWeight={800}
         >
-          The Open-Source Stack for Developers and Startups
+          {t("sign-in.panel.slogan")}
         </Text>
         <Text
           size="medium"
@@ -74,7 +77,7 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
           color={colors[isDarkMode ? "gray300" : "gray100"]}
           mt={spacing[isDesktop ? "s6" : "s4"]}
         >
-          Unlock Your Product Potential: Empower Your Team with Feature Flags
+          {t("sign-in.panel.description")}
         </Text>
       </LeftContainer>
       <RightContainer>
@@ -89,7 +92,7 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
             lineHeight="1.6"
             color={colors[isDarkMode ? "gray300" : "black"]}
           >
-            Select Login Service
+            {t("sign-in.content.title")}
           </Text>
           <Text
             size="medium"
@@ -98,8 +101,7 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
             muted
             mt={spacing.s2}
           >
-            Welcome to the Platform! Please choose your preferred Login Service
-            from the options below to access your features flags.
+            {t("sign-in.content.description")}
           </Text>
           <CardsList>
             {Object.values(providers).map((provider) => (
@@ -110,7 +112,7 @@ const SignIn = ({ providers, isLoading = false }: SignInProps) => {
                     signIn(provider.id, { callbackUrl: "/" });
                   }}
                   title={provider.name}
-                  text={`Sign in with ${provider.name}`}
+                  text={t("sign-in.content.action", { name: provider.name })}
                   providerLogo={getProviderLogo(
                     provider.name.toLowerCase() as providers,
                   )}

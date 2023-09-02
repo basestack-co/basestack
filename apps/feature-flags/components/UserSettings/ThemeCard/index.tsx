@@ -5,6 +5,8 @@ import { animated } from "react-spring";
 import { useStore } from "store";
 // Hooks
 import { useFloatingPopup } from "@basestack/hooks";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Components
 import {
   Card,
@@ -13,6 +15,7 @@ import {
   Button,
   ButtonVariant,
 } from "@basestack/design-system";
+// Styles
 import {
   ContentContainer,
   MenuContainer,
@@ -23,6 +26,7 @@ import {
 const AnimatedPopup = animated(Popup);
 
 const ModalCard = () => {
+  const { t } = useTranslation("profile");
   const theme = useTheme();
   const isDarkMode = useStore((state) => state.isDarkMode);
   const setDarkMode = useStore((state) => state.setDarkMode);
@@ -45,10 +49,8 @@ const ModalCard = () => {
     <Card p={theme.spacing.s5}>
       <ContentContainer>
         <TextContainer>
-          <Text size="large">Select Theme</Text>
-          <Text>
-            Switch between light and dark modes for a personalized look.
-          </Text>
+          <Text size="large">{t("settings.card.theme.title")}</Text>
+          <Text>{t("settings.card.theme.description")}</Text>
         </TextContainer>
         <MenuContainer>
           <Button
@@ -59,7 +61,9 @@ const ModalCard = () => {
             icon={isPopupOpen ? "arrow_drop_up" : "arrow_drop_down"}
             iconPlacement="right"
           >
-            {isDarkMode ? "Dark" : "Light"}
+            {isDarkMode
+              ? t("settings.card.theme.type.dark")
+              : t("settings.card.theme.type.light")}
           </Button>
           <PopupWrapper ref={popupWrapperRef}>
             {transition(
@@ -73,8 +77,14 @@ const ModalCard = () => {
                     top={y + 4}
                     left={x}
                     items={[
-                      { text: "Light", onClick: () => setDarkMode(false) },
-                      { text: "Dark", onClick: () => setDarkMode(true) },
+                      {
+                        text: t("settings.card.theme.type.light"),
+                        onClick: () => setDarkMode(false),
+                      },
+                      {
+                        text: t("settings.card.theme.type.dark"),
+                        onClick: () => setDarkMode(true),
+                      },
                     ]}
                     onClickList={onCloseMenu}
                   />

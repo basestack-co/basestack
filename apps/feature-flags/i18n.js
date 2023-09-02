@@ -8,5 +8,7 @@ module.exports = {
     "/[projectSlug]/settings/general": ["settings"],
     "/[projectSlug]/settings/members": ["settings"],
     "/[projectSlug]/settings/environments": ["settings"],
+    "/auth/sign-in": ["auth"],
+    "/profile/settings": ["profile"],
   },
 };
