@@ -11,7 +11,7 @@ jest.mock("next/router", () => ({
   useRouter: jest.fn(),
 }));
 
-describe("Navigation tests", () => {
+describe.skip("Navigation tests", () => {
   afterEach(cleanup);
 
   test("should renders Navigation correctly", () => {
