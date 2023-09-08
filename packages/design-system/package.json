@@ -17,7 +17,7 @@
     "@basestack/hooks": "*",
     "@basestack/tsconfig": "*",
     "@basestack/utils": "*",
-    "@testing-library/jest-dom": "^6.1.2",
+    "@testing-library/jest-dom": "^6.1.3",
     "@types/react": "18.2.21",
     "@types/react-dom": "^18.2.7",
     "jest-styled-components": "^7.0.8",
