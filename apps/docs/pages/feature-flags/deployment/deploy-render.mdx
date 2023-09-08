@@ -20,12 +20,14 @@ The project includes a `render.yaml` configuration file that outlines all the es
 
 ## Getting started
 
+Here are the steps to deploy the platform on Render.com:
+
 1. Fork the platform to your GitHub account.
 2. Log in to [Render.com ↗](https://render.com/).
 3. Click the `New +` button, then select `Blueprint` from the menu.
 4. Connect your GitHub account and choose the forked platform repository.
-5. Follow the on-screen instructions and click "Apply."
-6. Your server and database will be automatically configured and started. Each git push will trigger a new deployment.
+5. Follow the on-screen instructions to set up the necessary Environment Variables and click "Apply."
+6. Your services will be automatically built and started. Each git push will trigger a new deployment.
 
 #### Environment Variables
 
@@ -89,3 +91,30 @@ Copy this URL and update the information in your [Github ↗](https://github.com
 ### How to Retrieve the `DATABASE_URL` via the pgbouncer Service?
 
 To obtain the `DATABASE_URL` for your applications, simply head over to the pgbouncer service. You can connect using the internal connection string, substituting the database host with the internal hostname of your PgBouncer instance: `postgres://USER:PASSWORD@PGBOUNCER_HOST:PORT/DATABASE`.
+
+#### Guide to Retrieve the `DATABASE_URL`
+
+In the example below, we will demonstrate how to collect the following fields:
+
+- `PGBOUNCER_HOST`
+- `USER`
+- `PASSWORD`
+- `PORT`
+
+To build the following connection: `postgres://USER:PASSWORD@PGBOUNCER_HOST:PORT/DATABASE`, please follow these steps:
+
+To initiate the connection, please access the address of the Connection Pooling service you just created. Refer to the image below to see how to copy this address, which includes the `PGBOUNCER_HOST` and `PORT` fields.
+
+![PgBouncer Service](/images/render/pgbouncer_service.png)
+
+After obtaining the address, you'll need to include the `USER` and `PASSWORD` fields. Refer to the image below to see how to retrieve this information.
+
+![PgBouncer Service](/images/render/db_service.png)
+
+After collecting all the required information, you'll have the necessary fields to construct the connection string, which should look something like this:
+
+```bash
+postgres://basestack_feature_flags_db_wh3p_user:wvQf5EZ6XciDmdDSoQrp7AqCyXlq1ixc@basestack-feature-flags-db-pgbouncer:5432/basestack_feature_flags_db_wh3p
+```
+
+Note: The provided connection string is just an example. Please ensure you use the one you generated with your specific details.

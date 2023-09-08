@@ -32,7 +32,7 @@ services:
     # rootDir: no need to specify rootDir
     runtime: node
     buildCommand: yarn add turbo -W; yarn; yarn deploy:feature-flags
-    startCommand: yarn start
+    startCommand: cd apps/feature-flags; yarn start
     pullRequestPreviewsEnabled: false
     region: frankfurt # change to your preferred region. options: frankfurt, oregon, singapore, ohio
     plan: starter
