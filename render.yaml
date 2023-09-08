@@ -1,7 +1,7 @@
 services:
   # - type: web
   # name: basestack-landing-page
-    # rootDir: no need to specify rootDir
+  # rootDir: no need to specify rootDir
   # runtime: static
   # buildCommand: yarn; yarn deploy:landing-page
   # staticPublishPath: apps/landing-page/out
@@ -10,14 +10,14 @@ services:
   #   - key: SKIP_INSTALL_DEPS
   #     value: true # disables npm install to use yarn
   #   - key: NODE_VERSION
-  #     value: 16.8.0
+  #     value: 16.14.0
   #   - key: NEXT_PUBLIC_EMAIL_SERVICE
   #     sync: false
   #   - key: NEXT_PUBLIC_UMAMI_WEBSITE_ID
   #     sync: false
   #- type: web
   #  name: basestack-docs
-    # rootDir: no need to specify rootDir
+  # rootDir: no need to specify rootDir
   #  runtime: static
   #  buildCommand: yarn; yarn deploy:docs
   #  staticPublishPath: apps/docs/out
@@ -26,14 +26,15 @@ services:
   #    - key: SKIP_INSTALL_DEPS
   #      value: true # disables npm install to use yarn
   #    - key: NODE_VERSION
-  #      value: 16.8.0
+  #      value: 16.14.0
   - type: web
     name: basestack-feature-flags-app
     # rootDir: no need to specify rootDir
     runtime: node
-    buildCommand: yarn; yarn deploy:feature-flags
+    buildCommand: yarn add turbo -W; yarn; yarn deploy:feature-flags
     startCommand: yarn start
     pullRequestPreviewsEnabled: false
+    region: frankfurt # change to your preferred region. options: frankfurt, oregon, singapore, ohio
     plan: starter
     autoDeploy: true
     healthCheckPath: /api/trpc/healthcheck
@@ -41,15 +42,15 @@ services:
       - key: SKIP_INSTALL_DEPS
         value: true # disables npm install to use yarn
       - key: DATABASE_URL
-        sync: false
+        value: postgres://USER:PASSWORD@PGBOUNCER_HOST:PORT/DATABASE # Navigate to the pgbouncer service to find the URL that your applications should connect to
       - key: DIRECT_DATABASE_URL
         fromDatabase:
           name: basestack-feature-flags-db
           property: connectionString
       - key: NEXTAUTH_SECRET
-        sync: false
+        sync: false # use openssl rand -base64 32 or generate a random value at https://generate-secret.vercel.app/32
       - key: NEXTAUTH_URL
-        sync: false
+        value: https://your-app.onrender.com # replace with your app's URL
       - key: GITHUB_CLIENT_ID
         sync: false
       - key: GITHUB_CLIENT_SECRET
@@ -69,10 +70,11 @@ services:
       - key: API_ACCESS_CONTROL_ALLOW_ORIGIN
         sync: false
       - key: NODE_VERSION
-        value: 16.8.0
+        value: 16.14.0
   - type: pserv
     name: basestack-feature-flags-db-pgbouncer
     runtime: docker
+    region: frankfurt # change to your preferred region. options: frankfurt, oregon, singapore, ohio
     plan: starter
     repo: https://github.com/render-oss/docker-pgbouncer
     envVars:
@@ -90,5 +92,6 @@ services:
         value: 50
 databases:
   - name: basestack-feature-flags-db
+    region: frankfurt # change to your preferred region. options: frankfurt, oregon, singapore, ohio
     plan: starter
     ipAllowList: [] # only allow internal connections

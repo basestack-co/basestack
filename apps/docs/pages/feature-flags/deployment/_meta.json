@@ -1,5 +1,6 @@
 {
   "index": "Overview & Configuration",
   "updates": "Getting Updates",
-  "deploy-vercel": "Deploy to Vercel"
+  "deploy-vercel": "Deploy to Vercel",
+  "deploy-render": "Deploy to Render"
 }
