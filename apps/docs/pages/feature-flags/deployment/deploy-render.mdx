@@ -73,7 +73,7 @@ Lastly, stay tuned about updates, including new features and bug fixes. To ensur
 
 ## Troubleshooting
 
-### I still don't have a Project domain or URL
+### How to Retrieve the Project URL for `NEXTAUTH_URL` and Github OAuth App?
 
 If you don't have a domain yet, feel free to leave the fields below empty or use dummy information. Proceed with the deployment as usual. Once the deployment is complete, Render will generate a URL for your project.
 
@@ -91,8 +91,6 @@ Copy this URL and update the information in your [Github ↗](https://github.com
 ### How to Retrieve the `DATABASE_URL` via the pgbouncer Service?
 
 To obtain the `DATABASE_URL` for your applications, simply head over to the pgbouncer service. You can connect using the internal connection string, substituting the database host with the internal hostname of your PgBouncer instance: `postgres://USER:PASSWORD@PGBOUNCER_HOST:PORT/DATABASE`.
-
-#### Guide to Retrieve the `DATABASE_URL`
 
 In the example below, we will demonstrate how to collect the following fields:
 
@@ -113,8 +111,13 @@ After obtaining the address, you'll need to include the `USER` and `PASSWORD` fi
 
 After collecting all the required information, you'll have the necessary fields to construct the connection string, which should look something like this:
 
+<Callout type="info" emoji="ℹ️">
+  The provided connection string is just an example. Please ensure you use the
+  one you generated with your specific details.
+</Callout>
+
 ```bash
 postgres://basestack_feature_flags_db_wh3p_user:wvQf5EZ6XciDmdDSoQrp7AqCyXlq1ixc@basestack-feature-flags-db-pgbouncer:5432/basestack_feature_flags_db_wh3p
 ```
 
-Note: The provided connection string is just an example. Please ensure you use the one you generated with your specific details.
+Finally, copy the connection string and update the environment variables in the service running the Feature Flags dashboard instance.
