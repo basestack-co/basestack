@@ -68,6 +68,8 @@ services:
         value: 1000
       - key: API_ACCESS_CONTROL_ALLOW_ORIGIN
         sync: false
+      - key: NODE_VERSION
+        value: 16.8.0
   - type: pserv
     name: basestack-feature-flags-db-pgbouncer
     runtime: docker
