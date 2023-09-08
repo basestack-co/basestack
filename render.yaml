@@ -1,32 +1,32 @@
 services:
-  - type: web
-    name: basestack-landing-page
+  # - type: web
+  # name: basestack-landing-page
     # rootDir: no need to specify rootDir
-    runtime: static
-    buildCommand: yarn; yarn deploy:landing-page
-    staticPublishPath: apps/landing-page/out
-    pullRequestPreviewsEnabled: false
-    envVars:
-      - key: SKIP_INSTALL_DEPS
-        value: true # disables npm install to use yarn
-      - key: NODE_VERSION
-        value: 16.8.0
-      - key: NEXT_PUBLIC_EMAIL_SERVICE
-        sync: false
-      - key: NEXT_PUBLIC_UMAMI_WEBSITE_ID
-        sync: false
-  - type: web
-    name: basestack-docs
+  # runtime: static
+  # buildCommand: yarn; yarn deploy:landing-page
+  # staticPublishPath: apps/landing-page/out
+  # pullRequestPreviewsEnabled: false
+  # envVars:
+  #   - key: SKIP_INSTALL_DEPS
+  #     value: true # disables npm install to use yarn
+  #   - key: NODE_VERSION
+  #     value: 16.8.0
+  #   - key: NEXT_PUBLIC_EMAIL_SERVICE
+  #     sync: false
+  #   - key: NEXT_PUBLIC_UMAMI_WEBSITE_ID
+  #     sync: false
+  #- type: web
+  #  name: basestack-docs
     # rootDir: no need to specify rootDir
-    runtime: static
-    buildCommand: yarn; yarn deploy:docs
-    staticPublishPath: apps/docs/out
-    pullRequestPreviewsEnabled: false
-    envVars:
-      - key: SKIP_INSTALL_DEPS
-        value: true # disables npm install to use yarn
-      - key: NODE_VERSION
-        value: 16.8.0
+  #  runtime: static
+  #  buildCommand: yarn; yarn deploy:docs
+  #  staticPublishPath: apps/docs/out
+  #  pullRequestPreviewsEnabled: false
+  #  envVars:
+  #    - key: SKIP_INSTALL_DEPS
+  #      value: true # disables npm install to use yarn
+  #    - key: NODE_VERSION
+  #      value: 16.8.0
   - type: web
     name: basestack-feature-flags-app
     # rootDir: no need to specify rootDir
@@ -89,3 +89,4 @@ services:
 databases:
   - name: basestack-feature-flags-db
     plan: starter
+    ipAllowList: [] # only allow internal connections
