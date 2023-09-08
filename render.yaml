@@ -34,7 +34,7 @@ services:
     buildCommand: yarn; yarn deploy:feature-flags
     startCommand: yarn start
     pullRequestPreviewsEnabled: false
-    plan: free
+    plan: starter
     autoDeploy: true
     healthCheckPath: /api/trpc/healthcheck
     envVars:
@@ -88,4 +88,5 @@ services:
         value: 50
 databases:
   - name: basestack-feature-flags-db
-    plan: free
+    databaseName: basestack-feature-flags-db
+    plan: starter
