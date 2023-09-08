@@ -88,5 +88,4 @@ services:
         value: 50
 databases:
   - name: basestack-feature-flags-db
-    databaseName: basestack-feature-flags-db
     plan: starter
