@@ -44,13 +44,11 @@ To simplify this guide, we will use [Github ↗](https://github.com/) as the aut
 
 **Create a new [OAuth App](https://github.com/settings/developers) by filling out the form with the following settings:**
 
-{" "}
-
 <Callout type="info" emoji="ℹ️">
   If you don't have a Project URL yet, you can leave it blank for now. Check out
   the [Troubleshooting
-  section](/feature-flags/deployment/deploy-vercel#i-still-dont-have-a-project-domain-or-url)
-  for further assistance.
+  section](/feature-flags/deployment/deploy-vercel#troubleshooting) for further
+  assistance.
 </Callout>
 
 ```bash
@@ -70,19 +68,19 @@ Once you've successfully created a new [OAuth App](https://github.com/settings/d
 
 ### Finally, proceed with the deployment.
 
-#### Quick Deploy (Skip this if you want to receive updates)
+#### Option 1: Quick Deploy (Skip this if you want to receive updates)
 
 Quick deploy to [Vercel ↗](https://vercel.com/) with a simple click on the deploy button below:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbasestack-co%2Fbasestack&env=DATABASE_URL,DIRECT_DATABASE_URL,NEXTAUTH_SECRET,NEXTAUTH_URL,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET&envDescription=See%20the%20full%20Environment%20Variables%20List%20Configuration&envLink=https%3A%2F%2Fdocs.basestack.co%2Ffeature-flags%2Fdeployment)
 
-By clicking on the button above, a new repository will be created in your Git account (e.g., GitHub) from the [Basestack Platform](https://github.com/basestack-co/basestack) repository, and the platform will be deployed for you. This will be an independent copy with no connection to the main project.
+By clicking on the button above, a new repository will be created in your GitHub account from the [Basestack Platform](https://github.com/basestack-co/basestack) repository, and the platform will be deployed for you. This will be an independent copy with no connection to the main project.
 
-#### Fork the Platform
+#### Option 2: Fork the Platform
 
 Alternatively, you have the option to manually fork the [Basestack Platform repository](https://github.com/basestack-co/basestack). This provides greater control over [updates](/feature-flags/deployment/updates) and even allows you to [contribute](/contributing) to the project if desired.
 
-#### Environment Variables
+##### Environment Variables
 
 To ensure a successful deployment on Vercel, the platform requires a minimum set of environment variables. Below is the list of environment variables that you must fill in. For the complete list of Environment Variables, please refer to the [Configuration Page](/feature-flags/deployment#environment-variables).
 
@@ -100,7 +98,7 @@ To ensure a successful deployment on Vercel, the platform requires a minimum set
   generate a [random value](https://generate-secret.vercel.app/32).
 </Callout>
 
-#### Vercel Project Settings
+##### Vercel Project Settings
 
 In your new Project Settings on Vercel, navigate to the **Build & Development Settings** section and complete the form with the following settings:
 
@@ -151,7 +149,7 @@ Lastly, stay tuned about updates, including new features and bug fixes. To ensur
 
 If you don't have a domain yet, feel free to leave the fields below empty or use dummy information. Proceed with the deployment as usual. Once the deployment is complete, Vercel will generate a URL for your project.
 
-Copy this URL and update the information in your [Github ↗](https://github.com/) [OAuth App](https://github.com/settings/developers). Next, modify the environment variables in the project settings on Vercel and initiate a new deployment on Vercel once again.
+Copy this URL and update the information in your [OAuth App](https://github.com/settings/developers). Next, modify the environment variables in the project settings on Vercel and initiate a new deployment on Vercel once again.
 
 **Environment Variables:**
 

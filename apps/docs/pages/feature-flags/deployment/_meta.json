@@ -2,5 +2,6 @@
   "index": "Overview & Configuration",
   "updates": "Getting Updates",
   "deploy-vercel": "Deploy to Vercel",
+  "deploy-netlify": "Deploy to Netlify",
   "deploy-render": "Deploy to Render"
 }
