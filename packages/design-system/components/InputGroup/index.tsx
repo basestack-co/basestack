@@ -46,16 +46,20 @@ const InputGroup = ({
 
   return (
     <Container data-testid="input-group-container" {...props}>
-      <Header>
-        {!!title && (
-          <Text fontWeight={500} data-testid="input-group-title" size="small">
-            {title}
-          </Text>
-        )}
-        <Text data-testid="input-group-label" muted size="small">
-          {label}
-        </Text>
-      </Header>
+      {(!!title || !!label) && (
+        <Header>
+          {!!title && (
+            <Text fontWeight={500} data-testid="input-group-title" size="small">
+              {title}
+            </Text>
+          )}
+          {!!label && (
+            <Text data-testid="input-group-label" muted size="small">
+              {label}
+            </Text>
+          )}
+        </Header>
+      )}
       {textarea ? (
         <Textarea {...(textareaProps as TextareaProps)} />
       ) : (

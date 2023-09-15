@@ -18,6 +18,7 @@
     "github": "Github"
   },
   "internal": {
+    "activity": "Activity",
     "features": "Features",
     "settings": "Settings"
   }

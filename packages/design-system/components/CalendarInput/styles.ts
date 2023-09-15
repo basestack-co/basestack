@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { SpaceProps, space } from "styled-system";
+import { space, compose, layout } from "styled-system";
 
-export const Container = styled.div<SpaceProps>`
-  ${space};
+export const Container = styled.div`
+  ${compose(space, layout)};
   display: flex;
   flex-direction: column;
 `;

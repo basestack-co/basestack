@@ -52,6 +52,7 @@ const HistoryTab = ({ projectId, flagId }: Props) => {
             type={type}
             hasPaddingTop={index !== 0}
             hasPaddingBottom={index + 1 !== length}
+            hasLeftLine={index + 1 !== length}
           />
         );
       });

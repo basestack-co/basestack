@@ -1,5 +1,5 @@
 import React, { memo, useRef } from "react";
-import { SpaceProps } from "styled-system";
+import { SpaceProps, LayoutProps } from "styled-system";
 import { useClickAway } from "react-use";
 import {
   autoUpdate,
@@ -18,10 +18,10 @@ import { InputProps } from "../Input";
 import InputGroup from "../InputGroup";
 import Calendar from "../Calendar";
 
-export interface CalendarInputProps extends SpaceProps {
+export interface CalendarInputProps extends SpaceProps, LayoutProps {
   isCalenderOpen: boolean;
   calendarProps: CalendarProps;
-  inputTitle: string;
+  inputTitle?: string;
   inputProps: InputProps;
   onClickAway?: () => void;
 }

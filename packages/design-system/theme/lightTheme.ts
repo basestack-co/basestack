@@ -302,7 +302,7 @@ const input = {
     outline: colors.black,
   },
   icon: {
-    color: colors.gray400,
+    color: colors.gray500,
   },
 };
 

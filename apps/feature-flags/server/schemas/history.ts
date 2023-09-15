@@ -3,7 +3,7 @@ import { withProjectId } from "./utils";
 
 export const all = withProjectId
   .extend({
-    flagId: z.string().optional(),
+    flagId: z.string().optional().nullable(),
   })
   .required();
 
