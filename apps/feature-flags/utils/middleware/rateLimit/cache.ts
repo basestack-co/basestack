@@ -26,6 +26,12 @@ const rateLimit = (options?: Options) => {
 
       const isRateLimited = currentUsage >= limit;
 
+      res.setHeader("X-RateLimit-Limit", limit);
+      res.setHeader(
+        "X-RateLimit-Remaining",
+        isRateLimited ? 0 : limit - currentUsage,
+      );
+
       if (isRateLimited) {
         throw new Error("Rate limit Exceeded");
       }
