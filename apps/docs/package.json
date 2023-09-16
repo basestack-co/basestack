@@ -22,7 +22,7 @@
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "@types/node": "20.6.0",
+    "@types/node": "20.6.2",
     "typescript": "^5.2.2"
   }
 }
