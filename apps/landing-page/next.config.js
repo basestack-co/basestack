@@ -1,6 +1,5 @@
-const withTM = require("next-transpile-modules")(["@basestack/design-system"]);
-
-module.exports = withTM({
+module.exports = {
   output: "export",
   reactStrictMode: true,
-});
+  transpilePackages: ["@basestack/design-system"],
+};
