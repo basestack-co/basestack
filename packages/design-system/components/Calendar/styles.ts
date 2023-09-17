@@ -194,12 +194,36 @@ export const Container = styled.div`
             theme.calendar.active.hover.backgroundColor};
         }
       }
+
+      /* Range styles */
+      &--range,
+      &--hover {
+        border-radius: 0;
+      }
+
+      &--rangeStart:not(&--rangeBothEnds),
+      &--hoverStart:not(&--rangeBothEnds) {
+        border-top-left-radius: ${rem("4px")};
+        border-bottom-left-radius: ${rem("4px")};
+      }
+
+      &--rangeEnd:not(&--rangeBothEnds),
+      &--hoverEnd:not(&--rangeBothEnds) {
+        border-top-right-radius: ${rem("4px")};
+        border-bottom-right-radius: ${rem("4px")};
+      }
+
+      &--rangeBothEnds:not(&--hoverStart):not(&--hoverEnd) {
+        border-radius: ${rem("4px")};
+      }
     }
 
     &--selectRange {
-      .react-calendar__tile--hover {
+      .react-calendar__tile--hover,
+      .react-calendar__tile:enabled:hover {
         background-color: ${({ theme }) =>
           theme.calendar.selectRange.backgroundColor};
+        color: ${({ theme }) => theme.calendar.selectRange.color};
       }
     }
 

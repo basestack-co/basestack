@@ -7,6 +7,7 @@ import { HistoryAction } from "types";
 import { trpc } from "libs/trpc";
 import { typeMap } from "libs/prisma/utils/history";
 import HistoryCard from "../HistoryCard";
+import Loading from "./Loading";
 import { List, ListItem } from "./styles";
 
 const ActivityList = () => {
@@ -32,8 +33,12 @@ const ActivityList = () => {
     { enabled: !!project?.id, keepPreviousData: true },
   );
 
+  if (isLoading) {
+    return Loading;
+  }
+
   return (
-    <Card padding={theme.spacing.s5} mb={theme.spacing.s5}>
+    <Card padding={theme.spacing.s5}>
       <List>
         {data &&
           !!data.history.length &&

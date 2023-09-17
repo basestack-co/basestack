@@ -177,7 +177,8 @@ const calendar = {
     },
   },
   selectRange: {
-    backgroundColor: colors.gray100,
+    backgroundColor: colors.primary,
+    color: colors.white,
   },
 };
 
