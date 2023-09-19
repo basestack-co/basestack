@@ -1,0 +1,28 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 18.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.x
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Create Release Pull Request
+        id: changesets
+        uses: changesets/action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

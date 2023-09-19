@@ -1,6 +1,5 @@
 {
   "name": "basestack-monorepo",
-  "version": "0.0.0",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -18,16 +17,20 @@
     "prepare": "is-ci || npx husky install",
     "precommit": "yarn format && yarn lint && yarn test && lint-staged",
     "commit": "git-cz",
-    "update:packages": "yarn upgrade-interactive --latest",
     "build:packages": "turbo run build --filter=./packages/*",
     "build:feature-flags": "turbo run build --filter=feature-flags...",
     "build:landing-page": "turbo run build --filter=landing-page...",
     "deploy:feature-flags": "turbo run @basestack/feature-flags#deploy",
     "deploy:feature-flags:prune": "turbo prune --scope='@basestack/feature-flags' --docker",
     "deploy:landing-page": "turbo run @basestack/landing-page#deploy",
-    "deploy:docs": "turbo run @basestack/docs#deploy"
+    "deploy:docs": "turbo run @basestack/docs#deploy",
+    "packages:update": "yarn upgrade-interactive --latest",
+    "packages:changeset": "changeset",
+    "packages:version": "changeset version",
+    "packages:publish": "turbo run build lint test && changeset version && changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.3",
