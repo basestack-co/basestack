@@ -158,5 +158,25 @@
         }
       }
     }
+  },
+  "activity": {
+    "title": "Activity",
+    "button": {
+      "close": "Close"
+    },
+    "toolbar": {
+      "search": {
+        "placeholder": "Search project activity"
+      },
+      "calendar": {
+        "placeholder": "dd/mm/yyyy - dd/mm/yyyy"
+      }
+    },
+    "card": {
+      "description": {
+        "project": "created the project",
+        "flag": "{{type}} the flag"
+      }
+    }
   }
 }

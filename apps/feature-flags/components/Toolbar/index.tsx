@@ -2,8 +2,13 @@ import React, { useState, memo } from "react";
 // Components
 import { SpaceProps } from "styled-system";
 import { useTheme } from "styled-components";
-import { Segment, Input } from "@basestack/design-system";
-import { Container, SegmentContainer } from "./styles";
+import {
+  Segment,
+  Input,
+  Button,
+  ButtonVariant,
+} from "@basestack/design-system";
+import { RightContent, Container, SegmentContainer } from "./styles";
 // Hooks
 import { useDebounce } from "react-use";
 // Types
@@ -14,6 +19,7 @@ import useTranslation from "next-translate/useTranslation";
 export interface ToolbarProps extends SpaceProps {
   onSearchCallback: (value: string) => void;
   onChangeView: (selected: string) => void;
+  onClickActivity: () => void;
   isDesktop?: boolean;
   selectedView: SelectedView;
 }
@@ -23,6 +29,7 @@ const Toolbar = ({
   onChangeView,
   onSearchCallback,
   selectedView,
+  onClickActivity,
 }: ToolbarProps) => {
   const { t } = useTranslation("flags");
   const theme = useTheme();
@@ -46,18 +53,28 @@ const Toolbar = ({
         name="search"
         value={searchValue}
       />
-      {isDesktop && (
-        <SegmentContainer>
-          <Segment
-            onSelect={onChangeView}
-            items={[
-              { icon: "view_module", id: "cards" },
-              { icon: "view_stream", id: "table" },
-            ]}
-            selectedIndex={selectedView === "table" ? 1 : 0}
-          />
-        </SegmentContainer>
-      )}
+      <RightContent>
+        <Button
+          onClick={onClickActivity}
+          icon="history"
+          iconPlacement="left"
+          variant={ButtonVariant.Tertiary}
+        >
+          {t("toolbar.activity.button")}
+        </Button>
+        {isDesktop && (
+          <SegmentContainer>
+            <Segment
+              onSelect={onChangeView}
+              items={[
+                { icon: "view_module", id: "cards" },
+                { icon: "view_stream", id: "table" },
+              ]}
+              selectedIndex={selectedView === "table" ? 1 : 0}
+            />
+          </SegmentContainer>
+        )}
+      </RightContent>
     </Container>
   );
 };

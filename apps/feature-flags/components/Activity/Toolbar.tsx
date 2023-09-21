@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import useTranslation from "next-translate/useTranslation";
 import { CalendarInput, Input } from "@basestack/design-system";
 import dayjs from "dayjs";
 import { InputContainer, ToolBar } from "./styles";
@@ -16,6 +17,7 @@ const Toolbar = ({
   onSearchChange,
   onChangeDate,
 }: ToolbarProps) => {
+  const { t } = useTranslation("modals");
   const [isCalenderOpen, setIsCalenderOpen] = useState<boolean>(false);
 
   const selectedRange = useMemo(() => {
@@ -37,7 +39,7 @@ const Toolbar = ({
           isDarker
           icon="search"
           iconPlacement="left"
-          placeholder="Search projects activity"
+          placeholder={t("activity.toolbar.search.placeholder")}
           onChange={onSearchChange}
           name="search"
           value={searchValue}
@@ -54,7 +56,7 @@ const Toolbar = ({
             isDarker: true,
             onFocus: () => setIsCalenderOpen(true),
             onChange: () => null,
-            placeholder: "dd/mm/yyyy - dd/mm/yyyy",
+            placeholder: t("activity.toolbar.calendar.placeholder"),
             name: "date",
             value: selectedRange,
             autoComplete: "off",

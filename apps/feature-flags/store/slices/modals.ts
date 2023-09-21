@@ -20,6 +20,7 @@ export const createModalsSlice: StateCreator<
   isConfirmModalOpen: false,
   confirmModalPayload: null,
   isIntegrationModalOpen: false,
+  isActivityModalOpen: false,
   setCreateEnvironmentModalOpen: ({ isOpen, data }) =>
     set((state) => ({
       isCreateEnvironmentModalOpen: isOpen,
@@ -56,5 +57,9 @@ export const createModalsSlice: StateCreator<
   setIntegrationModalOpen: ({ isOpen }) =>
     set((state) => ({
       isIntegrationModalOpen: isOpen,
+    })),
+  setActivityModalOpen: ({ isOpen }) =>
+    set((state) => ({
+      isActivityModalOpen: isOpen,
     })),
 });

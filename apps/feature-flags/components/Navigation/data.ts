@@ -10,12 +10,6 @@ export const internalLinks = [
   },
   {
     icon: "settings",
-    text: "activity",
-    to: "/[projectSlug]/activity",
-    i18nKey: "internal.activity",
-  },
-  {
-    icon: "settings",
     text: "Settings",
     to: "/[projectSlug]/settings/general",
     i18nKey: "internal.settings",

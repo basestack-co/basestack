@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { rem } from "polished";
 import { Button, ButtonVariant } from "../Button";
 import IconButton from "../IconButton";
 import Text from "../Text";
@@ -75,10 +76,14 @@ const Modal: React.FC<ModalProps> = ({
                     <IconButton ml="auto" onClick={onClose} icon="close" />
                   </Header>
                   <ContentContainer>
-                    <Body>{children}</Body>
-                    <Footer expandMobile={expandMobile}>
-                      {buttons &&
-                        buttons.map((item, index, { length }) => {
+                    <Body
+                      pb={buttons && buttons.length > 0 ? "2px" : rem("22px")}
+                    >
+                      {children}
+                    </Body>
+                    {buttons && buttons.length > 0 && (
+                      <Footer expandMobile={expandMobile}>
+                        {buttons.map((item, index, { length }) => {
                           const isLastItem = index + 1 === length;
                           return (
                             <Button
@@ -99,7 +104,8 @@ const Modal: React.FC<ModalProps> = ({
                             </Button>
                           );
                         })}
-                    </Footer>
+                      </Footer>
+                    )}
                   </ContentContainer>
                 </AnimatedSheet>
               ),

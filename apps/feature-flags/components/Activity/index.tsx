@@ -1,19 +1,35 @@
-import React, { useState, useCallback } from "react";
-import { useTheme } from "styled-components";
-// Locales
-import useTranslation from "next-translate/useTranslation";
+import React, { useState, useCallback, useMemo } from "react";
+import { trpc } from "libs/trpc";
+import { useRouter } from "next/router";
 // Components
-import { Text } from "@basestack/design-system";
-import ActivityList from "./ActivityList";
+import ActivityList, { ActivityListData } from "./ActivityList";
 import Toolbar from "./Toolbar";
 import { Container } from "./styles";
 
 const Activity = () => {
-  const theme = useTheme();
-  const { t } = useTranslation("profile");
+  const trpcContext = trpc.useContext();
+  const router = useRouter();
+  const projectSlug = router.query.projectSlug as string;
 
   const [selectedDate, setSelectedDate] = useState<Array<Date>>([]);
   const [searchValue, setSearchValue] = useState<string>("");
+
+  const project = useMemo(() => {
+    if (projectSlug) {
+      const cache = trpcContext.project.all.getData();
+
+      return ((cache && cache.projects) || []).find(
+        (project) => project.slug === projectSlug,
+      );
+    }
+
+    return null;
+  }, [projectSlug, trpcContext]);
+
+  const { data, isLoading } = trpc.history.all.useQuery(
+    { flagId: null, projectId: project?.id as string },
+    { enabled: !!project?.id, keepPreviousData: true },
+  );
 
   const onChangeDate = useCallback((value: Date[]) => {
     setSelectedDate(value);
@@ -21,16 +37,17 @@ const Activity = () => {
 
   return (
     <Container>
-      <Text size="xLarge" mb={theme.spacing.s5}>
-        Activity
-      </Text>
       <Toolbar
         searchValue={searchValue}
         selectedDate={selectedDate}
         onSearchChange={(event) => setSearchValue(event.target.value)}
         onChangeDate={onChangeDate}
       />
-      <ActivityList />
+      <ActivityList
+        data={data as unknown as ActivityListData}
+        projectSlug={projectSlug}
+        isLoading={isLoading}
+      />
     </Container>
   );
 };

@@ -1,82 +1,73 @@
-import React, { useMemo } from "react";
-import { useRouter } from "next/router";
-import { useTheme } from "styled-components";
+import React from "react";
+import useTranslation from "next-translate/useTranslation";
 import dayjs from "dayjs";
-import { Card } from "@basestack/design-system";
-import { HistoryAction } from "types";
-import { trpc } from "libs/trpc";
-import { typeMap } from "libs/prisma/utils/history";
+import { Environment, HistoryAction } from "types";
+import { HistoryItemDetails, typeMap } from "libs/prisma/utils/history";
 import HistoryCard from "../HistoryCard";
 import Loading from "./Loading";
 import { List, ListItem } from "./styles";
 
-const ActivityList = () => {
-  const theme = useTheme();
-  const router = useRouter();
-  const trpcContext = trpc.useContext();
-  const projectSlug = router.query.projectSlug as string;
+export interface History extends HistoryItemDetails {
+  id: string;
+  action: string;
+  payload: {
+    flag: { slug: string; environments: Environment[] };
+    user: { avatar: string; name: string };
+  };
+}
 
-  const project = useMemo(() => {
-    if (projectSlug) {
-      const cache = trpcContext.project.all.getData();
+export type ActivityListData = { history: History[] };
 
-      return ((cache && cache.projects) || []).find(
-        (project) => project.slug === projectSlug,
-      );
-    }
+export interface ActivityListProps {
+  projectSlug: string;
+  isLoading: boolean;
+  data: ActivityListData;
+}
 
-    return null;
-  }, [projectSlug, trpcContext]);
-
-  const { data, isLoading } = trpc.history.all.useQuery(
-    { flagId: null, projectId: project?.id as string },
-    { enabled: !!project?.id, keepPreviousData: true },
-  );
+const ActivityList = ({ data, isLoading, projectSlug }: ActivityListProps) => {
+  const { t } = useTranslation("modals");
 
   if (isLoading) {
-    return Loading;
+    return <Loading />;
   }
 
   return (
-    <Card padding={theme.spacing.s5}>
-      <List>
-        {data &&
-          !!data.history.length &&
-          data.history.map((item, index, { length }) => {
-            const { user, flag } = item.payload;
-            const type = typeMap[item.action] ?? "created";
+    <List>
+      {data &&
+        !!data.history.length &&
+        data.history.map((item, index, { length }) => {
+          const { user, flag } = item.payload;
+          const type = typeMap[item.action] ?? "created";
 
-            const envs = flag?.environments?.map(({ name, enabled }) => ({
-              name: name ?? "",
-              enabled: enabled ?? false,
-            }));
+          const envs = flag?.environments?.map(({ name, enabled }) => ({
+            name: name ?? "",
+            enabled: enabled ?? false,
+          }));
 
-            const isCreatedProject =
-              item.action === HistoryAction.createProject;
+          const isCreatedProject = item.action === HistoryAction.createProject;
 
-            return (
-              <ListItem key={`history-entry-${item.id}`}>
-                <HistoryCard
-                  avatar={user.avatar}
-                  userName={user.name}
-                  description={
-                    isCreatedProject
-                      ? "created the project"
-                      : `${type} the flag`
-                  }
-                  flagName={isCreatedProject ? projectSlug : flag?.slug}
-                  date={dayjs(item.createdAt).fromNow()}
-                  environments={!!envs ? envs : []}
-                  type={type}
-                  hasPaddingBottom={index + 1 !== length}
-                  hasPaddingTop={index > 0}
-                  hasLeftLine={index + 1 !== length}
-                />
-              </ListItem>
-            );
-          })}
-      </List>
-    </Card>
+          return (
+            <ListItem key={`history-entry-${item.id}`}>
+              <HistoryCard
+                avatar={user.avatar}
+                userName={user.name}
+                description={
+                  isCreatedProject
+                    ? t("activity.card.description.project")
+                    : t("activity.card.description.flag", { type })
+                }
+                flagName={isCreatedProject ? projectSlug : flag?.slug}
+                date={dayjs(item.createdAt).fromNow()}
+                environments={!!envs ? envs : []}
+                type={type}
+                hasPaddingBottom={index + 1 !== length}
+                hasPaddingTop={index > 0}
+                hasLeftLine={index + 1 !== length}
+              />
+            </ListItem>
+          );
+        })}
+    </List>
   );
 };
 

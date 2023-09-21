@@ -28,6 +28,7 @@ const FlagsPage = () => {
   const router = useRouter();
   const theme = useTheme();
   const isDesktop = useMedia(theme.device.min.lg, false);
+  const setActivityModalOpen = useStore((state) => state.setActivityModalOpen);
   const setSelectedView = useStore((state) => state.setSelectedView);
   const selectedView = useStore((state) => state.selectedView);
   const [searchValue, setSearchValue] = useState<string>("");
@@ -53,6 +54,10 @@ const FlagsPage = () => {
     [setSelectedView],
   );
 
+  const onClickActivity = useCallback(() => {
+    setActivityModalOpen({ isOpen: true });
+  }, [setActivityModalOpen]);
+
   return (
     <>
       <Head>
@@ -67,6 +72,7 @@ const FlagsPage = () => {
           onSearchCallback={(value) => setSearchValue(value)}
           isDesktop={isDesktop}
           selectedView={selectedView}
+          onClickActivity={onClickActivity}
         />
         <FlagsList
           projectId={data?.project?.id!}

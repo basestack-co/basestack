@@ -2,7 +2,7 @@
 
 exports[`InputGroup tests should render InputGroup as textarea 1`] = `
 <DocumentFragment>
-  .c3 {
+  .c2 {
   border: none;
   background-color: #F6F6F6;
   min-height: 9.375rem;
@@ -14,6 +14,78 @@ exports[`InputGroup tests should render InputGroup as textarea 1`] = `
   font-weight: 400;
   width: 100%;
   padding: 1rem;
+  color: #000000;
+}
+
+.c2::placeholder {
+  color: #757575;
+}
+
+.c2:focus {
+  outline: 2px solid #000000;
+}
+
+.c1 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: roboto;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #000000;
+}
+
+.c0 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+<div
+    class=""
+    data-testid="input-group-container"
+  >
+    <div
+      class="c0"
+    >
+      <p
+        class="c1"
+        data-testid="input-group-title"
+        font-family="roboto"
+        font-weight="500"
+      >
+        Feature Key
+      </p>
+    </div>
+    <textarea
+      class="c2"
+      data-testid="textarea"
+      name=""
+      placeholder="Description"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`InputGroup tests should render InputGroup correctly 1`] = `
+<DocumentFragment>
+  .c2 {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.c3 {
+  border: none;
+  background-color: #F6F6F6;
+  height: 2.75rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  width: 100%;
+  padding: 0 1rem;
   color: #000000;
 }
 
@@ -36,16 +108,6 @@ exports[`InputGroup tests should render InputGroup as textarea 1`] = `
   color: #000000;
 }
 
-.c2 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: roboto;
-  font-family: 'Roboto',sans-serif;
-  word-break: break-word;
-  color: #757575;
-}
-
 .c0 {
   display: flex;
   justify-content: space-between;
@@ -68,105 +130,13 @@ exports[`InputGroup tests should render InputGroup as textarea 1`] = `
       >
         Feature Key
       </p>
-      <p
-        class="c2"
-        data-testid="input-group-label"
-        font-family="roboto"
-      />
-    </div>
-    <textarea
-      class="c3"
-      data-testid="textarea"
-      name=""
-      placeholder="Description"
-    />
-  </div>
-</DocumentFragment>
-`;
-
-exports[`InputGroup tests should render InputGroup correctly 1`] = `
-<DocumentFragment>
-  .c3 {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.c4 {
-  border: none;
-  background-color: #F6F6F6;
-  height: 2.75rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  font-weight: 400;
-  width: 100%;
-  padding: 0 1rem;
-  color: #000000;
-}
-
-.c4::placeholder {
-  color: #757575;
-}
-
-.c4:focus {
-  outline: 2px solid #000000;
-}
-
-.c1 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: roboto;
-  font-weight: 500;
-  font-family: 'Roboto',sans-serif;
-  word-break: break-word;
-  color: #000000;
-}
-
-.c2 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: roboto;
-  font-family: 'Roboto',sans-serif;
-  word-break: break-word;
-  color: #757575;
-}
-
-.c0 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-<div
-    class=""
-    data-testid="input-group-container"
-  >
-    <div
-      class="c0"
-    >
-      <p
-        class="c1"
-        data-testid="input-group-title"
-        font-family="roboto"
-        font-weight="500"
-      >
-        Feature Key
-      </p>
-      <p
-        class="c2"
-        data-testid="input-group-label"
-        font-family="roboto"
-      />
     </div>
     <div
-      class="c3"
+      class="c2"
       data-testid="input-container"
     >
       <input
-        class="c4"
+        class="c3"
         data-testid="input"
         format="normal"
         name="feature"
@@ -181,13 +151,13 @@ exports[`InputGroup tests should render InputGroup correctly 1`] = `
 
 exports[`InputGroup tests should render InputGroup with hint 1`] = `
 <DocumentFragment>
-  .c3 {
+  .c2 {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.c4 {
+.c3 {
   border: none;
   background-color: #F6F6F6;
   height: 2.75rem;
@@ -199,15 +169,15 @@ exports[`InputGroup tests should render InputGroup with hint 1`] = `
   color: #000000;
 }
 
-.c4::placeholder {
+.c3::placeholder {
   color: #757575;
 }
 
-.c4:focus {
+.c3:focus {
   outline: 2px solid #000000;
 }
 
-.c5 {
+.c4 {
   display: flex;
   font-size: 0.75rem;
   line-height: 0.875rem;
@@ -230,16 +200,6 @@ exports[`InputGroup tests should render InputGroup with hint 1`] = `
   color: #000000;
 }
 
-.c2 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: roboto;
-  font-family: 'Roboto',sans-serif;
-  word-break: break-word;
-  color: #757575;
-}
-
 .c0 {
   display: flex;
   justify-content: space-between;
@@ -262,18 +222,13 @@ exports[`InputGroup tests should render InputGroup with hint 1`] = `
       >
         Feature Key
       </p>
-      <p
-        class="c2"
-        data-testid="input-group-label"
-        font-family="roboto"
-      />
     </div>
     <div
-      class="c3"
+      class="c2"
       data-testid="input-container"
     >
       <input
-        class="c4"
+        class="c3"
         data-testid="input"
         format="normal"
         name="feature"
@@ -283,7 +238,7 @@ exports[`InputGroup tests should render InputGroup with hint 1`] = `
       />
     </div>
     <span
-      class="c5"
+      class="c4"
       color="#757575"
       data-testid="input-group-hint"
       font-family="roboto"
