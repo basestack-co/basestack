@@ -4,8 +4,8 @@ import dayjs from "dayjs";
 import { Environment, HistoryAction } from "types";
 import { HistoryItemDetails, typeMap } from "libs/prisma/utils/history";
 import HistoryCard from "../HistoryCard";
-import Loading from "./Loading";
 import { List, ListItem } from "./styles";
+import { Skeleton } from "@basestack/design-system";
 
 export interface History extends HistoryItemDetails {
   id: string;
@@ -28,7 +28,20 @@ const ActivityList = ({ data, isLoading, projectSlug }: ActivityListProps) => {
   const { t } = useTranslation("modals");
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <Skeleton
+        numberOfItems={5}
+        gapBetweenItems={24}
+        displayInline
+        items={[
+          { h: 40, w: 40, mr: 20, isRound: true },
+          { h: 28, w: 28, mr: 12, isRound: true },
+          { h: 47, w: "100%" },
+        ]}
+        hasShadow={false}
+        padding={0}
+      />
+    );
   }
 
   return (
