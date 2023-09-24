@@ -177,7 +177,8 @@ const calendar = {
     },
   },
   selectRange: {
-    backgroundColor: colors.gray100,
+    backgroundColor: colors.primary,
+    color: colors.white,
   },
 };
 
@@ -302,7 +303,7 @@ const input = {
     outline: colors.black,
   },
   icon: {
-    color: colors.gray400,
+    color: colors.gray500,
   },
 };
 

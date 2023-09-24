@@ -13,6 +13,8 @@ import InviteMemberModal from "./Member/Invite";
 import ConfirmModal from "./Confirm";
 // SDK Integration
 import IntegrationModal from "./Integration";
+// Activity
+import ActivityModal from "./Activity";
 
 const Modals = () => {
   return (
@@ -25,6 +27,7 @@ const Modals = () => {
       <UpdateFlagModal />
       <ConfirmModal />
       <IntegrationModal />
+      <ActivityModal />
     </Fragment>
   );
 };

@@ -15,12 +15,12 @@ export const Container = styled.div<{
   ${space};
 `;
 
-export const Wrapper = styled.div<{ type: Type }>`
+export const Wrapper = styled.div<{ hasLeftLine?: boolean }>`
   display: flex;
   position: relative;
 
-  ${({ theme, type }) =>
-    type !== "created" &&
+  ${({ theme, hasLeftLine }) =>
+    hasLeftLine &&
     css`
       &::before {
         content: "";
@@ -69,7 +69,15 @@ export const TitleContainer = styled.div<{ type: Type }>`
     `}
 `;
 
-export const BottomContentContainer = styled.div`
+export const LabelsContainer = styled.div`
   display: flex;
   align-items: center;
+  gap: ${({ theme }) => theme.spacing.s1};
+  flex-wrap: wrap;
+  margin: ${({ theme }) => theme.spacing.s1} 0;
+`;
+
+export const BottomContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

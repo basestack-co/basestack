@@ -5,6 +5,7 @@ import {
   BottomContentContainer,
   Container,
   IconContainer,
+  LabelsContainer,
   TextContainer,
   TitleContainer,
   Wrapper,
@@ -21,6 +22,7 @@ const HistoryCard = ({
   hasPaddingTop = true,
   hasPaddingBottom = true,
   avatar,
+  hasLeftLine = true,
 }: HistoryCardProps) => {
   const theme = useTheme();
 
@@ -28,6 +30,7 @@ const HistoryCard = ({
     deleted: "delete",
     edited: "edit",
     created: "add",
+    createdProject: "folder_open",
     toggledOn: "toggle_on",
     toggledOff: "toggle_off",
   };
@@ -37,7 +40,7 @@ const HistoryCard = ({
       hasPaddingTop={hasPaddingTop}
       hasPaddingBottom={hasPaddingBottom}
     >
-      <Wrapper type={type}>
+      <Wrapper hasLeftLine={hasLeftLine}>
         <IconContainer>
           <Icon
             icon={type ? icon[type] : "help"}
@@ -65,16 +68,18 @@ const HistoryCard = ({
             <Text fontWeight={500}>{flagName}</Text>
           </TitleContainer>
           <BottomContentContainer>
+            {environments.length > 0 && (
+              <LabelsContainer>
+                {environments.map(({ name, enabled }, index) => (
+                  <Label
+                    key={index}
+                    text={name}
+                    variant={enabled ? "success" : "default"}
+                  />
+                ))}
+              </LabelsContainer>
+            )}
             <Text muted>{date}</Text>
-            {environments.map(({ name, enabled }, index) => (
-              <Label
-                key={index}
-                text={name}
-                variant={enabled ? "success" : "default"}
-                ml={theme.spacing.s1}
-                size="small"
-              />
-            ))}
           </BottomContentContainer>
         </TextContainer>
       </Wrapper>

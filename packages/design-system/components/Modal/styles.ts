@@ -1,4 +1,5 @@
 import styled, { css, createGlobalStyle } from "styled-components";
+import { space, SpaceProps } from "styled-system";
 import { rem } from "polished";
 import { scrollbar } from "@basestack/design-system/styles";
 import { Size } from "./types";
@@ -82,8 +83,9 @@ export const Header = styled.div`
   flex-shrink: 0;
 `;
 
-export const Body = styled.div`
+export const Body = styled.div<SpaceProps>`
   padding: 2px ${rem("20px")};
+  ${space};
   ${flexColumn};
 `;
 

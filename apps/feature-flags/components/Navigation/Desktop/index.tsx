@@ -127,7 +127,7 @@ const Navigation = ({
             {!!projectSlug && (
               <>
                 {onRenderItems(internalLinks, "left")}
-                <ListItem ml={theme.spacing.s5}>
+                <ListItem ml={theme.spacing.s3}>
                   <Button
                     onClick={() => setCreateFlagModalOpen({ isOpen: true })}
                     variant={ButtonVariant.Primary}

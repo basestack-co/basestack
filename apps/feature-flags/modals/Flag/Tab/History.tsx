@@ -18,6 +18,8 @@ const HistoryTab = ({ projectId, flagId }: Props) => {
     {
       flagId,
       projectId,
+      range: [],
+      search: null,
     },
     { enabled: !!projectId && !!flagId, keepPreviousData: true },
   );
@@ -52,6 +54,7 @@ const HistoryTab = ({ projectId, flagId }: Props) => {
             type={type}
             hasPaddingTop={index !== 0}
             hasPaddingBottom={index + 1 !== length}
+            hasLeftLine={index + 1 !== length}
           />
         );
       });

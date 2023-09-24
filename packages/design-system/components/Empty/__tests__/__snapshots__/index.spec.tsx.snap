@@ -8,7 +8,6 @@ exports[`Empty tests should render Empty correctly 1`] = `
   font-weight: 400;
   font-family: roboto;
   text-align: center;
-  margin-bottom: 1.25rem;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #757575;
@@ -54,6 +53,7 @@ exports[`Empty tests should render Empty correctly 1`] = `
   color: #FFFFFF;
   width: normal;
   height: normal;
+  margin-top: 1.25rem;
   width: fit-content;
 }
 

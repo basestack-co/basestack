@@ -18,7 +18,7 @@ export interface ModalProps {
   /**
    * Footer buttons
    */
-  buttons: Array<ButtonProps>;
+  buttons?: Array<ButtonProps>;
   /**
    * If modal is open
    */

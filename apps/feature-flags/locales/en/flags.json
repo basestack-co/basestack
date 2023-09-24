@@ -8,6 +8,9 @@
   "toolbar": {
     "search": {
       "placeholder": "Filter by name"
+    },
+    "activity": {
+      "button": "Activity"
     }
   },
   "list": {

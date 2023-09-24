@@ -1,5 +1,6 @@
 import React, { memo, useRef } from "react";
-import { SpaceProps } from "styled-system";
+import { SpaceProps, LayoutProps } from "styled-system";
+import { rem } from "polished";
 import { useClickAway } from "react-use";
 import {
   autoUpdate,
@@ -12,26 +13,36 @@ import {
 // Calendar
 import { CalendarProps } from "react-calendar";
 // Components
-import { CalendarReference, CalendarWrapper, Container } from "./styles";
+import {
+  CalendarReference,
+  CalendarWrapper,
+  Container,
+  InputContainer,
+} from "./styles";
+import IconButton from "../IconButton";
 import Icon from "../Icon";
 import { InputProps } from "../Input";
 import InputGroup from "../InputGroup";
 import Calendar from "../Calendar";
 
-export interface CalendarInputProps extends SpaceProps {
+export interface CalendarInputProps extends SpaceProps, LayoutProps {
   isCalenderOpen: boolean;
   calendarProps: CalendarProps;
-  inputTitle: string;
+  inputTitle?: string;
   inputProps: InputProps;
   onClickAway?: () => void;
+  showClearButton?: boolean;
+  onClear?: () => void;
 }
 
 const CalendarInput = ({
   inputTitle,
   inputProps,
   calendarProps,
-  isCalenderOpen,
+  isCalenderOpen = false,
   onClickAway,
+  onClear,
+  showClearButton = false,
   ...props
 }: CalendarInputProps) => {
   const calendarRef = useRef(null);
@@ -50,7 +61,18 @@ const CalendarInput = ({
 
   return (
     <Container {...props}>
-      <InputGroup title={inputTitle} inputProps={inputProps} />
+      <InputContainer>
+        <InputGroup title={inputTitle} inputProps={inputProps} />
+        {showClearButton && onClear && (
+          <IconButton
+            position="absolute"
+            right={rem("6px")}
+            top={rem("6px")}
+            icon="close"
+            onClick={onClear}
+          />
+        )}
+      </InputContainer>
       <CalendarReference ref={refs.setReference}></CalendarReference>
       {isCalenderOpen && (
         <FloatingPortal id="portal">

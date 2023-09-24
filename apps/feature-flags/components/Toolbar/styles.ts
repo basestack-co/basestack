@@ -8,15 +8,15 @@ export const Container = styled.header<SpaceProps>`
   grid-gap: ${({ theme }) => theme.spacing.s5};
 
   @media screen and ${({ theme }) => theme.device.max.lg} {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
   }
 
   @media screen and ${({ theme }) => theme.device.max.sm} {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr auto;
   }
 `;
 
-export const SegmentContainer = styled.div`
+export const RightContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -24,4 +24,10 @@ export const SegmentContainer = styled.div`
   @media screen and ${({ theme }) => theme.device.min.lg} {
     grid-column: 2 / 5;
   }
+`;
+
+export const SegmentContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: ${({ theme }) => theme.spacing.s5};
 `;

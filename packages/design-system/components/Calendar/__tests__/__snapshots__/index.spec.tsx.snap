@@ -180,8 +180,31 @@ exports[`Calendar tests render Calendar correctly 1`] = `
   background: #276EF1;
 }
 
-.c0 .react-calendar--selectRange .react-calendar__tile--hover {
-  background-color: #EEEEEE;
+.c0 .react-calendar__tile--range,
+.c0 .react-calendar__tile--hover {
+  border-radius: 0;
+}
+
+.c0 .react-calendar__tile--rangeStart:not(.c0 .react-calendar__tile--rangeBothEnds),
+.c0 .react-calendar__tile--hoverStart:not(.c0 .react-calendar__tile--rangeBothEnds) {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.c0 .react-calendar__tile--rangeEnd:not(.c0 .react-calendar__tile--rangeBothEnds),
+.c0 .react-calendar__tile--hoverEnd:not(.c0 .react-calendar__tile--rangeBothEnds) {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.c0 .react-calendar__tile--rangeBothEnds:not(.c0 .react-calendar__tile--hoverStart):not(.c0 .react-calendar__tile--hoverEnd) {
+  border-radius: 0.25rem;
+}
+
+.c0 .react-calendar--selectRange .react-calendar__tile--hover,
+.c0 .react-calendar--selectRange .react-calendar__tile:enabled:hover {
+  background-color: #276EF1;
+  color: #FFFFFF;
 }
 
 .c0 .react-calendar__year-view .react-calendar__tile,
@@ -618,7 +641,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__tile--now react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
@@ -695,7 +718,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                  class="react-calendar__tile react-calendar__tile--now react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >

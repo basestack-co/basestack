@@ -20,7 +20,7 @@ export const pathActionMap: { [id: string]: string } = {
 };
 
 export const typeMap: { [id: string]: Type } = {
-  [HistoryAction.createProject]: "created",
+  [HistoryAction.createProject]: "createdProject",
   [HistoryAction.updateProject]: "edited",
   [HistoryAction.createEnvironment]: "created",
   [HistoryAction.updateEnvironment]: "edited",

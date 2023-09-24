@@ -1,12 +1,13 @@
 import React, { memo } from "react";
 import { useTheme } from "styled-components";
+import { SpaceProps } from "styled-system";
 // Components
 import Text from "../Text";
 import { Button } from "../Button";
 import IconBox from "../IconBox";
 import { Container } from "./styles";
 
-export interface EmptyProps {
+export interface EmptyProps extends SpaceProps {
   title: string;
   description: string;
   button?: {
@@ -21,11 +22,12 @@ const Empty = ({
   description,
   button,
   iconName = "info",
+  ...props
 }: EmptyProps) => {
   const theme = useTheme();
 
   return (
-    <Container>
+    <Container {...props}>
       <IconBox
         backgroundColor={theme.empty.icon.backgroundColor}
         icon={iconName}
@@ -34,10 +36,14 @@ const Empty = ({
       <Text size="large" textAlign="center" mb={theme.spacing.s1}>
         {title}
       </Text>
-      <Text size="small" textAlign="center" muted mb={theme.spacing.s5}>
+      <Text size="small" textAlign="center" muted>
         {description}
       </Text>
-      {button && <Button onClick={button.onClick}>{button.text}</Button>}
+      {button && (
+        <Button mt={theme.spacing.s5} onClick={button.onClick}>
+          {button.text}
+        </Button>
+      )}
     </Container>
   );
 };

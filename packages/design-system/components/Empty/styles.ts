@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { space } from "styled-system";
 import { rem } from "polished";
 
 export const Container = styled.div`
@@ -10,4 +11,5 @@ export const Container = styled.div`
   border-radius: ${rem("6px")};
   justify-content: center;
   align-items: center;
+  ${space};
 `;

@@ -12,6 +12,12 @@ exports[`CalendarInput tests render CalendarInput correctly 1`] = `
   pointer-events: none;
 }
 
+.c1 {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
 .c4 {
   position: relative;
   display: flex;
@@ -38,7 +44,7 @@ exports[`CalendarInput tests render CalendarInput correctly 1`] = `
   outline: 2px solid #000000;
 }
 
-.c2 {
+.c3 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
@@ -49,17 +55,7 @@ exports[`CalendarInput tests render CalendarInput correctly 1`] = `
   color: #000000;
 }
 
-.c3 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: roboto;
-  font-family: 'Roboto',sans-serif;
-  word-break: break-word;
-  color: #757575;
-}
-
-.c1 {
+.c2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -70,39 +66,38 @@ exports[`CalendarInput tests render CalendarInput correctly 1`] = `
     class="c0"
   >
     <div
-      class=""
-      data-testid="input-group-container"
+      class="c1"
     >
       <div
-        class="c1"
+        class=""
+        data-testid="input-group-container"
       >
-        <p
+        <div
           class="c2"
-          data-testid="input-group-title"
-          font-family="roboto"
-          font-weight="500"
         >
-          Title
-        </p>
-        <p
-          class="c3"
-          data-testid="input-group-label"
-          font-family="roboto"
-        />
-      </div>
-      <div
-        class="c4"
-        data-testid="input-container"
-      >
-        <input
-          class="c5"
-          data-testid="input"
-          format="normal"
-          name="name"
-          placeholder="placeholder"
-          type="text"
-          value="value"
-        />
+          <p
+            class="c3"
+            data-testid="input-group-title"
+            font-family="roboto"
+            font-weight="500"
+          >
+            Title
+          </p>
+        </div>
+        <div
+          class="c4"
+          data-testid="input-container"
+        >
+          <input
+            class="c5"
+            data-testid="input"
+            format="normal"
+            name="name"
+            placeholder="placeholder"
+            type="text"
+            value="value"
+          />
+        </div>
       </div>
     </div>
     <div

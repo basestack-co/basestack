@@ -194,6 +194,7 @@ exports[`Modal tests should render Modal correctly open 1`] = `
 
 .c8 {
   padding: 2px 1.25rem;
+  padding-bottom: 2px;
   display: flex;
   flex-direction: column;
 }
@@ -488,6 +489,7 @@ exports[`Modal tests should render Modal with custom props 1`] = `
 
 .c8 {
   padding: 2px 1.25rem;
+  padding-bottom: 2px;
   display: flex;
   flex-direction: column;
 }

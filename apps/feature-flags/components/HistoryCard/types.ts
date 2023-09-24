@@ -5,7 +5,8 @@ export type Type =
   | "edited"
   | "created"
   | "toggledOn"
-  | "toggledOff";
+  | "toggledOff"
+  | "createdProject";
 
 export interface HistoryCardProps extends SpaceProps {
   avatar: string;
@@ -17,4 +18,5 @@ export interface HistoryCardProps extends SpaceProps {
   type: Type;
   hasPaddingTop?: boolean;
   hasPaddingBottom?: boolean;
+  hasLeftLine?: boolean;
 }
