@@ -68,6 +68,8 @@ const Activity = () => {
         selectedDate={range}
         onSearchChange={onChangeSearchValue}
         onChangeDate={onChangeDate}
+        showCalendarClearButton={!!range.length}
+        onClearCalendar={() => setRange([])}
       />
       <ActivityList
         data={data as unknown as ActivityListData}

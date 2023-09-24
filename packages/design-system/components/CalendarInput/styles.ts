@@ -15,3 +15,9 @@ export const CalendarReference = styled.div`
 export const CalendarWrapper = styled.div`
   z-index: ${({ theme }) => theme.zIndex.calendar};
 `;
+
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`;

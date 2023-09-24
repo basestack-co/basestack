@@ -9,6 +9,8 @@ interface ToolbarProps {
   searchValue: string;
   onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeDate: (date: Date[]) => void;
+  onClearCalendar?: () => void;
+  showCalendarClearButton?: boolean;
 }
 
 const Toolbar = ({
@@ -16,11 +18,17 @@ const Toolbar = ({
   searchValue,
   onSearchChange,
   onChangeDate,
+  showCalendarClearButton = false,
+  onClearCalendar,
 }: ToolbarProps) => {
   const { t } = useTranslation("modals");
   const [isCalenderOpen, setIsCalenderOpen] = useState<boolean>(false);
 
   const selectedRange = useMemo(() => {
+    if (selectedDate.length === 2) {
+      setIsCalenderOpen(false);
+    }
+
     if (selectedDate.length > 0) {
       return `${dayjs(selectedDate[0]).format("DD/MM/YYYY")} - ${dayjs(
         selectedDate[1],
@@ -28,7 +36,7 @@ const Toolbar = ({
     }
 
     return "";
-  }, [selectedDate]);
+  }, [selectedDate, setIsCalenderOpen]);
 
   return (
     <ToolBar>
@@ -50,6 +58,8 @@ const Toolbar = ({
           width="100%"
           isCalenderOpen={isCalenderOpen}
           onClickAway={() => setIsCalenderOpen(false)}
+          showClearButton={showCalendarClearButton}
+          onClear={onClearCalendar}
           inputProps={{
             icon: "date_range",
             iconPlacement: "left",
