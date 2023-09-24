@@ -4,6 +4,8 @@ import { withProjectId } from "./utils";
 export const all = withProjectId
   .extend({
     flagId: z.string().optional().nullable(),
+    search: z.string().optional().nullable(),
+    range: z.array(z.date()).optional().nullable(),
   })
   .required();
 

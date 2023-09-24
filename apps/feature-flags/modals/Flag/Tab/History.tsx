@@ -18,6 +18,8 @@ const HistoryTab = ({ projectId, flagId }: Props) => {
     {
       flagId,
       projectId,
+      range: [],
+      search: null,
     },
     { enabled: !!projectId && !!flagId, keepPreviousData: true },
   );

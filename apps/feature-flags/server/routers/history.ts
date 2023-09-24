@@ -9,7 +9,25 @@ export const historyRouter = router({
     .input(schemas.history.input.all)
     .query(async ({ ctx, input }) => {
       const getId = isEmpty(input.flagId)
-        ? { projectId: input.projectId }
+        ? {
+            projectId: input.projectId,
+            ...(!!input.search
+              ? {
+                  payload: {
+                    path: ["flag", "slug"],
+                    string_contains: input.search,
+                  },
+                }
+              : {}),
+            ...(!!input.range?.length
+              ? {
+                  createdAt: {
+                    lte: input.range[1],
+                    gte: input.range[0],
+                  },
+                }
+              : {}),
+          }
         : {
             payload: {
               path: ["flag", "ids"],

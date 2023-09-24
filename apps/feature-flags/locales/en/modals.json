@@ -69,7 +69,7 @@
         "input": {
           "name": {
             "title": "Feature Key",
-            "hint": "No spaces, or special characters",
+            "hint": "Try to avoid spaces, or special characters",
             "placeholder": "E.g. header_size",
             "error": {
               "max": "Must be 150 characters or less",
@@ -166,7 +166,7 @@
     },
     "toolbar": {
       "search": {
-        "placeholder": "Search project activity"
+        "placeholder": "Search by name"
       },
       "calendar": {
         "placeholder": "dd/mm/yyyy - dd/mm/yyyy"
