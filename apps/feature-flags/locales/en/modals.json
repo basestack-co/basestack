@@ -166,7 +166,7 @@
     },
     "empty": {
       "title": "No Results Found",
-      "description": "Sorry, we couldn't find any results for your search. Please try a different search term or refine your search by date."
+      "description": "We couldn't find any results for your search. Please try a different search term or refine your search by date."
     },
     "toolbar": {
       "search": {
