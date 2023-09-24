@@ -16,6 +16,7 @@ const Portal = ({ children, selector }: PortalProps): JSX.Element => {
     setMounted(true);
   }, [selector]);
 
+  // @ts-ignore
   return <>{mounted ? createPortal(children, ref.current) : null}</>;
 };
 

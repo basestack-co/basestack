@@ -10,7 +10,7 @@ services:
   #   - key: SKIP_INSTALL_DEPS
   #     value: true # disables npm install to use yarn
   #   - key: NODE_VERSION
-  #     value: 16.14.0
+  #     value: 18.12.0
   #   - key: NEXT_PUBLIC_EMAIL_SERVICE
   #     sync: false
   #   - key: NEXT_PUBLIC_UMAMI_WEBSITE_ID
@@ -26,7 +26,7 @@ services:
   #    - key: SKIP_INSTALL_DEPS
   #      value: true # disables npm install to use yarn
   #    - key: NODE_VERSION
-  #      value: 16.14.0
+  #      value: 18.12.0
   - type: web
     name: basestack-feature-flags-app
     # rootDir: no need to specify rootDir
