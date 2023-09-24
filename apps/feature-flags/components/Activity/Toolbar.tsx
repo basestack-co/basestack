@@ -44,7 +44,6 @@ const Toolbar = ({
         <Input
           size="small"
           width="100%"
-          isDarker
           icon="search"
           iconPlacement="left"
           placeholder={t("activity.toolbar.search.placeholder")}
@@ -63,7 +62,6 @@ const Toolbar = ({
           inputProps={{
             icon: "date_range",
             iconPlacement: "left",
-            isDarker: true,
             onFocus: () => setIsCalenderOpen(true),
             onChange: () => null,
             placeholder: t("activity.toolbar.calendar.placeholder"),
