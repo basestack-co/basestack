@@ -10,3 +10,4 @@ tsconfig.tsbuildinfo
 docker-compose.yml
 README.md
 .idea
+npm-debug.log

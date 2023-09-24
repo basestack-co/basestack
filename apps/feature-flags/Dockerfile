@@ -14,7 +14,7 @@ RUN apk update
 WORKDIR /app
 
 # First install the dependencies (as they change less often)
-COPY .gitignore .gitignore
+# COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/yarn.lock ./yarn.lock
 RUN yarn install

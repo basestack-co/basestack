@@ -23,6 +23,7 @@
     "build:feature-flags": "turbo run build --filter=feature-flags...",
     "build:landing-page": "turbo run build --filter=landing-page...",
     "deploy:feature-flags": "turbo run @basestack/feature-flags#deploy",
+    "deploy:feature-flags:prune": "turbo prune --scope='@basestack/feature-flags' --docker",
     "deploy:landing-page": "turbo run @basestack/landing-page#deploy",
     "deploy:docs": "turbo run @basestack/docs#deploy"
   },
@@ -33,9 +34,12 @@
     "is-ci": "^3.0.1",
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",
-    "turbo": "1.10.13"
+    "turbo": "1.10.14"
   },
   "packageManager": "yarn@1.22.15",
+  "engines": {
+    "node": ">=18.12.0"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged && tsc"

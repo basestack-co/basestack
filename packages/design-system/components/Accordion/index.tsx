@@ -26,7 +26,7 @@ const Accordion = ({ title, text, onClick }: AccordionProps) => {
 
   useEffect(() => {
     if (contentRef.current) {
-      animate({
+      animate.start({
         height: isOpen ? contentRef.current.offsetHeight : 0,
         opacity: isOpen ? 1 : 0,
       });

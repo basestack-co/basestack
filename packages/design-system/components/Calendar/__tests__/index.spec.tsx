@@ -2,6 +2,8 @@ import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
 import Calendar from "..";
 
+jest.useFakeTimers();
+
 describe("Calendar tests", () => {
   afterEach(cleanup);
 

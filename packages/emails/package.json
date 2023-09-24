@@ -1,0 +1,37 @@
+{
+  "name": "@basestack/emails",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "source": "./src/index.ts",
+  "files": [
+    "dist/**"
+  ],
+  "license": "AGPL-3.0",
+  "scripts": {
+    "editor": "email dev --port 3333 --dir ./src/templates",
+    "export": "email export",
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react --minify",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "lint": "TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "dependencies": {
+    "@react-email/components": "0.0.7",
+    "@react-email/render": "0.0.7",
+    "nodemailer": "^6.9.1",
+    "react-email": "1.9.4"
+  },
+  "devDependencies": {
+    "@basestack/config": "*",
+    "@basestack/tsconfig": "*",
+    "@basestack/utils": "*",
+    "@types/nodemailer": "^6.4.7",
+    "@types/react": "18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "raf-stub": "^3.0.0",
+    "react": "18.2.0",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
+  }
+}
