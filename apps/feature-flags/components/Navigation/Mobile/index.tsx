@@ -96,41 +96,45 @@ const NavigationDrawer = ({
                 />
               </Header>
               <ContentContainer>
-                <List>
-                  {internalLinks.map((item, index) => (
-                    <ListItem key={index}>
-                      <Button
-                        iconPlacement="left"
-                        icon={item.icon}
-                        variant={ButtonVariant.Neutral}
-                        fullWidth
-                        onClick={() => {
-                          router.push({
-                            pathname: item.to,
-                            query: { projectSlug },
-                          });
-                        }}
-                      >
-                        {t(item.i18nKey)}
-                      </Button>
-                    </ListItem>
-                  ))}
-                  <ListItem>
-                    <Button
-                      iconPlacement="left"
-                      icon="add"
-                      variant={ButtonVariant.Neutral}
-                      fullWidth
-                      onClick={() => {
-                        onClose();
-                        setCreateFlagModalOpen({ isOpen: true });
-                      }}
-                    >
-                      {t("create.flag")}
-                    </Button>
-                  </ListItem>
-                </List>
-                <HorizontalRule m={theme.spacing.s5} mb={0} />
+                {!!projectSlug && (
+                  <>
+                    <List>
+                      {internalLinks.map((item, index) => (
+                        <ListItem key={index}>
+                          <Button
+                            iconPlacement="left"
+                            icon={item.icon}
+                            variant={ButtonVariant.Neutral}
+                            fullWidth
+                            onClick={() => {
+                              router.push({
+                                pathname: item.to,
+                                query: { projectSlug },
+                              });
+                            }}
+                          >
+                            {t(item.i18nKey)}
+                          </Button>
+                        </ListItem>
+                      ))}
+                      <ListItem>
+                        <Button
+                          iconPlacement="left"
+                          icon="add"
+                          variant={ButtonVariant.Neutral}
+                          fullWidth
+                          onClick={() => {
+                            onClose();
+                            setCreateFlagModalOpen({ isOpen: true });
+                          }}
+                        >
+                          {t("create.flag")}
+                        </Button>
+                      </ListItem>
+                    </List>
+                    <HorizontalRule m={theme.spacing.s5} mb={0} />
+                  </>
+                )}
                 <ScrollableContent>
                   <TitleContainer>
                     <Text muted fontWeight={500}>
