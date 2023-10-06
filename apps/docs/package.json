@@ -14,8 +14,8 @@
     "@basestack/utils": "*",
     "material-symbols": "^0.13.0",
     "next": "^13.4.19",
-    "nextra": "2.13.0",
-    "nextra-theme-docs": "2.13.0",
+    "nextra": "2.13.2",
+    "nextra-theme-docs": "2.13.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
