@@ -90,6 +90,7 @@ const IntegrationModal = () => {
               <CopyButtonContainer>
                 <CopyButton text={tab.code} />
               </CopyButtonContainer>
+              {/* @ts-ignore */}
               <SyntaxHighlighter
                 language="typescript"
                 style={a11yDark}
