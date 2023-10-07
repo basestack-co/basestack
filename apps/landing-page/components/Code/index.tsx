@@ -50,6 +50,7 @@ const Code = ({ id = "code" }: Props) => {
             hoverBgColor={theme.colors.gray600}
             textSize="medium"
           />
+          {/* @ts-ignore */}
           <SyntaxHighlighter
             language="javascript"
             style={a11yDark}
