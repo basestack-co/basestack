@@ -25,7 +25,7 @@ exports[`Avatar tests render Avatar correctly 1`] = `
     <img
       alt="avatar"
       class="c1"
-      src="https://avatars.dicebear.com/api/initials/user name.svg?size=40&fontSize=40"
+      src="https://api.dicebear.com/7.x/initials/svg?seed=user name&size=40&fontSize=40"
     />
   </div>
 </DocumentFragment>
@@ -56,7 +56,7 @@ exports[`Avatar tests should render Avatar with user name initials 1`] = `
     <img
       alt="user_avatar"
       class="c1"
-      src="https://avatars.dicebear.com/api/initials/Flávio Amaral.svg?size=40&fontSize=40"
+      src="https://api.dicebear.com/7.x/initials/svg?seed=Flávio Amaral&size=40&fontSize=40"
     />
   </div>
 </DocumentFragment>
@@ -87,7 +87,7 @@ exports[`Avatar tests should render large Avatar 1`] = `
     <img
       alt="avatar"
       class="c1"
-      src="https://avatars.dicebear.com/api/initials/user name.svg?size=56&fontSize=40"
+      src="https://api.dicebear.com/7.x/initials/svg?seed=user name&size=56&fontSize=40"
     />
   </div>
 </DocumentFragment>
@@ -118,7 +118,7 @@ exports[`Avatar tests should render medium Avatar 1`] = `
     <img
       alt="avatar"
       class="c1"
-      src="https://avatars.dicebear.com/api/initials/user name.svg?size=40&fontSize=40"
+      src="https://api.dicebear.com/7.x/initials/svg?seed=user name&size=40&fontSize=40"
     />
   </div>
 </DocumentFragment>
@@ -149,7 +149,7 @@ exports[`Avatar tests should render small Avatar 1`] = `
     <img
       alt="avatar"
       class="c1"
-      src="https://avatars.dicebear.com/api/initials/user name.svg?size=36&fontSize=40"
+      src="https://api.dicebear.com/7.x/initials/svg?seed=user name&size=36&fontSize=40"
     />
   </div>
 </DocumentFragment>
@@ -180,7 +180,7 @@ exports[`Avatar tests should render squared Avatar 1`] = `
     <img
       alt="user_avatar"
       class="c1"
-      src="https://avatars.dicebear.com/api/initials/Flávio Amaral.svg?size=40&fontSize=40"
+      src="https://api.dicebear.com/7.x/initials/svg?seed=Flávio Amaral&size=40&fontSize=40"
     />
   </div>
 </DocumentFragment>
