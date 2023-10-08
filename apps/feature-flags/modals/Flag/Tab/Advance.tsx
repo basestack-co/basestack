@@ -6,16 +6,17 @@ import { Text, CalendarInput, Tabs } from "@basestack/design-system";
 // Types
 import { EnvironmentInput, FlagFormInputs } from "../types";
 import { UseFormSetValue } from "react-hook-form";
-import type { InteractionProps } from "react-json-view";
-import { Value } from "react-calendar/src/shared/types";
-// JSON Editor
-const ReactJson = dynamic(import("react-json-view"), { ssr: false });
+import type { Value } from "react-calendar/src/shared/types";
 // Utils
 import dayjs from "dayjs";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Styles
-import { ReactJsonContainer } from "../styles";
+import { EditorContainer } from "../styles";
+
+const Editor = dynamic(() => import("@monaco-editor/react"), {
+  ssr: false,
+});
 
 export interface Props {
   setValue: UseFormSetValue<FlagFormInputs>;
@@ -43,7 +44,7 @@ const AdvanceTab = ({ setValue, environments }: Props) => {
     [environments, activeTabIndex],
   );
 
-  const createOnChangeHandler = <T extends Value | InteractionProps>(
+  const createOnChangeHandler = <T extends Value | string | undefined>(
     propName: string,
   ) => {
     return (data: T) => {
@@ -54,7 +55,7 @@ const AdvanceTab = ({ setValue, environments }: Props) => {
       }
 
       if (propName === "payload") {
-        value = JSON.stringify((data as InteractionProps)?.updated_src ?? "{}");
+        value = (data as string) ?? "{}";
       }
 
       setValue(
@@ -75,7 +76,7 @@ const AdvanceTab = ({ setValue, environments }: Props) => {
     };
   };
 
-  const onChangeJson = createOnChangeHandler<InteractionProps>("payload");
+  const onChangeJson = createOnChangeHandler<string | undefined>("payload");
   const onChangeDate = createOnChangeHandler<Value>("expiredAt");
 
   return (
@@ -116,20 +117,25 @@ const AdvanceTab = ({ setValue, environments }: Props) => {
       >
         {t("flag.tab.advanced.input.payload.title")}
       </Text>
-      <ReactJsonContainer>
-        <ReactJson
-          name="data"
-          theme="chalk"
-          iconStyle="triangle"
-          defaultValue="string"
-          src={JSON.parse(activeTabData?.payload ?? "{}")}
-          onEdit={onChangeJson}
-          onAdd={onChangeJson}
-          onDelete={onChangeJson}
-          enableClipboard={false}
-          collapsed={false}
+      <EditorContainer>
+        <Editor
+          height="150px"
+          theme="vs-dark"
+          onChange={(value) => onChangeJson(value)}
+          language="json"
+          value={activeTabData?.payload ?? "{}"}
+          options={{
+            fontSize: "14px",
+            formatOnPaste: true,
+            inlineSuggest: false,
+            formatOnType: true,
+            autoClosingBrackets: true,
+            minimap: {
+              enabled: false,
+            },
+          }}
         />
-      </ReactJsonContainer>
+      </EditorContainer>
     </>
   );
 };
