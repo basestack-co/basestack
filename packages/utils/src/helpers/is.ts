@@ -10,12 +10,12 @@ export type AllowedEmptyCheckTypes = Blank | string | object;
 export type Empty<T extends AllowedEmptyCheckTypes> = T extends Blank
   ? T
   : T extends string
-  ? ""
-  : T extends any[]
-  ? EmptyArray
-  : T extends object
-  ? {}
-  : never;
+    ? ""
+    : T extends any[]
+      ? EmptyArray
+      : T extends object
+        ? {}
+        : never;
 
 export const isFunction = <T extends AnyFunction>(value: any): value is T =>
   typeof value === "function";

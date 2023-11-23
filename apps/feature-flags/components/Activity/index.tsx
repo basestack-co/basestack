@@ -38,7 +38,7 @@ const Activity = () => {
       search: debouncedSearchValue,
       projectId: project?.id as string,
     },
-    { enabled: !!project?.id, keepPreviousData: true },
+    { enabled: !!project?.id },
   );
 
   useDebounce(

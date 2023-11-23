@@ -92,8 +92,8 @@ const Modal: React.FC<ModalProps> = ({
                                 item.variant
                                   ? item.variant
                                   : isLastItem
-                                  ? ButtonVariant.Primary
-                                  : ButtonVariant.Neutral
+                                    ? ButtonVariant.Primary
+                                    : ButtonVariant.Neutral
                               }
                               onClick={item.onClick}
                               isDisabled={item.isDisabled}
