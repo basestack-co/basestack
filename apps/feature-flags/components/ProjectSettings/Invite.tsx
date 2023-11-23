@@ -36,7 +36,7 @@ const InviteCard = ({ project }: Props) => {
   const isMobile = useMedia(theme.device.max.md, false);
   const session = useSession();
   const router = useRouter();
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const setInviteMemberModalOpen = useStore(
     (state) => state.setInviteMemberModalOpen,
   );
@@ -65,7 +65,7 @@ const InviteCard = ({ project }: Props) => {
               // the user removed himself from the project, so we redirect him to the dashboard
               await router.push("/");
             } else {
-              const prev = trpcContext.project.members.getData({
+              const prev = trpcUtils.project.members.getData({
                 projectId: project.id,
               });
 
@@ -74,7 +74,7 @@ const InviteCard = ({ project }: Props) => {
                   (item) => item.userId !== result.connection.userId,
                 );
 
-                trpcContext.project.members.setData(
+                trpcUtils.project.members.setData(
                   {
                     projectId: project.id,
                   },
@@ -86,7 +86,7 @@ const InviteCard = ({ project }: Props) => {
         },
       );
     },
-    [project, removeUserFromProject, trpcContext, session, router],
+    [project, removeUserFromProject, trpcUtils, session, router],
   );
 
   const onHandleUpdateRole = useCallback(
@@ -99,7 +99,7 @@ const InviteCard = ({ project }: Props) => {
         },
         {
           onSuccess: async (result) => {
-            const prev = trpcContext.project.members.getData({
+            const prev = trpcUtils.project.members.getData({
               projectId: project.id,
             });
 
@@ -115,7 +115,7 @@ const InviteCard = ({ project }: Props) => {
                 return item;
               });
 
-              trpcContext.project.members.setData(
+              trpcUtils.project.members.setData(
                 {
                   projectId: project.id,
                 },
@@ -126,7 +126,7 @@ const InviteCard = ({ project }: Props) => {
         },
       );
     },
-    [project, updateUserRole, trpcContext],
+    [project, updateUserRole, trpcUtils],
   );
 
   const getTable = useMemo(() => {

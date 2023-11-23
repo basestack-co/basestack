@@ -21,7 +21,7 @@ import useFlagForm, { tabPosition } from "../useFlagForm";
 
 const CreateFlagModal = () => {
   const { t } = useTranslation("modals");
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const theme = useTheme();
   const router = useRouter();
   const isModalOpen = useStore((state) => state.isCreateFlagModalOpen);
@@ -73,7 +73,7 @@ const CreateFlagModal = () => {
         {
           onSuccess: async (result) => {
             // Refresh the flag list and close the modal
-            await trpcContext.flag.all.invalidate({ projectId: project.id });
+            await trpcUtils.flag.all.invalidate({ projectId: project.id });
             onClose();
           },
         },

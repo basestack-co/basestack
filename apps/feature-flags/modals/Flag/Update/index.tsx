@@ -21,7 +21,7 @@ import useFlagForm, { tabPosition } from "../useFlagForm";
 
 const UpdateFlagModal = () => {
   const { t } = useTranslation("modals");
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const theme = useTheme();
   const router = useRouter();
   const isModalOpen = useStore((state) => state.isUpdateFlagModalOpen);
@@ -80,8 +80,8 @@ const UpdateFlagModal = () => {
         {
           onSuccess: async (result) => {
             // doing this instead of the above because the above doesn't work
-            await trpcContext.flag.all.invalidate({ projectId: project.id });
-            await trpcContext.flag.environments.invalidate({
+            await trpcUtils.flag.all.invalidate({ projectId: project.id });
+            await trpcUtils.flag.environments.invalidate({
               projectId: project.id,
               slug: modalPayload?.flag.slug,
             });

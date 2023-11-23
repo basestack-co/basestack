@@ -12,7 +12,7 @@ import Toolbar from "./Toolbar";
 import { Container } from "./styles";
 
 const Activity = () => {
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const router = useRouter();
   const projectSlug = router.query.projectSlug as string;
   const [range, setRange] = useState<Array<Date>>([]);
@@ -21,7 +21,7 @@ const Activity = () => {
 
   const project = useMemo(() => {
     if (projectSlug) {
-      const cache = trpcContext.project.all.getData();
+      const cache = trpcUtils.project.all.getData();
 
       return ((cache && cache.projects) || []).find(
         (project) => project.slug === projectSlug,
@@ -29,7 +29,7 @@ const Activity = () => {
     }
 
     return null;
-  }, [projectSlug, trpcContext]);
+  }, [projectSlug, trpcUtils]);
 
   const { data, isLoading } = trpc.history.all.useQuery(
     {

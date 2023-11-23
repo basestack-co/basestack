@@ -17,7 +17,7 @@ import useEnvironmentForm from "../useEnvironmentForm";
 
 const EditEnvironmentModal = () => {
   const { t } = useTranslation("modals");
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const isModalOpen = useStore((state) => state.isUpdateEnvironmentModalOpen);
   const data = useStore((state) => state.environmentModalPayload);
   const setUpdateEnvironmentModalOpen = useStore(
@@ -87,7 +87,7 @@ const EditEnvironmentModal = () => {
   useEffect(() => {
     if (data && data.project && isModalOpen && data.environment) {
       // Get all the environments by project on the cache
-      const cache = trpcContext.environment.all.getData({
+      const cache = trpcUtils.environment.all.getData({
         projectId: data.project.id!,
       });
 
@@ -102,7 +102,7 @@ const EditEnvironmentModal = () => {
         }
       }
     }
-  }, [data, isModalOpen, trpcContext, setValue]);
+  }, [data, isModalOpen, trpcUtils, setValue]);
 
   return (
     <Portal selector="#portal">

@@ -38,7 +38,7 @@ const FlagCards = ({
   projectId,
   searchValue,
 }: FlagCardsProps) => {
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const { t } = useTranslation("flags");
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
   const setCreateFlagModalOpen = useStore(
@@ -100,7 +100,7 @@ const FlagCards = ({
         { projectId, flagSlug },
         {
           onSuccess: async () => {
-            await trpcContext.flag.all.invalidate({ projectId });
+            await trpcUtils.flag.all.invalidate({ projectId });
           },
         },
       );

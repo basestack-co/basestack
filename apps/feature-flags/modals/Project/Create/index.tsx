@@ -44,7 +44,7 @@ const CreateProjectModal = () => {
   const { t } = useTranslation("modals");
   const theme = useTheme();
   const router = useRouter();
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const [numberOfRefresh, setNumberOfRefresh] = useState(0);
 
   const isModalOpen = useStore((state) => state.isCreateProjectModalOpen);
@@ -80,14 +80,14 @@ const CreateProjectModal = () => {
     createProject.mutate(data, {
       onSuccess: async (result) => {
         // Get all the projects on the cache
-        const prev = trpcContext.project.all.getData();
+        const prev = trpcUtils.project.all.getData();
 
         if (prev && prev.projects) {
           // Add the new project with the others
           const projects = [result.project, ...prev.projects];
 
           // Update the cache with the new data
-          trpcContext.project.all.setData(undefined, { projects });
+          trpcUtils.project.all.setData(undefined, { projects });
         }
 
         onClose();
