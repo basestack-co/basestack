@@ -48,7 +48,7 @@ const EditEnvironmentModal = () => {
           onSuccess: async (result) => {
             if (data && data.project) {
               // Get all the environments by project on the cache
-              const prev = trpcContext.environment.all.getData({
+              const prev = trpcUtils.environment.all.getData({
                 projectId: data.project.id!,
               });
 
@@ -68,7 +68,7 @@ const EditEnvironmentModal = () => {
                   );
 
                 // Update the cache with the new data
-                trpcContext.environment.all.setData(
+                trpcUtils.environment.all.setData(
                   { projectId: data.project.id! },
                   {
                     environments,
