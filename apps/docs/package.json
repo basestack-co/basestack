@@ -12,8 +12,8 @@
   "license": "AGPL-3.0",
   "dependencies": {
     "@basestack/utils": "*",
-    "material-symbols": "^0.14.1",
-    "next": "^14.0.3",
+    "material-symbols": "^0.14.2",
+    "next": "^14.0.4",
     "nextra": "2.13.2",
     "nextra-theme-docs": "2.13.2",
     "react": "^18.2.0",
@@ -22,7 +22,7 @@
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "@types/node": "20.10.3",
-    "typescript": "^5.3.2"
+    "@types/node": "20.10.4",
+    "typescript": "^5.3.3"
   }
 }

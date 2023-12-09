@@ -339,7 +339,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                 style="display: flex; flex-wrap: nowrap;"
               >
                 <div
-                  class="react-calendar__month-view__weekdays__weekday react-calendar__month-view__weekdays__weekday--current"
+                  class="react-calendar__month-view__weekdays__weekday"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                 >
                   <abbr
@@ -394,7 +394,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   </abbr>
                 </div>
                 <div
-                  class="react-calendar__month-view__weekdays__weekday react-calendar__month-view__weekdays__weekday--weekend"
+                  class="react-calendar__month-view__weekdays__weekday react-calendar__month-view__weekdays__weekday--current react-calendar__month-view__weekdays__weekday--weekend"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                 >
                   <abbr
@@ -498,7 +498,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__tile--now react-calendar__month-view__days__day"
+                  class="react-calendar__tile react-calendar__month-view__days__day"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
@@ -553,7 +553,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                  class="react-calendar__tile react-calendar__tile--now react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
