@@ -7,13 +7,11 @@ export const Environments = styled.div`
   flex-wrap: wrap;
 `;
 
-export const ReactJsonContainer = styled.div`
+export const EditorContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  .react-json-view {
-    font-size: ${rem("14px")};
+  div {
     border-radius: ${rem("4px")};
-    padding: ${({ theme }) => theme.spacing.s4};
   }
 `;
