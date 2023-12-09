@@ -61,5 +61,10 @@ jobs:
       #  - name: Test
       #    run: yarn test
 
+      - name: Reset Database Schema
+        run: |
+          #!/bin/bash
+          docker exec postgres psql -U postgres -d monolock -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+
       - name: Build
         run: yarn build
