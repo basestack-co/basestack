@@ -7,7 +7,7 @@ import { signIn } from "next-auth/react";
 // UI
 import { Text, Spinner } from "@basestack/design-system";
 // Types
-import { Provider } from "types/nextAuth";
+import { Provider } from "libs/auth/types";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Components

@@ -7,6 +7,8 @@ import { getValue } from "@basestack/utils";
 // Prisma
 import { getUserInProject } from "libs/prisma/utils/user";
 import { createHistory } from "libs/prisma/utils/history";
+// Types
+import { Role } from "@prisma/client";
 
 export type Meta = {
   restricted?: boolean;

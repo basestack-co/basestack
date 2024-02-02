@@ -4,7 +4,7 @@ import prisma from "libs/prisma";
 import * as trpc from "@trpc/server";
 import * as trpcNext from "@trpc/server/adapters/next";
 // Auth
-import { authOptions } from "libs/auth/authOptions";
+import { authOptions } from "libs/auth/options";
 import { getServerSession } from "next-auth/next";
 
 export const createContext = async ({

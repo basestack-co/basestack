@@ -5,6 +5,14 @@ import Calendar from "..";
 jest.useFakeTimers();
 
 describe("Calendar tests", () => {
+  beforeAll(() => {
+    jest.useFakeTimers().setSystemTime(new Date("2024-01-01").getTime());
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   afterEach(cleanup);
 
   test("render Calendar correctly", () => {

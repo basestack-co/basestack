@@ -12,17 +12,17 @@
   "license": "AGPL-3.0",
   "dependencies": {
     "@basestack/utils": "*",
-    "material-symbols": "^0.14.3",
-    "next": "^14.0.4",
-    "nextra": "2.13.2",
-    "nextra-theme-docs": "2.13.2",
+    "material-symbols": "^0.14.6",
+    "next": "^14.1.0",
+    "nextra": "2.13.3",
+    "nextra-theme-docs": "2.13.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "@types/node": "20.10.5",
+    "@types/node": "20.11.16",
     "typescript": "^5.3.3"
   }
 }

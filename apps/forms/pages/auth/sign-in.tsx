@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { getProviders, useSession } from "next-auth/react";
 // Router
 import { useRouter } from "next/router";
-import { Provider } from "../../types/nextAuth";
+import { Provider } from "libs/auth/types";
 // Components
 import SignIn from "components/SignIn";
 

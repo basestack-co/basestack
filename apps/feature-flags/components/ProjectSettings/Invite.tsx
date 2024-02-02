@@ -15,7 +15,7 @@ import { trpc } from "libs/trpc";
 // Store
 import { useStore } from "store";
 // Utils
-import { createTable } from "utils/helpers/table";
+import { Table as TableUtils } from "@basestack/utils";
 // Auth
 import { useSession } from "next-auth/react";
 // Router
@@ -130,10 +130,11 @@ const InviteCard = ({ project }: Props) => {
   );
 
   const getTable = useMemo(() => {
-    const numberOfAdmins = data?.users.filter((item) => item.role === "ADMIN")
-      .length;
+    const numberOfAdmins = data?.users.filter(
+      (item) => item.role === "ADMIN",
+    ).length;
 
-    return createTable(
+    return TableUtils.createTable(
       !isLoading && !!data ? data.users : [],
       [
         t("members.invite.table.headers.name"),
