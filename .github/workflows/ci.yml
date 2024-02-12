@@ -3,39 +3,13 @@ name: CI
 on:
   push:
     branches: ["master"]
-  pull_request:
-    types: [opened, synchronize]
 
 jobs:
   build:
     name: Lint, Test and Build
     timeout-minutes: 15
     runs-on: ${{ matrix.os }}
-    # To use Remote Caching, uncomment the next lines and follow the steps below.
-    # env:
-    #  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-    #  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
-    # Service containers to run with `container-job`
-    services:
-      # Label used to access the service container
-      postgres:
-        # Docker Hub image
-        image: postgres
-        # Provide the password for postgres
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          # Maps tcp port 5432 on service container to the host
-          - 5432:5432
-    env:
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/monolock
-      DIRECT_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/monolock
+
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -58,9 +32,5 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      #  - name: Test
-      #    run: yarn test
-     
-     # Need to find a way to have multiple databases running to test against on the different apps
-     # - name: Build
-     #   run: yarn build
+      - name: Test
+        run: yarn test
