@@ -1,4 +1,4 @@
-name: CI
+name: FEATURE-FLAGS-CI
 
 on:
   push:
@@ -47,11 +47,14 @@ jobs:
       - name: Install dependencies
         run: yarn
 
+      - name: Build packages
+        run: yarn build:packages
+
       - name: Lint
         run: yarn lint --filter=feature-flags...
 
       - name: Test
         run: yarn test --filter=feature-flags...
 
-      - name: Build
+      - name: Build Feature Flags App
         run: yarn build:feature-flags
