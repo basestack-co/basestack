@@ -1,4 +1,4 @@
-name: FEATURE-FLAGS-CI
+name: FORMS-CI
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Feature Flags - Lint, Test and Build
+    name: Forms - Lint, Test and Build
     timeout-minutes: 15
     runs-on: ${{ matrix.os }}
 
@@ -50,11 +50,11 @@ jobs:
       - name: Build packages
         run: yarn build:packages
 
-      - name: Lint Feature Flags App
-        run: yarn lint --filter=feature-flags...
+      - name: Lint Forms App
+        run: yarn lint --filter=forms...
 
-      - name: Test Feature Flags App
-        run: yarn test --filter=feature-flags...
+      - name: Test Forms App
+        run: yarn test --filter=forms...
 
-      - name: Build Feature Flags App
-        run: yarn build:feature-flags
+      - name: Build Forms App
+        run: yarn build:forms
