@@ -8,20 +8,13 @@ on:
 
 jobs:
   build:
-    name: Lint, Test and Build
+    name: Feature Flags - Lint, Test and Build
     timeout-minutes: 15
     runs-on: ${{ matrix.os }}
-    # To use Remote Caching, uncomment the next lines and follow the steps below.
-    # env:
-    #  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-    #  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
-    # Service containers to run with `container-job`
+
     services:
-      # Label used to access the service container
       postgres:
-        # Docker Hub image
         image: postgres
-        # Provide the password for postgres
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -31,7 +24,6 @@ jobs:
           --health-timeout 5s
           --health-retries 5
         ports:
-          # Maps tcp port 5432 on service container to the host
           - 5432:5432
     env:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/monolock
@@ -56,10 +48,10 @@ jobs:
         run: yarn
 
       - name: Lint
-        run: yarn lint
+        run: yarn lint --filter=feature-flags...
 
       - name: Test
-        run: yarn test
+        run: yarn test --filter=feature-flags...
 
       - name: Build
         run: yarn build:feature-flags
