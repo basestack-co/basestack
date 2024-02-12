@@ -1,4 +1,4 @@
-name: CI / Feature Flags
+name: CI / Forms
 
 on:
   push:
@@ -51,10 +51,10 @@ jobs:
         run: yarn build:packages
 
       - name: Lint
-        run: yarn lint --filter=feature-flags...
+        run: yarn lint --filter=forms...
 
       - name: Test
-        run: yarn test --filter=feature-flags...
+        run: yarn test --filter=forms...
 
       - name: Build
-        run: yarn build:feature-flags
+        run: yarn build:forms
