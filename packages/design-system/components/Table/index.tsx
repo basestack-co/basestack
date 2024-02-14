@@ -1,7 +1,6 @@
 import React from "react";
 import { useTheme } from "styled-components";
 import { animated } from "react-spring";
-import { getValue } from "@basestack/utils";
 import { useFloatingPopup } from "@basestack/hooks";
 // Components
 import Text from "../Text";
@@ -42,8 +41,8 @@ const Row = ({ cols = [], more, numberOfCols, tooltip }: RowProps) => {
     <StyledRow numberOfColumns={numberOfCols} data-testid="row">
       {cols &&
         cols.map((col, index) => {
-          const imageSrc = getValue(col, "image.src");
-          const imageUsername = getValue(col, "image.userName");
+          const imageSrc = col.image?.src ?? "";
+          const imageUsername = col.image?.userName ?? "";
           return (
             <Col key={`${index.toString()}-col`}>
               {!!col.link ? (

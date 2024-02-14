@@ -114,6 +114,7 @@ const Pricing = () => (
             { text: "Enterprise use", enabled: false },
           ]}
           buttonText="Get Started"
+          /* eslint-disable-next-line no-console */
           onClick={() => console.log("log")}
         />
         <Card
@@ -127,6 +128,7 @@ const Pricing = () => (
             { text: "Enterprise use", enabled: true },
           ]}
           buttonText="Contact Sales"
+          /* eslint-disable-next-line no-console */
           onClick={() => console.log("log")}
         />
       </Cards>

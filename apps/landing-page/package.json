@@ -14,7 +14,7 @@
     "test:coverage": "jest --coverage",
     "test:log": "jest --no-coverage >& ./logs/jest.log",
     "update:packages": "yarn upgrade-interactive --latest",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next && rm -rf .swc"
   },
   "dependencies": {
     "@basestack/design-system": "*",

@@ -1,6 +1,4 @@
 import { protectedProcedure, router } from "server/trpc";
-// Utils
-import { isEmpty } from "@basestack/utils";
 // Inputs
 import schemas from "server/schemas";
 
@@ -8,7 +6,7 @@ export const historyRouter = router({
   all: protectedProcedure
     .input(schemas.history.input.all)
     .query(async ({ ctx, input }) => {
-      const getId = isEmpty(input.flagId)
+      const getId = !input.flagId
         ? {
             projectId: input.projectId,
             ...(!!input.search

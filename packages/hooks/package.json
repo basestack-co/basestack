@@ -19,15 +19,10 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
-    "@basestack/config": "*",
-    "@basestack/tsconfig": "*",
-    "@basestack/utils": "*",
-    "@testing-library/react-hooks": "^8.0.1",
     "@types/react": "18.2.55",
     "@types/react-dom": "^18.2.19",
     "raf-stub": "^3.0.0",
     "react": "18.2.0",
-    "react-test-renderer": "^18.2.0",
     "tsup": "^8.0.2",
     "typescript": "^5.3.3"
   }

@@ -1,8 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 // Auth
 import { Session } from "next-auth";
-// Utils
-import { getValue } from "@basestack/utils";
 // Types
 import { HistoryAction, Environment } from "types";
 import { Type } from "components/HistoryCard/types";
@@ -101,13 +99,13 @@ const createFlagPayload = (
 
 export const createEnvironmentPayload = (data: any) => {
   return {
-    environment: getValue(data, "environment", {}),
+    environment: data.environment ?? {},
   };
 };
 
 export const createProjectPayload = (data: any) => {
   return {
-    project: getValue(data, "project", {}),
+    project: data.project ?? {},
   };
 };
 
@@ -145,9 +143,7 @@ export const createHistory = async (
   if (!action) return;
 
   let projectId =
-    path === "project.create"
-      ? data.project.id
-      : getValue(input, "projectId", "");
+    path === "project.create" ? data.project.id : input.projectId ?? "";
 
   if (!projectId) return;
 

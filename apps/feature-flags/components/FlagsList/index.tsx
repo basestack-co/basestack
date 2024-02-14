@@ -14,7 +14,6 @@ import { useStore } from "store";
 // Types
 import { SelectedView, TabType } from "types";
 // Utils
-import { getValue } from "@basestack/utils";
 import dayjs from "dayjs";
 // Locales
 import useTranslation from "next-translate/useTranslation";
@@ -71,8 +70,8 @@ const FlagCards = ({
     },
   );
 
-  const initialDataLength = getValue(data, "pages[0].flags.length", 0)!;
-  const currentPage = getValue(data, "pages.length", 0)! * numberOfFlagsPerPage;
+  const initialDataLength = data?.pages[0].flags.length ?? 0;
+  const currentPage = (data?.pages.length ?? 0) * numberOfFlagsPerPage;
   const totalPages = count?.total ?? 0;
 
   const onUpdateOrHistory = useCallback(

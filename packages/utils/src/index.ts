@@ -1,8 +1,5 @@
 // Helpers
 export * from "./helpers/browser";
-export * from "./helpers/getValue";
-export * from "./helpers/groupBy";
-export * from "./helpers/is";
 export * from "./helpers/formatters";
 export * as Url from "./helpers/url";
 export * as Table from "./helpers/table";

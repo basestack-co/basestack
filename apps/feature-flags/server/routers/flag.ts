@@ -1,10 +1,7 @@
 import { protectedProcedure, router } from "server/trpc";
 import { TRPCError } from "@trpc/server";
-// Utils
-import { getValue } from "@basestack/utils";
 // Inputs
 import schemas from "server/schemas";
-
 import { z } from "zod";
 
 export const flagRouter = router({
@@ -170,8 +167,8 @@ export const flagRouter = router({
       const data = flags && !!flags.length ? flags : [];
 
       return {
-        slug: getValue(flags, "[0].slug", ""),
-        description: getValue(flags, "[0].description", ""),
+        slug: flags[0].slug ?? "",
+        description: flags[0].description ?? "",
         environments: data.map(
           ({
             environment: { id, name },

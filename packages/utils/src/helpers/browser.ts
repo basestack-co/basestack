@@ -1,5 +1,3 @@
-import { isEmpty } from "./is";
-
 // @ts-ignore
 export function on<T extends Document | HTMLElement | EventTarget>(
   obj: T | null,
@@ -50,7 +48,7 @@ export const validURL = (str: string) => {
 export const urlQueryBuilder = (urlParams: any) => {
   const esc = encodeURIComponent;
   return Object.keys(urlParams)
-    .filter((x) => !isEmpty(urlParams[x]))
+    .filter((x) => !urlParams[x])
     .map((k) => esc(k) + "=" + esc(urlParams[k]))
     .join("&");
 };

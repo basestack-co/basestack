@@ -3,12 +3,9 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import { Context } from "./context";
 // Utils
 import superjson from "superjson";
-import { getValue } from "@basestack/utils";
 // Prisma
 import { getUserInProject } from "libs/prisma/utils/user";
 import { createHistory } from "libs/prisma/utils/history";
-// Types
-import { Role } from "@prisma/client";
 
 export type Meta = {
   restricted?: boolean;
@@ -51,12 +48,14 @@ export const isAuthenticated = middleware(
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
 
-    const restricted = getValue(meta, "restricted", false);
+    const restricted = meta?.restricted ?? false;
 
     // This is for routes that need to verify any action if the user allowed in that project
     if (restricted) {
-      const projectId = getValue(rawInput, "projectId", "");
-      const projectSlug = getValue(rawInput, "projectSlug", "");
+      const { projectId = "", projectSlug = "" } = (rawInput ?? {}) as {
+        projectId: string;
+        projectSlug: string;
+      };
 
       // checks if the user is in the project
       const project = await getUserInProject(

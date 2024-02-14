@@ -23,13 +23,13 @@
     "jest-styled-components": "^7.2.0",
     "typescript": "^5.3.3"
   },
-  "peerDependencies": {
-    "@floating-ui/react": "^0.24.0",
-    "material-symbols": "^0.4.2",
+  "dependencies": {
+    "@floating-ui/react": "^0.26.9",
+    "material-symbols": "^0.14.7",
     "polished": "^4.2.2",
     "react-calendar": "^4.0.0",
     "react-spring": "^9.6.1",
-    "styled-components": "^5.3.5",
+    "styled-components": "^6.1.8",
     "styled-system": "^5.1.5"
   }
 }
