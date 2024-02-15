@@ -1,15 +1,9 @@
-import {
-  PopupItemsProps,
-  TableRowProps,
-  TableColProps,
-} from "@basestack/design-system";
-
-export function createTable<T>(
-  data: Array<T>,
+export function createTable<TData, TCols, TMore>(
+  data: Array<TData>,
   headers: Array<string>,
-  cols: (item: T, index: number, length: number) => Array<TableColProps>,
-  more: (item: T, index: number, length: number) => Array<PopupItemsProps>,
-  copy?: (item: T) => {
+  cols: (item: TData, index: number, length: number) => Array<TCols>,
+  more: (item: TData, index: number, length: number) => Array<TMore>,
+  copy?: (item: TData) => {
     textToCopy: string;
     defaultText: string;
     successText: string;
@@ -17,7 +11,15 @@ export function createTable<T>(
 ) {
   if (!!data) {
     const rows = data.map((item, index, { length }) => {
-      const row: TableRowProps = {
+      const row: {
+        more: Array<TMore>;
+        cols: Array<TCols>;
+        tooltip?: {
+          textToCopy: string;
+          defaultText: string;
+          successText: string;
+        };
+      } = {
         cols: cols(item, index, length),
         more: more(item, index, length),
         ...(copy ? { tooltip: copy(item) } : {}),
