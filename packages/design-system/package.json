@@ -18,14 +18,14 @@
     "@basestack/tsconfig": "*",
     "@basestack/utils": "*",
     "@testing-library/jest-dom": "^6.4.2",
-    "@types/react": "18.2.55",
+    "@types/react": "18.2.57",
     "@types/react-dom": "^18.2.19",
     "jest-styled-components": "^7.2.0",
     "typescript": "^5.3.3"
   },
   "dependencies": {
     "@floating-ui/react": "^0.26.9",
-    "material-symbols": "^0.14.7",
+    "material-symbols": "^0.15.0",
     "polished": "^4.2.2",
     "react-calendar": "^4.0.0",
     "react-spring": "^9.6.1",
