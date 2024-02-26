@@ -280,7 +280,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
           <span
             class="react-calendar__navigation__label__labelText react-calendar__navigation__label__labelText--from"
           >
-            October 2023
+            January 2024
           </span>
         </button>
         <button
@@ -339,7 +339,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                 style="display: flex; flex-wrap: nowrap;"
               >
                 <div
-                  class="react-calendar__month-view__weekdays__weekday"
+                  class="react-calendar__month-view__weekdays__weekday react-calendar__month-view__weekdays__weekday--current"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                 >
                   <abbr
@@ -405,7 +405,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   </abbr>
                 </div>
                 <div
-                  class="react-calendar__month-view__weekdays__weekday react-calendar__month-view__weekdays__weekday--current react-calendar__month-view__weekdays__weekday--weekend"
+                  class="react-calendar__month-view__weekdays__weekday react-calendar__month-view__weekdays__weekday--weekend"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                 >
                   <abbr
@@ -421,78 +421,12 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                 style="display: flex; flex-wrap: wrap;"
               >
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                  class="react-calendar__tile react-calendar__tile--now react-calendar__month-view__days__day"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="September 25, 2023"
-                  >
-                    25
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="September 26, 2023"
-                  >
-                    26
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="September 27, 2023"
-                  >
-                    27
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="September 28, 2023"
-                  >
-                    28
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="September 29, 2023"
-                  >
-                    29
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend react-calendar__month-view__days__day--neighboringMonth"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="September 30, 2023"
-                  >
-                    30
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="October 1, 2023"
+                    aria-label="January 1, 2024"
                   >
                     1
                   </abbr>
@@ -503,7 +437,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 2, 2023"
+                    aria-label="January 2, 2024"
                   >
                     2
                   </abbr>
@@ -514,7 +448,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 3, 2023"
+                    aria-label="January 3, 2024"
                   >
                     3
                   </abbr>
@@ -525,7 +459,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 4, 2023"
+                    aria-label="January 4, 2024"
                   >
                     4
                   </abbr>
@@ -536,18 +470,18 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 5, 2023"
+                    aria-label="January 5, 2024"
                   >
                     5
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="October 6, 2023"
+                    aria-label="January 6, 2024"
                   >
                     6
                   </abbr>
@@ -558,18 +492,18 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 7, 2023"
+                    aria-label="January 7, 2024"
                   >
                     7
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                  class="react-calendar__tile react-calendar__month-view__days__day"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="October 8, 2023"
+                    aria-label="January 8, 2024"
                   >
                     8
                   </abbr>
@@ -580,7 +514,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 9, 2023"
+                    aria-label="January 9, 2024"
                   >
                     9
                   </abbr>
@@ -591,7 +525,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 10, 2023"
+                    aria-label="January 10, 2024"
                   >
                     10
                   </abbr>
@@ -602,7 +536,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 11, 2023"
+                    aria-label="January 11, 2024"
                   >
                     11
                   </abbr>
@@ -613,18 +547,18 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 12, 2023"
+                    aria-label="January 12, 2024"
                   >
                     12
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="October 13, 2023"
+                    aria-label="January 13, 2024"
                   >
                     13
                   </abbr>
@@ -635,18 +569,18 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 14, 2023"
+                    aria-label="January 14, 2024"
                   >
                     14
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__tile--now react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                  class="react-calendar__tile react-calendar__month-view__days__day"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="October 15, 2023"
+                    aria-label="January 15, 2024"
                   >
                     15
                   </abbr>
@@ -657,7 +591,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 16, 2023"
+                    aria-label="January 16, 2024"
                   >
                     16
                   </abbr>
@@ -668,7 +602,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 17, 2023"
+                    aria-label="January 17, 2024"
                   >
                     17
                   </abbr>
@@ -679,7 +613,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 18, 2023"
+                    aria-label="January 18, 2024"
                   >
                     18
                   </abbr>
@@ -690,18 +624,18 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 19, 2023"
+                    aria-label="January 19, 2024"
                   >
                     19
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="October 20, 2023"
+                    aria-label="January 20, 2024"
                   >
                     20
                   </abbr>
@@ -712,18 +646,18 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 21, 2023"
+                    aria-label="January 21, 2024"
                   >
                     21
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                  class="react-calendar__tile react-calendar__month-view__days__day"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="October 22, 2023"
+                    aria-label="January 22, 2024"
                   >
                     22
                   </abbr>
@@ -734,7 +668,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 23, 2023"
+                    aria-label="January 23, 2024"
                   >
                     23
                   </abbr>
@@ -745,7 +679,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 24, 2023"
+                    aria-label="January 24, 2024"
                   >
                     24
                   </abbr>
@@ -756,7 +690,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 25, 2023"
+                    aria-label="January 25, 2024"
                   >
                     25
                   </abbr>
@@ -767,18 +701,18 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 26, 2023"
+                    aria-label="January 26, 2024"
                   >
                     26
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="October 27, 2023"
+                    aria-label="January 27, 2024"
                   >
                     27
                   </abbr>
@@ -789,18 +723,18 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 28, 2023"
+                    aria-label="January 28, 2024"
                   >
                     28
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                  class="react-calendar__tile react-calendar__month-view__days__day"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="October 29, 2023"
+                    aria-label="January 29, 2024"
                   >
                     29
                   </abbr>
@@ -811,7 +745,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 30, 2023"
+                    aria-label="January 30, 2024"
                   >
                     30
                   </abbr>
@@ -822,7 +756,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="October 31, 2023"
+                    aria-label="January 31, 2024"
                   >
                     31
                   </abbr>
@@ -833,7 +767,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="November 1, 2023"
+                    aria-label="February 1, 2024"
                   >
                     1
                   </abbr>
@@ -844,18 +778,18 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="November 2, 2023"
+                    aria-label="February 2, 2024"
                   >
                     2
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend react-calendar__month-view__days__day--neighboringMonth"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="November 3, 2023"
+                    aria-label="February 3, 2024"
                   >
                     3
                   </abbr>
@@ -866,20 +800,9 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="November 4, 2023"
+                    aria-label="February 4, 2024"
                   >
                     4
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend react-calendar__month-view__days__day--neighboringMonth"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="November 5, 2023"
-                  >
-                    5
                   </abbr>
                 </button>
               </div>

@@ -10,5 +10,9 @@ module.exports = {
     "@typescript-eslint/no-empty-function": "off",
     "no-console": "warn",
     "no-extra-semi": "error",
+    "no-duplicate-imports": "error",
+    "prefer-const": "warn",
+    eqeqeq: "error",
+    "no-unused-expressions": "warn",
   },
 };

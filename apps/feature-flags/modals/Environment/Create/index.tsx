@@ -17,7 +17,7 @@ import useEnvironmentForm from "../useEnvironmentForm";
 
 const CreateEnvironmentModal = () => {
   const { t } = useTranslation("modals");
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const { isModalOpen, data, setCreateEnvironmentModalOpen } = useStore(
     (state) => ({
       isModalOpen: state.isCreateEnvironmentModalOpen,
@@ -35,7 +35,7 @@ const CreateEnvironmentModal = () => {
 
   const [environments, defaultEnvironment] = useMemo(() => {
     if (project) {
-      const cache = trpcContext.environment.all.getData({
+      const cache = trpcUtils.environment.all.getData({
         projectId: project.id!,
       });
 
@@ -46,7 +46,7 @@ const CreateEnvironmentModal = () => {
     }
 
     return [] as const;
-  }, [project, trpcContext]);
+  }, [project, trpcUtils]);
 
   const { handleSubmit, onRenderForm, reset, isSubmitting } =
     useEnvironmentForm(true);
@@ -73,7 +73,7 @@ const CreateEnvironmentModal = () => {
                 );
 
                 // Update the cache with the new data
-                trpcContext.environment.all.setData(
+                trpcUtils.environment.all.setData(
                   { projectId: project.id! },
                   {
                     environments: updated,

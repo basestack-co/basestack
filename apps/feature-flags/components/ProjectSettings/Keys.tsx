@@ -10,7 +10,7 @@ import { trpc } from "libs/trpc";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Utils
-import { createTable } from "utils/helpers/table";
+import { Table as TableUtils } from "@basestack/utils";
 // Types
 import { ProjectSettings } from "types";
 
@@ -30,7 +30,7 @@ const KeysCard = ({ project }: Props) => {
   );
 
   const getTable = useMemo(() => {
-    return createTable(
+    return TableUtils.createTable(
       environments,
       [
         t("general.keys.table.headers.name"),

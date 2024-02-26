@@ -27,7 +27,7 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const ProjectNameCard = ({ project }: Props) => {
   const { t } = useTranslation("settings");
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const updateProject = trpc.project.update.useMutation();
 
   const isAdmin = project.role === Role.ADMIN;
@@ -51,12 +51,12 @@ const ProjectNameCard = ({ project }: Props) => {
       {
         onSuccess: (result) => {
           // Get all the projects on the cache
-          const cacheAllProjects = trpcContext.project.all.getData();
+          const cacheAllProjects = trpcUtils.project.all.getData();
 
           if (cacheAllProjects && cacheAllProjects.projects) {
             // Update the cache with the new data
             // This updates in the navigation list
-            trpcContext.project.all.setData(undefined, {
+            trpcUtils.project.all.setData(undefined, {
               projects: cacheAllProjects.projects.map((project) =>
                 project.id === result.project.id
                   ? { ...project, name: result.project.name }
@@ -65,13 +65,13 @@ const ProjectNameCard = ({ project }: Props) => {
             });
           }
 
-          const cacheProject = trpcContext.project.bySlug.getData({
+          const cacheProject = trpcUtils.project.bySlug.getData({
             projectSlug: result.project.slug,
           });
 
           if (cacheProject && cacheProject.project) {
             // Updates the current active project in the cache
-            trpcContext.project.bySlug.setData(
+            trpcUtils.project.bySlug.setData(
               { projectSlug: result.project.slug },
               {
                 project: {

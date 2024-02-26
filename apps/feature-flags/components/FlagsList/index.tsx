@@ -14,7 +14,6 @@ import { useStore } from "store";
 // Types
 import { SelectedView, TabType } from "types";
 // Utils
-import { getValue } from "@basestack/utils";
 import dayjs from "dayjs";
 // Locales
 import useTranslation from "next-translate/useTranslation";
@@ -38,7 +37,7 @@ const FlagCards = ({
   projectId,
   searchValue,
 }: FlagCardsProps) => {
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const { t } = useTranslation("flags");
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
   const setCreateFlagModalOpen = useStore(
@@ -71,8 +70,8 @@ const FlagCards = ({
     },
   );
 
-  const initialDataLength = getValue(data, "pages[0].flags.length", 0)!;
-  const currentPage = getValue(data, "pages.length", 0)! * numberOfFlagsPerPage;
+  const initialDataLength = data?.pages[0].flags.length ?? 0;
+  const currentPage = (data?.pages.length ?? 0) * numberOfFlagsPerPage;
   const totalPages = count?.total ?? 0;
 
   const onUpdateOrHistory = useCallback(
@@ -100,7 +99,7 @@ const FlagCards = ({
         { projectId, flagSlug },
         {
           onSuccess: async () => {
-            await trpcContext.flag.all.invalidate({ projectId });
+            await trpcUtils.flag.all.invalidate({ projectId });
           },
         },
       );

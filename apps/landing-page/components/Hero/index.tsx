@@ -1,7 +1,6 @@
 import React from "react";
 // Theme
 import { useTheme } from "styled-components";
-import { rem } from "polished";
 // Utils
 import { config, events } from "@basestack/utils";
 // Components
@@ -73,6 +72,7 @@ const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
         </ButtonsContainer>
         {image?.src && (
           <ImageContainer>
+            {/* eslint-disable-next-line jsx-a11y/alt-text */}
             <Image {...image} />
           </ImageContainer>
         )}

@@ -1,0 +1,24 @@
+{
+  "create": {
+    "flag": "Create Flag",
+    "project": "Create Project"
+  },
+  "projects": {
+    "title": "Projects",
+    "select": "Select Project"
+  },
+  "dropdown": {
+    "username": "User Name",
+    "invite": "Invite Member (Coming soon)",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "external": {
+    "docs": "Documentation",
+    "github": "Github"
+  },
+  "internal": {
+    "features": "Features",
+    "settings": "Settings"
+  }
+}

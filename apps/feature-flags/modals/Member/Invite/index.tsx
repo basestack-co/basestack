@@ -20,7 +20,7 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const InviteMemberModal = () => {
   const { t } = useTranslation("modals");
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const isModalOpen = useStore((state) => state.isInviteMemberModalOpen);
   const setInviteMemberModalOpen = useStore(
     (state) => state.setInviteMemberModalOpen,
@@ -76,14 +76,14 @@ const InviteMemberModal = () => {
           { projectId: payload?.project?.id!, userId: input.memberId },
           {
             onSuccess: async (result) => {
-              await trpcContext.project.members.invalidate();
+              await trpcUtils.project.members.invalidate();
               onClose();
             },
           },
         );
       }
     },
-    [addUserToProject, payload, onClose, trpcContext],
+    [addUserToProject, payload, onClose, trpcUtils],
   );
 
   const onChangeMember = useCallback((option: unknown, setField: any) => {

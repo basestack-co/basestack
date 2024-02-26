@@ -29,7 +29,7 @@ const useFlagForm = ({
   projectSlug,
   flagId = "",
 }: UseFlagFormProps) => {
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const [selectedTab, setSelectedTab] = useState<TabType>(TabType.CORE);
 
   const {
@@ -47,7 +47,7 @@ const useFlagForm = ({
 
   const project = useMemo(() => {
     if (isModalOpen && projectSlug) {
-      const cache = trpcContext.project.all.getData();
+      const cache = trpcUtils.project.all.getData();
 
       return ((cache && cache.projects) || []).find(
         (project) => project.slug === projectSlug,
@@ -55,7 +55,7 @@ const useFlagForm = ({
     }
 
     return null;
-  }, [projectSlug, isModalOpen, trpcContext]);
+  }, [projectSlug, isModalOpen, trpcUtils]);
 
   const onRenderTab = (isLoading: boolean = false) => {
     switch (selectedTab) {

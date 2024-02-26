@@ -21,20 +21,22 @@
     "update:packages": "yarn upgrade-interactive --latest",
     "build:packages": "turbo run build --filter=./packages/*",
     "build:feature-flags": "turbo run build --filter=feature-flags...",
+    "build:forms": "turbo run build --filter=forms...",
     "build:landing-page": "turbo run build --filter=landing-page...",
     "deploy:feature-flags": "turbo run @basestack/feature-flags#deploy",
     "deploy:feature-flags:prune": "turbo prune --scope='@basestack/feature-flags' --docker",
+    "deploy:forms": "turbo run @basestack/forms#deploy",
     "deploy:landing-page": "turbo run @basestack/landing-page#deploy",
     "deploy:docs": "turbo run @basestack/docs#deploy"
   },
   "devDependencies": {
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^8.0.3",
+    "husky": "^9.0.11",
     "is-ci": "^3.0.1",
-    "lint-staged": "^15.0.1",
-    "prettier": "^3.0.3",
-    "turbo": "1.10.15"
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "turbo": "1.12.4"
   },
   "packageManager": "yarn@1.22.15",
   "engines": {

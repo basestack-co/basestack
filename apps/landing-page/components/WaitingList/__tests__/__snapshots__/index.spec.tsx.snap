@@ -560,7 +560,7 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
           font-family="roboto"
           font-weight="400"
         >
-          © Basestack 2023. All rights reserved. 
+          © Basestack 2024. All rights reserved. 
           <a
             href="/legal/privacy"
             style="color: black;"

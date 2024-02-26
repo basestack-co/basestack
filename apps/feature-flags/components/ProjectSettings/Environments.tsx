@@ -16,7 +16,7 @@ import { trpc } from "libs/trpc";
 import { useStore } from "store";
 // Utils
 import dayjs from "dayjs";
-import { createTable } from "utils/helpers/table";
+import { Table as TableUtils } from "@basestack/utils";
 // Types
 import { ProjectSettings } from "types";
 import { Role } from "@prisma/client";
@@ -28,7 +28,7 @@ const EnvironmentsCard = ({ project }: Props) => {
   const { t } = useTranslation("settings");
   const theme = useTheme();
   const isMobile = useMedia(theme.device.max.md, false);
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const setCreateEnvironmentModalOpen = useStore(
     (state) => state.setCreateEnvironmentModalOpen,
   );
@@ -78,7 +78,7 @@ const EnvironmentsCard = ({ project }: Props) => {
         {
           onSuccess: async (result) => {
             // Get all the environments by project on the cache
-            const prev = trpcContext.environment.all.getData({
+            const prev = trpcUtils.environment.all.getData({
               projectId: project.id,
             });
 
@@ -88,7 +88,7 @@ const EnvironmentsCard = ({ project }: Props) => {
               );
 
               // Update the cache with the new data
-              trpcContext.environment.all.setData(
+              trpcUtils.environment.all.setData(
                 { projectId: project.id },
                 {
                   environments,
@@ -99,7 +99,7 @@ const EnvironmentsCard = ({ project }: Props) => {
         },
       );
     },
-    [project, deleteEnvironment, trpcContext.environment.all],
+    [project, deleteEnvironment, trpcUtils.environment.all],
   );
 
   const onClickDeleteEnvironment = useCallback(
@@ -127,7 +127,7 @@ const EnvironmentsCard = ({ project }: Props) => {
 
   const getTable = useMemo(
     () =>
-      createTable(
+      TableUtils.createTable(
         environments,
         [
           t("others.environments.table.headers.environment"),

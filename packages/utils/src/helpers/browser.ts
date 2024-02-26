@@ -1,36 +1,3 @@
-import { isEmpty } from "./is";
-
-// @ts-ignore
-export function on<T extends Document | HTMLElement | EventTarget>(
-  obj: T | null,
-  ...args: // @ts-ignore
-  Parameters<T["addEventListener"]> | [string, () => void | null, ...any]
-): void {
-  // @ts-ignore
-  if (obj && obj.addEventListener) {
-    // @ts-ignore
-    obj.addEventListener(
-      // @ts-ignore
-      ...(args as Parameters<HTMLElement["addEventListener"]>),
-    );
-  }
-}
-
-export function off<T extends Document | HTMLElement | EventTarget>(
-  obj: T | null,
-  ...args: // @ts-ignore
-  Parameters<T["removeEventListener"]> | [string, () => void | null, ...any]
-): void {
-  // @ts-ignore
-  if (obj && obj.removeEventListener) {
-    // @ts-ignore
-    obj.removeEventListener(
-      // @ts-ignore
-      ...(args as Parameters<HTMLElement["removeEventListener"]>),
-    );
-  }
-}
-
 export const isBrowser = typeof window !== "undefined";
 export const isNavigator = typeof navigator !== "undefined";
 
@@ -50,7 +17,7 @@ export const validURL = (str: string) => {
 export const urlQueryBuilder = (urlParams: any) => {
   const esc = encodeURIComponent;
   return Object.keys(urlParams)
-    .filter((x) => !isEmpty(urlParams[x]))
+    .filter((x) => !urlParams[x])
     .map((k) => esc(k) + "=" + esc(urlParams[k]))
     .join("&");
 };

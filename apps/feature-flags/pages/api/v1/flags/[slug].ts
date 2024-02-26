@@ -3,7 +3,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getFlagBySlug } from "libs/prisma/utils/flag";
 // Utils
 import { methodNotAllowed, somethingWentWrong } from "utils/helpers/responses";
-import { getValue } from "@basestack/utils";
 // Middlewares
 import withRateLimit from "utils/middleware/rateLimit";
 import withHeaders from "utils/middleware/headers";
@@ -31,10 +30,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         }
 
         res.status(200).json(flag);
-      } catch (error) {
-        return res.status(getValue(error, "code", 400) as number).json({
+      } catch (error: any) {
+        return res.status(error.code ?? 400).json({
           error: true,
-          message: getValue(error, "message", somethingWentWrong),
+          message: error.message ?? somethingWentWrong,
         });
       }
       break;
