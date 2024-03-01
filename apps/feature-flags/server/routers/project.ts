@@ -1,7 +1,7 @@
 import { protectedProcedure, router } from "server/trpc";
 // Utils
 import { generateSlug } from "random-word-slugs";
-import { withRoles } from "libs/prisma/utils/authorization";
+import { withRoles } from "@basestack/utils";
 // Types
 import { Role } from "@prisma/client";
 // Inputs

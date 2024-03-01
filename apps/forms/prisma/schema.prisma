@@ -17,6 +17,11 @@ enum Role {
   ADMIN
 }
 
+enum FormType {
+  DYNAMIC
+  STATIC
+}
+
 model Account {
   id                 String   @id @default(cuid())
   userId             String
@@ -52,19 +57,19 @@ model Session {
 }
 
 model User {
-  id            String            @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
   gh_username   String?
-  email         String?           @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
   password      String?
   accounts      Account[]
   sessions      Session[]
-  projects      ProjectsOnUsers[]
-  role          Role              @default(ADMIN)
-  createdAt     DateTime          @default(now())
-  updatedAt     DateTime          @updatedAt
+  forms         FormOnUsers[]
+  role          Role          @default(ADMIN)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 
   @@index([email, name])
 }
@@ -77,27 +82,50 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Project {
-  id        String   @id @default(cuid())
-  name      String   @db.VarChar(30)
-  slug      String   @unique @db.VarChar(150)
-  key       String?  @unique @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Form {
+  id           String        @id() @unique() @default(cuid()) @map("form_id")
+  name         String        @map("name") @db.VarChar(200)
+  type         FormType      @default(STATIC) @map("type")
+  isEnabled    Boolean       @default(true) @map("is_enabled")
+  hasRetention Boolean       @default(true) @map("has_retention")
+  redirectUrl  String?       @map("redirect_url") @db.VarChar(2183)
+  createdAt    DateTime?     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime?     @updatedAt @map("updated_at") @db.Timestamptz(6)
+  users        FormOnUsers[]
+  Submission   Submission[]
 
-  users ProjectsOnUsers[]
-
-  @@index([key, slug])
+  @@index([name])
+  @@map("form")
 }
 
-model ProjectsOnUsers {
-  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  projectId String
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  role      Role     @default(ADMIN)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model FormOnUsers {
+  formId    String    @map("form_id")
+  userId    String    @map("user_id")
+  role      Role      @default(ADMIN) @map("role")
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz(6)
 
-  @@id([projectId, userId])
+  user User @relation(fields: [userId], references: [id])
+  form Form @relation(fields: [formId], references: [id], onDelete: Cascade)
+
+  @@id([formId, userId])
+  @@unique([formId, userId])
+  @@index([formId])
+  @@map("form_on_users")
+}
+
+model Submission {
+  id        String   @id() @unique() @default(cuid()) @map("submission_id")
+  formId    String   @map("form_id")
+  isSpam    Boolean  @default(false) @map("is_spam")
+  viewed    Boolean  @default(false) @map("viewed")
+  data      Json     @map("data") @db.Json
+  metadata  Json?    @map("metadata") @db.Json
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  form Form @relation(fields: [formId], references: [id], onDelete: Cascade)
+
+  @@index([formId])
+  @@map("submission")
 }

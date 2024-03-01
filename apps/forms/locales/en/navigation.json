@@ -1,11 +1,11 @@
 {
   "create": {
-    "flag": "Create Flag",
+    "form": "Create Form",
     "project": "Create Project"
   },
-  "projects": {
-    "title": "Projects",
-    "select": "Select Project"
+  "forms": {
+    "title": "Forms",
+    "select": "Select form"
   },
   "dropdown": {
     "username": "User Name",
@@ -18,7 +18,7 @@
     "github": "Github"
   },
   "internal": {
-    "features": "Features",
+    "submissions": "Submissions",
     "settings": "Settings"
   }
 }

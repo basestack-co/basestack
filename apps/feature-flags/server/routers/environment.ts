@@ -2,7 +2,7 @@ import { protectedProcedure, router } from "server/trpc";
 import { TRPCError } from "@trpc/server";
 // Utils
 import { generateSlug } from "random-word-slugs";
-import { withRoles } from "libs/prisma/utils/authorization";
+import { withRoles } from "@basestack/utils";
 // Inputs
 import schemas from "server/schemas";
 import { Role } from "@prisma/client";

@@ -18,9 +18,6 @@ export const createContext = async ({
     res,
     prisma,
     session,
-    project: {
-      role: "USER", // default as fallback
-    },
   };
 };
 

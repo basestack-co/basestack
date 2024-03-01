@@ -119,7 +119,7 @@ const Navigation = ({
                 {onRenderItems(internalLinks, "left")}
                 <ListItem ml={theme.spacing.s3}>
                   <Button onClick={() => {}} variant={ButtonVariant.Primary}>
-                    {t("create.flag")}
+                    {t("create.form")}
                   </Button>
                 </ListItem>
               </>

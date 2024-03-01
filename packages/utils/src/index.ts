@@ -1,8 +1,9 @@
 // Helpers
 export * from "./helpers/browser";
 export * from "./helpers/formatters";
-export * as Url from "./helpers/url";
-export * as Table from "./helpers/table";
+export * from "./helpers/auth";
+export * from "./helpers/url";
+export * from "./helpers/table";
 // Configs
 export { default as config } from "./config";
 // Events

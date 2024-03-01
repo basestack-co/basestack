@@ -11,7 +11,7 @@ export function withRoles(role: string, roles: string[] = ["ADMIN"]) {
       } else {
         throw new TRPCError({
           code: "UNAUTHORIZED",
-          message: "You are not authorized to do this action in this project",
+          message: "You are not authorized to do this action.",
         });
       }
     } as T;
