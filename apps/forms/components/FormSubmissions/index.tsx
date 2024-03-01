@@ -1,21 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "styled-components";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Components
-import { Text } from "@basestack/design-system";
-import { Container, List, ListItem } from "./styles";
+import { Input, Text, Button, ButtonVariant } from "@basestack/design-system";
+import {
+  Container,
+  LeftContent,
+  List,
+  ListItem,
+  RightContent,
+  ToolbarContainer,
+} from "./styles";
 import FormSubmission from "../FormSubmission";
 
 const UserSettings = () => {
   const { t } = useTranslation("profile");
   const theme = useTheme();
+  const [searchValue, setSearchValue] = useState<string>("");
 
   return (
     <Container>
-      <Text size="xLarge" mb={theme.spacing.s5}>
-        Title
-      </Text>
+      <Text size="xLarge">Contact</Text>
+      <ToolbarContainer>
+        <LeftContent>
+          <Input
+            testId="search-input"
+            size="small"
+            width="100%"
+            isDarker
+            icon="search"
+            iconPlacement="left"
+            placeholder="Search submissions"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setSearchValue(event.target.value)
+            }
+            name="search"
+            value={searchValue}
+          />
+        </LeftContent>
+        <RightContent>
+          <Button
+            icon="filter_list"
+            iconPlacement="left"
+            variant={ButtonVariant.Tertiary}
+            onClick={() => console.log("")}
+          >
+            Filters
+          </Button>
+          <Button
+            icon="swap_vert"
+            iconPlacement="left"
+            variant={ButtonVariant.Tertiary}
+            onClick={() => console.log("")}
+          >
+            Sort
+          </Button>
+          <Button
+            icon="download"
+            iconPlacement="left"
+            variant={ButtonVariant.Tertiary}
+            onClick={() => console.log("")}
+          >
+            Export
+          </Button>
+        </RightContent>
+      </ToolbarContainer>
       <List>
         <ListItem>
           <FormSubmission
@@ -33,7 +83,7 @@ const UserSettings = () => {
         <ListItem>
           <FormSubmission
             data={[
-              { title: "email", description: "flavioamaral@hotmail.com" },
+              { title: "email", description: "vitoramaral@hotmail.com" },
               {
                 title: "message",
                 description: "This is a preview of the message",
