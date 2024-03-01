@@ -413,6 +413,22 @@ const switchComp = {
   },
 };
 
+const checkbox = {
+  backgroundColor: "transparent",
+  border: colors.gray600,
+  label: {
+    color: colors.gray300,
+  },
+  hover: {
+    border: colors.gray500,
+  },
+  checked: {
+    icon: colors.gray800,
+    backgroundColor: colors.gray500,
+    border: colors.gray500,
+  },
+};
+
 const popup = {
   backgroundColor: colors.gray800,
 };
@@ -502,6 +518,7 @@ const theme = {
   segment,
   splash,
   popup,
+  checkbox,
   popupActions,
   table,
   horizontalRule,
