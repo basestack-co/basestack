@@ -14,7 +14,7 @@ import {
 } from "./styles";
 import FormSubmission from "../FormSubmission";
 
-const UserSettings = () => {
+const FormSubmissions = () => {
   const { t } = useTranslation("profile");
   const theme = useTheme();
   const [searchValue, setSearchValue] = useState<string>("");
@@ -86,7 +86,7 @@ const UserSettings = () => {
               { title: "email", description: "vitoramaral@hotmail.com" },
               {
                 title: "message",
-                description: "This is a preview of the message",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
               },
               { title: "age", description: "18" },
             ]}
@@ -98,4 +98,4 @@ const UserSettings = () => {
   );
 };
 
-export default UserSettings;
+export default FormSubmissions;

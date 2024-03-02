@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   flex-grow: 1;
   padding: ${({ theme }) => theme.spacing.s6} ${({ theme }) => theme.spacing.s5};
-  max-width: 992px;
+  max-width: 1440px;
   margin: 0 auto;
   width: 100%;
 `;
