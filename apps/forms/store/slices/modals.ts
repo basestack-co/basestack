@@ -8,9 +8,9 @@ export const createModalsSlice: StateCreator<
   [],
   ModalsSliceState
 > = (set) => ({
-  isExampleModal: false,
-  setExampleModal: ({ isOpen }) =>
+  isCreateFormModalOpen: false,
+  setCreateFormModalOpen: ({ isOpen }) =>
     set((state) => ({
-      isExampleModal: isOpen,
+      isCreateFormModalOpen: isOpen,
     })),
 });

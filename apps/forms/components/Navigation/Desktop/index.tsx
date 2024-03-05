@@ -17,6 +17,8 @@ import { internalLinks, externalLinks } from "../data";
 // Router
 import { useRouter } from "next/router";
 import Link from "next/link";
+// Store
+import { useStore } from "store";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Auth
@@ -46,6 +48,10 @@ const Navigation = ({
   const router = useRouter();
 
   const formId = router.query.formId as string;
+
+  const setCreateFormModalOpen = useStore(
+    (state) => state.setCreateFormModalOpen,
+  );
 
   const onRenderItems = useCallback(
     (items: LinkItem[], type: string) =>
@@ -108,7 +114,9 @@ const Navigation = ({
               </Link>
             </ListItem>
             <FormsMenu
-              onClickCreateProject={() => {}}
+              onClickCreateProject={() =>
+                setCreateFormModalOpen({ isOpen: true })
+              }
               currentProject={currentForm}
               projects={data ?? []}
             />

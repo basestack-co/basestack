@@ -7,7 +7,7 @@ const MainPage = () => {
   return (
     <div>
       <Head>
-        <title>Basestack / Feature Flags</title>
+        <title>Basestack / Forms</title>
       </Head>
       <div>Put the content here</div>
     </div>

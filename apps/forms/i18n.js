@@ -6,7 +6,7 @@ module.exports = {
   locales: ["en"],
   defaultLocale: "en",
   pages: {
-    "*": ["common", "navigation"],
+    "*": ["common", "navigation", "modals"],
     "/auth/sign-in": ["auth"],
   },
 };

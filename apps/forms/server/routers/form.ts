@@ -4,6 +4,7 @@ import { z } from "zod";
 import { withRoles } from "@basestack/utils";
 // Types
 import { Role } from "@prisma/client";
+import { generateSlug } from "random-word-slugs";
 
 export const formRouter = router({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -18,6 +19,10 @@ export const formRouter = router({
             },
           },
         },
+      },
+      select: {
+        id: true,
+        name: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -38,16 +43,35 @@ export const formRouter = router({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const authorized = withRoles(ctx.session.user.role!, [Role.ADMIN])(() =>
-        ctx.prisma.form.create({
+      const userId = ctx.session.user.id;
+
+      return await ctx.prisma.$transaction(async (tx) => {
+        const form = await tx.form.create({
           data: {
             name: input.name,
           },
-        }),
-      );
+          select: {
+            id: true,
+            name: true,
+          },
+        });
 
-      const project = await authorized();
+        const connection = await tx.formOnUsers.create({
+          data: {
+            form: {
+              connect: {
+                id: form.id,
+              },
+            },
+            user: {
+              connect: {
+                id: userId,
+              },
+            },
+          },
+        });
 
-      return { project };
+        return { form, connection };
+      });
     }),
 });
