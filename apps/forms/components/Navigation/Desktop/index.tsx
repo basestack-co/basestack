@@ -11,7 +11,7 @@ import {
 } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
 import ButtonLink from "../ButtonLink";
-import ProjectsMenu from "../../ProjectsMenu";
+import FormsMenu from "../FormMenu";
 import AvatarDropdown from "../../AvatarDropdown";
 import { internalLinks, externalLinks } from "../data";
 // Router
@@ -19,8 +19,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 // Locales
 import useTranslation from "next-translate/useTranslation";
-// Store
-import { useStore } from "store";
 // Auth
 import { useSession } from "next-auth/react";
 
@@ -47,7 +45,7 @@ const Navigation = ({
   const { data: session } = useSession();
   const router = useRouter();
 
-  const projectSlug = router.query.projectSlug as string;
+  const formId = router.query.formId as string;
 
   const onRenderItems = useCallback(
     (items: LinkItem[], type: string) =>
@@ -55,7 +53,7 @@ const Navigation = ({
         return (
           <ListItem key={`${type}-list-item-${i}`}>
             <ButtonLink
-              href={to.replace("[projectSlug]", projectSlug)}
+              href={to.replace("[formId]", formId)}
               isExternal={isExternal}
               isActive={
                 router.pathname === to ||
@@ -67,16 +65,16 @@ const Navigation = ({
           </ListItem>
         );
       }),
-    [router.pathname, projectSlug, t],
+    [router.pathname, formId, t],
   );
 
-  const currentProject = useMemo(() => {
-    const project = data?.find(({ slug }) => slug === projectSlug);
+  const currentForm = useMemo(() => {
+    const form = data?.find(({ id }) => id === formId);
 
-    return project?.text ?? "";
-  }, [projectSlug, data]);
+    return form?.text ?? "";
+  }, [formId, data]);
 
-  const truncateProjectName = (str: string) => {
+  const truncateFormName = (str: string) => {
     return str.length <= 18 ? str : str.slice(0, 18) + "...";
   };
 
@@ -93,9 +91,9 @@ const Navigation = ({
                 onClick={onClickMenuButton}
               />
             </ListItem>
-            {!!currentProject && (
+            {!!currentForm && (
               <ListItem>
-                <Text size="medium">{truncateProjectName(currentProject)}</Text>
+                <Text size="medium">{truncateFormName(currentForm)}</Text>
               </ListItem>
             )}
           </>
@@ -109,12 +107,12 @@ const Navigation = ({
                 </LogoContainer>
               </Link>
             </ListItem>
-            <ProjectsMenu
+            <FormsMenu
               onClickCreateProject={() => {}}
-              currentProject={currentProject}
+              currentProject={currentForm}
               projects={data ?? []}
             />
-            {!!projectSlug && (
+            {!!formId && (
               <>
                 {onRenderItems(internalLinks, "left")}
                 <ListItem ml={theme.spacing.s3}>

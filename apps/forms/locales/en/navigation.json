@@ -1,7 +1,6 @@
 {
   "create": {
-    "form": "Create Form",
-    "project": "Create Project"
+    "form": "Create Form"
   },
   "forms": {
     "title": "Forms",
