@@ -1,6 +1,12 @@
 {
   "create": {
+    "flag": "Create Flag",
+    "project": "Create Project",
     "form": "Create Form"
+  },
+  "projects": {
+    "title": "Projects",
+    "select": "Select Project"
   },
   "forms": {
     "title": "Forms",
@@ -17,7 +23,7 @@
     "github": "Github"
   },
   "internal": {
-    "submissions": "Submissions",
+    "features": "Features",
     "settings": "Settings"
   }
 }

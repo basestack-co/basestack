@@ -1,6 +1,6 @@
 module.exports = {
   loadLocaleFrom: (lang, ns) =>
-    import(`../../packages/locales/forms/${lang}/${ns}.json`).then(
+    import(`../../packages/locales/${lang}/${ns}.json`).then(
       (m) => m.default,
     ),
   locales: ["en"],
