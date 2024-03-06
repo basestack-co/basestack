@@ -32,6 +32,7 @@ export const HeaderGrid = styled.div`
 
 export const HeaderButton = styled.button`
   ${flexCenter};
+  overflow: hidden;
   flex-grow: 1;
   background: transparent;
   border: none;
@@ -84,4 +85,16 @@ export const BodyValue = styled.div`
     theme.colors[theme.isDarkMode ? "gray700" : "gray10"]};
   margin-top: ${({ theme }) => theme.spacing.s1};
   padding: ${({ theme }) => theme.spacing.s2};
+`;
+
+export const ActionsList = styled.ul`
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+  padding: 0 ${({ theme }) => theme.spacing.s5};
+  gap: ${({ theme }) => theme.spacing.s3};
+`;
+
+export const ActionsListItem = styled.li`
+  display: flex;
 `;

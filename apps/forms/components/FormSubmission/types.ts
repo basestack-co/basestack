@@ -1,11 +1,13 @@
 import { CheckboxProps } from "@basestack/design-system";
 
+export type Data = Array<{
+  title: string;
+  description: string;
+}>;
+
 export interface FormSubmissionProps {
   date: string;
-  data: Array<{
-    title: string;
-    description: string;
-  }>;
+  data: Data;
 }
 
 export interface FormSubmissionHeaderProps {
@@ -13,16 +15,10 @@ export interface FormSubmissionHeaderProps {
   checkbox: CheckboxProps;
   onClick: () => void;
   date: string;
-  data: Array<{
-    title: string;
-    description: string;
-  }>;
+  data: Data;
 }
 
 export interface FormSubmissionBodyProps {
   isOpen: boolean;
-  data: Array<{
-    title: string;
-    description: string;
-  }>;
+  data: Data;
 }
