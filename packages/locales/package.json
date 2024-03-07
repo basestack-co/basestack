@@ -1,9 +1,0 @@
-{
-  "name": "@basestack/locales",
-  "version": "0.0.0",
-  "main": "index.js",
-  "license": "AGPL-3.0",
-  "scripts": {
-    "clean": "rm -rf .turbo && rm -rf node_modules"
-  }
-}

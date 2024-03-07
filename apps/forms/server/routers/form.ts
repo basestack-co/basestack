@@ -1,10 +1,8 @@
 import { protectedProcedure, router } from "server/trpc";
 // Utils
 import { z } from "zod";
-import { withRoles } from "@basestack/utils";
-// Types
-import { Role } from "@prisma/client";
-import { generateSlug } from "random-word-slugs";
+// Jobs
+import { triggerClient, TriggerEventName } from "libs/trigger";
 
 export const formRouter = router({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -68,6 +66,15 @@ export const formRouter = router({
                 id: userId,
               },
             },
+          },
+        });
+
+        // Trigger a job this is just an example delete this after we have real jobs
+        await triggerClient.sendEvent({
+          name: TriggerEventName.SEND_EMAIL,
+          payload: {
+            to: "vitor.works@gmail.com",
+            subject: "New form created",
           },
         });
 
