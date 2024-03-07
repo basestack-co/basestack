@@ -15,7 +15,7 @@ import { trpc } from "libs/trpc";
 // Store
 import { useStore } from "store";
 // Utils
-import { Table as TableUtils } from "@basestack/utils";
+import { createTable } from "@basestack/utils";
 // Auth
 import { useSession } from "next-auth/react";
 // Router
@@ -134,7 +134,7 @@ const InviteCard = ({ project }: Props) => {
       (item) => item.role === "ADMIN",
     ).length;
 
-    return TableUtils.createTable(
+    return createTable(
       !isLoading && !!data ? data.users : [],
       [
         t("members.invite.table.headers.name"),

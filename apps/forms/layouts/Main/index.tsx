@@ -30,18 +30,18 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     }
   }, [isMobile]);
 
-  const { data, isLoading: isLoadingProjects } = trpc.project.all.useQuery(
+  const { data, isLoading: isLoadingProjects } = trpc.form.all.useQuery(
     undefined,
     {
       enabled: status === "authenticated",
       select: (data) =>
-        data?.projects.map((item) => ({
+        data?.forms.map((item) => ({
           id: item.id,
-          slug: item.slug,
+          slug: item.id,
           onClick: () =>
             router.push({
-              pathname: "/[projectSlug]/flags",
-              query: { projectSlug: item.slug },
+              pathname: "/[formId]/submissions",
+              query: { projectSlug: item.id },
             }),
           text: item.name,
         })),

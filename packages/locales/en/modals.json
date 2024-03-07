@@ -182,5 +182,23 @@
         "flag": "{{type}} the flag"
       }
     }
+  },
+  "form": {
+    "create": {
+      "title": "Create Form",
+      "button": {
+        "cancel": "Close",
+        "submit": "Create"
+      },
+      "input": {
+        "project-name": {
+          "title": "Form name",
+          "error": {
+            "max": "Must be 30 characters or less",
+            "min": "Required field"
+          }
+        }
+      }
+    }
   }
 }

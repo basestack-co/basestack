@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
-import ExampleModal from "./Example";
+import CreateFormModal from "./Form/Create";
 
 const Modals = () => {
   return (
     <Fragment>
-      <ExampleModal />
+      <CreateFormModal />
     </Fragment>
   );
 };

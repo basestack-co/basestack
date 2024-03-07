@@ -11,7 +11,7 @@ import useTranslation from "next-translate/useTranslation";
 import { Container, ContentContainer } from "./styles";
 
 const PageNotFound = () => {
-  const { t } = useTranslation("general");
+  const { t } = useTranslation("common");
   const router = useRouter();
   const theme = useTheme();
 

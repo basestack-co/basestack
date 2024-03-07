@@ -5,13 +5,13 @@ export const internalLinks = [
   {
     icon: "flag",
     text: "Features",
-    to: "/[projectSlug]/flags",
-    i18nKey: "internal.features",
+    to: "/[formId]/submissions",
+    i18nKey: "internal.submissions",
   },
   {
     icon: "settings",
     text: "Settings",
-    to: "/[projectSlug]/settings/general",
+    to: "/[formId]/settings/general",
     i18nKey: "internal.settings",
   },
 ];
