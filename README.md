@@ -1,3 +1,6 @@
+> [!WARNING]  
+> Active development is ongoing on the Develop branch. The Master branch is the stable version. The platform is currently in beta, and we are working hard to improve it. If you encounter any issues, please report them to us. We appreciate your patience and support.
+
 ![Basestack Pattern Background](https://i.imgur.com/Cund9sW.jpg)
 
 # Basestack Platform
