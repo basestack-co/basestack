@@ -1,5 +1,3 @@
-import React from "react";
-
 const iconSize = "40";
 
 export const Github = () => (

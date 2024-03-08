@@ -1,18 +1,19 @@
 import React from "react";
 import { rem } from "polished";
 import { useTheme } from "styled-components";
-// Router
-import { useRouter } from "next/router";
 // UI
 import { Text, Label, Button, ButtonVariant } from "@basestack/design-system";
-// Locales
-import useTranslation from "next-translate/useTranslation";
 // Components
 import { Container, ContentContainer } from "./styles";
 
-const PageNotFound = () => {
-  const { t } = useTranslation("common");
-  const router = useRouter();
+export interface NotFoundProps {
+  title: string;
+  description: string;
+  action: string;
+  onClick: () => void;
+}
+
+const NotFound = ({ onClick, title, description, action }: NotFoundProps) => {
   const theme = useTheme();
 
   return (
@@ -29,23 +30,23 @@ const PageNotFound = () => {
           mb={theme.spacing.s1}
           fontWeight={800}
         >
-          {t("not-found.title")}
+          {title}
         </Text>
         <Text size="medium" fontWeight={400} lineHeight="1.6" muted>
-          {t("not-found.description")}
+          {description}
         </Text>
         <Button
-          onClick={() => router.push("/")}
+          onClick={onClick}
           iconPlacement="left"
           icon="arrow_back"
           variant={ButtonVariant.Outlined}
           mt={theme.spacing.s6}
         >
-          {t("not-found.action")}
+          {action}
         </Button>
       </ContentContainer>
     </Container>
   );
 };
 
-export default PageNotFound;
+export default NotFound;

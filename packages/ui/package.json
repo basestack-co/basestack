@@ -1,11 +1,11 @@
 {
-  "name": "@basestack/design-system",
+  "name": "@basestack/ui",
   "version": "0.0.0",
   "main": "./index.tsx",
   "types": "./index.tsx",
   "license": "AGPL-3.0",
   "scripts": {
-    "test": "jest",
+    "test:skip": "jest",
     "test:update": "jest -u",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
@@ -14,7 +14,6 @@
   },
   "devDependencies": {
     "@basestack/config": "*",
-    "@basestack/hooks": "*",
     "@basestack/tsconfig": "*",
     "@basestack/utils": "*",
     "@testing-library/jest-dom": "^6.4.2",
@@ -24,12 +23,11 @@
     "typescript": "^5.4.2"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.26.9",
+    "@basestack/design-system": "*",
     "material-symbols": "^0.16.0",
     "polished": "^4.2.2",
-    "react-calendar": "^4.0.0",
-    "react-spring": "^9.6.1",
     "styled-components": "^6.1.8",
-    "styled-system": "^5.1.5"
+    "styled-system": "^5.1.5",
+    "react-use": "^17.5.0"
   }
 }
