@@ -11,8 +11,8 @@ import {
   Text,
 } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
-import ButtonLink from "../ButtonLink";
-import Selector from "../Selector";
+import ButtonLink from "../elements/ButtonLink";
+import Selector from "../elements/Selector";
 
 const Navigation = ({
   isDesktop,
@@ -25,6 +25,7 @@ const Navigation = ({
   onLogoClick,
   onCreateProject,
   rightSideComponent,
+  createProjectText,
 }: DesktopNavigationProps) => {
   const theme = useTheme();
 
@@ -95,7 +96,7 @@ const Navigation = ({
                 {onRenderItems(internalLinks, "left")}
                 <ListItem ml={theme.spacing.s3}>
                   <Button onClick={() => {}} variant={ButtonVariant.Primary}>
-                    {t("create.form")}
+                    {createProjectText}
                   </Button>
                 </ListItem>
               </>

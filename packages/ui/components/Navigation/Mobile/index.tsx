@@ -41,6 +41,9 @@ const NavigationDrawer = ({
   projectId,
   rightSideComponent,
   onLogoClick,
+  createProjectText,
+  projectTitle,
+  externalLinksText,
 }: MobileNavigationProps) => {
   const theme = useTheme();
 
@@ -100,7 +103,7 @@ const NavigationDrawer = ({
                             onClose();
                           }}
                         >
-                          {t("create.form")}
+                          {createProjectText}
                         </Button>
                       </ListItem>
                     </List>
@@ -110,7 +113,7 @@ const NavigationDrawer = ({
                 <ScrollableContent>
                   <TitleContainer>
                     <Text muted fontWeight={500}>
-                      {t("forms.title")}
+                      {projectTitle}
                     </Text>
                   </TitleContainer>
                   <List>
@@ -137,14 +140,14 @@ const NavigationDrawer = ({
                           onClose();
                         }}
                       >
-                        {t("create.form")}
+                        {createProjectText}
                       </Button>
                     </ListItem>
                   </List>
                   <HorizontalRule m={theme.spacing.s5} />
                   <TitleContainer>
                     <Text muted fontWeight={500}>
-                      {t("external.docs")}
+                      {externalLinksText}
                     </Text>
                   </TitleContainer>
                   <List>

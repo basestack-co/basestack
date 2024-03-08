@@ -33,4 +33,7 @@ export interface MobileNavigationProps extends SharedNavigationProps {
   isDrawerOpen: boolean;
   onClose: () => void;
   internalLinks: MobileLinkItem[];
+  createProjectText: string;
+  projectTitle: string;
+  externalLinksText: string;
 }

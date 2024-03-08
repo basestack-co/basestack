@@ -5,12 +5,14 @@ import { useTheme } from "styled-components";
 import { useRouter } from "next/router";
 // Auth
 import { useSession } from "next-auth/react";
+// UI
+import { Navigation } from "@basestack/ui";
 // Components
 import { Splash, Loader } from "@basestack/design-system";
-import NavigationDrawer from "components/Navigation/Mobile";
-import Navigation from "components/Navigation/Desktop";
 // Server
 import { trpc } from "libs/trpc";
+// Utils
+import { externalLinks, internalLinks } from "./utils";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme();
@@ -58,7 +60,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Fragment>
-      <Navigation
+      {/*
+
+         <Navigation
         onClickMenuButton={() => setIsDrawerOpen(true)}
         isDesktop={!isMobile}
         data={data}
@@ -68,6 +72,10 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         onClose={() => setIsDrawerOpen(false)}
         isDrawerOpen={isDrawerOpen}
       />
+
+       */}
+
+
       {children}
     </Fragment>
   );
