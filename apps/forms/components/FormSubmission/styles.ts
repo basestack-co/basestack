@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { scrollbar } from "@basestack/design-system/styles";
 import { rem } from "polished";
 import {
   compose,
@@ -21,17 +22,18 @@ export const Box = styled.div<BoxProps>`
   ${compose(layout, space, flexbox)};
 `;
 
-export const HeaderGrid = styled.div`
+export const HeaderGrid = styled.div<{ columns: number }>`
   display: grid;
   align-items: center;
   width: 100%;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(${({ columns }) => columns}, minmax(0, 1fr));
   grid-gap: ${({ theme }) => theme.spacing.s5};
   padding: 0 ${({ theme }) => theme.spacing.s5};
 `;
 
 export const HeaderButton = styled.button`
   ${flexCenter};
+  min-height: 68px;
   overflow: hidden;
   flex-grow: 1;
   background: transparent;
@@ -62,8 +64,11 @@ export const HeaderRight = styled.div`
   ${flexCenter};
   justify-content: flex-end;
   gap: ${({ theme }) => theme.spacing.s3};
-  width: 100%;
-  max-width: 180px;
+
+  @media screen and ${({ theme }) => theme.device.min.sm} {
+    width: 100%;
+    max-width: 180px;
+  }
 `;
 
 export const BodyContainer = styled.div`
@@ -77,6 +82,9 @@ export const BodyWrapper = styled.div`
   gap: ${({ theme }) => theme.spacing.s5};
   padding: ${({ theme }) =>
     `${theme.spacing.s5} ${theme.spacing.s5} ${theme.spacing.s5} ${rem("62px")}`};
+  max-height: 500px;
+  ${scrollbar};
+  overflow-y: auto;
 `;
 
 export const BodyValue = styled.div`
@@ -97,4 +105,9 @@ export const ActionsList = styled.ul`
 
 export const ActionsListItem = styled.li`
   display: flex;
+`;
+
+export const MobileLabels = styled.div`
+  padding: ${({ theme }) =>
+    `0 ${theme.spacing.s5} ${theme.spacing.s4} ${rem("62px")}`};
 `;

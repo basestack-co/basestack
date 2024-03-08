@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { useMedia } from "react-use";
 import { animated, config, useTransition } from "react-spring";
 import { useTheme } from "styled-components";
 import { Avatar, slideBottom, Text } from "@basestack/design-system";
@@ -15,9 +16,24 @@ interface GridProps {
 
 const Grid = ({ data, isVisible, onDestroyed }: GridProps) => {
   const theme = useTheme();
+  const [initialRender, setInitialRender] = useState(true);
+
+  const isMediumDevice = useMedia(theme.device.max.md, false);
+  const isLargeDevice = useMedia(theme.device.max.lg, false);
+
+  const numberOfCells = useMemo(() => {
+    if (isMediumDevice) {
+      return 1;
+    }
+    return isLargeDevice ? 2 : 3;
+  }, [isMediumDevice, isLargeDevice]);
+
+  useEffect(() => {
+    setInitialRender(false);
+  }, []);
 
   const transitionGrid = useTransition(isVisible, {
-    config: { ...config.default, duration: 200 },
+    config: { ...config.default, duration: initialRender ? 0 : 200 },
     ...slideBottom,
     onDestroyed: (item) => {
       if (item) {
@@ -29,8 +45,8 @@ const Grid = ({ data, isVisible, onDestroyed }: GridProps) => {
   return transitionGrid(
     (styles, item) =>
       item && (
-        <AnimatedBGrid style={styles}>
-          {data.map((item, index) => (
+        <AnimatedBGrid columns={numberOfCells} style={styles}>
+          {data.slice(0, numberOfCells).map((item, index) => (
             <HeaderCell key={index}>
               {item.description.includes("@") && (
                 <Avatar

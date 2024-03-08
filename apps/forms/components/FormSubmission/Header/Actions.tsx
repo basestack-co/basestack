@@ -1,10 +1,12 @@
 import React from "react";
 import { animated, config, useTransition } from "react-spring";
+import { useMedia } from "react-use";
+import { useTheme } from "styled-components";
 import {
   Button,
   ButtonVariant,
-  ButtonProps,
   slideBottom,
+  IconButton,
 } from "@basestack/design-system";
 import { ActionsList, ActionsListItem } from "../styles";
 
@@ -16,9 +18,47 @@ interface ActionsProps {
   onDestroyed: () => void;
 }
 
-type SharedButtonProps = Pick<ButtonProps, "iconPlacement" | "variant">;
+interface ActionButtonProps {
+  onClick: () => void;
+  icon: string;
+  text: string;
+}
 
 const AnimatedBList = animated(ActionsList);
+
+const ActionButton = ({ onClick, icon, text }: ActionButtonProps) => {
+  const theme = useTheme();
+  const isSmallDevice = useMedia(theme.device.max.md, false);
+
+  if (isSmallDevice) {
+    return (
+      <IconButton
+        // @ts-ignore
+        onClick={(e) => {
+          e?.stopPropagation();
+          onClick();
+        }}
+        icon={icon}
+        variant="secondary"
+      />
+    );
+  }
+
+  return (
+    <Button
+      // @ts-ignore
+      onClick={(e) => {
+        e?.stopPropagation();
+        onClick();
+      }}
+      iconPlacement="left"
+      variant={ButtonVariant.Tertiary}
+      icon={icon}
+    >
+      {text}
+    </Button>
+  );
+};
 
 const Grid = ({
   onDelete,
@@ -27,11 +67,6 @@ const Grid = ({
   isVisible,
   onDestroyed,
 }: ActionsProps) => {
-  const buttonProps: SharedButtonProps = {
-    iconPlacement: "left",
-    variant: ButtonVariant.Tertiary,
-  };
-
   const transitionList = useTransition(isVisible, {
     config: { ...config.default, duration: 200 },
     ...slideBottom,
@@ -47,43 +82,21 @@ const Grid = ({
       item && (
         <AnimatedBList style={styles}>
           <ActionsListItem>
-            <Button
-              {...buttonProps}
-              // @ts-ignore
-              onClick={(e) => {
-                e?.stopPropagation();
-                onDelete();
-              }}
-              icon="delete"
-            >
-              Delete
-            </Button>
+            <ActionButton onClick={onDelete} icon="delete" text="Delete" />
           </ActionsListItem>
           <ActionsListItem>
-            <Button
-              {...buttonProps}
-              // @ts-ignore
-              onClick={(e) => {
-                e?.stopPropagation();
-                onMarkSpam();
-              }}
+            <ActionButton
+              onClick={onMarkSpam}
               icon="report"
-            >
-              Mark as Spam
-            </Button>
+              text="Mark as Spam"
+            />
           </ActionsListItem>
           <ActionsListItem>
-            <Button
-              {...buttonProps}
-              // @ts-ignore
-              onClick={(e) => {
-                e?.stopPropagation();
-                onReadSubmission();
-              }}
+            <ActionButton
+              onClick={onReadSubmission}
               icon="mark_email_read"
-            >
-              Read Submission
-            </Button>
+              text="Read Submission"
+            />
           </ActionsListItem>
         </AnimatedBList>
       ),
