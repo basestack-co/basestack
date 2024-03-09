@@ -38,12 +38,12 @@ import {
 } from "./styles";
 // Locales
 import useTranslation from "next-translate/useTranslation";
-// Data
+// Utils
 import {
   getInternalLinks,
   getExternalLinks,
   getAvatarDropdownList,
-} from "./utils";
+} from "../utils";
 
 const AnimatedBackDropCover = animated(BackDropCover);
 const AnimatedNavigation = animated(Container);
