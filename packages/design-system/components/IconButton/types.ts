@@ -1,3 +1,4 @@
+import React from "react";
 import { SpaceProps, FlexboxProps, PositionProps } from "styled-system";
 
 export type Size = "xLarge" | "large" | "medium" | "small";
@@ -15,7 +16,7 @@ export interface IconButtonProps
   /**
    * onClick function
    */
-  onClick: () => void;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   /**
    * Icon
    */
