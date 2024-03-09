@@ -10,7 +10,7 @@ import {
   Text,
 } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
-import ButtonLink from "./ButtonLink";
+import ButtonLink from "../elements/ButtonLink";
 import {
   getInternalLinks,
   getExternalLinks,

@@ -163,7 +163,7 @@ const MobileNavigation = ({
                   <HorizontalRule m={theme.spacing.s5} />
                   <TitleContainer>
                     <Text muted fontWeight={500}>
-                      {t("external.links")}
+                      {t("external.resources")}
                     </Text>
                   </TitleContainer>
                   <List>
