@@ -21,7 +21,6 @@ import {
   Logo,
 } from "@basestack/design-system";
 import { animated, config, useTransition } from "react-spring";
-
 // Styles
 import { useTheme } from "styled-components";
 import {
@@ -40,7 +39,7 @@ import {
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Data
-import { internalLinks, externalLinks } from "../data";
+import { internalLinks, externalLinks } from "./utils";
 
 const AnimatedBackDropCover = animated(BackDropCover);
 const AnimatedNavigation = animated(Container);

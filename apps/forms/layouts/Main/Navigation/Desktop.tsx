@@ -9,9 +9,14 @@ import {
   PopupActionProps,
   Text,
 } from "@basestack/design-system";
-import { Container, List, ListItem, LogoContainer } from "./styles";
-import ButtonLink from "../ButtonLink";
-import { internalLinks, externalLinks } from "../data";
+import {
+  DesktopContainer,
+  DesktopList,
+  DesktopListItem,
+  LogoContainer,
+} from "./styles";
+import ButtonLink from "./ButtonLink";
+import { internalLinks, externalLinks } from "./utils";
 // Router
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -58,7 +63,7 @@ const Navigation = ({
     (items: LinkItem[], type: string) =>
       items.map(({ text, to, isExternal, i18nKey }, i) => {
         return (
-          <ListItem key={`${type}-list-item-${i}`}>
+          <DesktopListItem key={`${type}-list-item-${i}`}>
             <ButtonLink
               href={to.replace("[formId]", formId)}
               isExternal={isExternal}
@@ -69,7 +74,7 @@ const Navigation = ({
             >
               {t(i18nKey)}
             </ButtonLink>
-          </ListItem>
+          </DesktopListItem>
         );
       }),
     [router.pathname, formId, t],
@@ -86,34 +91,34 @@ const Navigation = ({
   };
 
   return (
-    <Container data-testid="navigation">
-      <List data-testid="navigation-left-ul">
+    <DesktopContainer data-testid="navigation">
+      <DesktopList data-testid="navigation-left-ul">
         {!isDesktop && (
           <>
-            <ListItem>
+            <DesktopListItem>
               <IconButton
                 mr={theme.spacing.s3}
                 icon="menu"
                 size="medium"
                 onClick={onClickMenuButton}
               />
-            </ListItem>
+            </DesktopListItem>
             {!!currentForm && (
-              <ListItem>
+              <DesktopListItem>
                 <Text size="medium">{truncateProjectName(currentForm)}</Text>
-              </ListItem>
+              </DesktopListItem>
             )}
           </>
         )}
         {isDesktop && (
           <>
-            <ListItem>
+            <DesktopListItem>
               <Link href="/">
                 <LogoContainer>
                   <Logo size={36} />
                 </LogoContainer>
               </Link>
-            </ListItem>
+            </DesktopListItem>
             <ProjectsMenu
               onCreate={() => setCreateProjectModalOpen({ isOpen: true })}
               current={currentForm}
@@ -127,11 +132,11 @@ const Navigation = ({
             {!!formId && onRenderItems(internalLinks, "left")}
           </>
         )}
-      </List>
+      </DesktopList>
       {isDesktop && (
-        <List ml="auto" data-testid="navigation-right-ul">
+        <DesktopList ml="auto" data-testid="navigation-right-ul">
           {onRenderItems(externalLinks, "right")}
-          <ListItem ml={theme.spacing.s3}>
+          <DesktopListItem ml={theme.spacing.s3}>
             <AvatarDropdown
               name={session?.user.name || t("dropdown.username")}
               email={session?.user.email || ""}
@@ -165,10 +170,10 @@ const Navigation = ({
                 },
               ]}
             />
-          </ListItem>
-        </List>
+          </DesktopListItem>
+        </DesktopList>
       )}
-    </Container>
+    </DesktopContainer>
   );
 };
 
