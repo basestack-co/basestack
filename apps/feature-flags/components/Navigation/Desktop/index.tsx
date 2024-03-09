@@ -1,5 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import { useTheme } from "styled-components";
+// UI
+import { ProjectsMenu } from "@basestack/ui";
 // Components
 import {
   Logo,
@@ -11,7 +13,6 @@ import {
 } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
 import ButtonLink from "../ButtonLink";
-import ProjectsMenu from "../../ProjectsMenu";
 import AvatarDropdown from "../../AvatarDropdown";
 import { internalLinks, externalLinks } from "../data";
 // Router
@@ -118,11 +119,14 @@ const Navigation = ({
               </Link>
             </ListItem>
             <ProjectsMenu
-              onClickCreateProject={() =>
-                setCreateProjectModalOpen({ isOpen: true })
-              }
-              currentProject={currentProject}
-              projects={data ?? []}
+              onCreate={() => setCreateProjectModalOpen({ isOpen: true })}
+              current={currentProject}
+              data={data ?? []}
+              title={t("projects.title")}
+              select={{
+                title: t("projects.select"),
+                create: t("create.project"),
+              }}
             />
             {!!projectSlug && (
               <>

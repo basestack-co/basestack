@@ -1,5 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import { useTheme } from "styled-components";
+// UI
+import { ProjectsMenu } from "@basestack/ui";
 // Components
 import {
   Logo,
@@ -9,7 +11,6 @@ import {
 } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
 import ButtonLink from "../ButtonLink";
-import ProjectsMenu from "../../ProjectsMenu";
 import AvatarDropdown from "../../AvatarDropdown";
 import { internalLinks, externalLinks } from "../data";
 // Router
@@ -72,10 +73,10 @@ const Navigation = ({
     [router.pathname, formId, t],
   );
 
-  const currentProject = useMemo(() => {
-    const project = data?.find(({ slug }) => slug === formId);
+  const currentForm = useMemo(() => {
+    const form = data?.find(({ slug }) => slug === formId);
 
-    return project?.text ?? "";
+    return form?.text ?? "";
   }, [formId, data]);
 
   const truncateProjectName = (str: string) => {
@@ -95,9 +96,9 @@ const Navigation = ({
                 onClick={onClickMenuButton}
               />
             </ListItem>
-            {!!currentProject && (
+            {!!currentForm && (
               <ListItem>
-                <Text size="medium">{truncateProjectName(currentProject)}</Text>
+                <Text size="medium">{truncateProjectName(currentForm)}</Text>
               </ListItem>
             )}
           </>
@@ -112,12 +113,16 @@ const Navigation = ({
               </Link>
             </ListItem>
             <ProjectsMenu
-              onClickCreateProject={() =>
-                setCreateProjectModalOpen({ isOpen: true })
-              }
-              currentProject={currentProject}
-              projects={data ?? []}
+              onCreate={() => setCreateProjectModalOpen({ isOpen: true })}
+              current={currentForm}
+              data={data ?? []}
+              title={t("forms.title")}
+              select={{
+                title: t("forms.select"),
+                create: t("create.form"),
+              }}
             />
+            {!!formId && onRenderItems(internalLinks, "left")}
           </>
         )}
       </List>

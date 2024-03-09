@@ -30,7 +30,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     }
   }, [isMobile]);
 
-  const { data, isLoading: isLoadingProjects } = trpc.form.all.useQuery(
+  const { data, isLoading: isLoadingForms } = trpc.form.all.useQuery(
     undefined,
     {
       enabled: status === "authenticated",
@@ -41,14 +41,14 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           onClick: () =>
             router.push({
               pathname: "/[formId]/submissions",
-              query: { projectSlug: item.id },
+              query: { formId: item.id },
             }),
           text: item.name,
         })),
     },
   );
 
-  if (status === "loading" || isLoadingProjects) {
+  if (status === "loading" || isLoadingForms) {
     return (
       <Loader hasDelay={false}>
         <Splash />

@@ -10,25 +10,29 @@ import {
   PopupActionProps,
   slideBottom,
 } from "@basestack/design-system";
-// Locales
-import useTranslation from "next-translate/useTranslation";
 // Types
 import { ListItem } from "./styles";
 
 export interface ProjectsMenuProps {
-  currentProject: string;
-  projects: Array<PopupActionProps>;
-  onClickCreateProject: () => void;
+  current: string;
+  data: Array<PopupActionProps>;
+  onCreate: () => void;
+  select: {
+    title: string;
+    create: string;
+  };
+  title: string;
 }
 
 const AnimatedProjectsPopup = animated(PopupActions);
 
 const ProjectsMenu = ({
-  projects,
-  currentProject,
-  onClickCreateProject,
+  data,
+  current,
+  onCreate,
+  select,
+  title,
 }: ProjectsMenuProps) => {
-  const { t } = useTranslation("navigation");
   const menuWrapperRef = useRef(null);
   const [isProjectsPopupOpen, setIsProjectsPopupOpen] = useState(false);
   const { x, y, refs, strategy } = useFloating({
@@ -52,8 +56,8 @@ const ProjectsMenu = ({
 
   const onClickCreate = useCallback(() => {
     setIsProjectsPopupOpen(false);
-    onClickCreateProject();
-  }, [onClickCreateProject]);
+    onCreate();
+  }, [onCreate]);
 
   const truncateText = (str: string) => {
     return str.length <= 18 ? str : str.slice(0, 18) + "...";
@@ -68,7 +72,7 @@ const ProjectsMenu = ({
         variant={ButtonVariant.PrimaryNeutral}
         onClick={onClickProjects}
       >
-        {!!currentProject ? truncateText(currentProject) : t("projects.select")}
+        {!!current ? truncateText(current) : select.title}
       </Button>
       {transitionProjectsPopup(
         (styles, item) =>
@@ -79,11 +83,11 @@ const ProjectsMenu = ({
               position={strategy}
               top={y}
               left={x}
-              title={t("projects.title")}
-              items={projects}
+              title={title}
+              items={data}
               onCallback={onClickProjects}
               button={{
-                text: t("create.project"),
+                text: select.create,
                 onClick: onClickCreate,
               }}
             />
