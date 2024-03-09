@@ -68,7 +68,7 @@ const ProjectsMenu = ({
         variant={ButtonVariant.PrimaryNeutral}
         onClick={onClickProjects}
       >
-        {!!currentProject ? truncateText(currentProject) : t("forms.select")}
+        {!!currentProject ? truncateText(currentProject) : t("projects.select")}
       </Button>
       {transitionProjectsPopup(
         (styles, item) =>
@@ -79,11 +79,11 @@ const ProjectsMenu = ({
               position={strategy}
               top={y}
               left={x}
-              title={t("forms.title")}
+              title={t("projects.title")}
               items={projects}
               onCallback={onClickProjects}
               button={{
-                text: t("create.form"),
+                text: t("create.project"),
                 onClick: onClickCreate,
               }}
             />

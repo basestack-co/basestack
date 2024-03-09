@@ -7,7 +7,8 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 // Components
 import { Splash, Loader } from "@basestack/design-system";
-import Navigation from "./Navigation";
+import NavigationDrawer from "components/Navigation/Mobile";
+import Navigation from "components/Navigation/Desktop";
 // Server
 import { trpc } from "libs/trpc";
 
@@ -57,7 +58,16 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Fragment>
-      <Navigation data={data} />
+      <Navigation
+        onClickMenuButton={() => setIsDrawerOpen(true)}
+        isDesktop={!isMobile}
+        data={data}
+      />
+      <NavigationDrawer
+        data={data}
+        onClose={() => setIsDrawerOpen(false)}
+        isDrawerOpen={isDrawerOpen}
+      />
       {children}
     </Fragment>
   );

@@ -1,6 +1,11 @@
 import React from "react";
-// Types
-import { MobileNavigationProps, GeneralNavigationProps } from "../types";
+// Store
+import { useStore } from "store";
+// Router
+import { useRouter } from "next/router";
+import Link from "next/link";
+// Auth
+import { useSession } from "next-auth/react";
 // Components
 import {
   fadeIn,
@@ -10,9 +15,11 @@ import {
   Button,
   ButtonVariant,
   HorizontalRule,
+  PopupActionProps,
   Logo,
 } from "@basestack/design-system";
 import { animated, config, useTransition } from "react-spring";
+import AvatarDropdown from "../../AvatarDropdown";
 // Styles
 import { useTheme } from "styled-components";
 import {
@@ -28,26 +35,34 @@ import {
   ScrollableContent,
   StyledLink,
 } from "./styles";
+// Locales
+import useTranslation from "next-translate/useTranslation";
+// Data
+import { internalLinks, externalLinks } from "../data";
 
 const AnimatedBackDropCover = animated(BackDropCover);
 const AnimatedNavigation = animated(Container);
 
-export type Props = MobileNavigationProps & GeneralNavigationProps;
+interface NavigationDrawerProps {
+  isDrawerOpen: boolean;
+  onClose: () => void;
+  data?: Array<PopupActionProps>;
+}
 
-const MobileNavigation = ({
+const NavigationDrawer = ({
   isDrawerOpen,
   onClose,
   data,
-  internalLinks,
-  externalLinks,
-  projectId,
-  rightSideComponent,
-  onLogoClick,
-  createProjectText,
-  projectTitle,
-  externalLinksText,
-}: Props) => {
+}: NavigationDrawerProps) => {
+  const { t } = useTranslation("navigation");
   const theme = useTheme();
+  const { data: session } = useSession();
+  const router = useRouter();
+  const projectSlug = router.query.projectSlug as string;
+
+  const setCreateProjectModalOpen = useStore(
+    (state) => state.setCreateFormModalOpen,
+  );
 
   const transitionNavigation = useTransition(isDrawerOpen, {
     config: { ...config.default, duration: 200 },
@@ -67,9 +82,9 @@ const MobileNavigation = ({
             <AnimatedNavigation style={styles}>
               <GlobalStyle />
               <Header>
-                <span onClick={onLogoClick}>
+                <Link href="/">
                   <Logo size={40} />
-                </span>
+                </Link>
                 <IconButton
                   icon="chevron_left"
                   onClick={onClose}
@@ -77,7 +92,7 @@ const MobileNavigation = ({
                 />
               </Header>
               <ContentContainer>
-                {!!projectId && (
+                {!!projectSlug && (
                   <>
                     <List>
                       {internalLinks.map((item, index) => (
@@ -88,29 +103,16 @@ const MobileNavigation = ({
                             variant={ButtonVariant.Neutral}
                             fullWidth
                             onClick={() => {
-                              if (item.onClick) {
-                                item.onClick(item.to, projectId);
-                              }
+                              router.push({
+                                pathname: item.to,
+                                query: { projectSlug },
+                              });
                             }}
                           >
-                            {item.text}
+                            {t(item.i18nKey)}
                           </Button>
                         </ListItem>
                       ))}
-                      <ListItem>
-                        z
-                        <Button
-                          iconPlacement="left"
-                          icon="add"
-                          variant={ButtonVariant.Neutral}
-                          fullWidth
-                          onClick={() => {
-                            onClose();
-                          }}
-                        >
-                          {createProjectText}
-                        </Button>
-                      </ListItem>
                     </List>
                     <HorizontalRule m={theme.spacing.s5} mb={0} />
                   </>
@@ -118,7 +120,7 @@ const MobileNavigation = ({
                 <ScrollableContent>
                   <TitleContainer>
                     <Text muted fontWeight={500}>
-                      {projectTitle}
+                      {t("projects.title")}
                     </Text>
                   </TitleContainer>
                   <List>
@@ -143,16 +145,17 @@ const MobileNavigation = ({
                         fullWidth
                         onClick={() => {
                           onClose();
+                          setCreateProjectModalOpen({ isOpen: true });
                         }}
                       >
-                        {createProjectText}
+                        {t("create.project")}
                       </Button>
                     </ListItem>
                   </List>
                   <HorizontalRule m={theme.spacing.s5} />
                   <TitleContainer>
                     <Text muted fontWeight={500}>
-                      {externalLinksText}
+                      {t("external.docs")}
                     </Text>
                   </TitleContainer>
                   <List>
@@ -170,7 +173,7 @@ const MobileNavigation = ({
                             variant={ButtonVariant.Neutral}
                             fullWidth
                           >
-                            {item.text}
+                            {t(item.i18nKey)}
                           </Button>
                         </StyledLink>
                       </ListItem>
@@ -179,7 +182,15 @@ const MobileNavigation = ({
                 </ScrollableContent>
               </ContentContainer>
               <HorizontalRule mx={theme.spacing.s5} my={0} />
-              <Footer>{rightSideComponent}</Footer>
+              <Footer>
+                <AvatarDropdown
+                  name={session?.user.name || t("dropdown.username")}
+                  email={session?.user.email || ""}
+                  src={session?.user.image || ""}
+                  showFullButton
+                  popupPlacement="top"
+                />
+              </Footer>
             </AnimatedNavigation>
           ),
       )}
@@ -191,4 +202,4 @@ const MobileNavigation = ({
   );
 };
 
-export default MobileNavigation;
+export default NavigationDrawer;
