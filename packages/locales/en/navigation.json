@@ -16,7 +16,8 @@
     "username": "User Name",
     "invite": "Invite Member (Coming soon)",
     "settings": "Settings",
-    "logout": "Logout"
+    "logout": "Logout",
+    "dark-mode": "Dark Mode"
   },
   "external": {
     "links": "Links",

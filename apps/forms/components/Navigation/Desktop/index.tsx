@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import { useTheme } from "styled-components";
 // UI
-import { ProjectsMenu } from "@basestack/ui";
+import { ProjectsMenu, AvatarDropdown } from "@basestack/ui";
 // Components
 import {
   Logo,
@@ -11,7 +11,6 @@ import {
 } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
 import ButtonLink from "../ButtonLink";
-import AvatarDropdown from "../../AvatarDropdown";
 import { internalLinks, externalLinks } from "../data";
 // Router
 import { useRouter } from "next/router";
@@ -21,7 +20,7 @@ import useTranslation from "next-translate/useTranslation";
 // Store
 import { useStore } from "store";
 // Auth
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 export interface LinkItem {
   text: string;
@@ -45,6 +44,9 @@ const Navigation = ({
   const theme = useTheme();
   const { data: session } = useSession();
   const router = useRouter();
+
+  const setIsDarkMode = useStore((state) => state.setDarkMode);
+  const isDarkMode = useStore((state) => state.isDarkMode);
 
   const setCreateProjectModalOpen = useStore(
     (state) => state.setCreateFormModalOpen,
@@ -134,6 +136,34 @@ const Navigation = ({
               name={session?.user.name || t("dropdown.username")}
               email={session?.user.email || ""}
               src={session?.user.image || ""}
+              darkModeText={t("dropdown.dark-mode")}
+              isDarkMode={isDarkMode}
+              onSetDarkMode={setIsDarkMode}
+              list={[
+                {
+                  icon: "add_circle",
+                  text: t("create.project"),
+                },
+                {
+                  icon: "group_add",
+                  text: t("dropdown.invite"),
+                  isDisabled: true,
+                  separator: true,
+                },
+                {
+                  icon: "settings",
+                  text: t("dropdown.settings"),
+                  onClick: () =>
+                    router.push({
+                      pathname: "/profile/settings",
+                    }),
+                },
+                {
+                  icon: "logout",
+                  text: t("dropdown.logout"),
+                  onClick: signOut,
+                },
+              ]}
             />
           </ListItem>
         </List>

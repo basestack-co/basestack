@@ -1,11 +1,4 @@
-import React, { memo, useCallback, useRef, useState } from "react";
-import { useRouter } from "next/router";
-import { useTheme } from "styled-components";
-import { useStore } from "store";
-// Auth
-import { signOut } from "next-auth/react";
-// Locales
-import useTranslation from "next-translate/useTranslation";
+import React, { memo, useCallback, useRef, useState, Fragment } from "react";
 // Components
 import { autoUpdate, offset, useFloating } from "@floating-ui/react";
 import { animated, config, useTransition } from "react-spring";
@@ -21,6 +14,8 @@ import {
   slideTop,
   slideBottom,
 } from "@basestack/design-system";
+// Styles
+import { useTheme } from "styled-components";
 import {
   ListItem,
   AvatarButton,
@@ -36,12 +31,24 @@ import {
 
 const AnimatedAvatarDropdown = animated(Dropdown);
 
-interface AvatarMenuProps {
+export interface ListItem {
+  text: string;
+  icon: string;
+  onClick?: () => void;
+  separator?: boolean;
+  isDisabled?: boolean;
+}
+
+export interface AvatarMenuProps {
   name: string;
   email: string;
   src: string;
   showFullButton?: boolean;
   popupPlacement?: "bottom-end" | "top";
+  isDarkMode: boolean;
+  darkModeText: string;
+  onSetDarkMode: (isDarkMode: boolean) => void;
+  list: ListItem[];
 }
 
 const AvatarDropdown = ({
@@ -50,12 +57,12 @@ const AvatarDropdown = ({
   src,
   showFullButton,
   popupPlacement = "bottom-end",
+  isDarkMode,
+  onSetDarkMode,
+  darkModeText = "Dark Mode",
+  list,
 }: AvatarMenuProps) => {
-  const { t } = useTranslation("navigation");
-  const router = useRouter();
   const theme = useTheme();
-  const setIsDarkMode = useStore((state) => state.setDarkMode);
-  const isDarkMode = useStore((state) => state.isDarkMode);
 
   const menuWrapperRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -80,8 +87,6 @@ const AvatarDropdown = ({
   useClickAway(menuWrapperRef, () => {
     setIsMenuOpen(false);
   });
-
-  const projectSlug = router.query.projectSlug as string;
 
   return (
     <Container ref={menuWrapperRef}>
@@ -143,11 +148,11 @@ const AvatarDropdown = ({
                 <ThemeContainer showFullButton={showFullButton}>
                   <Icon icon="dark_mode" mr={theme.spacing.s2} />
                   <Text size="small" fontWeight={500} mr={theme.spacing.s2}>
-                    Dark Mode
+                    {darkModeText}
                   </Text>
                   <Switch
                     onChange={(event) => {
-                      setIsDarkMode(event.target.checked);
+                      onSetDarkMode(event.target.checked);
                     }}
                     checked={isDarkMode}
                     ml="auto"
@@ -156,7 +161,37 @@ const AvatarDropdown = ({
                 <HorizontalRule />
               </Header>
               <List>
-                <ListItem mb={theme.spacing.s1}>
+                {list.map((item, index) => {
+                  return (
+                    <Fragment key={`list-item-${index}`}>
+                      <ListItem mb={theme.spacing.s1}>
+                        <Button
+                          icon={item.icon}
+                          iconPlacement="left"
+                          variant={ButtonVariant.Neutral}
+                          isDisabled={item.isDisabled}
+                          fullWidth
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            if (item.onClick) {
+                              item.onClick();
+                            }
+                          }}
+                        >
+                          {item.text}
+                        </Button>
+                      </ListItem>
+                      {item.separator && (
+                        <HrContainer>
+                          <HorizontalRule />
+                        </HrContainer>
+                      )}
+                    </Fragment>
+                  );
+                })}
+
+                {/*
+                    <ListItem mb={theme.spacing.s1}>
                   <Button
                     icon="add_circle"
                     iconPlacement="left"
@@ -213,6 +248,8 @@ const AvatarDropdown = ({
                     {t("dropdown.logout")}
                   </Button>
                 </ListItem>
+
+                */}
               </List>
             </AnimatedAvatarDropdown>
           ),

@@ -4,8 +4,10 @@ import { useStore } from "store";
 // Router
 import { useRouter } from "next/router";
 import Link from "next/link";
+// UI
+import { AvatarDropdown } from "@basestack/ui";
 // Auth
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 // Components
 import {
   fadeIn,
@@ -19,7 +21,7 @@ import {
   Logo,
 } from "@basestack/design-system";
 import { animated, config, useTransition } from "react-spring";
-import AvatarDropdown from "../../AvatarDropdown";
+
 // Styles
 import { useTheme } from "styled-components";
 import {
@@ -58,7 +60,10 @@ const NavigationDrawer = ({
   const theme = useTheme();
   const { data: session } = useSession();
   const router = useRouter();
-  const projectSlug = router.query.projectSlug as string;
+  const formId = router.query.formId as string;
+
+  const setIsDarkMode = useStore((state) => state.setDarkMode);
+  const isDarkMode = useStore((state) => state.isDarkMode);
 
   const setCreateProjectModalOpen = useStore(
     (state) => state.setCreateFormModalOpen,
@@ -92,7 +97,7 @@ const NavigationDrawer = ({
                 />
               </Header>
               <ContentContainer>
-                {!!projectSlug && (
+                {!!formId && (
                   <>
                     <List>
                       {internalLinks.map((item, index) => (
@@ -105,7 +110,7 @@ const NavigationDrawer = ({
                             onClick={() => {
                               router.push({
                                 pathname: item.to,
-                                query: { projectSlug },
+                                query: { formId },
                               });
                             }}
                           >
@@ -187,8 +192,36 @@ const NavigationDrawer = ({
                   name={session?.user.name || t("dropdown.username")}
                   email={session?.user.email || ""}
                   src={session?.user.image || ""}
-                  showFullButton
+                  darkModeText={t("dropdown.dark-mode")}
+                  isDarkMode={isDarkMode}
+                  onSetDarkMode={setIsDarkMode}
                   popupPlacement="top"
+                  list={[
+                    {
+                      icon: "add_circle",
+                      text: t("create.project"),
+                    },
+                    {
+                      icon: "group_add",
+                      text: t("dropdown.invite"),
+                      isDisabled: true,
+                      separator: true,
+                    },
+                    {
+                      icon: "settings",
+                      text: t("dropdown.settings"),
+                      onClick: () =>
+                        router.push({
+                          pathname: "/profile/settings",
+                        }),
+                    },
+                    {
+                      icon: "logout",
+                      text: t("dropdown.logout"),
+                      onClick: signOut,
+                    },
+                  ]}
+                  showFullButton
                 />
               </Footer>
             </AnimatedNavigation>
