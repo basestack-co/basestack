@@ -16,7 +16,11 @@ import {
   LogoContainer,
 } from "./styles";
 import ButtonLink from "./ButtonLink";
-import { internalLinks, externalLinks } from "./utils";
+import {
+  getInternalLinks,
+  getExternalLinks,
+  getAvatarDropdownList,
+} from "./utils";
 // Router
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -25,13 +29,13 @@ import useTranslation from "next-translate/useTranslation";
 // Store
 import { useStore } from "store";
 // Auth
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 export interface LinkItem {
   text: string;
   to: string;
   isExternal?: boolean;
-  i18nKey: string;
+  activeText: string;
 }
 
 interface NavigationProps {
@@ -40,7 +44,7 @@ interface NavigationProps {
   onClickMenuButton: () => void;
 }
 
-const Navigation = ({
+const DesktopNavigation = ({
   isDesktop,
   data,
   onClickMenuButton,
@@ -61,18 +65,18 @@ const Navigation = ({
 
   const onRenderItems = useCallback(
     (items: LinkItem[], type: string) =>
-      items.map(({ text, to, isExternal, i18nKey }, i) => {
+      items.map(({ text, to, isExternal, activeText }, i) => {
         return (
           <DesktopListItem key={`${type}-list-item-${i}`}>
             <ButtonLink
-              href={to.replace("[formId]", formId)}
+              href={to}
               isExternal={isExternal}
               isActive={
                 router.pathname === to ||
-                router.pathname.includes(text.toLowerCase())
+                router.pathname.includes(activeText.toLowerCase())
               }
             >
-              {t(i18nKey)}
+              {t(text)}
             </ButtonLink>
           </DesktopListItem>
         );
@@ -129,13 +133,13 @@ const Navigation = ({
                 create: t("create.form"),
               }}
             />
-            {!!formId && onRenderItems(internalLinks, "left")}
+            {!!formId && onRenderItems(getInternalLinks(t, formId), "left")}
           </>
         )}
       </DesktopList>
       {isDesktop && (
         <DesktopList ml="auto" data-testid="navigation-right-ul">
-          {onRenderItems(externalLinks, "right")}
+          {onRenderItems(getExternalLinks(t), "right")}
           <DesktopListItem ml={theme.spacing.s3}>
             <AvatarDropdown
               name={session?.user.name || t("dropdown.username")}
@@ -144,31 +148,7 @@ const Navigation = ({
               darkModeText={t("dropdown.dark-mode")}
               isDarkMode={isDarkMode}
               onSetDarkMode={setIsDarkMode}
-              list={[
-                {
-                  icon: "add_circle",
-                  text: t("create.project"),
-                },
-                {
-                  icon: "group_add",
-                  text: t("dropdown.invite"),
-                  isDisabled: true,
-                  separator: true,
-                },
-                {
-                  icon: "settings",
-                  text: t("dropdown.settings"),
-                  onClick: () =>
-                    router.push({
-                      pathname: "/profile/settings",
-                    }),
-                },
-                {
-                  icon: "logout",
-                  text: t("dropdown.logout"),
-                  onClick: signOut,
-                },
-              ]}
+              list={getAvatarDropdownList(t, router)}
             />
           </DesktopListItem>
         </DesktopList>
@@ -177,4 +157,4 @@ const Navigation = ({
   );
 };
 
-export default Navigation;
+export default DesktopNavigation;

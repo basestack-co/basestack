@@ -7,7 +7,7 @@ import Link from "next/link";
 // UI
 import { AvatarDropdown } from "@basestack/ui";
 // Auth
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 // Components
 import {
   fadeIn,
@@ -39,7 +39,11 @@ import {
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Data
-import { internalLinks, externalLinks } from "./utils";
+import {
+  getInternalLinks,
+  getExternalLinks,
+  getAvatarDropdownList,
+} from "./utils";
 
 const AnimatedBackDropCover = animated(BackDropCover);
 const AnimatedNavigation = animated(Container);
@@ -50,7 +54,7 @@ interface NavigationDrawerProps {
   data?: Array<PopupActionProps>;
 }
 
-const NavigationDrawer = ({
+const MobileNavigation = ({
   isDrawerOpen,
   onClose,
   data,
@@ -99,7 +103,7 @@ const NavigationDrawer = ({
                 {!!formId && (
                   <>
                     <List>
-                      {internalLinks.map((item, index) => (
+                      {getInternalLinks(t, formId).map((item, index) => (
                         <ListItem key={index}>
                           <Button
                             iconPlacement="left"
@@ -113,7 +117,7 @@ const NavigationDrawer = ({
                               });
                             }}
                           >
-                            {t(item.i18nKey)}
+                            {t(item.text)}
                           </Button>
                         </ListItem>
                       ))}
@@ -163,7 +167,7 @@ const NavigationDrawer = ({
                     </Text>
                   </TitleContainer>
                   <List>
-                    {externalLinks.map((item, index) => (
+                    {getExternalLinks(t).map((item, index) => (
                       <ListItem key={index}>
                         <StyledLink
                           href={item.to}
@@ -177,7 +181,7 @@ const NavigationDrawer = ({
                             variant={ButtonVariant.Neutral}
                             fullWidth
                           >
-                            {t(item.i18nKey)}
+                            {t(item.text)}
                           </Button>
                         </StyledLink>
                       </ListItem>
@@ -195,31 +199,7 @@ const NavigationDrawer = ({
                   isDarkMode={isDarkMode}
                   onSetDarkMode={setIsDarkMode}
                   popupPlacement="top"
-                  list={[
-                    {
-                      icon: "add_circle",
-                      text: t("create.project"),
-                    },
-                    {
-                      icon: "group_add",
-                      text: t("dropdown.invite"),
-                      isDisabled: true,
-                      separator: true,
-                    },
-                    {
-                      icon: "settings",
-                      text: t("dropdown.settings"),
-                      onClick: () =>
-                        router.push({
-                          pathname: "/profile/settings",
-                        }),
-                    },
-                    {
-                      icon: "logout",
-                      text: t("dropdown.logout"),
-                      onClick: signOut,
-                    },
-                  ]}
+                  list={getAvatarDropdownList(t, router)}
                   showFullButton
                 />
               </Footer>
@@ -234,4 +214,4 @@ const NavigationDrawer = ({
   );
 };
 
-export default NavigationDrawer;
+export default MobileNavigation;

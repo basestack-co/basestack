@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 // Components
 import { Splash, Loader } from "@basestack/design-system";
-import Navigation from "./Navigation";
+import Navigation from "components/Navigation";
 // Server
 import { trpc } from "libs/trpc";
 
