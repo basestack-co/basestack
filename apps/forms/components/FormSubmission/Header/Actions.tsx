@@ -33,9 +33,8 @@ const ActionButton = ({ onClick, icon, text }: ActionButtonProps) => {
   if (isSmallDevice) {
     return (
       <IconButton
-        // @ts-ignore
         onClick={(e) => {
-          e?.stopPropagation();
+          e.stopPropagation();
           onClick();
         }}
         icon={icon}
@@ -46,9 +45,8 @@ const ActionButton = ({ onClick, icon, text }: ActionButtonProps) => {
 
   return (
     <Button
-      // @ts-ignore
       onClick={(e) => {
-        e?.stopPropagation();
+        e.stopPropagation();
         onClick();
       }}
       iconPlacement="left"
