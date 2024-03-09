@@ -218,7 +218,7 @@ const AvatarDropdown = ({
                     iconPlacement="left"
                     variant={ButtonVariant.Neutral}
                     fullWidth
-                    onClick={signOut}
+                    onClick={() => signOut()}
                   >
                     {t("dropdown.logout")}
                   </Button>
