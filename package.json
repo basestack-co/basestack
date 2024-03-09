@@ -19,6 +19,7 @@
     "precommit": "yarn format && yarn lint && yarn test && lint-staged",
     "commit": "git-cz",
     "update:packages": "yarn upgrade-interactive --latest",
+    "dev:packages": "turbo run dev --filter=./packages/*",
     "build:packages": "turbo run build --filter=./packages/*",
     "build:feature-flags": "turbo run build --filter=feature-flags...",
     "build:forms": "turbo run build --filter=forms...",

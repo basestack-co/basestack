@@ -16,7 +16,7 @@ import { trpc } from "libs/trpc";
 import { useStore } from "store";
 // Utils
 import dayjs from "dayjs";
-import { Table as TableUtils } from "@basestack/utils";
+import { createTable } from "@basestack/utils";
 // Types
 import { ProjectSettings } from "types";
 import { Role } from "@prisma/client";
@@ -127,7 +127,7 @@ const EnvironmentsCard = ({ project }: Props) => {
 
   const getTable = useMemo(
     () =>
-      TableUtils.createTable(
+      createTable(
         environments,
         [
           t("others.environments.table.headers.environment"),

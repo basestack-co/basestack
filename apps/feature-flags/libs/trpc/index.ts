@@ -12,7 +12,7 @@ import type {
 } from "@trpc/server";
 // Utils
 import superjson from "superjson";
-import { Url } from "@basestack/utils";
+import { getBaseUrl } from "@basestack/utils";
 
 export type RouterInput = inferRouterInputs<AppRouter>;
 export type RouterOutput = inferRouterOutputs<AppRouter>;
@@ -55,7 +55,7 @@ export const trpc = createTRPCNext<AppRouter>({
             (opts.direction === "down" && opts.result instanceof Error),
         }),
         httpBatchLink({
-          url: `${Url.getBaseUrl()}/api/trpc`,
+          url: `${getBaseUrl()}/api/trpc`,
         }),
       ],
 
@@ -99,7 +99,7 @@ export const vanillaClient = createTRPCProxyClient<AppRouter>({
         (opts.direction === "down" && opts.result instanceof Error),
     }),
     httpBatchLink({
-      url: `${Url.getBaseUrl()}/api/trpc`,
+      url: `${getBaseUrl()}/api/trpc`,
     }),
   ],
   transformer: superjson,

@@ -1,6 +1,4 @@
 import React from "react";
-// Store
-import { useStore } from "store";
 // Router
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -58,7 +56,7 @@ const NavigationDrawer = ({
   const theme = useTheme();
   const { data: session } = useSession();
   const router = useRouter();
-  const projectSlug = router.query.projectSlug as string;
+  const formId = router.query.formId as string;
 
   const transitionNavigation = useTransition(isDrawerOpen, {
     config: { ...config.default, duration: 200 },
@@ -88,7 +86,7 @@ const NavigationDrawer = ({
                 />
               </Header>
               <ContentContainer>
-                {!!projectSlug && (
+                {!!formId && (
                   <>
                     <List>
                       {internalLinks.map((item, index) => (
@@ -101,7 +99,7 @@ const NavigationDrawer = ({
                             onClick={() => {
                               router.push({
                                 pathname: item.to,
-                                query: { projectSlug },
+                                query: { formId },
                               });
                             }}
                           >
@@ -119,7 +117,7 @@ const NavigationDrawer = ({
                             onClose();
                           }}
                         >
-                          {t("create.flag")}
+                          {t("create.form")}
                         </Button>
                       </ListItem>
                     </List>
@@ -129,7 +127,7 @@ const NavigationDrawer = ({
                 <ScrollableContent>
                   <TitleContainer>
                     <Text muted fontWeight={500}>
-                      {t("projects.title")}
+                      {t("forms.title")}
                     </Text>
                   </TitleContainer>
                   <List>
@@ -156,7 +154,7 @@ const NavigationDrawer = ({
                           onClose();
                         }}
                       >
-                        {t("create.project")}
+                        {t("create.form")}
                       </Button>
                     </ListItem>
                   </List>

@@ -22,11 +22,11 @@ export interface ModalPayload<T> {
 export type ModalAction<P, A> = (payload: P) => A;
 
 export interface ModalsSliceActions {
-  setExampleModal: ModalAction<ModalPayload<null>, void>;
+  setCreateFormModalOpen: ModalAction<ModalPayload<null>, void>;
 }
 
 export interface ModalsSliceState extends ModalsSliceActions {
-  isExampleModal: boolean;
+  isCreateFormModalOpen: boolean;
 }
 
 /**

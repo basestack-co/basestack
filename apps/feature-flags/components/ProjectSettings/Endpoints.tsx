@@ -3,7 +3,7 @@ import React from "react";
 import { CopyCard } from "@basestack/design-system";
 import SettingCard from "../SettingCard";
 // Utils
-import { Url } from "@basestack/utils";
+import { getBrowserUrl } from "@basestack/utils";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
@@ -19,7 +19,7 @@ const EndpointsCard = () => {
       <CopyCard
         maxWidth={400}
         title={t("general.endpoints.copy.title")}
-        description={`${Url.getBrowserUrl()}/api/v1`}
+        description={`${getBrowserUrl()}/api/v1`}
         tooltip={{
           defaultText: t("common.copy.url.default"),
           successText: t("common.copy.url.success"),
