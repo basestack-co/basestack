@@ -1,6 +1,6 @@
 import React from "react";
 // Types
-import { MobileNavigationProps } from "../types";
+import { MobileNavigationProps, GeneralNavigationProps } from "../types";
 // Components
 import {
   fadeIn,
@@ -32,7 +32,9 @@ import {
 const AnimatedBackDropCover = animated(BackDropCover);
 const AnimatedNavigation = animated(Container);
 
-const NavigationDrawer = ({
+export type Props = MobileNavigationProps & GeneralNavigationProps;
+
+const MobileNavigation = ({
   isDrawerOpen,
   onClose,
   data,
@@ -44,7 +46,7 @@ const NavigationDrawer = ({
   createProjectText,
   projectTitle,
   externalLinksText,
-}: MobileNavigationProps) => {
+}: Props) => {
   const theme = useTheme();
 
   const transitionNavigation = useTransition(isDrawerOpen, {
@@ -86,7 +88,9 @@ const NavigationDrawer = ({
                             variant={ButtonVariant.Neutral}
                             fullWidth
                             onClick={() => {
-                              item.onClick(item.to, projectId);
+                              if (item.onClick) {
+                                item.onClick(item.to, projectId);
+                              }
                             }}
                           >
                             {item.text}
@@ -94,6 +98,7 @@ const NavigationDrawer = ({
                         </ListItem>
                       ))}
                       <ListItem>
+                        z
                         <Button
                           iconPlacement="left"
                           icon="add"
@@ -186,4 +191,4 @@ const NavigationDrawer = ({
   );
 };
 
-export default NavigationDrawer;
+export default MobileNavigation;

@@ -1,7 +1,11 @@
 import React, { useCallback, useMemo } from "react";
 import { useTheme } from "styled-components";
 // Types
-import { DesktopNavigationProps, LinkItem } from "../types";
+import {
+  DesktopNavigationProps,
+  GeneralNavigationProps,
+  LinkItem,
+} from "../types";
 // Components
 import {
   Logo,
@@ -14,7 +18,9 @@ import { Container, List, ListItem, LogoContainer } from "./styles";
 import ButtonLink from "../elements/ButtonLink";
 import Selector from "../elements/Selector";
 
-const Navigation = ({
+export type Props = DesktopNavigationProps & GeneralNavigationProps;
+
+const DesktopNavigation = ({
   isDesktop,
   data,
   onClickMenuButton,
@@ -26,7 +32,7 @@ const Navigation = ({
   onCreateProject,
   rightSideComponent,
   createProjectText,
-}: DesktopNavigationProps) => {
+}: Props) => {
   const theme = useTheme();
 
   const onRenderItems = useCallback(
@@ -114,4 +120,4 @@ const Navigation = ({
   );
 };
 
-export default Navigation;
+export default DesktopNavigation;

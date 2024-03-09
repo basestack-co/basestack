@@ -19,6 +19,7 @@
     "logout": "Logout"
   },
   "external": {
+    "links": "Links",
     "docs": "Documentation",
     "github": "Github"
   },

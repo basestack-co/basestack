@@ -6,34 +6,30 @@ export interface LinkItem {
   to: string;
   isExternal?: boolean;
   icon?: string;
+  onClick?: (to: string, id: string) => void;
 }
 
-export interface MobileLinkItem extends LinkItem {
-  onClick: (to: string, id: string) => void;
-}
-
-export interface SharedNavigationProps {
-  rightSideComponent: React.ReactNode;
-  projectId: string;
-  data?: Array<PopupActionProps>;
-  externalLinks: LinkItem[];
-  onLogoClick: () => void;
-}
-
-export interface DesktopNavigationProps extends SharedNavigationProps {
-  isDesktop: boolean;
+export interface DesktopNavigationProps {
   onClickMenuButton: () => void;
   pathname: string;
   createProjectText: string;
   onCreateProject: () => void;
-  internalLinks: LinkItem[];
 }
 
-export interface MobileNavigationProps extends SharedNavigationProps {
+export interface MobileNavigationProps {
   isDrawerOpen: boolean;
   onClose: () => void;
-  internalLinks: MobileLinkItem[];
   createProjectText: string;
   projectTitle: string;
   externalLinksText: string;
+}
+
+export interface GeneralNavigationProps {
+  rightSideComponent: React.ReactNode;
+  projectId: string;
+  data?: Array<PopupActionProps>;
+  externalLinks: LinkItem[];
+  internalLinks: LinkItem[];
+  onLogoClick: () => void;
+  isDesktop: boolean;
 }
