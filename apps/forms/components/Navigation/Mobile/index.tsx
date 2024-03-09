@@ -120,7 +120,7 @@ const NavigationDrawer = ({
                 <ScrollableContent>
                   <TitleContainer>
                     <Text muted fontWeight={500}>
-                      {t("projects.title")}
+                      {t("forms.title")}
                     </Text>
                   </TitleContainer>
                   <List>
@@ -148,14 +148,14 @@ const NavigationDrawer = ({
                           setCreateProjectModalOpen({ isOpen: true });
                         }}
                       >
-                        {t("create.project")}
+                        {t("create.form")}
                       </Button>
                     </ListItem>
                   </List>
                   <HorizontalRule m={theme.spacing.s5} />
                   <TitleContainer>
                     <Text muted fontWeight={500}>
-                      {t("external.docs")}
+                      {t("external.links")}
                     </Text>
                   </TitleContainer>
                   <List>

@@ -49,7 +49,7 @@ const Navigation = ({
     (state) => state.setCreateFormModalOpen,
   );
 
-  const projectSlug = router.query.projectSlug as string;
+  const formId = router.query.formId as string;
 
   const onRenderItems = useCallback(
     (items: LinkItem[], type: string) =>
@@ -57,7 +57,7 @@ const Navigation = ({
         return (
           <ListItem key={`${type}-list-item-${i}`}>
             <ButtonLink
-              href={to.replace("[formId]", projectSlug)}
+              href={to.replace("[formId]", formId)}
               isExternal={isExternal}
               isActive={
                 router.pathname === to ||
@@ -69,14 +69,14 @@ const Navigation = ({
           </ListItem>
         );
       }),
-    [router.pathname, projectSlug, t],
+    [router.pathname, formId, t],
   );
 
   const currentProject = useMemo(() => {
-    const project = data?.find(({ slug }) => slug === projectSlug);
+    const project = data?.find(({ slug }) => slug === formId);
 
     return project?.text ?? "";
-  }, [projectSlug, data]);
+  }, [formId, data]);
 
   const truncateProjectName = (str: string) => {
     return str.length <= 18 ? str : str.slice(0, 18) + "...";
