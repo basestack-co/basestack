@@ -58,7 +58,7 @@ export const getAvatarDropdownList = (t: Translate, router: NextRouter) => {
       text: t("dropdown.settings"),
       onClick: () =>
         router.push({
-          pathname: "/profile/settings",
+          pathname: "/user/profile/settings",
         }),
     },
     {

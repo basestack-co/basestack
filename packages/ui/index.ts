@@ -16,3 +16,7 @@ export {
   default as MobileSettingCardView,
   type MobileSettingCardViewProps,
 } from "./components/MobileSettingCardView";
+export {
+  default as ProfileAvatarCard,
+  type ProfileAvatarCardProps,
+} from "./components/ProfileAvatarCard";

@@ -1,11 +1,14 @@
 import React from "react";
 import { useTheme } from "styled-components";
+// Auth
+import { useSession } from "next-auth/react";
 // Locales
 import useTranslation from "next-translate/useTranslation";
+// UI
+import { ProfileAvatarCard } from "@basestack/ui";
 // Components
 import { Text } from "@basestack/design-system";
 import ModalCard from "./ModalCard";
-import AvatarCard from "./AvatarCard";
 import ThemeCard from "./ThemeCard";
 import FlagsCard from "./FlagsCard";
 import { Container, List, ListItem } from "./styles";
@@ -13,6 +16,7 @@ import { Container, List, ListItem } from "./styles";
 const UserSettings = () => {
   const { t } = useTranslation("profile");
   const theme = useTheme();
+  const { data: session } = useSession();
 
   return (
     <Container>
@@ -21,7 +25,12 @@ const UserSettings = () => {
       </Text>
       <List>
         <ListItem>
-          <AvatarCard />
+          <ProfileAvatarCard
+            name={session?.user.name ?? t("settings.card.avatar.title")}
+            image={session?.user.image ?? ""}
+            email={session?.user.email ?? ""}
+            description={t("settings.card.avatar.description")}
+          />
         </ListItem>
         <ListItem>
           <ModalCard />
