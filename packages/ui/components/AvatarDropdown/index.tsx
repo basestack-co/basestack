@@ -189,67 +189,6 @@ const AvatarDropdown = ({
                     </Fragment>
                   );
                 })}
-
-                {/*
-                    <ListItem mb={theme.spacing.s1}>
-                  <Button
-                    icon="add_circle"
-                    iconPlacement="left"
-                    variant={ButtonVariant.Neutral}
-                    fullWidth
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                    }}
-                  >
-                    {t("create.project")}
-                  </Button>
-                </ListItem>
-                <ListItem>
-                  <Button
-                    icon="group_add"
-                    iconPlacement="left"
-                    variant={ButtonVariant.Neutral}
-                    fullWidth
-                    isDisabled
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                    }}
-                  >
-                    {t("dropdown.invite")}
-                  </Button>
-                </ListItem>
-                <HrContainer>
-                  <HorizontalRule />
-                </HrContainer>
-                <ListItem mb={theme.spacing.s1}>
-                  <Button
-                    icon="settings"
-                    iconPlacement="left"
-                    variant={ButtonVariant.Neutral}
-                    fullWidth
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      router.push({
-                        pathname: "/profile/settings",
-                      });
-                    }}
-                  >
-                    {t("dropdown.settings")}
-                  </Button>
-                </ListItem>
-                <ListItem>
-                  <Button
-                    icon="logout"
-                    iconPlacement="left"
-                    variant={ButtonVariant.Neutral}
-                    fullWidth
-                    onClick={() => signOut()}
-                  >
-                    {t("dropdown.logout")}
-                  </Button>
-                </ListItem>
-
-                */}
               </List>
             </AnimatedAvatarDropdown>
           ),

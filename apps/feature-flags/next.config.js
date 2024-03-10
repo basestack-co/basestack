@@ -9,7 +9,12 @@ module.exports = nextTranslate({
       {
         source: "/:projectSlug",
         destination: "/:projectSlug/flags",
-        permanent: true,
+        permanent: false,
+      },
+      {
+        source: "/:projectSlug/settings",
+        destination: "/:projectSlug/settings/general",
+        permanent: false,
       },
     ];
   },

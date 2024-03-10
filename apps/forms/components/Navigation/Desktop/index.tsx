@@ -76,7 +76,7 @@ const DesktopNavigation = ({
           </ListItem>
         );
       }),
-    [router.pathname, formId, t],
+    [router.pathname, t],
   );
 
   const currentForm = useMemo(() => {
