@@ -2,10 +2,12 @@ import React from "react";
 import { useTheme } from "styled-components";
 // Auth
 import { useSession } from "next-auth/react";
+// Store
+import { useStore } from "store";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // UI
-import { ProfileAvatarCard } from "@basestack/ui";
+import { ProfileAvatarCard, SwitchSettingCard } from "@basestack/ui";
 // Components
 import { Text } from "@basestack/design-system";
 import ModalCard from "./ModalCard";
@@ -17,6 +19,13 @@ const UserSettings = () => {
   const { t } = useTranslation("profile");
   const theme = useTheme();
   const { data: session } = useSession();
+
+  const closeModalsOnClickOutside = useStore(
+    (state) => state.closeModalsOnClickOutside,
+  );
+  const setCloseModalsOnClickOutside = useStore(
+    (state) => state.setCloseModalsOnClickOutside,
+  );
 
   return (
     <Container>
@@ -33,7 +42,14 @@ const UserSettings = () => {
           />
         </ListItem>
         <ListItem>
-          <ModalCard />
+          <SwitchSettingCard
+            title={t("settings.card.modals.title")}
+            description={t("settings.card.modals.description")}
+            checked={closeModalsOnClickOutside}
+            onChange={(event) => {
+              setCloseModalsOnClickOutside(event.target.checked);
+            }}
+          />
         </ListItem>
         <ListItem>
           <ThemeCard />

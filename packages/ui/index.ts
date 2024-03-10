@@ -20,3 +20,7 @@ export {
   default as ProfileAvatarCard,
   type ProfileAvatarCardProps,
 } from "./components/ProfileAvatarCard";
+export {
+  default as SwitchSettingCard,
+  type SwitchSettingCardProps,
+} from "./components/SwitchSettingCard";
