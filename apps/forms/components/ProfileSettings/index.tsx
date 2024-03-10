@@ -10,8 +10,6 @@ import useTranslation from "next-translate/useTranslation";
 import { ProfileAvatarCard, SwitchSettingCard } from "@basestack/ui";
 // Components
 import { Text } from "@basestack/design-system";
-import ThemeCard from "./ThemeCard";
-import FlagsCard from "./FlagsCard";
 import { Container, List, ListItem } from "./styles";
 
 const UserSettings = () => {
@@ -49,12 +47,6 @@ const UserSettings = () => {
               setCloseModalsOnClickOutside(event.target.checked);
             }}
           />
-        </ListItem>
-        <ListItem>
-          <ThemeCard />
-        </ListItem>
-        <ListItem>
-          <FlagsCard />
         </ListItem>
       </List>
     </Container>
