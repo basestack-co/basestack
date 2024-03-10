@@ -3,8 +3,9 @@ import { useTheme } from "styled-components";
 import { useMedia } from "react-use";
 // Components
 import { Loader, Skeleton, Table } from "@basestack/design-system";
-import SettingCard from "../SettingCard";
 import MobileCard from "../MobileCard";
+// UI
+import { SettingCard } from "@basestack/ui";
 // Libs
 import { trpc } from "libs/trpc";
 // Locales

@@ -1,7 +1,8 @@
 import React from "react";
 // Components
 import { CopyCard } from "@basestack/design-system";
-import SettingCard from "../SettingCard";
+// UI
+import { SettingCard } from "@basestack/ui";
 // Utils
 import { getBrowserUrl } from "@basestack/utils";
 // Locales

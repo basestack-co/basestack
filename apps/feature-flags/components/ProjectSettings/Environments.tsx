@@ -8,8 +8,9 @@ import {
   Skeleton,
   Table,
 } from "@basestack/design-system";
-import SettingCard from "../SettingCard";
 import MobileCard from "../MobileCard";
+// UI
+import { SettingCard } from "@basestack/ui";
 // Server
 import { trpc } from "libs/trpc";
 // Store

@@ -9,7 +9,7 @@ export const getInternalLinks = (t: Translate, projectSlug: string) => {
   return [
     {
       icon: "flag",
-      activeText: "Features",
+      activeText: "Flags",
       to: `/${projectSlug}/flags`,
       text: t("internal.features"),
     },

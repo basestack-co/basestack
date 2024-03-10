@@ -8,8 +8,9 @@ import {
 } from "@basestack/design-system";
 import { useTheme } from "styled-components";
 import { useMedia } from "react-use";
-import SettingCard from "../SettingCard";
 import MobileCard from "../MobileCard";
+// UI
+import { SettingCard } from "@basestack/ui";
 // Libs
 import { trpc } from "libs/trpc";
 // Store
