@@ -217,7 +217,10 @@ const MobileNavigation = ({
                   popupPlacement="top"
                   isDarkMode={isDarkMode}
                   onSetDarkMode={setIsDarkMode}
-                  list={getAvatarDropdownList(t, router)}
+                  list={getAvatarDropdownList(t, router, () => {
+                    onClose();
+                    setCreateProjectModalOpen({ isOpen: true });
+                  })}
                   showFullButton
                 />
               </Footer>
