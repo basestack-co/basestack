@@ -1,7 +1,7 @@
 import React from "react";
 // Components
-import { Text } from "@basestack/design-system";
-import { Container, List, ListItem } from "./styles";
+import { Text, Pagination } from "@basestack/design-system";
+import { Container, List, ListItem, PaginationContainer } from "./styles";
 import Toolbar from "../Toolbar";
 import FormSubmission from "../FormSubmission";
 
@@ -9,7 +9,15 @@ const FormSubmissions = () => {
   return (
     <Container>
       <Text size="xLarge">Contact</Text>
-      <Toolbar />
+      <Toolbar
+        onUnReadSubmissions={() => null}
+        onReadSubmissions={() => null}
+        onUnMarkSpamAll={() => null}
+        onMarkSpamAll={() => null}
+        onDeleteAll={() => null}
+        onExport={() => null}
+        onSelectAll={() => null}
+      />
       <List>
         <ListItem>
           <FormSubmission
@@ -39,6 +47,14 @@ const FormSubmissions = () => {
           />
         </ListItem>
       </List>
+      <PaginationContainer>
+        <Pagination
+          onClick={() => null}
+          currentPage={1}
+          totalPages={2}
+          isLoading={false}
+        />
+      </PaginationContainer>
     </Container>
   );
 };

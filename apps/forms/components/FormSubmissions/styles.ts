@@ -23,3 +23,11 @@ export const ListItem = styled.li`
     margin-bottom: ${({ theme }) => theme.spacing.s3};
   }
 `;
+
+export const PaginationContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+  padding-top: ${({ theme }) => theme.spacing.s5};
+`;

@@ -1,11 +1,32 @@
 import styled from "styled-components";
+import {
+  compose,
+  flexbox,
+  FlexboxProps,
+  layout,
+  LayoutProps,
+  space,
+  SpaceProps,
+} from "styled-system";
+
+type BoxProps = LayoutProps & SpaceProps & FlexboxProps;
+
+export const Box = styled.div<BoxProps>`
+  ${compose(layout, space, flexbox)};
+`;
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: column;
+  margin-top: ${({ theme }) => theme.spacing.s5};
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: ${({ theme }) => theme.spacing.s5} 0;
   gap: ${({ theme }) => theme.spacing.s5};
+  margin-bottom: ${({ theme }) => theme.spacing.s5};
 
   @media screen and ${({ theme }) => theme.device.max.sm} {
     flex-direction: column;
@@ -29,4 +50,16 @@ export const RightContent = styled.div`
   @media screen and ${({ theme }) => theme.device.max.sm} {
     flex-wrap: wrap;
   }
+`;
+
+export const SubMenuContainer = styled.div`
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const SubMenuWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.s3};
 `;
