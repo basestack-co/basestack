@@ -60,6 +60,20 @@
         "description": "Warning: This action cannot be undone. It will permanently delete the {{name}} project, including flags, history, and all collaborator associations.",
         "action": "Delete Project"
       }
+    },
+    "form": {
+      "title": "Form Name",
+      "description": "A name used to identify your form on the dashboard.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Form name",
+          "error": {
+            "max": "Must be 30 characters or less",
+            "min": "Required field"
+          }
+        }
+      }
     }
   },
   "members": {

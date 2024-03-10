@@ -22,7 +22,7 @@ import { useMedia } from "react-use";
 // Layouts
 import MainLayout from "../Main";
 
-const buttons = [
+const links = [
   {
     id: 1,
     text: "General",
@@ -37,8 +37,15 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
 
   const formId = router.query.formId as string;
 
-  const renderButton = useMemo(() => {
-    return buttons.map(({ id, text, href }) => (
+  const { data, isLoading: isLoadingForm } = trpc.form.byId.useQuery(
+    { formId },
+    {
+      enabled: !!formId,
+    },
+  );
+
+  const renderLink = useMemo(() => {
+    return links.map(({ id, text, href }) => (
       <ListItem key={`settings-button-list-${id}`}>
         <StyledLink
           href={{
@@ -55,14 +62,14 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
     ));
   }, [router.pathname, formId]);
 
-  const activeButtonIndex = useMemo(
-    () => buttons.findIndex((button) => button.href === router.pathname),
+  const activeLinkIndex = useMemo(
+    () => links.findIndex((button) => button.href === router.pathname),
     [router.pathname],
   );
 
   const items = useMemo(
     () =>
-      buttons.map(({ text }) => {
+      links.map(({ text }) => {
         return {
           id: text.toLowerCase(),
           text,
@@ -74,32 +81,29 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   return (
     <>
       <Head>
-        <title>{"Project"} / Settings</title>
+        <title>{data?.name ?? "Form"} / Settings</title>
       </Head>
-
       <MainLayout>
         <Container>
           <Text size="xLarge" mb={theme.spacing.s5}>
             Settings
           </Text>
           <SettingsContainer>
-            {isDesktop && (
-              <List top={activeButtonIndex * 100}>{renderButton}</List>
-            )}
+            {isDesktop && <List top={activeLinkIndex * 100}>{renderLink}</List>}
             {!isDesktop && (
               <Tabs
                 items={items}
                 onSelect={(item) => {
                   router.push({
-                    pathname: `/[projectSlug]/settings/${item.toLowerCase()}`,
+                    pathname: `/[formId]/settings/${item.toLowerCase()}`,
                     query: { formId },
                   });
                 }}
-                sliderPosition={activeButtonIndex}
+                sliderPosition={activeLinkIndex}
                 backgroundColor="transparent"
               />
             )}
-            {/* isLoadingProject || !data ? (
+            {isLoadingForm || !data ? (
               <Loader hasDelay={false}>
                 <Skeleton
                   items={[
@@ -113,11 +117,8 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
                 />
               </Loader>
             ) : (
-              React.cloneElement(children, {
-                project: data.project,
-              })
-            ) */}
-            {children}
+              children
+            )}
           </SettingsContainer>
         </Container>
       </MainLayout>

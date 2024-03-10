@@ -22,7 +22,7 @@ import { useMedia } from "react-use";
 // Layouts
 import MainLayout from "../Main";
 
-const buttons = [
+const links = [
   {
     id: 1,
     text: "General",
@@ -54,8 +54,8 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
     },
   );
 
-  const renderButton = useMemo(() => {
-    return buttons.map(({ id, text, href }) => (
+  const renderLink = useMemo(() => {
+    return links.map(({ id, text, href }) => (
       <ListItem key={`settings-button-list-${id}`}>
         <StyledLink
           href={{
@@ -72,14 +72,14 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
     ));
   }, [router.pathname, projectSlug]);
 
-  const activeButtonIndex = useMemo(
-    () => buttons.findIndex((button) => button.href === router.pathname),
+  const activeLinkIndex = useMemo(
+    () => links.findIndex((button) => button.href === router.pathname),
     [router.pathname],
   );
 
   const items = useMemo(
     () =>
-      buttons.map(({ text }) => {
+      links.map(({ text }) => {
         return {
           id: text.toLowerCase(),
           text,
@@ -100,9 +100,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
             Settings
           </Text>
           <SettingsContainer>
-            {isDesktop && (
-              <List top={activeButtonIndex * 100}>{renderButton}</List>
-            )}
+            {isDesktop && <List top={activeLinkIndex * 100}>{renderLink}</List>}
             {!isDesktop && (
               <Tabs
                 items={items}
@@ -112,7 +110,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
                     query: { projectSlug },
                   });
                 }}
-                sliderPosition={activeButtonIndex}
+                sliderPosition={activeLinkIndex}
                 backgroundColor="transparent"
               />
             )}

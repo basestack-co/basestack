@@ -41,11 +41,16 @@ export const getExternalLinks = (t: Translate) => {
   ];
 };
 
-export const getAvatarDropdownList = (t: Translate, router: NextRouter) => {
+export const getAvatarDropdownList = (
+  t: Translate,
+  router: NextRouter,
+  onCreateProject: () => void,
+) => {
   return [
     {
       icon: "add_circle",
       text: t("create.project"),
+      onClick: onCreateProject,
     },
     {
       icon: "group_add",

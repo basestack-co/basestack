@@ -17,8 +17,8 @@ import useTranslation from "next-translate/useTranslation";
 export const FormSchema = z.object({
   name: z
     .string()
-    .max(30, "general.project.inputs.name.error.max")
-    .min(1, "general.project.inputs.name.error.min"),
+    .max(30, "general.form.inputs.name.error.max")
+    .min(1, "general.form.inputs.name.error.min"),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
@@ -41,9 +41,9 @@ const FormNameCard = () => {
 
   return (
     <SettingCard
-      title={t("general.project.title")}
-      description={t("general.project.description")}
-      button={t("general.project.action")!}
+      title={t("general.form.title")}
+      description={t("general.form.description")}
+      button={t("general.form.action")!}
       onClick={handleSubmit(onSaveProjectName)}
       isDisabled={isSubmitting}
       isLoading={isSubmitting}
@@ -58,7 +58,7 @@ const FormNameCard = () => {
             maxWidth={400}
             onChange={field.onChange}
             onBlur={field.onBlur}
-            placeholder={t("general.project.inputs.name.placeholder")}
+            placeholder={t("general.form.inputs.name.placeholder")}
             name={field.name}
             value={field.value}
             hasError={!!errors.name}
