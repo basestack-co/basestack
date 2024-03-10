@@ -3,7 +3,7 @@ import { useTheme } from "styled-components";
 import { Text, Icon } from "@basestack/design-system";
 import { Container, Title, Row } from "./styles";
 
-interface MobileCardProps {
+export interface MobileSettingCardViewProps {
   title: string;
   data: Array<{
     icon: string;
@@ -11,7 +11,7 @@ interface MobileCardProps {
   }>;
 }
 
-const MobileCard = ({ title, data }: MobileCardProps) => {
+const MobileSettingCardView = ({ title, data }: MobileSettingCardViewProps) => {
   const theme = useTheme();
 
   return (
@@ -28,4 +28,4 @@ const MobileCard = ({ title, data }: MobileCardProps) => {
     </Container>
   );
 };
-export default MobileCard;
+export default MobileSettingCardView;

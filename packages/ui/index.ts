@@ -12,3 +12,7 @@ export {
   default as SettingCard,
   type SettingCardProps,
 } from "./components/SettingCard";
+export {
+  default as MobileSettingCardView,
+  type MobileSettingCardViewProps,
+} from "./components/MobileSettingCardView";

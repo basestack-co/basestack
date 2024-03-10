@@ -8,9 +8,8 @@ import {
   Skeleton,
   Table,
 } from "@basestack/design-system";
-import MobileCard from "../MobileCard";
 // UI
-import { SettingCard } from "@basestack/ui";
+import { SettingCard, MobileSettingCardView } from "@basestack/ui";
 // Server
 import { trpc } from "libs/trpc";
 // Store
@@ -164,7 +163,7 @@ const EnvironmentsCard = ({ project }: Props) => {
   const getContent = () => {
     if (isMobile) {
       return environments?.map(({ id, slug, name, description, createdAt }) => (
-        <MobileCard
+        <MobileSettingCardView
           key={id}
           title={name}
           data={[
