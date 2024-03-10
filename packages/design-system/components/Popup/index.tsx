@@ -39,11 +39,15 @@ export interface PopupProps extends PositionProps {
    * List of actions
    */
   items: Array<PopupItemsProps>;
+  /**
+   * Box width
+   */
+  width?: number;
 }
 
 const Popup = forwardRef<HTMLDivElement, PopupProps>(
-  ({ items, onClickList, ...props }, ref) => (
-    <Container ref={ref} {...props}>
+  ({ items, width, onClickList, ...props }, ref) => (
+    <Container width={width} ref={ref} {...props}>
       <List onClick={onClickList}>
         {items &&
           items.map(({ isVisible = true, ...item }, index) => {

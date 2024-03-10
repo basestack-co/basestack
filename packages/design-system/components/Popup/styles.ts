@@ -2,13 +2,13 @@ import styled from "styled-components";
 import { rem } from "polished";
 import { position } from "styled-system";
 
-export const Container = styled.div`
+export const Container = styled.div<{ width?: number }>`
   ${position};
   background-color: ${({ theme }) => theme.popup.backgroundColor};
   box-shadow: ${({ theme }) => theme.shadow.elevation6};
   padding: ${({ theme }) => theme.spacing.s1};
   border-radius: 4px;
-  width: ${rem("150px")};
+  width: ${({ width }) => (width ? rem(`${width}px`) : rem("150px"))};
   z-index: ${({ theme }) => theme.zIndex.popup};
 `;
 

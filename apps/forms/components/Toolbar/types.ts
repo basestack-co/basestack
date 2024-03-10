@@ -1,4 +1,4 @@
-import { ButtonProps } from "@basestack/design-system";
+import { ButtonProps, PopupProps } from "@basestack/design-system";
 
 export interface ToolbarProps {
   onSelectAll: () => void;
@@ -11,3 +11,10 @@ export interface ToolbarProps {
 }
 
 export type ButtonSharedProps = Pick<ButtonProps, "variant" | "iconPlacement">;
+
+export interface PopupMenuProps {
+  icon: string;
+  text: string;
+  items: PopupProps["items"];
+  width?: number;
+}

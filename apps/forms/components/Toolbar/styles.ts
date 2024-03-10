@@ -28,7 +28,7 @@ export const Wrapper = styled.div`
   gap: ${({ theme }) => theme.spacing.s5};
   margin-bottom: ${({ theme }) => theme.spacing.s5};
 
-  @media screen and ${({ theme }) => theme.device.max.sm} {
+  @media screen and ${({ theme }) => theme.device.max.md} {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
@@ -42,12 +42,12 @@ export const LeftContent = styled.div`
   max-width: 260px;
 `;
 
-export const RightContent = styled.div`
+export const RightList = styled.ul`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.s3};
 
-  @media screen and ${({ theme }) => theme.device.max.sm} {
+  @media screen and ${({ theme }) => theme.device.max.md} {
     flex-wrap: wrap;
   }
 `;
@@ -62,4 +62,8 @@ export const SubMenuWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.s3};
+`;
+
+export const ListItem = styled.li`
+  display: inline-flex;
 `;

@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import {
-  Button,
-  ButtonVariant,
-  Input,
-  IconButton,
-} from "@basestack/design-system";
-import { LeftContent, RightContent, Container, Wrapper } from "./styles";
+import { Button, ButtonVariant, Input } from "@basestack/design-system";
+import { LeftContent, Container, Wrapper, RightList, ListItem } from "./styles";
 import { ButtonSharedProps, ToolbarProps } from "./types";
-import SubMenu from "./SubMenu";
+import PopupMenu from "./PopupMenu";
 
 const Toolbar = ({
   onSelectAll,
@@ -19,9 +14,6 @@ const Toolbar = ({
   onExport,
 }: ToolbarProps) => {
   const [searchValue, setSearchValue] = useState("");
-  const [isSubMenuOpen, setIsSubMenuOpen] = useState(true);
-  const [isSortOpen, setIsSortOpen] = useState(false);
-  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   const buttonProps = {
     variant: ButtonVariant.Tertiary,
@@ -47,47 +39,71 @@ const Toolbar = ({
             value={searchValue}
           />
         </LeftContent>
-        <RightContent>
-          <Button
-            {...buttonProps}
-            icon="check_box_outline_blank"
-            onClick={onSelectAll}
-          >
-            Select all
-          </Button>
-          <Button
-            {...buttonProps}
-            icon="filter_list"
-            onClick={() => setIsFiltersOpen((prevState) => !prevState)}
-          >
-            Filters
-          </Button>
-          <Button
-            {...buttonProps}
-            icon="swap_vert"
-            onClick={() => setIsSortOpen((prevState) => !prevState)}
-          >
-            Sort
-          </Button>
-          <Button {...buttonProps} icon="download" onClick={onExport}>
-            Export
-          </Button>
-          <IconButton
-            icon={isSubMenuOpen ? "arrow_drop_up" : "arrow_drop_down"}
-            onClick={() => setIsSubMenuOpen((prevState) => !prevState)}
-            variant="secondary"
-            size="mediumLarge"
+        <RightList>
+          <ListItem>
+            <Button
+              {...buttonProps}
+              icon="check_box_outline_blank"
+              onClick={onSelectAll}
+              flexShrink={0}
+            >
+              Select all
+            </Button>
+          </ListItem>
+          <PopupMenu
+            width={200}
+            icon="arrow_drop_down"
+            text="Actions"
+            items={[
+              { icon: "report", text: "Mark as Spam", onClick: onMarkSpamAll },
+              {
+                icon: "report_off",
+                text: "Unmark Spam",
+                onClick: onUnMarkSpamAll,
+              },
+              {
+                icon: "mark_email_read",
+                text: "Read Submissions",
+                onClick: onReadSubmissions,
+              },
+              {
+                icon: "mark_email_unread",
+                text: "Un-Read Submissions",
+                onClick: onUnReadSubmissions,
+              },
+              {
+                icon: "delete",
+                variant: ButtonVariant.Danger,
+                text: "Delete all",
+                onClick: onDeleteAll,
+              },
+            ]}
           />
-        </RightContent>
+          <PopupMenu
+            icon="filter_list"
+            text="Filters"
+            items={[
+              { text: "Recent", onClick: () => null },
+              { text: "Last month", onClick: () => null },
+              { text: "Deleted", onClick: () => null },
+            ]}
+          />
+          <PopupMenu
+            icon="swap_vert"
+            text="Sort"
+            items={[
+              { text: "Spam first", onClick: () => null },
+              { text: "Read first", onClick: () => null },
+              { text: "Un-Read first", onClick: () => null },
+            ]}
+          />
+          <ListItem>
+            <Button {...buttonProps} icon="download" onClick={onExport}>
+              Export
+            </Button>
+          </ListItem>
+        </RightList>
       </Wrapper>
-      <SubMenu
-        onDeleteAll={onDeleteAll}
-        onMarkSpamAll={onMarkSpamAll}
-        onUnMarkSpamAll={onUnMarkSpamAll}
-        onReadSubmissions={onReadSubmissions}
-        onUnReadSubmissions={onUnReadSubmissions}
-        isOpen={isSubMenuOpen}
-      />
     </Container>
   );
 };
