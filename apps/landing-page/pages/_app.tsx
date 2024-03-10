@@ -2,7 +2,7 @@ import React from "react";
 import { AppProps } from "next/app";
 import Script from "next/script";
 // Fonts
-import "material-symbols";
+import "material-symbols/rounded.css";
 //Styles
 import isPropValid from "@emotion/is-prop-valid";
 import { ThemeProvider, StyleSheetManager } from "styled-components";
