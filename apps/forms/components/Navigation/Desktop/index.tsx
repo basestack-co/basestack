@@ -1,26 +1,28 @@
 import React, { useCallback, useMemo } from "react";
 import { useTheme } from "styled-components";
+// UI
+import { ProjectsMenu, AvatarDropdown } from "@basestack/ui";
 // Components
 import {
   Logo,
-  Button,
-  ButtonVariant,
   IconButton,
   PopupActionProps,
   Text,
 } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
-import ButtonLink from "../ButtonLink";
-import FormsMenu from "../FormMenu";
-import AvatarDropdown from "../../AvatarDropdown";
-import { internalLinks, externalLinks } from "../data";
+import ButtonLink from "../elements/ButtonLink";
+import {
+  getInternalLinks,
+  getExternalLinks,
+  getAvatarDropdownList,
+} from "../utils";
 // Router
 import { useRouter } from "next/router";
 import Link from "next/link";
-// Store
-import { useStore } from "store";
 // Locales
 import useTranslation from "next-translate/useTranslation";
+// Store
+import { useStore } from "store";
 // Auth
 import { useSession } from "next-auth/react";
 
@@ -28,7 +30,7 @@ export interface LinkItem {
   text: string;
   to: string;
   isExternal?: boolean;
-  i18nKey: string;
+  activeText: string;
 }
 
 interface NavigationProps {
@@ -37,7 +39,7 @@ interface NavigationProps {
   onClickMenuButton: () => void;
 }
 
-const Navigation = ({
+const DesktopNavigation = ({
   isDesktop,
   data,
   onClickMenuButton,
@@ -47,40 +49,43 @@ const Navigation = ({
   const { data: session } = useSession();
   const router = useRouter();
 
-  const formId = router.query.formId as string;
+  const setIsDarkMode = useStore((state) => state.setDarkMode);
+  const isDarkMode = useStore((state) => state.isDarkMode);
 
-  const setCreateFormModalOpen = useStore(
+  const setCreateProjectModalOpen = useStore(
     (state) => state.setCreateFormModalOpen,
   );
 
+  const formId = router.query.formId as string;
+
   const onRenderItems = useCallback(
     (items: LinkItem[], type: string) =>
-      items.map(({ text, to, isExternal, i18nKey }, i) => {
+      items.map(({ text, to, isExternal, activeText }, i) => {
         return (
           <ListItem key={`${type}-list-item-${i}`}>
             <ButtonLink
-              href={to.replace("[formId]", formId)}
+              href={to}
               isExternal={isExternal}
               isActive={
                 router.pathname === to ||
-                router.pathname.includes(text.toLowerCase())
+                router.pathname.includes(activeText.toLowerCase())
               }
             >
-              {t(i18nKey)}
+              {t(text)}
             </ButtonLink>
           </ListItem>
         );
       }),
-    [router.pathname, formId, t],
+    [router.pathname, t],
   );
 
   const currentForm = useMemo(() => {
-    const form = data?.find(({ id }) => id === formId);
+    const form = data?.find(({ slug }) => slug === formId);
 
     return form?.text ?? "";
   }, [formId, data]);
 
-  const truncateFormName = (str: string) => {
+  const truncateProjectName = (str: string) => {
     return str.length <= 18 ? str : str.slice(0, 18) + "...";
   };
 
@@ -99,7 +104,7 @@ const Navigation = ({
             </ListItem>
             {!!currentForm && (
               <ListItem>
-                <Text size="medium">{truncateFormName(currentForm)}</Text>
+                <Text size="medium">{truncateProjectName(currentForm)}</Text>
               </ListItem>
             )}
           </>
@@ -113,34 +118,32 @@ const Navigation = ({
                 </LogoContainer>
               </Link>
             </ListItem>
-            <FormsMenu
-              onClickCreateProject={() =>
-                setCreateFormModalOpen({ isOpen: true })
-              }
-              currentProject={currentForm}
-              projects={data ?? []}
+            <ProjectsMenu
+              onCreate={() => setCreateProjectModalOpen({ isOpen: true })}
+              current={currentForm}
+              data={data ?? []}
+              title={t("forms.title")}
+              select={{
+                title: t("forms.select"),
+                create: t("create.form"),
+              }}
             />
-            {!!formId && (
-              <>
-                {onRenderItems(internalLinks, "left")}
-                <ListItem ml={theme.spacing.s3}>
-                  <Button onClick={() => {}} variant={ButtonVariant.Primary}>
-                    {t("create.form")}
-                  </Button>
-                </ListItem>
-              </>
-            )}
+            {!!formId && onRenderItems(getInternalLinks(t, formId), "left")}
           </>
         )}
       </List>
       {isDesktop && (
         <List ml="auto" data-testid="navigation-right-ul">
-          {onRenderItems(externalLinks, "right")}
+          {onRenderItems(getExternalLinks(t), "right")}
           <ListItem ml={theme.spacing.s3}>
             <AvatarDropdown
               name={session?.user.name || t("dropdown.username")}
               email={session?.user.email || ""}
               src={session?.user.image || ""}
+              darkModeText={t("dropdown.dark-mode")}
+              isDarkMode={isDarkMode}
+              onSetDarkMode={setIsDarkMode}
+              list={getAvatarDropdownList(t, router)}
             />
           </ListItem>
         </List>
@@ -149,4 +152,4 @@ const Navigation = ({
   );
 };
 
-export default Navigation;
+export default DesktopNavigation;

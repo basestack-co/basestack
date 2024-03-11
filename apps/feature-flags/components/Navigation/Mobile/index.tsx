@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 // Auth
 import { useSession } from "next-auth/react";
+// UI
+import { AvatarDropdown } from "@basestack/ui";
 // Components
 import {
   fadeIn,
@@ -19,7 +21,6 @@ import {
   Logo,
 } from "@basestack/design-system";
 import { animated, config, useTransition } from "react-spring";
-import AvatarDropdown from "../../AvatarDropdown";
 // Styles
 import { useTheme } from "styled-components";
 import {
@@ -38,7 +39,11 @@ import {
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Data
-import { internalLinks, externalLinks } from "../data";
+import {
+  getInternalLinks,
+  getExternalLinks,
+  getAvatarDropdownList,
+} from "../utils";
 
 const AnimatedBackDropCover = animated(BackDropCover);
 const AnimatedNavigation = animated(Container);
@@ -49,7 +54,7 @@ interface NavigationDrawerProps {
   data?: Array<PopupActionProps>;
 }
 
-const NavigationDrawer = ({
+const MobileNavigation = ({
   isDrawerOpen,
   onClose,
   data,
@@ -59,6 +64,9 @@ const NavigationDrawer = ({
   const { data: session } = useSession();
   const router = useRouter();
   const projectSlug = router.query.projectSlug as string;
+
+  const setIsDarkMode = useStore((state) => state.setDarkMode);
+  const isDarkMode = useStore((state) => state.isDarkMode);
 
   const setCreateProjectModalOpen = useStore(
     (state) => state.setCreateProjectModalOpen,
@@ -99,7 +107,7 @@ const NavigationDrawer = ({
                 {!!projectSlug && (
                   <>
                     <List>
-                      {internalLinks.map((item, index) => (
+                      {getInternalLinks(t, projectSlug).map((item, index) => (
                         <ListItem key={index}>
                           <Button
                             iconPlacement="left"
@@ -113,7 +121,7 @@ const NavigationDrawer = ({
                               });
                             }}
                           >
-                            {t(item.i18nKey)}
+                            {t(item.text)}
                           </Button>
                         </ListItem>
                       ))}
@@ -173,11 +181,11 @@ const NavigationDrawer = ({
                   <HorizontalRule m={theme.spacing.s5} />
                   <TitleContainer>
                     <Text muted fontWeight={500}>
-                      {t("external.docs")}
+                      {t("external.resources")}
                     </Text>
                   </TitleContainer>
                   <List>
-                    {externalLinks.map((item, index) => (
+                    {getExternalLinks(t).map((item, index) => (
                       <ListItem key={index}>
                         <StyledLink
                           href={item.to}
@@ -191,7 +199,7 @@ const NavigationDrawer = ({
                             variant={ButtonVariant.Neutral}
                             fullWidth
                           >
-                            {t(item.i18nKey)}
+                            {t(item.text)}
                           </Button>
                         </StyledLink>
                       </ListItem>
@@ -205,8 +213,15 @@ const NavigationDrawer = ({
                   name={session?.user.name || t("dropdown.username")}
                   email={session?.user.email || ""}
                   src={session?.user.image || ""}
-                  showFullButton
+                  darkModeText={t("dropdown.dark-mode")}
                   popupPlacement="top"
+                  isDarkMode={isDarkMode}
+                  onSetDarkMode={setIsDarkMode}
+                  list={getAvatarDropdownList(t, router, () => {
+                    onClose();
+                    setCreateProjectModalOpen({ isOpen: true });
+                  })}
+                  showFullButton
                 />
               </Footer>
             </AnimatedNavigation>
@@ -220,4 +235,4 @@ const NavigationDrawer = ({
   );
 };
 
-export default NavigationDrawer;
+export default MobileNavigation;

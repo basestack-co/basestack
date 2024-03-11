@@ -3,8 +3,8 @@ import { useTheme } from "styled-components";
 import { useMedia } from "react-use";
 // Components
 import { Loader, Skeleton, Table } from "@basestack/design-system";
-import SettingCard from "../SettingCard";
-import MobileCard from "../MobileCard";
+// UI
+import { SettingCard, MobileSettingCardView } from "@basestack/ui";
 // Libs
 import { trpc } from "libs/trpc";
 // Locales
@@ -49,7 +49,7 @@ const KeysCard = ({ project }: Props) => {
   const getContent = () => {
     if (isMobile) {
       return environments?.map(({ key, name, id }) => (
-        <MobileCard
+        <MobileSettingCardView
           key={id}
           title={name}
           data={[

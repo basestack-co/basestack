@@ -1,8 +1,8 @@
 import React from "react";
 // Store
 import { useStore } from "store";
-// Components
-import SettingCard from "../SettingCard";
+// UI
+import { SettingCard } from "@basestack/ui";
 // Server
 import { trpc } from "libs/trpc";
 // Router

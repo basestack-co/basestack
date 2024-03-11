@@ -1,0 +1,11 @@
+{
+  "extends": "@basestack/tsconfig/react-library.json",
+  "compilerOptions": {
+    "types": ["node", "jest", "@testing-library/jest-dom"],
+    "lib": ["ES2015", "dom"],
+    "baseUrl": ".",
+    "noEmit": true
+  },
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"]
+}

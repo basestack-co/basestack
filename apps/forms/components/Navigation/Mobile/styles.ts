@@ -1,6 +1,6 @@
 import styled, { createGlobalStyle, css } from "styled-components";
-import { scrollbar } from "@basestack/design-system/styles";
 import { rem, transparentize } from "polished";
+import { scrollbar } from "@basestack/design-system/styles";
 
 export const GlobalStyle = createGlobalStyle`
   body {

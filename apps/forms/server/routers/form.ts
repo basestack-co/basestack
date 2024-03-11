@@ -29,6 +29,41 @@ export const formRouter = router({
 
     return { forms };
   }),
+  byId: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(
+      z
+        .object({
+          formId: z.string(),
+        })
+        .required(),
+    )
+    .query(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+
+      const data = await ctx.prisma.formOnUsers.findFirst({
+        where: {
+          formId: input.formId,
+          userId,
+        },
+        select: {
+          role: true,
+          form: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      });
+
+      return {
+        ...data?.form,
+        role: data?.role,
+      };
+    }),
   create: protectedProcedure
     .meta({
       restricted: true,

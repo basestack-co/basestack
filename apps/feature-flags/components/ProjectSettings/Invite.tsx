@@ -8,8 +8,8 @@ import {
 } from "@basestack/design-system";
 import { useTheme } from "styled-components";
 import { useMedia } from "react-use";
-import SettingCard from "../SettingCard";
-import MobileCard from "../MobileCard";
+// UI
+import { SettingCard, MobileSettingCardView } from "@basestack/ui";
 // Libs
 import { trpc } from "libs/trpc";
 // Store
@@ -198,7 +198,7 @@ const InviteCard = ({ project }: Props) => {
       const users = !isLoading && !!data ? data.users : [];
 
       return users?.map(({ user, role, createdAt }, index) => (
-        <MobileCard
+        <MobileSettingCardView
           key={index}
           title={user.name || ""}
           data={[
