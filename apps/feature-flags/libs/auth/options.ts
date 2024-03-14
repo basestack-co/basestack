@@ -3,7 +3,9 @@ import type { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import Auth0Provider from "next-auth/providers/auth0";
 // Adapters
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+// Types
+import { type Adapter } from "next-auth/adapters";
 // Libs
 import prisma from "libs/prisma";
 import { Role } from "@prisma/client";
@@ -25,7 +27,7 @@ declare module "next-auth" {
 }
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as Adapter,
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/auth/sign-in",

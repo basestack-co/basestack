@@ -1,7 +1,7 @@
 import { TRPCClientErrorLike } from "@trpc/react-query";
 import { createTRPCNext } from "@trpc/next";
 import { loggerLink } from "@trpc/client/links/loggerLink";
-import { createTRPCProxyClient, httpBatchLink, TRPCLink } from "@trpc/client";
+import { httpBatchLink, TRPCLink } from "@trpc/client";
 import { observable } from "@trpc/server/observable";
 // Types
 import type { AppRouter } from "server/routers/_app";
@@ -88,19 +88,4 @@ export const trpc = createTRPCNext<AppRouter>({
     };
   },
   ssr: false,
-});
-
-export const vanillaClient = createTRPCProxyClient<AppRouter>({
-  links: [
-    customLink,
-    loggerLink({
-      enabled: (opts) =>
-        process.env.NODE_ENV === "development" ||
-        (opts.direction === "down" && opts.result instanceof Error),
-    }),
-    httpBatchLink({
-      url: `${getBaseUrl()}/api/trpc`,
-    }),
-  ],
-  transformer: superjson,
 });
