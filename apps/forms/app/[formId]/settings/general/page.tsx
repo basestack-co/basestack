@@ -1,6 +1,6 @@
+"use client";
+
 import React from "react";
-// Layout
-import SettingsLayout from "layouts/Settings";
 // Components
 import {
   CardList,
@@ -8,8 +8,6 @@ import {
   SettingCardContainer,
 } from "components/FormSettings/styles";
 import FormName from "components/FormSettings/FormName";
-// Types
-import { Role } from "@prisma/client";
 
 const GeneralSettingsPage = () => {
   return (
@@ -22,7 +20,5 @@ const GeneralSettingsPage = () => {
     </CardList>
   );
 };
-
-GeneralSettingsPage.Layout = SettingsLayout;
 
 export default GeneralSettingsPage;

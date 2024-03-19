@@ -2,7 +2,7 @@ import React from "react";
 // Store
 import { useStore } from "store";
 // Router
-import { useRouter } from "next/router";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 // UI
 import { AvatarDropdown } from "@basestack/ui";
@@ -63,7 +63,9 @@ const MobileNavigation = ({
   const theme = useTheme();
   const { data: session } = useSession();
   const router = useRouter();
-  const formId = router.query.formId as string;
+  const params = useParams();
+
+  const { formId } = params as { formId: string };
 
   const setIsDarkMode = useStore((state) => state.setDarkMode);
   const isDarkMode = useStore((state) => state.isDarkMode);
@@ -111,10 +113,7 @@ const MobileNavigation = ({
                             variant={ButtonVariant.Neutral}
                             fullWidth
                             onClick={() => {
-                              router.push({
-                                pathname: item.to,
-                                query: { formId },
-                              });
+                              router.push(item.to);
                             }}
                           >
                             {t(item.text)}

@@ -1,6 +1,6 @@
 import React from "react";
 // Router
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 // Form
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -72,10 +72,7 @@ const CreateFormModal = () => {
 
         onClose();
 
-        await router.push({
-          pathname: "/[formId]/submissions",
-          query: { formId: result.form.id },
-        });
+        router.push(`/${result.form.id}/submissions`);
       },
     });
   };

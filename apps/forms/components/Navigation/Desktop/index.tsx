@@ -17,7 +17,7 @@ import {
   getAvatarDropdownList,
 } from "../utils";
 // Router
-import { useRouter } from "next/router";
+import { useRouter, useParams, usePathname } from "next/navigation";
 import Link from "next/link";
 // Locales
 import useTranslation from "next-translate/useTranslation";
@@ -48,6 +48,10 @@ const DesktopNavigation = ({
   const theme = useTheme();
   const { data: session } = useSession();
   const router = useRouter();
+  const params = useParams();
+  const pathname = usePathname();
+
+  const { formId } = params as { formId: string };
 
   const setIsDarkMode = useStore((state) => state.setDarkMode);
   const isDarkMode = useStore((state) => state.isDarkMode);
@@ -55,8 +59,6 @@ const DesktopNavigation = ({
   const setCreateProjectModalOpen = useStore(
     (state) => state.setCreateFormModalOpen,
   );
-
-  const formId = router.query.formId as string;
 
   const onRenderItems = useCallback(
     (items: LinkItem[], type: string) =>
@@ -67,8 +69,8 @@ const DesktopNavigation = ({
               href={to}
               isExternal={isExternal}
               isActive={
-                router.pathname === to ||
-                router.pathname.includes(activeText.toLowerCase())
+                pathname === to ||
+                (pathname ?? "").includes(activeText.toLowerCase())
               }
             >
               {t(text)}
@@ -76,7 +78,7 @@ const DesktopNavigation = ({
           </ListItem>
         );
       }),
-    [router.pathname, t],
+    [pathname, t],
   );
 
   const currentForm = useMemo(() => {

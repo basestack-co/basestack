@@ -1,6 +1,7 @@
 // Types
 import { Translate } from "next-translate";
-import { NextRouter } from "next/router";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+
 // Utils
 import { config } from "@basestack/utils";
 import { signOut } from "next-auth/react";
@@ -41,7 +42,7 @@ export const getExternalLinks = (t: Translate) => {
   ];
 };
 
-export const getAvatarDropdownList = (t: Translate, router: NextRouter) => {
+export const getAvatarDropdownList = (t: Translate, router: AppRouterInstance) => {
   return [
     {
       icon: "add_circle",
@@ -57,9 +58,9 @@ export const getAvatarDropdownList = (t: Translate, router: NextRouter) => {
       icon: "settings",
       text: t("dropdown.settings"),
       onClick: () =>
-        router.push({
-          pathname: "/user/profile/settings",
-        }),
+        router.push(
+       "/user/profile/settings"
+        ),
     },
     {
       icon: "logout",

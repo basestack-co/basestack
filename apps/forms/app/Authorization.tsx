@@ -1,6 +1,8 @@
+"use client";
+
 import React, { Fragment } from "react";
 // Router
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 // Auth
 import { useSession } from "next-auth/react";
 // Components
@@ -9,7 +11,7 @@ import Navigation from "components/Navigation";
 // Server
 import { trpc } from "libs/trpc";
 
-const MainLayout = ({ children }: { children: React.ReactNode }) => {
+const Authorization = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const { status } = useSession({
     required: true,
@@ -26,11 +28,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         data?.forms.map((item) => ({
           id: item.id,
           slug: item.id,
-          onClick: () =>
-            router.push({
-              pathname: "/[formId]/submissions",
-              query: { formId: item.id },
-            }),
+          onClick: () => router.push(`/${item.id}/submissions`),
           text: item.name,
         })),
     },
@@ -52,4 +50,4 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default MainLayout;
+export default Authorization;

@@ -1,10 +1,12 @@
+"use client";
+
 import React, { useEffect } from "react";
 // Auth
 import { getProviders, useSession, signIn } from "next-auth/react";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Router
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { Provider } from "libs/auth/types";
 // UI
 import { SignIn as SignInComponent } from "@basestack/ui";
@@ -39,11 +41,11 @@ const SignInPage = ({ providers }: SignInPageProps) => {
   );
 };
 
-export async function getServerSideProps() {
+/* export async function getServerSideProps() {
   const providers = await getProviders();
   return {
     props: { providers },
   };
-}
+} */
 
 export default SignInPage;
