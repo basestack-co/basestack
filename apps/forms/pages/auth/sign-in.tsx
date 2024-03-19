@@ -5,7 +5,7 @@ import { getProviders, useSession, signIn } from "next-auth/react";
 import useTranslation from "next-translate/useTranslation";
 // Router
 import { useRouter } from "next/router";
-import { Provider } from "libs/auth/types";
+import { Provider } from "libs/auth/options";
 // UI
 import { SignIn as SignInComponent } from "@basestack/ui";
 
