@@ -10,7 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import useTranslation from "next-translate/useTranslation";
 // Components
 import { Input, Text } from "@basestack/design-system";
-import SettingCard from "../../SettingCard";
+// UI
+import { SettingCard } from "@basestack/ui";
 
 export const FormSchema = z.object({
   numberOfFlags: z

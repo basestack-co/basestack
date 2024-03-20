@@ -16,13 +16,16 @@
     "username": "User Name",
     "invite": "Invite Member (Coming soon)",
     "settings": "Settings",
-    "logout": "Logout"
+    "logout": "Logout",
+    "dark-mode": "Dark Mode"
   },
   "external": {
+    "resources": "Resources",
     "docs": "Documentation",
     "github": "Github"
   },
   "internal": {
+    "submissions": "Submissions",
     "features": "Features",
     "settings": "Settings"
   }
