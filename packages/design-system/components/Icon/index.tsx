@@ -41,7 +41,7 @@ const IconComp = ({
           color={color}
           muted={muted}
           size={iconSize}
-          className="material-symbols-sharp"
+          className="material-symbols-rounded"
         >
           {icon}
         </Icon>

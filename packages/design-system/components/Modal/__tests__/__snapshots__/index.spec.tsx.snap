@@ -108,8 +108,8 @@ exports[`Modal tests should render Modal correctly open 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2rem;
-  width: 2rem;
+  height: 2.25rem;
+  width: 2.25rem;
 }
 
 .c4 .material-symbols-sharp {
@@ -246,7 +246,7 @@ exports[`Modal tests should render Modal correctly open 1`] = `
             size="24"
           >
             <span
-              class="c6 material-symbols-sharp"
+              class="c6 material-symbols-rounded"
               color="#000000"
               data-testid="icon"
               size="24"
@@ -403,8 +403,8 @@ exports[`Modal tests should render Modal with custom props 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2rem;
-  width: 2rem;
+  height: 2.25rem;
+  width: 2.25rem;
 }
 
 .c4 .material-symbols-sharp {
@@ -541,7 +541,7 @@ exports[`Modal tests should render Modal with custom props 1`] = `
             size="24"
           >
             <span
-              class="c6 material-symbols-sharp"
+              class="c6 material-symbols-rounded"
               color="#000000"
               data-testid="icon"
               size="24"

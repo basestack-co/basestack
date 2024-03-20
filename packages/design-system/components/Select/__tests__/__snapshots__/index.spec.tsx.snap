@@ -79,7 +79,7 @@ exports[`Select tests should render Select correctly 1`] = `
             size="24"
           >
             <span
-              class="c1 material-symbols-sharp"
+              class="c1 material-symbols-rounded"
               color="#757575"
               data-testid="icon"
               size="24"

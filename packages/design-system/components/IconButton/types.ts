@@ -1,7 +1,7 @@
 import React from "react";
 import { SpaceProps, FlexboxProps, PositionProps } from "styled-system";
 
-export type Size = "xLarge" | "large" | "medium" | "small";
+export type Size = "xLarge" | "large" | "mediumLarge" | "medium" | "small";
 
 export type Variant = "primary" | "primaryNeutral" | "secondary" | "neutral";
 
