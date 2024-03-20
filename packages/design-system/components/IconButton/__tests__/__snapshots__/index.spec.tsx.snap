@@ -23,8 +23,8 @@ exports[`IconButton tests should render IconButton correctly 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2rem;
-  width: 2rem;
+  height: 2.25rem;
+  width: 2.25rem;
 }
 
 .c0 .material-symbols-sharp {
@@ -48,7 +48,7 @@ exports[`IconButton tests should render IconButton correctly 1`] = `
       size="24"
     >
       <span
-        class="c2 material-symbols-sharp"
+        class="c2 material-symbols-rounded"
         color="#000000"
         data-testid="icon"
         size="24"
@@ -100,7 +100,7 @@ exports[`IconButton tests should render IconButton with different size 1`] = `
       size="32"
     >
       <span
-        class="c2 material-symbols-sharp"
+        class="c2 material-symbols-rounded"
         color="#000000"
         data-testid="icon"
         size="32"
@@ -135,8 +135,8 @@ exports[`IconButton tests should render primary IconButton 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: #276EF1;
   color: #FFFFFF;
-  height: 2rem;
-  width: 2rem;
+  height: 2.25rem;
+  width: 2.25rem;
 }
 
 .c0:hover:not(:active) {
@@ -152,7 +152,7 @@ exports[`IconButton tests should render primary IconButton 1`] = `
       size="24"
     >
       <span
-        class="c2 material-symbols-sharp"
+        class="c2 material-symbols-rounded"
         color="#FFFFFF"
         data-testid="icon"
         size="24"
@@ -187,8 +187,8 @@ exports[`IconButton tests should render primaryNeutral IconButton 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2rem;
-  width: 2rem;
+  height: 2.25rem;
+  width: 2.25rem;
 }
 
 .c0 .material-symbols-sharp {
@@ -213,7 +213,7 @@ exports[`IconButton tests should render primaryNeutral IconButton 1`] = `
       size="24"
     >
       <span
-        class="c2 material-symbols-sharp"
+        class="c2 material-symbols-rounded"
         color="#000000"
         data-testid="icon"
         size="24"
@@ -248,8 +248,8 @@ exports[`IconButton tests should render secondary IconButton 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: #EEEEEE;
   color: #000000;
-  height: 2rem;
-  width: 2rem;
+  height: 2.25rem;
+  width: 2.25rem;
 }
 
 .c0:hover:not(:active) {
@@ -265,7 +265,7 @@ exports[`IconButton tests should render secondary IconButton 1`] = `
       size="24"
     >
       <span
-        class="c2 material-symbols-sharp"
+        class="c2 material-symbols-rounded"
         color="#000000"
         data-testid="icon"
         size="24"

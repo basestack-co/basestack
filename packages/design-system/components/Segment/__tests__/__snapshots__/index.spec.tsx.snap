@@ -76,7 +76,7 @@ exports[`Segment tests should render Segment correctly 1`] = `
         size="24"
       >
         <span
-          class="c3 material-symbols-sharp"
+          class="c3 material-symbols-rounded"
           color="#000000"
           data-testid="icon"
           size="24"
@@ -95,7 +95,7 @@ exports[`Segment tests should render Segment correctly 1`] = `
         size="24"
       >
         <span
-          class="c3 material-symbols-sharp"
+          class="c3 material-symbols-rounded"
           color="#000000"
           data-testid="icon"
           size="24"
@@ -198,7 +198,7 @@ exports[`Segment tests should render Segment with icons and test 1`] = `
         size="24"
       >
         <span
-          class="c3 material-symbols-sharp"
+          class="c3 material-symbols-rounded"
           color="#000000"
           data-testid="icon"
           size="24"
@@ -223,7 +223,7 @@ exports[`Segment tests should render Segment with icons and test 1`] = `
         size="24"
       >
         <span
-          class="c3 material-symbols-sharp"
+          class="c3 material-symbols-rounded"
           color="#000000"
           data-testid="icon"
           size="24"

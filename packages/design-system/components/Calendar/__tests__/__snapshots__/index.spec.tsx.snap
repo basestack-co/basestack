@@ -244,7 +244,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
             size="18"
           >
             <span
-              class="c2 material-symbols-sharp"
+              class="c2 material-symbols-rounded"
               data-testid="icon"
               size="18"
             >
@@ -263,7 +263,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
             size="18"
           >
             <span
-              class="c2 material-symbols-sharp"
+              class="c2 material-symbols-rounded"
               data-testid="icon"
               size="18"
             >
@@ -294,7 +294,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
             size="18"
           >
             <span
-              class="c2 material-symbols-sharp"
+              class="c2 material-symbols-rounded"
               data-testid="icon"
               size="18"
             >
@@ -313,7 +313,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
             size="18"
           >
             <span
-              class="c2 material-symbols-sharp"
+              class="c2 material-symbols-rounded"
               data-testid="icon"
               size="18"
             >

@@ -89,7 +89,7 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
         size="32"
       >
         <span
-          class="c4 material-symbols-sharp"
+          class="c4 material-symbols-rounded"
           color="#CBCBCB"
           data-testid="icon"
           size="32"

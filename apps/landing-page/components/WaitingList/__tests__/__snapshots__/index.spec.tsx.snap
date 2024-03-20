@@ -473,7 +473,7 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
                   size="24"
                 >
                   <span
-                    class="c14 material-symbols-sharp"
+                    class="c14 material-symbols-rounded"
                     data-testid="icon"
                     size="24"
                   >
@@ -512,7 +512,7 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
                     size="24"
                   >
                     <span
-                      class="c23 material-symbols-sharp"
+                      class="c23 material-symbols-rounded"
                       color="#276EF1"
                       data-testid="icon"
                       size="24"
