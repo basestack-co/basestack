@@ -13,6 +13,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { userId } = useAuth();
   const router = useRouter();
 
+  console.log("the userId = ", userId)
+
   const { data, isLoading: isLoadingForms } = trpc.form.all.useQuery(
     undefined,
     {
