@@ -6,7 +6,7 @@ import { triggerClient, TriggerEventName } from "libs/trigger";
 
 export const formRouter = router({
   all: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx.session.user.id;
+    const userId = ctx.auth.userId!
 
     const forms = await ctx.prisma.form.findMany({
       where: {
@@ -41,7 +41,7 @@ export const formRouter = router({
         .required(),
     )
     .query(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const userId = ctx.auth.userId!
 
       const data = await ctx.prisma.formOnUsers.findFirst({
         where: {
@@ -76,7 +76,7 @@ export const formRouter = router({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const userId = ctx.auth.userId!
 
       return await ctx.prisma.$transaction(async (tx) => {
         const form = await tx.form.create({

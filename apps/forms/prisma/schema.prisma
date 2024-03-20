@@ -21,110 +21,62 @@ enum FormType {
   STATIC
 }
 
-model Account {
-  id                 String   @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-  oauth_token_secret String?
-  oauth_token        String?
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-  @@index([userId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-}
-
 model User {
-  id            String        @id @default(cuid())
-  name          String?
-  gh_username   String?
-  email         String?       @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  accounts      Account[]
-  sessions      Session[]
-  forms         FormOnUsers[]
-  role          Role          @default(ADMIN)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  id         String  @id @default(cuid())
+  externalId String  @unique
+  name       String?
+  email      String? @unique
+  image      String?
 
-  @@index([email, name])
-}
+  forms     FormOnUsers[]
+  role      Role          @default(ADMIN)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
+  @@index([email, name, externalId])
 }
 
 model Form {
-  id           String        @id() @unique() @default(cuid()) @map("form_id")
-  name         String        @map("name") @db.VarChar(200)
-  type         FormType      @default(STATIC) @map("type")
-  isEnabled    Boolean       @default(true) @map("is_enabled")
-  hasRetention Boolean       @default(true) @map("has_retention")
-  redirectUrl  String?       @map("redirect_url") @db.VarChar(2183)
-  createdAt    DateTime?     @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt    DateTime?     @updatedAt @map("updated_at") @db.Timestamptz(6)
+  id           String        @id() @unique() @default(cuid())
+  name         String
+  type         FormType      @default(STATIC)
+  isEnabled    Boolean       @default(true)
+  hasRetention Boolean       @default(true)
+  redirectUrl  String?
+  createdAt    DateTime?     @default(now())
+  updatedAt    DateTime?     @updatedAt
   users        FormOnUsers[]
   Submission   Submission[]
 
   @@index([name])
-  @@map("form")
 }
 
 model FormOnUsers {
-  formId    String    @map("form_id")
-  userId    String    @map("user_id")
-  role      Role      @default(ADMIN) @map("role")
-  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz(6)
+  formId    String
+  userId    String
+  role      Role      @default(ADMIN)
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [externalId])
   form Form @relation(fields: [formId], references: [id], onDelete: Cascade)
 
   @@id([formId, userId])
   @@unique([formId, userId])
   @@index([formId])
-  @@map("form_on_users")
 }
 
 model Submission {
-  id        String   @id() @unique() @default(cuid()) @map("submission_id")
-  formId    String   @map("form_id")
-  isSpam    Boolean  @default(false) @map("is_spam")
-  viewed    Boolean  @default(false) @map("viewed")
-  data      Json     @map("data") @db.Json
-  metadata  Json?    @map("metadata") @db.Json
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+  id        String   @id() @unique() @default(cuid())
+  formId    String
+  isSpam    Boolean  @default(false)
+  viewed    Boolean  @default(false)
+  data      Json
+  metadata  Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   form Form @relation(fields: [formId], references: [id], onDelete: Cascade)
 
   @@index([formId])
-  @@map("submission")
 }

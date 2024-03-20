@@ -6,8 +6,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 // UI
 import { AvatarDropdown } from "@basestack/ui";
-// Auth
-import { useSession } from "next-auth/react";
 // Components
 import {
   fadeIn,
@@ -38,6 +36,8 @@ import {
 } from "./styles";
 // Locales
 import useTranslation from "next-translate/useTranslation";
+// Auth
+import { useUser, useClerk } from "@clerk/nextjs";
 // Utils
 import {
   getInternalLinks,
@@ -59,9 +59,10 @@ const MobileNavigation = ({
   onClose,
   data,
 }: NavigationDrawerProps) => {
+  const { user } = useUser();
+  const { signOut } = useClerk();
   const { t } = useTranslation("navigation");
   const theme = useTheme();
-  const { data: session } = useSession();
   const router = useRouter();
   const formId = router.query.formId as string;
 
@@ -192,14 +193,14 @@ const MobileNavigation = ({
               <HorizontalRule mx={theme.spacing.s5} my={0} />
               <Footer>
                 <AvatarDropdown
-                  name={session?.user.name || t("dropdown.username")}
-                  email={session?.user.email || ""}
-                  src={session?.user.image || ""}
+                  name={user?.firstName ?? t("dropdown.username")}
+                  email={user?.primaryEmailAddress?.emailAddress ?? ""}
+                  src={user?.imageUrl ?? ""}
                   darkModeText={t("dropdown.dark-mode")}
                   isDarkMode={isDarkMode}
                   onSetDarkMode={setIsDarkMode}
                   popupPlacement="top"
-                  list={getAvatarDropdownList(t, router)}
+                  list={getAvatarDropdownList(t, router, signOut)}
                   showFullButton
                 />
               </Footer>

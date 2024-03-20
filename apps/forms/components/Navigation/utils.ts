@@ -1,9 +1,9 @@
 // Types
 import { Translate } from "next-translate";
 import { NextRouter } from "next/router";
+import { SignOut } from "@clerk/types/dist/clerk";
 // Utils
 import { config } from "@basestack/utils";
-import { signOut } from "next-auth/react";
 
 export const getInternalLinks = (t: Translate, formId: string) => {
   return [
@@ -41,7 +41,11 @@ export const getExternalLinks = (t: Translate) => {
   ];
 };
 
-export const getAvatarDropdownList = (t: Translate, router: NextRouter) => {
+export const getAvatarDropdownList = (
+  t: Translate,
+  router: NextRouter,
+  signOut: SignOut,
+) => {
   return [
     {
       icon: "add_circle",
@@ -64,7 +68,7 @@ export const getAvatarDropdownList = (t: Translate, router: NextRouter) => {
     {
       icon: "logout",
       text: t("dropdown.logout"),
-      onClick: signOut,
+      onClick: () => signOut(() => router.push("/")),
     },
   ];
 };

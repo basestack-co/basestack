@@ -1,21 +1,21 @@
 import React from "react";
 import { useTheme } from "styled-components";
-// Auth
-import { useSession } from "next-auth/react";
 // Store
 import { useStore } from "store";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // UI
 import { ProfileAvatarCard, SwitchSettingCard } from "@basestack/ui";
+// Auth
+import { useUser } from "@clerk/nextjs";
 // Components
 import { Text } from "@basestack/design-system";
 import { Container, List, ListItem } from "./styles";
 
 const UserSettings = () => {
+  const { user } = useUser();
   const { t } = useTranslation("profile");
   const theme = useTheme();
-  const { data: session } = useSession();
 
   const closeModalsOnClickOutside = useStore(
     (state) => state.closeModalsOnClickOutside,
@@ -32,9 +32,9 @@ const UserSettings = () => {
       <List>
         <ListItem>
           <ProfileAvatarCard
-            name={session?.user.name ?? t("settings.card.avatar.title")}
-            image={session?.user.image ?? ""}
-            email={session?.user.email ?? ""}
+            name={user?.firstName ?? t("settings.card.avatar.title")}
+            email={user?.primaryEmailAddress?.emailAddress ?? ""}
+            image={user?.imageUrl ?? ""}
             description={t("settings.card.avatar.description")}
           />
         </ListItem>

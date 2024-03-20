@@ -1,27 +1,22 @@
 import React, { Fragment } from "react";
 // Router
 import { useRouter } from "next/router";
-// Auth
-import { useSession } from "next-auth/react";
 // Components
 import { Splash, Loader } from "@basestack/design-system";
 import Navigation from "components/Navigation";
 // Server
 import { trpc } from "libs/trpc";
+// Auth
+import { useAuth } from "@clerk/nextjs";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
+  const { userId } = useAuth();
   const router = useRouter();
-  const { status } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/auth/sign-in");
-    },
-  });
 
   const { data, isLoading: isLoadingForms } = trpc.form.all.useQuery(
     undefined,
     {
-      enabled: status === "authenticated",
+      enabled: !!userId,
       select: (data) =>
         data?.forms.map((item) => ({
           id: item.id,
@@ -36,7 +31,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     },
   );
 
-  if (status === "loading" || isLoadingForms) {
+  if (isLoadingForms) {
     return (
       <Loader hasDelay={false}>
         <Splash />

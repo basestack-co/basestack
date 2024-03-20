@@ -10,7 +10,12 @@ import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
 // Modals
 import Modals from "modals";
 // Auth
-import { SessionProvider } from "next-auth/react";
+import {
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  RedirectToSignIn,
+} from "@clerk/nextjs";
 // Server
 import { trpc } from "libs/trpc";
 // Fonts
@@ -30,17 +35,22 @@ function MyApp({ Component, pageProps }: AppProps) {
   const theme = isDarkMode ? darkTheme : lightTheme;
 
   return (
-    <SessionProvider session={pageProps.session}>
+    <ClerkProvider {...pageProps}>
       <ThemeProvider theme={theme}>
         <StyleSheetManager shouldForwardProp={isPropValid}>
           <GlobalStyle />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-          <Modals />
+          <SignedIn>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+            <Modals />
+          </SignedIn>
+          <SignedOut>
+            <RedirectToSignIn />
+          </SignedOut>
         </StyleSheetManager>
       </ThemeProvider>
-    </SessionProvider>
+    </ClerkProvider>
   );
 }
 

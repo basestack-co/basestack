@@ -29,7 +29,7 @@ export const middleware = t.middleware;
 export const isAuthenticated = middleware(
   async ({ next, ctx, meta, rawInput }) => {
     // Check if the user is logged in
-    if (!ctx.session) {
+    if (!ctx.auth.userId) {
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
 
@@ -40,7 +40,7 @@ export const isAuthenticated = middleware(
         formId: string;
       };
 
-      const form = getUserInForm(ctx.prisma, ctx.session.user.id, formId);
+      const form = getUserInForm(ctx.prisma, ctx.auth.userId, formId);
 
       // If the user does not exist in the form, return an error
       if (!form) {
@@ -51,7 +51,7 @@ export const isAuthenticated = middleware(
     return next({
       ctx: {
         ...ctx,
-        session: ctx.session,
+        auth: ctx.auth,
       },
     });
   },

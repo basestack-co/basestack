@@ -24,7 +24,7 @@ import useTranslation from "next-translate/useTranslation";
 // Store
 import { useStore } from "store";
 // Auth
-import { useSession } from "next-auth/react";
+import { useUser, useClerk } from "@clerk/nextjs";
 
 export interface LinkItem {
   text: string;
@@ -44,9 +44,10 @@ const DesktopNavigation = ({
   data,
   onClickMenuButton,
 }: NavigationProps) => {
+  const { user } = useUser();
+  const { signOut } = useClerk();
   const { t } = useTranslation("navigation");
   const theme = useTheme();
-  const { data: session } = useSession();
   const router = useRouter();
 
   const setIsDarkMode = useStore((state) => state.setDarkMode);
@@ -137,13 +138,13 @@ const DesktopNavigation = ({
           {onRenderItems(getExternalLinks(t), "right")}
           <ListItem ml={theme.spacing.s3}>
             <AvatarDropdown
-              name={session?.user.name || t("dropdown.username")}
-              email={session?.user.email || ""}
-              src={session?.user.image || ""}
+              name={user?.firstName ?? t("dropdown.username")}
+              email={user?.primaryEmailAddress?.emailAddress ?? ""}
+              src={user?.imageUrl ?? ""}
               darkModeText={t("dropdown.dark-mode")}
               isDarkMode={isDarkMode}
               onSetDarkMode={setIsDarkMode}
-              list={getAvatarDropdownList(t, router)}
+              list={getAvatarDropdownList(t, router, signOut)}
             />
           </ListItem>
         </List>
