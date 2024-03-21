@@ -114,7 +114,7 @@ model FormOnUsers {
 model Submission {
   id        String   @id() @unique() @default(cuid())
   formId    String
-  isSpam    Boolean  @default(false)
+  isSpam    Boolean?
   viewed    Boolean  @default(false)
   data      Json     @default("{}") @db.Json
   metadata  Json?    @default("{}") @db.Json

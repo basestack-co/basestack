@@ -71,15 +71,46 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const [fields, files] = await form.parse(req);
       const formData = formatFormData(fields);
 
-      await prisma.submission.create({
-        data: {
-          formId,
-          data: formData,
-          metadata: getMetadata(req),
-        },
+      const { redirectUrl } = await prisma.$transaction(async (tx) => {
+        const current = await tx.formOnUsers.findFirst({
+          where: {
+            formId: formId,
+          },
+          select: {
+            form: {
+              select: {
+                isEnabled: true,
+                hasRetention: true,
+                redirectUrl: true,
+              },
+            },
+            user: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        });
+
+        // only submit if the form is enabled and has retention
+        if (current?.form.isEnabled && current?.form.hasRetention) {
+          await tx.submission.create({
+            data: {
+              formId,
+              data: formData,
+              metadata: getMetadata(req),
+            },
+          });
+        }
+
+        return {
+          redirectUrl: current?.form.redirectUrl ?? "/form/status/success",
+          user: current?.user,
+        };
       });
 
-      res.redirect(307, `/form/status/success?goBackUrl=${referer}`);
+      res.redirect(307, `${redirectUrl}?goBackUrl=${referer}`);
     } catch (error: any) {
       const message = error.message ?? "Something went wrong";
       res.redirect(
