@@ -1,8 +1,10 @@
 // Libs
 import prisma from "libs/prisma";
+// Types
+import type { NextRequest } from "next/server";
+import { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
 // Server
 import * as trpc from "@trpc/server";
-import * as trpcNext from "@trpc/server/adapters/next";
 // Auth
 import {
   getAuth,
@@ -20,15 +22,11 @@ export const createAuthContext = async ({ auth }: AuthContext) => {
   };
 };
 
-export const createContext = async ({
-  req,
-  res,
-}: trpcNext.CreateNextContextOptions) => {
+export const createContext = async (req: NextRequest) => {
   const { auth } = await createAuthContext({ auth: getAuth(req) });
 
   return {
     req,
-    res,
     prisma,
     auth,
   };

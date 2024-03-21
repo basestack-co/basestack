@@ -1,33 +1,48 @@
 import { protectedProcedure, router } from "server/trpc";
 // Utils
 import { z } from "zod";
-// Jobs
-import { triggerClient, TriggerEventName } from "libs/trigger";
 
 export const formRouter = router({
   all: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.auth.userId!;
 
-    const forms = await ctx.prisma.form.findMany({
-      where: {
-        users: {
-          some: {
-            user: {
-              externalId: userId,
+    return await ctx.prisma.$transaction(async (tx) => {
+      const hasUser = await tx.user.findFirst({
+        where: { externalId: userId },
+      });
+
+      if (!hasUser) {
+        await tx.user.create({
+          data: {
+            externalId: userId,
+          },
+        });
+      }
+
+      const forms = await tx.form.findMany({
+        where: {
+          users: {
+            some: {
+              user: {
+                externalId: userId,
+              },
             },
           },
         },
-      },
-      select: {
-        id: true,
-        name: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+        select: {
+          id: true,
+          name: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
 
-    return { forms };
+      return { forms };
+    });
+  }),
+  test: protectedProcedure.query(async ({ ctx }) => {
+    return { test: "test" };
   }),
   byId: protectedProcedure
     .meta({
@@ -101,15 +116,6 @@ export const formRouter = router({
                 externalId: userId,
               },
             },
-          },
-        });
-
-        // Trigger a job this is just an example delete this after we have real jobs
-        await triggerClient.sendEvent({
-          name: TriggerEventName.SEND_EMAIL,
-          payload: {
-            to: "vitor.works@gmail.com",
-            subject: "New form created",
           },
         });
 

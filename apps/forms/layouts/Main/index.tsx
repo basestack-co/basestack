@@ -13,7 +13,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { userId } = useAuth();
   const router = useRouter();
 
-  console.log("the userId = ", userId)
+  const testDaata = trpc.form.test.useQuery();
+
+  console.log("testDaata = ", testDaata);
 
   const { data, isLoading: isLoadingForms } = trpc.form.all.useQuery(
     undefined,
@@ -25,7 +27,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           slug: item.id,
           onClick: () =>
             router.push({
-              pathname: "/[formId]/submissions",
+              pathname: "/form/[formId]/submissions",
               query: { formId: item.id },
             }),
           text: item.name,

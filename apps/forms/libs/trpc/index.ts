@@ -48,7 +48,6 @@ export const trpc = createTRPCNext<AppRouter>({
   config() {
     return {
       links: [
-        customLink,
         loggerLink({
           enabled: (opts) =>
             process.env.NODE_ENV === "development" ||

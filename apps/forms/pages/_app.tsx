@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Fragment } from "react";
+import { useRouter } from "next/router";
 import { AppProps } from "next/app";
 import { useStore } from "store";
 //Styles
@@ -29,22 +30,38 @@ dayjs.extend(relativeTime);
 const Noop = ({ children }: { children: React.ReactNode }) => children;
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { pathname } = useRouter();
   //@ts-ignore
   const Layout = Component.Layout || Noop;
   const isDarkMode = useStore((state) => state.isDarkMode);
   const theme = isDarkMode ? darkTheme : lightTheme;
 
+  const Authorization = [
+    "/sign-in/[[...index]]",
+    "/sign-up/[[...index]]",
+  ].includes(pathname)
+    ? Fragment
+    : SignedIn;
+
   return (
-    <ClerkProvider {...pageProps}>
+    <ClerkProvider
+      appearance={{
+        variables: {
+          colorPrimary: theme.colors.primary,
+          colorText: theme.colors.black,
+        },
+      }}
+      {...pageProps}
+    >
       <ThemeProvider theme={theme}>
         <StyleSheetManager shouldForwardProp={isPropValid}>
           <GlobalStyle />
-          <SignedIn>
+          <Authorization>
             <Layout>
               <Component {...pageProps} />
             </Layout>
             <Modals />
-          </SignedIn>
+          </Authorization>
           <SignedOut>
             <RedirectToSignIn />
           </SignedOut>
