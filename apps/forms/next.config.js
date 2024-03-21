@@ -7,13 +7,13 @@ module.exports = nextTranslate({
   async redirects() {
     return [
       {
-        source: "/:formId",
-        destination: "/:formId/submissions",
+        source: "/form/:formId",
+        destination: "/form/:formId/submissions",
         permanent: false,
       },
       {
-        source: "/:formId/settings",
-        destination: "/:formId/settings/general",
+        source: "/form/:formId/settings",
+        destination: "/form/:formId/settings/general",
         permanent: false,
       },
     ];

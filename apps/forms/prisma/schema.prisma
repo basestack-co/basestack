@@ -2,9 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -83,27 +82,26 @@ model VerificationToken {
 }
 
 model Form {
-  id           String        @id() @unique() @default(cuid()) @map("form_id")
-  name         String        @map("name") @db.VarChar(200)
-  type         FormType      @default(STATIC) @map("type")
-  isEnabled    Boolean       @default(true) @map("is_enabled")
-  hasRetention Boolean       @default(true) @map("has_retention")
-  redirectUrl  String?       @map("redirect_url") @db.VarChar(2183)
-  createdAt    DateTime?     @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt    DateTime?     @updatedAt @map("updated_at") @db.Timestamptz(6)
+  id           String        @id() @unique() @default(cuid())
+  name         String        @db.VarChar(250)
+  type         FormType      @default(STATIC)
+  isEnabled    Boolean       @default(true)
+  hasRetention Boolean       @default(true)
+  redirectUrl  String?       @db.VarChar(2183)
+  createdAt    DateTime?     @default(now())
+  updatedAt    DateTime?     @updatedAt
   users        FormOnUsers[]
   Submission   Submission[]
 
   @@index([name])
-  @@map("form")
 }
 
 model FormOnUsers {
   formId    String    @map("form_id")
   userId    String    @map("user_id")
-  role      Role      @default(ADMIN) @map("role")
-  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt DateTime? @updatedAt @map("updated_at") @db.Timestamptz(6)
+  role      Role      @default(ADMIN)
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
 
   user User @relation(fields: [userId], references: [id])
   form Form @relation(fields: [formId], references: [id], onDelete: Cascade)
@@ -111,21 +109,19 @@ model FormOnUsers {
   @@id([formId, userId])
   @@unique([formId, userId])
   @@index([formId])
-  @@map("form_on_users")
 }
 
 model Submission {
-  id        String   @id() @unique() @default(cuid()) @map("submission_id")
-  formId    String   @map("form_id")
-  isSpam    Boolean  @default(false) @map("is_spam")
-  viewed    Boolean  @default(false) @map("viewed")
-  data      Json     @map("data") @db.Json
-  metadata  Json?    @map("metadata") @db.Json
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+  id        String   @id() @unique() @default(cuid())
+  formId    String
+  isSpam    Boolean  @default(false)
+  viewed    Boolean  @default(false)
+  data      Json     @default("{}") @db.Json
+  metadata  Json?    @default("{}") @db.Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   form Form @relation(fields: [formId], references: [id], onDelete: Cascade)
 
   @@index([formId])
-  @@map("submission")
 }

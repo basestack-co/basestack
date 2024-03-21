@@ -26,7 +26,7 @@ const links = [
   {
     id: 1,
     text: "General",
-    href: "/[formId]/settings/general",
+    href: "/form/[formId]/settings/general",
   },
 ];
 

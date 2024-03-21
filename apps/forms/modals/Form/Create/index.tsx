@@ -73,7 +73,7 @@ const CreateFormModal = () => {
         onClose();
 
         await router.push({
-          pathname: "/[formId]/submissions",
+          pathname: "/form/[formId]/submissions",
           query: { formId: result.form.id },
         });
       },

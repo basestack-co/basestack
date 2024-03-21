@@ -10,13 +10,19 @@ export const getInternalLinks = (t: Translate, formId: string) => {
     {
       icon: "flag",
       activeText: "Submissions",
-      to: `/${formId}/submissions`,
+      to: `/form/${formId}/submissions`,
       text: t("internal.submissions"),
+    },
+    {
+      icon: "setup",
+      activeText: "Setup",
+      to: `/form/${formId}/setup`,
+      text: t("internal.setup"),
     },
     {
       icon: "settings",
       activeText: "Settings",
-      to: `/${formId}/settings/general`,
+      to: `/form/${formId}/settings/general`,
       text: t("internal.settings"),
     },
   ];
