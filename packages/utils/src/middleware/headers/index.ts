@@ -1,7 +1,7 @@
 // Types
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const withHeaders = (
+export const withHeaders = (
   requiredHeaders: string[],
   handler: (req: NextApiRequest, res: NextApiResponse) => void,
 ) => {
@@ -19,5 +19,3 @@ const withHeaders = (
     return handler(req, res);
   };
 };
-
-export default withHeaders;

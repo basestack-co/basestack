@@ -2,16 +2,24 @@ import type { NextApiRequest, NextApiResponse } from "next";
 // Utils
 import formidable from "formidable";
 import requestIp from "request-ip";
+import Cors from "cors";
+import { withCors } from "@basestack/utils";
+// import { z } from "zod";
 // Prisma
 import prisma from "libs/prisma";
-
-// import { z } from "zod";
 
 export const config = {
   api: {
     bodyParser: false,
   },
 };
+
+// More at https://github.com/expressjs/cors
+const cors = Cors({
+  methods: ["POST"],
+  origin: "*",
+  optionsSuccessStatus: 200,
+});
 
 /* const formDataSchema = z.object({
   email: z.string().email(),
@@ -89,4 +97,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default handler;
+export default withCors(cors, handler);

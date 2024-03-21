@@ -1,16 +1,11 @@
 // Types
 import type { NextApiRequest, NextApiResponse } from "next";
-// Utils
-import Cors from "cors";
 
-// More at https://github.com/expressjs/cors
-const cors = Cors({
-  methods: ["GET"],
-  origin: process.env.API_ACCESS_CONTROL_ALLOW_ORIGIN ?? "*",
-  optionsSuccessStatus: 200,
-});
-
-function checkCors(req: NextApiRequest, res: NextApiResponse, fn: Function) {
+export const checkCors = (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  fn: Function,
+) => {
   return new Promise((resolve, reject) => {
     fn(req, res, (result: any) => {
       if (result instanceof Error) {
@@ -20,9 +15,10 @@ function checkCors(req: NextApiRequest, res: NextApiResponse, fn: Function) {
       return resolve(result);
     });
   });
-}
+};
 
-const withCors = (
+export const withCors = (
+  cors: Function,
   handler: (req: NextApiRequest, res: NextApiResponse) => void,
 ) => {
   return async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
@@ -35,5 +31,3 @@ const withCors = (
     }
   };
 };
-
-export default withCors;
