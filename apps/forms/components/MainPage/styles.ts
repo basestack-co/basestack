@@ -28,7 +28,7 @@ export const Box = styled.div<BoxProps>`
 
 export const Container = styled.main`
   padding: ${({ theme }) => theme.spacing.s6} ${({ theme }) => theme.spacing.s5};
-  max-width: 992px;
+  max-width: 1440px;
   margin: 0 auto;
   width: 100%;
 `;
@@ -58,8 +58,16 @@ export const StyledLink = styled.a`
 
 export const List = styled.ul`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: ${({ theme }) => theme.spacing.s3};
+
+  @media screen and ${({ theme }) => theme.device.max.xl} {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
   @media screen and ${({ theme }) => theme.device.max.md} {
     grid-template-columns: repeat(2, 1fr);
@@ -71,6 +79,7 @@ export const List = styled.ul`
 `;
 
 export const ListItem = styled.li`
+  position: relative;
   ${flexColumn};
 `;
 

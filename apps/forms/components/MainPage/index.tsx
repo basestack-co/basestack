@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "styled-components";
+import { useTrail, animated } from "@react-spring/web";
 import {
   Button,
   ButtonVariant,
@@ -7,7 +8,7 @@ import {
   Text,
 } from "@basestack/design-system";
 import FormCard, { FormCardProps } from "./FormCard";
-import { Container, Header, Section, List } from "./styles";
+import { Container, Header, Section, List, Box } from "./styles";
 
 interface HomePageProps {
   data: Array<{
@@ -19,8 +20,16 @@ interface HomePageProps {
   isLoading: boolean;
 }
 
+const AnimatedBox = animated(Box);
+
 const HomePage = ({ data, onCreateForm, isLoading }: HomePageProps) => {
   const theme = useTheme();
+  const [numberOfCards, setNumberOfCards] = useState(10);
+
+  const trails = useTrail(data.slice(0, numberOfCards).length, {
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+  });
 
   return (
     <Container>
@@ -54,15 +63,24 @@ const HomePage = ({ data, onCreateForm, isLoading }: HomePageProps) => {
         )}
         {!isLoading && !!data?.length && (
           <List>
-            {data.map((item, index) => (
-              <FormCard
-                key={index}
-                text={item.title}
-                onClick={() => null}
-                spam={item.spam}
-                submissions={item.submissions}
-              />
-            ))}
+            {trails.map((style, index) => {
+              const { title, spam, submissions } = data[index];
+              return (
+                <AnimatedBox
+                  key={index}
+                  display="flex"
+                  flexDirection="column"
+                  style={style}
+                >
+                  <FormCard
+                    text={title}
+                    onClick={() => null}
+                    spam={spam}
+                    submissions={submissions}
+                  />
+                </AnimatedBox>
+              );
+            })}
           </List>
         )}
       </Section>

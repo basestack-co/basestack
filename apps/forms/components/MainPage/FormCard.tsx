@@ -1,11 +1,15 @@
 import React from "react";
 import { useTheme } from "styled-components";
+import { animated } from "react-spring";
+import { useFloatingPopup } from "@basestack/hooks";
 import {
   Avatar,
   Card,
   HorizontalRule,
   Icon,
   Text,
+  IconButton,
+  Popup,
 } from "@basestack/design-system";
 import { Box, CardButton, ListItem } from "./styles";
 
@@ -38,11 +42,53 @@ const Detail = ({ value, icon, mr }: DetailProps) => {
   );
 };
 
+const AnimatedPopup = animated(Popup);
+
 const FormCard = ({ onClick, text, spam, submissions }: FormCardProps) => {
   const theme = useTheme();
 
+  const {
+    popupWrapperRef,
+    x,
+    y,
+    refs,
+    strategy,
+    transition,
+    getReferenceProps,
+    getFloatingProps,
+    onClickMore,
+    onCloseMenu,
+  } = useFloatingPopup({});
+
   return (
-    <ListItem>
+    <ListItem ref={popupWrapperRef}>
+      <IconButton
+        {...getReferenceProps}
+        ref={refs.setReference}
+        position="absolute"
+        onClick={onClickMore}
+        top="10px"
+        right="10px"
+        icon="more_horiz"
+      />
+      {transition(
+        (styles, item) =>
+          item && (
+            <AnimatedPopup
+              {...getFloatingProps}
+              ref={refs.setFloating}
+              style={styles}
+              position={strategy}
+              top={y + 5}
+              left={x}
+              items={[
+                { text: "Edit", onClick: () => null },
+                { text: "Delete", onClick: () => null },
+              ]}
+              onClickList={onCloseMenu}
+            />
+          ),
+      )}
       <CardButton onClick={onClick}>
         <Card height="100%" width="100%" hasHoverAnimation>
           <Box mb="auto" p={theme.spacing.s5}>
@@ -60,6 +106,7 @@ const FormCard = ({ onClick, text, spam, submissions }: FormCardProps) => {
           <Box
             display="flex"
             alignItems="center"
+            flexWrap="wrap"
             p={`${theme.spacing.s3} ${theme.spacing.s5}`}
           >
             {!!submissions.unread && (
