@@ -6,6 +6,7 @@ import {
   ButtonVariant,
   Skeleton,
   Text,
+  Empty,
 } from "@basestack/design-system";
 import FormCard, { FormCardProps } from "./FormCard";
 import { Container, Header, Section, List, Box } from "./styles";
@@ -61,7 +62,7 @@ const HomePage = ({ data, onCreateForm, isLoading }: HomePageProps) => {
             />
           </List>
         )}
-        {!isLoading && !!data?.length && (
+        {!isLoading && !!data?.length ? (
           <List>
             {trails.map((style, index) => {
               const { title, spam, submissions } = data[index];
@@ -82,6 +83,16 @@ const HomePage = ({ data, onCreateForm, isLoading }: HomePageProps) => {
               );
             })}
           </List>
+        ) : (
+          <Empty
+            iconName="text_snippet"
+            title="No recent froms"
+            description="Recent form will be displayed here"
+            button={{
+              text: "Create Form",
+              onClick: () => null,
+            }}
+          />
         )}
       </Section>
       <Section>
