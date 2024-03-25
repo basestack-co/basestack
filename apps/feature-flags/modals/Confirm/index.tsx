@@ -4,6 +4,7 @@ import Portal from "@basestack/design-system/global/Portal";
 import { Modal, ButtonVariant } from "@basestack/design-system";
 // Store
 import { useStore } from "store";
+import { useShallow } from "zustand/react/shallow";
 import { ConfirmModalType } from "store/types";
 // Locales
 import useTranslation from "next-translate/useTranslation";
@@ -22,11 +23,18 @@ const getButtonVariant = (type: ConfirmModalType) => {
 const ConfirmModal = () => {
   const { t } = useTranslation("modals");
   const theme = useTheme();
-  const confirmModal = useStore((state) => state.confirmModalPayload);
-  const isModalOpen = useStore((state) => state.isConfirmModalOpen);
-  const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
-  const closeModalsOnClickOutside = useStore(
-    (state) => state.closeModalsOnClickOutside,
+  const [
+    isModalOpen,
+    confirmModal,
+    setConfirmModalOpen,
+    closeModalsOnClickOutside,
+  ] = useStore(
+    useShallow((state) => [
+      state.isConfirmModalOpen,
+      state.confirmModalPayload,
+      state.setConfirmModalOpen,
+      state.closeModalsOnClickOutside,
+    ]),
   );
 
   const onClose = useCallback(() => {

@@ -13,6 +13,7 @@ import Portal from "@basestack/design-system/global/Portal";
 import { Modal, InputGroup, IconButton } from "@basestack/design-system";
 // Store
 import { useStore } from "store";
+import { useShallow } from "zustand/react/shallow";
 // Server
 import { trpc } from "libs/trpc";
 // Utils
@@ -46,14 +47,14 @@ const CreateProjectModal = () => {
   const router = useRouter();
   const trpcUtils = trpc.useUtils();
   const [numberOfRefresh, setNumberOfRefresh] = useState(0);
-
-  const isModalOpen = useStore((state) => state.isCreateProjectModalOpen);
-  const setCreateProjectModalOpen = useStore(
-    (state) => state.setCreateProjectModalOpen,
-  );
-  const closeModalsOnClickOutside = useStore(
-    (state) => state.closeModalsOnClickOutside,
-  );
+  const [isModalOpen, setCreateProjectModalOpen, closeModalsOnClickOutside] =
+    useStore(
+      useShallow((state) => [
+        state.isCreateProjectModalOpen,
+        state.setCreateProjectModalOpen,
+        state.closeModalsOnClickOutside,
+      ]),
+    );
 
   const createProject = trpc.project.create.useMutation();
 

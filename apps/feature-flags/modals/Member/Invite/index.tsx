@@ -5,6 +5,7 @@ import { Modal, Select } from "@basestack/design-system";
 import { useRouter } from "next/router";
 // Store
 import { useStore } from "store";
+import { useShallow } from "zustand/react/shallow";
 // Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,13 +26,14 @@ const InviteMemberModal = () => {
   const router = useRouter();
   const { projectId } = router.query as { projectId: string };
   const trpcUtils = trpc.useUtils();
-  const isModalOpen = useStore((state) => state.isInviteMemberModalOpen);
-  const setInviteMemberModalOpen = useStore(
-    (state) => state.setInviteMemberModalOpen,
-  );
-  const closeModalsOnClickOutside = useStore(
-    (state) => state.closeModalsOnClickOutside,
-  );
+  const [isModalOpen, setInviteMemberModalOpen, closeModalsOnClickOutside] =
+    useStore(
+      useShallow((state) => [
+        state.isInviteMemberModalOpen,
+        state.setInviteMemberModalOpen,
+        state.closeModalsOnClickOutside,
+      ]),
+    );
 
   const { data, isLoading } = trpc.user.all.useQuery(
     {
