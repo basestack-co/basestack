@@ -28,7 +28,7 @@ export const Box = styled.div<BoxProps>`
 
 export const Container = styled.main`
   padding: ${({ theme }) => theme.spacing.s6} ${({ theme }) => theme.spacing.s5};
-  max-width: 1440px;
+  max-width: 992px;
   margin: 0 auto;
   width: 100%;
 `;
@@ -45,25 +45,10 @@ export const Header = styled.div`
   min-height: ${rem("36px")};
 `;
 
-export const StyledLink = styled.a`
-  text-decoration: none;
-  color: ${({ theme }) =>
-    theme.colors[theme.isDarkMode ? "blue300" : "primary"]};
-  cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
 export const List = styled.ul`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: ${({ theme }) => theme.spacing.s3};
-
-  @media screen and ${({ theme }) => theme.device.max.xl} {
-    grid-template-columns: repeat(4, 1fr);
-  }
 
   @media screen and ${({ theme }) => theme.device.max.lg} {
     grid-template-columns: repeat(3, 1fr);
@@ -81,6 +66,7 @@ export const List = styled.ul`
 export const ListItem = styled.li`
   position: relative;
   ${flexColumn};
+  flex-grow: 1;
 `;
 
 export const CardButton = styled.button`
@@ -98,5 +84,26 @@ export const ContentContainer = styled.div`
 
   @media screen and ${({ theme }) => theme.device.max.sm} {
     grid-template-columns: 1fr;
+  }
+`;
+
+export const BottomSectionContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: ${({ theme }) => theme.spacing.s3};
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    grid-template-columns: 1fr;
+  }
+`;
+
+export const StyledLink = styled.a`
+  text-decoration: none;
+  color: ${({ theme }) =>
+    theme.colors[theme.isDarkMode ? "blue300" : "primary"]};
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
   }
 `;

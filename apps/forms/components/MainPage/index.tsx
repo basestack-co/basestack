@@ -9,7 +9,16 @@ import {
   Empty,
 } from "@basestack/design-system";
 import FormCard, { FormCardProps } from "./FormCard";
-import { Container, Header, Section, List, Box } from "./styles";
+import GetStartedCard from "./GetStartedCard";
+import LinksCard from "./LinksCard";
+import {
+  Container,
+  Header,
+  Section,
+  List,
+  Box,
+  BottomSectionContainer,
+} from "./styles";
 
 interface HomePageProps {
   data: Array<{
@@ -25,7 +34,7 @@ const AnimatedBox = animated(Box);
 
 const HomePage = ({ data, onCreateForm, isLoading }: HomePageProps) => {
   const theme = useTheme();
-  const [numberOfCards, setNumberOfCards] = useState(10);
+  const [numberOfCards, setNumberOfCards] = useState(8);
 
   const trails = useTrail(data.slice(0, numberOfCards).length, {
     from: { opacity: 0 },
@@ -101,6 +110,10 @@ const HomePage = ({ data, onCreateForm, isLoading }: HomePageProps) => {
             Quick Links
           </Text>
         </Header>
+        <BottomSectionContainer>
+          <GetStartedCard />
+          <LinksCard />
+        </BottomSectionContainer>
       </Section>
     </Container>
   );
