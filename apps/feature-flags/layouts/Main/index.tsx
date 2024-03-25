@@ -28,8 +28,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           slug: item.slug,
           onClick: () =>
             router.push({
-              pathname: "/[projectSlug]/flags",
-              query: { projectSlug: item.slug },
+              pathname: "/project/[projectId]/flags",
+              query: { projectId: item.id },
             }),
           text: item.name,
         })),

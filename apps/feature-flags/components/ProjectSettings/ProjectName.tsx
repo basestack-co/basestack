@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+// Router
+import { useRouter } from "next/router";
 // Form
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,12 +12,9 @@ import { Input } from "@basestack/design-system";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Types
-import { ProjectSettings } from "types";
 import { Role } from "@prisma/client";
 // Locales
 import useTranslation from "next-translate/useTranslation";
-
-type Props = ProjectSettings;
 
 export const FormSchema = z.object({
   name: z
@@ -26,12 +25,18 @@ export const FormSchema = z.object({
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
-const ProjectNameCard = ({ project }: Props) => {
+export interface Props {
+  role?: Role;
+  name?: string;
+}
+
+const ProjectNameCard = ({ role, name }: Props) => {
   const { t } = useTranslation("settings");
+  const router = useRouter();
   const trpcUtils = trpc.useUtils();
   const updateProject = trpc.project.update.useMutation();
-
-  const isAdmin = project.role === Role.ADMIN;
+  const { projectId } = router.query as { projectId: string };
+  const isAdmin = role === Role.ADMIN;
 
   const {
     control,
@@ -46,7 +51,7 @@ const ProjectNameCard = ({ project }: Props) => {
   const onSaveProjectName: SubmitHandler<FormInputs> = async (input) => {
     updateProject.mutate(
       {
-        projectId: project.id,
+        projectId,
         name: input.name,
       },
       {
@@ -66,19 +71,17 @@ const ProjectNameCard = ({ project }: Props) => {
             });
           }
 
-          const cacheProject = trpcUtils.project.bySlug.getData({
-            projectSlug: result.project.slug,
+          const cacheProject = trpcUtils.project.byId.getData({
+            projectId: result.project.id,
           });
 
-          if (cacheProject && cacheProject.project) {
+          if (cacheProject) {
             // Updates the current active project in the cache
-            trpcUtils.project.bySlug.setData(
-              { projectSlug: result.project.slug },
+            trpcUtils.project.byId.setData(
+              { projectId: result.project.id },
               {
-                project: {
-                  ...cacheProject.project,
-                  name: result.project.name,
-                },
+                ...cacheProject,
+                name: result.project.name,
               },
             );
           }
@@ -88,10 +91,10 @@ const ProjectNameCard = ({ project }: Props) => {
   };
 
   useEffect(() => {
-    if (project) {
-      setValue("name", project.name!);
+    if (name) {
+      setValue("name", name!);
     }
-  }, [project, setValue]);
+  }, [name, setValue]);
 
   return (
     <SettingCard
@@ -99,7 +102,7 @@ const ProjectNameCard = ({ project }: Props) => {
       description={t("general.project.description")}
       button={t("general.project.action")!}
       onClick={handleSubmit(onSaveProjectName)}
-      isDisabled={isSubmitting || !project || updateProject.isLoading}
+      isDisabled={isSubmitting || !name || updateProject.isLoading}
       isLoading={isSubmitting || updateProject.isLoading}
       hasFooter={isAdmin}
     >
@@ -116,7 +119,7 @@ const ProjectNameCard = ({ project }: Props) => {
             name={field.name}
             value={field.value}
             hasError={!!errors.name}
-            isDisabled={isSubmitting || !project || !isAdmin}
+            isDisabled={isSubmitting || !name || !isAdmin}
           />
         )}
       />

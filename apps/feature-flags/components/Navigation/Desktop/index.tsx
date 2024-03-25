@@ -62,7 +62,7 @@ const DesktopNavigation = ({
   const setIsDarkMode = useStore((state) => state.setDarkMode);
   const isDarkMode = useStore((state) => state.isDarkMode);
 
-  const projectSlug = router.query.projectSlug as string;
+  const { projectId } = router.query as { projectId: string };
 
   const onRenderItems = useCallback(
     (items: LinkItem[], type: string) =>
@@ -82,14 +82,14 @@ const DesktopNavigation = ({
           </ListItem>
         );
       }),
-    [router.pathname, projectSlug, t],
+    [router.pathname, t],
   );
 
   const currentProject = useMemo(() => {
-    const project = data?.find(({ slug }) => slug === projectSlug);
+    const project = data?.find(({ id }) => id === projectId);
 
     return project?.text ?? "";
-  }, [projectSlug, data]);
+  }, [projectId, data]);
 
   const truncateProjectName = (str: string) => {
     return str.length <= 18 ? str : str.slice(0, 18) + "...";
@@ -134,9 +134,9 @@ const DesktopNavigation = ({
                 create: t("create.project"),
               }}
             />
-            {!!projectSlug && (
+            {!!projectId && (
               <>
-                {onRenderItems(getInternalLinks(t, projectSlug), "left")}
+                {onRenderItems(getInternalLinks(t, projectId), "left")}
                 <ListItem ml={theme.spacing.s3}>
                   <Button
                     onClick={() => setCreateFlagModalOpen({ isOpen: true })}

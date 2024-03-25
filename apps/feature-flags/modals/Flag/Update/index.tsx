@@ -10,6 +10,7 @@ import { SubmitHandler } from "react-hook-form";
 import { FlagFormInputs } from "../types";
 // Store
 import { useStore } from "store";
+import { useShallow } from "zustand/react/shallow";
 // Types
 import { TabType } from "types";
 // Server
@@ -24,16 +25,21 @@ const UpdateFlagModal = () => {
   const trpcUtils = trpc.useUtils();
   const theme = useTheme();
   const router = useRouter();
-  const isModalOpen = useStore((state) => state.isUpdateFlagModalOpen);
-  const modalPayload = useStore((state) => state.flagModalPayload);
-  const setUpdateFlagModalOpen = useStore(
-    (state) => state.setUpdateFlagModalOpen,
-  );
-  const closeModalsOnClickOutside = useStore(
-    (state) => state.closeModalsOnClickOutside,
+  const [
+    isModalOpen,
+    modalPayload,
+    setUpdateFlagModalOpen,
+    closeModalsOnClickOutside,
+  ] = useStore(
+    useShallow((state) => [
+      state.isUpdateFlagModalOpen,
+      state.flagModalPayload,
+      state.setUpdateFlagModalOpen,
+      state.closeModalsOnClickOutside,
+    ]),
   );
 
-  const projectSlug = router.query.projectSlug as string;
+  const { projectId } = router.query as { projectId: string };
   const updateFlag = trpc.flag.update.useMutation();
 
   const {
@@ -47,7 +53,7 @@ const UpdateFlagModal = () => {
     setValue,
   } = useFlagForm({
     isModalOpen,
-    projectSlug,
+    projectId,
     flagId: modalPayload?.flag?.id,
   });
 

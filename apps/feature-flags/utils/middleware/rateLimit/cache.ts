@@ -15,7 +15,7 @@ const rateLimit = (options?: Options) => {
 
   return {
     check: async (res: NextApiResponse, limit: number, token: string) => {
-      let tokenCount = tokenCache.get(token) || [0];
+      const tokenCount = tokenCache.get(token) || [0];
       const [currentUsage] = tokenCount;
 
       if (currentUsage === 0) {

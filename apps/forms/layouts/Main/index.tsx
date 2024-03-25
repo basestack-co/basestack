@@ -28,7 +28,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           slug: item.id,
           onClick: () =>
             router.push({
-              pathname: "/[formId]/submissions",
+              pathname: "/form/[formId]/submissions",
               query: { formId: item.id },
             }),
           text: item.name,

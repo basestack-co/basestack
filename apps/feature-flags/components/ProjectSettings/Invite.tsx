@@ -23,110 +23,116 @@ import { useRouter } from "next/router";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Types
-import { ProjectSettings } from "types";
 import { Role } from "@prisma/client";
 // Utils
 import dayjs from "dayjs";
 
-type Props = ProjectSettings;
+export interface Props {
+  role?: Role;
+}
 
-const InviteCard = ({ project }: Props) => {
+const InviteCard = ({ role }: Props) => {
   const { t } = useTranslation("settings");
   const theme = useTheme();
   const isMobile = useMedia(theme.device.max.md, false);
   const session = useSession();
   const router = useRouter();
   const trpcUtils = trpc.useUtils();
+  const { projectId } = router.query as { projectId: string };
   const setInviteMemberModalOpen = useStore(
     (state) => state.setInviteMemberModalOpen,
   );
 
   const { data, isLoading } = trpc.project.members.useQuery(
-    { projectId: project.id },
-    { enabled: !!project.id },
+    { projectId },
+    { enabled: !!projectId },
   );
 
   const removeUserFromProject = trpc.project.removeMember.useMutation();
   const updateUserRole = trpc.project.updateMember.useMutation();
 
-  const isCurrentUserAdmin = project.role === Role.ADMIN;
+  const isCurrentUserAdmin = role === Role.ADMIN;
 
   const onHandleInvite = useCallback(() => {
-    setInviteMemberModalOpen({ isOpen: true, data: { project } });
-  }, [project, setInviteMemberModalOpen]);
+    setInviteMemberModalOpen({ isOpen: true });
+  }, [setInviteMemberModalOpen]);
 
   const onHandleDelete = useCallback(
     async (userId: string) => {
-      removeUserFromProject.mutate(
-        { projectId: project.id, userId },
-        {
-          onSuccess: async (result) => {
-            if (session?.data?.user.id === userId) {
-              // the user removed himself from the project, so we redirect him to the dashboard
-              await router.push("/");
-            } else {
-              const prev = trpcUtils.project.members.getData({
-                projectId: project.id,
-              });
+      if (projectId) {
+        removeUserFromProject.mutate(
+          { projectId, userId },
+          {
+            onSuccess: async (result) => {
+              if (session?.data?.user.id === userId) {
+                // the user removed himself from the project, so we redirect him to the dashboard
+                await router.push("/");
+              } else {
+                const prev = trpcUtils.project.members.getData({
+                  projectId,
+                });
 
-              if (prev?.users) {
-                const users = prev.users.filter(
-                  (item) => item.userId !== result.connection.userId,
-                );
+                if (prev?.users) {
+                  const users = prev.users.filter(
+                    (item) => item.userId !== result.connection.userId,
+                  );
 
-                trpcUtils.project.members.setData(
-                  {
-                    projectId: project.id,
-                  },
-                  { users },
-                );
+                  trpcUtils.project.members.setData(
+                    {
+                      projectId,
+                    },
+                    { users },
+                  );
+                }
               }
-            }
+            },
           },
-        },
-      );
+        );
+      }
     },
-    [project, removeUserFromProject, trpcUtils, session, router],
+    [projectId, removeUserFromProject, trpcUtils, session, router],
   );
 
   const onHandleUpdateRole = useCallback(
     async (userId: string, isAdmin: boolean) => {
-      updateUserRole.mutate(
-        {
-          projectId: project.id,
-          userId,
-          role: isAdmin ? "USER" : "ADMIN",
-        },
-        {
-          onSuccess: async (result) => {
-            const prev = trpcUtils.project.members.getData({
-              projectId: project.id,
-            });
-
-            if (prev?.users) {
-              const users = prev.users.map((item) => {
-                if (item.userId === result.connection.userId) {
-                  return {
-                    ...item,
-                    role: result.connection.role,
-                  };
-                }
-
-                return item;
+      if (projectId) {
+        updateUserRole.mutate(
+          {
+            projectId,
+            userId,
+            role: isAdmin ? "USER" : "ADMIN",
+          },
+          {
+            onSuccess: async (result) => {
+              const prev = trpcUtils.project.members.getData({
+                projectId,
               });
 
-              trpcUtils.project.members.setData(
-                {
-                  projectId: project.id,
-                },
-                { users },
-              );
-            }
+              if (prev?.users) {
+                const users = prev.users.map((item) => {
+                  if (item.userId === result.connection.userId) {
+                    return {
+                      ...item,
+                      role: result.connection.role,
+                    };
+                  }
+
+                  return item;
+                });
+
+                trpcUtils.project.members.setData(
+                  {
+                    projectId,
+                  },
+                  { users },
+                );
+              }
+            },
           },
-        },
-      );
+        );
+      }
     },
-    [project, updateUserRole, trpcUtils],
+    [projectId, updateUserRole, trpcUtils],
   );
 
   const getTable = useMemo(() => {

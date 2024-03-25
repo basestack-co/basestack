@@ -63,7 +63,7 @@ const MobileNavigation = ({
   const theme = useTheme();
   const { data: session } = useSession();
   const router = useRouter();
-  const projectSlug = router.query.projectSlug as string;
+  const { projectId } = router.query as { projectId: string };
 
   const setIsDarkMode = useStore((state) => state.setDarkMode);
   const isDarkMode = useStore((state) => state.isDarkMode);
@@ -104,10 +104,10 @@ const MobileNavigation = ({
                 />
               </Header>
               <ContentContainer>
-                {!!projectSlug && (
+                {!!projectId && (
                   <>
                     <List>
-                      {getInternalLinks(t, projectSlug).map((item, index) => (
+                      {getInternalLinks(t, projectId).map((item, index) => (
                         <ListItem key={index}>
                           <Button
                             iconPlacement="left"
@@ -117,7 +117,7 @@ const MobileNavigation = ({
                             onClick={() => {
                               router.push({
                                 pathname: item.to,
-                                query: { projectSlug },
+                                query: { projectId },
                               });
                             }}
                           >

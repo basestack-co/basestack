@@ -32,12 +32,12 @@ const FlagsPage = () => {
   const setSelectedView = useStore((state) => state.setSelectedView);
   const selectedView = useStore((state) => state.selectedView);
   const [searchValue, setSearchValue] = useState<string>("");
-  const projectSlug = router.query.projectSlug as string;
+  const { projectId } = router.query as { projectId: string };
 
-  const { data } = trpc.project.bySlug.useQuery(
-    { projectSlug },
+  const { data: project } = trpc.project.byId.useQuery(
+    { projectId },
     {
-      enabled: !!projectSlug,
+      enabled: !!projectId,
     },
   );
 
@@ -62,7 +62,7 @@ const FlagsPage = () => {
     <>
       <Head>
         <title>
-          {data?.project?.name ?? "Project"} / {t("seo.title")}
+          {project?.name ?? "Project"} / {t("seo.title")}
         </title>
       </Head>
       <FlagsListContainer>
@@ -75,7 +75,7 @@ const FlagsPage = () => {
           onClickActivity={onClickActivity}
         />
         <FlagsList
-          projectId={data?.project?.id!}
+          projectId={projectId}
           selectedView={selectedView}
           searchValue={searchValue}
         />

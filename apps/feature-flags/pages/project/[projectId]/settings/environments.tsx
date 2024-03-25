@@ -1,30 +1,26 @@
 import React from "react";
 // Layout
 import SettingsLayout from "layouts/Settings";
-// Modules
+// Components
 import {
   CardList,
   CardListItem,
   SettingCardContainer,
 } from "components/ProjectSettings/styles";
-import Invite from "components/ProjectSettings/Invite";
-// Types
-import { ProjectSettings } from "types";
+import Environments from "components/ProjectSettings/Environments";
 
-type Props = ProjectSettings;
-
-const MembersPage = ({ project }: Props) => {
+const EnvironmentsPage = () => {
   return (
     <CardList>
       <CardListItem>
         <SettingCardContainer>
-          <Invite project={project} />
+          <Environments />
         </SettingCardContainer>
       </CardListItem>
     </CardList>
   );
 };
 
-MembersPage.Layout = SettingsLayout;
+EnvironmentsPage.Layout = SettingsLayout;
 
-export default MembersPage;
+export default EnvironmentsPage;

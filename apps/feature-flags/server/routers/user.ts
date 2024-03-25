@@ -1,10 +1,16 @@
 import { protectedProcedure, router } from "server/trpc";
-// Inputs
-import schemas from "server/schemas";
+// Utils
+import { z } from "zod";
 
 export const userRouter = router({
   all: protectedProcedure
-    .input(schemas.user.input.all)
+    .input(
+      z
+        .object({
+          excludeProjectId: z.string(),
+        })
+        .required(),
+    )
     .query(async ({ ctx, input }) => {
       const users = await ctx.prisma.user.findMany({
         where: {
@@ -30,7 +36,14 @@ export const userRouter = router({
       return { users };
     }),
   bySearch: protectedProcedure
-    .input(schemas.user.input.bySearch)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          search: z.string(),
+        })
+        .required(),
+    )
     .query(async ({ ctx, input }) => {
       const users = await ctx.prisma.user.findMany({
         where: {

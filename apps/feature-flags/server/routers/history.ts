@@ -1,10 +1,19 @@
 import { protectedProcedure, router } from "server/trpc";
-// Inputs
-import schemas from "server/schemas";
+// Utils
+import { z } from "zod";
 
 export const historyRouter = router({
   all: protectedProcedure
-    .input(schemas.history.input.all)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          flagId: z.string().optional().nullable(),
+          search: z.string().optional().nullable(),
+          range: z.array(z.date()).optional().nullable(),
+        })
+        .required(),
+    )
     .query(async ({ ctx, input }) => {
       const getId = !input.flagId
         ? {
@@ -45,7 +54,15 @@ export const historyRouter = router({
       return { history };
     }),
   create: protectedProcedure
-    .input(schemas.history.input.create)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          action: z.string(),
+          payload: z.object({}),
+        })
+        .required(),
+    )
     .mutation(async ({ ctx, input }) => {
       const history = await ctx.prisma.history.create({
         data: {

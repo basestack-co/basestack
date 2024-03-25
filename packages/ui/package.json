@@ -17,18 +17,18 @@
     "@basestack/tsconfig": "*",
     "@basestack/utils": "*",
     "@testing-library/jest-dom": "^6.4.2",
-    "@types/react": "18.2.64",
-    "@types/react-dom": "^18.2.21",
+    "@types/react": "18.2.70",
+    "@types/react-dom": "^18.2.22",
     "jest-styled-components": "^7.2.0",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.3"
   },
   "dependencies": {
     "@basestack/design-system": "*",
-    "material-symbols": "^0.16.0",
+    "material-symbols": "^0.17.1",
     "polished": "^4.2.2",
-    "styled-components": "^6.1.8",
-    "styled-system": "^5.1.5",
+    "react-spring": "^9.7.3",
     "react-use": "^17.5.0",
-    "react-spring": "^9.7.3"
+    "styled-components": "^6.1.8",
+    "styled-system": "^5.1.5"
   }
 }

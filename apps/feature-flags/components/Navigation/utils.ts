@@ -5,18 +5,18 @@ import { NextRouter } from "next/router";
 import { config } from "@basestack/utils";
 import { signOut } from "next-auth/react";
 
-export const getInternalLinks = (t: Translate, projectSlug: string) => {
+export const getInternalLinks = (t: Translate, projectId: string) => {
   return [
     {
       icon: "flag",
       activeText: "Flags",
-      to: `/${projectSlug}/flags`,
+      to: `/project/${projectId}/flags`,
       text: t("internal.features"),
     },
     {
       icon: "settings",
       activeText: "Settings",
-      to: `/${projectSlug}/settings/general`,
+      to: `/project/${projectId}/settings/general`,
       text: t("internal.settings"),
     },
   ];

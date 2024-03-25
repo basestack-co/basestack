@@ -52,9 +52,8 @@ export const isAuthenticated = middleware(
 
     // This is for routes that need to verify any action if the user allowed in that project
     if (restricted) {
-      const { projectId = "", projectSlug = "" } = (rawInput ?? {}) as {
+      const { projectId = "" } = (rawInput ?? {}) as {
         projectId: string;
-        projectSlug: string;
       };
 
       // checks if the user is in the project
@@ -62,8 +61,9 @@ export const isAuthenticated = middleware(
         ctx.prisma,
         ctx?.session?.user.id!,
         projectId!,
-        projectSlug!,
       );
+
+
 
       // If the user does not exist in the project, return an error
       if (!project) {

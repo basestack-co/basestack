@@ -6,48 +6,23 @@ export const getUserInProject = async (
   prisma: PrismaClient,
   userId: string,
   projectId: string,
-  projectSlug: string,
 ) => {
   try {
-    const condition = !!projectId ? { id: projectId } : { slug: projectSlug };
-
-    return await prisma.$transaction(async (tx) => {
-      const project = await tx.project.findFirst({
-        where: {
-          AND: [
-            condition,
-            {
-              users: {
-                some: {
-                  user: {
-                    id: userId,
-                  },
-                },
-              },
-            },
-          ],
-        },
-      });
-
-      if (project) {
-        const role = await tx.projectsOnUsers.findFirst({
-          where: {
-            projectId: project.id,
-            userId,
-          },
-          select: {
-            role: true,
-          },
-        });
-
-        return {
-          ...project,
-          role: role?.role ?? "USER",
-        };
-      }
-
-      return null;
+    const data = await prisma.projectsOnUsers.findFirst({
+      where: {
+        projectId,
+        userId,
+      },
+      select: {
+        role: true,
+      },
     });
+
+    if (!data) return null;
+
+    return {
+      role: data.role ?? "USER",
+    };
   } catch {
     throw new TRPCError({ code: "FORBIDDEN" });
   }

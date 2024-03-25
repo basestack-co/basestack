@@ -12,19 +12,22 @@ import { ProjectSettings } from "types";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
-type Props = ProjectSettings;
+export interface Props {
+  name?: string;
+}
 
-const DeleteProjectCard = ({ project }: Props) => {
+const DeleteProjectCard = ({ name }: Props) => {
   const { t } = useTranslation("settings");
   const router = useRouter();
   const trpcUtils = trpc.useUtils();
   const deleteProject = trpc.project.delete.useMutation();
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
+  const { projectId } = router.query as { projectId: string };
 
   const onDeleteProject = () => {
     deleteProject.mutate(
       {
-        projectId: project.id,
+        projectId,
       },
       {
         onSuccess: async (result) => {
@@ -53,7 +56,7 @@ const DeleteProjectCard = ({ project }: Props) => {
       data: {
         title: t("general.delete.modal.title"),
         description: t("general.delete.modal.description", {
-          name: `<b>${project.name}</b>`,
+          name: `<b>${name}</b>`,
         }),
         type: "delete",
         buttonText: t("general.delete.modal.action"),

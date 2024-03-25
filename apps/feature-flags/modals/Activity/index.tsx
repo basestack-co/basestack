@@ -3,6 +3,7 @@ import Portal from "@basestack/design-system/global/Portal";
 import { Modal } from "@basestack/design-system";
 // Store
 import { useStore } from "store";
+import { useShallow } from "zustand/react/shallow";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Components
@@ -10,11 +11,14 @@ import Activity from "components/Activity";
 
 const ActivityModal = () => {
   const { t } = useTranslation("modals");
-  const isModalOpen = useStore((state) => state.isActivityModalOpen);
-  const setActivityModalOpen = useStore((state) => state.setActivityModalOpen);
-  const closeModalsOnClickOutside = useStore(
-    (state) => state.closeModalsOnClickOutside,
-  );
+  const [isModalOpen, setActivityModalOpen, closeModalsOnClickOutside] =
+    useStore(
+      useShallow((state) => [
+        state.isActivityModalOpen,
+        state.setActivityModalOpen,
+        state.closeModalsOnClickOutside,
+      ]),
+    );
 
   const onClose = useCallback(() => {
     setActivityModalOpen({ isOpen: false });

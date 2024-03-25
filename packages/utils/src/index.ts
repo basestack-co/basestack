@@ -10,3 +10,6 @@ export { default as config } from "./config";
 export { default as events } from "./events";
 // Types
 export * from "./types";
+// Middleware
+export * from "./middleware/cors";
+export * from "./middleware/headers";
