@@ -173,7 +173,8 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
   background-color: #0e55d7;
 }
 
-.c18 .material-symbols-sharp {
+.c18 .material-symbols-sharp,
+.c18 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -211,7 +212,8 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
   background-color: #0e55d7;
 }
 
-.c25 .material-symbols-sharp {
+.c25 .material-symbols-sharp,
+.c25 .material-symbols-rounded {
   color: inherit;
 }
 

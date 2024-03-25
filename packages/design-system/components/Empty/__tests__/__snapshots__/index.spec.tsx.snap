@@ -61,7 +61,8 @@ exports[`Empty tests should render Empty correctly 1`] = `
   background-color: #0e55d7;
 }
 
-.c7 .material-symbols-sharp {
+.c7 .material-symbols-sharp,
+.c7 .material-symbols-rounded {
   color: inherit;
 }
 

@@ -147,7 +147,8 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
   background-color: #0e55d7;
 }
 
-.c12 .material-symbols-sharp {
+.c12 .material-symbols-sharp,
+.c12 .material-symbols-rounded {
   color: inherit;
 }
 
