@@ -44,7 +44,8 @@ exports[`Modal tests should render Modal correctly open 1`] = `
   background-color: #E2E2E2;
 }
 
-.c10 .material-symbols-sharp {
+.c10 .material-symbols-sharp,
+.c10 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -83,7 +84,8 @@ exports[`Modal tests should render Modal correctly open 1`] = `
   background-color: #0e55d7;
 }
 
-.c11 .material-symbols-sharp {
+.c11 .material-symbols-sharp,
+.c11 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -339,7 +341,8 @@ exports[`Modal tests should render Modal with custom props 1`] = `
   background-color: #E2E2E2;
 }
 
-.c10 .material-symbols-sharp {
+.c10 .material-symbols-sharp,
+.c10 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -378,7 +381,8 @@ exports[`Modal tests should render Modal with custom props 1`] = `
   background-color: #0e55d7;
 }
 
-.c11 .material-symbols-sharp {
+.c11 .material-symbols-sharp,
+.c11 .material-symbols-rounded {
   color: inherit;
 }
 

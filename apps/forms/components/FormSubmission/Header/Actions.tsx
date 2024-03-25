@@ -58,7 +58,7 @@ const ActionButton = ({ onClick, icon, text }: ActionButtonProps) => {
   );
 };
 
-const Grid = ({
+const Actions = ({
   onDelete,
   onMarkSpam,
   onReadSubmission,
@@ -101,4 +101,4 @@ const Grid = ({
   );
 };
 
-export default Grid;
+export default Actions;

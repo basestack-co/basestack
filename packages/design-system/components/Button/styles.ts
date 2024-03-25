@@ -177,7 +177,8 @@ export const StyledButton = styled.button<StyledButtonProps>`
   ${({ variant }) => handleButtonVariant(variant)};
   ${compose(flexbox, space, layout, typography, color)};
 
-  .material-symbols-sharp {
+  .material-symbols-sharp,
+  .material-symbols-rounded {
     color: inherit;
   }
 

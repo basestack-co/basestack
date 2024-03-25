@@ -31,7 +31,8 @@ exports[`Pagination tests should render Pagination correctly 1`] = `
   background-color: #E2E2E2;
 }
 
-.c7 .material-symbols-sharp {
+.c7 .material-symbols-sharp,
+.c7 .material-symbols-rounded {
   color: inherit;
 }
 

@@ -39,7 +39,8 @@ exports[`Banner tests should render Banner correctly 1`] = `
   background-color: #0e55d7;
 }
 
-.c6 .material-symbols-sharp {
+.c6 .material-symbols-sharp,
+.c6 .material-symbols-rounded {
   color: inherit;
 }
 
