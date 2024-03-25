@@ -26,17 +26,17 @@ const links = [
   {
     id: 1,
     text: "General",
-    href: "/[projectSlug]/settings/general",
+    href: "/project/[projectId]/settings/general",
   },
   {
     id: 2,
     text: "Members",
-    href: "/[projectSlug]/settings/members",
+    href: "/project/[projectId]/settings/members",
   },
   {
     id: 3,
     text: "Environments",
-    href: "/[projectSlug]/settings/environments",
+    href: "/project/[projectId]/settings/environments",
   },
 ];
 
@@ -44,15 +44,15 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   const theme = useTheme();
   const isDesktop = useMedia(theme.device.min.lg, false);
   const router = useRouter();
+  const { projectId } = router.query as { projectId: string };
 
-  const projectSlug = router.query.projectSlug as string;
-
-  const { data, isLoading: isLoadingProject } = trpc.project.bySlug.useQuery(
-    { projectSlug },
-    {
-      enabled: !!projectSlug,
-    },
-  );
+  const { data: project, isLoading: isLoadingProject } =
+    trpc.project.byId.useQuery(
+      { projectId },
+      {
+        enabled: !!projectId,
+      },
+    );
 
   const renderLink = useMemo(() => {
     return links.map(({ id, text, href }) => (
@@ -60,7 +60,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
         <StyledLink
           href={{
             pathname: href,
-            query: { projectSlug },
+            query: { projectId },
           }}
           passHref
         >
@@ -70,7 +70,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
         </StyledLink>
       </ListItem>
     ));
-  }, [router.pathname, projectSlug]);
+  }, [router.pathname, projectId]);
 
   const activeLinkIndex = useMemo(
     () => links.findIndex((button) => button.href === router.pathname),
@@ -91,7 +91,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   return (
     <>
       <Head>
-        <title>{data?.project.name ?? "Project"} / Settings</title>
+        <title>{project?.name ?? "Project"} / Settings</title>
       </Head>
 
       <MainLayout>
@@ -106,15 +106,15 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
                 items={items}
                 onSelect={(item) => {
                   router.push({
-                    pathname: `/[projectSlug]/settings/${item.toLowerCase()}`,
-                    query: { projectSlug },
+                    pathname: `/project/[projectId]/settings/${item.toLowerCase()}`,
+                    query: { projectId },
                   });
                 }}
                 sliderPosition={activeLinkIndex}
                 backgroundColor="transparent"
               />
             )}
-            {isLoadingProject || !data ? (
+            {isLoadingProject || !project ? (
               <Loader hasDelay={false}>
                 <Skeleton
                   items={[
@@ -128,9 +128,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
                 />
               </Loader>
             ) : (
-              React.cloneElement(children, {
-                project: data.project,
-              })
+              children
             )}
           </SettingsContainer>
         </Container>

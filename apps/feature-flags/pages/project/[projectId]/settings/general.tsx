@@ -1,4 +1,6 @@
 import React from "react";
+// Router
+import { useRouter } from "next/router";
 // Layout
 import SettingsLayout from "layouts/Settings";
 // Components
@@ -12,18 +14,26 @@ import DeleteProject from "components/ProjectSettings/DeleteProject";
 import Endpoints from "components/ProjectSettings/Endpoints";
 import Keys from "components/ProjectSettings/Keys";
 import ProjectKey from "components/ProjectSettings/ProjectKey";
+// Server
+import { trpc } from "libs/trpc";
 // Types
-import { ProjectSettings } from "types";
 import { Role } from "@prisma/client";
 
-type Props = ProjectSettings;
+const GeneralPage = () => {
+  const router = useRouter();
+  const { projectId } = router.query as { projectId: string };
+  const { data: project, isLoading } = trpc.project.byId.useQuery(
+    { projectId },
+    {
+      enabled: !!projectId,
+    },
+  );
 
-const GeneralPage = ({ project }: Props) => {
   return (
     <CardList>
       <CardListItem>
         <SettingCardContainer>
-          <ProjectName project={project} />
+          <ProjectName role={project?.role} name={project?.name} />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>
@@ -33,18 +43,18 @@ const GeneralPage = ({ project }: Props) => {
       </CardListItem>
       <CardListItem>
         <SettingCardContainer>
-          <ProjectKey projectKey={project.key} />
+          <ProjectKey projectKey={project?.key ?? ""} />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>
         <SettingCardContainer>
-          <Keys project={project} />
+          <Keys />
         </SettingCardContainer>
       </CardListItem>
-      {project.role === Role.ADMIN && (
+      {project?.role === Role.ADMIN && (
         <CardListItem>
           <SettingCardContainer>
-            <DeleteProject project={project} />
+            <DeleteProject name={project?.name} />
           </SettingCardContainer>
         </CardListItem>
       )}

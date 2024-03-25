@@ -7,13 +7,13 @@ module.exports = nextTranslate({
   async redirects() {
     return [
       {
-        source: "/:projectSlug",
-        destination: "/:projectSlug/flags",
+        source: "/project/:projectId",
+        destination: "/project/:projectId/flags",
         permanent: false,
       },
       {
-        source: "/:projectSlug/settings",
-        destination: "/:projectSlug/settings/general",
+        source: "/project/:projectId/settings",
+        destination: "/project/:projectId/settings/general",
         permanent: false,
       },
     ];

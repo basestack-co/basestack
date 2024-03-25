@@ -93,8 +93,8 @@ const CreateProjectModal = () => {
         onClose();
 
         await router.push({
-          pathname: "/[projectSlug]/flags",
-          query: { projectSlug: data.slug },
+          pathname: "/project/[projectId]/flags",
+          query: { projectId: result.project.id },
         });
       },
     });

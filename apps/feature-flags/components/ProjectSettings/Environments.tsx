@@ -1,6 +1,8 @@
 import React, { useMemo, useCallback } from "react";
 import { useTheme } from "styled-components";
 import { useMedia } from "react-use";
+// Router
+import { useRouter } from "next/router";
 // Components
 import {
   ButtonVariant,
@@ -18,17 +20,19 @@ import { useStore } from "store";
 import dayjs from "dayjs";
 import { createTable } from "@basestack/utils";
 // Types
-import { ProjectSettings } from "types";
 import { Role } from "@prisma/client";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
-type Props = ProjectSettings;
-const EnvironmentsCard = ({ project }: Props) => {
+const EnvironmentsCard = () => {
   const { t } = useTranslation("settings");
   const theme = useTheme();
   const isMobile = useMedia(theme.device.max.md, false);
   const trpcUtils = trpc.useUtils();
+  const router = useRouter();
+
+  const { projectId } = router.query as { projectId: string };
+
   const setCreateEnvironmentModalOpen = useStore(
     (state) => state.setCreateEnvironmentModalOpen,
   );
@@ -37,67 +41,74 @@ const EnvironmentsCard = ({ project }: Props) => {
   );
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
 
-  const { data, isLoading } = trpc.environment.all.useQuery(
-    { projectId: project.id },
-    { enabled: !!project.id },
-  );
+  const [project, environment] = trpc.useQueries((t) => [
+    t.project.byId({ projectId }, { enabled: !!projectId }),
+    t.environment.all({ projectId }, { enabled: !!projectId }),
+  ]);
 
   const deleteEnvironment = trpc.environment.delete.useMutation();
-  const isCurrentUserAdmin = project.role === Role.ADMIN;
+  const isCurrentUserAdmin = project?.data?.role === Role.ADMIN;
   const environments = useMemo(
-    () => (!isLoading && !!data ? data.environments : []),
-    [isLoading, data],
+    () =>
+      !environment.isLoading && !!environment.data
+        ? environment.data.environments
+        : [],
+    [environment.isLoading, environment.data],
   );
 
   const onHandleEdit = useCallback(
     (environmentId: string) => {
-      setUpdateEnvironmentModalOpen({
-        isOpen: true,
-        data: {
-          environment: { id: environmentId },
-          project,
-        },
-      });
+      if (!!projectId) {
+        setUpdateEnvironmentModalOpen({
+          isOpen: true,
+          data: {
+            environment: { id: environmentId },
+          },
+        });
+      }
     },
-    [project, setUpdateEnvironmentModalOpen],
+    [projectId, setUpdateEnvironmentModalOpen],
   );
 
-  const onHandleCreate = () => {
-    if (project) {
-      setCreateEnvironmentModalOpen({ isOpen: true, data: { project } });
+  const onHandleCreate = useCallback(() => {
+    if (!!projectId) {
+      setCreateEnvironmentModalOpen({ isOpen: true });
     }
-  };
+  }, [projectId, setCreateEnvironmentModalOpen]);
 
   const onHandleDelete = useCallback(
     async (environmentId: string) => {
-      deleteEnvironment.mutate(
-        {
-          environmentId,
-          projectId: project.id,
-        },
-        {
-          onSuccess: async (result) => {
-            // Get all the environments by project on the cache
-            const prev = trpcUtils.environment.all.getData({
-              projectId: project.id,
-            });
-
-            if (prev && prev.environments) {
-              const environments = prev.environments.filter(
-                ({ id }) => id !== result.environment.id,
-              );
-
-              // Update the cache with the new data
-              trpcUtils.environment.all.setData(
-                { projectId: project.id },
-                {
-                  environments,
-                },
-              );
-            }
+      if (project?.data?.id) {
+        const projectId = project?.data?.id;
+        deleteEnvironment.mutate(
+          {
+            environmentId,
+            projectId,
           },
-        },
-      );
+          {
+            onSuccess: async (result) => {
+              // Get all the environments by project on the cache
+              const prev = trpcUtils.environment.all.getData({
+                projectId,
+              });
+
+              if (prev && prev.environments) {
+                const environments = prev.environments.filter(
+                  ({ id }) => id !== result.environment.id,
+                );
+
+                // Update the cache with the new data
+                trpcUtils.environment.all.setData(
+                  { projectId },
+                  {
+                    environments,
+                  },
+                );
+              }
+            },
+          },
+        );
+      }
     },
     [project, deleteEnvironment, trpcUtils.environment.all],
   );
@@ -188,7 +199,7 @@ const EnvironmentsCard = ({ project }: Props) => {
       onClick={onHandleCreate}
       hasFooter={isCurrentUserAdmin}
     >
-      {isLoading || !data ? (
+      {environment.isLoading || !environment ? (
         <Loader hasDelay={false}>
           <Skeleton
             items={[

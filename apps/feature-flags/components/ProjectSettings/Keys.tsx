@@ -1,6 +1,8 @@
 import React, { useMemo } from "react";
 import { useTheme } from "styled-components";
 import { useMedia } from "react-use";
+// Router
+import { useRouter } from "next/router";
 // Components
 import { Loader, Skeleton, Table } from "@basestack/design-system";
 // UI
@@ -11,17 +13,17 @@ import { trpc } from "libs/trpc";
 import useTranslation from "next-translate/useTranslation";
 // Utils
 import { createTable } from "@basestack/utils";
-// Types
-import { ProjectSettings } from "types";
 
-type Props = ProjectSettings;
-const KeysCard = ({ project }: Props) => {
+const KeysCard = () => {
   const { t } = useTranslation("settings");
+  const router = useRouter();
   const theme = useTheme();
   const isMobile = useMedia(theme.device.max.md, false);
+  const { projectId } = router.query as { projectId: string };
+
   const { data, isLoading } = trpc.project.allKeys.useQuery(
-    { projectSlug: project.slug },
-    { enabled: !!project.id },
+    { projectId },
+    { enabled: !!projectId },
   );
 
   const environments = useMemo(

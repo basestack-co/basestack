@@ -3,8 +3,8 @@ import { TRPCError } from "@trpc/server";
 // Utils
 import { generateSlug } from "random-word-slugs";
 import { withRoles } from "@basestack/utils";
+import { z } from "zod";
 // Inputs
-import schemas from "server/schemas";
 import { Role } from "@prisma/client";
 
 export const environmentRouter = router({
@@ -12,7 +12,13 @@ export const environmentRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.environment.input.all)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+        })
+        .required(),
+    )
     .query(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
@@ -36,7 +42,16 @@ export const environmentRouter = router({
       });
     }),
   create: protectedProcedure
-    .input(schemas.environment.input.create)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          name: z.string(),
+          description: z.string(),
+          copyFromEnvId: z.string(),
+        })
+        .required(),
+    )
     .meta({
       restricted: true,
     })
@@ -83,7 +98,16 @@ export const environmentRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.environment.input.update)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          environmentId: z.string().min(1),
+          name: z.string(),
+          description: z.string(),
+        })
+        .required(),
+    )
     .mutation(async ({ ctx, input }) => {
       const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.environment.update({
@@ -105,7 +129,14 @@ export const environmentRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.environment.input.delete)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          environmentId: z.string(),
+        })
+        .required(),
+    )
     .mutation(async ({ ctx, input }) => {
       const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.$transaction(async (tx) => {

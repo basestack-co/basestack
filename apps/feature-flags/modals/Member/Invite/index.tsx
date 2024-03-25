@@ -1,6 +1,8 @@
 import React, { useCallback, useMemo } from "react";
 import Portal from "@basestack/design-system/global/Portal";
 import { Modal, Select } from "@basestack/design-system";
+// Router
+import { useRouter } from "next/router";
 // Store
 import { useStore } from "store";
 // Form
@@ -20,22 +22,23 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const InviteMemberModal = () => {
   const { t } = useTranslation("modals");
+  const router = useRouter();
+  const { projectId } = router.query as { projectId: string };
   const trpcUtils = trpc.useUtils();
   const isModalOpen = useStore((state) => state.isInviteMemberModalOpen);
   const setInviteMemberModalOpen = useStore(
     (state) => state.setInviteMemberModalOpen,
   );
-  const payload = useStore((state) => state.inviteMemberModalPayload);
   const closeModalsOnClickOutside = useStore(
     (state) => state.closeModalsOnClickOutside,
   );
 
   const { data, isLoading } = trpc.user.all.useQuery(
     {
-      excludeProjectId: payload?.project?.id!,
+      excludeProjectId: projectId,
     },
     {
-      enabled: isModalOpen && !!payload?.project?.id,
+      enabled: isModalOpen && !!projectId,
     },
   );
 
@@ -71,9 +74,9 @@ const InviteMemberModal = () => {
 
   const onSubmit: SubmitHandler<FormInputs> = useCallback(
     (input: FormInputs) => {
-      if (payload && payload.project) {
+      if (projectId) {
         addUserToProject.mutate(
-          { projectId: payload?.project?.id!, userId: input.memberId },
+          { projectId, userId: input.memberId },
           {
             onSuccess: async (result) => {
               await trpcUtils.project.members.invalidate();
@@ -83,7 +86,7 @@ const InviteMemberModal = () => {
         );
       }
     },
-    [addUserToProject, payload, onClose, trpcUtils],
+    [addUserToProject, projectId, onClose, trpcUtils],
   );
 
   const onChangeMember = useCallback((option: unknown, setField: any) => {
@@ -105,10 +108,7 @@ const InviteMemberModal = () => {
           {
             children: t("member.invite.button.submit"),
             onClick: handleSubmit(onSubmit),
-            isDisabled:
-              !payload?.project?.id ||
-              !options.length ||
-              isSubmittingOrMutating,
+            isDisabled: !projectId || !options.length || isSubmittingOrMutating,
             isLoading: isSubmittingOrMutating,
           },
         ]}

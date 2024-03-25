@@ -28,7 +28,7 @@ const CreateFlagModal = () => {
   const setCreateFlagModalOpen = useStore(
     (state) => state.setCreateFlagModalOpen,
   );
-  const projectSlug = router.query.projectSlug as string;
+  const { projectId } = router.query as { projectId: string };
   const closeModalsOnClickOutside = useStore(
     (state) => state.closeModalsOnClickOutside,
   );
@@ -42,7 +42,7 @@ const CreateFlagModal = () => {
     onRenderTab,
     project,
     setValue,
-  } = useFlagForm({ isModalOpen, projectSlug });
+  } = useFlagForm({ isModalOpen, projectId });
 
   const createFlag = trpc.flag.create.useMutation();
 

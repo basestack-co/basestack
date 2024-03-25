@@ -33,7 +33,7 @@ const UpdateFlagModal = () => {
     (state) => state.closeModalsOnClickOutside,
   );
 
-  const projectSlug = router.query.projectSlug as string;
+  const { projectId } = router.query as { projectId: string };
   const updateFlag = trpc.flag.update.useMutation();
 
   const {
@@ -47,7 +47,7 @@ const UpdateFlagModal = () => {
     setValue,
   } = useFlagForm({
     isModalOpen,
-    projectSlug,
+    projectId,
     flagId: modalPayload?.flag?.id,
   });
 

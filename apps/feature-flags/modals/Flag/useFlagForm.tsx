@@ -14,7 +14,7 @@ import History from "./Tab/History";
 
 export interface UseFlagFormProps {
   isModalOpen: boolean;
-  projectSlug: string;
+  projectId: string;
   flagId?: string;
 }
 
@@ -26,7 +26,7 @@ export const tabPosition: { [key in TabType]: number } = {
 
 const useFlagForm = ({
   isModalOpen,
-  projectSlug,
+  projectId,
   flagId = "",
 }: UseFlagFormProps) => {
   const trpcUtils = trpc.useUtils();
@@ -46,16 +46,16 @@ const useFlagForm = ({
   });
 
   const project = useMemo(() => {
-    if (isModalOpen && projectSlug) {
+    if (isModalOpen && projectId) {
       const cache = trpcUtils.project.all.getData();
 
       return ((cache && cache.projects) || []).find(
-        (project) => project.slug === projectSlug,
+        (project) => project.id === projectId,
       );
     }
 
     return null;
-  }, [projectSlug, isModalOpen, trpcUtils]);
+  }, [projectId, isModalOpen, trpcUtils]);
 
   const onRenderTab = (isLoading: boolean = false) => {
     switch (selectedTab) {
