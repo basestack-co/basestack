@@ -68,7 +68,8 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
   background-color: #E2E2E2;
 }
 
-.c9 .material-symbols-sharp {
+.c9 .material-symbols-sharp,
+.c9 .material-symbols-rounded {
   color: inherit;
 }
 
