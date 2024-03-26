@@ -2,7 +2,7 @@ import { protectedProcedure, router } from "server/trpc";
 // Utils
 import { z } from "zod";
 // Jobs
-import { triggerClient, TriggerEventName } from "libs/trigger";
+import { sendEmailJob } from "libs/upstash/qstash/jobs";
 
 export const formRouter = router({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -104,13 +104,9 @@ export const formRouter = router({
           },
         });
 
-        // Trigger a job this is just an example delete this after we have real jobs
-        await triggerClient.sendEvent({
-          name: TriggerEventName.SEND_EMAIL,
-          payload: {
-            to: "vitor.works@gmail.com",
-            subject: "New form created",
-          },
+        await sendEmailJob({
+          to: "vitor.works@gmail.com",
+          subject: "New form created",
         });
 
         return { form, connection };
