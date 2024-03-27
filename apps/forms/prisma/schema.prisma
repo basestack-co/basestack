@@ -99,7 +99,7 @@ model Form {
   createdAt          DateTime?     @default(now())
   updatedAt          DateTime?     @updatedAt
   users              FormOnUsers[]
-  Submission         Submission[]
+  submissions        Submission[]
 
   @@index([name])
 }
@@ -123,7 +123,7 @@ model Submission {
   id        String   @id() @unique() @default(cuid())
   formId    String
   isSpam    Boolean?
-  viewed    Boolean  @default(false)
+  viewed    Boolean?
   data      Json     @default("{}") @db.Json
   metadata  Json?    @default("{}") @db.Json
   createdAt DateTime @default(now())

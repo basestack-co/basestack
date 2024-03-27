@@ -1,28 +1,43 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Head from "next/head";
+// Server
+import { trpc } from "libs/trpc";
+// Store
+import { useStore } from "store";
 // Layout
 import MainLayout from "../layouts/Main";
 import MainPageTemplate from "../components/MainPage";
 
 const MainPage = () => {
-  const data = [
-    { title: "Restaurant", spam: 2, submissions: { unread: 10, read: 2 } },
-    { title: "Games", spam: 120, submissions: { unread: 120, read: 120 } },
-    { title: "Fun and Games", spam: 0, submissions: { unread: 200, read: 0 } },
-    {
-      title: "Food and Drinks",
-      spam: 3,
-      submissions: { unread: 0, read: 200 },
+  const setCreateFormModalOpen = useStore(
+    (state) => state.setCreateFormModalOpen,
+  );
+
+  const { data, isLoading } = trpc.form.recent.useQuery(undefined, {
+    select: (res) => {
+      return res.map(({ id, name, _count }) => ({
+        formId: id,
+        title: name,
+        spam: _count.isSpam,
+        submissions: {
+          unread: _count._all - _count.viewed,
+          read: _count.viewed,
+        },
+      }));
     },
-    { title: "Games", spam: 0, submissions: { unread: 0, read: 0 } },
-    { title: "News and TV", spam: 0, submissions: { unread: 10, read: 2 } },
-    { title: "Sports Division", spam: 0, submissions: { unread: 10, read: 2 } },
-    { title: "Forms", spam: 0, submissions: { unread: 10, read: 2 } },
-    { title: "Time Magazine", spam: 1, submissions: { unread: 10, read: 2 } },
-  ];
+  });
 
   return (
-    <MainPageTemplate data={data} onCreateForm={() => null} isLoading={false} />
+    <Fragment>
+      <Head>
+        <title>Basestack / Forms</title>
+      </Head>
+      <MainPageTemplate
+        data={data ?? []}
+        onCreateForm={() => setCreateFormModalOpen({ isOpen: true })}
+        isLoading={isLoading}
+      />
+    </Fragment>
   );
 };
 

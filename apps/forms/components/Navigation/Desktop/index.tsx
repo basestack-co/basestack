@@ -52,7 +52,7 @@ const DesktopNavigation = ({
   const setIsDarkMode = useStore((state) => state.setDarkMode);
   const isDarkMode = useStore((state) => state.isDarkMode);
 
-  const setCreateProjectModalOpen = useStore(
+  const setCreateFormModalOpen = useStore(
     (state) => state.setCreateFormModalOpen,
   );
 
@@ -119,7 +119,7 @@ const DesktopNavigation = ({
               </Link>
             </ListItem>
             <ProjectsMenu
-              onCreate={() => setCreateProjectModalOpen({ isOpen: true })}
+              onCreate={() => setCreateFormModalOpen({ isOpen: true })}
               current={currentForm}
               data={data ?? []}
               title={t("forms.title")}

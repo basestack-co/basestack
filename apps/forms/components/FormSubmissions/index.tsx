@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+// Server
+import { trpc } from "libs/trpc";
+// Router
+import { useRouter } from "next/router";
 // Components
 import { Text, Pagination } from "@basestack/design-system";
 import { Container, List, ListItem, PaginationContainer } from "./styles";
@@ -6,6 +10,24 @@ import Toolbar from "../Toolbar";
 import FormSubmission from "../FormSubmission";
 
 const FormSubmissions = () => {
+  const trpcUtils = trpc.useUtils();
+  const router = useRouter();
+  const [searchValue, setSearchValue] = useState<string>("");
+  const { formId } = router.query as { formId: string };
+
+  const { data, isLoading, fetchNextPage } =
+    trpc.submission.all.useInfiniteQuery(
+      {
+        formId,
+        limit: 10,
+        search: searchValue,
+      },
+      {
+        enabled: !!formId,
+        getNextPageParam: (lastPage) => lastPage.nextCursor,
+      },
+    );
+
   return (
     <Container>
       <Text size="xLarge">Contact</Text>

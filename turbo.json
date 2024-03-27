@@ -59,10 +59,11 @@
         "API_RATE_LIMIT_WINDOW_MS",
         "API_RATE_LIMIT_UNIQUE_TOKEN_PER_SECOND",
         "API_ACCESS_CONTROL_ALLOW_ORIGIN",
-        "TRIGGER_PROJECT_ID",
-        "TRIGGER_API_KEY",
-        "TRIGGER_API_URL",
-        "NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY"
+        "QSTASH_JOBS_API_URL",
+        "QSTASH_URL",
+        "QSTASH_TOKEN",
+        "QSTASH_CURRENT_SIGNING_KEY",
+        "QSTASH_NEXT_SIGNING_KEY"
       ]
     },
     "@basestack/landing-page#deploy": {

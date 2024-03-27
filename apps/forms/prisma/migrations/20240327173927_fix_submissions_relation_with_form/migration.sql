@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Submission" ALTER COLUMN "viewed" DROP NOT NULL,
+ALTER COLUMN "viewed" DROP DEFAULT;

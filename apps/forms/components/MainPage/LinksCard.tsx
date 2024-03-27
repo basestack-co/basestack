@@ -1,6 +1,12 @@
 import React from "react";
-import { useTheme } from "styled-components";
+// Locales
+import useTranslation from "next-translate/useTranslation";
+// Components
 import { Text, Card, IconBox } from "@basestack/design-system";
+// Utils
+import { config } from "@basestack/utils";
+// Styles
+import { useTheme } from "styled-components";
 import { Box, StyledLink } from "./styles";
 
 interface TextLinkProps {
@@ -35,34 +41,51 @@ const TextLink = ({ data }: TextLinkProps) => {
 };
 
 const LinksCard = () => {
+  const { t } = useTranslation("home");
   const theme = useTheme();
 
   return (
     <Card hasHoverAnimation p={theme.spacing.s5}>
       <IconBox icon="folder_open" mb={theme.spacing.s5} />
-      <Text size="large">Documentation, Help and Support</Text>
+      <Text size="large">{t("links.external.title")}</Text>
       <TextLink
         data={[
-          { text: "Read the" },
-          { text: "Documentation", href: "/", target: "_blank" },
+          { text: t("links.external.read_the") },
+          {
+            text: t("links.external.docs"),
+            href: config.urls.docs.forms.base,
+            target: "_blank",
+          },
         ]}
       />
       <TextLink
         data={[
-          { text: "Check out the" },
-          { text: "SDK’s", href: "/", target: "_blank" },
+          { text: t("links.external.check_out_the") },
+          {
+            text: t("links.external.sdks"),
+            href: config.urls.docs.forms.sdk.base,
+            target: "_blank",
+          },
         ]}
       />
       <TextLink
         data={[
-          { text: "How to" },
-          { text: "Contribute?", href: "/", target: "_blank" },
+          { text: t("links.external.how_to") },
+          {
+            text: t("links.external.contribute"),
+            href: config.urls.docs.contribute,
+            target: "_blank",
+          },
         ]}
       />
       <TextLink
         data={[
-          { text: "Open an issue on" },
-          { text: "Github", href: "/", target: "_blank" },
+          { text: t("links.external.open_on") },
+          {
+            text: t("links.external.github"),
+            href: config.urls.repo,
+            target: "_blank",
+          },
         ]}
       />
     </Card>
