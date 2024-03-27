@@ -25,6 +25,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       },
     });
 
+
     console.info("✨ Email sent successfully! ✨");
 
     return res.status(200).end();

@@ -5,7 +5,16 @@
     "empty": {
       "title": "Create your first project",
       "description": "Create your first project to start creating flags!",
-      "action": "Create Project"
+      "action": "Create project"
+    }
+  },
+  "forms": {
+    "title": "Recent forms",
+    "action": "Create form",
+    "empty": {
+      "title": "Create your first form",
+      "description": "Create your first form to start receiving submissions!",
+      "action": "Create form"
     }
   },
   "links": {

@@ -16,7 +16,7 @@ import { qstashClient, jobsBaseUrl, schedules } from "./client";
 
 export const sendEmailJob = async (body: { to: string; subject: string }) => {
   await qstashClient.publishJSON({
-    url: `${jobsBaseUrl}/api/jobs/sendEmail`,
+    url: `${jobsBaseUrl}/api/job/sendEmail`,
     headers: { "Upstash-Delay": "10s" },
     retries: 1,
     // contentBasedDeduplication: true, avoid duplication by using the content body of the job
@@ -32,11 +32,11 @@ export const sendEmailJob = async (body: { to: string; subject: string }) => {
 export const demoBatchJob = async () => {
   await qstashClient.batchJSON([
     {
-      url: `${jobsBaseUrl}/api/jobs/sendEmail`,
+      url: `${jobsBaseUrl}/api/job/sendEmail`,
       delay: 7,
     },
     {
-      url: `${jobsBaseUrl}/api/jobs/webhook`,
+      url: `${jobsBaseUrl}/api/job/webhook`,
       delay: 9,
       body: {
         Some: "Data",
@@ -48,7 +48,7 @@ export const demoBatchJob = async () => {
 // This is just an example of how to schedule a job
 export const demoScheduleJob = async () => {
   await schedules.create({
-    destination: `${jobsBaseUrl}/api/jobs/demo-schedule`,
+    destination: `${jobsBaseUrl}/api/job/demo-schedule`,
     // Create a cron that runs every day at 12:00
     cron: "0 12 * * *",
   });
