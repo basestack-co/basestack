@@ -52,18 +52,26 @@ export const RightList = styled.ul`
   }
 `;
 
-export const SubMenuContainer = styled.div`
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const SubMenuWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.s3};
-`;
-
 export const ListItem = styled.li`
   display: inline-flex;
+`;
+
+export const PopupButtonWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  button {
+    transition: padding-right 0.1s linear;
+  }
+`;
+
+export const PopupIconWrapper = styled.div`
+  display: inline-flex;
+  align-items: center;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding-right: ${({ theme }) => theme.spacing.s2};
 `;

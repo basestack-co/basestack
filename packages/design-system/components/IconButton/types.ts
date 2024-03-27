@@ -3,7 +3,12 @@ import { SpaceProps, FlexboxProps, PositionProps } from "styled-system";
 
 export type Size = "xLarge" | "large" | "mediumLarge" | "medium" | "small";
 
-export type Variant = "primary" | "primaryNeutral" | "secondary" | "neutral";
+export type Variant =
+  | "primary"
+  | "primaryNeutral"
+  | "secondary"
+  | "secondaryDark"
+  | "neutral";
 
 export interface IconButtonProps
   extends SpaceProps,

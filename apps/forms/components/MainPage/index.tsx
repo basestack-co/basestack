@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTheme } from "styled-components";
-import { useTrail, animated } from "@react-spring/web";
 import {
   Button,
   ButtonVariant,
@@ -16,7 +15,6 @@ import {
   Header,
   Section,
   List,
-  Box,
   BottomSectionContainer,
 } from "./styles";
 
@@ -30,16 +28,8 @@ interface HomePageProps {
   isLoading: boolean;
 }
 
-const AnimatedBox = animated(Box);
-
 const HomePage = ({ data, onCreateForm, isLoading }: HomePageProps) => {
   const theme = useTheme();
-  const [numberOfCards, setNumberOfCards] = useState(8);
-
-  const trails = useTrail(data.slice(0, numberOfCards).length, {
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-  });
 
   return (
     <Container>
@@ -73,24 +63,15 @@ const HomePage = ({ data, onCreateForm, isLoading }: HomePageProps) => {
         )}
         {!isLoading && !!data?.length ? (
           <List>
-            {trails.map((style, index) => {
-              const { title, spam, submissions } = data[index];
-              return (
-                <AnimatedBox
-                  key={index}
-                  display="flex"
-                  flexDirection="column"
-                  style={style}
-                >
-                  <FormCard
-                    text={title}
-                    onClick={() => null}
-                    spam={spam}
-                    submissions={submissions}
-                  />
-                </AnimatedBox>
-              );
-            })}
+            {data.slice(0, 8).map(({ title, spam, submissions }, index) => (
+              <FormCard
+                key={index}
+                text={title}
+                onClick={() => null}
+                spam={spam}
+                submissions={submissions}
+              />
+            ))}
           </List>
         ) : (
           <Empty

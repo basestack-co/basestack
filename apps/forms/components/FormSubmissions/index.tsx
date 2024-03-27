@@ -17,6 +17,8 @@ const FormSubmissions = () => {
         onDeleteAll={() => null}
         onExport={() => null}
         onSelectAll={() => null}
+        onSelectFilter={() => null}
+        onSelectSort={() => null}
       />
       <List>
         <ListItem>

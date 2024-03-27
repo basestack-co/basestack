@@ -16,6 +16,8 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
           return theme.iconButton.primaryNeutral.color;
         case "secondary":
           return theme.iconButton.secondary.color;
+        case "secondaryDark":
+          return theme.iconButton.secondary.color;
         default:
         case "neutral":
           return theme.iconButton.neutral.color;
