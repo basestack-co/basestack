@@ -9,13 +9,11 @@ import {
   CardListItem,
   SettingCardContainer,
 } from "components/FormSettings/styles";
-import FormName from "components/FormSettings/FormName";
-import DeleteForm from "components/FormSettings/DeleteForm";
+import FormSuccessUrl from "components/FormSettings/FormSuccessUrl";
+import FormFailedUrl from "components/FormSettings/FormFailedUrl";
+import FormSendQueryString from "components/FormSettings/FormSendQueryString";
 // Server
 import { trpc } from "libs/trpc";
-// Types
-import { Role } from "@prisma/client";
-import { SwitchSettingCard } from "@basestack/ui";
 
 const CustomizationSettingsPage = () => {
   const router = useRouter();
@@ -32,7 +30,17 @@ const CustomizationSettingsPage = () => {
     <CardList>
       <CardListItem>
         <SettingCardContainer>
-          <FormName role={form?.role} name={form?.name} />
+          <FormSuccessUrl />
+        </SettingCardContainer>
+      </CardListItem>
+      <CardListItem>
+        <SettingCardContainer>
+          <FormFailedUrl />
+        </SettingCardContainer>
+      </CardListItem>
+      <CardListItem>
+        <SettingCardContainer>
+          <FormSendQueryString />
         </SettingCardContainer>
       </CardListItem>
     </CardList>

@@ -10,7 +10,7 @@ import useTranslation from "next-translate/useTranslation";
 
 export interface Props {}
 
-const FormSpamProtectionCard = () => {
+const FormSendQueryStringCard = () => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
@@ -19,12 +19,12 @@ const FormSpamProtectionCard = () => {
 
   return (
     <SwitchSettingCard
-      title={t("security.spam-protection.title")}
-      description={t("security.spam-protection.description")}
+      title={t("customization.data-query-string.title")}
+      description={t("customization.data-query-string.description")}
       checked={false}
       onChange={console.log}
     />
   );
 };
 
-export default FormSpamProtectionCard;
+export default FormSendQueryStringCard;

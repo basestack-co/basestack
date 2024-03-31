@@ -95,10 +95,57 @@
     "data-retention": {
       "title": "Data retention",
       "description": "Store incoming submissions in the Basestack Forms database."
-    },
+    }
+  },
+  "security": {
     "spam-protection": {
       "title": "Spam protection",
       "description": "Switch spam protection on or off for your form submissions. Deactivate it during testing phases."
+    },
+    "ip-block-rules": {
+      "title": "IP Block Rules",
+      "description": "List IP addresses to block; Basestack Forms will reject messages from those addresses.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter an IP address",
+          "error": {
+            "min": "Required field"
+          }
+        }
+      }
+    }
+  },
+  "customization": {
+    "success-url": {
+      "title": "Custom Success URL",
+      "description": "After a successful form submission, users will be directed to your custom URL.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter an URL",
+          "error": {
+            "min": "Required field"
+          }
+        }
+      }
+    },
+    "failed-url": {
+      "title": "Custom Failed URL",
+      "description": "After a failed form submission, users will be directed to your custom URL.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter an URL",
+          "error": {
+            "min": "Required field"
+          }
+        }
+      }
+    },
+    "data-query-string": {
+      "title": "Form data as query string",
+      "description": "Pass submission data through query parameters. The return URL will be dynamically populated with the submitted form data."
     }
   },
   "members": {

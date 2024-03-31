@@ -10,10 +10,9 @@ import {
   SettingCardContainer,
 } from "components/FormSettings/styles";
 import FormSpamProtection from "components/FormSettings/FormSpamProtection";
+import FormIpRules from "components/FormSettings/FormIpRules";
 // Server
 import { trpc } from "libs/trpc";
-// Types
-import { SwitchSettingCard } from "@basestack/ui";
 
 const SecuritySettingsPage = () => {
   const router = useRouter();
@@ -28,6 +27,11 @@ const SecuritySettingsPage = () => {
 
   return (
     <CardList>
+      <CardListItem>
+        <SettingCardContainer>
+          <FormIpRules />
+        </SettingCardContainer>
+      </CardListItem>
       <CardListItem>
         <SettingCardContainer>
           <FormSpamProtection />
