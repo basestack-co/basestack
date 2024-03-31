@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { Fragment } from "react";
 // Router
 import { useRouter } from "next/router";
 // Store
@@ -35,7 +35,6 @@ const HomePage = ({ data, onCreateForm, isLoading }: HomePageProps) => {
   const { t } = useTranslation("home");
   const theme = useTheme();
   const router = useRouter();
-  const [numberOfCards, setNumberOfCards] = useState(8);
 
   const setCreateFormModalOpen = useStore(
     (state) => state.setCreateFormModalOpen,
