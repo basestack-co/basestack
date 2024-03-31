@@ -1,4 +1,11 @@
-import React from "react";
+import React, { useState, Fragment } from "react";
+// Router
+import { useRouter } from "next/router";
+// Store
+import { useStore } from "store";
+// Locales
+import useTranslation from "next-translate/useTranslation";
+// Components
 import { useTheme } from "styled-components";
 import {
   Button,
@@ -10,16 +17,12 @@ import {
 import FormCard, { FormCardProps } from "./FormCard";
 import GetStartedCard from "./GetStartedCard";
 import LinksCard from "./LinksCard";
-import {
-  Container,
-  Header,
-  Section,
-  List,
-  BottomSectionContainer,
-} from "./styles";
+// Styles
+import { Container, Header, Section, List, BottomContainer } from "./styles";
 
 interface HomePageProps {
   data: Array<{
+    formId: string;
     title: string;
     spam: number;
     submissions: FormCardProps["submissions"];
@@ -29,14 +32,21 @@ interface HomePageProps {
 }
 
 const HomePage = ({ data, onCreateForm, isLoading }: HomePageProps) => {
+  const { t } = useTranslation("home");
   const theme = useTheme();
+  const router = useRouter();
+  const [numberOfCards, setNumberOfCards] = useState(8);
+
+  const setCreateFormModalOpen = useStore(
+    (state) => state.setCreateFormModalOpen,
+  );
 
   return (
     <Container>
       <Section mb={theme.spacing.s7}>
         <Header>
           <Text size="xLarge" mr={theme.spacing.s5}>
-            Recent Forms
+            {t("forms.title")}
           </Text>
           {!!data?.length && (
             <Button
@@ -44,11 +54,11 @@ const HomePage = ({ data, onCreateForm, isLoading }: HomePageProps) => {
               variant={ButtonVariant.Outlined}
               onClick={onCreateForm}
             >
-              Create Form
+              {t("forms.action")}
             </Button>
           )}
         </Header>
-        {isLoading && (
+        {isLoading ? (
           <List>
             <Skeleton
               numberOfItems={3}
@@ -60,41 +70,49 @@ const HomePage = ({ data, onCreateForm, isLoading }: HomePageProps) => {
               padding="20px 20px 12px 20px"
             />
           </List>
-        )}
-        {!isLoading && !!data?.length ? (
-          <List>
-            {data.slice(0, 8).map(({ title, spam, submissions }, index) => (
-              <FormCard
-                key={index}
-                text={title}
-                onClick={() => null}
-                spam={spam}
-                submissions={submissions}
-              />
-            ))}
-          </List>
         ) : (
-          <Empty
-            iconName="text_snippet"
-            title="No recent froms"
-            description="Recent form will be displayed here"
-            button={{
-              text: "Create Form",
-              onClick: () => null,
-            }}
-          />
+          <Fragment>
+            {!!data?.length ? (
+              <List>
+                {data.map(({ title, spam, submissions, formId }, index) => (
+                  <FormCard
+                    key={index}
+                    text={title}
+                    onClick={() =>
+                      router.push({
+                        pathname: "/form/[formId]/submissions",
+                        query: { formId },
+                      })
+                    }
+                    spam={spam}
+                    submissions={submissions}
+                  />
+                ))}
+              </List>
+            ) : (
+              <Empty
+                iconName="text_snippet"
+                title={t("forms.empty.title")}
+                description={t("forms.empty.description")}
+                button={{
+                  text: t("forms.empty.action"),
+                  onClick: () => setCreateFormModalOpen({ isOpen: true }),
+                }}
+              />
+            )}
+          </Fragment>
         )}
       </Section>
       <Section>
         <Header>
           <Text size="xLarge" mr={theme.spacing.s5}>
-            Quick Links
+            {t("links.title")}
           </Text>
         </Header>
-        <BottomSectionContainer>
+        <BottomContainer>
           <GetStartedCard />
           <LinksCard />
-        </BottomSectionContainer>
+        </BottomContainer>
       </Section>
     </Container>
   );

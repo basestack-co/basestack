@@ -18,5 +18,11 @@ export const urls = {
         rest: `${docsUrl}/feature-flags/sdks/rest-api`,
       },
     },
+    forms: {
+      base: `${docsUrl}/forms`,
+      sdk: {
+        base: `${docsUrl}/forms/sdks`,
+      },
+    },
   },
 };

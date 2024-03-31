@@ -87,7 +87,7 @@ export const ContentContainer = styled.div`
   }
 `;
 
-export const BottomSectionContainer = styled.div`
+export const BottomContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: ${({ theme }) => theme.spacing.s3};
