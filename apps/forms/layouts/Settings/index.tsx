@@ -28,6 +28,21 @@ const links = [
     text: "General",
     href: "/form/[formId]/settings/general",
   },
+  {
+    id: 2,
+    text: "Security",
+    href: "/form/[formId]/settings/security",
+  },
+  {
+    id: 3,
+    text: "Customization",
+    href: "/form/[formId]/settings/customization",
+  },
+  {
+    id: 4,
+    text: "Notifications",
+    href: "/form/[formId]/settings/notifications",
+  },
 ];
 
 const SettingsLayout = ({ children }: { children: React.ReactElement }) => {

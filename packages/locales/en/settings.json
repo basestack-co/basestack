@@ -87,6 +87,18 @@
           }
         }
       }
+    },
+    "enable-form": {
+      "title": "Enable Form",
+      "description": "Activate/Deactivate the form to control submission collection."
+    },
+    "data-retention": {
+      "title": "Data retention",
+      "description": "Store incoming submissions in the Basestack Forms database."
+    },
+    "spam-protection": {
+      "title": "Spam protection",
+      "description": "Switch spam protection on or off for your form submissions. Deactivate it during testing phases."
     }
   },
   "members": {

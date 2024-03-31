@@ -11,14 +11,13 @@ import {
 } from "components/FormSettings/styles";
 import FormName from "components/FormSettings/FormName";
 import DeleteForm from "components/FormSettings/DeleteForm";
-import EnableForm from "components/FormSettings/EnableForm";
-import FormDataRetention from "components/FormSettings/FormDataRetention";
 // Server
 import { trpc } from "libs/trpc";
 // Types
 import { Role } from "@prisma/client";
+import { SwitchSettingCard } from "@basestack/ui";
 
-const GeneralSettingsPage = () => {
+const NotificationsSettingsPage = () => {
   const router = useRouter();
   const { formId } = router.query as { formId: string };
 
@@ -36,30 +35,10 @@ const GeneralSettingsPage = () => {
           <FormName role={form?.role} name={form?.name} />
         </SettingCardContainer>
       </CardListItem>
-
-      <CardListItem>
-        <SettingCardContainer>
-          <EnableForm />
-        </SettingCardContainer>
-      </CardListItem>
-
-      <CardListItem>
-        <SettingCardContainer>
-          <FormDataRetention />
-        </SettingCardContainer>
-      </CardListItem>
-
-      {form?.role === Role.ADMIN && (
-        <CardListItem>
-          <SettingCardContainer>
-            <DeleteForm name={form?.name} />
-          </SettingCardContainer>
-        </CardListItem>
-      )}
     </CardList>
   );
 };
 
-GeneralSettingsPage.Layout = SettingsLayout;
+NotificationsSettingsPage.Layout = SettingsLayout;
 
-export default GeneralSettingsPage;
+export default NotificationsSettingsPage;
