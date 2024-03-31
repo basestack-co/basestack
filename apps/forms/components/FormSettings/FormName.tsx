@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+// Router
+import { useRouter } from "next/router";
 // Form
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,9 +25,18 @@ export const FormSchema = z.object({
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
-const FormNameCard = () => {
+export interface Props {
+  role?: Role;
+  name?: string;
+}
+
+const FormNameCard = ({ role, name }: Props) => {
+  const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
+
+  const { formId } = router.query as { formId: string };
+  const isAdmin = role === Role.ADMIN;
 
   const {
     control,
@@ -37,17 +48,23 @@ const FormNameCard = () => {
     mode: "onChange",
   });
 
-  const onSaveProjectName: SubmitHandler<FormInputs> = async (input) => {};
+  const onSaveFormName: SubmitHandler<FormInputs> = async (input) => {};
+
+  useEffect(() => {
+    if (name) {
+      setValue("name", name!);
+    }
+  }, [name, setValue]);
 
   return (
     <SettingCard
       title={t("general.form.title")}
       description={t("general.form.description")}
       button={t("general.form.action")!}
-      onClick={handleSubmit(onSaveProjectName)}
+      onClick={handleSubmit(onSaveFormName)}
       isDisabled={isSubmitting}
       isLoading={isSubmitting}
-      hasFooter
+      hasFooter={isAdmin}
     >
       <Controller
         name="name"
@@ -62,7 +79,7 @@ const FormNameCard = () => {
             name={field.name}
             value={field.value}
             hasError={!!errors.name}
-            isDisabled={isSubmitting}
+            isDisabled={isSubmitting || !name || !isAdmin}
           />
         )}
       />

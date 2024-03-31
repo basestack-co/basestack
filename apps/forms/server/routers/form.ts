@@ -1,6 +1,9 @@
 import { protectedProcedure, router } from "server/trpc";
+// Types
+import { Role } from "@prisma/client";
 // Utils
 import { z } from "zod";
+import { withRoles } from "@basestack/utils";
 
 export const formRouter = router({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -151,5 +154,29 @@ export const formRouter = router({
 
         return { form, connection };
       });
+    }),
+  delete: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(
+      z
+        .object({
+          formId: z.string(),
+        })
+        .required(),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const authorized = await withRoles(ctx.form.role, [Role.ADMIN])(() =>
+        ctx.prisma.form.delete({
+          where: {
+            id: input.formId,
+          },
+        }),
+      );
+
+      const form = await authorized();
+
+      return { form };
     }),
 });
