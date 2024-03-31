@@ -51,14 +51,27 @@
       }
     },
     "delete": {
-      "title": "Delete Project",
-      "description": "Deleting the project will permanently remove all its environments and feature flags.",
-      "placeholder": "Warning: This action is irreversible. Proceed with caution.",
-      "action": "Delete",
-      "modal": {
-        "title": "Are you sure about this action?",
-        "description": "Warning: This action cannot be undone. It will permanently delete the {{name}} project, including flags, history, and all collaborator associations.",
-        "action": "Delete Project"
+      "form": {
+        "title": "Delete Form",
+        "description": "Deleting the form will permanently remove all its submissions.",
+        "placeholder": "Warning: This action is irreversible. Proceed with caution.",
+        "action": "Delete",
+        "modal": {
+          "title": "Are you sure about this action?",
+          "description": "Warning: This action cannot be undone. It will permanently delete the {{name}} form.",
+          "action": "Delete Form"
+        }
+      },
+      "project": {
+        "title": "Delete Project",
+        "description": "Deleting the project will permanently remove all its environments and feature flags.",
+        "placeholder": "Warning: This action is irreversible. Proceed with caution.",
+        "action": "Delete",
+        "modal": {
+          "title": "Are you sure about this action?",
+          "description": "Warning: This action cannot be undone. It will permanently delete the {{name}} project, including flags, history, and all collaborator associations.",
+          "action": "Delete Project"
+        }
       }
     },
     "form": {

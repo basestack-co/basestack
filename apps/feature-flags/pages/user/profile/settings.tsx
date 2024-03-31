@@ -1,9 +1,67 @@
 import React from "react";
-import UserSettings from "components/UserSettings";
+// Layout
 import MainLayout from "layouts/Main";
+// Auth
+import { useSession } from "next-auth/react";
+// Locales
+import useTranslation from "next-translate/useTranslation";
+// Components
+import { Text } from "@basestack/design-system";
+import { ProfileAvatarCard, SwitchSettingCard } from "@basestack/ui";
+import ThemeCard from "components/UserSettings/ThemeCard";
+import FlagsCard from "components/UserSettings/FlagsCard";
+// Styles
+import { Container, List, ListItem } from "components/UserSettings/styles";
+import { useTheme } from "styled-components";
+
+// Store
+import { useStore } from "store";
 
 const UserProfileSettingsPage = () => {
-  return <UserSettings />;
+  const { t } = useTranslation("profile");
+  const theme = useTheme();
+  const { data: session } = useSession();
+
+  const closeModalsOnClickOutside = useStore(
+    (state) => state.closeModalsOnClickOutside,
+  );
+  const setCloseModalsOnClickOutside = useStore(
+    (state) => state.setCloseModalsOnClickOutside,
+  );
+
+  return (
+    <Container>
+      <Text size="xLarge" mb={theme.spacing.s5}>
+        {t("settings.title")}
+      </Text>
+      <List>
+        <ListItem>
+          <ProfileAvatarCard
+            name={session?.user.name ?? t("settings.card.avatar.title")}
+            image={session?.user.image ?? ""}
+            email={session?.user.email ?? ""}
+            description={t("settings.card.avatar.description")}
+          />
+        </ListItem>
+        <ListItem>
+          <SwitchSettingCard
+            title={t("settings.card.modals.title")}
+            description={t("settings.card.modals.description")}
+            checked={closeModalsOnClickOutside}
+            onChange={(event) => {
+              setCloseModalsOnClickOutside(event.target.checked);
+            }}
+          />
+        </ListItem>
+        <ListItem>
+          <ThemeCard />
+        </ListItem>
+        <ListItem>
+          <FlagsCard />
+        </ListItem>
+      </List>
+    </Container>
+  );
 };
 
 UserProfileSettingsPage.Layout = MainLayout;

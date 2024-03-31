@@ -54,12 +54,12 @@ const DeleteProjectCard = ({ name }: Props) => {
     setConfirmModalOpen({
       isOpen: true,
       data: {
-        title: t("general.delete.modal.title"),
-        description: t("general.delete.modal.description", {
+        title: t("general.delete.project.modal.title"),
+        description: t("general.delete.project.modal.description", {
           name: `<b>${name}</b>`,
         }),
         type: "delete",
-        buttonText: t("general.delete.modal.action"),
+        buttonText: t("general.delete.project.modal.action"),
         onClick: () => {
           onDeleteProject();
           setConfirmModalOpen({
@@ -72,11 +72,11 @@ const DeleteProjectCard = ({ name }: Props) => {
 
   return (
     <SettingCard
-      title={t("general.delete.title")}
-      description={t("general.delete.description")}
+      title={t("general.delete.project.title")}
+      description={t("general.delete.project.description")}
       button={t("general.delete.action")}
       onClick={onClickDeleteProject}
-      text={t("general.delete.placeholder")}
+      text={t("general.delete.project.placeholder")}
       isDisabled={deleteProject.isLoading}
       variant="danger"
       isLoading={deleteProject.isLoading}
