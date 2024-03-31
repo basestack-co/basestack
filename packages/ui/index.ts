@@ -24,3 +24,7 @@ export {
   default as SwitchSettingCard,
   type SwitchSettingCardProps,
 } from "./components/SwitchSettingCard";
+export {
+  default as StatusPage,
+  type StatusPageProps,
+} from "./components/StatusPage";

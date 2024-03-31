@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { Fragment } from "react";
 // Router
 import { useRouter } from "next/router";
 // Store
@@ -7,7 +7,6 @@ import { useStore } from "store";
 import useTranslation from "next-translate/useTranslation";
 // Components
 import { useTheme } from "styled-components";
-import { useTrail, animated } from "@react-spring/web";
 import {
   Button,
   ButtonVariant,
@@ -19,14 +18,7 @@ import FormCard, { FormCardProps } from "./FormCard";
 import GetStartedCard from "./GetStartedCard";
 import LinksCard from "./LinksCard";
 // Styles
-import {
-  Container,
-  Header,
-  Section,
-  List,
-  Box,
-  BottomSectionContainer,
-} from "./styles";
+import { Container, Header, Section, List, BottomContainer } from "./styles";
 
 interface HomePageProps {
   data: Array<{
@@ -39,22 +31,14 @@ interface HomePageProps {
   isLoading: boolean;
 }
 
-const AnimatedBox = animated(Box);
-
 const HomePage = ({ data, onCreateForm, isLoading }: HomePageProps) => {
   const { t } = useTranslation("home");
   const theme = useTheme();
   const router = useRouter();
-  const [numberOfCards, setNumberOfCards] = useState(8);
 
   const setCreateFormModalOpen = useStore(
     (state) => state.setCreateFormModalOpen,
   );
-
-  const trails = useTrail(data.slice(0, numberOfCards).length, {
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-  });
 
   return (
     <Container>
@@ -89,29 +73,20 @@ const HomePage = ({ data, onCreateForm, isLoading }: HomePageProps) => {
           <Fragment>
             {!!data?.length ? (
               <List>
-                {trails.map((style, index) => {
-                  const { title, spam, submissions, formId } = data[index];
-                  return (
-                    <AnimatedBox
-                      key={index}
-                      display="flex"
-                      flexDirection="column"
-                      style={style}
-                    >
-                      <FormCard
-                        text={title}
-                        onClick={() =>
-                          router.push({
-                            pathname: "/form/[formId]/submissions",
-                            query: { formId },
-                          })
-                        }
-                        spam={spam}
-                        submissions={submissions}
-                      />
-                    </AnimatedBox>
-                  );
-                })}
+                {data.map(({ title, spam, submissions, formId }, index) => (
+                  <FormCard
+                    key={index}
+                    text={title}
+                    onClick={() =>
+                      router.push({
+                        pathname: "/form/[formId]/submissions",
+                        query: { formId },
+                      })
+                    }
+                    spam={spam}
+                    submissions={submissions}
+                  />
+                ))}
               </List>
             ) : (
               <Empty
@@ -133,10 +108,10 @@ const HomePage = ({ data, onCreateForm, isLoading }: HomePageProps) => {
             {t("links.title")}
           </Text>
         </Header>
-        <BottomSectionContainer>
+        <BottomContainer>
           <GetStartedCard />
           <LinksCard />
-        </BottomSectionContainer>
+        </BottomContainer>
       </Section>
     </Container>
   );
