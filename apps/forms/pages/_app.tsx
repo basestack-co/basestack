@@ -1,12 +1,14 @@
 import { ReactNode } from "react";
 import { AppProps } from "next/app";
 import { useStore } from "store";
-//Styles
+// Styles
 import isPropValid from "@emotion/is-prop-valid";
 import { ThemeProvider, StyleSheetManager } from "styled-components";
 import darkTheme from "@basestack/design-system/theme/darkTheme";
 import lightTheme from "@basestack/design-system/theme/lightTheme";
 import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
+// Components
+import { Toaster } from "sonner";
 // Modals
 import Modals from "modals";
 // Auth
@@ -38,6 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Component {...pageProps} />
           </Layout>
           <Modals />
+          <Toaster visibleToasts={9} closeButton={false} />
         </StyleSheetManager>
       </ThemeProvider>
     </SessionProvider>

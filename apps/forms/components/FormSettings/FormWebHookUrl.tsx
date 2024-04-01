@@ -11,6 +11,8 @@ import { trpc } from "libs/trpc";
 import { SettingCard } from "@basestack/ui";
 // Components
 import { Input } from "@basestack/design-system";
+// Utils
+import { toast } from "sonner";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
@@ -72,6 +74,11 @@ const FormWebHookUrlCard = ({ webhookUrl = "" }: Props) => {
               },
             );
           }
+
+          toast.success("Webhook URL updated successfully");
+        },
+        onError: (error) => {
+          toast.error(error.message);
         },
       },
     );
