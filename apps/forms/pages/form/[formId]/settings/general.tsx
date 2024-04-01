@@ -13,6 +13,7 @@ import FormName from "components/FormSettings/FormName";
 import DeleteForm from "components/FormSettings/DeleteForm";
 import EnableForm from "components/FormSettings/EnableForm";
 import FormDataRetention from "components/FormSettings/FormDataRetention";
+import FormWebHookUrl from "components/FormSettings/FormWebHookUrl";
 // Server
 import { trpc } from "libs/trpc";
 // Types
@@ -36,19 +37,21 @@ const GeneralSettingsPage = () => {
           <FormName role={form?.role} name={form?.name} />
         </SettingCardContainer>
       </CardListItem>
-
       <CardListItem>
         <SettingCardContainer>
-          <EnableForm />
+          <FormWebHookUrl webhookUrl={form?.webhookUrl ?? ""} />
         </SettingCardContainer>
       </CardListItem>
-
       <CardListItem>
         <SettingCardContainer>
-          <FormDataRetention />
+          <EnableForm isEnabled={form?.isEnabled} />
         </SettingCardContainer>
       </CardListItem>
-
+      <CardListItem>
+        <SettingCardContainer>
+          <FormDataRetention hasRetention={form?.hasRetention} />
+        </SettingCardContainer>
+      </CardListItem>
       {form?.role === Role.ADMIN && (
         <CardListItem>
           <SettingCardContainer>

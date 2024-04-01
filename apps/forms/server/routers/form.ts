@@ -1,4 +1,5 @@
 import { protectedProcedure, router } from "server/trpc";
+import { TRPCError } from "@trpc/server";
 // Types
 import { Role } from "@prisma/client";
 // Utils
@@ -36,7 +37,6 @@ export const formRouter = router({
     return await ctx.prisma.$transaction(async (tx) => {
       const forms = await tx.form.findMany({
         where: {
-          isEnabled: true,
           users: {
             some: {
               user: {
@@ -50,6 +50,7 @@ export const formRouter = router({
         select: {
           id: true,
           name: true,
+          isEnabled: true,
         },
         orderBy: {
           createdAt: "desc",
@@ -102,6 +103,17 @@ export const formRouter = router({
             select: {
               id: true,
               name: true,
+              type: true,
+              isEnabled: true,
+              hasRetention: true,
+              hasSpamProtection: true,
+              hasDataQueryString: true,
+              redirectUrl: true,
+              successUrl: true,
+              errorUrl: true,
+              webhookUrl: true,
+              blockIpAddresses: true,
+              emails: true,
             },
           },
         },
@@ -154,6 +166,47 @@ export const formRouter = router({
 
         return { form, connection };
       });
+    }),
+  update: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(
+      z
+        .object({
+          formId: z.string(),
+          name: z.string().nullable().default(null),
+          isEnabled: z.boolean().nullable().default(null),
+          hasRetention: z.boolean().nullable().default(null),
+          hasSpamProtection: z.boolean().nullable().default(null),
+          hasDataQueryString: z.boolean().nullable().default(null),
+          blockIpAddresses: z.string().nullable().default(null),
+          successUrl: z.string().nullable().default(null),
+          errorUrl: z.string().nullable().default(null),
+          webhookUrl: z.string().nullable().default(null),
+          emails: z.string().nullable().default(null),
+          redirectUrl: z.string().nullable().default(null),
+        })
+        .required(),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { formId, ...props } = input;
+      const data = Object.fromEntries(
+        Object.entries(props).filter(([_, value]) => value !== null),
+      );
+
+      if (Object.keys(data).length === 0) {
+        throw new TRPCError({ code: "BAD_REQUEST" });
+      }
+
+      const form = await ctx.prisma.form.update({
+        where: {
+          id: formId,
+        },
+        data,
+      });
+
+      return { form };
     }),
   delete: protectedProcedure
     .meta({

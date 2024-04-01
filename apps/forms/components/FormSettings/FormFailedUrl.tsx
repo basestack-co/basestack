@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Router
 import { useRouter } from "next/router";
 // Form
@@ -15,15 +15,20 @@ import { Input } from "@basestack/design-system";
 import useTranslation from "next-translate/useTranslation";
 
 export const FormSchema = z.object({
-  name: z.string().min(1, "customization.failed-url.inputs.name.error.min"),
+  url: z.string(),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
-const FormFailedUrlCard = () => {
+export interface Props {
+  errorUrl?: string;
+}
+
+const FormFailedUrlCard = ({ errorUrl = "" }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
+  const updateForm = trpc.form.update.useMutation();
 
   const { formId } = router.query as { formId: string };
 
@@ -32,25 +37,58 @@ const FormFailedUrlCard = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
+    watch,
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
   });
 
-  const onSaveFormName: SubmitHandler<FormInputs> = async (input) => {};
+  const watchUrl = watch("url");
+
+  useEffect(() => {
+    if (errorUrl) {
+      setValue("url", errorUrl);
+    }
+  }, [errorUrl, setValue]);
+
+  const onSave: SubmitHandler<FormInputs> = async (input) => {
+    updateForm.mutate(
+      {
+        formId,
+        errorUrl: input.url,
+      },
+      {
+        onSuccess: (result) => {
+          const cache = trpcUtils.form.byId.getData({
+            formId: result.form.id,
+          });
+
+          if (cache) {
+            trpcUtils.form.byId.setData(
+              { formId: result.form.id },
+              {
+                ...cache,
+                errorUrl: result.form.errorUrl,
+              },
+            );
+          }
+        },
+      },
+    );
+  };
 
   return (
     <SettingCard
       title={t("customization.failed-url.title")}
       description={t("customization.failed-url.description")}
       button={t("customization.failed-url.action")!}
-      onClick={handleSubmit(onSaveFormName)}
-      isDisabled={isSubmitting}
+      onClick={handleSubmit(onSave)}
+      isDisabled={isSubmitting || watchUrl === errorUrl}
       isLoading={isSubmitting}
       hasFooter
     >
       <Controller
-        name="name"
+        name="url"
         control={control}
         defaultValue=""
         render={({ field }) => (
@@ -61,7 +99,7 @@ const FormFailedUrlCard = () => {
             placeholder={t("customization.failed-url.inputs.name.placeholder")}
             name={field.name}
             value={field.value}
-            hasError={!!errors.name}
+            hasError={!!errors.url}
             isDisabled={isSubmitting}
           />
         )}

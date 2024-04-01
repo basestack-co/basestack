@@ -87,8 +87,8 @@ model Form {
   type               FormType      @default(STATIC)
   isEnabled          Boolean       @default(true)
   hasRetention       Boolean       @default(true)
-  hasSpamProtection  Boolean       @default(true)
-  hasDataQueryString Boolean       @default(true)
+  hasSpamProtection  Boolean       @default(false)
+  hasDataQueryString Boolean       @default(false)
   redirectUrl        String?       @db.VarChar(2183)
   rules              Json?         @default("{}") @db.Json
   emails             String?

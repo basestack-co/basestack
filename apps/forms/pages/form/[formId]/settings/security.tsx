@@ -29,12 +29,12 @@ const SecuritySettingsPage = () => {
     <CardList>
       <CardListItem>
         <SettingCardContainer>
-          <FormIpRules />
+          <FormIpRules blockIpAddresses={form?.blockIpAddresses ?? ""} />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>
         <SettingCardContainer>
-          <FormSpamProtection />
+          <FormSpamProtection hasSpamProtection={form?.hasSpamProtection} />
         </SettingCardContainer>
       </CardListItem>
     </CardList>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {  useCallback } from "react";
 // Router
 import { useRouter } from "next/router";
 // Server
@@ -8,21 +8,53 @@ import { SwitchSettingCard } from "@basestack/ui";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
-export interface Props {}
+export interface Props {
+  isEnabled?: boolean;
+}
 
-const EnableFormCard = () => {
+const EnableFormCard = ({ isEnabled = false }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
+  const updateForm = trpc.form.update.useMutation();
 
   const { formId } = router.query as { formId: string };
+
+  const onChange = useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      updateForm.mutate(
+        {
+          formId,
+          isEnabled: event.target.checked,
+        },
+        {
+          onSuccess: (result) => {
+            const cache = trpcUtils.form.byId.getData({
+              formId: result.form.id,
+            });
+
+            if (cache) {
+              trpcUtils.form.byId.setData(
+                { formId: result.form.id },
+                {
+                  ...cache,
+                  isEnabled: result.form.isEnabled,
+                },
+              );
+            }
+          },
+        },
+      );
+    },
+    [trpcUtils, formId, updateForm],
+  );
 
   return (
     <SwitchSettingCard
       title={t("general.enable-form.title")}
       description={t("general.enable-form.description")}
-      checked={false}
-      onChange={console.log}
+      checked={isEnabled}
+      onChange={onChange}
     />
   );
 };

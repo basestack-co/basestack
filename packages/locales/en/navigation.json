@@ -29,5 +29,13 @@
     "features": "Features",
     "settings": "Settings",
     "setup": "Setup"
+  },
+  "setting": {
+    "general": "General",
+    "security": "Security",
+    "customization": "Customization",
+    "notifications": "Notifications",
+    "members": "Members",
+    "environments": "Environments"
   }
 }

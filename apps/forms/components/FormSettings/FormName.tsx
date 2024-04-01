@@ -34,7 +34,7 @@ const FormNameCard = ({ role, name }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
-
+  const updateForm = trpc.form.update.useMutation();
   const { formId } = router.query as { formId: string };
   const isAdmin = role === Role.ADMIN;
 
@@ -43,12 +43,55 @@ const FormNameCard = ({ role, name }: Props) => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
+    watch,
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
   });
 
-  const onSaveFormName: SubmitHandler<FormInputs> = async (input) => {};
+  const inputName = watch("name");
+
+  const onSaveFormName: SubmitHandler<FormInputs> = async (input) => {
+    updateForm.mutate(
+      {
+        formId,
+        name: input.name,
+      },
+      {
+        onSuccess: (result) => {
+          // Get all the forms on the cache
+          const cache = trpcUtils.form.all.getData();
+
+          if (cache && cache.forms) {
+            // Update the cache with the new data
+            // This updates in the navigation list
+            trpcUtils.form.all.setData(undefined, {
+              forms: cache.forms.map((form) =>
+                form.id === result.form.id
+                  ? { ...form, name: result.form.name }
+                  : form,
+              ),
+            });
+          }
+
+          const cacheForm = trpcUtils.form.byId.getData({
+            formId: result.form.id,
+          });
+
+          if (cacheForm) {
+            // Updates the current active form in the cache
+            trpcUtils.form.byId.setData(
+              { formId: result.form.id },
+              {
+                ...cacheForm,
+                name: result.form.name,
+              },
+            );
+          }
+        },
+      },
+    );
+  };
 
   useEffect(() => {
     if (name) {
@@ -62,7 +105,7 @@ const FormNameCard = ({ role, name }: Props) => {
       description={t("general.form.description")}
       button={t("general.form.action")!}
       onClick={handleSubmit(onSaveFormName)}
-      isDisabled={isSubmitting}
+      isDisabled={isSubmitting || name === inputName}
       isLoading={isSubmitting}
       hasFooter={isAdmin}
     >

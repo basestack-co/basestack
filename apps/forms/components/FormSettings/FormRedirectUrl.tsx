@@ -15,16 +15,16 @@ import { Input } from "@basestack/design-system";
 import useTranslation from "next-translate/useTranslation";
 
 export const FormSchema = z.object({
-  ips: z.string(),
+  url: z.string(),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
-  blockIpAddresses?: string;
+  redirectUrl?: string;
 }
 
-const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
+const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
@@ -43,19 +43,19 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
     mode: "onChange",
   });
 
-  const watchIps = watch("ips");
+  const watchUrl = watch("url");
 
   useEffect(() => {
-    if (blockIpAddresses) {
-      setValue("ips", blockIpAddresses);
+    if (redirectUrl) {
+      setValue("url", redirectUrl);
     }
-  }, [blockIpAddresses, setValue]);
+  }, [redirectUrl, setValue]);
 
   const onSave: SubmitHandler<FormInputs> = async (input) => {
     updateForm.mutate(
       {
         formId,
-        blockIpAddresses: input.ips,
+        redirectUrl: input.url,
       },
       {
         onSuccess: (result) => {
@@ -68,7 +68,7 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
               { formId: result.form.id },
               {
                 ...cache,
-                blockIpAddresses: result.form.blockIpAddresses,
+                redirectUrl: result.form.redirectUrl,
               },
             );
           }
@@ -79,17 +79,16 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
 
   return (
     <SettingCard
-      title={t("security.ip-block-rules.title")}
-      description={t("security.ip-block-rules.description")}
-      button={t("security.ip-block-rules.action")!}
+      title={t("customization.redirect-url.title")}
+      description={t("customization.redirect-url.description")}
+      button={t("customization.redirect-url.action")!}
       onClick={handleSubmit(onSave)}
-      isDisabled={isSubmitting || watchIps === blockIpAddresses}
+      isDisabled={isSubmitting || watchUrl === redirectUrl}
       isLoading={isSubmitting}
-      text={t("security.ip-block-rules.text")}
       hasFooter
     >
       <Controller
-        name="ips"
+        name="url"
         control={control}
         defaultValue=""
         render={({ field }) => (
@@ -97,10 +96,12 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
             maxWidth={400}
             onChange={field.onChange}
             onBlur={field.onBlur}
-            placeholder={t("security.ip-block-rules.inputs.name.placeholder")}
+            placeholder={t(
+              "customization.redirect-url.inputs.name.placeholder",
+            )}
             name={field.name}
             value={field.value}
-            hasError={!!errors.ips}
+            hasError={!!errors.url}
             isDisabled={isSubmitting}
           />
         )}
@@ -109,4 +110,4 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
   );
 };
 
-export default FormIpRulesCard;
+export default FormRedirectUrlCard;

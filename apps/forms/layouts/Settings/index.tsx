@@ -19,33 +19,40 @@ import {
 } from "./styles";
 // Hooks
 import { useMedia } from "react-use";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Layouts
 import MainLayout from "../Main";
 
 const links = [
   {
-    id: 1,
-    text: "General",
+    id: "1",
+    i18nKey: "setting.general",
+    tab: "general",
     href: "/form/[formId]/settings/general",
   },
   {
-    id: 2,
-    text: "Security",
+    id: "2",
+    i18nKey: "setting.security",
+    tab: "security",
     href: "/form/[formId]/settings/security",
   },
   {
-    id: 3,
-    text: "Customization",
+    id: "3",
+    i18nKey: "setting.customization",
+    tab: "customization",
     href: "/form/[formId]/settings/customization",
   },
   {
-    id: 4,
-    text: "Notifications",
+    id: "4",
+    i18nKey: "setting.notifications",
+    tab: "notifications",
     href: "/form/[formId]/settings/notifications",
   },
 ];
 
 const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
+  const { t } = useTranslation("navigation");
   const theme = useTheme();
   const isDesktop = useMedia(theme.device.min.lg, false);
   const router = useRouter();
@@ -60,7 +67,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   );
 
   const renderLink = useMemo(() => {
-    return links.map(({ id, text, href }) => (
+    return links.map(({ id, i18nKey, href }) => (
       <ListItem key={`settings-button-list-${id}`}>
         <StyledLink
           href={{
@@ -70,12 +77,12 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
           passHref
         >
           <StyledButton isActive={router.pathname === href}>
-            {text}
+            {t(i18nKey)}
           </StyledButton>
         </StyledLink>
       </ListItem>
     ));
-  }, [router.pathname, formId]);
+  }, [router.pathname, formId, t]);
 
   const activeLinkIndex = useMemo(
     () => links.findIndex((button) => button.href === router.pathname),
@@ -84,13 +91,13 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
 
   const items = useMemo(
     () =>
-      links.map(({ text }) => {
+      links.map(({ i18nKey, tab }) => {
         return {
-          id: text.toLowerCase(),
-          text,
+          id: tab.toLowerCase(),
+          text: t(i18nKey),
         };
       }),
-    [],
+    [t],
   );
 
   return (
@@ -108,9 +115,9 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
             {!isDesktop && (
               <Tabs
                 items={items}
-                onSelect={(item) => {
+                onSelect={(tab) => {
                   router.push({
-                    pathname: `/[formId]/settings/${item.toLowerCase()}`,
+                    pathname: `/form/[formId]/settings/${tab}`,
                     query: { formId },
                   });
                 }}

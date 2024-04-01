@@ -12,6 +12,7 @@ import {
 import FormSuccessUrl from "components/FormSettings/FormSuccessUrl";
 import FormFailedUrl from "components/FormSettings/FormFailedUrl";
 import FormSendQueryString from "components/FormSettings/FormSendQueryString";
+import FormRedirectUrl from "components/FormSettings/FormRedirectUrl";
 // Server
 import { trpc } from "libs/trpc";
 
@@ -30,17 +31,22 @@ const CustomizationSettingsPage = () => {
     <CardList>
       <CardListItem>
         <SettingCardContainer>
-          <FormSuccessUrl />
+          <FormRedirectUrl redirectUrl={form?.redirectUrl ?? ""} />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>
         <SettingCardContainer>
-          <FormFailedUrl />
+          <FormSuccessUrl successUrl={form?.successUrl ?? ""} />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>
         <SettingCardContainer>
-          <FormSendQueryString />
+          <FormFailedUrl errorUrl={form?.errorUrl ?? ""} />
+        </SettingCardContainer>
+      </CardListItem>
+      <CardListItem>
+        <SettingCardContainer>
+          <FormSendQueryString hasDataQueryString={form?.hasDataQueryString} />
         </SettingCardContainer>
       </CardListItem>
     </CardList>

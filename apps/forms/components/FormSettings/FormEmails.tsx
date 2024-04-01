@@ -15,16 +15,16 @@ import { Input } from "@basestack/design-system";
 import useTranslation from "next-translate/useTranslation";
 
 export const FormSchema = z.object({
-  ips: z.string(),
+  emails: z.string(),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
-  blockIpAddresses?: string;
+  emails?: string;
 }
 
-const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
+const FormEmailsCard = ({ emails = "" }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
@@ -43,19 +43,19 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
     mode: "onChange",
   });
 
-  const watchIps = watch("ips");
+  const watchIps = watch("emails");
 
   useEffect(() => {
-    if (blockIpAddresses) {
-      setValue("ips", blockIpAddresses);
+    if (emails) {
+      setValue("emails", emails);
     }
-  }, [blockIpAddresses, setValue]);
+  }, [emails, setValue]);
 
   const onSave: SubmitHandler<FormInputs> = async (input) => {
     updateForm.mutate(
       {
         formId,
-        blockIpAddresses: input.ips,
+        emails: input.emails,
       },
       {
         onSuccess: (result) => {
@@ -68,7 +68,7 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
               { formId: result.form.id },
               {
                 ...cache,
-                blockIpAddresses: result.form.blockIpAddresses,
+                emails: result.form.emails,
               },
             );
           }
@@ -79,17 +79,17 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
 
   return (
     <SettingCard
-      title={t("security.ip-block-rules.title")}
-      description={t("security.ip-block-rules.description")}
-      button={t("security.ip-block-rules.action")!}
+      title={t("notifications.emails.title")}
+      description={t("notifications.emails.description")}
+      button={t("notifications.emails.action")!}
       onClick={handleSubmit(onSave)}
-      isDisabled={isSubmitting || watchIps === blockIpAddresses}
+      isDisabled={isSubmitting || watchIps === emails}
       isLoading={isSubmitting}
-      text={t("security.ip-block-rules.text")}
+      text={t("notifications.emails.text")}
       hasFooter
     >
       <Controller
-        name="ips"
+        name="emails"
         control={control}
         defaultValue=""
         render={({ field }) => (
@@ -97,10 +97,10 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
             maxWidth={400}
             onChange={field.onChange}
             onBlur={field.onBlur}
-            placeholder={t("security.ip-block-rules.inputs.name.placeholder")}
+            placeholder={t("notifications.emails.inputs.name.placeholder")}
             name={field.name}
             value={field.value}
-            hasError={!!errors.ips}
+            hasError={!!errors.emails}
             isDisabled={isSubmitting}
           />
         )}
@@ -109,4 +109,4 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
   );
 };
 
-export default FormIpRulesCard;
+export default FormEmailsCard;

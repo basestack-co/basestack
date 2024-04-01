@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode } from "react";
 import { AppProps } from "next/app";
 import { useStore } from "store";
 //Styles
@@ -21,7 +21,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 
 dayjs.extend(relativeTime);
 
-const Noop = ({ children }: { children: React.ReactNode }) => children;
+const Noop = ({ children }: { children: ReactNode }) => children;
 
 function MyApp({ Component, pageProps }: AppProps) {
   //@ts-ignore

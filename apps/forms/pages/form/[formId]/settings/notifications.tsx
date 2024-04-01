@@ -9,13 +9,9 @@ import {
   CardListItem,
   SettingCardContainer,
 } from "components/FormSettings/styles";
-import FormName from "components/FormSettings/FormName";
-import DeleteForm from "components/FormSettings/DeleteForm";
+import FormEmails from "components/FormSettings/FormEmails";
 // Server
 import { trpc } from "libs/trpc";
-// Types
-import { Role } from "@prisma/client";
-import { SwitchSettingCard } from "@basestack/ui";
 
 const NotificationsSettingsPage = () => {
   const router = useRouter();
@@ -32,7 +28,7 @@ const NotificationsSettingsPage = () => {
     <CardList>
       <CardListItem>
         <SettingCardContainer>
-          <FormName role={form?.role} name={form?.name} />
+          <FormEmails emails={form?.emails ?? ""} />
         </SettingCardContainer>
       </CardListItem>
     </CardList>
