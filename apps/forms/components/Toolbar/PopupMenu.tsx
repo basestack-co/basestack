@@ -1,13 +1,26 @@
 import React from "react";
 import { animated } from "react-spring";
-import { Button, ButtonVariant, Popup } from "@basestack/design-system";
+import { rem } from "polished";
+import {
+  Button,
+  ButtonVariant,
+  Popup,
+  IconButton,
+} from "@basestack/design-system";
 import { useFloatingPopup } from "@basestack/hooks";
-import { ListItem } from "./styles";
+import { ListItem, PopupButtonWrapper, PopupIconWrapper } from "./styles";
 import { PopupMenuProps } from "./types";
 
 const AnimatedPopup = animated(Popup);
 
-const PopupMenu = ({ icon, text, items, width }: PopupMenuProps) => {
+const PopupMenu = ({
+  icon,
+  text,
+  items,
+  width,
+  onClear,
+  openIcon,
+}: PopupMenuProps) => {
   const {
     popupWrapperRef,
     x,
@@ -19,20 +32,32 @@ const PopupMenu = ({ icon, text, items, width }: PopupMenuProps) => {
     getFloatingProps,
     onClickMore,
     onCloseMenu,
+    isPopupOpen,
   } = useFloatingPopup({});
 
   return (
     <ListItem ref={popupWrapperRef}>
-      <Button
-        {...getReferenceProps}
-        ref={refs.setReference}
-        icon={icon}
-        onClick={onClickMore}
-        variant={ButtonVariant.Tertiary}
-        iconPlacement="left"
-      >
-        {text}
-      </Button>
+      <PopupButtonWrapper {...getReferenceProps} ref={refs.setReference}>
+        <Button
+          icon={isPopupOpen && openIcon ? openIcon : icon}
+          onClick={onClickMore}
+          variant={ButtonVariant.Tertiary}
+          iconPlacement="left"
+          pr={onClear ? rem("44px") : null}
+        >
+          {text}
+        </Button>
+        {onClear && (
+          <PopupIconWrapper>
+            <IconButton
+              onClick={onClear}
+              icon="close"
+              size="small"
+              variant="secondaryDark"
+            />
+          </PopupIconWrapper>
+        )}
+      </PopupButtonWrapper>
       {transition(
         (styles, item) =>
           item && (

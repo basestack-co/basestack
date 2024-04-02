@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { Button, ButtonVariant, Input } from "@basestack/design-system";
 import { LeftContent, Container, Wrapper, RightList, ListItem } from "./styles";
-import { ButtonSharedProps, ToolbarProps } from "./types";
+import {
+  ButtonSharedProps,
+  ToolbarProps,
+  SelectedFilter,
+  SelectedSort,
+} from "./types";
 import PopupMenu from "./PopupMenu";
 
 const Toolbar = ({
@@ -12,8 +17,12 @@ const Toolbar = ({
   onReadSubmissions,
   onUnReadSubmissions,
   onExport,
+  onSelectFilter,
+  onSelectSort,
 }: ToolbarProps) => {
   const [searchValue, setSearchValue] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
+  const [selectedSort, setSelectedSort] = useState<string | null>(null);
 
   const buttonProps = {
     variant: ButtonVariant.Tertiary,
@@ -53,6 +62,7 @@ const Toolbar = ({
           <PopupMenu
             width={200}
             icon="arrow_drop_down"
+            openIcon="arrow_drop_up"
             text="Actions"
             items={[
               { icon: "report", text: "Mark as Spam", onClick: onMarkSpamAll },
@@ -81,21 +91,61 @@ const Toolbar = ({
           />
           <PopupMenu
             icon="filter_list"
-            text="Filters"
+            text={selectedFilter || "Filters"}
             items={[
-              { text: "Recent", onClick: () => null },
-              { text: "Last month", onClick: () => null },
-              { text: "Deleted", onClick: () => null },
+              {
+                text: "Recent",
+                onClick: () => {
+                  onSelectFilter(SelectedFilter.RECENT);
+                  setSelectedFilter("Recent");
+                },
+              },
+              {
+                text: "Last month",
+                onClick: () => {
+                  onSelectFilter(SelectedFilter.LASTMONTH);
+                  setSelectedFilter("Last month");
+                },
+              },
+              {
+                text: "Deleted",
+                onClick: () => {
+                  onSelectFilter(SelectedFilter.DELETED);
+                  setSelectedFilter("Deleted");
+                },
+              },
             ]}
+            {...(selectedFilter
+              ? { onClear: () => setSelectedFilter(null) }
+              : {})}
           />
           <PopupMenu
             icon="swap_vert"
-            text="Sort"
+            text={selectedSort || "Sort"}
             items={[
-              { text: "Spam first", onClick: () => null },
-              { text: "Read first", onClick: () => null },
-              { text: "Un-Read first", onClick: () => null },
+              {
+                text: "Spam first",
+                onClick: () => {
+                  onSelectSort(SelectedSort.SPAM);
+                  setSelectedSort("Spam first");
+                },
+              },
+              {
+                text: "Read first",
+                onClick: () => {
+                  onSelectSort(SelectedSort.READ);
+                  setSelectedSort("Read first");
+                },
+              },
+              {
+                text: "Un-Read first",
+                onClick: () => {
+                  onSelectSort(SelectedSort.UNREAD);
+                  setSelectedSort("Un-Read first");
+                },
+              },
             ]}
+            {...(selectedSort ? { onClear: () => setSelectedSort(null) } : {})}
           />
           <ListItem>
             <Button {...buttonProps} icon="download" onClick={onExport}>

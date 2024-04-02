@@ -225,6 +225,11 @@ const iconButton = {
     color: colors.gray300,
     hover: { backgroundColor: colors.gray500 },
   },
+  secondaryDark: {
+    backgroundColor: colors.gray600,
+    color: colors.gray300,
+    hover: { backgroundColor: colors.gray500 },
+  },
   neutral: {
     backgroundColor: "transparent",
     color: colors.gray300,

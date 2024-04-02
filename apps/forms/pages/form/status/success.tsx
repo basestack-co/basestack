@@ -1,20 +1,36 @@
+import { StatusPage } from "@basestack/ui";
 // Navigation
 import { useRouter } from "next/router";
 import Head from "next/head";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 
 const FormStatusSuccess = () => {
   const router = useRouter();
   const goBackUrl = router.query.goBackUrl as string;
+  const { t } = useTranslation("common");
 
   return (
     <>
       <Head>
-        <title>Basestack / Form Submission Success </title>
+        <title>Basestack / Form Submission Success</title>
       </Head>
-      <div>
-        <h1>Success form submission</h1>
-        <a href={goBackUrl}>Go back</a>
-      </div>
+      <StatusPage
+        type="success"
+        title={t("status.form.success.title")}
+        description={t("status.form.success.description")}
+        brand={{
+          text: t("brand.powered.forms"),
+          onClick: () => null,
+        }}
+        button={{
+          text: t("status.form.success.action"),
+          onClick: () =>
+            router.push({
+              pathname: goBackUrl,
+            }),
+        }}
+      />
     </>
   );
 };
