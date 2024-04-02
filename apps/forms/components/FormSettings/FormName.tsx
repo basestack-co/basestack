@@ -13,6 +13,8 @@ import { SettingCard } from "@basestack/ui";
 import { Input } from "@basestack/design-system";
 // Types
 import { Role } from "@prisma/client";
+// Toast
+import { toast } from "sonner";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
@@ -88,6 +90,11 @@ const FormNameCard = ({ role, name }: Props) => {
               },
             );
           }
+
+          toast.success(t("general.form.toast.success"));
+        },
+        onError: (error) => {
+          toast.error(error.message);
         },
       },
     );

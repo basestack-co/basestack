@@ -86,15 +86,24 @@
             "min": "Required field"
           }
         }
+      },
+      "toast": {
+        "success": "Form name updated successfully"
       }
     },
     "enable-form": {
       "title": "Enable Form",
-      "description": "Activate/Deactivate the form to control submission collection."
+      "description": "Activate/Deactivate the form to control submission collection.",
+      "toast": {
+        "success": "Form updated successfully"
+      }
     },
     "data-retention": {
       "title": "Data Retention",
-      "description": "Store incoming submissions in the Basestack Forms database."
+      "description": "Store incoming submissions in the Basestack Forms database.",
+      "toast": {
+        "success": "Data retention updated successfully"
+      }
     },
     "webhook-url": {
       "title": "Webhook URL",
@@ -107,6 +116,9 @@
             "min": "Required field"
           }
         }
+      },
+      "toast": {
+        "success": "Webhook URL updated successfully"
       }
     }
   },
@@ -123,13 +135,19 @@
             "min": "Required field"
           }
         }
+      },
+      "toast": {
+        "success": "Emails updated successfully"
       }
     }
   },
   "security": {
     "spam-protection": {
       "title": "Spam Protection",
-      "description": "Switch spam protection on or off for your form submissions. Deactivate it during testing phases."
+      "description": "Switch spam protection on or off for your form submissions. Deactivate it during testing phases.",
+      "toast": {
+        "success": "Spam protection updated successfully"
+      }
     },
     "ip-block-rules": {
       "title": "IP Block Rules",
@@ -143,6 +161,9 @@
             "min": "Required field"
           }
         }
+      },
+      "toast": {
+        "success": "IP block rules updated successfully"
       }
     }
   },
@@ -158,6 +179,9 @@
             "min": "Required field"
           }
         }
+      },
+      "toast": {
+        "success": "Success URL updated successfully"
       }
     },
     "failed-url": {
@@ -171,6 +195,9 @@
             "min": "Required field"
           }
         }
+      },
+      "toast": {
+        "success": "Failed URL updated successfully"
       }
     },
     "redirect-url": {
@@ -184,11 +211,17 @@
             "min": "Required field"
           }
         }
+      },
+      "toast": {
+        "success": "Redirect URL updated successfully"
       }
     },
     "data-query-string": {
       "title": "Form Data as Query String",
-      "description": "Pass submission data through query parameters. The return URL will be dynamically populated with the submitted form data."
+      "description": "Pass submission data through query parameters. The return URL will be dynamically populated with the submitted form data.",
+      "toast": {
+        "success": "Data query string updated successfully"
+      }
     }
   },
   "members": {

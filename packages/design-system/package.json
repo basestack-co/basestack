@@ -18,7 +18,7 @@
     "@basestack/tsconfig": "*",
     "@basestack/utils": "*",
     "@testing-library/jest-dom": "^6.4.2",
-    "@types/react": "18.2.73",
+    "@types/react": "18.2.74",
     "@types/react-dom": "^18.2.23",
     "jest-styled-components": "^7.2.0",
     "typescript": "^5.4.3"

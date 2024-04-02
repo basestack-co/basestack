@@ -5,13 +5,14 @@ import { useRouter } from "next/router";
 import { trpc } from "libs/trpc";
 // UI
 import { SwitchSettingCard } from "@basestack/ui";
+// Toast
+import { toast } from "sonner";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
 export interface Props {
   hasRetention?: boolean;
 }
-
 
 const FormDataRetentionCard = ({ hasRetention = false }: Props) => {
   const router = useRouter();
@@ -43,11 +44,16 @@ const FormDataRetentionCard = ({ hasRetention = false }: Props) => {
                 },
               );
             }
+
+            toast.success(t("general.data-retention.toast.success"));
+          },
+          onError: (error) => {
+            toast.error(error.message);
           },
         },
       );
     },
-    [trpcUtils, formId, updateForm],
+    [trpcUtils, formId, updateForm, t],
   );
 
   return (

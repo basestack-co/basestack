@@ -1,10 +1,12 @@
-import React, {  useCallback } from "react";
+import React, { useCallback } from "react";
 // Router
 import { useRouter } from "next/router";
 // Server
 import { trpc } from "libs/trpc";
 // UI
 import { SwitchSettingCard } from "@basestack/ui";
+// Toast
+import { toast } from "sonner";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
@@ -42,11 +44,16 @@ const EnableFormCard = ({ isEnabled = false }: Props) => {
                 },
               );
             }
+
+            toast.success(t("general.enable-form.toast.success"));
+          },
+          onError: (error) => {
+            toast.error(error.message);
           },
         },
       );
     },
-    [trpcUtils, formId, updateForm],
+    [trpcUtils, formId, updateForm, t],
   );
 
   return (

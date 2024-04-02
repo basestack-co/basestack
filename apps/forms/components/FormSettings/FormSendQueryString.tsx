@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import { trpc } from "libs/trpc";
 // UI
 import { SwitchSettingCard } from "@basestack/ui";
+// Toast
+import { toast } from "sonner";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
@@ -42,6 +44,11 @@ const FormSendQueryStringCard = ({ hasDataQueryString = false }: Props) => {
                 },
               );
             }
+
+            toast.success(t("customization.data-query-string.toast.success"));
+          },
+          onError: (error) => {
+            toast.error(error.message);
           },
         },
       );

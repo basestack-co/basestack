@@ -11,6 +11,8 @@ import { trpc } from "libs/trpc";
 import { SettingCard } from "@basestack/ui";
 // Components
 import { Input } from "@basestack/design-system";
+// Toast
+import { toast } from "sonner";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
@@ -72,6 +74,11 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
               },
             );
           }
+
+          toast.success(t("security.ip-block-rules.toast.success"));
+        },
+        onError: (error) => {
+          toast.error(error.message);
         },
       },
     );

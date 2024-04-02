@@ -37,7 +37,7 @@
     "@floating-ui/react": "^0.26.10",
     "@hookform/resolvers": "^3.3.4",
     "@next-auth/prisma-adapter": "^1.0.4",
-    "@prisma/client": "^5.11.0",
+    "@prisma/client": "^5.12.0",
     "@react-email/render": "^0.0.12",
     "@tanstack/react-query": "^4.36.1",
     "@trpc/client": "^10.45.2",
@@ -86,7 +86,7 @@
     "@types/formidable": "^3.4.5",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.2",
-    "@types/react": "18.2.73",
+    "@types/react": "18.2.74",
     "@types/react-calendar": "^4.1.0",
     "@types/react-dom": "^18.2.23",
     "@types/request-ip": "^0.0.41",
@@ -101,8 +101,8 @@
     "lint-staged": "^15.2.2",
     "next-translate-plugin": "^2.6.2",
     "node-mocks-http": "^1.14.1",
-    "prisma": "^5.11.0",
-    "turbo": "1.13.0",
+    "prisma": "^5.12.0",
+    "turbo": "1.13.2",
     "typescript": "^5.4.3"
   }
 }

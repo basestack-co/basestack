@@ -48,7 +48,7 @@
     "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.2",
-    "@types/react": "18.2.73",
+    "@types/react": "18.2.74",
     "@types/react-dom": "^18.2.23",
     "@types/react-syntax-highlighter": "^15.5.11",
     "@types/styled-system": "^5.1.22",
@@ -60,7 +60,7 @@
     "jest-styled-components": "^7.2.0",
     "lint-staged": "^15.2.2",
     "node-mocks-http": "^1.14.1",
-    "turbo": "1.13.0",
+    "turbo": "1.13.2",
     "typescript": "^5.4.3"
   }
 }
