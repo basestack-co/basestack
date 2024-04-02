@@ -51,14 +51,27 @@
       }
     },
     "delete": {
-      "title": "Delete Project",
-      "description": "Deleting the project will permanently remove all its environments and feature flags.",
-      "placeholder": "Warning: This action is irreversible. Proceed with caution.",
-      "action": "Delete",
-      "modal": {
-        "title": "Are you sure about this action?",
-        "description": "Warning: This action cannot be undone. It will permanently delete the {{name}} project, including flags, history, and all collaborator associations.",
-        "action": "Delete Project"
+      "form": {
+        "title": "Delete Form",
+        "description": "Deleting the form will permanently remove all its submissions.",
+        "placeholder": "Warning: This action is irreversible. Proceed with caution.",
+        "action": "Delete",
+        "modal": {
+          "title": "Are you sure about this action?",
+          "description": "Warning: This action cannot be undone. It will permanently delete the {{name}} form.",
+          "action": "Delete Form"
+        }
+      },
+      "project": {
+        "title": "Delete Project",
+        "description": "Deleting the project will permanently remove all its environments and feature flags.",
+        "placeholder": "Warning: This action is irreversible. Proceed with caution.",
+        "action": "Delete",
+        "modal": {
+          "title": "Are you sure about this action?",
+          "description": "Warning: This action cannot be undone. It will permanently delete the {{name}} project, including flags, history, and all collaborator associations.",
+          "action": "Delete Project"
+        }
       }
     },
     "form": {
@@ -73,6 +86,141 @@
             "min": "Required field"
           }
         }
+      },
+      "toast": {
+        "success": "Form name updated successfully"
+      }
+    },
+    "enable-form": {
+      "title": "Enable Form",
+      "description": "Activate/Deactivate the form to control submission collection.",
+      "toast": {
+        "success": "Form updated successfully"
+      }
+    },
+    "data-retention": {
+      "title": "Data Retention",
+      "description": "Store incoming submissions in the Basestack Forms database.",
+      "toast": {
+        "success": "Data retention updated successfully"
+      }
+    },
+    "webhook-url": {
+      "title": "Webhook URL",
+      "description": "Each time a new form submission is received, JSON data will be sent to the specified URL.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter an URL",
+          "error": {
+            "min": "Required field"
+          }
+        }
+      },
+      "toast": {
+        "success": "Webhook URL updated successfully"
+      }
+    }
+  },
+  "notifications": {
+    "emails": {
+      "title": "Emails",
+      "description": "Send submission notifications to these email addresses.",
+      "text": "Separate multiple Emails with a comma.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter an Email",
+          "error": {
+            "min": "Required field"
+          }
+        }
+      },
+      "toast": {
+        "success": "Emails updated successfully"
+      }
+    }
+  },
+  "security": {
+    "spam-protection": {
+      "title": "Spam Protection",
+      "description": "Switch spam protection on or off for your form submissions. Deactivate it during testing phases.",
+      "toast": {
+        "success": "Spam protection updated successfully"
+      }
+    },
+    "ip-block-rules": {
+      "title": "IP Block Rules",
+      "description": "List IP addresses to block; Basestack Forms will reject messages from those addresses.",
+      "text": "Separate multiple IP addresses with a comma.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter an IP address",
+          "error": {
+            "min": "Required field"
+          }
+        }
+      },
+      "toast": {
+        "success": "IP block rules updated successfully"
+      }
+    }
+  },
+  "customization": {
+    "success-url": {
+      "title": "Custom Success URL",
+      "description": "After a successful form submission, users will be directed to your custom URL.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter an URL",
+          "error": {
+            "min": "Required field"
+          }
+        }
+      },
+      "toast": {
+        "success": "Success URL updated successfully"
+      }
+    },
+    "failed-url": {
+      "title": "Custom Failed URL",
+      "description": "After a failed form submission, users will be directed to your custom URL.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter an URL",
+          "error": {
+            "min": "Required field"
+          }
+        }
+      },
+      "toast": {
+        "success": "Failed URL updated successfully"
+      }
+    },
+    "redirect-url": {
+      "title": "Custom Redirect URL",
+      "description": "After submitting the form, users will be provided with the option to return to the specified URL.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter an URL",
+          "error": {
+            "min": "Required field"
+          }
+        }
+      },
+      "toast": {
+        "success": "Redirect URL updated successfully"
+      }
+    },
+    "data-query-string": {
+      "title": "Form Data as Query String",
+      "description": "Pass submission data through query parameters. The return URL will be dynamically populated with the submitted form data.",
+      "toast": {
+        "success": "Data query string updated successfully"
       }
     }
   },

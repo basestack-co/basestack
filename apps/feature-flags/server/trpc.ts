@@ -63,8 +63,6 @@ export const isAuthenticated = middleware(
         projectId!,
       );
 
-
-
       // If the user does not exist in the project, return an error
       if (!project) {
         throw new TRPCError({ code: "FORBIDDEN" });

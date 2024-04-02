@@ -14,7 +14,7 @@ export const getInternalLinks = (t: Translate, formId: string) => {
       text: t("internal.submissions"),
     },
     {
-      icon: "setup",
+      icon: "flag",
       activeText: "Setup",
       to: `/form/${formId}/setup`,
       text: t("internal.setup"),

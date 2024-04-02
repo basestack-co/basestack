@@ -113,7 +113,6 @@ const MobileNavigation = ({
                             onClick={() => {
                               router.push({
                                 pathname: item.to,
-                                query: { formId },
                               });
                             }}
                           >

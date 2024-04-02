@@ -11,34 +11,28 @@ import { trpc } from "libs/trpc";
 import { SettingCard } from "@basestack/ui";
 // Components
 import { Input } from "@basestack/design-system";
-// Types
-import { Role } from "@prisma/client";
 // Toast
 import { toast } from "sonner";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
 export const FormSchema = z.object({
-  name: z
-    .string()
-    .max(30, "general.form.inputs.name.error.max")
-    .min(1, "general.form.inputs.name.error.min"),
+  ips: z.string(),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
-  role?: Role;
-  name?: string;
+  blockIpAddresses?: string;
 }
 
-const FormNameCard = ({ role, name }: Props) => {
+const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
   const updateForm = trpc.form.update.useMutation();
+
   const { formId } = router.query as { formId: string };
-  const isAdmin = role === Role.ADMIN;
 
   const {
     control,
@@ -51,47 +45,37 @@ const FormNameCard = ({ role, name }: Props) => {
     mode: "onChange",
   });
 
-  const inputName = watch("name");
+  const watchIps = watch("ips");
 
-  const onSaveFormName: SubmitHandler<FormInputs> = async (input) => {
+  useEffect(() => {
+    if (blockIpAddresses) {
+      setValue("ips", blockIpAddresses);
+    }
+  }, [blockIpAddresses, setValue]);
+
+  const onSave: SubmitHandler<FormInputs> = async (input) => {
     updateForm.mutate(
       {
         formId,
-        name: input.name,
+        blockIpAddresses: input.ips,
       },
       {
         onSuccess: (result) => {
-          // Get all the forms on the cache
-          const cache = trpcUtils.form.all.getData();
-
-          if (cache && cache.forms) {
-            // Update the cache with the new data
-            // This updates in the navigation list
-            trpcUtils.form.all.setData(undefined, {
-              forms: cache.forms.map((form) =>
-                form.id === result.form.id
-                  ? { ...form, name: result.form.name }
-                  : form,
-              ),
-            });
-          }
-
-          const cacheForm = trpcUtils.form.byId.getData({
+          const cache = trpcUtils.form.byId.getData({
             formId: result.form.id,
           });
 
-          if (cacheForm) {
-            // Updates the current active form in the cache
+          if (cache) {
             trpcUtils.form.byId.setData(
               { formId: result.form.id },
               {
-                ...cacheForm,
-                name: result.form.name,
+                ...cache,
+                blockIpAddresses: result.form.blockIpAddresses,
               },
             );
           }
 
-          toast.success(t("general.form.toast.success"));
+          toast.success(t("security.ip-block-rules.toast.success"));
         },
         onError: (error) => {
           toast.error(error.message);
@@ -100,24 +84,19 @@ const FormNameCard = ({ role, name }: Props) => {
     );
   };
 
-  useEffect(() => {
-    if (name) {
-      setValue("name", name!);
-    }
-  }, [name, setValue]);
-
   return (
     <SettingCard
-      title={t("general.form.title")}
-      description={t("general.form.description")}
-      button={t("general.form.action")!}
-      onClick={handleSubmit(onSaveFormName)}
-      isDisabled={isSubmitting || name === inputName}
+      title={t("security.ip-block-rules.title")}
+      description={t("security.ip-block-rules.description")}
+      button={t("security.ip-block-rules.action")!}
+      onClick={handleSubmit(onSave)}
+      isDisabled={isSubmitting || watchIps === blockIpAddresses}
       isLoading={isSubmitting}
-      hasFooter={isAdmin}
+      text={t("security.ip-block-rules.text")}
+      hasFooter
     >
       <Controller
-        name="name"
+        name="ips"
         control={control}
         defaultValue=""
         render={({ field }) => (
@@ -125,11 +104,11 @@ const FormNameCard = ({ role, name }: Props) => {
             maxWidth={400}
             onChange={field.onChange}
             onBlur={field.onBlur}
-            placeholder={t("general.form.inputs.name.placeholder")}
+            placeholder={t("security.ip-block-rules.inputs.name.placeholder")}
             name={field.name}
             value={field.value}
-            hasError={!!errors.name}
-            isDisabled={isSubmitting || !name || !isAdmin}
+            hasError={!!errors.ips}
+            isDisabled={isSubmitting}
           />
         )}
       />
@@ -137,4 +116,4 @@ const FormNameCard = ({ role, name }: Props) => {
   );
 };
 
-export default FormNameCard;
+export default FormIpRulesCard;

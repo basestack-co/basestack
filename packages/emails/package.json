@@ -17,17 +17,17 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@react-email/components": "0.0.15",
+    "@react-email/components": "0.0.16",
     "@react-email/render": "0.0.12",
     "nodemailer": "^6.9.13",
-    "react-email": "2.1.0"
+    "react-email": "2.1.1"
   },
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
     "@types/nodemailer": "^6.4.14",
-    "@types/react": "18.2.71",
-    "@types/react-dom": "^18.2.22",
+    "@types/react": "18.2.74",
+    "@types/react-dom": "^18.2.23",
     "raf-stub": "^3.0.0",
     "react": "18.2.0",
     "tsup": "^8.0.2",

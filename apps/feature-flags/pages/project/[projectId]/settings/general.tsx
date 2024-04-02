@@ -22,7 +22,7 @@ import { Role } from "@prisma/client";
 const GeneralPage = () => {
   const router = useRouter();
   const { projectId } = router.query as { projectId: string };
-  const { data: project, isLoading } = trpc.project.byId.useQuery(
+  const { data: project } = trpc.project.byId.useQuery(
     { projectId },
     {
       enabled: !!projectId,

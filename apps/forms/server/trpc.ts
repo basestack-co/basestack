@@ -40,12 +40,16 @@ export const isAuthenticated = middleware(
         formId: string;
       };
 
-      const form = getUserInForm(ctx.prisma, ctx.session.user.id, formId);
+      const form = await getUserInForm(ctx.prisma, ctx.session.user.id, formId);
 
       // If the user does not exist in the form, return an error
       if (!form) {
         throw new TRPCError({ code: "FORBIDDEN" });
       }
+
+      ctx.form = {
+        role: form.role,
+      };
     }
 
     return next({

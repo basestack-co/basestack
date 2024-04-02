@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import { StateCreator } from "zustand/esm";
 import { PersistOptions } from "zustand/middleware";
 
@@ -14,6 +15,17 @@ export type Persist = (
  * Modals
  */
 
+export type ConfirmModalType = "delete" | "info";
+
+export interface ConfirmModalPayload {
+  type?: ConfirmModalType;
+  title: string;
+  description: string;
+  buttonText: string;
+  onClick: () => void;
+  children?: ReactElement;
+}
+
 export interface ModalPayload<T> {
   isOpen: boolean;
   data?: T;
@@ -23,10 +35,13 @@ export type ModalAction<P, A> = (payload: P) => A;
 
 export interface ModalsSliceActions {
   setCreateFormModalOpen: ModalAction<ModalPayload<null>, void>;
+  setConfirmModalOpen: ModalAction<ModalPayload<ConfirmModalPayload>, void>;
 }
 
 export interface ModalsSliceState extends ModalsSliceActions {
   isCreateFormModalOpen: boolean;
+  isConfirmModalOpen: boolean;
+  confirmModalPayload: ConfirmModalPayload | null;
 }
 
 /**

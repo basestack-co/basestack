@@ -9,6 +9,9 @@ module.exports = {
     "/auth/sign-in": ["auth"],
     "/form/[formId]/submissions": ["flags"],
     "/form/[formId]/settings/general": ["settings"],
+    "/form/[formId]/settings/security": ["settings"],
+    "/form/[formId]/settings/customization": ["settings"],
+    "/form/[formId]/settings/notifications": ["settings"],
     "/user/profile/settings": ["profile"],
   },
 };
