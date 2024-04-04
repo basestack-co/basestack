@@ -8,14 +8,17 @@ export type Data = Array<{
 export interface FormSubmissionProps {
   date: string;
   data: Data;
+  viewed?: boolean;
+  isSpam?: boolean;
+  onDelete: () => void;
+  onMarkSpam: () => void;
+  onReadSubmission: () => void;
 }
 
-export interface FormSubmissionHeaderProps {
+export interface FormSubmissionHeaderProps extends FormSubmissionProps {
   isOpen: boolean;
   checkbox: CheckboxProps;
   onClick: () => void;
-  date: string;
-  data: Data;
 }
 
 export interface FormSubmissionBodyProps {

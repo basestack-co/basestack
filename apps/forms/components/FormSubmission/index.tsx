@@ -5,7 +5,15 @@ import Header from "./Header";
 import Body from "./Body";
 import { FormSubmissionProps } from "./types";
 
-const FormSubmission = ({ data, date }: FormSubmissionProps) => {
+const FormSubmission = ({
+  data,
+  date,
+  viewed,
+  isSpam,
+  onDelete,
+  onMarkSpam,
+  onReadSubmission,
+}: FormSubmissionProps) => {
   const theme = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [checked, setChecked] = useState(false);
@@ -21,6 +29,11 @@ const FormSubmission = ({ data, date }: FormSubmissionProps) => {
         data={data}
         date={date}
         isOpen={isOpen}
+        isSpam={isSpam}
+        viewed={viewed}
+        onDelete={onDelete}
+        onMarkSpam={onMarkSpam}
+        onReadSubmission={onReadSubmission}
       />
       <Body isOpen={isOpen} data={data} />
     </Card>

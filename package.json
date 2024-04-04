@@ -25,7 +25,6 @@
     "build:forms": "turbo run build --filter=forms...",
     "build:landing-page": "turbo run build --filter=landing-page...",
     "deploy:feature-flags": "turbo run @basestack/feature-flags#deploy",
-    "deploy:feature-flags:prune": "turbo prune --scope='@basestack/feature-flags' --docker",
     "deploy:forms": "turbo run @basestack/forms#deploy",
     "deploy:landing-page": "turbo run @basestack/landing-page#deploy",
     "deploy:docs": "turbo run @basestack/docs#deploy"

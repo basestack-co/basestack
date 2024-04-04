@@ -4,6 +4,9 @@ import { z } from "zod";
 
 export const submissionRouter = router({
   all: protectedProcedure
+    .meta({
+      restricted: true,
+    })
     .input(
       z.object({
         formId: z.string(),
@@ -18,41 +21,52 @@ export const submissionRouter = router({
 
       const search = input.search
         ? {
-            name: {
-              search: input.search,
+            data: {
+              path: ["email"],
+              string_contains: input.search,
             },
           }
         : {};
 
-      const submissions = await ctx.prisma.submission.findMany({
-        where: {
-          form: {
-            id: input.formId,
-            users: {
-              some: {
-                user: {
-                  id: userId,
+      return await ctx.prisma.$transaction(async (tx) => {
+        const { _count } = await tx.submission.aggregate({
+          _count: { id: true },
+          where: {
+            formId: input.formId,
+          },
+        });
+
+        const submissions = await tx.submission.findMany({
+          where: {
+            form: {
+              id: input.formId,
+              users: {
+                some: {
+                  user: {
+                    id: userId,
+                  },
                 },
               },
             },
             ...search,
           },
-        },
-        take: limit + 1,
-        cursor: input.cursor ? { id: input.cursor } : undefined,
-        orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+          take: limit + 1,
+          cursor: input.cursor ? { id: input.cursor } : undefined,
+          orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+        });
+
+        let nextCursor: typeof input.cursor | undefined = undefined;
+
+        if (submissions.length > limit) {
+          const nextItem = submissions.pop();
+          nextCursor = nextItem!.id;
+        }
+
+        return {
+          submissions,
+          nextCursor,
+          total: _count.id,
+        };
       });
-
-      let nextCursor: typeof input.cursor | undefined = undefined;
-
-      if (submissions.length > limit) {
-        const nextItem = submissions.pop();
-        nextCursor = nextItem!.id;
-      }
-
-      return {
-        submissions,
-        nextCursor,
-      };
     }),
 });

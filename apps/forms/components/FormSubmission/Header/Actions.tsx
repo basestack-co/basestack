@@ -1,4 +1,7 @@
 import React from "react";
+// Locales
+import useTranslation from "next-translate/useTranslation";
+// Components
 import { animated, config, useTransition } from "react-spring";
 import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
@@ -12,10 +15,12 @@ import { ActionsList, ActionsListItem } from "../styles";
 
 interface ActionsProps {
   onDelete: () => void;
-  onMarkSpam: () => void;
-  onReadSubmission: () => void;
+  onMarkSpam: (value: boolean) => void;
+  onReadSubmission: (value: boolean) => void;
   isVisible: boolean;
   onDestroyed: () => void;
+  viewed?: boolean;
+  isSpam?: boolean;
 }
 
 interface ActionButtonProps {
@@ -64,7 +69,10 @@ const Actions = ({
   onReadSubmission,
   isVisible,
   onDestroyed,
+  viewed,
+  isSpam,
 }: ActionsProps) => {
+  const { t } = useTranslation("forms");
   const transitionList = useTransition(isVisible, {
     config: { ...config.default, duration: 200 },
     ...slideBottom,
@@ -80,20 +88,32 @@ const Actions = ({
       item && (
         <AnimatedBList style={styles}>
           <ActionsListItem>
-            <ActionButton onClick={onDelete} icon="delete" text="Delete" />
-          </ActionsListItem>
-          <ActionsListItem>
             <ActionButton
-              onClick={onMarkSpam}
-              icon="report"
-              text="Mark as Spam"
+              onClick={onDelete}
+              icon="delete"
+              text={t("submission.action.delete")}
             />
           </ActionsListItem>
           <ActionsListItem>
             <ActionButton
-              onClick={onReadSubmission}
+              onClick={() => onMarkSpam(!isSpam)}
+              icon="report"
+              text={
+                isSpam
+                  ? t("submission.action.unmark-spam")
+                  : t("submission.action.mark-spam")
+              }
+            />
+          </ActionsListItem>
+          <ActionsListItem>
+            <ActionButton
+              onClick={() => onReadSubmission(!viewed)}
               icon="mark_email_read"
-              text="Read Submission"
+              text={
+                viewed
+                  ? t("submission.action.un-read-submission")
+                  : t("submission.action.read-submission")
+              }
             />
           </ActionsListItem>
         </AnimatedBList>

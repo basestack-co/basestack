@@ -22,8 +22,8 @@
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "@types/node": "20.12.2",
+    "@types/node": "20.12.3",
     "typescript": "^5.4.3",
-    "wrangler": "^3.43.0"
+    "wrangler": "^3.44.0"
   }
 }

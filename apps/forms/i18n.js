@@ -7,7 +7,7 @@ module.exports = {
     "*": ["common", "navigation", "modals"],
     "/": ["home"],
     "/auth/sign-in": ["auth"],
-    "/form/[formId]/submissions": ["flags"],
+    "/form/[formId]/submissions": ["forms"],
     "/form/[formId]/settings/general": ["settings"],
     "/form/[formId]/settings/security": ["settings"],
     "/form/[formId]/settings/customization": ["settings"],

@@ -11,3 +11,5 @@ docker-compose.yml
 README.md
 .idea
 npm-debug.log
+**/.next
+**/dist

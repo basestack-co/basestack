@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+// Hooks
 import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
+// Components
 import { Icon, Checkbox } from "@basestack/design-system";
 import {
   Box,
@@ -20,10 +22,14 @@ const Header = ({
   date,
   onClick,
   checkbox,
+  viewed,
+  isSpam,
+  onDelete,
+  onMarkSpam,
+  onReadSubmission,
 }: FormSubmissionHeaderProps) => {
   const theme = useTheme();
   const isSmallDevice = useMedia(theme.device.max.sm, false);
-
   const [isGridVisible, setIsGridVisible] = useState(true);
   const [isActionsVisible, setIsActionsVisible] = useState(false);
 
@@ -48,19 +54,21 @@ const Header = ({
               setIsActionsVisible(false);
               setIsGridVisible(true);
             }}
-            onDelete={() => console.log("")}
-            onMarkSpam={() => console.log("")}
-            onReadSubmission={() => console.log("")}
+            onDelete={onDelete}
+            onMarkSpam={onMarkSpam}
+            onReadSubmission={onReadSubmission}
           />
           <HeaderRight>
-            {!isSmallDevice && <Labels date={date} />}
+            {!isSmallDevice && (
+              <Labels date={date} viewed={viewed} isSpam={isSpam} />
+            )}
             <Icon icon={isOpen ? "arrow_drop_up" : "arrow_drop_down"} muted />
           </HeaderRight>
         </HeaderButton>
       </Box>
       {isSmallDevice && (
         <MobileLabels>
-          <Labels date={date} />
+          <Labels date={date} viewed={viewed} isSpam={isSpam} />
         </MobileLabels>
       )}
     </>

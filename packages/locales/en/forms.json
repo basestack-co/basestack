@@ -1,0 +1,45 @@
+{
+  "seo": {
+    "title": "Forms"
+  },
+  "page": {
+    "title": "Forms"
+  },
+  "toolbar": {
+    "search": {
+      "placeholder": "Filter by keyword"
+    },
+    "action": {
+      "select-all": "Select all",
+      "mark-spam": "Mark as Spam",
+      "unmark-spam": "Unmark Spam",
+      "read-submissions": "Read Submissions",
+      "un-read-submissions": "Un-Read Submissions",
+      "delete-all": "Delete all",
+      "export": "Export"
+    },
+    "filter": {
+      "placeholder": "Filters",
+      "is-spam": "is Spam",
+      "is-not-spam": "is not Spam"
+    },
+    "sort": {
+      "placeholder": "Sort",
+      "newest": "Newest",
+      "oldest": "Oldest"
+    }
+  },
+  "submission": {
+    "label": {
+      "new": "New",
+      "spam": "Spam"
+    },
+    "action": {
+      "read-submission": "Read Submission",
+      "un-read-submission": "Un-Read Submission",
+      "mark-spam": "Mark as Spam",
+      "unmark-spam": "Unmark Spam",
+      "delete": "Delete"
+    }
+  }
+}

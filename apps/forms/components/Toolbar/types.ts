@@ -1,15 +1,13 @@
 import { ButtonProps, PopupProps } from "@basestack/design-system";
 
 export enum SelectedFilter {
-  RECENT = "recent",
-  LASTMONTH = "last_month",
-  DELETED = "deleted",
+  IS_SPAM = "is_spam",
+  IS_NOT_SPAM = "is_not_spam",
 }
 
 export enum SelectedSort {
-  SPAM = "Recent",
-  READ = "Last month",
-  UNREAD = "Deleted",
+  NEWEST = "Newest",
+  OLDEST = "Oldest",
 }
 
 export interface ToolbarProps {
@@ -22,6 +20,8 @@ export interface ToolbarProps {
   onExport: () => void;
   onSelectFilter: (value: SelectedFilter) => void;
   onSelectSort: (value: SelectedSort) => void;
+  onSearchCallback: (value: string) => void;
+  isSubmitting?: boolean;
 }
 
 export type ButtonSharedProps = Pick<ButtonProps, "variant" | "iconPlacement">;

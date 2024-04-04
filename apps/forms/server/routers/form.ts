@@ -126,7 +126,7 @@ export const formRouter = router({
     }),
   create: protectedProcedure
     .meta({
-      restricted: true,
+      restricted: false,
     })
     .input(
       z
