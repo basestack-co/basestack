@@ -30,6 +30,7 @@ const Toolbar = ({
   isSubmitting,
   isLoading,
   isActionDisabled,
+  isSelectAllEnabled,
 }: ToolbarProps) => {
   const { t } = useTranslation("forms");
   const [searchValue, setSearchValue] = useState("");
@@ -66,11 +67,17 @@ const Toolbar = ({
           <ListItem>
             <Button
               {...buttonProps}
-              icon="check_box_outline_blank"
+              icon={
+                isSelectAllEnabled ? "check_box" : "check_box_outline_blank"
+              }
               onClick={onSelectAll}
               flexShrink={0}
             >
-              {t("toolbar.action.select-all")}
+              {t(
+                isSelectAllEnabled
+                  ? "toolbar.action.un-select-all"
+                  : "toolbar.action.select-all",
+              )}
             </Button>
           </ListItem>
           <PopupMenu

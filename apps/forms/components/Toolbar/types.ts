@@ -24,6 +24,7 @@ export interface ToolbarProps {
   isSubmitting?: boolean;
   isLoading?: boolean;
   isActionDisabled?: boolean;
+  isSelectAllEnabled?: boolean;
 }
 
 export type ButtonSharedProps = Pick<ButtonProps, "variant" | "iconPlacement">;

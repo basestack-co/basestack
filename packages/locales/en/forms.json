@@ -11,6 +11,7 @@
     },
     "action": {
       "select-all": "Select all",
+      "un-select-all": "Unselect all",
       "mark-spam": "Mark as Spam",
       "unmark-spam": "Unmark Spam",
       "read-submissions": "Read Submissions",
@@ -45,11 +46,8 @@
       "delete": {
         "error": "Submission could not be deleted.",
         "loading": "Deleting...",
-        "success": {
-          "0": "No submissions have been deleted.",
-          "one": "Submission has been deleted successfully.",
-          "other": "Submissions have been deleted successfully."
-        }
+        "success_one": "Submission has been deleted successfully.",
+        "success_other": "Submissions have been deleted successfully."
       }
     }
   }

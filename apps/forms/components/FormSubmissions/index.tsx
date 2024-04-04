@@ -28,6 +28,7 @@ const FormSubmissions = ({ name }: Props) => {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState<string>("");
   const [selectIds, setSelectIds] = useState<string[]>([]);
+  const [isSelectAll, setIsSelectAll] = useState<boolean>(false);
   const { formId } = router.query as { formId: string };
 
   const deleteSubmissions = trpc.submission.delete.useMutation();
@@ -60,11 +61,15 @@ const FormSubmissions = ({ name }: Props) => {
   }, []);
 
   const onSelectAllSubmission = useCallback(() => {
-    data?.pages.forEach(({ submissions }) => {
-      const ids = submissions.map(({ id }) => id);
-      setSelectIds(ids);
-    });
-  }, [data]);
+    const ids = isSelectAll
+      ? []
+      : data?.pages.flatMap((page) =>
+          page.submissions.map((submission) => submission.id),
+        ) ?? [];
+
+    setSelectIds(ids);
+    setIsSelectAll((prevState) => !prevState);
+  }, [data, isSelectAll]);
 
   const onDelete = useCallback(
     (ids: string[]) => {
@@ -74,8 +79,12 @@ const FormSubmissions = ({ name }: Props) => {
       deleteSubmissions.mutate(
         { ids, formId },
         {
-          onSuccess: async (res) => {
+          onSuccess: async () => {
+            setIsSelectAll(false);
+            setSelectIds([]);
+
             await trpcUtils.submission.all.invalidate({ formId });
+
             toast.dismiss(loadingToastId);
             toast.success(
               t("submission.event.delete.success", { count: ids.length }),
@@ -99,7 +108,7 @@ const FormSubmissions = ({ name }: Props) => {
         onReadSubmissions={() => null}
         onUnMarkSpamAll={() => null}
         onMarkSpamAll={() => null}
-        onDeleteAll={() => null}
+        onDeleteAll={() => onDelete(selectIds)}
         onExport={() => null}
         onSelectAll={onSelectAllSubmission}
         onSelectFilter={() => null}
@@ -108,6 +117,7 @@ const FormSubmissions = ({ name }: Props) => {
         isSubmitting={deleteSubmissions.isLoading}
         isLoading={isLoading}
         isActionDisabled={selectIds.length <= 0}
+        isSelectAllEnabled={isSelectAll}
       />
       <List>
         {data?.pages.map(({ submissions }, index) => {
