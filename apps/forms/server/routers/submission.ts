@@ -69,4 +69,37 @@ export const submissionRouter = router({
         };
       });
     }),
+  delete: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(
+      z.object({
+        formId: z.string(),
+        ids: z.array(z.string()),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+
+      const submissions = await ctx.prisma.submission.deleteMany({
+        where: {
+          id: {
+            in: input.ids,
+          },
+          form: {
+            id: input.formId,
+            users: {
+              some: {
+                user: {
+                  id: userId,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      return { submissions };
+    }),
 });

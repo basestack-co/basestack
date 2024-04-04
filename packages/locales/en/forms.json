@@ -40,6 +40,17 @@
       "mark-spam": "Mark as Spam",
       "unmark-spam": "Unmark Spam",
       "delete": "Delete"
+    },
+    "event": {
+      "delete": {
+        "error": "Submission could not be deleted.",
+        "loading": "Deleting...",
+        "success": {
+          "0": "No submissions have been deleted.",
+          "one": "Submission has been deleted successfully.",
+          "other": "Submissions have been deleted successfully."
+        }
+      }
     }
   }
 }

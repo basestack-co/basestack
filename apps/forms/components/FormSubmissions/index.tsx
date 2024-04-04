@@ -1,8 +1,12 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useCallback } from "react";
 // Server
 import { trpc } from "libs/trpc";
 // Router
 import { useRouter } from "next/router";
+// Locales
+import useTranslation from "next-translate/useTranslation";
+// Toast
+import { toast } from "sonner";
 // Components
 import { Text, Pagination } from "@basestack/design-system";
 import { Container, List, ListItem, PaginationContainer } from "./styles";
@@ -18,12 +22,15 @@ export interface Props {
   name: string;
 }
 
-const FormSubmissions = ({name}: Props) => {
+const FormSubmissions = ({ name }: Props) => {
   const trpcUtils = trpc.useUtils();
+  const { t } = useTranslation("forms");
   const router = useRouter();
   const [searchValue, setSearchValue] = useState<string>("");
+  const [selectIds, setSelectIds] = useState<string[]>([]);
   const { formId } = router.query as { formId: string };
 
+  const deleteSubmissions = trpc.submission.delete.useMutation();
   const { data, isLoading, fetchNextPage } =
     trpc.submission.all.useInfiniteQuery(
       {
@@ -40,6 +47,50 @@ const FormSubmissions = ({name}: Props) => {
   const currentPage = (data?.pages.length ?? 0) * limit;
   const totalPages = data?.pages?.[0]?.total ?? 0;
 
+  console.log("selectIds = ", selectIds);
+
+  const onSelectSubmission = useCallback((id: string, checked: boolean) => {
+    setSelectIds((prevState) => {
+      if (checked) {
+        return [...prevState, id];
+      }
+
+      return prevState.filter((selectedId) => selectedId !== id);
+    });
+  }, []);
+
+  const onSelectAllSubmission = useCallback(() => {
+    data?.pages.forEach(({ submissions }) => {
+      const ids = submissions.map(({ id }) => id);
+      setSelectIds(ids);
+    });
+  }, [data]);
+
+  const onDelete = useCallback(
+    (ids: string[]) => {
+      const loadingToastId = toast.loading(
+        t("submission.event.delete.loading"),
+      );
+      deleteSubmissions.mutate(
+        { ids, formId },
+        {
+          onSuccess: async (res) => {
+            await trpcUtils.submission.all.invalidate({ formId });
+            toast.dismiss(loadingToastId);
+            toast.success(
+              t("submission.event.delete.success", { count: ids.length }),
+            );
+          },
+          onError: (error) => {
+            toast.dismiss(loadingToastId);
+            toast.error(error.message ?? t("submission.event.delete.error"));
+          },
+        },
+      );
+    },
+    [deleteSubmissions, formId, trpcUtils, t],
+  );
+
   return (
     <Container>
       <Text size="xLarge">{name}</Text>
@@ -50,11 +101,13 @@ const FormSubmissions = ({name}: Props) => {
         onMarkSpamAll={() => null}
         onDeleteAll={() => null}
         onExport={() => null}
-        onSelectAll={() => null}
+        onSelectAll={onSelectAllSubmission}
         onSelectFilter={() => null}
         onSelectSort={() => null}
         onSearchCallback={(value) => setSearchValue(value)}
-        isSubmitting={false}
+        isSubmitting={deleteSubmissions.isLoading}
+        isLoading={isLoading}
+        isActionDisabled={selectIds.length <= 0}
       />
       <List>
         {data?.pages.map(({ submissions }, index) => {
@@ -66,11 +119,13 @@ const FormSubmissions = ({name}: Props) => {
                     <FormSubmission
                       data={formatFormSubmissions(data)}
                       date={dayjs(createdAt).fromNow()}
-                      viewed={!!viewed}
-                      isSpam={!!isSpam}
-                      onDelete={() => null}
+                      viewed={viewed!}
+                      isSpam={isSpam!}
+                      onDelete={() => onDelete([id])}
                       onMarkSpam={() => null}
                       onReadSubmission={() => null}
+                      onSelect={(checked) => onSelectSubmission(id, checked)}
+                      isSelected={selectIds.includes(id)}
                     />
                   </ListItem>
                 );

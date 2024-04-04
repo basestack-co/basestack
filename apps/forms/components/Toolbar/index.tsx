@@ -28,6 +28,8 @@ const Toolbar = ({
   onSelectSort,
   onSearchCallback,
   isSubmitting,
+  isLoading,
+  isActionDisabled,
 }: ToolbarProps) => {
   const { t } = useTranslation("forms");
   const [searchValue, setSearchValue] = useState("");
@@ -81,32 +83,32 @@ const Toolbar = ({
                 icon: "report",
                 text: t("toolbar.action.mark-spam"),
                 onClick: onMarkSpamAll,
-                isDisabled: isSubmitting,
+                isDisabled: isSubmitting || isLoading || isActionDisabled,
               },
               {
                 icon: "report_off",
                 text: t("toolbar.action.unmark-spam"),
                 onClick: onUnMarkSpamAll,
-                isDisabled: isSubmitting,
+                isDisabled: isSubmitting || isLoading || isActionDisabled,
               },
               {
                 icon: "mark_email_read",
                 text: t("toolbar.action.read-submissions"),
                 onClick: onReadSubmissions,
-                isDisabled: isSubmitting,
+                isDisabled: isSubmitting || isLoading || isActionDisabled,
               },
               {
                 icon: "mark_email_unread",
                 text: t("toolbar.action.un-read-submissions"),
                 onClick: onUnReadSubmissions,
-                isDisabled: isSubmitting,
+                isDisabled: isSubmitting || isLoading || isActionDisabled,
               },
               {
                 icon: "delete",
                 variant: ButtonVariant.Danger,
                 text: t("toolbar.action.delete-all"),
                 onClick: onDeleteAll,
-                isDisabled: isSubmitting,
+                isDisabled: isSubmitting || isLoading || isActionDisabled,
               },
             ]}
           />
@@ -120,7 +122,7 @@ const Toolbar = ({
                   onSelectFilter(SelectedFilter.IS_SPAM);
                   setSelectedFilter(t("toolbar.filter.is-spam"));
                 },
-                isDisabled: isSubmitting,
+                isDisabled: isSubmitting || isLoading,
               },
               {
                 text: t("toolbar.filter.is-not-spam"),
@@ -128,7 +130,7 @@ const Toolbar = ({
                   onSelectFilter(SelectedFilter.IS_NOT_SPAM);
                   setSelectedFilter(t("toolbar.filter.is-not-spam"));
                 },
-                isDisabled: isSubmitting,
+                isDisabled: isSubmitting || isLoading,
               },
             ]}
             {...(selectedFilter
@@ -145,7 +147,7 @@ const Toolbar = ({
                   onSelectSort(SelectedSort.NEWEST);
                   setSelectedSort(t("toolbar.sort.newest"));
                 },
-                isDisabled: isSubmitting,
+                isDisabled: isSubmitting || isLoading,
               },
               {
                 text: t("toolbar.sort.oldest"),
@@ -153,7 +155,7 @@ const Toolbar = ({
                   onSelectSort(SelectedSort.OLDEST);
                   setSelectedSort(t("toolbar.sort.oldest"));
                 },
-                isDisabled: isSubmitting,
+                isDisabled: isSubmitting || isLoading,
               },
             ]}
             {...(selectedSort ? { onClear: () => setSelectedSort(null) } : {})}
@@ -163,7 +165,7 @@ const Toolbar = ({
               {...buttonProps}
               icon="download"
               onClick={onExport}
-              isDisabled={isSubmitting}
+              isDisabled={isSubmitting || isLoading}
             >
               {t("toolbar.action.export")}
             </Button>

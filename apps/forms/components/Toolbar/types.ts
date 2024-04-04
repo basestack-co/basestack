@@ -22,6 +22,8 @@ export interface ToolbarProps {
   onSelectSort: (value: SelectedSort) => void;
   onSearchCallback: (value: string) => void;
   isSubmitting?: boolean;
+  isLoading?: boolean;
+  isActionDisabled?: boolean;
 }
 
 export type ButtonSharedProps = Pick<ButtonProps, "variant" | "iconPlacement">;
