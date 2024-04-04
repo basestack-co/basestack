@@ -114,7 +114,7 @@ const DesktopNavigation = ({
             <ListItem>
               <Link href="/">
                 <LogoContainer>
-                  <Logo size={36} />
+                  <Logo size={36} product="forms" />
                 </LogoContainer>
               </Link>
             </ListItem>
