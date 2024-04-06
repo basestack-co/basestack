@@ -27,7 +27,8 @@
     "deploy:feature-flags": "turbo run @basestack/feature-flags#deploy",
     "deploy:forms": "turbo run @basestack/forms#deploy",
     "deploy:landing-page": "turbo run @basestack/landing-page#deploy",
-    "deploy:docs": "turbo run @basestack/docs#deploy"
+    "deploy:docs": "turbo run @basestack/docs#deploy",
+    "start:feature-flags": "turbo run @basestack/feature-flags#start"
   },
   "devDependencies": {
     "commitizen": "^4.3.0",
