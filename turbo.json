@@ -83,6 +83,10 @@
     "@basestack/feature-flags#start": {
       "dependsOn": [],
       "outputs": ["dist/**", ".next/**"]
+    },
+    "@basestack/forms#start": {
+      "dependsOn": [],
+      "outputs": ["dist/**", ".next/**"]
     }
   },
   "globalEnv": [
