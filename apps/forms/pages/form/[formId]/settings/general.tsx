@@ -30,8 +30,6 @@ const GeneralSettingsPage = () => {
     },
   );
 
-  // use react select instead of input for multiples, allow to delete
-
   return (
     <CardList>
       <CardListItem>
