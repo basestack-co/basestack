@@ -1,6 +1,6 @@
 import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
-import Card from "..";
+import Card, { CardVariant } from "..";
 
 describe("Card tests", () => {
   afterEach(cleanup);
@@ -18,6 +18,13 @@ describe("Card tests", () => {
   test("should render Card with hover animation", () => {
     const { asFragment } = renderWithTheme(
       <Card hasHoverAnimation>Content</Card>,
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test("should render Card with outline", () => {
+    const { asFragment } = renderWithTheme(
+      <Card variant={CardVariant.PRIMARY}>Content</Card>,
     );
     expect(asFragment()).toMatchSnapshot();
   });

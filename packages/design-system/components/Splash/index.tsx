@@ -3,10 +3,14 @@ import React, { memo } from "react";
 import Logo from "../Logo";
 import { Container, Content, Loader, LoaderContainer } from "./styles";
 
-const Splash = () => (
+interface SplashProps {
+  product?: "flags" | "forms";
+}
+
+const Splash = ({ product = "flags" }: SplashProps) => (
   <Container>
     <Content>
-      <Logo size={42} />
+      <Logo size={42} product={product} />
       <LoaderContainer>
         <Loader />
       </LoaderContainer>

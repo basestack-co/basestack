@@ -100,7 +100,7 @@ const FormWebHookUrlCard = ({ webhookUrl = "" }: Props) => {
         defaultValue=""
         render={({ field }) => (
           <Input
-            maxWidth={400}
+            maxWidth={560}
             onChange={field.onChange}
             onBlur={field.onBlur}
             placeholder={t("general.webhook-url.inputs.name.placeholder")}

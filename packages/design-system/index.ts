@@ -9,7 +9,11 @@ export {
 export { default as HorizontalRule } from "./components/HorizontalRule";
 export { default as Pill, type PillProps } from "./components/Pill";
 export { default as Icon, type IconProps } from "./components/Icon";
-export { default as Card, type CardProps } from "./components/Card";
+export {
+  default as Card,
+  type CardProps,
+  CardVariant,
+} from "./components/Card";
 export { default as Input, type InputProps } from "./components/Input";
 export { default as Textarea, type TextareaProps } from "./components/Textarea";
 export { default as Switch, type SwitchProps } from "./components/Switch";

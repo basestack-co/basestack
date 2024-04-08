@@ -3,6 +3,7 @@ import React from "react";
 import { useStore } from "store";
 // UI
 import { SettingCard } from "@basestack/ui";
+import { CardVariant } from "@basestack/design-system";
 // Server
 import { trpc } from "libs/trpc";
 // Router
@@ -78,7 +79,7 @@ const DeleteProjectCard = ({ name }: Props) => {
       onClick={onClickDeleteProject}
       text={t("general.delete.project.placeholder")}
       isDisabled={deleteProject.isLoading}
-      variant="danger"
+      variant={CardVariant.DANGER}
       isLoading={deleteProject.isLoading}
     />
   );

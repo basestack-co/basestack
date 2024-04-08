@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, ReactNode } from "react";
 import { SpaceProps, FlexboxProps } from "styled-system";
 import { LabelDot, LabelDotContainer, StyledLabel } from "./styles";
 import { LabelVariant, LabelSize } from "./types";
@@ -28,6 +28,10 @@ export interface LabelProps extends SpaceProps, FlexboxProps {
    * Changes the styles of the label
    */
   type?: "dot" | "default";
+  /**
+   * Adds react component for ex icon button to clear label
+   */
+  children?: ReactNode;
 }
 
 const Label = ({
@@ -37,6 +41,7 @@ const Label = ({
   variant = "default",
   isTranslucent = false,
   testId = "label-container",
+  children,
   ...props
 }: LabelProps) => {
   if (type === "dot") {
@@ -54,9 +59,11 @@ const Label = ({
       variant={variant}
       size={size}
       isTranslucent={isTranslucent}
+      hasChildren={!!children}
       {...props}
     >
-      {text}
+      <span>{text}</span>
+      {children}
     </StyledLabel>
   );
 };

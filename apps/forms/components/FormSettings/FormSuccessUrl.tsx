@@ -100,7 +100,7 @@ const FormSuccessUrlCard = ({ successUrl = "" }: Props) => {
         defaultValue=""
         render={({ field }) => (
           <Input
-            maxWidth={400}
+            maxWidth={560}
             onChange={field.onChange}
             onBlur={field.onBlur}
             placeholder={t("customization.success-url.inputs.name.placeholder")}
