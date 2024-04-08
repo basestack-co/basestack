@@ -100,7 +100,7 @@ const FormFailedUrlCard = ({ errorUrl = "" }: Props) => {
         defaultValue=""
         render={({ field }) => (
           <Input
-            maxWidth={400}
+            maxWidth={560}
             onChange={field.onChange}
             onBlur={field.onBlur}
             placeholder={t("customization.failed-url.inputs.name.placeholder")}

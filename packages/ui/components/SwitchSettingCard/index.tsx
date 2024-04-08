@@ -1,15 +1,30 @@
 import React from "react";
 // Components
-import { Card, Switch, Text } from "@basestack/design-system";
+import {
+  Card,
+  Switch,
+  Text,
+  CardVariant,
+  Label,
+} from "@basestack/design-system";
 // Styles
 import { useTheme } from "styled-components";
-import { ContentContainer, TextContainer } from "./styles";
+import {
+  ContentContainer,
+  Overlay,
+  RightColumn,
+  TagContainer,
+  TextContainer,
+} from "./styles";
 
 export interface SwitchSettingCardProps {
   title: string;
   description: string;
   checked: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  variant?: CardVariant;
+  hasOverlay?: boolean;
+  label?: string;
 }
 
 const SwitchSettingCard = ({
@@ -17,17 +32,28 @@ const SwitchSettingCard = ({
   onChange,
   title,
   description,
+  variant = CardVariant.DEFAULT,
+  hasOverlay = false,
+  label,
 }: SwitchSettingCardProps) => {
   const theme = useTheme();
 
   return (
-    <Card p={theme.spacing.s5}>
-      <ContentContainer>
+    <Card position="relative" variant={variant} p={theme.spacing.s5}>
+      {hasOverlay && <Overlay />}
+      <ContentContainer hasLabel={!!label}>
         <TextContainer>
           <Text size="large">{title}</Text>
           <Text>{description}</Text>
         </TextContainer>
-        <Switch ml={theme.spacing.s5} checked={checked} onChange={onChange} />
+        <RightColumn hasLabel={!!label}>
+          {!!label && (
+            <TagContainer>
+              <Label text={label} variant="info" isTranslucent />
+            </TagContainer>
+          )}
+          <Switch checked={checked} onChange={onChange} />
+        </RightColumn>
       </ContentContainer>
     </Card>
   );

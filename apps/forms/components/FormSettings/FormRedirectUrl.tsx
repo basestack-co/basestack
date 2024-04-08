@@ -10,7 +10,7 @@ import { trpc } from "libs/trpc";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
-import { Input } from "@basestack/design-system";
+import { Input, CardVariant } from "@basestack/design-system";
 // Toast
 import { toast } from "sonner";
 // Locales
@@ -84,15 +84,28 @@ const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
     );
   };
 
+  const isBlocked = true;
+
+  const cardProps = isBlocked
+    ? {
+        button: "Upgrade",
+        onClick: () => null,
+        hasOverlay: true,
+        variant: CardVariant.PRIMARY,
+        label: "Upgrade to Pro",
+      }
+    : {
+        button: t("customization.redirect-url.title"),
+        onClick: () => handleSubmit(onSave),
+        isLoading: isSubmitting,
+        isDisabled: isSubmitting || watchUrl === redirectUrl,
+      };
+
   return (
     <SettingCard
       title={t("customization.redirect-url.title")}
       description={t("customization.redirect-url.description")}
-      button={t("customization.redirect-url.action")!}
-      onClick={handleSubmit(onSave)}
-      isDisabled={isSubmitting || watchUrl === redirectUrl}
-      isLoading={isSubmitting}
-      hasFooter
+      {...cardProps}
     >
       <Controller
         name="url"
@@ -100,7 +113,7 @@ const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
         defaultValue=""
         render={({ field }) => (
           <Input
-            maxWidth={400}
+            maxWidth={560}
             onChange={field.onChange}
             onBlur={field.onBlur}
             placeholder={t(

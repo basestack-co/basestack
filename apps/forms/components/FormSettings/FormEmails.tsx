@@ -10,11 +10,12 @@ import { trpc } from "libs/trpc";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
-import { Input } from "@basestack/design-system";
+import { Input, Label, IconButton } from "@basestack/design-system";
 // Toast
 import { toast } from "sonner";
 // Locales
 import useTranslation from "next-translate/useTranslation";
+import { TagsContainer } from "./styles";
 
 export const FormSchema = z.object({
   emails: z.string(),
@@ -84,6 +85,17 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
     );
   };
 
+  const mockEmails = [
+    "vitor.works@gmail.com",
+    "james.bays@gmail.com",
+    "worker-95-qwerty@gmail.com",
+    "times-are-hard@gmail.com",
+    "cristiano-ronaldo-7@gmail.com",
+    "benfica-futbol-clube@gmail.com",
+    "sporting-is-shit-and-i-know-it@gmail.com",
+    "apple-computers-are-expensive.com",
+  ];
+
   return (
     <SettingCard
       title={t("notifications.emails.title")}
@@ -95,23 +107,39 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
       text={t("notifications.emails.text")}
       hasFooter
     >
-      <Controller
-        name="emails"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Input
-            maxWidth={400}
-            onChange={field.onChange}
-            onBlur={field.onBlur}
-            placeholder={t("notifications.emails.inputs.name.placeholder")}
-            name={field.name}
-            value={field.value}
-            hasError={!!errors.emails}
-            isDisabled={isSubmitting}
-          />
+      <>
+        <Controller
+          name="emails"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <Input
+              maxWidth={400}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              placeholder={t("notifications.emails.inputs.name.placeholder")}
+              name={field.name}
+              value={field.value}
+              hasError={!!errors.emails}
+              isDisabled={isSubmitting}
+            />
+          )}
+        />
+        {!!mockEmails && (
+          <TagsContainer>
+            {mockEmails.map((item, index) => (
+              <Label key={index} text={item} size="normal" isTranslucent>
+                <IconButton
+                  icon="close"
+                  size="small"
+                  variant="secondaryDark"
+                  onClick={() => null}
+                />
+              </Label>
+            ))}
+          </TagsContainer>
         )}
-      />
+      </>
     </SettingCard>
   );
 };

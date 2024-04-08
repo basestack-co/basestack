@@ -1,27 +1,43 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { space, flexbox, layout, compose } from "styled-system";
 import { rem } from "polished";
 import { LabelVariant, LabelSize } from "./types";
 
+const getGap = (size: LabelSize) => {
+  const styles = {
+    small: {
+      gap: `${rem("6px")}`,
+    },
+    normal: {
+      gap: `${rem("8px")}`,
+    },
+    medium: {
+      gap: `${rem("10px")}`,
+    },
+  };
+
+  return styles[size];
+};
+
 const getSizeStyles = (size: LabelSize) => {
   const styles = {
     small: {
-      padding: `${rem("2px")} ${rem("4px")}`,
+      padding: `${rem("4px")} ${rem("6px")}`,
       fontSize: `${rem("12px")}`,
       lineHeight: `${rem("14px")}`,
       fontWeight: 400,
     },
     normal: {
-      padding: `${rem("4px")} ${rem("6px")}`,
+      padding: `${rem("6px")} ${rem("8px")}`,
       fontSize: `${rem("14px")}`,
       lineHeight: `${rem("16px")}`,
       fontWeight: 400,
     },
     medium: {
-      padding: `${rem("6px")} ${rem("8px")}`,
+      padding: `${rem("8px")} ${rem("10px")}`,
       fontSize: `${rem("16px")}`,
       lineHeight: `${rem("18px")}`,
-      fontWeight: 500,
+      fontWeight: 400,
     },
   };
 
@@ -32,6 +48,7 @@ export const StyledLabel = styled.div<{
   variant: LabelVariant;
   size: LabelSize;
   isTranslucent: boolean;
+  hasChildren: boolean;
 }>`
   display: flex;
   border-radius: 4px;
@@ -40,6 +57,12 @@ export const StyledLabel = styled.div<{
     isTranslucent
       ? theme.label.translucent[variant]
       : theme.label.solid[variant]};
+  ${({ hasChildren, size }) =>
+    hasChildren &&
+    css`
+      align-items: center;
+      ${getGap(size)};
+    `}
   ${compose(flexbox, space, layout)};
 `;
 
