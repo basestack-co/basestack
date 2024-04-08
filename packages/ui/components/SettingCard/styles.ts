@@ -10,7 +10,7 @@ export const Container = styled.div`
 
 export const Header = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   margin-bottom: ${({ theme }) => theme.spacing.s5};
 `;
 
@@ -20,11 +20,10 @@ export const TextContainer = styled.div`
 `;
 
 export const TagContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
+  margin-bottom: ${({ theme }) => theme.spacing.s4};
   z-index: 10;
-  margin-left: auto;
-  padding-left: ${({ theme }) => theme.spacing.s3};
+  flex-shrink: 0;
 `;
 
 export const Footer = styled.div`

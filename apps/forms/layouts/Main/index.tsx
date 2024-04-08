@@ -39,7 +39,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   if (status === "loading" || isLoadingForms) {
     return (
       <Loader hasDelay={false}>
-        <Splash />
+        <Splash product="forms" />
       </Loader>
     );
   }

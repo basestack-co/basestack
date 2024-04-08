@@ -65,6 +65,7 @@ const FormSendQueryStringCard = ({ hasDataQueryString = false }: Props) => {
       onChange={onChange}
       variant={CardVariant.PRIMARY}
       hasOverlay
+      label="Upgrade to Pro"
     />
   );
 };

@@ -46,6 +46,11 @@ const SettingCard = ({
       <Container>
         {hasOverlay && <Overlay />}
         <Header>
+          {!!label && (
+            <TagContainer>
+              <Label text={label} variant="info" isTranslucent />
+            </TagContainer>
+          )}
           <TextContainer>
             <Text
               mb={theme.spacing.s1}
@@ -58,12 +63,6 @@ const SettingCard = ({
               {description}
             </Text>
           </TextContainer>
-
-          {!!label && (
-            <TagContainer>
-              <Label text={label} variant="info" isTranslucent />
-            </TagContainer>
-          )}
         </Header>
         {children}
       </Container>
