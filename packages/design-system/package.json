@@ -19,12 +19,12 @@
     "@basestack/utils": "*",
     "@testing-library/jest-dom": "^6.4.2",
     "@types/react": "18.2.74",
-    "@types/react-dom": "^18.2.23",
+    "@types/react-dom": "^18.2.24",
     "jest-styled-components": "^7.2.0",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.4"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.26.10",
+    "@floating-ui/react": "^0.26.11",
     "material-symbols": "^0.17.1",
     "polished": "^4.2.2",
     "react-calendar": "^4.0.0",
