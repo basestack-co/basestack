@@ -15,6 +15,7 @@ export interface SkeletonProps {
     mb?: number | string;
     mr?: number | string;
     ml?: number | string;
+    mt?: number | string;
     isRound?: boolean;
   }>;
 }
@@ -46,6 +47,7 @@ const Skeleton = ({
               marginBottom={item.mb || 0}
               marginRight={item.mr || 0}
               marginLeft={item.ml || 0}
+              marginTop={item.mt || 0}
               isRound={item.isRound}
             />
           ))}

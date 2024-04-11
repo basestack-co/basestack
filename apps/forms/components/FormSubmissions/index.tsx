@@ -1,4 +1,5 @@
 import React, { useState, Fragment, useCallback } from "react";
+import { useTheme } from "styled-components";
 // Server
 import { trpc } from "libs/trpc";
 // Router
@@ -8,7 +9,7 @@ import useTranslation from "next-translate/useTranslation";
 // Toast
 import { toast } from "sonner";
 // Components
-import { Text, Pagination } from "@basestack/design-system";
+import { Text, Pagination, Empty, Skeleton } from "@basestack/design-system";
 import { Container, List, ListItem, PaginationContainer } from "./styles";
 import Toolbar from "../Toolbar";
 import FormSubmission from "../FormSubmission";
@@ -23,6 +24,7 @@ export interface Props {
 }
 
 const FormSubmissions = ({ name }: Props) => {
+  const theme = useTheme();
   const trpcUtils = trpc.useUtils();
   const { t } = useTranslation("forms");
   const router = useRouter();
@@ -102,7 +104,25 @@ const FormSubmissions = ({ name }: Props) => {
 
   return (
     <Container>
-      <Text size="xLarge">{name}</Text>
+      {isLoading ? (
+        <Skeleton
+          padding={0}
+          backgroundColor="transparent"
+          hasShadow={false}
+          items={[{ h: 30, w: "150px" }]}
+        />
+      ) : (
+        <Text size="xLarge">{name}</Text>
+      )}
+      {totalPages <= 0 && !isLoading && (
+        <Empty
+          mt={theme.spacing.s5}
+          iconName="help"
+          title="title"
+          description="description"
+          button={{ text: "Click", onClick: () => null }}
+        />
+      )}
       <Toolbar
         onUnReadSubmissions={() => null}
         onReadSubmissions={() => null}
@@ -119,31 +139,46 @@ const FormSubmissions = ({ name }: Props) => {
         isActionDisabled={selectIds.length <= 0}
         isSelectAllEnabled={isSelectAll}
       />
-      <List>
-        {data?.pages.map(({ submissions }, index) => {
-          return (
-            <Fragment key={`submission-page-${index}`}>
-              {submissions.map(({ id, createdAt, data, isSpam, viewed }) => {
-                return (
-                  <ListItem key={`submission-item-${id}`}>
-                    <FormSubmission
-                      data={formatFormSubmissions(data)}
-                      date={dayjs(createdAt).fromNow()}
-                      viewed={viewed!}
-                      isSpam={isSpam!}
-                      onDelete={() => onDelete([id])}
-                      onMarkSpam={() => null}
-                      onReadSubmission={() => null}
-                      onSelect={(checked) => onSelectSubmission(id, checked)}
-                      isSelected={selectIds.includes(id)}
-                    />
-                  </ListItem>
-                );
-              })}
-            </Fragment>
-          );
-        })}
-      </List>
+      {isLoading ? (
+        <Skeleton
+          displayInline
+          numberOfItems={2}
+          gapBetweenItems={12}
+          items={[
+            { h: 22, w: 22, mt: 7, mr: 40 },
+            { h: 28, w: 28, mt: 4, isRound: true, mr: 8 },
+            { h: 36, w: "20%", mr: 20 },
+            { h: 36, w: "20%" },
+          ]}
+          padding={`${theme.spacing.s4} ${theme.spacing.s5}`}
+        />
+      ) : (
+        <List>
+          {data?.pages.map(({ submissions }, index) => {
+            return (
+              <Fragment key={`submission-page-${index}`}>
+                {submissions.map(({ id, createdAt, data, isSpam, viewed }) => {
+                  return (
+                    <ListItem key={`submission-item-${id}`}>
+                      <FormSubmission
+                        data={formatFormSubmissions(data)}
+                        date={dayjs(createdAt).fromNow()}
+                        viewed={viewed!}
+                        isSpam={isSpam!}
+                        onDelete={() => onDelete([id])}
+                        onMarkSpam={() => null}
+                        onReadSubmission={() => null}
+                        onSelect={(checked) => onSelectSubmission(id, checked)}
+                        isSelected={selectIds.includes(id)}
+                      />
+                    </ListItem>
+                  );
+                })}
+              </Fragment>
+            );
+          })}
+        </List>
+      )}
       <PaginationContainer>
         <Pagination
           onClick={fetchNextPage}

@@ -65,6 +65,7 @@ export const Item = styled.div<{
   marginBottom?: number | string;
   marginRight?: number | string;
   marginLeft?: number | string;
+  marginTop?: number | string;
   isRound?: boolean;
 }>`
   ${flexColumn};
@@ -74,6 +75,7 @@ export const Item = styled.div<{
   margin-bottom: ${({ marginBottom }) => getValue(marginBottom || 0)};
   margin-right: ${({ marginRight }) => getValue(marginRight || 0)};
   margin-left: ${({ marginLeft }) => getValue(marginLeft || 0)};
+  margin-top: ${({ marginTop }) => getValue(marginTop || 0)};
   border-radius: ${({ isRound }) => (isRound ? "50%" : rem("6px"))};
   flex-shrink: ${({ width }) =>
     typeof width === "string" && width.includes("%") ? "initial" : 0};
