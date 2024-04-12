@@ -18,8 +18,8 @@ export interface ToolbarProps {
   onReadSubmissions: () => void;
   onUnReadSubmissions: () => void;
   onExport: () => void;
-  onSelectFilter: (value: SelectedFilter) => void;
-  onSelectSort: (value: SelectedSort) => void;
+  onSelectFilter: (value: SelectedFilter | null) => void;
+  onSelectSort: (value: SelectedSort | null) => void;
   onSearchCallback: (value: string) => void;
   isSubmitting?: boolean;
   isLoading?: boolean;

@@ -141,7 +141,12 @@ const Toolbar = ({
               },
             ]}
             {...(selectedFilter
-              ? { onClear: () => setSelectedFilter(null) }
+              ? {
+                  onClear: () => {
+                    onSelectFilter(null);
+                    setSelectedFilter(null);
+                  },
+                }
               : {})}
           />
           <PopupMenu
@@ -165,7 +170,14 @@ const Toolbar = ({
                 isDisabled: isSubmitting || isLoading,
               },
             ]}
-            {...(selectedSort ? { onClear: () => setSelectedSort(null) } : {})}
+            {...(selectedSort
+              ? {
+                  onClear: () => {
+                    onSelectSort(null);
+                    setSelectedSort(null);
+                  },
+                }
+              : {})}
           />
           <ListItem>
             <Button

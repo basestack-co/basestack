@@ -58,6 +58,11 @@
         "loading": "Updating...",
         "success_one": "Submission has been updated successfully.",
         "success_other": "Submissions have been updated successfully."
+      },
+      "export": {
+        "error": "Submissions could not be exported.",
+        "loading": "Exporting...",
+        "success": "Submissions have been exported successfully."
       }
     }
   }

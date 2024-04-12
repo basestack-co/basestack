@@ -14,6 +14,7 @@ export const submissionRouter = router({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(),
         search: z.string().optional().nullable(),
+        filters: z.object({ isSpam: z.boolean() }).nullable().default(null),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -26,6 +27,12 @@ export const submissionRouter = router({
               path: ["email"],
               string_contains: input.search,
             },
+          }
+        : {};
+
+      const filters = input.filters
+        ? {
+            isSpam: input.filters.isSpam,
           }
         : {};
 
@@ -50,6 +57,7 @@ export const submissionRouter = router({
               },
             },
             ...search,
+            ...filters,
           },
           take: limit + 1,
           cursor: input.cursor ? { id: input.cursor } : undefined,
@@ -69,6 +77,78 @@ export const submissionRouter = router({
           total: _count.id,
         };
       });
+    }),
+  export: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(
+      z.object({
+        formId: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+
+      const submissions = await ctx.prisma.submission.findMany({
+        where: {
+          form: {
+            id: input.formId,
+            users: {
+              some: {
+                user: {
+                  id: userId,
+                },
+              },
+            },
+          },
+        },
+        select: {
+          isSpam: true,
+          viewed: true,
+          data: true,
+          createdAt: true,
+        },
+      });
+
+      const headersSet: Set<string> = new Set();
+
+      submissions.forEach((item) => {
+        const dataKeys = item.data ? Object.keys(item.data) : [];
+        dataKeys.forEach((key) => headersSet.add(key));
+      });
+
+      const dataHeaders: string[] = Array.from(headersSet).sort();
+
+      let data: string = dataHeaders.join(",") + ",";
+
+      const commonHeaders: string[] = ["isSpam", "viewed", "createdAt"];
+      data += commonHeaders.join(",") + "\n";
+
+      submissions.forEach((item) => {
+        const dataRow: string[] = dataHeaders.map(
+          (header) =>
+            (item.data && item.data[header as keyof typeof item.data]) || "",
+        );
+
+        const commonRow: (string | boolean | undefined | null)[] =
+          commonHeaders.map((header) => {
+            if (header === "isSpam" || header === "viewed") {
+              return item[header];
+            } else if (header === "createdAt") {
+              return new Date(item[header]).toISOString();
+            }
+          });
+
+        const rowData: (string | boolean | undefined | null)[] = [
+          ...dataRow,
+          ...commonRow,
+        ];
+
+        data += rowData.join(",") + "\n";
+      });
+
+      return { data };
     }),
   update: protectedProcedure
     .meta({

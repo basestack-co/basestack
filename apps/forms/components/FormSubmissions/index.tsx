@@ -14,6 +14,7 @@ import { Container, List, ListItem, PaginationContainer } from "./styles";
 import Toolbar from "../Toolbar";
 import FormSubmission from "../FormSubmission";
 // Utils
+import { downloadCSV } from "@basestack/utils";
 import dayjs from "dayjs";
 import { formatFormSubmissions } from "./utils";
 
@@ -30,8 +31,10 @@ const FormSubmissions = ({ name }: Props) => {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState<string>("");
   const [selectIds, setSelectIds] = useState<string[]>([]);
+
   const { formId } = router.query as { formId: string };
 
+  const exportSubmissions = trpc.submission.export.useMutation();
   const deleteSubmissions = trpc.submission.delete.useMutation();
   const updateSubmissions = trpc.submission.update.useMutation();
   const { data, isLoading, fetchNextPage } =
@@ -50,9 +53,6 @@ const FormSubmissions = ({ name }: Props) => {
   const [currentPage, totalPages] = useMemo(() => {
     return [(data?.pages.length ?? 0) * limit, data?.pages?.[0]?.total ?? 0];
   }, [data]);
-
-  console.log("selectIds = ", selectIds);
-  console.log("data = ", data)
 
   const pageSubmissionIds = useMemo(() => {
     return (
@@ -118,14 +118,13 @@ const FormSubmissions = ({ name }: Props) => {
   );
 
   const onUpdate = useCallback(
-    (ids: string[], data: { isSpam?: boolean; viewed?: boolean }) => {
+    (ids: string[], payload: { isSpam?: boolean; viewed?: boolean }) => {
       const loadingToastId = toast.loading(
         t("submission.event.update.loading"),
       );
 
-      console.log("data = ", data)
       updateSubmissions.mutate(
-        { ids, formId, ...data },
+        { ids, formId, ...payload },
         {
           onSuccess: async (res) => {
             setSelectIds([]);
@@ -147,9 +146,29 @@ const FormSubmissions = ({ name }: Props) => {
     [updateSubmissions, formId, trpcUtils, t],
   );
 
+  const onExport = useCallback(() => {
+    const loadingToastId = toast.loading(t("submission.event.export.loading"));
+
+    exportSubmissions.mutate(
+      { formId },
+      {
+        onSuccess: async (result) => {
+          downloadCSV(result.data, `${name.toLowerCase()}_submissions.csv`);
+
+          toast.dismiss(loadingToastId);
+          toast.success(t("submission.event.export.success"));
+        },
+        onError: (error) => {
+          toast.dismiss(loadingToastId);
+          toast.error(error.message ?? t("submission.event.export.error"));
+        },
+      },
+    );
+  }, [exportSubmissions, formId, t, name]);
+
   return (
     <Container>
-      {isLoading ? (
+      {!name ? (
         <Skeleton
           padding={0}
           backgroundColor="transparent"
@@ -167,24 +186,28 @@ const FormSubmissions = ({ name }: Props) => {
           description={t("submission.empty.description")}
         />
       )}
-      {totalPages > 0 && !isLoading && (
-        <Toolbar
-          onUnReadSubmissions={() => onUpdate(selectIds, { viewed: false })}
-          onReadSubmissions={() => onUpdate(selectIds, { viewed: true })}
-          onUnMarkSpamAll={() => onUpdate(selectIds, { isSpam: false })}
-          onMarkSpamAll={() => onUpdate(selectIds, { isSpam: true })}
-          onDeleteAll={() => onDelete(selectIds)}
-          onExport={() => null}
-          onSelectAll={onSelectAllSubmission}
-          onSelectFilter={() => null}
-          onSelectSort={() => null}
-          onSearchCallback={(value) => setSearchValue(value)}
-          isSubmitting={deleteSubmissions.isLoading}
-          isLoading={isLoading}
-          isActionDisabled={selectIds.length <= 0}
-          isSelectAllEnabled={isSelectAllEnabled}
-        />
-      )}
+
+      <Toolbar
+        onUnReadSubmissions={() => onUpdate(selectIds, { viewed: false })}
+        onReadSubmissions={() => onUpdate(selectIds, { viewed: true })}
+        onUnMarkSpamAll={() => onUpdate(selectIds, { isSpam: false })}
+        onMarkSpamAll={() => onUpdate(selectIds, { isSpam: true })}
+        onDeleteAll={() => onDelete(selectIds)}
+        onExport={onExport}
+        onSelectAll={onSelectAllSubmission}
+        onSelectFilter={(value) => console.log("onSelectFilter = ", value)}
+        onSelectSort={(value) => console.log("onSelectSort = ", value)}
+        onSearchCallback={(value) => setSearchValue(value)}
+        isSubmitting={
+          deleteSubmissions.isLoading ||
+          updateSubmissions.isLoading ||
+          exportSubmissions.isLoading
+        }
+        isLoading={isLoading}
+        isActionDisabled={selectIds.length <= 0}
+        isSelectAllEnabled={isSelectAllEnabled}
+      />
+
       {isLoading ? (
         <Skeleton
           displayInline
