@@ -1,6 +1,7 @@
 import { protectedProcedure, router } from "server/trpc";
 // Utils
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 
 export const submissionRouter = router({
   all: protectedProcedure
@@ -68,6 +69,52 @@ export const submissionRouter = router({
           total: _count.id,
         };
       });
+    }),
+  update: protectedProcedure
+    .meta({
+      restricted: true,
+    })
+    .input(
+      z
+        .object({
+          formId: z.string(),
+          ids: z.array(z.string()),
+          isSpam: z.boolean().nullable().default(null),
+          viewed: z.boolean().nullable().default(null),
+        })
+        .required(),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+      const { formId, ids, ...props } = input;
+      const data = Object.fromEntries(
+        Object.entries(props).filter(([_, value]) => value !== null),
+      );
+
+      if (Object.keys(data).length === 0) {
+        throw new TRPCError({ code: "BAD_REQUEST" });
+      }
+
+      const submissions = await ctx.prisma.submission.updateMany({
+        where: {
+          id: {
+            in: ids,
+          },
+          form: {
+            id: formId,
+            users: {
+              some: {
+                user: {
+                  id: userId,
+                },
+              },
+            },
+          },
+        },
+        data,
+      });
+
+      return { submissions };
     }),
   delete: protectedProcedure
     .meta({

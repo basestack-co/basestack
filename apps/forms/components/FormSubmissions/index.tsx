@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useCallback } from "react";
+import React, { useState, Fragment, useCallback, useMemo } from "react";
 import { useTheme } from "styled-components";
 // Server
 import { trpc } from "libs/trpc";
@@ -30,10 +30,10 @@ const FormSubmissions = ({ name }: Props) => {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState<string>("");
   const [selectIds, setSelectIds] = useState<string[]>([]);
-  const [isSelectAll, setIsSelectAll] = useState<boolean>(false);
   const { formId } = router.query as { formId: string };
 
   const deleteSubmissions = trpc.submission.delete.useMutation();
+  const updateSubmissions = trpc.submission.update.useMutation();
   const { data, isLoading, fetchNextPage } =
     trpc.submission.all.useInfiniteQuery(
       {
@@ -47,10 +47,32 @@ const FormSubmissions = ({ name }: Props) => {
       },
     );
 
-  const currentPage = (data?.pages.length ?? 0) * limit;
-  const totalPages = data?.pages?.[0]?.total ?? 0;
+  const [currentPage, totalPages] = useMemo(() => {
+    return [(data?.pages.length ?? 0) * limit, data?.pages?.[0]?.total ?? 0];
+  }, [data]);
 
   console.log("selectIds = ", selectIds);
+  console.log("data = ", data)
+
+  const pageSubmissionIds = useMemo(() => {
+    return (
+      data?.pages.flatMap((page) =>
+        page.submissions.map((submission) => submission.id),
+      ) ?? []
+    );
+  }, [data]);
+
+  const isSelectAllEnabled = useMemo(() => {
+    const sortedSelectIds = selectIds.slice().sort();
+    const sortedPageSubmissionIds = pageSubmissionIds.slice().sort();
+
+    return (
+      sortedSelectIds.length === sortedPageSubmissionIds.length &&
+      sortedSelectIds.every(
+        (value, index) => value === sortedPageSubmissionIds[index],
+      )
+    );
+  }, [selectIds, pageSubmissionIds]);
 
   const onSelectSubmission = useCallback((id: string, checked: boolean) => {
     setSelectIds((prevState) => {
@@ -63,15 +85,9 @@ const FormSubmissions = ({ name }: Props) => {
   }, []);
 
   const onSelectAllSubmission = useCallback(() => {
-    const ids = isSelectAll
-      ? []
-      : data?.pages.flatMap((page) =>
-          page.submissions.map((submission) => submission.id),
-        ) ?? [];
-
+    const ids = isSelectAllEnabled ? [] : pageSubmissionIds;
     setSelectIds(ids);
-    setIsSelectAll((prevState) => !prevState);
-  }, [data, isSelectAll]);
+  }, [isSelectAllEnabled, pageSubmissionIds]);
 
   const onDelete = useCallback(
     (ids: string[]) => {
@@ -82,7 +98,6 @@ const FormSubmissions = ({ name }: Props) => {
         { ids, formId },
         {
           onSuccess: async () => {
-            setIsSelectAll(false);
             setSelectIds([]);
 
             await trpcUtils.submission.all.invalidate({ formId });
@@ -102,6 +117,36 @@ const FormSubmissions = ({ name }: Props) => {
     [deleteSubmissions, formId, trpcUtils, t],
   );
 
+  const onUpdate = useCallback(
+    (ids: string[], data: { isSpam?: boolean; viewed?: boolean }) => {
+      const loadingToastId = toast.loading(
+        t("submission.event.update.loading"),
+      );
+
+      console.log("data = ", data)
+      updateSubmissions.mutate(
+        { ids, formId, ...data },
+        {
+          onSuccess: async (res) => {
+            setSelectIds([]);
+
+            await trpcUtils.submission.all.invalidate({ formId });
+
+            toast.dismiss(loadingToastId);
+            toast.success(
+              t("submission.event.update.success", { count: ids.length }),
+            );
+          },
+          onError: (error) => {
+            toast.dismiss(loadingToastId);
+            toast.error(error.message ?? t("submission.event.update.error"));
+          },
+        },
+      );
+    },
+    [updateSubmissions, formId, trpcUtils, t],
+  );
+
   return (
     <Container>
       {isLoading ? (
@@ -118,27 +163,28 @@ const FormSubmissions = ({ name }: Props) => {
         <Empty
           mt={theme.spacing.s5}
           iconName="help"
-          title="title"
-          description="description"
-          button={{ text: "Click", onClick: () => null }}
+          title={t("submission.empty.title")}
+          description={t("submission.empty.description")}
         />
       )}
-      <Toolbar
-        onUnReadSubmissions={() => null}
-        onReadSubmissions={() => null}
-        onUnMarkSpamAll={() => null}
-        onMarkSpamAll={() => null}
-        onDeleteAll={() => onDelete(selectIds)}
-        onExport={() => null}
-        onSelectAll={onSelectAllSubmission}
-        onSelectFilter={() => null}
-        onSelectSort={() => null}
-        onSearchCallback={(value) => setSearchValue(value)}
-        isSubmitting={deleteSubmissions.isLoading}
-        isLoading={isLoading}
-        isActionDisabled={selectIds.length <= 0}
-        isSelectAllEnabled={isSelectAll}
-      />
+      {totalPages > 0 && !isLoading && (
+        <Toolbar
+          onUnReadSubmissions={() => onUpdate(selectIds, { viewed: false })}
+          onReadSubmissions={() => onUpdate(selectIds, { viewed: true })}
+          onUnMarkSpamAll={() => onUpdate(selectIds, { isSpam: false })}
+          onMarkSpamAll={() => onUpdate(selectIds, { isSpam: true })}
+          onDeleteAll={() => onDelete(selectIds)}
+          onExport={() => null}
+          onSelectAll={onSelectAllSubmission}
+          onSelectFilter={() => null}
+          onSelectSort={() => null}
+          onSearchCallback={(value) => setSearchValue(value)}
+          isSubmitting={deleteSubmissions.isLoading}
+          isLoading={isLoading}
+          isActionDisabled={selectIds.length <= 0}
+          isSelectAllEnabled={isSelectAllEnabled}
+        />
+      )}
       {isLoading ? (
         <Skeleton
           displayInline
@@ -166,8 +212,10 @@ const FormSubmissions = ({ name }: Props) => {
                         viewed={viewed!}
                         isSpam={isSpam!}
                         onDelete={() => onDelete([id])}
-                        onMarkSpam={() => null}
-                        onReadSubmission={() => null}
+                        onMarkSpam={() => onUpdate([id], { isSpam: !isSpam })}
+                        onReadSubmission={() =>
+                          onUpdate([id], { viewed: !viewed })
+                        }
                         onSelect={(checked) => onSelectSubmission(id, checked)}
                         isSelected={selectIds.includes(id)}
                       />

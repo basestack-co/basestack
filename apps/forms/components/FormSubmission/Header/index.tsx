@@ -57,6 +57,8 @@ const Header = ({
             onDelete={onDelete}
             onMarkSpam={onMarkSpam}
             onReadSubmission={onReadSubmission}
+            viewed={viewed}
+            isSpam={isSpam}
           />
           <HeaderRight>
             {!isSmallDevice && (

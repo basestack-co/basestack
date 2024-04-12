@@ -31,6 +31,10 @@
     }
   },
   "submission": {
+    "empty": {
+      "title": "This form has no submissions",
+      "description": "No submissions have been made to this form yet. When a submission is made, it will appear here."
+    },
     "label": {
       "new": "New",
       "spam": "Spam"
@@ -48,6 +52,12 @@
         "loading": "Deleting...",
         "success_one": "Submission has been deleted successfully.",
         "success_other": "Submissions have been deleted successfully."
+      },
+      "update": {
+        "error": "Submission could not be updated.",
+        "loading": "Updating...",
+        "success_one": "Submission has been updated successfully.",
+        "success_other": "Submissions have been updated successfully."
       }
     }
   }

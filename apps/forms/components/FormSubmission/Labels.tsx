@@ -21,7 +21,7 @@ const Labels = ({ date, viewed, isSpam }: LabelsProps) => {
       {!viewed && (
         <Label text={t("submission.label.new")} variant="info" isTranslucent />
       )}
-      {!isSpam && (
+      {isSpam && (
         <Label text={t("submission.label.spam")} variant="info" isTranslucent />
       )}
       <Box ml={theme.spacing.s3 ?? 0} minWidth={0}>
