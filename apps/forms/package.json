@@ -49,6 +49,7 @@
     "dayjs": "^1.11.10",
     "eslint-config-next": "^14.2.0",
     "formidable": "^3.5.1",
+    "material-symbols": "^0.17.2",
     "next": "^14.2.0",
     "next-auth": "^4.24.7",
     "next-translate": "^2.6.2",
