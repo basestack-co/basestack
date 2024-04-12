@@ -26,11 +26,11 @@
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
     "@types/nodemailer": "^6.4.14",
-    "@types/react": "18.2.74",
-    "@types/react-dom": "^18.2.24",
+    "@types/react": "18.2.77",
+    "@types/react-dom": "^18.2.25",
     "raf-stub": "^3.0.0",
     "react": "18.2.0",
     "tsup": "^8.0.2",
-    "typescript": "^5.4.4"
+    "typescript": "^5.4.5"
   }
 }
