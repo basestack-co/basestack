@@ -17,14 +17,27 @@ const Labels = ({ date, viewed, isSpam }: LabelsProps) => {
   const theme = useTheme();
 
   return (
-    <Box display="flex" alignItems="center">
+    <Box overflow="hidden" display="flex" alignItems="center">
       {!viewed && (
-        <Label text={t("submission.label.new")} variant="info" isTranslucent />
+        <Label
+          text={t("submission.label.new")}
+          variant="info"
+          size="small"
+          isUppercase
+          isTranslucent
+        />
       )}
       {isSpam && (
-        <Label text={t("submission.label.spam")} variant="info" isTranslucent />
+        <Label
+          text={t("submission.label.spam")}
+          variant="warning"
+          ml={!viewed ? theme.spacing.s2 : 0}
+          size="small"
+          isUppercase
+          isTranslucent
+        />
       )}
-      <Box ml={theme.spacing.s3 ?? 0} minWidth={0}>
+      <Box ml={theme.spacing.s4 ?? 0} minWidth={0}>
         <Text fontWeight={400} muted lineTruncate>
           {date}
         </Text>

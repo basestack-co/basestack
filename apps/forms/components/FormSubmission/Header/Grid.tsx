@@ -46,8 +46,8 @@ const Grid = ({ data, isVisible, onDestroyed }: GridProps) => {
     (styles, item) =>
       item && (
         <AnimatedBGrid columns={numberOfCells} style={styles}>
-          {data.slice(0, numberOfCells).map((item, index) => (
-            <HeaderCell key={index}>
+          {data.slice(0, numberOfCells).map((item, index, { length }) => (
+            <HeaderCell key={index} hasBorder={index + 1 !== length}>
               {item.description.includes("@") && (
                 <Avatar
                   userName={item.description.substring(0, 2)}

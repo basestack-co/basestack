@@ -43,21 +43,25 @@ export const HeaderButton = styled.button`
     `${theme.spacing.s4} ${theme.spacing.s5} ${theme.spacing.s4} 0`};
 `;
 
-export const HeaderCell = styled.div`
+export const HeaderCell = styled.div<{ hasBorder: boolean }>`
   ${flexCenter};
+  text-align: left;
   padding-right: ${({ theme }) => theme.spacing.s5};
   position: relative;
-
-  &::before {
-    content: "";
-    position: absolute;
-    height: 20px;
-    top: calc(50% - 10px);
-    right: -1px;
-    width: 2px;
-    background-color: ${({ theme }) =>
-      theme.colors[theme.isDarkMode ? "gray600" : "gray100"]};
-  }
+  ${({ hasBorder }) =>
+    hasBorder &&
+    css`
+      &::before {
+        content: "";
+        position: absolute;
+        height: 20px;
+        top: calc(50% - 10px);
+        right: -1px;
+        width: 2px;
+        background-color: ${({ theme }) =>
+          theme.colors[theme.isDarkMode ? "gray600" : "gray100"]};
+      }
+    `}
 `;
 
 export const HeaderRight = styled.div`
@@ -67,7 +71,7 @@ export const HeaderRight = styled.div`
 
   @media screen and ${({ theme }) => theme.device.min.sm} {
     width: 100%;
-    max-width: 180px;
+    max-width: 220px;
   }
 `;
 

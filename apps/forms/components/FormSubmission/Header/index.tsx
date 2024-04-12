@@ -36,7 +36,7 @@ const Header = ({
   return (
     <>
       <Box display="flex">
-        <HeaderCell>
+        <HeaderCell hasBorder>
           <Checkbox {...checkbox} />
         </HeaderCell>
         <HeaderButton onClick={onClick}>

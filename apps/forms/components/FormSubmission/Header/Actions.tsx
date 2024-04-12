@@ -29,7 +29,7 @@ interface ActionButtonProps {
   text: string;
 }
 
-const AnimatedBList = animated(ActionsList);
+const AnimatedList = animated(ActionsList);
 
 const ActionButton = ({ onClick, icon, text }: ActionButtonProps) => {
   const theme = useTheme();
@@ -86,7 +86,7 @@ const Actions = ({
   return transitionList(
     (styles, item) =>
       item && (
-        <AnimatedBList style={styles}>
+        <AnimatedList style={styles}>
           <ActionsListItem>
             <ActionButton
               onClick={onDelete}
@@ -116,7 +116,7 @@ const Actions = ({
               }
             />
           </ActionsListItem>
-        </AnimatedBList>
+        </AnimatedList>
       ),
   );
 };

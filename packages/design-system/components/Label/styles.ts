@@ -24,7 +24,7 @@ const getSizeStyles = (size: LabelSize) => {
     small: {
       padding: `${rem("4px")} ${rem("6px")}`,
       fontSize: `${rem("12px")}`,
-      lineHeight: `${rem("14px")}`,
+      lineHeight: `${rem("16px")}`,
       fontWeight: 400,
     },
     normal: {
@@ -49,6 +49,7 @@ export const StyledLabel = styled.div<{
   size: LabelSize;
   isTranslucent: boolean;
   hasChildren: boolean;
+  isUppercase: boolean;
 }>`
   display: flex;
   border-radius: 4px;
@@ -63,18 +64,29 @@ export const StyledLabel = styled.div<{
       align-items: center;
       ${getGap(size)};
     `}
+  ${({ isUppercase }) =>
+    isUppercase &&
+    css`
+      text-transform: uppercase;
+    `}
   ${compose(flexbox, space, layout)};
 `;
 
 export const LabelDotContainer = styled.div<{
   variant: LabelVariant;
   size: LabelSize;
+  isUppercase: boolean;
 }>`
   display: flex;
   align-items: center;
   font-size: ${({ size }) => getSizeStyles(size).fontSize};
   font-weight: ${({ size }) => getSizeStyles(size).fontWeight};
   line-height: ${({ size }) => getSizeStyles(size).lineHeight};
+  ${({ isUppercase }) =>
+    isUppercase &&
+    css`
+      text-transform: uppercase;
+    `}
   ${compose(flexbox, space, layout)};
 `;
 
