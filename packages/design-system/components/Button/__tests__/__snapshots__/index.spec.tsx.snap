@@ -37,7 +37,7 @@ exports[`Button tests should render Button correctly 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -91,7 +91,7 @@ exports[`Button tests should render Button link 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -157,7 +157,7 @@ exports[`Button tests should render Button with icon 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -226,7 +226,7 @@ exports[`Button tests should render Button with styled system utilities 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -285,7 +285,7 @@ exports[`Button tests should render Danger Button 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -343,7 +343,7 @@ exports[`Button tests should render DangerFilled Button 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -401,7 +401,7 @@ exports[`Button tests should render Neutral Button 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -461,7 +461,7 @@ exports[`Button tests should render Outlined Button 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -520,7 +520,7 @@ exports[`Button tests should render PrimaryNeutral Button 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -574,7 +574,7 @@ exports[`Button tests should render Secondary Button 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -628,7 +628,7 @@ exports[`Button tests should render Tertiary Button 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 

@@ -3,7 +3,7 @@ import { rem } from "polished";
 import { tertiaryButtonStyles } from "../Button";
 import { Variant } from "./types";
 
-export const Container = styled.label<{ variant: Variant }>`
+export const Container = styled.label<{ variant: Variant; disabled: boolean }>`
   ${({ variant }) =>
     variant === "button"
       ? css`
@@ -11,12 +11,19 @@ export const Container = styled.label<{ variant: Variant }>`
           height: ${rem("36px")};
           padding: 0 ${rem("12px")};
           font-size: ${rem("14px")};
+          user-select: none;
         `
       : css`
           display: flex;
           position: relative;
           cursor: pointer;
         `};
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      pointer-events: none;
+      opacity: 0.6;
+    `}
 `;
 
 export const HiddenCheckbox = styled.input`

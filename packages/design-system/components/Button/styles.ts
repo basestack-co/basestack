@@ -197,7 +197,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
         `};
 
   &:disabled {
-    cursor: not-allowed;
+    cursor: default;
     opacity: 0.6;
   }
 

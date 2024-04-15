@@ -10,12 +10,18 @@ const Checkbox: React.FC<CheckboxProps> = ({
   onChange,
   label,
   variant = "default",
+  disabled = false,
 }) => {
   const theme = useTheme();
 
   return (
-    <Container variant={variant}>
-      <HiddenCheckbox type="checkbox" checked={checked} onChange={onChange} />
+    <Container variant={variant} disabled={disabled}>
+      <HiddenCheckbox
+        type="checkbox"
+        disabled={disabled}
+        checked={checked}
+        onChange={onChange}
+      />
       <StyledCheckbox variant={variant} checked={checked}>
         {checked && (
           <Icon icon="check" size="small" color={theme.checkbox.checked.icon} />
