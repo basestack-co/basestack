@@ -26,7 +26,7 @@
     },
     "sort": {
       "placeholder": "Sort",
-      "newest": "Newest",
+      "newest": "Newest (default)",
       "oldest": "Oldest"
     }
   },

@@ -25,6 +25,9 @@ export interface ToolbarProps {
   isLoading?: boolean;
   isActionDisabled?: boolean;
   isSelectAllEnabled?: boolean;
+  isExportDisabled?: boolean;
+  isDisabled?: boolean;
+  formId: string;
 }
 
 export type ButtonSharedProps = Pick<ButtonProps, "variant" | "iconPlacement">;
@@ -36,4 +39,5 @@ export interface PopupMenuProps {
   width?: number;
   onClear?: () => void;
   openIcon?: string;
+  isDisabled?: boolean;
 }

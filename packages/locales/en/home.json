@@ -15,6 +15,13 @@
       "title": "Create your first form",
       "description": "Create your first form to start receiving submissions!",
       "action": "Create Form"
+    },
+    "card": {
+      "menu": {
+        "submissions": "Submissions",
+        "settings": "Settings",
+        "setup": "Setup"
+      }
     }
   },
   "links": {

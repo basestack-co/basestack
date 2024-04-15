@@ -18,7 +18,7 @@
     "@basestack/tsconfig": "*",
     "@basestack/utils": "*",
     "@testing-library/jest-dom": "^6.4.2",
-    "@types/react": "18.2.77",
+    "@types/react": "18.2.78",
     "@types/react-calendar": "^4.1.0",
     "@types/react-dom": "^18.2.25",
     "jest-styled-components": "^7.2.0",

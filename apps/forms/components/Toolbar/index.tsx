@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Hooks
@@ -21,6 +21,11 @@ import {
   SelectedSort,
 } from "./types";
 
+const buttonProps = {
+  variant: ButtonVariant.Tertiary,
+  iconPlacement: "left",
+} as ButtonSharedProps;
+
 const Toolbar = ({
   onSelectAll,
   onDeleteAll,
@@ -36,18 +41,23 @@ const Toolbar = ({
   isLoading,
   isActionDisabled,
   isSelectAllEnabled,
+  isExportDisabled,
+  isDisabled,
+  formId,
 }: ToolbarProps) => {
   const { t } = useTranslation("forms");
   const [searchValue, setSearchValue] = useState("");
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
   const [selectedSort, setSelectedSort] = useState<string | null>(null);
 
-  const buttonProps = {
-    variant: ButtonVariant.Tertiary,
-    iconPlacement: "left",
-  } as ButtonSharedProps;
-
   useDebounce(() => onSearchCallback(searchValue), 500, [searchValue]);
+
+  useEffect(() => {
+    if (formId) {
+      setSelectedFilter(null);
+      setSelectedSort(null);
+    }
+  }, [formId]);
 
   return (
     <Container>
@@ -66,6 +76,7 @@ const Toolbar = ({
             }
             name="search"
             value={searchValue}
+            isDisabled={isDisabled}
           />
         </LeftContent>
         <RightList>
@@ -86,6 +97,7 @@ const Toolbar = ({
             icon="arrow_drop_down"
             openIcon="arrow_drop_up"
             text="Actions"
+            isDisabled={isDisabled}
             items={[
               {
                 icon: "report",
@@ -123,6 +135,7 @@ const Toolbar = ({
           <PopupMenu
             icon="filter_list"
             text={selectedFilter || t("toolbar.filter.placeholder")}
+            isDisabled={isDisabled}
             items={[
               {
                 text: t("toolbar.filter.is-spam"),
@@ -153,6 +166,7 @@ const Toolbar = ({
           <PopupMenu
             icon="swap_vert"
             text={selectedSort || t("toolbar.sort.placeholder")}
+            isDisabled={isDisabled}
             items={[
               {
                 text: t("toolbar.sort.newest"),
@@ -185,7 +199,7 @@ const Toolbar = ({
               {...buttonProps}
               icon="download"
               onClick={onExport}
-              isDisabled={isSubmitting || isLoading}
+              isDisabled={isExportDisabled || isDisabled}
             >
               {t("toolbar.action.export")}
             </Button>

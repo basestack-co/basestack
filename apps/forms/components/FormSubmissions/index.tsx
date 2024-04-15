@@ -1,4 +1,10 @@
-import React, { useState, Fragment, useCallback, useMemo } from "react";
+import React, {
+  useState,
+  Fragment,
+  useCallback,
+  useMemo,
+  useEffect,
+} from "react";
 import { useTheme } from "styled-components";
 // Server
 import { trpc } from "libs/trpc";
@@ -17,6 +23,8 @@ import FormSubmission from "../FormSubmission";
 import { downloadCSV } from "@basestack/utils";
 import dayjs from "dayjs";
 import { formatFormSubmissions } from "./utils";
+// Types
+import { SelectedFilter, SelectedSort } from "../Toolbar/types";
 
 const limit = 10;
 
@@ -31,6 +39,8 @@ const FormSubmissions = ({ name }: Props) => {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState<string>("");
   const [selectIds, setSelectIds] = useState<string[]>([]);
+  const [filters, setFilters] = useState({});
+  const [orderBy, setOrderBy] = useState("desc");
 
   const { formId } = router.query as { formId: string };
 
@@ -43,12 +53,21 @@ const FormSubmissions = ({ name }: Props) => {
         formId,
         limit,
         search: searchValue,
+        orderBy,
+        ...filters,
       },
       {
         enabled: !!formId,
         getNextPageParam: (lastPage) => lastPage.nextCursor,
       },
     );
+
+  useEffect(() => {
+    if (formId) {
+      setSearchValue("");
+      setSelectIds([]);
+    }
+  }, [formId]);
 
   const [currentPage, totalPages] = useMemo(() => {
     return [(data?.pages.length ?? 0) * limit, data?.pages?.[0]?.total ?? 0];
@@ -63,6 +82,8 @@ const FormSubmissions = ({ name }: Props) => {
   }, [data]);
 
   const isSelectAllEnabled = useMemo(() => {
+    if (selectIds.length <= 0) return false;
+
     const sortedSelectIds = selectIds.slice().sort();
     const sortedPageSubmissionIds = pageSubmissionIds.slice().sort();
 
@@ -166,6 +187,24 @@ const FormSubmissions = ({ name }: Props) => {
     );
   }, [exportSubmissions, formId, t, name]);
 
+  const onSelectFilter = useCallback((value: SelectedFilter | null) => {
+    setFilters(
+      value === null
+        ? {}
+        : {
+            filters: {
+              isSpam: value === SelectedFilter.IS_SPAM,
+            },
+          },
+    );
+  }, []);
+
+  const onSelectSort = useCallback((value: SelectedSort | null) => {
+    setOrderBy(
+      value === SelectedSort.NEWEST || value === null ? "desc" : "asc",
+    );
+  }, []);
+
   return (
     <Container>
       {!name ? (
@@ -178,16 +217,9 @@ const FormSubmissions = ({ name }: Props) => {
       ) : (
         <Text size="xLarge">{name}</Text>
       )}
-      {totalPages <= 0 && !isLoading && (
-        <Empty
-          mt={theme.spacing.s5}
-          iconName="help"
-          title={t("submission.empty.title")}
-          description={t("submission.empty.description")}
-        />
-      )}
 
       <Toolbar
+        formId={formId}
         onUnReadSubmissions={() => onUpdate(selectIds, { viewed: false })}
         onReadSubmissions={() => onUpdate(selectIds, { viewed: true })}
         onUnMarkSpamAll={() => onUpdate(selectIds, { isSpam: false })}
@@ -195,18 +227,26 @@ const FormSubmissions = ({ name }: Props) => {
         onDeleteAll={() => onDelete(selectIds)}
         onExport={onExport}
         onSelectAll={onSelectAllSubmission}
-        onSelectFilter={(value) => console.log("onSelectFilter = ", value)}
-        onSelectSort={(value) => console.log("onSelectSort = ", value)}
+        onSelectFilter={onSelectFilter}
+        onSelectSort={onSelectSort}
         onSearchCallback={(value) => setSearchValue(value)}
         isSubmitting={
-          deleteSubmissions.isLoading ||
-          updateSubmissions.isLoading ||
-          exportSubmissions.isLoading
+          deleteSubmissions.isLoading || updateSubmissions.isLoading
         }
         isLoading={isLoading}
         isActionDisabled={selectIds.length <= 0}
         isSelectAllEnabled={isSelectAllEnabled}
+        isExportDisabled={exportSubmissions.isLoading}
+        isDisabled={totalPages <= 0}
       />
+
+      {totalPages <= 0 && !isLoading && (
+        <Empty
+          iconName="help"
+          title={t("submission.empty.title")}
+          description={t("submission.empty.description")}
+        />
+      )}
 
       {isLoading ? (
         <Skeleton

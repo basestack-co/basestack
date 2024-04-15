@@ -20,6 +20,7 @@ const PopupMenu = ({
   width,
   onClear,
   openIcon,
+  isDisabled,
 }: PopupMenuProps) => {
   const {
     popupWrapperRef,
@@ -44,6 +45,7 @@ const PopupMenu = ({
           variant={ButtonVariant.Tertiary}
           iconPlacement="left"
           pr={onClear ? rem("44px") : null}
+          isDisabled={isDisabled}
         >
           {text}
         </Button>

@@ -15,6 +15,7 @@ export const submissionRouter = router({
         cursor: z.string().nullish(),
         search: z.string().optional().nullable(),
         filters: z.object({ isSpam: z.boolean() }).nullable().default(null),
+        orderBy: z.string().optional().nullable().default("desc"),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -36,11 +37,18 @@ export const submissionRouter = router({
           }
         : {};
 
+      const orderBy = [
+        { createdAt: input.orderBy },
+        { id: input.orderBy },
+      ] as any;
+
       return await ctx.prisma.$transaction(async (tx) => {
         const { _count } = await tx.submission.aggregate({
           _count: { id: true },
           where: {
             formId: input.formId,
+            ...search,
+            ...filters,
           },
         });
 
@@ -61,7 +69,7 @@ export const submissionRouter = router({
           },
           take: limit + 1,
           cursor: input.cursor ? { id: input.cursor } : undefined,
-          orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+          orderBy,
         });
 
         let nextCursor: typeof input.cursor | undefined = undefined;

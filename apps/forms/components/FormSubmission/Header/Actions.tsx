@@ -109,6 +109,7 @@ const Actions = ({
             <ActionButton
               onClick={() => onReadSubmission(!viewed)}
               icon="mark_email_read"
+
               text={
                 viewed
                   ? t("submission.action.un-read-submission")
