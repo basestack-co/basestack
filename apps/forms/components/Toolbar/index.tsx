@@ -4,7 +4,12 @@ import useTranslation from "next-translate/useTranslation";
 // Hooks
 import { useDebounce } from "react-use";
 // Components
-import { Button, ButtonVariant, Input } from "@basestack/design-system";
+import {
+  Button,
+  ButtonVariant,
+  Input,
+  Checkbox,
+} from "@basestack/design-system";
 import PopupMenu from "./PopupMenu";
 // Styles
 import { LeftContent, Container, Wrapper, RightList, ListItem } from "./styles";
@@ -65,20 +70,16 @@ const Toolbar = ({
         </LeftContent>
         <RightList>
           <ListItem>
-            <Button
-              {...buttonProps}
-              icon={
-                isSelectAllEnabled ? "check_box" : "check_box_outline_blank"
-              }
-              onClick={onSelectAll}
-              flexShrink={0}
-            >
-              {t(
+            <Checkbox
+              onChange={onSelectAll}
+              checked={isSelectAllEnabled ?? false}
+              label={t(
                 isSelectAllEnabled
                   ? "toolbar.action.un-select-all"
                   : "toolbar.action.select-all",
               )}
-            </Button>
+              variant="button"
+            />
           </ListItem>
           <PopupMenu
             width={200}

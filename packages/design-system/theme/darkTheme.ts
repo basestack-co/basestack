@@ -448,6 +448,9 @@ const checkbox = {
     backgroundColor: colors.gray500,
     border: colors.gray500,
   },
+  button: {
+    border: colors.gray300,
+  },
 };
 
 const popup = {

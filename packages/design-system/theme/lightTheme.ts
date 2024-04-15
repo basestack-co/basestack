@@ -443,6 +443,9 @@ const checkbox = {
     backgroundColor: colors.black,
     border: colors.black,
   },
+  button: {
+    border: colors.black,
+  },
 };
 
 const popup = {
