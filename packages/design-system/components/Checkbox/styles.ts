@@ -4,17 +4,19 @@ import { tertiaryButtonStyles } from "../Button";
 import { Variant } from "./types";
 
 export const Container = styled.label<{ variant: Variant }>`
-  display: flex;
-  position: relative;
-  cursor: pointer;
   ${({ variant }) =>
-    variant === "button" &&
-    css`
-      ${tertiaryButtonStyles};
-      height: ${rem("36px")};
-      padding: 0 ${rem("12px")};
-      font-size: ${rem("14px")};
-    `};
+    variant === "button"
+      ? css`
+          ${tertiaryButtonStyles};
+          height: ${rem("36px")};
+          padding: 0 ${rem("12px")};
+          font-size: ${rem("14px")};
+        `
+      : css`
+          display: flex;
+          position: relative;
+          cursor: pointer;
+        `};
 `;
 
 export const HiddenCheckbox = styled.input`
