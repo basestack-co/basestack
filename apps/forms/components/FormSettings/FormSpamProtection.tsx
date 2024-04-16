@@ -53,7 +53,7 @@ const FormSpamProtectionCard = ({ hasSpamProtection = false }: Props) => {
         },
       );
     },
-    [trpcUtils, formId, updateForm],
+    [trpcUtils, formId, updateForm, t],
   );
 
   return (

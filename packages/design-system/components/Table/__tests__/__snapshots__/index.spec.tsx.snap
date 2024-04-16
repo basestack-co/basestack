@@ -454,7 +454,7 @@ exports[`Table tests should render Table with images 1`] = `
             <img
               alt="Jack profile image"
               class="c6"
-              src="https://api.dicebear.com/7.x/initials/svg?seed=Jack&size=36&fontSize=40"
+              src="https://api.dicebear.com/8.x/initials/svg?seed=Jack&size=36&fontSize=40"
             />
           </div>
           <p
@@ -541,7 +541,7 @@ exports[`Table tests should render Table with images 1`] = `
             <img
               alt="Pedro profile image"
               class="c6"
-              src="https://api.dicebear.com/7.x/initials/svg?seed=Pedro&size=36&fontSize=40"
+              src="https://api.dicebear.com/8.x/initials/svg?seed=Pedro&size=36&fontSize=40"
             />
           </div>
           <p
@@ -628,7 +628,7 @@ exports[`Table tests should render Table with images 1`] = `
             <img
               alt="Daniel profile image"
               class="c6"
-              src="https://api.dicebear.com/7.x/initials/svg?seed=Daniel&size=36&fontSize=40"
+              src="https://api.dicebear.com/8.x/initials/svg?seed=Daniel&size=36&fontSize=40"
             />
           </div>
           <p
@@ -715,7 +715,7 @@ exports[`Table tests should render Table with images 1`] = `
             <img
               alt="Joana profile image"
               class="c6"
-              src="https://api.dicebear.com/7.x/initials/svg?seed=Joana&size=36&fontSize=40"
+              src="https://api.dicebear.com/8.x/initials/svg?seed=Joana&size=36&fontSize=40"
             />
           </div>
           <p

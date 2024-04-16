@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import useTranslation from "next-translate/useTranslation";
 
 export const FormSchema = z.object({
-  url: z.string()
+  url: z.string(),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;

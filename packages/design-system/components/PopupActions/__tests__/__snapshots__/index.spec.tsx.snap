@@ -179,7 +179,7 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
             <img
               alt="Select Moon flags from the list"
               class="c7"
-              src="https://api.dicebear.com/7.x/initials/svg?seed=Moon flags&size=28&fontSize=40"
+              src="https://api.dicebear.com/8.x/initials/svg?seed=Moon flags&size=28&fontSize=40"
             />
           </div>
           <p
@@ -204,7 +204,7 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
             <img
               alt="Select Teams kids from the list"
               class="c7"
-              src="https://api.dicebear.com/7.x/initials/svg?seed=Teams kids&size=28&fontSize=40"
+              src="https://api.dicebear.com/8.x/initials/svg?seed=Teams kids&size=28&fontSize=40"
             />
           </div>
           <p

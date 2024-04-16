@@ -85,6 +85,7 @@ const Slider = ({
 
     return () => {
       if (containerRef.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         observer.unobserve(containerRef.current);
       }
     };
