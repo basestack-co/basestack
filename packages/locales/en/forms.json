@@ -32,8 +32,8 @@
   },
   "submission": {
     "empty": {
-      "title": "This form has no submissions",
-      "description": "No submissions have been made to this form yet. When a submission is made, it will appear here."
+      "title": "No Submissions Found",
+      "description": "No submissions have been found for this form."
     },
     "label": {
       "new": "New",

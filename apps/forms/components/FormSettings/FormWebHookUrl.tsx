@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import useTranslation from "next-translate/useTranslation";
 
 export const FormSchema = z.object({
-  url: z.string(),
+  url: z.string()
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
@@ -48,9 +48,7 @@ const FormWebHookUrlCard = ({ webhookUrl = "" }: Props) => {
   const watchUrl = watch("url");
 
   useEffect(() => {
-    if (webhookUrl) {
-      setValue("url", webhookUrl);
-    }
+    setValue("url", webhookUrl);
   }, [webhookUrl, setValue]);
 
   const onSave: SubmitHandler<FormInputs> = async (input) => {

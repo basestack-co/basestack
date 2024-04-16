@@ -13,6 +13,7 @@ export interface Props {
   onDelete: () => void;
   onMarkSpam: () => void;
   onReadSubmission: () => void;
+  isActionsDisabled?: boolean;
 }
 
 export interface FormSubmissionProps extends Props {

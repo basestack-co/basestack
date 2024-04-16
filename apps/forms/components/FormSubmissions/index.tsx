@@ -147,7 +147,7 @@ const FormSubmissions = ({ name }: Props) => {
       updateSubmissions.mutate(
         { ids, formId, ...payload },
         {
-          onSuccess: async (res) => {
+          onSuccess: async () => {
             setSelectIds([]);
 
             await trpcUtils.submission.all.invalidate({ formId });
@@ -237,7 +237,7 @@ const FormSubmissions = ({ name }: Props) => {
         isActionDisabled={selectIds.length <= 0}
         isSelectAllEnabled={isSelectAllEnabled}
         isExportDisabled={exportSubmissions.isLoading}
-        isDisabled={totalPages <= 0}
+        isDisabled={totalPages <= 0 && !searchValue}
       />
 
       {totalPages <= 0 && !isLoading && (

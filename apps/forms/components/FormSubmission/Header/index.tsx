@@ -27,6 +27,7 @@ const Header = ({
   onDelete,
   onMarkSpam,
   onReadSubmission,
+  isActionsDisabled,
 }: FormSubmissionHeaderProps) => {
   const theme = useTheme();
   const isSmallDevice = useMedia(theme.device.max.sm, false);
@@ -59,6 +60,7 @@ const Header = ({
             onReadSubmission={onReadSubmission}
             viewed={viewed}
             isSpam={isSpam}
+            isDisabled={isActionsDisabled}
           />
           <HeaderRight>
             {!isSmallDevice && (

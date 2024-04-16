@@ -17,6 +17,7 @@ const FormSubmission = ({
   onReadSubmission,
   onSelect,
   isSelected = false,
+  isActionsDisabled,
 }: FormSubmissionProps) => {
   const theme = useTheme();
   const [isOpen, setIsOpen] = useState(false);
@@ -43,6 +44,7 @@ const FormSubmission = ({
         onDelete={onDelete}
         onMarkSpam={onMarkSpam}
         onReadSubmission={onReadSubmission}
+        isActionsDisabled={isActionsDisabled}
       />
       <Body isOpen={isOpen} data={data} />
     </Card>

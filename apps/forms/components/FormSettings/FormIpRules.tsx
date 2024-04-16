@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback, useMemo } from "react";
 // Router
 import { useRouter } from "next/router";
 // Form
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // Server
@@ -10,15 +10,17 @@ import { trpc } from "libs/trpc";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
-import { IconButton, Input, Label } from "@basestack/design-system";
+import { IconButton, Input, InputGroup, Label } from "@basestack/design-system";
 // Toast
 import { toast } from "sonner";
 // Locales
 import useTranslation from "next-translate/useTranslation";
+// Styles
 import { TagsContainer } from "./styles";
 
 export const FormSchema = z.object({
-  ips: z.string(),
+  ip: z.string().ip(),
+  ips: z.array(z.string()),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
@@ -37,28 +39,39 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
 
   const {
     control,
-    handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
     watch,
+    setError,
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
+    delayError: 250,
   });
 
-  const watchIps = watch("ips");
+  const ipsValues = watch("ips");
+  const ipValue = watch("ip");
+
+  const isUpdateButtonDisabled = useMemo(
+    () =>
+      !blockIpAddresses ||
+      !ipsValues ||
+      blockIpAddresses === ipsValues.join(","),
+
+    [blockIpAddresses, ipsValues],
+  );
 
   useEffect(() => {
     if (blockIpAddresses) {
-      setValue("ips", blockIpAddresses);
+      setValue("ips", blockIpAddresses.split(","));
     }
   }, [blockIpAddresses, setValue]);
 
-  const onSave: SubmitHandler<FormInputs> = async (input) => {
+  const onSave = useCallback(async () => {
     updateForm.mutate(
       {
         formId,
-        blockIpAddresses: input.ips,
+        blockIpAddresses: ipsValues.join(","),
       },
       {
         onSuccess: (result) => {
@@ -83,54 +96,79 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
         },
       },
     );
-  };
+  }, [ipsValues, updateForm, formId, trpcUtils, t]);
 
-  const mockEmails = [
-    "192.158.1.10",
-    "192.200.1.20",
-    "192.300.1.30",
-    "192.400.1.40",
-    "192.500.1.50",
-  ];
+  const onHandleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Enter" && !errors.ip && ipValue) {
+        const ipExists = ipsValues?.find((item) => item === ipValue);
+
+        if (ipExists) {
+          setError("ip", { message: "IP already exists" });
+        } else {
+          // Add the value to the list of IPs
+          setValue("ips", [...(ipsValues ?? []), ipValue]);
+          // Clean up the input for the next value
+          setValue("ip", "");
+        }
+      }
+    },
+    [ipValue, setValue, ipsValues, errors, setError],
+  );
+
+  const onDeleteIp = useCallback(
+    (value: string) => {
+      const ips = ipsValues?.filter((item) => item !== value);
+      setValue("ips", ips);
+    },
+    [setValue, ipsValues],
+  );
 
   return (
     <SettingCard
       title={t("security.ip-block-rules.title")}
       description={t("security.ip-block-rules.description")}
       button={t("security.ip-block-rules.action")!}
-      onClick={handleSubmit(onSave)}
-      isDisabled={isSubmitting || watchIps === blockIpAddresses}
+      onClick={onSave}
+      isDisabled={isSubmitting || isUpdateButtonDisabled}
       isLoading={isSubmitting}
       text={t("security.ip-block-rules.text")}
       hasFooter
     >
       <>
         <Controller
-          name="ips"
+          name="ip"
           control={control}
           defaultValue=""
           render={({ field }) => (
-            <Input
-              maxWidth={400}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              placeholder={t("security.ip-block-rules.inputs.name.placeholder")}
-              name={field.name}
-              value={field.value}
-              hasError={!!errors.ips}
-              isDisabled={isSubmitting}
+            <InputGroup
+              hint={t(errors.ip?.message!)}
+              inputProps={{
+                type: "text",
+                name: field.name,
+                value: field.value,
+                onChange: field.onChange,
+                onBlur: field.onBlur,
+                placeholder: t(
+                  "security.ip-block-rules.inputs.name.placeholder",
+                ),
+                hasError: !!errors.ip,
+                isDisabled: isSubmitting,
+                onKeyDown: onHandleKeyDown,
+                maxWidth: 400,
+              }}
             />
           )}
         />
-        {!!mockEmails && (
+        {!!ipsValues?.length && (
           <TagsContainer>
-            {mockEmails.map((item, index) => (
+            {ipsValues.map((item, index) => (
               <Label key={index} text={item} size="normal" isTranslucent>
                 <IconButton
                   icon="close"
                   size="small"
                   variant="secondaryDark"
-                  onClick={() => null}
+                  onClick={() => onDeleteIp(item)}
                 />
               </Label>
             ))}

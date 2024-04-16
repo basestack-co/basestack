@@ -48,9 +48,7 @@ const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
   const watchUrl = watch("url");
 
   useEffect(() => {
-    if (redirectUrl) {
-      setValue("url", redirectUrl);
-    }
+    setValue("url", redirectUrl);
   }, [redirectUrl, setValue]);
 
   const onSave: SubmitHandler<FormInputs> = async (input) => {

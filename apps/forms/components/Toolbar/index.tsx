@@ -90,6 +90,7 @@ const Toolbar = ({
                   : "toolbar.action.select-all",
               )}
               variant="button"
+              disabled={isDisabled}
             />
           </ListItem>
           <PopupMenu

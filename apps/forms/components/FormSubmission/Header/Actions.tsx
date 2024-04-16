@@ -21,17 +21,24 @@ interface ActionsProps {
   onDestroyed: () => void;
   viewed?: boolean;
   isSpam?: boolean;
+  isDisabled?: boolean;
 }
 
 interface ActionButtonProps {
   onClick: () => void;
   icon: string;
   text: string;
+  isDisabled?: boolean;
 }
 
 const AnimatedList = animated(ActionsList);
 
-const ActionButton = ({ onClick, icon, text }: ActionButtonProps) => {
+const ActionButton = ({
+  onClick,
+  icon,
+  text,
+  isDisabled,
+}: ActionButtonProps) => {
   const theme = useTheme();
   const isSmallDevice = useMedia(theme.device.max.md, false);
 
@@ -57,6 +64,7 @@ const ActionButton = ({ onClick, icon, text }: ActionButtonProps) => {
       iconPlacement="left"
       variant={ButtonVariant.Tertiary}
       icon={icon}
+      isDisabled={isDisabled}
     >
       {text}
     </Button>
@@ -71,6 +79,7 @@ const Actions = ({
   onDestroyed,
   viewed,
   isSpam,
+  isDisabled,
 }: ActionsProps) => {
   const { t } = useTranslation("forms");
   const transitionList = useTransition(isVisible, {
@@ -89,6 +98,7 @@ const Actions = ({
         <AnimatedList style={styles}>
           <ActionsListItem>
             <ActionButton
+              isDisabled={isDisabled}
               onClick={onDelete}
               icon="delete"
               text={t("submission.action.delete")}
@@ -96,6 +106,7 @@ const Actions = ({
           </ActionsListItem>
           <ActionsListItem>
             <ActionButton
+              isDisabled={isDisabled}
               onClick={() => onMarkSpam(!isSpam)}
               icon="report"
               text={
@@ -107,9 +118,9 @@ const Actions = ({
           </ActionsListItem>
           <ActionsListItem>
             <ActionButton
+              isDisabled={isDisabled}
               onClick={() => onReadSubmission(!viewed)}
               icon="mark_email_read"
-
               text={
                 viewed
                   ? t("submission.action.un-read-submission")
