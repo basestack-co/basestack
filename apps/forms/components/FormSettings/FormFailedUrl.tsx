@@ -48,9 +48,7 @@ const FormFailedUrlCard = ({ errorUrl = "" }: Props) => {
   const watchUrl = watch("url");
 
   useEffect(() => {
-    if (errorUrl) {
-      setValue("url", errorUrl);
-    }
+    setValue("url", errorUrl);
   }, [errorUrl, setValue]);
 
   const onSave: SubmitHandler<FormInputs> = async (input) => {

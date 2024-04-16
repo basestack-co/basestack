@@ -54,6 +54,10 @@ export interface InputProps extends SpaceProps, LayoutProps {
    */
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   /**
+   * Input onKeyDown
+   */
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  /**
    * Input optional testID
    */
   testId?: string;
@@ -98,6 +102,7 @@ const Input: React.FC<InputProps> = ({
   autoComplete,
   min,
   max,
+  onKeyDown,
   ...props
 }) => {
   const theme = useTheme();
@@ -134,6 +139,7 @@ const Input: React.FC<InputProps> = ({
         autoComplete={autoComplete}
         min={min}
         max={max}
+        onKeyDown={onKeyDown}
       />
       {hasRightIcon && (
         <IconContainer iconPlacement={iconPlacement}>

@@ -1,4 +1,7 @@
 import React from "react";
+// Locales
+import useTranslation from "next-translate/useTranslation";
+// Components
 import { animated, config, useTransition } from "react-spring";
 import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
@@ -12,21 +15,30 @@ import { ActionsList, ActionsListItem } from "../styles";
 
 interface ActionsProps {
   onDelete: () => void;
-  onMarkSpam: () => void;
-  onReadSubmission: () => void;
+  onMarkSpam: (value: boolean) => void;
+  onReadSubmission: (value: boolean) => void;
   isVisible: boolean;
   onDestroyed: () => void;
+  viewed?: boolean;
+  isSpam?: boolean;
+  isDisabled?: boolean;
 }
 
 interface ActionButtonProps {
   onClick: () => void;
   icon: string;
   text: string;
+  isDisabled?: boolean;
 }
 
-const AnimatedBList = animated(ActionsList);
+const AnimatedList = animated(ActionsList);
 
-const ActionButton = ({ onClick, icon, text }: ActionButtonProps) => {
+const ActionButton = ({
+  onClick,
+  icon,
+  text,
+  isDisabled,
+}: ActionButtonProps) => {
   const theme = useTheme();
   const isSmallDevice = useMedia(theme.device.max.md, false);
 
@@ -52,6 +64,7 @@ const ActionButton = ({ onClick, icon, text }: ActionButtonProps) => {
       iconPlacement="left"
       variant={ButtonVariant.Tertiary}
       icon={icon}
+      isDisabled={isDisabled}
     >
       {text}
     </Button>
@@ -64,7 +77,11 @@ const Actions = ({
   onReadSubmission,
   isVisible,
   onDestroyed,
+  viewed,
+  isSpam,
+  isDisabled,
 }: ActionsProps) => {
+  const { t } = useTranslation("forms");
   const transitionList = useTransition(isVisible, {
     config: { ...config.default, duration: 200 },
     ...slideBottom,
@@ -78,25 +95,40 @@ const Actions = ({
   return transitionList(
     (styles, item) =>
       item && (
-        <AnimatedBList style={styles}>
+        <AnimatedList style={styles}>
           <ActionsListItem>
-            <ActionButton onClick={onDelete} icon="delete" text="Delete" />
+            <ActionButton
+              isDisabled={isDisabled}
+              onClick={onDelete}
+              icon="delete"
+              text={t("submission.action.delete")}
+            />
           </ActionsListItem>
           <ActionsListItem>
             <ActionButton
-              onClick={onMarkSpam}
+              isDisabled={isDisabled}
+              onClick={() => onMarkSpam(!isSpam)}
               icon="report"
-              text="Mark as Spam"
+              text={
+                isSpam
+                  ? t("submission.action.unmark-spam")
+                  : t("submission.action.mark-spam")
+              }
             />
           </ActionsListItem>
           <ActionsListItem>
             <ActionButton
-              onClick={onReadSubmission}
+              isDisabled={isDisabled}
+              onClick={() => onReadSubmission(!viewed)}
               icon="mark_email_read"
-              text="Read Submission"
+              text={
+                viewed
+                  ? t("submission.action.un-read-submission")
+                  : t("submission.action.read-submission")
+              }
             />
           </ActionsListItem>
-        </AnimatedBList>
+        </AnimatedList>
       ),
   );
 };

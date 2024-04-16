@@ -197,14 +197,17 @@ export const StyledButton = styled.button<StyledButtonProps>`
         `};
 
   &:disabled {
-    cursor: not-allowed;
+    cursor: default;
     opacity: 0.6;
   }
 
   ${({ isLoading }) =>
     isLoading &&
     css`
-      justify-content: center;
+      .material-symbols-sharp,
+      .material-symbols-rounded {
+        opacity: 0;
+      }
     `}
 `;
 
@@ -218,4 +221,12 @@ export const TextContainer = styled.span<{ isLoading: boolean }>`
 
 export const SpinnerContainer = styled.div`
   position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 `;

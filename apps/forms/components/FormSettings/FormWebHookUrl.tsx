@@ -48,9 +48,7 @@ const FormWebHookUrlCard = ({ webhookUrl = "" }: Props) => {
   const watchUrl = watch("url");
 
   useEffect(() => {
-    if (webhookUrl) {
-      setValue("url", webhookUrl);
-    }
+    setValue("url", webhookUrl);
   }, [webhookUrl, setValue]);
 
   const onSave: SubmitHandler<FormInputs> = async (input) => {

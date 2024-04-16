@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback, useMemo } from "react";
 // Router
 import { useRouter } from "next/router";
 // Form
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // Server
@@ -10,15 +10,17 @@ import { trpc } from "libs/trpc";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
-import { Input, Label, IconButton } from "@basestack/design-system";
+import { Input, Label, IconButton, InputGroup } from "@basestack/design-system";
 // Toast
 import { toast } from "sonner";
 // Locales
 import useTranslation from "next-translate/useTranslation";
+// Styles
 import { TagsContainer } from "./styles";
 
 export const FormSchema = z.object({
-  emails: z.string(),
+  email: z.string().email(),
+  emails: z.array(z.string()),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
@@ -37,28 +39,36 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
 
   const {
     control,
-    handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
     watch,
+    setError,
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
+    delayError: 250,
   });
 
-  const watchIps = watch("emails");
+  const emailsValues = watch("emails");
+  const emailValue = watch("email");
+
+  const isUpdateButtonDisabled = useMemo(
+    () => !emails || !emailsValues || emails === emailsValues.join(","),
+
+    [emails, emailsValues],
+  );
 
   useEffect(() => {
     if (emails) {
-      setValue("emails", emails);
+      setValue("emails", emails.split(","));
     }
   }, [emails, setValue]);
 
-  const onSave: SubmitHandler<FormInputs> = async (input) => {
+  const onSave = useCallback(async () => {
     updateForm.mutate(
       {
         formId,
-        emails: input.emails,
+        emails: emailsValues.join(","),
       },
       {
         onSuccess: (result) => {
@@ -83,57 +93,77 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
         },
       },
     );
-  };
+  }, [emailsValues, updateForm, formId, trpcUtils, t]);
 
-  const mockEmails = [
-    "vitor.works@gmail.com",
-    "james.bays@gmail.com",
-    "worker-95-qwerty@gmail.com",
-    "times-are-hard@gmail.com",
-    "cristiano-ronaldo-7@gmail.com",
-    "benfica-futbol-clube@gmail.com",
-    "sporting-is-shit-and-i-know-it@gmail.com",
-    "apple-computers-are-expensive.com",
-  ];
+  const onHandleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Enter" && !errors.email && emailValue) {
+        const ipExists = emailsValues?.find((item) => item === emailValue);
+
+        if (ipExists) {
+          setError("email", { message: "Email already exists" });
+        } else {
+          // Add the value to the list of emails
+          setValue("emails", [...(emailsValues ?? []), emailValue]);
+          // Clean up the input for the next value
+          setValue("email", "");
+        }
+      }
+    },
+    [emailValue, setValue, emailsValues, errors, setError],
+  );
+
+  const onDeleteEmail = useCallback(
+    (value: string) => {
+      const emails = emailsValues?.filter((item) => item !== value);
+      setValue("emails", emails);
+    },
+    [setValue, emailsValues],
+  );
 
   return (
     <SettingCard
       title={t("notifications.emails.title")}
       description={t("notifications.emails.description")}
       button={t("notifications.emails.action")!}
-      onClick={handleSubmit(onSave)}
-      isDisabled={isSubmitting || watchIps === emails}
+      onClick={onSave}
+      isDisabled={isSubmitting || isUpdateButtonDisabled}
       isLoading={isSubmitting}
       text={t("notifications.emails.text")}
       hasFooter
     >
       <>
         <Controller
-          name="emails"
+          name="email"
           control={control}
           defaultValue=""
           render={({ field }) => (
-            <Input
-              maxWidth={400}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              placeholder={t("notifications.emails.inputs.name.placeholder")}
-              name={field.name}
-              value={field.value}
-              hasError={!!errors.emails}
-              isDisabled={isSubmitting}
+            <InputGroup
+              hint={t(errors.email?.message!)}
+              inputProps={{
+                type: "email",
+                name: field.name,
+                value: field.value,
+                onChange: field.onChange,
+                onBlur: field.onBlur,
+                placeholder: t("notifications.emails.inputs.name.placeholder"),
+                hasError: !!errors.email,
+                isDisabled: isSubmitting,
+                onKeyDown: onHandleKeyDown,
+                maxWidth: 400,
+              }}
             />
           )}
         />
-        {!!mockEmails && (
+        {!!emailsValues?.length && (
           <TagsContainer>
-            {mockEmails.map((item, index) => (
+            {emailsValues.map((item, index) => (
               <Label key={index} text={item} size="normal" isTranslucent>
                 <IconButton
                   icon="close"
                   size="small"
                   variant="secondaryDark"
-                  onClick={() => null}
+                  onClick={() => onDeleteEmail(item)}
                 />
               </Label>
             ))}

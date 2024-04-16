@@ -22,6 +22,16 @@ export const colors = {
   gray50: "#F6F6F6",
   gray10: "#FAFAFA",
 
+  platinum800: "#142328",
+  platinum700: "#394145",
+  platinum600: "#556268",
+  platinum500: "#6C7C83",
+  platinum400: "#8FA3AD",
+  platinum300: "#A1BDCA",
+  platinum200: "#CCDFE5",
+  platinum100: "#EBF5F7",
+  platinum50: "#F4FAFB",
+
   blue700: "#102C60",
   blue600: "#174291",
   blue500: "#1E54B7",
@@ -30,6 +40,15 @@ export const colors = {
   blue200: "#A0BFF8",
   blue100: "#D4E2FC",
   blue50: "#EFF3FE",
+
+  cobalt700: "#050C4D",
+  cobalt600: "#081270",
+  cobalt500: "#0A1899",
+  cobalt400: "#0E1FC1",
+  cobalt300: "#535FCF",
+  cobalt200: "#949CE3",
+  cobalt100: "#D2D7F0",
+  cobalt50: "#EBEDFA",
 
   green700: "#10462D",
   green600: "#03582F",
@@ -49,6 +68,24 @@ export const colors = {
   red100: "#FED7D2",
   red50: "#FFEFED",
 
+  orange700: "#672A16",
+  orange600: "#9A3F21",
+  orange500: "#C14F29",
+  orange400: "#FF6937",
+  orange300: "#FA9269",
+  orange200: "#FABDA5",
+  orange100: "#FFE1D6",
+  orange50: "#FFF3EF",
+
+  yellow700: "#674D1B",
+  yellow600: "#997328",
+  yellow500: "#BC8B2C",
+  yellow400: "#FFC043",
+  yellow300: "#FFCF70",
+  yellow200: "#FFE3AC",
+  yellow100: "#FFF2D9",
+  yellow50: "#FFFAF0",
+
   purple700: "#2E224C",
   purple600: "#453473",
   purple500: "#574191",
@@ -57,6 +94,15 @@ export const colors = {
   purple200: "#C1B5E3",
   purple100: "#E3DDF2",
   purple50: "#F4F1FA",
+
+  brown700: "#3D281E",
+  brown600: "#5C3C2E",
+  brown500: "#744C3A",
+  brown400: "#99644C",
+  brown300: "#B18977",
+  brown200: "#D2BBB0",
+  brown100: "#EBE0DB",
+  brown50: "#F6F0EA",
 };
 
 export const zIndex = {

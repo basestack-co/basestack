@@ -9,7 +9,7 @@ exports[`Label tests should render Label correctly 1`] = `
   font-size: 0.875rem;
   line-height: 1rem;
   font-weight: 400;
-  color: #545454;
+  color: #000000;
   background-color: #E2E2E2;
   width: normal;
   height: normal;
@@ -35,7 +35,7 @@ exports[`Label tests should render isTranslucent Label 1`] = `
   font-size: 0.875rem;
   line-height: 1rem;
   font-weight: 400;
-  color: #1E54B7;
+  color: #174291;
   background-color: rgba(39,110,241,0.1);
   width: normal;
   height: normal;
@@ -85,7 +85,7 @@ exports[`Label tests should render small Label 1`] = `
   border-radius: 4px;
   padding: 0.25rem 0.375rem;
   font-size: 0.75rem;
-  line-height: 0.875rem;
+  line-height: 1rem;
   font-weight: 400;
   color: #FFFFFF;
   background-color: #276EF1;

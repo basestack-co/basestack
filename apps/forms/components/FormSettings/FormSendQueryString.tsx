@@ -54,7 +54,7 @@ const FormSendQueryStringCard = ({ hasDataQueryString = false }: Props) => {
         },
       );
     },
-    [trpcUtils, formId, updateForm],
+    [trpcUtils, formId, updateForm, t],
   );
 
   return (
@@ -63,9 +63,9 @@ const FormSendQueryStringCard = ({ hasDataQueryString = false }: Props) => {
       description={t("customization.data-query-string.description")}
       checked={hasDataQueryString}
       onChange={onChange}
-      variant={CardVariant.PRIMARY}
-      hasOverlay
-      label="Upgrade to Pro"
+      // variant={CardVariant.PRIMARY}
+      // hasOverlay
+      // label="Upgrade to Pro"
     />
   );
 };

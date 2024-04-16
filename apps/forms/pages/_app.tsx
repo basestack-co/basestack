@@ -26,7 +26,7 @@ dayjs.extend(relativeTime);
 const Noop = ({ children }: { children: ReactNode }) => children;
 
 function MyApp({ Component, pageProps }: AppProps) {
-  //@ts-ignore
+  // @ts-expect-error
   const Layout = Component.Layout || Noop;
   const isDarkMode = useStore((state) => state.isDarkMode);
   const theme = isDarkMode ? darkTheme : lightTheme;

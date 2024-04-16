@@ -184,7 +184,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
 }
 
 .c18:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -223,7 +223,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
 }
 
 .c25:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 

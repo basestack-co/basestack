@@ -48,9 +48,7 @@ const FormSuccessUrlCard = ({ successUrl = "" }: Props) => {
   const watchUrl = watch("url");
 
   useEffect(() => {
-    if (successUrl) {
-      setValue("url", successUrl);
-    }
+    setValue("url", successUrl);
   }, [successUrl, setValue]);
 
   const onSave: SubmitHandler<FormInputs> = async (input) => {

@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useCallback } from "react";
+// Router
+import { useRouter } from "next/router";
+// Locales
+import useTranslation from "next-translate/useTranslation";
+// Hooks
+import { useFloatingPopup } from "@basestack/hooks";
+// Components
 import { useTheme } from "styled-components";
 import { animated } from "react-spring";
-import { useFloatingPopup } from "@basestack/hooks";
 import {
   Avatar,
   Card,
@@ -11,9 +17,11 @@ import {
   IconButton,
   Popup,
 } from "@basestack/design-system";
+// Syles
 import { Box, CardButton, ListItem } from "./styles";
 
 export interface FormCardProps {
+  formId: string;
   onClick: () => void;
   text: string;
   spam: number;
@@ -44,7 +52,15 @@ const Detail = ({ value, icon, mr }: DetailProps) => {
 
 const AnimatedPopup = animated(Popup);
 
-const FormCard = ({ onClick, text, spam, submissions }: FormCardProps) => {
+const FormCard = ({
+  onClick,
+  text,
+  spam,
+  submissions,
+  formId,
+}: FormCardProps) => {
+  const { t } = useTranslation("home");
+  const router = useRouter();
   const theme = useTheme();
 
   const {
@@ -59,6 +75,16 @@ const FormCard = ({ onClick, text, spam, submissions }: FormCardProps) => {
     onClickMore,
     onCloseMenu,
   } = useFloatingPopup({});
+
+  const onClickMenuItem = useCallback(
+    async (path: string) => {
+      await router.push({
+        pathname: `/form/[formId]/${path}`,
+        query: { formId },
+      });
+    },
+    [router, formId],
+  );
 
   return (
     <ListItem ref={popupWrapperRef}>
@@ -82,8 +108,18 @@ const FormCard = ({ onClick, text, spam, submissions }: FormCardProps) => {
               top={y + 5}
               left={x}
               items={[
-                { text: "Edit", onClick: () => null },
-                { text: "Delete", onClick: () => null },
+                {
+                  text: t("forms.card.menu.submissions"),
+                  onClick: () => onClickMenuItem("submissions"),
+                },
+                {
+                  text: t("forms.card.menu.setup"),
+                  onClick: () => onClickMenuItem("setup"),
+                },
+                {
+                  text: t("forms.card.menu.settings"),
+                  onClick: () => onClickMenuItem("settings"),
+                },
               ]}
               onClickList={onCloseMenu}
             />

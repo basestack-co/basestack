@@ -48,9 +48,7 @@ const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
   const watchUrl = watch("url");
 
   useEffect(() => {
-    if (redirectUrl) {
-      setValue("url", redirectUrl);
-    }
+    setValue("url", redirectUrl);
   }, [redirectUrl, setValue]);
 
   const onSave: SubmitHandler<FormInputs> = async (input) => {
@@ -84,8 +82,7 @@ const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
     );
   };
 
-  const isBlocked = true;
-
+  const isBlocked = false;
   const cardProps = isBlocked
     ? {
         button: "Upgrade",
@@ -95,7 +92,7 @@ const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
         label: "Upgrade to Pro",
       }
     : {
-        button: t("customization.redirect-url.title"),
+        button: t("customization.success-url.action"),
         onClick: () => handleSubmit(onSave),
         isLoading: isSubmitting,
         isDisabled: isSubmitting || watchUrl === redirectUrl,
