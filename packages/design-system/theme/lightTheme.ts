@@ -14,6 +14,12 @@ const shadow = {
   elevation6: "rgba(0, 0, 0, 0.25) 0px 25px 50px -12px",
 };
 
+const background = {
+  dark: colors.gray100,
+  default: colors.gray50,
+  light: colors.gray10,
+};
+
 const button = {
   primary: {
     backgroundColor: colors.primary,
@@ -484,6 +490,9 @@ const tooltip = {
 
 const horizontalRule = {
   backgroundColor: colors.gray100,
+  darker: {
+    backgroundColor: colors.gray200,
+  },
 };
 
 const copyCard = {
@@ -537,6 +546,7 @@ const theme = {
   copyCard,
   pagination,
   iconBox,
+  background,
   typography,
   colors,
   spacing,
