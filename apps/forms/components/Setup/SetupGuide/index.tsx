@@ -1,46 +1,25 @@
-import React, { Fragment } from "react";
+import React, { useState } from "react";
+// Code
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
+// Theme
 import { useTheme } from "styled-components";
-import { Text, Card, Icon } from "@basestack/design-system";
-import { StepContainer, TextHighlight } from "./styles";
-import { Box } from "../styles";
+// Components
+import { CodeLanguageCard } from "@basestack/ui";
+import { Text, Card } from "@basestack/design-system";
+import Step from "./Step";
+import { CodeContainer, List, ListItem } from "./styles";
+import { data, javascriptCode } from "./data";
 
-interface StepProps {
-  icon: string;
-  title: string;
-  description: Array<{ text: string; highlight?: boolean }>;
-}
-
-const Step = ({ icon = "counter_1", title, description }: StepProps) => {
-  const theme = useTheme();
-
-  return (
-    <StepContainer>
-      <Icon icon={icon} muted mt="1px" />
-      <Box ml={theme.spacing.s4}>
-        <Text mb={theme.spacing.s1} size="large">
-          {title}
-        </Text>
-        <Text data-testid="setting-title" size="small" muted lineHeight="26px">
-          {description.map((item, index) =>
-            item.highlight ? (
-              <Fragment key={index}>
-                <TextHighlight>{item.text}</TextHighlight>&nbsp;
-              </Fragment>
-            ) : (
-              <Fragment key={index}>{item.text}&nbsp;</Fragment>
-            ),
-          )}
-        </Text>
-      </Box>
-    </StepContainer>
-  );
-};
+SyntaxHighlighter.registerLanguage("typescript", ts);
 
 const SetupGuide = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState(0);
   const theme = useTheme();
 
   return (
-    <Card padding={theme.spacing.s5}>
+    <Card p={theme.spacing.s5}>
       <Text mb={theme.spacing.s1} size="large">
         Setup guide
       </Text>
@@ -48,6 +27,22 @@ const SetupGuide = () => {
         Follow our step by step examples to build and collect form submissions
         from your front-end code
       </Text>
+
+      <Text mt={theme.spacing.s5} mb={theme.spacing.s3} size="large">
+        Select your platform
+      </Text>
+      <List>
+        {data.map(({ id, text }, index) => (
+          <ListItem key={id}>
+            <CodeLanguageCard
+              text={text}
+              icon={id}
+              onSelect={() => setSelectedLanguage(index)}
+              isSelected={selectedLanguage === index}
+            />
+          </ListItem>
+        ))}
+      </List>
 
       <Step
         icon="counter_1"
@@ -77,7 +72,18 @@ const SetupGuide = () => {
         description={[
           { text: "Try the code below to send some test submission." },
         ]}
-      />
+      >
+        <CodeContainer>
+          {/* @ts-ignore */}
+          <SyntaxHighlighter
+            language="typescript"
+            style={a11yDark}
+            wrapLongLines
+          >
+            {javascriptCode}
+          </SyntaxHighlighter>
+        </CodeContainer>
+      </Step>
     </Card>
   );
 };

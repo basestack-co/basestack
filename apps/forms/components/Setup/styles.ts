@@ -29,4 +29,8 @@ export const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: ${({ theme }) => theme.spacing.s5};
+
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    grid-template-columns: 1fr;
+  }
 `;

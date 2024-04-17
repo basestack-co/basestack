@@ -18,3 +18,21 @@ export const TextHighlight = styled.span`
   background-color: ${({ theme }) =>
     theme.colors[theme.isDarkMode ? "gray600" : "gray200"]};
 `;
+
+export const List = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing.s3};
+`;
+
+export const ListItem = styled.li`
+  display: inline-flex;
+`;
+
+export const CodeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: ${({ theme }) => theme.spacing.s3};
+  border-radius: 4px;
+  overflow: hidden;
+`;

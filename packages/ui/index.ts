@@ -28,3 +28,7 @@ export {
   default as StatusPage,
   type StatusPageProps,
 } from "./components/StatusPage";
+export {
+  default as CodeLanguageCard,
+  type LanguageCardProps,
+} from "./components/CodeLanguageCard";

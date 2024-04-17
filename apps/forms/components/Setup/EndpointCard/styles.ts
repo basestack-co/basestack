@@ -4,6 +4,12 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
 `;
 
 export const TextContainer = styled.div`
@@ -18,4 +24,12 @@ export const InputContainer = styled.div`
   position: relative;
   max-width: 400px;
   width: 100%;
+
+  input {
+    padding-right: 54px;
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    margin-top: ${({ theme }) => theme.spacing.s3};
+  }
 `;
