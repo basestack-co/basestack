@@ -19,7 +19,7 @@ import useTranslation from "next-translate/useTranslation";
 import { TagsContainer } from "./styles";
 
 export const FormSchema = z.object({
-  email: z.string().email().optional().or(z.literal('')),
+  email: z.string().email().optional().or(z.literal("")),
   emails: z.array(z.string()),
 });
 

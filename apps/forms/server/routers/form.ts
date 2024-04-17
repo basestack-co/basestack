@@ -127,6 +127,7 @@ export const formRouter = router({
               webhookUrl: true,
               blockIpAddresses: true,
               emails: true,
+              honeypot: true,
             },
           },
         },
@@ -199,6 +200,7 @@ export const formRouter = router({
           webhookUrl: z.string().nullable().default(null),
           emails: z.string().nullable().default(null),
           redirectUrl: z.string().nullable().default(null),
+          honeypot: z.string().nullable().default(null),
         })
         .required(),
     )
