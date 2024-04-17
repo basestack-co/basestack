@@ -5,6 +5,7 @@ import { SettingCard } from "@basestack/ui";
 import { CopyCard } from "@basestack/design-system";
 // Locales
 import useTranslation from "next-translate/useTranslation";
+// Utils
 import { getBrowserUrl } from "@basestack/utils";
 
 export interface Props {

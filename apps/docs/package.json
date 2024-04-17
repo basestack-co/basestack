@@ -23,7 +23,6 @@
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
     "@types/node": "20.12.7",
-    "typescript": "^5.4.5",
-    "wrangler": "^3.50.0"
+    "typescript": "^5.4.5"
   }
 }

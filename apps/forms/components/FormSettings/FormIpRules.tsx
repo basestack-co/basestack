@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useMemo } from "react";
+import React, { useEffect, useCallback } from "react";
 // Router
 import { useRouter } from "next/router";
 // Form
@@ -10,7 +10,7 @@ import { trpc } from "libs/trpc";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
-import { IconButton, Input, InputGroup, Label } from "@basestack/design-system";
+import { IconButton, InputGroup, Label } from "@basestack/design-system";
 // Toast
 import { toast } from "sonner";
 // Locales
@@ -19,7 +19,7 @@ import useTranslation from "next-translate/useTranslation";
 import { TagsContainer } from "./styles";
 
 export const FormSchema = z.object({
-  ip: z.string().ip(),
+  ip: z.string().ip().optional().or(z.literal("")),
   ips: z.array(z.string()),
 });
 
@@ -39,7 +39,7 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
 
   const {
     control,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     setValue,
     watch,
     setError,
@@ -47,19 +47,14 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
     resolver: zodResolver(FormSchema),
     mode: "onChange",
     delayError: 250,
+    defaultValues: {
+      ip: "",
+      ips: [],
+    },
   });
 
   const ipsValues = watch("ips");
   const ipValue = watch("ip");
-
-  const isUpdateButtonDisabled = useMemo(
-    () =>
-      !blockIpAddresses ||
-      !ipsValues ||
-      blockIpAddresses === ipsValues.join(","),
-
-    [blockIpAddresses, ipsValues],
-  );
 
   useEffect(() => {
     if (blockIpAddresses) {
@@ -130,8 +125,7 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
       description={t("security.ip-block-rules.description")}
       button={t("security.ip-block-rules.action")!}
       onClick={onSave}
-      isDisabled={isSubmitting || isUpdateButtonDisabled}
-      isLoading={isSubmitting}
+      isDisabled={blockIpAddresses === ipsValues.join(",")}
       text={t("security.ip-block-rules.text")}
       hasFooter
     >
@@ -146,14 +140,13 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
               inputProps={{
                 type: "text",
                 name: field.name,
-                value: field.value,
+                value: field.value as string,
                 onChange: field.onChange,
                 onBlur: field.onBlur,
                 placeholder: t(
                   "security.ip-block-rules.inputs.name.placeholder",
                 ),
                 hasError: !!errors.ip,
-                isDisabled: isSubmitting,
                 onKeyDown: onHandleKeyDown,
                 maxWidth: 400,
               }}

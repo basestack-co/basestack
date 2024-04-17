@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 // Server
 import { trpc } from "libs/trpc";
 // UI
-import { CardVariant } from "@basestack/design-system";
+// import { CardVariant } from "@basestack/design-system";
 import { SwitchSettingCard } from "@basestack/ui";
 // Toast
 import { toast } from "sonner";
