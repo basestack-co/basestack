@@ -68,7 +68,7 @@ const MobileNavigation = ({
   const setIsDarkMode = useStore((state) => state.setDarkMode);
   const isDarkMode = useStore((state) => state.isDarkMode);
 
-  const setCreateProjectModalOpen = useStore(
+  const setCreateFormModalOpen = useStore(
     (state) => state.setCreateFormModalOpen,
   );
 
@@ -152,7 +152,7 @@ const MobileNavigation = ({
                         fullWidth
                         onClick={() => {
                           onClose();
-                          setCreateProjectModalOpen({ isOpen: true });
+                          setCreateFormModalOpen({ isOpen: true });
                         }}
                       >
                         {t("create.form")}
@@ -198,7 +198,9 @@ const MobileNavigation = ({
                   isDarkMode={isDarkMode}
                   onSetDarkMode={setIsDarkMode}
                   popupPlacement="top"
-                  list={getAvatarDropdownList(t, router)}
+                  list={getAvatarDropdownList(t, router, () =>
+                    setCreateFormModalOpen({ isOpen: true }),
+                  )}
                   showFullButton
                 />
               </Footer>

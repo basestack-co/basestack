@@ -47,16 +47,16 @@ export const getExternalLinks = (t: Translate) => {
   ];
 };
 
-export const getAvatarDropdownList = (t: Translate, router: NextRouter) => {
+export const getAvatarDropdownList = (
+  t: Translate,
+  router: NextRouter,
+  onCreateForm: () => void,
+) => {
   return [
     {
       icon: "add_circle",
-      text: t("create.project"),
-    },
-    {
-      icon: "group_add",
-      text: t("dropdown.invite"),
-      isDisabled: true,
+      text: t("create.form"),
+      onClick: onCreateForm,
       separator: true,
     },
     {
