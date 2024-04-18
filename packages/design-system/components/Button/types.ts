@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, ButtonHTMLAttributes } from "react";
 import {
   SpaceProps,
   FlexboxProps,
@@ -74,6 +74,10 @@ export interface ButtonProps
    * Button Size
    */
   size?: ButtonSize;
+  /**
+   * Set Button type
+   */
+  type?: ButtonHTMLAttributes<string>["type"];
 }
 
 export interface StyledButtonProps {

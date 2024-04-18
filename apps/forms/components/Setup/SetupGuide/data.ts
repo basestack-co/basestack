@@ -21,22 +21,25 @@ export const data = [
   },
 ];
 
-export const javascriptCode = `
-  import FlagsJS from "@basestack/flags-js";
-   
-  const sdk = new FlagsJS({
-    apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
-    projectKey: "xxxxx",
-    envKey: "xxxxx",
-  });
-  
-  const MyFeature = async () => {
-    try {
-      const flag = await sdk.flagAsync("header");
-      //flag.enabled true | false
-      //  ...code
-    } catch (e) {
-      throw e;
-    }
-  };
+export const htmlCode = `
+  <!-- modify this form HTML as you wish -->
+  <form
+    action="https://basestack.com/s/3BpmAGqBZae"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    <label>
+      Your email:
+      <!-- name each of your inputs as you wish -->
+      <input type="email" name="email">
+    </label>
+    
+    <label>
+      Your message:
+      <textarea name="message"></textarea>
+    </label>
+
+    <!-- your other form fields go here -->
+    <button type="submit">Send</button>
+  </form>
  `;

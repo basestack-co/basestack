@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // Code
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import { a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
 // Theme
 import { useTheme } from "styled-components";
@@ -10,7 +10,7 @@ import { CodeLanguageCard } from "@basestack/ui";
 import { Text, Card } from "@basestack/design-system";
 import Step from "./Step";
 import { CodeContainer, List, ListItem } from "./styles";
-import { data, javascriptCode } from "./data";
+import { data, htmlCode } from "./data";
 
 SyntaxHighlighter.registerLanguage("typescript", ts);
 
@@ -23,7 +23,7 @@ const SetupGuide = () => {
       <Text mb={theme.spacing.s1} size="large">
         Setup guide
       </Text>
-      <Text data-testid="setting-title" size="small" muted>
+      <Text size="small" muted>
         Follow our step by step examples to build and collect form submissions
         from your front-end code
       </Text>
@@ -45,7 +45,7 @@ const SetupGuide = () => {
       </List>
 
       <Step
-        icon="counter_1"
+        step={1}
         title="Change your form action attribute to your endpoint"
         description={[
           { text: "Set your form action to" },
@@ -56,7 +56,7 @@ const SetupGuide = () => {
       />
 
       <Step
-        icon="counter_2"
+        step={2}
         title="Give a name attribute to each form field"
         description={[
           {
@@ -67,7 +67,7 @@ const SetupGuide = () => {
       />
 
       <Step
-        icon="counter_3"
+        step={3}
         title="Your form is ready"
         description={[
           { text: "Try the code below to send some test submission." },
@@ -75,12 +75,8 @@ const SetupGuide = () => {
       >
         <CodeContainer>
           {/* @ts-ignore */}
-          <SyntaxHighlighter
-            language="typescript"
-            style={a11yDark}
-            wrapLongLines
-          >
-            {javascriptCode}
+          <SyntaxHighlighter language="html" style={a11yLight} wrapLongLines>
+            {htmlCode}
           </SyntaxHighlighter>
         </CodeContainer>
       </Step>

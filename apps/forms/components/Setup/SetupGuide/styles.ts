@@ -3,11 +3,30 @@ import { rem } from "polished";
 
 export const StepContainer = styled.div`
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
   background-color: ${({ theme }) => theme.background.default};
   margin-top: ${({ theme }) => theme.spacing.s5};
-  padding: ${({ theme }) => theme.spacing.s5};
   border-radius: 4px;
+`;
+
+export const StepWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  padding: ${({ theme }) => theme.spacing.s5};
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    flex-direction: column;
+  }
+`;
+
+export const IconContainer = styled.div`
+  display: inline-flex;
+  flex-shrink: 0;
+  margin: 1px ${({ theme }) => theme.spacing.s4} 0 0;
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    margin: 0 0 ${({ theme }) => theme.spacing.s3} 0;
+  }
 `;
 
 export const TextHighlight = styled.span`
@@ -32,7 +51,12 @@ export const ListItem = styled.li`
 export const CodeContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: ${({ theme }) => theme.spacing.s3};
+  padding: ${({ theme }) =>
+    `0 ${theme.spacing.s5} ${theme.spacing.s5} ${rem("60px")}`};
   border-radius: 4px;
   overflow: hidden;
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    padding-left: ${({ theme }) => theme.spacing.s5};
+  }
 `;

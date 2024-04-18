@@ -25,12 +25,15 @@ export const Box = styled.div<BoxProps>`
   ${compose(layout, space, flexbox)};
 `;
 
-export const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+export const Row = styled.div`
+  display: flex;
   gap: ${({ theme }) => theme.spacing.s5};
 
   @media screen and ${({ theme }) => theme.device.max.lg} {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
+`;
+
+export const Column = styled.div`
+  flex: 1 0 0;
 `;
