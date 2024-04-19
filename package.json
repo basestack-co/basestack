@@ -18,6 +18,7 @@
     "prepare": "is-ci || npx husky install",
     "precommit": "yarn format && yarn lint && yarn test && lint-staged",
     "commit": "git-cz",
+    "changelog:denerate": "npx changelogen@latest",
     "update:packages": "yarn upgrade-interactive --latest",
     "dev:packages": "turbo run dev --filter=./packages/*",
     "build:packages": "turbo run build --filter=./packages/*",
