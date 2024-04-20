@@ -10,28 +10,32 @@ import { trpc } from "libs/trpc";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
-import { InputGroup } from "@basestack/design-system";
+import { Input } from "@basestack/design-system";
+// Types
+import { Role } from "@prisma/client";
 // Toast
 import { toast } from "sonner";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
 export const FormSchema = z.object({
-  url: z.string().url().optional().or(z.literal("")),
+  name: z
+    .string()
+    .max(30, "security.honeypot.inputs.name.error.max")
+    .min(1, "general.honeypot.inputs.name.error.min"),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
-  webhookUrl?: string;
+  honeypot?: string;
 }
 
-const FormWebHookUrlCard = ({ webhookUrl = "" }: Props) => {
+const FormHoneyPotCard = ({ honeypot }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
   const updateForm = trpc.form.update.useMutation();
-
   const { formId } = router.query as { formId: string };
 
   const {
@@ -43,22 +47,15 @@ const FormWebHookUrlCard = ({ webhookUrl = "" }: Props) => {
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
-    defaultValues: {
-      url: "",
-    },
   });
 
-  const watchUrl = watch("url");
-
-  useEffect(() => {
-    setValue("url", webhookUrl);
-  }, [webhookUrl, setValue]);
+  const inputName = watch("name");
 
   const onSave: SubmitHandler<FormInputs> = async (input) => {
     updateForm.mutate(
       {
         formId,
-        webhookUrl: input.url,
+        honeypot: input.name,
       },
       {
         onSuccess: (result) => {
@@ -85,34 +82,37 @@ const FormWebHookUrlCard = ({ webhookUrl = "" }: Props) => {
     );
   };
 
+  useEffect(() => {
+    if (honeypot) {
+      setValue("name", honeypot!);
+    }
+  }, [honeypot, setValue]);
+
   return (
     <SettingCard
-      title={t("general.webhook-url.title")}
-      description={t("general.webhook-url.description")}
-      button={t("general.webhook-url.action")!}
+      title={t("security.honeypot.title")}
+      description={t("security.honeypot.description")}
+      button={t("security.honeypot.action")!}
       onClick={handleSubmit(onSave)}
-      isDisabled={isSubmitting || watchUrl === webhookUrl || !!errors.url}
+      isDisabled={isSubmitting || honeypot === inputName || !!errors.name}
       isLoading={isSubmitting}
+      text={t("security.honeypot.text")}
       hasFooter
     >
       <Controller
-        name="url"
+        name="name"
         control={control}
         defaultValue=""
         render={({ field }) => (
-          <InputGroup
-            hint={t(errors.url?.message!)}
-            inputProps={{
-              type: "text",
-              name: field.name,
-              value: field.value as string,
-              onChange: field.onChange,
-              onBlur: field.onBlur,
-              placeholder: t("general.webhook-url.inputs.name.placeholder"),
-              hasError: !!errors.url,
-              maxWidth: 560,
-              isDisabled: isSubmitting,
-            }}
+          <Input
+            maxWidth={400}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            placeholder={t("security.honeypot.inputs.name.placeholder")}
+            name={field.name}
+            value={field.value}
+            hasError={!!errors.name}
+            isDisabled={isSubmitting}
           />
         )}
       />
@@ -120,4 +120,4 @@ const FormWebHookUrlCard = ({ webhookUrl = "" }: Props) => {
   );
 };
 
-export default FormWebHookUrlCard;
+export default FormHoneyPotCard;

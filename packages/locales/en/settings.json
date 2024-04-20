@@ -172,6 +172,24 @@
       "toast": {
         "success": "IP block rules updated successfully"
       }
+    },
+    "honeypot": {
+      "title": "Honeypot",
+      "description": "If this field is present in the submission data, it will be ignored, and an error will be returned.",
+      "text": "A Honeypot field is a hidden field that is added to a form to catch bots without the user knowing.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter a field name",
+          "error": {
+            "min": "Required field",
+            "max": "Must be 30 characters or less"
+          }
+        }
+      },
+      "toast": {
+        "success": "Honeypot updated successfully"
+      }
     }
   },
   "customization": {

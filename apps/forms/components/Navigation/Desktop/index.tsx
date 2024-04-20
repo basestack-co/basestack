@@ -143,7 +143,9 @@ const DesktopNavigation = ({
               darkModeText={t("dropdown.dark-mode")}
               isDarkMode={isDarkMode}
               onSetDarkMode={setIsDarkMode}
-              list={getAvatarDropdownList(t, router)}
+              list={getAvatarDropdownList(t, router, () =>
+                setCreateFormModalOpen({ isOpen: true }),
+              )}
             />
           </ListItem>
         </List>

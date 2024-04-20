@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useMemo } from "react";
+import React, { useEffect, useCallback } from "react";
 // Router
 import { useRouter } from "next/router";
 // Form
@@ -10,7 +10,7 @@ import { trpc } from "libs/trpc";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
-import { Input, Label, IconButton, InputGroup } from "@basestack/design-system";
+import { Label, IconButton, InputGroup } from "@basestack/design-system";
 // Toast
 import { toast } from "sonner";
 // Locales
@@ -19,7 +19,7 @@ import useTranslation from "next-translate/useTranslation";
 import { TagsContainer } from "./styles";
 
 export const FormSchema = z.object({
-  email: z.string().email(),
+  email: z.string().email().optional().or(z.literal("")),
   emails: z.array(z.string()),
 });
 
@@ -39,7 +39,7 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
 
   const {
     control,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     setValue,
     watch,
     setError,
@@ -47,16 +47,14 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
     resolver: zodResolver(FormSchema),
     mode: "onChange",
     delayError: 250,
+    defaultValues: {
+      email: "",
+      emails: [],
+    },
   });
 
   const emailsValues = watch("emails");
   const emailValue = watch("email");
-
-  const isUpdateButtonDisabled = useMemo(
-    () => !emails || !emailsValues || emails === emailsValues.join(","),
-
-    [emails, emailsValues],
-  );
 
   useEffect(() => {
     if (emails) {
@@ -127,8 +125,7 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
       description={t("notifications.emails.description")}
       button={t("notifications.emails.action")!}
       onClick={onSave}
-      isDisabled={isSubmitting || isUpdateButtonDisabled}
-      isLoading={isSubmitting}
+      isDisabled={emails === emailsValues.join(",")}
       text={t("notifications.emails.text")}
       hasFooter
     >
@@ -143,12 +140,11 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
               inputProps={{
                 type: "email",
                 name: field.name,
-                value: field.value,
+                value: field.value as string,
                 onChange: field.onChange,
                 onBlur: field.onBlur,
                 placeholder: t("notifications.emails.inputs.name.placeholder"),
                 hasError: !!errors.email,
-                isDisabled: isSubmitting,
                 onKeyDown: onHandleKeyDown,
                 maxWidth: 400,
               }}

@@ -112,7 +112,7 @@ const FormNameCard = ({ role, name }: Props) => {
       description={t("general.form.description")}
       button={t("general.form.action")!}
       onClick={handleSubmit(onSaveFormName)}
-      isDisabled={isSubmitting || name === inputName}
+      isDisabled={isSubmitting || name === inputName || !!errors.name}
       isLoading={isSubmitting}
       hasFooter={isAdmin}
     >

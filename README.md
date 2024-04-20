@@ -9,9 +9,10 @@
 
 #### Tools
 
-- ⛳ Feature Flags (Beta) [Docs](https://docs.basestack.co/feature-flags) | [Website](https://basestack.co/)
-- 📄 Forms (Planned)
+- ⛳ Feature Flags (In Progress) [Docs](https://docs.basestack.co/feature-flags) | [Website](https://basestack.co/)
+- 📄 Forms (In Progress)
 - 💬 Feedback (Planned)
+- ⏳ UpTime (Planned)
 
 ## Getting started with Feature Flags
 

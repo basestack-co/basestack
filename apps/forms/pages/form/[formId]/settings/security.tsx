@@ -11,6 +11,7 @@ import {
 } from "components/FormSettings/styles";
 import FormSpamProtection from "components/FormSettings/FormSpamProtection";
 import FormIpRules from "components/FormSettings/FormIpRules";
+import FormHoneyPot from "components/FormSettings/FormHoneyPot";
 // Server
 import { trpc } from "libs/trpc";
 
@@ -30,6 +31,11 @@ const SecuritySettingsPage = () => {
       <CardListItem>
         <SettingCardContainer>
           <FormIpRules blockIpAddresses={form?.blockIpAddresses ?? ""} />
+        </SettingCardContainer>
+      </CardListItem>
+      <CardListItem>
+        <SettingCardContainer>
+          <FormHoneyPot honeypot={form?.honeypot ?? ""} />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>
