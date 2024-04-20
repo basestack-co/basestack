@@ -190,6 +190,20 @@
       "toast": {
         "success": "Honeypot updated successfully"
       }
+    },
+    "websites": {
+      "title": "Websites",
+      "description": "Add websites to restrict form submissions to only those originating from the specified URLs.",
+      "text": "Press Enter to add a website in the input field. Example: https://www.example.com",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter a website URL"
+        }
+      },
+      "toast": {
+        "success": "Websites updated successfully"
+      }
     }
   },
   "customization": {

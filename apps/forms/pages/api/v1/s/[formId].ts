@@ -4,12 +4,14 @@ import formidable from "formidable";
 import requestIp from "request-ip";
 import Cors from "cors";
 import { withCors } from "@basestack/utils";
+import superjson from "superjson";
 // import { z } from "zod";
 // Prisma
 import prisma from "libs/prisma";
 
 const defaultSuccessUrl = "/form/status/success";
 const defaultErrorUrl = "/form/status/error";
+const defaultDisabledUrl = "/form/status/disabled";
 
 export enum FormMode {
   REST = "rest",
@@ -128,6 +130,7 @@ const getFormOnUser = async (formId: string, referer: string) => {
           honeypot: true,
           blockIpAddresses: true,
           emails: true,
+          websites: true,
         },
       },
       user: {
@@ -157,6 +160,7 @@ const verifyForm = async (
   formId: string,
   referer: string,
   mode: string,
+  metadata: { ip: string | null },
 ) => {
   // If there is no formId in the request, throw an error
   if (!formId) {
@@ -187,9 +191,44 @@ const verifyForm = async (
     );
   }
 
-  // TODO: check here block IP addresses from the user form
+  if (form?.isEnabled) {
+    if (!!form.websites) {
+      const websites = form.websites.split(",");
+      const isValid = websites.some((website) => referer.includes(website));
 
-  // TODO: check here for valid website urls from the user
+      if (!isValid) {
+        handleError(
+          res,
+          {
+            code: 403,
+            url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
+            message: "Error: The website is not allowed to submit the form",
+          },
+          mode,
+          referer,
+        );
+      }
+    }
+
+    if (!!form.blockIpAddresses && metadata?.ip) {
+      const blockIpAddresses = form.blockIpAddresses.split(",");
+      const isBlocked = blockIpAddresses.some((ip) => ip === metadata.ip);
+
+      if (isBlocked) {
+        handleError(
+          res,
+          {
+            code: 403,
+            url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
+            message:
+              "Error: Your IP address is blocked from submitting the form",
+          },
+          mode,
+          referer,
+        );
+      }
+    }
+  }
 
   return form;
 };
@@ -198,9 +237,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     const referer = req.headers.referer || "/";
     const { formId, mode } = req.query as { formId: string; mode: string };
+    const metadata = getMetadata(req);
 
     try {
-      const form = await verifyForm(res, formId, referer, mode);
+      const form = await verifyForm(res, formId, referer, mode, metadata);
 
       if (form?.isEnabled) {
         const data = await formatFormData(
@@ -217,7 +257,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             data: {
               formId,
               data,
-              metadata: getMetadata(req),
+              metadata,
             },
           });
         }
@@ -235,20 +275,34 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         if (!!form.emails) {
           console.log("Send email to the form owner with background job");
         }
+
+        const queryString = form.hasDataQueryString
+          ? `&data=${encodeURI(superjson.stringify(data))}`
+          : "";
+
+        const successUrl = `${form?.successUrl}?goBackUrl=${form?.redirectUrl}${queryString}`;
+
+        return mode === FormMode.REST
+          ? res.status(200).json({
+              code: 200,
+              success: true,
+              message: "Your form has been submitted successfully!",
+              url: successUrl,
+            })
+          : res.redirect(307, successUrl);
+      } else {
+        return handleError(
+          res,
+          {
+            code: 409,
+            url: `${form?.errorUrl}?goBackUrl=${form?.redirectUrl}`,
+            message:
+              "Error: The form is disabled and not able to accept submissions.",
+          },
+          mode,
+          referer,
+        );
       }
-
-      // TODO: check here if the user has hasDataQueryString enabled to pass the data to the successUrl
-
-      const successUrl = `${form?.successUrl}?goBackUrl=${form?.redirectUrl}`;
-
-      return mode === FormMode.REST
-        ? res.status(200).json({
-            code: 200,
-            success: true,
-            message: "Your form has been submitted successfully!",
-            url: successUrl,
-          })
-        : res.redirect(307, successUrl);
     } catch (error: any) {
       return handleError(res, error, mode, referer);
     }
