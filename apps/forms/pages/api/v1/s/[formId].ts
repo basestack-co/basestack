@@ -11,7 +11,6 @@ import prisma from "libs/prisma";
 
 const defaultSuccessUrl = "/form/status/success";
 const defaultErrorUrl = "/form/status/error";
-const defaultDisabledUrl = "/form/status/disabled";
 
 export enum FormMode {
   REST = "rest",
@@ -75,6 +74,8 @@ const formatFormData = async (
       mode,
       referer,
     );
+
+    return null;
   }
 
   // TODO: check here for the custom honeypot field
@@ -97,6 +98,8 @@ const formatFormData = async (
       mode,
       referer,
     );
+
+    return null;
   }
 
   return data;
@@ -173,6 +176,7 @@ const verifyForm = async (
       mode,
       referer,
     );
+    return;
   }
 
   const form = await getFormOnUser(formId, referer);
@@ -189,6 +193,7 @@ const verifyForm = async (
       mode,
       referer,
     );
+    return;
   }
 
   if (form?.isEnabled) {
@@ -207,6 +212,8 @@ const verifyForm = async (
           mode,
           referer,
         );
+
+        return;
       }
     }
 
@@ -226,6 +233,7 @@ const verifyForm = async (
           mode,
           referer,
         );
+        return;
       }
     }
   }
@@ -252,44 +260,46 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           mode,
         );
 
-        if (form?.hasRetention) {
-          await prisma.submission.create({
-            data: {
-              formId,
-              data,
-              metadata,
-            },
-          });
+        if (data) {
+          if (form?.hasRetention) {
+            await prisma.submission.create({
+              data: {
+                formId,
+                data,
+                metadata,
+              },
+            });
+          }
+
+          if (!!form.webhookUrl) {
+            console.log("Trigger the webhook background job");
+          }
+
+          if (form.hasSpamProtection) {
+            console.log(
+              "Check if the form has spam protection with the background job",
+            );
+          }
+
+          if (!!form.emails) {
+            console.log("Send email to the form owner with background job");
+          }
+
+          const queryString = form.hasDataQueryString
+            ? `&data=${encodeURI(superjson.stringify(data))}`
+            : "";
+
+          const successUrl = `${form?.successUrl}?goBackUrl=${form?.redirectUrl}${queryString}`;
+
+          return mode === FormMode.REST
+            ? res.status(200).json({
+                code: 200,
+                success: true,
+                message: "Your form has been submitted successfully!",
+                url: successUrl,
+              })
+            : res.redirect(307, successUrl);
         }
-
-        if (!!form.webhookUrl) {
-          console.log("Trigger the webhook background job");
-        }
-
-        if (form.hasSpamProtection) {
-          console.log(
-            "Check if the form has spam protection with the background job",
-          );
-        }
-
-        if (!!form.emails) {
-          console.log("Send email to the form owner with background job");
-        }
-
-        const queryString = form.hasDataQueryString
-          ? `&data=${encodeURI(superjson.stringify(data))}`
-          : "";
-
-        const successUrl = `${form?.successUrl}?goBackUrl=${form?.redirectUrl}${queryString}`;
-
-        return mode === FormMode.REST
-          ? res.status(200).json({
-              code: 200,
-              success: true,
-              message: "Your form has been submitted successfully!",
-              url: successUrl,
-            })
-          : res.redirect(307, successUrl);
       } else {
         return handleError(
           res,

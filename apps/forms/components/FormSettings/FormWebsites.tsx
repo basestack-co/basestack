@@ -143,9 +143,7 @@ const FormWebsitesCard = ({ websites = "" }: Props) => {
                 value: field.value as string,
                 onChange: field.onChange,
                 onBlur: field.onBlur,
-                placeholder: t(
-                  "security.websites.inputs.name.placeholder",
-                ),
+                placeholder: t("security.websites.inputs.name.placeholder"),
                 hasError: !!errors.website,
                 onKeyDown: onHandleKeyDown,
                 maxWidth: 400,
