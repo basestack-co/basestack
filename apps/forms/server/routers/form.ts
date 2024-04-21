@@ -128,6 +128,7 @@ export const formRouter = router({
               blockIpAddresses: true,
               emails: true,
               honeypot: true,
+              websites: true,
             },
           },
         },
@@ -201,6 +202,7 @@ export const formRouter = router({
           emails: z.string().nullable().default(null),
           redirectUrl: z.string().nullable().default(null),
           honeypot: z.string().nullable().default(null),
+          websites: z.string().nullable().default(null),
         })
         .required(),
     )

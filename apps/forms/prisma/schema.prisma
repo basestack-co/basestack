@@ -94,6 +94,7 @@ model Form {
   rules              Json?         @default("{}") @db.Json
   emails             String?
   blockIpAddresses   String?
+  websites           String?
   successUrl         String?       @db.VarChar(2183)
   errorUrl           String?       @db.VarChar(2183)
   webhookUrl         String?       @db.VarChar(2183)
