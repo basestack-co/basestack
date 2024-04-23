@@ -5,6 +5,8 @@ import { Role } from "@prisma/client";
 // Utils
 import { z } from "zod";
 import { withRoles } from "@basestack/utils";
+// Jobs
+import { triggerClient, TriggerEventName } from "libs/trigger";
 
 export const formRouter = router({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -153,7 +155,7 @@ export const formRouter = router({
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
-      return await ctx.prisma.$transaction(async (tx) => {
+      const response = await ctx.prisma.$transaction(async (tx) => {
         const form = await tx.form.create({
           data: {
             name: input.name,
@@ -181,6 +183,17 @@ export const formRouter = router({
 
         return { form, connection };
       });
+
+      // Trigger a job this is just an example delete this after we have real jobs
+      await triggerClient.sendEvent({
+        name: TriggerEventName.SEND_EMAIL,
+        payload: {
+          to: "demo@vitoramaral.co",
+          subject: "New form created",
+        },
+      });
+
+      return response;
     }),
   update: protectedProcedure
     .meta({
