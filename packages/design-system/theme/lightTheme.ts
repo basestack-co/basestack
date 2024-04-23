@@ -241,12 +241,20 @@ const iconButton = {
 
 const label = {
   solid: {
+    danger: {
+      color: colors.white,
+      backgroundColor: colors.red400,
+    },
+    warning: {
+      color: colors.black,
+      backgroundColor: colors.yellow400,
+    },
     success: {
       color: colors.white,
       backgroundColor: colors.green400,
     },
     default: {
-      color: colors.gray600,
+      color: colors.black,
       backgroundColor: colors.gray200,
     },
     info: {
@@ -255,6 +263,14 @@ const label = {
     },
   },
   translucent: {
+    danger: {
+      color: colors.red600,
+      backgroundColor: transparentize(0.9, colors.red400),
+    },
+    warning: {
+      color: colors.yellow700,
+      backgroundColor: transparentize(0.8, colors.yellow400),
+    },
     success: {
       color: colors.green600,
       backgroundColor: transparentize(0.9, colors.green400),
@@ -264,7 +280,7 @@ const label = {
       backgroundColor: transparentize(0.9, colors.gray400),
     },
     info: {
-      color: colors.blue500,
+      color: colors.blue600,
       backgroundColor: transparentize(0.9, colors.blue400),
     },
   },
@@ -431,6 +447,9 @@ const checkbox = {
   checked: {
     icon: colors.white,
     backgroundColor: colors.black,
+    border: colors.black,
+  },
+  button: {
     border: colors.black,
   },
 };

@@ -30,6 +30,7 @@ exports[`Skeleton tests should render Skeleton correctly 1`] = `
   margin-bottom: 0.625rem;
   margin-right: 0rem;
   margin-left: 0rem;
+  margin-top: 0rem;
   border-radius: 0.375rem;
   flex-shrink: initial;
 }
@@ -43,6 +44,7 @@ exports[`Skeleton tests should render Skeleton correctly 1`] = `
   margin-bottom: 0.625rem;
   margin-right: 0rem;
   margin-left: 0rem;
+  margin-top: 0rem;
   border-radius: 0.375rem;
   flex-shrink: initial;
 }
@@ -56,6 +58,7 @@ exports[`Skeleton tests should render Skeleton correctly 1`] = `
   margin-bottom: 0rem;
   margin-right: 0rem;
   margin-left: 0rem;
+  margin-top: 0rem;
   border-radius: 0.375rem;
   flex-shrink: initial;
 }

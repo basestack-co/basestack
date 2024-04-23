@@ -40,6 +40,13 @@
         "title": "Key"
       }
     },
+    "form-key": {
+      "title": "Form ID",
+      "description": "Here is your form ID, which you can use to integrate and access the features in your websites.",
+      "copy": {
+        "title": "ID"
+      }
+    },
     "keys": {
       "title": "API Keys",
       "description": "API keys are used with the SDKs, such as JavaScript, React, etc.",
@@ -126,7 +133,7 @@
     "emails": {
       "title": "Emails",
       "description": "Send submission notifications to these email addresses.",
-      "text": "Separate multiple Emails with a comma.",
+      "text": "Press Enter to add an email in the input field.",
       "action": "Update",
       "inputs": {
         "name": {
@@ -152,7 +159,7 @@
     "ip-block-rules": {
       "title": "IP Block Rules",
       "description": "List IP addresses to block; Basestack Forms will reject messages from those addresses.",
-      "text": "Separate multiple IP addresses with a comma.",
+      "text": "Press Enter to add an IP address in the input field.",
       "action": "Update",
       "inputs": {
         "name": {
@@ -164,6 +171,38 @@
       },
       "toast": {
         "success": "IP block rules updated successfully"
+      }
+    },
+    "honeypot": {
+      "title": "Honeypot",
+      "description": "If this field is present in the submission data, it will be ignored, and an error will be returned.",
+      "text": "A Honeypot field is a hidden field that is added to a form to catch bots without the user knowing.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter a field name",
+          "error": {
+            "min": "Required field",
+            "max": "Must be 30 characters or less"
+          }
+        }
+      },
+      "toast": {
+        "success": "Honeypot updated successfully"
+      }
+    },
+    "websites": {
+      "title": "Websites",
+      "description": "Add websites to restrict form submissions to only those originating from the specified URLs.",
+      "text": "Press Enter to add a website in the input field. Example: https://www.example.com",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter a website URL"
+        }
+      },
+      "toast": {
+        "success": "Websites updated successfully"
       }
     }
   },

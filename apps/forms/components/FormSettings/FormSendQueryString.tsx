@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 // Server
 import { trpc } from "libs/trpc";
 // UI
-import { CardVariant } from "@basestack/design-system";
+// import { CardVariant } from "@basestack/design-system";
 import { SwitchSettingCard } from "@basestack/ui";
 // Toast
 import { toast } from "sonner";
@@ -54,7 +54,7 @@ const FormSendQueryStringCard = ({ hasDataQueryString = false }: Props) => {
         },
       );
     },
-    [trpcUtils, formId, updateForm],
+    [trpcUtils, formId, updateForm, t],
   );
 
   return (
@@ -63,9 +63,9 @@ const FormSendQueryStringCard = ({ hasDataQueryString = false }: Props) => {
       description={t("customization.data-query-string.description")}
       checked={hasDataQueryString}
       onChange={onChange}
-      variant={CardVariant.PRIMARY}
-      hasOverlay
-      label="Upgrade to Pro"
+      // variant={CardVariant.PRIMARY}
+      // hasOverlay
+      // label="Upgrade to Pro"
     />
   );
 };

@@ -1,0 +1,69 @@
+{
+  "seo": {
+    "title": "Forms"
+  },
+  "page": {
+    "title": "Forms"
+  },
+  "toolbar": {
+    "search": {
+      "placeholder": "Filter by keyword"
+    },
+    "action": {
+      "select-all": "Select all",
+      "un-select-all": "Unselect all",
+      "mark-spam": "Mark as Spam",
+      "unmark-spam": "Unmark Spam",
+      "read-submissions": "Read Submissions",
+      "un-read-submissions": "Un-Read Submissions",
+      "delete-all": "Delete all",
+      "export": "Export"
+    },
+    "filter": {
+      "placeholder": "Filters",
+      "is-spam": "is Spam",
+      "is-not-spam": "is not Spam"
+    },
+    "sort": {
+      "placeholder": "Sort",
+      "newest": "Newest (default)",
+      "oldest": "Oldest"
+    }
+  },
+  "submission": {
+    "empty": {
+      "title": "No Submissions Found",
+      "description": "No submissions have been found for this form."
+    },
+    "label": {
+      "new": "New",
+      "spam": "Spam"
+    },
+    "action": {
+      "read-submission": "Read Submission",
+      "un-read-submission": "Un-Read Submission",
+      "mark-spam": "Mark as Spam",
+      "unmark-spam": "Unmark Spam",
+      "delete": "Delete"
+    },
+    "event": {
+      "delete": {
+        "error": "Submission could not be deleted.",
+        "loading": "Deleting...",
+        "success_one": "Submission has been deleted successfully.",
+        "success_other": "Submissions have been deleted successfully."
+      },
+      "update": {
+        "error": "Submission could not be updated.",
+        "loading": "Updating...",
+        "success_one": "Submission has been updated successfully.",
+        "success_other": "Submissions have been updated successfully."
+      },
+      "export": {
+        "error": "Submissions could not be exported.",
+        "loading": "Exporting...",
+        "success": "Submissions have been exported successfully."
+      }
+    }
+  }
+}

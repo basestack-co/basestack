@@ -10,14 +10,14 @@ import { trpc } from "libs/trpc";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
-import { Input, CardVariant } from "@basestack/design-system";
+import { CardVariant, InputGroup } from "@basestack/design-system";
 // Toast
 import { toast } from "sonner";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
 export const FormSchema = z.object({
-  url: z.string(),
+  url: z.string().url().optional().or(z.literal("")),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
@@ -43,14 +43,15 @@ const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
+    defaultValues: {
+      url: "",
+    },
   });
 
   const watchUrl = watch("url");
 
   useEffect(() => {
-    if (redirectUrl) {
-      setValue("url", redirectUrl);
-    }
+    setValue("url", redirectUrl);
   }, [redirectUrl, setValue]);
 
   const onSave: SubmitHandler<FormInputs> = async (input) => {
@@ -84,8 +85,7 @@ const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
     );
   };
 
-  const isBlocked = true;
-
+  const isBlocked = false;
   const cardProps = isBlocked
     ? {
         button: "Upgrade",
@@ -95,10 +95,10 @@ const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
         label: "Upgrade to Pro",
       }
     : {
-        button: t("customization.redirect-url.title"),
-        onClick: () => handleSubmit(onSave),
+        button: t("customization.success-url.action"),
+        onClick: handleSubmit(onSave),
         isLoading: isSubmitting,
-        isDisabled: isSubmitting || watchUrl === redirectUrl,
+        isDisabled: isSubmitting || watchUrl === redirectUrl || !!errors.url,
       };
 
   return (
@@ -112,17 +112,21 @@ const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
         control={control}
         defaultValue=""
         render={({ field }) => (
-          <Input
-            maxWidth={560}
-            onChange={field.onChange}
-            onBlur={field.onBlur}
-            placeholder={t(
-              "customization.redirect-url.inputs.name.placeholder",
-            )}
-            name={field.name}
-            value={field.value}
-            hasError={!!errors.url}
-            isDisabled={isSubmitting}
+          <InputGroup
+            hint={t(errors.url?.message!)}
+            inputProps={{
+              type: "text",
+              name: field.name,
+              value: field.value as string,
+              onChange: field.onChange,
+              onBlur: field.onBlur,
+              placeholder: t(
+                "customization.redirect-url.inputs.name.placeholder",
+              ),
+              hasError: !!errors.url,
+              maxWidth: 560,
+              isDisabled: isSubmitting,
+            }}
           />
         )}
       />

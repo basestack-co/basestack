@@ -57,7 +57,7 @@ const Avatar = ({
         alt={alt}
         src={
           src ||
-          `https://api.dicebear.com/7.x/initials/svg?seed=${userName}&size=${imageSize}&fontSize=40`
+          `https://api.dicebear.com/8.x/initials/svg?seed=${userName}&size=${imageSize}&fontSize=40`
         }
       />
     </Container>

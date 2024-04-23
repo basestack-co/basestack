@@ -5,17 +5,26 @@ export type Data = Array<{
   description: string;
 }>;
 
-export interface FormSubmissionProps {
+export interface Props {
   date: string;
   data: Data;
+  viewed?: boolean;
+  isSpam?: boolean;
+  onDelete: () => void;
+  onMarkSpam: () => void;
+  onReadSubmission: () => void;
+  isActionsDisabled?: boolean;
 }
 
-export interface FormSubmissionHeaderProps {
+export interface FormSubmissionProps extends Props {
+  onSelect: (value: boolean) => void;
+  isSelected: boolean;
+}
+
+export interface FormSubmissionHeaderProps extends Props {
   isOpen: boolean;
   checkbox: CheckboxProps;
   onClick: () => void;
-  date: string;
-  data: Data;
 }
 
 export interface FormSubmissionBodyProps {

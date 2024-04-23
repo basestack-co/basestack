@@ -10,14 +10,14 @@ import { trpc } from "libs/trpc";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
-import { Input } from "@basestack/design-system";
+import { InputGroup } from "@basestack/design-system";
 // Toast
 import { toast } from "sonner";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
 export const FormSchema = z.object({
-  url: z.string(),
+  url: z.string().url().optional().or(z.literal("")),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
@@ -43,14 +43,15 @@ const FormFailedUrlCard = ({ errorUrl = "" }: Props) => {
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
+    defaultValues: {
+      url: "",
+    },
   });
 
   const watchUrl = watch("url");
 
   useEffect(() => {
-    if (errorUrl) {
-      setValue("url", errorUrl);
-    }
+    setValue("url", errorUrl);
   }, [errorUrl, setValue]);
 
   const onSave: SubmitHandler<FormInputs> = async (input) => {
@@ -90,7 +91,7 @@ const FormFailedUrlCard = ({ errorUrl = "" }: Props) => {
       description={t("customization.failed-url.description")}
       button={t("customization.failed-url.action")!}
       onClick={handleSubmit(onSave)}
-      isDisabled={isSubmitting || watchUrl === errorUrl}
+      isDisabled={isSubmitting || watchUrl === errorUrl || !!errors.url}
       isLoading={isSubmitting}
       hasFooter
     >
@@ -99,15 +100,21 @@ const FormFailedUrlCard = ({ errorUrl = "" }: Props) => {
         control={control}
         defaultValue=""
         render={({ field }) => (
-          <Input
-            maxWidth={560}
-            onChange={field.onChange}
-            onBlur={field.onBlur}
-            placeholder={t("customization.failed-url.inputs.name.placeholder")}
-            name={field.name}
-            value={field.value}
-            hasError={!!errors.url}
-            isDisabled={isSubmitting}
+          <InputGroup
+            hint={t(errors.url?.message!)}
+            inputProps={{
+              type: "text",
+              name: field.name,
+              value: field.value as string,
+              onChange: field.onChange,
+              onBlur: field.onBlur,
+              placeholder: t(
+                "customization.failed-url.inputs.name.placeholder",
+              ),
+              hasError: !!errors.url,
+              maxWidth: 560,
+              isDisabled: isSubmitting,
+            }}
           />
         )}
       />

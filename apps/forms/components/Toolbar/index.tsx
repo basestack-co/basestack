@@ -1,13 +1,30 @@
-import React, { useState } from "react";
-import { Button, ButtonVariant, Input } from "@basestack/design-system";
+import React, { useState, useEffect } from "react";
+// Locales
+import useTranslation from "next-translate/useTranslation";
+// Hooks
+import { useDebounce } from "react-use";
+// Components
+import {
+  Button,
+  ButtonVariant,
+  Input,
+  Checkbox,
+} from "@basestack/design-system";
+import PopupMenu from "./PopupMenu";
+// Styles
 import { LeftContent, Container, Wrapper, RightList, ListItem } from "./styles";
+// Types
 import {
   ButtonSharedProps,
   ToolbarProps,
   SelectedFilter,
   SelectedSort,
 } from "./types";
-import PopupMenu from "./PopupMenu";
+
+const buttonProps = {
+  variant: ButtonVariant.Tertiary,
+  iconPlacement: "left",
+} as ButtonSharedProps;
 
 const Toolbar = ({
   onSelectAll,
@@ -19,15 +36,28 @@ const Toolbar = ({
   onExport,
   onSelectFilter,
   onSelectSort,
+  onSearchCallback,
+  isSubmitting,
+  isLoading,
+  isActionDisabled,
+  isSelectAllEnabled,
+  isExportDisabled,
+  isDisabled,
+  formId,
 }: ToolbarProps) => {
+  const { t } = useTranslation("forms");
   const [searchValue, setSearchValue] = useState("");
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
   const [selectedSort, setSelectedSort] = useState<string | null>(null);
 
-  const buttonProps = {
-    variant: ButtonVariant.Tertiary,
-    iconPlacement: "left",
-  } as ButtonSharedProps;
+  useDebounce(() => onSearchCallback(searchValue), 500, [searchValue]);
+
+  useEffect(() => {
+    if (formId) {
+      setSelectedFilter(null);
+      setSelectedSort(null);
+    }
+  }, [formId]);
 
   return (
     <Container>
@@ -40,116 +70,139 @@ const Toolbar = ({
             isDarker
             icon="search"
             iconPlacement="left"
-            placeholder="Search submissions"
+            placeholder={t("toolbar.search.placeholder")}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               setSearchValue(event.target.value)
             }
             name="search"
             value={searchValue}
+            isDisabled={isDisabled}
           />
         </LeftContent>
         <RightList>
           <ListItem>
-            <Button
-              {...buttonProps}
-              icon="check_box_outline_blank"
-              onClick={onSelectAll}
-              flexShrink={0}
-            >
-              Select all
-            </Button>
+            <Checkbox
+              onChange={onSelectAll}
+              checked={isSelectAllEnabled ?? false}
+              label={t(
+                isSelectAllEnabled
+                  ? "toolbar.action.un-select-all"
+                  : "toolbar.action.select-all",
+              )}
+              variant="button"
+              disabled={isDisabled}
+            />
           </ListItem>
           <PopupMenu
             width={200}
             icon="arrow_drop_down"
             openIcon="arrow_drop_up"
             text="Actions"
+            isDisabled={isDisabled}
             items={[
-              { icon: "report", text: "Mark as Spam", onClick: onMarkSpamAll },
+              {
+                icon: "report",
+                text: t("toolbar.action.mark-spam"),
+                onClick: onMarkSpamAll,
+                isDisabled: isSubmitting || isLoading || isActionDisabled,
+              },
               {
                 icon: "report_off",
-                text: "Unmark Spam",
+                text: t("toolbar.action.unmark-spam"),
                 onClick: onUnMarkSpamAll,
+                isDisabled: isSubmitting || isLoading || isActionDisabled,
               },
               {
                 icon: "mark_email_read",
-                text: "Read Submissions",
+                text: t("toolbar.action.read-submissions"),
                 onClick: onReadSubmissions,
+                isDisabled: isSubmitting || isLoading || isActionDisabled,
               },
               {
                 icon: "mark_email_unread",
-                text: "Un-Read Submissions",
+                text: t("toolbar.action.un-read-submissions"),
                 onClick: onUnReadSubmissions,
+                isDisabled: isSubmitting || isLoading || isActionDisabled,
               },
               {
                 icon: "delete",
                 variant: ButtonVariant.Danger,
-                text: "Delete all",
+                text: t("toolbar.action.delete-all"),
                 onClick: onDeleteAll,
+                isDisabled: isSubmitting || isLoading || isActionDisabled,
               },
             ]}
           />
           <PopupMenu
             icon="filter_list"
-            text={selectedFilter || "Filters"}
+            text={selectedFilter || t("toolbar.filter.placeholder")}
+            isDisabled={isDisabled}
             items={[
               {
-                text: "Recent",
+                text: t("toolbar.filter.is-spam"),
                 onClick: () => {
-                  onSelectFilter(SelectedFilter.RECENT);
-                  setSelectedFilter("Recent");
+                  onSelectFilter(SelectedFilter.IS_SPAM);
+                  setSelectedFilter(t("toolbar.filter.is-spam"));
                 },
+                isDisabled: isSubmitting || isLoading,
               },
               {
-                text: "Last month",
+                text: t("toolbar.filter.is-not-spam"),
                 onClick: () => {
-                  onSelectFilter(SelectedFilter.LASTMONTH);
-                  setSelectedFilter("Last month");
+                  onSelectFilter(SelectedFilter.IS_NOT_SPAM);
+                  setSelectedFilter(t("toolbar.filter.is-not-spam"));
                 },
-              },
-              {
-                text: "Deleted",
-                onClick: () => {
-                  onSelectFilter(SelectedFilter.DELETED);
-                  setSelectedFilter("Deleted");
-                },
+                isDisabled: isSubmitting || isLoading,
               },
             ]}
             {...(selectedFilter
-              ? { onClear: () => setSelectedFilter(null) }
+              ? {
+                  onClear: () => {
+                    onSelectFilter(null);
+                    setSelectedFilter(null);
+                  },
+                }
               : {})}
           />
           <PopupMenu
             icon="swap_vert"
-            text={selectedSort || "Sort"}
+            text={selectedSort || t("toolbar.sort.placeholder")}
+            isDisabled={isDisabled}
             items={[
               {
-                text: "Spam first",
+                text: t("toolbar.sort.newest"),
                 onClick: () => {
-                  onSelectSort(SelectedSort.SPAM);
-                  setSelectedSort("Spam first");
+                  onSelectSort(SelectedSort.NEWEST);
+                  setSelectedSort(t("toolbar.sort.newest"));
                 },
+                isDisabled: isSubmitting || isLoading,
               },
               {
-                text: "Read first",
+                text: t("toolbar.sort.oldest"),
                 onClick: () => {
-                  onSelectSort(SelectedSort.READ);
-                  setSelectedSort("Read first");
+                  onSelectSort(SelectedSort.OLDEST);
+                  setSelectedSort(t("toolbar.sort.oldest"));
                 },
-              },
-              {
-                text: "Un-Read first",
-                onClick: () => {
-                  onSelectSort(SelectedSort.UNREAD);
-                  setSelectedSort("Un-Read first");
-                },
+                isDisabled: isSubmitting || isLoading,
               },
             ]}
-            {...(selectedSort ? { onClear: () => setSelectedSort(null) } : {})}
+            {...(selectedSort
+              ? {
+                  onClear: () => {
+                    onSelectSort(null);
+                    setSelectedSort(null);
+                  },
+                }
+              : {})}
           />
           <ListItem>
-            <Button {...buttonProps} icon="download" onClick={onExport}>
-              Export
+            <Button
+              {...buttonProps}
+              icon="download"
+              onClick={onExport}
+              isDisabled={isExportDisabled || isDisabled}
+            >
+              {t("toolbar.action.export")}
             </Button>
           </ListItem>
         </RightList>

@@ -59,20 +59,33 @@ export const formRouter = router({
 
       return await Promise.all(
         forms.map(async (form) => {
-          const _count = await tx.submission.count({
+          const _all = await tx.submission.count({
             where: {
               formId: form.id,
             },
-            select: {
-              _all: true,
-              viewed: true,
+          });
+
+          const _spam = await tx.submission.count({
+            where: {
+              formId: form.id,
               isSpam: true,
+            },
+          });
+
+          const _viewed = await tx.submission.count({
+            where: {
+              formId: form.id,
+              viewed: true,
             },
           });
 
           return {
             ...form,
-            _count,
+            _count: {
+              spam: _spam,
+              unread: _all - _viewed,
+              read: _viewed,
+            },
           };
         }),
       );
@@ -114,6 +127,8 @@ export const formRouter = router({
               webhookUrl: true,
               blockIpAddresses: true,
               emails: true,
+              honeypot: true,
+              websites: true,
             },
           },
         },
@@ -186,6 +201,8 @@ export const formRouter = router({
           webhookUrl: z.string().nullable().default(null),
           emails: z.string().nullable().default(null),
           redirectUrl: z.string().nullable().default(null),
+          honeypot: z.string().nullable().default(null),
+          websites: z.string().nullable().default(null),
         })
         .required(),
     )

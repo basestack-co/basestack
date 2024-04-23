@@ -79,6 +79,14 @@
       "dependsOn": ["lint", "@basestack/utils#build"],
       "outputs": ["out/**", ".next/**"],
       "env": ["NEXT_PUBLIC_UMAMI_WEBSITE_ID"]
+    },
+    "@basestack/feature-flags#start": {
+      "dependsOn": [],
+      "outputs": ["dist/**", ".next/**"]
+    },
+    "@basestack/forms#start": {
+      "dependsOn": [],
+      "outputs": ["dist/**", ".next/**"]
     }
   },
   "globalEnv": [

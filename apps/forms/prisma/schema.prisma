@@ -87,12 +87,14 @@ model Form {
   type               FormType      @default(STATIC)
   isEnabled          Boolean       @default(true)
   hasRetention       Boolean       @default(true)
-  hasSpamProtection  Boolean       @default(false)
+  hasSpamProtection  Boolean       @default(true)
   hasDataQueryString Boolean       @default(false)
+  honeypot           String?       @default("_trap") @db.VarChar(30)
   redirectUrl        String?       @db.VarChar(2183)
   rules              Json?         @default("{}") @db.Json
   emails             String?
   blockIpAddresses   String?
+  websites           String?
   successUrl         String?       @db.VarChar(2183)
   errorUrl           String?       @db.VarChar(2183)
   webhookUrl         String?       @db.VarChar(2183)
@@ -122,8 +124,8 @@ model FormOnUsers {
 model Submission {
   id        String   @id() @unique() @default(cuid())
   formId    String
-  isSpam    Boolean?
-  viewed    Boolean?
+  isSpam    Boolean? @default(false)
+  viewed    Boolean? @default(false)
   data      Json     @default("{}") @db.Json
   metadata  Json?    @default("{}") @db.Json
   createdAt DateTime @default(now())

@@ -26,8 +26,8 @@ export {
   type IconBoxColor,
   type IconBoxVariant,
 } from "./components/IconBox";
-export { default as Checkbox, type CheckboxProps } from "./components/Checkbox";
-
+export { default as Checkbox } from "./components/Checkbox";
+export { type CheckboxProps } from "./components/Checkbox/types";
 // Medium Components
 export {
   default as Pagination,
