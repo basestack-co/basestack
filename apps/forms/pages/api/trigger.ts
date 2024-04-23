@@ -1,8 +1,10 @@
 import { createPagesRoute } from "@trigger.dev/nextjs";
 import { triggerClient } from "libs/trigger";
 
-import "jobs";
+import "libs/trigger/jobs";
 
+//uncomment this to set a higher max duration (it must be inside your plan limits).
+// Full docs: https://vercel.com/docs/functions/serverless-functions/runtimes#max-duration
 //export const config = {
 //  maxDuration: 60,
 //};

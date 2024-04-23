@@ -6,7 +6,7 @@ import { Role } from "@prisma/client";
 import { z } from "zod";
 import { withRoles } from "@basestack/utils";
 // Jobs
-import { triggerClient, TriggerEventName } from "libs/trigger";
+// import { triggerClient, TriggerEventName } from "libs/trigger";
 
 export const formRouter = router({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -185,13 +185,13 @@ export const formRouter = router({
       });
 
       // Trigger a job this is just an example delete this after we have real jobs
-      await triggerClient.sendEvent({
+     /* await triggerClient.sendEvent({
         name: TriggerEventName.SEND_EMAIL,
         payload: {
           to: "demo@vitoramaral.co",
           subject: "New form created",
         },
-      });
+      }); */
 
       return response;
     }),

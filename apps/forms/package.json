@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3003",
-    "trigger:dev": "npx @trigger.dev/cli@latest dev --port 3003 --client-id basestack-forms-rUeL",
+    "dev:trigger": "npx @trigger.dev/cli@latest dev --port 3003 --client-id basestack-forms-rUeL",
     "build": "prisma generate && yarn db:migrate:dev && next build",
     "build:deploy": "prisma generate && yarn db:migrate:prod && next build",
     "build:proxy": "prisma generate --data-proxy && yarn db:migrate:proxy && next build",
@@ -99,5 +99,8 @@
     "prisma": "^5.12.1",
     "turbo": "1.13.2",
     "typescript": "^5.4.5"
+  },
+  "trigger.dev": {
+    "endpointId": "basestack-forms-rUeL"
   }
 }
