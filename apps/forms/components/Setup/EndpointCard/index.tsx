@@ -1,21 +1,24 @@
 import React from "react";
 import { rem } from "polished";
 import { useTheme } from "styled-components";
+// Locales
+import useTranslation from "next-translate/useTranslation";
+// Components
 import { Text, Input, IconButton } from "@basestack/design-system";
 import { Container, InputContainer, TextContainer } from "./styles";
 
 const EndpointCard = () => {
   const theme = useTheme();
+  const { t } = useTranslation("forms");
 
   return (
     <Container>
       <TextContainer>
         <Text mb={theme.spacing.s1} size="large">
-          Your Form Endpoint
+          {t("setup.card.endpoint.title")}
         </Text>
         <Text size="small" muted>
-          This is the unique API URL for your form, you will be sending your
-          form data to this URL.
+          {t("setup.card.endpoint.description")}
         </Text>
       </TextContainer>
       <InputContainer>

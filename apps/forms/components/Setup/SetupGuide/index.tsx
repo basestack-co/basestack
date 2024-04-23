@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Code
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import {
@@ -20,19 +22,28 @@ SyntaxHighlighter.registerLanguage("typescript", ts);
 const SetupGuide = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(0);
   const theme = useTheme();
+  const { t } = useTranslation("forms");
+
+  const parseDescription = useCallback((description: string) => {
+    const parts = description.split(/\[(.*?)\]/).filter(Boolean);
+
+    return parts.map((part: string, index: number) => ({
+      text: part.trim(),
+      highlight: index % 2 === 1,
+    }));
+  }, []);
 
   return (
     <Card p={theme.spacing.s5}>
       <Text mb={theme.spacing.s1} size="large">
-        Setup guide
+        {t("setup.card.guide.title")}
       </Text>
       <Text size="small" muted>
-        Follow our step by step examples to build and collect form submissions
-        from your front-end code
+        {t("setup.card.guide.description")}
       </Text>
 
       <Text mt={theme.spacing.s5} mb={theme.spacing.s3} size="large">
-        Select your platform
+        {t("setup.card.guide.platform")}
       </Text>
       <List>
         {data.map(({ id, text }, index) => (
@@ -46,35 +57,20 @@ const SetupGuide = () => {
           </ListItem>
         ))}
       </List>
-
       <Step
         step={1}
-        title="Change your form action attribute to your endpoint"
-        description={[
-          { text: "Set your form action to" },
-          { text: "https://basestack/s/23dre5", highlight: true },
-          { text: "and method to" },
-          { text: "Post", highlight: true },
-        ]}
+        title={t("setup.card.guide.step1.title")}
+        description={parseDescription(t("setup.card.guide.step1.description"))}
       />
-
       <Step
         step={2}
-        title="Give a name attribute to each form field"
-        description={[
-          {
-            text: "Inputs, textareas, checkboxes, radios all form elements need to have a form attribute like",
-          },
-          { text: `name="example"`, highlight: true },
-        ]}
+        title={t("setup.card.guide.step2.title")}
+        description={parseDescription(t("setup.card.guide.step2.description"))}
       />
-
       <Step
         step={3}
-        title="Your form is ready"
-        description={[
-          { text: "Try the code below to send some test submission." },
-        ]}
+        title={t("setup.card.guide.step3.title")}
+        description={parseDescription(t("setup.card.guide.step3.description"))}
       >
         <CodeContainer>
           {/* @ts-ignore */}

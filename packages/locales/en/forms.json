@@ -65,5 +65,31 @@
         "success": "Submissions have been exported successfully."
       }
     }
+  },
+  "setup": {
+    "card": {
+      "endpoint": {
+        "title": "Your Form Endpoint",
+        "description": "This is the unique API URL for your form, you will be sending your form data to this URL."
+      },
+
+      "guide": {
+        "title": "Setup guide",
+        "description": "Follow our step by step examples to build and collect form submissions from your front-end code",
+        "platform": "Select your platform",
+        "step1": {
+          "title": "Change your form action attribute to your endpoint",
+          "description": "Set your form action to [https://basestack/s/23dre5] and method to [Post]"
+        },
+        "step2": {
+          "title": "Give a name attribute to each form field",
+          "description": "Inputs, textareas, checkboxes, radios all form elements need to have a form attribute like [name=\"example\"]"
+        },
+        "step3": {
+          "title": "Your form is ready",
+          "description": "Try the code below to send some test submission."
+        }
+      }
+    }
   }
 }
