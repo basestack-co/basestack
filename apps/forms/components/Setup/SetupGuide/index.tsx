@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 // Code
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import { a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import {
+  a11yLight,
+  a11yDark,
+} from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
 // Theme
 import { useTheme } from "styled-components";
@@ -75,7 +78,11 @@ const SetupGuide = () => {
       >
         <CodeContainer>
           {/* @ts-ignore */}
-          <SyntaxHighlighter language="html" style={a11yLight} wrapLongLines>
+          <SyntaxHighlighter
+            language="html"
+            style={theme.isDarkMode ? a11yDark : a11yLight}
+            wrapLongLines
+          >
             {htmlCode}
           </SyntaxHighlighter>
         </CodeContainer>
