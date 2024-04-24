@@ -113,22 +113,10 @@ export const formRouter = router({
         select: {
           role: true,
           form: {
-            select: {
-              id: true,
-              name: true,
-              type: true,
-              isEnabled: true,
-              hasRetention: true,
-              hasSpamProtection: true,
-              hasDataQueryString: true,
-              redirectUrl: true,
-              successUrl: true,
-              errorUrl: true,
-              webhookUrl: true,
-              blockIpAddresses: true,
-              emails: true,
-              honeypot: true,
-              websites: true,
+            omit: {
+              createdAt: true,
+              updatedAt: true,
+              rules: true,
             },
           },
         },
@@ -153,7 +141,7 @@ export const formRouter = router({
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
-      const response = await ctx.prisma.$transaction(async (tx) => {
+      return await ctx.prisma.$transaction(async (tx) => {
         const form = await tx.form.create({
           data: {
             name: input.name,
@@ -181,8 +169,6 @@ export const formRouter = router({
 
         return { form, connection };
       });
-
-      return response;
     }),
   update: protectedProcedure
     .meta({

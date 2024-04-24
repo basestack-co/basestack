@@ -11,7 +11,6 @@ triggerClient.defineJob({
     name: TriggerEventName.SEND_DATA_TO_EXTERNAL_WEBHOOK,
     schema: z.object({
       url: z.string().url(),
-      //headers: z.record(z.string()),
       body: z.any(),
     }),
   }),
