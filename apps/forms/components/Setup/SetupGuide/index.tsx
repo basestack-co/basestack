@@ -59,18 +59,23 @@ const SetupGuide = () => {
       </List>
       <Step
         step={1}
-        title={t("setup.card.guide.step1.title")}
-        description={parseDescription(t("setup.card.guide.step1.description"))}
+        title={t("setup.card.guide.step-1.title")}
+        description={parseDescription(
+          t("setup.card.guide.step-1.description", {
+            url: "https://basestack/s/23dre5",
+            method: "POST",
+          }),
+        )}
       />
       <Step
         step={2}
-        title={t("setup.card.guide.step2.title")}
-        description={parseDescription(t("setup.card.guide.step2.description"))}
+        title={t("setup.card.guide.step-2.title")}
+        description={parseDescription(t("setup.card.guide.step-2.description"))}
       />
       <Step
         step={3}
-        title={t("setup.card.guide.step3.title")}
-        description={parseDescription(t("setup.card.guide.step3.description"))}
+        title={t("setup.card.guide.step-3.title")}
+        description={parseDescription(t("setup.card.guide.step-3.description"))}
       >
         <CodeContainer>
           {/* @ts-ignore */}

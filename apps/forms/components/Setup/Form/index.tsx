@@ -1,5 +1,8 @@
 import React from "react";
 import { useTheme } from "styled-components";
+// Locales
+import useTranslation from "next-translate/useTranslation";
+// Components
 import {
   Text,
   Card,
@@ -10,21 +13,21 @@ import {
 
 const Form = () => {
   const theme = useTheme();
+  const { t } = useTranslation("forms");
 
   return (
     <Card p={theme.spacing.s5}>
-      <Text size="large">Create form for demo</Text>
+      <Text size="large"> {t("setup.card.form.title")}</Text>
       <Text size="small" muted mb={theme.spacing.s5}>
-        Follow our step by step examples to build and collect form submissions
-        from your front-end code
+        {t("setup.card.form.description")}
       </Text>
 
       <form action="">
         <InputGroup
-          title="Full Name"
+          title={t("setup.card.form.inputs.name.title")}
           inputProps={{
             name: "name",
-            placeholder: "Your first and last name",
+            placeholder: t("setup.card.form.inputs.name.placeholder"),
             value: "",
             onChange: () => null,
           }}
@@ -32,10 +35,10 @@ const Form = () => {
         />
 
         <InputGroup
-          title="Your Email Address"
+          title={t("setup.card.form.inputs.email.title")}
           inputProps={{
             name: "email",
-            placeholder: "john@doe.com",
+            placeholder: t("setup.card.form.inputs.email.placeholder"),
             value: "",
             onChange: () => null,
           }}
@@ -43,11 +46,11 @@ const Form = () => {
         />
 
         <InputGroup
-          title="Your message"
+          title={t("setup.card.form.inputs.message.title")}
           textarea
           textareaProps={{
             name: "message",
-            placeholder: "Enter your message...",
+            placeholder: t("setup.card.form.inputs.message.placeholder"),
             value: "",
             onChange: () => null,
           }}
@@ -60,7 +63,7 @@ const Form = () => {
           justifyContent="center"
           variant={ButtonVariant.Primary}
         >
-          Submit
+          {t("setup.card.form.submit")}
         </Button>
       </form>
     </Card>

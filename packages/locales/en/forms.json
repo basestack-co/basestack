@@ -72,23 +72,45 @@
         "title": "Your Form Endpoint",
         "description": "This is the unique API URL for your form, you will be sending your form data to this URL."
       },
-
       "guide": {
         "title": "Setup guide",
         "description": "Follow our step by step examples to build and collect form submissions from your front-end code",
         "platform": "Select your platform",
-        "step1": {
+        "step-1": {
           "title": "Change your form action attribute to your endpoint",
-          "description": "Set your form action to [https://basestack/s/23dre5] and method to [Post]"
+          "description": "Set your form action to [{{url}}] and method to [{{method}}]"
         },
-        "step2": {
+        "step-2": {
           "title": "Give a name attribute to each form field",
           "description": "Inputs, textareas, checkboxes, radios all form elements need to have a form attribute like [name=\"example\"]"
         },
-        "step3": {
+        "step-3": {
           "title": "Your form is ready",
           "description": "Try the code below to send some test submission."
         }
+      },
+      "form": {
+        "title": "Form for Demo",
+        "description": "This form will send submission to your url to see if it works.",
+        "inputs": {
+          "name": {
+            "title": "Full Name",
+            "placeholder": "Your first and last name"
+          },
+          "email": {
+            "title": "Your Email Address",
+            "placeholder": "john@doe.com"
+          },
+          "message": {
+            "title": "Your message",
+            "placeholder": "Enter your message..."
+          }
+        },
+        "submit": "Submit"
+      },
+      "support": {
+        "title": "Documentation, Help and Support",
+        "description": "Integrate Form into your Product using the official SDKs. Discover the available libraries."
       }
     }
   }

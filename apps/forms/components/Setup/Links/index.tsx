@@ -1,12 +1,20 @@
 import React from "react";
 import { useTheme } from "styled-components";
+// Locales
+import useTranslation from "next-translate/useTranslation";
+// Components
 import { Text, Card, HorizontalRule } from "@basestack/design-system";
 import { rem } from "polished";
 import { Link, List, ListItem } from "./styles";
 
-const Item = ({ text = "" }) => (
+interface ItemProps {
+  text: string;
+  href: string;
+}
+
+const Item = ({ text, href }: ItemProps) => (
   <ListItem>
-    <Link href="" target="_blank" rel="noopener noreferrer">
+    <Link href={href} target="_blank" rel="noopener noreferrer">
       <Text size="small" muted lineHeight={rem("24px")}>
         {text}
       </Text>
@@ -15,28 +23,28 @@ const Item = ({ text = "" }) => (
 );
 const Links = () => {
   const theme = useTheme();
+  const { t } = useTranslation("forms");
 
   return (
     <Card mt={theme.spacing.s5} p={theme.spacing.s5}>
-      <Text size="large">Create form for demo</Text>
+      <Text size="large">{t("setup.card.support.title")}</Text>
       <Text size="small" muted>
-        Follow our step by step examples to build and collect form submissions
-        from your front-end code
+        {t("setup.card.support.description")}
       </Text>
       <HorizontalRule my={theme.spacing.s5} />
       <List>
-        <Item text="File Upload" />
-        <Item text="Dropzone File Upload" />
-        <Item text="Disable Button on Submit" />
-        <Item text="Google ReCaptcha" />
-        <Item text="Trunstile" />
-        <Item text="Reset Fields" />
-        <Item text="Loading Button" />
-        <Item text="Signature" />
-        <Item text="Toast" />
-        <Item text="Basic Demo" />
-        <Item text="Form Validation" />
-        <Item text="Basic File Upload" />
+        <Item text="File Upload" href="" />
+        <Item text="Dropzone File Upload" href="" />
+        <Item text="Disable Button on Submit" href="" />
+        <Item text="Google ReCaptcha" href="" />
+        <Item text="Trunstile" href="" />
+        <Item text="Reset Fields" href="" />
+        <Item text="Loading Button" href="" />
+        <Item text="Signature" href="" />
+        <Item text="Toast" href="" />
+        <Item text="Basic Demo" href="" />
+        <Item text="Form Validation" href="" />
+        <Item text="Basic File Upload" href="" />
       </List>
     </Card>
   );
