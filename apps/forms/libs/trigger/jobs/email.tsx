@@ -1,3 +1,4 @@
+import React from "react";
 import { eventTrigger } from "@trigger.dev/sdk";
 import { triggerClient, TriggerEventName } from "libs/trigger";
 // Email
@@ -6,6 +7,10 @@ import { render } from "@react-email/render";
 // Utils
 import { z } from "zod";
 
+const template: { [key: string]: React.ElementType } = {
+  "new-submission": EmailTemplate,
+};
+
 triggerClient.defineJob({
   id: "send-email",
   name: "Send email",
@@ -13,8 +18,9 @@ triggerClient.defineJob({
   trigger: eventTrigger({
     name: TriggerEventName.SEND_EMAIL,
     schema: z.object({
-      to: z.string(),
+      to: z.array(z.string().email()),
       subject: z.string(),
+      template: z.string(),
     }),
   }),
   run: async (payload, io, ctx) => {
@@ -25,14 +31,20 @@ triggerClient.defineJob({
     await io.runTask(
       "send-email",
       async () => {
-        await sendEmail({
-          html: render(<EmailTemplate />),
-          options: {
-            subject: payload.subject,
-            from: process.env.EMAIL_FROM!,
-            to: payload.to,
-          },
-        });
+        const Template = template[payload.template];
+
+        await Promise.all(
+          payload.to.map(async (email) => {
+            await sendEmail({
+              html: render(<Template />),
+              options: {
+                subject: payload.subject,
+                from: process.env.EMAIL_FROM!,
+                to: email,
+              },
+            });
+          }),
+        );
       },
 
       { name: "Send Email" },

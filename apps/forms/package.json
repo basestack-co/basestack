@@ -37,7 +37,7 @@
     "@emotion/is-prop-valid": "^1.2.2",
     "@hookform/resolvers": "^3.3.4",
     "@next-auth/prisma-adapter": "^1.0.4",
-    "@prisma/client": "^5.12.1",
+    "@prisma/client": "^5.13.0",
     "@react-email/render": "^0.0.12",
     "@tanstack/react-query": "^4.36.1",
     "@trigger.dev/nextjs": "^2.3.18",
@@ -66,7 +66,7 @@
     "sonner": "^1.4.41",
     "styled-components": "^6.1.8",
     "styled-system": "^5.1.5",
-    "stylis": "^4.3.1",
+    "stylis": "^4.3.2",
     "superjson": "^2.2.1",
     "uuid": "^9.0.1",
     "zod": "^3.22.5",
@@ -76,7 +76,7 @@
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
     "@testing-library/jest-dom": "^6.4.2",
-    "@testing-library/react": "^15.0.2",
+    "@testing-library/react": "^15.0.4",
     "@testing-library/react-hooks": "^8.0.1",
     "@types/cors": "^2.8.17",
     "@types/formidable": "^3.4.5",
@@ -96,11 +96,8 @@
     "lint-staged": "^15.2.2",
     "next-translate-plugin": "^2.6.2",
     "node-mocks-http": "^1.14.1",
-    "prisma": "^5.12.1",
+    "prisma": "^5.13.0",
     "turbo": "1.13.2",
     "typescript": "^5.4.5"
-  },
-  "trigger.dev": {
-    "endpointId": "basestack-forms-rUeL"
   }
 }

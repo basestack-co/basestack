@@ -4,10 +4,11 @@ import formidable from "formidable";
 import requestIp from "request-ip";
 import Cors from "cors";
 import { withCors } from "@basestack/utils";
-import superjson from "superjson";
 // import { z } from "zod";
 // Prisma
 import prisma from "libs/prisma";
+// Jobs
+import { triggerClient, TriggerEventName } from "libs/trigger";
 
 const defaultSuccessUrl = "/form/status/success";
 const defaultErrorUrl = "/form/status/error";
@@ -58,6 +59,7 @@ const formatFormData = async (
   redirectUrl: string,
   referer: string = "/",
   mode: string,
+  honeypot: string = "_trap",
 ) => {
   const f = formidable({});
   const [fields, files] = await f.parse(req);
@@ -78,9 +80,8 @@ const formatFormData = async (
     return null;
   }
 
-  // TODO: check here for the custom honeypot field
-
-  const { _trap, ...data } = Object.fromEntries(
+  // Extract data excluding the honeypot field
+  const { [honeypot]: _trap, ...data } = Object.fromEntries(
     Object.entries(fields).map(([key, value]) => [
       key,
       Array.isArray(value) ? value[0] : value,
@@ -110,6 +111,9 @@ const getMetadata = (req: NextApiRequest) => {
 
   return {
     ip,
+    referer: req.headers.referer || "/",
+    userAgent: req.headers["user-agent"] || "",
+    acceptLanguage: req.headers["accept-language"] || "",
   };
 };
 
@@ -120,28 +124,18 @@ const getFormOnUser = async (formId: string, referer: string) => {
     },
     select: {
       form: {
-        select: {
-          isEnabled: true,
-          hasRetention: true,
-          redirectUrl: true,
-          successUrl: true,
-          errorUrl: true,
-          webhookUrl: true,
+        omit: {
+          createdAt: true,
+          updatedAt: true,
+          id: true,
           rules: true,
-          hasSpamProtection: true,
-          hasDataQueryString: true,
-          honeypot: true,
-          blockIpAddresses: true,
-          emails: true,
-          websites: true,
         },
       },
-      user: {
+      /* user: {
         select: {
-          id: true,
           name: true,
         },
-      },
+      }, */
     },
   });
 
@@ -154,7 +148,7 @@ const getFormOnUser = async (formId: string, referer: string) => {
     redirectUrl: current?.form.redirectUrl || referer,
     successUrl: current?.form.successUrl || defaultSuccessUrl,
     errorUrl: current?.form.errorUrl || defaultErrorUrl,
-    user: current?.user,
+    // user: current?.user,
   };
 };
 
@@ -258,6 +252,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           form.redirectUrl,
           referer,
           mode,
+          form.honeypot ?? "",
         );
 
         if (data) {
@@ -272,7 +267,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           }
 
           if (!!form.webhookUrl) {
-            console.log("Trigger the webhook background job");
+            await triggerClient.sendEvent({
+              name: TriggerEventName.SEND_DATA_TO_EXTERNAL_WEBHOOK,
+              payload: {
+                url: form.webhookUrl,
+                body: {
+                  formId,
+                  name: form.name,
+                  data,
+                },
+              },
+            });
           }
 
           if (form.hasSpamProtection) {
@@ -282,11 +287,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           }
 
           if (!!form.emails) {
-            console.log("Send email to the form owner with background job");
+            await triggerClient.sendEvent({
+              name: TriggerEventName.SEND_EMAIL,
+              payload: {
+                template: "new-submission",
+                to: form.emails.split(",").map((email) => email.trim()),
+                subject: `New form submission received for ${form.name}`,
+              },
+            });
           }
 
           const queryString = form.hasDataQueryString
-            ? `&data=${encodeURI(superjson.stringify(data))}`
+            ? `&data=${encodeURI(JSON.stringify(data))}`
             : "";
 
           const successUrl = `${form?.successUrl}?goBackUrl=${form?.redirectUrl}${queryString}`;

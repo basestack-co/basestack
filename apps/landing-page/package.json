@@ -37,14 +37,14 @@
     "react-use": "^17.5.0",
     "styled-components": "^6.1.8",
     "styled-system": "^5.1.5",
-    "stylis": "^4.3.1",
+    "stylis": "^4.3.2",
     "zod": "^3.22.5"
   },
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
     "@testing-library/jest-dom": "^6.4.2",
-    "@testing-library/react": "^15.0.2",
+    "@testing-library/react": "^15.0.4",
     "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.7",
