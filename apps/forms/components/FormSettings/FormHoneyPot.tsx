@@ -51,6 +51,12 @@ const FormHoneyPotCard = ({ honeypot }: Props) => {
 
   const inputName = watch("name");
 
+  useEffect(() => {
+    if (honeypot) {
+      setValue("name", honeypot!);
+    }
+  }, [honeypot, setValue]);
+
   const onSave: SubmitHandler<FormInputs> = async (input) => {
     updateForm.mutate(
       {
@@ -68,12 +74,12 @@ const FormHoneyPotCard = ({ honeypot }: Props) => {
               { formId: result.form.id },
               {
                 ...cache,
-                webhookUrl: result.form.webhookUrl,
+                honeypot: result.form.honeypot,
               },
             );
           }
 
-          toast.success(t("general.webhook-url.toast.success"));
+          toast.success(t("security.honeypot.toast.success"));
         },
         onError: (error) => {
           toast.error(error.message);
@@ -81,12 +87,6 @@ const FormHoneyPotCard = ({ honeypot }: Props) => {
       },
     );
   };
-
-  useEffect(() => {
-    if (honeypot) {
-      setValue("name", honeypot!);
-    }
-  }, [honeypot, setValue]);
 
   return (
     <SettingCard

@@ -2,6 +2,7 @@ import type { NextAuthOptions } from "next-auth";
 // Providers
 import GitHubProvider from "next-auth/providers/github";
 import Auth0Provider from "next-auth/providers/auth0";
+import GoogleProvider from "next-auth/providers/google";
 // Adapters
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 // Libs
@@ -57,6 +58,29 @@ export const authOptions: NextAuthOptions = {
             clientId: process.env.AUTH0_CLIENT_ID,
             clientSecret: process.env.AUTH0_CLIENT_SECRET!,
             issuer: `https://${process.env.AUTH0_DOMAIN}`,
+            profile: (profile) => {
+              return {
+                id: profile.sub,
+                name: profile.name,
+                email: profile.email,
+                image: profile.picture,
+              };
+            },
+          }),
+        ]
+      : []),
+    ...(process.env.GOOGLE_CLIENT_ID
+      ? [
+          GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID!,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+            authorization: {
+              params: {
+                prompt: "consent",
+                access_type: "offline",
+                response_type: "code",
+              },
+            },
             profile: (profile) => {
               return {
                 id: profile.sub,
