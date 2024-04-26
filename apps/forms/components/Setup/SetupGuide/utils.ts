@@ -46,3 +46,12 @@ export const getHtmlDemoCode = (url: string) => `
     <button type="submit">Submit</button>
   </form>
  `;
+
+export const parseDescription = (description: string) => {
+  const parts = description.split(/\[(.*?)\]/).filter(Boolean);
+
+  return parts.map((part: string, index: number) => ({
+    text: part.trim(),
+    highlight: index % 2 === 1,
+  }));
+};

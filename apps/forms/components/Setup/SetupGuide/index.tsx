@@ -1,12 +1,8 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Code
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import {
-  a11yLight,
-  a11yDark,
-} from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
 // Theme
 import { useTheme } from "styled-components";
@@ -15,9 +11,16 @@ import { getBrowserUrl } from "@basestack/utils";
 // Components
 import { CodeLanguageCard } from "@basestack/ui";
 import { Text, Card } from "@basestack/design-system";
-import Step from "./Step";
-import { CodeContainer, List, ListItem } from "./styles";
-import { data, getHtmlDemoCode } from "./data";
+// Styles
+import { List, ListItem } from "./styles";
+// Utils
+import { data } from "./utils";
+// Steps
+import DefaultStep from "./DefaultStep";
+import JavascriptStep from "./JavascriptStep";
+import ReactStep from "./ReactStep";
+import VueStep from "./VueStep";
+import RestStep from "./RestStep";
 
 SyntaxHighlighter.registerLanguage("typescript", ts);
 
@@ -30,16 +33,7 @@ const SetupGuide = ({ formId }: Props) => {
   const theme = useTheme();
   const { t } = useTranslation("forms");
 
-  const url = `${getBrowserUrl()}/api/v1/s/${formId}`;
-
-  const parseDescription = useCallback((description: string) => {
-    const parts = description.split(/\[(.*?)\]/).filter(Boolean);
-
-    return parts.map((part: string, index: number) => ({
-      text: part.trim(),
-      highlight: index % 2 === 1,
-    }));
-  }, []);
+  const endpoint = `${getBrowserUrl()}/api/v1/s/${formId}`;
 
   return (
     <Card p={theme.spacing.s5}>
@@ -65,37 +59,8 @@ const SetupGuide = ({ formId }: Props) => {
           </ListItem>
         ))}
       </List>
-      <Step
-        step={1}
-        title={t("setup.card.guide.step-1.title")}
-        description={parseDescription(
-          t("setup.card.guide.step-1.description", {
-            url,
-            method: "POST",
-          }),
-        )}
-      />
-      <Step
-        step={2}
-        title={t("setup.card.guide.step-2.title")}
-        description={parseDescription(t("setup.card.guide.step-2.description"))}
-      />
-      <Step
-        step={3}
-        title={t("setup.card.guide.step-3.title")}
-        description={parseDescription(t("setup.card.guide.step-3.description"))}
-      >
-        <CodeContainer>
-          {/* @ts-ignore */}
-          <SyntaxHighlighter
-            language="html"
-            style={theme.isDarkMode ? a11yDark : a11yLight}
-            wrapLongLines
-          >
-            {getHtmlDemoCode(url)}
-          </SyntaxHighlighter>
-        </CodeContainer>
-      </Step>
+
+      <DefaultStep endpoint={endpoint} />
     </Card>
   );
 };

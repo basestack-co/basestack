@@ -84,17 +84,29 @@
         "title": "Setup Guide",
         "description": "Discover our detailed guide on how to build and collect form submissions using your front-end code.",
         "platform": "Select Your Library/Language",
-        "step-1": {
-          "title": "Update your form's action attribute to point to your endpoint.",
-          "description": "Configure your form action to [{{url}}] and method to [{{method}}]."
+        "html": {
+          "step-1": {
+            "title": "Update your form's action attribute to point to your endpoint.",
+            "description": "Configure your form action to [{{url}}] and method to [{{method}}]."
+          },
+          "step-2": {
+            "title": "Assign a name attribute to each form field.",
+            "description": "All form inputs, including textareas, checkboxes, and radios, should have a 'name' attribute specified, such as [name=\"example\"]."
+          },
+          "step-3": {
+            "title": "Your form is now set up.",
+            "description": "Feel free to use the code below to send a test submission."
+          }
         },
-        "step-2": {
-          "title": "Assign a name attribute to each form field.",
-          "description": "All form inputs, including textareas, checkboxes, and radios, should have a 'name' attribute specified, such as [name=\"example\"]."
-        },
-        "step-3": {
-          "title": "Your form is now set up.",
-          "description": "Feel free to use the code below to send a test submission."
+        "javascript": {
+          "step-1": {
+            "title": "Use fetch API to send form data to your endpoint.",
+            "description": "Ensure the mode on the query string is set to [{{mode}}] to retrieve the response in JSON format."
+          },
+          "step-3": {
+            "title": "Copy and try below.",
+            "description": "Feel free to use the code below to send a test submission."
+          }
         }
       },
       "form": {
