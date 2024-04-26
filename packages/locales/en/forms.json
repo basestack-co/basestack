@@ -1,6 +1,8 @@
 {
   "seo": {
-    "title": "Forms"
+    "title": "Forms",
+    "submissions": "Submissions",
+    "setup": "Setup"
   },
   "page": {
     "title": "Forms"
@@ -69,48 +71,62 @@
   "setup": {
     "card": {
       "endpoint": {
-        "title": "Your Form Endpoint",
-        "description": "This is the unique API URL for your form, you will be sending your form data to this URL."
+        "title": "Form Endpoint",
+        "description": "This URL is specific to your form's API. Send your form submissions here."
       },
       "guide": {
-        "title": "Setup guide",
-        "description": "Follow our step by step examples to build and collect form submissions from your front-end code",
-        "platform": "Select your platform",
+        "title": "Setup Guide",
+        "description": "Discover our detailed guide on how to build and collect form submissions using your front-end code.",
+        "platform": "Select Your Library/Language",
         "step-1": {
-          "title": "Change your form action attribute to your endpoint",
-          "description": "Set your form action to [{{url}}] and method to [{{method}}]"
+          "title": "Update your form's action attribute to point to your endpoint.",
+          "description": "Configure your form action to [{{url}}] and method to [{{method}}]."
         },
         "step-2": {
-          "title": "Give a name attribute to each form field",
-          "description": "Inputs, textareas, checkboxes, radios all form elements need to have a form attribute like [name=\"example\"]"
+          "title": "Assign a name attribute to each form field.",
+          "description": "All form elements, including inputs, textareas, checkboxes, and radios, should have a 'name' attribute specified, such as [name=\"example\"]."
         },
         "step-3": {
-          "title": "Your form is ready",
-          "description": "Try the code below to send some test submission."
+          "title": "Your form is now set up.",
+          "description": "Feel free to use the code below to send a test submission."
         }
       },
       "form": {
-        "title": "Form for Demo",
-        "description": "This form will send submission to your url to see if it works.",
+        "title": "Sample Form",
+        "description": "Try out this form to send submissions to your URL and review them in the submissions tab.",
         "inputs": {
           "name": {
-            "title": "Full Name",
-            "placeholder": "Your first and last name"
+            "title": "Name",
+            "placeholder": "Enter your name"
           },
           "email": {
-            "title": "Your Email Address",
-            "placeholder": "john@doe.com"
+            "title": "Email",
+            "placeholder": "Enter your email"
           },
           "message": {
-            "title": "Your message",
-            "placeholder": "Enter your message..."
+            "title": "Message",
+            "placeholder": "Enter your message"
           }
         },
         "submit": "Submit"
       },
       "support": {
-        "title": "Documentation, Help and Support",
-        "description": "Integrate Form into your Product using the official SDKs. Discover the available libraries."
+        "title": "Examples and Demos",
+        "description": "Explore the links below to view examples and demos of forms that you can use to test your endpoint.",
+        "link": {
+          "business-contact-form": "Business Contact Form",
+          "email-subscription-form": "Email Subscription Form",
+          "client-review-form": "Client Review Form",
+          "patient-details-form": "Patient Details Form",
+          "job-application-form": "Job Application Form",
+          "online-order-form": "Online Order Form",
+          "delivery-feedback-form": "Delivery Feedback Form",
+          "reunion-form": "Reunion Form",
+          "school-application": "School Application Form",
+          "workshop-registration-form": "Workshop Registration Form",
+          "software-request-form": "Software Request Form",
+          "product-review-form": "Product Review Form"
+        }
       }
     }
   }

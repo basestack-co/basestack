@@ -103,7 +103,10 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   return (
     <>
       <Head>
-        <title>{data?.name ?? "Form"} / Settings</title>
+        <title>
+          {data?.name ?? "Form"} / {t("settings:seo.setting.title")} /{" "}
+          {t(`settings:seo.setting.${activeLinkIndex}`)}
+        </title>
       </Head>
       <MainLayout>
         <Container>

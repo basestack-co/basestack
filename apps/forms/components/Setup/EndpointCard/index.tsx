@@ -5,9 +5,16 @@ import { useTheme } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
 // Components
 import { Text, Input, IconButton } from "@basestack/design-system";
+// Utils
+import { getBrowserUrl } from "@basestack/utils";
+// Styles
 import { Container, InputContainer, TextContainer } from "./styles";
 
-const EndpointCard = () => {
+export interface Props {
+  formId: string;
+}
+
+const EndpointCard = ({ formId }: Props) => {
   const theme = useTheme();
   const { t } = useTranslation("forms");
 
@@ -27,7 +34,7 @@ const EndpointCard = () => {
           placeholder=""
           name="url"
           onChange={() => null}
-          value="https://basestack/s/23dre5"
+          value={`${getBrowserUrl()}/api/v1/s/${formId}`}
           isDarker
         />
         <IconButton

@@ -10,19 +10,27 @@ import {
 import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
 // Theme
 import { useTheme } from "styled-components";
+// Utils
+import { getBrowserUrl } from "@basestack/utils";
 // Components
 import { CodeLanguageCard } from "@basestack/ui";
 import { Text, Card } from "@basestack/design-system";
 import Step from "./Step";
 import { CodeContainer, List, ListItem } from "./styles";
-import { data, htmlCode } from "./data";
+import { data, getHtmlDemoCode } from "./data";
 
 SyntaxHighlighter.registerLanguage("typescript", ts);
 
-const SetupGuide = () => {
+export interface Props {
+  formId: string;
+}
+
+const SetupGuide = ({ formId }: Props) => {
   const [selectedLanguage, setSelectedLanguage] = useState(0);
   const theme = useTheme();
   const { t } = useTranslation("forms");
+
+  const url = `${getBrowserUrl()}/api/v1/s/${formId}`;
 
   const parseDescription = useCallback((description: string) => {
     const parts = description.split(/\[(.*?)\]/).filter(Boolean);
@@ -62,7 +70,7 @@ const SetupGuide = () => {
         title={t("setup.card.guide.step-1.title")}
         description={parseDescription(
           t("setup.card.guide.step-1.description", {
-            url: "https://basestack/s/23dre5",
+            url,
             method: "POST",
           }),
         )}
@@ -84,7 +92,7 @@ const SetupGuide = () => {
             style={theme.isDarkMode ? a11yDark : a11yLight}
             wrapLongLines
           >
-            {htmlCode}
+            {getHtmlDemoCode(url)}
           </SyntaxHighlighter>
         </CodeContainer>
       </Step>

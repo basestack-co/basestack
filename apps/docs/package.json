@@ -12,12 +12,12 @@
   "license": "AGPL-3.0",
   "dependencies": {
     "@basestack/utils": "*",
-    "material-symbols": "^0.17.2",
-    "next": "^14.2.2",
+    "material-symbols": "^0.17.3",
+    "next": "^14.2.3",
     "nextra": "2.13.4",
     "nextra-theme-docs": "2.13.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
   },
   "devDependencies": {
     "@basestack/config": "*",

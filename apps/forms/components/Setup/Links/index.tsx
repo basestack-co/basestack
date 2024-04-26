@@ -21,6 +21,7 @@ const Item = ({ text, href }: ItemProps) => (
     </Link>
   </ListItem>
 );
+
 const Links = () => {
   const theme = useTheme();
   const { t } = useTranslation("forms");
@@ -33,18 +34,39 @@ const Links = () => {
       </Text>
       <HorizontalRule my={theme.spacing.s5} />
       <List>
-        <Item text="File Upload" href="" />
-        <Item text="Dropzone File Upload" href="" />
-        <Item text="Disable Button on Submit" href="" />
-        <Item text="Google ReCaptcha" href="" />
-        <Item text="Trunstile" href="" />
-        <Item text="Reset Fields" href="" />
-        <Item text="Loading Button" href="" />
-        <Item text="Signature" href="" />
-        <Item text="Toast" href="" />
-        <Item text="Basic Demo" href="" />
-        <Item text="Form Validation" href="" />
-        <Item text="Basic File Upload" href="" />
+        <Item
+          text={t("setup.card.support.link.business-contact-form")}
+          href=""
+        />
+        <Item
+          text={t("setup.card.support.link.email-subscription-form")}
+          href=""
+        />
+        <Item text={t("setup.card.support.link.client-review-form")} href="" />
+        <Item
+          text={t("setup.card.support.link.patient-details-form")}
+          href=""
+        />
+        <Item
+          text={t("setup.card.support.link.job-application-form")}
+          href=""
+        />
+        <Item text={t("setup.card.support.link.online-order-form")} href="" />
+        <Item
+          text={t("setup.card.support.link.delivery-feedback-form")}
+          href=""
+        />
+        <Item text={t("setup.card.support.link.reunion-form")} href="" />
+        <Item text={t("setup.card.support.link.school-application")} href="" />
+        <Item
+          text={t("setup.card.support.link.workshop-registration-form")}
+          href=""
+        />
+        <Item
+          text={t("setup.card.support.link.software-request-form")}
+          href=""
+        />
+        <Item text={t("setup.card.support.link.product-review-form")} href="" />
       </List>
     </Card>
   );
