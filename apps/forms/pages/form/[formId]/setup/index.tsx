@@ -46,7 +46,7 @@ const SetupPage = () => {
             <SetupGuide formId={formId ?? ""} />
           </Column>
           <Column>
-            <Form />
+            <Form formId={formId ?? ""} />
             <Links />
           </Column>
         </Row>

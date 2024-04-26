@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { rem } from "polished";
 import { useTheme } from "styled-components";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Components
-import { Text, Input, IconButton } from "@basestack/design-system";
+import {
+  Text,
+  Input,
+  IconButton,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@basestack/design-system";
 // Utils
 import { getBrowserUrl } from "@basestack/utils";
 // Styles
@@ -17,6 +24,9 @@ export interface Props {
 const EndpointCard = ({ formId }: Props) => {
   const theme = useTheme();
   const { t } = useTranslation("forms");
+  const [showTooltipSuccess, setShowTooltipSuccess] = useState(false);
+
+  const url = `${getBrowserUrl()}/api/v1/s/${formId}`;
 
   return (
     <Container>
@@ -34,17 +44,29 @@ const EndpointCard = ({ formId }: Props) => {
           placeholder=""
           name="url"
           onChange={() => null}
-          value={`${getBrowserUrl()}/api/v1/s/${formId}`}
+          value={url}
           isDarker
         />
-        <IconButton
-          position="absolute"
-          size="medium"
-          variant="secondaryDark"
-          right={rem("6px")}
-          icon="content_copy"
-          onClick={() => null}
-        />
+        <Tooltip placement="top">
+          <TooltipTrigger onMouseLeave={() => setShowTooltipSuccess(false)}>
+            <IconButton
+              position="absolute"
+              size="medium"
+              variant="secondaryDark"
+              right={rem("6px")}
+              icon="content_copy"
+              onClick={() => {
+                navigator.clipboard.writeText(url);
+                setShowTooltipSuccess(true);
+              }}
+            />
+          </TooltipTrigger>
+          <TooltipContent>
+            {showTooltipSuccess
+              ? t("setup.card.endpoint.copy.url.success")
+              : t("setup.card.endpoint.copy.url.default")}
+          </TooltipContent>
+        </Tooltip>
       </InputContainer>
     </Container>
   );
