@@ -14,7 +14,7 @@ import Step from "./Step";
 // Styles
 import { CodeContainer } from "./styles";
 // Utils
-import { parseDescription, getHtmlDemoCode } from "./utils";
+import { parseDescription, getJavascriptDemoCode } from "./utils";
 
 export interface Props {
   endpoint: string;
@@ -28,36 +28,28 @@ const JavascriptStep = ({ endpoint }: Props) => {
     <Fragment>
       <Step
         step={1}
-        title={t("setup.card.guide.html.step-1.title")}
+        title={t("setup.card.guide.javascript.step-1.title")}
         description={parseDescription(
-          t("setup.card.guide.html.step-1.description", {
-            url: endpoint,
-            method: "POST",
+          t("setup.card.guide.javascript.step-1.description", {
+            mode: "mode=rest",
           }),
         )}
       />
       <Step
         step={2}
-        title={t("setup.card.guide.html.step-2.title")}
+        title={t("setup.card.guide.javascript.step-2.title")}
         description={parseDescription(
-          t("setup.card.guide.html.step-2.description"),
-        )}
-      />
-      <Step
-        step={3}
-        title={t("setup.card.guide.html.step-3.title")}
-        description={parseDescription(
-          t("setup.card.guide.html.step-3.description"),
+          t("setup.card.guide.javascript.step-2.description"),
         )}
       >
         <CodeContainer>
           {/* @ts-ignore */}
           <SyntaxHighlighter
-            language="html"
+            language="javascript"
             style={theme.isDarkMode ? a11yDark : a11yLight}
             wrapLongLines
           >
-            {getHtmlDemoCode(endpoint)}
+            {getJavascriptDemoCode(endpoint)}
           </SyntaxHighlighter>
         </CodeContainer>
       </Step>

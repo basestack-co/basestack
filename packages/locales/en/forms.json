@@ -100,12 +100,42 @@
         },
         "javascript": {
           "step-1": {
-            "title": "Use fetch API to send form data to your endpoint.",
+            "title": "Send data using the fetch API in any JavaScript environment.",
             "description": "Ensure the mode on the query string is set to [{{mode}}] to retrieve the response in JSON format."
           },
-          "step-3": {
-            "title": "Copy and try below.",
+          "step-2": {
+            "title": "Copy and paste this into your JavaScript file.",
             "description": "Feel free to use the code below to send a test submission."
+          }
+        },
+        "react": {
+          "step-1": {
+            "title": "Use this on your React Project to send form data to your endpoint.",
+            "description": "Send data using the fetch API and ensure the mode on the query string is set to [{{mode}}] for retrieving the response in JSON format."
+          },
+          "step-2": {
+            "title": "Copy and paste this into your React component.",
+            "description": "Feel free to use the code below to send a test submission."
+          }
+        },
+        "vue": {
+          "step-1": {
+            "title": "Use this on your Vue Project to send form data to your endpoint.",
+            "description": "Send data using the fetch API and ensure the mode on the query string is set to [{{mode}}] for retrieving the response in JSON format."
+          },
+          "step-2": {
+            "title": "Copy and paste this into your Vue component.",
+            "description": "Feel free to use the code below to send a test submission."
+          }
+        },
+        "rest": {
+          "step-1": {
+            "title": "Use the CURL command to send form data to the endpoint.",
+            "description": "Ensure the mode is set to [{{mode}}] to retrieve the response in JSON format."
+          },
+          "step-2": {
+            "title": "Execute the following command in your terminal.",
+            "description": "You can use the CURL command below to send a test submission."
           }
         }
       },

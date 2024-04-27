@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Code
@@ -29,11 +29,24 @@ export interface Props {
 }
 
 const SetupGuide = ({ formId }: Props) => {
-  const [selectedLanguage, setSelectedLanguage] = useState(0);
+  const [step, setStep] = useState(0);
   const theme = useTheme();
   const { t } = useTranslation("forms");
 
-  const endpoint = `${getBrowserUrl()}/api/v1/s/${formId}`;
+  const onRenderStep = useCallback(() => {
+    const endpoint = `${getBrowserUrl()}/api/v1/s/${formId}`;
+    const props = { endpoint };
+
+    const steps: { [key: number]: React.ReactNode } = {
+      0: <DefaultStep {...props} />,
+      1: <JavascriptStep {...props} />,
+      2: <ReactStep {...props} />,
+      3: <VueStep {...props} />,
+      4: <RestStep {...props} />,
+    };
+
+    return steps[step];
+  }, [step, formId]);
 
   return (
     <Card p={theme.spacing.s5}>
@@ -53,14 +66,13 @@ const SetupGuide = ({ formId }: Props) => {
             <CodeLanguageCard
               text={text}
               icon={id}
-              onSelect={() => setSelectedLanguage(index)}
-              isSelected={selectedLanguage === index}
+              onSelect={() => setStep(index)}
+              isSelected={step === index}
             />
           </ListItem>
         ))}
       </List>
-
-      <DefaultStep endpoint={endpoint} />
+      {onRenderStep()}
     </Card>
   );
 };
