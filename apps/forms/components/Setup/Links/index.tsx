@@ -6,6 +6,8 @@ import useTranslation from "next-translate/useTranslation";
 import { Text, Card, HorizontalRule } from "@basestack/design-system";
 import { rem } from "polished";
 import { Link, List, ListItem } from "./styles";
+// Utils
+import { links } from "./utils";
 
 interface ItemProps {
   text: string;
@@ -34,39 +36,9 @@ const Links = () => {
       </Text>
       <HorizontalRule my={theme.spacing.s5} />
       <List>
-        <Item
-          text={t("setup.card.support.link.business-contact-form")}
-          href=""
-        />
-        <Item
-          text={t("setup.card.support.link.email-subscription-form")}
-          href=""
-        />
-        <Item text={t("setup.card.support.link.client-review-form")} href="" />
-        <Item
-          text={t("setup.card.support.link.patient-details-form")}
-          href=""
-        />
-        <Item
-          text={t("setup.card.support.link.job-application-form")}
-          href=""
-        />
-        <Item text={t("setup.card.support.link.online-order-form")} href="" />
-        <Item
-          text={t("setup.card.support.link.delivery-feedback-form")}
-          href=""
-        />
-        <Item text={t("setup.card.support.link.reunion-form")} href="" />
-        <Item text={t("setup.card.support.link.school-application")} href="" />
-        <Item
-          text={t("setup.card.support.link.workshop-registration-form")}
-          href=""
-        />
-        <Item
-          text={t("setup.card.support.link.software-request-form")}
-          href=""
-        />
-        <Item text={t("setup.card.support.link.product-review-form")} href="" />
+        {links.map(({ i18nKey, href }, index) => (
+          <Item key={`list-item-link-${index}`} text={t(i18nKey)} href={href} />
+        ))}
       </List>
     </Card>
   );
