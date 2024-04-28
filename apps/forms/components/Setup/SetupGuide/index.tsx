@@ -61,10 +61,10 @@ const SetupGuide = ({ formId }: Props) => {
         {t("setup.card.guide.platform")}
       </Text>
       <List>
-        {data.map(({ id, text }, index) => (
+        {data.map(({ id, i18nKey }, index) => (
           <ListItem key={id}>
             <CodeLanguageCard
-              text={text}
+              text={t(i18nKey)}
               icon={id}
               onSelect={() => setStep(index)}
               isSelected={step === index}

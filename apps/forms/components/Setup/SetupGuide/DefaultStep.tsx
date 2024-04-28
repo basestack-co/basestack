@@ -14,6 +14,7 @@ import Step from "./Step";
 // Styles
 import { CodeContainer } from "./styles";
 // Utils
+import { truncateString } from "@basestack/utils";
 import { parseDescription, getHtmlDemoCode } from "./utils";
 
 export interface Props {
@@ -31,7 +32,7 @@ const DefaultStep = ({ endpoint }: Props) => {
         title={t("setup.card.guide.html.step-1.title")}
         description={parseDescription(
           t("setup.card.guide.html.step-1.description", {
-            url: endpoint,
+            url: truncateString(endpoint, 50),
             method: "POST",
           }),
         )}

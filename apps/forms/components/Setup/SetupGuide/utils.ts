@@ -1,23 +1,23 @@
 export const data = [
   {
     id: "html",
-    text: "HTML",
+    i18nKey: "setup.card.library.html",
   },
   {
     id: "javascript",
-    text: "Javascript",
+    i18nKey: "setup.card.library.javascript",
   },
   {
     id: "react",
-    text: "React",
+    i18nKey: "setup.card.library.react",
   },
   {
     id: "vue",
-    text: "Vue",
+    i18nKey: "setup.card.library.vue",
   },
   {
     id: "rest",
-    text: "Rest API",
+    i18nKey: "setup.card.library.rest",
   },
 ];
 
@@ -164,36 +164,36 @@ export const getVueDemoCode = (url: string) => `
   <form @submit.prevent="onHandleSubmit">
     <div>
       <label for="name">Name</label>
-      <!-- name each of your inputs as you wish -->
-      <input type="text" v-model="name" id="name" placeholder="Enter your name" name="name" required autocomplete="name"
-        aria-label="Name" />
+      <input type="text" v-model="form.name" id="name" placeholder="Enter your name" name="name" required
+        autocomplete="name" aria-label="Name" />
     </div>
 
     <div>
       <label for="email">Email</label>
-      <input type="email" v-model="email" id="email" name="email" required autocomplete="email" aria-label="Email"
+      <input type="email" v-model="form.email" id="email" name="email" required autocomplete="email" aria-label="Email"
         placeholder="Enter your email" />
     </div>
 
     <div>
       <label for="message">Message</label>
-      <textarea v-model="message" id="message" name="message" required aria-label="Message"
+      <textarea v-model="form.message" id="message" name="message" required aria-label="Message"
         placeholder="Enter your message"></textarea>
     </div>
 
-    <!-- your other form fields go here -->
-    <button type="submit">Send</button>
+    <button type="submit">Submit</button>
   </form>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { reactive, toRefs } from 'vue';
 
 export default {
   setup() {
-    const name = ref('');
-    const email = ref('');
-    const message = ref('');
+    const form = reactive({
+      name: '',
+      email: '',
+      message: ''
+    });
 
     const onHandleSubmit = async () => {
       try {
@@ -203,7 +203,7 @@ export default {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name: "John Doe", message: "Hello World" }),
+          body: JSON.stringify(form),
         });
 
         const data = await res.json();
@@ -214,13 +214,10 @@ export default {
       } catch (error) {
         console.log("Error submitting form", error);
       }
-
     };
 
     return {
-      name,
-      email,
-      message,
+      ...toRefs(form),
       onHandleSubmit,
     };
   }

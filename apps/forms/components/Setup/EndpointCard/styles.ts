@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { rem } from "polished";
 
 export const Container = styled.div`
   display: flex;
@@ -32,4 +33,9 @@ export const InputContainer = styled.div`
   @media screen and ${({ theme }) => theme.device.max.lg} {
     margin-top: ${({ theme }) => theme.spacing.s3};
   }
+`;
+
+export const TooltipContainer = styled.div`
+  position: absolute;
+  right: ${rem("6px")};
 `;

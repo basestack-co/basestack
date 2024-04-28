@@ -8,3 +8,6 @@ export const slugify = (text: string) =>
     .replace(/\s+/g, "-")
     .replace(/[^\w-]+/g, "")
     .replace(/--+/g, "-");
+
+export const truncateString = (text: string, maxLength: number): string =>
+  text.length <= maxLength ? text : `${text.substring(0, maxLength - 3)}...`;

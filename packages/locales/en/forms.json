@@ -70,6 +70,13 @@
   },
   "setup": {
     "card": {
+      "library": {
+        "html": "HTML",
+        "javascript": "Javascript",
+        "react": "React",
+        "vue": "Vue",
+        "rest": "REST API"
+      },
       "endpoint": {
         "title": "Form Endpoint",
         "description": "This URL is specific to your form's API. Send your form submissions here.",

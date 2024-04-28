@@ -15,7 +15,12 @@ import {
 // Utils
 import { getBrowserUrl } from "@basestack/utils";
 // Styles
-import { Container, InputContainer, TextContainer } from "./styles";
+import {
+  Container,
+  InputContainer,
+  TextContainer,
+  TooltipContainer,
+} from "./styles";
 
 export interface Props {
   formId: string;
@@ -47,26 +52,26 @@ const EndpointCard = ({ formId }: Props) => {
           value={url}
           isDarker
         />
-        <Tooltip placement="top">
-          <TooltipTrigger onMouseLeave={() => setShowTooltipSuccess(false)}>
-            <IconButton
-              position="absolute"
-              size="medium"
-              variant="secondaryDark"
-              right={rem("6px")}
-              icon="content_copy"
-              onClick={() => {
-                navigator.clipboard.writeText(url);
-                setShowTooltipSuccess(true);
-              }}
-            />
-          </TooltipTrigger>
-          <TooltipContent>
-            {showTooltipSuccess
-              ? t("setup.card.endpoint.copy.url.success")
-              : t("setup.card.endpoint.copy.url.default")}
-          </TooltipContent>
-        </Tooltip>
+        <TooltipContainer>
+          <Tooltip placement="top-end">
+            <TooltipTrigger onMouseLeave={() => setShowTooltipSuccess(false)}>
+              <IconButton
+                size="medium"
+                variant="secondaryDark"
+                icon="content_copy"
+                onClick={() => {
+                  navigator.clipboard.writeText(url);
+                  setShowTooltipSuccess(true);
+                }}
+              />
+            </TooltipTrigger>
+            <TooltipContent>
+              {showTooltipSuccess
+                ? t("setup.card.endpoint.copy.url.success")
+                : t("setup.card.endpoint.copy.url.default")}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipContainer>
       </InputContainer>
     </Container>
   );
