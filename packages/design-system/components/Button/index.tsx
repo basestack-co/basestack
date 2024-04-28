@@ -30,6 +30,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       isLoading = false,
       isDisabled = false,
       size = ButtonSize.Normal,
+      type,
       ...props
     },
     ref,
@@ -75,6 +76,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={isDisabled}
         size={size}
         isLoading={isLoading}
+        type={type}
         {...props}
         {...(!!as && { as })}
       >

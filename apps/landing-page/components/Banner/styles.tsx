@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
-import { Button } from "@basestack/design-system";
+import { Button, ButtonProps } from "@basestack/design-system";
 
 export const Container = styled.section`
   display: flex;
@@ -49,7 +49,11 @@ export const ButtonsContainer = styled.div`
   }
 `;
 
-export const StyledButton = styled(Button)`
+const ButtonWrap = ({ children, ...props }: ButtonProps) => (
+  <Button {...props}>{children}</Button>
+);
+
+export const StyledButton = styled(ButtonWrap)`
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.black};
 

@@ -8,9 +8,9 @@ import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
 // Components
 import Portal from "@basestack/design-system/global/Portal";
+import { CodeLanguageCard } from "@basestack/ui";
 import { ButtonVariant, Modal, Text } from "@basestack/design-system";
 import CopyButton from "components/CopyButton";
-import CodeLanguageCard from "components/CodeLanguageCard";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Styles

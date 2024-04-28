@@ -1,4 +1,13 @@
 {
+  "seo": {
+    "setting": {
+      "title": "Settings",
+      "0": "General",
+      "1": "Security",
+      "2": "Customization",
+      "3": "Notifications"
+    }
+  },
   "common": {
     "copy": {
       "url": {

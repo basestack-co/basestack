@@ -17,3 +17,9 @@ export function withRoles(role: string, roles: string[] = ["ADMIN"]) {
     } as T;
   };
 }
+
+// This is just a concept, it's not used in the codebase, needs some work and testing
+export const verifySignature = async (req: Request, secret: string) => {
+  const authHeader = req.headers.get("authorization");
+  return !(!secret || authHeader !== `Bearer ${secret}`);
+};

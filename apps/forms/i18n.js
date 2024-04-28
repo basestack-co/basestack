@@ -8,6 +8,7 @@ module.exports = {
     "/": ["home"],
     "/auth/sign-in": ["auth"],
     "/form/[formId]/submissions": ["forms"],
+    "/form/[formId]/setup": ["forms"],
     "/form/[formId]/settings/general": ["settings"],
     "/form/[formId]/settings/security": ["settings"],
     "/form/[formId]/settings/customization": ["settings"],

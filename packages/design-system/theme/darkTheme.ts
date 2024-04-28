@@ -16,6 +16,12 @@ const shadow = {
     "0px 8px 10px 1px hsla(0,0%,0%,0.14), 0px 3px 14px 2px hsla(0,0%,0%,0.12), 0px 5px 5px -3px hsla(0,0%,0%,0.2)",
 };
 
+const background = {
+  dark: colors.gray800,
+  default: colors.gray700,
+  light: colors.gray600,
+};
+
 const button = {
   primary: {
     backgroundColor: colors.blue500,
@@ -508,6 +514,9 @@ const tooltip = {
 
 const horizontalRule = {
   backgroundColor: colors.gray700,
+  darker: {
+    backgroundColor: colors.gray600,
+  },
 };
 
 const copyCard = {
@@ -561,6 +570,7 @@ const theme = {
   copyCard,
   pagination,
   iconBox,
+  background,
   typography,
   colors,
   spacing,

@@ -104,4 +104,26 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   },
+  events: {
+    async signIn(message) {
+      if (message.isNewUser) {
+        const email = message.user.email as string;
+        const user = await prisma.user.findUnique({
+          where: { email },
+          select: {
+            name: true,
+            createdAt: true,
+          },
+        });
+
+        const isNewUserRecently =
+          user?.createdAt &&
+          new Date(user.createdAt).getTime() > Date.now() - 10000;
+
+        if (isNewUserRecently) {
+          // TODO: Trigger a background job to send a welcome email
+        }
+      }
+    },
+  },
 };
