@@ -257,13 +257,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         if (data) {
           if (form?.hasRetention) {
-            await prisma.submission.create({
+            const submission = await prisma.submission.create({
               data: {
                 formId,
                 data,
                 metadata,
               },
             });
+
+            if (form.hasSpamProtection) {
+              await triggerClient.sendEvent({
+                name: TriggerEventName.CHECK_DATA_FOR_SPAM,
+                payload: {
+                  submissionId: submission.id,
+                  data,
+                },
+              });
+            }
           }
 
           if (!!form.webhookUrl) {
@@ -278,12 +288,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 },
               },
             });
-          }
-
-          if (form.hasSpamProtection) {
-            console.log(
-              "Check if the form has spam protection with the background job",
-            );
           }
 
           if (!!form.emails) {

@@ -16,6 +16,7 @@ import FormDataRetention from "components/FormSettings/FormDataRetention";
 import FormWebHookUrl from "components/FormSettings/FormWebHookUrl";
 import FormEndpoint from "components/FormSettings/FormEndpoint";
 import FormKey from "components/FormSettings/FormKey";
+import FormSpamProtection from "components/FormSettings/FormSpamProtection";
 // Server
 import { trpc } from "libs/trpc";
 // Types
@@ -57,6 +58,14 @@ const GeneralSettingsPage = () => {
       <CardListItem>
         <SettingCardContainer>
           <FormDataRetention hasRetention={form?.hasRetention} />
+        </SettingCardContainer>
+      </CardListItem>
+      <CardListItem>
+        <SettingCardContainer>
+          <FormSpamProtection
+            hasSpamProtection={form?.hasSpamProtection}
+            isDisabled={!form?.hasRetention}
+          />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>

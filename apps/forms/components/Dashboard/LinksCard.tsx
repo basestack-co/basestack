@@ -60,16 +60,6 @@ const LinksCard = () => {
       />
       <TextLink
         data={[
-          { text: t("links.external.check_out_the") },
-          {
-            text: t("links.external.sdks"),
-            href: config.urls.docs.forms.sdk.base,
-            target: "_blank",
-          },
-        ]}
-      />
-      <TextLink
-        data={[
           { text: t("links.external.how_to") },
           {
             text: t("links.external.contribute"),

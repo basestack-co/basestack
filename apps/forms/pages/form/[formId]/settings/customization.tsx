@@ -31,6 +31,11 @@ const CustomizationSettingsPage = () => {
     <CardList>
       <CardListItem>
         <SettingCardContainer>
+          <FormSendQueryString hasDataQueryString={form?.hasDataQueryString} />
+        </SettingCardContainer>
+      </CardListItem>
+      <CardListItem>
+        <SettingCardContainer>
           <FormRedirectUrl redirectUrl={form?.redirectUrl ?? ""} />
         </SettingCardContainer>
       </CardListItem>
@@ -42,11 +47,6 @@ const CustomizationSettingsPage = () => {
       <CardListItem>
         <SettingCardContainer>
           <FormFailedUrl errorUrl={form?.errorUrl ?? ""} />
-        </SettingCardContainer>
-      </CardListItem>
-      <CardListItem>
-        <SettingCardContainer>
-          <FormSendQueryString hasDataQueryString={form?.hasDataQueryString} />
         </SettingCardContainer>
       </CardListItem>
     </CardList>

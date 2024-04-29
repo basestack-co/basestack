@@ -3,6 +3,7 @@ import React, { Fragment } from "react";
 import useTranslation from "next-translate/useTranslation";
 // Code
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import js from "react-syntax-highlighter/dist/cjs/languages/hljs/javascript";
 import {
   a11yLight,
   a11yDark,
@@ -19,6 +20,8 @@ import { parseDescription, getJavascriptDemoCode } from "./utils";
 export interface Props {
   endpoint: string;
 }
+
+SyntaxHighlighter.registerLanguage("javascript", js);
 
 const JavascriptStep = ({ endpoint }: Props) => {
   const theme = useTheme();

@@ -2,6 +2,8 @@ import { StatusPage } from "@basestack/ui";
 // Navigation
 import { useRouter } from "next/router";
 import Head from "next/head";
+// Utils
+import { config } from "@basestack/utils";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
@@ -21,7 +23,7 @@ const FormStatusSuccess = () => {
         description={t("status.form.success.description")}
         brand={{
           text: t("brand.powered.forms"),
-          onClick: () => null,
+          onClick: () => window.open(config.urls.product.forms, "_blank"),
         }}
         button={{
           text: t("status.form.success.action"),

@@ -3,6 +3,7 @@ import React, { Fragment } from "react";
 import useTranslation from "next-translate/useTranslation";
 // Code
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import bash from "react-syntax-highlighter/dist/cjs/languages/hljs/bash";
 import {
   a11yLight,
   a11yDark,
@@ -15,6 +16,8 @@ import Step from "./Step";
 import { CodeContainer } from "./styles";
 // Utils
 import { parseDescription, getRestDemoCode } from "./utils";
+
+SyntaxHighlighter.registerLanguage("bash", bash);
 
 export interface Props {
   endpoint: string;
@@ -45,7 +48,7 @@ const RestStep = ({ endpoint }: Props) => {
         <CodeContainer>
           {/* @ts-ignore */}
           <SyntaxHighlighter
-            language="curl"
+            language="bash"
             style={theme.isDarkMode ? a11yDark : a11yLight}
             wrapLongLines
           >

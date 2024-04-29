@@ -6,7 +6,7 @@ import { z } from "zod";
 triggerClient.defineJob({
   id: "send-data-to-external-webhook",
   name: "Send data to external webhook",
-  version: "1.0.0",
+  version: "1.0.1",
   trigger: eventTrigger({
     name: TriggerEventName.SEND_DATA_TO_EXTERNAL_WEBHOOK,
     schema: z.object({
@@ -20,7 +20,7 @@ triggerClient.defineJob({
     );
 
     await io.runTask(
-      "send-email",
+      "send-webhook-data",
       async () => {
         const res = await fetch(payload.url, {
           method: "POST",

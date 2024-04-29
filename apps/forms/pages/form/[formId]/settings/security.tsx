@@ -9,7 +9,6 @@ import {
   CardListItem,
   SettingCardContainer,
 } from "components/FormSettings/styles";
-import FormSpamProtection from "components/FormSettings/FormSpamProtection";
 import FormIpRules from "components/FormSettings/FormIpRules";
 import FormHoneyPot from "components/FormSettings/FormHoneyPot";
 import FormWebsites from "components/FormSettings/FormWebsites";
@@ -42,11 +41,6 @@ const SecuritySettingsPage = () => {
       <CardListItem>
         <SettingCardContainer>
           <FormHoneyPot honeypot={form?.honeypot ?? ""} />
-        </SettingCardContainer>
-      </CardListItem>
-      <CardListItem>
-        <SettingCardContainer>
-          <FormSpamProtection hasSpamProtection={form?.hasSpamProtection} />
         </SettingCardContainer>
       </CardListItem>
     </CardList>

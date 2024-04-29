@@ -251,7 +251,7 @@ const FormSubmissions = ({ name }: Props) => {
       {isLoading ? (
         <Skeleton
           displayInline
-          numberOfItems={2}
+          numberOfItems={1}
           gapBetweenItems={12}
           items={[
             { h: 22, w: 22, mt: 7, mr: 40 },
