@@ -77,7 +77,7 @@ const MainPage = () => {
           {isLoading ? (
             <List>
               <Skeleton
-                numberOfItems={3}
+                numberOfItems={1}
                 items={[
                   { h: 28, w: 28, mb: 12 },
                   { h: 22, w: "50%", mb: 32 },

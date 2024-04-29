@@ -28,12 +28,12 @@ const SignInPage = ({ providers }: SignInPageProps) => {
     <SignInComponent
       providers={providers}
       isLoading={status === "loading"}
-      title={t("sign-in.panel.title")}
-      description={t("sign-in.panel.description")}
-      slogan={t("sign-in.panel.slogan")}
-      contentTitle={t("sign-in.content.title")}
-      contentDescription={t("sign-in.content.description")}
-      action={(name) => t("sign-in.content.action", { name })}
+      title={t("flags.sign-in.panel.title")}
+      description={t("flags.sign-in.panel.description")}
+      slogan={t("flags.sign-in.panel.slogan")}
+      contentTitle={t("flags.sign-in.content.title")}
+      contentDescription={t("flags.sign-in.content.description")}
+      action={(name) => t("flags.sign-in.content.action", { name })}
       onClickProvider={(id) => signIn(id, { callbackUrl: "/" })}
     />
   );

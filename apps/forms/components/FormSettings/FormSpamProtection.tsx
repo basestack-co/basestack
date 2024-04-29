@@ -12,9 +12,13 @@ import useTranslation from "next-translate/useTranslation";
 
 export interface Props {
   hasSpamProtection?: boolean;
+  isDisabled?: boolean;
 }
 
-const FormSpamProtectionCard = ({ hasSpamProtection = false }: Props) => {
+const FormSpamProtectionCard = ({
+  hasSpamProtection = false,
+  isDisabled = false,
+}: Props) => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
@@ -62,6 +66,7 @@ const FormSpamProtectionCard = ({ hasSpamProtection = false }: Props) => {
       description={t("security.spam-protection.description")}
       checked={hasSpamProtection}
       onChange={onChange}
+      hasOverlay={isDisabled}
     />
   );
 };

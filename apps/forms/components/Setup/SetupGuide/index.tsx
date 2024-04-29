@@ -1,9 +1,6 @@
 import React, { useState, useCallback } from "react";
 // Locales
 import useTranslation from "next-translate/useTranslation";
-// Code
-import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
 // Theme
 import { useTheme } from "styled-components";
 // Utils
@@ -21,8 +18,6 @@ import JavascriptStep from "./JavascriptStep";
 import ReactStep from "./ReactStep";
 import VueStep from "./VueStep";
 import RestStep from "./RestStep";
-
-SyntaxHighlighter.registerLanguage("typescript", ts);
 
 export interface Props {
   formId: string;

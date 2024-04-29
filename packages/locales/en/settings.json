@@ -159,10 +159,10 @@
   },
   "security": {
     "spam-protection": {
-      "title": "Spam Protection",
-      "description": "Switch spam protection on or off for your form submissions. Deactivate it during testing phases.",
+      "title": "Spam AI ✨",
+      "description": "Our AI detects and filters out spam submissions. Data Retention needs to be enabled for the AI to work.",
       "toast": {
-        "success": "Spam protection updated successfully"
+        "success": "Spam AI updated successfully"
       }
     },
     "ip-block-rules": {
