@@ -36,11 +36,11 @@ export const Wrapper = styled.div<{ maxWidth?: number }>`
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin-right: auto;
 `;
 
 export const RightContentWrapper = styled.div`
-  margin-left: auto;
-  padding-left: ${({ theme }) => theme.spacing.s3};
+  margin-left: ${({ theme }) => theme.spacing.s3};
 `;
 
 export const Button = styled.div`

@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, ReactNode } from "react";
 import { SpaceProps } from "styled-system";
 import { useTheme } from "styled-components";
 import { BannerVariant } from "./types";
@@ -46,6 +46,10 @@ export interface BannerProps extends SpaceProps {
    * Changes from solid colors to transparent if true
    */
   isTranslucent?: boolean;
+  /**
+   * children
+   */
+  children?: ReactNode;
 }
 
 const Banner = ({
@@ -57,6 +61,7 @@ const Banner = ({
   onDismiss,
   maxWidth,
   borderRadius,
+  children,
   ...props
 }: BannerProps) => {
   const theme = useTheme();
@@ -139,6 +144,7 @@ const Banner = ({
           </Text>
           {!!description && <Text color={textColor}>{description}</Text>}
         </TextContainer>
+        {children && <RightContentWrapper>{children}</RightContentWrapper>}
         {onDismiss && (
           <RightContentWrapper>
             <Button onClick={onDismiss}>
