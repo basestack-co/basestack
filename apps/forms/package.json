@@ -40,7 +40,6 @@
     "@prisma/client": "^5.13.0",
     "@react-email/render": "^0.0.12",
     "@sentry/nextjs": "^7.112.2",
-    "@sentry/profiling-node": "^7.112.2",
     "@tanstack/react-query": "^4.36.1",
     "@trigger.dev/nextjs": "^2.3.18",
     "@trigger.dev/react": "^2.3.18",
