@@ -534,6 +534,25 @@ const iconBox = {
   },
 };
 
+const banner = {
+  info: {
+    backgroundColor: colors.blue400,
+    color: colors.white,
+  },
+  warning: {
+    backgroundColor: colors.yellow400,
+    color: colors.black,
+  },
+  success: {
+    backgroundColor: colors.green400,
+    color: colors.white,
+  },
+  danger: {
+    backgroundColor: colors.red400,
+    color: colors.white,
+  },
+};
+
 const theme = {
   isDarkMode: false,
   button,
@@ -565,6 +584,7 @@ const theme = {
   copyCard,
   pagination,
   iconBox,
+  banner,
   background,
   typography,
   colors,

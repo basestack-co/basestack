@@ -15,7 +15,13 @@ import useTranslation from "next-translate/useTranslation";
 // Toast
 import { toast } from "sonner";
 // Components
-import { Text, Pagination, Empty, Skeleton } from "@basestack/design-system";
+import {
+  Text,
+  Pagination,
+  Empty,
+  Skeleton,
+  Banner,
+} from "@basestack/design-system";
 import { Container, List, ListItem, PaginationContainer } from "./styles";
 import Toolbar from "../Toolbar";
 import FormSubmission from "../FormSubmission";
@@ -207,6 +213,13 @@ const FormSubmissions = ({ name }: Props) => {
 
   return (
     <Container>
+      <Banner
+        variant="warning"
+        title="Data retention is turned off"
+        description="To see submissions on this page go to settings, and under the general tab enable data retention"
+        mb={theme.spacing.s5}
+      />
+
       {!name ? (
         <Skeleton
           padding={0}
