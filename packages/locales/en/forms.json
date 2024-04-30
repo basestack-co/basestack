@@ -33,6 +33,11 @@
     }
   },
   "submission": {
+    "alert": {
+      "retention": {
+        "description": "Data retention is turned off, to see submissions on this page go to settings, and under the general tab enable data retention"
+      }
+    },
     "empty": {
       "title": "No Submissions Found",
       "description": "No submissions have been found for this form."

@@ -540,21 +540,41 @@ const iconBox = {
 };
 
 const banner = {
-  info: {
-    backgroundColor: colors.blue500,
-    color: colors.gray100,
+  solid: {
+    info: {
+      backgroundColor: colors.blue500,
+      color: colors.gray100,
+    },
+    warning: {
+      backgroundColor: colors.yellow400,
+      color: colors.gray900,
+    },
+    success: {
+      backgroundColor: colors.green500,
+      color: colors.gray100,
+    },
+    danger: {
+      backgroundColor: colors.red500,
+      color: colors.gray100,
+    },
   },
-  warning: {
-    backgroundColor: colors.yellow400,
-    color: colors.gray900,
-  },
-  success: {
-    backgroundColor: colors.green500,
-    color: colors.gray100,
-  },
-  danger: {
-    backgroundColor: colors.red500,
-    color: colors.gray100,
+  translucent: {
+    info: {
+      backgroundColor: transparentize(0.8, colors.blue200),
+      color: colors.gray300,
+    },
+    warning: {
+      backgroundColor: transparentize(0.8, colors.yellow300),
+      color: colors.gray300,
+    },
+    success: {
+      backgroundColor: transparentize(0.8, colors.green200),
+      color: colors.gray300,
+    },
+    danger: {
+      backgroundColor: transparentize(0.8, colors.red200),
+      color: colors.gray300,
+    },
   },
 };
 

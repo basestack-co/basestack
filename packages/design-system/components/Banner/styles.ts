@@ -1,22 +1,36 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { space } from "styled-system";
 import { rem, transparentize } from "polished";
 import { BannerVariant } from "./types";
 
-export const Container = styled.div<{ variant: BannerVariant; bg: string }>`
+export const Container = styled.div<{
+  variant: BannerVariant;
+  bg: string;
+  borderRadius?: number;
+  isTranslucent?: boolean;
+}>`
   display: flex;
   flex-direction: column;
   background-color: ${({ bg }) => bg};
-  border-radius: 4px;
+  border-radius: ${({ borderRadius }) =>
+    typeof borderRadius === "number" ? `${borderRadius}px` : "4px"};
   ${space};
 `;
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ maxWidth?: number }>`
   display: flex;
   align-items: center;
   min-height: ${rem("56px")};
   padding: ${({ theme }) => theme.spacing.s3};
   padding-left: ${({ theme }) => theme.spacing.s4};
+
+  ${({ maxWidth }) =>
+    maxWidth &&
+    css`
+      width: 100%;
+      max-width: ${`${maxWidth}px`};
+      margin: 0 auto;
+    `}
 `;
 
 export const TextContainer = styled.div`
@@ -24,7 +38,7 @@ export const TextContainer = styled.div`
   flex-direction: column;
 `;
 
-export const ButtonWrapper = styled.div`
+export const RightContentWrapper = styled.div`
   margin-left: auto;
   padding-left: ${({ theme }) => theme.spacing.s3};
 `;
