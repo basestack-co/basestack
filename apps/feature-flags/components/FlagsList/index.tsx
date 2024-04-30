@@ -70,10 +70,6 @@ const FlagCards = ({
     },
   );
 
-  /* const initialDataLength = data?.pages[0].flags.length ?? 0;
-  const currentPage = (data?.pages.length ?? 0) * numberOfFlagsPerPage;
-  const totalPages = count?.total ?? 0; */
-
   const [currentPage, totalPages] = useMemo(() => {
     return [
       (data?.pages.length ?? 0) * numberOfFlagsPerPage,

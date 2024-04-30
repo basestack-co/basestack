@@ -74,7 +74,6 @@ const CreateFlagModal = () => {
         { projectId: project.id, environments: input.environments, data },
         {
           onSuccess: async (result) => {
-            console.log("success = ", result);
             // Refresh the flag list and close the modal
             await trpcUtils.flag.all.invalidate({ projectId: project.id });
             onClose();
