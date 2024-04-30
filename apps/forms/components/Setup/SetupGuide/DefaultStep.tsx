@@ -1,31 +1,20 @@
 import React, { Fragment } from "react";
 // Locales
 import useTranslation from "next-translate/useTranslation";
-// Code
-import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import htmlBars from "react-syntax-highlighter/dist/cjs/languages/hljs/htmlbars";
-import {
-  a11yLight,
-  a11yDark,
-} from "react-syntax-highlighter/dist/cjs/styles/hljs";
-// Theme
-import { useTheme } from "styled-components";
 // Components
 import Step from "./Step";
 // Styles
 import { CodeContainer } from "./styles";
 // Utils
 import { truncateString } from "@basestack/utils";
-import { parseDescription, getHtmlDemoCode } from "./utils";
+import { parseDescription } from "./utils";
 
 export interface Props {
   endpoint: string;
+  children?: React.ReactNode;
 }
 
-SyntaxHighlighter.registerLanguage("htmlbars", htmlBars);
-
-const DefaultStep = ({ endpoint }: Props) => {
-  const theme = useTheme();
+const DefaultStep = ({ endpoint, children }: Props) => {
   const { t } = useTranslation("forms");
 
   return (
@@ -54,16 +43,7 @@ const DefaultStep = ({ endpoint }: Props) => {
           t("setup.card.guide.html.step-3.description"),
         )}
       >
-        <CodeContainer>
-          {/* @ts-ignore */}
-          <SyntaxHighlighter
-            language="htmlbars"
-            style={theme.isDarkMode ? a11yDark : a11yLight}
-            wrapLongLines
-          >
-            {getHtmlDemoCode(endpoint)}
-          </SyntaxHighlighter>
-        </CodeContainer>
+        <CodeContainer>{children}</CodeContainer>
       </Step>
     </Fragment>
   );

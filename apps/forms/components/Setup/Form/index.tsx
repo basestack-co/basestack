@@ -6,6 +6,8 @@ import useTranslation from "next-translate/useTranslation";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+// Events
+import * as Sentry from "@sentry/nextjs";
 // Components
 import {
   Text,
@@ -75,6 +77,7 @@ const Form = ({ formId }: Props) => {
       }
     } catch (error: any) {
       toast.error(error?.message ? error?.message : error);
+      Sentry.captureException(error);
     }
   };
 
