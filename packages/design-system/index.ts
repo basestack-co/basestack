@@ -79,6 +79,7 @@ export {
   default as Accordion,
   type AccordionProps,
 } from "./components/Accordion";
+export { default as Banner, type BannerProps } from "./components/Banner";
 
 // Other
 export * from "./animations/springs";

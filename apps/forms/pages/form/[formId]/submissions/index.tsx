@@ -29,7 +29,7 @@ const FormSubmissionsPage = () => {
           {form?.name ?? "Form"} / {t("seo.submissions")}
         </title>
       </Head>
-      <FormSubmissions name={form?.name ?? ""} />
+      <FormSubmissions hasRetention={form?.hasRetention ?? true} name={form?.name ?? ""} />
     </Fragment>
   );
 };

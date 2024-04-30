@@ -534,6 +534,45 @@ const iconBox = {
   },
 };
 
+const banner = {
+  solid: {
+    info: {
+      backgroundColor: colors.blue400,
+      color: colors.white,
+    },
+    warning: {
+      backgroundColor: colors.yellow400,
+      color: colors.black,
+    },
+    success: {
+      backgroundColor: colors.green400,
+      color: colors.white,
+    },
+    danger: {
+      backgroundColor: colors.red400,
+      color: colors.white,
+    },
+  },
+  translucent: {
+    info: {
+      backgroundColor: transparentize(0.9, colors.blue400),
+      color: colors.black,
+    },
+    warning: {
+      backgroundColor: transparentize(0.8, colors.yellow400),
+      color: colors.black,
+    },
+    success: {
+      backgroundColor: transparentize(0.9, colors.green400),
+      color: colors.black,
+    },
+    danger: {
+      backgroundColor: transparentize(0.9, colors.red400),
+      color: colors.black,
+    },
+  },
+};
+
 const theme = {
   isDarkMode: false,
   button,
@@ -565,6 +604,7 @@ const theme = {
   copyCard,
   pagination,
   iconBox,
+  banner,
   background,
   typography,
   colors,

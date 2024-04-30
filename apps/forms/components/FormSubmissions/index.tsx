@@ -15,7 +15,13 @@ import useTranslation from "next-translate/useTranslation";
 // Toast
 import { toast } from "sonner";
 // Components
-import { Text, Pagination, Empty, Skeleton } from "@basestack/design-system";
+import {
+  Text,
+  Pagination,
+  Empty,
+  Skeleton,
+  Banner,
+} from "@basestack/design-system";
 import { Container, List, ListItem, PaginationContainer } from "./styles";
 import Toolbar from "../Toolbar";
 import FormSubmission from "../FormSubmission";
@@ -30,9 +36,10 @@ const limit = 10;
 
 export interface Props {
   name: string;
+  hasRetention: boolean;
 }
 
-const FormSubmissions = ({ name }: Props) => {
+const FormSubmissions = ({ name, hasRetention }: Props) => {
   const theme = useTheme();
   const trpcUtils = trpc.useUtils();
   const { t } = useTranslation("forms");
@@ -206,99 +213,116 @@ const FormSubmissions = ({ name }: Props) => {
   }, []);
 
   return (
-    <Container>
-      {!name ? (
-        <Skeleton
-          padding={0}
-          backgroundColor="transparent"
-          hasShadow={false}
-          items={[{ h: 30, w: "150px" }]}
-        />
-      ) : (
-        <Text size="xLarge">{name}</Text>
-      )}
-
-      <Toolbar
-        formId={formId}
-        onUnReadSubmissions={() => onUpdate(selectIds, { viewed: false })}
-        onReadSubmissions={() => onUpdate(selectIds, { viewed: true })}
-        onUnMarkSpamAll={() => onUpdate(selectIds, { isSpam: false })}
-        onMarkSpamAll={() => onUpdate(selectIds, { isSpam: true })}
-        onDeleteAll={() => onDelete(selectIds)}
-        onExport={onExport}
-        onSelectAll={onSelectAllSubmission}
-        onSelectFilter={onSelectFilter}
-        onSelectSort={onSelectSort}
-        onSearchCallback={(value) => setSearchValue(value)}
-        isSubmitting={
-          deleteSubmissions.isLoading || updateSubmissions.isLoading
-        }
-        isLoading={isLoading}
-        isActionDisabled={selectIds.length <= 0}
-        isSelectAllEnabled={isSelectAllEnabled}
-        isExportDisabled={exportSubmissions.isLoading}
-        isDisabled={totalPages <= 0 && !searchValue}
-      />
-
-      {totalPages <= 0 && !isLoading && (
-        <Empty
-          iconName="help"
-          title={t("submission.empty.title")}
-          description={t("submission.empty.description")}
+    <>
+      {!hasRetention && (
+        <Banner
+          variant="warning"
+          title={t("submission.alert.retention.description")}
+          maxWidth={1440}
+          borderRadius={0}
+          isTranslucent
         />
       )}
+      <Container>
+        {!name ? (
+          <Skeleton
+            padding={0}
+            backgroundColor="transparent"
+            hasShadow={false}
+            items={[{ h: 30, w: "150px" }]}
+          />
+        ) : (
+          <Text size="xLarge">{name}</Text>
+        )}
 
-      {isLoading ? (
-        <Skeleton
-          displayInline
-          numberOfItems={1}
-          gapBetweenItems={12}
-          items={[
-            { h: 22, w: 22, mt: 7, mr: 40 },
-            { h: 28, w: 28, mt: 4, isRound: true, mr: 8 },
-            { h: 36, w: "20%", mr: 20 },
-            { h: 36, w: "20%" },
-          ]}
-          padding={`${theme.spacing.s4} ${theme.spacing.s5}`}
-        />
-      ) : (
-        <List>
-          {data?.pages.map(({ submissions }, index) => {
-            return (
-              <Fragment key={`submission-page-${index}`}>
-                {submissions.map(({ id, createdAt, data, isSpam, viewed }) => {
-                  return (
-                    <ListItem key={`submission-item-${id}`}>
-                      <FormSubmission
-                        data={formatFormSubmissions(data)}
-                        date={dayjs(createdAt).fromNow()}
-                        viewed={viewed!}
-                        isSpam={isSpam!}
-                        onDelete={() => onDelete([id])}
-                        onMarkSpam={() => onUpdate([id], { isSpam: !isSpam })}
-                        onReadSubmission={() =>
-                          onUpdate([id], { viewed: !viewed })
-                        }
-                        onSelect={(checked) => onSelectSubmission(id, checked)}
-                        isSelected={selectIds.includes(id)}
-                      />
-                    </ListItem>
-                  );
-                })}
-              </Fragment>
-            );
-          })}
-        </List>
-      )}
-      <PaginationContainer>
-        <Pagination
-          onClick={fetchNextPage}
-          currentPage={currentPage >= totalPages ? totalPages : currentPage}
-          totalPages={totalPages}
+        <Toolbar
+          formId={formId}
+          onUnReadSubmissions={() => onUpdate(selectIds, { viewed: false })}
+          onReadSubmissions={() => onUpdate(selectIds, { viewed: true })}
+          onUnMarkSpamAll={() => onUpdate(selectIds, { isSpam: false })}
+          onMarkSpamAll={() => onUpdate(selectIds, { isSpam: true })}
+          onDeleteAll={() => onDelete(selectIds)}
+          onExport={onExport}
+          onSelectAll={onSelectAllSubmission}
+          onSelectFilter={onSelectFilter}
+          onSelectSort={onSelectSort}
+          onSearchCallback={(value) => setSearchValue(value)}
+          isSubmitting={
+            deleteSubmissions.isLoading || updateSubmissions.isLoading
+          }
           isLoading={isLoading}
+          isActionDisabled={selectIds.length <= 0}
+          isSelectAllEnabled={isSelectAllEnabled}
+          isExportDisabled={exportSubmissions.isLoading}
+          isDisabled={totalPages <= 0 && !searchValue}
         />
-      </PaginationContainer>
-    </Container>
+
+        {totalPages <= 0 && !isLoading && (
+          <Empty
+            iconName="help"
+            title={t("submission.empty.title")}
+            description={t("submission.empty.description")}
+          />
+        )}
+
+        {isLoading ? (
+          <Skeleton
+            displayInline
+            numberOfItems={1}
+            gapBetweenItems={12}
+            items={[
+              { h: 22, w: 22, mt: 7, mr: 40 },
+              { h: 28, w: 28, mt: 4, isRound: true, mr: 8 },
+              { h: 36, w: "20%", mr: 20 },
+              { h: 36, w: "20%" },
+            ]}
+            padding={`${theme.spacing.s4} ${theme.spacing.s5}`}
+          />
+        ) : (
+          <List>
+            {data?.pages.map(({ submissions }, index) => {
+              return (
+                <Fragment key={`submission-page-${index}`}>
+                  {submissions.map(
+                    ({ id, createdAt, data, isSpam, viewed }) => {
+                      return (
+                        <ListItem key={`submission-item-${id}`}>
+                          <FormSubmission
+                            data={formatFormSubmissions(data)}
+                            date={dayjs(createdAt).fromNow()}
+                            viewed={viewed!}
+                            isSpam={isSpam!}
+                            onDelete={() => onDelete([id])}
+                            onMarkSpam={() =>
+                              onUpdate([id], { isSpam: !isSpam })
+                            }
+                            onReadSubmission={() =>
+                              onUpdate([id], { viewed: !viewed })
+                            }
+                            onSelect={(checked) =>
+                              onSelectSubmission(id, checked)
+                            }
+                            isSelected={selectIds.includes(id)}
+                          />
+                        </ListItem>
+                      );
+                    },
+                  )}
+                </Fragment>
+              );
+            })}
+          </List>
+        )}
+        <PaginationContainer>
+          <Pagination
+            onClick={fetchNextPage}
+            currentPage={currentPage >= totalPages ? totalPages : currentPage}
+            totalPages={totalPages}
+            isLoading={isLoading}
+          />
+        </PaginationContainer>
+      </Container>
+    </>
   );
 };
 
