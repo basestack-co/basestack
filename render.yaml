@@ -61,16 +61,23 @@ services:
         sync: false
       - key: AUTH0_DOMAIN
         sync: false
-      - key: API_RATE_LIMIT_MAX
-        value: 60
-      - key: API_RATE_LIMIT_WINDOW_MS
-        value: 60*1000
-      - key: API_RATE_LIMIT_UNIQUE_TOKEN_PER_SECOND
-        value: 1000
-      - key: API_ACCESS_CONTROL_ALLOW_ORIGIN
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+      - key: EMAIL_FROM
+        sync: false
+      - key: EMAIL_SMTP_HOST
+        sync: false
+      - key: EMAIL_SMTP_PORT
+        value: 465
+      - key: EMAIL_SMTP_SECURE
+        sync: false
+      - key: EMAIL_SMTP_AUTH_USER
+        sync: false
+      - key: EMAIL_SMTP_AUTH_PASSWORD
         sync: false
       - key: NODE_VERSION
-        value: 18.12.0
+        value: 21.1.0
   - type: pserv
     name: basestack-feature-flags-db-pgbouncer
     runtime: docker

@@ -48,7 +48,6 @@
     "cors": "^2.8.5",
     "dayjs": "^1.11.11",
     "eslint-config-next": "^14.2.3",
-    "lru-cache": "^10.2.2",
     "material-symbols": "^0.17.3",
     "next": "^14.2.3",
     "next-auth": "^4.24.7",

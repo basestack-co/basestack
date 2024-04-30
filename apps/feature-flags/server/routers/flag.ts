@@ -30,16 +30,23 @@ export const flagRouter = router({
         });
 
         if (env) {
-          const flags = await tx.flag.findMany({
-            where: {
-              environment: {
-                id: env.id,
-                project: {
-                  id: input.projectId,
-                },
+          const where = {
+            environment: {
+              id: env.id,
+              project: {
+                id: input.projectId,
               },
-              ...search,
             },
+            ...search,
+          };
+
+          const { _count } = await tx.flag.aggregate({
+            _count: { id: true },
+            where,
+          });
+
+          const flags = await tx.flag.findMany({
+            where,
             take: limit + 1, // get an extra item at the end which we'll use as next cursor
             cursor: input.cursor ? { id: input.cursor } : undefined,
             orderBy: [{ createdAt: "desc" }, { id: "desc" }],
@@ -64,6 +71,7 @@ export const flagRouter = router({
           return {
             flags,
             nextCursor,
+            total: _count.id,
           };
         } else {
           throw new TRPCError({
