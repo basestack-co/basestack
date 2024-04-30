@@ -1,4 +1,4 @@
-import React, { useCallback, Fragment } from "react";
+import React, { useCallback, Fragment, useMemo } from "react";
 // Server
 import { trpc } from "libs/trpc";
 // Components
@@ -70,9 +70,12 @@ const FlagCards = ({
     },
   );
 
-  const initialDataLength = data?.pages[0].flags.length ?? 0;
-  const currentPage = (data?.pages.length ?? 0) * numberOfFlagsPerPage;
-  const totalPages = count?.total ?? 0;
+  const [currentPage, totalPages] = useMemo(() => {
+    return [
+      (data?.pages.length ?? 0) * numberOfFlagsPerPage,
+      data?.pages?.[0]?.total ?? 0,
+    ];
+  }, [data, numberOfFlagsPerPage]);
 
   const onUpdateOrHistory = useCallback(
     (
@@ -115,7 +118,7 @@ const FlagCards = ({
       </Loader>
     );
 
-  if (initialDataLength <= 0)
+  if (totalPages <= 0)
     return (
       <Empty
         iconName="flag"

@@ -1,30 +1,18 @@
 import React, { Fragment } from "react";
 // Locales
 import useTranslation from "next-translate/useTranslation";
-// Code
-import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import js from "react-syntax-highlighter/dist/cjs/languages/hljs/javascript";
-import {
-  a11yLight,
-  a11yDark,
-} from "react-syntax-highlighter/dist/cjs/styles/hljs";
-// Theme
-import { useTheme } from "styled-components";
 // Components
 import Step from "./Step";
 // Styles
 import { CodeContainer } from "./styles";
 // Utils
-import { parseDescription, getReactDemoCode } from "./utils";
+import { parseDescription } from "./utils";
 
 export interface Props {
-  endpoint: string;
+  children?: React.ReactNode;
 }
 
-SyntaxHighlighter.registerLanguage("javascript", js);
-
-const ReactStep = ({ endpoint }: Props) => {
-  const theme = useTheme();
+const ReactStep = ({ children }: Props) => {
   const { t } = useTranslation("forms");
 
   return (
@@ -45,16 +33,7 @@ const ReactStep = ({ endpoint }: Props) => {
           t("setup.card.guide.react.step-2.description"),
         )}
       >
-        <CodeContainer>
-          {/* @ts-ignore */}
-          <SyntaxHighlighter
-            language="javascript"
-            style={theme.isDarkMode ? a11yDark : a11yLight}
-            wrapLongLines
-          >
-            {getReactDemoCode(endpoint)}
-          </SyntaxHighlighter>
-        </CodeContainer>
+        <CodeContainer>{children}</CodeContainer>
       </Step>
     </Fragment>
   );

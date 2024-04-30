@@ -241,3 +241,35 @@ export const parseDescription = (description: string) => {
     highlight: index % 2 === 1,
   }));
 };
+
+export const getSyntax = (endpoint: string, step: number) => {
+  const list: {
+    [key: number]: {
+      language: string;
+      code: string;
+    };
+  } = {
+    0: {
+      language: "htmlbars",
+      code: getHtmlDemoCode(endpoint),
+    },
+    1: {
+      language: "javascript",
+      code: getJavascriptDemoCode(endpoint),
+    },
+    2: {
+      language: "react",
+      code: getReactDemoCode(endpoint),
+    },
+    3: {
+      language: "vue",
+      code: getVueDemoCode(endpoint),
+    },
+    4: {
+      language: "curl",
+      code: getRestDemoCode(endpoint),
+    },
+  };
+
+  return list[step];
+};

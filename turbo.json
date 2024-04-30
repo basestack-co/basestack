@@ -36,10 +36,8 @@
         "AUTH0_CLIENT_ID",
         "AUTH0_CLIENT_SECRET",
         "AUTH0_DOMAIN",
-        "API_RATE_LIMIT_MAX",
-        "API_RATE_LIMIT_WINDOW_MS",
-        "API_RATE_LIMIT_UNIQUE_TOKEN_PER_SECOND",
-        "API_ACCESS_CONTROL_ALLOW_ORIGIN"
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET"
       ]
     },
     "@basestack/forms#deploy": {
@@ -55,15 +53,18 @@
         "AUTH0_CLIENT_ID",
         "AUTH0_CLIENT_SECRET",
         "AUTH0_DOMAIN",
-        "API_RATE_LIMIT_MAX",
-        "API_RATE_LIMIT_WINDOW_MS",
-        "API_RATE_LIMIT_UNIQUE_TOKEN_PER_SECOND",
-        "API_ACCESS_CONTROL_ALLOW_ORIGIN",
-        "QSTASH_JOBS_API_URL",
-        "QSTASH_URL",
-        "QSTASH_TOKEN",
-        "QSTASH_CURRENT_SIGNING_KEY",
-        "QSTASH_NEXT_SIGNING_KEY"
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET",
+        "TRIGGER_PROJECT_ID",
+        "TRIGGER_API_KEY",
+        "TRIGGER_API_URL",
+        "NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY",
+        "CLOUDFLARE_ACCOUNT_ID",
+        "CLOUDFLARE_API_TOKEN",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
+        "SENTRY_DSN",
+        "SENTRY_AUTH_TOKEN"
       ]
     },
     "@basestack/landing-page#deploy": {

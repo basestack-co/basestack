@@ -25,7 +25,7 @@ const Loading = ({ selectedView }: LoadingProps) => {
   return (
     <Container>
       <Skeleton
-        numberOfItems={3}
+        numberOfItems={1}
         items={items}
         padding={selectedView === "cards" ? 20 : 14}
         displayInline={selectedView !== "cards"}

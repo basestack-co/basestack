@@ -4,13 +4,11 @@ import { getAllFlagsBySlugs } from "libs/prisma/utils/flag";
 // Utils
 import Cors from "cors";
 import { withCors, withHeaders } from "@basestack/utils";
-// Middlewares
-import withRateLimit from "utils/middleware/rateLimit";
 
 // More at https://github.com/expressjs/cors
 const cors = Cors({
   methods: ["GET"],
-  origin: process.env.API_ACCESS_CONTROL_ALLOW_ORIGIN ?? "*",
+  origin: process.env.API_ACCESS_CONTROL_ALLOW_ORIGIN || "*",
   optionsSuccessStatus: 200,
 });
 
@@ -47,5 +45,5 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 export default withCors(
   cors,
-  withRateLimit(withHeaders(["x-project-key", "x-environment-key"], handler)),
+  withHeaders(["x-project-key", "x-environment-key"], handler),
 );

@@ -1,30 +1,18 @@
 import React, { Fragment } from "react";
 // Locales
 import useTranslation from "next-translate/useTranslation";
-// Code
-import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import bash from "react-syntax-highlighter/dist/cjs/languages/hljs/bash";
-import {
-  a11yLight,
-  a11yDark,
-} from "react-syntax-highlighter/dist/cjs/styles/hljs";
-// Theme
-import { useTheme } from "styled-components";
 // Components
 import Step from "./Step";
 // Styles
 import { CodeContainer } from "./styles";
 // Utils
-import { parseDescription, getRestDemoCode } from "./utils";
-
-SyntaxHighlighter.registerLanguage("bash", bash);
+import { parseDescription } from "./utils";
 
 export interface Props {
-  endpoint: string;
+  children?: React.ReactNode;
 }
 
-const RestStep = ({ endpoint }: Props) => {
-  const theme = useTheme();
+const RestStep = ({ children }: Props) => {
   const { t } = useTranslation("forms");
 
   return (
@@ -45,16 +33,7 @@ const RestStep = ({ endpoint }: Props) => {
           t("setup.card.guide.rest.step-2.description"),
         )}
       >
-        <CodeContainer>
-          {/* @ts-ignore */}
-          <SyntaxHighlighter
-            language="bash"
-            style={theme.isDarkMode ? a11yDark : a11yLight}
-            wrapLongLines
-          >
-            {getRestDemoCode(endpoint)}
-          </SyntaxHighlighter>
-        </CodeContainer>
+        <CodeContainer>{children}</CodeContainer>
       </Step>
     </Fragment>
   );

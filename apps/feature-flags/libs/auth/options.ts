@@ -7,6 +7,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 // Libs
 import prisma from "libs/prisma";
 import { Role } from "@prisma/client";
+import GoogleProvider from "next-auth/providers/google";
 
 declare module "next-auth" {
   interface Session {
@@ -57,6 +58,29 @@ export const authOptions: NextAuthOptions = {
             clientId: process.env.AUTH0_CLIENT_ID,
             clientSecret: process.env.AUTH0_CLIENT_SECRET!,
             issuer: `https://${process.env.AUTH0_DOMAIN}`,
+            profile: (profile) => {
+              return {
+                id: profile.sub,
+                name: profile.name,
+                email: profile.email,
+                image: profile.picture,
+              };
+            },
+          }),
+        ]
+      : []),
+    ...(process.env.GOOGLE_CLIENT_ID
+      ? [
+          GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID!,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+            authorization: {
+              params: {
+                prompt: "consent",
+                access_type: "offline",
+                response_type: "code",
+              },
+            },
             profile: (profile) => {
               return {
                 id: profile.sub,
