@@ -34,61 +34,57 @@ export const formRouter = router({
   recent: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.session.user.id;
 
-    return await ctx.prisma.$transaction(async (tx) => {
-      const forms = await tx.form.findMany({
-        where: {
-          users: {
-            some: {
-              user: {
-                id: userId,
-              },
-            },
-          },
+    // TODO: Find a way to do this with Prisma and not raw SQL
+    // This solves the N+1 problem we had before with the previous query
+    // https://github.com/prisma/prisma/issues/15423
+    const formsWithCounts: {
+      id: string;
+      name: string;
+      _all: number;
+      isEnabled: boolean;
+      _spam: number;
+      _viewed: number;
+    }[] = await ctx.prisma.$queryRaw`
+      SELECT
+          f.id,
+          f.name,
+          f."isEnabled",
+          COUNT(s."id") AS _all,
+          SUM(CASE WHEN s."isSpam" = true THEN 1 ELSE 0 END) AS _spam,
+          SUM(CASE WHEN s."viewed" = true THEN 1 ELSE 0 END) AS _viewed
+        FROM
+          public."Form" f
+        LEFT JOIN
+          public."Submission" s
+        ON
+          f.id = s."formId"
+        WHERE
+          EXISTS (
+            SELECT 1 FROM public."FormOnUsers" uf
+            WHERE uf."form_id" = f.id AND uf."user_id" = ${userId}
+          )
+        GROUP BY
+          f.id, f.name, f."isEnabled"
+        ORDER BY
+          f."createdAt" DESC
+        LIMIT
+          8;
+   `;
+
+    return formsWithCounts.map((form) => {
+      const _all = Number(form._all);
+      const _spam = Number(form._spam);
+      const _viewed = Number(form._viewed);
+
+      return {
+        id: form.id,
+        name: form.name,
+        _count: {
+          spam: _spam,
+          unread: _all - _viewed,
+          read: _viewed,
         },
-        skip: 0,
-        take: 10,
-        select: {
-          id: true,
-          name: true,
-          isEnabled: true,
-        },
-        orderBy: {
-          createdAt: "desc",
-        },
-      });
-
-      return await Promise.all(
-        forms.map(async (form) => {
-          const _all = await tx.submission.count({
-            where: {
-              formId: form.id,
-            },
-          });
-
-          const _spam = await tx.submission.count({
-            where: {
-              formId: form.id,
-              isSpam: true,
-            },
-          });
-
-          const _viewed = await tx.submission.count({
-            where: {
-              formId: form.id,
-              viewed: true,
-            },
-          });
-
-          return {
-            ...form,
-            _count: {
-              spam: _spam,
-              unread: _all - _viewed,
-              read: _viewed,
-            },
-          };
-        }),
-      );
+      };
     });
   }),
   byId: protectedProcedure

@@ -118,7 +118,7 @@ const FormCard = ({
                 },
                 {
                   text: t("forms.card.menu.settings"),
-                  onClick: () => onClickMenuItem("settings"),
+                  onClick: () => onClickMenuItem("settings/general"),
                 },
               ]}
               onClickList={onCloseMenu}
