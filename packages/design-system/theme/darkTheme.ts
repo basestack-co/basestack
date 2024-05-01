@@ -266,6 +266,10 @@ const label = {
       color: colors.gray50,
       backgroundColor: colors.blue500,
     },
+    light: {
+      color: colors.gray50,
+      backgroundColor: colors.gray700,
+    },
   },
   translucent: {
     danger: {
@@ -287,6 +291,10 @@ const label = {
     info: {
       color: colors.blue200,
       backgroundColor: transparentize(0.8, colors.blue200),
+    },
+    light: {
+      color: colors.gray200,
+      backgroundColor: transparentize(0.8, colors.gray500),
     },
   },
 };
