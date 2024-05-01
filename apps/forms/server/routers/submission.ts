@@ -42,7 +42,7 @@ export const submissionRouter = router({
         { id: input.orderBy },
       ] as any;
 
-      return await ctx.prisma.$transaction(async (tx) => {
+      return ctx.prisma.$transaction(async (tx) => {
         const { _count } = await tx.submission.aggregate({
           _count: { id: true },
           where: {

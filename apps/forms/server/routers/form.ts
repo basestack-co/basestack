@@ -34,17 +34,19 @@ export const formRouter = router({
   recent: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.session.user.id;
 
-    // TODO: Find a way to do this with Prisma and not raw SQL
+    // TODO: Find a way to do this with Prisma Models and not raw SQL
     // This solves the N+1 problem we had before with the previous query
     // https://github.com/prisma/prisma/issues/15423
-    const formsWithCounts: {
-      id: string;
-      name: string;
-      _all: number;
-      isEnabled: boolean;
-      _spam: number;
-      _viewed: number;
-    }[] = await ctx.prisma.$queryRaw`
+    const formsWithCounts = await ctx.prisma.$queryRaw<
+      {
+        id: string;
+        name: string;
+        _all: number;
+        isEnabled: boolean;
+        _spam: number;
+        _viewed: number;
+      }[]
+    >`
       SELECT
           f.id,
           f.name,
@@ -137,7 +139,7 @@ export const formRouter = router({
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
-      return await ctx.prisma.$transaction(async (tx) => {
+      return ctx.prisma.$transaction(async (tx) => {
         const form = await tx.form.create({
           data: {
             name: input.name,
@@ -221,7 +223,7 @@ export const formRouter = router({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.form.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.form.role, [Role.ADMIN])(() =>
         ctx.prisma.form.delete({
           where: {
             id: input.formId,
