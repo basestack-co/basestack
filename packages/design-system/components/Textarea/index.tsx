@@ -46,6 +46,7 @@ const Textarea: React.FC<TextareaProps> = ({
   isDarker = false,
   onChange,
   onBlur,
+  hasError = false,
   ...props
 }) => {
   return (
@@ -55,6 +56,7 @@ const Textarea: React.FC<TextareaProps> = ({
       onBlur={onBlur}
       placeholder={placeholder}
       isDarker={isDarker}
+      hasError={hasError}
       {...props}
     />
   );
