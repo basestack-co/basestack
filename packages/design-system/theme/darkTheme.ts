@@ -317,7 +317,7 @@ const input = {
   backgroundColor: colors.gray700,
   color: colors.gray300,
   error: {
-    backgroundColor: colors.gray700,
+    backgroundColor: transparentize(0.9, colors.red300),
     focus: {
       outline: colors.red500,
     },
@@ -351,13 +351,19 @@ const textarea = {
   focus: {
     outline: colors.gray500,
   },
+  error: {
+    backgroundColor: transparentize(0.9, colors.red300),
+    focus: {
+      outline: colors.red500,
+    },
+  },
 };
 
 const inputGroup = {
   hint: {
     color: colors.gray400,
     error: {
-      color: colors.red500,
+      color: colors.red300,
     },
   },
 };

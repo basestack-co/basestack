@@ -346,6 +346,12 @@ const textarea = {
   focus: {
     outline: colors.black,
   },
+  error: {
+    backgroundColor: colors.red50,
+    focus: {
+      outline: colors.red200,
+    },
+  },
 };
 
 const inputGroup = {
