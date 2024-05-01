@@ -37,7 +37,11 @@
         "AUTH0_CLIENT_SECRET",
         "AUTH0_DOMAIN",
         "GOOGLE_CLIENT_ID",
-        "GOOGLE_CLIENT_SECRET"
+        "GOOGLE_CLIENT_SECRET",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
+        "SENTRY_DSN",
+        "SENTRY_AUTH_TOKEN"
       ]
     },
     "@basestack/forms#deploy": {
