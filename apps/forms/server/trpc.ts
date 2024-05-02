@@ -5,6 +5,7 @@ import { Context } from "./context";
 import superjson from "superjson";
 // Prisma
 import { getUserInForm } from "libs/prisma/utils/user";
+import { getSubscriptionUsage } from "libs/prisma/utils/subscription";
 
 export type Meta = {
   restricted?: boolean;
@@ -61,6 +62,30 @@ export const isAuthenticated = middleware(
   },
 );
 
+export const isSubscribed = middleware(async ({ next, ctx }) => {
+  if (!ctx.session) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+
+  const usage = await getSubscriptionUsage(ctx.prisma, ctx.session.user.id);
+
+  /* if (!usage) {
+    throw new TRPCError({
+      code: "PRECONDITION_FAILED",
+      message: "User is not subscribed to any plan.",
+      cause: { code: "NO_SUBSCRIPTION" },
+    });
+  } */
+
+  return next({
+    ctx: {
+      ...ctx,
+      session: ctx.session,
+      usage,
+    },
+  });
+});
+
 // ROUTERS
 
 export const router = t.router;
@@ -70,4 +95,6 @@ export const mergeRouters = t.mergeRouters;
 // PROCEDURES
 
 export const publicProcedure = t.procedure;
-export const protectedProcedure = t.procedure.use(isAuthenticated);
+export const protectedProcedure = t.procedure
+  .use(isAuthenticated)
+  .use(isSubscribed);

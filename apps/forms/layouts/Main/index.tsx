@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 // Router
 import { useRouter } from "next/router";
 // Auth
@@ -11,6 +11,7 @@ import { trpc } from "libs/trpc";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -18,9 +19,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     },
   });
 
-  const { data, isLoading: isLoadingForms } = trpc.form.all.useQuery(
-    undefined,
-    {
+  const [forms, usage] = trpc.useQueries((t) => [
+    t.form.all(undefined, {
       enabled: status === "authenticated",
       select: (data) =>
         data?.forms.map((item) => ({
@@ -33,10 +33,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             }),
           text: item.name,
         })),
-    },
-  );
+    }),
+    t.subscription.usage(undefined, { enabled: status === "authenticated" }),
+  ]);
 
-  if (status === "loading" || isLoadingForms) {
+  if (status === "loading" || forms.isLoading || usage.isLoading) {
     return (
       <Loader hasDelay={false}>
         <Splash product="forms" />
@@ -46,7 +47,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Fragment>
-      <Navigation data={data} />
+      <Navigation data={forms.data} hasSubscription={!!usage.data} />
       {children}
     </Fragment>
   );

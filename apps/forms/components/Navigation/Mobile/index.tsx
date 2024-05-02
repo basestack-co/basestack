@@ -52,12 +52,14 @@ interface NavigationDrawerProps {
   isDrawerOpen: boolean;
   onClose: () => void;
   data?: Array<PopupActionProps>;
+  hasSubscription?: boolean;
 }
 
 const MobileNavigation = ({
   isDrawerOpen,
   onClose,
   data,
+  hasSubscription,
 }: NavigationDrawerProps) => {
   const { t } = useTranslation("navigation");
   const theme = useTheme();
@@ -100,7 +102,7 @@ const MobileNavigation = ({
                 />
               </Header>
               <ContentContainer>
-                {!!formId && (
+                {!!formId && hasSubscription && (
                   <>
                     <List>
                       {getInternalLinks(t, formId).map((item, index) => (
@@ -125,41 +127,45 @@ const MobileNavigation = ({
                   </>
                 )}
                 <ScrollableContent>
-                  <TitleContainer>
-                    <Text muted fontWeight={500}>
-                      {t("forms.title")}
-                    </Text>
-                  </TitleContainer>
-                  <List>
-                    {data?.map(({ id, text, onClick }) => (
-                      <ListItem key={id}>
-                        <Button
-                          iconPlacement="left"
-                          icon="tag"
-                          variant={ButtonVariant.Neutral}
-                          onClick={onClick}
-                          fullWidth
-                        >
-                          {text}
-                        </Button>
-                      </ListItem>
-                    ))}
-                    <ListItem>
-                      <Button
-                        iconPlacement="left"
-                        icon="add"
-                        variant={ButtonVariant.Neutral}
-                        fullWidth
-                        onClick={() => {
-                          onClose();
-                          setCreateFormModalOpen({ isOpen: true });
-                        }}
-                      >
-                        {t("create.form")}
-                      </Button>
-                    </ListItem>
-                  </List>
-                  <HorizontalRule m={theme.spacing.s5} />
+                  {hasSubscription && (
+                    <>
+                      <TitleContainer>
+                        <Text muted fontWeight={500}>
+                          {t("forms.title")}
+                        </Text>
+                      </TitleContainer>
+                      <List>
+                        {data?.map(({ id, text, onClick }) => (
+                          <ListItem key={id}>
+                            <Button
+                              iconPlacement="left"
+                              icon="tag"
+                              variant={ButtonVariant.Neutral}
+                              onClick={onClick}
+                              fullWidth
+                            >
+                              {text}
+                            </Button>
+                          </ListItem>
+                        ))}
+                        <ListItem>
+                          <Button
+                            iconPlacement="left"
+                            icon="add"
+                            variant={ButtonVariant.Neutral}
+                            fullWidth
+                            onClick={() => {
+                              onClose();
+                              setCreateFormModalOpen({ isOpen: true });
+                            }}
+                          >
+                            {t("create.form")}
+                          </Button>
+                        </ListItem>
+                      </List>
+                      <HorizontalRule m={theme.spacing.s5} />
+                    </>
+                  )}
                   <TitleContainer>
                     <Text muted fontWeight={500}>
                       {t("external.resources")}
@@ -198,7 +204,7 @@ const MobileNavigation = ({
                   isDarkMode={isDarkMode}
                   onSetDarkMode={setIsDarkMode}
                   popupPlacement="top"
-                  list={getAvatarDropdownList(t, router, () =>
+                  list={getAvatarDropdownList(t, router, hasSubscription, () =>
                     setCreateFormModalOpen({ isOpen: true }),
                   )}
                   showFullButton

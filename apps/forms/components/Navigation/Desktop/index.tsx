@@ -37,12 +37,14 @@ interface NavigationProps {
   isDesktop: boolean;
   data?: Array<PopupActionProps>;
   onClickMenuButton: () => void;
+  hasSubscription?: boolean;
 }
 
 const DesktopNavigation = ({
   isDesktop,
   data,
   onClickMenuButton,
+  hasSubscription,
 }: NavigationProps) => {
   const { t } = useTranslation("navigation");
   const theme = useTheme();
@@ -118,17 +120,21 @@ const DesktopNavigation = ({
                 </LogoContainer>
               </Link>
             </ListItem>
-            <ProjectsMenu
-              onCreate={() => setCreateFormModalOpen({ isOpen: true })}
-              current={currentForm}
-              data={data ?? []}
-              title={t("forms.title")}
-              select={{
-                title: t("forms.select"),
-                create: t("create.form"),
-              }}
-            />
-            {!!formId && onRenderItems(getInternalLinks(t, formId), "left")}
+            {hasSubscription && (
+              <>
+                <ProjectsMenu
+                  onCreate={() => setCreateFormModalOpen({ isOpen: true })}
+                  current={currentForm}
+                  data={data ?? []}
+                  title={t("forms.title")}
+                  select={{
+                    title: t("forms.select"),
+                    create: t("create.form"),
+                  }}
+                />
+                {!!formId && onRenderItems(getInternalLinks(t, formId), "left")}
+              </>
+            )}
           </>
         )}
       </List>
@@ -143,7 +149,7 @@ const DesktopNavigation = ({
               darkModeText={t("dropdown.dark-mode")}
               isDarkMode={isDarkMode}
               onSetDarkMode={setIsDarkMode}
-              list={getAvatarDropdownList(t, router, () =>
+              list={getAvatarDropdownList(t, router, hasSubscription, () =>
                 setCreateFormModalOpen({ isOpen: true }),
               )}
             />

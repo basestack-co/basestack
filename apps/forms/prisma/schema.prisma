@@ -67,6 +67,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   forms         FormOnUsers[]
+  usage         Usage?
   role          Role          @default(ADMIN)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
@@ -80,6 +81,27 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Usage {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  subscriptionId    String
+  scheduleId        String?  @unique // Schedule Job ID
+  planId            String
+  billingCycleStart DateTime
+  forms             Int      @default(0)
+  submissions       Int      @default(0)
+  members           Int      @default(0)
+  spams             Int      @default(0)
+  fileUploadLimit   Int      @default(0)
+  integrationsCalls Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, subscriptionId])
 }
 
 model Form {
@@ -127,6 +149,7 @@ model Submission {
   formId    String
   isSpam    Boolean? @default(false)
   viewed    Boolean? @default(false)
+  isVisible Boolean? @default(true)
   data      Json     @default("{}") @db.Json
   metadata  Json?    @default("{}") @db.Json
   createdAt DateTime @default(now())
