@@ -4,7 +4,7 @@ import { TRPCError } from "@trpc/server";
 import { Role } from "@prisma/client";
 // Utils
 import { z } from "zod";
-import { withRoles } from "@basestack/utils";
+import { withRoles, config, PlanTypeId } from "@basestack/utils";
 
 export const formRouter = router({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -139,6 +139,8 @@ export const formRouter = router({
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
+
+
       return ctx.prisma.$transaction(async (tx) => {
         const form = await tx.form.create({
           data: {
@@ -223,8 +225,6 @@ export const formRouter = router({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-
-
       const authorized = withRoles(ctx.form.role, [Role.ADMIN])(() =>
         ctx.prisma.form.delete({
           where: {

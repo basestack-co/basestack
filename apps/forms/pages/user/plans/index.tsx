@@ -14,24 +14,6 @@ import { toast } from "sonner";
 import { config, PlanTypeId } from "@basestack/utils";
 // Components
 import { useTheme } from "styled-components";
-import {
-  Button,
-  ButtonVariant,
-  Skeleton,
-  Text,
-  Empty,
-} from "@basestack/design-system";
-import FormCard from "components/Dashboard/FormCard";
-import GetStartedCard from "components/Dashboard/GetStartedCard";
-import LinksCard from "components/Dashboard/LinksCard";
-// Styles
-import {
-  Container,
-  Header,
-  Section,
-  List,
-  BottomContainer,
-} from "components/Dashboard/styles";
 // Layout
 import MainLayout from "layouts/Main";
 

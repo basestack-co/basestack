@@ -13,8 +13,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const { status } = useSession({
     required: true,
-    onUnauthenticated() {
-      router.push("/auth/sign-in");
+    async onUnauthenticated() {
+      await router.push("/auth/sign-in");
     },
   });
 

@@ -1,32 +1,13 @@
 import { protectedProcedure, router } from "server/trpc";
 // Utils
-import { PlanTypeId, config } from "@basestack/utils";
+import { getSubscriptionUsage } from "libs/prisma/utils/subscription";
+import { PlanTypeId } from "@basestack/utils";
 import { z } from "zod";
 
 export const subscriptionRouter = router({
   usage: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.session.user.id;
-
-    const usage = await ctx.prisma.subscription.findFirst({
-      where: {
-        userId,
-      },
-      omit: {
-        userId: true,
-        updatedAt: true,
-        createdAt: true,
-        billingCycleStart: true,
-        scheduleId: true,
-      },
-    });
-
-    return !!usage
-      ? { ...usage }
-      : {
-          planId: PlanTypeId.FREE,
-          subscriptionId: "",
-          ...config.plans.getFormPlanLimits(PlanTypeId.FREE),
-        };
+    return await getSubscriptionUsage(ctx.prisma, userId);
   }),
   createOrUpdate: protectedProcedure
     .meta({
