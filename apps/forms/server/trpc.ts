@@ -53,38 +53,17 @@ export const isAuthenticated = middleware(
       };
     }
 
+    const usage = await getSubscriptionUsage(ctx.prisma, ctx.session.user.id);
+
     return next({
       ctx: {
         ...ctx,
         session: ctx.session,
+        usage,
       },
     });
   },
 );
-
-export const isSubscribed = middleware(async ({ next, ctx }) => {
-  if (!ctx.session) {
-    throw new TRPCError({ code: "UNAUTHORIZED" });
-  }
-
-  const usage = await getSubscriptionUsage(ctx.prisma, ctx.session.user.id);
-
-  /* if (!usage) {
-    throw new TRPCError({
-      code: "PRECONDITION_FAILED",
-      message: "User is not subscribed to any plan.",
-      cause: { code: "NO_SUBSCRIPTION" },
-    });
-  } */
-
-  return next({
-    ctx: {
-      ...ctx,
-      session: ctx.session,
-      usage,
-    },
-  });
-});
 
 // ROUTERS
 
@@ -95,6 +74,4 @@ export const mergeRouters = t.mergeRouters;
 // PROCEDURES
 
 export const publicProcedure = t.procedure;
-export const protectedProcedure = t.procedure
-  .use(isAuthenticated)
-  .use(isSubscribed);
+export const protectedProcedure = t.procedure.use(isAuthenticated);

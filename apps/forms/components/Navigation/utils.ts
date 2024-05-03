@@ -50,20 +50,15 @@ export const getExternalLinks = (t: Translate) => {
 export const getAvatarDropdownList = (
   t: Translate,
   router: NextRouter,
-  hasSubscription: boolean = false,
   onCreateForm: () => void,
 ) => {
   return [
-    ...(hasSubscription
-      ? [
-          {
-            icon: "add_circle",
-            text: t("create.form"),
-            onClick: onCreateForm,
-            separator: true,
-          },
-        ]
-      : []),
+    {
+      icon: "add_circle",
+      text: t("create.form"),
+      onClick: onCreateForm,
+      separator: true,
+    },
     {
       icon: "settings",
       text: t("dropdown.settings"),

@@ -67,7 +67,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   forms         FormOnUsers[]
-  usage         Usage?
+  subscription  Subscription?
   role          Role          @default(ADMIN)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
@@ -83,7 +83,7 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Usage {
+model Subscription {
   id                String   @id @default(cuid())
   userId            String   @unique
   subscriptionId    String

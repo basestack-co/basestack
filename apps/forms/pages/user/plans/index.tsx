@@ -43,7 +43,7 @@ const MainPage = () => {
   const theme = useTheme();
   const router = useRouter();
 
-  const createSubscription = trpc.subscription.create.useMutation();
+  const createSubscription = trpc.subscription.createOrUpdate.useMutation();
 
   const onSelectSubscription = useCallback(
     (planId: PlanTypeId, subscriptionId: string) => {

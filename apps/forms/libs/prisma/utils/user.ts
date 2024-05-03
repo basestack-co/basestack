@@ -8,43 +8,29 @@ export const getUserInForm = async (
   formId: string,
 ) => {
   try {
-    return await prisma.$transaction(async (tx) => {
-      const form = await tx.form.findFirst({
-        where: {
-          AND: [
-            { id: formId },
-            {
-              users: {
-                some: {
-                  user: {
-                    id: userId,
-                  },
-                },
-              },
-            },
-          ],
-        },
-      });
-
-      if (form) {
-        const role = await tx.formOnUsers.findFirst({
-          where: {
-            formId,
-            userId,
-          },
+    const data = await prisma.formOnUsers.findFirstOrThrow({
+      where: {
+        formId,
+        userId,
+      },
+      select: {
+        role: true,
+        form: {
           select: {
-            role: true,
+            id: true,
           },
-        });
-
-        return {
-          ...form,
-          role: role?.role ?? "USER",
-        };
-      }
-
-      return null;
+        },
+      },
     });
+
+    if (data?.form) {
+      return {
+        ...data.form,
+        role: data.role ?? "USER",
+      };
+    }
+
+    return null;
   } catch {
     throw new TRPCError({ code: "FORBIDDEN" });
   }

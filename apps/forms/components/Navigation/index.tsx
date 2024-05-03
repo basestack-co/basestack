@@ -8,10 +8,9 @@ import DesktopNavigation from "./Desktop";
 
 export interface NavigationProps {
   data?: Array<PopupActionProps>;
-  hasSubscription?: boolean;
 }
 
-const Navigation = ({ data, hasSubscription }: NavigationProps) => {
+const Navigation = ({ data }: NavigationProps) => {
   const theme = useTheme();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isMobile = useMedia(theme.device.max.lg, false);
@@ -28,13 +27,11 @@ const Navigation = ({ data, hasSubscription }: NavigationProps) => {
         onClickMenuButton={() => setIsDrawerOpen(true)}
         isDesktop={!isMobile}
         data={data}
-        hasSubscription={hasSubscription}
       />
       <MobileNavigation
         data={data}
         onClose={() => setIsDrawerOpen(false)}
         isDrawerOpen={isDrawerOpen}
-        hasSubscription={hasSubscription}
       />
     </Fragment>
   );

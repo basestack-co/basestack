@@ -223,6 +223,8 @@ export const formRouter = router({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
+
+
       const authorized = withRoles(ctx.form.role, [Role.ADMIN])(() =>
         ctx.prisma.form.delete({
           where: {

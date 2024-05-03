@@ -7,6 +7,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 // Libs
 import prisma from "libs/prisma";
+// Types
 import { Role } from "@prisma/client";
 
 declare module "next-auth" {
