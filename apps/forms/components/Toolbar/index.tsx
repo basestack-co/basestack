@@ -7,7 +7,7 @@ import { useDebounce } from "react-use";
 import {
   Button,
   ButtonVariant,
-  Input,
+  Search,
   Checkbox,
 } from "@basestack/design-system";
 import PopupMenu from "./PopupMenu";
@@ -47,6 +47,9 @@ const Toolbar = ({
 }: ToolbarProps) => {
   const { t } = useTranslation("forms");
   const [searchValue, setSearchValue] = useState("");
+  const [selectedSearchKey, setSelectedSearchKey] = useState<string | null>(
+    null,
+  );
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
   const [selectedSort, setSelectedSort] = useState<string | null>(null);
 
@@ -63,20 +66,31 @@ const Toolbar = ({
     <Container>
       <Wrapper>
         <LeftContent>
-          <Input
-            testId="search-input"
-            size="small"
-            width="100%"
-            isDarker
-            icon="search"
-            iconPlacement="left"
+          <Search
             placeholder={t("toolbar.search.placeholder")}
+            isDisabled={isDisabled ?? false}
+            value={searchValue}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               setSearchValue(event.target.value)
             }
-            name="search"
-            value={searchValue}
-            isDisabled={isDisabled}
+            onClear={() => setSearchValue("")}
+            filter={{
+              selected: selectedSearchKey ?? "name",
+              options: [
+                {
+                  text: "name",
+                  onClick: () => setSelectedSearchKey("name"),
+                },
+                {
+                  text: "email",
+                  onClick: () => setSelectedSearchKey("email"),
+                },
+                {
+                  text: "message",
+                  onClick: () => setSelectedSearchKey("message"),
+                },
+              ],
+            }}
           />
         </LeftContent>
         <RightList>

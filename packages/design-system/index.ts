@@ -80,6 +80,7 @@ export {
   type AccordionProps,
 } from "./components/Accordion";
 export { default as Banner, type BannerProps } from "./components/Banner";
+export { default as Search, type SearchProps } from "./components/Search";
 
 // Other
 export * from "./animations/springs";
