@@ -131,9 +131,7 @@ const FormCard = ({
       )}
       <Button onClick={onClick}>
         <Card
-          variant={
-            !!spam || !isEnabled ? CardVariant.WARNING : CardVariant.DEFAULT
-          }
+          variant={!isEnabled ? CardVariant.WARNING : CardVariant.DEFAULT}
           height="100%"
           width="100%"
           hasHoverAnimation

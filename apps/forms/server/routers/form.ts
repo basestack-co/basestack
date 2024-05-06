@@ -86,6 +86,7 @@ export const formRouter = router({
       return {
         id: form.id,
         name: form.name,
+        isEnabled: form.isEnabled,
         _count: {
           spam: _spam,
           unread: _all - _viewed,
@@ -144,7 +145,6 @@ export const formRouter = router({
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
       const planId = ctx.usage.planId as PlanTypeId;
-
 
       const authorized = withLimits(
         planId,
