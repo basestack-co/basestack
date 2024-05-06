@@ -203,13 +203,6 @@ const verifyForm = async (
   if (form?.isEnabled) {
     const planId = form.usage.planId as PlanTypeId;
 
-    console.log("form.usage.submissions = ", form.usage.submissions);
-    console.log(
-      "getFormLimitByKey = ",
-      getFormLimitByKey(planId, "submissions"),
-    );
-    console.log("-----------------");
-
     if (form.usage.submissions >= getFormLimitByKey(planId, "submissions")) {
       handleError(
         res,

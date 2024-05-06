@@ -19,8 +19,8 @@ const forms: Plan[] = [
       },
     },
     limits: {
-      forms: 1,
-      submissions: 2,
+      forms: 2,
+      submissions: 25,
       members: 1,
       spams: 0,
       fileUploadLimit: 0, // GB

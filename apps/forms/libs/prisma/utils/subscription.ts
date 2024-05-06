@@ -28,7 +28,12 @@ export const getSubscriptionUsage = async (
       : {
           planId: PlanTypeId.FREE,
           subscriptionId: "",
-          ...config.plans.getFormPlanLimits(PlanTypeId.FREE),
+          forms: 0,
+          submissions: 0,
+          members: 0,
+          spams: 0,
+          fileUploadLimit: 0,
+          integrationsCalls: 0,
         };
   } catch {
     throw new TRPCError({ code: "BAD_REQUEST" });
@@ -127,4 +132,3 @@ export function withFeatures(
     } as T;
   };
 }
-
