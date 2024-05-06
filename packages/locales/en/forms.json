@@ -74,6 +74,15 @@
         "loading": "Exporting...",
         "success": "Submissions have been exported successfully."
       }
+    },
+    "metadata": {
+      "title": "Automatically captured metadata",
+      "expand": {
+        "less": "less"
+      },
+      "ip": {
+        "block": "Block IP Address"
+      }
     }
   },
   "setup": {

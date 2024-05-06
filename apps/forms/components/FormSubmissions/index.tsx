@@ -25,6 +25,7 @@ import { downloadCSV } from "@basestack/utils";
 import dayjs from "dayjs";
 import { formatFormSubmissions } from "./utils";
 // Types
+import { Metadata } from "../FormSubmission/types";
 import { SelectedFilter, SelectedSort } from "../Toolbar/types";
 
 const limit = 10;
@@ -283,11 +284,12 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
               return (
                 <Fragment key={`submission-page-${index}`}>
                   {submissions.map(
-                    ({ id, createdAt, data, isSpam, viewed }) => {
+                    ({ id, createdAt, data, isSpam, viewed, metadata }) => {
                       return (
                         <ListItem key={`submission-item-${id}`}>
                           <FormSubmission
                             data={formatFormSubmissions(data)}
+                            metadata={metadata as unknown as Metadata}
                             date={dayjs(createdAt).fromNow()}
                             viewed={viewed!}
                             isSpam={isSpam!}

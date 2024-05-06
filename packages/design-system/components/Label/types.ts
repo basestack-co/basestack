@@ -3,5 +3,6 @@ export type LabelVariant =
   | "default"
   | "info"
   | "warning"
-  | "danger";
+  | "danger"
+  | "light";
 export type LabelSize = "normal" | "medium" | "small";

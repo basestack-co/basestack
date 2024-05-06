@@ -53,6 +53,7 @@ export const StyledLabel = styled.div<{
 }>`
   display: flex;
   border-radius: 4px;
+  align-items: center;
   ${({ size }) => getSizeStyles(size)};
   ${({ theme, variant, isTranslucent }) =>
     isTranslucent
@@ -61,7 +62,6 @@ export const StyledLabel = styled.div<{
   ${({ hasChildren, size }) =>
     hasChildren &&
     css`
-      align-items: center;
       ${getGap(size)};
     `}
   ${({ isUppercase }) =>
