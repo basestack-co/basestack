@@ -1,7 +1,19 @@
-import styled, { css } from "styled-components";
+import styled, { css, DefaultTheme } from "styled-components";
 import { space, position, layout, compose } from "styled-system";
 import { rem } from "polished";
 import { Variant } from "./types";
+
+const getOutlineColor = (theme: DefaultTheme, variant: Variant) => {
+  const colors = {
+    [Variant.PRIMARY]: theme.card.variant.primary.border,
+    [Variant.DANGER]: theme.card.variant.danger.border,
+    [Variant.SUCCESS]: theme.card.variant.success.border,
+    [Variant.WARNING]: theme.card.variant.warning.border,
+    [Variant.DEFAULT]: "transparent",
+  };
+
+  return colors[variant];
+};
 
 export const Container = styled.div<{
   hasHoverAnimation: boolean;
@@ -24,17 +36,9 @@ export const Container = styled.div<{
     `};
 
   ${({ variant, theme }) =>
-    variant === Variant.DANGER &&
+    variant !== Variant.DEFAULT &&
     css`
       outline-offset: -1px;
-      outline: 1px solid ${theme.colors[theme.isDarkMode ? "red500" : "red400"]};
-    `}
-
-  ${({ variant, theme }) =>
-    variant === Variant.PRIMARY &&
-    css`
-      outline-offset: -1px;
-      outline: 1px solid
-        ${theme.colors[theme.isDarkMode ? "blue400" : "blue400"]};
+      outline: 1px solid ${getOutlineColor(theme, variant)};
     `}
 `;

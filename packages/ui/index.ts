@@ -32,3 +32,4 @@ export {
   default as CodeLanguageCard,
   type LanguageCardProps,
 } from "./components/CodeLanguageCard";
+export { default as Banners, type BannersProps } from "./components/Banners";

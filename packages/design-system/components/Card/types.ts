@@ -5,6 +5,8 @@ export enum Variant {
   DEFAULT = "default",
   DANGER = "danger",
   PRIMARY = "primary",
+  WARNING = "warning",
+  SUCCESS = "success",
 }
 
 export interface CardProps extends SpaceProps, PositionProps, LayoutProps {

@@ -91,10 +91,24 @@ export const BodyWrapper = styled.div`
   overflow-y: auto;
 `;
 
+export const MetadataContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: ${({ theme }) => theme.spacing.s4};
+`;
+
+export const MetadataTags = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: ${({ theme }) => theme.spacing.s1};
+  gap: ${({ theme }) => theme.spacing.s1};
+  align-items: center;
+`;
+
 export const BodyValue = styled.div`
   border-radius: 4px;
   background-color: ${({ theme }) =>
-    theme.colors[theme.isDarkMode ? "gray700" : "gray10"]};
+    theme.colors[theme.isDarkMode ? "gray700" : "gray50"]};
   margin-top: ${({ theme }) => theme.spacing.s1};
   padding: ${({ theme }) => theme.spacing.s2};
 `;

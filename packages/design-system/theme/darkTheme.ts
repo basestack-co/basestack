@@ -199,6 +199,20 @@ const empty = {
 
 const card = {
   backgroundColor: colors.gray800,
+  variant: {
+    success: {
+      border: colors.green500,
+    },
+    warning: {
+      border: colors.yellow500,
+    },
+    danger: {
+      border: colors.red500,
+    },
+    primary: {
+      border: colors.blue500,
+    },
+  },
 };
 
 const text = {
@@ -266,6 +280,10 @@ const label = {
       color: colors.gray50,
       backgroundColor: colors.blue500,
     },
+    light: {
+      color: colors.gray50,
+      backgroundColor: colors.gray700,
+    },
   },
   translucent: {
     danger: {
@@ -287,6 +305,10 @@ const label = {
     info: {
       color: colors.blue200,
       backgroundColor: transparentize(0.8, colors.blue200),
+    },
+    light: {
+      color: colors.gray200,
+      backgroundColor: transparentize(0.8, colors.gray500),
     },
   },
 };
@@ -313,11 +335,16 @@ const pill = {
   },
 };
 
+const search = {
+  backgroundColor: colors.gray800,
+  border: colors.gray600,
+};
+
 const input = {
   backgroundColor: colors.gray700,
   color: colors.gray300,
   error: {
-    backgroundColor: colors.gray700,
+    backgroundColor: transparentize(0.9, colors.red300),
     focus: {
       outline: colors.red500,
     },
@@ -351,13 +378,19 @@ const textarea = {
   focus: {
     outline: colors.gray500,
   },
+  error: {
+    backgroundColor: transparentize(0.9, colors.red300),
+    focus: {
+      outline: colors.red500,
+    },
+  },
 };
 
 const inputGroup = {
   hint: {
     color: colors.gray400,
     error: {
-      color: colors.red500,
+      color: colors.red300,
     },
   },
 };
@@ -586,6 +619,7 @@ const theme = {
   icon,
   iconButton,
   label,
+  search,
   input,
   segment,
   splash,

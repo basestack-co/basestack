@@ -197,6 +197,20 @@ const empty = {
 
 const card = {
   backgroundColor: colors.white,
+  variant: {
+    success: {
+      border: colors.green400,
+    },
+    warning: {
+      border: colors.yellow400,
+    },
+    danger: {
+      border: colors.red400,
+    },
+    primary: {
+      border: colors.blue400,
+    },
+  },
 };
 
 const text = {
@@ -261,6 +275,10 @@ const label = {
       color: colors.white,
       backgroundColor: colors.primary,
     },
+    light: {
+      color: colors.black,
+      backgroundColor: colors.gray50,
+    },
   },
   translucent: {
     danger: {
@@ -282,6 +300,10 @@ const label = {
     info: {
       color: colors.blue600,
       backgroundColor: transparentize(0.9, colors.blue400),
+    },
+    light: {
+      color: colors.gray600,
+      backgroundColor: transparentize(0.9, colors.gray300),
     },
   },
 };
@@ -306,6 +328,11 @@ const pill = {
       backgroundColor: darken(0.04, colors.blue100),
     },
   },
+};
+
+const search = {
+  backgroundColor: colors.gray100,
+  border: colors.gray200,
 };
 
 const input = {
@@ -345,6 +372,12 @@ const textarea = {
   },
   focus: {
     outline: colors.black,
+  },
+  error: {
+    backgroundColor: colors.red50,
+    focus: {
+      outline: colors.red200,
+    },
   },
 };
 
@@ -555,7 +588,7 @@ const banner = {
   },
   translucent: {
     info: {
-      backgroundColor: transparentize(0.9, colors.blue400),
+      backgroundColor: transparentize(0.8, colors.blue400),
       color: colors.black,
     },
     warning: {
@@ -563,11 +596,11 @@ const banner = {
       color: colors.black,
     },
     success: {
-      backgroundColor: transparentize(0.9, colors.green400),
+      backgroundColor: transparentize(0.8, colors.green400),
       color: colors.black,
     },
     danger: {
-      backgroundColor: transparentize(0.9, colors.red400),
+      backgroundColor: transparentize(0.8, colors.red400),
       color: colors.black,
     },
   },
@@ -581,6 +614,7 @@ const theme = {
   icon,
   iconButton,
   label,
+  search,
   input,
   segment,
   splash,

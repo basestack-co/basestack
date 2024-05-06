@@ -5,6 +5,13 @@ export type Data = Array<{
   description: string;
 }>;
 
+export interface Metadata {
+  acceptLanguage: string;
+  ip: string;
+  referer: string;
+  userAgent: string;
+}
+
 export interface Props {
   date: string;
   data: Data;
@@ -19,6 +26,7 @@ export interface Props {
 export interface FormSubmissionProps extends Props {
   onSelect: (value: boolean) => void;
   isSelected: boolean;
+  metadata: Metadata;
 }
 
 export interface FormSubmissionHeaderProps extends Props {
@@ -30,4 +38,5 @@ export interface FormSubmissionHeaderProps extends Props {
 export interface FormSubmissionBodyProps {
   isOpen: boolean;
   data: Data;
+  metadata: Metadata;
 }

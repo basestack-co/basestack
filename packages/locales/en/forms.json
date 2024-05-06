@@ -9,7 +9,7 @@
   },
   "toolbar": {
     "search": {
-      "placeholder": "Filter by keyword"
+      "placeholder": "Search..."
     },
     "action": {
       "select-all": "Select all",
@@ -34,6 +34,9 @@
   },
   "submission": {
     "alert": {
+      "enabled": {
+        "description": "Form is disabled, Activate/Deactivate the form to control submission collection"
+      },
       "retention": {
         "description": "Data retention is turned off, to see submissions on this page go to settings, and under the general tab enable data retention"
       }
@@ -70,6 +73,15 @@
         "error": "Submissions could not be exported.",
         "loading": "Exporting...",
         "success": "Submissions have been exported successfully."
+      }
+    },
+    "metadata": {
+      "title": "Automatically captured metadata",
+      "expand": {
+        "less": "less"
+      },
+      "ip": {
+        "block": "Block IP Address"
       }
     }
   },
