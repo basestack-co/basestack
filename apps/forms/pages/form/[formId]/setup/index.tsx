@@ -9,6 +9,7 @@ import MainLayout from "layouts/Main";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Components
+import { Banners } from "@basestack/ui";
 import EndpointCard from "components/Setup/EndpointCard";
 import { HorizontalRule } from "@basestack/design-system";
 import SetupGuide from "components/Setup/SetupGuide";
@@ -31,6 +32,9 @@ const SetupPage = () => {
     },
   );
 
+  const isEnabled = form?.isEnabled ?? true;
+  const hasRetention = form?.hasRetention ?? true;
+
   return (
     <Fragment>
       <Head>
@@ -38,6 +42,18 @@ const SetupPage = () => {
           {form?.name ?? "Form"} / {t("seo.setup")}
         </title>
       </Head>
+      <Banners
+        data={[
+          {
+            title: t("submission.alert.enabled.description"),
+            isVisible: !isEnabled,
+          },
+          {
+            title: t("submission.alert.retention.description"),
+            isVisible: !hasRetention && isEnabled,
+          },
+        ]}
+      />
       <Container>
         <EndpointCard formId={formId ?? ""} />
         <HorizontalRule my={theme.spacing.s5} isDarker />

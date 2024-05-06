@@ -21,6 +21,9 @@
         "submissions": "Submissions",
         "settings": "Settings",
         "setup": "Setup"
+      },
+      "label": {
+        "disabled": "Disabled"
       }
     }
   },

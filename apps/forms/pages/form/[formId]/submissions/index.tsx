@@ -30,6 +30,7 @@ const FormSubmissionsPage = () => {
         </title>
       </Head>
       <FormSubmissions
+        isEnabled={form?.isEnabled ?? true}
         hasRetention={form?.hasRetention ?? true}
         name={form?.name ?? ""}
       />

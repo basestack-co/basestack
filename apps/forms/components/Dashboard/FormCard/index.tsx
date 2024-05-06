@@ -16,9 +16,11 @@ import {
   Text,
   IconButton,
   Popup,
+  Label,
+  CardVariant,
 } from "@basestack/design-system";
-// Syles
-import { Box, CardButton, ListItem } from "./styles";
+// Styles
+import { Button, Content, DetailContainer, Footer, ListItem } from "./styles";
 
 export interface FormCardProps {
   formId: string;
@@ -29,6 +31,7 @@ export interface FormCardProps {
     unread: number;
     read: number;
   };
+  isEnabled?: boolean;
 }
 
 interface DetailProps {
@@ -41,12 +44,12 @@ const Detail = ({ value, icon, mr }: DetailProps) => {
   const theme = useTheme();
 
   return (
-    <Box mr={mr} display="flex" alignItems="center">
+    <DetailContainer>
       <Icon icon={icon} size="small" />
       <Text size="small" textAlign="left" ml={theme.spacing.s1}>
         {value >= 99 ? "+99" : value}
       </Text>
-    </Box>
+    </DetailContainer>
   );
 };
 
@@ -58,6 +61,7 @@ const FormCard = ({
   spam,
   submissions,
   formId,
+  isEnabled = true,
 }: FormCardProps) => {
   const { t } = useTranslation("home");
   const router = useRouter();
@@ -125,9 +129,16 @@ const FormCard = ({
             />
           ),
       )}
-      <CardButton onClick={onClick}>
-        <Card height="100%" width="100%" hasHoverAnimation>
-          <Box mb="auto" p={theme.spacing.s5}>
+      <Button onClick={onClick}>
+        <Card
+          variant={
+            !!spam || !isEnabled ? CardVariant.WARNING : CardVariant.DEFAULT
+          }
+          height="100%"
+          width="100%"
+          hasHoverAnimation
+        >
+          <Content>
             <Avatar
               size="xSmall"
               userName={text}
@@ -137,35 +148,29 @@ const FormCard = ({
             <Text size="small" textAlign="left" mt={theme.spacing.s3}>
               {text}
             </Text>
-          </Box>
+          </Content>
           <HorizontalRule />
-          <Box
-            display="flex"
-            alignItems="center"
-            flexWrap="wrap"
-            p={`${theme.spacing.s3} ${theme.spacing.s5}`}
-          >
-            {!!submissions.unread && (
-              <Detail
-                icon="mark_email_unread"
-                value={submissions.unread}
-                mr={theme.spacing.s4}
+          <Footer>
+            {!isEnabled && (
+              <Label
+                variant="warning"
+                size="small"
+                text={t("forms.card.label.disabled")}
               />
             )}
+            {!!submissions.unread && (
+              <Detail icon="mark_email_unread" value={submissions.unread} />
+            )}
             {!!submissions.read && (
-              <Detail
-                icon="mark_email_read"
-                value={submissions.read}
-                mr={theme.spacing.s4}
-              />
+              <Detail icon="mark_email_read" value={submissions.read} />
             )}
             {!submissions.read && !submissions.unread && (
               <Detail icon="mail" value={0} mr={theme.spacing.s4} />
             )}
             {!!spam && <Detail icon="report" value={spam} />}
-          </Box>
+          </Footer>
         </Card>
-      </CardButton>
+      </Button>
     </ListItem>
   );
 };

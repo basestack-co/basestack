@@ -197,6 +197,20 @@ const empty = {
 
 const card = {
   backgroundColor: colors.white,
+  variant: {
+    success: {
+      border: colors.green400,
+    },
+    warning: {
+      border: colors.yellow400,
+    },
+    danger: {
+      border: colors.red400,
+    },
+    primary: {
+      border: colors.blue400,
+    },
+  },
 };
 
 const text = {
@@ -561,7 +575,7 @@ const banner = {
   },
   translucent: {
     info: {
-      backgroundColor: transparentize(0.9, colors.blue400),
+      backgroundColor: transparentize(0.8, colors.blue400),
       color: colors.black,
     },
     warning: {
@@ -569,11 +583,11 @@ const banner = {
       color: colors.black,
     },
     success: {
-      backgroundColor: transparentize(0.9, colors.green400),
+      backgroundColor: transparentize(0.8, colors.green400),
       color: colors.black,
     },
     danger: {
-      backgroundColor: transparentize(0.9, colors.red400),
+      backgroundColor: transparentize(0.8, colors.red400),
       color: colors.black,
     },
   },

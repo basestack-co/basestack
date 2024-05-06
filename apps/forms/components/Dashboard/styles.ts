@@ -63,20 +63,6 @@ export const List = styled.ul`
   }
 `;
 
-export const ListItem = styled.li`
-  position: relative;
-  ${flexColumn};
-  flex-grow: 1;
-`;
-
-export const CardButton = styled.button`
-  ${flexColumn};
-  flex-grow: 1;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-`;
-
 export const ContentContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;

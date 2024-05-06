@@ -41,7 +41,7 @@ const MainPage = () => {
 
   const { data, isLoading } = trpc.form.recent.useQuery(undefined, {
     select: (res) => {
-      return res.map(({ id, name, _count }) => ({
+      return res.map(({ id, name, _count, isEnabled }) => ({
         formId: id,
         title: name,
         spam: _count.spam,
@@ -49,6 +49,7 @@ const MainPage = () => {
           unread: _count.unread,
           read: _count.read,
         },
+        isEnabled: isEnabled,
       }));
     },
   });
@@ -90,19 +91,20 @@ const MainPage = () => {
             <Fragment>
               {!!data?.length ? (
                 <List>
-                  {data.map(({ title, spam, submissions, formId }, index) => (
+                  {data.map((item, index) => (
                     <FormCard
                       key={index}
-                      formId={formId}
-                      text={title}
+                      formId={item.formId}
+                      text={item.title}
                       onClick={() =>
                         router.push({
                           pathname: "/form/[formId]/submissions",
-                          query: { formId },
+                          query: { formId: item.formId },
                         })
                       }
-                      spam={spam}
-                      submissions={submissions}
+                      spam={item.spam}
+                      submissions={item.submissions}
+                      isEnabled={item.isEnabled}
                     />
                   ))}
                 </List>
