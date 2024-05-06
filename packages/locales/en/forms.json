@@ -34,6 +34,9 @@
   },
   "submission": {
     "alert": {
+      "enabled": {
+        "description": "Form is disabled, Activate/Deactivate the form to control submission collection"
+      },
       "retention": {
         "description": "Data retention is turned off, to see submissions on this page go to settings, and under the general tab enable data retention"
       }

@@ -15,13 +15,8 @@ import useTranslation from "next-translate/useTranslation";
 // Toast
 import { toast } from "sonner";
 // Components
-import {
-  Text,
-  Pagination,
-  Empty,
-  Skeleton,
-  Banner,
-} from "@basestack/design-system";
+import { Banners } from "@basestack/ui";
+import { Text, Pagination, Empty, Skeleton } from "@basestack/design-system";
 import { Container, List, ListItem, PaginationContainer } from "./styles";
 import Toolbar from "../Toolbar";
 import FormSubmission from "../FormSubmission";
@@ -37,9 +32,10 @@ const limit = 10;
 export interface Props {
   name: string;
   hasRetention: boolean;
+  isEnabled: boolean;
 }
 
-const FormSubmissions = ({ name, hasRetention }: Props) => {
+const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
   const theme = useTheme();
   const trpcUtils = trpc.useUtils();
   const { t } = useTranslation("forms");
@@ -214,15 +210,18 @@ const FormSubmissions = ({ name, hasRetention }: Props) => {
 
   return (
     <>
-      {!hasRetention && (
-        <Banner
-          variant="warning"
-          title={t("submission.alert.retention.description")}
-          maxWidth={1440}
-          borderRadius={0}
-          isTranslucent
-        />
-      )}
+      <Banners
+        data={[
+          {
+            title: t("submission.alert.enabled.description"),
+            isVisible: !isEnabled,
+          },
+          {
+            title: t("submission.alert.retention.description"),
+            isVisible: !hasRetention && isEnabled,
+          },
+        ]}
+      />
       <Container>
         {!name ? (
           <Skeleton

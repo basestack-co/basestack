@@ -199,6 +199,20 @@ const empty = {
 
 const card = {
   backgroundColor: colors.gray800,
+  variant: {
+    success: {
+      border: colors.green500,
+    },
+    warning: {
+      border: colors.yellow500,
+    },
+    danger: {
+      border: colors.red500,
+    },
+    primary: {
+      border: colors.blue500,
+    },
+  },
 };
 
 const text = {
