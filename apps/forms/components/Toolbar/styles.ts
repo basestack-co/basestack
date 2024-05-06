@@ -28,7 +28,7 @@ export const Wrapper = styled.div`
   gap: ${({ theme }) => theme.spacing.s5};
   margin-bottom: ${({ theme }) => theme.spacing.s5};
 
-  @media screen and ${({ theme }) => theme.device.max.md} {
+  @media screen and ${({ theme }) => theme.device.max.lg} {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
@@ -39,7 +39,7 @@ export const LeftContent = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 260px;
+  max-width: 340px;
 `;
 
 export const RightList = styled.ul`

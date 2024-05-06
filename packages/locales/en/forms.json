@@ -9,7 +9,7 @@
   },
   "toolbar": {
     "search": {
-      "placeholder": "Filter by keyword"
+      "placeholder": "Search..."
     },
     "action": {
       "select-all": "Select all",

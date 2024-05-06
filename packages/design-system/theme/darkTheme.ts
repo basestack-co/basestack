@@ -327,6 +327,11 @@ const pill = {
   },
 };
 
+const search = {
+  backgroundColor: colors.gray800,
+  border: colors.gray600,
+};
+
 const input = {
   backgroundColor: colors.gray700,
   color: colors.gray300,
@@ -606,6 +611,7 @@ const theme = {
   icon,
   iconButton,
   label,
+  search,
   input,
   segment,
   splash,
