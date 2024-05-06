@@ -1,4 +1,5 @@
 import React from "react";
+import { rem } from "polished";
 import { animated } from "react-spring";
 import { LayoutProps, SpaceProps } from "styled-system";
 import { useFloatingPopup } from "@basestack/hooks";
@@ -16,7 +17,7 @@ export interface SearchProps extends SpaceProps, LayoutProps {
   isDisabled: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClear: () => void;
-  filter: {
+  filter?: {
     selected: string;
     options: PopupProps["items"];
   };
@@ -50,7 +51,7 @@ const Search = ({
   } = useFloatingPopup({});
 
   return (
-    <Container ref={popupWrapperRef} {...props}>
+    <Container hasFilter={!!filter} ref={popupWrapperRef} {...props}>
       <InputContainer>
         <Input
           name="search"
@@ -69,39 +70,43 @@ const Search = ({
             size="small"
             variant="secondaryDark"
             position="absolute"
-            right={theme.spacing.s1}
+            right={filter ? theme.spacing.s1 : rem("10px")}
             icon="close"
             onClick={onClear}
           />
         )}
       </InputContainer>
-      <ButtonContainer {...getReferenceProps} ref={refs.setReference}>
-        <Button
-          onClick={onClickMore}
-          variant={ButtonVariant.Neutral}
-          icon={isPopupOpen ? "arrow_drop_up" : "arrow_drop_down"}
-          iconPlacement="right"
-          justifyContent="space-between"
-          fullWidth
-          pr={theme.spacing.s1}
-        >
-          {filter.selected}
-        </Button>
-      </ButtonContainer>
-      {transition(
-        (styles, item) =>
-          item && (
-            <AnimatedPopup
-              {...getFloatingProps}
-              ref={refs.setFloating}
-              style={styles}
-              position={strategy}
-              top={y + 5}
-              left={x}
-              items={filter.options}
-              onClickList={onCloseMenu}
-            />
-          ),
+      {filter && (
+        <>
+          <ButtonContainer {...getReferenceProps} ref={refs.setReference}>
+            <Button
+              onClick={onClickMore}
+              variant={ButtonVariant.Neutral}
+              icon={isPopupOpen ? "arrow_drop_up" : "arrow_drop_down"}
+              iconPlacement="right"
+              justifyContent="space-between"
+              fullWidth
+              pr={theme.spacing.s1}
+            >
+              {filter.selected}
+            </Button>
+          </ButtonContainer>
+          {transition(
+            (styles, item) =>
+              item && (
+                <AnimatedPopup
+                  {...getFloatingProps}
+                  ref={refs.setFloating}
+                  style={styles}
+                  position={strategy}
+                  top={y + 5}
+                  left={x}
+                  items={filter.options}
+                  onClickList={onCloseMenu}
+                />
+              ),
+          )}
+        </>
       )}
     </Container>
   );

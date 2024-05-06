@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { rem } from "polished";
 import { space, compose, layout } from "styled-system";
 
-export const Container = styled.div`
+export const Container = styled.div<{ hasFilter: boolean }>`
   ${compose(space, layout)};
   background-color: ${({ theme }) => theme.search.backgroundColor};
   border-radius: 4px;
@@ -10,8 +10,9 @@ export const Container = styled.div`
   display: flex;
 
   input {
-    border-radius: 4px 0 0 4px;
-    padding-right: ${rem("32px")};
+    border-radius: ${({ hasFilter }) => (hasFilter ? "4px 0 0 4px" : "4px")};
+    padding-right: ${({ hasFilter }) =>
+      hasFilter ? rem("32px") : rem("44px")};
     &:focus {
       outline-offset: -2px;
     }
