@@ -15,6 +15,9 @@ import { IconButton, InputGroup, Label } from "@basestack/design-system";
 import { toast } from "sonner";
 // Locales
 import useTranslation from "next-translate/useTranslation";
+// Utils
+import { PlanTypeId } from "@basestack/utils";
+import { getWithPlanCardProps } from "./utils";
 // Styles
 import { TagsContainer } from "./styles";
 
@@ -27,9 +30,10 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
   blockIpAddresses?: string;
+  planId: PlanTypeId;
 }
 
-const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
+const FormIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
@@ -39,7 +43,7 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
 
   const {
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setValue,
     watch,
     setError,
@@ -67,6 +71,7 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
       {
         formId,
         blockIpAddresses: ipsValues.join(","),
+        feature: "hasBlockIPs",
       },
       {
         onSuccess: (result) => {
@@ -123,11 +128,16 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
     <SettingCard
       title={t("security.ip-block-rules.title")}
       description={t("security.ip-block-rules.description")}
-      button={t("security.ip-block-rules.action")!}
-      onClick={onSave}
-      isDisabled={blockIpAddresses === ipsValues.join(",")}
-      text={t("security.ip-block-rules.text")}
-      hasFooter
+      {...getWithPlanCardProps({
+        t,
+        planId,
+        feature: "hasBlockIPs",
+        i18nKey: "security.ip-block-rules.action",
+        i18nHintKey: "security.ip-block-rules.text",
+        onClick: onSave,
+        isLoading: isSubmitting,
+        isDisabled: blockIpAddresses === ipsValues.join(","),
+      })}
     >
       <>
         <Controller

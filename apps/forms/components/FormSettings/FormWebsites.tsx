@@ -15,6 +15,9 @@ import { IconButton, InputGroup, Label } from "@basestack/design-system";
 import { toast } from "sonner";
 // Locales
 import useTranslation from "next-translate/useTranslation";
+// Utils
+import { PlanTypeId } from "@basestack/utils";
+import { getWithPlanCardProps } from "./utils";
 // Styles
 import { TagsContainer } from "./styles";
 
@@ -27,9 +30,10 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
   websites?: string;
+  planId: PlanTypeId;
 }
 
-const FormWebsitesCard = ({ websites = "" }: Props) => {
+const FormWebsitesCard = ({ websites = "", planId }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
@@ -39,7 +43,7 @@ const FormWebsitesCard = ({ websites = "" }: Props) => {
 
   const {
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setValue,
     watch,
     setError,
@@ -67,6 +71,7 @@ const FormWebsitesCard = ({ websites = "" }: Props) => {
       {
         formId,
         websites: websitesValues.join(","),
+        feature: "hasWebsites",
       },
       {
         onSuccess: (result) => {
@@ -123,11 +128,16 @@ const FormWebsitesCard = ({ websites = "" }: Props) => {
     <SettingCard
       title={t("security.websites.title")}
       description={t("security.websites.description")}
-      button={t("security.websites.action")!}
-      onClick={onSave}
-      isDisabled={websites === websitesValues.join(",")}
-      text={t("security.websites.text")}
-      hasFooter
+      {...getWithPlanCardProps({
+        t,
+        planId,
+        feature: "hasWebsites",
+        i18nKey: "security.websites.action",
+        i18nHintKey: "security.websites.text",
+        onClick: onSave,
+        isLoading: isSubmitting,
+        isDisabled: websites === websitesValues.join(","),
+      })}
     >
       <>
         <Controller

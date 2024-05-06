@@ -17,6 +17,8 @@ import FormWebHookUrl from "components/FormSettings/FormWebHookUrl";
 import FormEndpoint from "components/FormSettings/FormEndpoint";
 import FormKey from "components/FormSettings/FormKey";
 import FormSpamProtection from "components/FormSettings/FormSpamProtection";
+// Utils
+import { PlanTypeId } from "@basestack/utils";
 // Server
 import { trpc } from "libs/trpc";
 // Types
@@ -26,57 +28,61 @@ const GeneralSettingsPage = () => {
   const router = useRouter();
   const { formId } = router.query as { formId: string };
 
-  const { data: form } = trpc.form.byId.useQuery(
-    { formId },
-    {
-      enabled: !!formId,
-    },
-  );
+  const [form, usage] = trpc.useQueries((t) => [
+    t.form.byId({ formId }, { enabled: !!formId }),
+    t.subscription.usage(undefined, { enabled: !!formId }),
+  ]);
+
+  const planId = (usage.data?.planId ?? PlanTypeId.FREE) as PlanTypeId;
 
   return (
     <CardList>
       <CardListItem>
         <SettingCardContainer>
-          <FormName role={form?.role} name={form?.name} />
+          <FormName role={form.data?.role} name={form.data?.name} />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>
         <SettingCardContainer>
-          <FormEndpoint formId={form?.id ?? ""} />
+          <FormEndpoint formId={form.data?.id ?? ""} />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>
         <SettingCardContainer>
-          <FormKey formId={form?.id ?? ""} />
+          <FormKey formId={form.data?.id ?? ""} />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>
         <SettingCardContainer>
-          <EnableForm isEnabled={form?.isEnabled} />
+          <EnableForm isEnabled={form.data?.isEnabled} />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>
         <SettingCardContainer>
-          <FormDataRetention hasRetention={form?.hasRetention} />
+          <FormDataRetention hasRetention={form.data?.hasRetention} />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>
         <SettingCardContainer>
           <FormSpamProtection
-            hasSpamProtection={form?.hasSpamProtection}
-            isDisabled={!form?.hasRetention}
+            hasSpamProtection={form.data?.hasSpamProtection}
+            isDisabled={!form.data?.hasRetention}
+            planId={planId}
           />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>
         <SettingCardContainer>
-          <FormWebHookUrl webhookUrl={form?.webhookUrl ?? ""} />
+          <FormWebHookUrl
+            webhookUrl={form.data?.webhookUrl ?? ""}
+            planId={planId}
+          />
         </SettingCardContainer>
       </CardListItem>
-      {form?.role === Role.ADMIN && (
+      {form.data?.role === Role.ADMIN && (
         <CardListItem>
           <SettingCardContainer>
-            <DeleteForm name={form?.name} />
+            <DeleteForm name={form.data?.name} />
           </SettingCardContainer>
         </CardListItem>
       )}

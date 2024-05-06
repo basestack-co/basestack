@@ -46,14 +46,15 @@ export interface Plan {
     hasDataQueryString: boolean;
     hasCustomUrls: boolean;
     hasRules: boolean;
-    hasNotifications: boolean;
+    hasEmailNotifications: boolean;
     hasBlockIPs: boolean;
     hasWebhooks: boolean;
     hasWebsites: boolean;
-    hasExport: boolean;
+    hasCustomExport: boolean;
     hasAutoResponses: boolean;
     hasIntegrations: boolean;
     hasCustomEmailTemplates: boolean;
+    hasSpamProtection: boolean;
   };
   content: {
     title: string;

@@ -75,6 +75,10 @@ const Form = ({ formId }: Props) => {
         toast.success(t("setup.card.form.toast.success"));
         reset();
       }
+
+      if (data.error) {
+        toast.error(data.message);
+      }
     } catch (error: any) {
       toast.error(error?.message ? error?.message : error);
       Sentry.captureException(error);

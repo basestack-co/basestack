@@ -25,30 +25,6 @@ const MainPage = () => {
   const theme = useTheme();
   const router = useRouter();
 
-  const createSubscription = trpc.subscription.createOrUpdate.useMutation();
-
-  const onSelectSubscription = useCallback(
-    (planId: PlanTypeId, subscriptionId: string) => {
-      createSubscription.mutate(
-        {
-          planId,
-          subscriptionId,
-        },
-        {
-          onSuccess: async (result) => {
-            console.log("createSubscription success result", result);
-            toast.success("Subscription created, redirecting...");
-            await router.replace("/");
-          },
-          onError: (error) => {
-            toast.error(error.message);
-          },
-        },
-      );
-    },
-    [createSubscription, router],
-  );
-
   return (
     <Fragment>
       <Head>
@@ -64,11 +40,7 @@ const MainPage = () => {
               <Fragment key={plan.id}>
                 <li>Plan Id: {plan.id}</li>
                 <li>
-                  <button
-                    onClick={() => onSelectSubscription(plan.id, "testMode")}
-                  >
-                    Select plan
-                  </button>
+                  <button onClick={() => console.log("")}>Select plan</button>
                 </li>
                 <li>
                   <hr />

@@ -13,6 +13,9 @@ import { SettingCard } from "@basestack/ui";
 import { InputGroup } from "@basestack/design-system";
 // Toast
 import { toast } from "sonner";
+// Utils
+import { PlanTypeId } from "@basestack/utils";
+import { getWithPlanCardProps } from "./utils";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
@@ -24,9 +27,10 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
   successUrl?: string;
+  planId: PlanTypeId;
 }
 
-const FormSuccessUrlCard = ({ successUrl = "" }: Props) => {
+const FormSuccessUrlCard = ({ successUrl = "", planId }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
@@ -59,6 +63,7 @@ const FormSuccessUrlCard = ({ successUrl = "" }: Props) => {
       {
         formId,
         successUrl: input.url,
+        feature: "hasCustomUrls",
       },
       {
         onSuccess: (result) => {
@@ -89,11 +94,16 @@ const FormSuccessUrlCard = ({ successUrl = "" }: Props) => {
     <SettingCard
       title={t("customization.success-url.title")}
       description={t("customization.success-url.description")}
-      button={t("customization.success-url.action")!}
-      onClick={handleSubmit(onSave)}
-      isDisabled={isSubmitting || watchUrl === successUrl || !!errors.url}
-      isLoading={isSubmitting}
-      hasFooter
+      {...getWithPlanCardProps({
+        t,
+        planId,
+        feature: "hasCustomUrls",
+        i18nKey: "customization.success-url.action",
+        onClick: handleSubmit(onSave),
+        isLoading: isSubmitting,
+        isDisabled: isSubmitting || watchUrl === successUrl || !!errors.url,
+        partial: false,
+      })}
     >
       <Controller
         name="url"

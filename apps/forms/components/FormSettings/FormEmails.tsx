@@ -10,11 +10,19 @@ import { trpc } from "libs/trpc";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
-import { Label, IconButton, InputGroup } from "@basestack/design-system";
+import {
+  Label,
+  IconButton,
+  InputGroup,
+  CardVariant,
+} from "@basestack/design-system";
 // Toast
 import { toast } from "sonner";
 // Locales
 import useTranslation from "next-translate/useTranslation";
+// Utils
+import { PlanTypeId } from "@basestack/utils";
+import { getWithPlanCardProps } from "./utils";
 // Styles
 import { TagsContainer } from "./styles";
 
@@ -27,9 +35,10 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
   emails?: string;
+  planId: PlanTypeId;
 }
 
-const FormEmailsCard = ({ emails = "" }: Props) => {
+const FormEmailsCard = ({ emails = "", planId }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
@@ -39,7 +48,7 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
 
   const {
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setValue,
     watch,
     setError,
@@ -67,6 +76,7 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
       {
         formId,
         emails: emailsValues.join(","),
+        feature: "hasEmailNotifications"
       },
       {
         onSuccess: (result) => {
@@ -123,11 +133,16 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
     <SettingCard
       title={t("notifications.emails.title")}
       description={t("notifications.emails.description")}
-      button={t("notifications.emails.action")!}
-      onClick={onSave}
-      isDisabled={emails === emailsValues.join(",")}
-      text={t("notifications.emails.text")}
-      hasFooter
+      {...getWithPlanCardProps({
+        t,
+        planId,
+        feature: "hasEmailNotifications",
+        i18nKey: "notifications.emails.action",
+        i18nHintKey: "notifications.emails.text",
+        onClick: onSave,
+        isLoading: isSubmitting,
+        isDisabled: emails === emailsValues.join(","),
+      })}
     >
       <>
         <Controller

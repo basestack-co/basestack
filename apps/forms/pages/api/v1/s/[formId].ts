@@ -3,12 +3,19 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import formidable from "formidable";
 import requestIp from "request-ip";
 import Cors from "cors";
-import { withCors } from "@basestack/utils";
-// import { z } from "zod";
+import { withCors, PlanTypeId, config as utilsConfig } from "@basestack/utils";
+import { withUsageUpdate } from "libs/prisma/utils/subscription";
 // Prisma
 import prisma from "libs/prisma";
 // Jobs
 import { triggerClient, TriggerEventName } from "libs/trigger";
+
+const {
+  getFormPlanFeatures,
+  hasFormPlanFeature,
+  getFormLimitByKey,
+  getFormPlanLimits,
+} = utilsConfig.plans;
 
 const defaultSuccessUrl = "/form/status/success";
 const defaultErrorUrl = "/form/status/error";
@@ -16,7 +23,6 @@ const defaultErrorUrl = "/form/status/error";
 export enum FormMode {
   REST = "rest",
 }
-
 export const config = {
   api: {
     bodyParser: false,
@@ -29,12 +35,6 @@ const cors = Cors({
   origin: "*",
   optionsSuccessStatus: 200,
 });
-
-/* const formDataSchema = z.object({
-  email: z.string().email(),
-  message: z.string(),
-});
-const validations = formDataSchema.parse(formData); */
 
 const handleError = (
   res: NextApiResponse,
@@ -131,11 +131,17 @@ const getFormOnUser = async (formId: string, referer: string) => {
           rules: true,
         },
       },
-      /* user: {
+      user: {
         select: {
-          name: true,
+          id: true,
+          subscription: {
+            select: {
+              planId: true,
+              submissions: true,
+            },
+          },
         },
-      }, */
+      },
     },
   });
 
@@ -148,7 +154,11 @@ const getFormOnUser = async (formId: string, referer: string) => {
     redirectUrl: current?.form.redirectUrl || referer,
     successUrl: current?.form.successUrl || defaultSuccessUrl,
     errorUrl: current?.form.errorUrl || defaultErrorUrl,
-    // user: current?.user,
+    userId: current?.user.id,
+    usage: current?.user.subscription || {
+      planId: PlanTypeId.FREE,
+      submissions: 0,
+    },
   };
 };
 
@@ -191,7 +201,32 @@ const verifyForm = async (
   }
 
   if (form?.isEnabled) {
-    if (!!form.websites) {
+    const planId = form.usage.planId as PlanTypeId;
+
+    console.log("form.usage.submissions = ", form.usage.submissions);
+    console.log(
+      "getFormLimitByKey = ",
+      getFormLimitByKey(planId, "submissions"),
+    );
+    console.log("-----------------");
+
+    if (form.usage.submissions >= getFormLimitByKey(planId, "submissions")) {
+      handleError(
+        res,
+        {
+          code: 403,
+          url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
+          message:
+            "Error: Form submission limit exceeded. Please consider upgrading.",
+        },
+        mode,
+        referer,
+      );
+
+      return;
+    }
+
+    if (!!form.websites && hasFormPlanFeature(planId, "hasWebsites")) {
       const websites = form.websites.split(",");
       const isValid = websites.some((website) => referer.includes(website));
 
@@ -211,7 +246,11 @@ const verifyForm = async (
       }
     }
 
-    if (!!form.blockIpAddresses && metadata?.ip) {
+    if (
+      !!form.blockIpAddresses &&
+      metadata?.ip &&
+      hasFormPlanFeature(planId, "hasBlockIPs")
+    ) {
       const blockIpAddresses = form.blockIpAddresses.split(",");
       const isBlocked = blockIpAddresses.some((ip) => ip === metadata.ip);
 
@@ -245,6 +284,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const form = await verifyForm(res, formId, referer, mode, metadata);
 
       if (form?.isEnabled) {
+        const planId = form.usage.planId as PlanTypeId;
+
         const data = await formatFormData(
           req,
           res,
@@ -257,15 +298,32 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         if (data) {
           if (form?.hasRetention) {
-            const submission = await prisma.submission.create({
-              data: {
-                formId,
-                data,
-                metadata,
-              },
+            const submission = await prisma.$transaction(async (tx) => {
+              const response = await tx.submission.create({
+                data: {
+                  formId,
+                  data,
+                  metadata,
+                },
+                select: {
+                  id: true,
+                },
+              });
+
+              await withUsageUpdate(
+                tx,
+                form.userId,
+                "submissions",
+                "increment",
+              );
+
+              return response;
             });
 
-            if (form.hasSpamProtection) {
+            if (
+              form.hasSpamProtection &&
+              hasFormPlanFeature(planId, "hasSpamProtection")
+            ) {
               await triggerClient.sendEvent({
                 name: TriggerEventName.CHECK_DATA_FOR_SPAM,
                 payload: {
@@ -276,7 +334,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             }
           }
 
-          if (!!form.webhookUrl) {
+          if (!!form.webhookUrl && hasFormPlanFeature(planId, "hasWebhooks")) {
             await triggerClient.sendEvent({
               name: TriggerEventName.SEND_DATA_TO_EXTERNAL_WEBHOOK,
               payload: {
@@ -290,7 +348,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             });
           }
 
-          if (!!form.emails) {
+          if (
+            !!form.emails &&
+            hasFormPlanFeature(planId, "hasEmailNotifications")
+          ) {
             await triggerClient.sendEvent({
               name: TriggerEventName.SEND_EMAIL,
               payload: {
@@ -301,9 +362,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             });
           }
 
-          const queryString = form.hasDataQueryString
-            ? `&data=${encodeURI(JSON.stringify(data))}`
-            : "";
+          const queryString =
+            form.hasDataQueryString &&
+            hasFormPlanFeature(planId, "hasDataQueryString")
+              ? `&data=${encodeURI(JSON.stringify(data))}`
+              : "";
 
           const successUrl = `${form?.successUrl}?goBackUrl=${form?.redirectUrl}${queryString}`;
 

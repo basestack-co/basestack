@@ -10,9 +10,12 @@ import { trpc } from "libs/trpc";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
-import { InputGroup } from "@basestack/design-system";
+import {  InputGroup } from "@basestack/design-system";
 // Toast
 import { toast } from "sonner";
+// Utils
+import { PlanTypeId } from "@basestack/utils";
+import { getWithPlanCardProps } from "./utils";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
@@ -24,9 +27,10 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
   webhookUrl?: string;
+  planId: PlanTypeId;
 }
 
-const FormWebHookUrlCard = ({ webhookUrl = "" }: Props) => {
+const FormWebHookUrlCard = ({ webhookUrl = "", planId }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
@@ -59,6 +63,7 @@ const FormWebHookUrlCard = ({ webhookUrl = "" }: Props) => {
       {
         formId,
         webhookUrl: input.url,
+        feature: "hasWebhooks"
       },
       {
         onSuccess: (result) => {
@@ -89,11 +94,15 @@ const FormWebHookUrlCard = ({ webhookUrl = "" }: Props) => {
     <SettingCard
       title={t("general.webhook-url.title")}
       description={t("general.webhook-url.description")}
-      button={t("general.webhook-url.action")!}
-      onClick={handleSubmit(onSave)}
-      isDisabled={isSubmitting || watchUrl === webhookUrl || !!errors.url}
-      isLoading={isSubmitting}
-      hasFooter
+      {...getWithPlanCardProps({
+        t,
+        planId,
+        feature: "hasWebhooks",
+        i18nKey: "general.webhook-url.action",
+        onClick: handleSubmit(onSave),
+        isLoading: isSubmitting,
+        isDisabled: isSubmitting || watchUrl === webhookUrl || !!errors.url,
+      })}
     >
       <Controller
         name="url"
