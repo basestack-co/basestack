@@ -230,6 +230,13 @@ const getFormPlanVariantId = (
   return plan.price[interval].variantId;
 };
 
+const getFormPlanIdByVariantId = (variantId: number) => {
+  const plan = forms.find((plan) => {
+    return plan.price.monthly.variantId === variantId;
+  });
+  return plan?.id;
+};
+
 export const plans = {
   forms,
   getSubscriptionEvents,
@@ -241,4 +248,5 @@ export const plans = {
   isUnderFormPlanLimit,
   getFormPlanLimitsDefaults,
   getFormPlanVariantId,
+  getFormPlanIdByVariantId,
 };

@@ -22,6 +22,7 @@ const Plans = () => {
     trpc.subscription.current.useQuery(undefined, {
       enabled: true,
     });
+
   const createCheckout = trpc.subscription.checkout.useMutation();
 
   const onHandleExternalUrl = useCallback((url?: string) => {
@@ -100,6 +101,7 @@ const Plans = () => {
       <ul>
         <li>Product ID: {data.product.id}</li>
         <li>Product Name: {data.product.name}</li>
+        <li>Variant ID: {data.product.variantId}</li>
         <li>Status: {data.status}</li>
         <li>Card Brand: {data.card.brand}</li>
         <li>Card Last Four: {data.card.lastFour}</li>

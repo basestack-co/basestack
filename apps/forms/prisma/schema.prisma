@@ -89,6 +89,7 @@ model Subscription {
   subscriptionId    String
   customerId        Int?
   productId         Int?
+  variantId         Int?
   status            String?
   scheduleId        String?   @unique
   planId            String

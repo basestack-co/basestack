@@ -3,8 +3,9 @@ import { triggerClient } from "libs/trigger";
 // Prisma
 import prisma from "libs/prisma";
 // Utils
-import { SubscriptionEvent } from "@basestack/utils/src";
-import { PlanTypeId, config } from "@basestack/utils";
+import { PlanTypeId, config, SubscriptionEvent } from "@basestack/utils";
+
+const { getSubscriptionEvents, getFormPlanIdByVariantId } = config.plans;
 
 interface ResponseBody {
   meta: {
@@ -28,6 +29,7 @@ interface ResponseBody {
       cancelled: boolean;
       order_id: number;
       paused: boolean;
+      variant_id: number;
     };
   };
 }
@@ -55,55 +57,66 @@ triggerClient.defineJob({
 
     await io.logger.info(`Webhook Event Body`, body);
 
-    if (!config.plans.getSubscriptionEvents.includes(body.meta.event_name)) {
+    await io.logger.info(`Subscription Event:${body.meta.event_name}`);
+
+    if (!getSubscriptionEvents.includes(body.meta.event_name)) {
       await io.logger.error("Invalid event name received");
       return;
     }
 
-    await io.runTask(
-      "check-and-update-subscription-db",
-      async () => {
-        const isUpdate = [SubscriptionEvent.SUBSCRIPTION_UPDATED].includes(
-          body.meta.event_name as SubscriptionEvent,
-        );
-        const userId = body.meta.custom_data.user_id;
-        const planId = (body.meta.custom_data.plan_id ??
-          PlanTypeId.FREE) as PlanTypeId;
+    if (
+      [
+        SubscriptionEvent.SUBSCRIPTION_UPDATED,
+        SubscriptionEvent.SUBSCRIPTION_CREATED,
+        SubscriptionEvent.SUBSCRIPTION_CANCELLED,
+      ].includes(body.meta.event_name as SubscriptionEvent)
+    ) {
+      await io.runTask(
+        "check-and-update-subscription-db",
+        async () => {
+          const isUpdate =
+            SubscriptionEvent.SUBSCRIPTION_UPDATED === body.meta.event_name;
+          const userId = body.meta.custom_data.user_id;
+          const variantId = body.data.attributes.variant_id;
 
-        const payload = {
-          planId,
-          subscriptionId: body.data.id,
-          customerId: body.data.attributes.customer_id,
-          status: body.data.attributes.status,
-          productId: body.data.attributes.product_id,
-          event: body.meta.event_name,
-        };
+          const payload = {
+            subscriptionId: body.data.id,
+            customerId: body.data.attributes.customer_id,
+            status: body.data.attributes.status,
+            productId: body.data.attributes.product_id,
+            event: body.meta.event_name,
+            variantId,
+          };
 
-        const res = await prisma.subscription.upsert({
-          create: {
-            userId,
-            billingCycleStart: new Date(),
-            ...payload,
-          },
-          update: {
-            ...payload,
-            ...(isUpdate
-              ? {
-                  billingCycleStart: new Date(),
-                  cancelled: body.data.attributes.cancelled ?? false,
-                  paused: body.data.attributes.cancelled ?? false,
-                }
-              : {}),
-          },
-          where: {
-            userId,
-          },
-        });
+          const res = await prisma.subscription.upsert({
+            create: {
+              userId,
+              planId: (body.meta.custom_data.plan_id ??
+                PlanTypeId.FREE) as PlanTypeId,
+              billingCycleStart: new Date(),
+              ...payload,
+            },
+            update: {
+              planId: getFormPlanIdByVariantId(variantId),
+              ...payload,
+              ...(isUpdate
+                ? {
+                    billingCycleStart: new Date(),
+                    cancelled: body.data.attributes.cancelled ?? false,
+                    paused: body.data.attributes.cancelled ?? false,
+                  }
+                : {}),
+            },
+            where: {
+              userId,
+            },
+          });
 
-        await io.logger.info("Subscription updated on DB", res);
-      },
-      { name: "Check if the Subscription needs updating" },
-    );
+          await io.logger.info("Subscription updated on DB", res);
+        },
+        { name: "Check if the Subscription needs updating" },
+      );
+    }
 
     await io.logger.info("✨ Subscription updated ✨");
   },

@@ -1,11 +1,12 @@
 import { protectedProcedure, router } from "server/trpc";
 // Payments
 import {
-  lemonSqueezySetup,
   type NewCheckout,
+  type ListSubscriptionInvoices,
+  lemonSqueezySetup,
   createCheckout,
-  type Subscription,
   getSubscription,
+  listSubscriptionInvoices,
 } from "@lemonsqueezy/lemonsqueezy.js";
 // Utils
 import dayjs from "dayjs";
@@ -26,6 +27,44 @@ export const subscriptionRouter = router({
     const userId = ctx.session.user.id;
     return await getSubscriptionUsage(ctx.prisma, userId);
   }),
+  invoices: protectedProcedure.query(async ({ ctx }) => {
+    const subscriptionId = ctx.usage.subscriptionId;
+
+    const { statusCode, error, data } = await listSubscriptionInvoices({
+      filter: { subscriptionId },
+    });
+
+    if (error || statusCode !== 200) return null;
+
+    const list = data?.data.map((item) => ({
+      id: item.id,
+      url: item.attributes.urls.invoice_url,
+      status: item.attributes.status,
+      currency: item.attributes.currency,
+      customerId: item.attributes.customer_id,
+      refunded: item.attributes.refunded,
+      refundedAt: item.attributes.refunded_at,
+      values: {
+        subtotal: item.attributes.subtotal,
+        discountTotal: item.attributes.discount_total,
+        tax: item.attributes.tax,
+        total: item.attributes.total,
+        subtotalUsd: item.attributes.subtotal_usd,
+        discountTotalUsd: item.attributes.discount_total_usd,
+        taxUsd: item.attributes.tax_usd,
+        totalUsd: item.attributes.total_usd,
+      },
+      formatted: {
+        subtotal: item.attributes.subtotal_formatted,
+        discountTotal: item.attributes.discount_total_formatted,
+        tax: item.attributes.tax_formatted,
+        total: item.attributes.total_formatted,
+        status: item.attributes.status_formatted,
+      },
+    }));
+
+    return { list };
+  }),
   current: protectedProcedure.query(async ({ ctx }) => {
     const subscriptionId = ctx.usage.subscriptionId;
 
@@ -34,10 +73,12 @@ export const subscriptionRouter = router({
     if (error || statusCode !== 200) return null;
 
     return {
+      customerId: data?.data.attributes.customer_id,
       product: {
         id: data?.data.attributes.product_id,
         name: data?.data.attributes.product_name,
         variant: data?.data.attributes.variant_name,
+        variantId: data?.data.attributes.variant_id,
       },
       status: data?.data.attributes.status,
       pause: data?.data.attributes.pause,
