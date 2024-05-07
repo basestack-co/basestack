@@ -20,6 +20,7 @@ export const getSubscriptionUsage = async (
         createdAt: true,
         billingCycleStart: true,
         scheduleId: true,
+        event: true,
       },
     });
 
@@ -28,12 +29,7 @@ export const getSubscriptionUsage = async (
       : {
           planId: PlanTypeId.FREE,
           subscriptionId: "",
-          forms: 0,
-          submissions: 0,
-          members: 0,
-          spams: 0,
-          fileUploadLimit: 0,
-          integrationsCalls: 0,
+          ...config.plans.getFormPlanLimitsDefaults(),
         };
   } catch {
     throw new TRPCError({ code: "BAD_REQUEST" });

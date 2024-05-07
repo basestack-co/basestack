@@ -1,6 +1,21 @@
 // Types
 import { PlanTypeId, Plan } from "../types";
 
+const getSubscriptionEvents = [
+  "subscription_created",
+  "subscription_updated",
+  "subscription_cancelled",
+  "subscription_resumed",
+  "subscription_expired",
+  "subscription_paused",
+  "subscription_unpaused",
+  "subscription_payment_failed",
+  "subscription_payment_success",
+  "subscription_payment_recovered",
+  "subscription_payment_refunded",
+  "subscription_plan_changed",
+];
+
 // Forms Plan configuration
 
 const forms: Plan[] = [
@@ -10,12 +25,12 @@ const forms: Plan[] = [
       monthly: {
         amount: 0,
         currency: "USD",
-        id: "",
+        variantId: 0,
       },
       yearly: {
         amount: 0,
         currency: "USD",
-        id: "",
+        variantId: 0,
       },
     },
     limits: {
@@ -41,19 +56,6 @@ const forms: Plan[] = [
       hasCustomEmailTemplates: false,
       hasSpamProtection: false,
     },
-    content: {
-      title: "Free",
-      description: "Get started with our free plan.",
-      features: [
-        {
-          text: "100 submissions",
-        },
-      ],
-      action: {
-        title: "Get Started",
-        url: "https://forms.basestack.co/signup",
-      },
-    },
   },
   {
     id: PlanTypeId.HOBBY,
@@ -61,12 +63,12 @@ const forms: Plan[] = [
       monthly: {
         amount: 5,
         currency: "USD",
-        id: "",
+        variantId: 368586,
       },
       yearly: {
         amount: 4, // 20% off
         currency: "USD",
-        id: "",
+        variantId: 368587,
       },
     },
     limits: {
@@ -92,19 +94,6 @@ const forms: Plan[] = [
       hasCustomEmailTemplates: false,
       hasSpamProtection: true,
     },
-    content: {
-      title: "Hobby",
-      description: "Get started with our hobby plan.",
-      features: [
-        {
-          text: "100 submissions",
-        },
-      ],
-      action: {
-        title: "Get Started",
-        url: "https://forms.basestack.co/signup",
-      },
-    },
   },
   {
     id: PlanTypeId.LAUNCH,
@@ -112,12 +101,12 @@ const forms: Plan[] = [
       monthly: {
         amount: 49,
         currency: "USD",
-        id: "",
+        variantId: 368595,
       },
       yearly: {
         amount: 38, // 20% off
         currency: "USD",
-        id: "",
+        variantId: 368596,
       },
     },
     limits: {
@@ -143,19 +132,6 @@ const forms: Plan[] = [
       hasCustomEmailTemplates: false,
       hasSpamProtection: true,
     },
-    content: {
-      title: "Launch",
-      description: "Get started with our launch plan.",
-      features: [
-        {
-          text: "100 submissions",
-        },
-      ],
-      action: {
-        title: "Get Started",
-        url: "https://forms.basestack.co/signup",
-      },
-    },
   },
   {
     id: PlanTypeId.SCALE,
@@ -163,12 +139,12 @@ const forms: Plan[] = [
       monthly: {
         amount: 99,
         currency: "USD",
-        id: "",
+        variantId: 368599,
       },
       yearly: {
         amount: 79, // 20% off
         currency: "USD",
-        id: "",
+        variantId: 368600,
       },
     },
     limits: {
@@ -194,21 +170,17 @@ const forms: Plan[] = [
       hasCustomEmailTemplates: true,
       hasSpamProtection: true,
     },
-    content: {
-      title: "Scale",
-      description: "Get started with our SCALE plan.",
-      features: [
-        {
-          text: "100 submissions",
-        },
-      ],
-      action: {
-        title: "Get Started",
-        url: "https://forms.basestack.co/signup",
-      },
-    },
   },
 ];
+
+const getFormPlanLimitsDefaults = () => ({
+  forms: 0,
+  submissions: 0,
+  members: 0,
+  spams: 0,
+  fileUploadLimit: 0,
+  integrationsCalls: 0,
+});
 
 const getFormPlan = (id: PlanTypeId): Plan => {
   const plan = forms.find((plan: Plan) => plan.id === id);
@@ -250,14 +222,23 @@ const isUnderFormPlanLimit = (
   return plan?.limits[limit] >= value;
 };
 
-
+const getFormPlanVariantId = (
+  id: PlanTypeId,
+  interval: "monthly" | "yearly",
+) => {
+  const plan = getFormPlan(id);
+  return plan.price[interval].variantId;
+};
 
 export const plans = {
   forms,
+  getSubscriptionEvents,
   getFormPlan,
   getFormPlanLimits,
   getFormPlanFeatures,
   hasFormPlanFeature,
   getFormLimitByKey,
-  isUnderFormPlanLimit
+  isUnderFormPlanLimit,
+  getFormPlanLimitsDefaults,
+  getFormPlanVariantId,
 };

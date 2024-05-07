@@ -1,9 +1,9 @@
-export const protocol = "https:";
-export const domainUrl = "basestack.co";
-export const docsUrl = `${protocol}//docs.${domainUrl}`;
-export const baseLandingUrl = `${protocol}//${domainUrl}`;
+const protocol = "https:";
+const domainUrl = "basestack.co";
+const docsUrl = `${protocol}//docs.${domainUrl}`;
+const baseLandingUrl = `${protocol}//${domainUrl}`;
 
-export const urls = {
+const commons = {
   baseLandingUrl,
   repo: "https://github.com/basestack-co/basestack",
   twitter: "https://twitter.com/basestack_co",
@@ -42,4 +42,19 @@ export const urls = {
       base: `${docsUrl}/forms`,
     },
   },
+};
+
+const buildUrlWithEnv = (env: string) => {
+  return {
+    ...commons,
+    app: {
+      flags: `${protocol}//flags-${env}.${domainUrl}`,
+      forms: `${protocol}//forms-${env}.${domainUrl}`,
+    },
+  };
+
+}
+
+export const urls = {
+  ...commons,
 };

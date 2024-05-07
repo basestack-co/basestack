@@ -36,6 +36,7 @@
     "@basestack/utils": "*",
     "@emotion/is-prop-valid": "^1.2.2",
     "@hookform/resolvers": "^3.3.4",
+    "@lemonsqueezy/lemonsqueezy.js": "^2.2.0",
     "@next-auth/prisma-adapter": "^1.0.4",
     "@prisma/client": "^5.13.0",
     "@react-email/render": "^0.0.12",

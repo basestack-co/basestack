@@ -1,10 +1,112 @@
 import { protectedProcedure, router } from "server/trpc";
+// Payments
+import {
+  lemonSqueezySetup,
+  type NewCheckout,
+  createCheckout,
+  type Subscription,
+  getSubscription,
+} from "@lemonsqueezy/lemonsqueezy.js";
 // Utils
+import dayjs from "dayjs";
 import { getSubscriptionUsage } from "libs/prisma/utils/subscription";
+import { z } from "zod";
+import { PlanTypeId, config } from "@basestack/utils";
+import * as Sentry from "@sentry/nextjs";
+
+lemonSqueezySetup({
+  apiKey: process.env.LEMONSQUEEZY_API_KEY,
+  onError(error) {
+    Sentry.captureException(error);
+  },
+});
 
 export const subscriptionRouter = router({
   usage: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.session.user.id;
     return await getSubscriptionUsage(ctx.prisma, userId);
   }),
+  current: protectedProcedure.query(async ({ ctx }) => {
+    const subscriptionId = ctx.usage.subscriptionId;
+
+    const { statusCode, error, data } = await getSubscription(subscriptionId);
+
+    if (error || statusCode !== 200) return null;
+
+    return {
+      product: {
+        id: data?.data.attributes.product_id,
+        name: data?.data.attributes.product_name,
+        variant: data?.data.attributes.variant_name,
+      },
+      status: data?.data.attributes.status,
+      pause: data?.data.attributes.pause,
+      cancelled: data?.data.attributes.cancelled,
+      renewsAt: data?.data.attributes.renews_at,
+      endsAt: data?.data.attributes.ends_at,
+      testMode: data?.data.attributes.test_mode,
+      card: {
+        brand: data?.data.attributes.card_brand,
+        lastFour: data?.data.attributes.card_last_four,
+      },
+      urls: {
+        customerPortal: data?.data.attributes.urls.customer_portal,
+        updatePaymentMethod: data?.data.attributes.urls.update_payment_method,
+        customerPortalUpdateSubscription:
+          data?.data.attributes.urls.customer_portal_update_subscription,
+      },
+    };
+  }),
+  checkout: protectedProcedure
+    .input(
+      z
+        .object({
+          planId: z.nativeEnum(PlanTypeId),
+          interval: z.enum(["monthly", "yearly"]),
+          isDarkMode: z.boolean().optional(),
+          redirectUrl: z.string().url(),
+        })
+        .required(),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+      const email = ctx.session.user.email;
+      const name = ctx.session.user.name;
+      const storeId = +process.env.LEMONSQUEEZY_STORE_ID!;
+      const variantId = config.plans.getFormPlanVariantId(
+        input.planId,
+        input.interval,
+      );
+
+      const configuration: NewCheckout = {
+        productOptions: {
+          redirectUrl: input.redirectUrl,
+        },
+        checkoutOptions: {
+          dark: input.isDarkMode,
+        },
+        checkoutData: {
+          email,
+          name,
+          custom: {
+            userId,
+            planId: input.planId,
+          },
+        },
+        expiresAt: dayjs().add(1, "hour").format(),
+        preview: true,
+        testMode: process.env.NODE_ENV !== "production",
+      };
+      const { statusCode, error, data } = await createCheckout(
+        storeId,
+        variantId,
+        configuration,
+      );
+
+      return {
+        statusCode,
+        error,
+        url: data?.data.attributes.url,
+      };
+    }),
 });

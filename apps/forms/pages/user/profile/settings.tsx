@@ -11,6 +11,7 @@ import useTranslation from "next-translate/useTranslation";
 import { ProfileAvatarCard, SwitchSettingCard } from "@basestack/ui";
 // Components
 import { Text } from "@basestack/design-system";
+import Plans from "components/Plans";
 // Styles
 import { useTheme } from "styled-components";
 import { Container, List, ListItem } from "components/ProfileSettings/styles";
@@ -50,6 +51,9 @@ const UserProfileSettingsPage = () => {
               setCloseModalsOnClickOutside(event.target.checked);
             }}
           />
+        </ListItem>
+        <ListItem>
+          <Plans />
         </ListItem>
       </List>
     </Container>

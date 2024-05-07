@@ -12,6 +12,21 @@ export type RemoveNullAndUndefined<T> = T extends null | undefined
       }
     : T;
 
+export enum SubscriptionEvent {
+  SUBSCRIPTION_CREATED = "subscription_created",
+  SUBSCRIPTION_UPDATED = "subscription_updated",
+  SUBSCRIPTION_CANCELLED = "subscription_cancelled",
+  SUBSCRIPTION_RESUMED = "subscription_resumed",
+  SUBSCRIPTION_EXPIRED = "subscription_expired",
+  SUBSCRIPTION_PAUSED = "subscription_paused",
+  SUBSCRIPTION_UNPAUSED = "subscription_unpaused",
+  SUBSCRIPTION_PAYMENT_FAILED = "subscription_payment_failed",
+  SUBSCRIPTION_PAYMENT_SUCCESS = "subscription_payment_success",
+  SUBSCRIPTION_PAYMENT_RECOVERED = "subscription_payment_recovered",
+  SUBSCRIPTION_PAYMENT_REFUNDED = "subscription_payment_refunded",
+  SUBSCRIPTION_PLAN_CHANGED = "subscription_plan_changed",
+}
+
 export enum PlanTypeId {
   FREE = "free",
   HOBBY = "hobby",
@@ -25,12 +40,12 @@ export interface Plan {
     monthly: {
       amount: number;
       currency: string;
-      id: string;
+      variantId: number;
     };
     yearly: {
       amount: number;
       currency: string;
-      id: string;
+      variantId: number;
     };
   };
   limits: {
@@ -55,16 +70,5 @@ export interface Plan {
     hasIntegrations: boolean;
     hasCustomEmailTemplates: boolean;
     hasSpamProtection: boolean;
-  };
-  content: {
-    title: string;
-    description: string;
-    features: {
-      text: string;
-    }[];
-    action: {
-      title: string;
-      url: string;
-    };
   };
 }
