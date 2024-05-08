@@ -130,6 +130,7 @@ const FormWebsitesCard = ({ websites = "", planId }: Props) => {
       description={t("security.websites.description")}
       {...getWithPlanCardProps({
         t,
+        router,
         planId,
         feature: "hasWebsites",
         i18nKey: "security.websites.action",

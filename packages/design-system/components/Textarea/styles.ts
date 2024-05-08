@@ -1,10 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { rem } from "polished";
 import { space } from "styled-system";
 
 export const StyledTextarea = styled.textarea<{
   isDarker: boolean;
   hasError: boolean;
+  disabled: boolean;
 }>`
   ${space};
   border: none;
@@ -36,4 +37,10 @@ export const StyledTextarea = styled.textarea<{
           ? theme.textarea.error.focus.outline
           : theme.textarea.focus.outline};
   }
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      opacity: 0.6;
+    `};
 `;

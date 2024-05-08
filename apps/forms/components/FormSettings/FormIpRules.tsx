@@ -130,6 +130,7 @@ const FormIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
       description={t("security.ip-block-rules.description")}
       {...getWithPlanCardProps({
         t,
+        router,
         planId,
         feature: "hasBlockIPs",
         i18nKey: "security.ip-block-rules.action",

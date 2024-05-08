@@ -96,6 +96,7 @@ const FormSuccessUrlCard = ({ successUrl = "", planId }: Props) => {
       description={t("customization.success-url.description")}
       {...getWithPlanCardProps({
         t,
+        router,
         planId,
         feature: "hasCustomUrls",
         i18nKey: "customization.success-url.action",

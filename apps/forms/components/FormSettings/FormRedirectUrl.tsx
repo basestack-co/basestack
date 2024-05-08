@@ -96,6 +96,7 @@ const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
       description={t("customization.redirect-url.description")}
       {...getWithPlanCardProps({
         t,
+        router,
         planId,
         feature: "hasCustomUrls",
         i18nKey: "customization.redirect-url.action",

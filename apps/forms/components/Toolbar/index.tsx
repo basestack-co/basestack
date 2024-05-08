@@ -40,9 +40,9 @@ const Toolbar = ({
   isSubmitting,
   isLoading,
   isActionDisabled,
-  isSelectAllEnabled,
+  isSelectAllEnabled = false,
   isExportDisabled,
-  isDisabled,
+  isDisabled = false,
   formId,
 }: ToolbarProps) => {
   const { t } = useTranslation("forms");
@@ -68,7 +68,7 @@ const Toolbar = ({
         <LeftContent>
           <Search
             placeholder={t("toolbar.search.placeholder")}
-            isDisabled={isDisabled ?? false}
+            isDisabled={isDisabled}
             value={searchValue}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               setSearchValue(event.target.value)
@@ -76,7 +76,7 @@ const Toolbar = ({
             onClear={() => setSearchValue("")}
             filter={{
               selected: selectedSearchKey ?? "name",
-              isDisabled: isDisabled ?? false,
+              isDisabled: isDisabled,
               options: [
                 {
                   text: "name",
@@ -98,7 +98,7 @@ const Toolbar = ({
           <ListItem>
             <Checkbox
               onChange={onSelectAll}
-              checked={isSelectAllEnabled ?? false}
+              checked={isSelectAllEnabled}
               label={t(
                 isSelectAllEnabled
                   ? "toolbar.action.un-select-all"

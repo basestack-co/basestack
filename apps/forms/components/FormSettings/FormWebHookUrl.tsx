@@ -96,6 +96,7 @@ const FormWebHookUrlCard = ({ webhookUrl = "", planId }: Props) => {
       description={t("general.webhook-url.description")}
       {...getWithPlanCardProps({
         t,
+        router,
         planId,
         feature: "hasWebhooks",
         i18nKey: "general.webhook-url.action",

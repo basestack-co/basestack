@@ -96,6 +96,7 @@ const FormFailedUrlCard = ({ errorUrl = "", planId }: Props) => {
       description={t("customization.failed-url.description")}
       {...getWithPlanCardProps({
         t,
+        router,
         planId,
         feature: "hasCustomUrls",
         i18nKey: "customization.failed-url.action",

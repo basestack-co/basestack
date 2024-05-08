@@ -135,6 +135,7 @@ const FormEmailsCard = ({ emails = "", planId }: Props) => {
       description={t("notifications.emails.description")}
       {...getWithPlanCardProps({
         t,
+        router,
         planId,
         feature: "hasEmailNotifications",
         i18nKey: "notifications.emails.action",

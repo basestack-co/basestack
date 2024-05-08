@@ -3,6 +3,7 @@ import React from "react";
 import { config, PlanTypeId, Plan } from "@basestack/utils";
 // Types
 import { Translate } from "next-translate";
+import { NextRouter } from "next/router";
 // Design System
 import { CardVariant } from "@basestack/design-system";
 
@@ -16,6 +17,7 @@ export interface WithPlanCardProps {
   isLoading: boolean;
   isDisabled: boolean;
   partial?: boolean;
+  router: NextRouter;
 }
 
 export const getWithPlanCardProps = ({
@@ -28,13 +30,14 @@ export const getWithPlanCardProps = ({
   isLoading,
   isDisabled,
   partial = true,
+  router,
 }: WithPlanCardProps) => {
   const hasFeature = config.plans.hasFormPlanFeature(planId, feature);
 
   return !hasFeature
     ? {
         button: t("common:plan.forms.upgrade.action"),
-        onClick: () => null,
+        onClick: () => router.push("/user/profile/settings"),
         hasOverlay: true,
         variant: CardVariant.PRIMARY,
         label: t(`common:plan.forms.upgrade.${partial ? "partial" : "all"}`),
