@@ -33,3 +33,4 @@ export {
   type LanguageCardProps,
 } from "./components/CodeLanguageCard";
 export { default as Banners, type BannersProps } from "./components/Banners";
+export { default as AppsDropdown, type AppsDropdownProps } from "./components/AppsDropdown";

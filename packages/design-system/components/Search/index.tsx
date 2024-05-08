@@ -19,6 +19,7 @@ export interface SearchProps extends SpaceProps, LayoutProps {
   onClear: () => void;
   filter?: {
     selected: string;
+    isDisabled: boolean;
     options: PopupProps["items"];
   };
 }
@@ -87,6 +88,7 @@ const Search = ({
               justifyContent="space-between"
               fullWidth
               pr={theme.spacing.s1}
+              isDisabled={filter.isDisabled}
             >
               {filter.selected}
             </Button>

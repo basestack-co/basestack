@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import { useTheme } from "styled-components";
 // UI
-import { ProjectsMenu, AvatarDropdown } from "@basestack/ui";
+import { ProjectsMenu, AvatarDropdown, AppsDropdown } from "@basestack/ui";
 // Components
 import {
   Logo,
@@ -135,6 +135,26 @@ const DesktopNavigation = ({
       {isDesktop && (
         <List ml="auto" data-testid="navigation-right-ul">
           {onRenderItems(getExternalLinks(t), "right")}
+          <ListItem>
+            <AppsDropdown
+              data={[
+                {
+                  onClick: () => null,
+                  product: "forms",
+                  title: "Forms",
+                  description: "Basestack Forms",
+                  isActive: true,
+                },
+                {
+                  onClick: () => null,
+                  product: "flags",
+                  title: "Feature Flags",
+                  description: "Basestack Feature Flags",
+                  isActive: false,
+                },
+              ]}
+            />
+          </ListItem>
           <ListItem ml={theme.spacing.s3}>
             <AvatarDropdown
               name={session?.user.name || t("dropdown.username")}

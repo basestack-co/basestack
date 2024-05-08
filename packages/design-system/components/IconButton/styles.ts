@@ -57,7 +57,8 @@ const neutralStyles = css`
   background-color: ${({ theme }) => theme.iconButton.neutral.backgroundColor};
   color: ${({ theme }) => theme.iconButton.neutral.color};
 
-  .material-symbols-sharp {
+  .material-symbols-sharp,
+  .material-symbols-rounded {
     color: inherit;
   }
   &:hover {
@@ -76,7 +77,8 @@ const primaryNeutralStyles = css`
     theme.iconButton.primaryNeutral.backgroundColor};
   color: ${({ theme }) => theme.iconButton.primaryNeutral.color};
 
-  .material-symbols-sharp {
+  .material-symbols-sharp,
+  .material-symbols-rounded {
     color: inherit;
   }
   &:hover {
