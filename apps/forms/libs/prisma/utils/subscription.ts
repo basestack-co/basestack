@@ -29,6 +29,8 @@ export const getSubscriptionUsage = async (
       : {
           planId: PlanTypeId.FREE,
           subscriptionId: "",
+          forms: 0,
+          members: 0,
           ...config.plans.getFormPlanLimitsDefaults(),
         };
   } catch {

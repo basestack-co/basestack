@@ -5,6 +5,7 @@ export enum TriggerEventName {
   SEND_DATA_TO_EXTERNAL_WEBHOOK = "send.data.to.external.webhook.event",
   CHECK_DATA_FOR_SPAM = "check.data.spam.event",
   UPDATE_SUBSCRIPTION = "update.subscription.event",
+  CHECK_SUBSCRIPTION = "check.subscription.event",
 }
 
 export const triggerClient = new TriggerClient({

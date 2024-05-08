@@ -3,6 +3,7 @@ import { triggerClient } from "libs/trigger";
 // Prisma
 import prisma from "libs/prisma";
 // Utils
+import dayjs from "dayjs";
 import { PlanTypeId, config, SubscriptionEvent } from "@basestack/utils";
 
 const { getSubscriptionEvents, getFormPlanIdByVariantId } = config.plans;
@@ -34,6 +35,7 @@ interface ResponseBody {
   };
 }
 
+// HTTP Webhook
 const lemonSqueezyDotCom = triggerClient.defineHttpEndpoint({
   id: "lemonsqueezy.com",
   source: "lemonsqueezy.com",
@@ -52,7 +54,7 @@ triggerClient.defineJob({
   name: "HTTP Update Subscription",
   version: "1.0.0",
   trigger: lemonSqueezyDotCom.onRequest(),
-  run: async (request, io, ctx) => {
+  run: async (request, io) => {
     const body: ResponseBody = await request.json();
 
     await io.logger.info(`Webhook Event Body`, body);
@@ -93,7 +95,7 @@ triggerClient.defineJob({
               userId,
               planId: (body.meta.custom_data.plan_id ??
                 PlanTypeId.FREE) as PlanTypeId,
-              billingCycleStart: new Date(),
+              billingCycleStart: dayjs().add(1, "month").toISOString(),
               ...payload,
             },
             update: {
@@ -101,7 +103,7 @@ triggerClient.defineJob({
               ...payload,
               ...(isUpdate
                 ? {
-                    billingCycleStart: new Date(),
+                    billingCycleStart: dayjs().add(1, "month").toISOString(),
                     cancelled: body.data.attributes.cancelled ?? false,
                     paused: body.data.attributes.cancelled ?? false,
                   }

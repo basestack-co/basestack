@@ -1,20 +1,5 @@
 // Types
-import { PlanTypeId, Plan } from "../types";
-
-const getSubscriptionEvents = [
-  "subscription_created",
-  "subscription_updated",
-  "subscription_cancelled",
-  "subscription_resumed",
-  "subscription_expired",
-  "subscription_paused",
-  "subscription_unpaused",
-  "subscription_payment_failed",
-  "subscription_payment_success",
-  "subscription_payment_recovered",
-  "subscription_payment_refunded",
-  "subscription_plan_changed",
-];
+import { PlanTypeId, Plan } from "../../types";
 
 // Forms Plan configuration
 
@@ -34,9 +19,9 @@ const forms: Plan[] = [
       },
     },
     limits: {
-      forms: 2,
+      forms: 1,
       submissions: 25,
-      members: 1,
+      members: 0,
       spams: 0,
       fileUploadLimit: 0, // GB
       integrationsCalls: 0,
@@ -174,9 +159,7 @@ const forms: Plan[] = [
 ];
 
 const getFormPlanLimitsDefaults = () => ({
-  forms: 0,
   submissions: 0,
-  members: 0,
   spams: 0,
   fileUploadLimit: 0,
   integrationsCalls: 0,
@@ -237,9 +220,8 @@ const getFormPlanIdByVariantId = (variantId: number) => {
   return plan?.id;
 };
 
-export const plans = {
+export const config = {
   forms,
-  getSubscriptionEvents,
   getFormPlan,
   getFormPlanLimits,
   getFormPlanFeatures,
