@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { position, space, SpaceProps } from "styled-system";
+import { position, space, SpaceProps, PositionProps } from "styled-system";
 import { rem } from "polished";
 
 export const List = styled.ul<SpaceProps>`
@@ -9,6 +9,7 @@ export const List = styled.ul<SpaceProps>`
 `;
 
 export const Container = styled.div<SpaceProps>`
+  display: flex;
   ${space};
 `;
 
@@ -62,11 +63,10 @@ export const AvatarDetailedButton = styled.button`
   }
 `;
 
-export const Dropdown = styled.div`
+export const Dropdown = styled.div<PositionProps>`
   ${position};
   background-color: ${({ theme }) => theme.popup.backgroundColor};
   box-shadow: ${({ theme }) => theme.shadow.elevation6};
-  padding: ${({ theme }) => theme.spacing.s1};
   border-radius: 4px;
   width: ${rem("280px")};
   z-index: ${({ theme }) => theme.zIndex.popup};

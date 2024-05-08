@@ -27,7 +27,8 @@ exports[`IconButton tests should render IconButton correctly 1`] = `
   width: 2.25rem;
 }
 
-.c0 .material-symbols-sharp {
+.c0 .material-symbols-sharp,
+.c0 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -191,7 +192,8 @@ exports[`IconButton tests should render primaryNeutral IconButton 1`] = `
   width: 2.25rem;
 }
 
-.c0 .material-symbols-sharp {
+.c0 .material-symbols-sharp,
+.c0 .material-symbols-rounded {
   color: inherit;
 }
 

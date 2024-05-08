@@ -56,7 +56,8 @@ exports[`CopyCard tests should render CopyCard correctly 1`] = `
   width: 2.25rem;
 }
 
-.c7 .material-symbols-sharp {
+.c7 .material-symbols-sharp,
+.c7 .material-symbols-rounded {
   color: inherit;
 }
 

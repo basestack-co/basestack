@@ -68,7 +68,8 @@ export const outlinedButtonStyles = css`
     color: ${({ theme }) => theme.button.outlined.hover.color};
     border-color: ${({ theme }) => theme.button.outlined.hover.border};
 
-    .material-symbols-sharp {
+    .material-symbols-sharp,
+    .material-symbols-rounded {
       color: inherit;
     }
   }
