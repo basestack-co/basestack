@@ -1,9 +1,11 @@
 import React, { memo, useCallback, useRef, useState } from "react";
+import { useTheme } from "styled-components";
 import { useClickAway } from "react-use";
 import { animated, config, useTransition } from "react-spring";
 // Components
 import { autoUpdate, offset, useFloating } from "@floating-ui/react";
 import {
+  Avatar,
   Button,
   ButtonVariant,
   PopupActions,
@@ -33,12 +35,13 @@ const ProjectsMenu = ({
   select,
   title,
 }: ProjectsMenuProps) => {
+  const theme = useTheme();
   const menuWrapperRef = useRef(null);
   const [isProjectsPopupOpen, setIsProjectsPopupOpen] = useState(false);
   const { x, y, refs, strategy } = useFloating({
     placement: "bottom-start",
     whileElementsMounted: autoUpdate,
-    middleware: [offset(4)],
+    middleware: [offset(5)],
   });
 
   const onClickProjects = useCallback(() => {
@@ -71,6 +74,17 @@ const ProjectsMenu = ({
         icon={isProjectsPopupOpen ? "arrow_drop_up" : "arrow_drop_down"}
         variant={ButtonVariant.PrimaryNeutral}
         onClick={onClickProjects}
+        leftElement={
+          !!current ? (
+            <Avatar
+              userName={current}
+              size="xSmall"
+              alt={`form ${current}`}
+              round={false}
+              mr={theme.spacing.s2}
+            />
+          ) : null
+        }
       >
         {!!current ? truncateText(current) : select.title}
       </Button>

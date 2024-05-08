@@ -114,7 +114,8 @@ exports[`Modal tests should render Modal correctly open 1`] = `
   width: 2.25rem;
 }
 
-.c4 .material-symbols-sharp {
+.c4 .material-symbols-sharp,
+.c4 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -411,7 +412,8 @@ exports[`Modal tests should render Modal with custom props 1`] = `
   width: 2.25rem;
 }
 
-.c4 .material-symbols-sharp {
+.c4 .material-symbols-sharp,
+.c4 .material-symbols-rounded {
   color: inherit;
 }
 

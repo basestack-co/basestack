@@ -69,7 +69,7 @@ const AvatarDropdown = ({
   const { x, y, refs, strategy } = useFloating({
     placement: popupPlacement,
     whileElementsMounted: autoUpdate,
-    middleware: [offset(4)],
+    middleware: [offset(5)],
   });
 
   const onClickMenu = useCallback(() => {
@@ -122,7 +122,6 @@ const AvatarDropdown = ({
             <AnimatedAvatarDropdown
               style={styles}
               ref={refs.setFloating}
-              // @ts-ignore
               position={strategy}
               top={y}
               left={x}

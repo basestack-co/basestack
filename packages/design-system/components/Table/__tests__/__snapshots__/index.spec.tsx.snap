@@ -48,7 +48,8 @@ exports[`Table tests should render Table correctly 1`] = `
   width: 2.25rem;
 }
 
-.c7 .material-symbols-sharp {
+.c7 .material-symbols-sharp,
+.c7 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -336,7 +337,8 @@ exports[`Table tests should render Table with images 1`] = `
   width: 2.25rem;
 }
 
-.c9 .material-symbols-sharp {
+.c9 .material-symbols-sharp,
+.c9 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -836,7 +838,8 @@ exports[`Table tests should render Table with space utils 1`] = `
   width: 2.25rem;
 }
 
-.c7 .material-symbols-sharp {
+.c7 .material-symbols-sharp,
+.c7 .material-symbols-rounded {
   color: inherit;
 }
 

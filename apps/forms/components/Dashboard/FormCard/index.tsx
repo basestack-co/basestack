@@ -20,7 +20,14 @@ import {
   CardVariant,
 } from "@basestack/design-system";
 // Styles
-import { Button, Content, DetailContainer, Footer, ListItem } from "./styles";
+import {
+  AvatarContainer,
+  Button,
+  Content,
+  DetailContainer,
+  Footer,
+  ListItem,
+} from "./styles";
 
 export interface FormCardProps {
   formId: string;
@@ -137,25 +144,28 @@ const FormCard = ({
           hasHoverAnimation
         >
           <Content>
-            <Avatar
-              size="xSmall"
-              userName={text}
-              alt={`${text} form`}
-              round={false}
-            />
+            <AvatarContainer>
+              <Avatar
+                size="xSmall"
+                userName={text}
+                alt={`${text} form`}
+                round={false}
+              />
+              {!isEnabled && (
+                <Label
+                  variant="warning"
+                  size="small"
+                  text={t("forms.card.label.disabled")}
+                  ml={theme.spacing.s3}
+                />
+              )}
+            </AvatarContainer>
             <Text size="small" textAlign="left" mt={theme.spacing.s3}>
               {text}
             </Text>
           </Content>
           <HorizontalRule />
           <Footer>
-            {!isEnabled && (
-              <Label
-                variant="warning"
-                size="small"
-                text={t("forms.card.label.disabled")}
-              />
-            )}
             {!!submissions.unread && (
               <Detail icon="mark_email_unread" value={submissions.unread} />
             )}

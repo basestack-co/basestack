@@ -76,6 +76,7 @@ const Toolbar = ({
             onClear={() => setSearchValue("")}
             filter={{
               selected: selectedSearchKey ?? "name",
+              isDisabled: isDisabled ?? false,
               options: [
                 {
                   text: "name",

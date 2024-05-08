@@ -32,7 +32,12 @@ export const Footer = styled.div`
   min-height: ${rem("46px")};
 `;
 
-export const DetailContainer = styled.li`
+export const DetailContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const AvatarContainer = styled.div`
   display: flex;
   align-items: center;
 `;

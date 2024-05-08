@@ -43,6 +43,10 @@ export interface ButtonProps
    */
   children: ReactNode;
   /**
+   * optional left children
+   */
+  leftElement?: ReactNode;
+  /**
    * onClick function
    */
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
