@@ -446,7 +446,8 @@ exports[`Button tests should render Outlined Button 1`] = `
   border-color: #757575;
 }
 
-.c0:hover:not(:active, :disabled) .material-symbols-sharp {
+.c0:hover:not(:active, :disabled) .material-symbols-sharp,
+.c0:hover:not(:active, :disabled) .material-symbols-rounded {
   color: inherit;
 }
 
