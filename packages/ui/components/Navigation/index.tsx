@@ -1,0 +1,50 @@
+import React, { Fragment, useEffect, useState } from "react";
+// Components
+import MobileNavigation from "./Mobile";
+import DesktopNavigation from "./Desktop";
+// Types"
+import { NavigationProps } from "./types";
+// Utils
+import { getAvatarDropdownList } from "./utils";
+
+const Navigation = ({
+  projects,
+  apps,
+  avatar,
+  isMobile = false,
+  onClickLogo,
+  data,
+  leftLinks,
+  rightLinks,
+}: NavigationProps) => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isMobile) {
+      setIsDrawerOpen(false);
+    }
+  }, [isMobile]);
+
+  return (
+    <Fragment>
+      <DesktopNavigation
+        onOpenDrawer={() => setIsDrawerOpen(true)}
+        projects={projects}
+        apps={apps}
+        avatar={avatar}
+        isMobile={isMobile}
+        onClickLogo={onClickLogo}
+        leftLinks={leftLinks}
+        rightLinks={rightLinks}
+      />
+      <MobileNavigation
+        data={data}
+        onClose={() => setIsDrawerOpen(false)}
+        isDrawerOpen={isDrawerOpen}
+      />
+    </Fragment>
+  );
+};
+
+export { getAvatarDropdownList, type NavigationProps };
+export default Navigation;

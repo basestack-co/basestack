@@ -39,7 +39,7 @@ export interface ListItem {
   isDisabled?: boolean;
 }
 
-export interface AvatarMenuProps {
+export interface AvatarDropdownProps {
   name: string;
   email: string;
   src: string;
@@ -61,7 +61,7 @@ const AvatarDropdown = ({
   onSetDarkMode,
   darkModeText = "Dark Mode",
   list,
-}: AvatarMenuProps) => {
+}: AvatarDropdownProps) => {
   const theme = useTheme();
 
   const menuWrapperRef = useRef(null);
@@ -160,7 +160,7 @@ const AvatarDropdown = ({
                 <HorizontalRule />
               </Header>
               <List>
-                {list.map((item, index) => {
+                {list?.map((item, index) => {
                   return (
                     <Fragment key={`list-item-${index}`}>
                       <ListItem mb={theme.spacing.s1}>
