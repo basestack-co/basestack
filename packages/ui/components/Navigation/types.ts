@@ -13,7 +13,6 @@ export interface Link {
 }
 
 interface SharedProps {
-  apps: AppsDropdownProps["data"];
   avatar: AvatarDropdownProps;
   projects: ProjectsMenuProps;
   onClickLogo: () => void;
@@ -22,6 +21,7 @@ interface SharedProps {
 }
 
 export interface DesktopNavigationUIProps extends SharedProps {
+  apps: AppsDropdownProps["data"];
   onOpenDrawer: () => void;
   isMobile: boolean;
 }
@@ -30,10 +30,13 @@ export interface MobileNavigationUIProps extends SharedProps {
   onClose: () => void;
   isDrawerOpen: boolean;
   rightLinksTitle: string;
+  appsTitle: string;
 }
 
 export interface NavigationProps extends SharedProps {
+  apps: AppsDropdownProps["data"];
   data?: Array<PopupActionProps>;
   isMobile: boolean;
   rightLinksTitle: string;
+  appsTitle: string;
 }

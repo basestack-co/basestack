@@ -1,6 +1,6 @@
 import React from "react";
 // Components
-import { AvatarDropdown } from "@basestack/ui";
+import AvatarDropdown from "../../AvatarDropdown";
 import {
   fadeIn,
   slideInLeft,
@@ -27,6 +27,7 @@ import {
   ScrollableContent,
   StyledLink,
   LogoButton,
+  ButtonContainer,
 } from "./styles";
 // Types
 import { MobileNavigationUIProps } from "../types";
@@ -38,7 +39,6 @@ const MobileNavigation = ({
   onClose,
   isDrawerOpen,
   projects,
-  apps,
   avatar,
   onClickLogo,
   leftLinks,
@@ -66,10 +66,10 @@ const MobileNavigation = ({
               <GlobalStyle />
               <Header>
                 <LogoButton onClick={onClickLogo}>
-                  <Logo size={40} />
+                  <Logo size={36} />
                 </LogoButton>
                 <IconButton
-                  icon="chevron_left"
+                  icon="menu_open"
                   onClick={onClose}
                   variant="neutral"
                 />
@@ -80,15 +80,20 @@ const MobileNavigation = ({
                     <List>
                       {leftLinks?.map((item, index) => (
                         <ListItem key={index}>
-                          <Button
-                            iconPlacement="left"
-                            icon={item.icon}
-                            variant={ButtonVariant.Neutral}
-                            fullWidth
-                            onClick={item.onClick}
-                          >
-                            {item.text}
-                          </Button>
+                          <ButtonContainer isActive={item.isActive}>
+                            <Button
+                              iconPlacement="left"
+                              icon={item.icon}
+                              variant={ButtonVariant.Neutral}
+                              fullWidth
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                item.onClick();
+                              }}
+                            >
+                              {item.text}
+                            </Button>
+                          </ButtonContainer>
                         </ListItem>
                       ))}
                     </List>
@@ -102,17 +107,27 @@ const MobileNavigation = ({
                     </Text>
                   </TitleContainer>
                   <List>
-                    {projects.data.map(({ id, text, onClick }) => (
-                      <ListItem key={id}>
-                        <Button
-                          iconPlacement="left"
-                          icon="tag"
-                          variant={ButtonVariant.Neutral}
-                          onClick={onClick}
-                          fullWidth
+                    {projects.data.map((item) => (
+                      <ListItem key={item.id}>
+                        <ButtonContainer
+                          isActive={
+                            item.text.toLowerCase() ===
+                            projects.current.toLowerCase()
+                          }
                         >
-                          {text}
-                        </Button>
+                          <Button
+                            iconPlacement="left"
+                            icon="tag"
+                            variant={ButtonVariant.Neutral}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              item.onClick();
+                            }}
+                            fullWidth
+                          >
+                            {item.text}
+                          </Button>
+                        </ButtonContainer>
                       </ListItem>
                     ))}
                     <ListItem>

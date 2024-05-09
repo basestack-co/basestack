@@ -1,5 +1,13 @@
 import styled, { css } from "styled-components";
-import { space, SpaceProps } from "styled-system";
+import {
+  space,
+  SpaceProps,
+  flexbox,
+  FlexboxProps,
+  compose,
+  layout,
+  LayoutProps,
+} from "styled-system";
 import { rem } from "polished";
 
 export const Container = styled.nav`
@@ -26,8 +34,10 @@ export const List = styled.ul<SpaceProps>`
   ${flexCenter};
 `;
 
-export const ListItem = styled.li<SpaceProps>`
-  ${space};
+interface ListItemProps extends FlexboxProps, LayoutProps, SpaceProps {}
+
+export const ListItem = styled.li<ListItemProps>`
+  ${compose(space, flexbox, layout)};
 `;
 
 export const LogoContainer = styled.button`

@@ -106,3 +106,23 @@ export const LogoButton = styled.button`
   border: none;
   cursor: pointer;
 `;
+
+export const ButtonContainer = styled.div<{ isActive: boolean }>`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  ${({ isActive, theme }) =>
+    isActive &&
+    css`
+      &::before {
+        content: "";
+        position: absolute;
+        left: ${rem("-8px")};
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background-color: ${theme.colors.blue400};
+      }
+    `};
+`;

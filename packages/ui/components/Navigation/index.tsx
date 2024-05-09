@@ -41,7 +41,6 @@ const Navigation = ({
         onClose={() => setIsDrawerOpen(false)}
         isDrawerOpen={isDrawerOpen}
         projects={projects}
-        apps={apps}
         avatar={avatar}
         onClickLogo={onClickLogo}
         leftLinks={leftLinks}

@@ -105,7 +105,10 @@ const AvatarDropdown = ({
               {email}
             </Text>
           </div>
-          <Icon icon={isMenuOpen ? "expand_less" : "expand_more"} ml="auto" />
+          <Icon
+            icon={isMenuOpen ? "arrow_drop_up" : "arrow_drop_down"}
+            ml="auto"
+          />
         </AvatarDetailedButton>
       ) : (
         <AvatarButton ref={refs.setReference} onClick={onClickMenu}>

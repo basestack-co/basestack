@@ -61,6 +61,7 @@ const Navigation = ({ data }: NavigationProps) => {
           create: t("create.form"),
         },
       }}
+      appsTitle="Apps"
       apps={[
         {
           onClick: () => null,

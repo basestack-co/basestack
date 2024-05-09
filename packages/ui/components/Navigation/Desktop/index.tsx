@@ -5,7 +5,7 @@ import AvatarDropdown from "../../AvatarDropdown";
 import ProjectsMenu from "../../ProjectsMenu";
 import AppsDropdown from "../../AppsDropdown";
 // Components
-import { Logo, IconButton, Text } from "@basestack/design-system";
+import { Logo, IconButton, Text, Avatar } from "@basestack/design-system";
 import { Container, List, ListItem, LogoContainer } from "./styles";
 import ButtonLink from "../Components/ButtonLink";
 // Types
@@ -41,7 +41,14 @@ const DesktopNavigation = ({
               />
             </ListItem>
             {!!currentForm && (
-              <ListItem>
+              <ListItem display="flex" alignItems="center">
+                <Avatar
+                  size="xSmall"
+                  round={false}
+                  userName={currentForm}
+                  alt={`project-${currentForm}`}
+                  mr={theme.spacing.s2}
+                />
                 <Text size="medium">{truncateProjectName(currentForm)}</Text>
               </ListItem>
             )}
