@@ -3,21 +3,21 @@ import { AppsDropdownProps } from "../AppsDropdown";
 import { AvatarDropdownProps } from "../AvatarDropdown";
 import { ProjectsMenuProps } from "../ProjectsMenu";
 
-export interface Link {
+interface ButtonLinkProps {
   text: string;
-  onClick: () => void;
   isActive: boolean;
-  isExternal: boolean;
-  href: string;
-  icon: string;
+  icon?: string;
+  isExternal?: boolean;
+  onClick?: () => void;
+  href?: string;
 }
 
 interface SharedProps {
   avatar: AvatarDropdownProps;
   projects: ProjectsMenuProps;
   onClickLogo: () => void;
-  leftLinks?: Array<Link>;
-  rightLinks?: Array<Link>;
+  leftLinks?: Array<ButtonLinkProps>;
+  rightLinks?: Array<ButtonLinkProps>;
   apps: AppsDropdownProps["data"];
   product: LogoProps["product"];
 }

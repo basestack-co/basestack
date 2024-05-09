@@ -175,7 +175,6 @@ const MobileNavigation = ({
                       </ListItem>
                     ))}
                   </List>
-
                   <HorizontalRule m={theme.spacing.s5} mb={0} />
                   <TitleContainer>
                     <Text muted fontWeight={500}>

@@ -16,18 +16,21 @@ export const getInternalLinks = (
       onClick: () => router.push(`/form/${formId}/submissions`),
       text: t("internal.submissions"),
       isActive: router.pathname.includes("submissions"),
+      isExternal: true,
     },
     {
       icon: "tune",
       onClick: () => router.push(`/form/${formId}/setup`),
       text: t("internal.setup"),
       isActive: router.pathname.includes("setup"),
+      isExternal: true,
     },
     {
       icon: "settings",
       onClick: () => router.push(`/form/${formId}/settings/general`),
       text: t("internal.settings"),
       isActive: router.pathname.includes("settings"),
+      isExternal: true,
     },
   ];
 };
