@@ -9,10 +9,10 @@ export interface Link {
   isActive: boolean;
   isExternal: boolean;
   href: string;
+  icon: string;
 }
 
 interface SharedProps {
-  isMobile: boolean;
   apps: AppsDropdownProps["data"];
   avatar: AvatarDropdownProps;
   projects: ProjectsMenuProps;
@@ -23,8 +23,17 @@ interface SharedProps {
 
 export interface DesktopNavigationUIProps extends SharedProps {
   onOpenDrawer: () => void;
+  isMobile: boolean;
+}
+
+export interface MobileNavigationUIProps extends SharedProps {
+  onClose: () => void;
+  isDrawerOpen: boolean;
+  rightLinksTitle: string;
 }
 
 export interface NavigationProps extends SharedProps {
   data?: Array<PopupActionProps>;
+  isMobile: boolean;
+  rightLinksTitle: string;
 }

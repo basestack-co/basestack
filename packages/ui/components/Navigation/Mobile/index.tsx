@@ -1,14 +1,6 @@
 import React from "react";
-// Store
-import { useStore } from "store";
-// Router
-import { useRouter } from "next/router";
-import Link from "next/link";
-// UI
-import { AvatarDropdown } from "@basestack/ui";
-// Auth
-import { useSession } from "next-auth/react";
 // Components
+import { AvatarDropdown } from "@basestack/ui";
 import {
   fadeIn,
   slideInLeft,
@@ -17,7 +9,6 @@ import {
   Button,
   ButtonVariant,
   HorizontalRule,
-  PopupActionProps,
   Logo,
 } from "@basestack/design-system";
 import { animated, config, useTransition } from "react-spring";
@@ -35,42 +26,26 @@ import {
   GlobalStyle,
   ScrollableContent,
   StyledLink,
+  LogoButton,
 } from "./styles";
-// Locales
-import useTranslation from "next-translate/useTranslation";
-// Utils
-import {
-  getInternalLinks,
-  getExternalLinks,
-  getAvatarDropdownList,
-} from "../utils";
+// Types
+import { MobileNavigationUIProps } from "../types";
 
 const AnimatedBackDropCover = animated(BackDropCover);
 const AnimatedNavigation = animated(Container);
 
-interface NavigationDrawerProps {
-  isDrawerOpen: boolean;
-  onClose: () => void;
-  data?: Array<PopupActionProps>;
-}
-
 const MobileNavigation = ({
-  isDrawerOpen,
   onClose,
-  data,
-}: NavigationDrawerProps) => {
-  const { t } = useTranslation("navigation");
+  isDrawerOpen,
+  projects,
+  apps,
+  avatar,
+  onClickLogo,
+  leftLinks,
+  rightLinks,
+  rightLinksTitle,
+}: MobileNavigationUIProps) => {
   const theme = useTheme();
-  const { data: session } = useSession();
-  const router = useRouter();
-  const formId = router.query.formId as string;
-
-  const setIsDarkMode = useStore((state) => state.setDarkMode);
-  const isDarkMode = useStore((state) => state.isDarkMode);
-
-  const setCreateFormModalOpen = useStore(
-    (state) => state.setCreateFormModalOpen,
-  );
 
   const transitionNavigation = useTransition(isDrawerOpen, {
     config: { ...config.default, duration: 200 },
@@ -90,9 +65,9 @@ const MobileNavigation = ({
             <AnimatedNavigation style={styles}>
               <GlobalStyle />
               <Header>
-                <Link href="/">
+                <LogoButton onClick={onClickLogo}>
                   <Logo size={40} />
-                </Link>
+                </LogoButton>
                 <IconButton
                   icon="chevron_left"
                   onClick={onClose}
@@ -100,23 +75,19 @@ const MobileNavigation = ({
                 />
               </Header>
               <ContentContainer>
-                {!!formId && (
+                {leftLinks && leftLinks.length > 0 && (
                   <>
                     <List>
-                      {getInternalLinks(t, formId).map((item, index) => (
+                      {leftLinks?.map((item, index) => (
                         <ListItem key={index}>
                           <Button
                             iconPlacement="left"
                             icon={item.icon}
                             variant={ButtonVariant.Neutral}
                             fullWidth
-                            onClick={() => {
-                              router.push({
-                                pathname: item.to,
-                              });
-                            }}
+                            onClick={item.onClick}
                           >
-                            {t(item.text)}
+                            {item.text}
                           </Button>
                         </ListItem>
                       ))}
@@ -127,11 +98,11 @@ const MobileNavigation = ({
                 <ScrollableContent>
                   <TitleContainer>
                     <Text muted fontWeight={500}>
-                      {t("forms.title")}
+                      {projects.title}
                     </Text>
                   </TitleContainer>
                   <List>
-                    {data?.map(({ id, text, onClick }) => (
+                    {projects.data.map(({ id, text, onClick }) => (
                       <ListItem key={id}>
                         <Button
                           iconPlacement="left"
@@ -152,35 +123,34 @@ const MobileNavigation = ({
                         fullWidth
                         onClick={() => {
                           onClose();
-                          setCreateFormModalOpen({ isOpen: true });
+                          projects.onCreate();
                         }}
                       >
-                        {t("create.form")}
+                        {projects.select.create}
                       </Button>
                     </ListItem>
                   </List>
-                  <HorizontalRule m={theme.spacing.s5} />
+                  <HorizontalRule m={theme.spacing.s5} mb={0} />
                   <TitleContainer>
                     <Text muted fontWeight={500}>
-                      {t("external.resources")}
+                      {rightLinksTitle}
                     </Text>
                   </TitleContainer>
                   <List>
-                    {getExternalLinks(t).map((item, index) => (
+                    {rightLinks?.map((item, index) => (
                       <ListItem key={index}>
                         <StyledLink
-                          href={item.to}
+                          href={item.href}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
                           <Button
-                            as="div"
                             iconPlacement="left"
                             icon={item.icon}
                             variant={ButtonVariant.Neutral}
                             fullWidth
                           >
-                            {t(item.text)}
+                            {item.text}
                           </Button>
                         </StyledLink>
                       </ListItem>
@@ -191,16 +161,8 @@ const MobileNavigation = ({
               <HorizontalRule mx={theme.spacing.s5} my={0} />
               <Footer>
                 <AvatarDropdown
-                  name={session?.user.name || t("dropdown.username")}
-                  email={session?.user.email || ""}
-                  src={session?.user.image || ""}
-                  darkModeText={t("dropdown.dark-mode")}
-                  isDarkMode={isDarkMode}
-                  onSetDarkMode={setIsDarkMode}
+                  {...avatar}
                   popupPlacement="top"
-                  list={getAvatarDropdownList(t, router, () =>
-                    setCreateFormModalOpen({ isOpen: true }),
-                  )}
                   showFullButton
                 />
               </Footer>

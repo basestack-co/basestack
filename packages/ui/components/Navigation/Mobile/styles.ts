@@ -99,3 +99,10 @@ export const StyledLink = styled.a`
   ${flexColumn};
   text-decoration: none;
 `;
+
+export const LogoButton = styled.button`
+  display: inline-flex;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+`;

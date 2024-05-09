@@ -5,25 +5,29 @@ import { NextRouter } from "next/router";
 import { config } from "@basestack/utils";
 import { signOut } from "next-auth/react";
 
-export const getInternalLinks = (t: Translate, formId: string) => {
+export const getInternalLinks = (
+  router: NextRouter,
+  t: Translate,
+  formId: string,
+) => {
   return [
     {
-      icon: "flag",
-      activeText: "Submissions",
-      to: `/form/${formId}/submissions`,
+      icon: "mail",
+      onClick: () => router.push(`/form/${formId}/submissions`),
       text: t("internal.submissions"),
+      isActive: router.pathname.includes("submissions"),
     },
     {
-      icon: "flag",
-      activeText: "Setup",
-      to: `/form/${formId}/setup`,
+      icon: "tune",
+      onClick: () => router.push(`/form/${formId}/setup`),
       text: t("internal.setup"),
+      isActive: router.pathname.includes("setup"),
     },
     {
       icon: "settings",
-      activeText: "Settings",
-      to: `/form/${formId}/settings/general`,
+      onClick: () => router.push(`/form/${formId}/settings/general`),
       text: t("internal.settings"),
+      isActive: router.pathname.includes("settings"),
     },
   ];
 };
@@ -32,16 +36,16 @@ export const getExternalLinks = (t: Translate) => {
   return [
     {
       icon: "description",
-      activeText: "Documentation",
-      to: config.urls.docs.flags.base,
       isExternal: true,
+      isActive: false,
+      href: config.urls.docs.flags.base,
       text: t("external.docs"),
     },
     {
       icon: "link",
-      activeText: "Github",
-      to: config.urls.repo,
       isExternal: true,
+      isActive: false,
+      href: config.urls.repo,
       text: t("external.github"),
     },
   ];

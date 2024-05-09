@@ -13,9 +13,9 @@ const Navigation = ({
   avatar,
   isMobile = false,
   onClickLogo,
-  data,
   leftLinks,
   rightLinks,
+  rightLinksTitle,
 }: NavigationProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -38,9 +38,15 @@ const Navigation = ({
         rightLinks={rightLinks}
       />
       <MobileNavigation
-        data={data}
         onClose={() => setIsDrawerOpen(false)}
         isDrawerOpen={isDrawerOpen}
+        projects={projects}
+        apps={apps}
+        avatar={avatar}
+        onClickLogo={onClickLogo}
+        leftLinks={leftLinks}
+        rightLinks={rightLinks}
+        rightLinksTitle={rightLinksTitle}
       />
     </Fragment>
   );
