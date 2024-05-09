@@ -33,8 +33,8 @@ import {
 // Types
 import { MobileNavigationUIProps } from "../types";
 
-const AnimatedBackDropCover = animated(BackDropCover);
-const AnimatedNavigation = animated(Container);
+const AnimatedBackDropCover: any = animated(BackDropCover);
+const AnimatedNavigation: any = animated(Container);
 
 const MobileNavigation = ({
   onClose,
@@ -92,7 +92,9 @@ const MobileNavigation = ({
                               fullWidth
                               onClick={(e) => {
                                 e.stopPropagation();
-                                item.onClick();
+                                if (item.onClick) {
+                                  item.onClick();
+                                }
                               }}
                             >
                               {item.text}

@@ -1,11 +1,9 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 // Components
 import MobileNavigation from "./Mobile";
 import DesktopNavigation from "./Desktop";
 // Types"
 import { NavigationProps } from "./types";
-// Utils
-import { getAvatarDropdownList } from "./utils";
 
 const Navigation = ({
   projects,
@@ -38,7 +36,7 @@ const Navigation = ({
   };
 
   return (
-    <Fragment>
+    <>
       <DesktopNavigation
         isMobile={isMobile}
         onOpenDrawer={() => setIsDrawerOpen(true)}
@@ -51,9 +49,9 @@ const Navigation = ({
         appsTitle={appsTitle}
         {...sharedProps}
       />
-    </Fragment>
+    </>
   );
 };
 
-export { getAvatarDropdownList, type NavigationProps };
+export { type NavigationProps };
 export default Navigation;

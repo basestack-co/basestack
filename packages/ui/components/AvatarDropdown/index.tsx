@@ -29,7 +29,7 @@ import {
   AvatarDetailedButton,
 } from "./styles";
 
-const AnimatedAvatarDropdown = animated(Dropdown);
+const AnimatedAvatarDropdown: any = animated(Dropdown);
 
 export interface ListItem {
   text: string;
@@ -113,10 +113,6 @@ const AvatarDropdown = ({
       ) : (
         <AvatarButton ref={refs.setReference} onClick={onClickMenu}>
           <Avatar size="small" userName={name} alt="User Image" src={src} />
-          <Icon
-            ml="2px"
-            icon={isMenuOpen ? "arrow_drop_up" : "arrow_drop_down"}
-          />
         </AvatarButton>
       )}
       {transitionMorePopup(

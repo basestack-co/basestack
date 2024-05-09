@@ -15,7 +15,7 @@ export const Dropdown = styled.div<PositionProps>`
   border-radius: 4px;
   width: ${rem("280px")};
   z-index: ${({ theme }) => theme.zIndex.popup};
-  padding: ${({ theme }) => theme.spacing.s4} ${({ theme }) => theme.spacing.s1};
+  padding: ${({ theme }) => theme.spacing.s1};
 `;
 
 export const List = styled.ul`

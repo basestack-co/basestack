@@ -12,11 +12,7 @@ import useTranslation from "next-translate/useTranslation";
 import { PopupActionProps } from "@basestack/design-system";
 import { Navigation as NavigationUI } from "@basestack/ui";
 // Utils
-import {
-  getInternalLinks,
-  getExternalLinks,
-  getAvatarDropdownList,
-} from "./utils";
+import { getLeftLinks, getRightLinks, getAvatarDropdownList } from "./utils";
 
 export interface NavigationProps {
   data?: Array<PopupActionProps>;
@@ -49,8 +45,8 @@ const Navigation = ({ data }: NavigationProps) => {
       product="forms"
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
-      leftLinks={!!formId ? getInternalLinks(router, t, formId) : []}
-      rightLinks={getExternalLinks(t)}
+      leftLinks={!!formId ? getLeftLinks(router, t, formId) : []}
+      rightLinks={getRightLinks(t)}
       rightLinksTitle={t("external.resources")}
       projects={{
         onCreate: () => setCreateFormModalOpen({ isOpen: true }),
@@ -62,7 +58,7 @@ const Navigation = ({ data }: NavigationProps) => {
           create: t("create.form"),
         },
       }}
-      appsTitle="Apps"
+      appsTitle={t("apps.title")}
       apps={[
         {
           onClick: () => null,

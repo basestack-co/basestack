@@ -20,7 +20,7 @@ import {
   TextContainer,
 } from "./styles";
 
-const AnimatedDropdown = animated(Dropdown);
+const AnimatedDropdown: any = animated(Dropdown);
 
 export interface ItemProps {
   onClick: () => void;

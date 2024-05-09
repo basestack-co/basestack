@@ -63,13 +63,14 @@ const DesktopNavigation = ({
               </LogoContainer>
             </ListItem>
             <ProjectsMenu {...projects} />
-
             {leftLinks?.map((item, index) => (
               <ListItem key={`internal-link-${index}`}>
                 <ButtonLink
-                  isExternal={item.isExternal}
+                  type={item.type}
                   onClick={item.onClick}
                   isActive={item.isActive}
+                  variant={item.buttonVariant}
+                  space={item.space}
                 >
                   {item.text}
                 </ButtonLink>
@@ -83,9 +84,11 @@ const DesktopNavigation = ({
           {rightLinks?.map((item, index) => (
             <ListItem key={`externalLinks-link-${index}`}>
               <ButtonLink
-                isExternal={item.isExternal}
+                type={item.type}
                 href={item.href}
                 isActive={item.isActive}
+                variant={item.buttonVariant}
+                space={item.space}
               >
                 {item.text}
               </ButtonLink>

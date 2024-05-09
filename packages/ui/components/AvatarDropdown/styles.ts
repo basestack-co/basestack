@@ -24,17 +24,26 @@ export const AvatarButton = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
-  border-radius: 18px;
-  transition:
-    background-color 0.1s ease-in-out,
-    color 0.1s ease-in-out;
+
+  &:before {
+    content: "";
+    transition: background-color 0.1s ease-in-out;
+    z-index: -1;
+  }
 
   &:hover {
-    background-color: ${({ theme }) =>
-      theme.button.primaryNeutral.hover.backgroundColor};
-
-    span {
-      color: ${({ theme }) => theme.button.primaryNeutral.hover.color};
+    &:before {
+      content: "";
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      top: -2px;
+      bottom: -2px;
+      border-radius: 50%;
+      background-color: ${({ theme }) =>
+        theme.isDarkMode
+          ? theme.button.primaryNeutral.hover.backgroundColor
+          : theme.button.primaryNeutral.active.backgroundColor};
     }
   }
 `;

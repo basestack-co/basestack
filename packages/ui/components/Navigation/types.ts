@@ -1,23 +1,28 @@
-import { LogoProps } from "@basestack/design-system";
+import { LogoProps, ButtonVariant } from "@basestack/design-system";
+import { SpaceProps } from "styled-system";
 import { AppsDropdownProps } from "../AppsDropdown";
 import { AvatarDropdownProps } from "../AvatarDropdown";
 import { ProjectsMenuProps } from "../ProjectsMenu";
 
-interface ButtonLinkProps {
+export type ButtonType = "button" | "link";
+
+interface ListItemProps {
+  type: ButtonType;
   text: string;
   isActive: boolean;
+  buttonVariant?: ButtonVariant;
   icon?: string;
-  isExternal?: boolean;
   onClick?: () => void;
   href?: string;
+  space?: SpaceProps;
 }
 
 interface SharedProps {
   avatar: AvatarDropdownProps;
   projects: ProjectsMenuProps;
   onClickLogo: () => void;
-  leftLinks?: Array<ButtonLinkProps>;
-  rightLinks?: Array<ButtonLinkProps>;
+  leftLinks?: Array<ListItemProps>;
+  rightLinks?: Array<ListItemProps>;
   apps: AppsDropdownProps["data"];
   product: LogoProps["product"];
 }

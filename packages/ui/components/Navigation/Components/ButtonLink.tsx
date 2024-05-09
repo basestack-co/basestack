@@ -1,14 +1,21 @@
 import React, { memo, ReactNode } from "react";
-import { rem } from "polished";
 import styled, { css } from "styled-components";
+// Utils
+import { rem } from "polished";
+// Components
 import { Button, ButtonVariant } from "@basestack/design-system";
+// Types
+import { SpaceProps } from "styled-system";
+import { ButtonType } from "../types";
 
-export interface ButtonLinkProps {
+interface ButtonLinkProps {
   isActive: boolean;
   href?: string;
   children: ReactNode;
-  isExternal?: boolean;
   onClick?: () => void;
+  type: ButtonType;
+  variant?: ButtonVariant;
+  space?: SpaceProps;
 }
 
 export const ExternalLink = styled.a`
@@ -39,18 +46,24 @@ const ButtonLink = ({
   href,
   isActive = false,
   children,
-  isExternal = false,
   onClick,
+  type,
+  variant,
+  space,
 }: ButtonLinkProps) => (
   <ButtonContainer isActive={isActive}>
-    {isExternal ? (
+    {type === "link" ? (
       <ExternalLink href={href} target="_blank" rel="noopener noreferrer">
         <Button as="div" variant={ButtonVariant.PrimaryNeutral}>
           {children}
         </Button>
       </ExternalLink>
     ) : (
-      <Button onClick={onClick} variant={ButtonVariant.PrimaryNeutral}>
+      <Button
+        onClick={onClick}
+        variant={variant || ButtonVariant.PrimaryNeutral}
+        {...space}
+      >
         {children}
       </Button>
     )}

@@ -1,3 +1,4 @@
+import { NavigationProps } from "@basestack/ui";
 // Types
 import { Translate } from "next-translate";
 import { NextRouter } from "next/router";
@@ -5,48 +6,48 @@ import { NextRouter } from "next/router";
 import { config } from "@basestack/utils";
 import { signOut } from "next-auth/react";
 
-export const getInternalLinks = (
+export const getLeftLinks = (
   router: NextRouter,
   t: Translate,
   formId: string,
-) => {
+): NavigationProps["leftLinks"] => {
   return [
     {
+      type: "button",
       icon: "mail",
       onClick: () => router.push(`/form/${formId}/submissions`),
       text: t("internal.submissions"),
       isActive: router.pathname.includes("submissions"),
-      isExternal: true,
     },
     {
+      type: "button",
       icon: "tune",
       onClick: () => router.push(`/form/${formId}/setup`),
       text: t("internal.setup"),
       isActive: router.pathname.includes("setup"),
-      isExternal: true,
     },
     {
+      type: "button",
       icon: "settings",
       onClick: () => router.push(`/form/${formId}/settings/general`),
       text: t("internal.settings"),
       isActive: router.pathname.includes("settings"),
-      isExternal: true,
     },
   ];
 };
 
-export const getExternalLinks = (t: Translate) => {
+export const getRightLinks = (t: Translate): NavigationProps["rightLinks"] => {
   return [
     {
+      type: "link",
       icon: "description",
-      isExternal: true,
       isActive: false,
       href: config.urls.docs.flags.base,
       text: t("external.docs"),
     },
     {
+      type: "link",
       icon: "link",
-      isExternal: true,
       isActive: false,
       href: config.urls.repo,
       text: t("external.github"),
