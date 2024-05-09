@@ -126,3 +126,8 @@ export const ButtonContainer = styled.div<{ isActive: boolean }>`
       }
     `};
 `;
+
+export const AppsLogo = styled.div`
+  display: inline-flex;
+  margin-right: ${({ theme }) => theme.spacing.s2};
+`;

@@ -28,6 +28,7 @@ import {
   StyledLink,
   LogoButton,
   ButtonContainer,
+  AppsLogo,
 } from "./styles";
 // Types
 import { MobileNavigationUIProps } from "../types";
@@ -44,6 +45,9 @@ const MobileNavigation = ({
   leftLinks,
   rightLinks,
   rightLinksTitle,
+  product,
+  apps,
+  appsTitle,
 }: MobileNavigationUIProps) => {
   const theme = useTheme();
 
@@ -66,7 +70,7 @@ const MobileNavigation = ({
               <GlobalStyle />
               <Header>
                 <LogoButton onClick={onClickLogo}>
-                  <Logo size={36} />
+                  <Logo size={36} product={product} />
                 </LogoButton>
                 <IconButton
                   icon="menu_open"
@@ -168,6 +172,30 @@ const MobileNavigation = ({
                             {item.text}
                           </Button>
                         </StyledLink>
+                      </ListItem>
+                    ))}
+                  </List>
+
+                  <HorizontalRule m={theme.spacing.s5} mb={0} />
+                  <TitleContainer>
+                    <Text muted fontWeight={500}>
+                      {appsTitle}
+                    </Text>
+                  </TitleContainer>
+                  <List>
+                    {apps.map((item, index) => (
+                      <ListItem key={index}>
+                        <Button
+                          variant={ButtonVariant.Neutral}
+                          leftElement={
+                            <AppsLogo>
+                              <Logo size={24} product={item.product} />
+                            </AppsLogo>
+                          }
+                          fullWidth
+                        >
+                          {item.title}
+                        </Button>
                       </ListItem>
                     ))}
                   </List>

@@ -46,6 +46,7 @@ const Navigation = ({ data }: NavigationProps) => {
 
   return (
     <NavigationUI
+      product="forms"
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
       leftLinks={!!formId ? getInternalLinks(router, t, formId) : []}
@@ -89,7 +90,6 @@ const Navigation = ({ data }: NavigationProps) => {
           setCreateFormModalOpen({ isOpen: true }),
         ),
       }}
-      data={data}
     />
   );
 };

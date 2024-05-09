@@ -16,6 +16,8 @@ const Navigation = ({
   leftLinks,
   rightLinks,
   rightLinksTitle,
+  appsTitle,
+  product,
 }: NavigationProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -25,27 +27,29 @@ const Navigation = ({
     }
   }, [isMobile]);
 
+  const sharedProps = {
+    apps,
+    avatar,
+    projects,
+    rightLinks,
+    leftLinks,
+    product,
+    onClickLogo,
+  };
+
   return (
     <Fragment>
       <DesktopNavigation
-        onOpenDrawer={() => setIsDrawerOpen(true)}
-        projects={projects}
-        apps={apps}
-        avatar={avatar}
         isMobile={isMobile}
-        onClickLogo={onClickLogo}
-        leftLinks={leftLinks}
-        rightLinks={rightLinks}
+        onOpenDrawer={() => setIsDrawerOpen(true)}
+        {...sharedProps}
       />
       <MobileNavigation
         onClose={() => setIsDrawerOpen(false)}
         isDrawerOpen={isDrawerOpen}
-        projects={projects}
-        avatar={avatar}
-        onClickLogo={onClickLogo}
-        leftLinks={leftLinks}
-        rightLinks={rightLinks}
         rightLinksTitle={rightLinksTitle}
+        appsTitle={appsTitle}
+        {...sharedProps}
       />
     </Fragment>
   );

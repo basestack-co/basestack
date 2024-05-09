@@ -20,6 +20,7 @@ const DesktopNavigation = ({
   onClickLogo,
   rightLinks,
   leftLinks,
+  product,
 }: DesktopNavigationUIProps) => {
   const theme = useTheme();
   const currentForm = projects.current;
@@ -58,7 +59,7 @@ const DesktopNavigation = ({
           <>
             <ListItem>
               <LogoContainer onClick={onClickLogo}>
-                <Logo size={36} product="forms" />
+                <Logo size={36} product={product} />
               </LogoContainer>
             </ListItem>
             <ProjectsMenu {...projects} />

@@ -1,4 +1,4 @@
-import { PopupActionProps } from "@basestack/design-system";
+import { LogoProps } from "@basestack/design-system";
 import { AppsDropdownProps } from "../AppsDropdown";
 import { AvatarDropdownProps } from "../AvatarDropdown";
 import { ProjectsMenuProps } from "../ProjectsMenu";
@@ -18,10 +18,11 @@ interface SharedProps {
   onClickLogo: () => void;
   leftLinks?: Array<Link>;
   rightLinks?: Array<Link>;
+  apps: AppsDropdownProps["data"];
+  product: LogoProps["product"];
 }
 
 export interface DesktopNavigationUIProps extends SharedProps {
-  apps: AppsDropdownProps["data"];
   onOpenDrawer: () => void;
   isMobile: boolean;
 }
@@ -34,8 +35,6 @@ export interface MobileNavigationUIProps extends SharedProps {
 }
 
 export interface NavigationProps extends SharedProps {
-  apps: AppsDropdownProps["data"];
-  data?: Array<PopupActionProps>;
   isMobile: boolean;
   rightLinksTitle: string;
   appsTitle: string;
