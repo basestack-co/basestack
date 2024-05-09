@@ -23,7 +23,7 @@ import FormSubmission from "../FormSubmission";
 // Utils
 import { downloadCSV } from "@basestack/utils";
 import dayjs from "dayjs";
-import { formatFormSubmissions } from "./utils";
+import { formatFormSubmissions, getSearchFilterKeys } from "./utils";
 // Types
 import { Metadata } from "../FormSubmission/types";
 import { SelectedFilter, SelectedSort } from "../Toolbar/types";
@@ -42,6 +42,10 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
   const { t } = useTranslation("forms");
   const router = useRouter();
   const [searchValue, setSearchValue] = useState<string>("");
+  const [searchFilter, setSearchFilter] = useState<string>("");
+  const [searchFilterOptions, setSearchFilterOptions] = useState<
+    { text: string }[]
+  >([]);
   const [selectIds, setSelectIds] = useState<string[]>([]);
   const [filters, setFilters] = useState({});
   const [orderBy, setOrderBy] = useState("desc");
@@ -51,12 +55,13 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
   const exportSubmissions = trpc.submission.export.useMutation();
   const deleteSubmissions = trpc.submission.delete.useMutation();
   const updateSubmissions = trpc.submission.update.useMutation();
-  const { data, isLoading, fetchNextPage } =
+  const { data, isLoading, fetchNextPage, ...rest } =
     trpc.submission.all.useInfiniteQuery(
       {
         formId,
         limit,
         search: searchValue,
+        searchFilter,
         orderBy,
         ...filters,
       },
@@ -70,8 +75,20 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
     if (formId) {
       setSearchValue("");
       setSelectIds([]);
+      setSearchFilterOptions([]);
     }
   }, [formId]);
+
+  useEffect(() => {
+    if (searchFilterOptions.length <= 0 && (data?.pages.length ?? 0) > 0) {
+      const fallback = [{ text: t("toolbar.search.filter.placeholder") }];
+      const submissions = data?.pages.flatMap((page) => page.submissions) ?? [];
+      const filters = getSearchFilterKeys(submissions);
+
+      setSearchFilterOptions(filters.length <= 0 ? fallback : filters);
+      // }
+    }
+  }, [data, searchFilterOptions, t]);
 
   const [currentPage, totalPages] = useMemo(() => {
     return [(data?.pages.length ?? 0) * limit, data?.pages?.[0]?.total ?? 0];
@@ -246,7 +263,13 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
           onSelectAll={onSelectAllSubmission}
           onSelectFilter={onSelectFilter}
           onSelectSort={onSelectSort}
-          onSearchCallback={(value) => setSearchValue(value)}
+          onSearchCallback={(value, filter) => {
+            // Only set the search filter if the value is not empty
+            if (value) {
+              setSearchFilter(filter);
+            }
+            setSearchValue(value);
+          }}
           isSubmitting={
             deleteSubmissions.isLoading || updateSubmissions.isLoading
           }
@@ -255,6 +278,7 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
           isSelectAllEnabled={isSelectAllEnabled}
           isExportDisabled={exportSubmissions.isLoading}
           isDisabled={totalPages <= 0 && !searchValue}
+          searchFilterOptions={searchFilterOptions}
         />
 
         {totalPages <= 0 && !isLoading && (

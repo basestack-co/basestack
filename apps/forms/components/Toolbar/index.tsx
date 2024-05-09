@@ -44,23 +44,29 @@ const Toolbar = ({
   isExportDisabled,
   isDisabled = false,
   formId,
+  searchFilterOptions,
 }: ToolbarProps) => {
   const { t } = useTranslation("forms");
   const [searchValue, setSearchValue] = useState("");
-  const [selectedSearchKey, setSelectedSearchKey] = useState<string | null>(
-    null,
-  );
+  const [selectedSearchKey, setSelectedSearchKey] = useState<string>("");
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
   const [selectedSort, setSelectedSort] = useState<string | null>(null);
 
-  useDebounce(() => onSearchCallback(searchValue), 500, [searchValue]);
+  useDebounce(() => onSearchCallback(searchValue, selectedSearchKey), 500, [
+    searchValue,
+  ]);
 
   useEffect(() => {
     if (formId) {
       setSelectedFilter(null);
       setSelectedSort(null);
     }
-  }, [formId]);
+
+    // If there are searchFilterOptions, set the first one as the selected key
+    if (searchFilterOptions.length > 0) {
+      setSelectedSearchKey(searchFilterOptions[0].text);
+    }
+  }, [formId, searchFilterOptions]);
 
   return (
     <Container>
@@ -75,22 +81,12 @@ const Toolbar = ({
             }
             onClear={() => setSearchValue("")}
             filter={{
-              selected: selectedSearchKey ?? "name",
-              isDisabled: isDisabled,
-              options: [
-                {
-                  text: "name",
-                  onClick: () => setSelectedSearchKey("name"),
-                },
-                {
-                  text: "email",
-                  onClick: () => setSelectedSearchKey("email"),
-                },
-                {
-                  text: "message",
-                  onClick: () => setSelectedSearchKey("message"),
-                },
-              ],
+              selected: selectedSearchKey || "",
+              isDisabled: isDisabled || searchFilterOptions.length <= 0,
+              options: searchFilterOptions.map((item) => ({
+                ...item,
+                onClick: () => setSelectedSearchKey(item.text),
+              })),
             }}
           />
         </LeftContent>
