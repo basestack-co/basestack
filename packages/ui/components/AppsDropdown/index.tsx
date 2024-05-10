@@ -11,17 +11,16 @@ import {
   Text,
 } from "@basestack/design-system";
 // Styles
-import { useTheme } from "styled-components";
 import {
   Dropdown,
   Container,
   List,
   ListItem,
-  Button,
+  StyledButton,
   TextContainer,
 } from "./styles";
 
-const AnimatedDropdown = animated(Dropdown);
+const AnimatedDropdown: any = animated(Dropdown);
 
 export interface ItemProps {
   onClick: () => void;
@@ -44,7 +43,7 @@ const Item = ({
 }: ItemProps) => {
   return (
     <ListItem>
-      <Button isActive={isActive} onClick={onClick}>
+      <StyledButton isActive={isActive} onClick={onClick}>
         <Logo product={product} size={32} />
         <TextContainer>
           <Text size="medium">{title}</Text>
@@ -52,14 +51,12 @@ const Item = ({
             {description}
           </Text>
         </TextContainer>
-      </Button>
+      </StyledButton>
     </ListItem>
   );
 };
 
 const AppsDropdown = ({ data }: AppsDropdownProps) => {
-  const theme = useTheme();
-
   const menuWrapperRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { x, y, refs, strategy } = useFloating({
