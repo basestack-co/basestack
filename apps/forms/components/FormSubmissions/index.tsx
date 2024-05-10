@@ -37,7 +37,12 @@ export interface Props {
   blockIpAddresses?: string;
 }
 
-const FormSubmissions = ({ name, hasRetention, isEnabled, blockIpAddresses }: Props) => {
+const FormSubmissions = ({
+  name,
+  hasRetention,
+  isEnabled,
+  blockIpAddresses,
+}: Props) => {
   const theme = useTheme();
   const trpcUtils = trpc.useUtils();
   const { t } = useTranslation("forms");

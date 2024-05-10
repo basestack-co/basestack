@@ -7,9 +7,16 @@ export const formatFormSubmissions = (data: Prisma.JsonValue): Data => {
     return [];
   }
 
-  return Object.entries(data).map(([title, description]) => ({
+  const entries = Object.entries(data);
+  const sortedEntries = entries.sort(([titleA], [titleB]) => {
+    if (titleA.toLowerCase().includes("email")) return -1;
+    if (titleB.toLowerCase().includes("email")) return 1;
+    return 0;
+  });
+
+  return sortedEntries.map(([title, description]) => ({
     title,
-    description,
+    description: description ? description.toString() : "",
   }));
 };
 
