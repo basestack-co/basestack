@@ -23,7 +23,7 @@ const DesktopNavigation = ({
   product,
 }: DesktopNavigationUIProps) => {
   const theme = useTheme();
-  const currentForm = projects.current;
+  const currentProject = projects.current;
   const truncateProjectName = (str: string) => {
     return str.length <= 18 ? str : str.slice(0, 18) + "...";
   };
@@ -41,16 +41,16 @@ const DesktopNavigation = ({
                 onClick={onOpenDrawer}
               />
             </ListItem>
-            {!!currentForm && (
+            {!!currentProject && (
               <ListItem display="flex" alignItems="center">
                 <Avatar
                   size="xSmall"
                   round={false}
-                  userName={currentForm}
-                  alt={`project-${currentForm}`}
+                  userName={currentProject}
+                  alt={`project-${currentProject}`}
                   mr={theme.spacing.s2}
                 />
-                <Text size="medium">{truncateProjectName(currentForm)}</Text>
+                <Text size="medium">{truncateProjectName(currentProject)}</Text>
               </ListItem>
             )}
           </>
