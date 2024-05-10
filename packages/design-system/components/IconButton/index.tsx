@@ -5,7 +5,7 @@ import Icon, { Size as IconSize } from "../Icon";
 import { StyledButton } from "./styles";
 
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ variant = "neutral", onClick, icon, size, ...props }, ref) => {
+  ({ variant = "neutral", onClick, icon, size, isDisabled, ...props }, ref) => {
     const theme = useTheme();
 
     const handleIconColor = () => {
@@ -64,6 +64,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         onClick={onClick}
         variant={variant}
         iconSize={buttonSize.bg}
+        disabled={isDisabled}
         {...props}
       >
         <Icon

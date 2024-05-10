@@ -19,6 +19,8 @@ const FormSubmission = ({
   isSelected = false,
   isActionsDisabled,
   metadata,
+  blockIpAddresses,
+  formId,
 }: FormSubmissionProps) => {
   const theme = useTheme();
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +49,13 @@ const FormSubmission = ({
         onReadSubmission={onReadSubmission}
         isActionsDisabled={isActionsDisabled}
       />
-      <Body isOpen={isOpen} data={data} metadata={metadata} />
+      <Body
+        formId={formId}
+        isOpen={isOpen}
+        data={data}
+        metadata={metadata}
+        blockIpAddresses={blockIpAddresses}
+      />
     </Card>
   );
 };

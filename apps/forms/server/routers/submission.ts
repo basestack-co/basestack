@@ -27,6 +27,8 @@ export const submissionRouter = router({
         ? {
             data: {
               path: [input.searchFilter],
+              // This doesn't support case insensitive search
+              // Issue: https://github.com/prisma/prisma/issues/7390
               string_contains: input.search,
             },
           }

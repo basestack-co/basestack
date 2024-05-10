@@ -34,9 +34,10 @@ export interface Props {
   name: string;
   hasRetention: boolean;
   isEnabled: boolean;
+  blockIpAddresses?: string;
 }
 
-const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
+const FormSubmissions = ({ name, hasRetention, isEnabled, blockIpAddresses }: Props) => {
   const theme = useTheme();
   const trpcUtils = trpc.useUtils();
   const { t } = useTranslation("forms");
@@ -55,6 +56,7 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
   const exportSubmissions = trpc.submission.export.useMutation();
   const deleteSubmissions = trpc.submission.delete.useMutation();
   const updateSubmissions = trpc.submission.update.useMutation();
+
   const { data, isLoading, fetchNextPage, ...rest } =
     trpc.submission.all.useInfiniteQuery(
       {
@@ -86,7 +88,6 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
       const filters = getSearchFilterKeys(submissions);
 
       setSearchFilterOptions(filters.length <= 0 ? fallback : filters);
-      // }
     }
   }, [data, searchFilterOptions, t]);
 
@@ -312,6 +313,7 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
                       return (
                         <ListItem key={`submission-item-${id}`}>
                           <FormSubmission
+                            formId={formId}
                             data={formatFormSubmissions(data)}
                             metadata={metadata as unknown as Metadata}
                             date={dayjs(createdAt).fromNow()}
@@ -328,6 +330,7 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
                               onSelectSubmission(id, checked)
                             }
                             isSelected={selectIds.includes(id)}
+                            blockIpAddresses={blockIpAddresses}
                           />
                         </ListItem>
                       );

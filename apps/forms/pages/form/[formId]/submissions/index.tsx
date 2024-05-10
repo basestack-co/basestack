@@ -33,6 +33,7 @@ const FormSubmissionsPage = () => {
         isEnabled={form?.isEnabled ?? true}
         hasRetention={form?.hasRetention ?? true}
         name={form?.name ?? ""}
+        blockIpAddresses={form?.blockIpAddresses ?? ""}
       />
     </Fragment>
   );

@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
 import { rem } from "polished";
 import { animated, useSpring } from "react-spring";
 // Locales
@@ -12,6 +18,10 @@ import {
   TooltipContent,
   Tooltip,
 } from "@basestack/design-system";
+// Server
+import { trpc } from "libs/trpc";
+// Toast
+import { toast } from "sonner";
 // Types
 import { FormSubmissionBodyProps } from "./types";
 // styles
@@ -26,10 +36,19 @@ import {
 
 const AnimatedBody = animated(BodyContainer);
 
-const Body = ({ isOpen, data, metadata }: FormSubmissionBodyProps) => {
+const Body = ({
+  isOpen,
+  data,
+  metadata,
+  blockIpAddresses,
+  formId,
+}: FormSubmissionBodyProps) => {
+  const trpcUtils = trpc.useUtils();
   const { t } = useTranslation("forms");
   const [showMetadata, setShowMetadata] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
+
+  const updateForm = trpc.form.update.useMutation();
 
   const [style, animate] = useSpring(
     () => ({
@@ -40,6 +59,42 @@ const Body = ({ isOpen, data, metadata }: FormSubmissionBodyProps) => {
     [],
   );
 
+  const isIpBlocked = useMemo(() => {
+    if (!metadata) return false;
+    return (blockIpAddresses ?? "").includes(metadata.ip);
+  }, [blockIpAddresses, metadata]);
+
+  const ips = useMemo(() => {
+    if (blockIpAddresses) {
+      return blockIpAddresses.split(",");
+    }
+
+    return [];
+  }, [blockIpAddresses]);
+
+  const getFormattedMetaData = useMemo(() => {
+    if (!metadata) return [];
+
+    const order: Record<string, number> = {
+      ip: -1,
+      referer: 0,
+      acceptLanguage: 1,
+      userAgent: 2,
+    };
+
+    return Object.entries(metadata)
+      .filter(([name]) => !["acceptLanguage", "userAgent"].includes(name))
+      .map(([name, value]) => ({
+        id: name,
+        name:
+          name === "ip"
+            ? name.toUpperCase()
+            : name.charAt(0).toUpperCase() + name.slice(1),
+        value,
+      }))
+      .sort((a, b) => (order[a.id] || Infinity) - (order[b.id] || Infinity));
+  }, [metadata]);
+
   useEffect(() => {
     if (contentRef.current) {
       animate.start({
@@ -49,22 +104,51 @@ const Body = ({ isOpen, data, metadata }: FormSubmissionBodyProps) => {
     }
   }, [animate, isOpen, showMetadata]);
 
-  const metadataArray = Object.entries(metadata)
-    .map(([name, value]) => {
-      if (name === "ip") {
-        return { id: name, name: name.toUpperCase(), value: value };
-      } else {
-        return {
-          id: name,
-          name: name.charAt(0).toUpperCase() + name.slice(1),
-          value: value,
-        };
+  const onBlockIp = useCallback(
+    (ip: string) => {
+      if (formId) {
+        const ipsValues = ips.filter((item) => item !== ip);
+        const blockIpAddresses = (
+          isIpBlocked ? ipsValues : [...(ipsValues ?? []), ip]
+        ).join(",");
+
+        updateForm.mutate(
+          {
+            formId,
+            blockIpAddresses,
+            feature: "hasBlockIPs",
+          },
+          {
+            onSuccess: (result) => {
+              const cache = trpcUtils.form.byId.getData({
+                formId: result.form.id,
+              });
+
+              if (cache) {
+                trpcUtils.form.byId.setData(
+                  { formId: result.form.id },
+                  {
+                    ...cache,
+                    blockIpAddresses: result.form.blockIpAddresses,
+                  },
+                );
+              }
+
+              toast.success(
+                t(
+                  `submission.metadata.ip.success.${isIpBlocked ? "unblock" : "block"}`,
+                ),
+              );
+            },
+            onError: (error) => {
+              toast.error(error.message);
+            },
+          },
+        );
       }
-    })
-    .sort((a, b) => {
-      const order = ["ip", "referer", "acceptLanguage", "userAgent"];
-      return order.indexOf(a.id) - order.indexOf(b.id);
-    });
+    },
+    [t, updateForm, formId, trpcUtils, isIpBlocked, ips],
+  );
 
   return (
     <AnimatedBody style={style}>
@@ -83,12 +167,12 @@ const Body = ({ isOpen, data, metadata }: FormSubmissionBodyProps) => {
           </Box>
         ))}
 
-        {metadataArray.length > 0 && (
+        {getFormattedMetaData.length > 0 && (
           <MetadataContainer>
             <Text muted>{t("submission.metadata.title")}</Text>
             <MetadataTags>
-              {metadataArray
-                .slice(0, showMetadata ? metadataArray.length : 1)
+              {getFormattedMetaData
+                .slice(0, showMetadata ? getFormattedMetaData.length : 1)
                 .map((item, index) => (
                   <Label
                     key={index}
@@ -97,31 +181,34 @@ const Body = ({ isOpen, data, metadata }: FormSubmissionBodyProps) => {
                     text={`${item.name}: ${item.value}`}
                     minHeight={rem("32px")}
                   >
-                    {item.id === "ip" ? (
+                    {item.id === "ip" && (
                       <Tooltip placement="top">
                         <TooltipTrigger>
                           <IconButton
                             variant="secondary"
                             size="small"
-                            icon="block"
-                            onClick={() => console.log("")}
+                            icon={isIpBlocked ? "cancel" : "block"}
+                            onClick={() => onBlockIp(item.value)}
+                            isDisabled={updateForm.isLoading}
                           />
                         </TooltipTrigger>
                         <TooltipContent>
-                          {t("submission.metadata.ip.block")}
+                          {isIpBlocked
+                            ? t("submission.metadata.ip.unblock")
+                            : t("submission.metadata.ip.block")}
                         </TooltipContent>
                       </Tooltip>
-                    ) : null}
+                    )}
                   </Label>
                 ))}
-              {metadataArray.length > 1 && (
+              {getFormattedMetaData.length > 1 && (
                 <Label
                   variant="light"
                   size="small"
                   text={
                     showMetadata
                       ? t("submission.metadata.expand.less")
-                      : `+${metadataArray.length - 1}`
+                      : `+${getFormattedMetaData.length - 1}`
                   }
                   minHeight={rem("32px")}
                 >

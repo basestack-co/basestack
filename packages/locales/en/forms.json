@@ -11,7 +11,7 @@
     "search": {
       "placeholder": "Search...",
       "filter": {
-        "placeholder": "No keys"
+        "placeholder": "Search by"
       }
     },
     "action": {
@@ -84,7 +84,12 @@
         "less": "less"
       },
       "ip": {
-        "block": "Block IP Address"
+        "block": "Block IP Address",
+        "unblock": "Unblock IP Address",
+        "success": {
+          "block": "IP Address has been blocked successfully.",
+          "unblock": "IP Address has been unblocked successfully."
+        }
       }
     }
   },
