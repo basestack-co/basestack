@@ -10,7 +10,10 @@ import { toast } from "sonner";
 // Utils
 import { config, PlanTypeId, getBrowserUrl } from "@basestack/utils";
 // Components
+import { Text } from "@basestack/design-system";
+import PlanCard from "./PlanCard";
 import { useTheme } from "styled-components";
+import { List, ListItem } from "./styles";
 
 const Plans = () => {
   const { t } = useTranslation("home");
@@ -69,27 +72,41 @@ const Plans = () => {
   if (!data) {
     return (
       <div>
-        <h4>No subscription found</h4>
-        <hr />
-        <ul>
+        <Text mb={theme.spacing.s4} size="xLarge">
+          Current Plan
+        </Text>
+        <PlanCard
+          title="free plan"
+          features={["200 submissions", "1 user", "2 forms"]}
+          amount={{ value: "$0", abbr: "USD", cycle: "mo" }}
+        />
+        <Text mb={theme.spacing.s4} mt={theme.spacing.s7} size="xLarge">
+          Upgrade Plan
+        </Text>
+        <List>
           {config.plans.forms
             .filter((item) => item.id !== PlanTypeId.FREE)
             .map((plan) => {
               return (
-                <Fragment key={plan.id}>
-                  <li>Plan Id: {plan.id}</li>
-                  <li>
-                    <button
-                      disabled={isLoading}
-                      onClick={() => onCreateCheckout(plan.id, "monthly")}
-                    >
-                      Select plan
-                    </button>
-                  </li>
-                </Fragment>
+                <ListItem key={plan.id}>
+                  <PlanCard
+                    title={plan.id}
+                    features={["200 submissions", "1 user", "2 forms"]}
+                    amount={{
+                      value: `$${plan.price.monthly.amount}`,
+                      abbr: plan.price.monthly.currency,
+                      cycle: "mo",
+                      description: "billed yearly",
+                    }}
+                    button={{
+                      text: "Select Plan",
+                      onClick: () => onCreateCheckout(plan.id, "monthly"),
+                    }}
+                  />
+                </ListItem>
               );
             })}
-        </ul>
+        </List>
       </div>
     );
   }
