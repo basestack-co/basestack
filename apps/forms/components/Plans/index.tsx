@@ -10,7 +10,7 @@ import { toast } from "sonner";
 // Utils
 import { config, PlanTypeId, getBrowserUrl } from "@basestack/utils";
 // Components
-import { Text } from "@basestack/design-system";
+import { Text, Switch } from "@basestack/design-system";
 import PlanCard from "./PlanCard";
 import { useTheme } from "styled-components";
 import { List, ListItem } from "./styles";
@@ -72,7 +72,7 @@ const Plans = () => {
   if (!data) {
     return (
       <div>
-        <Text mb={theme.spacing.s4} size="xLarge">
+        <Text mb={theme.spacing.s4} size="large">
           Current Plan
         </Text>
         <PlanCard
@@ -80,9 +80,15 @@ const Plans = () => {
           features={["200 submissions", "1 user", "2 forms"]}
           amount={{ value: "$0", abbr: "USD", cycle: "mo" }}
         />
-        <Text mb={theme.spacing.s4} mt={theme.spacing.s7} size="xLarge">
+        <Text mb={theme.spacing.s1} mt={theme.spacing.s7} size="large">
           Upgrade Plan
         </Text>
+        <Switch
+          checked
+          text="Switch to yearly billing"
+          onChange={() => null}
+          mb={theme.spacing.s4}
+        />
         <List>
           {config.plans.forms
             .filter((item) => item.id !== PlanTypeId.FREE)
@@ -98,10 +104,7 @@ const Plans = () => {
                       cycle: "mo",
                       description: "billed yearly",
                     }}
-                    button={{
-                      text: "Select Plan",
-                      onClick: () => onCreateCheckout(plan.id, "monthly"),
-                    }}
+                    onClick={() => onCreateCheckout(plan.id, "monthly")}
                   />
                 </ListItem>
               );

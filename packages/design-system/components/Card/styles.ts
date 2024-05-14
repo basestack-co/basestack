@@ -1,5 +1,5 @@
 import styled, { css, DefaultTheme } from "styled-components";
-import { space, position, layout, compose } from "styled-system";
+import { space, position, layout, compose, color } from "styled-system";
 import { rem } from "polished";
 import { Variant } from "./types";
 
@@ -19,12 +19,12 @@ export const Container = styled.div<{
   hasHoverAnimation: boolean;
   variant: Variant;
 }>`
-  ${compose(space, position, layout)};
   display: flex;
   flex-direction: column;
   box-shadow: ${({ theme }) => theme.shadow.elevation2};
   background-color: ${({ theme }) => theme.card.backgroundColor};
   border-radius: ${rem("6px")};
+  ${compose(space, position, layout, color)};
 
   ${({ hasHoverAnimation }) =>
     hasHoverAnimation &&

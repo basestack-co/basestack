@@ -1,5 +1,10 @@
 import { ReactNode } from "react";
-import { LayoutProps, PositionProps, SpaceProps } from "styled-system";
+import {
+  LayoutProps,
+  PositionProps,
+  SpaceProps,
+  ColorProps,
+} from "styled-system";
 
 export enum Variant {
   DEFAULT = "default",
@@ -9,7 +14,11 @@ export enum Variant {
   SUCCESS = "success",
 }
 
-export interface CardProps extends SpaceProps, PositionProps, LayoutProps {
+export interface CardProps
+  extends SpaceProps,
+    PositionProps,
+    LayoutProps,
+    ColorProps {
   /**
    * Content
    */
