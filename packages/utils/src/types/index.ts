@@ -12,6 +12,13 @@ export type RemoveNullAndUndefined<T> = T extends null | undefined
       }
     : T;
 
+export enum Product {
+  FORMS = "forms",
+  FLAGS = "flags",
+}
+
+export type AppEnv = "development" | "production" | "staging" | "local";
+
 export enum SubscriptionEvent {
   SUBSCRIPTION_CREATED = "subscription_created",
   SUBSCRIPTION_UPDATED = "subscription_updated",

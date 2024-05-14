@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useTheme } from "styled-components";
 // Store
 import { useStore } from "store";
@@ -12,7 +12,13 @@ import useTranslation from "next-translate/useTranslation";
 import { PopupActionProps } from "@basestack/design-system";
 import { Navigation as NavigationUI } from "@basestack/ui";
 // Utils
-import { getLeftLinks, getRightLinks, getAvatarDropdownList } from "./utils";
+import { AppEnv, config, Product } from "@basestack/utils";
+import {
+  getAppsList,
+  getAvatarDropdownList,
+  getLeftLinks,
+  getRightLinks,
+} from "./utils";
 
 export interface NavigationProps {
   data?: Array<PopupActionProps>;
@@ -40,9 +46,14 @@ const Navigation = ({ data }: NavigationProps) => {
     return form?.text ?? "";
   }, [formId, data]);
 
+  const onSelectApp = useCallback((app: Product) => {
+    const env = (process.env.NEXT_PUBLIC_APP_ENV || "local") as AppEnv;
+    window.location.href = config.urls.getAppWithEnv(app, env);
+  }, []);
+
   return (
     <NavigationUI
-      product="forms"
+      product={Product.FORMS}
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
       leftLinks={!!formId ? getLeftLinks(router, t, formId) : []}
@@ -59,22 +70,7 @@ const Navigation = ({ data }: NavigationProps) => {
         },
       }}
       appsTitle={t("apps.title")}
-      apps={[
-        {
-          onClick: () => null,
-          product: "forms",
-          title: "Forms",
-          description: "Basestack Forms",
-          isActive: true,
-        },
-        {
-          onClick: () => null,
-          product: "flags",
-          title: "Feature Flags",
-          description: "Basestack Feature Flags",
-          isActive: false,
-        },
-      ]}
+      apps={getAppsList(t, onSelectApp)}
       avatar={{
         name: session?.user.name || t("dropdown.username"),
         email: session?.user.email || "",

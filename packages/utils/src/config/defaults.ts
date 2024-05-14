@@ -1,3 +1,6 @@
+// Types
+import { AppEnv, Product } from "../types";
+
 const protocol = "https:";
 const domainUrl = "basestack.co";
 const docsUrl = `${protocol}//docs.${domainUrl}`;
@@ -17,11 +20,19 @@ const commons = {
     terms: `${baseLandingUrl}/legal/terms`,
   },
   app: {
-    dev: {
+    local: {
+      flags: "http://localhost:3000",
+      forms: "http://localhost:3003",
+    },
+    development: {
       flags: `${protocol}//flags-dev.${domainUrl}`,
       forms: `${protocol}//forms-dev.${domainUrl}`,
     },
-    prod: {
+    staging: {
+      flags: `${protocol}//flags-staging.${domainUrl}`,
+      forms: `${protocol}//forms-staging.${domainUrl}`,
+    },
+    production: {
       flags: `${protocol}//flags.${domainUrl}`,
       forms: `${protocol}//forms.${domainUrl}`,
     },
@@ -44,17 +55,12 @@ const commons = {
   },
 };
 
-const buildUrlWithEnv = (env: string) => {
-  return {
-    ...commons,
-    app: {
-      flags: `${protocol}//flags-${env}.${domainUrl}`,
-      forms: `${protocol}//forms-${env}.${domainUrl}`,
-    },
-  };
-
-}
+const getAppWithEnv = (product: Product, env: AppEnv): string => {
+  const appUrls = commons.app[env] || {};
+  return appUrls[product] || baseLandingUrl;
+};
 
 export const urls = {
   ...commons,
+  getAppWithEnv,
 };
