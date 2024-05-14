@@ -17,7 +17,8 @@
     "invite": "Invite Member (Coming soon)",
     "settings": "Settings",
     "logout": "Logout",
-    "dark-mode": "Dark Mode"
+    "dark-mode": "Dark Mode",
+    "billing": "Billing"
   },
   "external": {
     "resources": "Resources",

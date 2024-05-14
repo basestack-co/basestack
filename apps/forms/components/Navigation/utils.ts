@@ -72,7 +72,15 @@ export const getAvatarDropdownList = (
       text: t("dropdown.settings"),
       onClick: () =>
         router.push({
-          pathname: "/user/profile/settings",
+          pathname: "/user/profile/general",
+        }),
+    },
+    {
+      icon: "credit_card",
+      text: t("dropdown.billing"),
+      onClick: () =>
+        router.push({
+          pathname: "/user/profile/billing",
         }),
     },
     {
