@@ -26,7 +26,7 @@ export interface ProjectsMenuProps {
   title: string;
 }
 
-const AnimatedProjectsPopup = animated(PopupActions);
+const AnimatedProjectsPopup: any = animated(PopupActions);
 
 const ProjectsMenu = ({
   data,

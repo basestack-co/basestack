@@ -1,3 +1,4 @@
+import { NavigationProps } from "@basestack/ui";
 // Types
 import { Translate } from "next-translate";
 import { NextRouter } from "next/router";
@@ -5,43 +6,50 @@ import { NextRouter } from "next/router";
 import { config } from "@basestack/utils";
 import { signOut } from "next-auth/react";
 
-export const getInternalLinks = (t: Translate, formId: string) => {
+export const getLeftLinks = (
+  router: NextRouter,
+  t: Translate,
+  formId: string,
+): NavigationProps["leftLinks"] => {
   return [
     {
-      icon: "flag",
-      activeText: "Submissions",
-      to: `/form/${formId}/submissions`,
+      type: "button",
+      icon: "mail",
+      onClick: () => router.push(`/form/${formId}/submissions`),
       text: t("internal.submissions"),
+      isActive: router.pathname.includes("submissions"),
     },
     {
-      icon: "flag",
-      activeText: "Setup",
-      to: `/form/${formId}/setup`,
+      type: "button",
+      icon: "tune",
+      onClick: () => router.push(`/form/${formId}/setup`),
       text: t("internal.setup"),
+      isActive: router.pathname.includes("setup"),
     },
     {
+      type: "button",
       icon: "settings",
-      activeText: "Settings",
-      to: `/form/${formId}/settings/general`,
+      onClick: () => router.push(`/form/${formId}/settings/general`),
       text: t("internal.settings"),
+      isActive: router.pathname.includes("settings"),
     },
   ];
 };
 
-export const getExternalLinks = (t: Translate) => {
+export const getRightLinks = (t: Translate): NavigationProps["rightLinks"] => {
   return [
     {
+      type: "link",
       icon: "description",
-      activeText: "Documentation",
-      to: config.urls.docs.flags.base,
-      isExternal: true,
+      isActive: false,
+      href: config.urls.docs.flags.base,
       text: t("external.docs"),
     },
     {
+      type: "link",
       icon: "link",
-      activeText: "Github",
-      to: config.urls.repo,
-      isExternal: true,
+      isActive: false,
+      href: config.urls.repo,
       text: t("external.github"),
     },
   ];

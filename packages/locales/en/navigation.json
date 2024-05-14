@@ -39,6 +39,9 @@
     "members": "Members",
     "environments": "Environments"
   },
+  "apps": {
+    "title": "Apps"
+  },
   "profile": {
     "general": "General",
     "billing": "Billing"

@@ -29,7 +29,7 @@ import {
   AvatarDetailedButton,
 } from "./styles";
 
-const AnimatedAvatarDropdown = animated(Dropdown);
+const AnimatedAvatarDropdown: any = animated(Dropdown);
 
 export interface ListItem {
   text: string;
@@ -39,7 +39,7 @@ export interface ListItem {
   isDisabled?: boolean;
 }
 
-export interface AvatarMenuProps {
+export interface AvatarDropdownProps {
   name: string;
   email: string;
   src: string;
@@ -61,7 +61,7 @@ const AvatarDropdown = ({
   onSetDarkMode,
   darkModeText = "Dark Mode",
   list,
-}: AvatarMenuProps) => {
+}: AvatarDropdownProps) => {
   const theme = useTheme();
 
   const menuWrapperRef = useRef(null);
@@ -105,15 +105,14 @@ const AvatarDropdown = ({
               {email}
             </Text>
           </div>
-          <Icon icon={isMenuOpen ? "expand_less" : "expand_more"} ml="auto" />
+          <Icon
+            icon={isMenuOpen ? "arrow_drop_up" : "arrow_drop_down"}
+            ml="auto"
+          />
         </AvatarDetailedButton>
       ) : (
         <AvatarButton ref={refs.setReference} onClick={onClickMenu}>
           <Avatar size="small" userName={name} alt="User Image" src={src} />
-          <Icon
-            ml="2px"
-            icon={isMenuOpen ? "arrow_drop_up" : "arrow_drop_down"}
-          />
         </AvatarButton>
       )}
       {transitionMorePopup(
@@ -160,7 +159,7 @@ const AvatarDropdown = ({
                 <HorizontalRule />
               </Header>
               <List>
-                {list.map((item, index) => {
+                {list?.map((item, index) => {
                   return (
                     <Fragment key={`list-item-${index}`}>
                       <ListItem mb={theme.spacing.s1}>

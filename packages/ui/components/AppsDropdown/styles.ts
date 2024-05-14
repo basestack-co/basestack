@@ -15,7 +15,7 @@ export const Dropdown = styled.div<PositionProps>`
   border-radius: 4px;
   width: ${rem("280px")};
   z-index: ${({ theme }) => theme.zIndex.popup};
-  padding: ${({ theme }) => theme.spacing.s4} ${({ theme }) => theme.spacing.s1};
+  padding: ${({ theme }) => theme.spacing.s1};
 `;
 
 export const List = styled.ul`
@@ -32,7 +32,7 @@ export const ListItem = styled.li`
   }
 `;
 
-export const Button = styled.button<{ isActive: boolean }>`
+export const StyledButton = styled.button<{ isActive: boolean }>`
   ${neutralButtonStyles};
   padding: ${({ theme }) => theme.spacing.s2} ${({ theme }) => theme.spacing.s3};
 

@@ -2,7 +2,7 @@ import styled, { createGlobalStyle, css } from "styled-components";
 import { rem, transparentize } from "polished";
 import { scrollbar } from "@basestack/design-system/styles";
 
-export const GlobalStyle = createGlobalStyle`
+export const GlobalStyle: any  = createGlobalStyle`
   body {
     overflow: hidden;
   }
@@ -98,4 +98,36 @@ export const Footer = styled.div`
 export const StyledLink = styled.a`
   ${flexColumn};
   text-decoration: none;
+`;
+
+export const LogoButton = styled.button`
+  display: inline-flex;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+`;
+
+export const ButtonContainer = styled.div<{ isActive: boolean }>`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  ${({ isActive, theme }) =>
+    isActive &&
+    css`
+      &::before {
+        content: "";
+        position: absolute;
+        left: ${rem("-8px")};
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background-color: ${theme.colors.blue400};
+      }
+    `};
+`;
+
+export const AppsLogo = styled.div`
+  display: inline-flex;
+  margin-right: ${({ theme }) => theme.spacing.s2};
 `;
