@@ -68,6 +68,8 @@ export const subscriptionRouter = router({
   current: protectedProcedure.query(async ({ ctx }) => {
     const subscriptionId = ctx.usage.subscriptionId;
 
+    if (!subscriptionId) return null;
+
     const { statusCode, error, data } = await getSubscription(subscriptionId);
 
     if (error || statusCode !== 200) return null;
@@ -136,7 +138,6 @@ export const subscriptionRouter = router({
         },
         expiresAt: dayjs().add(1, "hour").format(),
         preview: true,
-        testMode: process.env.NODE_ENV !== "production",
       };
       const { statusCode, error, data } = await createCheckout(
         storeId,

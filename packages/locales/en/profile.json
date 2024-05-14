@@ -1,6 +1,13 @@
 {
-  "settings": {
-    "title": "Profile Settings",
+  "seo": {
+    "setting": {
+      "title": "Profile",
+      "0": "General",
+      "1": "Billing"
+    }
+  },
+  "general": {
+    "title": "General",
     "card": {
       "avatar": {
         "title": "User Name",

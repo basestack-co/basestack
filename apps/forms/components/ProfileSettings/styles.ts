@@ -1,25 +1,24 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { rem } from "polished";
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  padding: ${({ theme }) => theme.spacing.s6} ${({ theme }) => theme.spacing.s5};
-  max-width: 992px;
-  margin: 0 auto;
-  width: 100%;
-`;
-
-export const List = styled.ul`
+const flexColumn = css`
   display: flex;
   flex-direction: column;
 `;
 
-export const ListItem = styled.li`
-  display: flex;
-  flex-direction: column;
+export const CardList = styled.ul`
+  ${flexColumn};
+`;
 
+export const CardListItem = styled.li`
+  ${flexColumn};
   &:not(:last-child) {
     margin-bottom: ${({ theme }) => theme.spacing.s5};
+  }
+`;
+
+export const ProfileCardContainer = styled.li`
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    max-width: calc(100vw - ${rem("40px")});
   }
 `;

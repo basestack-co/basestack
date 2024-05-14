@@ -3,12 +3,10 @@ import React, { useMemo } from "react";
 import Head from "next/head";
 // Router
 import { useRouter } from "next/router";
-// Server
-import { trpc } from "libs/trpc";
 // Theme
 import { useTheme } from "styled-components";
 // Components
-import { Loader, Skeleton, Tabs, Text } from "@basestack/design-system";
+import { Tabs, Text } from "@basestack/design-system";
 import {
   StyledLink,
   Container,
@@ -27,52 +25,30 @@ import MainLayout from "../Main";
 const links = [
   {
     id: "1",
-    i18nKey: "setting.general",
+    i18nKey: "profile.general",
     tab: "general",
-    href: "/form/[formId]/settings/general",
+    href: "/user/profile/general",
   },
   {
     id: "2",
-    i18nKey: "setting.security",
+    i18nKey: "profile.billing",
     tab: "security",
-    href: "/form/[formId]/settings/security",
-  },
-  {
-    id: "3",
-    i18nKey: "setting.customization",
-    tab: "customization",
-    href: "/form/[formId]/settings/customization",
-  },
-  {
-    id: "4",
-    i18nKey: "setting.notifications",
-    tab: "notifications",
-    href: "/form/[formId]/settings/notifications",
+    href: "/user/profile/billing",
   },
 ];
 
-const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
+const ProfileLayout = ({ children }: { children: React.ReactElement }) => {
   const { t } = useTranslation("navigation");
   const theme = useTheme();
   const isDesktop = useMedia(theme.device.min.lg, false);
   const router = useRouter();
 
-  const formId = router.query.formId as string;
-
-  const { data, isLoading: isLoadingForm } = trpc.form.byId.useQuery(
-    { formId },
-    {
-      enabled: !!formId,
-    },
-  );
-
   const renderLink = useMemo(() => {
     return links.map(({ id, i18nKey, href }) => (
-      <ListItem key={`settings-button-list-${id}`}>
+      <ListItem key={`profile-settings-button-list-${id}`}>
         <StyledLink
           href={{
             pathname: href,
-            query: { formId },
           }}
           passHref
         >
@@ -82,7 +58,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
         </StyledLink>
       </ListItem>
     ));
-  }, [router.pathname, formId, t]);
+  }, [router.pathname, t]);
 
   const activeLinkIndex = useMemo(
     () => links.findIndex((button) => button.href === router.pathname),
@@ -104,46 +80,30 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
     <>
       <Head>
         <title>
-          {data?.name ?? "Form"} / {t("settings:seo.setting.title")} /{" "}
-          {t(`settings:seo.setting.${activeLinkIndex}`)}
+          {t("profile:seo.setting.title")} /{" "}
+          {t(`profile:seo.setting.${activeLinkIndex}`)}
         </title>
       </Head>
       <MainLayout>
         <Container>
           <Text size="xLarge" mb={theme.spacing.s5}>
-            {t("internal.settings")}
+            {t("internal.profile")}
           </Text>
           <SettingsContainer>
             {isDesktop && <List top={activeLinkIndex * 100}>{renderLink}</List>}
             {!isDesktop && (
               <Tabs
                 items={items}
-                onSelect={(tab) => {
-                  router.push({
-                    pathname: `/form/[formId]/settings/${tab}`,
-                    query: { formId },
+                onSelect={async (tab) => {
+                  await router.push({
+                    pathname: `/user/profile/${tab}`,
                   });
                 }}
                 sliderPosition={activeLinkIndex}
                 backgroundColor="transparent"
               />
             )}
-            {isLoadingForm || !data ? (
-              <Loader hasDelay={false}>
-                <Skeleton
-                  items={[
-                    { h: 24, w: "15%", mb: 10 },
-                    { h: 18, w: "40%", mb: 20 },
-                    { h: 100, w: "100%", mb: 20 },
-                    { h: 1, w: "100%", mb: 16 },
-                    { h: 36, w: 120, mb: 0, ml: "auto" },
-                  ]}
-                  padding={20}
-                />
-              </Loader>
-            ) : (
-              children
-            )}
+            {children}
           </SettingsContainer>
         </Container>
       </MainLayout>
@@ -151,4 +111,4 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   );
 };
 
-export default SettingsLayout;
+export default ProfileLayout;

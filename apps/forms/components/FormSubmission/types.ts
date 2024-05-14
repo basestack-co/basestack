@@ -21,6 +21,9 @@ export interface Props {
   onMarkSpam: () => void;
   onReadSubmission: () => void;
   isActionsDisabled?: boolean;
+  isMarkSpamLoading?: boolean;
+  isReadSubmissionLoading?: boolean;
+  isDeleteSubmissionLoading?: boolean;
 }
 
 export interface FormSubmissionProps extends Props {

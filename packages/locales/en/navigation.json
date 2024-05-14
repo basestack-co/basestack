@@ -28,7 +28,8 @@
     "submissions": "Submissions",
     "features": "Features",
     "settings": "Settings",
-    "setup": "Setup"
+    "setup": "Setup",
+    "profile": "Profile"
   },
   "setting": {
     "general": "General",
@@ -37,5 +38,9 @@
     "notifications": "Notifications",
     "members": "Members",
     "environments": "Environments"
+  },
+  "profile": {
+    "general": "General",
+    "billing": "Billing"
   }
 }

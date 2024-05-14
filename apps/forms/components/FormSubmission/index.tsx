@@ -21,6 +21,9 @@ const FormSubmission = ({
   metadata,
   blockIpAddresses,
   formId,
+  isMarkSpamLoading,
+  isReadSubmissionLoading,
+  isDeleteSubmissionLoading,
 }: FormSubmissionProps) => {
   const theme = useTheme();
   const [isOpen, setIsOpen] = useState(false);
@@ -48,6 +51,9 @@ const FormSubmission = ({
         onMarkSpam={onMarkSpam}
         onReadSubmission={onReadSubmission}
         isActionsDisabled={isActionsDisabled}
+        isMarkSpamLoading={isMarkSpamLoading}
+        isReadSubmissionLoading={isReadSubmissionLoading}
+        isDeleteSubmissionLoading={isDeleteSubmissionLoading}
       />
       <Body
         formId={formId}

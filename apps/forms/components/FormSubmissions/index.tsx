@@ -232,6 +232,27 @@ const FormSubmissions = ({
     );
   }, []);
 
+  const getSubmissionUpdateLoading = useCallback(
+    (id: string, key: string) => {
+      return (
+        updateSubmissions.isLoading &&
+        (updateSubmissions.variables?.ids ?? []).includes(id) &&
+        updateSubmissions.variables?.hasOwnProperty(key)
+      );
+    },
+    [updateSubmissions],
+  );
+
+  const getSubmissionDeleteLoading = useCallback(
+    (id: string) => {
+      return (
+        deleteSubmissions.isLoading &&
+        (deleteSubmissions.variables?.ids ?? []).includes(id)
+      );
+    },
+    [deleteSubmissions],
+  );
+
   return (
     <>
       <Banners
@@ -336,6 +357,17 @@ const FormSubmissions = ({
                             }
                             isSelected={selectIds.includes(id)}
                             blockIpAddresses={blockIpAddresses}
+                            isDeleteSubmissionLoading={getSubmissionDeleteLoading(
+                              id,
+                            )}
+                            isMarkSpamLoading={getSubmissionUpdateLoading(
+                              id,
+                              "isSpam",
+                            )}
+                            isReadSubmissionLoading={getSubmissionUpdateLoading(
+                              id,
+                              "viewed",
+                            )}
                           />
                         </ListItem>
                       );

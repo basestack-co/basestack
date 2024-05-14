@@ -13,6 +13,7 @@ module.exports = {
     "/form/[formId]/settings/security": ["settings"],
     "/form/[formId]/settings/customization": ["settings"],
     "/form/[formId]/settings/notifications": ["settings"],
-    "/user/profile/settings": ["profile"],
+    "/user/profile/general": ["profile"],
+    "/user/profile/billing": ["profile"],
   },
 };
