@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 // Server
 import { trpc } from "libs/trpc";
 // Store
@@ -10,10 +10,11 @@ import { toast } from "sonner";
 // Utils
 import { config, PlanTypeId, getBrowserUrl } from "@basestack/utils";
 // Components
-import { Text, Switch } from "@basestack/design-system";
+import { Text } from "@basestack/design-system";
 import PlanCard from "./PlanCard";
+import UpgradePlanHeader from "./UpgradePlanHeader";
 import { useTheme } from "styled-components";
-import { List, ListItem } from "./styles";
+import { Container, List, ListItem } from "./styles";
 
 const Plans = () => {
   const { t } = useTranslation("home");
@@ -71,7 +72,7 @@ const Plans = () => {
 
   if (!data) {
     return (
-      <div>
+      <Container>
         <Text mb={theme.spacing.s4} size="large">
           Current Plan
         </Text>
@@ -80,15 +81,7 @@ const Plans = () => {
           features={["200 submissions", "1 user", "2 forms"]}
           amount={{ value: "$0", abbr: "USD", cycle: "mo" }}
         />
-        <Text mb={theme.spacing.s1} mt={theme.spacing.s7} size="large">
-          Upgrade Plan
-        </Text>
-        <Switch
-          checked
-          text="Switch to yearly billing"
-          onChange={() => null}
-          mb={theme.spacing.s4}
-        />
+        <UpgradePlanHeader mt={theme.spacing.s7} />
         <List>
           {config.plans.forms
             .filter((item) => item.id !== PlanTypeId.FREE)
@@ -110,12 +103,12 @@ const Plans = () => {
               );
             })}
         </List>
-      </div>
+      </Container>
     );
   }
 
   return (
-    <div>
+    <Container>
       <h4>Current Subscription</h4>
       <hr />
       <ul>
@@ -141,7 +134,7 @@ const Plans = () => {
           </button>
         </li>
       </ul>
-    </div>
+    </Container>
   );
 };
 
