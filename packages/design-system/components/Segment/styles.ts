@@ -8,6 +8,7 @@ export const Container = styled.div`
   border-radius: 4px;
   height: 36px;
   padding: 4px;
+  overflow: hidden;
 `;
 
 export const Wrapper = styled.div`

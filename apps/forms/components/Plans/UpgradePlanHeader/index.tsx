@@ -1,5 +1,6 @@
 import React from "react";
 import { useTheme } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 import { SpaceProps } from "styled-system";
 // Components
 import { Icon, Segment, Text } from "@basestack/design-system";
@@ -8,26 +9,27 @@ import { Container, Content, StyledLink } from "./styles";
 interface UpgradePlanHeaderProps extends SpaceProps {}
 
 const UpgradePlanHeader = ({ ...props }: UpgradePlanHeaderProps) => {
+  const { t } = useTranslation("profile");
   const theme = useTheme();
 
   return (
     <Container {...props}>
-      <Text size="large">Upgrade Plan</Text>
+      <Text size="large">{t("billing.plan.upgrade.title")}</Text>
       <Content>
         <Text size="small" muted>
-          Select billing cycle
+          {t("billing.plan.upgrade.description")}
         </Text>
         <Segment
           onSelect={() => null}
           selectedIndex={0}
           items={[
-            { id: "0", text: "monthly" },
-            { id: "1", text: "yearly" },
+            { id: "monthly", text: t("billing.segment.monthly") },
+            { id: "yearly", text: t("billing.segment.yearly") },
           ]}
         />
         <StyledLink href="/">
           <Text color="inherit" size="small">
-            Compare Plans
+            {t("billing.link.compare")}
           </Text>
           <Icon
             icon="open_in_new"

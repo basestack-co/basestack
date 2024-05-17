@@ -20,7 +20,6 @@ interface PlanCardProps {
   features: Array<string>;
   amount: {
     value: string;
-    abbr: string;
     cycle: string;
     description?: string;
   };
@@ -58,11 +57,8 @@ const PlanCard = ({ title, features, amount, onClick }: PlanCardProps) => {
           </LeftContainer>
           <AmountContainer className="amount-container">
             <ValueContainer>
-              <Text size="medium" lineHeight={rem("26px")}>
+              <Text size="medium" mr={spacing.s1} lineHeight={rem("26px")}>
                 {amount.value}
-              </Text>
-              <Text size="medium" mx={spacing.s1} lineHeight={rem("26px")}>
-                {amount.abbr}
               </Text>
               <Text muted>/{amount.cycle}</Text>
             </ValueContainer>

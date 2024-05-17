@@ -40,5 +40,43 @@
         }
       }
     }
+  },
+  "billing": {
+    "price": {
+      "usd": "${{value}} USD"
+    },
+    "feature": {
+      "submission": "{{value}} submissions",
+      "users": "{{value}} users",
+      "forms": "{{value}} forms"
+    },
+    "segment": {
+      "monthly": "monthly",
+      "yearly": "yearly"
+    },
+    "cycle": {
+      "monthly": "billed monthly",
+      "yearly": "billed yearly"
+    },
+    "cycle-abbr": {
+      "monthly": "mo",
+      "yearly": "yr"
+    },
+    "link": {
+      "compare": "Compare Plans"
+    },
+    "plan": {
+      "free": "Free",
+      "hobby": "Hobby",
+      "launch": "Launch",
+      "scale": "Scale",
+      "current": {
+        "title": "Current Plan"
+      },
+      "upgrade": {
+        "title": "Upgrade Plan",
+        "description": "Select billing cycle"
+      }
+    }
   }
 }

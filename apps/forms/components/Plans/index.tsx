@@ -17,7 +17,7 @@ import { useTheme } from "styled-components";
 import { Container, List, ListItem } from "./styles";
 
 const Plans = () => {
-  const { t } = useTranslation("home");
+  const { t } = useTranslation("profile");
   const theme = useTheme();
   const [isLoading, setIsLoading] = useState(false);
   const isDarkMode = useStore((state) => state.isDarkMode);
@@ -74,30 +74,42 @@ const Plans = () => {
     return (
       <Container>
         <Text mb={theme.spacing.s4} size="large">
-          Current Plan
+          {t("billing.plan.current.title")}
         </Text>
         <PlanCard
-          title="free plan"
-          features={["200 submissions", "1 user", "2 forms"]}
-          amount={{ value: "$0", abbr: "USD", cycle: "mo" }}
+          title={t("billing.plan.free")}
+          features={[
+            t("billing.feature.submission", { value: 200 }),
+            t("billing.feature.users", { value: 2 }),
+            t("billing.feature.forms", { value: 2 }),
+          ]}
+          amount={{
+            value: t("billing.price.usd", { value: 0 }),
+            cycle: t("billing.cycle-abbr.monthly"),
+          }}
         />
         <UpgradePlanHeader mt={theme.spacing.s7} />
         <List>
           {config.plans.forms
             .filter((item) => item.id !== PlanTypeId.FREE)
-            .map((plan) => {
+            .map(({ id, price }) => {
               return (
-                <ListItem key={plan.id}>
+                <ListItem key={id}>
                   <PlanCard
-                    title={plan.id}
-                    features={["200 submissions", "1 user", "2 forms"]}
+                    title={id}
+                    features={[
+                      t("billing.feature.submission", { value: 200 }),
+                      t("billing.feature.users", { value: 2 }),
+                      t("billing.feature.forms", { value: 2 }),
+                    ]}
                     amount={{
-                      value: `$${plan.price.monthly.amount}`,
-                      abbr: plan.price.monthly.currency,
-                      cycle: "mo",
-                      description: "billed yearly",
+                      value: t("billing.price.usd", {
+                        value: price.monthly.amount,
+                      }),
+                      cycle: t("billing.cycle-abbr.monthly"),
+                      description: t("billing.cycle.monthly"),
                     }}
-                    onClick={() => onCreateCheckout(plan.id, "monthly")}
+                    onClick={() => onCreateCheckout(id, "monthly")}
                   />
                 </ListItem>
               );
