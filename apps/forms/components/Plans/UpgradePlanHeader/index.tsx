@@ -5,10 +5,17 @@ import { SpaceProps } from "styled-system";
 // Components
 import { Icon, Segment, Text } from "@basestack/design-system";
 import { Container, Content, StyledLink } from "./styles";
+// Types
+import { BillingInterval } from "../types";
 
-interface UpgradePlanHeaderProps extends SpaceProps {}
+interface UpgradePlanHeaderProps extends SpaceProps {
+  onSelectCycle: (value: BillingInterval) => void;
+}
 
-const UpgradePlanHeader = ({ ...props }: UpgradePlanHeaderProps) => {
+const UpgradePlanHeader = ({
+  onSelectCycle,
+  ...props
+}: UpgradePlanHeaderProps) => {
   const { t } = useTranslation("profile");
   const theme = useTheme();
 
@@ -20,7 +27,7 @@ const UpgradePlanHeader = ({ ...props }: UpgradePlanHeaderProps) => {
           {t("billing.plan.upgrade.description")}
         </Text>
         <Segment
-          onSelect={() => null}
+          onSelect={(value) => onSelectCycle(value as BillingInterval)}
           selectedIndex={0}
           items={[
             { id: "monthly", text: t("billing.segment.monthly") },

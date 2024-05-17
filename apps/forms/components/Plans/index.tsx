@@ -9,6 +9,8 @@ import useTranslation from "next-translate/useTranslation";
 import { toast } from "sonner";
 // Utils
 import { config, PlanTypeId, getBrowserUrl } from "@basestack/utils";
+// Types
+import { BillingInterval } from "./types";
 // Components
 import { Text } from "@basestack/design-system";
 import PlanCard from "./PlanCard";
@@ -20,6 +22,7 @@ const Plans = () => {
   const { t } = useTranslation("profile");
   const theme = useTheme();
   const [isLoading, setIsLoading] = useState(false);
+  const [interval, setInterval] = useState<BillingInterval>("monthly");
   const isDarkMode = useStore((state) => state.isDarkMode);
 
   const { data, isLoading: isLoadingSubscription } =
@@ -36,7 +39,7 @@ const Plans = () => {
   }, []);
 
   const onCreateCheckout = useCallback(
-    (planId: PlanTypeId, interval: "monthly" | "yearly") => {
+    (planId: PlanTypeId, interval: BillingInterval) => {
       setIsLoading(true);
       createCheckout.mutate(
         {
@@ -88,7 +91,10 @@ const Plans = () => {
             cycle: t("billing.cycle-abbr.monthly"),
           }}
         />
-        <UpgradePlanHeader mt={theme.spacing.s7} />
+        <UpgradePlanHeader
+          onSelectCycle={(value) => setInterval(value)}
+          mt={theme.spacing.s7}
+        />
         <List>
           {config.plans.forms
             .filter((item) => item.id !== PlanTypeId.FREE)
@@ -104,7 +110,10 @@ const Plans = () => {
                     ]}
                     amount={{
                       value: t("billing.price.usd", {
-                        value: price.monthly.amount,
+                        value:
+                          interval === "monthly"
+                            ? price.monthly.amount
+                            : price.yearly.amount,
                       }),
                       cycle: t("billing.cycle-abbr.monthly"),
                       description: t("billing.cycle.monthly"),
