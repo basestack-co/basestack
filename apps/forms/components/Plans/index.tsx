@@ -87,7 +87,9 @@ const Plans = () => {
             t("billing.feature.forms", { value: 2 }),
           ]}
           amount={{
-            value: t("billing.price.usd", { value: 0 }),
+            symbol: t("billing.price.symbol"),
+            abbr: t("billing.price.abbr"),
+            value: 0,
             cycle: t("billing.cycle-abbr.monthly"),
           }}
         />
@@ -99,6 +101,14 @@ const Plans = () => {
           {config.plans.forms
             .filter((item) => item.id !== PlanTypeId.FREE)
             .map(({ id, price }) => {
+              const value =
+                interval === "monthly"
+                  ? price.monthly.amount
+                  : price.yearly.amount;
+              const description =
+                interval === "monthly"
+                  ? t("billing.cycle.monthly")
+                  : t("billing.cycle.yearly");
               return (
                 <ListItem key={id}>
                   <PlanCard
@@ -109,14 +119,11 @@ const Plans = () => {
                       t("billing.feature.forms", { value: 2 }),
                     ]}
                     amount={{
-                      value: t("billing.price.usd", {
-                        value:
-                          interval === "monthly"
-                            ? price.monthly.amount
-                            : price.yearly.amount,
-                      }),
+                      value,
+                      description,
                       cycle: t("billing.cycle-abbr.monthly"),
-                      description: t("billing.cycle.monthly"),
+                      symbol: t("billing.price.symbol"),
+                      abbr: t("billing.price.abbr"),
                     }}
                     onClick={() => onCreateCheckout(id, "monthly")}
                   />

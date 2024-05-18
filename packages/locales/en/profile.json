@@ -43,7 +43,8 @@
   },
   "billing": {
     "price": {
-      "usd": "${{value}} USD"
+      "symbol": "$",
+      "abbr": "USD"
     },
     "feature": {
       "submission": "{{value}} submissions",

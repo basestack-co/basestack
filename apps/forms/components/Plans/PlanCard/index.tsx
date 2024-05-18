@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTheme } from "styled-components";
 import { rem } from "polished";
+import { useSpring, animated } from "@react-spring/web";
 // Components
 import { Card, Icon, Text } from "@basestack/design-system";
 import {
@@ -19,8 +20,10 @@ interface PlanCardProps {
   title: string;
   features: Array<string>;
   amount: {
-    value: string;
+    symbol: string;
+    abbr: string;
     cycle: string;
+    value: number;
     description?: string;
   };
   onClick?: () => void;
@@ -28,6 +31,15 @@ interface PlanCardProps {
 }
 const PlanCard = ({ title, features, amount, onClick }: PlanCardProps) => {
   const { colors, isDarkMode, spacing } = useTheme();
+
+  const [spring, setSpring] = useSpring(() => ({
+    number: amount.value,
+    config: { duration: 1000 },
+  }));
+
+  useEffect(() => {
+    setSpring({ number: amount.value });
+  }, [amount.value, setSpring]);
 
   return (
     <Button
@@ -57,8 +69,16 @@ const PlanCard = ({ title, features, amount, onClick }: PlanCardProps) => {
           </LeftContainer>
           <AmountContainer className="amount-container">
             <ValueContainer>
+              <Text size="medium" lineHeight={rem("26px")}>
+                {amount.symbol}
+              </Text>
               <Text size="medium" mr={spacing.s1} lineHeight={rem("26px")}>
-                {amount.value}
+                <animated.span>
+                  {spring.number.to((val) => Math.floor(val))}
+                </animated.span>
+              </Text>
+              <Text size="medium" mr={spacing.s1} lineHeight={rem("26px")}>
+                {amount.abbr}
               </Text>
               <Text muted>/{amount.cycle}</Text>
             </ValueContainer>
