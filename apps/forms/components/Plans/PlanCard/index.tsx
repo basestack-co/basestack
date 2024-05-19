@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useTheme } from "styled-components";
 import { rem } from "polished";
 import { useSpring, animated } from "@react-spring/web";
@@ -32,14 +32,41 @@ interface PlanCardProps {
 const PlanCard = ({ title, features, amount, onClick }: PlanCardProps) => {
   const { colors, isDarkMode, spacing } = useTheme();
 
+  const valueColor = {
+    dark: isDarkMode ? colors.gray300 : colors.black,
+    red: colors.red300,
+    green: colors.green300,
+  };
+
+  const prevAmountRef = useRef(amount.value);
+
   const [spring, setSpring] = useSpring(() => ({
     number: amount.value,
+    color: valueColor.dark,
     config: { duration: 1000 },
   }));
 
   useEffect(() => {
-    setSpring({ number: amount.value });
-  }, [amount.value, setSpring]);
+    const prevAmount = prevAmountRef.current;
+    const newColor =
+      amount.value > prevAmount ? valueColor.red : valueColor.green;
+
+    setSpring({
+      number: amount.value,
+      color: amount.value === prevAmount ? valueColor.dark : newColor,
+      onRest: () => {
+        setSpring({ color: valueColor.dark });
+      },
+    });
+
+    prevAmountRef.current = amount.value;
+  }, [
+    amount.value,
+    setSpring,
+    valueColor.dark,
+    valueColor.green,
+    valueColor.red,
+  ]);
 
   return (
     <Button
@@ -70,10 +97,12 @@ const PlanCard = ({ title, features, amount, onClick }: PlanCardProps) => {
           <AmountContainer className="amount-container">
             <ValueContainer>
               <Text size="medium" lineHeight={rem("26px")}>
-                {amount.symbol}
+                <animated.span style={{ color: spring.color }}>
+                  {amount.symbol}
+                </animated.span>
               </Text>
               <Text size="medium" mr={spacing.s1} lineHeight={rem("26px")}>
-                <animated.span>
+                <animated.span style={{ color: spring.color }}>
                   {spring.number.to((val) => Math.floor(val))}
                 </animated.span>
               </Text>
