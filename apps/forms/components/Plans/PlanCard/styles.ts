@@ -29,7 +29,7 @@ export const Button = styled.button<{ isButton: boolean }>`
         }
       }
 
-      &:hover > div {
+      &:hover:not(:disabled) > div {
         outline-offset: -1px;
         background-color: ${({ theme }) =>
           theme.colors[theme.isDarkMode ? "gray700" : "blue50"]};
@@ -47,6 +47,11 @@ export const Button = styled.button<{ isButton: boolean }>`
         }
       }
     `};
+
+  &:disabled {
+    cursor: initial;
+    opacity: 0.6;
+  }
 `;
 
 export const Row = styled.div`
@@ -87,6 +92,8 @@ export const List = styled.ul`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.s5};
+  row-gap: ${({ theme }) => theme.spacing.s1};
+  flex-wrap: wrap;
 `;
 
 export const ListItem = styled.li`

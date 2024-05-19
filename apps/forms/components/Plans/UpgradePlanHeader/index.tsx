@@ -4,7 +4,7 @@ import useTranslation from "next-translate/useTranslation";
 import { SpaceProps } from "styled-system";
 // Components
 import { Icon, Segment, Text } from "@basestack/design-system";
-import { Container, Content, StyledLink } from "./styles";
+import { Container, Content, LeftContent, StyledLink } from "./styles";
 // Types
 import { BillingInterval } from "../types";
 
@@ -21,19 +21,23 @@ const UpgradePlanHeader = ({
 
   return (
     <Container {...props}>
-      <Text size="large">{t("billing.plan.upgrade.title")}</Text>
+      <Text size="large" mb={theme.spacing.s4}>
+        {t("billing.plan.upgrade.title")}
+      </Text>
       <Content>
-        <Text size="small" muted>
-          {t("billing.plan.upgrade.description")}
-        </Text>
-        <Segment
-          onSelect={(value) => onSelectCycle(value as BillingInterval)}
-          selectedIndex={0}
-          items={[
-            { id: "monthly", text: t("billing.segment.monthly") },
-            { id: "yearly", text: t("billing.segment.yearly") },
-          ]}
-        />
+        <LeftContent>
+          <Text size="small" muted>
+            {t("billing.plan.upgrade.description")}
+          </Text>
+          <Segment
+            onSelect={(value) => onSelectCycle(value as BillingInterval)}
+            selectedIndex={0}
+            items={[
+              { id: "monthly", text: t("billing.segment.monthly") },
+              { id: "yearly", text: t("billing.segment.yearly") },
+            ]}
+          />
+        </LeftContent>
         <StyledLink href="/">
           <Text color="inherit" size="small">
             {t("billing.link.compare")}

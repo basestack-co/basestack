@@ -10,8 +10,18 @@ export const Container = styled.div`
 export const Content = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: ${({ theme }) => theme.spacing.s4};
+  gap: ${({ theme }) => theme.spacing.s4};
+  flex-wrap: wrap;
+`;
+
+export const LeftContent = styled.div`
+  display: flex;
+  align-items: center;
   gap: ${({ theme }) => theme.spacing.s3};
+  flex-wrap: wrap;
+  row-gap: ${({ theme }) => theme.spacing.s2};
 `;
 
 export const StyledLink = styled.a`
@@ -21,7 +31,6 @@ export const StyledLink = styled.a`
   color: ${({ theme }) =>
     theme.colors[theme.isDarkMode ? "blue300" : "primary"]};
   cursor: pointer;
-  margin-left: auto;
 
   &:hover {
     text-decoration: underline;

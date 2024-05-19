@@ -137,8 +137,10 @@ const Plans = () => {
 
   return (
     <Container>
-      <h4>Current Subscription</h4>
-      <hr />
+      <Text mb={theme.spacing.s4} size="large">
+        {t("billing.plan.current.title")}
+      </Text>
+      <br /> <br />
       <ul>
         <li>Product ID: {data.product.id}</li>
         <li>Product Name: {data.product.name}</li>

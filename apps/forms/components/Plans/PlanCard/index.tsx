@@ -20,16 +20,23 @@ interface PlanCardProps {
   title: string;
   features: Array<string>;
   amount: {
-    symbol: string;
-    abbr: string;
-    cycle: string;
+    symbol?: string;
+    abbr?: string;
+    cycle?: string;
     value: number;
     description?: string;
   };
   onClick?: () => void;
   isActive?: boolean;
+  isDisabled?: boolean;
 }
-const PlanCard = ({ title, features, amount, onClick }: PlanCardProps) => {
+const PlanCard = ({
+  isDisabled = false,
+  title,
+  features,
+  amount,
+  onClick,
+}: PlanCardProps) => {
   const { colors, isDarkMode, spacing } = useTheme();
 
   const valueColor = {
@@ -73,9 +80,10 @@ const PlanCard = ({ title, features, amount, onClick }: PlanCardProps) => {
       as={onClick ? "button" : "div"}
       isButton={typeof onClick === "function"}
       onClick={onClick}
+      disabled={isDisabled}
     >
       <Card
-        hasHoverAnimation={typeof onClick === "function"}
+        hasHoverAnimation={typeof onClick === "function" && !isDisabled}
         p={spacing.s5}
         width="100%"
       >
@@ -89,7 +97,9 @@ const PlanCard = ({ title, features, amount, onClick }: PlanCardProps) => {
             <List>
               {features.map((item, index) => (
                 <ListItem key={index}>
-                  <Text muted>{item}</Text>
+                  <Text textAlign="left" muted>
+                    {item}
+                  </Text>
                 </ListItem>
               ))}
             </List>
