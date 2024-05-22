@@ -9,6 +9,7 @@ import useTranslation from "next-translate/useTranslation";
 import { toast } from "sonner";
 // Utils
 import { config, PlanTypeId, getBrowserUrl } from "@basestack/utils";
+import dayjs from "dayjs";
 // Types
 import { BillingInterval } from "./types";
 // Components
@@ -17,6 +18,7 @@ import PlanCard from "./PlanCard";
 import UpgradePlanHeader from "./UpgradePlanHeader";
 import { useTheme } from "styled-components";
 import { Container, List, ListItem } from "./styles";
+import ActivePlan from "./ActivePlan";
 
 const Plans = () => {
   const { t } = useTranslation("profile");
@@ -135,35 +137,21 @@ const Plans = () => {
     );
   }
 
+  console.log("data = ", data);
+
   return (
     <Container>
-      <Text mb={theme.spacing.s4} size="large">
-        {t("billing.plan.current.title")}
-      </Text>
-      <br /> <br />
-      <ul>
-        <li>Product ID: {data.product.id}</li>
-        <li>Product Name: {data.product.name}</li>
-        <li>Variant ID: {data.product.variantId}</li>
-        <li>Status: {data.status}</li>
-        <li>Card Brand: {data.card.brand}</li>
-        <li>Card Last Four: {data.card.lastFour}</li>
-        <li>
-          <button onClick={() => onHandleExternalUrl(data.urls.customerPortal)}>
-            Manage Subscription
-          </button>
-        </li>
-        <li>
-          <br />
-        </li>
-        <li>
-          <button
-            onClick={() => onHandleExternalUrl(data.urls.updatePaymentMethod)}
-          >
-            Update Payment Method
-          </button>
-        </li>
-      </ul>
+      <ActivePlan
+        cardExpDate={dayjs(data.renewsAt).format("MM/YYYY") ?? ""}
+        isActive={data.status === "active"}
+        isBilledMonthly={data.product.variant === "Monthly"}
+        renewsAt={dayjs(data.renewsAt).format("MM/YYYY") ?? ""}
+        productName={data.product.name ?? ""}
+        cardBrand={data.card.brand ?? ""}
+        cardLastFour={data.card.lastFour ?? ""}
+        onManage={() => onHandleExternalUrl(data.urls.customerPortal)}
+        onUpdate={() => onHandleExternalUrl(data.urls.updatePaymentMethod)}
+      />
     </Container>
   );
 };

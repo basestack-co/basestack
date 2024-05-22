@@ -72,7 +72,20 @@
       "launch": "Launch",
       "scale": "Scale",
       "current": {
-        "title": "Current Plan"
+        "title": "Current Plan",
+        "date": "Renewal date",
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        },
+        "button": "Manage Subscription"
+      },
+      "details": {
+        "title": "Billing Details",
+        "description": "Payment Information",
+        "lastFour": "Visa ending in",
+        "expDate": "Exp date",
+        "button": "Update Payment Method"
       },
       "upgrade": {
         "title": "Upgrade Plan",
