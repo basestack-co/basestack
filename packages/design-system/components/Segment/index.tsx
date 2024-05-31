@@ -75,6 +75,7 @@ const Segment = ({
               key={index.toString()}
               data-testid="segment-button"
               {...buttonProps}
+              // @ts-ignore
               ref={(el) => (buttonRefs.current[index] = el)}
               onClick={() => {
                 onSelect(item.id);

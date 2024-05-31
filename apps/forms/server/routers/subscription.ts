@@ -2,7 +2,6 @@ import { protectedProcedure, router } from "server/trpc";
 // Payments
 import {
   type NewCheckout,
-  type ListSubscriptionInvoices,
   lemonSqueezySetup,
   createCheckout,
   getSubscription,
