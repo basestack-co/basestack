@@ -6,6 +6,7 @@ import { PlanTypeId, Plan } from "../../types";
 const forms: Plan[] = [
   {
     id: PlanTypeId.FREE,
+    name: "Free",
     price: {
       monthly: {
         amount: 0,
@@ -44,6 +45,7 @@ const forms: Plan[] = [
   },
   {
     id: PlanTypeId.HOBBY,
+    name: "Hobby",
     price: {
       monthly: {
         amount: 5,
@@ -82,6 +84,7 @@ const forms: Plan[] = [
   },
   {
     id: PlanTypeId.LAUNCH,
+    name: "Launch",
     price: {
       monthly: {
         amount: 49,
@@ -120,6 +123,7 @@ const forms: Plan[] = [
   },
   {
     id: PlanTypeId.SCALE,
+    name: "Scale",
     price: {
       monthly: {
         amount: 99,
@@ -213,11 +217,10 @@ const getFormPlanVariantId = (
   return plan.price[interval].variantId;
 };
 
-const getFormPlanIdByVariantId = (variantId: number) => {
-  const plan = forms.find((plan) => {
+const getFormPlanByVariantId = (variantId: number) => {
+ return forms.find((plan) => {
     return plan.price.monthly.variantId === variantId;
   });
-  return plan?.id;
 };
 
 export const config = {
@@ -230,5 +233,5 @@ export const config = {
   isUnderFormPlanLimit,
   getFormPlanLimitsDefaults,
   getFormPlanVariantId,
-  getFormPlanIdByVariantId,
+  getFormPlanByVariantId,
 };

@@ -82,7 +82,6 @@
       },
       "details": {
         "title": "Billing Details",
-        "description": "Payment Information",
         "lastFour": "Visa ending in",
         "expDate": "Exp date",
         "button": "Update Payment Method"

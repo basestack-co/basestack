@@ -13,7 +13,7 @@ import dayjs from "dayjs";
 // Types
 import { BillingInterval } from "./types";
 // Components
-import { Text } from "@basestack/design-system";
+import { Text, Skeleton } from "@basestack/design-system";
 import PlanCard from "./PlanCard";
 import UpgradePlanHeader from "./UpgradePlanHeader";
 import { useTheme } from "styled-components";
@@ -72,7 +72,16 @@ const Plans = () => {
   );
 
   if (isLoadingSubscription) {
-    return <div>Loading...</div>;
+    return (
+      <Skeleton
+        numberOfItems={1}
+        items={[
+          { h: 24, w: "80px", mb: 8 },
+          { h: 18, w: "40%" },
+        ]}
+        padding="20px"
+      />
+    );
   }
 
   if (!data) {
@@ -137,16 +146,14 @@ const Plans = () => {
     );
   }
 
-  console.log("data = ", data);
-
   return (
     <Container>
       <ActivePlan
+        variantId={data.product.variantId}
         cardExpDate={dayjs(data.renewsAt).format("MM/YYYY") ?? ""}
         isActive={data.status === "active"}
         isBilledMonthly={data.product.variant === "Monthly"}
         renewsAt={dayjs(data.renewsAt).format("MM/YYYY") ?? ""}
-        productName={data.product.name ?? ""}
         cardBrand={data.card.brand ?? ""}
         cardLastFour={data.card.lastFour ?? ""}
         onManage={() => onHandleExternalUrl(data.urls.customerPortal)}
