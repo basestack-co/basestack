@@ -2,7 +2,7 @@ import styled, { createGlobalStyle, css } from "styled-components";
 import { rem, transparentize } from "polished";
 import { scrollbar } from "@basestack/design-system/styles";
 
-export const GlobalStyle: any  = createGlobalStyle`
+export const GlobalStyle: any = createGlobalStyle`
   body {
     overflow: hidden;
   }

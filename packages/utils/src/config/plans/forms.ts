@@ -218,7 +218,7 @@ const getFormPlanVariantId = (
 };
 
 const getFormPlanByVariantId = (variantId: number) => {
- return forms.find((plan) => {
+  return forms.find((plan) => {
     return plan.price.monthly.variantId === variantId;
   });
 };

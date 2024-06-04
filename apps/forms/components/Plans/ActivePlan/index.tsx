@@ -62,8 +62,8 @@ const ActivePlan = ({
   const { spacing } = useTheme();
   const currentPlan = config.plans.getFormPlanByVariantId(variantId);
   const price = isBilledMonthly
-    ? currentPlan.price.monthly.amount
-    : currentPlan.price.yearly.amount;
+    ? currentPlan?.price.monthly.amount
+    : currentPlan?.price.yearly.amount;
 
   return (
     <Container>
@@ -74,7 +74,7 @@ const ActivePlan = ({
               {t("billing.plan.current.title")}
             </Text>
             <Text size="large" mr={spacing.s2}>
-              {`(${currentPlan.name})`}
+              {`(${currentPlan?.name})`}
             </Text>
             <Label
               variant={isActive ? "success" : "warning"}

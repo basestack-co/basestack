@@ -76,7 +76,7 @@ const FormEmailsCard = ({ emails = "", planId }: Props) => {
       {
         formId,
         emails: emailsValues.join(","),
-        feature: "hasEmailNotifications"
+        feature: "hasEmailNotifications",
       },
       {
         onSuccess: (result) => {

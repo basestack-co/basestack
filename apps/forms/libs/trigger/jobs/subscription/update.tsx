@@ -6,7 +6,7 @@ import prisma from "libs/prisma";
 import dayjs from "dayjs";
 import { PlanTypeId, config, SubscriptionEvent } from "@basestack/utils";
 
-const { getSubscriptionEvents, getFormPlanIdByVariantId } = config.plans;
+const { getSubscriptionEvents, getFormPlanByVariantId } = config.plans;
 
 interface ResponseBody {
   meta: {
@@ -99,7 +99,7 @@ triggerClient.defineJob({
               ...payload,
             },
             update: {
-              planId: getFormPlanIdByVariantId(variantId),
+              planId: getFormPlanByVariantId(variantId)?.id,
               ...payload,
               ...(isUpdate
                 ? {

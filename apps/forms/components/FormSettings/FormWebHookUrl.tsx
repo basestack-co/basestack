@@ -10,7 +10,7 @@ import { trpc } from "libs/trpc";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
-import {  InputGroup } from "@basestack/design-system";
+import { InputGroup } from "@basestack/design-system";
 // Toast
 import { toast } from "sonner";
 // Utils
@@ -63,7 +63,7 @@ const FormWebHookUrlCard = ({ webhookUrl = "", planId }: Props) => {
       {
         formId,
         webhookUrl: input.url,
-        feature: "hasWebhooks"
+        feature: "hasWebhooks",
       },
       {
         onSuccess: (result) => {

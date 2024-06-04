@@ -63,7 +63,7 @@ const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
       {
         formId,
         redirectUrl: input.url,
-        feature: "hasCustomUrls"
+        feature: "hasCustomUrls",
       },
       {
         onSuccess: (result) => {
