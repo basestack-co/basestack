@@ -65,6 +65,7 @@ export const getAvatarDropdownList = (
       icon: "add_circle",
       text: t("create.form"),
       onClick: onCreateForm,
+      separator: true,
     },
     {
       icon: "settings",
@@ -77,7 +78,6 @@ export const getAvatarDropdownList = (
     {
       icon: "credit_card",
       text: t("dropdown.billing"),
-      separator: true,
       onClick: () =>
         router.push({
           pathname: "/user/profile/billing",

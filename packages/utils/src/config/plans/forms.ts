@@ -98,7 +98,7 @@ const forms: Plan[] = [
       },
     },
     limits: {
-      forms: 10,
+      forms: Infinity,
       submissions: 2000,
       members: 5,
       spams: 0,
@@ -137,7 +137,7 @@ const forms: Plan[] = [
       },
     },
     limits: {
-      forms: 100000000,
+      forms: Infinity,
       submissions: 100000,
       members: 20,
       spams: 100000,
