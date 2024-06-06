@@ -81,8 +81,7 @@
         "button": "Manage Subscription"
       },
       "details": {
-        "title": "Billing Details",
-        "lastFour": "Visa ending in",
+        "lastFour": "Ending in",
         "expDate": "Exp date",
         "button": "Update Payment Method"
       },

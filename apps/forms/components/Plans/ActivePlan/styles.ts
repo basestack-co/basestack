@@ -7,9 +7,14 @@ import {
   compose,
 } from "styled-system";
 
-export const Container = styled.div`
+export const ContentContainer = styled.div`
   display: flex;
-  gap: ${({ theme }) => theme.spacing.s5};
+  gap: ${({ theme }) => theme.spacing.s8};
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    flex-direction: column;
+    gap: ${({ theme }) => theme.spacing.s5};
+  }
 `;
 
 export const Column = styled.div<SpaceProps>`
@@ -29,6 +34,36 @@ export const FooterContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  flex-wrap: wrap;
   gap: ${({ theme }) => theme.spacing.s3};
   padding: ${({ theme }) => theme.spacing.s5};
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    flex-direction: column;
+    button {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+    }
+  }
+`;
+
+export const Separator = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    height: 28px;
+    left: 0;
+    width: 2px;
+    background-color: ${({ theme }) =>
+      theme.colors[theme.isDarkMode ? "gray600" : "gray100"]};
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    display: none;
+  }
 `;

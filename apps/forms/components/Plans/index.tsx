@@ -146,11 +146,12 @@ const Plans = () => {
     );
   }
 
+  console.log("dd = ", data)
+
   return (
     <Container>
       <ActivePlan
         variantId={data.product.variantId}
-        cardExpDate={dayjs(data.renewsAt).format("MM/YYYY") ?? ""}
         isActive={data.status === "active"}
         isBilledMonthly={data.product.variant === "Monthly"}
         renewsAt={dayjs(data.renewsAt).format("MM/YYYY") ?? ""}

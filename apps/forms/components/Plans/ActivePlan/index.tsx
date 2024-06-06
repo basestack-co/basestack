@@ -4,49 +4,35 @@ import { useTheme } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
 // Components
 import {
-  Card,
-  Text,
-  HorizontalRule,
   Button,
   ButtonVariant,
+  Card,
+  HorizontalRule,
   IconBox,
   Label,
+  Text,
 } from "@basestack/design-system";
 // Utils
 import { config } from "@basestack/utils";
 // Styles
-import { Column, Container, FooterContainer, Row } from "./styles";
+import {
+  Column,
+  ContentContainer,
+  FooterContainer,
+  Row,
+  Separator,
+} from "./styles";
 
 interface ActivePlanProps {
   isActive: boolean;
   isBilledMonthly: boolean;
   cardBrand: string;
   cardLastFour: string;
-  cardExpDate: string;
   onManage: () => void;
   onUpdate: () => void;
   renewsAt: string;
   variantId: number;
 }
-
-const Footer = ({
-  onClick,
-  text,
-  variant = ButtonVariant.Outlined,
-}: {
-  onClick: () => void;
-  text: string;
-  variant?: ButtonVariant;
-}) => (
-  <>
-    <HorizontalRule mt="auto" />
-    <FooterContainer>
-      <Button onClick={onClick} variant={variant}>
-        {text}
-      </Button>
-    </FooterContainer>
-  </>
-);
 
 const ActivePlan = ({
   variantId,
@@ -56,7 +42,7 @@ const ActivePlan = ({
   cardLastFour,
   isBilledMonthly,
   renewsAt,
-  cardExpDate,
+  cardBrand,
 }: ActivePlanProps) => {
   const { t } = useTranslation("profile");
   const { spacing } = useTheme();
@@ -65,84 +51,93 @@ const ActivePlan = ({
     ? currentPlan?.price.monthly.amount
     : currentPlan?.price.yearly.amount;
 
-  return (
-    <Container>
-      <Card hasHoverAnimation width="100%">
-        <Column p={spacing.s5}>
-          <Row alignItems="center" flexWrap="wrap" mb={spacing.s4}>
-            <Text size="large" mr={spacing.s1}>
-              {t("billing.plan.current.title")}
-            </Text>
-            <Text size="large" mr={spacing.s2}>
-              {`(${currentPlan?.name})`}
-            </Text>
-            <Label
-              variant={isActive ? "success" : "warning"}
-              text={
-                isActive
-                  ? t("billing.plan.current.status.active")
-                  : t("billing.plan.current.status.inactive")
-              }
-              isTranslucent
-            />
-          </Row>
-
-          <Row alignItems="center">
-            <IconBox icon="calendar_month" />
-            <Column ml={spacing.s4}>
-              <Text fontWeight={500} mb="2px">
-                {`${t("billing.price.symbol")}${price} ${t("billing.price.abbr")}`}{" "}
-                <Text as="span" muted fontWeight={400}>
-                  /{" "}
-                  {isBilledMonthly
-                    ? t("billing.cycle.monthly")
-                    : t("billing.cycle.yearly")}
-                </Text>
-              </Text>
-              <Text muted fontWeight={400}>
-                {t("billing.plan.current.date")}{" "}
-                <Text as="span" fontWeight={500}>
-                  {renewsAt}
-                </Text>
-              </Text>
-            </Column>
-          </Row>
-        </Column>
-        <Footer
-          variant={ButtonVariant.Secondary}
-          onClick={onManage}
-          text={t("billing.plan.current.button")}
+  const Header = () => {
+    return (
+      <Row alignItems="center" flexWrap="wrap" mb={spacing.s5}>
+        <Text size="large" mr={spacing.s1}>
+          {t("billing.plan.current.title")}
+        </Text>
+        <Text size="large" mr={spacing.s2}>
+          {`(${currentPlan?.name})`}
+        </Text>
+        <Label
+          variant={isActive ? "success" : "warning"}
+          text={
+            isActive
+              ? t("billing.plan.current.status.active")
+              : t("billing.plan.current.status.inactive")
+          }
+          isTranslucent
         />
-      </Card>
+      </Row>
+    );
+  };
 
-      <Card hasHoverAnimation width="100%">
-        <Column p={spacing.s5}>
-          <Text size="large" mb={spacing.s5}>
-            {t("billing.plan.details.title")}
+  const CardDetails = () => {
+    return (
+      <Row alignItems="center">
+        <IconBox icon="calendar_month" />
+        <Column ml={spacing.s4}>
+          <Text fontWeight={500} mb="2px">
+            {`${t("billing.price.symbol")}${price} ${t("billing.price.abbr")}`}{" "}
+            <Text as="span" muted fontWeight={400}>
+              /{" "}
+              {isBilledMonthly
+                ? t("billing.cycle.monthly")
+                : t("billing.cycle.yearly")}
+            </Text>
           </Text>
-          <Column>
-            <Row alignItems="center">
-              <IconBox icon="credit_card" />
-              <Column ml={spacing.s4}>
-                <Text muted fontWeight={500} mb="2px">
-                  {t("billing.plan.details.lastFour")}{" "}
-                  <Text as="span" fontWeight={500}>
-                    {cardLastFour}
-                  </Text>
-                </Text>
-                <Text muted fontWeight={500}>
-                  {t("billing.plan.details.expDate")}{" "}
-                  <Text as="span" fontWeight={500}>
-                    {cardExpDate}
-                  </Text>
-                </Text>
-              </Column>
-            </Row>
-          </Column>
+          <Text muted fontWeight={400}>
+            {t("billing.plan.current.date")}{" "}
+            <Text as="span" fontWeight={500}>
+              {renewsAt}
+            </Text>
+          </Text>
         </Column>
-        <Footer onClick={onUpdate} text={t("billing.plan.details.button")} />
-      </Card>
-    </Container>
+      </Row>
+    );
+  };
+
+  const BillingDetails = () => {
+    return (
+      <Row alignItems="center">
+        <IconBox icon="credit_card" />
+        <Column ml={spacing.s4}>
+          <Text muted fontWeight={500} mb="2px">
+            {cardBrand.toUpperCase()}
+          </Text>
+          <Text muted fontWeight={500}>
+            {t("billing.plan.details.lastFour")}{" "}
+            <Text as="span" fontWeight={500}>
+              {cardLastFour}
+            </Text>
+          </Text>
+        </Column>
+      </Row>
+    );
+  };
+
+  return (
+    <Card hasHoverAnimation width="100%">
+      <Column p={spacing.s5}>
+        <Header />
+        <ContentContainer>
+          <CardDetails />
+          <Separator />
+          <BillingDetails />
+        </ContentContainer>
+      </Column>
+
+      <HorizontalRule mt="auto" />
+      <FooterContainer>
+        <Button onClick={onUpdate} variant={ButtonVariant.Outlined}>
+          {t("billing.plan.details.button")}
+        </Button>
+        <Button onClick={onManage} variant={ButtonVariant.Secondary}>
+          {t("billing.plan.current.button")}
+        </Button>
+      </FooterContainer>
+    </Card>
   );
 };
 
