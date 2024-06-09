@@ -56,5 +56,5 @@ jobs:
       - name: Test
         run: yarn test --filter=@basestack/forms
 
-      - name: Build
-        run: yarn build:forms
+#      - name: Build
+#        run: yarn build:forms
