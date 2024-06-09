@@ -1,17 +1,20 @@
 import React from "react";
 // Layout
-import MainLayout from "layouts/Main";
+import ProfileLayout from "layouts/Profile";
 // Auth
 import { useSession } from "next-auth/react";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Components
-import { Text } from "@basestack/design-system";
 import { ProfileAvatarCard, SwitchSettingCard } from "@basestack/ui";
 import ThemeCard from "components/UserSettings/ThemeCard";
 import FlagsCard from "components/UserSettings/FlagsCard";
 // Styles
-import { Container, List, ListItem } from "components/UserSettings/styles";
+import {
+  CardList,
+  ProfileCardContainer,
+  CardListItem,
+} from "components/ProfileSettings/styles";
 import { useTheme } from "styled-components";
 
 // Store
@@ -30,40 +33,42 @@ const UserProfileSettingsPage = () => {
   );
 
   return (
-    <Container>
-      <Text size="xLarge" mb={theme.spacing.s5}>
-        {t("settings.title")}
-      </Text>
-      <List>
-        <ListItem>
+    <CardList>
+      <CardListItem>
+        <ProfileCardContainer>
           <ProfileAvatarCard
-            name={session?.user.name ?? t("settings.card.avatar.title")}
+            name={session?.user.name ?? t("general.card.avatar.title")}
             image={session?.user.image ?? ""}
             email={session?.user.email ?? ""}
-            description={t("settings.card.avatar.description")}
           />
-        </ListItem>
-        <ListItem>
+        </ProfileCardContainer>
+      </CardListItem>
+      <CardListItem>
+        <ProfileCardContainer>
           <SwitchSettingCard
-            title={t("settings.card.modals.title")}
-            description={t("settings.card.modals.description")}
+            title={t("general.card.modals.title")}
+            description={t("general.card.modals.description")}
             checked={closeModalsOnClickOutside}
             onChange={(event) => {
               setCloseModalsOnClickOutside(event.target.checked);
             }}
           />
-        </ListItem>
-        <ListItem>
+        </ProfileCardContainer>
+      </CardListItem>
+      <CardListItem>
+        <ProfileCardContainer>
           <ThemeCard />
-        </ListItem>
-        <ListItem>
+        </ProfileCardContainer>
+      </CardListItem>
+      <CardListItem>
+        <ProfileCardContainer>
           <FlagsCard />
-        </ListItem>
-      </List>
-    </Container>
+        </ProfileCardContainer>
+      </CardListItem>
+    </CardList>
   );
 };
 
-UserProfileSettingsPage.Layout = MainLayout;
+UserProfileSettingsPage.Layout = ProfileLayout;
 
 export default UserProfileSettingsPage;

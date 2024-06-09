@@ -47,8 +47,7 @@ const Navigation = ({ data }: NavigationProps) => {
   }, [formId, data]);
 
   const onSelectApp = useCallback((app: Product) => {
-    const env = (process.env.NEXT_PUBLIC_APP_ENV || "local") as AppEnv;
-    window.location.href = config.urls.getAppWithEnv(app, env);
+    window.location.href = config.urls.getAppWithEnv(app, "production");
   }, []);
 
   return (

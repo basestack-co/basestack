@@ -49,8 +49,8 @@ const ModalCard = () => {
     <Card p={theme.spacing.s5}>
       <ContentContainer>
         <TextContainer>
-          <Text size="large">{t("settings.card.theme.title")}</Text>
-          <Text>{t("settings.card.theme.description")}</Text>
+          <Text size="large">{t("general.card.theme.title")}</Text>
+          <Text>{t("general.card.theme.description")}</Text>
         </TextContainer>
         <MenuContainer>
           <Button
@@ -62,8 +62,8 @@ const ModalCard = () => {
             iconPlacement="right"
           >
             {isDarkMode
-              ? t("settings.card.theme.type.dark")
-              : t("settings.card.theme.type.light")}
+              ? t("general.card.theme.type.dark")
+              : t("general.card.theme.type.light")}
           </Button>
           <PopupWrapper ref={popupWrapperRef}>
             {transition(
@@ -78,11 +78,11 @@ const ModalCard = () => {
                     left={x}
                     items={[
                       {
-                        text: t("settings.card.theme.type.light"),
+                        text: t("general.card.theme.type.light"),
                         onClick: () => setDarkMode(false),
                       },
                       {
-                        text: t("settings.card.theme.type.dark"),
+                        text: t("general.card.theme.type.dark"),
                         onClick: () => setDarkMode(true),
                       },
                     ]}

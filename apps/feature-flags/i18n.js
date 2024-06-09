@@ -13,6 +13,6 @@ module.exports = {
     "/project/[projectId]/settings/members": ["settings"],
     "/project/[projectId]/settings/environments": ["settings"],
     "/auth/sign-in": ["auth"],
-    "/user/profile/settings": ["profile"],
+    "/user/profile/general": ["profile"],
   },
 };

@@ -1,6 +1,14 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "pipeline": {
+  "globalEnv": [
+    "EMAIL_FROM",
+    "EMAIL_SMTP_HOST",
+    "EMAIL_SMTP_PORT",
+    "EMAIL_SMTP_SECURE",
+    "EMAIL_SMTP_AUTH_USER",
+    "EMAIL_SMTP_AUTH_PASSWORD"
+  ],
+  "tasks": {
     "clean": {
       "cache": false
     },
@@ -93,13 +101,5 @@
       "dependsOn": [],
       "outputs": ["dist/**", ".next/**"]
     }
-  },
-  "globalEnv": [
-    "EMAIL_FROM",
-    "EMAIL_SMTP_HOST",
-    "EMAIL_SMTP_PORT",
-    "EMAIL_SMTP_SECURE",
-    "EMAIL_SMTP_AUTH_USER",
-    "EMAIL_SMTP_AUTH_PASSWORD"
-  ]
+  }
 }

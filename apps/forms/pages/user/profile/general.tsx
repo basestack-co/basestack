@@ -35,7 +35,6 @@ const UserProfileSettingsPage = () => {
             name={session?.user.name ?? t("general.card.avatar.title")}
             image={session?.user.image ?? ""}
             email={session?.user.email ?? ""}
-            description={t("general.card.avatar.description")}
           />
         </ProfileCardContainer>
       </CardListItem>

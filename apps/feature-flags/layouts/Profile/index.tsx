@@ -29,12 +29,12 @@ const links = [
     tab: "general",
     href: "/user/profile/general",
   },
-  {
+  /* {
     id: "2",
     i18nKey: "profile.billing",
-    tab: "billing",
+    tab: "security",
     href: "/user/profile/billing",
-  },
+  }, */
 ];
 
 const ProfileLayout = ({ children }: { children: React.ReactElement }) => {

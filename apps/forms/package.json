@@ -35,7 +35,7 @@
     "@basestack/ui": "*",
     "@basestack/utils": "*",
     "@emotion/is-prop-valid": "^1.2.2",
-    "@hookform/resolvers": "^3.4.2",
+    "@hookform/resolvers": "^3.5.0",
     "@lemonsqueezy/lemonsqueezy.js": "^3.0.0",
     "@next-auth/prisma-adapter": "^1.0.4",
     "@prisma/client": "^5.15.0",
@@ -83,7 +83,7 @@
     "@types/cors": "^2.8.17",
     "@types/formidable": "^3.4.5",
     "@types/jest": "^29.5.12",
-    "@types/node": "^20.14.1",
+    "@types/node": "^20.14.2",
     "@types/react": "18.3.3",
     "@types/react-dom": "^18.3.0",
     "@types/request-ip": "^0.0.41",
@@ -99,7 +99,7 @@
     "next-translate-plugin": "^2.6.2",
     "node-mocks-http": "^1.14.1",
     "prisma": "^5.15.0",
-    "turbo": "1.13.3",
+    "turbo": "2.0.1",
     "typescript": "^5.4.5"
   }
 }

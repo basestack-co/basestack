@@ -22,7 +22,7 @@
     "@basestack/utils": "*",
     "@emotion/is-prop-valid": "^1.2.2",
     "@floating-ui/react": "^0.26.16",
-    "@hookform/resolvers": "^3.4.2",
+    "@hookform/resolvers": "^3.5.0",
     "eslint-config-next": "^14.2.3",
     "isomorphic-unfetch": "^4.0.2",
     "material-symbols": "^0.19.0",
@@ -47,7 +47,7 @@
     "@testing-library/react": "^16.0.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.5.12",
-    "@types/node": "^20.14.1",
+    "@types/node": "^20.14.2",
     "@types/react": "18.3.3",
     "@types/react-dom": "^18.3.0",
     "@types/react-syntax-highlighter": "^15.5.13",
@@ -60,7 +60,7 @@
     "jest-styled-components": "^7.2.0",
     "lint-staged": "^15.2.5",
     "node-mocks-http": "^1.14.1",
-    "turbo": "1.13.3",
+    "turbo": "2.0.1",
     "typescript": "^5.4.5"
   }
 }
