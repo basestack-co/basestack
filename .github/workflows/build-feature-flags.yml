@@ -25,7 +25,9 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
-
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/monolock
+      DIRECT_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/monolock
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -55,7 +57,4 @@ jobs:
         run: yarn test --filter=@basestack/feature-flags
 
       - name: Build
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/monolock
-          DIRECT_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/monolock
         run: yarn build:feature-flags
