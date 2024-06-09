@@ -28,7 +28,7 @@ RUN yarn install
 COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
 
-RUN yarn turbo build --no-cache --filter=feature-flags...
+RUN yarn turbo build --no-cache --filter=@basestack/feature-flags
 
 FROM base AS runner
 WORKDIR /app

@@ -51,10 +51,10 @@ jobs:
         run: yarn build:packages
 
       - name: Lint
-        run: yarn lint --filter=forms...
+        run: yarn lint --filter=@basestack/forms
 
       - name: Test
-        run: yarn test --filter=forms...
+        run: yarn test --filter=@basestack/forms
 
       - name: Build
         run: yarn build:forms
