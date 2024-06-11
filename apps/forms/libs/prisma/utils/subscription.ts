@@ -59,7 +59,8 @@ export const withUsageUpdate = async (
       // Create a new subscription if it doesn't exist with the free plan
       create: {
         userId,
-        planId: PlanTypeId.FREE,
+        // TODO: This is a temporary solution until we have a proper subscription system
+        planId: PlanTypeId.PREVIEW,
         subscriptionId: "",
         billingCycleStart: new Date(),
         [limit]: 1,

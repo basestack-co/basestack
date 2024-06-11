@@ -35,6 +35,7 @@ export enum SubscriptionEvent {
 }
 
 export enum PlanTypeId {
+  PREVIEW = "preview",
   FREE = "free",
   HOBBY = "hobby",
   LAUNCH = "launch",

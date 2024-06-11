@@ -146,8 +146,6 @@ const Plans = () => {
     );
   }
 
-  console.log("dd = ", data)
-
   return (
     <Container>
       <ActivePlan

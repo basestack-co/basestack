@@ -5,6 +5,45 @@ import { PlanTypeId, Plan } from "../../types";
 
 const forms: Plan[] = [
   {
+    id: PlanTypeId.PREVIEW,
+    name: "Preview",
+    price: {
+      monthly: {
+        amount: 0,
+        currency: "USD",
+        variantId: 0,
+      },
+      yearly: {
+        amount: 0,
+        currency: "USD",
+        variantId: 0,
+      },
+    },
+    limits: {
+      forms: 100,
+      submissions: 10000,
+      members: 100,
+      spams: 10000,
+      fileUploadLimit: 1, // GB
+      integrationsCalls: 500,
+    },
+    features: {
+      hasFileUploads: true,
+      hasDataQueryString: true,
+      hasCustomUrls: true,
+      hasRules: true,
+      hasEmailNotifications: true,
+      hasBlockIPs: true,
+      hasWebhooks: true,
+      hasWebsites: true,
+      hasCustomExport: true,
+      hasAutoResponses: true,
+      hasIntegrations: true,
+      hasCustomEmailTemplates: true,
+      hasSpamProtection: true,
+    },
+  },
+  {
     id: PlanTypeId.FREE,
     name: "Free",
     price: {
@@ -169,10 +208,15 @@ const getFormPlanLimitsDefaults = () => ({
   integrationsCalls: 0,
 });
 
+const isValidFormPlan = (id: PlanTypeId) => {
+  return forms.some((plan) => plan.id === id);
+};
+
 const getFormPlan = (id: PlanTypeId): Plan => {
   const plan = forms.find((plan: Plan) => plan.id === id);
   if (!plan) {
-    throw new Error(`Plan with ID ${id} not found.`);
+    // Fallback to free plan if plan is not found
+    return forms.find((plan: Plan) => plan.id === PlanTypeId.FREE)!;
   }
   return plan;
 };
@@ -234,4 +278,5 @@ export const config = {
   getFormPlanLimitsDefaults,
   getFormPlanVariantId,
   getFormPlanByVariantId,
+  isValidFormPlan
 };

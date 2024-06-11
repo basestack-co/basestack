@@ -17,6 +17,8 @@ import {
 } from "../styles";
 // Hooks
 import { useMedia } from "react-use";
+// Utils
+import { getCookieValueAsBoolean, config } from "@basestack/utils";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Layouts
@@ -43,22 +45,29 @@ const ProfileLayout = ({ children }: { children: React.ReactElement }) => {
   const isDesktop = useMedia(theme.device.min.lg, false);
   const router = useRouter();
 
+  const useBilling = useMemo(
+    () => getCookieValueAsBoolean(config.cookies.useBilling) || config.isDev,
+    [],
+  );
+
   const renderLink = useMemo(() => {
-    return links.map(({ id, i18nKey, href }) => (
-      <ListItem key={`profile-settings-button-list-${id}`}>
-        <StyledLink
-          href={{
-            pathname: href,
-          }}
-          passHref
-        >
-          <StyledButton isActive={router.pathname === href}>
-            {t(i18nKey)}
-          </StyledButton>
-        </StyledLink>
-      </ListItem>
-    ));
-  }, [router.pathname, t]);
+    return links
+      .filter((link) => link.id === "1" || useBilling)
+      .map(({ id, i18nKey, href }) => (
+        <ListItem key={`profile-settings-button-list-${id}`}>
+          <StyledLink
+            href={{
+              pathname: href,
+            }}
+            passHref
+          >
+            <StyledButton isActive={router.pathname === href}>
+              {t(i18nKey)}
+            </StyledButton>
+          </StyledLink>
+        </ListItem>
+      ));
+  }, [router.pathname, t, useBilling]);
 
   const activeLinkIndex = useMemo(
     () => links.findIndex((button) => button.href === router.pathname),
