@@ -75,7 +75,7 @@ const DeleteProjectCard = ({ name }: Props) => {
     <SettingCard
       title={t("general.delete.project.title")}
       description={t("general.delete.project.description")}
-      button={t("general.delete.action")}
+      button={t("general.delete.project.action")}
       onClick={onClickDeleteProject}
       text={t("general.delete.project.placeholder")}
       isDisabled={deleteProject.isLoading}

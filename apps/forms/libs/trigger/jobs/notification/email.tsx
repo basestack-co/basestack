@@ -23,7 +23,7 @@ triggerClient.defineJob({
       template: z.string(),
     }),
   }),
-  run: async (payload, io, ctx) => {
+  run: async (payload, io) => {
     await io.logger.info(
       `Preparing to send email to ${payload.to} with subject: ${payload.subject}`,
     );

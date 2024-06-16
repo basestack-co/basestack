@@ -1,6 +1,14 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "pipeline": {
+  "globalEnv": [
+    "EMAIL_FROM",
+    "EMAIL_SMTP_HOST",
+    "EMAIL_SMTP_PORT",
+    "EMAIL_SMTP_SECURE",
+    "EMAIL_SMTP_AUTH_USER",
+    "EMAIL_SMTP_AUTH_PASSWORD"
+  ],
+  "tasks": {
     "clean": {
       "cache": false
     },
@@ -37,7 +45,11 @@
         "AUTH0_CLIENT_SECRET",
         "AUTH0_DOMAIN",
         "GOOGLE_CLIENT_ID",
-        "GOOGLE_CLIENT_SECRET"
+        "GOOGLE_CLIENT_SECRET",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
+        "SENTRY_DSN",
+        "SENTRY_AUTH_TOKEN"
       ]
     },
     "@basestack/forms#deploy": {
@@ -89,13 +101,5 @@
       "dependsOn": [],
       "outputs": ["dist/**", ".next/**"]
     }
-  },
-  "globalEnv": [
-    "EMAIL_FROM",
-    "EMAIL_SMTP_HOST",
-    "EMAIL_SMTP_PORT",
-    "EMAIL_SMTP_SECURE",
-    "EMAIL_SMTP_AUTH_USER",
-    "EMAIL_SMTP_AUTH_PASSWORD"
-  ]
+  }
 }

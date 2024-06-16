@@ -19,6 +19,11 @@ const FormSubmission = ({
   isSelected = false,
   isActionsDisabled,
   metadata,
+  blockIpAddresses,
+  formId,
+  isMarkSpamLoading,
+  isReadSubmissionLoading,
+  isDeleteSubmissionLoading,
 }: FormSubmissionProps) => {
   const theme = useTheme();
   const [isOpen, setIsOpen] = useState(false);
@@ -46,8 +51,17 @@ const FormSubmission = ({
         onMarkSpam={onMarkSpam}
         onReadSubmission={onReadSubmission}
         isActionsDisabled={isActionsDisabled}
+        isMarkSpamLoading={isMarkSpamLoading}
+        isReadSubmissionLoading={isReadSubmissionLoading}
+        isDeleteSubmissionLoading={isDeleteSubmissionLoading}
       />
-      <Body isOpen={isOpen} data={data} metadata={metadata} />
+      <Body
+        formId={formId}
+        isOpen={isOpen}
+        data={data}
+        metadata={metadata}
+        blockIpAddresses={blockIpAddresses}
+      />
     </Card>
   );
 };

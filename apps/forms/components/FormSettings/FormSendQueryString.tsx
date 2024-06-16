@@ -4,18 +4,24 @@ import { useRouter } from "next/router";
 // Server
 import { trpc } from "libs/trpc";
 // UI
-// import { CardVariant } from "@basestack/design-system";
 import { SwitchSettingCard } from "@basestack/ui";
 // Toast
 import { toast } from "sonner";
+// Utils
+import { PlanTypeId } from "@basestack/utils";
 // Locales
 import useTranslation from "next-translate/useTranslation";
+import { getWithPlanSwitchProps } from "./utils";
 
 export interface Props {
   hasDataQueryString?: boolean;
+  planId: PlanTypeId;
 }
 
-const FormSendQueryStringCard = ({ hasDataQueryString = false }: Props) => {
+const FormSendQueryStringCard = ({
+  hasDataQueryString = false,
+  planId,
+}: Props) => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
@@ -29,6 +35,7 @@ const FormSendQueryStringCard = ({ hasDataQueryString = false }: Props) => {
         {
           formId,
           hasDataQueryString: event.target.checked,
+          feature: "hasDataQueryString",
         },
         {
           onSuccess: (result) => {
@@ -61,11 +68,15 @@ const FormSendQueryStringCard = ({ hasDataQueryString = false }: Props) => {
     <SwitchSettingCard
       title={t("customization.data-query-string.title")}
       description={t("customization.data-query-string.description")}
-      checked={hasDataQueryString}
-      onChange={onChange}
-      // variant={CardVariant.PRIMARY}
-      // hasOverlay
-      // label="Upgrade to Pro"
+      {...getWithPlanSwitchProps({
+        t,
+        planId,
+        feature: "hasDataQueryString",
+        isDisabled: false,
+        onChange,
+        checked: hasDataQueryString,
+        partial: true,
+      })}
     />
   );
 };

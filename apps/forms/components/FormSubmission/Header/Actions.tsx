@@ -22,6 +22,9 @@ interface ActionsProps {
   viewed?: boolean;
   isSpam?: boolean;
   isDisabled?: boolean;
+  isMarkSpamLoading?: boolean;
+  isReadSubmissionLoading?: boolean;
+  isDeleteSubmissionLoading?: boolean;
 }
 
 interface ActionButtonProps {
@@ -29,6 +32,7 @@ interface ActionButtonProps {
   icon: string;
   text: string;
   isDisabled?: boolean;
+  isLoading?: boolean;
 }
 
 const AnimatedList = animated(ActionsList);
@@ -38,6 +42,7 @@ const ActionButton = ({
   icon,
   text,
   isDisabled,
+  isLoading,
 }: ActionButtonProps) => {
   const theme = useTheme();
   const isSmallDevice = useMedia(theme.device.max.md, false);
@@ -65,6 +70,7 @@ const ActionButton = ({
       variant={ButtonVariant.Tertiary}
       icon={icon}
       isDisabled={isDisabled}
+      isLoading={isLoading}
     >
       {text}
     </Button>
@@ -80,6 +86,9 @@ const Actions = ({
   viewed,
   isSpam,
   isDisabled,
+  isMarkSpamLoading,
+  isReadSubmissionLoading,
+  isDeleteSubmissionLoading,
 }: ActionsProps) => {
   const { t } = useTranslation("forms");
   const transitionList = useTransition(isVisible, {
@@ -98,7 +107,8 @@ const Actions = ({
         <AnimatedList style={styles}>
           <ActionsListItem>
             <ActionButton
-              isDisabled={isDisabled}
+              isLoading={isDeleteSubmissionLoading}
+              isDisabled={isDeleteSubmissionLoading || isDisabled}
               onClick={onDelete}
               icon="delete"
               text={t("submission.action.delete")}
@@ -106,7 +116,8 @@ const Actions = ({
           </ActionsListItem>
           <ActionsListItem>
             <ActionButton
-              isDisabled={isDisabled}
+              isLoading={isMarkSpamLoading}
+              isDisabled={isMarkSpamLoading || isDisabled}
               onClick={() => onMarkSpam(!isSpam)}
               icon="report"
               text={
@@ -118,7 +129,8 @@ const Actions = ({
           </ActionsListItem>
           <ActionsListItem>
             <ActionButton
-              isDisabled={isDisabled}
+              isLoading={isReadSubmissionLoading}
+              isDisabled={isReadSubmissionLoading || isDisabled}
               onClick={() => onReadSubmission(!viewed)}
               icon="mark_email_read"
               text={

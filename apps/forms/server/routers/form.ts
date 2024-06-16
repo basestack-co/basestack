@@ -4,7 +4,12 @@ import { TRPCError } from "@trpc/server";
 import { Role } from "@prisma/client";
 // Utils
 import { z } from "zod";
-import { withRoles } from "@basestack/utils";
+import { withRoles, PlanTypeId } from "@basestack/utils";
+import {
+  withLimits,
+  withUsageUpdate,
+  withFeatures,
+} from "libs/prisma/utils/subscription";
 
 export const formRouter = router({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -34,61 +39,60 @@ export const formRouter = router({
   recent: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.session.user.id;
 
-    return await ctx.prisma.$transaction(async (tx) => {
-      const forms = await tx.form.findMany({
-        where: {
-          users: {
-            some: {
-              user: {
-                id: userId,
-              },
-            },
-          },
+    // TODO: Find a way to do this with Prisma Models and not raw SQL
+    // This solves the N+1 problem we had before with the previous query
+    // https://github.com/prisma/prisma/issues/15423
+    const formsWithCounts = await ctx.prisma.$queryRaw<
+      {
+        id: string;
+        name: string;
+        _all: number;
+        isEnabled: boolean;
+        _spam: number;
+        _viewed: number;
+      }[]
+    >`
+      SELECT
+          f.id,
+          f.name,
+          f."isEnabled",
+          COUNT(s."id") AS _all,
+          SUM(CASE WHEN s."isSpam" = true THEN 1 ELSE 0 END) AS _spam,
+          SUM(CASE WHEN s."viewed" = true THEN 1 ELSE 0 END) AS _viewed
+        FROM
+          public."Form" f
+        LEFT JOIN
+          public."Submission" s
+        ON
+          f.id = s."formId"
+        WHERE
+          EXISTS (
+            SELECT 1 FROM public."FormOnUsers" uf
+            WHERE uf."form_id" = f.id AND uf."user_id" = ${userId}
+          )
+        GROUP BY
+          f.id, f.name, f."isEnabled"
+        ORDER BY
+          f."createdAt" DESC
+        LIMIT
+          8;
+   `;
+
+    return formsWithCounts.map((form) => {
+      const _all = Number(form._all);
+      const _spam = Number(form._spam);
+      const _viewed = Number(form._viewed);
+
+      return {
+        id: form.id,
+        name: form.name,
+        isEnabled: form.isEnabled,
+        _count: {
+          spam: _spam,
+          unread: _all - _viewed,
+          read: _viewed,
         },
-        skip: 0,
-        take: 10,
-        select: {
-          id: true,
-          name: true,
-          isEnabled: true,
-        },
-        orderBy: {
-          createdAt: "desc",
-        },
-      });
-
-      return await Promise.all(
-        forms.map(async (form) => {
-          const _all = await tx.submission.count({
-            where: {
-              formId: form.id,
-            },
-          });
-
-          const _spam = await tx.submission.count({
-            where: {
-              formId: form.id,
-              isSpam: true,
-            },
-          });
-
-          const _viewed = await tx.submission.count({
-            where: {
-              formId: form.id,
-              viewed: true,
-            },
-          });
-
-          return {
-            ...form,
-            _count: {
-              spam: _spam,
-              unread: _all - _viewed,
-              read: _viewed,
-            },
-          };
-        }),
-      );
+      };
     });
   }),
   byId: protectedProcedure
@@ -140,35 +144,46 @@ export const formRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
+      const planId = ctx.usage.planId as PlanTypeId;
 
-      return await ctx.prisma.$transaction(async (tx) => {
-        const form = await tx.form.create({
-          data: {
-            name: input.name,
-          },
-          select: {
-            id: true,
-            name: true,
-          },
-        });
+      const authorized = withLimits(
+        planId,
+        "forms",
+        ctx.usage.forms,
+      )(() =>
+        ctx.prisma.$transaction(async (tx) => {
+          const form = await tx.form.create({
+            data: {
+              name: input.name,
+            },
+            select: {
+              id: true,
+              name: true,
+            },
+          });
 
-        const connection = await tx.formOnUsers.create({
-          data: {
-            form: {
-              connect: {
-                id: form.id,
+          const connection = await tx.formOnUsers.create({
+            data: {
+              form: {
+                connect: {
+                  id: form.id,
+                },
+              },
+              user: {
+                connect: {
+                  id: userId,
+                },
               },
             },
-            user: {
-              connect: {
-                id: userId,
-              },
-            },
-          },
-        });
+          });
 
-        return { form, connection };
-      });
+          await withUsageUpdate(tx, userId, "forms", "increment");
+
+          return { form, connection };
+        }),
+      );
+
+      return authorized();
     }),
   update: protectedProcedure
     .meta({
@@ -178,6 +193,24 @@ export const formRouter = router({
       z
         .object({
           formId: z.string(),
+          feature: z
+            .enum([
+              "hasFileUploads",
+              "hasDataQueryString",
+              "hasCustomUrls",
+              "hasRules",
+              "hasEmailNotifications",
+              "hasBlockIPs",
+              "hasWebhooks",
+              "hasWebsites",
+              "hasCustomExport",
+              "hasAutoResponses",
+              "hasIntegrations",
+              "hasCustomEmailTemplates",
+              "hasSpamProtection",
+            ])
+            .nullable()
+            .default(null),
           name: z.string().nullable().default(null),
           isEnabled: z.boolean().nullable().default(null),
           hasRetention: z.boolean().nullable().default(null),
@@ -195,7 +228,8 @@ export const formRouter = router({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const { formId, ...props } = input;
+      const planId = ctx.usage.planId as PlanTypeId;
+      const { formId, feature, ...props } = input;
       const data = Object.fromEntries(
         Object.entries(props).filter(([_, value]) => value !== null),
       );
@@ -204,12 +238,19 @@ export const formRouter = router({
         throw new TRPCError({ code: "BAD_REQUEST" });
       }
 
-      const form = await ctx.prisma.form.update({
-        where: {
-          id: formId,
-        },
-        data,
-      });
+      const authorized = withFeatures(
+        planId,
+        feature,
+      )(() =>
+        ctx.prisma.form.update({
+          where: {
+            id: formId,
+          },
+          data,
+        }),
+      );
+
+      const form = await authorized();
 
       return { form };
     }),
@@ -225,11 +266,19 @@ export const formRouter = router({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.form.role, [Role.ADMIN])(() =>
-        ctx.prisma.form.delete({
-          where: {
-            id: input.formId,
-          },
+      const userId = ctx.session.user.id;
+
+      const authorized = withRoles(ctx.form.role, [Role.ADMIN])(() =>
+        ctx.prisma.$transaction(async (tx) => {
+          const response = await tx.form.delete({
+            where: {
+              id: input.formId,
+            },
+          });
+
+          await withUsageUpdate(tx, userId, "forms", "decrement");
+
+          return response;
         }),
       );
 

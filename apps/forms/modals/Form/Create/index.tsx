@@ -12,6 +12,8 @@ import Portal from "@basestack/design-system/global/Portal";
 import { Modal, InputGroup } from "@basestack/design-system";
 // Store
 import { useStore } from "store";
+// Toast
+import { toast } from "sonner";
 // Server
 import { trpc } from "libs/trpc";
 // Locales
@@ -76,6 +78,9 @@ const CreateFormModal = () => {
           pathname: "/form/[formId]/submissions",
           query: { formId: result.form.id },
         });
+      },
+      onError: (error) => {
+        toast.error(error.message);
       },
     });
   };

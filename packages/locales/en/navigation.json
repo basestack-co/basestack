@@ -15,9 +15,10 @@
   "dropdown": {
     "username": "User Name",
     "invite": "Invite Member (Coming soon)",
-    "settings": "Settings",
+    "settings": "Account Settings",
     "logout": "Logout",
-    "dark-mode": "Dark Mode"
+    "dark-mode": "Dark Mode",
+    "billing": "Manage Subscription"
   },
   "external": {
     "resources": "Resources",
@@ -28,7 +29,8 @@
     "submissions": "Submissions",
     "features": "Features",
     "settings": "Settings",
-    "setup": "Setup"
+    "setup": "Setup",
+    "profile": "Profile"
   },
   "setting": {
     "general": "General",
@@ -39,6 +41,18 @@
     "environments": "Environments"
   },
   "apps": {
-    "title": "Apps"
+    "title": "Apps",
+    "forms": {
+      "title": "Forms",
+      "description": "Form creation and management"
+    },
+    "flags": {
+      "title": "Feature Flags",
+      "description": "Flag creation and control"
+    }
+  },
+  "profile": {
+    "general": "General",
+    "billing": "Billing"
   }
 }

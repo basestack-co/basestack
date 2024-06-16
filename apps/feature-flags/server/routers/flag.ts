@@ -24,7 +24,7 @@ export const flagRouter = router({
           }
         : {};
 
-      return await ctx.prisma.$transaction(async (tx) => {
+      return ctx.prisma.$transaction(async (tx) => {
         const env = await tx.environment.findFirst({
           where: { isDefault: true, projectId: input.projectId },
         });
@@ -93,7 +93,7 @@ export const flagRouter = router({
         .required(),
     )
     .query(async ({ ctx, input }) => {
-      return await ctx.prisma.$transaction(async (tx) => {
+      return ctx.prisma.$transaction(async (tx) => {
         const env = await tx.environment.findFirst({
           where: { isDefault: true, projectId: input.projectId },
         });

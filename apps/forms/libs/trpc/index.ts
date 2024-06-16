@@ -30,6 +30,7 @@ export const customLink: TRPCLink<AppRouter> = () => {
         },
         error(err) {
           observer.error(err);
+
           if (err?.data?.code === "FORBIDDEN") {
             const win: Window = window;
             // TODO: find a better way to do this

@@ -13,14 +13,13 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const { status } = useSession({
     required: true,
-    onUnauthenticated() {
-      router.push("/auth/sign-in");
+    async onUnauthenticated() {
+      await router.push("/auth/sign-in");
     },
   });
 
-  const { data, isLoading: isLoadingForms } = trpc.form.all.useQuery(
-    undefined,
-    {
+  const [forms, usage] = trpc.useQueries((t) => [
+    t.form.all(undefined, {
       enabled: status === "authenticated",
       select: (data) =>
         data?.forms.map((item) => ({
@@ -33,10 +32,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             }),
           text: item.name,
         })),
-    },
-  );
+    }),
+    t.subscription.usage(undefined, { enabled: status === "authenticated" }),
+  ]);
 
-  if (status === "loading" || isLoadingForms) {
+  if (status === "loading" || forms.isLoading || usage.isLoading) {
     return (
       <Loader hasDelay={false}>
         <Splash product="forms" />
@@ -46,7 +46,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Fragment>
-      <Navigation data={data} />
+      <Navigation data={forms.data} />
       {children}
     </Fragment>
   );

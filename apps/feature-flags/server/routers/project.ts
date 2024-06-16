@@ -30,7 +30,7 @@ export const projectRouter = router({
   recent: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.session.user.id;
 
-    return await ctx.prisma.$transaction(async (tx) => {
+    return ctx.prisma.$transaction(async (tx) => {
       const projects = await tx.project.findMany({
         where: {
           users: {
@@ -191,7 +191,7 @@ export const projectRouter = router({
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
-      return await ctx.prisma.$transaction(async (tx) => {
+      return ctx.prisma.$transaction(async (tx) => {
         const project = await tx.project.create({
           data: {
             ...input,
@@ -250,7 +250,7 @@ export const projectRouter = router({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.project.update({
           where: {
             id: input.projectId,
@@ -277,7 +277,7 @@ export const projectRouter = router({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.project.delete({
           where: {
             id: input.projectId,
@@ -302,7 +302,7 @@ export const projectRouter = router({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.projectsOnUsers.create({
           data: {
             project: {
@@ -338,7 +338,7 @@ export const projectRouter = router({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.projectsOnUsers.update({
           where: {
             projectId_userId: {
@@ -373,7 +373,7 @@ export const projectRouter = router({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.projectsOnUsers.delete({
           where: {
             projectId_userId: {

@@ -62,7 +62,10 @@ const SetupPage = () => {
             <SetupGuide formId={formId ?? ""} />
           </Column>
           <Column>
-            <Form formId={formId ?? ""} />
+            <Form
+              formId={formId ?? ""}
+              isFormDisabled={!form?.isEnabled || !form?.hasRetention}
+            />
             <Links />
           </Column>
         </Row>

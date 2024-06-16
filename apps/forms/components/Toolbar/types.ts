@@ -20,7 +20,7 @@ export interface ToolbarProps {
   onExport: () => void;
   onSelectFilter: (value: SelectedFilter | null) => void;
   onSelectSort: (value: SelectedSort | null) => void;
-  onSearchCallback: (value: string) => void;
+  onSearchCallback: (value: string, filter: string) => void;
   isSubmitting?: boolean;
   isLoading?: boolean;
   isActionDisabled?: boolean;
@@ -28,6 +28,7 @@ export interface ToolbarProps {
   isExportDisabled?: boolean;
   isDisabled?: boolean;
   formId: string;
+  searchFilterOptions: { text: string }[];
 }
 
 export type ButtonSharedProps = Pick<ButtonProps, "variant" | "iconPlacement">;

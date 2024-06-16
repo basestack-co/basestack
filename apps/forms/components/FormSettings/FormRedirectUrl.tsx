@@ -10,9 +10,12 @@ import { trpc } from "libs/trpc";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
-import { CardVariant, InputGroup } from "@basestack/design-system";
+import { InputGroup } from "@basestack/design-system";
 // Toast
 import { toast } from "sonner";
+// Utils
+import { PlanTypeId } from "@basestack/utils";
+import { getWithPlanCardProps } from "./utils";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
@@ -24,9 +27,10 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
   redirectUrl?: string;
+  planId: PlanTypeId;
 }
 
-const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
+const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
@@ -59,6 +63,7 @@ const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
       {
         formId,
         redirectUrl: input.url,
+        feature: "hasCustomUrls",
       },
       {
         onSuccess: (result) => {
@@ -85,27 +90,21 @@ const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
     );
   };
 
-  const isBlocked = false;
-  const cardProps = isBlocked
-    ? {
-        button: "Upgrade",
-        onClick: () => null,
-        hasOverlay: true,
-        variant: CardVariant.PRIMARY,
-        label: "Upgrade to Pro",
-      }
-    : {
-        button: t("customization.success-url.action"),
-        onClick: handleSubmit(onSave),
-        isLoading: isSubmitting,
-        isDisabled: isSubmitting || watchUrl === redirectUrl || !!errors.url,
-      };
-
   return (
     <SettingCard
       title={t("customization.redirect-url.title")}
       description={t("customization.redirect-url.description")}
-      {...cardProps}
+      {...getWithPlanCardProps({
+        t,
+        router,
+        planId,
+        feature: "hasCustomUrls",
+        i18nKey: "customization.redirect-url.action",
+        onClick: handleSubmit(onSave),
+        isLoading: isSubmitting,
+        isDisabled: isSubmitting || watchUrl === redirectUrl || !!errors.url,
+        partial: false,
+      })}
     >
       <Controller
         name="url"

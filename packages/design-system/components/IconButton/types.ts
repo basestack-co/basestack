@@ -30,4 +30,8 @@ export interface IconButtonProps
    * Optional size
    */
   size?: Size;
+  /**
+   * isDisabled state
+   */
+  isDisabled?: boolean;
 }

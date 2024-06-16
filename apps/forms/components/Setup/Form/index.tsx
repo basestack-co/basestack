@@ -34,9 +34,10 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
   formId: string;
+  isFormDisabled?: boolean;
 }
 
-const Form = ({ formId }: Props) => {
+const Form = ({ formId, isFormDisabled }: Props) => {
   const theme = useTheme();
   const { t } = useTranslation("forms");
 
@@ -54,6 +55,8 @@ const Form = ({ formId }: Props) => {
       message: "",
     },
   });
+
+  const isDisabled = isSubmitting || isFormDisabled;
 
   const onSave: SubmitHandler<FormInputs> = async (inputs) => {
     try {
@@ -74,6 +77,10 @@ const Form = ({ formId }: Props) => {
       if (data.code === 200) {
         toast.success(t("setup.card.form.toast.success"));
         reset();
+      }
+
+      if (data.error) {
+        toast.error(data.message);
       }
     } catch (error: any) {
       toast.error(error?.message ? error?.message : error);
@@ -105,7 +112,7 @@ const Form = ({ formId }: Props) => {
               onBlur: field.onBlur,
               placeholder: t("setup.card.form.inputs.name.placeholder"),
               hasError: !!errors.name,
-              isDisabled: isSubmitting,
+              isDisabled,
             }}
           />
         )}
@@ -128,7 +135,7 @@ const Form = ({ formId }: Props) => {
               onBlur: field.onBlur,
               placeholder: t("setup.card.form.inputs.email.placeholder"),
               hasError: !!errors.email,
-              isDisabled: isSubmitting,
+              isDisabled,
             }}
           />
         )}
@@ -151,7 +158,7 @@ const Form = ({ formId }: Props) => {
               onBlur: field.onBlur,
               placeholder: t("setup.card.form.inputs.message.placeholder"),
               hasError: !!errors.message,
-              isDisabled: isSubmitting,
+              isDisabled,
             }}
           />
         )}
@@ -161,7 +168,7 @@ const Form = ({ formId }: Props) => {
         fullWidth
         justifyContent="center"
         variant={ButtonVariant.Primary}
-        isDisabled={isSubmitting}
+        isDisabled={isDisabled}
         isLoading={isSubmitting}
         onClick={handleSubmit(onSave)}
       >

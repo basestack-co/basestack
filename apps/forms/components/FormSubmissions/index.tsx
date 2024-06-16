@@ -23,7 +23,7 @@ import FormSubmission from "../FormSubmission";
 // Utils
 import { downloadCSV } from "@basestack/utils";
 import dayjs from "dayjs";
-import { formatFormSubmissions } from "./utils";
+import { formatFormSubmissions, getSearchFilterKeys } from "./utils";
 // Types
 import { Metadata } from "../FormSubmission/types";
 import { SelectedFilter, SelectedSort } from "../Toolbar/types";
@@ -34,14 +34,24 @@ export interface Props {
   name: string;
   hasRetention: boolean;
   isEnabled: boolean;
+  blockIpAddresses?: string;
 }
 
-const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
+const FormSubmissions = ({
+  name,
+  hasRetention,
+  isEnabled,
+  blockIpAddresses,
+}: Props) => {
   const theme = useTheme();
   const trpcUtils = trpc.useUtils();
   const { t } = useTranslation("forms");
   const router = useRouter();
   const [searchValue, setSearchValue] = useState<string>("");
+  const [searchFilter, setSearchFilter] = useState<string>("");
+  const [searchFilterOptions, setSearchFilterOptions] = useState<
+    { text: string }[]
+  >([]);
   const [selectIds, setSelectIds] = useState<string[]>([]);
   const [filters, setFilters] = useState({});
   const [orderBy, setOrderBy] = useState("desc");
@@ -51,12 +61,14 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
   const exportSubmissions = trpc.submission.export.useMutation();
   const deleteSubmissions = trpc.submission.delete.useMutation();
   const updateSubmissions = trpc.submission.update.useMutation();
-  const { data, isLoading, fetchNextPage } =
+
+  const { data, isLoading, fetchNextPage, ...rest } =
     trpc.submission.all.useInfiniteQuery(
       {
         formId,
         limit,
         search: searchValue,
+        searchFilter,
         orderBy,
         ...filters,
       },
@@ -70,8 +82,19 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
     if (formId) {
       setSearchValue("");
       setSelectIds([]);
+      setSearchFilterOptions([]);
     }
   }, [formId]);
+
+  useEffect(() => {
+    if (searchFilterOptions.length <= 0 && (data?.pages.length ?? 0) > 0) {
+      const fallback = [{ text: t("toolbar.search.filter.placeholder") }];
+      const submissions = data?.pages.flatMap((page) => page.submissions) ?? [];
+      const filters = getSearchFilterKeys(submissions);
+
+      setSearchFilterOptions(filters.length <= 0 ? fallback : filters);
+    }
+  }, [data, searchFilterOptions, t]);
 
   const [currentPage, totalPages] = useMemo(() => {
     return [(data?.pages.length ?? 0) * limit, data?.pages?.[0]?.total ?? 0];
@@ -209,6 +232,27 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
     );
   }, []);
 
+  const getSubmissionUpdateLoading = useCallback(
+    (id: string, key: string) => {
+      return (
+        updateSubmissions.isLoading &&
+        (updateSubmissions.variables?.ids ?? []).includes(id) &&
+        updateSubmissions.variables?.hasOwnProperty(key)
+      );
+    },
+    [updateSubmissions],
+  );
+
+  const getSubmissionDeleteLoading = useCallback(
+    (id: string) => {
+      return (
+        deleteSubmissions.isLoading &&
+        (deleteSubmissions.variables?.ids ?? []).includes(id)
+      );
+    },
+    [deleteSubmissions],
+  );
+
   return (
     <>
       <Banners
@@ -246,7 +290,13 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
           onSelectAll={onSelectAllSubmission}
           onSelectFilter={onSelectFilter}
           onSelectSort={onSelectSort}
-          onSearchCallback={(value) => setSearchValue(value)}
+          onSearchCallback={(value, filter) => {
+            // Only set the search filter if the value is not empty
+            if (value) {
+              setSearchFilter(filter);
+            }
+            setSearchValue(value);
+          }}
           isSubmitting={
             deleteSubmissions.isLoading || updateSubmissions.isLoading
           }
@@ -255,6 +305,7 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
           isSelectAllEnabled={isSelectAllEnabled}
           isExportDisabled={exportSubmissions.isLoading}
           isDisabled={totalPages <= 0 && !searchValue}
+          searchFilterOptions={searchFilterOptions}
         />
 
         {totalPages <= 0 && !isLoading && (
@@ -288,6 +339,7 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
                       return (
                         <ListItem key={`submission-item-${id}`}>
                           <FormSubmission
+                            formId={formId}
                             data={formatFormSubmissions(data)}
                             metadata={metadata as unknown as Metadata}
                             date={dayjs(createdAt).fromNow()}
@@ -304,6 +356,18 @@ const FormSubmissions = ({ name, hasRetention, isEnabled }: Props) => {
                               onSelectSubmission(id, checked)
                             }
                             isSelected={selectIds.includes(id)}
+                            blockIpAddresses={blockIpAddresses}
+                            isDeleteSubmissionLoading={getSubmissionDeleteLoading(
+                              id,
+                            )}
+                            isMarkSpamLoading={getSubmissionUpdateLoading(
+                              id,
+                              "isSpam",
+                            )}
+                            isReadSubmissionLoading={getSubmissionUpdateLoading(
+                              id,
+                              "viewed",
+                            )}
                           />
                         </ListItem>
                       );

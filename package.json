@@ -22,9 +22,9 @@
     "update:packages": "yarn upgrade-interactive --latest",
     "dev:packages": "turbo run dev --filter=./packages/*",
     "build:packages": "turbo run build --filter=./packages/*",
-    "build:feature-flags": "turbo run build --filter=feature-flags...",
-    "build:forms": "turbo run build --filter=forms...",
-    "build:landing-page": "turbo run build --filter=landing-page...",
+    "build:feature-flags": "turbo run build --filter=@basestack/feature-flags",
+    "build:forms": "turbo run build --filter=@basestack/forms",
+    "build:landing-page": "turbo run build --filter=@basestack/landing-page",
     "deploy:feature-flags": "turbo run @basestack/feature-flags#deploy",
     "deploy:forms": "turbo run @basestack/forms#deploy",
     "deploy:landing-page": "turbo run @basestack/landing-page#deploy",
@@ -37,11 +37,11 @@
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^9.0.11",
     "is-ci": "^3.0.1",
-    "lint-staged": "^15.2.2",
-    "prettier": "^3.2.5",
-    "turbo": "1.13.3"
+    "lint-staged": "^15.2.5",
+    "prettier": "^3.3.1",
+    "turbo": "^2.0.3"
   },
-  "packageManager": "yarn@1.22.15",
+  "packageManager": "yarn@1.22.18",
   "engines": {
     "node": ">=18.12.0"
   },

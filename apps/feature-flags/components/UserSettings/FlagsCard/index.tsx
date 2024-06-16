@@ -45,9 +45,9 @@ const ModalCard = () => {
 
   return (
     <SettingCard
-      title={t("settings.card.flags.title")}
-      description={t("settings.card.flags.description")}
-      button={t("settings.card.flags.action")}
+      title={t("general.card.flags.title")}
+      description={t("general.card.flags.description")}
+      button={t("general.card.flags.action")}
       onClick={handleSubmit(onSubmit)}
     >
       <>

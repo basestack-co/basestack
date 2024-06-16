@@ -11,6 +11,9 @@ import { trpc } from "libs/trpc";
 import { SettingCard } from "@basestack/ui";
 // Components
 import { InputGroup } from "@basestack/design-system";
+// Utils
+import { PlanTypeId } from "@basestack/utils";
+import { getWithPlanCardProps } from "./utils";
 // Toast
 import { toast } from "sonner";
 // Locales
@@ -24,9 +27,10 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
   errorUrl?: string;
+  planId: PlanTypeId;
 }
 
-const FormFailedUrlCard = ({ errorUrl = "" }: Props) => {
+const FormFailedUrlCard = ({ errorUrl = "", planId }: Props) => {
   const router = useRouter();
   const { t } = useTranslation("settings");
   const trpcUtils = trpc.useUtils();
@@ -59,6 +63,7 @@ const FormFailedUrlCard = ({ errorUrl = "" }: Props) => {
       {
         formId,
         errorUrl: input.url,
+        feature: "hasCustomUrls",
       },
       {
         onSuccess: (result) => {
@@ -89,11 +94,17 @@ const FormFailedUrlCard = ({ errorUrl = "" }: Props) => {
     <SettingCard
       title={t("customization.failed-url.title")}
       description={t("customization.failed-url.description")}
-      button={t("customization.failed-url.action")!}
-      onClick={handleSubmit(onSave)}
-      isDisabled={isSubmitting || watchUrl === errorUrl || !!errors.url}
-      isLoading={isSubmitting}
-      hasFooter
+      {...getWithPlanCardProps({
+        t,
+        router,
+        planId,
+        feature: "hasCustomUrls",
+        i18nKey: "customization.failed-url.action",
+        onClick: handleSubmit(onSave),
+        isLoading: isSubmitting,
+        isDisabled: isSubmitting || watchUrl === errorUrl || !!errors.url,
+        partial: false,
+      })}
     >
       <Controller
         name="url"

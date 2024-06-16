@@ -64,6 +64,13 @@ services:
       - key: GOOGLE_CLIENT_ID
         sync: false
       - key: GOOGLE_CLIENT_SECRET
+      - key: SENTRY_ORG
+        sync: false
+      - key: SENTRY_PROJECT
+        sync: false
+      - key: SENTRY_DSN
+        sync: false
+      - key: SENTRY_AUTH_TOKEN
       - key: EMAIL_FROM
         sync: false
       - key: EMAIL_SMTP_HOST

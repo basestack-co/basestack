@@ -32,3 +32,21 @@ export const downloadCSV = (csvData: string, filename: string): void => {
   link.click();
   document.body.removeChild(link);
 };
+
+export const getCookieValueAsBoolean = (name: string): boolean => {
+  if (typeof document === "undefined") {
+    // Safe guard for server-side rendering
+    return false;
+  }
+
+  const cookies = document.cookie.split(";");
+  for (const cookie of cookies) {
+    const [cookieName, cookieValue] = cookie.trim().split("=");
+    if (cookieName === name) {
+      const lowerCaseValue = cookieValue.toLowerCase();
+      if (lowerCaseValue === "true") return true;
+      if (lowerCaseValue === "false") return false;
+    }
+  }
+  return false;
+};

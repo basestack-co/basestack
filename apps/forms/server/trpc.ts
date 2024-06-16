@@ -5,6 +5,7 @@ import { Context } from "./context";
 import superjson from "superjson";
 // Prisma
 import { getUserInForm } from "libs/prisma/utils/user";
+import { getSubscriptionUsage } from "libs/prisma/utils/subscription";
 
 export type Meta = {
   restricted?: boolean;
@@ -52,10 +53,13 @@ export const isAuthenticated = middleware(
       };
     }
 
+    const usage = await getSubscriptionUsage(ctx.prisma, ctx.session.user.id);
+
     return next({
       ctx: {
         ...ctx,
         session: ctx.session,
+        usage,
       },
     });
   },

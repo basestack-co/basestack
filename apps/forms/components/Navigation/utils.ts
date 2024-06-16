@@ -3,7 +3,7 @@ import { NavigationProps } from "@basestack/ui";
 import { Translate } from "next-translate";
 import { NextRouter } from "next/router";
 // Utils
-import { config } from "@basestack/utils";
+import { config, Product } from "@basestack/utils";
 import { signOut } from "next-auth/react";
 
 export const getLeftLinks = (
@@ -72,13 +72,43 @@ export const getAvatarDropdownList = (
       text: t("dropdown.settings"),
       onClick: () =>
         router.push({
-          pathname: "/user/profile/settings",
+          pathname: "/user/profile/general",
+        }),
+    },
+    {
+      icon: "credit_card",
+      text: t("dropdown.billing"),
+      onClick: () =>
+        router.push({
+          pathname: "/user/profile/billing",
         }),
     },
     {
       icon: "logout",
       text: t("dropdown.logout"),
       onClick: signOut,
+    },
+  ];
+};
+
+export const getAppsList = (
+  t: Translate,
+  onSelectApp: (app: Product) => void,
+) => {
+  return [
+    {
+      onClick: () => null,
+      product: Product.FORMS,
+      title: t("apps.forms.title"),
+      description: t("apps.forms.description"),
+      isActive: true,
+    },
+    {
+      onClick: () => onSelectApp(Product.FLAGS),
+      product: Product.FLAGS,
+      title: t("apps.flags.title"),
+      description: t("apps.flags.description"),
+      isActive: false,
     },
   ];
 };

@@ -22,7 +22,7 @@ export const environmentRouter = router({
     .query(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
-      return await ctx.prisma.project.findFirst({
+      return ctx.prisma.project.findFirst({
         where: {
           id: input.projectId,
           users: {
@@ -56,7 +56,7 @@ export const environmentRouter = router({
       restricted: true,
     })
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.$transaction(async (tx) => {
           // Get all the flags from a selected environment
           const flags = await tx.flag.findMany({
@@ -71,7 +71,7 @@ export const environmentRouter = router({
             },
           });
 
-          return await tx.environment.create({
+          return tx.environment.create({
             data: {
               name: input.name,
               slug: generateSlug(),
@@ -109,7 +109,7 @@ export const environmentRouter = router({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.environment.update({
           where: {
             id: input.environmentId,
@@ -138,7 +138,7 @@ export const environmentRouter = router({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.$transaction(async (tx) => {
           // TODO: find a better way to do this, this is a bit hacky, should be in the same query
           const current = await tx.environment.findFirst({
@@ -147,7 +147,7 @@ export const environmentRouter = router({
 
           // only allow deleting the environment if it's not the default
           if (current && !current.isDefault) {
-            return await tx.environment.delete({
+            return tx.environment.delete({
               where: {
                 id: input.environmentId,
               },

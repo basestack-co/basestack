@@ -1,6 +1,13 @@
 {
-  "settings": {
-    "title": "Profile Settings",
+  "seo": {
+    "setting": {
+      "title": "Profile",
+      "0": "General",
+      "1": "Billing"
+    }
+  },
+  "general": {
+    "title": "General",
     "card": {
       "avatar": {
         "title": "User Name",
@@ -31,6 +38,56 @@
             }
           }
         }
+      }
+    }
+  },
+  "billing": {
+    "price": {
+      "symbol": "$",
+      "abbr": "USD"
+    },
+    "feature": {
+      "submission": "{{value}} submissions",
+      "users": "{{value}} users",
+      "forms": "{{value}} forms"
+    },
+    "segment": {
+      "monthly": "monthly",
+      "yearly": "yearly"
+    },
+    "cycle": {
+      "monthly": "billed monthly",
+      "yearly": "billed yearly"
+    },
+    "cycle-abbr": {
+      "monthly": "mo",
+      "yearly": "yr"
+    },
+    "link": {
+      "compare": "Compare Plans"
+    },
+    "plan": {
+      "free": "Free",
+      "hobby": "Hobby",
+      "launch": "Launch",
+      "scale": "Scale",
+      "current": {
+        "title": "Current Plan",
+        "date": "Renewal date",
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        },
+        "button": "Manage Subscription"
+      },
+      "details": {
+        "lastFour": "Ending in",
+        "expDate": "Exp date",
+        "button": "Update Payment Method"
+      },
+      "upgrade": {
+        "title": "Upgrade Plan",
+        "description": "Select billing cycle"
       }
     }
   }

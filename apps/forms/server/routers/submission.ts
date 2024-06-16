@@ -14,6 +14,7 @@ export const submissionRouter = router({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(),
         search: z.string().optional().nullable(),
+        searchFilter: z.string().optional().nullable(),
         filters: z.object({ isSpam: z.boolean() }).nullable().default(null),
         orderBy: z.string().optional().nullable().default("desc"),
       }),
@@ -25,7 +26,9 @@ export const submissionRouter = router({
       const search = input.search
         ? {
             data: {
-              path: ["email"],
+              path: [input.searchFilter],
+              // This doesn't support case insensitive search
+              // Issue: https://github.com/prisma/prisma/issues/7390
               string_contains: input.search,
             },
           }
@@ -42,7 +45,7 @@ export const submissionRouter = router({
         { id: input.orderBy },
       ] as any;
 
-      return await ctx.prisma.$transaction(async (tx) => {
+      return ctx.prisma.$transaction(async (tx) => {
         const { _count } = await tx.submission.aggregate({
           _count: { id: true },
           where: {

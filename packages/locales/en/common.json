@@ -22,5 +22,15 @@
         "action": "Go back"
       }
     }
+  },
+  "plan": {
+    "forms": {
+      "upgrade": {
+        "partial": "Upgrade to Launch or Scale Plans",
+        "all": "Upgrade to Hobby, Launch or Scale Plans",
+        "description": "Please select the plan you want to upgrade to.",
+        "action": "Upgrade"
+      }
+    }
   }
 }

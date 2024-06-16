@@ -21,12 +21,17 @@ export interface Props {
   onMarkSpam: () => void;
   onReadSubmission: () => void;
   isActionsDisabled?: boolean;
+  isMarkSpamLoading?: boolean;
+  isReadSubmissionLoading?: boolean;
+  isDeleteSubmissionLoading?: boolean;
 }
 
 export interface FormSubmissionProps extends Props {
   onSelect: (value: boolean) => void;
   isSelected: boolean;
   metadata: Metadata;
+  blockIpAddresses?: string;
+  formId: string;
 }
 
 export interface FormSubmissionHeaderProps extends Props {
@@ -39,4 +44,6 @@ export interface FormSubmissionBodyProps {
   isOpen: boolean;
   data: Data;
   metadata: Metadata;
+  blockIpAddresses?: string;
+  formId: string;
 }

@@ -9,6 +9,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       children,
       testId = "card",
       hasHoverAnimation = false,
+      color,
       ...props
     },
     ref,
@@ -18,6 +19,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       ref={ref}
       data-testid={testId}
       variant={variant}
+      color={color as string}
       {...props}
     >
       {children}

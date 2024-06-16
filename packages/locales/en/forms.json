@@ -9,7 +9,10 @@
   },
   "toolbar": {
     "search": {
-      "placeholder": "Search..."
+      "placeholder": "Search...",
+      "filter": {
+        "placeholder": "Search by"
+      }
     },
     "action": {
       "select-all": "Select all",
@@ -35,10 +38,10 @@
   "submission": {
     "alert": {
       "enabled": {
-        "description": "Form is disabled, Activate/Deactivate the form to control submission collection"
+        "description": "The form is currently disabled. To start receiving submissions and access other functionalities, please enable it."
       },
       "retention": {
-        "description": "Data retention is turned off, to see submissions on this page go to settings, and under the general tab enable data retention"
+        "description": "Data retention is currently disabled. To view submissions on this page, navigate to settings, and under the general tab, enable data retention."
       }
     },
     "empty": {
@@ -81,7 +84,12 @@
         "less": "less"
       },
       "ip": {
-        "block": "Block IP Address"
+        "block": "Block IP Address",
+        "unblock": "Unblock IP Address",
+        "success": {
+          "block": "IP Address has been blocked successfully.",
+          "unblock": "IP Address has been unblocked successfully."
+        }
       }
     }
   },

@@ -16,7 +16,7 @@ import {
   ListItem,
   SettingsContainer,
   StyledButton,
-} from "./styles";
+} from "../styles";
 // Hooks
 import { useMedia } from "react-use";
 // Locales
@@ -111,7 +111,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
       <MainLayout>
         <Container>
           <Text size="xLarge" mb={theme.spacing.s5}>
-            Settings
+            {t("internal.settings")}
           </Text>
           <SettingsContainer>
             {isDesktop && <List top={activeLinkIndex * 100}>{renderLink}</List>}
