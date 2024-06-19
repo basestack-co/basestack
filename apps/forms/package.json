@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3003",
-    "dev:trigger": "npx trigger.dev@beta dev --port 3003 --client-id proj_gkgcyqmdxxyquflxhmvu",
+    "dev:trigger": "npx @trigger.dev/cli@latest dev --port 3003 --client-id basestack-forms-rUeL",
     "build": "prisma generate && yarn db:migrate:dev && next build",
     "build:deploy": "prisma generate && yarn db:migrate:prod && next build",
     "build:proxy": "prisma generate --data-proxy && yarn db:migrate:proxy && next build",
