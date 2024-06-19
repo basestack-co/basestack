@@ -278,5 +278,5 @@ export const config = {
   getFormPlanLimitsDefaults,
   getFormPlanVariantId,
   getFormPlanByVariantId,
-  isValidFormPlan
+  isValidFormPlan,
 };
