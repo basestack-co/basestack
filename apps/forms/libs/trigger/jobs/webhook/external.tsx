@@ -1,55 +1,44 @@
-import React from "react";
 import { eventTrigger } from "@trigger.dev/sdk";
 import { triggerClient, TriggerEventName } from "libs/trigger";
-// Email
-import { sendEmail, EmailTemplate } from "@basestack/emails";
-import { render } from "@react-email/render";
 // Utils
 import { z } from "zod";
 
-const template: { [key: string]: React.ElementType } = {
-  "new-submission": EmailTemplate,
-};
-
 triggerClient.defineJob({
-  id: "send-email",
-  name: "Send email notification",
-  version: "1.0.0",
+  id: "send-data-to-external-webhook",
+  name: "Send data to external webhook",
+  version: "1.0.1",
   trigger: eventTrigger({
-    name: TriggerEventName.SEND_EMAIL,
+    name: TriggerEventName.SEND_DATA_TO_EXTERNAL_WEBHOOK,
     schema: z.object({
-      to: z.array(z.string().email()),
-      subject: z.string(),
-      template: z.string(),
+      url: z.string().url(),
+      body: z.any(),
     }),
   }),
-  run: async (payload, io) => {
+  run: async (payload, io, ctx) => {
     await io.logger.info(
-      `Preparing to send email to ${payload.to} with subject: ${payload.subject}`,
+      `Preparing to send data to external webhook: ${payload.url}`,
     );
 
     await io.runTask(
-      "send-email",
+      "send-webhook-data",
       async () => {
-        const Template = template[payload.template];
+        const res = await fetch(payload.url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload.body),
+        });
 
-        await Promise.all(
-          payload.to.map(async (email) => {
-            await sendEmail({
-              html: render(<Template />),
-              options: {
-                subject: payload.subject,
-                from: process.env.EMAIL_FROM!,
-                to: email,
-              },
-            });
-          }),
+        await io.logger.info(
+          `Data sent to the external webhook with status: ${res.status}`,
         );
       },
-
-      { name: "Send Email" },
+      { name: "Send data to the external webhook" },
     );
 
-    await io.logger.info("✨ Email sent successfully! ✨");
+    await io.logger.info(
+      "✨ Data successfully sent to the external webhook ✨",
+    );
   },
 });
