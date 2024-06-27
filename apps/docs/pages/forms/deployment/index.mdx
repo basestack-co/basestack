@@ -1,0 +1,138 @@
+---
+title: Deployment Overview & Configuration
+description: Getting up and running is an easy with various options available.
+---
+
+import { Card, Cards, Callout } from "nextra/components";
+
+export function FAQBox({ title, children, isOpen = true }) {
+  return (
+    <details open={isOpen}>
+      <summary>
+        <strong className="text-lg">{title}</strong>
+      </summary>
+      <div className="nx-p-2">{children}</div>
+    </details>
+  );
+}
+
+# Deployment Overview & Configuration
+
+Getting up and running is an easy with various options available. Simply ensure you have a Postgres database and a server that can run Node.js. Customize all the settings of the Forms Platform by referring to the detailed configuration provided below.
+
+## App hosting
+
+You have the flexibility to host the platform on any service capable of hosting [NextJS ↗](https://nextjs.org/) applications with serverless function support. Additionally, you'll need a separate database running elsewhere that the app can connect to. Some app hosting providers that support include Vercel, more coming, all of which offer a free tier option.
+
+<Cards>
+  <Card title="Vercel" href="/forms/deployment/providers/deploy-vercel" />
+  <Card title="Netlify" href="/forms/deployment/providers/deploy-netlify" />
+</Cards>
+
+## Managed databases
+
+Ensure that the PostgreSQL service or instance supports serverless environments. Any traditional instance of PostgreSQL with connection pooling, such as [PgBouncer ↗](https://www.pgbouncer.org/), will work effectively.
+
+<Cards>
+  <Card
+    title="Neon - Serverless Postgres"
+    href="/forms/deployment/database/neon"
+  />
+</Cards>
+
+## Environment Variables
+
+The platform boasts a straightforward configuration process, requiring a set of essential environment variables to configure the services and run the platform smoothly.
+
+### Database Configuration
+
+| Property              | Description                                               | Required |
+| --------------------- | --------------------------------------------------------- | -------- |
+| `DATABASE_URL`        | Connection URL to your database using PgBouncer.          | true     |
+| `DIRECT_DATABASE_URL` | Direct connection URL to the database used for migrations | true     |
+
+### Authentication Configuration
+
+### General
+
+For the `NEXTAUTH_SECRET` variable you can use `openssl rand -base64 32` or generate a [random value ↗](https://generate-secret.vercel.app/32).
+
+| Property          | Description                                                                 | Required | Example                                              |
+| ----------------- | --------------------------------------------------------------------------- | -------- | ---------------------------------------------------- |
+| `NEXTAUTH_SECRET` | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. | true     | [generate ↗](https://generate-secret.vercel.app/32) |
+| `NEXTAUTH_URL`    | Set to the canonical URL of your site                                       | true     | https://your-basestack-instance.com                  |
+
+### Providers
+
+Authentication Providers in the Platform are services that you and your team can use for signing in. To find the list of supported providers, check below:
+
+<Callout type="info" emoji="ℹ️">
+  You can have multiple Auth providers on the platform, providing you with more
+  options. However, it is essential to configure at least one Auth provider for
+  the platform to function properly.
+</Callout>
+
+- [Github Configuration](/forms/deployment/authentication/github-config)
+- [Auth0 Configuration](/forms/deployment/authentication/auth0-config)
+
+#### Background Jobs Configuration
+
+Because the Forms Platform uses background jobs to handle tasks such as sending emails, you need to configure the following environment variables:
+
+<Callout type="info" emoji="ℹ️">
+  Why [Trigger.dev ↗](https://trigger.dev/)? Since the Basestack Platform can
+  run in serverless environments, using a service like Trigger.dev to handle
+  background jobs is essential. Trigger.dev enables the creation of long-running
+  jobs and is our choice because it is open-source. Alternatively, you can use
+  their cloud service, which offers a free plan.
+</Callout>
+
+<Callout type="warning" emoji="ℹ️">
+  Basestack Forms currently uses Trigger.dev v2, with plans to migrate to v3
+  once it is stable. You can easily self-host Trigger.dev v2 using this
+  [Trigger.dev Template on Railway.app ↗](https://railway.app/template/na6kUS).
+</Callout>
+
+| Property                             | Description                                                                                 | Required |
+| ------------------------------------ | ------------------------------------------------------------------------------------------- | -------- |
+| `TRIGGER_PROJECT_ID`                 | You can find your project's ID on your Trigger.dev instance dashboard.                      | true     |
+| `TRIGGER_API_KEY`                    | Find the key for your environment (Dev, Staging, Prod) on the Trigger.dev dashboard.        | true     |
+| `TRIGGER_API_URL`                    | The URL where your Trigger.dev instance is running (self-hosted or cloud)                   | true     |
+| `NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY` | Find the public key for your environment (Dev, Staging, Prod) on the Trigger.dev dashboard. | true     |
+
+#### Cloudflare API Configuration
+
+The Forms Platform uses Cloudflare services, including Cloudflare AI for spam detection. To configure the Cloudflare API, set the following environment variables:
+
+| Property                | Description                                                | Required | Example                                                                                                                |
+| ----------------------- | ---------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `CLOUDFLARE_ACCOUNT_ID` | You can find your account ID on your Cloudflare dashboard. | true     | [Get Account ID ↗](https://developers.cloudflare.com/workers-ai/get-started/rest-api/#1-get-api-token-and-account-id) |
+| `CLOUDFLARE_API_TOKEN`  | Obtain or create an API token.                             | true     | [Create an API token ↗](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/)                 |
+
+#### Sentry Configuration
+
+| Property            | Description | Required |
+| ------------------- | ----------- | -------- |
+| `SENTRY_ORG`        |             | true     |
+| `SENTRY_PROJECT`    |             | true     |
+| `SENTRY_DSN`        |             | true     |
+| `SENTRY_AUTH_TOKEN` |             | true     |
+
+#### Payments Configuration
+
+| Property                        | Description | Required |
+| ------------------------------- | ----------- | -------- |
+| `LEMONSQUEEZY_STORE_ID`         |             | true     |
+| `LEMONSQUEEZY_SIGNATURE_SECRET` |             | true     |
+| `LEMONSQUEEZY_API_KEY`          |             | true     |
+
+#### Email Configuration
+
+| Property                   | Description | Required | Example                         |
+| -------------------------- | ----------- | -------- | ------------------------------- |
+| `EMAIL_FROM`               |             | true     | `Hello. <hello@yourdomain.com>` |
+| `EMAIL_SMTP_HOST`          |             | true     |                                 |
+| `EMAIL_SMTP_PORT`          |             | true     | 465                             |
+| `EMAIL_SMTP_SECURE`        |             | true     | false                           |
+| `EMAIL_SMTP_AUTH_USER`     |             | true     |                                 |
+| `EMAIL_SMTP_AUTH_PASSWORD` |             | true     |                                 |

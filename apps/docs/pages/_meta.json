@@ -7,6 +7,10 @@
     "title": "Feature Flags",
     "type": "page"
   },
+  "forms": {
+    "title": "Forms",
+    "type": "page"
+  },
   "---": {
     "type": "separator"
   },
@@ -14,6 +18,10 @@
     "title": "Platform",
     "type": "menu",
     "items": {
+      "updates": {
+        "title": "Getting Updates",
+        "href": "/updates"
+      },
       "help": {
         "title": "Help & Support",
         "href": "/help"

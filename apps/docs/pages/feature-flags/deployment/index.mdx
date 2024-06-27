@@ -3,7 +3,7 @@ title: Deployment Overview & Configuration
 description: Getting up and running is a easy with various options available.
 ---
 
-import { Callout } from "nextra/components";
+import { Card, Cards, Callout } from "nextra/components";
 
 export function FAQBox({ title, children, isOpen = true }) {
   return (
@@ -24,15 +24,31 @@ Getting up and running is a easy with various options available. Simply ensure y
 
 You have the flexibility to host the platform on any service capable of hosting [NextJS ↗](https://nextjs.org/) applications with serverless function support. Additionally, you'll need a separate database running elsewhere that the app can connect to. Some app hosting providers that support include Vercel, more coming, all of which offer a free tier option.
 
-- [Vercel](/feature-flags/deployment/deploy-vercel)
-- Stay tuned for more upcoming guides!
+<Cards>
+  <Card
+    title="Vercel"
+    href="/feature-flags/deployment/providers/deploy-vercel"
+  />
+  <Card
+    title="Netlify"
+    href="/feature-flags/deployment/providers/deploy-netlify"
+  />
+  <Card
+    title="Render"
+    href="/feature-flags/deployment/providers/deploy-render"
+  />
+</Cards>
 
 ## Managed databases
 
 Ensure that the PostgreSQL service or instance supports serverless environments. Any traditional instance of PostgreSQL with connection pooling, such as [PgBouncer ↗](https://www.pgbouncer.org/), will work effectively.
 
-- [Neon - Serverless Postgres](/feature-flags/guides/database/neon)
-- Stay tuned for more upcoming guides!
+<Cards>
+  <Card
+    title="Neon - Serverless Postgres"
+    href="/feature-flags/deployment/database/neon"
+  />
+</Cards>
 
 ## Environment Variables
 
@@ -66,8 +82,8 @@ Authentication Providers in the Platform are services that you and your team can
   the platform to function properly.
 </Callout>
 
-- [Github Configuration](/feature-flags/guides/authentication/github-config)
-- [Auth0 Configuration](/feature-flags/guides/authentication/auth0-config)
+- [Github Configuration](/feature-flags/deployment/authentication/github-config)
+- [Auth0 Configuration](/feature-flags/deployment/authentication/auth0-config)
 
 ### API Configuration
 

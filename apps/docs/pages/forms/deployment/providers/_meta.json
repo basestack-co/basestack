@@ -1,0 +1,4 @@
+{
+  "deploy-vercel": "Deploy to Vercel",
+  "deploy-netlify": "Deploy to Netlify"
+}

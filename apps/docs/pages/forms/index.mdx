@@ -1,7 +1,7 @@
 ---
 title: Overview
-description: Basestack Feature Flags is a self-hosting platform that provides an effortless method to host your very own Feature Flags management platform.
-tags: Basestack Feature Flags, Quick Start, Feature Flags Management, Self-Hosting Platform, Hosting Solution, Feature Flag Management Platform, Effortless Method, Quick Setup, Self-Hosted Feature Flags, Overview, Feature Toggles, Feature Flagging Platform, Host Your Own Feature Flags, Feature Flag Implementation, Simplified Feature Management
+description: Basestack Forms is a self-hosting platform that provides an effortless method to host your very own Forms management platform.
+tags: Basestack Forms, Quick Start, Forms Management, Self-Hosting Platform, Hosting Solution, Forms Management Platform, Effortless Method, Quick Setup, Self-Hosted Forms, Overview, Static Forms, Host Your Own Forms, Forms Implementation, Simplified Forms Management
 ---
 
 import { Card, Cards, Callout } from "nextra/components";
@@ -17,7 +17,7 @@ export function FAQBox({ title, children, isOpen = true }) {
   );
 }
 
-# <span style={{fontSize: "32px"}} className="material-symbols-outlined">flag</span> Feature Flags Platform (Preview)
+# <span style={{fontSize: "32px"}} className="material-symbols-outlined">description</span> Forms Platform (Preview)
 
 <Callout type="warning" emoji="⚠️">
   The project is currently in preview, and while some elements may evolve based
@@ -26,11 +26,11 @@ export function FAQBox({ title, children, isOpen = true }) {
   potentially cause disruptions.
 </Callout>
 
-Basestack Feature Flags is a self-hosting platform that provides an effortless method to host your very own Feature Flags management platform. By leveraging services like [Vercel ↗](https://vercel.com/), any developer, whether an indie or startup, gains full control over their features and data. Ultimately, the platform is housed in your account, under your management, giving you complete control over your data.
+Basestack Forms is a self-hosting platform that provides an effortless method to host your very own Forms management platform. By leveraging services like [Vercel ↗](https://vercel.com/), any developer, whether an indie or startup, gains full control over their data. Ultimately, the platform is housed in your account, under your management, giving you complete control over your data.
 
 ## Deploy the Platform
 
-Quickly self-host the Feature Flags Platform on your desired infrastructure. Choose one of the available official guides below, with more coming soon.
+Quickly self-host the Basestack Forms on your desired infrastructure. Choose one of the available official guides below, with more coming soon.
 
 <Cards>
   <Card
@@ -38,7 +38,7 @@ Quickly self-host the Feature Flags Platform on your desired infrastructure. Cho
 change_history
 </span>}
     title="Vercel"
-    href="/feature-flags/deployment/providers/deploy-vercel"
+    href="/forms/deployment/providers/deploy-vercel"
   />
 
 </Cards>
@@ -49,36 +49,13 @@ Alternatively, you have the option to manually fork the [Basestack Platform repo
 
 <Callout type="info" emoji="ℹ️">
   For more comprehensive information about the deployment process, please check
-  out the [Configuration Page](/feature-flags/deployment). This page provides
-  detailed guidance to ensure a successful and seamless deployment of the
-  Feature Flags Platform.
+  out the [Configuration Page](/forms/deployment). This page provides detailed
+  guidance to ensure a successful and seamless deployment of the Forms Platform.
 </Callout>
-
-## SDK´s
-
-After hosting our Feature Flags Platform, take a look at the official SDKs designed to accelerate feature releases in your products.
-
-<Cards>
-  <Card
-    icon={<span className="material-symbols-outlined">data_object</span>}
-    title="Rest API"
-    href="/feature-flags/sdks/rest-api"
-  />
-  <Card
-    icon={<span className="material-symbols-outlined">javascript</span>}
-    title="Javascript & Node"
-    href="/feature-flags/sdks/javascript"
-  />
-  <Card
-    icon={<span className="material-symbols-outlined">code</span>}
-    title="React"
-    href="/feature-flags/sdks/react"
-  />
-</Cards>
 
 ## Frequently Asked Questions (FAQs)
 
-Explore our collection of useful questions and answers about the Feature Flags Platform. If you don't find the answer to your question here, feel free to [open a discussion](https://github.com/basestack-co/basestack/discussions). We're here to help!
+Explore our collection of useful questions and answers about the Forms Platform. If you don't find the answer to your question here, feel free to [open a discussion](https://github.com/basestack-co/basestack/discussions). We're here to help!
 
 <FAQBox title="What are the requirements for self-hosting" isOpen={false}>
   Any service that can host a [NextJS ↗](https://nextjs.org/) applications with
@@ -94,7 +71,7 @@ Explore our collection of useful questions and answers about the Feature Flags P
 
 If you prefer not to use a third-party service, keep in mind that any traditional instance of PostgreSQL with connection pooling, such as [PgBouncer ↗](https://www.pgbouncer.org/), will work effectively.
 
-- [Neon - Serverless Postgres](/feature-flags/deployment/database/neon)
+- [Neon - Serverless Postgres](/forms/deployment/database/neon)
 - Stay tuned for more upcoming guides!
 
 </FAQBox>

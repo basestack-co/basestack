@@ -20,7 +20,7 @@
     "@types/react": "18.3.3",
     "@types/react-dom": "^18.3.0",
     "jest-styled-components": "^7.2.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.2"
   },
   "dependencies": {
     "@basestack/design-system": "*",

@@ -34,7 +34,7 @@ Ensure that you have an operational PostgreSQL database server capable of accept
 
 If you do not already have a database, consider selecting one from the recommended list below:
 
-- [Neon - Serverless Postgres](/feature-flags/guides/database/neon)
+- [Neon - Serverless Postgres](/feature-flags/deployment/database/neon)
 
   During the deployment step, you will be prompted to provide two environment variables for the database. The first is `DATABASE_URL`, which is the Connection URL to your database using PgBouncer. The second is `DIRECT_DATABASE_URL`, which serves as the direct connection URL to the database, used for migrations.
 
@@ -63,7 +63,7 @@ Once you've successfully created a new [OAuth App](https://github.com/settings/d
   For more granular control over authentication aspects, including rules,
   enabling or disabling account creation, and allowing account creation with
   credentials (email and password), we recommend using
-  [Auth0](/feature-flags/guides/authentication/auth0-config).
+  [Auth0](/feature-flags/deployment/authentication/auth0-config).
 </Callout>
 
 ### Finally, proceed with the deployment.
