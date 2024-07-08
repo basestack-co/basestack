@@ -22,6 +22,10 @@
     "title": "Platform",
     "type": "menu",
     "items": {
+      "faqs": {
+        "title": "FAQs",
+        "href": "/faqs"
+      },
       "updates": {
         "title": "Getting Updates",
         "href": "/updates"
