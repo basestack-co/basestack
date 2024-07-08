@@ -1,5 +1,5 @@
 ---
-title: Deployment Overview & Configuration
+title: Basestack Forms - Deployment Overview & Configuration
 description: Getting up and running is an easy with various options available.
 ---
 
@@ -111,28 +111,48 @@ The Forms Platform uses Cloudflare services, including Cloudflare AI for spam de
 
 #### Sentry Configuration
 
-| Property            | Description | Required |
-| ------------------- | ----------- | -------- |
-| `SENTRY_ORG`        |             | true     |
-| `SENTRY_PROJECT`    |             | true     |
-| `SENTRY_DSN`        |             | true     |
-| `SENTRY_AUTH_TOKEN` |             | true     |
+The Forms Platform uses [Sentry ↗](https://sentry.io/welcome/) for error tracking. To configure Sentry, set the following environment variables:
+
+| Property            | Description                                                                                        | Required |
+| ------------------- | -------------------------------------------------------------------------------------------------- | -------- |
+| `SENTRY_ORG`        | Organization slug in Sentry, identifying the account or organization context.                      | true     |
+| `SENTRY_PROJECT`    | Project slug in Sentry, identifying the specific project within the organization.                  | true     |
+| `SENTRY_DSN`        | Data Source Name (DSN) for Sentry, a unique identifier used to send events to Sentry.              | true     |
+| `SENTRY_AUTH_TOKEN` | Authentication token for Sentry API access, providing authorized interaction with Sentry services. | true     |
 
 #### Payments Configuration
 
-| Property                        | Description | Required |
-| ------------------------------- | ----------- | -------- |
-| `LEMONSQUEEZY_STORE_ID`         |             | true     |
-| `LEMONSQUEEZY_SIGNATURE_SECRET` |             | true     |
-| `LEMONSQUEEZY_API_KEY`          |             | true     |
+The Forms Platform uses [LemonSqueezy ↗](https://www.lemonsqueezy.com/) for payments. To configure [LemonSqueezy ↗](https://www.lemonsqueezy.com/), set the following environment variables:
+
+| Property                        | Description                                                                                           | Required |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------- | -------- |
+| `LEMONSQUEEZY_STORE_ID`         | Store identifier for LemonSqueezy, identifying the specific store or account within the system.       | false    |
+| `LEMONSQUEEZY_SIGNATURE_SECRET` | Secret key used for request signature validation in LemonSqueezy, ensuring secure API communications. | false    |
+| `LEMONSQUEEZY_API_KEY`          | API key for accessing LemonSqueezy services, facilitating authorized interaction with the platform.   | false    |
+
+#### CORS Configuration
+
+We highly recommend securing the `REST API` requests to ensure they originate from the same domain as your services. You can modify the variables below to align with your product domains.
+
+| Property                          | Description                                                                             | Required | Example |
+| --------------------------------- | --------------------------------------------------------------------------------------- | -------- | ------- |
+| `API_ACCESS_CONTROL_ALLOW_ORIGIN` | Indicates whether the response can be shared with requesting code from the given origin | false    | \*      |
 
 #### Email Configuration
 
-| Property                   | Description | Required | Example                         |
-| -------------------------- | ----------- | -------- | ------------------------------- |
-| `EMAIL_FROM`               |             | true     | `Hello. <hello@yourdomain.com>` |
-| `EMAIL_SMTP_HOST`          |             | true     |                                 |
-| `EMAIL_SMTP_PORT`          |             | true     | 465                             |
-| `EMAIL_SMTP_SECURE`        |             | true     | false                           |
-| `EMAIL_SMTP_AUTH_USER`     |             | true     |                                 |
-| `EMAIL_SMTP_AUTH_PASSWORD` |             | true     |                                 |
+The Forms Platform uses SMTP for sending emails. To configure SMTP, set the following environment variables:
+
+<Callout type="info" emoji="ℹ️">
+  You can use any transactional email service, such as [SendGrid
+  ↗](https://sendgrid.com/en-us), [Mailgun ↗](https://www.mailgun.com/), or
+  [Resend ↗](https://resend.com) to send emails.
+</Callout>
+
+| Property                   | Description                                                                         | Required | Example                         |
+| -------------------------- | ----------------------------------------------------------------------------------- | -------- | ------------------------------- |
+| `EMAIL_FROM`               | Sender email address used in outgoing emails.                                       | true     | `Hello. <hello@yourdomain.com>` |
+| `EMAIL_SMTP_HOST`          | SMTP server hostname or IP address for sending emails.                              | true     |                                 |
+| `EMAIL_SMTP_PORT`          | SMTP port number used for email transmission.                                       | true     | 465                             |
+| `EMAIL_SMTP_SECURE`        | Boolean indicating whether SMTP connection should be secured (e.g., true or false). | true     | false                           |
+| `EMAIL_SMTP_AUTH_USER`     | SMTP authentication username for authenticating to the SMTP server.                 | true     |                                 |
+| `EMAIL_SMTP_AUTH_PASSWORD` | SMTP authentication password for authenticating to the SMTP server.                 | true     |                                 |

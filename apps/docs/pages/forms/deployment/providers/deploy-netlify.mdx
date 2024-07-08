@@ -1,9 +1,9 @@
 ---
-title: Deploy to Netlify
+title: Basestack Forms - Deploy to Netlify
 description: Netlify is a cloud-based platform and service that offers web hosting, serverless computing, and automation tools for web developers.
 ---
 
-import { Steps, Callout, Card, Cards } from "nextra/components";
+import { Steps, Callout } from "nextra/components";
 
 # Deploy to Netlify
 
@@ -38,13 +38,13 @@ To simplify this guide, we will use [Github ↗](https://github.com/) as the aut
 <Callout type="info" emoji="ℹ️">
   If you don't have a Project URL yet, you can leave it blank for now. Check out
   the [Troubleshooting
-  section](/feature-flags/deployment/deploy-netlify#troubleshooting) for further
+  section](/forms/deployment/deploy-netlify#troubleshooting) for further
   assistance.
 </Callout>
 
 ```bash
-"Application name": "Feature Flags by Basestack"
-"Homepage URL": "https://your-basestack-instance.com"
+"Application name": "Forms by Basestack"
+"Homepage URL": "https://your-basestack-forms-instance.com"
 "Authorization callback URL": "https://your-basestack-instance.com/api/auth/callback/github"
 ```
 
@@ -72,7 +72,7 @@ the project to your GitHub account and import it manually into your Netlify
 account dashboard. The rest of the process remains the same in terms of
 configuration, such as Environment Variables and Project Settings. For more
 details, refer to the [Getting Updates
-Page](/feature-flags/deployment/updates).
+Page](/updates).
 
 ##### Import to Netlify
 
@@ -84,16 +84,16 @@ Page](/feature-flags/deployment/updates).
 
 ```bash
 "Base directory": "/"
-"Site to deploy": "apps/feature-flags"
-"Build command": "yarn deploy:feature-flags"
-"Publish directory": "apps/feature-flags/.next"
+"Site to deploy": "apps/forms"
+"Build command": "yarn deploy:forms"
+"Publish directory": "apps/forms/.next"
 ```
 
 6. Your deploy will be automatically built. Each git push will trigger a new deployment.
 
 ##### Environment Variables
 
-To ensure a successful deployment on Netlify, the platform requires a minimum set of environment variables. Below is the list of environment variables that you must fill in. For the complete list of Environment Variables, please refer to the [Configuration Page](/feature-flags/deployment#environment-variables).
+To ensure a successful deployment on Netlify, the platform requires a minimum set of environment variables. Below is the list of environment variables that you must fill in. For the complete list of Environment Variables, please refer to the [Configuration Page](/forms/deployment#environment-variables).
 
 | Property               | Description                                                                                 | Value   |
 | ---------------------- | ------------------------------------------------------------------------------------------- | ------- |
@@ -115,33 +115,12 @@ To ensure a successful deployment on Netlify, the platform requires a minimum se
 
 ## What's next?
 
-Begin by familiarizing yourself with the platform. Create projects, add new feature flags, invite members, and implement the feature flags in your product using our official SDKs.
-
-<Cards>
-  <Card
-    icon={<span className="material-symbols-outlined">data_object</span>}
-    title="Rest API"
-    href="/feature-flags/sdks/rest-api"
-  />
-  <Card
-    icon={<span className="material-symbols-outlined">javascript</span>}
-    title="Javascript & Node"
-    href="/feature-flags/sdks/javascript"
-  />
-  <Card
-    icon={<span className="material-symbols-outlined">code</span>}
-    title="React"
-    href="/feature-flags/sdks/react"
-  />
-</Cards>
-
-Lastly, stay tuned about updates, including new features and bug fixes. To ensure your platform is always up-to-date with the latest improvements, refer to our guide on updating the platform by visiting the [Updates Page](/feature-flags/deployment/updates).
+Begin by familiarizing yourself with the platform. Lastly, stay tuned about updates, including new features and bug fixes. To ensure your platform is always up-to-date with the latest improvements, refer to our guide on updating the platform by visiting the [Updates Page](/updates).
 
 <Callout type="info" emoji="ℹ️">
   For more comprehensive information about the deployment process, please check
-  out the [Configuration Page](/feature-flags/deployment). This page provides
-  detailed guidance to ensure a successful and seamless deployment of the
-  Feature Flags Platform.
+  out the [Configuration Page](/forms/deployment). This page provides detailed
+  guidance to ensure a successful and seamless deployment of the Forms Platform.
 </Callout>
 
 ## Troubleshooting

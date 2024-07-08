@@ -1,13 +1,13 @@
 ---
-title: Deploy to Vercel
+title: Basestack Forms - Deploy to Vercel
 description: Vercel is the company behind the Next.js framework, which is used by Basestack.
 ---
 
-import { Steps, Callout, Card, Cards } from "nextra/components";
+import { Steps, Callout } from "nextra/components";
 
 # Deploy to Vercel
 
-[Vercel ↗](https://vercel.com/) is the company behind the Next.js framework, which is used by Basestack. [Vercel Pricing ↗](https://vercel.com/pricing) also offers a free hosting service perfectly suited for Next.js applications. Continue with the steps below to get started deploying the platform to your account and begin creating new flags.
+[Vercel ↗](https://vercel.com/) is the company behind the Next.js framework, which is used by Basestack. [Vercel Pricing ↗](https://vercel.com/pricing) also offers a free hosting service perfectly suited for Next.js applications. Continue with the steps below to get started deploying the platform to your account and begin creating new forms.
 
 In this quick start guide, we demonstrate just how effortless it is to host the platform on [Vercel ↗](https://vercel.com/), complemented by a Database hosted at [Neon ↗](https://neon.tech/). Best of all, both services offer perfect free plans, allowing you to explore the platform and scale up as you progress.
 
@@ -16,8 +16,7 @@ In this quick start guide, we demonstrate just how effortless it is to host the 
   the project to your GitHub account and import it manually into your Vercel
   account dashboard. The rest of the process remains the same in terms of
   configuration, such as Environment Variables and Project Settings. For more
-  details, refer to the [Getting Updates
-  Page](/feature-flags/deployment/updates).
+  details, refer to the [Getting Updates Page](/updates).
 </Callout>
 
 ## Getting started
@@ -46,15 +45,14 @@ To simplify this guide, we will use [Github ↗](https://github.com/) as the aut
 
 <Callout type="info" emoji="ℹ️">
   If you don't have a Project URL yet, you can leave it blank for now. Check out
-  the [Troubleshooting
-  section](/feature-flags/deployment/deploy-vercel#troubleshooting) for further
-  assistance.
+  the [Troubleshooting section](/forms/deployment/deploy-vercel#troubleshooting)
+  for further assistance.
 </Callout>
 
 ```bash
-"Application name": "Feature Flags by Basestack"
-"Homepage URL": "https://your-basestack-instance.com"
-"Authorization callback URL": "https://your-basestack-instance.com/api/auth/callback/github"
+"Application name": "Forms by Basestack"
+"Homepage URL": "https://your-basestack-forms-instance.com"
+"Authorization callback URL": "https://your-basestack-forms-instance.com/api/auth/callback/github"
 ```
 
 Once you've successfully created a new [OAuth App](https://github.com/settings/developers), it will generate two important keys: `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET`. Be sure to save these keys for later use during the deployment step, as they will be needed as environment variables.
@@ -78,11 +76,11 @@ By clicking on the button above, a new repository will be created in your GitHub
 
 #### Option 2: Fork the Platform
 
-Alternatively, you have the option to manually fork the [Basestack Platform repository](https://github.com/basestack-co/basestack). This provides greater control over [updates](/feature-flags/deployment/updates) and even allows you to [contribute](/contributing) to the project if desired.
+Alternatively, you have the option to manually fork the [Basestack Platform repository](https://github.com/basestack-co/basestack). This provides greater control over [updates](/updates) and even allows you to [contribute](/contributing) to the project if desired.
 
 ##### Environment Variables
 
-To ensure a successful deployment on Vercel, the platform requires a minimum set of environment variables. Below is the list of environment variables that you must fill in. For the complete list of Environment Variables, please refer to the [Configuration Page](/feature-flags/deployment#environment-variables).
+To ensure a successful deployment on Vercel, the platform requires a minimum set of environment variables. Below is the list of environment variables that you must fill in. For the complete list of Environment Variables, please refer to the [Configuration Page](/forms/deployment#environment-variables).
 
 | Property               | Description                                                                                 |
 | ---------------------- | ------------------------------------------------------------------------------------------- |
@@ -103,8 +101,8 @@ To ensure a successful deployment on Vercel, the platform requires a minimum set
 In your new Project Settings on Vercel, navigate to the **Build & Development Settings** section and complete the form with the following settings:
 
 ```bash
-  "Build Command": "yarn deploy:feature-flags"
-  "Output Directory": "apps/feature-flags/.next"
+  "Build Command": "yarn deploy:forms"
+  "Output Directory": "apps/forms/.next"
   "Install Command": "yarn install"
   "Development Command": "next"
   "Root Directory": " " # just leave it empty
@@ -114,33 +112,13 @@ In your new Project Settings on Vercel, navigate to the **Build & Development Se
 
 ## What's next?
 
-Begin by familiarizing yourself with the platform. Create projects, add new feature flags, invite members, and implement the feature flags in your product using our official SDKs.
-
-<Cards>
-  <Card
-    icon={<span className="material-symbols-outlined">data_object</span>}
-    title="Rest API"
-    href="/feature-flags/sdks/rest-api"
-  />
-  <Card
-    icon={<span className="material-symbols-outlined">javascript</span>}
-    title="Javascript & Node"
-    href="/feature-flags/sdks/javascript"
-  />
-  <Card
-    icon={<span className="material-symbols-outlined">code</span>}
-    title="React"
-    href="/feature-flags/sdks/react"
-  />
-</Cards>
-
-Lastly, stay tuned about updates, including new features and bug fixes. To ensure your platform is always up-to-date with the latest improvements, refer to our guide on updating the platform by visiting the [Updates Page](/feature-flags/deployment/updates).
+Begin by familiarizing yourself with the platform. Lastly, stay tuned about updates, including new features and bug fixes. To ensure your platform is always up-to-date with the latest improvements, refer to our guide on updating the platform by visiting the [Updates Page](/updates).
 
 <Callout type="info" emoji="ℹ️">
   For more comprehensive information about the deployment process, please check
-  out the [Configuration Page](/feature-flags/deployment). This page provides
-  detailed guidance to ensure a successful and seamless deployment of the
-  Feature Flags Platform.
+  out the [Configuration Page](/forms/deployment). This page provides detailed
+  guidance to ensure a successful and seamless deployment of the Forms
+  Platform.
 </Callout>
 
 ## Troubleshooting
