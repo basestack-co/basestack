@@ -1,0 +1,33 @@
+---
+title: Basestack Platform - Google Auth Configuration Guide
+description: Authentication through Google enables you to sign in to the platform using your Google account.
+---
+
+import { Callout } from "nextra/components";
+
+# Google Auth Configuration Guide
+
+Authentication through [Google OAuth ↗](https://developers.google.com/identity/protocols/oauth2) enables you to sign in to the platform using your Google account. For detailed guidance on how to implement this, please follow the official links from the provider..
+
+- [Documentation](https://developers.google.com/identity/protocols/oauth2)
+- [Configuration](https://console.cloud.google.com/apis/credentials)
+
+#### Google OAuth App Settings
+
+Create a new [OAuth App](https://console.cloud.google.com/apis/credentials) by filling out the form with the following settings:
+
+```bash
+"Name": "Basestack Auth"
+"Authorized JavaScript origins": "https://your-basestack-instance.com"
+"Authorization callback URL": "https://your-basestack-instance.com/api/auth/callback/google"
+```
+
+#### Self-Hosting Environment Variables
+
+For more comprehensive information about the deployment process, please check
+out the [Configuration Page](/self-hosting).
+
+| Property             | Required |
+| -------------------- | -------- |
+| `AUTH_GOOGLE_ID`     | true     |
+| `AUTH_GOOGLE_SECRET` | true     |

@@ -1,32 +1,32 @@
 services:
-  # - type: web
-  # name: basestack-landing-page
-  # rootDir: no need to specify rootDir
-  # runtime: static
-  # buildCommand: yarn; yarn deploy:landing-page
-  # staticPublishPath: apps/landing-page/out
-  # pullRequestPreviewsEnabled: false
-  # envVars:
-  #   - key: SKIP_INSTALL_DEPS
-  #     value: true # disables npm install to use yarn
-  #   - key: NODE_VERSION
-  #     value: 18.12.0
-  #   - key: NEXT_PUBLIC_EMAIL_SERVICE
-  #     sync: false
-  #   - key: NEXT_PUBLIC_UMAMI_WEBSITE_ID
-  #     sync: false
-  #- type: web
-  #  name: basestack-docs
-  # rootDir: no need to specify rootDir
-  #  runtime: static
-  #  buildCommand: yarn; yarn deploy:docs
-  #  staticPublishPath: apps/docs/out
-  #  pullRequestPreviewsEnabled: false
-  #  envVars:
-  #    - key: SKIP_INSTALL_DEPS
-  #      value: true # disables npm install to use yarn
-  #    - key: NODE_VERSION
-  #      value: 18.12.0
+  - type: web
+    name: basestack-landing-page
+    # rootDir: no need to specify rootDir
+    runtime: static
+    buildCommand: yarn; yarn deploy:landing-page
+    staticPublishPath: apps/landing-page/out
+    pullRequestPreviewsEnabled: false
+    envVars:
+      - key: SKIP_INSTALL_DEPS
+        value: "true" # disables npm install to use yarn
+      - key: NODE_VERSION
+        value: 21.1.0
+      - key: NEXT_PUBLIC_EMAIL_SERVICE
+        sync: false
+      - key: NEXT_PUBLIC_UMAMI_WEBSITE_ID
+        sync: false
+  - type: web
+    name: basestack-docs
+    # rootDir: no need to specify rootDir
+    runtime: static
+    buildCommand: yarn; yarn deploy:docs
+    staticPublishPath: apps/docs/out
+    pullRequestPreviewsEnabled: false
+    envVars:
+      - key: SKIP_INSTALL_DEPS
+        value: "true" # disables npm install to use yarn
+      - key: NODE_VERSION
+        value: 21.1.0
   - type: web
     name: basestack-feature-flags-app
     # rootDir: no need to specify rootDir
@@ -39,52 +39,40 @@ services:
     autoDeploy: true
     healthCheckPath: /api/trpc/healthcheck
     envVars:
-      - key: SKIP_INSTALL_DEPS
-        value: true # disables npm install to use yarn
-      - key: DATABASE_URL
-        value: postgres://USER:PASSWORD@PGBOUNCER_HOST:PORT/DATABASE # Navigate to the pgbouncer service to find the URL that your applications should connect to
+      - fromGroup: basestack-env-group
+        # DATABASE
       - key: DIRECT_DATABASE_URL
         fromDatabase:
           name: basestack-feature-flags-db
           property: connectionString
-      - key: NEXTAUTH_SECRET
-        sync: false # use openssl rand -base64 32 or generate a random value at https://generate-secret.vercel.app/32
-      - key: NEXTAUTH_URL
-        value: https://your-app.onrender.com # replace with your app's URL
-      - key: GITHUB_CLIENT_ID
+        # BACKGROUND JOBS - CONFIGURATION
+      - key: TRIGGER_PROJECT_ID
         sync: false
-      - key: GITHUB_CLIENT_SECRET
+      - key: NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY
         sync: false
-      - key: AUTH0_CLIENT_ID
+  - type: web
+    name: basestack-forms-app
+    # rootDir: no need to specify rootDir
+    runtime: node
+    buildCommand: yarn add turbo -W; yarn; yarn deploy:forms
+    startCommand: cd apps/forms; yarn start
+    pullRequestPreviewsEnabled: false
+    region: frankfurt # change to your preferred region. options: frankfurt, oregon, singapore, ohio
+    plan: starter
+    autoDeploy: true
+    healthCheckPath: /api/trpc/healthcheck
+    envVars:
+      - fromGroup: basestack-env-group
+        # DATABASE
+      - key: DIRECT_DATABASE_URL
+        fromDatabase:
+          name: basestack-forms-db
+          property: connectionString
+        # BACKGROUND JOBS - CONFIGURATION
+      - key: TRIGGER_PROJECT_ID
         sync: false
-      - key: AUTH0_CLIENT_SECRET
+      - key: NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY
         sync: false
-      - key: AUTH0_DOMAIN
-        sync: false
-      - key: GOOGLE_CLIENT_ID
-        sync: false
-      - key: GOOGLE_CLIENT_SECRET
-      - key: SENTRY_ORG
-        sync: false
-      - key: SENTRY_PROJECT
-        sync: false
-      - key: SENTRY_DSN
-        sync: false
-      - key: SENTRY_AUTH_TOKEN
-      - key: EMAIL_FROM
-        sync: false
-      - key: EMAIL_SMTP_HOST
-        sync: false
-      - key: EMAIL_SMTP_PORT
-        value: 465
-      - key: EMAIL_SMTP_SECURE
-        sync: false
-      - key: EMAIL_SMTP_AUTH_USER
-        sync: false
-      - key: EMAIL_SMTP_AUTH_PASSWORD
-        sync: false
-      - key: NODE_VERSION
-        value: 21.1.0
   - type: pserv
     name: basestack-feature-flags-db-pgbouncer
     runtime: docker
@@ -104,8 +92,85 @@ services:
         value: 500
       - key: DEFAULT_POOL_SIZE
         value: 50
+  - type: pserv
+    name: basestack-forms-db-pgbouncer
+    runtime: docker
+    region: frankfurt
+    plan: starter
+    repo: https://github.com/render-oss/docker-pgbouncer
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: basestack-forms-db
+          property: connectionString
+      - key: POOL_MODE
+        value: transaction
+      - key: SERVER_RESET_QUERY
+        value: DISCARD ALL
+      - key: MAX_CLIENT_CONN
+        value: 500
+      - key: DEFAULT_POOL_SIZE
+        value: 50
 databases:
   - name: basestack-feature-flags-db
     region: frankfurt # change to your preferred region. options: frankfurt, oregon, singapore, ohio
     plan: starter
     ipAllowList: [] # only allow internal connections
+  - name: basestack-forms-db
+    region: frankfurt
+    plan: starter
+    ipAllowList: []
+envVarGroups:
+  - name: basestack-env-group
+    envVars:
+      # DATABASE
+      - key: DATABASE_URL
+        value: "postgres://USER:PASSWORD@PGBOUNCER_HOST:PORT/DATABASE" # Navigate to the pgbouncer service to find the URL that your applications should connect to
+        # AUTHENTICATION
+        # use openssl rand -base64 32 or generate a random value at https://generate-secret.vercel.app/32
+      - key: NEXTAUTH_SECRET
+      - key: NEXTAUTH_URL
+        value: "https://your-app.onrender.com" # replace with your app's URL
+        # AUTHENTICATION - GITHUB
+      - key: GITHUB_CLIENT_ID
+      - key: GITHUB_CLIENT_SECRET
+        # AUTHENTICATION - AUTH0
+      - key: AUTH0_CLIENT_ID
+      - key: AUTH0_CLIENT_SECRET
+      - key: AUTH0_DOMAIN
+        # AUTHENTICATION - GOOGLE
+      - key: GOOGLE_CLIENT_ID
+      - key: GOOGLE_CLIENT_SECRET
+        # SENTRY - CONFIGURATION
+      - key: SENTRY_ORG
+      - key: SENTRY_PROJECT
+      - key: SENTRY_DSN
+      - key: SENTRY_AUTH_TOKEN
+        # EMAIL - CONFIGURATION
+      - key: EMAIL_FROM
+        value: "Hello. <hello@yourdomain.com>"
+      - key: EMAIL_SMTP_HOST
+      - key: EMAIL_SMTP_PORT
+        value: 465
+      - key: EMAIL_SMTP_SECURE
+      - key: EMAIL_SMTP_AUTH_USER
+      - key: EMAIL_SMTP_AUTH_PASSWORD
+        # BACKGROUND JOBS - CONFIGURATION
+      - key: TRIGGER_API_KEY
+      - key: TRIGGER_API_URL
+        # CORS - API CONFIGURATION
+      - key: API_ACCESS_CONTROL_ALLOW_ORIGIN
+        value: "http://localhost:3003"
+        # CORS - API CONFIGURATION
+      - key: LEMONSQUEEZY_STORE_ID
+      - key: LEMONSQUEEZY_SIGNATURE_SECRET
+      - key: LEMONSQUEEZY_API_KEY
+        # CLOUDFLARE API - CONFIGURATION
+        # Used for services like Cloudflare AI
+      - key: CLOUDFLARE_ACCOUNT_ID
+      - key: CLOUDFLARE_API_TOKEN
+        # COMMON
+      - key: NODE_VERSION
+        value: 21.1.0
+      - key: SKIP_INSTALL_DEPS
+        value: "true" # disables npm install to use yarn
