@@ -1,3 +1,4 @@
 {
-  "neon": "Neon - Serverless Postgres"
+  "neon": "Neon - Serverless Postgres",
+  "supabase": "Supabase Postgres"
 }
