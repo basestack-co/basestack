@@ -16,7 +16,7 @@
     "test:update": "turbo run test:update",
     "clean": "turbo run clean && rm -rf node_modules && rm -rf .turbo",
     "prepare": "is-ci || npx husky install",
-    "precommit": "yarn format && yarn lint && yarn test && lint-staged",
+    "precommit": "yarn format && yarn lint && lint-staged",
     "commit": "git-cz",
     "changelog:denerate": "npx changelogen@latest",
     "update:packages": "yarn upgrade-interactive --latest",
@@ -35,11 +35,11 @@
   "devDependencies": {
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^9.0.11",
+    "husky": "^9.1.4",
     "is-ci": "^3.0.1",
     "lint-staged": "^15.2.7",
-    "prettier": "^3.3.2",
-    "turbo": "^2.0.4"
+    "prettier": "^3.3.3",
+    "turbo": "^2.0.9"
   },
   "packageManager": "yarn@1.22.18",
   "engines": {

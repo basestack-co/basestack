@@ -10,7 +10,7 @@
 #### Tools
 
 - ⛳ Feature Flags (In Progress) [Docs](https://docs.basestack.co/feature-flags) | [Website](https://basestack.co/)
-- 📄 Forms (In Progress)
+- 📄 Forms (In Progress) [Docs](https://docs.basestack.co/forms) | [Website](https://basestack.co/)
 - 💬 Feedback (Planned)
 - ⏳ UpTime (Planned)
 

@@ -1,6 +1,7 @@
 ---
-title: Github Auth Configuration Guide
+title: Basestack Platform - Github Auth Configuration Guide
 description: Authentication through Github enables you to sign in to the platform using your Github account.
+tags: Basestack, Github, Configuration Guide, Authentication, OAuth, Github Application Settings, Self-Hosting Environment Variables
 ---
 
 import { Callout } from "nextra/components";
@@ -18,7 +19,7 @@ Authentication through [Github ↗](https://github.com/) enables you to sign in 
 Create a new [OAuth App](https://github.com/settings/developers) by filling out the form with the following settings:
 
 ```bash
-"Application name": "Feature Flags by Basestack"
+"Application name": "Feature Forms by Basestack"
 "Homepage URL": "https://your-basestack-instance.com"
 "Authorization callback URL": "https://your-basestack-instance.com/api/auth/callback/github"
 ```
@@ -26,7 +27,7 @@ Create a new [OAuth App](https://github.com/settings/developers) by filling out 
 #### Self-Hosting Environment Variables
 
 For more comprehensive information about the deployment process, please check
-out the [Configuration Page](/feature-flags/deployment).
+out the [Configuration Page](/self-hosting).
 
 <Callout type="warning" emoji="⚠️">
   Only one callback URL per Client ID / Client Secret.

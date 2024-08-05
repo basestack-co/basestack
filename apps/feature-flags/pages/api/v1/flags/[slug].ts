@@ -53,6 +53,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 export default withCors(
-  Cors,
+  cors,
   withHeaders(["x-project-key", "x-environment-key"], handler),
 );

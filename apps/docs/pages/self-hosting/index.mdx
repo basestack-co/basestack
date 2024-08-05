@@ -1,0 +1,183 @@
+---
+title: Basestack Platform - Self-Hosting
+description: Basestack Platform is a self-hosting platform that provides an effortless method to host your tools and services.
+tags: self-hosting, platform, basestack, deployment, vercel, netlify, hosting, serverless, postgresql, database, nextjs, vercel, neon, supabase, pgbouncer
+---
+
+import { Card, Cards, Callout, Tabs } from "nextra/components";
+
+export function FAQBox({ title, children, isOpen = true }) {
+  return (
+    <details open={isOpen}>
+      <summary>
+        <strong className="text-lg">{title}</strong>
+      </summary>
+      <div className="nx-p-2">{children}</div>
+    </details>
+  );
+}
+
+# Deployment Overview & Configuration
+
+<Callout type="info" emoji="ℹ️">
+  Each service from Basestack is designed to be self-hosted and run
+  independently. This page provides the necessary information to deploy and
+  configure each service. While most configurations are common across all
+  services, specific configurations unique to each service can be found at the
+  end of this page.
+</Callout>
+
+Getting up and running is an easy with various options available. Simply ensure you have a Postgres database and a server that can run Node.js. Customize all the settings of the Basestack Platform by referring to the detailed configuration provided below.
+
+## App hosting
+
+You have the flexibility to host the platform on any service capable of hosting [NextJS ↗](https://nextjs.org/) applications with serverless function support. Additionally, you'll need a separate database running elsewhere that the app can connect to. Some app hosting providers that support include Vercel, more coming, all of which offer a free tier option.
+
+<Cards>
+  <Card title="Vercel" href="/self-hosting/providers/deploy-vercel" />
+  <Card title="Netlify" href="/self-hosting/providers/deploy-netlify" />
+  <Card title="Render" href="/self-hosting/providers/deploy-render" />
+</Cards>
+
+## Managed databases
+
+Ensure that the PostgreSQL service or instance supports serverless environments. Any traditional instance of PostgreSQL with connection pooling, such as [PgBouncer ↗](https://www.pgbouncer.org/), will work effectively.
+
+<Cards>
+  <Card title="Neon - Serverless Postgres" href="/self-hosting/database/neon" />
+  <Card title="Supabase Postgres" href="/self-hosting/database/supabase" />
+</Cards>
+
+## Environment Variables
+
+The platform has a straightforward configuration process, requiring a set of essential environment variables to configure the services and run the platform smoothly.
+
+### Database Configuration
+
+| Property              | Description                                               | Required |
+| --------------------- | --------------------------------------------------------- | -------- |
+| `DATABASE_URL`        | Connection URL to your database using PgBouncer.          | true     |
+| `DIRECT_DATABASE_URL` | Direct connection URL to the database used for migrations | true     |
+
+### Authentication Configuration
+
+### General
+
+For the `NEXTAUTH_SECRET` variable you can use `openssl rand -base64 32` or generate a [random value](https://generate-secret.vercel.app/32).
+
+| Property          | Description                                                                 | Required | Example                                           |
+| ----------------- | --------------------------------------------------------------------------- | -------- | ------------------------------------------------- |
+| `NEXTAUTH_SECRET` | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. | true     | [generate](https://generate-secret.vercel.app/32) |
+| `NEXTAUTH_URL`    | Set to the canonical URL of your site                                       | true     | https://your-basestack-instance.com               |
+
+### Providers
+
+Authentication Providers in the Platform are services that you and your team can use for signing in. To find the list of supported providers, check below:
+
+<Callout type="info" emoji="ℹ️">
+  You can have multiple Auth providers on the platform, providing you with more
+  options. However, it is essential to configure at least one Auth provider for
+  the platform to function properly.
+</Callout>
+
+- [Github Configuration](/self-hosting/authentication/github-config)
+- [Auth0 Configuration](/self-hosting/authentication/auth0-config)
+
+#### Sentry Configuration
+
+The Basestack Platform uses [Sentry ↗](https://sentry.io/welcome/) for error tracking. To configure Sentry, set the following environment variables:
+
+| Property            | Description                                                                                        | Required |
+| ------------------- | -------------------------------------------------------------------------------------------------- | -------- |
+| `SENTRY_ORG`        | Organization slug in Sentry, identifying the account or organization context.                      | true     |
+| `SENTRY_PROJECT`    | Project slug in Sentry, identifying the specific project within the organization.                  | true     |
+| `SENTRY_DSN`        | Data Source Name (DSN) for Sentry, a unique identifier used to send events to Sentry.              | true     |
+| `SENTRY_AUTH_TOKEN` | Authentication token for Sentry API access, providing authorized interaction with Sentry services. | true     |
+
+### API Configuration
+
+The configurations relevant to the API are associated with the endpoint from the `REST API`, which enables tasks like fetching the Flags. On the other hand, services concerning the dashboard, members, and permissions are safeguarded by Authentication and can only be accessed from the same origin (CORS).
+
+#### CORS Configuration
+
+We highly recommend securing the `REST API` requests to ensure they originate from the same domain as your services. You can modify the variables below to align with your product domains.
+
+| Property                          | Description                                                                             | Required | Example |
+| --------------------------------- | --------------------------------------------------------------------------------------- | -------- | ------- |
+| `API_ACCESS_CONTROL_ALLOW_ORIGIN` | Indicates whether the response can be shared with requesting code from the given origin | false    | \*      |
+
+#### Email Configuration
+
+The Basestack Platform uses SMTP for sending emails. To configure SMTP, set the following environment variables:
+
+<Callout type="info" emoji="ℹ️">
+  You can use any transactional email service, such as [SendGrid
+  ↗](https://sendgrid.com/en-us), [Mailgun ↗](https://www.mailgun.com/), or
+  [Resend ↗](https://resend.com) to send emails.
+</Callout>
+
+| Property                   | Description                                                                         | Required | Example                         |
+| -------------------------- | ----------------------------------------------------------------------------------- | -------- | ------------------------------- |
+| `EMAIL_FROM`               | Sender email address used in outgoing emails.                                       | true     | `Hello. <hello@yourdomain.com>` |
+| `EMAIL_SMTP_HOST`          | SMTP server hostname or IP address for sending emails.                              | true     |                                 |
+| `EMAIL_SMTP_PORT`          | SMTP port number used for email transmission.                                       | true     | 465                             |
+| `EMAIL_SMTP_SECURE`        | Boolean indicating whether SMTP connection should be secured (e.g., true or false). | true     | false                           |
+| `EMAIL_SMTP_AUTH_USER`     | SMTP authentication username for authenticating to the SMTP server.                 | true     |                                 |
+| `EMAIL_SMTP_AUTH_PASSWORD` | SMTP authentication password for authenticating to the SMTP server.                 | true     |                                 |
+
+#### Platform-Specific Configuration
+
+The above environment variables are common across all platforms. However, there are specific configurations unique to each platform. Below are the configurations for each platform:
+
+<Tabs items={["Feature Flags", "Forms"]}>
+  <Tabs.Tab>
+    No specific configurations are required for Feature Flags.
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+    #### Background Jobs Configuration
+
+    Because the Forms Platform uses background jobs to handle tasks such as sending emails, you need to configure the following environment variables:
+
+    <Callout type="info" emoji="ℹ️">
+      Why [Trigger.dev ↗](https://trigger.dev/)? Since the Basestack Platform can
+      run in serverless environments, using a service like Trigger.dev to handle
+      background jobs is essential. Trigger.dev enables the creation of long-running
+      jobs and is our choice because it is open-source. Alternatively, you can use
+      their cloud service, which offers a free plan.
+    </Callout>
+
+    <Callout type="warning" emoji="ℹ️">
+      Basestack Forms currently uses Trigger.dev v2, with plans to migrate to v3
+      once it is stable. You can easily self-host Trigger.dev v2 using this
+      [Trigger.dev Template on Railway.app ↗](https://railway.app/template/na6kUS).
+    </Callout>
+
+    | Property                             | Description                                                                                 | Required |
+    | ------------------------------------ | ------------------------------------------------------------------------------------------- | -------- |
+    | `TRIGGER_PROJECT_ID`                 | You can find your project's ID on your Trigger.dev instance dashboard.                      | true     |
+    | `TRIGGER_API_KEY`                    | Find the key for your environment (Dev, Staging, Prod) on the Trigger.dev dashboard.        | true     |
+    | `TRIGGER_API_URL`                    | The URL where your Trigger.dev instance is running (self-hosted or cloud)                   | true     |
+    | `NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY` | Find the public key for your environment (Dev, Staging, Prod) on the Trigger.dev dashboard. | true     |
+
+    #### Cloudflare API Configuration
+
+    The Forms Platform uses Cloudflare services, including Cloudflare AI for spam detection. To configure the Cloudflare API, set the following environment variables:
+
+    | Property                | Description                                                | Required | Example                                                                                                                |
+    | ----------------------- | ---------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
+    | `CLOUDFLARE_ACCOUNT_ID` | You can find your account ID on your Cloudflare dashboard. | true     | [Get Account ID ↗](https://developers.cloudflare.com/workers-ai/get-started/rest-api/#1-get-api-token-and-account-id) |
+    | `CLOUDFLARE_API_TOKEN`  | Obtain or create an API token.                             | true     | [Create an API token ↗](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/)                 |
+
+    #### Payments Configuration
+
+    The Forms Platform uses [LemonSqueezy ↗](https://www.lemonsqueezy.com/) for payments. To configure [LemonSqueezy ↗](https://www.lemonsqueezy.com/), set the following environment variables:
+
+    | Property                        | Description                                                                                           | Required |
+    | ------------------------------- | ----------------------------------------------------------------------------------------------------- | -------- |
+    | `LEMONSQUEEZY_STORE_ID`         | Store identifier for LemonSqueezy, identifying the specific store or account within the system.       | false    |
+    | `LEMONSQUEEZY_SIGNATURE_SECRET` | Secret key used for request signature validation in LemonSqueezy, ensuring secure API communications. | false    |
+    | `LEMONSQUEEZY_API_KEY`          | API key for accessing LemonSqueezy services, facilitating authorized interaction with the platform.   | false    |
+
+  </Tabs.Tab>
+</Tabs>

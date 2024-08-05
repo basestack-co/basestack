@@ -16,18 +16,18 @@
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
     "@basestack/utils": "*",
-    "@testing-library/jest-dom": "^6.4.6",
+    "@testing-library/jest-dom": "^6.4.8",
     "@types/react": "18.3.3",
     "@types/react-dom": "^18.3.0",
     "jest-styled-components": "^7.2.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.4"
   },
   "dependencies": {
     "@basestack/design-system": "*",
     "polished": "^4.2.2",
-    "react-spring": "^9.7.3",
-    "react-use": "^17.5.0",
-    "styled-components": "^6.1.11",
+    "react-spring": "^9.7.4",
+    "react-use": "^17.5.1",
+    "styled-components": "^6.1.12",
     "styled-system": "^5.1.5"
   }
 }

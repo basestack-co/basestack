@@ -1,13 +1,14 @@
 ---
-title: Deploy to Vercel
+title: Basestack Platform - Deploy to Vercel
 description: Vercel is the company behind the Next.js framework, which is used by Basestack.
+tags: Basestack, Vercel, Deployment, Next.js, Hosting, Vercel Pricing, Free Hosting, Next.js Applications, Deploy to Vercel, Neon, Database, Free Plan, Self-Hosting, Quick Start Guide, PostgreSQL, Connection Pooling, PgBouncer, Environment Variables, Project Settings, Github, Authentication Provider, OAuth App, Github Client ID, Github Client Secret, Deployment Steps, Configuration, Troubleshooting, Updates, Getting Updates, Feature Flags, Forms, Quick Deploy, Fork the Platform, Environment Variables, Vercel Project Settings, Build & Development Settings, Feature Flags, Forms, What's Next, Rest API, Javascript & Node, React, Updates, New Features, Bug Fixes, Updating the Platform, Configuration Page, Troubleshooting, Retrieve the Project URL, NEXTAUTH_URL, Github OAuth App, Homepage URL, Authorization Callback URL
 ---
 
-import { Steps, Callout, Card, Cards } from "nextra/components";
+import { Steps, Callout, Tabs, Card, Cards } from "nextra/components";
 
 # Deploy to Vercel
 
-[Vercel ↗](https://vercel.com/) is the company behind the Next.js framework, which is used by Basestack. [Vercel Pricing ↗](https://vercel.com/pricing) also offers a free hosting service perfectly suited for Next.js applications. Continue with the steps below to get started deploying the platform to your account and begin creating new flags.
+[Vercel ↗](https://vercel.com/) is the company behind the Next.js framework, which is used by Basestack. [Vercel Pricing ↗](https://vercel.com/pricing) also offers a free hosting service perfectly suited for Next.js applications. Continue with the steps below to get started deploying the platform to your account.
 
 In this quick start guide, we demonstrate just how effortless it is to host the platform on [Vercel ↗](https://vercel.com/), complemented by a Database hosted at [Neon ↗](https://neon.tech/). Best of all, both services offer perfect free plans, allowing you to explore the platform and scale up as you progress.
 
@@ -16,8 +17,7 @@ In this quick start guide, we demonstrate just how effortless it is to host the 
   the project to your GitHub account and import it manually into your Vercel
   account dashboard. The rest of the process remains the same in terms of
   configuration, such as Environment Variables and Project Settings. For more
-  details, refer to the [Getting Updates
-  Page](/feature-flags/deployment/updates).
+  details, refer to the [Getting Updates Page](/updates).
 </Callout>
 
 ## Getting started
@@ -34,7 +34,7 @@ Ensure that you have an operational PostgreSQL database server capable of accept
 
 If you do not already have a database, consider selecting one from the recommended list below:
 
-- [Neon - Serverless Postgres](/feature-flags/guides/database/neon)
+- [Neon - Serverless Postgres](/self-hosting/database/neon)
 
   During the deployment step, you will be prompted to provide two environment variables for the database. The first is `DATABASE_URL`, which is the Connection URL to your database using PgBouncer. The second is `DIRECT_DATABASE_URL`, which serves as the direct connection URL to the database, used for migrations.
 
@@ -47,12 +47,12 @@ To simplify this guide, we will use [Github ↗](https://github.com/) as the aut
 <Callout type="info" emoji="ℹ️">
   If you don't have a Project URL yet, you can leave it blank for now. Check out
   the [Troubleshooting
-  section](/feature-flags/deployment/deploy-vercel#troubleshooting) for further
+  section](/self-hosting/providers/deploy-vercel#troubleshooting) for further
   assistance.
 </Callout>
 
 ```bash
-"Application name": "Feature Flags by Basestack"
+"Application name": "Forms by Basestack" // or any name you prefer like
 "Homepage URL": "https://your-basestack-instance.com"
 "Authorization callback URL": "https://your-basestack-instance.com/api/auth/callback/github"
 ```
@@ -63,26 +63,34 @@ Once you've successfully created a new [OAuth App](https://github.com/settings/d
   For more granular control over authentication aspects, including rules,
   enabling or disabling account creation, and allowing account creation with
   credentials (email and password), we recommend using
-  [Auth0](/feature-flags/guides/authentication/auth0-config).
+  [Auth0](/self-hosting/authentication/auth0-config).
 </Callout>
 
 ### Finally, proceed with the deployment.
 
 #### Option 1: Quick Deploy (Skip this if you want to receive updates)
 
-Quick deploy to [Vercel ↗](https://vercel.com/) with a simple click on the deploy button below:
+  <Tabs items={['Feature Flags', 'Forms']}>
+    <Tabs.Tab>
+      Quick deploy to [Vercel ↗](https://vercel.com/) with a simple click on the deploy button below:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbasestack-co%2Fbasestack&env=DATABASE_URL,DIRECT_DATABASE_URL,NEXTAUTH_SECRET,NEXTAUTH_URL,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET&envDescription=See%20the%20full%20Environment%20Variables%20List%20Configuration&envLink=https%3A%2F%2Fdocs.basestack.co%2Ffeature-flags%2Fdeployment)
+      [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbasestack-co%2Fbasestack&env=DATABASE_URL,DIRECT_DATABASE_URL,NEXTAUTH_SECRET,NEXTAUTH_URL,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET&envDescription=See%20the%20full%20Environment%20Variables%20List%20Configuration&envLink=https%3A%2F%2Fdocs.basestack.co%2Ffeature-flags%2Fdeployment)
 
-By clicking on the button above, a new repository will be created in your GitHub account from the [Basestack Platform](https://github.com/basestack-co/basestack) repository, and the platform will be deployed for you. This will be an independent copy with no connection to the main project.
+      By clicking on the button above, a new repository will be created in your GitHub account from the [Basestack Platform](https://github.com/basestack-co/basestack) repository, and the platform will be deployed for you. This will be an independent copy with no connection to the main project.
+    </Tabs.Tab>
+    <Tabs.Tab>
+      Coming soon...
+    </Tabs.Tab>
+
+  </Tabs>
 
 #### Option 2: Fork the Platform
 
-Alternatively, you have the option to manually fork the [Basestack Platform repository](https://github.com/basestack-co/basestack). This provides greater control over [updates](/feature-flags/deployment/updates) and even allows you to [contribute](/contributing) to the project if desired.
+Alternatively, you have the option to manually fork the [Basestack Platform repository](https://github.com/basestack-co/basestack). This provides greater control over [updates](/updates) and even allows you to [contribute](/contributing) to the project if desired.
 
 ##### Environment Variables
 
-To ensure a successful deployment on Vercel, the platform requires a minimum set of environment variables. Below is the list of environment variables that you must fill in. For the complete list of Environment Variables, please refer to the [Configuration Page](/feature-flags/deployment#environment-variables).
+To ensure a successful deployment on Vercel, the platform requires a minimum set of environment variables. Below is the list of environment variables that you must fill in. For the complete list of Environment Variables, please refer to the [Configuration Page](/self-hosting#environment-variables).
 
 | Property               | Description                                                                                 |
 | ---------------------- | ------------------------------------------------------------------------------------------- |
@@ -102,45 +110,70 @@ To ensure a successful deployment on Vercel, the platform requires a minimum set
 
 In your new Project Settings on Vercel, navigate to the **Build & Development Settings** section and complete the form with the following settings:
 
-```bash
-  "Build Command": "yarn deploy:feature-flags"
-  "Output Directory": "apps/feature-flags/.next"
-  "Install Command": "yarn install"
-  "Development Command": "next"
-  "Root Directory": " " # just leave it empty
-```
+<Tabs items={["Feature Flags", "Forms"]}>
+  <Tabs.Tab>
+
+    ```bash
+    "Build Command": "yarn deploy:feature-flags"
+    "Output Directory": "apps/feature-flags/.next"
+    "Install Command": "yarn install"
+    "Development Command": "next"
+    "Root Directory": " " # just leave it empty
+    ```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+
+    ```bash
+    "Build Command": "yarn deploy:forms"
+    "Output Directory": "apps/forms/.next"
+    "Install Command": "yarn install"
+    "Development Command": "next"
+    "Root Directory": " " # just leave it empty
+    ```
+
+  </Tabs.Tab>
+</Tabs>
 
 </Steps>
 
 ## What's next?
 
-Begin by familiarizing yourself with the platform. Create projects, add new feature flags, invite members, and implement the feature flags in your product using our official SDKs.
+Begin by familiarizing yourself with the platform.
 
-<Cards>
-  <Card
-    icon={<span className="material-symbols-outlined">data_object</span>}
-    title="Rest API"
-    href="/feature-flags/sdks/rest-api"
-  />
-  <Card
-    icon={<span className="material-symbols-outlined">javascript</span>}
-    title="Javascript & Node"
-    href="/feature-flags/sdks/javascript"
-  />
-  <Card
-    icon={<span className="material-symbols-outlined">code</span>}
-    title="React"
-    href="/feature-flags/sdks/react"
-  />
-</Cards>
+<Tabs items={["Feature Flags"]}>
+  <Tabs.Tab>
 
-Lastly, stay tuned about updates, including new features and bug fixes. To ensure your platform is always up-to-date with the latest improvements, refer to our guide on updating the platform by visiting the [Updates Page](/feature-flags/deployment/updates).
+    Create projects, add new feature flags, invite members, and implement the feature flags in your product using our official SDKs.
+
+    <Cards>
+      <Card
+        icon={<span className="material-symbols-outlined">data_object</span>}
+        title="Rest API"
+        href="/feature-flags/sdks/rest-api"
+      />
+      <Card
+        icon={<span className="material-symbols-outlined">javascript</span>}
+        title="Javascript & Node"
+        href="/feature-flags/sdks/javascript"
+      />
+      <Card
+        icon={<span className="material-symbols-outlined">code</span>}
+        title="React"
+        href="/feature-flags/sdks/react"
+      />
+    </Cards>
+
+  </Tabs.Tab>
+
+</Tabs>
+
+Lastly, stay tuned about updates, including new features and bug fixes. To ensure your platform is always up-to-date with the latest improvements, refer to our guide on updating the platform by visiting the [Updates Page](/updates).
 
 <Callout type="info" emoji="ℹ️">
   For more comprehensive information about the deployment process, please check
-  out the [Configuration Page](/feature-flags/deployment). This page provides
-  detailed guidance to ensure a successful and seamless deployment of the
-  Feature Flags Platform.
+  out the [Configuration Page](/self-hosting). This page provides detailed
+  guidance to ensure a successful and seamless deployment of the Forms Platform.
 </Callout>
 
 ## Troubleshooting

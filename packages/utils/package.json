@@ -21,8 +21,8 @@
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "ts-jest": "^29.1.5",
-    "tsup": "^8.1.0",
-    "typescript": "^5.4.5"
+    "ts-jest": "^29.2.3",
+    "tsup": "^8.2.3",
+    "typescript": "^5.5.4"
   }
 }
