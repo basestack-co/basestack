@@ -1,15 +1,16 @@
 import React, { useState, useMemo } from "react";
 // Store
 import { useStore } from "store";
+import { useShallow } from "zustand/react/shallow";
 // Code
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
 // Components
 import Portal from "@basestack/design-system/global/Portal";
+import { CodeLanguageCard } from "@basestack/ui";
 import { ButtonVariant, Modal, Text } from "@basestack/design-system";
 import CopyButton from "components/CopyButton";
-import CodeLanguageCard from "components/CodeLanguageCard";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Styles
@@ -32,13 +33,14 @@ const IntegrationModal = () => {
   const { t } = useTranslation("modals");
   const theme = useTheme();
   const [selectedListIndex, setSelectedListIndex] = useState(0);
-  const isModalOpen = useStore((state) => state.isIntegrationModalOpen);
-  const setIntegrationModalOpen = useStore(
-    (state) => state.setIntegrationModalOpen,
-  );
-  const closeModalsOnClickOutside = useStore(
-    (state) => state.closeModalsOnClickOutside,
-  );
+  const [isModalOpen, setIntegrationModalOpen, closeModalsOnClickOutside] =
+    useStore(
+      useShallow((state) => [
+        state.isIntegrationModalOpen,
+        state.setIntegrationModalOpen,
+        state.closeModalsOnClickOutside,
+      ]),
+    );
 
   const onClose = () => setIntegrationModalOpen({ isOpen: false });
 

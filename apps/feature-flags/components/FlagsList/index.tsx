@@ -1,4 +1,4 @@
-import React, { useCallback, Fragment } from "react";
+import React, { useCallback, Fragment, useMemo } from "react";
 // Server
 import { trpc } from "libs/trpc";
 // Components
@@ -14,7 +14,6 @@ import { useStore } from "store";
 // Types
 import { SelectedView, TabType } from "types";
 // Utils
-import { getValue } from "@basestack/utils";
 import dayjs from "dayjs";
 // Locales
 import useTranslation from "next-translate/useTranslation";
@@ -38,7 +37,7 @@ const FlagCards = ({
   projectId,
   searchValue,
 }: FlagCardsProps) => {
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const { t } = useTranslation("flags");
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
   const setCreateFlagModalOpen = useStore(
@@ -71,9 +70,12 @@ const FlagCards = ({
     },
   );
 
-  const initialDataLength = getValue(data, "pages[0].flags.length", 0)!;
-  const currentPage = getValue(data, "pages.length", 0)! * numberOfFlagsPerPage;
-  const totalPages = count?.total ?? 0;
+  const [currentPage, totalPages] = useMemo(() => {
+    return [
+      (data?.pages.length ?? 0) * numberOfFlagsPerPage,
+      data?.pages?.[0]?.total ?? 0,
+    ];
+  }, [data, numberOfFlagsPerPage]);
 
   const onUpdateOrHistory = useCallback(
     (
@@ -100,7 +102,7 @@ const FlagCards = ({
         { projectId, flagSlug },
         {
           onSuccess: async () => {
-            await trpcContext.flag.all.invalidate({ projectId });
+            await trpcUtils.flag.all.invalidate({ projectId });
           },
         },
       );
@@ -116,7 +118,7 @@ const FlagCards = ({
       </Loader>
     );
 
-  if (initialDataLength <= 0)
+  if (totalPages <= 0)
     return (
       <Empty
         iconName="flag"

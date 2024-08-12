@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode, ButtonHTMLAttributes } from "react";
 import {
   SpaceProps,
   FlexboxProps,
@@ -43,9 +43,13 @@ export interface ButtonProps
    */
   children: ReactNode;
   /**
+   * optional left children
+   */
+  leftElement?: ReactNode;
+  /**
    * onClick function
    */
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   /**
    * Optional Icon
    */
@@ -74,6 +78,10 @@ export interface ButtonProps
    * Button Size
    */
   size?: ButtonSize;
+  /**
+   * Set Button type
+   */
+  type?: ButtonHTMLAttributes<string>["type"];
 }
 
 export interface StyledButtonProps {

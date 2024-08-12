@@ -5,6 +5,8 @@ import { Container, Icon } from "./styles";
 
 const handleSize = (size: Size) => {
   switch (size) {
+    case "xxLarge":
+      return 60;
     case "xLarge":
       return 48;
     case "large":
@@ -41,7 +43,7 @@ const IconComp = ({
           color={color}
           muted={muted}
           size={iconSize}
-          className="material-symbols-sharp"
+          className="material-symbols-rounded"
         >
           {icon}
         </Icon>

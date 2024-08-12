@@ -1,6 +1,7 @@
 ---
 title: How to Contribute
 description: First and foremost, thank you for dedicating your time to enhance the platform.
+tags: Basestack, Contribution, Development, Monorepo, Turborepo, Collaboration, PR, Feature Flags, Environment Variables, Local Development, Github, OAuth App, Authentication, Database, PostgreSQL, Mac, Postgres.app, Dependencies, Branch, Feature Flags App, Environment Variables, Build, Run, Localhost, Feature Flags, API, Docs, Landing Page, Forms, Forms API
 ---
 
 import { Steps, Callout, FileTree } from "nextra/components";
@@ -17,6 +18,7 @@ The project is a Monorepo powered by [Turborepo ↗](https://turborepo.org/), wh
   <FileTree.Folder name="apps" defaultOpen>
     <FileTree.Folder name="docs" />
     <FileTree.Folder name="feature-flags" />
+    <FileTree.Folder name="forms" />
     <FileTree.Folder name="..." />
   </FileTree.Folder>
   <FileTree.Folder name="packages" defaultOpen>
@@ -105,20 +107,7 @@ GITHUB_CLIENT_ID="xxxx-xxx-xxxx-xxx"
 GITHUB_CLIENT_SECRET="xxxx-xxx-xxxx-xxx"
 
 
-# RATE LIMIT - API CONFIGURATION
-
-# Requests per minute
-API_RATE_LIMIT_MAX=60
-
-# in seconds
-API_RATE_LIMIT_WINDOW_MS=60*1000
-
-# Max users per second
-API_RATE_LIMIT_UNIQUE_TOKEN_PER_SECOND=1000
-
-# CORS - API CONFIGURATION
-
-API_ACCESS_CONTROL_ALLOW_ORIGIN="http://localhost:3000"
+# Check for the full list of environment variables in the .env.example file on each app.
 ```
 
 ##### 3 - Build the project using the following command:
@@ -137,5 +126,7 @@ yarn dev
 - Feature Flags API is available at `http://localhost:3000/api/v1`
 - Docs is available at `http://localhost:3001`
 - Landing Page is available at `http://localhost:3002`
+- Forms is available at `http://localhost:3003`
+- Forms API is available at `http://localhost:3003/api/v1`
 
 </Steps>

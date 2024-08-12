@@ -1,6 +1,6 @@
 import { SpaceProps } from "styled-system";
 
-export type Size = "xLarge" | "large" | "medium" | "small";
+export type Size = "xxLarge" | "xLarge" | "large" | "medium" | "small";
 
 export interface IconProps extends SpaceProps {
   /**

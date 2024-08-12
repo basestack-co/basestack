@@ -1,0 +1,49 @@
+{
+  "projects": {
+    "title": "Recent projects",
+    "action": "Create Project",
+    "empty": {
+      "title": "Create your first project",
+      "description": "Create your first project to start creating flags!",
+      "action": "Create Project"
+    }
+  },
+  "forms": {
+    "title": "Recent forms",
+    "action": "Create Form",
+    "empty": {
+      "title": "Create your first form",
+      "description": "Create your first form to start receiving submissions!",
+      "action": "Create Form"
+    },
+    "card": {
+      "menu": {
+        "submissions": "Submissions",
+        "settings": "Settings",
+        "setup": "Setup"
+      },
+      "label": {
+        "disabled": "Disabled"
+      }
+    }
+  },
+  "links": {
+    "title": "Quick links",
+    "sdks": {
+      "title": "Set Up the SDK",
+      "description": "Integrate Feature Flags into your Product using the official SDKs. Discover the available libraries.",
+      "action": "View Instructions"
+    },
+    "external": {
+      "title": "Documentation, Help and Support",
+      "read_the": "Read the",
+      "check_out_the": "Check out the",
+      "how_to": "How to",
+      "open_on": "Open an issue on",
+      "docs": "Documentation",
+      "sdks": "SDK’s",
+      "contribute": "Contribute?",
+      "github": "Github"
+    }
+  }
+}

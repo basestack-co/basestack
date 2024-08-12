@@ -1,3 +1,6 @@
+> [!WARNING]  
+> Active development is ongoing on the Develop branch. The Master branch is the stable version. The platform is currently in beta, and we are working hard to improve it. If you encounter any issues, please report them to us. We appreciate your patience and support.
+
 ![Basestack Pattern Background](https://i.imgur.com/Cund9sW.jpg)
 
 # Basestack Platform
@@ -6,9 +9,10 @@
 
 #### Tools
 
-- ⛳ Feature Flags (Beta) [Docs](https://docs.basestack.co/feature-flags) | [Website](https://basestack.co/)
-- 📄 Forms (Planned)
+- ⛳ Feature Flags (In Progress) [Docs](https://docs.basestack.co/feature-flags) | [Website](https://basestack.co/)
+- 📄 Forms (In Progress) [Docs](https://docs.basestack.co/forms) | [Website](https://basestack.co/)
 - 💬 Feedback (Planned)
+- ⏳ UpTime (Planned)
 
 ## Getting started with Feature Flags
 

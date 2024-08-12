@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, Fragment } from "react";
 import { useTheme } from "styled-components";
 import { ButtonProps, ButtonVariant, ButtonSize } from "./types";
 import Spinner from "../Spinner";
@@ -30,6 +30,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       isLoading = false,
       isDisabled = false,
       size = ButtonSize.Normal,
+      type,
+      leftElement,
       ...props
     },
     ref,
@@ -75,10 +77,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={isDisabled}
         size={size}
         isLoading={isLoading}
+        type={type}
         {...props}
         {...(!!as && { as })}
       >
         <>
+          {leftElement && <Fragment>{leftElement}</Fragment>}
           {hasLeftIcon && (
             <Icon icon={icon} size={iconSize} mr={theme.spacing.s2} />
           )}

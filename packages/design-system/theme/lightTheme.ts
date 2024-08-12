@@ -14,6 +14,12 @@ const shadow = {
   elevation6: "rgba(0, 0, 0, 0.25) 0px 25px 50px -12px",
 };
 
+const background = {
+  dark: colors.gray100,
+  default: colors.gray50,
+  light: colors.gray10,
+};
+
 const button = {
   primary: {
     backgroundColor: colors.primary,
@@ -191,6 +197,20 @@ const empty = {
 
 const card = {
   backgroundColor: colors.white,
+  variant: {
+    success: {
+      border: colors.green400,
+    },
+    warning: {
+      border: colors.yellow400,
+    },
+    danger: {
+      border: colors.red400,
+    },
+    primary: {
+      border: colors.blue400,
+    },
+  },
 };
 
 const text = {
@@ -220,6 +240,11 @@ const iconButton = {
     color: colors.black,
     hover: { backgroundColor: colors.gray200 },
   },
+  secondaryDark: {
+    backgroundColor: colors.gray200,
+    color: colors.black,
+    hover: { backgroundColor: colors.gray300 },
+  },
   neutral: {
     backgroundColor: "transparent",
     color: colors.black,
@@ -230,20 +255,40 @@ const iconButton = {
 
 const label = {
   solid: {
+    danger: {
+      color: colors.white,
+      backgroundColor: colors.red400,
+    },
+    warning: {
+      color: colors.black,
+      backgroundColor: colors.yellow400,
+    },
     success: {
       color: colors.white,
       backgroundColor: colors.green400,
     },
     default: {
-      color: colors.gray600,
+      color: colors.black,
       backgroundColor: colors.gray200,
     },
     info: {
       color: colors.white,
       backgroundColor: colors.primary,
     },
+    light: {
+      color: colors.black,
+      backgroundColor: colors.gray50,
+    },
   },
   translucent: {
+    danger: {
+      color: colors.red600,
+      backgroundColor: transparentize(0.9, colors.red400),
+    },
+    warning: {
+      color: colors.yellow700,
+      backgroundColor: transparentize(0.8, colors.yellow400),
+    },
     success: {
       color: colors.green600,
       backgroundColor: transparentize(0.9, colors.green400),
@@ -253,8 +298,12 @@ const label = {
       backgroundColor: transparentize(0.9, colors.gray400),
     },
     info: {
-      color: colors.blue500,
+      color: colors.blue600,
       backgroundColor: transparentize(0.9, colors.blue400),
+    },
+    light: {
+      color: colors.gray600,
+      backgroundColor: transparentize(0.9, colors.gray300),
     },
   },
 };
@@ -279,6 +328,11 @@ const pill = {
       backgroundColor: darken(0.04, colors.blue100),
     },
   },
+};
+
+const search = {
+  backgroundColor: colors.gray100,
+  border: colors.gray200,
 };
 
 const input = {
@@ -318,6 +372,12 @@ const textarea = {
   },
   focus: {
     outline: colors.black,
+  },
+  error: {
+    backgroundColor: colors.red50,
+    focus: {
+      outline: colors.red200,
+    },
   },
 };
 
@@ -408,6 +468,25 @@ const switchComp = {
   },
 };
 
+const checkbox = {
+  backgroundColor: "transparent",
+  border: colors.gray400,
+  label: {
+    color: colors.black,
+  },
+  hover: {
+    border: colors.black,
+  },
+  checked: {
+    icon: colors.white,
+    backgroundColor: colors.black,
+    border: colors.black,
+  },
+  button: {
+    border: colors.black,
+  },
+};
+
 const popup = {
   backgroundColor: colors.white,
 };
@@ -463,6 +542,9 @@ const tooltip = {
 
 const horizontalRule = {
   backgroundColor: colors.gray100,
+  darker: {
+    backgroundColor: colors.gray200,
+  },
 };
 
 const copyCard = {
@@ -485,6 +567,45 @@ const iconBox = {
   },
 };
 
+const banner = {
+  solid: {
+    info: {
+      backgroundColor: colors.blue400,
+      color: colors.white,
+    },
+    warning: {
+      backgroundColor: colors.yellow400,
+      color: colors.black,
+    },
+    success: {
+      backgroundColor: colors.green400,
+      color: colors.white,
+    },
+    danger: {
+      backgroundColor: colors.red400,
+      color: colors.white,
+    },
+  },
+  translucent: {
+    info: {
+      backgroundColor: transparentize(0.8, colors.blue400),
+      color: colors.black,
+    },
+    warning: {
+      backgroundColor: transparentize(0.8, colors.yellow400),
+      color: colors.black,
+    },
+    success: {
+      backgroundColor: transparentize(0.8, colors.green400),
+      color: colors.black,
+    },
+    danger: {
+      backgroundColor: transparentize(0.8, colors.red400),
+      color: colors.black,
+    },
+  },
+};
+
 const theme = {
   isDarkMode: false,
   button,
@@ -493,9 +614,11 @@ const theme = {
   icon,
   iconButton,
   label,
+  search,
   input,
   segment,
   splash,
+  checkbox,
   popup,
   popupActions,
   table,
@@ -515,6 +638,8 @@ const theme = {
   copyCard,
   pagination,
   iconBox,
+  banner,
+  background,
   typography,
   colors,
   spacing,

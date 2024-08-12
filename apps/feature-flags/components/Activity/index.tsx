@@ -12,24 +12,24 @@ import Toolbar from "./Toolbar";
 import { Container } from "./styles";
 
 const Activity = () => {
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const router = useRouter();
-  const projectSlug = router.query.projectSlug as string;
+  const { projectId } = router.query as { projectId: string };
   const [range, setRange] = useState<Array<Date>>([]);
   const [searchValue, setSearchValue] = useState<string>("");
   const [debouncedSearchValue, setDebouncedSearchValue] = useState<string>("");
 
   const project = useMemo(() => {
-    if (projectSlug) {
-      const cache = trpcContext.project.all.getData();
+    if (projectId) {
+      const cache = trpcUtils.project.all.getData();
 
       return ((cache && cache.projects) || []).find(
-        (project) => project.slug === projectSlug,
+        (project) => project.id === projectId,
       );
     }
 
     return null;
-  }, [projectSlug, trpcContext]);
+  }, [projectId, trpcUtils]);
 
   const { data, isLoading } = trpc.history.all.useQuery(
     {
@@ -38,7 +38,7 @@ const Activity = () => {
       search: debouncedSearchValue,
       projectId: project?.id as string,
     },
-    { enabled: !!project?.id, keepPreviousData: true },
+    { enabled: !!project?.id },
   );
 
   useDebounce(
@@ -73,7 +73,7 @@ const Activity = () => {
       />
       <ActivityList
         data={data as unknown as ActivityListData}
-        projectSlug={projectSlug}
+        projectSlug={project?.slug!}
         isLoading={isLoading}
       />
     </Container>

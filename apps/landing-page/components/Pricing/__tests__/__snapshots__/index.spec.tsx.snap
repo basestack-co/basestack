@@ -173,7 +173,8 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
   background-color: #0e55d7;
 }
 
-.c18 .material-symbols-sharp {
+.c18 .material-symbols-sharp,
+.c18 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -183,7 +184,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
 }
 
 .c18:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -211,7 +212,8 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
   background-color: #0e55d7;
 }
 
-.c25 .material-symbols-sharp {
+.c25 .material-symbols-sharp,
+.c25 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -221,7 +223,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
 }
 
 .c25:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -394,7 +396,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
                 size="24"
               >
                 <span
-                  class="c14 material-symbols-sharp"
+                  class="c14 material-symbols-rounded"
                   color="#276EF1"
                   data-testid="icon"
                   size="24"
@@ -420,7 +422,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
                 size="24"
               >
                 <span
-                  class="c14 material-symbols-sharp"
+                  class="c14 material-symbols-rounded"
                   color="#276EF1"
                   data-testid="icon"
                   size="24"
@@ -446,7 +448,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
                 size="24"
               >
                 <span
-                  class="c14 material-symbols-sharp"
+                  class="c14 material-symbols-rounded"
                   color="#276EF1"
                   data-testid="icon"
                   size="24"
@@ -472,7 +474,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
                 size="24"
               >
                 <span
-                  class="c16 material-symbols-sharp"
+                  class="c16 material-symbols-rounded"
                   color="#757575"
                   data-testid="icon"
                   size="24"
@@ -543,7 +545,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
                 size="24"
               >
                 <span
-                  class="c23 material-symbols-sharp"
+                  class="c23 material-symbols-rounded"
                   color="#5B91F5"
                   data-testid="icon"
                   size="24"
@@ -569,7 +571,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
                 size="24"
               >
                 <span
-                  class="c23 material-symbols-sharp"
+                  class="c23 material-symbols-rounded"
                   color="#5B91F5"
                   data-testid="icon"
                   size="24"
@@ -595,7 +597,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
                 size="24"
               >
                 <span
-                  class="c23 material-symbols-sharp"
+                  class="c23 material-symbols-rounded"
                   color="#5B91F5"
                   data-testid="icon"
                   size="24"
@@ -621,7 +623,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
                 size="24"
               >
                 <span
-                  class="c23 material-symbols-sharp"
+                  class="c23 material-symbols-rounded"
                   color="#5B91F5"
                   data-testid="icon"
                   size="24"

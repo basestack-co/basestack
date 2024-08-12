@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+// Router
+import { useRouter } from "next/router";
 // Components
 import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
@@ -6,6 +8,7 @@ import Portal from "@basestack/design-system/global/Portal";
 import { SubmitHandler } from "react-hook-form";
 // Store
 import { useStore } from "store";
+import { useShallow } from "zustand/react/shallow";
 // Server
 import { trpc } from "libs/trpc";
 // Locales
@@ -17,14 +20,22 @@ import useEnvironmentForm from "../useEnvironmentForm";
 
 const EditEnvironmentModal = () => {
   const { t } = useTranslation("modals");
-  const trpcContext = trpc.useContext();
-  const isModalOpen = useStore((state) => state.isUpdateEnvironmentModalOpen);
-  const data = useStore((state) => state.environmentModalPayload);
-  const setUpdateEnvironmentModalOpen = useStore(
-    (state) => state.setUpdateEnvironmentModalOpen,
-  );
-  const closeModalsOnClickOutside = useStore(
-    (state) => state.closeModalsOnClickOutside,
+  const trpcUtils = trpc.useUtils();
+  const router = useRouter();
+  const { projectId } = router.query as { projectId: string };
+
+  const [
+    isModalOpen,
+    data,
+    setUpdateEnvironmentModalOpen,
+    closeModalsOnClickOutside,
+  ] = useStore(
+    useShallow((state) => [
+      state.isUpdateEnvironmentModalOpen,
+      state.environmentModalPayload,
+      state.setUpdateEnvironmentModalOpen,
+      state.closeModalsOnClickOutside,
+    ]),
   );
 
   const updateEnvironment = trpc.environment.update.useMutation();
@@ -36,20 +47,20 @@ const EditEnvironmentModal = () => {
 
   const onClose = () => setUpdateEnvironmentModalOpen({ isOpen: false });
   const onSubmit: SubmitHandler<FormInputs> = (input: FormInputs) => {
-    if (data && data.project && data.environment) {
+    if (data && projectId && data.environment) {
       updateEnvironment.mutate(
         {
           name: input.name,
           description: input.description,
-          projectId: data.project.id!,
+          projectId,
           environmentId: data.environment.id,
         },
         {
           onSuccess: async (result) => {
-            if (data && data.project) {
+            if (data) {
               // Get all the environments by project on the cache
-              const prev = trpcContext.environment.all.getData({
-                projectId: data.project.id!,
+              const prev = trpcUtils.environment.all.getData({
+                projectId,
               });
 
               if (prev && prev.environments) {
@@ -68,8 +79,8 @@ const EditEnvironmentModal = () => {
                   );
 
                 // Update the cache with the new data
-                trpcContext.environment.all.setData(
-                  { projectId: data.project.id! },
+                trpcUtils.environment.all.setData(
+                  { projectId },
                   {
                     environments,
                   },
@@ -85,10 +96,10 @@ const EditEnvironmentModal = () => {
   };
 
   useEffect(() => {
-    if (data && data.project && isModalOpen && data.environment) {
+    if (data && projectId && isModalOpen && data.environment) {
       // Get all the environments by project on the cache
-      const cache = trpcContext.environment.all.getData({
-        projectId: data.project.id!,
+      const cache = trpcUtils.environment.all.getData({
+        projectId,
       });
 
       if (cache && cache.environments) {
@@ -102,7 +113,7 @@ const EditEnvironmentModal = () => {
         }
       }
     }
-  }, [data, isModalOpen, trpcContext, setValue]);
+  }, [data, isModalOpen, trpcUtils, setValue, projectId]);
 
   return (
     <Portal selector="#portal">

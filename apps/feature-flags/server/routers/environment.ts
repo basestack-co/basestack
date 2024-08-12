@@ -2,9 +2,9 @@ import { protectedProcedure, router } from "server/trpc";
 import { TRPCError } from "@trpc/server";
 // Utils
 import { generateSlug } from "random-word-slugs";
-import { withRoles } from "libs/prisma/utils/authorization";
+import { withRoles } from "@basestack/utils";
+import { z } from "zod";
 // Inputs
-import schemas from "server/schemas";
 import { Role } from "@prisma/client";
 
 export const environmentRouter = router({
@@ -12,11 +12,17 @@ export const environmentRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.environment.input.all)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+        })
+        .required(),
+    )
     .query(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
-      return await ctx.prisma.project.findFirst({
+      return ctx.prisma.project.findFirst({
         where: {
           id: input.projectId,
           users: {
@@ -36,12 +42,21 @@ export const environmentRouter = router({
       });
     }),
   create: protectedProcedure
-    .input(schemas.environment.input.create)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          name: z.string(),
+          description: z.string(),
+          copyFromEnvId: z.string(),
+        })
+        .required(),
+    )
     .meta({
       restricted: true,
     })
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.$transaction(async (tx) => {
           // Get all the flags from a selected environment
           const flags = await tx.flag.findMany({
@@ -56,7 +71,7 @@ export const environmentRouter = router({
             },
           });
 
-          return await tx.environment.create({
+          return tx.environment.create({
             data: {
               name: input.name,
               slug: generateSlug(),
@@ -83,9 +98,18 @@ export const environmentRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.environment.input.update)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          environmentId: z.string().min(1),
+          name: z.string(),
+          description: z.string(),
+        })
+        .required(),
+    )
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.environment.update({
           where: {
             id: input.environmentId,
@@ -105,9 +129,16 @@ export const environmentRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.environment.input.delete)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          environmentId: z.string(),
+        })
+        .required(),
+    )
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.$transaction(async (tx) => {
           // TODO: find a better way to do this, this is a bit hacky, should be in the same query
           const current = await tx.environment.findFirst({
@@ -116,7 +147,7 @@ export const environmentRouter = router({
 
           // only allow deleting the environment if it's not the default
           if (current && !current.isDefault) {
-            return await tx.environment.delete({
+            return tx.environment.delete({
               where: {
                 id: input.environmentId,
               },

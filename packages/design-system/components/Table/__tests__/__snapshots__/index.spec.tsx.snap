@@ -44,11 +44,12 @@ exports[`Table tests should render Table correctly 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2rem;
-  width: 2rem;
+  height: 2.25rem;
+  width: 2.25rem;
 }
 
-.c7 .material-symbols-sharp {
+.c7 .material-symbols-sharp,
+.c7 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -196,7 +197,7 @@ exports[`Table tests should render Table correctly 1`] = `
               size="24"
             >
               <span
-                class="c9 material-symbols-sharp"
+                class="c9 material-symbols-rounded"
                 color="#000000"
                 data-testid="icon"
                 size="24"
@@ -272,7 +273,7 @@ exports[`Table tests should render Table correctly 1`] = `
               size="24"
             >
               <span
-                class="c9 material-symbols-sharp"
+                class="c9 material-symbols-rounded"
                 color="#000000"
                 data-testid="icon"
                 size="24"
@@ -332,11 +333,12 @@ exports[`Table tests should render Table with images 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2rem;
-  width: 2rem;
+  height: 2.25rem;
+  width: 2.25rem;
 }
 
-.c9 .material-symbols-sharp {
+.c9 .material-symbols-sharp,
+.c9 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -454,7 +456,7 @@ exports[`Table tests should render Table with images 1`] = `
             <img
               alt="Jack profile image"
               class="c6"
-              src="https://api.dicebear.com/7.x/initials/svg?seed=Jack&size=36&fontSize=40"
+              src="https://api.dicebear.com/8.x/initials/svg?seed=Jack&size=36&fontSize=40"
             />
           </div>
           <p
@@ -511,7 +513,7 @@ exports[`Table tests should render Table with images 1`] = `
               size="24"
             >
               <span
-                class="c11 material-symbols-sharp"
+                class="c11 material-symbols-rounded"
                 color="#000000"
                 data-testid="icon"
                 size="24"
@@ -541,7 +543,7 @@ exports[`Table tests should render Table with images 1`] = `
             <img
               alt="Pedro profile image"
               class="c6"
-              src="https://api.dicebear.com/7.x/initials/svg?seed=Pedro&size=36&fontSize=40"
+              src="https://api.dicebear.com/8.x/initials/svg?seed=Pedro&size=36&fontSize=40"
             />
           </div>
           <p
@@ -598,7 +600,7 @@ exports[`Table tests should render Table with images 1`] = `
               size="24"
             >
               <span
-                class="c11 material-symbols-sharp"
+                class="c11 material-symbols-rounded"
                 color="#000000"
                 data-testid="icon"
                 size="24"
@@ -628,7 +630,7 @@ exports[`Table tests should render Table with images 1`] = `
             <img
               alt="Daniel profile image"
               class="c6"
-              src="https://api.dicebear.com/7.x/initials/svg?seed=Daniel&size=36&fontSize=40"
+              src="https://api.dicebear.com/8.x/initials/svg?seed=Daniel&size=36&fontSize=40"
             />
           </div>
           <p
@@ -685,7 +687,7 @@ exports[`Table tests should render Table with images 1`] = `
               size="24"
             >
               <span
-                class="c11 material-symbols-sharp"
+                class="c11 material-symbols-rounded"
                 color="#000000"
                 data-testid="icon"
                 size="24"
@@ -715,7 +717,7 @@ exports[`Table tests should render Table with images 1`] = `
             <img
               alt="Joana profile image"
               class="c6"
-              src="https://api.dicebear.com/7.x/initials/svg?seed=Joana&size=36&fontSize=40"
+              src="https://api.dicebear.com/8.x/initials/svg?seed=Joana&size=36&fontSize=40"
             />
           </div>
           <p
@@ -772,7 +774,7 @@ exports[`Table tests should render Table with images 1`] = `
               size="24"
             >
               <span
-                class="c11 material-symbols-sharp"
+                class="c11 material-symbols-rounded"
                 color="#000000"
                 data-testid="icon"
                 size="24"
@@ -832,11 +834,12 @@ exports[`Table tests should render Table with space utils 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2rem;
-  width: 2rem;
+  height: 2.25rem;
+  width: 2.25rem;
 }
 
-.c7 .material-symbols-sharp {
+.c7 .material-symbols-sharp,
+.c7 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -985,7 +988,7 @@ exports[`Table tests should render Table with space utils 1`] = `
               size="24"
             >
               <span
-                class="c9 material-symbols-sharp"
+                class="c9 material-symbols-rounded"
                 color="#000000"
                 data-testid="icon"
                 size="24"
@@ -1061,7 +1064,7 @@ exports[`Table tests should render Table with space utils 1`] = `
               size="24"
             >
               <span
-                class="c9 material-symbols-sharp"
+                class="c9 material-symbols-rounded"
                 color="#000000"
                 data-testid="icon"
                 size="24"

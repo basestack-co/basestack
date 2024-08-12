@@ -1,16 +1,20 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { rem } from "polished";
 import { space } from "styled-system";
 
 export const StyledTextarea = styled.textarea<{
   isDarker: boolean;
+  hasError: boolean;
+  disabled: boolean;
 }>`
   ${space};
   border: none;
-  background-color: ${({ theme, isDarker }) =>
-    isDarker
-      ? theme.textarea.isDarker.backgroundColor
-      : theme.textarea.backgroundColor};
+  background-color: ${({ theme, isDarker, hasError }) =>
+    hasError
+      ? theme.textarea.error.backgroundColor
+      : isDarker
+        ? theme.textarea.isDarker.backgroundColor
+        : theme.textarea.backgroundColor};
   min-height: ${rem("150px")};
   max-height: ${rem("500px")};
   min-width: 100%;
@@ -27,6 +31,16 @@ export const StyledTextarea = styled.textarea<{
   }
 
   &:focus {
-    outline: 2px solid ${({ theme }) => theme.textarea.focus.outline};
+    outline: 2px solid
+      ${({ theme, hasError }) =>
+        hasError
+          ? theme.textarea.error.focus.outline
+          : theme.textarea.focus.outline};
   }
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      opacity: 0.6;
+    `};
 `;

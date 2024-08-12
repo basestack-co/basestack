@@ -1,27 +1,16 @@
 ---
-title: Overview
+title: Basestack Feature Flags - Overview
 description: Basestack Feature Flags is a self-hosting platform that provides an effortless method to host your very own Feature Flags management platform.
 tags: Basestack Feature Flags, Quick Start, Feature Flags Management, Self-Hosting Platform, Hosting Solution, Feature Flag Management Platform, Effortless Method, Quick Setup, Self-Hosted Feature Flags, Overview, Feature Toggles, Feature Flagging Platform, Host Your Own Feature Flags, Feature Flag Implementation, Simplified Feature Management
 ---
 
 import { Card, Cards, Callout } from "nextra/components";
 
-export function FAQBox({ title, children, isOpen = true }) {
-  return (
-    <details open={isOpen}>
-      <summary>
-        <strong className="text-lg">{title}</strong>
-      </summary>
-      <div className="nx-p-2">{children}</div>
-    </details>
-  );
-}
-
-# <span style={{fontSize: "32px"}} className="material-symbols-outlined">flag</span> Feature Flags Platform (Beta)
+# <span style={{fontSize: "32px"}} className="material-symbols-outlined">flag</span> Feature Flags Platform (Preview)
 
 <Callout type="warning" emoji="⚠️">
-  The project is currently in beta, and while some elements may evolve based on
-  feedback, its core functionality is production-ready. Keep an eye out for
+  The project is currently in preview, and while some elements may evolve based
+  on feedback, its core functionality is production-ready. Keep an eye out for
   updates and changes, as there may be alterations to your instance that could
   potentially cause disruptions.
 </Callout>
@@ -38,14 +27,14 @@ Quickly self-host the Feature Flags Platform on your desired infrastructure. Cho
 change_history
 </span>}
     title="Vercel"
-    href="/feature-flags/deployment/deploy-vercel"
+    href="/self-hosting/providers/deploy-vercel"
   />
 
 </Cards>
 
 ### Fork the Platform
 
-Alternatively, you have the option to manually fork the [Basestack Platform repository](https://github.com/basestack-co/basestack). This provides greater control over [updates](/feature-flags/deployment/updates) and even allows you to [contribute](/contributing) to the project if desired.
+Alternatively, you have the option to manually fork the [Basestack Platform repository](https://github.com/basestack-co/basestack). This provides greater control over [updates](/updates) and even allows you to [contribute](/contributing) to the project if desired.
 
 <Callout type="info" emoji="ℹ️">
   For more comprehensive information about the deployment process, please check
@@ -76,25 +65,6 @@ After hosting our Feature Flags Platform, take a look at the official SDKs desig
   />
 </Cards>
 
-## Frequently Asked Questions (FAQs)
+## Need Help?
 
-Explore our collection of useful questions and answers about the Feature Flags Platform. If you don't find the answer to your question here, feel free to [open a discussion](https://github.com/basestack-co/basestack/discussions). We're here to help!
-
-<FAQBox title="What are the requirements for self-hosting" isOpen={false}>
-  Any service that can host a [NextJS ↗](https://nextjs.org/) applications with
-  serverless function support and provide a Postgres database compatible with
-  serverless environments will work seamlessly. Consider services such as [Neon
-  ↗](https://neon.tech), [Supabase ↗](https://supabase.com/), or traditional
-  Postgres with connection pooling like [PgBouncer
-  ↗](https://www.pgbouncer.org/).
-</FAQBox>
-
-<FAQBox title="What are the supported databases?" isOpen={false}>
-  The platform uses PostgreSQL as the database. The crucial aspect here is to ensure that the PostgreSQL service or instance supports serverless environments. To facilitate the hosting of the Feature Flags Platform, we have some suggestions that can simplify the deployment process.
-
-If you prefer not to use a third-party service, keep in mind that any traditional instance of PostgreSQL with connection pooling, such as [PgBouncer ↗](https://www.pgbouncer.org/), will work effectively.
-
-- [Neon - Serverless Postgres](/feature-flags/guides/database/neon)
-- Stay tuned for more upcoming guides!
-
-</FAQBox>
+Explore our collection of useful questions and answers about the Platform on our [FAQs Page](/faqs).

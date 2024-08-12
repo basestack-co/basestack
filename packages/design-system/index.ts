@@ -9,7 +9,11 @@ export {
 export { default as HorizontalRule } from "./components/HorizontalRule";
 export { default as Pill, type PillProps } from "./components/Pill";
 export { default as Icon, type IconProps } from "./components/Icon";
-export { default as Card, type CardProps } from "./components/Card";
+export {
+  default as Card,
+  type CardProps,
+  CardVariant,
+} from "./components/Card";
 export { default as Input, type InputProps } from "./components/Input";
 export { default as Textarea, type TextareaProps } from "./components/Textarea";
 export { default as Switch, type SwitchProps } from "./components/Switch";
@@ -22,7 +26,8 @@ export {
   type IconBoxColor,
   type IconBoxVariant,
 } from "./components/IconBox";
-
+export { default as Checkbox } from "./components/Checkbox";
+export { type CheckboxProps } from "./components/Checkbox/types";
 // Medium Components
 export {
   default as Pagination,
@@ -74,6 +79,8 @@ export {
   default as Accordion,
   type AccordionProps,
 } from "./components/Accordion";
+export { default as Banner, type BannerProps } from "./components/Banner";
+export { default as Search, type SearchProps } from "./components/Search";
 
 // Other
 export * from "./animations/springs";

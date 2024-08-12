@@ -10,7 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import useTranslation from "next-translate/useTranslation";
 // Components
 import { Input, Text } from "@basestack/design-system";
-import SettingCard from "../../SettingCard";
+// UI
+import { SettingCard } from "@basestack/ui";
 
 export const FormSchema = z.object({
   numberOfFlags: z
@@ -44,9 +45,9 @@ const ModalCard = () => {
 
   return (
     <SettingCard
-      title={t("settings.card.flags.title")}
-      description={t("settings.card.flags.description")}
-      button={t("settings.card.flags.action")}
+      title={t("general.card.flags.title")}
+      description={t("general.card.flags.description")}
+      button={t("general.card.flags.action")}
       onClick={handleSubmit(onSubmit)}
     >
       <>

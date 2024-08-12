@@ -17,19 +17,20 @@
     "@basestack/hooks": "*",
     "@basestack/tsconfig": "*",
     "@basestack/utils": "*",
-    "@testing-library/jest-dom": "^6.1.4",
-    "@types/react": "18.2.28",
-    "@types/react-dom": "^18.2.13",
+    "@testing-library/jest-dom": "^6.4.8",
+    "@types/react": "18.3.3",
+    "@types/react-calendar": "^4.1.0",
+    "@types/react-dom": "^18.3.0",
     "jest-styled-components": "^7.2.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.5.4"
   },
-  "peerDependencies": {
-    "@floating-ui/react": "^0.24.0",
-    "material-symbols": "^0.4.2",
+  "dependencies": {
+    "@floating-ui/react": "^0.26.20",
     "polished": "^4.2.2",
-    "react-calendar": "^4.0.0",
-    "react-spring": "^9.6.1",
-    "styled-components": "^5.3.5",
+    "react-calendar": "^5.0.0",
+    "react-select": "^5.8.0",
+    "react-spring": "^9.7.4",
+    "styled-components": "^6.1.12",
     "styled-system": "^5.1.5"
   }
 }

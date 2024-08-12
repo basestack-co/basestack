@@ -1,8 +1,9 @@
 import React from "react";
 // Store
 import { useStore } from "store";
-// Components
-import SettingCard from "../SettingCard";
+// UI
+import { SettingCard } from "@basestack/ui";
+import { CardVariant } from "@basestack/design-system";
 // Server
 import { trpc } from "libs/trpc";
 // Router
@@ -12,24 +13,27 @@ import { ProjectSettings } from "types";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 
-type Props = ProjectSettings;
+export interface Props {
+  name?: string;
+}
 
-const DeleteProjectCard = ({ project }: Props) => {
+const DeleteProjectCard = ({ name }: Props) => {
   const { t } = useTranslation("settings");
   const router = useRouter();
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const deleteProject = trpc.project.delete.useMutation();
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
+  const { projectId } = router.query as { projectId: string };
 
   const onDeleteProject = () => {
     deleteProject.mutate(
       {
-        projectId: project.id,
+        projectId,
       },
       {
         onSuccess: async (result) => {
           // Get all the projects on the cache
-          const prev = trpcContext.project.all.getData();
+          const prev = trpcUtils.project.all.getData();
 
           if (prev && prev.projects) {
             // Find the project and remove from the list
@@ -38,7 +42,7 @@ const DeleteProjectCard = ({ project }: Props) => {
             );
 
             // Update the cache with the new data
-            trpcContext.project.all.setData(undefined, { projects });
+            trpcUtils.project.all.setData(undefined, { projects });
           }
 
           await router.replace("/");
@@ -51,12 +55,12 @@ const DeleteProjectCard = ({ project }: Props) => {
     setConfirmModalOpen({
       isOpen: true,
       data: {
-        title: t("general.delete.modal.title"),
-        description: t("general.delete.modal.description", {
-          name: `<b>${project.name}</b>`,
+        title: t("general.delete.project.modal.title"),
+        description: t("general.delete.project.modal.description", {
+          name: `<b>${name}</b>`,
         }),
         type: "delete",
-        buttonText: t("general.delete.modal.action"),
+        buttonText: t("general.delete.project.modal.action"),
         onClick: () => {
           onDeleteProject();
           setConfirmModalOpen({
@@ -69,13 +73,13 @@ const DeleteProjectCard = ({ project }: Props) => {
 
   return (
     <SettingCard
-      title={t("general.delete.title")}
-      description={t("general.delete.description")}
-      button={t("general.delete.action")}
+      title={t("general.delete.project.title")}
+      description={t("general.delete.project.description")}
+      button={t("general.delete.project.action")}
       onClick={onClickDeleteProject}
-      text={t("general.delete.placeholder")}
+      text={t("general.delete.project.placeholder")}
       isDisabled={deleteProject.isLoading}
-      variant="danger"
+      variant={CardVariant.DANGER}
       isLoading={deleteProject.isLoading}
     />
   );

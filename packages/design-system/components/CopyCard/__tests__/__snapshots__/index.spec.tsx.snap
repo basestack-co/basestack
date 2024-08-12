@@ -52,11 +52,12 @@ exports[`CopyCard tests should render CopyCard correctly 1`] = `
   transition: background-color 0.1s ease-in-out,color 0.1s ease-in-out,border-color 0.1s ease-in-out;
   background-color: transparent;
   color: #000000;
-  height: 2rem;
-  width: 2rem;
+  height: 2.25rem;
+  width: 2.25rem;
 }
 
-.c7 .material-symbols-sharp {
+.c7 .material-symbols-sharp,
+.c7 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -137,7 +138,7 @@ exports[`CopyCard tests should render CopyCard correctly 1`] = `
             size="24"
           >
             <span
-              class="c9 material-symbols-sharp"
+              class="c9 material-symbols-rounded"
               color="#000000"
               data-testid="icon"
               size="24"

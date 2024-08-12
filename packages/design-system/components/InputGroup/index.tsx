@@ -43,6 +43,7 @@ const InputGroup = ({
   ...props
 }: InputGroupProps) => {
   const theme = useTheme();
+  const hasError = textarea ? textareaProps?.hasError : inputProps?.hasError;
 
   return (
     <Container data-testid="input-group-container" {...props}>
@@ -71,7 +72,7 @@ const InputGroup = ({
           size="xSmall"
           mt={theme.spacing.s2}
           color={
-            inputProps?.hasError
+            hasError
               ? theme.inputGroup.hint.error.color
               : theme.inputGroup.hint.color
           }

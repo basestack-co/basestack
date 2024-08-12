@@ -2,12 +2,15 @@ import type { NextApiRequest, NextApiResponse } from "next";
 // Prisma
 import { getAllFlagsBySlugs } from "libs/prisma/utils/flag";
 // Utils
-import { methodNotAllowed, somethingWentWrong } from "utils/helpers/responses";
-import { getValue } from "@basestack/utils";
-// Middlewares
-import withRateLimit from "utils/middleware/rateLimit";
-import withHeaders from "utils/middleware/headers";
-import withCors from "utils/middleware/cors";
+import Cors from "cors";
+import { withCors, withHeaders } from "@basestack/utils";
+
+// More at https://github.com/expressjs/cors
+const cors = Cors({
+  methods: ["GET"],
+  origin: process.env.API_ACCESS_CONTROL_ALLOW_ORIGIN || "*",
+  optionsSuccessStatus: 200,
+});
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
@@ -22,20 +25,25 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(200).json({
           flags,
         });
-      } catch (error) {
-        return res.status(getValue(error, "code", 400) as number).json({
+      } catch (error: any) {
+        return res.status(error.code ?? 400).json({
           error: true,
-          message: getValue(error, "message", somethingWentWrong),
+          message: error.message ?? "Something went wrong",
         });
       }
       break;
 
     default:
       res.setHeader("Allow", ["GET"]);
-      res.status(405).json(methodNotAllowed);
+      res.status(405).json({
+        code: 405,
+        error: true,
+        message: `The HTTP method is not supported at this route.`,
+      });
   }
 };
 
 export default withCors(
-  withRateLimit(withHeaders(["x-project-key", "x-environment-key"], handler)),
+  cors,
+  withHeaders(["x-project-key", "x-environment-key"], handler),
 );

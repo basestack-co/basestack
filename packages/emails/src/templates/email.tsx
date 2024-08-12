@@ -23,7 +23,7 @@ const container = {
   margin: "0 auto",
 };
 
-export const Email = ({ loginCode = "" }: Props) => (
+export const EmailTemplate = ({ loginCode = "" }: Props) => (
   <Html>
     <Head />
     <Preview>Log in with this magic link</Preview>
@@ -37,4 +37,4 @@ export const Email = ({ loginCode = "" }: Props) => (
   </Html>
 );
 
-export default Email;
+export default EmailTemplate;

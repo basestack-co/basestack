@@ -10,6 +10,7 @@ import { SubmitHandler } from "react-hook-form";
 import { FlagFormInputs } from "../types";
 // Store
 import { useStore } from "store";
+import { useShallow } from "zustand/react/shallow";
 // Types
 import { TabType } from "types";
 // Server
@@ -21,19 +22,24 @@ import useFlagForm, { tabPosition } from "../useFlagForm";
 
 const UpdateFlagModal = () => {
   const { t } = useTranslation("modals");
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const theme = useTheme();
   const router = useRouter();
-  const isModalOpen = useStore((state) => state.isUpdateFlagModalOpen);
-  const modalPayload = useStore((state) => state.flagModalPayload);
-  const setUpdateFlagModalOpen = useStore(
-    (state) => state.setUpdateFlagModalOpen,
-  );
-  const closeModalsOnClickOutside = useStore(
-    (state) => state.closeModalsOnClickOutside,
+  const [
+    isModalOpen,
+    modalPayload,
+    setUpdateFlagModalOpen,
+    closeModalsOnClickOutside,
+  ] = useStore(
+    useShallow((state) => [
+      state.isUpdateFlagModalOpen,
+      state.flagModalPayload,
+      state.setUpdateFlagModalOpen,
+      state.closeModalsOnClickOutside,
+    ]),
   );
 
-  const projectSlug = router.query.projectSlug as string;
+  const { projectId } = router.query as { projectId: string };
   const updateFlag = trpc.flag.update.useMutation();
 
   const {
@@ -47,7 +53,7 @@ const UpdateFlagModal = () => {
     setValue,
   } = useFlagForm({
     isModalOpen,
-    projectSlug,
+    projectId,
     flagId: modalPayload?.flag?.id,
   });
 
@@ -80,8 +86,8 @@ const UpdateFlagModal = () => {
         {
           onSuccess: async (result) => {
             // doing this instead of the above because the above doesn't work
-            await trpcContext.flag.all.invalidate({ projectId: project.id });
-            await trpcContext.flag.environments.invalidate({
+            await trpcUtils.flag.all.invalidate({ projectId: project.id });
+            await trpcUtils.flag.environments.invalidate({
               projectId: project.id,
               slug: modalPayload?.flag.slug,
             });

@@ -10,13 +10,13 @@ import {
   Placement,
 } from "@floating-ui/react";
 
-interface AnimationConfig {
+export interface AnimationConfig {
   [key: string]: {
     from: { opacity: number; scale: number; transformOrigin: string };
   };
 }
 
-interface UseFloatingPopupProps {
+export interface UseFloatingPopupProps {
   placement?: Placement;
 }
 

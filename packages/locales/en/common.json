@@ -1,0 +1,36 @@
+{
+  "not-found": {
+    "title": " This page could not be found",
+    "description": "Sorry, the page you are looking for doesn't exist or has been moved.",
+    "action": "Back to Homepage"
+  },
+  "brand": {
+    "powered": {
+      "forms": "Powered by Basestack Forms"
+    }
+  },
+  "status": {
+    "form": {
+      "success": {
+        "title": "Thank you for the message!",
+        "description": "Your submission was successful.",
+        "action": "Go back"
+      },
+      "error": {
+        "title": "Opps something went wrong!",
+        "description": "Please try again or contact costumer service.",
+        "action": "Go back"
+      }
+    }
+  },
+  "plan": {
+    "forms": {
+      "upgrade": {
+        "partial": "Upgrade to Launch or Scale Plans",
+        "all": "Upgrade to Hobby, Launch or Scale Plans",
+        "description": "Please select the plan you want to upgrade to.",
+        "action": "Upgrade"
+      }
+    }
+  }
+}

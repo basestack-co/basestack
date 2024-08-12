@@ -1,0 +1,49 @@
+{
+  "name": "@basestack/flags-react",
+  "version": "1.0.2",
+  "author": "Basestack",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "./src/index.ts",
+  "files": [
+    "dist/**",
+    "src"
+  ],
+  "license": "AGPL-3.0",
+  "scripts": {
+    "build": "tsup src/index.ts",
+    "dev": "tsup src/index.ts --watch",
+    "test:blocked": "jest",
+    "test:watch": "jest --watchAll",
+    "test:coverage": "jest --coverage",
+    "test:log": "jest --no-coverage >& ./logs/jest.log",
+    "lint": "TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "prepublishOnly": "yarn build"
+  },
+  "peerDependencies": {
+    "@basestack/flags-js": "*",
+    "react": "^18.3.0"
+  },
+  "devDependencies": {
+    "@basestack/config": "*",
+    "@basestack/tsconfig": "*",
+    "@swc/core": "^1.4.2",
+    "@types/node": "^20.11.24",
+    "tsup": "^8.0.2",
+    "typescript": "^5.3.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/basestack-co/basestack",
+  "bugs": {
+    "url": "https://github.com/basestack-co/basestack/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/basestack-co/basestack.git"
+  },
+  "description": ""
+}

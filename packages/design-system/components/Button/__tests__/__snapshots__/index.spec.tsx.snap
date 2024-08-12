@@ -26,7 +26,8 @@ exports[`Button tests should render Button correctly 1`] = `
   background-color: #0e55d7;
 }
 
-.c0 .material-symbols-sharp {
+.c0 .material-symbols-sharp,
+.c0 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -36,7 +37,7 @@ exports[`Button tests should render Button correctly 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -79,7 +80,8 @@ exports[`Button tests should render Button link 1`] = `
   background-color: #0e55d7;
 }
 
-.c0 .material-symbols-sharp {
+.c0 .material-symbols-sharp,
+.c0 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -89,7 +91,7 @@ exports[`Button tests should render Button link 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -144,7 +146,8 @@ exports[`Button tests should render Button with icon 1`] = `
   background-color: #0e55d7;
 }
 
-.c0 .material-symbols-sharp {
+.c0 .material-symbols-sharp,
+.c0 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -154,7 +157,7 @@ exports[`Button tests should render Button with icon 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -168,7 +171,7 @@ exports[`Button tests should render Button with icon 1`] = `
       size="24"
     >
       <span
-        class="c2 material-symbols-sharp"
+        class="c2 material-symbols-rounded"
         data-testid="icon"
         size="24"
       >
@@ -212,7 +215,8 @@ exports[`Button tests should render Button with styled system utilities 1`] = `
   background-color: #0e55d7;
 }
 
-.c0 .material-symbols-sharp {
+.c0 .material-symbols-sharp,
+.c0 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -222,7 +226,7 @@ exports[`Button tests should render Button with styled system utilities 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -270,7 +274,8 @@ exports[`Button tests should render Danger Button 1`] = `
   background-color: #FED7D2;
 }
 
-.c0 .material-symbols-sharp {
+.c0 .material-symbols-sharp,
+.c0 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -280,7 +285,7 @@ exports[`Button tests should render Danger Button 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -327,7 +332,8 @@ exports[`Button tests should render DangerFilled Button 1`] = `
   background-color: #E11900;
 }
 
-.c0 .material-symbols-sharp {
+.c0 .material-symbols-sharp,
+.c0 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -337,7 +343,7 @@ exports[`Button tests should render DangerFilled Button 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -384,7 +390,8 @@ exports[`Button tests should render Neutral Button 1`] = `
   background-color: #E2E2E2;
 }
 
-.c0 .material-symbols-sharp {
+.c0 .material-symbols-sharp,
+.c0 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -394,7 +401,7 @@ exports[`Button tests should render Neutral Button 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -439,11 +446,13 @@ exports[`Button tests should render Outlined Button 1`] = `
   border-color: #757575;
 }
 
-.c0:hover:not(:active, :disabled) .material-symbols-sharp {
+.c0:hover:not(:active, :disabled) .material-symbols-sharp,
+.c0:hover:not(:active, :disabled) .material-symbols-rounded {
   color: inherit;
 }
 
-.c0 .material-symbols-sharp {
+.c0 .material-symbols-sharp,
+.c0 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -453,7 +462,7 @@ exports[`Button tests should render Outlined Button 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -501,7 +510,8 @@ exports[`Button tests should render PrimaryNeutral Button 1`] = `
   background-color: #D4E2FC;
 }
 
-.c0 .material-symbols-sharp {
+.c0 .material-symbols-sharp,
+.c0 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -511,7 +521,7 @@ exports[`Button tests should render PrimaryNeutral Button 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -554,7 +564,8 @@ exports[`Button tests should render Secondary Button 1`] = `
   background-color: #333;
 }
 
-.c0 .material-symbols-sharp {
+.c0 .material-symbols-sharp,
+.c0 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -564,7 +575,7 @@ exports[`Button tests should render Secondary Button 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -607,7 +618,8 @@ exports[`Button tests should render Tertiary Button 1`] = `
   background-color: #E2E2E2;
 }
 
-.c0 .material-symbols-sharp {
+.c0 .material-symbols-sharp,
+.c0 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -617,7 +629,7 @@ exports[`Button tests should render Tertiary Button 1`] = `
 }
 
 .c0:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 

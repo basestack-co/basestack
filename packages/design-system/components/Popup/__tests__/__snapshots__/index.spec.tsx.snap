@@ -31,7 +31,8 @@ exports[`Popup tests should render Popup correctly 1`] = `
   background-color: #E2E2E2;
 }
 
-.c3 .material-symbols-sharp {
+.c3 .material-symbols-sharp,
+.c3 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -41,7 +42,7 @@ exports[`Popup tests should render Popup correctly 1`] = `
 }
 
 .c3:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -166,7 +167,8 @@ exports[`Popup tests should render Popup with icons 1`] = `
   background-color: #E2E2E2;
 }
 
-.c3 .material-symbols-sharp {
+.c3 .material-symbols-sharp,
+.c3 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -176,7 +178,7 @@ exports[`Popup tests should render Popup with icons 1`] = `
 }
 
 .c3:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -222,7 +224,7 @@ exports[`Popup tests should render Popup with icons 1`] = `
             size="18"
           >
             <span
-              class="c5 material-symbols-sharp"
+              class="c5 material-symbols-rounded"
               data-testid="icon"
               size="18"
             >
@@ -250,7 +252,7 @@ exports[`Popup tests should render Popup with icons 1`] = `
             size="18"
           >
             <span
-              class="c5 material-symbols-sharp"
+              class="c5 material-symbols-rounded"
               data-testid="icon"
               size="18"
             >
@@ -278,7 +280,7 @@ exports[`Popup tests should render Popup with icons 1`] = `
             size="18"
           >
             <span
-              class="c5 material-symbols-sharp"
+              class="c5 material-symbols-rounded"
               data-testid="icon"
               size="18"
             >

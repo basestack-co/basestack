@@ -60,7 +60,8 @@ exports[`Footer tests should render Footer correctly 1`] = `
   background-color: #0e55d7;
 }
 
-.c13 .material-symbols-sharp {
+.c13 .material-symbols-sharp,
+.c13 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -70,7 +71,7 @@ exports[`Footer tests should render Footer correctly 1`] = `
 }
 
 .c13:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 

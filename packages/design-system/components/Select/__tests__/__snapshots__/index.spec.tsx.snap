@@ -25,6 +25,7 @@ exports[`Select tests should render Select correctly 1`] = `
       aria-live="polite"
       aria-relevant="additions text"
       class="css-1f43avz-a11yText-A11yText"
+      role="log"
     />
     <div
       class=" css-19wf9l7-control"
@@ -43,6 +44,7 @@ exports[`Select tests should render Select correctly 1`] = `
           data-value=""
         >
           <input
+            aria-activedescendant=""
             aria-autocomplete="list"
             aria-describedby="react-select-2-placeholder"
             aria-expanded="false"
@@ -77,7 +79,7 @@ exports[`Select tests should render Select correctly 1`] = `
             size="24"
           >
             <span
-              class="c1 material-symbols-sharp"
+              class="c1 material-symbols-rounded"
               color="#757575"
               data-testid="icon"
               size="24"

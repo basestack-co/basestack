@@ -1,0 +1,319 @@
+{
+  "seo": {
+    "setting": {
+      "title": "Settings",
+      "0": "General",
+      "1": "Security",
+      "2": "Customization",
+      "3": "Notifications"
+    }
+  },
+  "common": {
+    "copy": {
+      "url": {
+        "default": "Copy URL",
+        "success": "Copied URL to Clipboard"
+      },
+      "key": {
+        "default": "Copy Key",
+        "success": "Copied Key to Clipboard"
+      }
+    }
+  },
+  "general": {
+    "project": {
+      "title": "Project Name",
+      "description": "A name used to identify your project on the dashboard.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Project Name",
+          "error": {
+            "max": "Must be 30 characters or less",
+            "min": "Required field"
+          }
+        }
+      }
+    },
+    "endpoints": {
+      "title": "Endpoints",
+      "description": "Endpoints are essential for the SDKs to access and interact with features.",
+      "copy": {
+        "title": "Base Url"
+      }
+    },
+    "project-key": {
+      "title": "Project Key",
+      "description": "Here is your project key, which you can use to integrate and access the features in your project.",
+      "copy": {
+        "title": "Key"
+      }
+    },
+    "form-key": {
+      "title": "Form ID",
+      "description": "Here is your form ID, which you can use to integrate and access the features in your websites.",
+      "copy": {
+        "title": "ID"
+      }
+    },
+    "keys": {
+      "title": "API Keys",
+      "description": "API keys are used with the SDKs, such as JavaScript, React, etc.",
+      "table": {
+        "headers": {
+          "name": "Environment Name",
+          "key": "Environment Key"
+        }
+      }
+    },
+    "delete": {
+      "form": {
+        "title": "Delete Form",
+        "description": "Deleting the form will permanently remove all its submissions.",
+        "placeholder": "Warning: This action is irreversible. Proceed with caution.",
+        "action": "Delete",
+        "modal": {
+          "title": "Are you sure about this action?",
+          "description": "Warning: This action cannot be undone. It will permanently delete the {{name}} form.",
+          "action": "Delete Form"
+        }
+      },
+      "project": {
+        "title": "Delete Project",
+        "description": "Deleting the project will permanently remove all its environments and feature flags.",
+        "placeholder": "Warning: This action is irreversible. Proceed with caution.",
+        "action": "Delete",
+        "modal": {
+          "title": "Are you sure about this action?",
+          "description": "Warning: This action cannot be undone. It will permanently delete the {{name}} project, including flags, history, and all collaborator associations.",
+          "action": "Delete Project"
+        }
+      }
+    },
+    "form": {
+      "title": "Form Name",
+      "description": "A name used to identify your form on the dashboard.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Form name",
+          "error": {
+            "max": "Must be 30 characters or less",
+            "min": "Required field"
+          }
+        }
+      },
+      "toast": {
+        "success": "Form name updated successfully"
+      }
+    },
+    "enable-form": {
+      "title": "Enable Form",
+      "description": "Activate/Deactivate the form to control submission collection.",
+      "toast": {
+        "success": "Form updated successfully"
+      }
+    },
+    "data-retention": {
+      "title": "Data Retention",
+      "description": "Store incoming submissions in the Basestack Forms database.",
+      "toast": {
+        "success": "Data retention updated successfully"
+      }
+    },
+    "webhook-url": {
+      "title": "Webhook URL",
+      "description": "Each time a new form submission is received, JSON data will be sent to the specified URL.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter an URL",
+          "error": {
+            "min": "Required field"
+          }
+        }
+      },
+      "toast": {
+        "success": "Webhook URL updated successfully"
+      }
+    }
+  },
+  "notifications": {
+    "emails": {
+      "title": "Emails",
+      "description": "Send submission notifications to these email addresses.",
+      "text": "Press Enter to add an email in the input field.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter an Email",
+          "error": {
+            "min": "Required field"
+          }
+        }
+      },
+      "toast": {
+        "success": "Emails updated successfully"
+      }
+    }
+  },
+  "security": {
+    "spam-protection": {
+      "title": "Spam AI ✨",
+      "description": "Our AI detects and filters out spam submissions. Data Retention needs to be enabled for the AI to work.",
+      "toast": {
+        "success": "Spam AI updated successfully"
+      }
+    },
+    "ip-block-rules": {
+      "title": "IP Block Rules",
+      "description": "List IP addresses to block; Basestack Forms will reject messages from those addresses.",
+      "text": "Press Enter to add an IP address in the input field.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter an IP address",
+          "error": {
+            "min": "Required field"
+          }
+        }
+      },
+      "toast": {
+        "success": "IP block rules updated successfully"
+      }
+    },
+    "honeypot": {
+      "title": "Honeypot",
+      "description": "If this field is present in the submission data, it will be ignored, and an error will be returned.",
+      "text": "A Honeypot field is a hidden field that is added to a form to catch bots without the user knowing.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter a field name",
+          "error": {
+            "min": "Required field",
+            "max": "Must be 30 characters or less"
+          }
+        }
+      },
+      "toast": {
+        "success": "Honeypot updated successfully"
+      }
+    },
+    "websites": {
+      "title": "Websites",
+      "description": "Add websites to restrict form submissions to only those originating from the specified URLs.",
+      "text": "Press Enter to add a website in the input field. Example: https://www.example.com",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter a website URL"
+        }
+      },
+      "toast": {
+        "success": "Websites updated successfully"
+      }
+    }
+  },
+  "customization": {
+    "success-url": {
+      "title": "Custom Success URL",
+      "description": "After a successful form submission, users will be directed to your custom URL.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter an URL",
+          "error": {
+            "min": "Required field"
+          }
+        }
+      },
+      "toast": {
+        "success": "Success URL updated successfully"
+      }
+    },
+    "failed-url": {
+      "title": "Custom Failed URL",
+      "description": "After a failed form submission, users will be directed to your custom URL.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter an URL",
+          "error": {
+            "min": "Required field"
+          }
+        }
+      },
+      "toast": {
+        "success": "Failed URL updated successfully"
+      }
+    },
+    "redirect-url": {
+      "title": "Custom Redirect URL",
+      "description": "After submitting the form, users will be provided with the option to return to the specified URL.",
+      "action": "Update",
+      "inputs": {
+        "name": {
+          "placeholder": "Enter an URL",
+          "error": {
+            "min": "Required field"
+          }
+        }
+      },
+      "toast": {
+        "success": "Redirect URL updated successfully"
+      }
+    },
+    "data-query-string": {
+      "title": "Form Data as Query String",
+      "description": "Pass submission data through query parameters. The return URL will be dynamically populated with the submitted form data.",
+      "toast": {
+        "success": "Data query string updated successfully"
+      }
+    }
+  },
+  "members": {
+    "invite": {
+      "title": "Team Members",
+      "description": "Add members of your organization to manage this project. Developers can also be invited to access API keys for code integration.",
+      "placeholder": "Note: Users must already have an account to appear in the list (Email Invites Coming Soon).",
+      "action": "Add Member",
+      "table": {
+        "headers": {
+          "name": "Name",
+          "email": "Email",
+          "role": "Role",
+          "invited-at": "Invited At"
+        }
+      }
+    }
+  },
+  "others": {
+    "environments": {
+      "title": "Environments",
+      "description": "{{type}} environments for this project. Environments allow you to control how your feature flags behave in different settings or stages of development.",
+      "admin": "Create and edit",
+      "user": "All the",
+      "action": "Create New Environment",
+      "modal": {
+        "delete": {
+          "title": "Are you sure?",
+          "description": "This action cannot be undone. This will permanently delete the {{name}} environment, flags, history and remove all collaborator associations.",
+          "action": "Delete Environment"
+        }
+      },
+      "table": {
+        "headers": {
+          "environment": "Environment",
+          "slug": "Slug",
+          "description": "Description",
+          "created-at": "Created At"
+        }
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    }
+  }
+}

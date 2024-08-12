@@ -14,7 +14,7 @@ import { SessionProvider } from "next-auth/react";
 // Server
 import { trpc } from "libs/trpc";
 // Fonts
-import "material-symbols/sharp.css";
+import "material-symbols/rounded.css";
 // Dates
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -24,7 +24,7 @@ dayjs.extend(relativeTime);
 const Noop = ({ children }: { children: React.ReactNode }) => children;
 
 function MyApp({ Component, pageProps }: AppProps) {
-  //@ts-ignore
+  // @ts-expect-error
   const Layout = Component.Layout || Noop;
   const isDarkMode = useStore((state) => state.isDarkMode);
   const theme = isDarkMode ? darkTheme : lightTheme;

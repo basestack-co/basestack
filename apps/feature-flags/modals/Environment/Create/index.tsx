@@ -1,13 +1,15 @@
 import React, { useMemo } from "react";
 import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
+// Router
+import { useRouter } from "next/router";
 // Form
 import { SubmitHandler } from "react-hook-form";
 // Server
 import { trpc } from "libs/trpc";
 // Store
 import { useStore } from "store";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/react/shallow";
 // Locales
 import useTranslation from "next-translate/useTranslation";
 // Types
@@ -17,26 +19,28 @@ import useEnvironmentForm from "../useEnvironmentForm";
 
 const CreateEnvironmentModal = () => {
   const { t } = useTranslation("modals");
-  const trpcContext = trpc.useContext();
-  const { isModalOpen, data, setCreateEnvironmentModalOpen } = useStore(
-    (state) => ({
-      isModalOpen: state.isCreateEnvironmentModalOpen,
-      data: state.environmentModalPayload,
-      setCreateEnvironmentModalOpen: state.setCreateEnvironmentModalOpen,
-    }),
-    shallow,
-  );
-  const closeModalsOnClickOutside = useStore(
-    (state) => state.closeModalsOnClickOutside,
+  const trpcUtils = trpc.useUtils();
+  const router = useRouter();
+  const { projectId } = router.query as { projectId: string };
+
+  const [
+    isModalOpen,
+    setCreateEnvironmentModalOpen,
+    closeModalsOnClickOutside,
+  ] = useStore(
+    useShallow((state) => [
+      state.isCreateEnvironmentModalOpen,
+      state.setCreateEnvironmentModalOpen,
+      state.closeModalsOnClickOutside,
+    ]),
   );
 
-  const project = data && data.project;
   const createEnvironment = trpc.environment.create.useMutation();
 
   const [environments, defaultEnvironment] = useMemo(() => {
-    if (project) {
-      const cache = trpcContext.environment.all.getData({
-        projectId: project.id!,
+    if (projectId) {
+      const cache = trpcUtils.environment.all.getData({
+        projectId,
       });
 
       const environments = (cache && cache.environments) || [];
@@ -46,7 +50,7 @@ const CreateEnvironmentModal = () => {
     }
 
     return [] as const;
-  }, [project, trpcContext]);
+  }, [projectId, trpcUtils]);
 
   const { handleSubmit, onRenderForm, reset, isSubmitting } =
     useEnvironmentForm(true);
@@ -56,25 +60,25 @@ const CreateEnvironmentModal = () => {
   const onClose = () => setCreateEnvironmentModalOpen({ isOpen: false });
 
   const onSubmit: SubmitHandler<FormInputs> = (input: FormInputs) => {
-    if (project) {
+    if (projectId) {
       createEnvironment.mutate(
         {
           name: input.name,
           description: input.description,
-          projectId: project.id!,
+          projectId,
           copyFromEnvId: defaultEnvironment?.id ?? "",
         },
         {
           onSuccess: async (result) => {
-            if (project && result) {
+            if (result) {
               if (environments) {
                 const updated = [result.environment, ...environments].sort(
                   (a, b) => a.createdAt.getTime() - b.createdAt.getTime(),
                 );
 
                 // Update the cache with the new data
-                trpcContext.environment.all.setData(
-                  { projectId: project.id! },
+                trpcUtils.environment.all.setData(
+                  { projectId },
                   {
                     environments: updated,
                   },

@@ -1,9 +1,9 @@
-import { memo } from "react";
-import { SpaceProps, FlexboxProps } from "styled-system";
+import { memo, ReactNode } from "react";
+import { SpaceProps, FlexboxProps, LayoutProps } from "styled-system";
 import { LabelDot, LabelDotContainer, StyledLabel } from "./styles";
 import { LabelVariant, LabelSize } from "./types";
 
-export interface LabelProps extends SpaceProps, FlexboxProps {
+export interface LabelProps extends SpaceProps, FlexboxProps, LayoutProps {
   /**
    * Label variants
    */
@@ -28,6 +28,14 @@ export interface LabelProps extends SpaceProps, FlexboxProps {
    * Changes the styles of the label
    */
   type?: "dot" | "default";
+  /**
+   * Adds react component for ex icon button to clear label
+   */
+  children?: ReactNode;
+  /**
+   * Changes text to uppercase
+   */
+  isUppercase?: boolean;
 }
 
 const Label = ({
@@ -35,13 +43,20 @@ const Label = ({
   size = "normal",
   type = "default",
   variant = "default",
+  isUppercase = false,
   isTranslucent = false,
   testId = "label-container",
+  children,
   ...props
 }: LabelProps) => {
   if (type === "dot") {
     return (
-      <LabelDotContainer variant={variant} size={size} {...props}>
+      <LabelDotContainer
+        isUppercase={isUppercase}
+        variant={variant}
+        size={size}
+        {...props}
+      >
         <LabelDot variant={variant} isTranslucent={isTranslucent} />
         <span>{text}</span>
       </LabelDotContainer>
@@ -54,9 +69,12 @@ const Label = ({
       variant={variant}
       size={size}
       isTranslucent={isTranslucent}
+      isUppercase={isUppercase}
+      hasChildren={!!children}
       {...props}
     >
-      {text}
+      <span>{text}</span>
+      {children}
     </StyledLabel>
   );
 };

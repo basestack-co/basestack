@@ -14,7 +14,7 @@ export interface SendEmail {
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_SMTP_HOST,
   port: Number(process.env.EMAIL_SMTP_PORT) ?? 465,
-  secure: !!process.env.EMAIL_SMTP_SECURE ?? true,
+  secure: !!process.env.EMAIL_SMTP_SECURE,
   auth: {
     user: process.env.EMAIL_SMTP_AUTH_USER,
     pass: process.env.EMAIL_SMTP_AUTH_PASSWORD,
@@ -28,14 +28,8 @@ export const sendEmail = async ({ html, options }: SendEmail) => {
 
   // This code is needed to work with Next.js API routes
   return await new Promise((resolve, reject) => {
-    transporter.sendMail({ ...options, html }, (error, info) => {
-      if (error) {
-        console.error("The email could not be sent, error = ", error);
-        reject(error);
-      } else {
-        console.log("The email was sent successfully, info = ", info);
-        resolve(info);
-      }
-    });
+    transporter.sendMail({ ...options, html }, (error, info) =>
+      error ? reject(error) : resolve(info),
+    );
   });
 };

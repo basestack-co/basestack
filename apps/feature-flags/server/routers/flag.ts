@@ -1,10 +1,6 @@
 import { protectedProcedure, router } from "server/trpc";
 import { TRPCError } from "@trpc/server";
 // Utils
-import { getValue } from "@basestack/utils";
-// Inputs
-import schemas from "server/schemas";
-
 import { z } from "zod";
 
 export const flagRouter = router({
@@ -28,22 +24,29 @@ export const flagRouter = router({
           }
         : {};
 
-      return await ctx.prisma.$transaction(async (tx) => {
+      return ctx.prisma.$transaction(async (tx) => {
         const env = await tx.environment.findFirst({
           where: { isDefault: true, projectId: input.projectId },
         });
 
         if (env) {
-          const flags = await tx.flag.findMany({
-            where: {
-              environment: {
-                id: env.id,
-                project: {
-                  id: input.projectId,
-                },
+          const where = {
+            environment: {
+              id: env.id,
+              project: {
+                id: input.projectId,
               },
-              ...search,
             },
+            ...search,
+          };
+
+          const { _count } = await tx.flag.aggregate({
+            _count: { id: true },
+            where,
+          });
+
+          const flags = await tx.flag.findMany({
+            where,
             take: limit + 1, // get an extra item at the end which we'll use as next cursor
             cursor: input.cursor ? { id: input.cursor } : undefined,
             orderBy: [{ createdAt: "desc" }, { id: "desc" }],
@@ -68,6 +71,7 @@ export const flagRouter = router({
           return {
             flags,
             nextCursor,
+            total: _count.id,
           };
         } else {
           throw new TRPCError({
@@ -81,9 +85,15 @@ export const flagRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.flag.input.total)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+        })
+        .required(),
+    )
     .query(async ({ ctx, input }) => {
-      return await ctx.prisma.$transaction(async (tx) => {
+      return ctx.prisma.$transaction(async (tx) => {
         const env = await tx.environment.findFirst({
           where: { isDefault: true, projectId: input.projectId },
         });
@@ -116,7 +126,14 @@ export const flagRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.flag.input.environments)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          slug: z.string(),
+        })
+        .required(),
+    )
     .query(async ({ ctx, input }) => {
       const allEnvironments = await ctx.prisma.flag.findMany({
         where: { slug: input.slug },
@@ -145,7 +162,14 @@ export const flagRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.flag.input.bySlug)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          slug: z.string(),
+        })
+        .required(),
+    )
     .query(async ({ ctx, input }) => {
       const flags = await ctx.prisma.flag.findMany({
         where: {
@@ -170,8 +194,8 @@ export const flagRouter = router({
       const data = flags && !!flags.length ? flags : [];
 
       return {
-        slug: getValue(flags, "[0].slug", ""),
-        description: getValue(flags, "[0].description", ""),
+        slug: flags[0].slug ?? "",
+        description: flags[0].description ?? "",
         environments: data.map(
           ({
             environment: { id, name },
@@ -194,7 +218,30 @@ export const flagRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.flag.input.create)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          environments: z.array(
+            z.object({
+              name: z.string(),
+              id: z.string(),
+              enabled: z.boolean(),
+            }),
+          ),
+          data: z.array(
+            z.object({
+              slug: z.string(),
+              enabled: z.boolean(),
+              payload: z.any().optional().nullable(),
+              expiredAt: z.date().optional().nullable(),
+              description: z.string().optional(),
+              environmentId: z.string(),
+            }),
+          ),
+        })
+        .required(),
+    )
     .mutation(async ({ ctx, input }) => {
       // TODO: this is workaround for prisma bug on createMany not returning the created data
       const flags = await ctx.prisma.$transaction(async (tx) => {
@@ -211,7 +258,30 @@ export const flagRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.flag.input.update)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          environments: z.array(
+            z.object({
+              name: z.string(),
+              id: z.string(),
+              enabled: z.boolean(),
+            }),
+          ),
+          data: z.array(
+            z.object({
+              slug: z.string(),
+              enabled: z.boolean(),
+              payload: z.any().optional().nullable(),
+              expiredAt: z.date().optional().nullable(),
+              description: z.string().optional(),
+              id: z.string(),
+            }),
+          ),
+        })
+        .required(),
+    )
     .mutation(async ({ ctx, input }) => {
       const flags = await ctx.prisma.$transaction(async (tx) => {
         return await Promise.all(
@@ -236,7 +306,14 @@ export const flagRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.flag.input.delete)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          flagSlug: z.string(),
+        })
+        .required(),
+    )
     .mutation(async ({ ctx, input }) => {
       const flags = await ctx.prisma.flag.deleteMany({
         where: {

@@ -61,7 +61,8 @@ exports[`Empty tests should render Empty correctly 1`] = `
   background-color: #0e55d7;
 }
 
-.c7 .material-symbols-sharp {
+.c7 .material-symbols-sharp,
+.c7 .material-symbols-rounded {
   color: inherit;
 }
 
@@ -71,7 +72,7 @@ exports[`Empty tests should render Empty correctly 1`] = `
 }
 
 .c7:disabled {
-  cursor: not-allowed;
+  cursor: default;
   opacity: 0.6;
 }
 
@@ -128,7 +129,7 @@ exports[`Empty tests should render Empty correctly 1`] = `
           size="24"
         >
           <span
-            class="c4 material-symbols-sharp"
+            class="c4 material-symbols-rounded"
             color="#757575"
             data-testid="icon"
             size="24"

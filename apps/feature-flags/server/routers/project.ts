@@ -1,11 +1,10 @@
 import { protectedProcedure, router } from "server/trpc";
 // Utils
 import { generateSlug } from "random-word-slugs";
-import { withRoles } from "libs/prisma/utils/authorization";
+import { withRoles } from "@basestack/utils";
+import { z } from "zod";
 // Types
 import { Role } from "@prisma/client";
-// Inputs
-import schemas from "server/schemas";
 
 export const projectRouter = router({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -31,7 +30,7 @@ export const projectRouter = router({
   recent: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.session.user.id;
 
-    return await ctx.prisma.$transaction(async (tx) => {
+    return ctx.prisma.$transaction(async (tx) => {
       const projects = await tx.project.findMany({
         where: {
           users: {
@@ -87,45 +86,48 @@ export const projectRouter = router({
       );
     });
   }),
-  bySlug: protectedProcedure
+  byId: protectedProcedure
     .meta({
       restricted: true,
     })
-    .input(schemas.project.input.BySlug)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+        })
+        .required(),
+    )
     .query(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
-      return await ctx.prisma.$transaction(async (tx) => {
-        const project = await tx.project.findUnique({
-          where: {
-            slug: input.projectSlug,
-          },
-        });
-
-        const role = await tx.projectsOnUsers.findFirst({
-          where: {
-            projectId: project?.id,
-            userId,
-          },
-          select: {
-            role: true,
-          },
-        });
-
-        return {
-          project: {
-            ...project,
-            role: role?.role,
-          },
-        };
+      const data = await ctx.prisma.projectsOnUsers.findFirst({
+        where: {
+          projectId: input.projectId,
+          userId,
+        },
+        select: {
+          role: true,
+          project: true,
+        },
       });
+
+      return {
+        ...data?.project,
+        role: data?.role,
+      };
     }),
   allKeys: protectedProcedure
-    .input(schemas.project.input.allKeys)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+        })
+        .required(),
+    )
     .query(async ({ ctx, input }) => {
       const keys = await ctx.prisma.project.findUnique({
         where: {
-          slug: input.projectSlug,
+          id: input.projectId,
         },
         select: {
           key: true,
@@ -145,7 +147,13 @@ export const projectRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.project.input.members)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+        })
+        .required(),
+    )
     .query(async ({ ctx, input }) => {
       const users = await ctx.prisma.projectsOnUsers.findMany({
         where: {
@@ -172,11 +180,18 @@ export const projectRouter = router({
       return { users };
     }),
   create: protectedProcedure
-    .input(schemas.project.input.create)
+    .input(
+      z
+        .object({
+          name: z.string(),
+          slug: z.string(),
+        })
+        .required(),
+    )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
-      return await ctx.prisma.$transaction(async (tx) => {
+      return ctx.prisma.$transaction(async (tx) => {
         const project = await tx.project.create({
           data: {
             ...input,
@@ -226,9 +241,16 @@ export const projectRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.project.input.update)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          name: z.string(),
+        })
+        .required(),
+    )
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.project.update({
           where: {
             id: input.projectId,
@@ -247,9 +269,15 @@ export const projectRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.project.input.delete)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+        })
+        .required(),
+    )
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.project.delete({
           where: {
             id: input.projectId,
@@ -265,9 +293,16 @@ export const projectRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.project.input.addMember)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          userId: z.string(),
+        })
+        .required(),
+    )
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.projectsOnUsers.create({
           data: {
             project: {
@@ -293,9 +328,17 @@ export const projectRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.project.input.updateMember)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          userId: z.string(),
+          role: z.enum(["USER", "ADMIN"]),
+        })
+        .required(),
+    )
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.projectsOnUsers.update({
           where: {
             projectId_userId: {
@@ -321,9 +364,16 @@ export const projectRouter = router({
     .meta({
       restricted: true,
     })
-    .input(schemas.project.input.removeMember)
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          userId: z.string(),
+        })
+        .required(),
+    )
     .mutation(async ({ ctx, input }) => {
-      const authorized = await withRoles(ctx.project.role, [Role.ADMIN])(() =>
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.projectsOnUsers.delete({
           where: {
             projectId_userId: {

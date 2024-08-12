@@ -3,7 +3,8 @@ import React from "react";
 import useTranslation from "next-translate/useTranslation";
 // Components
 import { CopyCard } from "@basestack/design-system";
-import SettingCard from "../SettingCard";
+// UI
+import { SettingCard } from "@basestack/ui";
 
 interface ProjectKeyProps {
   projectKey: string;

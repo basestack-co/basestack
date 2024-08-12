@@ -1,28 +1,25 @@
-import { memo, ReactNode, forwardRef } from "react";
-import { SpaceProps, PositionProps, LayoutProps } from "styled-system";
+import { memo, forwardRef } from "react";
 import { Container } from "./styles";
-
-export interface CardProps extends SpaceProps, PositionProps, LayoutProps {
-  /**
-   * Content
-   */
-  children: ReactNode;
-  /**
-   * TestID
-   */
-  testId?: string;
-  /**
-   * Optional hover animation
-   */
-  hasHoverAnimation?: boolean;
-}
+import { CardProps, Variant } from "./types";
 
 const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ children, testId = "card", hasHoverAnimation = false, ...props }, ref) => (
+  (
+    {
+      variant = Variant.DEFAULT,
+      children,
+      testId = "card",
+      hasHoverAnimation = false,
+      color,
+      ...props
+    },
+    ref,
+  ) => (
     <Container
       hasHoverAnimation={hasHoverAnimation}
       ref={ref}
       data-testid={testId}
+      variant={variant}
+      color={color as string}
       {...props}
     >
       {children}
@@ -31,5 +28,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
 );
 
 Card.displayName = "Card";
+
+export { type CardProps, Variant as CardVariant };
 
 export default memo(Card);

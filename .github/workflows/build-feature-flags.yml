@@ -1,0 +1,60 @@
+name: CI / Feature Flags
+
+on:
+  push:
+    branches: ["develop"]
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  build:
+    name: Lint, Test and Build
+    timeout-minutes: 15
+    runs-on: ${{ matrix.os }}
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/monolock
+      DIRECT_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/monolock
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21.1.0
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build packages
+        run: yarn build:packages
+
+      - name: Lint
+        run: yarn lint --filter=@basestack/feature-flags
+
+      - name: Test
+        run: yarn test --filter=@basestack/feature-flags
+
+#      - name: Build
+#        run: yarn build:feature-flags

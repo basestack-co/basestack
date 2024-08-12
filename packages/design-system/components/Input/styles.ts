@@ -22,8 +22,8 @@ export const StyledInput = styled.input<{
     hasError
       ? theme.input.error.backgroundColor
       : isDarker
-      ? theme.input.isDarker.backgroundColor
-      : theme.input.backgroundColor};
+        ? theme.input.isDarker.backgroundColor
+        : theme.input.backgroundColor};
   height: ${({ format }) => (format === "normal" ? rem("44px") : rem("36px"))};
   border-radius: ${rem("4px")};
   font-size: ${rem("14px")};

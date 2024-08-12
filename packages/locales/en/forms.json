@@ -1,0 +1,216 @@
+{
+  "seo": {
+    "title": "Forms",
+    "submissions": "Submissions",
+    "setup": "Setup"
+  },
+  "page": {
+    "title": "Forms"
+  },
+  "toolbar": {
+    "search": {
+      "placeholder": "Search...",
+      "filter": {
+        "placeholder": "Search by"
+      }
+    },
+    "action": {
+      "select-all": "Select all",
+      "un-select-all": "Unselect all",
+      "mark-spam": "Mark as Spam",
+      "unmark-spam": "Unmark Spam",
+      "read-submissions": "Read Submissions",
+      "un-read-submissions": "Un-Read Submissions",
+      "delete-all": "Delete all",
+      "export": "Export"
+    },
+    "filter": {
+      "placeholder": "Filters",
+      "is-spam": "is Spam",
+      "is-not-spam": "is not Spam"
+    },
+    "sort": {
+      "placeholder": "Sort",
+      "newest": "Newest (default)",
+      "oldest": "Oldest"
+    }
+  },
+  "submission": {
+    "alert": {
+      "enabled": {
+        "description": "The form is currently disabled. To start receiving submissions and access other functionalities, please enable it."
+      },
+      "retention": {
+        "description": "Data retention is currently disabled. To view submissions on this page, navigate to settings, and under the general tab, enable data retention."
+      }
+    },
+    "empty": {
+      "title": "No Submissions Found",
+      "description": "No submissions have been found for this form."
+    },
+    "label": {
+      "new": "New",
+      "spam": "Spam"
+    },
+    "action": {
+      "read-submission": "Read Submission",
+      "un-read-submission": "Un-Read Submission",
+      "mark-spam": "Mark as Spam",
+      "unmark-spam": "Unmark Spam",
+      "delete": "Delete"
+    },
+    "event": {
+      "delete": {
+        "error": "Submission could not be deleted.",
+        "loading": "Deleting...",
+        "success_one": "Submission has been deleted successfully.",
+        "success_other": "Submissions have been deleted successfully."
+      },
+      "update": {
+        "error": "Submission could not be updated.",
+        "loading": "Updating...",
+        "success_one": "Submission has been updated successfully.",
+        "success_other": "Submissions have been updated successfully."
+      },
+      "export": {
+        "error": "Submissions could not be exported.",
+        "loading": "Exporting...",
+        "success": "Submissions have been exported successfully."
+      }
+    },
+    "metadata": {
+      "title": "Automatically captured metadata",
+      "expand": {
+        "less": "less"
+      },
+      "ip": {
+        "block": "Block IP Address",
+        "unblock": "Unblock IP Address",
+        "success": {
+          "block": "IP Address has been blocked successfully.",
+          "unblock": "IP Address has been unblocked successfully."
+        }
+      }
+    }
+  },
+  "setup": {
+    "card": {
+      "library": {
+        "html": "HTML",
+        "javascript": "Javascript",
+        "react": "React",
+        "vue": "Vue",
+        "rest": "REST API"
+      },
+      "endpoint": {
+        "title": "Form Endpoint",
+        "description": "This URL is specific to your form's API. Send your form submissions here.",
+        "copy": {
+          "url": {
+            "default": "Copy Endpoint URL",
+            "success": "Copied Endpoint URL to Clipboard"
+          }
+        }
+      },
+      "guide": {
+        "title": "Setup Guide",
+        "description": "Discover our detailed guide on how to build and collect form submissions using your front-end code.",
+        "platform": "Select Your Library/Language",
+        "html": {
+          "step-1": {
+            "title": "Update your form's action attribute to point to your endpoint.",
+            "description": "Configure your form action to [{{url}}] and method to [{{method}}]."
+          },
+          "step-2": {
+            "title": "Assign a name attribute to each form field.",
+            "description": "All form inputs, including textareas, checkboxes, and radios, should have a 'name' attribute specified, such as [name=\"example\"]."
+          },
+          "step-3": {
+            "title": "Your form is now set up.",
+            "description": "Feel free to use the code below to send a test submission."
+          }
+        },
+        "javascript": {
+          "step-1": {
+            "title": "Send data using the fetch API in any JavaScript environment.",
+            "description": "Ensure the mode on the query string is set to [{{mode}}] to retrieve the response in JSON format."
+          },
+          "step-2": {
+            "title": "Copy and paste this into your JavaScript file.",
+            "description": "Feel free to use the code below to send a test submission."
+          }
+        },
+        "react": {
+          "step-1": {
+            "title": "Use this on your React Project to send form data to your endpoint.",
+            "description": "Send data using the fetch API and ensure the mode on the query string is set to [{{mode}}] for retrieving the response in JSON format."
+          },
+          "step-2": {
+            "title": "Copy and paste this into your React component.",
+            "description": "Feel free to use the code below to send a test submission."
+          }
+        },
+        "vue": {
+          "step-1": {
+            "title": "Use this on your Vue Project to send form data to your endpoint.",
+            "description": "Send data using the fetch API and ensure the mode on the query string is set to [{{mode}}] for retrieving the response in JSON format."
+          },
+          "step-2": {
+            "title": "Copy and paste this into your Vue component.",
+            "description": "Feel free to use the code below to send a test submission."
+          }
+        },
+        "rest": {
+          "step-1": {
+            "title": "Use the CURL command to send form data to the endpoint.",
+            "description": "Ensure the mode is set to [{{mode}}] to retrieve the response in JSON format."
+          },
+          "step-2": {
+            "title": "Execute the following command in your terminal.",
+            "description": "You can use the CURL command below to send a test submission."
+          }
+        }
+      },
+      "form": {
+        "title": "Sample Form",
+        "description": "Try out this form to send submissions to your URL and review them in the submissions tab.",
+        "inputs": {
+          "name": {
+            "title": "Name",
+            "placeholder": "Enter your name"
+          },
+          "email": {
+            "title": "Email",
+            "placeholder": "Enter your email"
+          },
+          "message": {
+            "title": "Message",
+            "placeholder": "Enter your message"
+          }
+        },
+        "submit": "Submit",
+        "toast": {
+          "success": "Form saved. Please check the \"Submissions\" tab for further details."
+        }
+      },
+      "support": {
+        "title": "Examples and Demos",
+        "description": "Explore the links below to view examples and demos of forms that you can use to test your endpoint.",
+        "link": {
+          "business-contact-form": "Business Contact Form",
+          "email-subscription-form": "Email Subscription Form",
+          "client-review-form": "Client Review Form",
+          "patient-details-form": "Patient Details Form",
+          "job-application-form": "Job Application Form",
+          "online-order-form": "Online Order Form",
+          "delivery-feedback-form": "Delivery Feedback Form",
+          "reunion-form": "Reunion Form",
+          "school-application": "School Application Form",
+          "workshop-registration-form": "Workshop Registration Form",
+          "software-request-form": "Software Request Form",
+          "product-review-form": "Product Review Form"
+        }
+      }
+    }
+  }
+}

@@ -13,6 +13,7 @@ import Portal from "@basestack/design-system/global/Portal";
 import { Modal, InputGroup, IconButton } from "@basestack/design-system";
 // Store
 import { useStore } from "store";
+import { useShallow } from "zustand/react/shallow";
 // Server
 import { trpc } from "libs/trpc";
 // Utils
@@ -44,16 +45,16 @@ const CreateProjectModal = () => {
   const { t } = useTranslation("modals");
   const theme = useTheme();
   const router = useRouter();
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const [numberOfRefresh, setNumberOfRefresh] = useState(0);
-
-  const isModalOpen = useStore((state) => state.isCreateProjectModalOpen);
-  const setCreateProjectModalOpen = useStore(
-    (state) => state.setCreateProjectModalOpen,
-  );
-  const closeModalsOnClickOutside = useStore(
-    (state) => state.closeModalsOnClickOutside,
-  );
+  const [isModalOpen, setCreateProjectModalOpen, closeModalsOnClickOutside] =
+    useStore(
+      useShallow((state) => [
+        state.isCreateProjectModalOpen,
+        state.setCreateProjectModalOpen,
+        state.closeModalsOnClickOutside,
+      ]),
+    );
 
   const createProject = trpc.project.create.useMutation();
 
@@ -80,21 +81,21 @@ const CreateProjectModal = () => {
     createProject.mutate(data, {
       onSuccess: async (result) => {
         // Get all the projects on the cache
-        const prev = trpcContext.project.all.getData();
+        const prev = trpcUtils.project.all.getData();
 
         if (prev && prev.projects) {
           // Add the new project with the others
           const projects = [result.project, ...prev.projects];
 
           // Update the cache with the new data
-          trpcContext.project.all.setData(undefined, { projects });
+          trpcUtils.project.all.setData(undefined, { projects });
         }
 
         onClose();
 
         await router.push({
-          pathname: "/[projectSlug]/flags",
-          query: { projectSlug: data.slug },
+          pathname: "/project/[projectId]/flags",
+          query: { projectId: result.project.id },
         });
       },
     });

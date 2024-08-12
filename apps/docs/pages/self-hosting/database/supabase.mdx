@@ -1,0 +1,34 @@
+---
+title: Basestack Platform - Neon Configuration Guide
+description: Neon is an open-source serverless Postgres built for the cloud.
+tags: Supabase, Postgres, Configuration Guide, Open-Source, Serverless, Cloud, Database, Autoscaling, Branching, Developer Experience, Compute, Storage, baas, firebase, backend, real-time database, authentication, storage, prisma, orm, migrations, direct connection, pooled connection, environment variables
+---
+
+# Supabase Postgres Configuration Guide
+
+[Supabase ↗](https://neon.tech/) is an open-source backend-as-a-service (BaaS) platform that provides developers with a suite of tools to build and manage their applications. It offers a real-time database, authentication, storage, and more, making it a popular choice for developers who want to quickly set up a scalable backend without managing the infrastructure themselves.
+
+Supabase offers a PostgreSQL database. PostgreSQL is a powerful, open-source relational database management system known for its robustness, scalability, and feature set.
+
+For detailed guidance on how to implement this, please follow the official links from the provider.
+
+- [Register for a free account](https://supabase.com/dashboard/sign-in?returnTo=/projects)
+- [Documentation](https://supabase.com/docs)
+
+### Database URL vs Direct Database URL
+
+Our platform requires a direct connection to the database for conducting migrations. To avoid encountering migrations issues, make sure you are using a direct connection to the database for migrations. Neon supports both pooled and direct connections to the same database, which can be added in the Environment Variables for deploying our platform.
+
+### Supabase & Prisma
+
+We use [Prisma ORM ↗](https://www.prisma.io/) in our project, which requires a direct connection to the database for migrations. Supabase supports both pooled and direct connections to the same database, configurable via Environment Variables for deploying our platform. Follow this official guide on integrating [Supabase with Prisma ↗](https://supabase.com/partners/integrations/prisma). Obtaining your Postgres connection string from your Supabase dashboard should be a straightforward process. The guide emphasizes the importance of using a direct connection for migrations.
+
+### Self-Hosting Environment Variables
+
+For more comprehensive information about the deployment process, please check
+out the [Configuration Page](/self-hosting).
+
+| Property              | Description                                               | Required |
+| --------------------- | --------------------------------------------------------- | -------- |
+| `DATABASE_URL`        | Connection URL to your database using PgBouncer.          | true     |
+| `DIRECT_DATABASE_URL` | Direct connection URL to the database used for migrations | true     |

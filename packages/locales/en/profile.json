@@ -1,0 +1,94 @@
+{
+  "seo": {
+    "setting": {
+      "title": "Profile",
+      "0": "General",
+      "1": "Billing"
+    }
+  },
+  "general": {
+    "title": "General",
+    "card": {
+      "avatar": {
+        "title": "User Name",
+        "alt": "Profile picture of the user",
+        "description": "Update user details through your service provider."
+      },
+      "modals": {
+        "title": "Customize Modal Behavior",
+        "description": "Dismiss the modal automatically upon clicking outside the main content area."
+      },
+      "theme": {
+        "title": "Choose a Theme",
+        "description": "Toggle Between Light and Dark Modes for a Personalized Experience.",
+        "type": {
+          "light": "Light",
+          "dark": "Dark"
+        }
+      },
+      "flags": {
+        "title": "Feature Flags per Page",
+        "description": "Set the number of Feature Flags displayed on each page.",
+        "action": "Save",
+        "input": {
+          "number-of-flags": {
+            "error": {
+              "max": "Must be a value between 1 and 100.",
+              "min": "Required field"
+            }
+          }
+        }
+      }
+    }
+  },
+  "billing": {
+    "price": {
+      "symbol": "$",
+      "abbr": "USD"
+    },
+    "feature": {
+      "submission": "{{value}} submissions",
+      "users": "{{value}} users",
+      "forms": "{{value}} forms"
+    },
+    "segment": {
+      "monthly": "monthly",
+      "yearly": "yearly"
+    },
+    "cycle": {
+      "monthly": "billed monthly",
+      "yearly": "billed yearly"
+    },
+    "cycle-abbr": {
+      "monthly": "mo",
+      "yearly": "yr"
+    },
+    "link": {
+      "compare": "Compare Plans"
+    },
+    "plan": {
+      "free": "Free",
+      "hobby": "Hobby",
+      "launch": "Launch",
+      "scale": "Scale",
+      "current": {
+        "title": "Current Plan",
+        "date": "Renewal date",
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        },
+        "button": "Manage Subscription"
+      },
+      "details": {
+        "lastFour": "Ending in",
+        "expDate": "Exp date",
+        "button": "Update Payment Method"
+      },
+      "upgrade": {
+        "title": "Upgrade Plan",
+        "description": "Select billing cycle"
+      }
+    }
+  }
+}

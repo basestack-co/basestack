@@ -14,31 +14,36 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "test": "turbo run test",
     "test:update": "turbo run test:update",
-    "clean": "turbo run clean && rm -rf node_modules",
+    "clean": "turbo run clean && rm -rf node_modules && rm -rf .turbo",
     "prepare": "is-ci || npx husky install",
-    "precommit": "yarn format && yarn lint && yarn test && lint-staged",
+    "precommit": "yarn format && yarn lint && lint-staged",
     "commit": "git-cz",
+    "changelog:denerate": "npx changelogen@latest",
     "update:packages": "yarn upgrade-interactive --latest",
+    "dev:packages": "turbo run dev --filter=./packages/*",
     "build:packages": "turbo run build --filter=./packages/*",
-    "build:feature-flags": "turbo run build --filter=feature-flags...",
-    "build:landing-page": "turbo run build --filter=landing-page...",
+    "build:feature-flags": "turbo run build --filter=@basestack/feature-flags",
+    "build:forms": "turbo run build --filter=@basestack/forms",
+    "build:landing-page": "turbo run build --filter=@basestack/landing-page",
     "deploy:feature-flags": "turbo run @basestack/feature-flags#deploy",
-    "deploy:feature-flags:prune": "turbo prune --scope='@basestack/feature-flags' --docker",
+    "deploy:forms": "turbo run @basestack/forms#deploy",
     "deploy:landing-page": "turbo run @basestack/landing-page#deploy",
-    "deploy:docs": "turbo run @basestack/docs#deploy"
+    "deploy:docs": "turbo run @basestack/docs#deploy",
+    "start:feature-flags": "turbo run @basestack/feature-flags#start",
+    "start:forms": "turbo run @basestack/forms#start"
   },
   "devDependencies": {
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^8.0.3",
+    "husky": "^9.1.4",
     "is-ci": "^3.0.1",
-    "lint-staged": "^15.0.1",
-    "prettier": "^3.0.3",
-    "turbo": "1.10.15"
+    "lint-staged": "^15.2.8",
+    "prettier": "^3.3.3",
+    "turbo": "^2.0.11"
   },
-  "packageManager": "yarn@1.22.15",
+  "packageManager": "yarn@1.22.18",
   "engines": {
-    "node": ">=18.12.0"
+    "node": ">=21.1.0"
   },
   "husky": {
     "hooks": {

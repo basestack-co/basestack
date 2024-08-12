@@ -1,8 +1,14 @@
+import React from "react";
 import { SpaceProps, FlexboxProps, PositionProps } from "styled-system";
 
-export type Size = "xLarge" | "large" | "medium" | "small";
+export type Size = "xLarge" | "large" | "mediumLarge" | "medium" | "small";
 
-export type Variant = "primary" | "primaryNeutral" | "secondary" | "neutral";
+export type Variant =
+  | "primary"
+  | "primaryNeutral"
+  | "secondary"
+  | "secondaryDark"
+  | "neutral";
 
 export interface IconButtonProps
   extends SpaceProps,
@@ -15,7 +21,7 @@ export interface IconButtonProps
   /**
    * onClick function
    */
-  onClick: () => void;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   /**
    * Icon
    */
@@ -24,4 +30,8 @@ export interface IconButtonProps
    * Optional size
    */
   size?: Size;
+  /**
+   * isDisabled state
+   */
+  isDisabled?: boolean;
 }

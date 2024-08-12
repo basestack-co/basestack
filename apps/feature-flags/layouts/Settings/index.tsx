@@ -19,79 +19,85 @@ import {
 } from "./styles";
 // Hooks
 import { useMedia } from "react-use";
+// Locales
+import useTranslation from "next-translate/useTranslation";
 // Layouts
 import MainLayout from "../Main";
 
-const buttons = [
+const links = [
   {
-    id: 1,
-    text: "General",
-    href: "/[projectSlug]/settings/general",
+    id: "1",
+    i18nKey: "setting.general",
+    tab: "general",
+    href: "/project/[projectId]/settings/general",
   },
   {
-    id: 2,
-    text: "Members",
-    href: "/[projectSlug]/settings/members",
+    id: "2",
+    i18nKey: "setting.members",
+    tab: "members",
+    href: "/project/[projectId]/settings/members",
   },
   {
-    id: 3,
-    text: "Environments",
-    href: "/[projectSlug]/settings/environments",
+    id: "3",
+    i18nKey: "setting.environments",
+    tab: "environments",
+    href: "/project/[projectId]/settings/environments",
   },
 ];
 
 const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
+  const { t } = useTranslation("navigation");
   const theme = useTheme();
   const isDesktop = useMedia(theme.device.min.lg, false);
   const router = useRouter();
+  const { projectId } = router.query as { projectId: string };
 
-  const projectSlug = router.query.projectSlug as string;
+  const { data: project, isLoading: isLoadingProject } =
+    trpc.project.byId.useQuery(
+      { projectId },
+      {
+        enabled: !!projectId,
+      },
+    );
 
-  const { data, isLoading: isLoadingProject } = trpc.project.bySlug.useQuery(
-    { projectSlug },
-    {
-      enabled: !!projectSlug,
-    },
-  );
-
-  const renderButton = useMemo(() => {
-    return buttons.map(({ id, text, href }) => (
+  const renderLink = useMemo(() => {
+    return links.map(({ id, i18nKey, href }) => (
       <ListItem key={`settings-button-list-${id}`}>
         <StyledLink
           href={{
             pathname: href,
-            query: { projectSlug },
+            query: { projectId },
           }}
           passHref
         >
           <StyledButton isActive={router.pathname === href}>
-            {text}
+            {t(i18nKey)}
           </StyledButton>
         </StyledLink>
       </ListItem>
     ));
-  }, [router.pathname, projectSlug]);
+  }, [router.pathname, projectId, t]);
 
-  const activeButtonIndex = useMemo(
-    () => buttons.findIndex((button) => button.href === router.pathname),
+  const activeLinkIndex = useMemo(
+    () => links.findIndex((button) => button.href === router.pathname),
     [router.pathname],
   );
 
   const items = useMemo(
     () =>
-      buttons.map(({ text }) => {
+      links.map(({ i18nKey, tab }) => {
         return {
-          id: text.toLowerCase(),
-          text,
+          id: tab.toLowerCase(),
+          text: t(i18nKey),
         };
       }),
-    [],
+    [t],
   );
 
   return (
     <>
       <Head>
-        <title>{data?.project.name ?? "Project"} / Settings</title>
+        <title>{project?.name ?? "Project"} / Settings</title>
       </Head>
 
       <MainLayout>
@@ -100,23 +106,21 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
             Settings
           </Text>
           <SettingsContainer>
-            {isDesktop && (
-              <List top={activeButtonIndex * 100}>{renderButton}</List>
-            )}
+            {isDesktop && <List top={activeLinkIndex * 100}>{renderLink}</List>}
             {!isDesktop && (
               <Tabs
                 items={items}
-                onSelect={(item) => {
+                onSelect={(tab) => {
                   router.push({
-                    pathname: `/[projectSlug]/settings/${item.toLowerCase()}`,
-                    query: { projectSlug },
+                    pathname: `/project/[projectId]/settings/${tab}`,
+                    query: { projectId },
                   });
                 }}
-                sliderPosition={activeButtonIndex}
+                sliderPosition={activeLinkIndex}
                 backgroundColor="transparent"
               />
             )}
-            {isLoadingProject || !data ? (
+            {isLoadingProject || !project ? (
               <Loader hasDelay={false}>
                 <Skeleton
                   items={[
@@ -130,9 +134,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
                 />
               </Loader>
             ) : (
-              React.cloneElement(children, {
-                project: data.project,
-              })
+              children
             )}
           </SettingsContainer>
         </Container>

@@ -10,6 +10,7 @@ import { SubmitHandler } from "react-hook-form";
 import { FlagFormInputs } from "../types";
 // Store
 import { useStore } from "store";
+import { useShallow } from "zustand/react/shallow";
 // Types
 import { TabType } from "types";
 // Server
@@ -21,17 +22,18 @@ import useFlagForm, { tabPosition } from "../useFlagForm";
 
 const CreateFlagModal = () => {
   const { t } = useTranslation("modals");
-  const trpcContext = trpc.useContext();
+  const trpcUtils = trpc.useUtils();
   const theme = useTheme();
   const router = useRouter();
-  const isModalOpen = useStore((state) => state.isCreateFlagModalOpen);
-  const setCreateFlagModalOpen = useStore(
-    (state) => state.setCreateFlagModalOpen,
-  );
-  const projectSlug = router.query.projectSlug as string;
-  const closeModalsOnClickOutside = useStore(
-    (state) => state.closeModalsOnClickOutside,
-  );
+  const { projectId } = router.query as { projectId: string };
+  const [isModalOpen, setCreateFlagModalOpen, closeModalsOnClickOutside] =
+    useStore(
+      useShallow((state) => [
+        state.isCreateFlagModalOpen,
+        state.setCreateFlagModalOpen,
+        state.closeModalsOnClickOutside,
+      ]),
+    );
 
   const {
     selectedTab,
@@ -42,7 +44,7 @@ const CreateFlagModal = () => {
     onRenderTab,
     project,
     setValue,
-  } = useFlagForm({ isModalOpen, projectSlug });
+  } = useFlagForm({ isModalOpen, projectId });
 
   const createFlag = trpc.flag.create.useMutation();
 
@@ -73,7 +75,7 @@ const CreateFlagModal = () => {
         {
           onSuccess: async (result) => {
             // Refresh the flag list and close the modal
-            await trpcContext.flag.all.invalidate({ projectId: project.id });
+            await trpcUtils.flag.all.invalidate({ projectId: project.id });
             onClose();
           },
         },

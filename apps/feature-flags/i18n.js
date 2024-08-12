@@ -1,14 +1,18 @@
 module.exports = {
+  loadLocaleFrom: (lang, ns) =>
+    import(`../../packages/locales/${lang}/${ns}.json`).then(
+      (m) => m.default,
+    ),
   locales: ["en"],
   defaultLocale: "en",
   pages: {
-    "*": ["navigation", "modals", "general"],
+    "*": ["navigation", "modals", "common"],
     "/": ["home"],
-    "/[projectSlug]/flags": ["flags"],
-    "/[projectSlug]/settings/general": ["settings"],
-    "/[projectSlug]/settings/members": ["settings"],
-    "/[projectSlug]/settings/environments": ["settings"],
+    "/project/[projectId]/flags": ["flags"],
+    "/project/[projectId]/settings/general": ["settings"],
+    "/project/[projectId]/settings/members": ["settings"],
+    "/project/[projectId]/settings/environments": ["settings"],
     "/auth/sign-in": ["auth"],
-    "/profile/settings": ["profile"],
+    "/user/profile/general": ["profile"],
   },
 };
