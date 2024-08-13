@@ -51,6 +51,16 @@ const GlobalStyle = createGlobalStyle`
     a {
       -webkit-tap-highlight-color: transparent;
     }
+
+    ${() =>
+      typeof window !== "undefined" &&
+      `
+        ::view-transition-old(root),
+        ::view-transition-new(root) {
+          animation: none;
+          mix-blend-mode: normal;
+        }
+      `}
 `;
 
 export default GlobalStyle;
