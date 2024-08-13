@@ -8,14 +8,13 @@ import { withUsageUpdate } from "libs/prisma/utils/subscription";
 // Prisma
 import prisma from "libs/prisma";
 // Jobs
-import { triggerClient, TriggerEventName } from "libs/trigger";
+import {
+  sendEmailTask,
+  sendToWebHookTask,
+  checkDataForSpamTask,
+} from "libs/trigger/jobs";
 
-const {
-  getFormPlanFeatures,
-  hasFormPlanFeature,
-  getFormLimitByKey,
-  getFormPlanLimits,
-} = utilsConfig.plans;
+const { hasFormPlanFeature, getFormLimitByKey } = utilsConfig.plans;
 
 const defaultSuccessUrl = "/form/status/success";
 const defaultErrorUrl = "/form/status/error";
@@ -317,20 +316,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
               form.hasSpamProtection &&
               hasFormPlanFeature(planId, "hasSpamProtection")
             ) {
-              await triggerClient.sendEvent({
-                name: TriggerEventName.CHECK_DATA_FOR_SPAM,
-                payload: {
+              await checkDataForSpamTask.trigger(
+                {
                   submissionId: submission.id,
                   data,
                 },
-              });
+                { tags: [`userId:${form.userId}`, `formId:${formId}`] },
+              );
             }
           }
 
           if (!!form.webhookUrl && hasFormPlanFeature(planId, "hasWebhooks")) {
-            await triggerClient.sendEvent({
-              name: TriggerEventName.SEND_DATA_TO_EXTERNAL_WEBHOOK,
-              payload: {
+            await sendToWebHookTask.trigger(
+              {
                 url: form.webhookUrl,
                 body: {
                   formId,
@@ -338,21 +336,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                   data,
                 },
               },
-            });
+              { tags: [`user_${form.userId}`, `form_id_${formId}`] },
+            );
           }
 
           if (
             !!form.emails &&
             hasFormPlanFeature(planId, "hasEmailNotifications")
           ) {
-            await triggerClient.sendEvent({
-              name: TriggerEventName.SEND_EMAIL,
-              payload: {
+            await sendEmailTask.trigger(
+              {
                 template: "new-submission",
                 to: form.emails.split(",").map((email) => email.trim()),
                 subject: `New form submission received for ${form.name}`,
               },
-            });
+              { tags: [`user_${form.userId}`, `form_id_${formId}`] },
+            );
           }
 
           const queryString =
