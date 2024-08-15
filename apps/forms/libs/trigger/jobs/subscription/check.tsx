@@ -67,6 +67,8 @@ export const checkSubsStatusTask = schedules.task({
           `User ${sub.userId} subscription updated successfully`,
           response,
         );
+
+        return response;
       }
     }
   },

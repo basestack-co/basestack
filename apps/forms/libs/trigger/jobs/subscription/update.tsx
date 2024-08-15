@@ -7,7 +7,7 @@ import { PlanTypeId, config, SubscriptionEvent } from "@basestack/utils";
 
 const { getSubscriptionEvents, getFormPlanByVariantId } = config.plans;
 
-interface UpdateSubsTaskPayload {
+export interface UpdateSubsTaskPayload {
   meta: {
     test_mode: boolean;
     webhook_id: string;
