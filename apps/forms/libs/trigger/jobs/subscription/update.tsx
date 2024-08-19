@@ -37,7 +37,7 @@ export interface UpdateSubsTaskPayload {
 export const updateSubsTask = task({
   id: "http-update-subscription",
   machine: {
-    preset: "small-1x",
+    preset: "small-2x",
   },
   init: async (payload) => {
     logger.info(`Webhook Event Body: ${payload}`);

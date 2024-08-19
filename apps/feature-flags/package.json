@@ -49,7 +49,7 @@
     "cors": "^2.8.5",
     "dayjs": "^1.11.12",
     "eslint-config-next": "^14.2.4",
-    "material-symbols": "^0.21.3",
+    "material-symbols": "^0.22.0",
     "next": "^14.2.5",
     "next-auth": "^4.24.7",
     "next-translate": "^2.6.2",
@@ -69,7 +69,7 @@
     "superjson": "^2.2.1",
     "uuid": "^10.0.0",
     "zod": "^3.23.8",
-    "zustand": "^4.5.4"
+    "zustand": "^4.5.5"
   },
   "devDependencies": {
     "@basestack/config": "*",
@@ -79,7 +79,7 @@
     "@testing-library/react-hooks": "^8.0.1",
     "@types/cors": "^2.8.17",
     "@types/jest": "^29.5.12",
-    "@types/node": "^22.2.0",
+    "@types/node": "^22.3.0",
     "@types/react": "18.3.3",
     "@types/react-calendar": "^4.1.0",
     "@types/react-dom": "^18.3.0",
@@ -92,11 +92,11 @@
     "jest-fetch-mock": "^3.0.3",
     "jest-mock-extended": "3.0.7",
     "jest-styled-components": "^7.2.0",
-    "lint-staged": "^15.2.8",
+    "lint-staged": "^15.2.9",
     "next-translate-plugin": "^2.6.2",
     "node-mocks-http": "^1.15.1",
     "prisma": "^5.18.0",
-    "turbo": "2.0.12",
+    "turbo": "2.0.14",
     "typescript": "^5.5.4"
   }
 }

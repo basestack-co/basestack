@@ -44,6 +44,10 @@ export const checkDataForSpamTask = task({
           },
         });
       }
+
+      return {
+        isSpam,
+      };
     }
   },
   onSuccess: async () => {
