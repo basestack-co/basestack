@@ -53,6 +53,7 @@ export const submissionRouter = router({
             ...search,
             ...filters,
           },
+          cacheStrategy: { swr: 60, ttl: 60 },
         });
 
         const submissions = await tx.submission.findMany({
@@ -73,6 +74,7 @@ export const submissionRouter = router({
           take: limit + 1,
           cursor: input.cursor ? { id: input.cursor } : undefined,
           orderBy,
+          cacheStrategy: { swr: 60, ttl: 60 },
         });
 
         let nextCursor: typeof input.cursor | undefined = undefined;
@@ -120,6 +122,7 @@ export const submissionRouter = router({
           data: true,
           createdAt: true,
         },
+        cacheStrategy: { swr: 60, ttl: 60 },
       });
 
       const headersSet: Set<string> = new Set();

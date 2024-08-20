@@ -32,6 +32,7 @@ export const formRouter = router({
       orderBy: {
         createdAt: "desc",
       },
+      cacheStrategy: { swr: 60, ttl: 60 },
     });
 
     return { forms };
@@ -124,6 +125,7 @@ export const formRouter = router({
             },
           },
         },
+        cacheStrategy: { swr: 60, ttl: 60 },
       });
 
       return {

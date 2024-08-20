@@ -1,12 +1,12 @@
-import { PrismaClient, Prisma } from "@prisma/client";
-import { DefaultArgs } from "@prisma/client/runtime/library";
 // tRPC
 import { TRPCError } from "@trpc/server";
 // Utils
 import { config, Plan, PlanTypeId } from "@basestack/utils";
+// Types
+import { PrismaClientType } from "..";
 
 export const getSubscriptionUsage = async (
-  prisma: PrismaClient,
+  prisma: PrismaClientType,
   userId: string,
 ) => {
   try {
@@ -22,6 +22,7 @@ export const getSubscriptionUsage = async (
         scheduleId: true,
         event: true,
       },
+      cacheStrategy: { swr: 60, ttl: 60 },
     });
 
     return !!usage
@@ -39,17 +40,7 @@ export const getSubscriptionUsage = async (
 };
 
 export const withUsageUpdate = async (
-  prisma:
-    | PrismaClient
-    | Omit<
-        PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>,
-        | "$connect"
-        | "$disconnect"
-        | "$on"
-        | "$transaction"
-        | "$use"
-        | "$extends"
-      >,
+  prisma: PrismaClientType | any,
   userId: string,
   limit: keyof Plan["limits"],
   action: "increment" | "decrement",

@@ -1,9 +1,10 @@
-import { PrismaClient } from "@prisma/client";
+// Types
+import { PrismaClientType } from "libs/prisma";
 // tRPC
 import { TRPCError } from "@trpc/server";
 
 export const getUserInForm = async (
-  prisma: PrismaClient,
+  prisma: PrismaClientType,
   userId: string,
   formId: string,
 ) => {
@@ -21,6 +22,7 @@ export const getUserInForm = async (
           },
         },
       },
+      cacheStrategy: { swr: 60, ttl: 60 },
     });
 
     if (data?.form) {

@@ -6,7 +6,7 @@ import Cors from "cors";
 import { withCors, PlanTypeId, config as utilsConfig } from "@basestack/utils";
 import { withUsageUpdate } from "libs/prisma/utils/subscription";
 // Prisma
-import prisma from "libs/prisma";
+import { prisma } from "libs/prisma";
 // Jobs
 import { triggerClient, TriggerEventName } from "libs/trigger";
 
@@ -23,6 +23,7 @@ const defaultErrorUrl = "/form/status/error";
 export enum FormMode {
   REST = "rest",
 }
+
 export const config = {
   api: {
     bodyParser: false,

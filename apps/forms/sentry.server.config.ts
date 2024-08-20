@@ -1,6 +1,6 @@
 import * as Sentry from "@sentry/nextjs";
 // Libs
-import prisma from "libs/prisma";
+import { prisma } from "libs/prisma";
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN,

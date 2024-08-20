@@ -1,7 +1,7 @@
 import { verifyRequestSignature } from "@trigger.dev/sdk";
 import { triggerClient } from "libs/trigger";
 // Prisma
-import prisma from "libs/prisma";
+import { prisma } from "libs/prisma";
 // Utils
 import dayjs from "dayjs";
 import { PlanTypeId, config, SubscriptionEvent } from "@basestack/utils";

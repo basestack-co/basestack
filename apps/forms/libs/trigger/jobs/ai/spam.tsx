@@ -1,7 +1,7 @@
 import { eventTrigger } from "@trigger.dev/sdk";
 import { triggerClient, TriggerEventName } from "libs/trigger";
 // Prisma
-import prisma from "libs/prisma";
+import { prisma } from "libs/prisma";
 // AI
 import { TextGenerationModel, cfAiClient, instructions } from "libs/cf/ai";
 // Utils

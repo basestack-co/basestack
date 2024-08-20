@@ -6,7 +6,7 @@ import GoogleProvider from "next-auth/providers/google";
 // Adapters
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 // Libs
-import prisma from "libs/prisma";
+import { prisma, PrismaClientType } from "libs/prisma";
 // Types
 import { Role } from "@prisma/client";
 
@@ -27,6 +27,7 @@ declare module "next-auth" {
 }
 
 export const authOptions: NextAuthOptions = {
+  // @ts-ignore
   adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
