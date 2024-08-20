@@ -18,7 +18,6 @@ import {
   Empty,
 } from "@basestack/design-system";
 import FormCard from "components/Dashboard/FormCard";
-import GetStartedCard from "components/Dashboard/GetStartedCard";
 import LinksCard from "components/Dashboard/LinksCard";
 // Styles
 import {
@@ -129,7 +128,6 @@ const MainPage = () => {
             </Text>
           </Header>
           <BottomContainer>
-            <GetStartedCard />
             <LinksCard />
           </BottomContainer>
         </Section>

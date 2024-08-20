@@ -6,7 +6,18 @@
     "EMAIL_SMTP_PORT",
     "EMAIL_SMTP_SECURE",
     "EMAIL_SMTP_AUTH_USER",
-    "EMAIL_SMTP_AUTH_PASSWORD"
+    "EMAIL_SMTP_AUTH_PASSWORD",
+    "DATABASE_URL",
+    "DIRECT_DATABASE_URL",
+    "NEXTAUTH_SECRET",
+    "NEXTAUTH_URL",
+    "GITHUB_CLIENT_ID",
+    "GITHUB_CLIENT_SECRET",
+    "AUTH0_CLIENT_ID",
+    "AUTH0_CLIENT_SECRET",
+    "AUTH0_DOMAIN",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET"
   ],
   "tasks": {
     "clean": {
@@ -33,50 +44,18 @@
     },
     "@basestack/feature-flags#deploy": {
       "dependsOn": ["^build", "lint"],
-      "outputs": ["dist/**", ".next/**"],
-      "env": [
-        "DATABASE_URL",
-        "DIRECT_DATABASE_URL",
-        "NEXTAUTH_SECRET",
-        "NEXTAUTH_URL",
-        "GITHUB_CLIENT_ID",
-        "GITHUB_CLIENT_SECRET",
-        "AUTH0_CLIENT_ID",
-        "AUTH0_CLIENT_SECRET",
-        "AUTH0_DOMAIN",
-        "GOOGLE_CLIENT_ID",
-        "GOOGLE_CLIENT_SECRET",
-        "SENTRY_ORG",
-        "SENTRY_PROJECT",
-        "SENTRY_DSN",
-        "SENTRY_AUTH_TOKEN"
-      ]
+      "outputs": ["dist/**", ".next/**"]
     },
     "@basestack/forms#deploy": {
       "dependsOn": ["^build", "lint"],
       "outputs": ["dist/**", ".next/**"],
       "env": [
-        "DATABASE_URL",
-        "DIRECT_DATABASE_URL",
-        "NEXTAUTH_SECRET",
-        "NEXTAUTH_URL",
-        "GITHUB_CLIENT_ID",
-        "GITHUB_CLIENT_SECRET",
-        "AUTH0_CLIENT_ID",
-        "AUTH0_CLIENT_SECRET",
-        "AUTH0_DOMAIN",
-        "GOOGLE_CLIENT_ID",
-        "GOOGLE_CLIENT_SECRET",
         "TRIGGER_PROJECT_ID",
         "TRIGGER_API_KEY",
         "TRIGGER_API_URL",
         "NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY",
         "CLOUDFLARE_ACCOUNT_ID",
-        "CLOUDFLARE_API_TOKEN",
-        "SENTRY_ORG",
-        "SENTRY_PROJECT",
-        "SENTRY_DSN",
-        "SENTRY_AUTH_TOKEN"
+        "CLOUDFLARE_API_TOKEN"
       ]
     },
     "@basestack/landing-page#deploy": {

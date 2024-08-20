@@ -22,7 +22,7 @@
   },
   "external": {
     "resources": "Resources",
-    "docs": "Documentation",
+    "docs": "Docs",
     "github": "Github"
   },
   "internal": {

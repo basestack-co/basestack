@@ -21,6 +21,7 @@ const DesktopNavigation = ({
   rightLinks,
   leftLinks,
   product,
+  hasApps = false,
 }: DesktopNavigationUIProps) => {
   const theme = useTheme();
   const currentProject = projects.current;
@@ -94,9 +95,11 @@ const DesktopNavigation = ({
               </ButtonLink>
             </ListItem>
           ))}
-          <ListItem>
-            <AppsDropdown data={apps} />
-          </ListItem>
+          {hasApps && (
+            <ListItem>
+              <AppsDropdown data={apps} />
+            </ListItem>
+          )}
           <ListItem ml={theme.spacing.s3}>
             <AvatarDropdown {...avatar} />
           </ListItem>

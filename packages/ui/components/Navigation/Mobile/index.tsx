@@ -48,6 +48,7 @@ const MobileNavigation = ({
   product,
   apps,
   appsTitle,
+  hasApps = false,
 }: MobileNavigationUIProps) => {
   const theme = useTheme();
 
@@ -183,23 +184,26 @@ const MobileNavigation = ({
                       {appsTitle}
                     </Text>
                   </TitleContainer>
-                  <List>
-                    {apps.map((item, index) => (
-                      <ListItem key={index}>
-                        <Button
-                          variant={ButtonVariant.Neutral}
-                          leftElement={
-                            <AppsLogo>
-                              <Logo size={24} product={item.product} />
-                            </AppsLogo>
-                          }
-                          fullWidth
-                        >
-                          {item.title}
-                        </Button>
-                      </ListItem>
-                    ))}
-                  </List>
+
+                  {hasApps && (
+                    <List>
+                      {apps.map((item, index) => (
+                        <ListItem key={index}>
+                          <Button
+                            variant={ButtonVariant.Neutral}
+                            leftElement={
+                              <AppsLogo>
+                                <Logo size={24} product={item.product} />
+                              </AppsLogo>
+                            }
+                            fullWidth
+                          >
+                            {item.title}
+                          </Button>
+                        </ListItem>
+                      ))}
+                    </List>
+                  )}
                 </ScrollableContent>
               </ContentContainer>
               <HorizontalRule mx={theme.spacing.s5} my={0} />

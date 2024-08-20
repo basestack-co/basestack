@@ -12,12 +12,11 @@ import dayjs from "dayjs";
 import { getSubscriptionUsage } from "libs/prisma/utils/subscription";
 import { z } from "zod";
 import { PlanTypeId, config } from "@basestack/utils";
-import * as Sentry from "@sentry/nextjs";
 
 lemonSqueezySetup({
   apiKey: process.env.LEMONSQUEEZY_API_KEY,
   onError(error) {
-    Sentry.captureException(error);
+    console.error("LemonSqueezy error", error);
   },
 });
 

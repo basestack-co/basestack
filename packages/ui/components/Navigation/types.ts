@@ -25,6 +25,7 @@ interface SharedProps {
   rightLinks?: Array<ListItemProps>;
   apps: AppsDropdownProps["data"];
   product: LogoProps["product"];
+  hasApps?: boolean;
 }
 
 export interface DesktopNavigationUIProps extends SharedProps {
