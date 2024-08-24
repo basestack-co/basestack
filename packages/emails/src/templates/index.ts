@@ -1,1 +1,1 @@
-export { default as EmailTemplate } from "./email";
+export { default as NewSubmissionEmailTemplate } from "./newSubmission";

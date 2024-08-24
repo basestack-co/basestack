@@ -45,11 +45,7 @@
         "AUTH0_CLIENT_SECRET",
         "AUTH0_DOMAIN",
         "GOOGLE_CLIENT_ID",
-        "GOOGLE_CLIENT_SECRET",
-        "SENTRY_ORG",
-        "SENTRY_PROJECT",
-        "SENTRY_DSN",
-        "SENTRY_AUTH_TOKEN"
+        "GOOGLE_CLIENT_SECRET"
       ]
     },
     "@basestack/forms#deploy": {
@@ -72,11 +68,7 @@
         "TRIGGER_API_URL",
         "NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY",
         "CLOUDFLARE_ACCOUNT_ID",
-        "CLOUDFLARE_API_TOKEN",
-        "SENTRY_ORG",
-        "SENTRY_PROJECT",
-        "SENTRY_DSN",
-        "SENTRY_AUTH_TOKEN"
+        "CLOUDFLARE_API_TOKEN"
       ]
     },
     "@basestack/landing-page#deploy": {
