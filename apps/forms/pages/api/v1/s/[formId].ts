@@ -10,12 +10,7 @@ import prisma from "libs/prisma";
 // Jobs
 import { triggerClient, TriggerEventName } from "libs/trigger";
 
-const {
-  getFormPlanFeatures,
-  hasFormPlanFeature,
-  getFormLimitByKey,
-  getFormPlanLimits,
-} = utilsConfig.plans;
+const { hasFormPlanFeature, getFormLimitByKey } = utilsConfig.plans;
 
 const defaultSuccessUrl = "/form/status/success";
 const defaultErrorUrl = "/form/status/error";
@@ -23,6 +18,7 @@ const defaultErrorUrl = "/form/status/error";
 export enum FormMode {
   REST = "rest",
 }
+
 export const config = {
   api: {
     bodyParser: false,

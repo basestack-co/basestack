@@ -83,17 +83,6 @@ Authentication Providers in the Platform are services that you and your team can
 - [Github Configuration](/self-hosting/authentication/github-config)
 - [Auth0 Configuration](/self-hosting/authentication/auth0-config)
 
-#### Sentry Configuration
-
-The Basestack Platform uses [Sentry ↗](https://sentry.io/welcome/) for error tracking. To configure Sentry, set the following environment variables:
-
-| Property            | Description                                                                                        | Required |
-| ------------------- | -------------------------------------------------------------------------------------------------- | -------- |
-| `SENTRY_ORG`        | Organization slug in Sentry, identifying the account or organization context.                      | true     |
-| `SENTRY_PROJECT`    | Project slug in Sentry, identifying the specific project within the organization.                  | true     |
-| `SENTRY_DSN`        | Data Source Name (DSN) for Sentry, a unique identifier used to send events to Sentry.              | true     |
-| `SENTRY_AUTH_TOKEN` | Authentication token for Sentry API access, providing authorized interaction with Sentry services. | true     |
-
 ### API Configuration
 
 The configurations relevant to the API are associated with the endpoint from the `REST API`, which enables tasks like fetching the Flags. On the other hand, services concerning the dashboard, members, and permissions are safeguarded by Authentication and can only be accessed from the same origin (CORS).

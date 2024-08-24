@@ -141,11 +141,6 @@ envVarGroups:
         # AUTHENTICATION - GOOGLE
       - key: GOOGLE_CLIENT_ID
       - key: GOOGLE_CLIENT_SECRET
-        # SENTRY - CONFIGURATION
-      - key: SENTRY_ORG
-      - key: SENTRY_PROJECT
-      - key: SENTRY_DSN
-      - key: SENTRY_AUTH_TOKEN
         # EMAIL - CONFIGURATION
       - key: EMAIL_FROM
         value: "Hello. <hello@yourdomain.com>"
