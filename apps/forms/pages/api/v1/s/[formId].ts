@@ -347,6 +347,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 template: "new-submission",
                 to: form.emails.split(",").map((email) => email.trim()),
                 subject: `New form submission received for ${form.name}`,
+                props: {
+                  formName: form.name,
+                  content: JSON.stringify(data),
+                  formId,
+                },
               },
             });
           }

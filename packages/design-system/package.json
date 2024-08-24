@@ -17,15 +17,15 @@
     "@basestack/hooks": "*",
     "@basestack/tsconfig": "*",
     "@basestack/utils": "*",
-    "@testing-library/jest-dom": "^6.4.8",
-    "@types/react": "18.3.3",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@types/react": "18.3.4",
     "@types/react-calendar": "^4.1.0",
     "@types/react-dom": "^18.3.0",
     "jest-styled-components": "^7.2.0",
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.26.20",
+    "@floating-ui/react": "^0.26.22",
     "polished": "^4.2.2",
     "react-calendar": "^5.0.0",
     "react-select": "^5.8.0",
