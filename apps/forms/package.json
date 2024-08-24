@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3003",
-    "dev:trigger": "npx @trigger.dev/cli@latest dev --port 3003 --client-id basestack-forms-rUeL",
     "build": "prisma generate && yarn db:migrate:dev && next build",
     "build:deploy": "prisma generate && yarn db:migrate:prod && next build",
     "build:proxy": "prisma generate --data-proxy && yarn db:migrate:proxy && next build",
@@ -26,7 +25,9 @@
     "db:push": "prisma db push --schema=./prisma/schema.prisma",
     "db:seed": "npx prisma db seed",
     "db:studio": "prisma studio --schema=./prisma/schema.prisma",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next",
+    "trigger:dev": "npx trigger.dev@beta dev",
+    "trigger:deploy:prod": "npx trigger.dev@beta deploy --env prod --skip-typecheck"
   },
   "dependencies": {
     "@basestack/design-system": "*",
@@ -38,12 +39,11 @@
     "@hookform/resolvers": "^3.9.0",
     "@lemonsqueezy/lemonsqueezy.js": "^3.2.0",
     "@next-auth/prisma-adapter": "^1.0.4",
+    "@prisma/instrumentation": "^5.18.0",
     "@prisma/client": "^5.18.0",
     "@react-email/render": "^1.0.0",
     "@tanstack/react-query": "^4.36.1",
-    "@trigger.dev/nextjs": "^2.3.19",
-    "@trigger.dev/react": "^2.3.19",
-    "@trigger.dev/sdk": "^2.3.19",
+    "@trigger.dev/sdk": "3.0.0-beta.54",
     "@trpc/client": "^10.45.2",
     "@trpc/next": "^10.45.2",
     "@trpc/react": "^9.26.2",
