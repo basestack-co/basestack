@@ -1,5 +1,4 @@
-import { verifyRequestSignature } from "@trigger.dev/sdk";
-import { triggerClient } from "libs/trigger";
+import { task, logger } from "@trigger.dev/sdk/v3";
 // Prisma
 import prisma from "libs/prisma";
 // Utils
@@ -8,7 +7,7 @@ import { PlanTypeId, config, SubscriptionEvent } from "@basestack/utils";
 
 const { getSubscriptionEvents, getFormPlanByVariantId } = config.plans;
 
-interface ResponseBody {
+export interface UpdateSubsTaskPayload {
   meta: {
     test_mode: boolean;
     webhook_id: string;
@@ -35,34 +34,19 @@ interface ResponseBody {
   };
 }
 
-// HTTP Webhook
-const lemonSqueezyDotCom = triggerClient.defineHttpEndpoint({
-  id: "lemonsqueezy.com",
-  source: "lemonsqueezy.com",
-  verify: async (request) => {
-    return await verifyRequestSignature({
-      request,
-      headerName: "X-Signature",
-      secret: process.env.LEMONSQUEEZY_SIGNATURE_SECRET!,
-      algorithm: "sha256",
-    });
-  },
-});
-
-triggerClient.defineJob({
+export const updateSubsTask = task({
   id: "http-update-subscription",
-  name: "HTTP Update Subscription",
-  version: "1.0.0",
-  trigger: lemonSqueezyDotCom.onRequest(),
-  run: async (request, io) => {
-    const body: ResponseBody = await request.json();
-
-    await io.logger.info(`Webhook Event Body`, body);
-
-    await io.logger.info(`Subscription Event:${body.meta.event_name}`);
+  machine: {
+    preset: "small-2x",
+  },
+  init: async (payload) => {
+    logger.info(`Webhook Event Body: ${payload}`);
+  },
+  run: async (body: UpdateSubsTaskPayload) => {
+    logger.info(`Subscription Event:${body.meta.event_name}`);
 
     if (!getSubscriptionEvents.includes(body.meta.event_name)) {
-      await io.logger.error("Invalid event name received");
+      logger.error("Invalid event name received");
       return;
     }
 
@@ -73,53 +57,50 @@ triggerClient.defineJob({
         SubscriptionEvent.SUBSCRIPTION_CANCELLED,
       ].includes(body.meta.event_name as SubscriptionEvent)
     ) {
-      await io.runTask(
-        "check-and-update-subscription-db",
-        async () => {
-          const isUpdate =
-            SubscriptionEvent.SUBSCRIPTION_UPDATED === body.meta.event_name;
-          const userId = body.meta.custom_data.user_id;
-          const variantId = body.data.attributes.variant_id;
+      const isUpdate =
+        SubscriptionEvent.SUBSCRIPTION_UPDATED === body.meta.event_name;
+      const userId = body.meta.custom_data.user_id;
+      const variantId = body.data.attributes.variant_id;
 
-          const payload = {
-            subscriptionId: body.data.id,
-            customerId: body.data.attributes.customer_id,
-            status: body.data.attributes.status,
-            productId: body.data.attributes.product_id,
-            event: body.meta.event_name,
-            variantId,
-          };
+      const payload = {
+        subscriptionId: body.data.id,
+        customerId: body.data.attributes.customer_id,
+        status: body.data.attributes.status,
+        productId: body.data.attributes.product_id,
+        event: body.meta.event_name,
+        variantId,
+      };
 
-          const res = await prisma.subscription.upsert({
-            create: {
-              userId,
-              planId: (body.meta.custom_data.plan_id ??
-                PlanTypeId.FREE) as PlanTypeId,
-              billingCycleStart: dayjs().add(1, "month").toISOString(),
-              ...payload,
-            },
-            update: {
-              planId: getFormPlanByVariantId(variantId)?.id,
-              ...payload,
-              ...(isUpdate
-                ? {
-                    billingCycleStart: dayjs().add(1, "month").toISOString(),
-                    cancelled: body.data.attributes.cancelled ?? false,
-                    paused: body.data.attributes.cancelled ?? false,
-                  }
-                : {}),
-            },
-            where: {
-              userId,
-            },
-          });
-
-          await io.logger.info("Subscription updated on DB", res);
+      const res = await prisma.subscription.upsert({
+        create: {
+          userId,
+          planId: (body.meta.custom_data.plan_id ??
+            PlanTypeId.FREE) as PlanTypeId,
+          billingCycleStart: dayjs().add(1, "month").toISOString(),
+          ...payload,
         },
-        { name: "Check if the Subscription needs updating" },
-      );
-    }
+        update: {
+          planId: getFormPlanByVariantId(variantId)?.id,
+          ...payload,
+          ...(isUpdate
+            ? {
+                billingCycleStart: dayjs().add(1, "month").toISOString(),
+                cancelled: body.data.attributes.cancelled ?? false,
+                paused: body.data.attributes.cancelled ?? false,
+              }
+            : {}),
+        },
+        where: {
+          userId,
+        },
+      });
 
-    await io.logger.info("✨ Subscription updated ✨");
+      logger.info("Subscription updated on DB", res);
+
+      return res;
+    }
+  },
+  onSuccess: async () => {
+    logger.info("✨ Subscription updated ✨");
   },
 });

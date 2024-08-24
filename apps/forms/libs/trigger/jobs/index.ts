@@ -1,9 +1,9 @@
-// Notification Jobs
-export * from "./notification/email";
-// Webhook Jobs
-export * from "./webhook/external";
-// AI Jobs
+// AI
 export * from "./ai/spam";
-// Subscription Jobs
-export * from "./subscription/update";
+// Notification
+export * from "./notification/email";
+// Webhook
+export * from "./webhook/external";
+// Subscriptions
 export * from "./subscription/check";
+export * from "./subscription/update";

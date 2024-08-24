@@ -13,3 +13,4 @@ export * from "./types";
 // Middleware
 export * from "./middleware/cors";
 export * from "./middleware/headers";
+export * from "./middleware/signatureVerification";

@@ -24,5 +24,8 @@
     "ts-jest": "^29.2.5",
     "tsup": "^8.2.4",
     "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1"
   }
 }
