@@ -94,9 +94,11 @@ const DesktopNavigation = ({
               </ButtonLink>
             </ListItem>
           ))}
-          <ListItem>
-            <AppsDropdown data={apps} />
-          </ListItem>
+          {!!apps?.length && (
+            <ListItem>
+              <AppsDropdown data={apps} />
+            </ListItem>
+          )}
           <ListItem ml={theme.spacing.s3}>
             <AvatarDropdown {...avatar} />
           </ListItem>

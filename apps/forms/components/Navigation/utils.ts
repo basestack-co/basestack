@@ -62,12 +62,14 @@ export const getAvatarDropdownList = (
 ) => {
   return [
     {
+      id: "1",
       icon: "add_circle",
       text: t("create.form"),
       onClick: onCreateForm,
       separator: true,
     },
     {
+      id: "2",
       icon: "settings",
       text: t("dropdown.settings"),
       onClick: () =>
@@ -76,6 +78,7 @@ export const getAvatarDropdownList = (
         }),
     },
     {
+      id: "3",
       icon: "credit_card",
       text: t("dropdown.billing"),
       onClick: () =>
@@ -84,6 +87,7 @@ export const getAvatarDropdownList = (
         }),
     },
     {
+      id: "4",
       icon: "logout",
       text: t("dropdown.logout"),
       onClick: signOut,

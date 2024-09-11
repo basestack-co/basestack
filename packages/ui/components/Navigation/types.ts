@@ -23,7 +23,7 @@ interface SharedProps {
   onClickLogo: () => void;
   leftLinks?: Array<ListItemProps>;
   rightLinks?: Array<ListItemProps>;
-  apps: AppsDropdownProps["data"];
+  apps?: AppsDropdownProps["data"];
   product: LogoProps["product"];
 }
 
