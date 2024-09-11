@@ -285,8 +285,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           form.honeypot ?? "",
         );
 
-        console.log("the data = ", data);
-
         if (data) {
           if (form?.hasRetention) {
             const submission = await prisma.$transaction(async (tx) => {
