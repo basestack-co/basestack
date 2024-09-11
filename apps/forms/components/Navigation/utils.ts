@@ -5,6 +5,7 @@ import { NextRouter } from "next/router";
 // Utils
 import { config, Product } from "@basestack/utils";
 import { signOut } from "next-auth/react";
+import { ButtonVariant } from "@basestack/design-system";
 
 export const getLeftLinks = (
   router: NextRouter,

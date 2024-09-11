@@ -12,10 +12,23 @@ import { SignIn as SignInComponent } from "@basestack/ui";
 import { BannerVariant } from "@basestack/design-system";
 // Utils
 import { config } from "@basestack/utils";
+// Styles
+import styled from "styled-components";
 
 interface SignInPageProps {
   providers: Provider;
 }
+
+export const Link = styled.a`
+  text-decoration: none;
+  color: ${({ theme }) =>
+    theme.colors[theme.isDarkMode ? "blue300" : "primary"]};
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
 const SignInPage = ({ providers }: SignInPageProps) => {
   const { t } = useTranslation("auth");
@@ -50,12 +63,12 @@ const SignInPage = ({ providers }: SignInPageProps) => {
         <Trans
           i18nKey="auth:forms.sign-in.content.description"
           components={[
-            <a
+            <Link
               key="terms-link"
               href={config.urls.legal.terms}
               target="_blank"
             />,
-            <a
+            <Link
               key="privacy-link"
               href={config.urls.legal.privacy}
               target="_blank"

@@ -13,11 +13,98 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
+interface ContentType {
+  [key: string]: string | undefined | null;
+}
+
 interface NewSubmissionEmailTemplateProps {
   formName: string;
-  content: string;
+  content: ContentType;
   formId: string;
 }
+
+interface ListProps {
+  data: ContentType;
+}
+
+const List: React.FC<ListProps> = ({ data }) => {
+  if (!data) return null;
+
+  const entries = Object.entries(data);
+  const displayedEntries = entries.slice(0, 5); // Limit to 5 items
+  const totalEntries = entries.length;
+
+  return (
+    <div style={submission}>
+      {displayedEntries.map(([key, value]) => (
+        <p key={key}>
+          <b>{key.charAt(0).toUpperCase() + key.slice(1)}:</b> {value}
+        </p>
+      ))}
+      {totalEntries > 5 && (
+        <p>
+          <b>+{totalEntries - 5} more items</b>
+        </p>
+      )}
+    </div>
+  );
+};
+
+export const NewSubmissionEmailTemplate = ({
+  formName,
+  content,
+  formId,
+}: NewSubmissionEmailTemplateProps) => {
+  const title = `New Submission for ${formName}`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{title}</Preview>
+      <Body style={main}>
+        <Container style={container}>
+          <Section style={{ paddingBottom: "20px" }}>
+            <Row>
+              <Text style={heading}>{title}</Text>
+              <List data={content} />
+              <Text style={paragraph}>
+                View and manage the submission on your dashboard.
+              </Text>
+              <Button
+                style={button}
+                href={`https://forms.basestack.co/form/${formId}/submissions`}
+              >
+                View submission
+              </Button>
+            </Row>
+          </Section>
+          <Hr style={hr} />
+          <Section>
+            <Row>
+              <Text style={footer}>© Basestack 2024</Text>
+              <Link
+                href="https://github.com/basestack-co/basestack/discussions"
+                style={helpLink}
+              >
+                Help & Support
+              </Link>
+            </Row>
+          </Section>
+        </Container>
+      </Body>
+    </Html>
+  );
+};
+
+NewSubmissionEmailTemplate.PreviewProps = {
+  formName: "Contacts",
+  content: {
+    name: "Kevin Doe",
+    email: "example@example.com",
+    message: "Hello, I am a message",
+  },
+  formId: "",
+} as NewSubmissionEmailTemplateProps;
 
 const main = {
   backgroundColor: "#f6f6f6",
@@ -81,62 +168,5 @@ const footer = {
   fontSize: "14px",
   marginBottom: "10px",
 };
-
-export const NewSubmissionEmailTemplate = ({
-  formName,
-  content,
-  formId,
-}: NewSubmissionEmailTemplateProps) => {
-  const title = `New submission received for ${formName}`;
-
-  return (
-    <Html>
-      <Head />
-      <Preview>{title}</Preview>
-
-      <Body style={main}>
-        <Container style={container}>
-          <Section style={{ paddingBottom: "20px" }}>
-            <Row>
-              <Text style={heading}>{title}</Text>
-              <Text style={submission}>{content}</Text>
-              <Text style={paragraph}>
-                Manage or learn more about the submission by visiting the
-                dashboard.
-              </Text>
-
-              <Button
-                style={button}
-                href={`https://forms.basestack.co/form/${formId}/submissions`}
-              >
-                View submission
-              </Button>
-            </Row>
-          </Section>
-
-          <Hr style={hr} />
-
-          <Section>
-            <Row>
-              <Text style={footer}>© Basestack 2024</Text>
-              <Link
-                href="https://github.com/basestack-co/basestack/discussions"
-                style={helpLink}
-              >
-                Help & Support
-              </Link>
-            </Row>
-          </Section>
-        </Container>
-      </Body>
-    </Html>
-  );
-};
-
-NewSubmissionEmailTemplate.PreviewProps = {
-  formName: "Form Name",
-  content: "Form content",
-  formId: "",
-} as NewSubmissionEmailTemplateProps;
 
 export default NewSubmissionEmailTemplate;
