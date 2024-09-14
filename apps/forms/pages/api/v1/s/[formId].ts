@@ -349,7 +349,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 subject: `New form submission received for ${form.name}`,
                 props: {
                   formName: form.name,
-                  content: JSON.stringify(data),
+                  content: data,
                   formId,
                 },
               },

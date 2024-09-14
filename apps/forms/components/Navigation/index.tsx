@@ -127,7 +127,7 @@ const Navigation = ({ data }: NavigationProps) => {
         onSetDarkMode: toggleDarkMode,
         list: getAvatarDropdownList(t, router, () =>
           setCreateFormModalOpen({ isOpen: true }),
-        ).filter((link) => link.id === "3" || useBilling),
+        ).filter((item) => !(item.id === "3" && !useBilling)),
       }}
     />
   );
