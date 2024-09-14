@@ -4,6 +4,7 @@ import { rem } from "polished";
 import { useMedia } from "react-use";
 // UI
 import { Text, Spinner } from "@basestack/design-system";
+import Banners, { BannersItem } from "../Banners";
 // Components
 import ProviderCard from "./ProviderCard";
 import { Github, Auth0, Google, Okta, Microsoft } from "./icons";
@@ -34,8 +35,9 @@ export interface SignInProps {
   action: (name: string) => string;
   description: string;
   contentTitle: string;
-  contentDescription: string;
+  contentDescription: string | React.ReactNode;
   onClickProvider: (id: string) => void;
+  errors?: Array<BannersItem>;
 }
 
 type providers = "github" | "auth0" | "google" | "okta" | "microsoft";
@@ -62,6 +64,7 @@ const SignIn = ({
   contentTitle,
   contentDescription,
   onClickProvider,
+  errors,
 }: SignInProps) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const { colors, isDarkMode, device, spacing } = useTheme();
@@ -105,6 +108,7 @@ const SignIn = ({
             <Spinner size="large" />
           </LoadingContainer>
         )}
+        {!!errors?.length && <Banners data={errors} />}
         <RightWrapper>
           <Text
             size="xxLarge"
