@@ -13,7 +13,7 @@
   "dependencies": {
     "@basestack/utils": "*",
     "material-symbols": "^0.23.0",
-    "next": "^14.2.9",
+    "next": "^14.2.11",
     "nextra": "2.13.4",
     "nextra-theme-docs": "2.13.4",
     "react": "^18.3.1",
@@ -22,7 +22,7 @@
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "@types/node": "22.5.4",
+    "@types/node": "22.5.5",
     "typescript": "^5.6.2"
   }
 }

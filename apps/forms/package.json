@@ -51,10 +51,10 @@
     "@trpc/server": "^10.45.2",
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
-    "eslint-config-next": "^14.2.9",
+    "eslint-config-next": "^14.2.11",
     "formidable": "^3.5.1",
     "material-symbols": "^0.23.0",
-    "next": "^14.2.9",
+    "next": "^14.2.11",
     "next-auth": "^4.24.7",
     "next-translate": "^2.6.2",
     "polished": "^4.3.1",
@@ -81,8 +81,8 @@
     "@testing-library/react-hooks": "^8.0.1",
     "@types/cors": "^2.8.17",
     "@types/formidable": "^3.4.5",
-    "@types/jest": "^29.5.12",
-    "@types/node": "^22.5.4",
+    "@types/jest": "^29.5.13",
+    "@types/node": "^22.5.5",
     "@types/react": "18.3.5",
     "@types/react-dom": "^18.3.0",
     "@types/request-ip": "^0.0.41",
@@ -98,7 +98,7 @@
     "next-translate-plugin": "^2.6.2",
     "node-mocks-http": "^1.16.0",
     "prisma": "^5.19.1",
-    "turbo": "2.1.1",
+    "turbo": "2.1.2",
     "typescript": "^5.6.2"
   }
 }
