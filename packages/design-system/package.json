@@ -17,6 +17,7 @@
     "@basestack/hooks": "*",
     "@basestack/tsconfig": "*",
     "@basestack/utils": "*",
+    "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.5.0",
     "@types/react": "18.3.5",
     "@types/react-calendar": "^4.1.0",

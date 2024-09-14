@@ -280,7 +280,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
           <span
             class="react-calendar__navigation__label__labelText react-calendar__navigation__label__labelText--from"
           >
-            January 2024
+            December 2023
           </span>
         </button>
         <button
@@ -339,7 +339,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                 style="display: flex; flex-wrap: nowrap;"
               >
                 <div
-                  class="react-calendar__month-view__weekdays__weekday react-calendar__month-view__weekdays__weekday--current"
+                  class="react-calendar__month-view__weekdays__weekday"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                 >
                   <abbr
@@ -405,7 +405,7 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   </abbr>
                 </div>
                 <div
-                  class="react-calendar__month-view__weekdays__weekday react-calendar__month-view__weekdays__weekday--weekend"
+                  class="react-calendar__month-view__weekdays__weekday react-calendar__month-view__weekdays__weekday--current react-calendar__month-view__weekdays__weekday--weekend"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                 >
                   <abbr
@@ -421,331 +421,45 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                 style="display: flex; flex-wrap: wrap;"
               >
                 <button
-                  class="react-calendar__tile react-calendar__tile--now react-calendar__month-view__days__day"
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="January 1, 2024"
-                  >
-                    1
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 2, 2024"
-                  >
-                    2
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 3, 2024"
-                  >
-                    3
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 4, 2024"
-                  >
-                    4
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 5, 2024"
-                  >
-                    5
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 6, 2024"
-                  >
-                    6
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 7, 2024"
-                  >
-                    7
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 8, 2024"
-                  >
-                    8
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 9, 2024"
-                  >
-                    9
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 10, 2024"
-                  >
-                    10
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 11, 2024"
-                  >
-                    11
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 12, 2024"
-                  >
-                    12
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 13, 2024"
-                  >
-                    13
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 14, 2024"
-                  >
-                    14
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 15, 2024"
-                  >
-                    15
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 16, 2024"
-                  >
-                    16
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 17, 2024"
-                  >
-                    17
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 18, 2024"
-                  >
-                    18
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 19, 2024"
-                  >
-                    19
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 20, 2024"
-                  >
-                    20
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 21, 2024"
-                  >
-                    21
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 22, 2024"
-                  >
-                    22
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 23, 2024"
-                  >
-                    23
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 24, 2024"
-                  >
-                    24
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 25, 2024"
-                  >
-                    25
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 26, 2024"
-                  >
-                    26
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="January 27, 2024"
+                    aria-label="November 27, 2023"
                   >
                     27
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="January 28, 2024"
+                    aria-label="November 28, 2023"
                   >
                     28
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="January 29, 2024"
+                    aria-label="November 29, 2023"
                   >
                     29
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="January 30, 2024"
+                    aria-label="November 30, 2023"
                   >
                     30
                   </abbr>
@@ -756,53 +470,339 @@ exports[`Calendar tests render Calendar correctly 1`] = `
                   type="button"
                 >
                   <abbr
-                    aria-label="January 31, 2024"
-                  >
-                    31
-                  </abbr>
-                </button>
-                <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
-                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
-                  type="button"
-                >
-                  <abbr
-                    aria-label="February 1, 2024"
+                    aria-label="December 1, 2023"
                   >
                     1
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--neighboringMonth"
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="February 2, 2024"
+                    aria-label="December 2, 2023"
                   >
                     2
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend react-calendar__month-view__days__day--neighboringMonth"
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="February 3, 2024"
+                    aria-label="December 3, 2023"
                   >
                     3
                   </abbr>
                 </button>
                 <button
-                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend react-calendar__month-view__days__day--neighboringMonth"
+                  class="react-calendar__tile react-calendar__month-view__days__day"
                   style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
                   type="button"
                 >
                   <abbr
-                    aria-label="February 4, 2024"
+                    aria-label="December 4, 2023"
                   >
                     4
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 5, 2023"
+                  >
+                    5
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 6, 2023"
+                  >
+                    6
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 7, 2023"
+                  >
+                    7
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 8, 2023"
+                  >
+                    8
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 9, 2023"
+                  >
+                    9
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 10, 2023"
+                  >
+                    10
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 11, 2023"
+                  >
+                    11
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 12, 2023"
+                  >
+                    12
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 13, 2023"
+                  >
+                    13
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 14, 2023"
+                  >
+                    14
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 15, 2023"
+                  >
+                    15
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 16, 2023"
+                  >
+                    16
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 17, 2023"
+                  >
+                    17
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 18, 2023"
+                  >
+                    18
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 19, 2023"
+                  >
+                    19
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 20, 2023"
+                  >
+                    20
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 21, 2023"
+                  >
+                    21
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 22, 2023"
+                  >
+                    22
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 23, 2023"
+                  >
+                    23
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 24, 2023"
+                  >
+                    24
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 25, 2023"
+                  >
+                    25
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 26, 2023"
+                  >
+                    26
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 27, 2023"
+                  >
+                    27
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 28, 2023"
+                  >
+                    28
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 29, 2023"
+                  >
+                    29
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 30, 2023"
+                  >
+                    30
+                  </abbr>
+                </button>
+                <button
+                  class="react-calendar__tile react-calendar__tile--now react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend"
+                  style="flex-basis: 14.285714285714286%; flex-shrink: 0; flex-grow: 0; overflow: hidden; margin-inline-end: 0;"
+                  type="button"
+                >
+                  <abbr
+                    aria-label="December 31, 2023"
+                  >
+                    31
                   </abbr>
                 </button>
               </div>

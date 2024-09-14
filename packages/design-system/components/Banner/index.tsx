@@ -10,9 +10,8 @@ import {
   Container,
   TextContainer,
   Wrapper,
+  BannerVariant,
 } from "./styles";
-
-export type BannerVariant = "success" | "info" | "warning" | "danger";
 
 export interface BannerProps extends SpaceProps {
   /**
