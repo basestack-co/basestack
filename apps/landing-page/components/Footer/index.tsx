@@ -63,32 +63,19 @@ const Footer = () => {
   });
 
   const onSubmit: SubmitHandler<FormInputs> = async (input: FormInputs) => {
+    if (!process.env.NEXT_PUBLIC_FORM_UPDATES_ENDPOINT) return;
+
     try {
-      const params = new URLSearchParams({
-        includeListId: "4",
-        email: input.email,
-        templateId: "1", // Default Template Double opt-in confirmation
-        redirectionUrl: "https://basestack.co",
+      const res = await fetch(process.env.NEXT_PUBLIC_FORM_UPDATES_ENDPOINT, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: input.email }),
       });
 
-      const res = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_EMAIL_SERVICE
-        }/email/subscribe?${params.toString()}`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      const data = await res.json();
-
-      if (data.code === "permission_denied" || data.error) {
-        throw new Error(data.message);
-      }
+      await res.json();
 
       events.landing.newsletter(
         "Subscribe Success",

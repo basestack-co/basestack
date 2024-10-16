@@ -13,7 +13,7 @@ import useTranslation from "next-translate/useTranslation";
 import { PopupActionProps } from "@basestack/design-system";
 import { Navigation as NavigationUI } from "@basestack/ui";
 // Utils
-import { AppEnv, config, Product } from "@basestack/utils";
+import { config, getCookieValueAsBoolean, Product } from "@basestack/utils";
 import {
   getAppsList,
   getAvatarDropdownList,
@@ -23,14 +23,6 @@ import {
 
 export interface NavigationProps {
   data?: Array<PopupActionProps>;
-}
-
-declare global {
-  interface Document {
-    startViewTransition?: (callback: () => void) => {
-      ready: Promise<void>;
-    };
-  }
 }
 
 const Navigation = ({ data }: NavigationProps) => {
@@ -47,6 +39,11 @@ const Navigation = ({ data }: NavigationProps) => {
 
   const setCreateFormModalOpen = useStore(
     (state) => state.setCreateFormModalOpen,
+  );
+
+  const useBilling = useMemo(
+    () => getCookieValueAsBoolean(config.cookies.useBilling) || config.isDev,
+    [],
   );
 
   const currentForm = useMemo(() => {
@@ -120,7 +117,7 @@ const Navigation = ({ data }: NavigationProps) => {
         },
       }}
       appsTitle={t("apps.title")}
-      apps={getAppsList(t, onSelectApp)}
+      // apps={getAppsList(t, onSelectApp)}
       avatar={{
         name: session?.user.name || t("dropdown.username"),
         email: session?.user.email || "",
@@ -130,7 +127,7 @@ const Navigation = ({ data }: NavigationProps) => {
         onSetDarkMode: toggleDarkMode,
         list: getAvatarDropdownList(t, router, () =>
           setCreateFormModalOpen({ isOpen: true }),
-        ),
+        ).filter((item) => !(item.id === "3" && !useBilling)),
       }}
     />
   );

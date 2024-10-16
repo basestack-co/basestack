@@ -177,29 +177,33 @@ const MobileNavigation = ({
                       </ListItem>
                     ))}
                   </List>
-                  <HorizontalRule m={theme.spacing.s5} mb={0} />
-                  <TitleContainer>
-                    <Text muted fontWeight={500}>
-                      {appsTitle}
-                    </Text>
-                  </TitleContainer>
-                  <List>
-                    {apps.map((item, index) => (
-                      <ListItem key={index}>
-                        <Button
-                          variant={ButtonVariant.Neutral}
-                          leftElement={
-                            <AppsLogo>
-                              <Logo size={24} product={item.product} />
-                            </AppsLogo>
-                          }
-                          fullWidth
-                        >
-                          {item.title}
-                        </Button>
-                      </ListItem>
-                    ))}
-                  </List>
+                  {!!apps?.length && (
+                    <>
+                      <HorizontalRule m={theme.spacing.s5} mb={0} />
+                      <TitleContainer>
+                        <Text muted fontWeight={500}>
+                          {appsTitle}
+                        </Text>
+                      </TitleContainer>
+                      <List>
+                        {apps.map((item, index) => (
+                          <ListItem key={index}>
+                            <Button
+                              variant={ButtonVariant.Neutral}
+                              leftElement={
+                                <AppsLogo>
+                                  <Logo size={24} product={item.product} />
+                                </AppsLogo>
+                              }
+                              fullWidth
+                            >
+                              {item.title}
+                            </Button>
+                          </ListItem>
+                        ))}
+                      </List>
+                    </>
+                  )}
                 </ScrollableContent>
               </ContentContainer>
               <HorizontalRule mx={theme.spacing.s5} my={0} />

@@ -1,7 +1,8 @@
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
 import { rem, transparentize } from "polished";
-import { BannerVariant } from "./types";
+
+export type BannerVariant = "success" | "info" | "warning" | "danger";
 
 export const Container = styled.div<{
   variant: BannerVariant;

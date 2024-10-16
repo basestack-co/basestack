@@ -1,7 +1,6 @@
 import { memo, ReactNode } from "react";
 import { SpaceProps } from "styled-system";
 import { useTheme } from "styled-components";
-import { BannerVariant } from "./types";
 // Components
 import Text from "../Text";
 import Icon from "../Icon";
@@ -11,6 +10,7 @@ import {
   Container,
   TextContainer,
   Wrapper,
+  BannerVariant,
 } from "./styles";
 
 export interface BannerProps extends SpaceProps {

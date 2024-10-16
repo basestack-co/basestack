@@ -2,11 +2,12 @@ import React from "react";
 import { Banner, BannerProps } from "@basestack/design-system";
 import { useTheme } from "styled-components";
 
-interface Item extends BannerProps {
+export interface BannersItem extends BannerProps {
   isVisible: boolean;
 }
+
 export interface BannersProps {
-  data: Array<Item>;
+  data: Array<BannersItem>;
 }
 
 const Banners = ({ data }: BannersProps) => {
