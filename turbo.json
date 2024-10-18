@@ -6,15 +6,30 @@
     "EMAIL_SMTP_PORT",
     "EMAIL_SMTP_SECURE",
     "EMAIL_SMTP_AUTH_USER",
-    "EMAIL_SMTP_AUTH_PASSWORD"
+    "EMAIL_SMTP_AUTH_PASSWORD",
+    "AUTH0_CLIENT_ID",
+    "AUTH0_CLIENT_SECRET",
+    "AUTH0_DOMAIN",
+    "GITHUB_CLIENT_ID",
+    "GITHUB_CLIENT_SECRET",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "NEXTAUTH_SECRET",
+    "NEXTAUTH_URL"
   ],
   "tasks": {
     "clean": {
       "cache": false
     },
     "build": {
-      "dependsOn": ["^build", "lint"],
-      "outputs": ["dist/**", ".next/**"]
+      "dependsOn": [
+        "^build",
+        "lint"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**"
+      ]
     },
     "lint": {
       "outputs": []
@@ -28,47 +43,46 @@
       "cache": false
     },
     "deploy": {
-      "dependsOn": ["build", "test", "lint"],
+      "dependsOn": [
+        "build",
+        "test",
+        "lint"
+      ],
       "outputs": []
     },
     "@basestack/feature-flags#deploy": {
-      "dependsOn": ["^build", "lint"],
-      "outputs": ["dist/**", ".next/**"],
+      "dependsOn": [
+        "^build",
+        "lint"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**"
+      ],
       "env": [
         "DATABASE_URL",
-        "DIRECT_DATABASE_URL",
-        "NEXTAUTH_SECRET",
-        "NEXTAUTH_URL",
-        "GITHUB_CLIENT_ID",
-        "GITHUB_CLIENT_SECRET",
-        "AUTH0_CLIENT_ID",
-        "AUTH0_CLIENT_SECRET",
-        "AUTH0_DOMAIN",
-        "GOOGLE_CLIENT_ID",
-        "GOOGLE_CLIENT_SECRET"
+        "DIRECT_DATABASE_URL"
       ]
     },
     "@basestack/forms#deploy": {
-      "dependsOn": ["^build", "lint"],
-      "outputs": ["dist/**", ".next/**"],
+      "dependsOn": [
+        "^build",
+        "lint"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**"
+      ],
       "env": [
         "DATABASE_URL",
         "DIRECT_DATABASE_URL",
-        "NEXTAUTH_SECRET",
-        "NEXTAUTH_URL",
-        "GITHUB_CLIENT_ID",
-        "GITHUB_CLIENT_SECRET",
-        "AUTH0_CLIENT_ID",
-        "AUTH0_CLIENT_SECRET",
-        "AUTH0_DOMAIN",
-        "GOOGLE_CLIENT_ID",
-        "GOOGLE_CLIENT_SECRET",
-        "TRIGGER_PROJECT_ID",
-        "TRIGGER_API_KEY",
-        "TRIGGER_API_URL",
-        "NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY",
         "CLOUDFLARE_ACCOUNT_ID",
-        "CLOUDFLARE_API_TOKEN"
+        "CLOUDFLARE_API_TOKEN",
+        "UPSTASH_WORKFLOW_URL",
+        "QSTASH_TOKEN",
+        "QSTASH_URL",
+        "QSTASH_CURRENT_SIGNING_KEY",
+        "QSTASH_NEXT_SIGNING_KEY"
       ]
     },
     "@basestack/landing-page#deploy": {
@@ -78,20 +92,37 @@
         "@basestack/hooks#build",
         "@basestack/utils#build"
       ],
-      "outputs": ["out/**", ".next/**"]
+      "outputs": [
+        "out/**",
+        ".next/**"
+      ]
     },
     "@basestack/docs#deploy": {
-      "dependsOn": ["lint", "@basestack/utils#build"],
-      "outputs": ["out/**", ".next/**"],
-      "env": ["NEXT_PUBLIC_UMAMI_WEBSITE_ID"]
+      "dependsOn": [
+        "lint",
+        "@basestack/utils#build"
+      ],
+      "outputs": [
+        "out/**",
+        ".next/**"
+      ],
+      "env": [
+        "NEXT_PUBLIC_UMAMI_WEBSITE_ID"
+      ]
     },
     "@basestack/feature-flags#start": {
       "dependsOn": [],
-      "outputs": ["dist/**", ".next/**"]
+      "outputs": [
+        "dist/**",
+        ".next/**"
+      ]
     },
     "@basestack/forms#start": {
       "dependsOn": [],
-      "outputs": ["dist/**", ".next/**"]
+      "outputs": [
+        "dist/**",
+        ".next/**"
+      ]
     }
   }
 }

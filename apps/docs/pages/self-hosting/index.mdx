@@ -114,6 +114,7 @@ The Basestack Platform uses SMTP for sending emails. To configure SMTP, set the 
 | `EMAIL_SMTP_AUTH_USER`     | SMTP authentication username for authenticating to the SMTP server.                 | true     |                                 |
 | `EMAIL_SMTP_AUTH_PASSWORD` | SMTP authentication password for authenticating to the SMTP server.                 | true     |                                 |
 
+
 #### Platform-Specific Configuration
 
 The above environment variables are common across all platforms. However, there are specific configurations unique to each platform. Below are the configurations for each platform:
@@ -128,26 +129,24 @@ The above environment variables are common across all platforms. However, there 
 
     Because the Forms Platform uses background jobs to handle tasks such as sending emails, you need to configure the following environment variables:
 
-    <Callout type="info" emoji="ℹ️">
-      Why [Trigger.dev ↗](https://trigger.dev/)? Since the Basestack Platform can
-      run in serverless environments, using a service like Trigger.dev to handle
-      background jobs is essential. Trigger.dev enables the creation of long-running
-      jobs and is our choice because it is open-source. Alternatively, you can use
-      their cloud service, which offers a free plan.
-    </Callout>
+      <Callout type="info" emoji="ℹ️">
+          Why [UpStash ↗](https://upstash.com/)? Since the Basestack Platform can
+          run in serverless environments, using a service like UpStash QStash to handle
+          background jobs is essential. QStash is a service designed to handle task scheduling and message queuing in
+          a serverless
+          environment. It’s particularly useful for serverless or edge applications that need to offload tasks
+          asynchronously or schedule them for future execution.
+      </Callout>
 
-    <Callout type="warning" emoji="ℹ️">
-      Basestack Forms currently uses Trigger.dev v2, with plans to migrate to v3
-      once it is stable. You can easily self-host Trigger.dev v2 using this
-      [Trigger.dev Template on Railway.app ↗](https://railway.app/template/na6kUS).
-    </Callout>
 
-    | Property                             | Description                                                                                 | Required |
-    | ------------------------------------ | ------------------------------------------------------------------------------------------- | -------- |
-    | `TRIGGER_PROJECT_ID`                 | You can find your project's ID on your Trigger.dev instance dashboard.                      | true     |
-    | `TRIGGER_API_KEY`                    | Find the key for your environment (Dev, Staging, Prod) on the Trigger.dev dashboard.        | true     |
-    | `TRIGGER_API_URL`                    | The URL where your Trigger.dev instance is running (self-hosted or cloud)                   | true     |
-    | `NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY` | Find the public key for your environment (Dev, Staging, Prod) on the Trigger.dev dashboard. | true     |
+      | Environment Variable           | Description                                                             |Required |
+    |---------------------------------|-------------------------------------------------------------------------| -------- |
+    | `UPSTASH_WORKFLOW_URL`          | Set a tunnel URL when working locally to route requests through a tunnel. |true     |
+    | `QSTASH_TOKEN`                  | The authentication token required for accessing QStash services.         |true     |
+    | `QSTASH_URL`                    | The base URL for QStash API requests.                                   |true     |
+    | `QSTASH_CURRENT_SIGNING_KEY`    | The current key used to sign requests to ensure secure communication.    |true     |
+    | `QSTASH_NEXT_SIGNING_KEY`       | The upcoming signing key used to rotate keys for security purposes.      |true     |
+
 
     #### Cloudflare API Configuration
 

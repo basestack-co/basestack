@@ -8,7 +8,11 @@ import { withUsageUpdate } from "libs/prisma/utils/subscription";
 // Prisma
 import prisma from "libs/prisma";
 // Jobs
-import { triggerClient, TriggerEventName } from "libs/trigger";
+import {
+  sendEmailEvent,
+  sendDataToExternalWebhookEvent,
+  checkDataForSpamEvent,
+} from "libs/qstash";
 
 const { hasFormPlanFeature, getFormLimitByKey } = utilsConfig.plans;
 
@@ -313,26 +317,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
               form.hasSpamProtection &&
               hasFormPlanFeature(planId, "hasSpamProtection")
             ) {
-              await triggerClient.sendEvent({
-                name: TriggerEventName.CHECK_DATA_FOR_SPAM,
-                payload: {
-                  submissionId: submission.id,
-                  data,
-                },
+              await checkDataForSpamEvent({
+                submissionId: submission.id,
+                data,
               });
             }
           }
 
           if (!!form.webhookUrl && hasFormPlanFeature(planId, "hasWebhooks")) {
-            await triggerClient.sendEvent({
-              name: TriggerEventName.SEND_DATA_TO_EXTERNAL_WEBHOOK,
-              payload: {
-                url: form.webhookUrl,
-                body: {
-                  formId,
-                  name: form.name,
-                  data,
-                },
+            await sendDataToExternalWebhookEvent({
+              url: form.webhookUrl,
+              body: {
+                formId,
+                name: form.name,
+                data,
               },
             });
           }
@@ -341,17 +339,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             !!form.emails &&
             hasFormPlanFeature(planId, "hasEmailNotifications")
           ) {
-            await triggerClient.sendEvent({
-              name: TriggerEventName.SEND_EMAIL,
-              payload: {
-                template: "new-submission",
-                to: form.emails.split(",").map((email) => email.trim()),
-                subject: `New form submission received for ${form.name}`,
-                props: {
-                  formName: form.name,
-                  content: data,
-                  formId,
-                },
+            await sendEmailEvent({
+              template: "new-submission",
+              to: form.emails.split(",").map((email) => email.trim()),
+              subject: `New form submission received for ${form.name}`,
+              props: {
+                formName: form.name,
+                content: data,
+                formId,
               },
             });
           }
