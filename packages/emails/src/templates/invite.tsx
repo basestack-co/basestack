@@ -75,8 +75,11 @@ export const InviteEmailTemplate = ({
             alt="basestack"
             style={{ marginBottom: "20px" }}
           />
-          <Text style={{ ...Styles.Heading, marginBottom: "20px" }}>
-            Join <b>{content.project}</b> on <b>Basestack</b>
+          <Text
+            style={{ ...Styles.Heading, marginBottom: "20px", fontWeight: 400 }}
+          >
+            Join <b style={{ fontWeight: 700 }}>{content.project}</b> on{" "}
+            <b style={{ fontWeight: 700 }}>Basestack</b>
           </Text>
 
           <Text style={{ ...Styles.Paragraph, marginBottom: "10px" }}>
