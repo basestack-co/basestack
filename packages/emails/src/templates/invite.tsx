@@ -18,48 +18,18 @@ interface ContentType {
   [key: string]: string | undefined | null;
 }
 
-interface NewSubmissionEmailTemplateProps {
-  formName: string;
+interface InviteEmailTemplateProps {
+  userName: string;
   content: ContentType;
   formId: string;
 }
 
-interface ListProps {
-  data: ContentType;
-}
-
-const List: React.FC<ListProps> = ({ data }) => {
-  if (!data) return null;
-
-  const entries = Object.entries(data);
-  const displayedEntries = entries.slice(0, 5); // Limit to 5 items
-  const totalEntries = entries.length;
-
-  return (
-    <div style={Styles.Card}>
-      {displayedEntries.map(([key, value]) => (
-        <p style={{ ...Styles.Paragraph, marginBottom: "10px" }} key={key}>
-          <b style={{ fontWeight: 500, marginRight: "6px" }}>
-            {key.charAt(0).toUpperCase() + key.slice(1)}:
-          </b>
-          {value}
-        </p>
-      ))}
-      {totalEntries > 5 && (
-        <p style={Styles.Paragraph}>
-          <b style={{ fontWeight: 500 }}>+{totalEntries - 5} more items</b>
-        </p>
-      )}
-    </div>
-  );
-};
-
-export const NewSubmissionEmailTemplate = ({
-  formName,
+export const InviteEmailTemplate = ({
+  userName,
   content,
   formId,
-}: NewSubmissionEmailTemplateProps) => {
-  const title = `New Submission for ${formName}`;
+}: InviteEmailTemplateProps) => {
+  const title = `New Invite from @${userName}`;
 
   return (
     <Html>
@@ -105,17 +75,33 @@ export const NewSubmissionEmailTemplate = ({
             alt="basestack"
             style={{ marginBottom: "20px" }}
           />
-          <Text style={Styles.Heading}>{title}</Text>
-          <Text style={{ ...Styles.Paragraph, margin: "10px 0 20px 0" }}>
-            View and manage the submission on your dashboard.
+          <Text style={{ ...Styles.Heading, marginBottom: "20px" }}>
+            Join <b>{content.project}</b> on <b>Basestack</b>
           </Text>
-          <List data={content} />
+
+          <Text style={{ ...Styles.Paragraph, marginBottom: "10px" }}>
+            Hello {userName},
+          </Text>
+          <Text style={Styles.ParagraphSecondary}>
+            <b style={Styles.ParagraphMedium}>{content.name}</b> has invited you
+            to the <b style={Styles.ParagraphMedium}>{content.project}</b> team
+            on <b style={Styles.ParagraphMedium}>Basestack</b>.
+          </Text>
           <Button
-            style={{ ...Styles.PrimaryButton, marginTop: "20px" }}
+            style={{ ...Styles.PrimaryButton, margin: "20px 0" }}
             href={`https://forms.basestack.co/form/${formId}/submissions`}
           >
             {content.button}
           </Button>
+          <div style={Styles.Card}>
+            <Text style={{ ...Styles.Paragraph, marginBottom: "2px" }}>
+              or copy and paste this URL into your browser:
+            </Text>
+            <Link href="https://github.com/basestack-co" style={Styles.Link}>
+              https://github.com/basestack-co
+            </Link>
+          </div>
+
           <Text style={{ ...Styles.Paragraph, marginTop: "20px" }}>
             Basestack Team
           </Text>
@@ -135,15 +121,15 @@ export const NewSubmissionEmailTemplate = ({
   );
 };
 
-NewSubmissionEmailTemplate.PreviewProps = {
-  formName: "Contacts",
+InviteEmailTemplate.PreviewProps = {
+  userName: "Ellen",
   content: {
-    name: "Kevin Doe",
-    email: "example@example.com",
-    message: "Hello, I am a message",
-    button: "View submission",
+    name: "Dexter",
+    email: "dexter@example.com",
+    project: "Evermore",
+    button: "Join The Team",
   },
   formId: "",
-} as NewSubmissionEmailTemplateProps;
+} as InviteEmailTemplateProps;
 
-export default NewSubmissionEmailTemplate;
+export default InviteEmailTemplate;
