@@ -43,7 +43,7 @@
   },
   "packageManager": "yarn@1.22.18",
   "engines": {
-    "node": ">=21.1.0"
+    "node": ">=22.6.0"
   },
   "husky": {
     "hooks": {
