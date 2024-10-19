@@ -140,7 +140,7 @@ const forms: Plan[] = [
       forms: Infinity,
       submissions: 2000,
       members: 5,
-      spams: 0,
+      spams: 2000,
       fileUploadLimit: 1, // GB
       integrationsCalls: 500, // Calls
     },

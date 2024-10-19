@@ -43,6 +43,7 @@ export const POST = serve(
             payload = {
               planId: PlanTypeId.FREE,
               event: SubscriptionEvent.SUBSCRIPTION_CANCELLED,
+              subscriptionId: "",
             };
           }
 

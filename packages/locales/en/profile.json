@@ -47,9 +47,11 @@
       "abbr": "USD"
     },
     "feature": {
-      "submission": "{{value}} submissions",
-      "users": "{{value}} users",
-      "forms": "{{value}} forms"
+      "forms": "{{value}} Forms",
+      "submissions": "{{value}} Submissions",
+      "members": "{{value}} Members",
+      "spams": "{{value}} Spam AI Reports",
+      "integrations": "{{value}} Integrations Calls"
     },
     "segment": {
       "monthly": "monthly",
@@ -73,7 +75,8 @@
       "scale": "Scale",
       "current": {
         "title": "Current Plan",
-        "date": "Renewal date",
+        "renewal": "Renewal date",
+        "ending": "Ending date",
         "status": {
           "active": "Active",
           "inactive": "Inactive"

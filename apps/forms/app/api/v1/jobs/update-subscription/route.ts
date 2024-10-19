@@ -30,47 +30,70 @@ export const POST = serve<UpdateSubscriptionEventPayload>(
         SubscriptionEvent.SUBSCRIPTION_CANCELLED,
       ].includes(body.meta.event_name as SubscriptionEvent)
     ) {
-      await context.run("update-user-subscription-step", async () => {
-        const isUpdate =
-          SubscriptionEvent.SUBSCRIPTION_UPDATED === body.meta.event_name;
-        const userId = body.meta.custom_data.user_id;
-        const variantId = body.data.attributes.variant_id;
+      const sub = await context.run(
+        "check-user-subscription-step",
+        async () => {
+          const userId = body.meta.custom_data.user_id;
 
-        const payload = {
-          subscriptionId: body.data.id,
-          customerId: body.data.attributes.customer_id,
-          status: body.data.attributes.status,
-          productId: body.data.attributes.product_id,
-          event: body.meta.event_name,
-          variantId,
-        };
+          console.info("Checking if user has a subscription", userId);
 
-        const res = await prisma.subscription.upsert({
-          create: {
-            userId,
-            planId: (body.meta.custom_data.plan_id ??
-              PlanTypeId.FREE) as PlanTypeId,
-            billingCycleStart: dayjs().add(1, "month").toISOString(),
-            ...payload,
-          },
-          update: {
-            planId: getFormPlanByVariantId(variantId)?.id,
-            ...payload,
-            ...(isUpdate
-              ? {
-                  billingCycleStart: dayjs().add(1, "month").toISOString(),
-                  cancelled: body.data.attributes.cancelled ?? false,
-                  paused: body.data.attributes.cancelled ?? false,
-                }
-              : {}),
-          },
-          where: {
-            userId,
-          },
+          return prisma.subscription.findFirst({
+            where: {
+              userId,
+            },
+            select: {
+              id: true,
+            },
+          });
+        },
+      );
+
+      // Update the subscription if it exists
+      if (!!sub?.id) {
+        await context.run("update-user-subscription-step", async () => {
+          const userId = body.meta.custom_data.user_id;
+
+          const isUpdate =
+            SubscriptionEvent.SUBSCRIPTION_UPDATED === body.meta.event_name;
+
+          const variantId = body.data.attributes.variant_id;
+
+          const payload = {
+            subscriptionId: body.data.id,
+            customerId: body.data.attributes.customer_id,
+            status: body.data.attributes.status,
+            productId: body.data.attributes.product_id,
+            event: body.meta.event_name,
+            variantId,
+          };
+
+          const res = await prisma.subscription.upsert({
+            create: {
+              userId,
+              planId: (body.meta.custom_data.plan_id ??
+                PlanTypeId.FREE) as PlanTypeId,
+              billingCycleStart: dayjs().add(1, "month").toISOString(),
+              ...payload,
+            },
+            update: {
+              planId: getFormPlanByVariantId(variantId)?.id,
+              ...payload,
+              ...(isUpdate
+                ? {
+                    billingCycleStart: dayjs().add(1, "month").toISOString(),
+                    cancelled: body.data.attributes.cancelled ?? false,
+                    paused: body.data.attributes.cancelled ?? false,
+                  }
+                : {}),
+            },
+            where: {
+              userId,
+            },
+          });
+
+          console.info("Subscription updated on DB", res);
         });
-
-        console.info("Subscription updated on DB", res);
-      });
+      }
     }
   },
   {
