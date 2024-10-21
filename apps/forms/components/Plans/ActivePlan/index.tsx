@@ -88,7 +88,7 @@ const ActivePlan = ({
             </Text>
           </Text>
           <Text muted fontWeight={400}>
-            {t("billing.plan.current.date")}{" "}
+            {t(`billing.plan.current.${isActive ? "renewal" : "ending"}`)}{" "}
             <Text as="span" fontWeight={500}>
               {renewsAt}
             </Text>

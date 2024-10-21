@@ -8,7 +8,12 @@ import useTranslation from "next-translate/useTranslation";
 // Toast
 import { toast } from "sonner";
 // Utils
-import { config, PlanTypeId, getBrowserUrl } from "@basestack/utils";
+import {
+  config,
+  PlanTypeId,
+  getBrowserUrl,
+  formatNumber,
+} from "@basestack/utils";
 import dayjs from "dayjs";
 // Types
 import { BillingInterval } from "./types";
@@ -19,6 +24,8 @@ import UpgradePlanHeader from "./UpgradePlanHeader";
 import { useTheme } from "styled-components";
 import { Container, List, ListItem } from "./styles";
 import ActivePlan from "./ActivePlan";
+
+const freePlanLimits = config.plans.getFormPlanLimits(PlanTypeId.FREE);
 
 const Plans = () => {
   const { t } = useTranslation("profile");
@@ -48,7 +55,7 @@ const Plans = () => {
           planId,
           interval,
           isDarkMode,
-          redirectUrl: `${getBrowserUrl()}/user/profile/settings`,
+          redirectUrl: `${getBrowserUrl()}/user/profile/billing`,
         },
         {
           onSuccess: (result) => {
@@ -93,9 +100,18 @@ const Plans = () => {
         <PlanCard
           title={t("billing.plan.free")}
           features={[
-            t("billing.feature.submission", { value: 200 }),
-            t("billing.feature.users", { value: 2 }),
-            t("billing.feature.forms", { value: 2 }),
+            t("billing.feature.forms", {
+              value: formatNumber(freePlanLimits.forms),
+            }),
+            t("billing.feature.submissions", {
+              value: formatNumber(freePlanLimits.submissions),
+            }),
+            t("billing.feature.integrations", {
+              value: formatNumber(freePlanLimits.integrationsCalls),
+            }),
+            t("billing.feature.members", {
+              value: formatNumber(freePlanLimits.members),
+            }),
           ]}
           amount={{
             symbol: t("billing.price.symbol"),
@@ -103,6 +119,7 @@ const Plans = () => {
             value: 0,
             cycle: t("billing.cycle-abbr.monthly"),
           }}
+          isDisabled={isLoading}
         />
         <UpgradePlanHeader
           onSelectCycle={(value) => setInterval(value)}
@@ -111,7 +128,7 @@ const Plans = () => {
         <List>
           {config.plans.forms
             .filter((item) => item.id !== PlanTypeId.FREE)
-            .map(({ id, price }) => {
+            .map(({ id, price, features, limits }) => {
               const value =
                 interval === "monthly"
                   ? price.monthly.amount
@@ -125,9 +142,18 @@ const Plans = () => {
                   <PlanCard
                     title={id}
                     features={[
-                      t("billing.feature.submission", { value: 200 }),
-                      t("billing.feature.users", { value: 2 }),
-                      t("billing.feature.forms", { value: 2 }),
+                      t("billing.feature.forms", {
+                        value: formatNumber(limits.forms),
+                      }),
+                      t("billing.feature.submissions", {
+                        value: formatNumber(limits.submissions),
+                      }),
+                      t("billing.feature.integrations", {
+                        value: formatNumber(limits.integrationsCalls),
+                      }),
+                      t("billing.feature.members", {
+                        value: formatNumber(limits.members),
+                      }),
                     ]}
                     amount={{
                       value,
@@ -137,6 +163,7 @@ const Plans = () => {
                       abbr: t("billing.price.abbr"),
                     }}
                     onClick={() => onCreateCheckout(id, "monthly")}
+                    isDisabled={isLoading}
                   />
                 </ListItem>
               );
@@ -152,7 +179,7 @@ const Plans = () => {
         variantId={data.product.variantId}
         isActive={data.status === "active"}
         isBilledMonthly={data.product.variant === "Monthly"}
-        renewsAt={dayjs(data.renewsAt).format("MM/YYYY") ?? ""}
+        renewsAt={dayjs(data.renewsAt).format("MMMM D, YYYY") ?? ""}
         cardBrand={data.card.brand ?? ""}
         cardLastFour={data.card.lastFour ?? ""}
         onManage={() => onHandleExternalUrl(data.urls.customerPortal)}

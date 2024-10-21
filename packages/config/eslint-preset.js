@@ -8,7 +8,7 @@ module.exports = {
   rules: {
     "@next/next/no-html-link-for-pages": "off",
     "@typescript-eslint/no-empty-function": "off",
-    "no-console": "warn",
+    "no-console": ["warn", { allow: ["error", "info"] }],
     "no-extra-semi": "error",
     "no-duplicate-imports": "error",
     "prefer-const": "warn",

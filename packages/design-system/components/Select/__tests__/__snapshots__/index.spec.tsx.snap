@@ -14,7 +14,7 @@ exports[`Select tests should render Select correctly 1`] = `
 }
 
 <div
-    class=" css-b62m3t-container"
+    class="css-b62m3t-container"
   >
     <span
       class="css-1f43avz-a11yText-A11yText"
@@ -28,19 +28,19 @@ exports[`Select tests should render Select correctly 1`] = `
       role="log"
     />
     <div
-      class=" css-19wf9l7-control"
+      class="css-19wf9l7-control"
     >
       <div
-        class=" css-104arpn-ValueContainer"
+        class="css-1tgxi51"
       >
         <div
-          class=" css-16e3emz-placeholder"
+          class="css-16e3emz-placeholder"
           id="react-select-2-placeholder"
         >
           Select...
         </div>
         <div
-          class=" css-qbdosj-Input"
+          class="css-19bb58m"
           data-value=""
         >
           <input
@@ -64,14 +64,14 @@ exports[`Select tests should render Select correctly 1`] = `
         </div>
       </div>
       <div
-        class=" css-1hb7zxy-IndicatorsContainer"
+        class="css-1wy0on6"
       >
         <span
-          class=" css-6tf0vp-indicatorSeparator"
+          class="css-6tf0vp-indicatorSeparator"
         />
         <div
           aria-hidden="true"
-          class=" css-1xc3v61-indicatorContainer"
+          class="css-1xc3v61-indicatorContainer"
         >
           <div
             class="c0"

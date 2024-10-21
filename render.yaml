@@ -45,11 +45,6 @@ services:
         fromDatabase:
           name: basestack-feature-flags-db
           property: connectionString
-        # BACKGROUND JOBS - CONFIGURATION
-      - key: TRIGGER_PROJECT_ID
-        sync: false
-      - key: NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY
-        sync: false
   - type: web
     name: basestack-forms-app
     # rootDir: no need to specify rootDir
@@ -68,11 +63,6 @@ services:
         fromDatabase:
           name: basestack-forms-db
           property: connectionString
-        # BACKGROUND JOBS - CONFIGURATION
-      - key: TRIGGER_PROJECT_ID
-        sync: false
-      - key: NEXT_PUBLIC_TRIGGER_PUBLIC_API_KEY
-        sync: false
   - type: pserv
     name: basestack-feature-flags-db-pgbouncer
     runtime: docker
@@ -115,11 +105,11 @@ databases:
   - name: basestack-feature-flags-db
     region: frankfurt # change to your preferred region. options: frankfurt, oregon, singapore, ohio
     plan: starter
-    ipAllowList: [] # only allow internal connections
+    ipAllowList: [ ] # only allow internal connections
   - name: basestack-forms-db
     region: frankfurt
     plan: starter
-    ipAllowList: []
+    ipAllowList: [ ]
 envVarGroups:
   - name: basestack-env-group
     envVars:
@@ -151,8 +141,11 @@ envVarGroups:
       - key: EMAIL_SMTP_AUTH_USER
       - key: EMAIL_SMTP_AUTH_PASSWORD
         # BACKGROUND JOBS - CONFIGURATION
-      - key: TRIGGER_API_KEY
-      - key: TRIGGER_API_URL
+      - key: UPSTASH_WORKFLOW_URL
+      - key: QSTASH_TOKEN
+      - key: QSTASH_URL
+      - key: QSTASH_CURRENT_SIGNING_KEY
+      - key: QSTASH_NEXT_SIGNING_KEY
         # CORS - API CONFIGURATION
       - key: API_ACCESS_CONTROL_ALLOW_ORIGIN
         value: "http://localhost:3003"
@@ -166,6 +159,6 @@ envVarGroups:
       - key: CLOUDFLARE_API_TOKEN
         # COMMON
       - key: NODE_VERSION
-        value: 21.1.0
+        value: 22.6.0
       - key: SKIP_INSTALL_DEPS
         value: "true" # disables npm install to use yarn
