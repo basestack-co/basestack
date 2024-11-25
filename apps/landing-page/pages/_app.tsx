@@ -27,13 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </Layout>
         </StyleSheetManager>
       </ThemeProvider>
-      {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
-        <Script
-          data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID!}
-          src="https://analytics.umami.is/script.js"
-          strategy="lazyOnload"
-        />
-      )}
+      <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
     </>
   );
 }
