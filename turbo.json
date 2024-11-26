@@ -22,14 +22,8 @@
       "cache": false
     },
     "build": {
-      "dependsOn": [
-        "^build",
-        "lint"
-      ],
-      "outputs": [
-        "dist/**",
-        ".next/**"
-      ]
+      "dependsOn": ["^build", "lint"],
+      "outputs": ["dist/**", ".next/**"]
     },
     "lint": {
       "outputs": []
@@ -43,36 +37,17 @@
       "cache": false
     },
     "deploy": {
-      "dependsOn": [
-        "build",
-        "test",
-        "lint"
-      ],
+      "dependsOn": ["build", "test", "lint"],
       "outputs": []
     },
     "@basestack/feature-flags#deploy": {
-      "dependsOn": [
-        "^build",
-        "lint"
-      ],
-      "outputs": [
-        "dist/**",
-        ".next/**"
-      ],
-      "env": [
-        "DATABASE_URL",
-        "DIRECT_DATABASE_URL"
-      ]
+      "dependsOn": ["^build", "lint"],
+      "outputs": ["dist/**", ".next/**"],
+      "env": ["DATABASE_URL", "DIRECT_DATABASE_URL"]
     },
     "@basestack/forms#deploy": {
-      "dependsOn": [
-        "^build",
-        "lint"
-      ],
-      "outputs": [
-        "dist/**",
-        ".next/**"
-      ],
+      "dependsOn": ["^build", "lint"],
+      "outputs": ["dist/**", ".next/**"],
       "env": [
         "DATABASE_URL",
         "DIRECT_DATABASE_URL",
@@ -92,37 +67,20 @@
         "@basestack/hooks#build",
         "@basestack/utils#build"
       ],
-      "outputs": [
-        "out/**",
-        ".next/**"
-      ]
+      "outputs": ["out/**", ".next/**"]
     },
     "@basestack/docs#deploy": {
-      "dependsOn": [
-        "lint",
-        "@basestack/utils#build"
-      ],
-      "outputs": [
-        "out/**",
-        ".next/**"
-      ],
-      "env": [
-        "NEXT_PUBLIC_UMAMI_WEBSITE_ID"
-      ]
+      "dependsOn": ["lint", "@basestack/utils#build"],
+      "outputs": ["out/**", ".next/**"],
+      "env": []
     },
     "@basestack/feature-flags#start": {
       "dependsOn": [],
-      "outputs": [
-        "dist/**",
-        ".next/**"
-      ]
+      "outputs": ["dist/**", ".next/**"]
     },
     "@basestack/forms#start": {
       "dependsOn": [],
-      "outputs": [
-        "dist/**",
-        ".next/**"
-      ]
+      "outputs": ["dist/**", ".next/**"]
     }
   }
 }
