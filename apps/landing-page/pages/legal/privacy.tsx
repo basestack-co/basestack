@@ -43,7 +43,7 @@ const PrivacyPolicyPage = () => {
             site.
           </p>
           <p>This policy is effective as of 23 February 2023. </p>
-          <p>Last updated: 23 February 2023 </p>
+          <p>Last updated: 26 November 2024 </p>
           <h3>Information We Collect</h3>
           <p>
             Information we collect falls into one of two categories:
@@ -237,8 +237,8 @@ const PrivacyPolicyPage = () => {
           </ul>
           <p>Third parties we currently use include: </p>
           <ul>
-            <li>Umami Cloud</li>
-            <li>Sendinblue</li>
+            <li>Simple Analytics</li>
+            <li>Microsoft Clarity</li>
           </ul>
           <h3>Your Rights and Controlling Your Personal Information</h3>
           <p>
