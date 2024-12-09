@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
+import Script from "next/script";
 import { AppProps } from "next/app";
 import { useStore } from "store";
 // Styles
@@ -32,18 +33,21 @@ function MyApp({ Component, pageProps }: AppProps) {
   const theme = isDarkMode ? darkTheme : lightTheme;
 
   return (
-    <SessionProvider session={pageProps.session}>
-      <ThemeProvider theme={theme}>
-        <StyleSheetManager shouldForwardProp={isPropValid}>
-          <GlobalStyle />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-          <Modals />
-          <Toaster visibleToasts={9} closeButton={false} />
-        </StyleSheetManager>
-      </ThemeProvider>
-    </SessionProvider>
+    <>
+      <SessionProvider session={pageProps.session}>
+        <ThemeProvider theme={theme}>
+          <StyleSheetManager shouldForwardProp={isPropValid}>
+            <GlobalStyle />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+            <Modals />
+            <Toaster visibleToasts={9} closeButton={false} />
+          </StyleSheetManager>
+        </ThemeProvider>
+      </SessionProvider>
+      <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
+    </>
   );
 }
 

@@ -11,3 +11,7 @@ export const slugify = (text: string) =>
 
 export const truncateString = (text: string, maxLength: number): string =>
   text.length <= maxLength ? text : `${text.substring(0, maxLength - 3)}...`;
+
+export const formatNumber = (number: number, locale: string = "en-US") => {
+  return new Intl.NumberFormat(locale).format(number);
+};

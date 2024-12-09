@@ -116,20 +116,10 @@ const WaitingList = ({ data }: WaitingListProps) => {
         throw new Error(data.message);
       }
 
-      // @ts-ignore
-      umami.track("request-access-submit", {
-        title: "Success",
-        description: "Successfully added to the waiting list",
-      });
-
       reset();
     } catch (error) {
       const { message } = error as Error;
-      // @ts-ignore
-      umami.track("request-access-submit", {
-        title: "Error",
-        description: message,
-      });
+      console.error(message);
     }
   };
 
@@ -191,13 +181,6 @@ const WaitingList = ({ data }: WaitingListProps) => {
                       onChange={field.onChange}
                       onBlur={field.onBlur}
                       disabled={isSubmitting}
-                      onFocus={() =>
-                        // @ts-ignore
-                        umami.track("email-input-focus", {
-                          title: "onFocus",
-                          description: "Email Input Field Focus",
-                        })
-                      }
                     />
                   )}
                 />
@@ -251,12 +234,6 @@ const WaitingList = ({ data }: WaitingListProps) => {
                     title={item.title}
                     text={item.text}
                     onClick={() => {
-                      // @ts-ignore
-                      umami.track("slider-card-button", {
-                        title: "Feature Slider",
-                        description: item.title,
-                      });
-
                       setCurrentImage(index);
                     }}
                   />
@@ -272,17 +249,7 @@ const WaitingList = ({ data }: WaitingListProps) => {
         <Footer>
           <Text size="medium" fontWeight={400} muted>
             © Basestack {new Date().getFullYear()}. All rights reserved.{" "}
-            <Link
-              style={{ color: "black" }}
-              href="/legal/privacy"
-              onClick={() =>
-                // @ts-ignore
-                umami.track("privacy-link", {
-                  title: "onClick",
-                  description: "Privacy Policy Link",
-                })
-              }
-            >
+            <Link style={{ color: "black" }} href="/legal/privacy">
               Privacy Policy
             </Link>
           </Text>

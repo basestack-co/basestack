@@ -35,15 +35,15 @@
   "devDependencies": {
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
-    "husky": "^9.1.6",
+    "husky": "^9.1.7",
     "is-ci": "^3.0.1",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
-    "turbo": "^2.1.3"
+    "turbo": "^2.3.1"
   },
   "packageManager": "yarn@1.22.18",
   "engines": {
-    "node": ">=21.1.0"
+    "node": ">=22.6.0"
   },
   "husky": {
     "hooks": {

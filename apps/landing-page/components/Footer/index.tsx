@@ -103,7 +103,7 @@ const Footer = () => {
           <LeftColumnContent>
             <CopyWrightContainer>
               <Text size="medium" fontWeight={400} color={theme.colors.gray300}>
-                © Basestack 2023
+                © Basestack {new Date().getFullYear()}. All rights reserved.
               </Text>
             </CopyWrightContainer>
             <List>

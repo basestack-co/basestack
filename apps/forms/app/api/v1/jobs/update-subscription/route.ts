@@ -1,5 +1,8 @@
-import { verifyRequestSignature } from "@trigger.dev/sdk";
-import { triggerClient } from "libs/trigger";
+// UpStash
+import { serve } from "@upstash/qstash/nextjs";
+import { Receiver } from "@upstash/qstash";
+// Types
+import type { UpdateSubscriptionEventPayload } from "libs/qstash";
 // Prisma
 import prisma from "libs/prisma";
 // Utils
@@ -8,61 +11,15 @@ import { PlanTypeId, config, SubscriptionEvent } from "@basestack/utils";
 
 const { getSubscriptionEvents, getFormPlanByVariantId } = config.plans;
 
-interface ResponseBody {
-  meta: {
-    test_mode: boolean;
-    webhook_id: string;
-    event_name: string;
-    custom_data: {
-      plan_id: string;
-      user_id: string;
-    };
-  };
-  data: {
-    id: string;
-    type: string;
-    attributes: {
-      customer_id: number;
-      status: string;
-      ends_at: string;
-      renews_at: string;
-      product_id: number;
-      cancelled: boolean;
-      order_id: number;
-      paused: boolean;
-      variant_id: number;
-    };
-  };
-}
+export const POST = serve<UpdateSubscriptionEventPayload>(
+  async (context) => {
+    const body = context.requestPayload;
 
-// HTTP Webhook
-const lemonSqueezyDotCom = triggerClient.defineHttpEndpoint({
-  id: "lemonsqueezy.com",
-  source: "lemonsqueezy.com",
-  verify: async (request) => {
-    return await verifyRequestSignature({
-      request,
-      headerName: "X-Signature",
-      secret: process.env.LEMONSQUEEZY_SIGNATURE_SECRET!,
-      algorithm: "sha256",
-    });
-  },
-});
-
-triggerClient.defineJob({
-  id: "http-update-subscription",
-  name: "HTTP Update Subscription",
-  version: "1.0.0",
-  trigger: lemonSqueezyDotCom.onRequest(),
-  run: async (request, io) => {
-    const body: ResponseBody = await request.json();
-
-    await io.logger.info(`Webhook Event Body`, body);
-
-    await io.logger.info(`Subscription Event:${body.meta.event_name}`);
+    console.info(`Webhook Event Body`, body);
+    console.info(`Subscription Event:${body.meta.event_name}`);
 
     if (!getSubscriptionEvents.includes(body.meta.event_name)) {
-      await io.logger.error("Invalid event name received");
+      console.error("Invalid event name received");
       return;
     }
 
@@ -73,12 +30,32 @@ triggerClient.defineJob({
         SubscriptionEvent.SUBSCRIPTION_CANCELLED,
       ].includes(body.meta.event_name as SubscriptionEvent)
     ) {
-      await io.runTask(
-        "check-and-update-subscription-db",
+      const sub = await context.run(
+        "check-user-subscription-step",
         async () => {
+          const userId = body.meta.custom_data.user_id;
+
+          console.info("Checking if user has a subscription", userId);
+
+          return prisma.subscription.findFirst({
+            where: {
+              userId,
+            },
+            select: {
+              id: true,
+            },
+          });
+        },
+      );
+
+      // Update the subscription if it exists
+      if (!!sub?.id) {
+        await context.run("update-user-subscription-step", async () => {
+          const userId = body.meta.custom_data.user_id;
+
           const isUpdate =
             SubscriptionEvent.SUBSCRIPTION_UPDATED === body.meta.event_name;
-          const userId = body.meta.custom_data.user_id;
+
           const variantId = body.data.attributes.variant_id;
 
           const payload = {
@@ -114,12 +91,15 @@ triggerClient.defineJob({
             },
           });
 
-          await io.logger.info("Subscription updated on DB", res);
-        },
-        { name: "Check if the Subscription needs updating" },
-      );
+          console.info("Subscription updated on DB", res);
+        });
+      }
     }
-
-    await io.logger.info("✨ Subscription updated ✨");
   },
-});
+  {
+    receiver: new Receiver({
+      currentSigningKey: process.env.QSTASH_CURRENT_SIGNING_KEY!,
+      nextSigningKey: process.env.QSTASH_NEXT_SIGNING_KEY!,
+    }),
+  },
+);
