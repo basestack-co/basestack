@@ -43,7 +43,7 @@ const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
               events.landing.deploy("Deploy to Vercel");
               if (typeof window !== "undefined") {
                 window.open(
-                  `${config.urls.docs.base}/feature-flags/deployment/deploy-vercel`,
+                  `${config.urls.docs.base}/self-hosting/providers/deploy-vercel`,
                   "_blank",
                 );
               }
@@ -60,10 +60,7 @@ const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
             onClick={() => {
               events.landing.deploy("Explore more options");
               if (typeof window !== "undefined") {
-                window.open(
-                  `${config.urls.docs.base}/feature-flags/deployment`,
-                  "_blank",
-                );
+                window.open(`${config.urls.docs.base}/self-hosting`, "_blank");
               }
             }}
           >
