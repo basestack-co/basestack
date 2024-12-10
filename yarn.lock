@@ -2424,6 +2424,13 @@
     jose "^5.2.3"
     neverthrow "^7.0.1"
 
+"@upstash/workflow@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@upstash/workflow/-/workflow-0.2.1.tgz#c2a5399784a8ff338080b60ca673d5e76587d79f"
+  integrity sha512-eAdjqO0qHbr7cr+4Yj1CGbGjj1QGWqGVcKTCroRou6mSAtSBlH+Xb/nBaTjAeEmbGBQZINcjwqNS9MU2YLDlfg==
+  dependencies:
+    "@upstash/qstash" "^2.7.17"
+
 "@wojtekmaj/date-utils@^1.1.3":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@wojtekmaj/date-utils/-/date-utils-1.5.1.tgz#c3cd67177ac781cfa5736219d702a55a2aea5f2b"

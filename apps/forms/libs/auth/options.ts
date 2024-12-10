@@ -9,6 +9,8 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "libs/prisma";
 // Types
 import { Role } from "@prisma/client";
+// Jobs
+import { sendEmailEvent } from "libs/qstash";
 
 declare module "next-auth" {
   interface Session {
@@ -122,7 +124,16 @@ export const authOptions: NextAuthOptions = {
           new Date(user.createdAt).getTime() > Date.now() - 10000;
 
         if (isNewUserRecently) {
-          // TODO: Trigger a background job to send a welcome email
+          await sendEmailEvent({
+            template: "welcome",
+            to: [email],
+            subject: `Welcome to Basestack Forms`,
+            props: {
+              content: {
+                name: user.name,
+              },
+            },
+          });
         }
       }
     },

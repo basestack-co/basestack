@@ -1,23 +1,32 @@
 // UpStash
-import { serve } from "@upstash/qstash/nextjs";
+import { serve } from "@upstash/workflow/nextjs";
 import { Receiver } from "@upstash/qstash";
 // Types
 import React, { ElementType } from "react";
 import type { SendEmailPayload } from "libs/qstash";
 // Email
-import { sendEmail, NewSubmissionEmailTemplate } from "@basestack/emails";
+import {
+  sendEmail,
+  NewSubmissionEmailTemplate,
+  WelcomeEmailTemplate,
+} from "@basestack/emails";
 import { render } from "@react-email/render";
 
 const templateList: { [key: string]: ElementType } = {
   "new-submission": NewSubmissionEmailTemplate,
+  welcome: WelcomeEmailTemplate,
 };
 
-export const POST = serve<SendEmailPayload>(
+export const { POST } = serve<SendEmailPayload>(
   async (context) => {
     const { to, subject, template, props } = context.requestPayload;
 
-    console.info(`Preparing to send email to ${to} with subject: ${subject}`);
-    console.info(`Email with the template ${template} with props: ${props}`);
+    console.info(
+      `Job: Send Email - Preparing to send email to ${to} with subject: ${subject}`,
+    );
+    console.info(
+      `Job: Send Email - Email with the template ${template} with props: ${JSON.stringify(props)}`,
+    );
 
     await context.run("send-email-step", async () => {
       const EmailTemplate = templateList[template];
@@ -37,7 +46,7 @@ export const POST = serve<SendEmailPayload>(
         }),
       );
 
-      console.info("✨ Email sent successfully! ✨");
+      console.info("Job: Send Email - ✨ Email sent successfully! ✨");
     });
   },
   {
@@ -45,5 +54,15 @@ export const POST = serve<SendEmailPayload>(
       currentSigningKey: process.env.QSTASH_CURRENT_SIGNING_KEY!,
       nextSigningKey: process.env.QSTASH_NEXT_SIGNING_KEY!,
     }),
+    failureFunction: async ({
+      context,
+      failStatus,
+      failResponse,
+      failHeaders,
+    }) => {
+      console.error(
+        `Job: Send Email - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
+      );
+    },
   },
 );
