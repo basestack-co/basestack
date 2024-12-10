@@ -548,7 +548,6 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
             <img
               alt=""
               class="c28"
-              src=""
             />
           </div>
         </div>

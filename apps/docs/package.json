@@ -13,11 +13,11 @@
   "dependencies": {
     "@basestack/utils": "*",
     "material-symbols": "^0.27.2",
-    "next": "^14.2.15",
+    "next": "^15.0.4",
     "nextra": "2.13.4",
     "nextra-theme-docs": "2.13.4",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@basestack/config": "*",
