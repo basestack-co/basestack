@@ -1,5 +1,5 @@
 // UpStash
-import { serve } from "@upstash/qstash/nextjs";
+import { serve } from "@upstash/workflow/nextjs";
 import { Receiver } from "@upstash/qstash";
 // Prisma
 import prisma from "libs/prisma";
@@ -11,9 +11,9 @@ const { getFormPlanLimitsDefaults } = config.plans;
 
 //  cron: "0 19 * * *", // Run every day at 7 PM
 
-export const POST = serve(
+export const { POST } = serve(
   async (context) => {
-    console.info("Received the scheduled event");
+    console.info("Job: Check Subscriptions - Received the scheduled event");
 
     await context.run("check-users-subscriptions-step", async () => {
       const subs = await prisma.subscription.findMany();
@@ -28,7 +28,7 @@ export const POST = serve(
           today.isSame(billingCycle.startOf("day"));
 
         console.info(
-          `User with ID: ${sub.userId} subscription billingCycle is ${billingCycle.format("YYYY-MM-DD")} and is overdue: ${isOverdue}`,
+          `Job: Check Subscriptions - User with ID: ${sub.userId} subscription billingCycle is ${billingCycle.format("YYYY-MM-DD")} and is overdue: ${isOverdue}`,
         );
 
         // Check if it's time to update the subscription
@@ -37,7 +37,7 @@ export const POST = serve(
 
           if (sub.cancelled || sub.paused) {
             console.info(
-              `User with ID ${sub.userId} has an cancelled or paused subscription`,
+              `Job: Check Subscriptions - User with ID ${sub.userId} has an cancelled or paused subscription`,
             );
 
             payload = {
@@ -61,7 +61,7 @@ export const POST = serve(
           });
 
           console.info(
-            `User ${sub.userId} subscription updated successfully`,
+            `Job: Check Subscriptions - User ${sub.userId} subscription updated successfully`,
             response,
           );
         }
@@ -73,5 +73,15 @@ export const POST = serve(
       currentSigningKey: process.env.QSTASH_CURRENT_SIGNING_KEY!,
       nextSigningKey: process.env.QSTASH_NEXT_SIGNING_KEY!,
     }),
+    failureFunction: async ({
+      context,
+      failStatus,
+      failResponse,
+      failHeaders,
+    }) => {
+      console.error(
+        `Job: Check Subscriptions - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
+      );
+    },
   },
 );

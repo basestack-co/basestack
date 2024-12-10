@@ -19,18 +19,12 @@ interface ContentType {
 }
 
 interface WelcomeEmailTemplateProps {
-  formName: string;
   content: ContentType;
-  formId: string;
 }
 
 export const WelcomeEmailTemplate = ({
-  formName,
   content,
-  formId,
 }: WelcomeEmailTemplateProps) => {
-  const title = `Welcome form for ${formName}`;
-
   return (
     <Html>
       <Head>
@@ -45,11 +39,11 @@ export const WelcomeEmailTemplate = ({
           fontStyle="normal"
         />
       </Head>
-      <Preview>{title}</Preview>
+      <Preview>Welcome to Basestack Forms</Preview>
       <Body style={Styles.Main}>
         <Container style={Styles.Container}>
           <Img
-            src="https://images.pexels.com/photos/3370333/pexels-photo-3370333.jpeg?auto=compress&cs=tinysrgb&w=800"
+            src="https://i.imgur.com/ZLau6wC.jpg"
             width="40"
             height="40"
             alt="basestack"
@@ -57,13 +51,14 @@ export const WelcomeEmailTemplate = ({
           />
           <Text style={Styles.Paragraph}>Hi {content.name},</Text>
           <Text style={{ ...Styles.Paragraph, margin: "20px 0" }}>
-            {content.message}
+            Welcome to Basestack Forms, the platform that elevates your website
+            with powerful, customizable forms.
           </Text>
           <Button
             style={Styles.PrimaryButton}
-            href={`https://forms.basestack.co/form/${formId}/submissions`}
+            href={`https://forms.basestack.co`}
           >
-            {content.button}
+            Get Started
           </Button>
           <Text style={{ ...Styles.Paragraph, marginTop: "20px" }}>
             Basestack Team
@@ -76,7 +71,7 @@ export const WelcomeEmailTemplate = ({
             Help & Support
           </Link>
           <Text style={{ ...Styles.ParagraphMuted, fontSize: "14px" }}>
-            © Basestack 2024, Portugal Azores São Miguel
+            © Basestack 2024
           </Text>
         </Container>
       </Body>
@@ -85,15 +80,9 @@ export const WelcomeEmailTemplate = ({
 };
 
 WelcomeEmailTemplate.PreviewProps = {
-  formName: "Welcome",
   content: {
     name: "Dexter",
-    email: "example@example.com",
-    message:
-      "Welcome to Basestack Forms, the platform that elevates your website with powerful, customizable forms.",
-    button: "Get Started",
   },
-  formId: "",
 } as WelcomeEmailTemplateProps;
 
 export default WelcomeEmailTemplate;

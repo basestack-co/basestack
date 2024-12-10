@@ -19,16 +19,12 @@ interface ContentType {
 }
 
 interface DeletedAccountEmailTemplateProps {
-  formName: string;
   content: ContentType;
 }
 
 export const DeletedAccountEmailTemplate = ({
-  formName,
   content,
 }: DeletedAccountEmailTemplateProps) => {
-  const title = `Welcome form for ${formName}`;
-
   return (
     <Html>
       <Head>
@@ -53,11 +49,11 @@ export const DeletedAccountEmailTemplate = ({
           fontStyle="bold"
         />
       </Head>
-      <Preview>{title}</Preview>
+      <Preview>Confirmation of Account Deletion</Preview>
       <Body style={Styles.Main}>
         <Container style={Styles.Container}>
           <Img
-            src="https://images.pexels.com/photos/3370333/pexels-photo-3370333.jpeg?auto=compress&cs=tinysrgb&w=800"
+            src="https://i.imgur.com/ZLau6wC.jpg"
             width="40"
             height="40"
             alt="basestack"
@@ -88,7 +84,7 @@ export const DeletedAccountEmailTemplate = ({
             Help & Support
           </Link>
           <Text style={{ ...Styles.ParagraphMuted, fontSize: "14px" }}>
-            © Basestack 2024, Portugal Azores São Miguel
+            © Basestack 2024
           </Text>
         </Container>
       </Body>
@@ -97,12 +93,9 @@ export const DeletedAccountEmailTemplate = ({
 };
 
 DeletedAccountEmailTemplate.PreviewProps = {
-  formName: "Welcome",
   content: {
     name: "Dexter",
-    email: "example@example.com",
   },
-  formId: "",
 } as DeletedAccountEmailTemplateProps;
 
 export const textStyles = {

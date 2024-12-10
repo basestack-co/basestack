@@ -1,5 +1,5 @@
 // UpStash
-import { serve } from "@upstash/qstash/nextjs";
+import { serve } from "@upstash/workflow/nextjs";
 import { Receiver } from "@upstash/qstash";
 // Types
 import type { UpdateSubscriptionEventPayload } from "libs/qstash";
@@ -11,15 +11,15 @@ import { PlanTypeId, config, SubscriptionEvent } from "@basestack/utils";
 
 const { getSubscriptionEvents, getFormPlanByVariantId } = config.plans;
 
-export const POST = serve<UpdateSubscriptionEventPayload>(
+export const { POST } = serve<UpdateSubscriptionEventPayload>(
   async (context) => {
     const body = context.requestPayload;
 
-    console.info(`Webhook Event Body`, body);
+    console.info(`Job: Update Subscriptions - Webhook Event Body`, body);
     console.info(`Subscription Event:${body.meta.event_name}`);
 
     if (!getSubscriptionEvents.includes(body.meta.event_name)) {
-      console.error("Invalid event name received");
+      console.error("Job: Update Subscriptions - Invalid event name received");
       return;
     }
 
@@ -35,7 +35,10 @@ export const POST = serve<UpdateSubscriptionEventPayload>(
         async () => {
           const userId = body.meta.custom_data.user_id;
 
-          console.info("Checking if user has a subscription", userId);
+          console.info(
+            "Job: Update Subscriptions - Checking if user has a subscription",
+            userId,
+          );
 
           return prisma.subscription.findFirst({
             where: {
@@ -91,7 +94,10 @@ export const POST = serve<UpdateSubscriptionEventPayload>(
             },
           });
 
-          console.info("Subscription updated on DB", res);
+          console.info(
+            "Job: Update Subscriptions - Subscription updated on DB",
+            res,
+          );
         });
       }
     }
@@ -101,5 +107,15 @@ export const POST = serve<UpdateSubscriptionEventPayload>(
       currentSigningKey: process.env.QSTASH_CURRENT_SIGNING_KEY!,
       nextSigningKey: process.env.QSTASH_NEXT_SIGNING_KEY!,
     }),
+    failureFunction: async ({
+      context,
+      failStatus,
+      failResponse,
+      failHeaders,
+    }) => {
+      console.error(
+        `Job: Update Subscriptions - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
+      );
+    },
   },
 );
