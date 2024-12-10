@@ -222,7 +222,7 @@ exports[`Footer tests should render Footer correctly 1`] = `
               font-family="roboto"
               font-weight="400"
             >
-              © Basestack 2023
+              © Basestack 2024. All rights reserved.
             </p>
           </div>
           <ul
