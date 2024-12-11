@@ -10,19 +10,19 @@ tags: Basestack, Platform, Documentation, Open-Source, Stack, Developers, Startu
 
 ## Quick Start
 
-import { Card, Cards } from "nextra/components";
+import {Cards} from "nextra/components";
 
 Select a tool from the available options:
 
 <Cards>
-  <Card
-    icon={<span className="material-symbols-outlined">flag</span>}
-    title="Feature Flags"
-    href="/feature-flags"
-  />
-  <Card
-    icon={<span className="material-symbols-outlined">description</span>}
-    title="Forms"
-    href="/forms"
-  />
+    <Cards.Card
+        icon={<span className="material-symbols-outlined">flag</span>}
+        title="Feature Flags"
+        href="/feature-flags"
+    />
+    <Cards.Card
+        icon={<span className="material-symbols-outlined">description</span>}
+        title="Forms"
+        href="/forms"
+    />
 </Cards>

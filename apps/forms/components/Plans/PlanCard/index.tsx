@@ -30,6 +30,7 @@ interface PlanCardProps {
   isActive?: boolean;
   isDisabled?: boolean;
 }
+
 const PlanCard = ({
   isDisabled = false,
   title,
@@ -107,11 +108,13 @@ const PlanCard = ({
           <AmountContainer className="amount-container">
             <ValueContainer>
               <Text size="medium" lineHeight={rem("26px")}>
+                {/* @ts-ignore */}
                 <animated.span style={{ color: spring.color }}>
                   {amount.symbol}
                 </animated.span>
               </Text>
               <Text size="medium" mr={spacing.s1} lineHeight={rem("26px")}>
+                {/* @ts-ignore */}
                 <animated.span style={{ color: spring.color }}>
                   {spring.number.to((val) => Math.floor(val))}
                 </animated.span>

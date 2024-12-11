@@ -4,7 +4,7 @@ description: Basestack Platform is a self-hosting platform that provides an effo
 tags: self-hosting, platform, basestack, deployment, vercel, netlify, hosting, serverless, postgresql, database, nextjs, vercel, neon, supabase, pgbouncer
 ---
 
-import { Card, Cards, Callout, Tabs } from "nextra/components";
+import { Cards, Callout, Tabs } from "nextra/components";
 
 export function FAQBox({ title, children, isOpen = true }) {
   return (
@@ -34,9 +34,9 @@ Getting up and running is an easy with various options available. Simply ensure 
 You have the flexibility to host the platform on any service capable of hosting [NextJS ↗](https://nextjs.org/) applications with serverless function support. Additionally, you'll need a separate database running elsewhere that the app can connect to. Some app hosting providers that support include Vercel, more coming, all of which offer a free tier option.
 
 <Cards>
-  <Card title="Vercel" href="/self-hosting/providers/deploy-vercel" />
-  <Card title="Netlify" href="/self-hosting/providers/deploy-netlify" />
-  <Card title="Render" href="/self-hosting/providers/deploy-render" />
+  <Cards.Card title="Vercel" href="/self-hosting/providers/deploy-vercel" />
+  <Cards.Card title="Netlify" href="/self-hosting/providers/deploy-netlify" />
+  <Cards.Card title="Render" href="/self-hosting/providers/deploy-render" />
 </Cards>
 
 ## Managed databases
@@ -44,8 +44,8 @@ You have the flexibility to host the platform on any service capable of hosting 
 Ensure that the PostgreSQL service or instance supports serverless environments. Any traditional instance of PostgreSQL with connection pooling, such as [PgBouncer ↗](https://www.pgbouncer.org/), will work effectively.
 
 <Cards>
-  <Card title="Neon - Serverless Postgres" href="/self-hosting/database/neon" />
-  <Card title="Supabase Postgres" href="/self-hosting/database/supabase" />
+  <Cards.Card title="Neon - Serverless Postgres" href="/self-hosting/database/neon" />
+  <Cards.Card title="Supabase Postgres" href="/self-hosting/database/supabase" />
 </Cards>
 
 ## Environment Variables

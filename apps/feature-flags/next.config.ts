@@ -1,6 +1,7 @@
-const nextTranslate = require("next-translate-plugin");
+import nextTranslate from "next-translate-plugin";
+import type { NextConfig } from "next";
 
-const nextConfig = nextTranslate({
+const nextConfig: NextConfig = nextTranslate({
   reactStrictMode: true,
   // output: "standalone", // Enable this if the app is a standalone app for docker deployment
   transpilePackages: ["@basestack/design-system", "@basestack/ui"],
@@ -12,17 +13,17 @@ const nextConfig = nextTranslate({
   async redirects() {
     return [
       {
-        source: "/form/:formId",
-        destination: "/form/:formId/submissions",
+        source: "/project/:projectId",
+        destination: "/project/:projectId/flags",
         permanent: false,
       },
       {
-        source: "/form/:formId/settings",
-        destination: "/form/:formId/settings/general",
+        source: "/project/:projectId/settings",
+        destination: "/project/:projectId/settings/general",
         permanent: false,
       },
     ];
   },
 });
 
-module.exports = nextConfig;
+export default nextConfig;
