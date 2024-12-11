@@ -30,7 +30,7 @@
     "polished": "^4.2.2",
     "react-calendar": "^5.1.0",
     "react-select": "^5.8.3",
-    "react-spring": "^9.7.4",
+    "react-spring": "^9.7.5",
     "styled-components": "^6.1.13",
     "styled-system": "^5.1.5"
   }
