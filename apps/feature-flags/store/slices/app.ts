@@ -9,8 +9,6 @@ export const createAppSlice: StateCreator<Store, [], [], AppSliceState> = (
   closeModalsOnClickOutside: true,
   isDarkMode: false,
   selectedView: "cards",
-  // clears the entire store, actions included
-  cleanStore: () => set({}, true),
   setDarkMode: (payload) =>
     set(() => ({
       isDarkMode: payload,

@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { StateCreator } from "zustand/esm";
+import { StateCreator } from "zustand";
 import { PersistOptions } from "zustand/middleware";
 
 /**
