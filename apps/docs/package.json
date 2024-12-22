@@ -13,9 +13,9 @@
   "dependencies": {
     "@basestack/utils": "*",
     "material-symbols": "^0.27.2",
-    "next": "^15.1.0",
-    "nextra": "3.2.5",
-    "nextra-theme-docs": "3.2.5",
+    "next": "^15.1.2",
+    "nextra": "3.3.0",
+    "nextra-theme-docs": "3.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
