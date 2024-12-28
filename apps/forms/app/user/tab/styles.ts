@@ -59,18 +59,20 @@ interface StyledButtonProps {
   isActive: boolean;
 }
 
-export const StyledButton = styled.div<StyledButtonProps>`
+export const StyledButton = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isActive",
+})<StyledButtonProps>`
   ${neutralButtonStyles};
   height: ${rem("44px")};
   font-size: ${rem("14px")};
   border-radius: 0;
-  padding-left: ${({ theme }) => theme.spacing.s5};
+  padding-left: ${({theme}) => theme.spacing.s5};
 
-  ${({ isActive, theme }) =>
-    isActive &&
-    css`
-      background-color: ${theme.colors[
-        theme.isDarkMode ? "gray800" : "gray100"
-      ]};
-    `};
+  ${({isActive, theme}) =>
+      isActive &&
+      css`
+        background-color: ${theme.colors[
+            theme.isDarkMode ? "gray800" : "gray100"
+            ]};
+      `};
 `;

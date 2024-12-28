@@ -88,12 +88,15 @@ const ProfileLayout = ({ children }: { children: React.ReactElement }) => {
 
   return (
     <>
-      <Head>
+      {/* 
+          <Head>
         <title>
           {t("profile:seo.setting.title")} /{" "}
           {t(`profile:seo.setting.${activeLinkIndex}`)}
         </title>
       </Head>
+        
+        */}
       <Container>
         <Text size="xLarge" mb={theme.spacing.s5}>
           {t("internal.profile")}

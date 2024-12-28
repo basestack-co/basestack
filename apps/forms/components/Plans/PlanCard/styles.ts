@@ -1,7 +1,9 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
 
-export const Button = styled.button<{ isButton: boolean }>`
+export const Button = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== "isButton",
+})<{ isButton: boolean }>`
   display: flex;
   flex-direction: column;
   background-color: transparent;

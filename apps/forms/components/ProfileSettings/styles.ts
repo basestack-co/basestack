@@ -12,12 +12,13 @@ export const CardList = styled.ul`
 
 export const CardListItem = styled.li`
   ${flexColumn};
+
   &:not(:last-child) {
     margin-bottom: ${({ theme }) => theme.spacing.s5};
   }
 `;
 
-export const ProfileCardContainer = styled.li`
+export const ProfileCardContainer = styled.div`
   @media screen and ${({ theme }) => theme.device.max.lg} {
     max-width: calc(100vw - ${rem("40px")});
   }

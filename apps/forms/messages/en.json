@@ -629,7 +629,7 @@
         "abbr": "USD"
       },
       "feature": {
-        "forms": "value} Forms",
+        "forms": "{value} Forms",
         "submissions": "{value} Submissions",
         "members": "{value} Members",
         "spams": "{value} Spam AI Reports",
