@@ -40,7 +40,9 @@ export const Card = styled.button`
   }
 `;
 
-export const ProviderContainer = styled.div<{ hasProviderLogo: boolean }>`
+export const ProviderContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "hasProviderLogo",
+})<{ hasProviderLogo: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;

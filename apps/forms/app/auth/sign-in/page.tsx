@@ -6,19 +6,19 @@ import { useSession, signIn } from "next-auth/react";
 import { providerMap } from "server/auth/config";
 // Locales
 import { useTranslations } from "next-intl";
-import Trans from "next-translate/Trans";
 // Router
 import { useRouter } from "next/navigation";
-import { Provider } from "libs/auth/types";
 // UI
 import { SignIn as SignInComponent } from "@basestack/ui";
 import { BannerVariant } from "@basestack/design-system";
+// Types
+import { Provider } from "@basestack/ui/components/SignIn";
 // Utils
 import { config } from "@basestack/utils";
 // Styles
 import styled from "styled-components";
 
-export const Link = styled.a`
+/* export const Link = styled.a`
   text-decoration: none;
   color: ${({ theme }) =>
     theme.colors[theme.isDarkMode ? "blue300" : "primary"]};
@@ -27,30 +27,13 @@ export const Link = styled.a`
   &:hover {
     text-decoration: underline;
   }
-`;
-
-const prov = [
-  {
-    id: "github",
-    name: "GitHub",
-  },
-  {
-    id: "auth0",
-    name: "Auth0",
-  },
-  {
-    id: "google",
-    name: "Google",
-  },
-];
+`; */
 
 const SignInPage = () => {
   const t = useTranslations("auth");
   const { status } = useSession();
   const router = useRouter();
   const [error, setError] = useState("");
-
-  console.log("providerMap", providerMap);
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -69,30 +52,28 @@ const SignInPage = () => {
 
   return (
     <SignInComponent
-      providers={prov}
+      providers={providerMap as unknown as Provider}
       isLoading={status === "loading"}
-      title={t("forms.sign-in.panel.title")}
-      description={t("forms.sign-in.panel.description")}
-      slogan={t("forms.sign-in.panel.slogan")}
-      contentTitle={t("forms.sign-in.content.title")}
-      contentDescription={
-        <Trans
-          i18nKey="auth:forms.sign-in.content.description"
-          components={[
-            <Link
-              key="terms-link"
-              href={config.urls.legal.terms}
-              target="_blank"
-            />,
-            <Link
-              key="privacy-link"
-              href={config.urls.legal.privacy}
-              target="_blank"
-            />,
-          ]}
-        />
-      }
-      action={(name) => t("forms.sign-in.content.action", { name })}
+      title={t("sign-in.panel.title")}
+      description={t("sign-in.panel.description")}
+      slogan={t("sign-in.panel.slogan")}
+      contentTitle={t("sign-in.content.title")}
+      contentDescription={""}
+      /* contentDescription={t.markup("sign-in.content.description", {
+                                             terms: (
+                                               chunks,
+                                             ) => `<Link key="terms-link" href={config.urls.legal.terms} target="_blank">
+                                                 ${chunks}
+                                               </Link>`,
+                                             privacy: (chunks) => `<Link
+                                                 key="privacy-link"
+                                                 href={config.urls.legal.privacy}
+                                                 target="_blank"
+                                               >
+                                                 ${chunks}
+                                               </Link>`,
+                                           })} */
+      action={(name) => t("sign-in.content.action", { name })}
       onClickProvider={(id) => signIn(id, { callbackUrl: "/" })}
       errors={[
         ...(error === "OAuthAccountNotLinked"

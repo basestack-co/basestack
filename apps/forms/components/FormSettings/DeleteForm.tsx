@@ -76,9 +76,9 @@ const DeleteFormCard = ({ name }: Props) => {
       button={t("general.delete.form.action")}
       onClick={onClickDeleteProject}
       text={t("general.delete.form.placeholder")}
-      isDisabled={deleteProject.isLoading}
+      isDisabled={deleteProject.isPending}
       variant={CardVariant.DANGER}
-      isLoading={deleteProject.isLoading}
+      isLoading={deleteProject.isPending}
     />
   );
 };

@@ -2,7 +2,7 @@
 import { serve } from "@upstash/workflow/nextjs";
 import { Receiver } from "@upstash/qstash";
 // Prisma
-import prisma from "libs/prisma";
+import { prisma } from "server/db";
 // Utils
 import dayjs from "dayjs";
 import { PlanTypeId, config, SubscriptionEvent } from "@basestack/utils";

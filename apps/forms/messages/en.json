@@ -8,7 +8,7 @@
       },
       "content": {
         "title": "Welcome to Basestack Forms",
-        "description": "Please select your preferred login service below to access your forms. By signing in, you agree to our <0>Terms of Service</0> and <1>Privacy Policy</1>.",
+        "description": "Please select your preferred login service below to access your forms. By signing in, you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
         "action": "Sign in with {name}"
       }
     },

@@ -3,6 +3,7 @@ import React from "react";
 import { config, PlanTypeId, Plan } from "@basestack/utils";
 // Types
 import { Translate } from "next-translate";
+import { Tra } from "next-intl";
 import { useRouter } from "next/navigation";
 // Design System
 import { CardVariant } from "@basestack/design-system";

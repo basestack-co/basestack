@@ -4,7 +4,10 @@ import { rem, transparentize } from "polished";
 
 export type BannerVariant = "success" | "info" | "warning" | "danger";
 
-export const Container = styled.div<{
+export const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    !["isTranslucent", "borderRadius"].includes(prop),
+})<{
   variant: BannerVariant;
   bg: string;
   borderRadius?: number;

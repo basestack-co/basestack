@@ -4,7 +4,7 @@ import { Receiver } from "@upstash/qstash";
 // Types
 import type { UpdateSubscriptionEventPayload } from "libs/qstash";
 // Prisma
-import prisma from "libs/prisma";
+import { prisma } from "server/db";
 // Utils
 import dayjs from "dayjs";
 import { PlanTypeId, config, SubscriptionEvent } from "@basestack/utils";

@@ -30,63 +30,51 @@ declare module "next-auth" {
 }
 
 const providers: Provider[] = [
-  ...(process.env.GITHUB_CLIENT_ID
-    ? [
-        GitHubProvider({
-          clientId: process.env.GITHUB_CLIENT_ID!,
-          clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-          profile(profile) {
-            return {
-              id: profile.id.toString(),
-              name: profile.name || profile.login,
-              gh_username: profile.login,
-              email: profile.email,
-              image: profile.avatar_url,
-            };
-          },
-        }),
-      ]
-    : []),
-  ...(process.env.AUTH0_CLIENT_ID
-    ? [
-        Auth0Provider({
-          clientId: process.env.AUTH0_CLIENT_ID,
-          clientSecret: process.env.AUTH0_CLIENT_SECRET!,
-          issuer: `https://${process.env.AUTH0_DOMAIN}`,
-          profile: (profile) => {
-            return {
-              id: profile.sub,
-              name: profile.name,
-              email: profile.email,
-              image: profile.picture,
-            };
-          },
-        }),
-      ]
-    : []),
-  ...(process.env.GOOGLE_CLIENT_ID
-    ? [
-        GoogleProvider({
-          clientId: process.env.GOOGLE_CLIENT_ID!,
-          clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-          authorization: {
-            params: {
-              prompt: "consent",
-              access_type: "offline",
-              response_type: "code",
-            },
-          },
-          profile: (profile) => {
-            return {
-              id: profile.sub,
-              name: profile.name,
-              email: profile.email,
-              image: profile.picture,
-            };
-          },
-        }),
-      ]
-    : []),
+  GitHubProvider({
+    clientId: process.env.GITHUB_CLIENT_ID!,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+    profile(profile) {
+      return {
+        id: profile.id.toString(),
+        name: profile.name || profile.login,
+        gh_username: profile.login,
+        email: profile.email,
+        image: profile.avatar_url,
+      };
+    },
+  }),
+  Auth0Provider({
+    clientId: process.env.AUTH0_CLIENT_ID,
+    clientSecret: process.env.AUTH0_CLIENT_SECRET!,
+    issuer: `https://${process.env.AUTH0_DOMAIN}`,
+    profile: (profile) => {
+      return {
+        id: profile.sub,
+        name: profile.name,
+        email: profile.email,
+        image: profile.picture,
+      };
+    },
+  }),
+  GoogleProvider({
+    clientId: process.env.GOOGLE_CLIENT_ID!,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    authorization: {
+      params: {
+        prompt: "consent",
+        access_type: "offline",
+        response_type: "code",
+      },
+    },
+    profile: (profile) => {
+      return {
+        id: profile.sub,
+        name: profile.name,
+        email: profile.email,
+        image: profile.picture,
+      };
+    },
+  }),
 ];
 
 export const providerMap = providers

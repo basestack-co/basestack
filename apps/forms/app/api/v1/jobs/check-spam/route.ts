@@ -6,7 +6,7 @@ import type { CheckDataForSpamPayload } from "libs/qstash";
 // AI
 import { TextGenerationModel, cfAiClient, instructions } from "libs/cf/ai";
 // Prisma
-import prisma from "libs/prisma";
+import { prisma } from "server/db";
 
 export const { POST } = serve<CheckDataForSpamPayload>(
   async (context) => {

@@ -106,8 +106,8 @@ const ProfileLayout = ({ children }: { children: React.ReactElement }) => {
           {!isDesktop && (
             <Tabs
               items={items}
-              onSelect={async (tab) => {
-                await router.push(`/user/profile/${tab}`);
+              onSelect={(tab) => {
+                router.push(`/user/tab/${tab}`);
               }}
               sliderPosition={activeLinkIndex}
               backgroundColor="transparent"
