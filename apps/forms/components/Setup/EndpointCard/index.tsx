@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { rem } from "polished";
 import { useTheme } from "styled-components";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Components
 import {
   Text,
@@ -28,7 +28,7 @@ export interface Props {
 
 const EndpointCard = ({ formId }: Props) => {
   const theme = useTheme();
-  const { t } = useTranslation("forms");
+  const t = useTranslations("form");
   const [showTooltipSuccess, setShowTooltipSuccess] = useState(false);
 
   const url = `${getBrowserUrl()}/api/v1/s/${formId}`;

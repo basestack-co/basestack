@@ -76,7 +76,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         fullWidth={fullWidth}
         disabled={isDisabled}
         size={size}
-        isLoading={isLoading}
+        $isLoading={isLoading}
         type={type}
         {...props}
         {...(!!as && { as })}

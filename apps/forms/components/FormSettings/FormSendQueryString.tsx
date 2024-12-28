@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 // Router
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // UI
 import { SwitchSettingCard } from "@basestack/ui";
 // Toast
@@ -10,7 +10,7 @@ import { toast } from "sonner";
 // Utils
 import { PlanTypeId } from "@basestack/utils";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import { getWithPlanSwitchProps } from "./utils";
 
 export interface Props {
@@ -22,12 +22,10 @@ const FormSendQueryStringCard = ({
   hasDataQueryString = false,
   planId,
 }: Props) => {
-  const router = useRouter();
-  const { t } = useTranslation("settings");
-  const trpcUtils = trpc.useUtils();
-  const updateForm = trpc.form.update.useMutation();
-
-  const { formId } = router.query as { formId: string };
+  const { formId } = useParams<{ formId: string }>();
+  const t = useTranslations("setting");
+  const trpcUtils = api.useUtils();
+  const updateForm = api.form.update.useMutation();
 
   const onChange = useCallback(
     async (event: React.ChangeEvent<HTMLInputElement>) => {

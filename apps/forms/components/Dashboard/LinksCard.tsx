@@ -1,6 +1,6 @@
 import React from "react";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Components
 import { Text, Card, IconBox } from "@basestack/design-system";
 // Utils
@@ -41,7 +41,7 @@ const TextLink = ({ data }: TextLinkProps) => {
 };
 
 const LinksCard = () => {
-  const { t } = useTranslation("home");
+  const t = useTranslations("home");
   const theme = useTheme();
 
   return (

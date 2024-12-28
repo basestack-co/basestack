@@ -1,14 +1,16 @@
+"use client";
+
 import React, { useCallback, useMemo } from "react";
 import { useTheme } from "styled-components";
 import { flushSync } from "react-dom";
 // Store
 import { useStore } from "store";
 // Hooks
-import { useRouter } from "next/router";
+import { useRouter, useParams, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useMedia } from "react-use";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Components
 import { PopupActionProps } from "@basestack/design-system";
 import { Navigation as NavigationUI } from "@basestack/ui";
@@ -27,12 +29,13 @@ export interface NavigationProps {
 
 const Navigation = ({ data }: NavigationProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("navigation");
+  const t = useTranslations("navigation");
   const router = useRouter();
+  const pathname = usePathname();
   const { data: session } = useSession();
   const isMobile = useMedia(theme.device.max.lg, false);
 
-  const formId = router.query.formId as string;
+  const { formId } = useParams<{ formId: string }>();
 
   const setIsDarkMode = useStore((state) => state.setDarkMode);
   const isDarkMode = useStore((state) => state.isDarkMode);
@@ -103,7 +106,7 @@ const Navigation = ({ data }: NavigationProps) => {
       product={Product.FORMS}
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
-      leftLinks={!!formId ? getLeftLinks(router, t, formId) : []}
+      leftLinks={!!formId ? getLeftLinks(router, pathname, t, formId) : []}
       rightLinks={getRightLinks(t)}
       rightLinksTitle={t("external.resources")}
       projects={{

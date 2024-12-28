@@ -1,6 +1,6 @@
 import React from "react";
 // Router
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 // Form
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,9 +15,9 @@ import { useStore } from "store";
 // Toast
 import { toast } from "sonner";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 export const FormSchema = z.object({
   name: z
@@ -29,10 +29,10 @@ export const FormSchema = z.object({
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const CreateFormModal = () => {
-  const { t } = useTranslation("modals");
+  const t = useTranslations("modal");
   const theme = useTheme();
   const router = useRouter();
-  const trpcUtils = trpc.useUtils();
+  const trpcUtils = api.useUtils();
 
   const isModalOpen = useStore((state) => state.isCreateFormModalOpen);
   const setCreateFormModalOpen = useStore(
@@ -42,7 +42,7 @@ const CreateFormModal = () => {
     (state) => state.closeModalsOnClickOutside,
   );
 
-  const createForm = trpc.form.create.useMutation();
+  const createForm = api.form.create.useMutation();
 
   const {
     control,
@@ -74,10 +74,7 @@ const CreateFormModal = () => {
 
         onClose();
 
-        await router.push({
-          pathname: "/form/[formId]/submissions",
-          query: { formId: result.form.id },
-        });
+        await router.push(`/form/${result.form.id}/submissions`);
       },
       onError: (error) => {
         toast.error(error.message);
@@ -111,7 +108,7 @@ const CreateFormModal = () => {
           render={({ field }) => (
             <InputGroup
               title={t("form.create.input.project-name.title")}
-              hint={t(errors.name?.message!)}
+              hint={errors.name?.message}
               inputProps={{
                 type: "text",
                 name: field.name,

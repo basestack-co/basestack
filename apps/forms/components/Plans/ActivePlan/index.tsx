@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "styled-components";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Components
 import {
   Button,
@@ -44,7 +44,7 @@ const ActivePlan = ({
   renewsAt,
   cardBrand,
 }: ActivePlanProps) => {
-  const { t } = useTranslation("profile");
+  const t = useTranslations("profile");
   const { spacing } = useTheme();
   const currentPlan = config.plans.getFormPlanByVariantId(variantId);
   const price = isBilledMonthly

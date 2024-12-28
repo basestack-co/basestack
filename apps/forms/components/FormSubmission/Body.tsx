@@ -8,7 +8,7 @@ import React, {
 import { rem } from "polished";
 import { animated, useSpring } from "react-spring";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Components
 import {
   Text,
@@ -19,7 +19,7 @@ import {
   Tooltip,
 } from "@basestack/design-system";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Toast
 import { toast } from "sonner";
 // Types
@@ -43,12 +43,12 @@ const Body = ({
   blockIpAddresses,
   formId,
 }: FormSubmissionBodyProps) => {
-  const trpcUtils = trpc.useUtils();
-  const { t } = useTranslation("forms");
+  const trpcUtils = api.useUtils();
+  const t = useTranslations("forms");
   const [showMetadata, setShowMetadata] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const updateForm = trpc.form.update.useMutation();
+  const updateForm = api.form.update.useMutation();
 
   const [style, animate] = useSpring(
     () => ({

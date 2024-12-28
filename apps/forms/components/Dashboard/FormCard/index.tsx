@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 // Router
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Hooks
 import { useFloatingPopup } from "@basestack/hooks";
 // Components
@@ -70,7 +70,7 @@ const FormCard = ({
   formId,
   isEnabled = true,
 }: FormCardProps) => {
-  const { t } = useTranslation("home");
+  const t = useTranslations("home");
   const router = useRouter();
   const theme = useTheme();
 
@@ -89,10 +89,7 @@ const FormCard = ({
 
   const onClickMenuItem = useCallback(
     async (path: string) => {
-      await router.push({
-        pathname: `/form/[formId]/${path}`,
-        query: { formId },
-      });
+      await router.push(`/form/${formId}/${path}`);
     },
     [router, formId],
   );

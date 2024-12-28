@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Components
 import Step from "./Step";
 // Styles
@@ -15,7 +15,7 @@ export interface Props {
 }
 
 const DefaultStep = ({ endpoint, children }: Props) => {
-  const { t } = useTranslation("forms");
+  const t = useTranslations("form");
 
   return (
     <Fragment>

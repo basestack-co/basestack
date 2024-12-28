@@ -1,12 +1,12 @@
 import React, { useEffect, useCallback } from "react";
 // Router
-import { useRouter } from "next/router";
+import { useParams, useRouter } from "next/navigation";
 // Form
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
@@ -19,7 +19,7 @@ import {
 // Toast
 import { toast } from "sonner";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Utils
 import { PlanTypeId } from "@basestack/utils";
 import { getWithPlanCardProps } from "./utils";
@@ -40,11 +40,10 @@ export interface Props {
 
 const FormEmailsCard = ({ emails = "", planId }: Props) => {
   const router = useRouter();
-  const { t } = useTranslation("settings");
-  const trpcUtils = trpc.useUtils();
-  const updateForm = trpc.form.update.useMutation();
-
-  const { formId } = router.query as { formId: string };
+  const { formId } = useParams<{ formId: string }>();
+  const t = useTranslations("setting");
+  const trpcUtils = api.useUtils();
+  const updateForm = api.form.update.useMutation();
 
   const {
     control,
@@ -152,7 +151,7 @@ const FormEmailsCard = ({ emails = "", planId }: Props) => {
           defaultValue=""
           render={({ field }) => (
             <InputGroup
-              hint={t(errors.email?.message!)}
+              hint={errors.email?.message}
               inputProps={{
                 type: "email",
                 name: field.name,

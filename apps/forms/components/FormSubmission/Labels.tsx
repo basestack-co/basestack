@@ -1,6 +1,6 @@
 import React from "react";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Components
 import { useTheme } from "styled-components";
 import { Label, Text } from "@basestack/design-system";
@@ -13,7 +13,7 @@ interface LabelsProps {
 }
 
 const Labels = ({ date, viewed, isSpam }: LabelsProps) => {
-  const { t } = useTranslation("forms");
+  const t = useTranslations("form");
   const theme = useTheme();
 
   return (

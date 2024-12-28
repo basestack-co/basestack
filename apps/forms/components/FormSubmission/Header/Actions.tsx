@@ -1,6 +1,6 @@
 import React from "react";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Components
 import { animated, config, useTransition } from "react-spring";
 import { useMedia } from "react-use";
@@ -90,7 +90,7 @@ const Actions = ({
   isReadSubmissionLoading,
   isDeleteSubmissionLoading,
 }: ActionsProps) => {
-  const { t } = useTranslation("forms");
+  const t = useTranslations("form");
   const transitionList = useTransition(isVisible, {
     config: { ...config.default, duration: 200 },
     ...slideBottom,

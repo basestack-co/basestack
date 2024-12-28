@@ -52,7 +52,7 @@ const Avatar = ({
   const imageSize = handleSize(size);
 
   return (
-    <Container round={round} data-testid="avatar" size={imageSize} {...props}>
+    <Container $round={round} data-testid="avatar" size={imageSize} {...props}>
       <Image
         alt={alt}
         src={

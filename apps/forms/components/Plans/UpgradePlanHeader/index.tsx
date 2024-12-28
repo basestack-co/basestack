@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "styled-components";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import { SpaceProps } from "styled-system";
 // Components
 import { Icon, Segment, Text } from "@basestack/design-system";
@@ -16,7 +16,7 @@ const UpgradePlanHeader = ({
   onSelectCycle,
   ...props
 }: UpgradePlanHeaderProps) => {
-  const { t } = useTranslation("profile");
+  const  t = useTranslations("profile");
   const theme = useTheme();
 
   return (

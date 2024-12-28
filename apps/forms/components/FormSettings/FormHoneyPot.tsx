@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 // Router
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 // Form
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
@@ -16,7 +16,7 @@ import { Role } from "@prisma/client";
 // Toast
 import { toast } from "sonner";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 export const FormSchema = z.object({
   name: z
@@ -32,11 +32,10 @@ export interface Props {
 }
 
 const FormHoneyPotCard = ({ honeypot }: Props) => {
-  const router = useRouter();
-  const { t } = useTranslation("settings");
-  const trpcUtils = trpc.useUtils();
-  const updateForm = trpc.form.update.useMutation();
-  const { formId } = router.query as { formId: string };
+  const { formId } = useParams<{ formId: string }>();
+  const t = useTranslations("setting");
+  const trpcUtils = api.useUtils();
+  const updateForm = api.form.update.useMutation();
 
   const {
     control,

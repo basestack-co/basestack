@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "styled-components";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Components
 import { Text, Card, HorizontalRule } from "@basestack/design-system";
 import { rem } from "polished";
@@ -26,7 +26,7 @@ const Item = ({ text, href }: ItemProps) => (
 
 const Links = () => {
   const theme = useTheme();
-  const { t } = useTranslation("forms");
+  const t = useTranslations("form");
 
   return (
     <Card mt={theme.spacing.s5} p={theme.spacing.s5}>

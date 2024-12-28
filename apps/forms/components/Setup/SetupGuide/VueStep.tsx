@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Code
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import js from "react-syntax-highlighter/dist/cjs/languages/hljs/javascript";
@@ -25,7 +25,7 @@ SyntaxHighlighter.registerLanguage("javascript", js);
 
 const VueStep = ({ endpoint }: Props) => {
   const theme = useTheme();
-  const { t } = useTranslation("forms");
+  const t = useTranslations("form");
 
   return (
     <Fragment>

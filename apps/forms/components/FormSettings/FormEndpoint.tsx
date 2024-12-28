@@ -4,7 +4,7 @@ import { SettingCard } from "@basestack/ui";
 // Components
 import { CopyCard } from "@basestack/design-system";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Utils
 import { getBrowserUrl } from "@basestack/utils";
 
@@ -13,7 +13,7 @@ export interface Props {
 }
 
 const FormEndpointCard = ({ formId }: Props) => {
-  const { t } = useTranslation("settings");
+  const t = useTranslations("setting");
 
   return (
     <SettingCard

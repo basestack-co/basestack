@@ -84,6 +84,7 @@ export const neutralButtonStyles = css`
     background-color: ${({ theme }) =>
       theme.button.neutral.hover.backgroundColor};
   }
+
   &:active:not(:disabled) {
     background-color: ${({ theme }) =>
       theme.button.neutral.active.backgroundColor};
@@ -101,6 +102,7 @@ export const primaryNeutralButtonStyles = css`
     background-color: ${({ theme }) =>
       theme.button.primaryNeutral.hover.backgroundColor};
   }
+
   &:active:not(:disabled) {
     background-color: ${({ theme }) =>
       theme.button.primaryNeutral.active.backgroundColor};
@@ -117,6 +119,7 @@ export const dangerButtonStyles = css`
     background-color: ${({ theme }) =>
       theme.button.danger.hover.backgroundColor};
   }
+
   &:active:not(:disabled) {
     background-color: ${({ theme }) =>
       theme.button.danger.active.backgroundColor};
@@ -132,6 +135,7 @@ export const dangerFilledButtonStyles = css`
     background-color: ${({ theme }) =>
       theme.button.dangerFilled.hover.backgroundColor};
   }
+
   &:active:not(:disabled) {
     background-color: ${({ theme }) =>
       theme.button.dangerFilled.active.backgroundColor};
@@ -173,7 +177,9 @@ const handleButtonSize = (size?: ButtonSize) => {
   }
 };
 
-export const StyledButton = styled.button<StyledButtonProps>`
+export const StyledButton = styled.button<
+  Omit<StyledButtonProps, "isLoading"> & { $isLoading: boolean }
+>`
   ${({ size }) => handleButtonSize(size)};
   ${({ variant }) => handleButtonVariant(variant)};
   ${compose(flexbox, space, layout, typography, color)};
@@ -202,8 +208,8 @@ export const StyledButton = styled.button<StyledButtonProps>`
     opacity: 0.6;
   }
 
-  ${({ isLoading }) =>
-    isLoading &&
+  ${({ $isLoading }) =>
+    $isLoading &&
     css`
       .material-symbols-sharp,
       .material-symbols-rounded {

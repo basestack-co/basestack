@@ -3,7 +3,7 @@ import React from "react";
 import { config, PlanTypeId, Plan } from "@basestack/utils";
 // Types
 import { Translate } from "next-translate";
-import { NextRouter } from "next/router";
+import { useRouter } from "next/navigation";
 // Design System
 import { CardVariant } from "@basestack/design-system";
 
@@ -17,7 +17,7 @@ export interface WithPlanCardProps {
   isLoading: boolean;
   isDisabled: boolean;
   partial?: boolean;
-  router: NextRouter;
+  router: ReturnType<typeof useRouter>;
 }
 
 export const getWithPlanCardProps = ({

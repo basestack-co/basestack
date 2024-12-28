@@ -7,11 +7,11 @@ import React, {
 } from "react";
 import { useTheme } from "styled-components";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Router
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Toast
 import { toast } from "sonner";
 // Components
@@ -44,9 +44,9 @@ const FormSubmissions = ({
   blockIpAddresses,
 }: Props) => {
   const theme = useTheme();
-  const trpcUtils = trpc.useUtils();
-  const { t } = useTranslation("forms");
-  const router = useRouter();
+  const trpcUtils = api.useUtils();
+  const t = useTranslations("form");
+  const { formId } = useParams<{ formId: string }>();
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchFilter, setSearchFilter] = useState<string>("");
   const [searchFilterOptions, setSearchFilterOptions] = useState<
@@ -56,14 +56,12 @@ const FormSubmissions = ({
   const [filters, setFilters] = useState({});
   const [orderBy, setOrderBy] = useState("desc");
 
-  const { formId } = router.query as { formId: string };
-
-  const exportSubmissions = trpc.submission.export.useMutation();
-  const deleteSubmissions = trpc.submission.delete.useMutation();
-  const updateSubmissions = trpc.submission.update.useMutation();
+  const exportSubmissions = api.submission.export.useMutation();
+  const deleteSubmissions = api.submission.delete.useMutation();
+  const updateSubmissions = api.submission.update.useMutation();
 
   const { data, isLoading, fetchNextPage, ...rest } =
-    trpc.submission.all.useInfiniteQuery(
+    api.submission.all.useInfiniteQuery(
       {
         formId,
         limit,

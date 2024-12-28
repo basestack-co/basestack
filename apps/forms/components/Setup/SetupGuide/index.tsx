@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import dynamic from "next/dynamic";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Theme
 import { useTheme } from "styled-components";
 // Utils
@@ -37,7 +37,7 @@ export interface Props {
 const SetupGuide = ({ formId }: Props) => {
   const [step, setStep] = useState(0);
   const theme = useTheme();
-  const { t } = useTranslation("forms");
+  const t = useTranslations("form");
 
   const onRenderStep = useCallback(() => {
     const endpoint = `${getBrowserUrl()}/api/v1/s/${formId}`;

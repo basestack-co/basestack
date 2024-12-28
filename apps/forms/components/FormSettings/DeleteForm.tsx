@@ -5,23 +5,23 @@ import { useStore } from "store";
 import { SettingCard } from "@basestack/ui";
 import { CardVariant } from "@basestack/design-system";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Router
-import { useRouter } from "next/router";
+import { useParams, useRouter } from "next/navigation";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 export interface Props {
   name?: string;
 }
 
 const DeleteFormCard = ({ name }: Props) => {
-  const { t } = useTranslation("settings");
+  const t = useTranslations("setting");
   const router = useRouter();
-  const trpcUtils = trpc.useUtils();
-  const deleteProject = trpc.form.delete.useMutation();
+  const { formId } = useParams<{ formId: string }>();
+  const trpcUtils = api.useUtils();
+  const deleteProject = api.form.delete.useMutation();
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
-  const { formId } = router.query as { formId: string };
 
   const onDeleteForm = () => {
     deleteProject.mutate(

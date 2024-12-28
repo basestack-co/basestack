@@ -4,15 +4,14 @@ import { SettingCard } from "@basestack/ui";
 // Components
 import { CopyCard } from "@basestack/design-system";
 // Locales
-import useTranslation from "next-translate/useTranslation";
-import { getBrowserUrl } from "@basestack/utils";
+import { useTranslations } from "next-intl";
 
 export interface Props {
   formId: string;
 }
 
 const FormKeyCard = ({ formId }: Props) => {
-  const { t } = useTranslation("settings");
+  const t = useTranslations("setting");
 
   return (
     <SettingCard

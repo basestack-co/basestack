@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Hooks
 import { useDebounce } from "react-use";
 // Components
@@ -46,7 +46,7 @@ const Toolbar = ({
   formId,
   searchFilterOptions,
 }: ToolbarProps) => {
-  const { t } = useTranslation("forms");
+  const t = useTranslations("form");
   const [searchValue, setSearchValue] = useState("");
   const [selectedSearchKey, setSelectedSearchKey] = useState<string>("");
   const [selectedFilter, setSelectedFilter] = useState<string | null>(null);

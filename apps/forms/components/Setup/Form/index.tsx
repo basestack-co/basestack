@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "styled-components";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Form
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,7 +37,7 @@ export interface Props {
 
 const Form = ({ formId, isFormDisabled }: Props) => {
   const theme = useTheme();
-  const { t } = useTranslation("forms");
+  const t = useTranslations("form");
 
   const {
     control,

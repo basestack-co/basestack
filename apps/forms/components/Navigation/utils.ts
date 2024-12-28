@@ -1,14 +1,15 @@
 import { NavigationProps } from "@basestack/ui";
 // Types
 import { Translate } from "next-translate";
-import { NextRouter } from "next/router";
+import { useRouter } from "next/navigation";
 // Utils
 import { config, Product } from "@basestack/utils";
 import { signOut } from "next-auth/react";
-import { ButtonVariant } from "@basestack/design-system";
+
 
 export const getLeftLinks = (
-  router: NextRouter,
+  router: ReturnType<typeof useRouter>,
+  pathname: string,
   t: Translate,
   formId: string,
 ): NavigationProps["leftLinks"] => {
@@ -18,21 +19,21 @@ export const getLeftLinks = (
       icon: "mail",
       onClick: () => router.push(`/form/${formId}/submissions`),
       text: t("internal.submissions"),
-      isActive: router.pathname.includes("submissions"),
+      isActive: pathname.includes("submissions"),
     },
     {
       type: "button",
       icon: "tune",
       onClick: () => router.push(`/form/${formId}/setup`),
       text: t("internal.setup"),
-      isActive: router.pathname.includes("setup"),
+      isActive: pathname.includes("setup"),
     },
     {
       type: "button",
       icon: "settings",
       onClick: () => router.push(`/form/${formId}/settings/general`),
       text: t("internal.settings"),
-      isActive: router.pathname.includes("settings"),
+      isActive: pathname.includes("settings"),
     },
   ];
 };
@@ -73,19 +74,13 @@ export const getAvatarDropdownList = (
       id: "2",
       icon: "settings",
       text: t("dropdown.settings"),
-      onClick: () =>
-        router.push({
-          pathname: "/user/profile/general",
-        }),
+      onClick: () => router.push("/user/profile/general"),
     },
     {
       id: "3",
       icon: "credit_card",
       text: t("dropdown.billing"),
-      onClick: () =>
-        router.push({
-          pathname: "/user/profile/billing",
-        }),
+      onClick: () => router.push("/user/profile/billing"),
     },
     {
       id: "4",

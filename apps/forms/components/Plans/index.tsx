@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from "react";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Store
 import { useStore } from "store";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Toast
 import { toast } from "sonner";
 // Utils
@@ -28,18 +28,18 @@ import ActivePlan from "./ActivePlan";
 const freePlanLimits = config.plans.getFormPlanLimits(PlanTypeId.FREE);
 
 const Plans = () => {
-  const { t } = useTranslation("profile");
+  const t = useTranslations("profile");
   const theme = useTheme();
   const [isLoading, setIsLoading] = useState(false);
   const [interval, setInterval] = useState<BillingInterval>("monthly");
   const isDarkMode = useStore((state) => state.isDarkMode);
 
   const { data, isLoading: isLoadingSubscription } =
-    trpc.subscription.current.useQuery(undefined, {
+    api.subscription.current.useQuery(undefined, {
       enabled: true,
     });
 
-  const createCheckout = trpc.subscription.checkout.useMutation();
+  const createCheckout = api.subscription.checkout.useMutation();
 
   const onHandleExternalUrl = useCallback((url?: string) => {
     if (url) {
