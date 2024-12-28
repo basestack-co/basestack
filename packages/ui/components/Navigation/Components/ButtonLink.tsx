@@ -22,7 +22,9 @@ export const ExternalLink = styled.a`
   text-decoration: none;
 `;
 
-export const ButtonContainer = styled.div<{ isActive: boolean }>`
+export const ButtonContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isActive",
+})<{ isActive: boolean }>`
   display: flex;
   align-items: center;
   position: relative;

@@ -5,9 +5,9 @@ import { scrollbar } from "@basestack/design-system/styles";
 import { Size } from "./types";
 
 export const GlobalStyle = createGlobalStyle`
-  body {
-    overflow: hidden;
-  }
+    body {
+        overflow: hidden;
+    }
 `;
 
 const flexColumn = css`
@@ -20,7 +20,9 @@ const flexRowCenter = css`
   align-items: center;
 `;
 
-export const Container = styled.div<{ expandMobile: boolean }>`
+export const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "expandMobile",
+})<{ expandMobile: boolean }>`
   position: fixed;
   inset: 0;
   z-index: ${({ theme }) => theme.zIndex.modal};
@@ -52,7 +54,9 @@ const handleSheetSize = (size: Size) => {
   }
 };
 
-export const Sheet = styled.div<{
+export const Sheet = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "minHeight",
+})<{
   size: Size;
   minHeight: number;
 }>`
@@ -89,7 +93,9 @@ export const Body = styled.div<SpaceProps>`
   ${flexColumn};
 `;
 
-export const Footer = styled.div<{ expandMobile: boolean }>`
+export const Footer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "expandMobile",
+})<{ expandMobile: boolean }>`
   background-color: ${({ theme }) => theme.modal.backgroundColor};
   height: ${rem("76px")};
   padding: 0 ${rem("20px")};

@@ -99,7 +99,7 @@ const Form = ({ formId, isFormDisabled }: Props) => {
         render={({ field }) => (
           <InputGroup
             title={t("setup.card.form.inputs.name.title")}
-            hint={t(errors.name?.message!)}
+            hint={errors.name?.message}
             mb={theme.spacing.s4}
             inputProps={{
               type: "text",
@@ -122,7 +122,7 @@ const Form = ({ formId, isFormDisabled }: Props) => {
         render={({ field }) => (
           <InputGroup
             title={t("setup.card.form.inputs.email.title")}
-            hint={t(errors.email?.message!)}
+            hint={errors.email?.message}
             mb={theme.spacing.s4}
             inputProps={{
               type: "text",
@@ -145,7 +145,7 @@ const Form = ({ formId, isFormDisabled }: Props) => {
         render={({ field }) => (
           <InputGroup
             title={t("setup.card.form.inputs.message.title")}
-            hint={t(errors.message?.message!)}
+            hint={errors.message?.message}
             mb={theme.spacing.s4}
             textarea
             textareaProps={{

@@ -36,7 +36,9 @@ export const List = styled.ul<SpaceProps>`
 
 interface ListItemProps extends FlexboxProps, LayoutProps, SpaceProps {}
 
-export const ListItem = styled.li<ListItemProps>`
+export const ListItem = styled.li.withConfig({
+  shouldForwardProp: (prop) => prop !== "alignItems",
+})<ListItemProps>`
   ${compose(space, flexbox, layout)};
 `;
 

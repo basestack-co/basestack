@@ -2,7 +2,9 @@ import styled, { css } from "styled-components";
 import { space } from "styled-system";
 import { rem } from "polished";
 
-export const Container = styled.div<{ size: number; $round: boolean }>`
+export const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "round",
+})<{ size: number; round: boolean }>`
   height: ${({ size }) => rem(`${size}px`)};
   width: ${({ size }) => rem(`${size}px`)};
   border-radius: 50%;
@@ -10,8 +12,8 @@ export const Container = styled.div<{ size: number; $round: boolean }>`
   flex-shrink: 0;
   ${space};
 
-  ${({ $round }) =>
-    $round
+  ${({ round }) =>
+    round
       ? css`
           border-radius: 50%;
         `

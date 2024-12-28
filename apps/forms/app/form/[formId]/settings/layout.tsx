@@ -94,12 +94,14 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
 
   return (
     <>
-      <Head>
+      {/* 
+           <Head>
         <title>
           {data?.name ?? "Form"} / {t("setting.seo.setting.title")} /{" "}
-          {t(`settings:seo.setting.${activeLinkIndex}`)}
+          {t(`settings.seo.setting.${activeLinkIndex}`)}
         </title>
       </Head>
+      */}
       <Container>
         <Text size="xLarge" mb={theme.spacing.s5}>
           {t("internal.settings")}

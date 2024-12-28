@@ -22,7 +22,9 @@ const flexColumn = css`
 
 type BoxProps = LayoutProps & SpaceProps & FlexboxProps;
 
-export const Box = styled.div<BoxProps>`
+export const Box = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "alignItems",
+})<BoxProps>`
   ${compose(layout, space, flexbox)};
 `;
 

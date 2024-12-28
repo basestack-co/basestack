@@ -59,7 +59,9 @@ interface StyledButtonProps {
   isActive: boolean;
 }
 
-export const StyledButton = styled.div<StyledButtonProps>`
+export const StyledButton = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isActive",
+})<StyledButtonProps>`
   ${neutralButtonStyles};
   height: ${rem("44px")};
   font-size: ${rem("14px")};

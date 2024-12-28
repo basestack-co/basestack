@@ -9,7 +9,7 @@
       "content": {
         "title": "Welcome to Basestack Forms",
         "description": "Please select your preferred login service below to access your forms. By signing in, you agree to our <0>Terms of Service</0> and <1>Privacy Policy</1>.",
-        "action": "Sign in with {{name}}"
+        "action": "Sign in with {name}"
       }
     },
     "error": {
@@ -225,7 +225,7 @@
           "html": {
             "step-1": {
               "title": "Update your form's action attribute to point to your endpoint.",
-              "description": "Configure your form action to [{{url}}] and method to [{{method}}]."
+              "description": "Configure your form action to [{url}] and method to [{method}]."
             },
             "step-2": {
               "title": "Assign a name attribute to each form field.",
@@ -239,7 +239,7 @@
           "javascript": {
             "step-1": {
               "title": "Send data using the fetch API in any JavaScript environment.",
-              "description": "Ensure the mode on the query string is set to [{{mode}}] to retrieve the response in JSON format."
+              "description": "Ensure the mode on the query string is set to [{mode}] to retrieve the response in JSON format."
             },
             "step-2": {
               "title": "Copy and paste this into your JavaScript file.",
@@ -249,7 +249,7 @@
           "react": {
             "step-1": {
               "title": "Use this on your React Project to send form data to your endpoint.",
-              "description": "Send data using the fetch API and ensure the mode on the query string is set to [{{mode}}] for retrieving the response in JSON format."
+              "description": "Send data using the fetch API and ensure the mode on the query string is set to [{mode}] for retrieving the response in JSON format."
             },
             "step-2": {
               "title": "Copy and paste this into your React component.",
@@ -259,7 +259,7 @@
           "vue": {
             "step-1": {
               "title": "Use this on your Vue Project to send form data to your endpoint.",
-              "description": "Send data using the fetch API and ensure the mode on the query string is set to [{{mode}}] for retrieving the response in JSON format."
+              "description": "Send data using the fetch API and ensure the mode on the query string is set to [{mode}] for retrieving the response in JSON format."
             },
             "step-2": {
               "title": "Copy and paste this into your Vue component.",
@@ -269,7 +269,7 @@
           "rest": {
             "step-1": {
               "title": "Use the CURL command to send form data to the endpoint.",
-              "description": "Ensure the mode is set to [{{mode}}] to retrieve the response in JSON format."
+              "description": "Ensure the mode is set to [{mode}] to retrieve the response in JSON format."
             },
             "step-2": {
               "title": "Execute the following command in your terminal.",
@@ -500,8 +500,7 @@
       },
       "card": {
         "description": {
-          "project": "created the project",
-          "flag": "{{type}} the flag"
+          "project": "created the project"
         }
       }
     },
@@ -630,11 +629,11 @@
         "abbr": "USD"
       },
       "feature": {
-        "forms": "{{value}} Forms",
-        "submissions": "{{value}} Submissions",
-        "members": "{{value}} Members",
-        "spams": "{{value}} Spam AI Reports",
-        "integrations": "{{value}} Integrations Calls"
+        "forms": "value} Forms",
+        "submissions": "{value} Submissions",
+        "members": "{value} Members",
+        "spams": "{value} Spam AI Reports",
+        "integrations": "{value} Integrations Calls"
       },
       "segment": {
         "monthly": "monthly",
@@ -765,7 +764,7 @@
           "action": "Delete",
           "modal": {
             "title": "Are you sure about this action?",
-            "description": "Warning: This action cannot be undone. It will permanently delete the {{name}} project, including flags, history, and all collaborator associations.",
+            "description": "Warning: This action cannot be undone. It will permanently delete the {name} project, including flags, history, and all collaborator associations.",
             "action": "Delete Project"
           }
         }
@@ -971,14 +970,14 @@
     "others": {
       "environments": {
         "title": "Environments",
-        "description": "{{type}} environments for this project. Environments allow you to control how your feature flags behave in different settings or stages of development.",
+        "description": "{type} environments for this project. Environments allow you to control how your feature flags behave in different settings or stages of development.",
         "admin": "Create and edit",
         "user": "All the",
         "action": "Create New Environment",
         "modal": {
           "delete": {
             "title": "Are you sure?",
-            "description": "This action cannot be undone. This will permanently delete the {{name}} environment, flags, history and remove all collaborator associations.",
+            "description": "This action cannot be undone. This will permanently delete the {name} environment, flags, history and remove all collaborator associations.",
             "action": "Delete Environment"
           }
         },

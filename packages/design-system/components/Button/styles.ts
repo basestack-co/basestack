@@ -177,9 +177,17 @@ const handleButtonSize = (size?: ButtonSize) => {
   }
 };
 
-export const StyledButton = styled.button<
-  Omit<StyledButtonProps, "isLoading"> & { $isLoading: boolean }
->`
+export const StyledButton = styled.button.withConfig({
+  shouldForwardProp: (prop) =>
+    ![
+      "isLoading",
+      "justifyContent",
+      "fullWidth",
+      "hasRightIcon",
+      "hasLeftIcon",
+      "flexShrink",
+    ].includes(prop),
+})<StyledButtonProps>`
   ${({ size }) => handleButtonSize(size)};
   ${({ variant }) => handleButtonVariant(variant)};
   ${compose(flexbox, space, layout, typography, color)};
@@ -208,8 +216,8 @@ export const StyledButton = styled.button<
     opacity: 0.6;
   }
 
-  ${({ $isLoading }) =>
-    $isLoading &&
+  ${({ isLoading }) =>
+    isLoading &&
     css`
       .material-symbols-sharp,
       .material-symbols-rounded {
@@ -218,7 +226,9 @@ export const StyledButton = styled.button<
     `}
 `;
 
-export const TextContainer = styled.span<{ isLoading: boolean }>`
+export const TextContainer = styled.span.withConfig({
+  shouldForwardProp: (prop) => prop !== "isLoading",
+})<{ isLoading: boolean }>`
   ${({ isLoading }) =>
     isLoading &&
     css`

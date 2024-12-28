@@ -18,7 +18,9 @@ export const Container = styled.div<{
   ${space};
 `;
 
-export const Wrapper = styled.div<{ maxWidth?: number }>`
+export const Wrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "maxWidth",
+})<{ maxWidth?: number }>`
   display: flex;
   align-items: center;
   min-height: ${rem("56px")};

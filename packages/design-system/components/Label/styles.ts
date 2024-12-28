@@ -44,7 +44,9 @@ const getSizeStyles = (size: LabelSize) => {
   return styles[size];
 };
 
-export const StyledLabel = styled.div<{
+export const StyledLabel = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "minHeight",
+})<{
   variant: LabelVariant;
   size: LabelSize;
   isTranslucent: boolean;
@@ -69,7 +71,7 @@ export const StyledLabel = styled.div<{
     css`
       text-transform: uppercase;
     `}
-  ${compose(flexbox, space, layout)};
+    ${compose(flexbox, space, layout)};
 `;
 
 export const LabelDotContainer = styled.div<{

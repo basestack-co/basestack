@@ -3,9 +3,9 @@ import { rem, transparentize } from "polished";
 import { scrollbar } from "@basestack/design-system/styles";
 
 export const GlobalStyle: any = createGlobalStyle`
-  body {
-    overflow: hidden;
-  }
+    body {
+        overflow: hidden;
+    }
 `;
 
 const flexColumn = css`
@@ -107,7 +107,9 @@ export const LogoButton = styled.button`
   cursor: pointer;
 `;
 
-export const ButtonContainer = styled.div<{ isActive: boolean }>`
+export const ButtonContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isActive",
+})<{ isActive: boolean }>`
   display: flex;
   flex-direction: column;
   position: relative;

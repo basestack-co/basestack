@@ -1,7 +1,9 @@
 import styled, { css } from "styled-components";
 import { transparentize } from "polished";
 
-export const ContentContainer = styled.div<{ hasLabel: boolean }>`
+export const ContentContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "hasLabel",
+})<{ hasLabel: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -36,7 +38,9 @@ export const TagContainer = styled.div`
   margin-right: ${({ theme }) => theme.spacing.s5};
 `;
 
-export const RightColumn = styled.div<{ hasLabel: boolean }>`
+export const RightColumn = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "hasLabel",
+})<{ hasLabel: boolean }>`
   display: flex;
   align-items: center;
   margin-left: ${({ theme }) => theme.spacing.s5};

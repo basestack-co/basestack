@@ -2,15 +2,15 @@ import styled, { keyframes, css } from "styled-components";
 import { rem } from "polished";
 
 const pulsate = keyframes`
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
 `;
 
 const flexColumn = css`
@@ -26,7 +26,10 @@ const flexRow = css`
 const getValue = (value: number | string) =>
   typeof value === "string" ? value : rem(`${value}px`);
 
-export const Container = styled.div<{
+export const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    !["hasShadow", "backgroundColor", "marginBottom"].includes(prop),
+})<{
   backgroundColor?: string;
   padding?: number | string;
   hasShadow?: boolean;
@@ -48,18 +51,28 @@ export const Container = styled.div<{
     css`
       box-shadow: ${theme.shadow.elevation2};
     `}
-
   &:not(:last-child) {
     margin-bottom: ${({ marginBottom }) => `${marginBottom}px`};
   }
 `;
 
-export const Wrapper = styled.div<{ displayInline?: boolean }>`
+export const Wrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "displayInline",
+})<{ displayInline?: boolean }>`
   ${({ displayInline }) => (displayInline ? flexRow : flexColumn)};
   animation: ${pulsate} 1.2s infinite linear;
 `;
 
-export const Item = styled.div<{
+export const Item = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    ![
+      "isRound",
+      "marginTop",
+      "marginLeft",
+      "marginBottom",
+      "marginRight",
+    ].includes(prop),
+})<{
   height: number;
   width: number | string;
   marginBottom?: number | string;

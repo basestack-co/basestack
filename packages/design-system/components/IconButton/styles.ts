@@ -61,10 +61,12 @@ const neutralStyles = css`
   .material-symbols-rounded {
     color: inherit;
   }
+
   &:hover {
     background-color: ${({ theme }) =>
       theme.iconButton.neutral.hover.backgroundColor};
   }
+
   &:active {
     background-color: ${({ theme }) =>
       theme.iconButton.neutral.active.backgroundColor};
@@ -81,11 +83,13 @@ const primaryNeutralStyles = css`
   .material-symbols-rounded {
     color: inherit;
   }
+
   &:hover {
     color: ${({ theme }) => theme.iconButton.primaryNeutral.hover.color};
     background-color: ${({ theme }) =>
       theme.iconButton.primaryNeutral.hover.backgroundColor};
   }
+
   &:active {
     background-color: ${({ theme }) =>
       theme.iconButton.primaryNeutral.active.backgroundColor};
@@ -108,7 +112,9 @@ const handleButtonVariant = (variant?: Variant) => {
   }
 };
 
-export const StyledButton = styled.button<{
+export const StyledButton = styled.button.withConfig({
+  shouldForwardProp: (prop) => !["iconSize", "zIndex"].includes(prop),
+})<{
   variant: Variant;
   iconSize: string;
 }>`

@@ -10,13 +10,10 @@ import {
   StyleSheetManager,
   ThemeProvider,
 } from "styled-components";
-import isPropValid from "@emotion/is-prop-valid";
 // Themes
 import darkTheme from "@basestack/design-system/theme/darkTheme";
 import lightTheme from "@basestack/design-system/theme/lightTheme";
 import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
-
-
 
 const StyledComponentsRegistry = ({
   children,

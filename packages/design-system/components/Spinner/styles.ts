@@ -3,15 +3,17 @@ import { rem } from "polished";
 import { space } from "styled-system";
 
 const rotate = keyframes`
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 `;
 
-export const StyledSpinner = styled.div<{
+export const StyledSpinner = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "strokeSize",
+})<{
   size: string;
   strokeSize: string;
   color?: string;

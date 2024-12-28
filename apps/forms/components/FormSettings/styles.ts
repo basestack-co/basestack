@@ -17,7 +17,7 @@ export const CardListItem = styled.li`
   }
 `;
 
-export const SettingCardContainer = styled.li`
+export const SettingCardContainer = styled.div`
   @media screen and ${({ theme }) => theme.device.max.lg} {
     max-width: calc(100vw - ${rem("40px")});
   }
