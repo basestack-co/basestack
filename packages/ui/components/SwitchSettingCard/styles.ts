@@ -32,7 +32,9 @@ export const Overlay = styled.div`
     transparentize(0.3, theme.colors[theme.isDarkMode ? "gray800" : "white"])};
 `;
 
-export const TagContainer = styled.div`
+export const TagContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isTranslucent",
+})`
   display: inline-flex;
   z-index: 5;
   margin-right: ${({ theme }) => theme.spacing.s5};

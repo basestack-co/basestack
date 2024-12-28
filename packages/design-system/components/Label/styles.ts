@@ -45,7 +45,10 @@ const getSizeStyles = (size: LabelSize) => {
 };
 
 export const StyledLabel = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== "minHeight",
+  shouldForwardProp: (prop) =>
+    !["minHeight", "hasChildren", "isUppercase", "isTranslucent"].includes(
+      prop,
+    ),
 })<{
   variant: LabelVariant;
   size: LabelSize;
@@ -74,7 +77,9 @@ export const StyledLabel = styled.div.withConfig({
     ${compose(flexbox, space, layout)};
 `;
 
-export const LabelDotContainer = styled.div<{
+export const LabelDotContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isUppercase",
+})<{
   variant: LabelVariant;
   size: LabelSize;
   isUppercase: boolean;

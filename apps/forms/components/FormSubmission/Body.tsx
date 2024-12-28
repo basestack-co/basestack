@@ -44,7 +44,7 @@ const Body = ({
   formId,
 }: FormSubmissionBodyProps) => {
   const trpcUtils = api.useUtils();
-  const t = useTranslations("forms");
+  const t = useTranslations("form");
   const [showMetadata, setShowMetadata] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 

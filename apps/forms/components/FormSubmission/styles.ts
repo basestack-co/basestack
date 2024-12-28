@@ -18,7 +18,10 @@ const flexCenter = css`
 
 type BoxProps = LayoutProps & SpaceProps & FlexboxProps;
 
-export const Box = styled.div<BoxProps>`
+export const Box = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    !["alignItems", "flexDirection", "minWidth"].includes(prop),
+})<BoxProps>`
   ${compose(layout, space, flexbox)};
 `;
 
@@ -43,7 +46,9 @@ export const HeaderButton = styled.button`
     `${theme.spacing.s4} ${theme.spacing.s5} ${theme.spacing.s4} 0`};
 `;
 
-export const HeaderCell = styled.div<{ hasBorder: boolean }>`
+export const HeaderCell = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "hasBorder",
+})<{ hasBorder: boolean }>`
   ${flexCenter};
   text-align: left;
   padding-right: ${({ theme }) => theme.spacing.s5};

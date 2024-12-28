@@ -56,7 +56,7 @@ export const SmallText = styled.p.withConfig({
 `;
 
 export const MediumText = styled.p.withConfig({
-  shouldForwardProp: (prop) => !["textAlign", "lineTruncate"].includes(prop),
+  shouldForwardProp: (prop) => !["textAlign", "lineTruncate", "lineHeight"].includes(prop),
 })<TextProps>`
   font-size: ${rem("16px")};
   line-height: ${rem("24px")};
@@ -86,7 +86,8 @@ export const XLargeText = styled.h2.withConfig({
 `;
 
 export const XXLargeText = styled.h1.withConfig({
-  shouldForwardProp: (prop) => !["textAlign", "lineTruncate"].includes(prop),
+  shouldForwardProp: (prop) =>
+    !["textAlign", "lineTruncate", "lineHeight"].includes(prop),
 })<TextProps>`
   font-size: ${rem("24px")};
   line-height: ${rem("36px")};
