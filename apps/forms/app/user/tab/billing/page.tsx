@@ -24,7 +24,7 @@ const UserProfileBillingPage = () => {
 
   useEffect(() => {
     if (!useBilling) {
-      router.push("/user/profile/general");
+      router.push("/user/tab/general");
     }
   }, [router, useBilling]);
 

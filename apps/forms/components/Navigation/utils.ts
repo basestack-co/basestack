@@ -74,13 +74,13 @@ export const getAvatarDropdownList = (
       id: "2",
       icon: "settings",
       text: t("dropdown.settings"),
-      onClick: () => router.push("/user/profile/general"),
+      onClick: () => router.push("/user/tab/general"),
     },
     {
       id: "3",
       icon: "credit_card",
       text: t("dropdown.billing"),
-      onClick: () => router.push("/user/profile/billing"),
+      onClick: () => router.push("/user/tab/billing"),
     },
     {
       id: "4",

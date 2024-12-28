@@ -16,7 +16,7 @@ import {
   ListItem,
   SettingsContainer,
   StyledButton,
-} from "../styles";
+} from "./styles";
 // Hooks
 import { useMedia } from "react-use";
 // Utils
@@ -29,13 +29,13 @@ const links = [
     id: "1",
     i18nKey: "profile.general",
     tab: "general",
-    href: "/user/profile/general",
+    href: "/user/tab/general",
   },
   {
     id: "2",
     i18nKey: "profile.billing",
     tab: "billing",
-    href: "/user/profile/billing",
+    href: "/user/tab/billing",
   },
 ];
 
