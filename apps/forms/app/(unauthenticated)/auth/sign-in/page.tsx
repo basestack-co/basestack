@@ -18,7 +18,7 @@ import { config } from "@basestack/utils";
 // Styles
 import styled from "styled-components";
 
-/* export const Link = styled.a`
+const Link = styled.a`
   text-decoration: none;
   color: ${({ theme }) =>
     theme.colors[theme.isDarkMode ? "blue300" : "primary"]};
@@ -27,11 +27,11 @@ import styled from "styled-components";
   &:hover {
     text-decoration: underline;
   }
-`; */
+`;
 
 const SignInPage = () => {
   const t = useTranslations("auth");
-  const { status } = useSession();
+  const { status, ...rest } = useSession();
   const router = useRouter();
   const [error, setError] = useState("");
 
@@ -58,21 +58,22 @@ const SignInPage = () => {
       description={t("sign-in.panel.description")}
       slogan={t("sign-in.panel.slogan")}
       contentTitle={t("sign-in.content.title")}
-      contentDescription={""}
-      /* contentDescription={t.markup("sign-in.content.description", {
-                                             terms: (
-                                               chunks,
-                                             ) => `<Link key="terms-link" href={config.urls.legal.terms} target="_blank">
-                                                 ${chunks}
-                                               </Link>`,
-                                             privacy: (chunks) => `<Link
-                                                 key="privacy-link"
-                                                 href={config.urls.legal.privacy}
-                                                 target="_blank"
-                                               >
-                                                 ${chunks}
-                                               </Link>`,
-                                           })} */
+      contentDescription={
+        <>
+          {t.rich("sign-in.content.description", {
+            terms: (chunks) => (
+              <Link href={config.urls.legal.terms} target="_blank">
+                {chunks}
+              </Link>
+            ),
+            privacy: (chunks) => (
+              <Link href={config.urls.legal.privacy} target="_blank">
+                {chunks}
+              </Link>
+            ),
+          })}
+        </>
+      }
       action={(name) => t("sign-in.content.action", { name })}
       onClickProvider={(id) => signIn(id, { callbackUrl: "/" })}
       errors={[

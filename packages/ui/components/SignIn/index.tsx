@@ -68,7 +68,7 @@ const SignIn = ({
 }: SignInProps) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const { colors, isDarkMode, device, spacing } = useTheme();
-  const isDesktop = useMedia(device.min.lg, false);
+  const isDesktop = useMedia(device.min.lg, true);
 
   return (
     <Container>

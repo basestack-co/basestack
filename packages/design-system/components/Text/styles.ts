@@ -34,7 +34,8 @@ const sharedStyles = ({
 `;
 
 export const XSmallText = styled.span.withConfig({
-  shouldForwardProp: (prop) => !["textAlign", "lineTruncate"].includes(prop),
+  shouldForwardProp: (prop) =>
+    !["textAlign", "lineTruncate", "muted"].includes(prop),
 })<TextProps>`
   display: flex;
   font-size: ${rem("12px")};
@@ -46,7 +47,13 @@ export const XSmallText = styled.span.withConfig({
 
 export const SmallText = styled.p.withConfig({
   shouldForwardProp: (prop) =>
-    !["textAlign", "lineTruncate", "lineHeight", "flexShrink"].includes(prop),
+    ![
+      "textAlign",
+      "lineTruncate",
+      "lineHeight",
+      "flexShrink",
+      "muted",
+    ].includes(prop),
 })<TextProps>`
   font-size: ${rem("14px")};
   line-height: ${rem("22px")};
@@ -57,7 +64,7 @@ export const SmallText = styled.p.withConfig({
 
 export const MediumText = styled.p.withConfig({
   shouldForwardProp: (prop) =>
-    !["textAlign", "lineTruncate", "lineHeight"].includes(prop),
+    !["textAlign", "lineTruncate", "lineHeight", "muted"].includes(prop),
 })<TextProps>`
   font-size: ${rem("16px")};
   line-height: ${rem("24px")};
@@ -67,7 +74,8 @@ export const MediumText = styled.p.withConfig({
 `;
 
 export const LargeText = styled.h3.withConfig({
-  shouldForwardProp: (prop) => !["textAlign", "lineTruncate"].includes(prop),
+  shouldForwardProp: (prop) =>
+    !["textAlign", "lineTruncate", "muted"].includes(prop),
 })<TextProps>`
   font-size: ${rem("18px")};
   line-height: ${rem("26px")};
@@ -78,7 +86,7 @@ export const LargeText = styled.h3.withConfig({
 
 export const XLargeText = styled.h2.withConfig({
   shouldForwardProp: (prop) =>
-    !["textAlign", "lineTruncate", "lineHeight"].includes(prop),
+    !["textAlign", "lineTruncate", "lineHeight", "muted"].includes(prop),
 })<TextProps>`
   font-size: ${rem("20px")};
   line-height: ${rem("30px")};
@@ -89,7 +97,7 @@ export const XLargeText = styled.h2.withConfig({
 
 export const XXLargeText = styled.h1.withConfig({
   shouldForwardProp: (prop) =>
-    !["textAlign", "lineTruncate", "lineHeight"].includes(prop),
+    !["textAlign", "lineTruncate", "lineHeight", "muted"].includes(prop),
 })<TextProps>`
   font-size: ${rem("24px")};
   line-height: ${rem("36px")};
