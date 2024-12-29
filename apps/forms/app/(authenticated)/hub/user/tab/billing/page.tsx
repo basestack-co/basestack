@@ -4,15 +4,11 @@ import React, { useMemo, useEffect } from "react";
 // Router
 import { useRouter } from "next/navigation";
 // Components
-import Plans from "components/Plans";
+import Plans from "./Plans";
 // Utils
 import { getCookieValueAsBoolean, config } from "@basestack/utils";
 // Styles
-import {
-  CardListItem,
-  CardList,
-  ProfileCardContainer,
-} from "components/ProfileSettings/styles";
+import { CardListItem, CardList, ProfileCardContainer } from "../styles";
 
 const UserProfileBillingPage = () => {
   const router = useRouter();

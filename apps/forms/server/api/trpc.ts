@@ -1,7 +1,11 @@
+// Server
 import { initTRPC, TRPCError } from "@trpc/server";
+// Utils
 import superjson from "superjson";
 import { ZodError } from "zod";
+// Auth
 import { auth } from "server/auth";
+// Database
 import { prisma } from "server/db";
 import { getUserInForm } from "server/db/utils/user";
 import { getSubscriptionUsage } from "server/db/utils/subscription";
@@ -83,24 +87,7 @@ export const isAuthenticated = middleware(
   },
 );
 
-const timingMiddleware = t.middleware(async ({ next, path }) => {
-  const start = Date.now();
-
-  if (t._config.isDev) {
-    // artificial delay in dev
-    const waitMs = Math.floor(Math.random() * 400) + 100;
-    await new Promise((resolve) => setTimeout(resolve, waitMs));
-  }
-
-  const result = await next();
-
-  const end = Date.now();
-  console.log(`[TRPC] ${path} took ${end - start}ms to execute`);
-
-  return result;
-});
-
 // PROCEDURES
 
-export const publicProcedure = t.procedure.use(timingMiddleware);
+export const publicProcedure = t.procedure;
 export const protectedProcedure = t.procedure.use(isAuthenticated);

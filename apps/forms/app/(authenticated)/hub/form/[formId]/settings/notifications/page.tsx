@@ -4,12 +4,8 @@ import React from "react";
 // Router
 import { useParams } from "next/navigation";
 // Components
-import {
-  CardList,
-  CardListItem,
-  SettingCardContainer,
-} from "components/FormSettings/styles";
-import FormEmails from "components/FormSettings/FormEmails";
+import { CardList, CardListItem, SettingCardContainer } from "../styles";
+import FormEmails from "./FormEmails";
 // Utils
 import { PlanTypeId } from "@basestack/utils";
 // Server

@@ -66,13 +66,31 @@ export const StyledButton = styled.div.withConfig({
   height: ${rem("44px")};
   font-size: ${rem("14px")};
   border-radius: 0;
-  padding-left: ${({theme}) => theme.spacing.s5};
+  padding-left: ${({ theme }) => theme.spacing.s5};
 
-  ${({isActive, theme}) =>
-      isActive &&
-      css`
-        background-color: ${theme.colors[
-            theme.isDarkMode ? "gray800" : "gray100"
-            ]};
-      `};
+  ${({ isActive, theme }) =>
+    isActive &&
+    css`
+      background-color: ${theme.colors[
+        theme.isDarkMode ? "gray800" : "gray100"
+      ]};
+    `};
+`;
+
+export const CardList = styled.ul`
+  ${flexColumn};
+`;
+
+export const CardListItem = styled.li`
+  ${flexColumn};
+
+  &:not(:last-child) {
+    margin-bottom: ${({ theme }) => theme.spacing.s5};
+  }
+`;
+
+export const ProfileCardContainer = styled.div`
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    max-width: calc(100vw - ${rem("40px")});
+  }
 `;

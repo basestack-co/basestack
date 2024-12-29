@@ -19,7 +19,6 @@ const GlobalStyle = createGlobalStyle`
     body {
         font-family: ${({ theme }) => theme.typography.roboto};
         ${({ theme }) =>
-          typeof window !== "undefined" &&
           `background-color: ${
             theme.colors[theme.isDarkMode ? "gray900" : "gray50"]
           };`}

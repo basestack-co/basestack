@@ -19,16 +19,10 @@ import {
   Text,
   Empty,
 } from "@basestack/design-system";
-import FormCard from "components/Dashboard/FormCard";
-import LinksCard from "components/Dashboard/LinksCard";
+import FormCard from "components/FormCard";
+import LinksCard from "components/LinksCard";
 // Styles
-import {
-  Container,
-  Header,
-  Section,
-  List,
-  BottomContainer,
-} from "components/Dashboard/styles";
+import { Container, Header, Section, List, BottomContainer } from "./styles";
 
 const MainPage = () => {
   const t = useTranslations("home");

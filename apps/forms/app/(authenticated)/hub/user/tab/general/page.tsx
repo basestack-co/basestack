@@ -10,11 +10,7 @@ import { useTranslations } from "next-intl";
 // UI
 import { ProfileAvatarCard, SwitchSettingCard } from "@basestack/ui";
 // Styles
-import {
-  CardList,
-  ProfileCardContainer,
-  CardListItem,
-} from "components/ProfileSettings/styles";
+import { CardList, ProfileCardContainer, CardListItem } from "../styles";
 
 const UserProfileSettingsPage = () => {
   const t = useTranslations("profile");

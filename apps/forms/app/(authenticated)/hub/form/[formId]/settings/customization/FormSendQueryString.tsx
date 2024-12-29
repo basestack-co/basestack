@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { PlanTypeId } from "@basestack/utils";
 // Locales
 import { useTranslations } from "next-intl";
-import { getWithPlanSwitchProps } from "./utils";
+import { getWithPlanSwitchProps } from "../utils";
 
 export interface Props {
   hasDataQueryString?: boolean;

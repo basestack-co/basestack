@@ -10,35 +10,30 @@ import { api } from "utils/trpc/react";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
-import {
-  Label,
-  IconButton,
-  InputGroup,
-  CardVariant,
-} from "@basestack/design-system";
+import { IconButton, InputGroup, Label } from "@basestack/design-system";
 // Toast
 import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
 // Utils
 import { PlanTypeId } from "@basestack/utils";
-import { getWithPlanCardProps } from "./utils";
+import { getWithPlanCardProps } from "../utils";
 // Styles
-import { TagsContainer } from "./styles";
+import { TagsContainer } from "../styles";
 
 export const FormSchema = z.object({
-  email: z.string().email().optional().or(z.literal("")),
-  emails: z.array(z.string()),
+  ip: z.string().ip().optional().or(z.literal("")),
+  ips: z.array(z.string()),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
-  emails?: string;
+  blockIpAddresses?: string;
   planId: PlanTypeId;
 }
 
-const FormEmailsCard = ({ emails = "", planId }: Props) => {
+const FormIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
   const router = useRouter();
   const { formId } = useParams<{ formId: string }>();
   const t = useTranslations();
@@ -56,26 +51,26 @@ const FormEmailsCard = ({ emails = "", planId }: Props) => {
     mode: "onChange",
     delayError: 250,
     defaultValues: {
-      email: "",
-      emails: [],
+      ip: "",
+      ips: [],
     },
   });
 
-  const emailsValues = watch("emails");
-  const emailValue = watch("email");
+  const ipsValues = watch("ips");
+  const ipValue = watch("ip");
 
   useEffect(() => {
-    if (emails) {
-      setValue("emails", emails.split(","));
+    if (blockIpAddresses) {
+      setValue("ips", blockIpAddresses.split(","));
     }
-  }, [emails, setValue]);
+  }, [blockIpAddresses, setValue]);
 
   const onSave = useCallback(async () => {
     updateForm.mutate(
       {
         formId,
-        emails: emailsValues.join(","),
-        feature: "hasEmailNotifications",
+        blockIpAddresses: ipsValues.join(","),
+        feature: "hasBlockIPs",
       },
       {
         onSuccess: (result) => {
@@ -88,95 +83,95 @@ const FormEmailsCard = ({ emails = "", planId }: Props) => {
               { formId: result.form.id },
               {
                 ...cache,
-                emails: result.form.emails,
+                blockIpAddresses: result.form.blockIpAddresses,
               },
             );
           }
 
-          toast.success(t("setting.notifications.emails.toast.success"));
+          toast.success(t("setting.security.ip-block-rules.toast.success"));
         },
         onError: (error) => {
           toast.error(error.message);
         },
       },
     );
-  }, [emailsValues, updateForm, formId, trpcUtils, t]);
+  }, [ipsValues, updateForm, formId, trpcUtils, t]);
 
   const onHandleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === "Enter" && !errors.email && emailValue) {
-        const ipExists = emailsValues?.find((item) => item === emailValue);
+      if (event.key === "Enter" && !errors.ip && ipValue) {
+        const ipExists = ipsValues?.find((item) => item === ipValue);
 
         if (ipExists) {
-          setError("email", { message: "Email already exists" });
+          setError("ip", { message: "IP already exists" });
         } else {
-          // Add the value to the list of emails
-          setValue("emails", [...(emailsValues ?? []), emailValue]);
+          // Add the value to the list of IPs
+          setValue("ips", [...(ipsValues ?? []), ipValue]);
           // Clean up the input for the next value
-          setValue("email", "");
+          setValue("ip", "");
         }
       }
     },
-    [emailValue, setValue, emailsValues, errors, setError],
+    [ipValue, setValue, ipsValues, errors, setError],
   );
 
-  const onDeleteEmail = useCallback(
+  const onDeleteIp = useCallback(
     (value: string) => {
-      const emails = emailsValues?.filter((item) => item !== value);
-      setValue("emails", emails);
+      const ips = ipsValues?.filter((item) => item !== value);
+      setValue("ips", ips);
     },
-    [setValue, emailsValues],
+    [setValue, ipsValues],
   );
 
   return (
     <SettingCard
-      title={t("setting.notifications.emails.title")}
-      description={t("setting.notifications.emails.description")}
+      title={t("setting.security.ip-block-rules.title")}
+      description={t("setting.security.ip-block-rules.description")}
       {...getWithPlanCardProps({
         t,
         router,
         planId,
-        feature: "hasEmailNotifications",
-        i18nKey: "setting.notifications.emails.action",
-        i18nHintKey: "setting.notifications.emails.text",
+        feature: "hasBlockIPs",
+        i18nKey: "setting.security.ip-block-rules.action",
+        i18nHintKey: "setting.security.ip-block-rules.text",
         onClick: onSave,
         isLoading: isSubmitting,
-        isDisabled: emails === emailsValues.join(","),
+        isDisabled: blockIpAddresses === ipsValues.join(","),
       })}
     >
       <>
         <Controller
-          name="email"
+          name="ip"
           control={control}
           defaultValue=""
           render={({ field }) => (
             <InputGroup
-              hint={errors.email?.message}
+              hint={errors.ip?.message}
               inputProps={{
-                type: "email",
+                type: "text",
                 name: field.name,
                 value: field.value as string,
                 onChange: field.onChange,
                 onBlur: field.onBlur,
                 placeholder: t(
-                  "setting.notifications.emails.inputs.name.placeholder",
+                  "setting.security.ip-block-rules.inputs.name.placeholder",
                 ),
-                hasError: !!errors.email,
+                hasError: !!errors.ip,
                 onKeyDown: onHandleKeyDown,
                 maxWidth: 400,
               }}
             />
           )}
         />
-        {!!emailsValues?.length && (
+        {!!ipsValues?.length && (
           <TagsContainer>
-            {emailsValues.map((item, index) => (
+            {ipsValues.map((item, index) => (
               <Label key={index} text={item} size="normal" isTranslucent>
                 <IconButton
                   icon="close"
                   size="small"
                   variant="secondaryDark"
-                  onClick={() => onDeleteEmail(item)}
+                  onClick={() => onDeleteIp(item)}
                 />
               </Label>
             ))}
@@ -187,4 +182,4 @@ const FormEmailsCard = ({ emails = "", planId }: Props) => {
   );
 };
 
-export default FormEmailsCard;
+export default FormIpRulesCard;

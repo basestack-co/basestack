@@ -11,11 +11,11 @@ import { api } from "utils/trpc/react";
 import { SettingCard } from "@basestack/ui";
 // Components
 import { InputGroup } from "@basestack/design-system";
-// Toast
-import { toast } from "sonner";
 // Utils
 import { PlanTypeId } from "@basestack/utils";
-import { getWithPlanCardProps } from "./utils";
+import { getWithPlanCardProps } from "../utils";
+// Toast
+import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
 
@@ -26,11 +26,11 @@ export const FormSchema = z.object({
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
-  successUrl?: string;
+  errorUrl?: string;
   planId: PlanTypeId;
 }
 
-const FormSuccessUrlCard = ({ successUrl = "", planId }: Props) => {
+const FormFailedUrlCard = ({ errorUrl = "", planId }: Props) => {
   const router = useRouter();
   const { formId } = useParams<{ formId: string }>();
   const t = useTranslations();
@@ -54,14 +54,14 @@ const FormSuccessUrlCard = ({ successUrl = "", planId }: Props) => {
   const watchUrl = watch("url");
 
   useEffect(() => {
-    setValue("url", successUrl);
-  }, [successUrl, setValue]);
+    setValue("url", errorUrl);
+  }, [errorUrl, setValue]);
 
   const onSave: SubmitHandler<FormInputs> = async (input) => {
     updateForm.mutate(
       {
         formId,
-        successUrl: input.url,
+        errorUrl: input.url,
         feature: "hasCustomUrls",
       },
       {
@@ -75,12 +75,12 @@ const FormSuccessUrlCard = ({ successUrl = "", planId }: Props) => {
               { formId: result.form.id },
               {
                 ...cache,
-                successUrl: result.form.successUrl,
+                errorUrl: result.form.errorUrl,
               },
             );
           }
 
-          toast.success(t("setting.customization.success-url.toast.success"));
+          toast.success(t("setting.customization.failed-url.toast.success"));
         },
         onError: (error) => {
           toast.error(error.message);
@@ -91,17 +91,17 @@ const FormSuccessUrlCard = ({ successUrl = "", planId }: Props) => {
 
   return (
     <SettingCard
-      title={t("setting.customization.success-url.title")}
-      description={t("setting.customization.success-url.description")}
+      title={t("setting.customization.failed-url.title")}
+      description={t("setting.customization.failed-url.description")}
       {...getWithPlanCardProps({
         t,
         router,
         planId,
         feature: "hasCustomUrls",
-        i18nKey: "setting.customization.success-url.action",
+        i18nKey: "setting.customization.failed-url.action",
         onClick: handleSubmit(onSave),
         isLoading: isSubmitting,
-        isDisabled: isSubmitting || watchUrl === successUrl || !!errors.url,
+        isDisabled: isSubmitting || watchUrl === errorUrl || !!errors.url,
         partial: false,
       })}
     >
@@ -119,7 +119,7 @@ const FormSuccessUrlCard = ({ successUrl = "", planId }: Props) => {
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "setting.customization.success-url.inputs.name.placeholder",
+                "setting.customization.failed-url.inputs.name.placeholder",
               ),
               hasError: !!errors.url,
               maxWidth: 560,
@@ -132,4 +132,4 @@ const FormSuccessUrlCard = ({ successUrl = "", planId }: Props) => {
   );
 };
 
-export default FormSuccessUrlCard;
+export default FormFailedUrlCard;

@@ -10,14 +10,14 @@ import { api } from "utils/trpc/react";
 import { useTranslations } from "next-intl";
 // Components
 import { Banners } from "@basestack/ui";
-import EndpointCard from "components/Setup/EndpointCard";
+import EndpointCard from "./EndpointCard";
 import { HorizontalRule } from "@basestack/design-system";
-import SetupGuide from "components/Setup/SetupGuide";
-import Form from "components/Setup/Form";
-import Links from "components/Setup/Links";
+import SetupGuide from "./SetupGuide";
+import Form from "./Form";
+import Links from "./Links";
 // Styles
 import { useTheme } from "styled-components";
-import { Column, Container, Row } from "components/Setup/styles";
+import { Column, Container, Row } from "./styles";
 
 const SetupPage = () => {
   const t = useTranslations("form");

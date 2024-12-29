@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { rem } from "polished";
 import { useTheme } from "styled-components";
 // Locales
 import { useTranslations } from "next-intl";

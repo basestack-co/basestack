@@ -11,8 +11,6 @@ import { api } from "utils/trpc/react";
 import { SettingCard } from "@basestack/ui";
 // Components
 import { Input } from "@basestack/design-system";
-// Types
-import { Role } from "@prisma/client";
 // Toast
 import { toast } from "sonner";
 // Locales

@@ -9,13 +9,13 @@ import { api } from "utils/trpc/react";
 // Locales
 import { useTranslations } from "next-intl";
 // Components
-import FormSubmissions from "components/FormSubmissions";
+import FormSubmissions from "./FormSubmissions";
 
 const FormSubmissionsPage = () => {
   const t = useTranslations("form");
   const { formId } = useParams<{ formId: string }>();
 
-  const { data: form, ...rest } = api.form.byId.useQuery(
+  const { data: form } = api.form.byId.useQuery(
     { formId },
     {
       enabled: !!formId,

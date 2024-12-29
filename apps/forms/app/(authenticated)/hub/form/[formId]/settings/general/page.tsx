@@ -4,19 +4,15 @@ import React from "react";
 // Router
 import { useParams } from "next/navigation";
 // Components
-import {
-  CardList,
-  CardListItem,
-  SettingCardContainer,
-} from "components/FormSettings/styles";
-import FormName from "components/FormSettings/FormName";
-import DeleteForm from "components/FormSettings/DeleteForm";
-import EnableForm from "components/FormSettings/EnableForm";
-import FormDataRetention from "components/FormSettings/FormDataRetention";
-import FormWebHookUrl from "components/FormSettings/FormWebHookUrl";
-import FormEndpoint from "components/FormSettings/FormEndpoint";
-import FormKey from "components/FormSettings/FormKey";
-import FormSpamProtection from "components/FormSettings/FormSpamProtection";
+import { CardList, CardListItem, SettingCardContainer } from "../styles";
+import FormName from "./FormName";
+import DeleteForm from "./DeleteForm";
+import EnableForm from "./EnableForm";
+import FormDataRetention from "./FormDataRetention";
+import FormWebHookUrl from "./FormWebHookUrl";
+import FormEndpoint from "./FormEndpoint";
+import FormKey from "./FormKey";
+import FormSpamProtection from "./FormSpamProtection";
 // Utils
 import { PlanTypeId } from "@basestack/utils";
 // Server

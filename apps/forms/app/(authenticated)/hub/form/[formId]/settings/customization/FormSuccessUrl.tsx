@@ -15,7 +15,7 @@ import { InputGroup } from "@basestack/design-system";
 import { toast } from "sonner";
 // Utils
 import { PlanTypeId } from "@basestack/utils";
-import { getWithPlanCardProps } from "./utils";
+import { getWithPlanCardProps } from "../utils";
 // Locales
 import { useTranslations } from "next-intl";
 
@@ -26,11 +26,11 @@ export const FormSchema = z.object({
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
-  redirectUrl?: string;
+  successUrl?: string;
   planId: PlanTypeId;
 }
 
-const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
+const FormSuccessUrlCard = ({ successUrl = "", planId }: Props) => {
   const router = useRouter();
   const { formId } = useParams<{ formId: string }>();
   const t = useTranslations();
@@ -54,14 +54,14 @@ const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
   const watchUrl = watch("url");
 
   useEffect(() => {
-    setValue("url", redirectUrl);
-  }, [redirectUrl, setValue]);
+    setValue("url", successUrl);
+  }, [successUrl, setValue]);
 
   const onSave: SubmitHandler<FormInputs> = async (input) => {
     updateForm.mutate(
       {
         formId,
-        redirectUrl: input.url,
+        successUrl: input.url,
         feature: "hasCustomUrls",
       },
       {
@@ -75,12 +75,12 @@ const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
               { formId: result.form.id },
               {
                 ...cache,
-                redirectUrl: result.form.redirectUrl,
+                successUrl: result.form.successUrl,
               },
             );
           }
 
-          toast.success(t("setting.customization.redirect-url.toast.success"));
+          toast.success(t("setting.customization.success-url.toast.success"));
         },
         onError: (error) => {
           toast.error(error.message);
@@ -91,17 +91,17 @@ const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
 
   return (
     <SettingCard
-      title={t("setting.customization.redirect-url.title")}
-      description={t("setting.customization.redirect-url.description")}
+      title={t("setting.customization.success-url.title")}
+      description={t("setting.customization.success-url.description")}
       {...getWithPlanCardProps({
         t,
         router,
         planId,
         feature: "hasCustomUrls",
-        i18nKey: "setting.customization.redirect-url.action",
+        i18nKey: "setting.customization.success-url.action",
         onClick: handleSubmit(onSave),
         isLoading: isSubmitting,
-        isDisabled: isSubmitting || watchUrl === redirectUrl || !!errors.url,
+        isDisabled: isSubmitting || watchUrl === successUrl || !!errors.url,
         partial: false,
       })}
     >
@@ -119,7 +119,7 @@ const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "setting.customization.redirect-url.inputs.name.placeholder",
+                "setting.customization.success-url.inputs.name.placeholder",
               ),
               hasError: !!errors.url,
               maxWidth: 560,
@@ -132,4 +132,4 @@ const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
   );
 };
 
-export default FormRedirectUrlCard;
+export default FormSuccessUrlCard;

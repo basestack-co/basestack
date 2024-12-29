@@ -65,15 +65,7 @@ export const List = styled.ul`
   }
 `;
 
-export const ContentContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: ${({ theme }) => theme.spacing.s3};
 
-  @media screen and ${({ theme }) => theme.device.max.sm} {
-    grid-template-columns: 1fr;
-  }
-`;
 
 export const BottomContainer = styled.div`
   display: grid;
@@ -85,13 +77,3 @@ export const BottomContainer = styled.div`
   }
 `;
 
-export const StyledLink = styled.a`
-  text-decoration: none;
-  color: ${({ theme }) =>
-    theme.colors[theme.isDarkMode ? "blue300" : "primary"]};
-  cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;

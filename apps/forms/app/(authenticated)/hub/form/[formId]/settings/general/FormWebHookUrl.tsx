@@ -15,7 +15,7 @@ import { InputGroup } from "@basestack/design-system";
 import { toast } from "sonner";
 // Utils
 import { PlanTypeId } from "@basestack/utils";
-import { getWithPlanCardProps } from "./utils";
+import { getWithPlanCardProps } from "../utils";
 // Locales
 import { useTranslations } from "next-intl";
 

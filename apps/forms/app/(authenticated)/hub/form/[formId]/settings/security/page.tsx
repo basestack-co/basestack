@@ -4,14 +4,10 @@ import React from "react";
 // Router
 import { useParams } from "next/navigation";
 // Components
-import {
-  CardList,
-  CardListItem,
-  SettingCardContainer,
-} from "components/FormSettings/styles";
-import FormIpRules from "components/FormSettings/FormIpRules";
-import FormHoneyPot from "components/FormSettings/FormHoneyPot";
-import FormWebsites from "components/FormSettings/FormWebsites";
+import { CardList, CardListItem, SettingCardContainer } from "../styles";
+import FormIpRules from "./FormIpRules";
+import FormHoneyPot from "./FormHoneyPot";
+import FormWebsites from "./FormWebsites";
 // Utils
 import { PlanTypeId } from "@basestack/utils";
 // Server

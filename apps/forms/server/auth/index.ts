@@ -1,4 +1,6 @@
+// Auth
 import NextAuth from "next-auth";
+// Utils
 import { cache } from "react";
 
 import { authConfig } from "./config";

@@ -11,11 +11,11 @@ import { api } from "utils/trpc/react";
 import { SettingCard } from "@basestack/ui";
 // Components
 import { InputGroup } from "@basestack/design-system";
-// Utils
-import { PlanTypeId } from "@basestack/utils";
-import { getWithPlanCardProps } from "./utils";
 // Toast
 import { toast } from "sonner";
+// Utils
+import { PlanTypeId } from "@basestack/utils";
+import { getWithPlanCardProps } from "../utils";
 // Locales
 import { useTranslations } from "next-intl";
 
@@ -26,11 +26,11 @@ export const FormSchema = z.object({
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
-  errorUrl?: string;
+  redirectUrl?: string;
   planId: PlanTypeId;
 }
 
-const FormFailedUrlCard = ({ errorUrl = "", planId }: Props) => {
+const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
   const router = useRouter();
   const { formId } = useParams<{ formId: string }>();
   const t = useTranslations();
@@ -54,14 +54,14 @@ const FormFailedUrlCard = ({ errorUrl = "", planId }: Props) => {
   const watchUrl = watch("url");
 
   useEffect(() => {
-    setValue("url", errorUrl);
-  }, [errorUrl, setValue]);
+    setValue("url", redirectUrl);
+  }, [redirectUrl, setValue]);
 
   const onSave: SubmitHandler<FormInputs> = async (input) => {
     updateForm.mutate(
       {
         formId,
-        errorUrl: input.url,
+        redirectUrl: input.url,
         feature: "hasCustomUrls",
       },
       {
@@ -75,12 +75,12 @@ const FormFailedUrlCard = ({ errorUrl = "", planId }: Props) => {
               { formId: result.form.id },
               {
                 ...cache,
-                errorUrl: result.form.errorUrl,
+                redirectUrl: result.form.redirectUrl,
               },
             );
           }
 
-          toast.success(t("setting.customization.failed-url.toast.success"));
+          toast.success(t("setting.customization.redirect-url.toast.success"));
         },
         onError: (error) => {
           toast.error(error.message);
@@ -91,17 +91,17 @@ const FormFailedUrlCard = ({ errorUrl = "", planId }: Props) => {
 
   return (
     <SettingCard
-      title={t("setting.customization.failed-url.title")}
-      description={t("setting.customization.failed-url.description")}
+      title={t("setting.customization.redirect-url.title")}
+      description={t("setting.customization.redirect-url.description")}
       {...getWithPlanCardProps({
         t,
         router,
         planId,
         feature: "hasCustomUrls",
-        i18nKey: "setting.customization.failed-url.action",
+        i18nKey: "setting.customization.redirect-url.action",
         onClick: handleSubmit(onSave),
         isLoading: isSubmitting,
-        isDisabled: isSubmitting || watchUrl === errorUrl || !!errors.url,
+        isDisabled: isSubmitting || watchUrl === redirectUrl || !!errors.url,
         partial: false,
       })}
     >
@@ -119,7 +119,7 @@ const FormFailedUrlCard = ({ errorUrl = "", planId }: Props) => {
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "setting.customization.failed-url.inputs.name.placeholder",
+                "setting.customization.redirect-url.inputs.name.placeholder",
               ),
               hasError: !!errors.url,
               maxWidth: 560,
@@ -132,4 +132,4 @@ const FormFailedUrlCard = ({ errorUrl = "", planId }: Props) => {
   );
 };
 
-export default FormFailedUrlCard;
+export default FormRedirectUrlCard;
