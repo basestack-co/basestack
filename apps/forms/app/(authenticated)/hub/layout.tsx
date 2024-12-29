@@ -15,50 +15,42 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const isAuthPages =
-    pathname === "/auth/sign-in" || pathname === "/auth/sign-up";
-
   const { status } = useSession({
     required: true,
     async onUnauthenticated() {
-      if (!isAuthPages) {
-        await router.push("/auth/sign-in");
-      }
+      await router.push("/auth/sign-in");
     },
   });
 
   const [forms, usage] = api.useQueries((t) => [
     t.form.all(undefined, {
-      enabled: status === "authenticated" && !isAuthPages,
+      enabled: status === "authenticated",
       select: (data) =>
-        data?.forms.map((item) => ({
-          id: item.id,
-          slug: item.id,
-          onClick: () => router.push(`/form/${item.id}/submissions`),
-          text: item.name,
-        })),
+          data?.forms.map((item) => ({
+            id: item.id,
+            slug: item.id,
+            onClick: () => router.push(`/hub/form/${item.id}/submissions`),
+            text: item.name,
+          })),
     }),
     t.subscription.usage(undefined, {
-      enabled: status === "authenticated" && !isAuthPages,
+      enabled: status === "authenticated",
     }),
   ]);
 
-  if (
-    !isAuthPages &&
-    (status === "loading" || forms.isLoading || usage.isLoading)
-  ) {
+  if (status === "loading" || forms.isLoading || usage.isLoading) {
     return (
-      <Loader hasDelay={false}>
-        <Splash product="forms" />
-      </Loader>
+        <Loader hasDelay={false}>
+          <Splash product="forms" />
+        </Loader>
     );
   }
 
   return (
-    <Fragment>
-      {!isAuthPages && <Navigation data={forms.data} />}
-      {children}
-    </Fragment>
+      <Fragment>
+        <Navigation data={forms.data} />
+        {children}
+      </Fragment>
   );
 };
 

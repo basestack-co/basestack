@@ -2,17 +2,15 @@
 
 import { StatusPage } from "@basestack/ui";
 // Navigation
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import Head from "next/head";
 // Utils
 import { config } from "@basestack/utils";
 // Locales
 import { useTranslations } from "next-intl";
 
-const FormErrorSuccess = () => {
-  const router = useRouter();
-  const { message, goBackUrl } = useParams<{
-    message: string;
+const FormStatusSuccess = () => {
+  const { goBackUrl } = useParams<{
     goBackUrl: string;
   }>();
   const t = useTranslations("common");
@@ -20,23 +18,23 @@ const FormErrorSuccess = () => {
   return (
     <>
       <Head>
-        <title>Basestack / Form Submission Error</title>
+        <title>Basestack / Form Submission Success</title>
       </Head>
       <StatusPage
-        type="error"
-        title={t("status.form.error.title")}
-        description={message || t("status.form.error.description")}
+        type="success"
+        title={t("status.form.success.title")}
+        description={t("status.form.success.description")}
         brand={{
           text: t("brand.powered.forms"),
           onClick: () => window.open(config.urls.product.forms, "_blank"),
         }}
         button={{
-          text: t("status.form.error.action"),
-          onClick: () => router.push(goBackUrl),
+          text: t("status.form.success.action"),
+          onClick: () => window.open(goBackUrl ?? "/", "_blank"),
         }}
       />
     </>
   );
 };
 
-export default FormErrorSuccess;
+export default FormStatusSuccess;

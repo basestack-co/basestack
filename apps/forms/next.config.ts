@@ -18,13 +18,18 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: "/form/:formId",
-        destination: "/form/:formId/submissions",
+        source: "/",
+        destination: "/hub",
         permanent: false,
       },
       {
-        source: "/form/:formId/settings",
-        destination: "/form/:formId/settings/general",
+        source: "/hub/form/:formId",
+        destination: "/hub/form/:formId/submissions",
+        permanent: false,
+      },
+      {
+        source: "/a/form/:formId/settings",
+        destination: "/a/form/:formId/settings/general",
         permanent: false,
       },
     ];

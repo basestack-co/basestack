@@ -29,13 +29,13 @@ const links = [
     id: "1",
     i18nKey: "navigation.profile.general",
     tab: "general",
-    href: "/user/tab/general",
+    href: "/hub/user/tab/general",
   },
   {
     id: "2",
     i18nKey: "navigation.profile.billing",
     tab: "billing",
-    href: "/user/tab/billing",
+    href: "/hub/user/tab/billing",
   },
 ];
 
@@ -109,7 +109,7 @@ const ProfileLayout = ({ children }: { children: React.ReactElement }) => {
             <Tabs
               items={items}
               onSelect={(tab) => {
-                router.push(`/user/tab/${tab}`);
+                router.push(`/hub/user/tab/${tab}`);
               }}
               sliderPosition={activeLinkIndex}
               backgroundColor="transparent"

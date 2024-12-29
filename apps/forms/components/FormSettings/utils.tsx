@@ -37,7 +37,7 @@ export const getWithPlanCardProps = ({
   return !hasFeature
     ? {
         button: t("common.plan.forms.upgrade.action"),
-        onClick: () => router.push("/user/profile/settings"),
+        onClick: () => router.push("/hub/user/profile/settings"),
         hasOverlay: true,
         variant: CardVariant.PRIMARY,
         label: partial

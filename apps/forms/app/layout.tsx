@@ -6,8 +6,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 // Fonts
 import { Roboto_Flex, Roboto } from "next/font/google";
-// Layout
-import Main from "./Main";
 
 export const metadata = {
   title: "Basestack Forms",
@@ -35,9 +33,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
     <html lang={locale} className={`${robotoFlex.variable} ${roboto.variable}`}>
       <body>
         <NextIntlClientProvider messages={messages}>
-          <Registry>
-            <Main>{children}</Main>
-          </Registry>
+          <Registry>{children}</Registry>
         </NextIntlClientProvider>
         <div id="portal" />
       </body>
