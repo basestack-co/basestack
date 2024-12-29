@@ -169,14 +169,12 @@
         "delete": {
           "error": "Submission could not be deleted.",
           "loading": "Deleting...",
-          "success_one": "Submission has been deleted successfully.",
-          "success_other": "Submissions have been deleted successfully."
+          "success": "{count, plural, one {Submission has been deleted successfully.} other {Submissions have been deleted successfully.}}"
         },
         "update": {
           "error": "Submission could not be updated.",
           "loading": "Updating...",
-          "success_one": "Submission has been updated successfully.",
-          "success_other": "Submissions have been updated successfully."
+          "success": "{count, plural, one {Submission has been updated successfully.} other {Submissions have been updated successfully.}}"
         },
         "export": {
           "error": "Submissions could not be exported.",

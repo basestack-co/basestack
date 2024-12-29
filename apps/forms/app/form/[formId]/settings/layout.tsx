@@ -22,37 +22,37 @@ import {
 // Hooks
 import { useMedia } from "react-use";
 // Locales
-import { useTranslations } from "next-intl";
+import { useTranslations, NamespaceKeys } from "next-intl";
 
 const getLinks = (formId: string) => [
   {
     id: "1",
-    i18nKey: "setting.general",
+    i18nKey: "navigation.setting.general",
     tab: "general",
     href: `/form/${formId}/settings/general`,
   },
   {
     id: "2",
-    i18nKey: "setting.security",
+    i18nKey: "navigation.setting.security",
     tab: "security",
     href: `/form/${formId}/settings/security`,
   },
   {
     id: "3",
-    i18nKey: "setting.customization",
+    i18nKey: "navigation.setting.customization",
     tab: "customization",
     href: `/form/${formId}/settings/customization`,
   },
   {
     id: "4",
-    i18nKey: "setting.notifications",
+    i18nKey: "navigation.setting.notifications",
     tab: "notifications",
     href: `/form/${formId}/settings/notifications`,
   },
 ];
 
 const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
-  const t = useTranslations("navigation");
+  const t = useTranslations();
   const theme = useTheme();
   const isDesktop = useMedia(theme.device.min.lg, false);
   const router = useRouter();
@@ -70,7 +70,9 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
     return getLinks(formId).map(({ id, i18nKey, href }) => (
       <ListItem key={`settings-button-list-${id}`}>
         <StyledLink href={href} passHref>
-          <StyledButton isActive={pathname === href}>{t(i18nKey)}</StyledButton>
+          <StyledButton isActive={pathname === href}>
+            {t(i18nKey as NamespaceKeys<string, "navigation">)}
+          </StyledButton>
         </StyledLink>
       </ListItem>
     ));
@@ -86,7 +88,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
       getLinks(formId).map(({ i18nKey, tab }) => {
         return {
           id: tab.toLowerCase(),
-          text: t(i18nKey),
+          text: t(i18nKey as NamespaceKeys<string, "navigation">),
         };
       }),
     [t, formId],
@@ -94,17 +96,20 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
 
   return (
     <>
-      {/* 
-           <Head>
+      <Head>
         <title>
           {data?.name ?? "Form"} / {t("setting.seo.setting.title")} /{" "}
-          {t(`settings.seo.setting.${activeLinkIndex}`)}
+          {t(
+            `setting.seo.setting.${activeLinkIndex}` as NamespaceKeys<
+              string,
+              "setting"
+            >,
+          )}
         </title>
       </Head>
-      */}
       <Container>
         <Text size="xLarge" mb={theme.spacing.s5}>
-          {t("internal.settings")}
+          {t("navigation.internal.settings")}
         </Text>
         <SettingsContainer>
           {isDesktop && <List top={activeLinkIndex * 100}>{renderLink}</List>}

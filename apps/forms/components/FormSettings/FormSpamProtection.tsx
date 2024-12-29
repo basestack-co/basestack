@@ -25,7 +25,7 @@ const FormSpamProtectionCard = ({
   planId,
 }: Props) => {
   const { formId } = useParams<{ formId: string }>();
-  const t = useTranslations("setting");
+  const t = useTranslations();
   const trpcUtils = api.useUtils();
   const updateForm = api.form.update.useMutation();
 
@@ -53,7 +53,7 @@ const FormSpamProtectionCard = ({
               );
             }
 
-            toast.success(t("security.spam-protection.toast.success"));
+            toast.success(t("setting.security.spam-protection.toast.success"));
           },
           onError: (error) => {
             toast.error(error.message);
@@ -66,8 +66,8 @@ const FormSpamProtectionCard = ({
 
   return (
     <SwitchSettingCard
-      title={t("security.spam-protection.title")}
-      description={t("security.spam-protection.description")}
+      title={t("setting.security.spam-protection.title")}
+      description={t("setting.security.spam-protection.description")}
       {...getWithPlanSwitchProps({
         t,
         planId,

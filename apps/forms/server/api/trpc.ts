@@ -46,13 +46,13 @@ export const createTRPCRouter = t.router;
 export const middleware = t.middleware;
 
 export const isAuthenticated = middleware(
-  async ({ next, ctx, meta, rawInput, getRawInput, ...rest }) => {
+  async ({ next, ctx, meta, getRawInput }) => {
     // Check if the user is logged in
     if (!ctx.session) {
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
 
-    const restricted = meta?.restricted ?? false;
+    const { restricted = false } = (meta ?? {}) as { restricted: boolean };
 
     if (restricted) {
       const { formId = "" } = (await getRawInput()) as {

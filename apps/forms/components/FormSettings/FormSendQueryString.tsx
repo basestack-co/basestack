@@ -23,7 +23,7 @@ const FormSendQueryStringCard = ({
   planId,
 }: Props) => {
   const { formId } = useParams<{ formId: string }>();
-  const t = useTranslations("setting");
+  const t = useTranslations();
   const trpcUtils = api.useUtils();
   const updateForm = api.form.update.useMutation();
 
@@ -51,7 +51,9 @@ const FormSendQueryStringCard = ({
               );
             }
 
-            toast.success(t("customization.data-query-string.toast.success"));
+            toast.success(
+              t("setting.customization.data-query-string.toast.success"),
+            );
           },
           onError: (error) => {
             toast.error(error.message);
@@ -64,8 +66,8 @@ const FormSendQueryStringCard = ({
 
   return (
     <SwitchSettingCard
-      title={t("customization.data-query-string.title")}
-      description={t("customization.data-query-string.description")}
+      title={t("setting.customization.data-query-string.title")}
+      description={t("setting.customization.data-query-string.description")}
       {...getWithPlanSwitchProps({
         t,
         planId,

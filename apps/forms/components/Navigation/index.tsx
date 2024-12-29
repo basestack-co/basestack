@@ -29,7 +29,7 @@ export interface NavigationProps {
 
 const Navigation = ({ data }: NavigationProps) => {
   const theme = useTheme();
-  const t = useTranslations("navigation");
+  const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
   const { data: session } = useSession();
@@ -108,24 +108,24 @@ const Navigation = ({ data }: NavigationProps) => {
       onClickLogo={() => router.push("/")}
       leftLinks={!!formId ? getLeftLinks(router, pathname, t, formId) : []}
       rightLinks={getRightLinks(t)}
-      rightLinksTitle={t("external.resources")}
+      rightLinksTitle={t("navigation.external.resources")}
       projects={{
         onCreate: () => setCreateFormModalOpen({ isOpen: true }),
         current: currentForm,
         data: data ?? [],
-        title: t("forms.title"),
+        title: t("navigation.forms.title"),
         select: {
-          title: t("forms.select"),
-          create: t("create.form"),
+          title: t("navigation.forms.select"),
+          create: t("navigation.create.form"),
         },
       }}
-      appsTitle={t("apps.title")}
+      appsTitle={t("navigation.apps.title")}
       // apps={getAppsList(t, onSelectApp)}
       avatar={{
-        name: session?.user.name || t("dropdown.username"),
+        name: session?.user.name || t("navigation.dropdown.username"),
         email: session?.user.email || "",
         src: session?.user.image || "",
-        darkModeText: t("dropdown.dark-mode"),
+        darkModeText: t("navigation.dropdown.dark-mode"),
         isDarkMode: isDarkMode,
         onSetDarkMode: toggleDarkMode,
         list: getAvatarDropdownList(t, router, () =>

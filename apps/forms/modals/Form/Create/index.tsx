@@ -54,7 +54,7 @@ const CreateFormModal = () => {
     mode: "onChange",
   });
 
-  const isSubmittingOrMutating = isSubmitting || createForm.isLoading;
+  const isSubmittingOrMutating = isSubmitting || createForm.isPending;
 
   const onClose = () => setCreateFormModalOpen({ isOpen: false });
 

@@ -22,25 +22,25 @@ import { useMedia } from "react-use";
 // Utils
 import { getCookieValueAsBoolean, config } from "@basestack/utils";
 // Locales
-import { useTranslations } from "next-intl";
+import { useTranslations, NamespaceKeys } from "next-intl";
 
 const links = [
   {
     id: "1",
-    i18nKey: "profile.general",
+    i18nKey: "navigation.profile.general",
     tab: "general",
     href: "/user/tab/general",
   },
   {
     id: "2",
-    i18nKey: "profile.billing",
+    i18nKey: "navigation.profile.billing",
     tab: "billing",
     href: "/user/tab/billing",
   },
 ];
 
 const ProfileLayout = ({ children }: { children: React.ReactElement }) => {
-  const t = useTranslations("navigation");
+  const t = useTranslations();
   const theme = useTheme();
   const isDesktop = useMedia(theme.device.min.lg, false);
   const router = useRouter();
@@ -63,7 +63,7 @@ const ProfileLayout = ({ children }: { children: React.ReactElement }) => {
             passHref
           >
             <StyledButton isActive={pathname === href}>
-              {t(i18nKey)}
+              {t(i18nKey as NamespaceKeys<string, "navigation">)}
             </StyledButton>
           </StyledLink>
         </ListItem>
@@ -80,7 +80,7 @@ const ProfileLayout = ({ children }: { children: React.ReactElement }) => {
       links.map(({ i18nKey, tab }) => {
         return {
           id: tab.toLowerCase(),
-          text: t(i18nKey),
+          text: t(i18nKey as NamespaceKeys<string, "navigation">),
         };
       }),
     [t],
@@ -88,18 +88,20 @@ const ProfileLayout = ({ children }: { children: React.ReactElement }) => {
 
   return (
     <>
-      {/* 
-          <Head>
+      <Head>
         <title>
-          {t("profile:seo.setting.title")} /{" "}
-          {t(`profile:seo.setting.${activeLinkIndex}`)}
+          {t("profile.seo.setting.title")} /{" "}
+          {t(
+            `profile.seo.setting.${activeLinkIndex}` as NamespaceKeys<
+              string,
+              "profile"
+            >,
+          )}
         </title>
       </Head>
-        
-        */}
       <Container>
         <Text size="xLarge" mb={theme.spacing.s5}>
-          {t("internal.profile")}
+          {t("navigation.internal.profile")}
         </Text>
         <SettingsContainer>
           {isDesktop && <List top={activeLinkIndex * 100}>{renderLink}</List>}

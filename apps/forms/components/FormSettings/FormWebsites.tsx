@@ -36,7 +36,7 @@ export interface Props {
 const FormWebsitesCard = ({ websites = "", planId }: Props) => {
   const router = useRouter();
   const { formId } = useParams<{ formId: string }>();
-  const t = useTranslations("setting");
+  const t = useTranslations();
   const trpcUtils = api.useUtils();
   const updateForm = api.form.update.useMutation();
 
@@ -88,7 +88,7 @@ const FormWebsitesCard = ({ websites = "", planId }: Props) => {
             );
           }
 
-          toast.success(t("security.websites.toast.success"));
+          toast.success(t("setting.security.websites.toast.success"));
         },
         onError: (error) => {
           toast.error(error.message);
@@ -125,15 +125,15 @@ const FormWebsitesCard = ({ websites = "", planId }: Props) => {
 
   return (
     <SettingCard
-      title={t("security.websites.title")}
-      description={t("security.websites.description")}
+      title={t("setting.security.websites.title")}
+      description={t("setting.security.websites.description")}
       {...getWithPlanCardProps({
         t,
         router,
         planId,
         feature: "hasWebsites",
-        i18nKey: "security.websites.action",
-        i18nHintKey: "security.websites.text",
+        i18nKey: "setting.security.websites.action",
+        i18nHintKey: "setting.security.websites.text",
         onClick: onSave,
         isLoading: isSubmitting,
         isDisabled: websites === websitesValues.join(","),
@@ -153,7 +153,9 @@ const FormWebsitesCard = ({ websites = "", planId }: Props) => {
                 value: field.value as string,
                 onChange: field.onChange,
                 onBlur: field.onBlur,
-                placeholder: t("security.websites.inputs.name.placeholder"),
+                placeholder: t(
+                  "setting.security.websites.inputs.name.placeholder",
+                ),
                 hasError: !!errors.website,
                 onKeyDown: onHandleKeyDown,
                 maxWidth: 400,

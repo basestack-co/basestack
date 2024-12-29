@@ -2,16 +2,15 @@ import React from "react";
 // Utils
 import { config, PlanTypeId, Plan } from "@basestack/utils";
 // Types
-import { Translate } from "next-translate";
-import { Tra } from "next-intl";
 import { useRouter } from "next/navigation";
+import { TFunction } from "types/locale";
 // Design System
 import { CardVariant } from "@basestack/design-system";
 
 export interface WithPlanCardProps {
   planId: PlanTypeId;
   feature: keyof Plan["features"];
-  t: Translate;
+  t: TFunction;
   i18nKey: string;
   i18nHintKey?: string;
   onClick: () => void;
@@ -37,15 +36,17 @@ export const getWithPlanCardProps = ({
 
   return !hasFeature
     ? {
-        button: t("common:plan.forms.upgrade.action"),
+        button: t("common.plan.forms.upgrade.action"),
         onClick: () => router.push("/user/profile/settings"),
         hasOverlay: true,
         variant: CardVariant.PRIMARY,
-        label: t(`common:plan.forms.upgrade.${partial ? "partial" : "all"}`),
+        label: partial
+          ? t("common.plan.forms.upgrade.partial")
+          : t("common.plan.forms.upgrade.all"),
       }
     : {
-        button: t(i18nKey),
-        text: i18nHintKey ? t(i18nHintKey) : "",
+        button: t(i18nKey as any),
+        text: i18nHintKey ? t(i18nHintKey as any) : "",
         onClick,
         isLoading,
         isDisabled,
@@ -55,7 +56,7 @@ export const getWithPlanCardProps = ({
 export interface WithPlanSwitchProps {
   planId: PlanTypeId;
   feature: keyof Plan["features"];
-  t: Translate;
+  t: TFunction;
   isDisabled: boolean;
   partial?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -77,7 +78,7 @@ export const getWithPlanSwitchProps = ({
     ? {
         variant: CardVariant.PRIMARY,
         hasOverlay: true,
-        label: t(`common:plan.forms.upgrade.${partial ? "partial" : "all"}`),
+        label: t(`common.plan.forms.upgrade.${partial ? "partial" : "all"}`),
         onChange: () => null,
         checked: false,
       }

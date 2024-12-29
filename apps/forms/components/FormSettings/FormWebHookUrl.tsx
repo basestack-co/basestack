@@ -33,7 +33,7 @@ export interface Props {
 const FormWebHookUrlCard = ({ webhookUrl = "", planId }: Props) => {
   const router = useRouter();
   const { formId } = useParams<{ formId: string }>();
-  const t = useTranslations("setting");
+  const t = useTranslations();
   const trpcUtils = api.useUtils();
   const updateForm = api.form.update.useMutation();
 
@@ -80,7 +80,7 @@ const FormWebHookUrlCard = ({ webhookUrl = "", planId }: Props) => {
             );
           }
 
-          toast.success(t("general.webhook-url.toast.success"));
+          toast.success(t("setting.general.webhook-url.toast.success"));
         },
         onError: (error) => {
           toast.error(error.message);
@@ -91,14 +91,14 @@ const FormWebHookUrlCard = ({ webhookUrl = "", planId }: Props) => {
 
   return (
     <SettingCard
-      title={t("general.webhook-url.title")}
-      description={t("general.webhook-url.description")}
+      title={t("setting.general.webhook-url.title")}
+      description={t("setting.general.webhook-url.description")}
       {...getWithPlanCardProps({
         t,
         router,
         planId,
         feature: "hasWebhooks",
-        i18nKey: "general.webhook-url.action",
+        i18nKey: "setting.general.webhook-url.action",
         onClick: handleSubmit(onSave),
         isLoading: isSubmitting,
         isDisabled: isSubmitting || watchUrl === webhookUrl || !!errors.url,
@@ -117,7 +117,9 @@ const FormWebHookUrlCard = ({ webhookUrl = "", planId }: Props) => {
               value: field.value as string,
               onChange: field.onChange,
               onBlur: field.onBlur,
-              placeholder: t("general.webhook-url.inputs.name.placeholder"),
+              placeholder: t(
+                "setting.general.webhook-url.inputs.name.placeholder",
+              ),
               hasError: !!errors.url,
               maxWidth: 560,
               isDisabled: isSubmitting,

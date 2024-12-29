@@ -33,7 +33,7 @@ export interface Props {
 const FormSuccessUrlCard = ({ successUrl = "", planId }: Props) => {
   const router = useRouter();
   const { formId } = useParams<{ formId: string }>();
-  const t = useTranslations("setting");
+  const t = useTranslations();
   const trpcUtils = api.useUtils();
   const updateForm = api.form.update.useMutation();
 
@@ -80,7 +80,7 @@ const FormSuccessUrlCard = ({ successUrl = "", planId }: Props) => {
             );
           }
 
-          toast.success(t("customization.success-url.toast.success"));
+          toast.success(t("setting.customization.success-url.toast.success"));
         },
         onError: (error) => {
           toast.error(error.message);
@@ -91,14 +91,14 @@ const FormSuccessUrlCard = ({ successUrl = "", planId }: Props) => {
 
   return (
     <SettingCard
-      title={t("customization.success-url.title")}
-      description={t("customization.success-url.description")}
+      title={t("setting.customization.success-url.title")}
+      description={t("setting.customization.success-url.description")}
       {...getWithPlanCardProps({
         t,
         router,
         planId,
         feature: "hasCustomUrls",
-        i18nKey: "customization.success-url.action",
+        i18nKey: "setting.customization.success-url.action",
         onClick: handleSubmit(onSave),
         isLoading: isSubmitting,
         isDisabled: isSubmitting || watchUrl === successUrl || !!errors.url,
@@ -119,7 +119,7 @@ const FormSuccessUrlCard = ({ successUrl = "", planId }: Props) => {
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "customization.success-url.inputs.name.placeholder",
+                "setting.customization.success-url.inputs.name.placeholder",
               ),
               hasError: !!errors.url,
               maxWidth: 560,

@@ -8,7 +8,7 @@
     "build:deploy": "prisma generate && yarn db:migrate:prod && next build",
     "build:proxy": "prisma generate --data-proxy && yarn db:migrate:proxy && next build",
     "deploy": "yarn build:deploy",
-    "start": "next start",
+    "start": "next start --port 3003",
     "lint": "next lint",
     "test:blocked": "jest",
     "test:watch": "jest --watchAll",

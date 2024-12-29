@@ -36,7 +36,7 @@ export interface Props {
 const FormIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
   const router = useRouter();
   const { formId } = useParams<{ formId: string }>();
-  const t = useTranslations("setting");
+  const t = useTranslations();
   const trpcUtils = api.useUtils();
   const updateForm = api.form.update.useMutation();
 
@@ -88,7 +88,7 @@ const FormIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
             );
           }
 
-          toast.success(t("security.ip-block-rules.toast.success"));
+          toast.success(t("setting.security.ip-block-rules.toast.success"));
         },
         onError: (error) => {
           toast.error(error.message);
@@ -125,15 +125,15 @@ const FormIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
 
   return (
     <SettingCard
-      title={t("security.ip-block-rules.title")}
-      description={t("security.ip-block-rules.description")}
+      title={t("setting.security.ip-block-rules.title")}
+      description={t("setting.security.ip-block-rules.description")}
       {...getWithPlanCardProps({
         t,
         router,
         planId,
         feature: "hasBlockIPs",
-        i18nKey: "security.ip-block-rules.action",
-        i18nHintKey: "security.ip-block-rules.text",
+        i18nKey: "setting.security.ip-block-rules.action",
+        i18nHintKey: "setting.security.ip-block-rules.text",
         onClick: onSave,
         isLoading: isSubmitting,
         isDisabled: blockIpAddresses === ipsValues.join(","),
@@ -154,7 +154,7 @@ const FormIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
                 onChange: field.onChange,
                 onBlur: field.onBlur,
                 placeholder: t(
-                  "security.ip-block-rules.inputs.name.placeholder",
+                  "setting.security.ip-block-rules.inputs.name.placeholder",
                 ),
                 hasError: !!errors.ip,
                 onKeyDown: onHandleKeyDown,

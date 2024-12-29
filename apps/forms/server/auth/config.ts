@@ -88,7 +88,7 @@ export const providerMap = providers
   })
   .filter((provider) => provider.id !== "credentials");
 
-export const authConfig = {
+export const authConfig: NextAuthConfig = {
   adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
@@ -140,4 +140,4 @@ export const authConfig = {
       }
     },
   },
-} satisfies NextAuthConfig;
+};

@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import dynamic from "next/dynamic";
 // Locales
-import { useTranslations } from "next-intl";
+import { NamespaceKeys, useTranslations } from "next-intl";
 // Theme
 import { useTheme } from "styled-components";
 // Utils
@@ -81,7 +81,7 @@ const SetupGuide = ({ formId }: Props) => {
         {data.map(({ id, i18nKey }, index) => (
           <ListItem key={id}>
             <CodeLanguageCard
-              text={t(i18nKey)}
+              text={t(i18nKey as NamespaceKeys<string, "form">)}
               icon={id}
               onSelect={() => setStep(index)}
               isSelected={step === index}

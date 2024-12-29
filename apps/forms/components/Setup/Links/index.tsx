@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "styled-components";
 // Locales
-import { useTranslations } from "next-intl";
+import { NamespaceKeys, useTranslations } from "next-intl";
 // Components
 import { Text, Card, HorizontalRule } from "@basestack/design-system";
 import { rem } from "polished";
@@ -37,7 +37,11 @@ const Links = () => {
       <HorizontalRule my={theme.spacing.s5} />
       <List>
         {links.map(({ i18nKey, href }, index) => (
-          <Item key={`list-item-link-${index}`} text={t(i18nKey)} href={href} />
+          <Item
+            key={`list-item-link-${index}`}
+            text={t(i18nKey as NamespaceKeys<string, "form">)}
+            href={href}
+          />
         ))}
       </List>
     </Card>

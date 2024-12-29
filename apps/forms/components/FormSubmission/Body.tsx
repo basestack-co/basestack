@@ -189,7 +189,7 @@ const Body = ({
                             size="small"
                             icon={isIpBlocked ? "cancel" : "block"}
                             onClick={() => onBlockIp(item.value)}
-                            isDisabled={updateForm.isLoading}
+                            isDisabled={updateForm.isPending}
                           />
                         </TooltipTrigger>
                         <TooltipContent>

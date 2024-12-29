@@ -233,7 +233,7 @@ const FormSubmissions = ({
   const getSubmissionUpdateLoading = useCallback(
     (id: string, key: string) => {
       return (
-        updateSubmissions.isLoading &&
+        updateSubmissions.isPending &&
         (updateSubmissions.variables?.ids ?? []).includes(id) &&
         updateSubmissions.variables?.hasOwnProperty(key)
       );
@@ -244,7 +244,7 @@ const FormSubmissions = ({
   const getSubmissionDeleteLoading = useCallback(
     (id: string) => {
       return (
-        deleteSubmissions.isLoading &&
+        deleteSubmissions.isPending &&
         (deleteSubmissions.variables?.ids ?? []).includes(id)
       );
     },
@@ -296,12 +296,12 @@ const FormSubmissions = ({
             setSearchValue(value);
           }}
           isSubmitting={
-            deleteSubmissions.isLoading || updateSubmissions.isLoading
+            deleteSubmissions.isPending || updateSubmissions.isPending
           }
           isLoading={isLoading}
           isActionDisabled={selectIds.length <= 0}
           isSelectAllEnabled={isSelectAllEnabled}
-          isExportDisabled={exportSubmissions.isLoading}
+          isExportDisabled={exportSubmissions.isPending}
           isDisabled={totalPages <= 0 && !searchValue}
           searchFilterOptions={searchFilterOptions}
         />
