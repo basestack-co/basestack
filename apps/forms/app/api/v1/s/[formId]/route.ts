@@ -1,10 +1,10 @@
+import { NextResponse } from "next/server";
 // Utils
 import formidable from "formidable";
 import { Readable } from "stream";
 import requestIp from "request-ip";
 import { IncomingMessage } from "http";
-import Cors from "cors";
-import { withCors, PlanTypeId, config as utilsConfig } from "@basestack/utils";
+import { PlanTypeId, config as utilsConfig } from "@basestack/utils";
 import { withUsageUpdate } from "server/db/utils/subscription";
 // Prisma
 import { prisma } from "server/db";
@@ -15,20 +15,40 @@ import {
   checkDataForSpamEvent,
 } from "libs/qstash";
 
-const { hasFormPlanFeature, getFormLimitByKey } = utilsConfig.plans;
+const { plans, urls } = utilsConfig;
+const { hasFormPlanFeature, getFormLimitByKey } = plans;
 
 export enum FormMode {
   REST = "rest",
 }
 
-const cors = Cors({
-  methods: ["POST"],
-  origin: "*",
-  optionsSuccessStatus: 200,
-});
+const defaultSuccessUrl = `${urls.app.production.forms}/status/success`;
+const defaultErrorUrl = `${urls.app.production.forms}/status/error`;
 
-const defaultSuccessUrl = "/status/success";
-const defaultErrorUrl = "/status/error";
+class FormError extends Error {
+  code: number;
+  url: string;
+
+  constructor({
+    code,
+    url,
+    message,
+  }: {
+    code: number;
+    url: string;
+    message: string;
+  }) {
+    super(message);
+    this.code = code;
+    this.url = url;
+
+    this.name = "FormError";
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, FormError);
+    }
+  }
+}
 
 const getFormOnUser = async (formId: string, referer: string) => {
   const current = await prisma.formOnUsers.findFirst({
@@ -91,47 +111,21 @@ const getMetadata = (req: Request) => {
   };
 };
 
-const handleError = (
-  error: { message: string; url: string; code?: number },
-  mode: string,
-  referer: string = "/",
-) => {
-  const message = error.message || "Something went wrong";
-  const url = error.url || referer;
-  const errorUrl = `${url}&message=${encodeURI(message)}`;
-  const code = error.code || 400;
-
-  if (mode === FormMode.REST) {
-    return Response.json(
-      { error: true, code, message, url: errorUrl },
-      { status: code },
-    );
-  }
-
-  return Response.redirect(errorUrl, 307);
-};
-
 const formatFormData = async (
   req: Request,
   errorUrl: string,
   redirectUrl: string,
-  referer: string = "/",
-  mode: string,
   honeypot: string = "_trap",
 ) => {
   const url = `${errorUrl}?goBackUrl=${redirectUrl}`;
 
   const body = req.body;
   if (!body) {
-    handleError(
-      {
-        url,
-        message: "Error: No body found in the request",
-      },
-      mode,
-      referer,
-    );
-    return null;
+    throw new FormError({
+      code: 400,
+      url,
+      message: "Error: No body found in the request",
+    });
   }
 
   // @ts-ignore
@@ -160,27 +154,19 @@ const formatFormData = async (
   try {
     ({ fields, files } = await parseFormData());
   } catch (error: any) {
-    handleError(
-      {
-        url,
-        message: `Error: Failed to parse form data - ${error.message}`,
-      },
-      mode,
-      referer,
-    );
-    return null;
+    throw new FormError({
+      code: 400,
+      url,
+      message: `Error: Failed to parse form data - ${error.message}`,
+    });
   }
 
   if (Object.keys(fields).length === 0) {
-    handleError(
-      {
-        url,
-        message: "Error: No fields found in the request",
-      },
-      mode,
-      referer,
-    );
-    return null;
+    throw new FormError({
+      code: 400,
+      url,
+      message: "Error: No fields found in the request",
+    });
   }
 
   const { [honeypot]: _trap, ...data } = Object.fromEntries(
@@ -191,15 +177,11 @@ const formatFormData = async (
   );
 
   if (typeof _trap === "string" && _trap.trim() !== "") {
-    handleError(
-      {
-        url,
-        message: "Error: You are a bot!",
-      },
-      mode,
-      referer,
-    );
-    return null;
+    throw new FormError({
+      code: 403,
+      url,
+      message: "Error: You are a bot!",
+    });
   }
 
   return data;
@@ -208,52 +190,36 @@ const formatFormData = async (
 const verifyForm = async (
   formId: string,
   referer: string,
-  mode: string,
   metadata: { ip: string | null },
 ) => {
   if (!formId) {
-    handleError(
-      {
-        url: `${defaultErrorUrl}?goBackUrl=${referer}`,
-        message: "No formId found in the request",
-      },
-      mode,
-      referer,
-    );
-    return;
+    throw new FormError({
+      code: 404,
+      url: `${defaultErrorUrl}?goBackUrl=${referer}`,
+      message: "No formId found in the request",
+    });
   }
 
   const form = await getFormOnUser(formId, referer);
 
   if (!form) {
-    handleError(
-      {
-        code: 404,
-        url: `${defaultErrorUrl}?goBackUrl=${referer}`,
-        message: "Error: No form found with the ID in the request",
-      },
-      mode,
-      referer,
-    );
-    return;
+    throw new FormError({
+      code: 404,
+      url: `${defaultErrorUrl}?goBackUrl=${referer}`,
+      message: "Error: No form found with the ID in the request",
+    });
   }
 
   if (form?.isEnabled) {
     const planId = form.usage.planId as PlanTypeId;
 
     if (form.usage.submissions >= getFormLimitByKey(planId, "submissions")) {
-      handleError(
-        {
-          code: 403,
-          url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
-          message:
-            "Error: Form submission limit exceeded. Please consider upgrading.",
-        },
-        mode,
-        referer,
-      );
-
-      return;
+      throw new FormError({
+        code: 403,
+        url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
+        message:
+          "Error: Form submission limit exceeded. Please consider upgrading.",
+      });
     }
 
     if (!!form.websites && hasFormPlanFeature(planId, "hasWebsites")) {
@@ -261,17 +227,11 @@ const verifyForm = async (
       const isValid = websites.some((website) => referer.includes(website));
 
       if (!isValid) {
-        handleError(
-          {
-            code: 403,
-            url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
-            message: "Error: The website is not allowed to submit the form",
-          },
-          mode,
-          referer,
-        );
-
-        return;
+        throw new FormError({
+          code: 403,
+          url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
+          message: "Error: The website is not allowed to submit the form",
+        });
       }
     }
 
@@ -284,17 +244,11 @@ const verifyForm = async (
       const isBlocked = blockIpAddresses.some((ip) => ip === metadata.ip);
 
       if (isBlocked) {
-        handleError(
-          {
-            code: 403,
-            url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
-            message:
-              "Error: Your IP address is blocked from submitting the form",
-          },
-          mode,
-          referer,
-        );
-        return;
+        throw new FormError({
+          code: 403,
+          url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
+          message: "Error: Your IP address is blocked from submitting the form",
+        });
       }
     }
   }
@@ -307,7 +261,7 @@ export async function POST(
   { params }: { params: { formId: string } },
 ) {
   const referer = req.headers.get("referer") || "/";
-  const { formId } = params;
+  const { formId } = await params;
 
   const { searchParams } = new URL(req.url);
   const mode = searchParams.get("mode") || "";
@@ -315,7 +269,7 @@ export async function POST(
   const metadata = getMetadata(req);
 
   try {
-    const form = await verifyForm(formId, referer, mode, metadata);
+    const form = await verifyForm(formId, referer, metadata);
 
     if (form?.isEnabled) {
       const planId = form.usage.planId as PlanTypeId;
@@ -324,8 +278,6 @@ export async function POST(
         req,
         form.errorUrl,
         form.redirectUrl,
-        referer,
-        mode,
         form.honeypot ?? "",
       );
 
@@ -409,18 +361,33 @@ export async function POST(
         return Response.redirect(successUrl, 307);
       }
     } else {
-      return handleError(
-        {
-          code: 409,
-          url: `${form?.errorUrl}?goBackUrl=${form?.redirectUrl}`,
-          message:
-            "Error: The form is disabled and not able to accept submissions.",
-        },
-        mode,
-        referer,
+      throw new FormError({
+        code: 409,
+        url: `${form?.errorUrl}?goBackUrl=${form?.redirectUrl}`,
+        message:
+          "Error: The form is disabled and not able to accept submissions.",
+      });
+    }
+  } catch (error) {
+    if (error instanceof FormError) {
+      if (mode === FormMode.REST) {
+        return NextResponse.json(
+          {
+            error: true,
+            code: error.code,
+            message: error.message,
+            url: error.url,
+          },
+          { status: error.code },
+        );
+      } else {
+        return NextResponse.redirect(error.url, 307);
+      }
+    } else {
+      return NextResponse.json(
+        { error: true, message: "An unexpected error occurred." },
+        { status: 500 },
       );
     }
-  } catch (error: any) {
-    return handleError(error, mode, referer);
   }
 }
