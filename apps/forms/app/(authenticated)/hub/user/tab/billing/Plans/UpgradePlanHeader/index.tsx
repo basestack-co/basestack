@@ -16,7 +16,7 @@ const UpgradePlanHeader = ({
   onSelectCycle,
   ...props
 }: UpgradePlanHeaderProps) => {
-  const  t = useTranslations("profile");
+  const t = useTranslations("profile");
   const theme = useTheme();
 
   return (

@@ -23,25 +23,25 @@ export const Container = styled.div.withConfig({
 }>`
   display: flex;
   flex-direction: column;
-  box-shadow: ${({theme}) => theme.shadow.elevation2};
-  background-color: ${({theme}) => theme.card.backgroundColor};
+  box-shadow: ${({ theme }) => theme.shadow.elevation2};
+  background-color: ${({ theme }) => theme.card.backgroundColor};
   border-radius: ${rem("6px")};
   ${compose(space, position, layout, color)};
 
-  ${({hasHoverAnimation}) =>
-      hasHoverAnimation &&
-      css`
-        transition: box-shadow 0.2s ease-in-out;
+  ${({ hasHoverAnimation }) =>
+    hasHoverAnimation &&
+    css`
+      transition: box-shadow 0.2s ease-in-out;
 
-        &:hover {
-          box-shadow: ${({theme}) => theme.shadow.elevation4};
-        }
-      `};
+      &:hover {
+        box-shadow: ${({ theme }) => theme.shadow.elevation4};
+      }
+    `};
 
-  ${({variant, theme}) =>
-      variant !== Variant.DEFAULT &&
-      css`
-        outline-offset: -1px;
-        outline: 1px solid ${getOutlineColor(theme, variant)};
-      `}
+  ${({ variant, theme }) =>
+    variant !== Variant.DEFAULT &&
+    css`
+      outline-offset: -1px;
+      outline: 1px solid ${getOutlineColor(theme, variant)};
+    `}
 `;

@@ -1,8 +1,6 @@
 // Types
 import type { NextApiRequest, NextApiResponse } from "next";
 
-
-
 export const checkCors = (
   req: NextApiRequest,
   res: NextApiResponse,

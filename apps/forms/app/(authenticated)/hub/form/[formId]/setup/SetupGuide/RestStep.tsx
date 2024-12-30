@@ -13,7 +13,7 @@ export interface Props {
 }
 
 const RestStep = ({ children }: Props) => {
-  const  t  = useTranslations("form");
+  const t = useTranslations("form");
 
   return (
     <Fragment>

@@ -26,12 +26,12 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     t.form.all(undefined, {
       enabled: status === "authenticated",
       select: (data) =>
-          data?.forms.map((item) => ({
-            id: item.id,
-            slug: item.id,
-            onClick: () => router.push(`/hub/form/${item.id}/submissions`),
-            text: item.name,
-          })),
+        data?.forms.map((item) => ({
+          id: item.id,
+          slug: item.id,
+          onClick: () => router.push(`/hub/form/${item.id}/submissions`),
+          text: item.name,
+        })),
     }),
     t.subscription.usage(undefined, {
       enabled: status === "authenticated",
@@ -40,17 +40,17 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   if (status === "loading" || forms.isLoading || usage.isLoading) {
     return (
-        <Loader hasDelay={false}>
-          <Splash product="forms" />
-        </Loader>
+      <Loader hasDelay={false}>
+        <Splash product="forms" />
+      </Loader>
     );
   }
 
   return (
-      <Fragment>
-        <Navigation data={forms.data} />
-        {children}
-      </Fragment>
+    <Fragment>
+      <Navigation data={forms.data} />
+      {children}
+    </Fragment>
   );
 };
 

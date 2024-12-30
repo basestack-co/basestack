@@ -65,8 +65,6 @@ export const List = styled.ul`
   }
 `;
 
-
-
 export const BottomContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -76,4 +74,3 @@ export const BottomContainer = styled.div`
     grid-template-columns: 1fr;
   }
 `;
-
