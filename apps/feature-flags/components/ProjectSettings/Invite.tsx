@@ -10,8 +10,8 @@ import { useTheme } from "styled-components";
 import { useMedia } from "react-use";
 // UI
 import { SettingCard, MobileSettingCardView } from "@basestack/ui";
-// Libs
-import { trpc } from "libs/trpc";
+// Server
+import { api } from "utils/trpc/react";
 // Store
 import { useStore } from "store";
 // Utils
@@ -19,9 +19,9 @@ import { createTable } from "@basestack/utils";
 // Auth
 import { useSession } from "next-auth/react";
 // Router
-import { useRouter } from "next/router";
+import {useParams, useRouter} from "next/navigation";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Types
 import { Role } from "@prisma/client";
 // Utils
@@ -32,24 +32,24 @@ export interface Props {
 }
 
 const InviteCard = ({ role }: Props) => {
-  const { t } = useTranslation("settings");
+  const t = useTranslations("setting");
   const theme = useTheme();
   const isMobile = useMedia(theme.device.max.md, false);
   const session = useSession();
   const router = useRouter();
-  const trpcUtils = trpc.useUtils();
-  const { projectId } = router.query as { projectId: string };
+  const trpcUtils = api.useUtils();
+  const { projectId } = useParams<{ projectId: string }>();
   const setInviteMemberModalOpen = useStore(
     (state) => state.setInviteMemberModalOpen,
   );
 
-  const { data, isLoading } = trpc.project.members.useQuery(
+  const { data, isLoading } = api.project.members.useQuery(
     { projectId },
     { enabled: !!projectId },
   );
 
-  const removeUserFromProject = trpc.project.removeMember.useMutation();
-  const updateUserRole = trpc.project.updateMember.useMutation();
+  const removeUserFromProject = api.project.removeMember.useMutation();
+  const updateUserRole = api.project.updateMember.useMutation();
 
   const isCurrentUserAdmin = role === Role.ADMIN;
 

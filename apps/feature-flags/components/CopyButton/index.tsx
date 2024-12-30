@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Components
 import {
   IconButton,
@@ -14,7 +14,7 @@ export interface Props {
 }
 
 const CopyButton = ({ text }: Props) => {
-  const { t } = useTranslation("modals");
+    const t = useTranslations("modal");
   const [showTooltipSuccess, setShowTooltipSuccess] = useState(false);
 
   return (

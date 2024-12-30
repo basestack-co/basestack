@@ -1,7 +1,9 @@
-import nextTranslate from "next-translate-plugin";
+import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = nextTranslate({
+const withNextIntl = createNextIntlPlugin();
+
+const nextConfig: NextConfig = {
   reactStrictMode: true,
   // output: "standalone", // Enable this if the app is a standalone app for docker deployment
   transpilePackages: ["@basestack/design-system", "@basestack/ui"],
@@ -10,20 +12,28 @@ const nextConfig: NextConfig = nextTranslate({
       fullUrl: true,
     },
   },
+  compiler: {
+    styledComponents: true,
+  },
   async redirects() {
     return [
       {
-        source: "/project/:projectId",
-        destination: "/project/:projectId/flags",
+        source: "/",
+        destination: "/a",
         permanent: false,
       },
       {
-        source: "/project/:projectId/settings",
-        destination: "/project/:projectId/settings/general",
+        source: "/a/project/:projectId",
+        destination: "/a/project/:projectId/flags",
+        permanent: false,
+      },
+      {
+        source: "/a/project/:projectId/settings",
+        destination: "/a/project/:projectId/settings/general",
         permanent: false,
       },
     ];
   },
-});
+};
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

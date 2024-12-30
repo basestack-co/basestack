@@ -2,26 +2,25 @@ import React, { useMemo } from "react";
 import { useTheme } from "styled-components";
 import { useMedia } from "react-use";
 // Router
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 // Components
 import { Loader, Skeleton, Table } from "@basestack/design-system";
 // UI
 import { SettingCard, MobileSettingCardView } from "@basestack/ui";
-// Libs
-import { trpc } from "libs/trpc";
+// Server
+import { api } from "utils/trpc/react";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Utils
 import { createTable } from "@basestack/utils";
 
 const KeysCard = () => {
-  const { t } = useTranslation("settings");
-  const router = useRouter();
+  const t = useTranslations("setting");
   const theme = useTheme();
   const isMobile = useMedia(theme.device.max.md, false);
-  const { projectId } = router.query as { projectId: string };
+  const { projectId } = useParams<{ projectId: string }>();
 
-  const { data, isLoading } = trpc.project.allKeys.useQuery(
+  const { data, isLoading } = api.project.allKeys.useQuery(
     { projectId },
     { enabled: !!projectId },
   );

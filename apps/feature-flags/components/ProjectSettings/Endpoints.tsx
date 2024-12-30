@@ -6,10 +6,10 @@ import { SettingCard } from "@basestack/ui";
 // Utils
 import { getBrowserUrl } from "@basestack/utils";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 const EndpointsCard = () => {
-  const { t } = useTranslation("settings");
+    const t = useTranslations("setting");
 
   return (
     <SettingCard

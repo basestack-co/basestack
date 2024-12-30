@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 // Router
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 // Components
 import { useTheme } from "styled-components";
 import Portal from "@basestack/design-system/global/Portal";
@@ -14,17 +14,17 @@ import { useShallow } from "zustand/react/shallow";
 // Types
 import { TabType } from "types";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Hooks
 import useFlagForm, { tabPosition } from "../useFlagForm";
 
 const UpdateFlagModal = () => {
-  const { t } = useTranslation("modals");
-  const trpcUtils = trpc.useUtils();
+  const t = useTranslations();
+  const trpcUtils = api.useUtils();
   const theme = useTheme();
-  const router = useRouter();
+
   const [
     isModalOpen,
     modalPayload,
@@ -39,8 +39,8 @@ const UpdateFlagModal = () => {
     ]),
   );
 
-  const { projectId } = router.query as { projectId: string };
-  const updateFlag = trpc.flag.update.useMutation();
+  const { projectId } = useParams<{ projectId: string }>();
+  const updateFlag = api.flag.update.useMutation();
 
   const {
     selectedTab,
@@ -57,12 +57,12 @@ const UpdateFlagModal = () => {
     flagId: modalPayload?.flag?.id,
   });
 
-  const { isLoading, data: bySlugData } = trpc.flag.bySlug.useQuery(
+  const { isLoading, data: bySlugData } = api.flag.bySlug.useQuery(
     { slug: modalPayload?.flag?.slug!, projectId: project?.id! },
     { enabled: !!project?.id && !!modalPayload?.flag?.slug },
   );
 
-  const isSubmittingOrMutating = isSubmitting || updateFlag.isLoading;
+  const isSubmittingOrMutating = isSubmitting || updateFlag.isPending;
 
   const onClose = () => setUpdateFlagModalOpen({ isOpen: false });
 
@@ -115,14 +115,14 @@ const UpdateFlagModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title={t("flag.update.title")}
+        title={t("modal.flag.update.title")}
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { children: t("flag.update.button.cancel"), onClick: onClose },
+          { children: t("modal.flag.update.button.cancel"), onClick: onClose },
           {
-            children: t("flag.update.button.submit"),
+            children: t("modal.flag.update.button.submit"),
             onClick: handleSubmit(onSubmit),
             isDisabled: isSubmittingOrMutating || isLoading || !project?.id,
             isLoading: isSubmittingOrMutating,
@@ -133,9 +133,9 @@ const UpdateFlagModal = () => {
       >
         <Tabs
           items={[
-            { text: t("flag.tab.core.title"), id: TabType.CORE },
-            { text: t("flag.tab.advanced.title"), id: TabType.ADVANCED },
-            { text: t("flag.tab.activity.title"), id: TabType.HISTORY },
+            { text: t("modal.flag.tab.core.title"), id: TabType.CORE },
+            { text: t("modal.flag.tab.advanced.title"), id: TabType.ADVANCED },
+            { text: t("modal.flag.tab.activity.title"), id: TabType.HISTORY },
           ]}
           onSelect={(tab: string) => setSelectedTab(tab as TabType)}
           sliderPosition={tabPosition[selectedTab]}

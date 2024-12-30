@@ -5,12 +5,12 @@ import { Modal } from "@basestack/design-system";
 import { useStore } from "store";
 import { useShallow } from "zustand/react/shallow";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Components
 import Activity from "components/Activity";
 
 const ActivityModal = () => {
-  const { t } = useTranslation("modals");
+    const t = useTranslations("modal");
   const [isModalOpen, setActivityModalOpen, closeModalsOnClickOutside] =
     useStore(
       useShallow((state) => [

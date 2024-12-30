@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 // Router
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 // Form
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Components
 import { Input } from "@basestack/design-system";
 // UI
@@ -14,7 +14,7 @@ import { SettingCard } from "@basestack/ui";
 // Types
 import { Role } from "@prisma/client";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 export const FormSchema = z.object({
   name: z
@@ -31,11 +31,10 @@ export interface Props {
 }
 
 const ProjectNameCard = ({ role, name }: Props) => {
-  const { t } = useTranslation("settings");
-  const router = useRouter();
-  const trpcUtils = trpc.useUtils();
-  const updateProject = trpc.project.update.useMutation();
-  const { projectId } = router.query as { projectId: string };
+  const t = useTranslations("setting");
+  const trpcUtils = api.useUtils();
+  const updateProject = api.project.update.useMutation();
+  const { projectId } = useParams<{ projectId: string }>();
   const isAdmin = role === Role.ADMIN;
 
   const {
@@ -102,8 +101,8 @@ const ProjectNameCard = ({ role, name }: Props) => {
       description={t("general.project.description")}
       button={t("general.project.action")!}
       onClick={handleSubmit(onSaveProjectName)}
-      isDisabled={isSubmitting || !name || updateProject.isLoading}
-      isLoading={isSubmitting || updateProject.isLoading}
+      isDisabled={isSubmitting || !name || updateProject.isPending}
+      isLoading={isSubmitting || updateProject.isPending}
       hasFooter={isAdmin}
     >
       <Controller

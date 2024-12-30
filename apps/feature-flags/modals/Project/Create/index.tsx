@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { animated, useSpring } from "react-spring";
 // Router
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 // Form
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,26 +15,26 @@ import { Modal, InputGroup, IconButton } from "@basestack/design-system";
 import { useStore } from "store";
 import { useShallow } from "zustand/react/shallow";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Utils
 import { generateSlug } from "random-word-slugs";
 import { slugify } from "@basestack/utils";
 // Hooks
 import { useDebounce } from "react-use";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { NamespaceKeys, useTranslations } from "next-intl";
 // Styles
 import { IconButtonContainer, SlugContainer } from "./styles";
 
 export const FormSchema = z.object({
   name: z
     .string()
-    .max(30, "project.create.input.project-name.error.max")
-    .min(1, "project.create.input.project-name.error.min"),
+    .max(30, "modal.project.create.input.project-name.error.max")
+    .min(1, "modal.project.create.input.project-name.error.min"),
   slug: z
     .string()
-    .max(150, "project.create.input.slug.error.max")
-    .min(1, "project.create.input.slug.error.min"),
+    .max(150, "modal.project.create.input.slug.error.max")
+    .min(1, "modal.project.create.input.slug.error.min"),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
@@ -42,10 +42,10 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 const AnimatedIconButton = animated(IconButtonContainer);
 
 const CreateProjectModal = () => {
-  const { t } = useTranslation("modals");
+  const t = useTranslations("modal");
   const theme = useTheme();
   const router = useRouter();
-  const trpcUtils = trpc.useUtils();
+  const trpcUtils = api.useUtils();
   const [numberOfRefresh, setNumberOfRefresh] = useState(0);
   const [isModalOpen, setCreateProjectModalOpen, closeModalsOnClickOutside] =
     useStore(
@@ -56,7 +56,7 @@ const CreateProjectModal = () => {
       ]),
     );
 
-  const createProject = trpc.project.create.useMutation();
+  const createProject = api.project.create.useMutation();
 
   const {
     control,
@@ -73,7 +73,7 @@ const CreateProjectModal = () => {
   const watchName = watch("name");
   const watchSlug = watch("slug");
 
-  const isSubmittingOrMutating = isSubmitting || createProject.isLoading;
+  const isSubmittingOrMutating = isSubmitting || createProject.isPending;
 
   const onClose = () => setCreateProjectModalOpen({ isOpen: false });
 
@@ -93,10 +93,7 @@ const CreateProjectModal = () => {
 
         onClose();
 
-        await router.push({
-          pathname: "/project/[projectId]/flags",
-          query: { projectId: result.project.id },
-        });
+        await router.push(`/a/project/${result.project.id}/flags`);
       },
     });
   };
@@ -143,7 +140,7 @@ const CreateProjectModal = () => {
           render={({ field }) => (
             <InputGroup
               title={t("project.create.input.project-name.title")}
-              hint={t(errors.name?.message!)}
+              hint={t(errors.name?.message! as NamespaceKeys<string, "modal">)}
               inputProps={{
                 type: "text",
                 name: field.name,
@@ -166,7 +163,9 @@ const CreateProjectModal = () => {
             render={({ field }) => (
               <InputGroup
                 title={t("project.create.input.slug.title")}
-                hint={t(errors.slug?.message!)}
+                hint={t(
+                  errors.slug?.message! as NamespaceKeys<string, "modal">,
+                )}
                 inputProps={{
                   name: "slug",
                   value: slugify(field.value),

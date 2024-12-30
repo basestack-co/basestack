@@ -1,6 +1,6 @@
 import React, { useCallback, Fragment, useMemo } from "react";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Components
 import {
   ButtonVariant,
@@ -16,7 +16,7 @@ import { SelectedView, TabType } from "types";
 // Utils
 import dayjs from "dayjs";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Styles
 import {
   FlagsCardGrid,
@@ -37,8 +37,8 @@ const FlagCards = ({
   projectId,
   searchValue,
 }: FlagCardsProps) => {
-  const trpcUtils = trpc.useUtils();
-  const { t } = useTranslation("flags");
+  const trpcUtils = api.useUtils();
+  const t = useTranslations("flag");
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
   const setCreateFlagModalOpen = useStore(
     (state) => state.setCreateFlagModalOpen,
@@ -47,9 +47,9 @@ const FlagCards = ({
     (state) => state.setUpdateFlagModalOpen,
   );
   const numberOfFlagsPerPage = useStore((state) => state.numberOfFlagsPerPage);
-  const deleteFlag = trpc.flag.delete.useMutation();
+  const deleteFlag = api.flag.delete.useMutation();
 
-  const { data: count } = trpc.flag.total.useQuery(
+  const { data: count } = api.flag.total.useQuery(
     {
       projectId,
     },
@@ -58,7 +58,7 @@ const FlagCards = ({
     },
   );
 
-  const { data, isLoading, fetchNextPage } = trpc.flag.all.useInfiniteQuery(
+  const { data, isLoading, fetchNextPage } = api.flag.all.useInfiniteQuery(
     {
       projectId,
       limit: numberOfFlagsPerPage,

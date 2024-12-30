@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 // Router
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 // Components
 import { useTheme } from "styled-components";
 import Portal from "@basestack/design-system/global/Portal";
@@ -14,18 +14,17 @@ import { useShallow } from "zustand/react/shallow";
 // Types
 import { TabType } from "types";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Hooks
 import useFlagForm, { tabPosition } from "../useFlagForm";
 
 const CreateFlagModal = () => {
-  const { t } = useTranslation("modals");
-  const trpcUtils = trpc.useUtils();
+  const t = useTranslations();
+  const trpcUtils = api.useUtils();
   const theme = useTheme();
-  const router = useRouter();
-  const { projectId } = router.query as { projectId: string };
+  const { projectId } = useParams<{ projectId: string }>();
   const [isModalOpen, setCreateFlagModalOpen, closeModalsOnClickOutside] =
     useStore(
       useShallow((state) => [
@@ -46,17 +45,17 @@ const CreateFlagModal = () => {
     setValue,
   } = useFlagForm({ isModalOpen, projectId });
 
-  const createFlag = trpc.flag.create.useMutation();
+  const createFlag = api.flag.create.useMutation();
 
-  const { data, isLoading } = trpc.environment.all.useQuery(
+  const { data, isLoading } = api.environment.all.useQuery(
     { projectId: project?.id! },
     {
       enabled: !!project?.id,
-      keepPreviousData: true,
+      // keepPreviousData: true,
     },
   );
 
-  const isSubmittingOrMutating = isSubmitting || createFlag.isLoading;
+  const isSubmittingOrMutating = isSubmitting || createFlag.isPending;
 
   const onClose = () => setCreateFlagModalOpen({ isOpen: false });
 
@@ -101,14 +100,14 @@ const CreateFlagModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title={t("flag.create.title")}
+        title={t("modal.flag.create.title")}
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { children: t("flag.create.button.cancel"), onClick: onClose },
+          { children: t("modal.flag.create.button.cancel"), onClick: onClose },
           {
-            children: t("flag.create.button.submit"),
+            children: t("modal.flag.create.button.submit"),
             onClick: handleSubmit(onSubmit),
             isDisabled: !project?.id || isSubmittingOrMutating,
             isLoading: isSubmittingOrMutating,
@@ -119,8 +118,8 @@ const CreateFlagModal = () => {
       >
         <Tabs
           items={[
-            { text: t("flag.tab.core.title"), id: TabType.CORE },
-            { text: t("flag.tab.advanced.title"), id: TabType.ADVANCED },
+            { text: t("modal.flag.tab.core.title"), id: TabType.CORE },
+            { text: t("modal.flag.tab.advanced.title"), id: TabType.ADVANCED },
           ]}
           onSelect={(tab: string) => setSelectedTab(tab as TabType)}
           sliderPosition={tabPosition[selectedTab]}

@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import Portal from "@basestack/design-system/global/Portal";
 import { Modal, Select } from "@basestack/design-system";
 // Router
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 // Store
 import { useStore } from "store";
 import { useShallow } from "zustand/react/shallow";
@@ -11,9 +11,9 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // Libs
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 export const FormSchema = z.object({
   memberId: z.string().min(1, "member.invite.input.member-id.error.min"),
@@ -22,10 +22,9 @@ export const FormSchema = z.object({
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const InviteMemberModal = () => {
-  const { t } = useTranslation("modals");
-  const router = useRouter();
-  const { projectId } = router.query as { projectId: string };
-  const trpcUtils = trpc.useUtils();
+    const t = useTranslations("modal");
+  const { projectId } = useParams<{ projectId: string }>();
+  const trpcUtils = api.useUtils();
   const [isModalOpen, setInviteMemberModalOpen, closeModalsOnClickOutside] =
     useStore(
       useShallow((state) => [
@@ -35,7 +34,7 @@ const InviteMemberModal = () => {
       ]),
     );
 
-  const { data, isLoading } = trpc.user.all.useQuery(
+  const { data, isLoading } = api.user.all.useQuery(
     {
       excludeProjectId: projectId,
     },
@@ -44,7 +43,7 @@ const InviteMemberModal = () => {
     },
   );
 
-  const addUserToProject = trpc.project.addMember.useMutation();
+  const addUserToProject = api.project.addMember.useMutation();
 
   const {
     control,
@@ -56,7 +55,7 @@ const InviteMemberModal = () => {
     mode: "onChange",
   });
 
-  const isSubmittingOrMutating = isSubmitting || addUserToProject.isLoading;
+  const isSubmittingOrMutating = isSubmitting || addUserToProject.isPending;
 
   const options = useMemo(() => {
     if (!isLoading && data) {

@@ -14,7 +14,7 @@ import { useDebounce } from "react-use";
 // Types
 import { SelectedView } from "types";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 export interface ToolbarProps extends SpaceProps {
   onSearchCallback: (value: string) => void;
@@ -31,7 +31,7 @@ const Toolbar = ({
   selectedView,
   onClickActivity,
 }: ToolbarProps) => {
-  const { t } = useTranslation("flags");
+  const t = useTranslations("flag");
   const theme = useTheme();
   const [searchValue, setSearchValue] = useState<string>("");
 

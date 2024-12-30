@@ -4,7 +4,7 @@ import { animated } from "react-spring";
 // Hooks
 import { useFloatingPopup } from "@basestack/hooks";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Components
 import {
   Text,
@@ -60,7 +60,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
       onCloseMenu,
     } = useFloatingPopup({});
 
-    const { data } = trpc.flag.environments.useQuery(
+    const { data } = api.flag.environments.useQuery(
       {
         projectId,
         slug,

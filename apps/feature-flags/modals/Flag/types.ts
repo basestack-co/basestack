@@ -12,11 +12,11 @@ export const EnvironmentSchema = z.object({
 export const FlagFormSchema = z.object({
   name: z
     .string()
-    .max(150, "flag.tab.core.input.name.error.max")
-    .min(1, "flag.tab.core.input.name.error.min"),
+    .max(150, "modal.flag.tab.core.input.name.error.max")
+    .min(1, "modal.flag.tab.core.input.name.error.min"),
   description: z
     .string()
-    .max(150, "flag.tab.core.input.description.error.max")
+    .max(150, "modal.flag.tab.core.input.description.error.max")
     .optional(),
   environments: z.array(EnvironmentSchema),
 });

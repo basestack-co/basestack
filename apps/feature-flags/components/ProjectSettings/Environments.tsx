@@ -2,7 +2,7 @@ import React, { useMemo, useCallback } from "react";
 import { useTheme } from "styled-components";
 import { useMedia } from "react-use";
 // Router
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 // Components
 import {
   ButtonVariant,
@@ -13,7 +13,7 @@ import {
 // UI
 import { SettingCard, MobileSettingCardView } from "@basestack/ui";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Store
 import { useStore } from "store";
 // Utils
@@ -22,16 +22,15 @@ import { createTable } from "@basestack/utils";
 // Types
 import { Role } from "@prisma/client";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 const EnvironmentsCard = () => {
-  const { t } = useTranslation("settings");
+  const t = useTranslations("setting");
   const theme = useTheme();
   const isMobile = useMedia(theme.device.max.md, false);
-  const trpcUtils = trpc.useUtils();
-  const router = useRouter();
+  const trpcUtils = api.useUtils();
 
-  const { projectId } = router.query as { projectId: string };
+  const { projectId } = useParams<{ projectId: string }>();
 
   const setCreateEnvironmentModalOpen = useStore(
     (state) => state.setCreateEnvironmentModalOpen,
@@ -41,12 +40,12 @@ const EnvironmentsCard = () => {
   );
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
 
-  const [project, environment] = trpc.useQueries((t) => [
+  const [project, environment] = api.useQueries((t) => [
     t.project.byId({ projectId }, { enabled: !!projectId }),
     t.environment.all({ projectId }, { enabled: !!projectId }),
   ]);
 
-  const deleteEnvironment = trpc.environment.delete.useMutation();
+  const deleteEnvironment = api.environment.delete.useMutation();
   const isCurrentUserAdmin = project?.data?.role === Role.ADMIN;
   const environments = useMemo(
     () =>

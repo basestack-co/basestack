@@ -7,7 +7,7 @@ import { z } from "zod";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { NamespaceKeys, useTranslations } from "next-intl";
 // Components
 import { Input, Text } from "@basestack/design-system";
 // UI
@@ -23,7 +23,7 @@ export const FormSchema = z.object({
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const ModalCard = () => {
-  const { t } = useTranslation("profile");
+  const t = useTranslations("profile");
   const theme = useTheme();
   const numberOfFlagsPerPage = useStore((state) => state.numberOfFlagsPerPage);
   const setNumberOfFlagsPerPage = useStore(
@@ -86,7 +86,9 @@ const ModalCard = () => {
         />
         {!!errors?.numberOfFlags?.message && (
           <Text mt={theme.spacing.s1} color={theme.inputGroup.hint.error.color}>
-            {t(errors.numberOfFlags.message)}
+            {t(
+              errors.numberOfFlags.message as NamespaceKeys<string, "profile">,
+            )}
           </Text>
         )}
       </>

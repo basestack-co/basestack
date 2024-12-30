@@ -1,74 +1,71 @@
 // Types
-import { Translate } from "next-translate";
-import { NextRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { TFunction } from "types/locale";
 // Utils
 import { config } from "@basestack/utils";
 import { signOut } from "next-auth/react";
 
-export const getInternalLinks = (t: Translate, projectId: string) => {
+export const getInternalLinks = (t: TFunction, projectId: string) => {
   return [
     {
       icon: "flag",
       activeText: "Flags",
-      to: `/project/${projectId}/flags`,
-      text: t("internal.features"),
+      to: `/a/project/${projectId}/flags`,
+      text: t("navigation.internal.features"),
     },
     {
       icon: "settings",
       activeText: "Settings",
-      to: `/project/${projectId}/settings/general`,
-      text: t("internal.settings"),
+      to: `/a/project/${projectId}/settings/general`,
+      text: t("navigation.internal.settings"),
     },
   ];
 };
 
-export const getExternalLinks = (t: Translate) => {
+export const getExternalLinks = (t: TFunction) => {
   return [
     {
       icon: "description",
       activeText: "Documentation",
       to: config.urls.docs.flags.base,
       isExternal: true,
-      text: t("external.docs"),
+      text: t("navigation.external.docs"),
     },
     {
       icon: "link",
       activeText: "Github",
       to: config.urls.repo,
       isExternal: true,
-      text: t("external.github"),
+      text: t("navigation.external.github"),
     },
   ];
 };
 
 export const getAvatarDropdownList = (
-  t: Translate,
-  router: NextRouter,
+  t: TFunction,
+  router: ReturnType<typeof useRouter>,
   onCreateProject: () => void,
 ) => {
   return [
     {
       icon: "add_circle",
-      text: t("create.project"),
+      text: t("navigation.create.project"),
       onClick: onCreateProject,
     },
     {
       icon: "group_add",
-      text: t("dropdown.invite"),
+      text: t("navigation.dropdown.invite"),
       isDisabled: true,
       separator: true,
     },
     {
       icon: "settings",
-      text: t("dropdown.settings"),
-      onClick: () =>
-        router.push({
-          pathname: "/user/profile/general",
-        }),
+      text: t("navigation.dropdown.settings"),
+      onClick: () => router.push("/a/user/tab/profile/general"),
     },
     {
       icon: "logout",
-      text: t("dropdown.logout"),
+      text: t("navigation.dropdown.logout"),
       onClick: signOut,
     },
   ];

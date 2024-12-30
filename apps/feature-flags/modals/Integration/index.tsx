@@ -12,7 +12,7 @@ import { CodeLanguageCard } from "@basestack/ui";
 import { ButtonVariant, Modal, Text } from "@basestack/design-system";
 import CopyButton from "components/CopyButton";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Styles
 import { useTheme } from "styled-components";
 import {
@@ -30,7 +30,7 @@ import data from "./data";
 SyntaxHighlighter.registerLanguage("typescript", ts);
 
 const IntegrationModal = () => {
-  const { t } = useTranslation("modals");
+  const t = useTranslations("modal");
   const theme = useTheme();
   const [selectedListIndex, setSelectedListIndex] = useState(0);
   const [isModalOpen, setIntegrationModalOpen, closeModalsOnClickOutside] =

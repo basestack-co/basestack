@@ -1,6 +1,6 @@
 import React from "react";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Components
 import { CopyCard } from "@basestack/design-system";
 // UI
@@ -11,7 +11,7 @@ interface ProjectKeyProps {
 }
 
 const ProjectKey = ({ projectKey }: ProjectKeyProps) => {
-  const { t } = useTranslation("settings");
+  const t = useTranslations("setting");
 
   return (
     <SettingCard

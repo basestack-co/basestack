@@ -7,7 +7,7 @@ import { useStore } from "store";
 import { useShallow } from "zustand/react/shallow";
 import { ConfirmModalType } from "store/types";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Styles
 import { Content } from "./styles";
 
@@ -21,7 +21,7 @@ const getButtonVariant = (type: ConfirmModalType) => {
 };
 
 const ConfirmModal = () => {
-  const { t } = useTranslation("modals");
+    const t = useTranslations("modal");
   const theme = useTheme();
   const [
     isModalOpen,

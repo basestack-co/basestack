@@ -2,26 +2,25 @@ import React, { useMemo } from "react";
 import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
 // Router
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 // Form
 import { SubmitHandler } from "react-hook-form";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Store
 import { useStore } from "store";
 import { useShallow } from "zustand/react/shallow";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Types
 import { FormInputs } from "../types";
 // Form
 import useEnvironmentForm from "../useEnvironmentForm";
 
 const CreateEnvironmentModal = () => {
-  const { t } = useTranslation("modals");
-  const trpcUtils = trpc.useUtils();
-  const router = useRouter();
-  const { projectId } = router.query as { projectId: string };
+  const t = useTranslations();
+  const trpcUtils = api.useUtils();
+  const { projectId } = useParams<{ projectId: string }>();
 
   const [
     isModalOpen,
@@ -35,7 +34,7 @@ const CreateEnvironmentModal = () => {
     ]),
   );
 
-  const createEnvironment = trpc.environment.create.useMutation();
+  const createEnvironment = api.environment.create.useMutation();
 
   const [environments, defaultEnvironment] = useMemo(() => {
     if (projectId) {
@@ -55,7 +54,7 @@ const CreateEnvironmentModal = () => {
   const { handleSubmit, onRenderForm, reset, isSubmitting } =
     useEnvironmentForm(true);
 
-  const isSubmittingOrMutating = isSubmitting || createEnvironment.isLoading;
+  const isSubmittingOrMutating = isSubmitting || createEnvironment.isPending;
 
   const onClose = () => setCreateEnvironmentModalOpen({ isOpen: false });
 
@@ -96,14 +95,17 @@ const CreateEnvironmentModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title={t("environment.create.title")}
+        title={t("modal.environment.create.title")}
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { children: t("environment.create.button.cancel"), onClick: onClose },
           {
-            children: t("environment.create.button.submit"),
+            children: t("modal.environment.create.button.cancel"),
+            onClick: onClose,
+          },
+          {
+            children: t("modal.environment.create.button.submit"),
             onClick: handleSubmit(onSubmit),
             isDisabled: isSubmittingOrMutating,
             isLoading: isSubmittingOrMutating,

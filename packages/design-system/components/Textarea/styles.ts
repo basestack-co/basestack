@@ -3,7 +3,8 @@ import { rem } from "polished";
 import { space } from "styled-system";
 
 export const StyledTextarea = styled.textarea.withConfig({
-  shouldForwardProp: (prop) => !["hasError", "isDarker"].includes(prop),
+  shouldForwardProp: (prop) =>
+    !["hasError", "isDarker", "maxlength"].includes(prop),
 })<{
   isDarker: boolean;
   hasError: boolean;

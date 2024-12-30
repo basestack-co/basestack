@@ -6,7 +6,7 @@ import { useStore } from "store";
 // Hooks
 import { useFloatingPopup } from "@basestack/hooks";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Components
 import {
   Card,
@@ -26,7 +26,7 @@ import {
 const AnimatedPopup = animated(Popup);
 
 const ModalCard = () => {
-  const { t } = useTranslation("profile");
+  const t = useTranslations("profile");
   const theme = useTheme();
   const isDarkMode = useStore((state) => state.isDarkMode);
   const setDarkMode = useStore((state) => state.setDarkMode);

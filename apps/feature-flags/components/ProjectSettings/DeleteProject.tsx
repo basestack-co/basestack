@@ -5,25 +5,23 @@ import { useStore } from "store";
 import { SettingCard } from "@basestack/ui";
 import { CardVariant } from "@basestack/design-system";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Router
-import { useRouter } from "next/router";
-// Types
-import { ProjectSettings } from "types";
+import { useParams, useRouter } from "next/navigation";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 export interface Props {
   name?: string;
 }
 
 const DeleteProjectCard = ({ name }: Props) => {
-  const { t } = useTranslation("settings");
+  const t = useTranslations("setting");
   const router = useRouter();
-  const trpcUtils = trpc.useUtils();
-  const deleteProject = trpc.project.delete.useMutation();
+  const trpcUtils = api.useUtils();
+  const deleteProject = api.project.delete.useMutation();
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
-  const { projectId } = router.query as { projectId: string };
+  const { projectId } = useParams<{ projectId: string }>();
 
   const onDeleteProject = () => {
     deleteProject.mutate(
@@ -78,9 +76,9 @@ const DeleteProjectCard = ({ name }: Props) => {
       button={t("general.delete.project.action")}
       onClick={onClickDeleteProject}
       text={t("general.delete.project.placeholder")}
-      isDisabled={deleteProject.isLoading}
+      isDisabled={deleteProject.isPending}
       variant={CardVariant.DANGER}
-      isLoading={deleteProject.isLoading}
+      isLoading={deleteProject.isPending}
     />
   );
 };

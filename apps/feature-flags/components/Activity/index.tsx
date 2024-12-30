@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useMemo } from "react";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Router
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 // Hooks
 import { useDebounce } from "react-use";
 // Components
@@ -12,9 +12,8 @@ import Toolbar from "./Toolbar";
 import { Container } from "./styles";
 
 const Activity = () => {
-  const trpcUtils = trpc.useUtils();
-  const router = useRouter();
-  const { projectId } = router.query as { projectId: string };
+  const trpcUtils = api.useUtils();
+  const { projectId } = useParams<{ projectId: string }>();
   const [range, setRange] = useState<Array<Date>>([]);
   const [searchValue, setSearchValue] = useState<string>("");
   const [debouncedSearchValue, setDebouncedSearchValue] = useState<string>("");
@@ -31,7 +30,7 @@ const Activity = () => {
     return null;
   }, [projectId, trpcUtils]);
 
-  const { data, isLoading } = trpc.history.all.useQuery(
+  const { data, isLoading } = api.history.all.useQuery(
     {
       flagId: null,
       range,

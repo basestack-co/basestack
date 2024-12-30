@@ -10,7 +10,7 @@ import type { Value } from "react-calendar/src/shared/types";
 // Utils
 import dayjs from "dayjs";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Styles
 import { EditorContainer } from "../styles";
 
@@ -22,8 +22,9 @@ export interface Props {
   setValue: UseFormSetValue<FlagFormInputs>;
   environments: EnvironmentInput[];
 }
+
 const AdvanceTab = ({ setValue, environments }: Props) => {
-  const { t } = useTranslation("modals");
+  const t = useTranslations();
   const theme = useTheme();
   const [isCalenderOpen, setIsCalendarOpen] = useState(false);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -90,11 +91,11 @@ const AdvanceTab = ({ setValue, environments }: Props) => {
       <CalendarInput
         isCalenderOpen={isCalenderOpen}
         onClickAway={() => setIsCalendarOpen(false)}
-        inputTitle={t("flag.tab.advanced.input.calendar.title")}
+        inputTitle={t("modal.flag.tab.advanced.input.calendar.title")}
         inputProps={{
           onFocus: () => setIsCalendarOpen(true),
           onChange: () => null,
-          placeholder: t("flag.tab.advanced.input.calendar.placeholder"),
+          placeholder: t("modal.flag.tab.advanced.input.calendar.placeholder"),
           name: "date",
           value: !!activeTabData?.expiredAt
             ? dayjs(activeTabData.expiredAt).format("DD/MM/YYYY")
@@ -115,7 +116,7 @@ const AdvanceTab = ({ setValue, environments }: Props) => {
         mt={theme.spacing.s6}
         mb={theme.spacing.s2}
       >
-        {t("flag.tab.advanced.input.payload.title")}
+        {t("modal.flag.tab.advanced.input.payload.title")}
       </Text>
       <EditorContainer>
         <Editor
