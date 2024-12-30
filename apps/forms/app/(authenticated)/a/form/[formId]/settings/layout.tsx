@@ -29,25 +29,25 @@ const getLinks = (formId: string) => [
     id: "1",
     i18nKey: "navigation.setting.general",
     tab: "general",
-    href: `/hub/form/${formId}/settings/general`,
+    href: `/a/form/${formId}/settings/general`,
   },
   {
     id: "2",
     i18nKey: "navigation.setting.security",
     tab: "security",
-    href: `/hub/form/${formId}/settings/security`,
+    href: `/a/form/${formId}/settings/security`,
   },
   {
     id: "3",
     i18nKey: "navigation.setting.customization",
     tab: "customization",
-    href: `/hub/form/${formId}/settings/customization`,
+    href: `/a/form/${formId}/settings/customization`,
   },
   {
     id: "4",
     i18nKey: "navigation.setting.notifications",
     tab: "notifications",
-    href: `/hub/form/${formId}/settings/notifications`,
+    href: `/a/form/${formId}/settings/notifications`,
   },
 ];
 
@@ -117,7 +117,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
             <Tabs
               items={items}
               onSelect={(tab) => {
-                router.push(`/hub/form/${formId}/settings/${tab}`);
+                router.push(`/a/form/${formId}/settings/${tab}`);
               }}
               sliderPosition={activeLinkIndex}
               backgroundColor="transparent"

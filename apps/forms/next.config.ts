@@ -19,12 +19,12 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/",
-        destination: "/hub",
+        destination: "/a",
         permanent: false,
       },
       {
-        source: "/hub/form/:formId",
-        destination: "/hub/form/:formId/submissions",
+        source: "/a/form/:formId",
+        destination: "/a/form/:formId/submissions",
         permanent: false,
       },
       {

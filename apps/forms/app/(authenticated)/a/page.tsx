@@ -90,7 +90,7 @@ const MainPage = () => {
                       formId={item.formId}
                       text={item.title}
                       onClick={() =>
-                        router.push(`/hub/form/${item.formId}/submissions`)
+                        router.push(`/a/form/${item.formId}/submissions`)
                       }
                       spam={item.spam}
                       submissions={item.submissions}

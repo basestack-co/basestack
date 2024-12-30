@@ -89,7 +89,7 @@ const FormCard = ({
 
   const onClickMenuItem = useCallback(
     async (path: string) => {
-      await router.push(`/hub/form/${formId}/${path}`);
+      await router.push(`/a/form/${formId}/${path}`);
     },
     [router, formId],
   );

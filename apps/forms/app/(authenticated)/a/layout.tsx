@@ -29,7 +29,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         data?.forms.map((item) => ({
           id: item.id,
           slug: item.id,
-          onClick: () => router.push(`/hub/form/${item.id}/submissions`),
+          onClick: () => router.push(`/a/form/${item.id}/submissions`),
           text: item.name,
         })),
     }),

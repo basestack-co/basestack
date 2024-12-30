@@ -74,7 +74,7 @@ const CreateFormModal = () => {
 
         onClose();
 
-        await router.push(`/hub/form/${result.form.id}/submissions`);
+        await router.push(`/a/form/${result.form.id}/submissions`);
       },
       onError: (error) => {
         toast.error(error.message);
