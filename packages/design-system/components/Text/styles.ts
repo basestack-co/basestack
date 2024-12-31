@@ -64,7 +64,13 @@ export const SmallText = styled.p.withConfig({
 
 export const MediumText = styled.p.withConfig({
   shouldForwardProp: (prop) =>
-    !["textAlign", "lineTruncate", "lineHeight", "muted"].includes(prop),
+    ![
+      "textAlign",
+      "lineTruncate",
+      "lineHeight",
+      "muted",
+      "flexShrink",
+    ].includes(prop),
 })<TextProps>`
   font-size: ${rem("16px")};
   line-height: ${rem("24px")};

@@ -2,13 +2,13 @@ import styled, { css, createGlobalStyle } from "styled-components";
 import { rem } from "polished";
 
 export const GlobalStyle = createGlobalStyle<{ isMenuOpen: boolean }>`
-  ${({ isMenuOpen }) =>
-    isMenuOpen &&
-    css`
-      body {
-        overflow: hidden;
-      }
-    `}
+    ${({ isMenuOpen }) =>
+      isMenuOpen &&
+      css`
+        body {
+          overflow: hidden;
+        }
+      `}
 `;
 
 const flexColumn = css`
@@ -24,7 +24,10 @@ const backgroundBlur = (isDarkMode: boolean) => css`
   backdrop-filter: saturate(180%) blur(20px);
 `;
 
-export const Container = styled.nav<{
+export const Container = styled.nav.withConfig({
+  shouldForwardProp: (prop) =>
+    !["isDarkMode", "hasBackdropFilter"].includes(prop),
+})<{
   isDarkMode: boolean;
   hasBackdropFilter: boolean;
 }>`
@@ -79,7 +82,9 @@ export const RightColumn = styled.div`
   margin-left: auto;
 `;
 
-export const PopupContainer = styled.div<{ isMenuOpen: boolean }>`
+export const PopupContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isMenuOpen",
+})<{ isMenuOpen: boolean }>`
   position: fixed;
   z-index: 999;
   top: 79px;
@@ -102,7 +107,9 @@ export const PopupContainer = styled.div<{ isMenuOpen: boolean }>`
   }
 `;
 
-export const PopupWrapper = styled.ul<{ isDarkMode: boolean }>`
+export const PopupWrapper = styled.ul.withConfig({
+  shouldForwardProp: (prop) => prop !== "isDarkMode",
+})<{ isDarkMode: boolean }>`
   ${flexColumn};
   ${({ isDarkMode }) => backgroundBlur(isDarkMode)};
   padding: ${({ theme }) => theme.spacing.s3};
@@ -116,7 +123,9 @@ export const PopupItem = styled.li`
   }
 `;
 
-export const BurgerMenu = styled.div<{ isDarkMode: boolean }>`
+export const BurgerMenu = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isDarkMode",
+})<{ isDarkMode: boolean }>`
   ${({ isDarkMode }) =>
     isDarkMode &&
     css`

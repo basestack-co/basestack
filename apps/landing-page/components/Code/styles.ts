@@ -1,7 +1,9 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
 
-export const Container = styled.section<{ isDarkMode: boolean }>`
+export const Container = styled.section.withConfig({
+  shouldForwardProp: (prop) => prop !== "isDarkMode",
+})<{ isDarkMode: boolean }>`
   display: flex;
   flex-direction: column;
   padding: ${rem("100px")} ${({ theme }) => theme.spacing.s5};
@@ -34,7 +36,7 @@ export const CodeContainer = styled.div`
 
   pre {
     min-height: 360px;
-    background: ${({ theme }) => theme.colors.gray700}!important;
+    background: ${({ theme }) => theme.colors.gray700} !important;
   }
 `;
 

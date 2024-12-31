@@ -1,14 +1,16 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 // Styles
 import LegalGlobalStyle from "styles/legalGlobalStyles";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-export const Container = styled.section`
+const Container = styled.section`
   padding: ${({ theme }) => theme.spacing.s8} ${({ theme }) => theme.spacing.s5};
 `;
 
-const PrivacyPolicyPage = () => {
+const CookiesPolicyPage = () => {
   return (
     <>
       <LegalGlobalStyle />
@@ -112,4 +114,4 @@ const PrivacyPolicyPage = () => {
   );
 };
 
-export default PrivacyPolicyPage;
+export default CookiesPolicyPage;

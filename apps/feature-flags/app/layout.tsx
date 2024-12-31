@@ -1,4 +1,5 @@
 import React from "react";
+import Script from "next/script";
 // Registries
 import Registry from "utils/registry";
 // Locales
@@ -14,7 +15,7 @@ export const metadata = {
 };
 
 const robotoFlex = Roboto_Flex({
-  subsets: ["latin"], // Specify character subsets
+  subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-roboto-flex",
 });
@@ -36,6 +37,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
           <Registry>{children}</Registry>
         </NextIntlClientProvider>
         <div id="portal" />
+        <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
       </body>
     </html>
   );

@@ -1,6 +1,8 @@
+"use client";
+
 import React from "react";
 // Router
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 // Utils
 import { events } from "@basestack/utils";
 // Form

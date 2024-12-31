@@ -2,15 +2,18 @@ import styled, { css, keyframes } from "styled-components";
 import { rem } from "polished";
 
 const indicatorAnimation = keyframes`
-  0% {
-    width: 0;
-  }
-  100% {
-    width: 100%;
-  }
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
 `;
 
-export const CardContainer = styled.button<{
+export const CardContainer = styled.button.withConfig({
+  shouldForwardProp: (prop) =>
+    !["alignItems", "animationTime", "isActive"].includes(prop),
+})<{
   isActive: boolean;
   animationTime: number;
 }>`

@@ -59,7 +59,9 @@ const sharedButtonStyles = css`
   padding: 0 ${rem("12px")};
 `;
 
-export const Tab = styled.button<{
+export const Tab = styled.button.withConfig({
+  shouldForwardProp: (prop) => !["hoverBgColor", "borderColor"].includes(prop),
+})<{
   borderColor?: string;
   hoverBgColor?: string;
 }>`
@@ -105,7 +107,12 @@ export const Button = styled.button.withConfig({
 
 export const Slider = styled.div.withConfig({
   shouldForwardProp: (prop) =>
-    !["backgroundColor", "numberOfItems", "translateX"].includes(prop),
+    ![
+      "backgroundColor",
+      "numberOfItems",
+      "translateX",
+      "activeBorderColor",
+    ].includes(prop),
 })<{
   numberOfItems: number;
   translateX: number | string;

@@ -186,6 +186,7 @@ export const StyledButton = styled.button.withConfig({
       "hasRightIcon",
       "hasLeftIcon",
       "flexShrink",
+      "backgroundColor",
     ].includes(prop),
 })<StyledButtonProps>`
   ${({ size }) => handleButtonSize(size)};

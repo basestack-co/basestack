@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 // Router
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 // Utils
 import { config as defaults, events } from "@basestack/utils";
 // Theme
