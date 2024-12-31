@@ -22,7 +22,7 @@ import {
 import { useParams, usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 // Locales
-import { NamespaceKeys, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 // Store
 import { useStore } from "store";
 // Auth
@@ -82,7 +82,7 @@ const DesktopNavigation = ({
           </ListItem>
         );
       }),
-    [pathname, t],
+    [pathname],
   );
 
   const currentProject = useMemo(() => {

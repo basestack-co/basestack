@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+// import { redirect } from 'next/navigation'
 // Utils
 import { PlanTypeId, config as utilsConfig } from "@basestack/utils";
 import { withUsageUpdate } from "server/db/utils/subscription";
@@ -21,9 +22,17 @@ import {
 
 const { hasFormPlanFeature } = utilsConfig.plans;
 
+// redirect('https://nextjs.org/')
+
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST",
+  "Access-Control-Allow-Headers": "Content-Type, Origin, Accept",
+};
+
 export async function POST(
   req: Request,
-  { params }: { params: { formId: string } },
+  { params }: { params: Promise<{ formId: string }> },
 ) {
   const referer = req.headers.get("referer") || "/";
   const { formId } = await params;
@@ -112,18 +121,18 @@ export async function POST(
         const successUrl = `${form?.successUrl}?goBackUrl=${form?.redirectUrl}${queryString}`;
 
         if (mode === FormMode.REST) {
-          return Response.json(
+          return NextResponse.json(
             {
               code: 200,
               success: true,
               message: "Your form has been submitted successfully!",
               url: successUrl,
             },
-            { status: 200 },
+            { status: 200, headers },
           );
         }
 
-        return Response.redirect(successUrl, 307);
+        return NextResponse.redirect(successUrl, 307);
       }
     } else {
       throw new FormError({
@@ -143,7 +152,7 @@ export async function POST(
             message: error.message,
             url: error.url,
           },
-          { status: error.code },
+          { status: error.code, headers },
         );
       } else {
         return NextResponse.redirect(error.url, 307);
@@ -151,7 +160,7 @@ export async function POST(
     } else {
       return NextResponse.json(
         { error: true, message: "An unexpected error occurred." },
-        { status: 500 },
+        { status: 500, headers },
       );
     }
   }
