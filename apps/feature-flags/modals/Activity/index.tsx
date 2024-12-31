@@ -10,7 +10,7 @@ import { useTranslations } from "next-intl";
 import Activity from "components/Activity";
 
 const ActivityModal = () => {
-    const t = useTranslations("modal");
+  const t = useTranslations("modal");
   const [isModalOpen, setActivityModalOpen, closeModalsOnClickOutside] =
     useStore(
       useShallow((state) => [

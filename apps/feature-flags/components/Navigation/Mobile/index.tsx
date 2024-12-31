@@ -37,7 +37,7 @@ import {
   StyledLink,
 } from "./styles";
 // Locales
-import { NamespaceKeys, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 // Data
 import {
   getInternalLinks,
@@ -118,9 +118,7 @@ const MobileNavigation = ({
                               router.push(item.to);
                             }}
                           >
-                            {t(
-                              item.text as NamespaceKeys<string, "navigation">,
-                            )}
+                            {item.text}
                           </Button>
                         </ListItem>
                       ))}
@@ -198,9 +196,7 @@ const MobileNavigation = ({
                             variant={ButtonVariant.Neutral}
                             fullWidth
                           >
-                            {t(
-                              item.text as NamespaceKeys<string, "navigation">,
-                            )}
+                            {item.text}
                           </Button>
                         </StyledLink>
                       </ListItem>

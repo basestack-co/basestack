@@ -25,7 +25,7 @@ const Toolbar = ({
   showCalendarClearButton = false,
   onClearCalendar,
 }: ToolbarProps) => {
-    const t = useTranslations("modal");
+  const t = useTranslations("modal");
   const [isCalenderOpen, setIsCalenderOpen] = useState<boolean>(false);
 
   const selectedRange = useMemo(() => {

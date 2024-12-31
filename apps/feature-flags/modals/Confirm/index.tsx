@@ -21,7 +21,7 @@ const getButtonVariant = (type: ConfirmModalType) => {
 };
 
 const ConfirmModal = () => {
-    const t = useTranslations("modal");
+  const t = useTranslations("modal");
   const theme = useTheme();
   const [
     isModalOpen,

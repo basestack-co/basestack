@@ -19,7 +19,9 @@ export const IconsContainer = styled.div`
   justify-content: flex-end;
 `;
 
-export const Label = styled.div<{
+export const Label = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isActive",
+})<{
   isActive: boolean;
 }>`
   height: ${rem("14px")};

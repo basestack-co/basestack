@@ -4,14 +4,11 @@ import React from "react";
 // Router
 import { useParams } from "next/navigation";
 // Modules
-import {
-  CardList,
-  CardListItem,
-  SettingCardContainer,
-} from "components/ProjectSettings/styles";
-import Invite from "components/ProjectSettings/Invite";
+import Invite from "./Invite";
 // Server
 import { api } from "utils/trpc/react";
+// Styles
+import { CardList, CardListItem, SettingCardContainer } from "../styles";
 
 const MembersPage = () => {
   const { projectId } = useParams<{ projectId: string }>();

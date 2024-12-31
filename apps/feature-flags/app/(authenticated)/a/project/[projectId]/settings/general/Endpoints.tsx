@@ -9,7 +9,7 @@ import { getBrowserUrl } from "@basestack/utils";
 import { useTranslations } from "next-intl";
 
 const EndpointsCard = () => {
-    const t = useTranslations("setting");
+  const t = useTranslations("setting");
 
   return (
     <SettingCard

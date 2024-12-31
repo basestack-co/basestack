@@ -9,15 +9,15 @@ import { useMedia } from "react-use";
 import { useStore } from "store";
 // Components
 import { Text } from "@basestack/design-system";
-import FlagsList from "components/FlagsList";
-import Toolbar from "components/Toolbar";
+import FlagsList from "./FlagsList";
+import Toolbar from "./Toolbar";
 // Router
 import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
 // Styles
 import { useTheme } from "styled-components";
-import { FlagsListContainer } from "components/FlagsList/styles";
+import { FlagsListContainer } from "./FlagsList/styles";
 // Types
 import { SelectedView } from "types";
 // Server

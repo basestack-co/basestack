@@ -34,19 +34,19 @@ export const ButtonContainer = styled.div.withConfig({
   align-items: center;
   position: relative;
   height: ${rem("64px")};
-  ${({isActive}) =>
-      isActive &&
-      css`
-        &::before {
-          content: "";
-          position: absolute;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          height: 3px;
-          background-color: ${({theme}) => theme.colors.blue400};
-        }
-      `};
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      &::before {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        background-color: ${({ theme }) => theme.colors.blue400};
+      }
+    `};
 `;
 
 const ButtonLink = ({

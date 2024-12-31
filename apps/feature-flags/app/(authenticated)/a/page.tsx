@@ -22,8 +22,8 @@ import {
   Icon,
   Skeleton,
 } from "@basestack/design-system";
-import GetStartedCard from "components/GetStarted/GetStartedCard";
-import TextLink from "components/GetStarted/TextLink";
+import GetStartedCard from "./GetStarted/GetStartedCard";
+import TextLink from "./GetStarted/TextLink";
 // Styles
 import { useTheme } from "styled-components";
 import {
@@ -36,7 +36,7 @@ import {
   ProjectsListItem,
   Row,
   Section,
-} from "components/GetStarted/styles";
+} from "./GetStarted/styles";
 // Utils
 import { config } from "@basestack/utils";
 
@@ -92,8 +92,7 @@ const MainPage = () => {
       projects?.map((item) => ({
         id: item.id,
         slug: item.slug,
-        onClick: () =>
-          router.push(`/a/project/${item.id}/flags`),
+        onClick: () => router.push(`/a/project/${item.id}/flags`),
         text: item.name,
         flags: item.flags,
       })),

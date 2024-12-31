@@ -8,7 +8,8 @@ import {
   Loader,
   Pagination,
 } from "@basestack/design-system";
-import { FlagCard, FlagRow } from "components";
+import FlagCard from "./FlagCard";
+import FlagRow from "./FlagRow";
 // Store
 import { useStore } from "store";
 // Types

@@ -22,7 +22,7 @@ export const FormSchema = z.object({
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const InviteMemberModal = () => {
-    const t = useTranslations("modal");
+  const t = useTranslations("modal");
   const { projectId } = useParams<{ projectId: string }>();
   const trpcUtils = api.useUtils();
   const [isModalOpen, setInviteMemberModalOpen, closeModalsOnClickOutside] =

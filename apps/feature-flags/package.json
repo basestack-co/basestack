@@ -34,7 +34,6 @@
     "@basestack/hooks": "*",
     "@basestack/ui": "*",
     "@basestack/utils": "*",
-    "@emotion/is-prop-valid": "^1.3.1",
     "@floating-ui/react": "^0.27.2",
     "@hookform/resolvers": "^3.9.1",
     "@monaco-editor/react": "^4.6.0",

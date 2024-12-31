@@ -7,14 +7,10 @@ import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 // Components
 import { ProfileAvatarCard, SwitchSettingCard } from "@basestack/ui";
-import ThemeCard from "components/UserSettings/ThemeCard";
-import FlagsCard from "components/UserSettings/FlagsCard";
+import ThemeCard from "./ThemeCard";
+import FlagsCard from "./FlagsCard";
 // Styles
-import {
-  CardList,
-  ProfileCardContainer,
-  CardListItem,
-} from "components/ProfileSettings/styles";
+import { CardList, ProfileCardContainer, CardListItem } from "../styles";
 
 // Store
 import { useStore } from "store";

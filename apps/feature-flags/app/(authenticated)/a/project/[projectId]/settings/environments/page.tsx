@@ -2,12 +2,9 @@
 
 import React from "react";
 // Components
-import {
-  CardList,
-  CardListItem,
-  SettingCardContainer,
-} from "components/ProjectSettings/styles";
-import Environments from "components/ProjectSettings/Environments";
+import Environments from "./Environments";
+// Styles
+import { CardList, CardListItem, SettingCardContainer } from "../styles";
 
 const EnvironmentsPage = () => {
   return (

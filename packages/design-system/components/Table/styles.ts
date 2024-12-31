@@ -14,12 +14,12 @@ export const StyledRow = styled.div.withConfig({
 })<{ numberOfColumns: number }>`
   display: grid;
   grid-template-columns:
-    repeat(${({numberOfColumns}) => numberOfColumns || 3}, 1fr)
+    repeat(${({ numberOfColumns }) => numberOfColumns || 3}, 1fr)
     36px;
-  grid-gap: ${({theme}) => theme.spacing.s5};
+  grid-gap: ${({ theme }) => theme.spacing.s5};
 
   &:not(:last-child) {
-    border-bottom: 1px solid ${({theme}) => theme.table.border};
+    border-bottom: 1px solid ${({ theme }) => theme.table.border};
   }
 `;
 

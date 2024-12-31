@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 // Components
 import { Skeleton } from "@basestack/design-system";
-import { HistoryCard } from "components";
+import HistoryCard from "components/HistoryCard";
 // Server
 import { api } from "utils/trpc/react";
 // Utils

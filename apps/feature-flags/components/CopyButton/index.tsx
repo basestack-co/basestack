@@ -14,7 +14,7 @@ export interface Props {
 }
 
 const CopyButton = ({ text }: Props) => {
-    const t = useTranslations("modal");
+  const t = useTranslations("modal");
   const [showTooltipSuccess, setShowTooltipSuccess] = useState(false);
 
   return (

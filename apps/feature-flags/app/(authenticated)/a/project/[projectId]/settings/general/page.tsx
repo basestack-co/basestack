@@ -4,20 +4,17 @@ import React from "react";
 // Router
 import { useParams } from "next/navigation";
 // Components
-import {
-  CardList,
-  CardListItem,
-  SettingCardContainer,
-} from "components/ProjectSettings/styles";
-import ProjectName from "components/ProjectSettings/ProjectName";
-import DeleteProject from "components/ProjectSettings/DeleteProject";
-import Endpoints from "components/ProjectSettings/Endpoints";
-import Keys from "components/ProjectSettings/Keys";
-import ProjectKey from "components/ProjectSettings/ProjectKey";
+import ProjectName from "./ProjectName";
+import DeleteProject from "./DeleteProject";
+import Endpoints from "./Endpoints";
+import Keys from "./Keys";
+import ProjectKey from "./ProjectKey";
 // Server
 import { api } from "utils/trpc/react";
 // Types
 import { Role } from "@prisma/client";
+// Styles
+import { CardList, CardListItem, SettingCardContainer } from "../styles";
 
 const GeneralPage = () => {
   const { projectId } = useParams<{ projectId: string }>();

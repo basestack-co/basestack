@@ -61,7 +61,7 @@ export const getAvatarDropdownList = (
     {
       icon: "settings",
       text: t("navigation.dropdown.settings"),
-      onClick: () => router.push("/a/user/tab/profile/general"),
+      onClick: () => router.push("/a/user/tab/general"),
     },
     {
       icon: "logout",

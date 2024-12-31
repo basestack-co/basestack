@@ -16,7 +16,7 @@ import {
   TooltipTrigger,
   Skeleton,
 } from "@basestack/design-system";
-import TooltipIcon from "../TooltipIcon";
+import TooltipIcon from "components/TooltipIcon";
 // Styles
 import {
   Labels,

@@ -19,7 +19,7 @@ import { createTable } from "@basestack/utils";
 // Auth
 import { useSession } from "next-auth/react";
 // Router
-import {useParams, useRouter} from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
 // Types
