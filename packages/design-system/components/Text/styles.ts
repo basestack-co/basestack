@@ -35,7 +35,7 @@ const sharedStyles = ({
 
 export const XSmallText = styled.span.withConfig({
   shouldForwardProp: (prop) =>
-    !["textAlign", "lineTruncate", "muted"].includes(prop),
+    !["textAlign", "lineTruncate", "muted", "lineHeight"].includes(prop),
 })<TextProps>`
   display: flex;
   font-size: ${rem("12px")};
@@ -81,7 +81,7 @@ export const MediumText = styled.p.withConfig({
 
 export const LargeText = styled.h3.withConfig({
   shouldForwardProp: (prop) =>
-    !["textAlign", "lineTruncate", "muted"].includes(prop),
+    !["textAlign", "lineTruncate", "muted", "lineHeight"].includes(prop),
 })<TextProps>`
   font-size: ${rem("18px")};
   line-height: ${rem("26px")};

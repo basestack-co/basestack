@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+// Hooks
 import { useIsTop } from "@basestack/hooks";
 // Components
 import {
@@ -13,8 +14,9 @@ import {
   Slider,
   Code,
 } from "components";
+// Styled
 import { DarkContainer } from "styles";
-// Data
+// Content
 import { platform, why, questions, slides } from "content/landing-page";
 
 const LandingPage = () => {

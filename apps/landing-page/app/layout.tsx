@@ -9,9 +9,9 @@ import { getLocale, getMessages } from "next-intl/server";
 import { Roboto_Flex, Roboto } from "next/font/google";
 
 export const metadata = {
-  title: "Basestack Forms",
+  title: "Basestack",
   description:
-    "Transform Your Site Experience: Capture Form Submissions Easily, No Backend Required",
+    "Basestack is an open-source stack designed specifically for developers and startups.",
 };
 
 const robotoFlex = Roboto_Flex({
