@@ -90,7 +90,7 @@ export const providerMap = providers
 
 export const authConfig: NextAuthConfig = {
   adapter: PrismaAdapter(prisma),
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.AUTH_SECRET,
   pages: {
     signIn: "/auth/sign-in",
     signOut: "/auth/sign-out",

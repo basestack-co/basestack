@@ -1,7 +1,7 @@
 ---
 title: Basestack Platform - Deploy to Vercel
 description: Vercel is the company behind the Next.js framework, which is used by Basestack.
-tags: Basestack, Vercel, Deployment, Next.js, Hosting, Vercel Pricing, Free Hosting, Next.js Applications, Deploy to Vercel, Neon, Database, Free Plan, Self-Hosting, Quick Start Guide, PostgreSQL, Connection Pooling, PgBouncer, Environment Variables, Project Settings, Github, Authentication Provider, OAuth App, Github Client ID, Github Client Secret, Deployment Steps, Configuration, Troubleshooting, Updates, Getting Updates, Feature Flags, Forms, Quick Deploy, Fork the Platform, Environment Variables, Vercel Project Settings, Build & Development Settings, Feature Flags, Forms, What's Next, Rest API, Javascript & Node, React, Updates, New Features, Bug Fixes, Updating the Platform, Configuration Page, Troubleshooting, Retrieve the Project URL, NEXTAUTH_URL, Github OAuth App, Homepage URL, Authorization Callback URL
+tags: Basestack, Vercel, Deployment, Next.js, Hosting, Vercel Pricing, Free Hosting, Next.js Applications, Deploy to Vercel, Neon, Database, Free Plan, Self-Hosting, Quick Start Guide, PostgreSQL, Connection Pooling, PgBouncer, Environment Variables, Project Settings, Github, Authentication Provider, OAuth App, Github Client ID, Github Client Secret, Deployment Steps, Configuration, Troubleshooting, Updates, Getting Updates, Feature Flags, Forms, Quick Deploy, Fork the Platform, Environment Variables, Vercel Project Settings, Build & Development Settings, Feature Flags, Forms, What's Next, Rest API, Javascript & Node, React, Updates, New Features, Bug Fixes, Updating the Platform, Configuration Page, Troubleshooting, Retrieve the Project URL, AUTH_URL, Github OAuth App, Homepage URL, Authorization Callback URL
 ---
 
 import { Steps, Callout, Tabs, Cards } from "nextra/components";
@@ -74,7 +74,7 @@ Once you've successfully created a new [OAuth App](https://github.com/settings/d
     <Tabs.Tab>
       Quick deploy to [Vercel ↗](https://vercel.com/) with a simple click on the deploy button below:
 
-      [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbasestack-co%2Fbasestack&env=DATABASE_URL,DIRECT_DATABASE_URL,NEXTAUTH_SECRET,NEXTAUTH_URL,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET&envDescription=See%20the%20full%20Environment%20Variables%20List%20Configuration&envLink=https%3A%2F%2Fdocs.basestack.co%2Ffeature-flags%2Fdeployment)
+      [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbasestack-co%2Fbasestack&env=DATABASE_URL,DIRECT_DATABASE_URL,AUTH_SECRET,AUTH_URL,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET&envDescription=See%20the%20full%20Environment%20Variables%20List%20Configuration&envLink=https%3A%2F%2Fdocs.basestack.co%2Ffeature-flags%2Fdeployment)
 
       By clicking on the button above, a new repository will be created in your GitHub account from the [Basestack Platform](https://github.com/basestack-co/basestack) repository, and the platform will be deployed for you. This will be an independent copy with no connection to the main project.
     </Tabs.Tab>
@@ -96,13 +96,13 @@ To ensure a successful deployment on Vercel, the platform requires a minimum set
 | ---------------------- | ------------------------------------------------------------------------------------------- |
 | `DATABASE_URL`         | Connection URL to your database using PgBouncer.                                            |
 | `DIRECT_DATABASE_URL`  | Direct connection URL to the database used for migrations                                   |
-| `NEXTAUTH_SECRET`      | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens.                 |
-| `NEXTAUTH_URL`         | Set to the canonical URL of your site                                                       |
+| `AUTH_SECRET`      | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens.                 |
+| `AUTH_URL`         | Set to the canonical URL of your site                                                       |
 | `GITHUB_CLIENT_ID`     | Client Id generated in the [OAuth App](https://github.com/settings/developers) creation     |
 | `GITHUB_CLIENT_SECRET` | Client Secret generated in the [OAuth App](https://github.com/settings/developers) creation |
 
 <Callout type="info" emoji="ℹ️">
-  For the `NEXTAUTH_SECRET` variable you can use `openssl rand -base64 32` or
+  For the `AUTH_SECRET` variable you can use `openssl rand -base64 32` or
   generate a [random value](https://generate-secret.vercel.app/32).
 </Callout>
 
@@ -178,7 +178,7 @@ Lastly, stay tuned about updates, including new features and bug fixes. To ensur
 
 ## Troubleshooting
 
-### How to Retrieve the Project URL for `NEXTAUTH_URL` and Github OAuth App?
+### How to Retrieve the Project URL for `AUTH_URL` and Github OAuth App?
 
 If you don't have a domain yet, feel free to leave the fields below empty or use dummy information. Proceed with the deployment as usual. Once the deployment is complete, Vercel will generate a URL for your project.
 
@@ -186,7 +186,7 @@ Copy this URL and update the information in your [OAuth App](https://github.com/
 
 **Environment Variables:**
 
-- `NEXTAUTH_URL`
+- `AUTH_URL`
 
 **Github [OAuth App](https://github.com/settings/developers) Fields:**
 
