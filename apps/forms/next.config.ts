@@ -15,9 +15,6 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
-  experimental: {
-    typedRoutes: true,
-  },
   async redirects() {
     return [
       {
