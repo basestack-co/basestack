@@ -213,6 +213,7 @@ exports[`Tabs tests should render Tabs with space utils 1`] = `
       <div
         class="c2"
         data-testid="tabs-component"
+        mb="20"
       >
         <button
           class="c3"

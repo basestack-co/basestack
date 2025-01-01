@@ -7,7 +7,7 @@ jest.mock("react-use", () => ({
   useMedia: jest.fn(() => false),
 }));
 
-jest.mock("next/router", () => ({
+jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
 }));
 

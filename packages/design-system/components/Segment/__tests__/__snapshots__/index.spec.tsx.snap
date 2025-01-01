@@ -229,6 +229,7 @@ exports[`Segment tests should render Segment with icons and test 1`] = `
         <p
           class="c5"
           font-family="roboto"
+          ml="0.25rem"
         >
           Item 1
         </p>
@@ -254,6 +255,7 @@ exports[`Segment tests should render Segment with icons and test 1`] = `
         <p
           class="c5"
           font-family="roboto"
+          ml="0.25rem"
         >
           Item 2
         </p>

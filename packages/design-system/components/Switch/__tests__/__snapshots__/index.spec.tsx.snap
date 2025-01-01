@@ -106,6 +106,7 @@ exports[`Switch tests should render Switch checked by default 1`] = `
     <p
       class="c1"
       font-family="roboto"
+      mr="0.75rem"
     >
       Lorem ipsum
     </p>
@@ -338,6 +339,7 @@ exports[`Switch tests should render Switch with text 1`] = `
     <p
       class="c1"
       font-family="roboto"
+      mr="0.75rem"
     >
       Lorem ipsum
     </p>

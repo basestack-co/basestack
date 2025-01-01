@@ -169,7 +169,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
   width: fit-content;
 }
 
-.c18:hover:not(:active, :disabled) {
+.c18:hover:not(:active,:disabled) {
   background-color: #0e55d7;
 }
 
@@ -208,7 +208,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
   width: fit-content;
 }
 
-.c25:hover:not(:active, :disabled) {
+.c25:hover:not(:active,:disabled) {
   background-color: #0e55d7;
 }
 
@@ -267,7 +267,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
 
 .c5 {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2,1fr);
   grid-gap: 1.25rem;
   max-width: 780px;
   width: 100%;
@@ -296,8 +296,8 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
   color: #000000;
 }
 
-.c26:hover:not(:active, :disabled) {
-  background-color: rgba(255, 255, 255, 0.9);
+.c26:hover:not(:active,:disabled) {
+  background-color: rgba(255,255,255,0.9);
   color: #000000;
 }
 
@@ -339,6 +339,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
         <h2
           class="c3"
           color="#000000"
+          mb="0.5rem"
         >
           Pricing
         </h2>
@@ -361,6 +362,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
             class="c7"
             color="#000000"
             font-family="roboto"
+            mb="1.25rem"
           >
             Basic Plan
           </h3>
@@ -380,6 +382,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
               class="c10"
               color="#757575"
               font-family="roboto"
+              ml="0.25rem"
             >
               /MO
             </p>
@@ -409,6 +412,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
                 color="#000000"
                 font-family="roboto"
                 font-weight="400"
+                ml="0.75rem"
               >
                 10 000 flags per project
               </p>
@@ -435,6 +439,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
                 color="#000000"
                 font-family="roboto"
                 font-weight="400"
+                ml="0.75rem"
               >
                 5 environments per team
               </p>
@@ -461,6 +466,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
                 color="#000000"
                 font-family="roboto"
                 font-weight="400"
+                ml="0.75rem"
               >
                 10 project per organization
               </p>
@@ -487,6 +493,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
                 color="#757575"
                 font-family="roboto"
                 font-weight="400"
+                ml="0.75rem"
               >
                 Enterprise use
               </p>
@@ -495,6 +502,9 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
           <button
             class="c18"
             data-testid="button"
+            mt="auto"
+            mx="auto"
+            variant="primary"
           >
             <span
               class=""
@@ -510,6 +520,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
             class="c20"
             color="#F6F6F6"
             font-family="roboto"
+            mb="1.25rem"
           >
             Enterprise
           </h3>
@@ -529,6 +540,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
               class="c22"
               color="#CBCBCB"
               font-family="roboto"
+              ml="0.25rem"
             >
               /MO
             </p>
@@ -558,6 +570,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
                 color="#F6F6F6"
                 font-family="roboto"
                 font-weight="400"
+                ml="0.75rem"
               >
                 50 000 flags per project
               </p>
@@ -584,6 +597,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
                 color="#F6F6F6"
                 font-family="roboto"
                 font-weight="400"
+                ml="0.75rem"
               >
                 5 environments per team
               </p>
@@ -610,6 +624,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
                 color="#F6F6F6"
                 font-family="roboto"
                 font-weight="400"
+                ml="0.75rem"
               >
                 10 project per organization
               </p>
@@ -636,6 +651,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
                 color="#F6F6F6"
                 font-family="roboto"
                 font-weight="400"
+                ml="0.75rem"
               >
                 Enterprise use
               </p>
@@ -644,6 +660,7 @@ exports[`Pricing tests should render Pricing correctly 1`] = `
           <button
             class="c25 c26"
             data-testid="button"
+            variant="primary"
           >
             <span
               class=""

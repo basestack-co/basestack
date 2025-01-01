@@ -192,6 +192,7 @@ exports[`Slider tests should render Slider correctly 1`] = `
           <h2
             class="c4"
             color="#000000"
+            mb="0.5rem"
           >
             Release with Confidence
           </h2>
@@ -237,6 +238,7 @@ exports[`Slider tests should render Slider correctly 1`] = `
                 <h3
                   class="c13"
                   font-family="roboto"
+                  ml="0.75rem"
                 >
                   User traits
                 </h3>
@@ -280,6 +282,7 @@ exports[`Slider tests should render Slider correctly 1`] = `
                 <h3
                   class="c13"
                   font-family="roboto"
+                  ml="0.75rem"
                 >
                   Staged feature rollouts
                 </h3>
@@ -323,6 +326,7 @@ exports[`Slider tests should render Slider correctly 1`] = `
                 <h3
                   class="c13"
                   font-family="roboto"
+                  ml="0.75rem"
                 >
                   Track Changes
                 </h3>

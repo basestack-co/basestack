@@ -143,7 +143,7 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
   width: fit-content;
 }
 
-.c12:hover:not(:active, :disabled) {
+.c12:hover:not(:active,:disabled) {
   background-color: #0e55d7;
 }
 
@@ -173,7 +173,7 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
 
 .c0::before {
   content: "";
-  background: rgba(238, 238, 238, 0.7);
+  background: rgba(238,238,238,0.7);
   -webkit-backdrop-filter: saturate(180%) blur(150px);
   backdrop-filter: saturate(180%) blur(150px);
   position: absolute;
@@ -208,7 +208,7 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
 
 .c7 {
   display: grid;
-  grid-template-columns: minmax(auto, 26.25rem) 1fr;
+  grid-template-columns: minmax(auto,26.25rem) 1fr;
   grid-gap: 0.75rem;
 }
 
@@ -319,7 +319,7 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
   position: absolute;
   bottom: 0;
   left: 0;
-  animation: bHTXJE 10s linear;
+  animation: cmYSia 10s linear;
   height: 5px;
   background-color: #276EF1;
 }
@@ -428,6 +428,7 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
           font-family="robotoFlex"
           font-size="3.75rem"
           font-weight="800"
+          mb="1.25rem"
         >
           The Open-Source Stack for Developers and Startups
         </h1>
@@ -462,6 +463,7 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
               <button
                 class="c12"
                 data-testid="button"
+                variant="primary"
               >
                 <span
                   class=""
@@ -484,10 +486,10 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
               </button>
             </div>
             <div
-              class="c15"
+              class="0 c15"
             >
               <p
-                class="c16 c17"
+                class="c16 1 c17"
                 color="#757575"
                 font-family="roboto"
               >
@@ -496,10 +498,10 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
             </div>
           </div>
           <div
-            class="c18"
+            class="2 c18"
           >
             <div
-              class="c19"
+              class="3 c19"
             >
               <button
                 class="c20"
@@ -524,6 +526,7 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
                   <h3
                     class="c24"
                     font-family="roboto"
+                    ml="0.75rem"
                   >
                     title
                   </h3>
@@ -553,14 +556,14 @@ exports[`WaitingList tests should render WaitingList correctly 1`] = `
         </div>
       </div>
       <div
-        class="c29"
+        class="4 c29"
       >
         <p
           class="c30"
           font-family="roboto"
           font-weight="400"
         >
-          © Basestack 2024. All rights reserved. 
+          © Basestack 2025. All rights reserved. 
           <a
             href="/legal/privacy"
             style="color: black;"

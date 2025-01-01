@@ -36,7 +36,7 @@ exports[`Hero tests should renders Hero correctly 1`] = `
   width: fit-content;
 }
 
-.c6:hover:not(:active, :disabled) {
+.c6:hover:not(:active,:disabled) {
   background-color: #0e55d7;
 }
 
@@ -76,7 +76,7 @@ exports[`Hero tests should renders Hero correctly 1`] = `
   width: fit-content;
 }
 
-.c7:hover:not(:active, :disabled) {
+.c7:hover:not(:active,:disabled) {
   background-color: #333;
 }
 
@@ -106,7 +106,7 @@ exports[`Hero tests should renders Hero correctly 1`] = `
 
 .c0::before {
   content: "";
-  background: rgba(238, 238, 238, 0.7);
+  background: rgba(238,238,238,0.7);
   -webkit-backdrop-filter: saturate(180%) blur(150px);
   backdrop-filter: saturate(180%) blur(150px);
   position: absolute;
@@ -146,13 +146,13 @@ exports[`Hero tests should renders Hero correctly 1`] = `
   color: #000000;
   font-family: 'Roboto Flex',sans-serif;
   font-size: 3.75rem;
-  background: linear-gradient(         to right,         #000000 20%,         #1E54B7 30%,         #5B91F5 70%,         #574191 80%       );
+  background: linear-gradient( to right,#000000 20%,#1E54B7 30%,#5B91F5 70%,#574191 80% );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   text-fill-color: transparent;
   background-size: 500% auto;
-  animation: fgyhpo 5s ease-in-out infinite alternate;
+  animation: ggLZeG 5s ease-in-out infinite alternate;
 }
 
 @media screen and (max-width: 575.98px) {
@@ -182,6 +182,7 @@ exports[`Hero tests should renders Hero correctly 1`] = `
         <h2
           class="c3"
           color="#000000"
+          mb="0.5rem"
         >
           Welcome to my app
         </h2>
@@ -200,6 +201,7 @@ exports[`Hero tests should renders Hero correctly 1`] = `
         <button
           class="c6"
           data-testid="button"
+          variant="primary"
         >
           <span
             class=""
@@ -210,6 +212,7 @@ exports[`Hero tests should renders Hero correctly 1`] = `
         <button
           class="c7"
           data-testid="button"
+          variant="secondary"
         >
           <span
             class=""
