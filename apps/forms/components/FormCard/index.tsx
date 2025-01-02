@@ -88,8 +88,8 @@ const FormCard = ({
   } = useFloatingPopup({});
 
   const onClickMenuItem = useCallback(
-    async (path: string) => {
-      await router.push(`/a/form/${formId}/${path}`);
+    (path: string) => {
+      router.push(`/a/form/${formId}/${path}`);
     },
     [router, formId],
   );

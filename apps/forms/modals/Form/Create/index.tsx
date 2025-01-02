@@ -62,19 +62,42 @@ const CreateFormModal = () => {
     createForm.mutate(data, {
       onSuccess: async (result) => {
         // Get all the projects on the cache
-        const prev = trpcUtils.form.all.getData();
+        const prevAllForms = trpcUtils.form.all.getData();
 
-        if (prev && prev.forms) {
+        if (prevAllForms && prevAllForms.forms) {
           // Add the new form with the others
-          const forms = [result.form, ...prev.forms];
+          const forms = [result.form, ...prevAllForms.forms];
 
           // Update the cache with the new data
           trpcUtils.form.all.setData(undefined, { forms });
         }
 
+        // Get all the recent forms on the cache
+        const prevRecentForms = trpcUtils.form.recent.getData();
+
+        if (prevRecentForms) {
+          // Find the form and remove from the list
+          const forms = [
+            {
+              id: result.form.id,
+              name: result.form.name,
+              isEnabled: true,
+              _count: {
+                spam: 0,
+                unread: 0,
+                read: 0,
+              },
+            },
+            ...prevRecentForms,
+          ];
+
+          // Update the cache with the new data
+          trpcUtils.form.recent.setData(undefined, forms);
+        }
+
         onClose();
 
-        await router.push(`/a/form/${result.form.id}/submissions`);
+        router.push(`/a/form/${result.form.id}/submissions`);
       },
       onError: (error) => {
         toast.error(error.message);

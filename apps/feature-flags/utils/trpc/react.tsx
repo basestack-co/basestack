@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 // Types
 import { QueryClientProvider, type QueryClient } from "@tanstack/react-query";
 import { type AppRouter } from "server/api/root";

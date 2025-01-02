@@ -2,7 +2,7 @@
 
 import React, { Fragment } from "react";
 // Router
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 // Auth
 import { useSession } from "next-auth/react";
 // Components
@@ -13,12 +13,11 @@ import { api } from "utils/trpc/react";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const pathname = usePathname();
 
   const { status } = useSession({
     required: true,
-    async onUnauthenticated() {
-      await router.push("/auth/sign-in");
+    onUnauthenticated() {
+      router.push("/auth/sign-in");
     },
   });
 

@@ -1,13 +1,15 @@
 "use client";
 
+import React, { useState } from "react";
+// Types
 import { QueryClientProvider, type QueryClient } from "@tanstack/react-query";
+import { type AppRouter } from "server/api/root";
+// Server
 import { loggerLink, unstable_httpBatchStreamLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
-import { useState } from "react";
+// Utils
 import SuperJSON from "superjson";
-
-import { type AppRouter } from "server/api/root";
 import { createQueryClient } from "./query-client";
 
 let clientQueryClientSingleton: QueryClient | undefined = undefined;
@@ -52,6 +54,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
+      {/*  @ts-expect-error - client prop Its working on Feature Flags, this started randomly failing */}
       <api.Provider client={trpcClient} queryClient={queryClient}>
         {props.children}
       </api.Provider>

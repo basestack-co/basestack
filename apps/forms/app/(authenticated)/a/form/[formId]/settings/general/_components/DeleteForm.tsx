@@ -30,12 +30,12 @@ const DeleteFormCard = ({ name }: Props) => {
       },
       {
         onSuccess: async (result) => {
-          // Get all the projects on the cache
-          const prev = trpcUtils.form.all.getData();
+          // Get all the forms on the cache
+          const prevAllForms = trpcUtils.form.all.getData();
 
-          if (prev && prev.forms) {
+          if (prevAllForms?.forms) {
             // Find the form and remove from the list
-            const forms = prev.forms.filter(
+            const forms = prevAllForms.forms.filter(
               (form) => form.id !== result.form.id,
             );
 
@@ -43,7 +43,20 @@ const DeleteFormCard = ({ name }: Props) => {
             trpcUtils.form.all.setData(undefined, { forms });
           }
 
-          await router.replace("/");
+          // Get all the recent forms on the cache
+          const prevRecentForms = trpcUtils.form.recent.getData();
+
+          if (prevRecentForms) {
+            // Find the form and remove from the list
+            const forms = prevRecentForms.filter(
+              (form) => form.id !== result.form.id,
+            );
+
+            // Update the cache with the new data
+            trpcUtils.form.recent.setData(undefined, forms);
+          }
+
+          router.replace("/");
         },
       },
     );

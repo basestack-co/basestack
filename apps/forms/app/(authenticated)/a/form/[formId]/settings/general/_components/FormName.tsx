@@ -90,6 +90,21 @@ const FormNameCard = ({ role, name }: Props) => {
             );
           }
 
+          // Get all the recent forms from the cache
+          const prevRecentForms = trpcUtils.form.recent.getData();
+
+          if (prevRecentForms) {
+            // Update the name of the form with the matching id
+            const updatedForms = prevRecentForms.map((form) =>
+              form.id === result.form.id
+                ? { ...form, name: result.form.name }
+                : form,
+            );
+
+            // Update the cache with the modified data
+            trpcUtils.form.recent.setData(undefined, updatedForms);
+          }
+
           toast.success(t("general.form.toast.success"));
         },
         onError: (error) => {
