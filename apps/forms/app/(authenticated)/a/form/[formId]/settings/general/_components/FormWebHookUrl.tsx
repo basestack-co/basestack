@@ -15,7 +15,7 @@ import { InputGroup } from "@basestack/design-system";
 import { toast } from "sonner";
 // Utils
 import { PlanTypeId } from "@basestack/utils";
-import { getWithPlanCardProps } from "../utils";
+import { getWithPlanCardProps } from "../../utils";
 // Locales
 import { useTranslations } from "next-intl";
 
@@ -26,11 +26,11 @@ export const FormSchema = z.object({
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
-  redirectUrl?: string;
+  webhookUrl?: string;
   planId: PlanTypeId;
 }
 
-const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
+const FormWebHookUrlCard = ({ webhookUrl = "", planId }: Props) => {
   const router = useRouter();
   const { formId } = useParams<{ formId: string }>();
   const t = useTranslations();
@@ -54,15 +54,15 @@ const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
   const watchUrl = watch("url");
 
   useEffect(() => {
-    setValue("url", redirectUrl);
-  }, [redirectUrl, setValue]);
+    setValue("url", webhookUrl);
+  }, [webhookUrl, setValue]);
 
   const onSave: SubmitHandler<FormInputs> = async (input) => {
     updateForm.mutate(
       {
         formId,
-        redirectUrl: input.url,
-        feature: "hasCustomUrls",
+        webhookUrl: input.url,
+        feature: "hasWebhooks",
       },
       {
         onSuccess: (result) => {
@@ -75,12 +75,12 @@ const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
               { formId: result.form.id },
               {
                 ...cache,
-                redirectUrl: result.form.redirectUrl,
+                webhookUrl: result.form.webhookUrl,
               },
             );
           }
 
-          toast.success(t("setting.customization.redirect-url.toast.success"));
+          toast.success(t("setting.general.webhook-url.toast.success"));
         },
         onError: (error) => {
           toast.error(error.message);
@@ -91,18 +91,17 @@ const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
 
   return (
     <SettingCard
-      title={t("setting.customization.redirect-url.title")}
-      description={t("setting.customization.redirect-url.description")}
+      title={t("setting.general.webhook-url.title")}
+      description={t("setting.general.webhook-url.description")}
       {...getWithPlanCardProps({
         t,
         router,
         planId,
-        feature: "hasCustomUrls",
-        i18nKey: "setting.customization.redirect-url.action",
+        feature: "hasWebhooks",
+        i18nKey: "setting.general.webhook-url.action",
         onClick: handleSubmit(onSave),
         isLoading: isSubmitting,
-        isDisabled: isSubmitting || watchUrl === redirectUrl || !!errors.url,
-        partial: false,
+        isDisabled: isSubmitting || watchUrl === webhookUrl || !!errors.url,
       })}
     >
       <Controller
@@ -119,7 +118,7 @@ const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "setting.customization.redirect-url.inputs.name.placeholder",
+                "setting.general.webhook-url.inputs.name.placeholder",
               ),
               hasError: !!errors.url,
               maxWidth: 560,
@@ -132,4 +131,4 @@ const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
   );
 };
 
-export default FormRedirectUrlCard;
+export default FormWebHookUrlCard;

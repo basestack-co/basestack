@@ -22,7 +22,7 @@
     "@basestack/utils": "*",
     "@floating-ui/react": "^0.27.2",
     "@hookform/resolvers": "^3.9.1",
-    "babel-plugin-react-compiler": "^19.0.0-beta-201e55d-20241215",
+    "babel-plugin-react-compiler": "^19.0.0-beta-55955c9-20241229",
     "eslint-config-next": "^15.1.3",
     "material-symbols": "^0.27.2",
     "next": "^15.1.3",

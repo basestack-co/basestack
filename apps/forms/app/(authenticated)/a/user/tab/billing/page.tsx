@@ -4,7 +4,7 @@ import React, { useMemo, useEffect } from "react";
 // Router
 import { useRouter } from "next/navigation";
 // Components
-import Plans from "./Plans";
+import Plans from "./_components/Plans";
 // Utils
 import { getCookieValueAsBoolean, config } from "@basestack/utils";
 // Styles

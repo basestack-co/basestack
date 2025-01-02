@@ -5,9 +5,9 @@ import React from "react";
 import { useParams } from "next/navigation";
 // Components
 import { CardList, CardListItem, SettingCardContainer } from "../styles";
-import FormIpRules from "./FormIpRules";
-import FormHoneyPot from "./FormHoneyPot";
-import FormWebsites from "./FormWebsites";
+import FormIpRules from "./_components/FormIpRules";
+import FormHoneyPot from "./_components/FormHoneyPot";
+import FormWebsites from "./_components/FormWebsites";
 // Utils
 import { PlanTypeId } from "@basestack/utils";
 // Server

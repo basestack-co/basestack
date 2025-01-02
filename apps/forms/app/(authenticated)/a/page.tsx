@@ -1,7 +1,6 @@
 "use client";
 
 import React, { Fragment } from "react";
-import Head from "next/head";
 // Router
 import { useRouter } from "next/navigation";
 // Server
@@ -49,9 +48,6 @@ const MainPage = () => {
 
   return (
     <Fragment>
-      <Head>
-        <title>Basestack / Forms</title>
-      </Head>
       <Container>
         <Section mb={theme.spacing.s7}>
           <Header>

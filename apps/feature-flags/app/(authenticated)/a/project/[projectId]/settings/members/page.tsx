@@ -4,7 +4,7 @@ import React from "react";
 // Router
 import { useParams } from "next/navigation";
 // Modules
-import Invite from "./Invite";
+import Invite from "./_components/Invite";
 // Server
 import { api } from "utils/trpc/react";
 // Styles

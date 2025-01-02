@@ -2,7 +2,7 @@
 
 import React from "react";
 // Components
-import Environments from "./Environments";
+import Environments from "./_components/Environments";
 // Styles
 import { CardList, CardListItem, SettingCardContainer } from "../styles";
 

@@ -3,7 +3,6 @@
 import { StatusPage } from "@basestack/ui";
 // Navigation
 import { useParams } from "next/navigation";
-import Head from "next/head";
 // Utils
 import { config } from "@basestack/utils";
 // Locales
@@ -16,24 +15,19 @@ const FormStatusSuccess = () => {
   const t = useTranslations("common");
 
   return (
-    <>
-      <Head>
-        <title>Basestack / Form Submission Success</title>
-      </Head>
-      <StatusPage
-        type="success"
-        title={t("status.form.success.title")}
-        description={t("status.form.success.description")}
-        brand={{
-          text: t("brand.powered.forms"),
-          onClick: () => window.open(config.urls.product.forms, "_blank"),
-        }}
-        button={{
-          text: t("status.form.success.action"),
-          onClick: () => window.open(goBackUrl ?? "/", "_blank"),
-        }}
-      />
-    </>
+    <StatusPage
+      type="success"
+      title={t("status.form.success.title")}
+      description={t("status.form.success.description")}
+      brand={{
+        text: t("brand.powered.forms"),
+        onClick: () => window.open(config.urls.product.forms, "_blank"),
+      }}
+      button={{
+        text: t("status.form.success.action"),
+        onClick: () => window.open(goBackUrl ?? "/", "_blank"),
+      }}
+    />
   );
 };
 

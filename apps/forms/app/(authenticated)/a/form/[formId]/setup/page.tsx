@@ -1,7 +1,6 @@
 "use client";
 
-import React, { Fragment } from "react";
-import Head from "next/head";
+import React, { Fragment, useEffect } from "react";
 // Router
 import { useParams } from "next/navigation";
 // Server
@@ -10,11 +9,11 @@ import { api } from "utils/trpc/react";
 import { useTranslations } from "next-intl";
 // Components
 import { Banners } from "@basestack/ui";
-import EndpointCard from "./EndpointCard";
+import EndpointCard from "./_components/EndpointCard";
 import { HorizontalRule } from "@basestack/design-system";
-import SetupGuide from "./SetupGuide";
-import Form from "./Form";
-import Links from "./Links";
+import SetupGuide from "./_components/SetupGuide";
+import Form from "./_components/Form";
+import Links from "./_components/Links";
 // Styles
 import { useTheme } from "styled-components";
 import { Column, Container, Row } from "./styles";
@@ -34,13 +33,12 @@ const SetupPage = () => {
   const isEnabled = form?.isEnabled ?? true;
   const hasRetention = form?.hasRetention ?? true;
 
+  useEffect(() => {
+    document.title = `${form?.name ?? "Form"} / ${t("seo.setup")}`;
+  }, [form?.name, t]);
+
   return (
     <Fragment>
-      <Head>
-        <title>
-          {form?.name ?? "Form"} / {t("seo.setup")}
-        </title>
-      </Head>
       <Banners
         data={[
           {

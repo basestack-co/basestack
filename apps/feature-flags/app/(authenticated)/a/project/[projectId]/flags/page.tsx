@@ -1,23 +1,21 @@
 "use client";
 
 import React, { useCallback, useEffect, useState } from "react";
-// SEO
-import Head from "next/head";
 // Hooks
 import { useMedia } from "react-use";
 // Store
 import { useStore } from "store";
 // Components
 import { Text } from "@basestack/design-system";
-import FlagsList from "./FlagsList";
-import Toolbar from "./Toolbar";
+import FlagsList from "./_components/FlagsList";
+import Toolbar from "./_components/Toolbar";
 // Router
 import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
 // Styles
 import { useTheme } from "styled-components";
-import { FlagsListContainer } from "./FlagsList/styles";
+import { FlagsListContainer } from "./_components/FlagsList/styles";
 // Types
 import { SelectedView } from "types";
 // Server
@@ -57,13 +55,12 @@ const FlagsPage = () => {
     setActivityModalOpen({ isOpen: true });
   }, [setActivityModalOpen]);
 
+  useEffect(() => {
+    document.title = `${project?.name ?? "Project"} / ${t("seo.title")}`;
+  }, [project?.name, t]);
+
   return (
     <>
-      <Head>
-        <title>
-          {project?.name ?? "Project"} / {t("seo.title")}
-        </title>
-      </Head>
       <FlagsListContainer>
         <Text size="xLarge">{t("page.title")}</Text>
         <Toolbar

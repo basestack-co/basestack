@@ -5,10 +5,10 @@ import React from "react";
 import { useParams } from "next/navigation";
 // Components
 import { CardList, CardListItem, SettingCardContainer } from "../styles";
-import FormSuccessUrl from "./FormSuccessUrl";
-import FormFailedUrl from "./FormFailedUrl";
-import FormSendQueryString from "./FormSendQueryString";
-import FormRedirectUrl from "./FormRedirectUrl";
+import FormSuccessUrl from "./_components/FormSuccessUrl";
+import FormFailedUrl from "./_components/FormFailedUrl";
+import FormSendQueryString from "./_components/FormSendQueryString";
+import FormRedirectUrl from "./_components/FormRedirectUrl";
 // Utils
 import { PlanTypeId } from "@basestack/utils";
 // Server

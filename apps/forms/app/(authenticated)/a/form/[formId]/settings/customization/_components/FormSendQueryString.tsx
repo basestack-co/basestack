@@ -9,9 +9,9 @@ import { SwitchSettingCard } from "@basestack/ui";
 import { toast } from "sonner";
 // Utils
 import { PlanTypeId } from "@basestack/utils";
+import { getWithPlanSwitchProps } from "../../utils";
 // Locales
 import { useTranslations } from "next-intl";
-import { getWithPlanSwitchProps } from "../utils";
 
 export interface Props {
   hasDataQueryString?: boolean;

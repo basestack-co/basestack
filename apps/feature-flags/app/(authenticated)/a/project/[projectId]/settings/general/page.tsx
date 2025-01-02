@@ -4,11 +4,11 @@ import React from "react";
 // Router
 import { useParams } from "next/navigation";
 // Components
-import ProjectName from "./ProjectName";
-import DeleteProject from "./DeleteProject";
-import Endpoints from "./Endpoints";
-import Keys from "./Keys";
-import ProjectKey from "./ProjectKey";
+import ProjectName from "./_components/ProjectName";
+import DeleteProject from "./_components/DeleteProject";
+import Endpoints from "./_components/Endpoints";
+import Keys from "./_components/Keys";
+import ProjectKey from "./_components/ProjectKey";
 // Server
 import { api } from "utils/trpc/react";
 // Types

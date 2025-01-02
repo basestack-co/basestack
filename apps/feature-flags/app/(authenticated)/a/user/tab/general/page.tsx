@@ -7,8 +7,8 @@ import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 // Components
 import { ProfileAvatarCard, SwitchSettingCard } from "@basestack/ui";
-import ThemeCard from "./ThemeCard";
-import FlagsCard from "./FlagsCard";
+import ThemeCard from "./_components/ThemeCard";
+import FlagsCard from "./_components/FlagsCard";
 // Styles
 import { CardList, ProfileCardContainer, CardListItem } from "../styles";
 

@@ -1,7 +1,6 @@
 "use client";
 
-import React, { Fragment } from "react";
-import Head from "next/head";
+import React, { Fragment, useEffect } from "react";
 // Router
 import { useParams } from "next/navigation";
 // Server
@@ -9,7 +8,7 @@ import { api } from "utils/trpc/react";
 // Locales
 import { useTranslations } from "next-intl";
 // Components
-import FormSubmissions from "./FormSubmissions";
+import FormSubmissions from "./_components/FormSubmissions";
 
 const FormSubmissionsPage = () => {
   const t = useTranslations("form");
@@ -22,13 +21,12 @@ const FormSubmissionsPage = () => {
     },
   );
 
+  useEffect(() => {
+    document.title = `${form?.name ?? "Form"} / ${t("seo.submissions")}`;
+  }, [form?.name, t]);
+
   return (
     <Fragment>
-      <Head>
-        <title>
-          {form?.name ?? "Form"} / {t("seo.submissions")}
-        </title>
-      </Head>
       <FormSubmissions
         isEnabled={form?.isEnabled ?? true}
         hasRetention={form?.hasRetention ?? true}

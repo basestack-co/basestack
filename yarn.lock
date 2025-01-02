@@ -3353,10 +3353,10 @@ babel-plugin-macros@^3.1.0:
     cosmiconfig "^7.0.0"
     resolve "^1.19.0"
 
-babel-plugin-react-compiler@^19.0.0-beta-201e55d-20241215:
-  version "19.0.0-beta-201e55d-20241215"
-  resolved "https://registry.yarnpkg.com/babel-plugin-react-compiler/-/babel-plugin-react-compiler-19.0.0-beta-201e55d-20241215.tgz#2cc73c632f20e7dabb2de2c677ebe92b95e5e197"
-  integrity sha512-c7YAJNlA8kSoIFx2Buq/CeGmC3MbZYznD3H7Q3cdaRyKtwDSSxbM3VJxEhv7lEo64g48aWSBSiCI3XcRw0y/Jw==
+babel-plugin-react-compiler@^19.0.0-beta-55955c9-20241229:
+  version "19.0.0-beta-55955c9-20241229"
+  resolved "https://registry.yarnpkg.com/babel-plugin-react-compiler/-/babel-plugin-react-compiler-19.0.0-beta-55955c9-20241229.tgz#a1df76c3e3217aca88833a01dfac4bbcc7c43309"
+  integrity sha512-APpa9fRiG5UN5kxnB/vznaSBKbXwAWZs6QshN3MLntzWa4cUhOxzUSd7Ohmr5sLQaM0ZHjjOg07pw1ZoR7+Oog==
   dependencies:
     "@babel/types" "^7.19.0"
 

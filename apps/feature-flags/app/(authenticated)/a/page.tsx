@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Head from "next/head";
 // Locales
 import { useTranslations } from "next-intl";
 // Router
@@ -22,8 +21,8 @@ import {
   Icon,
   Skeleton,
 } from "@basestack/design-system";
-import GetStartedCard from "./GetStarted/GetStartedCard";
-import TextLink from "./GetStarted/TextLink";
+import GetStartedCard from "./_components/GetStarted/GetStartedCard";
+import TextLink from "./_components/GetStarted/TextLink";
 // Styles
 import { useTheme } from "styled-components";
 import {
@@ -36,7 +35,7 @@ import {
   ProjectsListItem,
   Row,
   Section,
-} from "./GetStarted/styles";
+} from "./_components/GetStarted/styles";
 // Utils
 import { config } from "@basestack/utils";
 
@@ -104,9 +103,6 @@ const MainPage = () => {
 
   return (
     <div>
-      <Head>
-        <title>Basestack / Feature Flags</title>
-      </Head>
       <Container>
         <Section mb={theme.spacing.s7}>
           <Header>

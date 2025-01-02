@@ -1,8 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
-// SEO
-import Head from "next/head";
+import React, { useEffect, useMemo } from "react";
 // Router
 import { useParams, useRouter, usePathname } from "next/navigation";
 // Server
@@ -95,47 +93,45 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
     [t, projectId],
   );
 
-  return (
-    <>
-      <Head>
-        <title>{project?.name ?? "Project"} / Settings</title>
-      </Head>
+  useEffect(() => {
+    document.title = `${project?.name ?? "Project"} / Settings`;
+  }, [project?.name]);
 
-      <Container>
-        <Text size="xLarge" mb={theme.spacing.s5}>
-          Settings
-        </Text>
-        <SettingsContainer>
-          {isDesktop && <List top={activeLinkIndex * 100}>{renderLink}</List>}
-          {!isDesktop && (
-            <Tabs
-              items={items}
-              onSelect={(tab) => {
-                router.push(`/a/project/${projectId}/settings/${tab}`);
-              }}
-              sliderPosition={activeLinkIndex}
-              backgroundColor="transparent"
+  return (
+    <Container>
+      <Text size="xLarge" mb={theme.spacing.s5}>
+        Settings
+      </Text>
+      <SettingsContainer>
+        {isDesktop && <List top={activeLinkIndex * 100}>{renderLink}</List>}
+        {!isDesktop && (
+          <Tabs
+            items={items}
+            onSelect={(tab) => {
+              router.push(`/a/project/${projectId}/settings/${tab}`);
+            }}
+            sliderPosition={activeLinkIndex}
+            backgroundColor="transparent"
+          />
+        )}
+        {isLoadingProject || !project ? (
+          <Loader hasDelay={false}>
+            <Skeleton
+              items={[
+                { h: 24, w: "15%", mb: 10 },
+                { h: 18, w: "40%", mb: 20 },
+                { h: 100, w: "100%", mb: 20 },
+                { h: 1, w: "100%", mb: 16 },
+                { h: 36, w: 120, mb: 0, ml: "auto" },
+              ]}
+              padding={20}
             />
-          )}
-          {isLoadingProject || !project ? (
-            <Loader hasDelay={false}>
-              <Skeleton
-                items={[
-                  { h: 24, w: "15%", mb: 10 },
-                  { h: 18, w: "40%", mb: 20 },
-                  { h: 100, w: "100%", mb: 20 },
-                  { h: 1, w: "100%", mb: 16 },
-                  { h: 36, w: 120, mb: 0, ml: "auto" },
-                ]}
-                padding={20}
-              />
-            </Loader>
-          ) : (
-            children
-          )}
-        </SettingsContainer>
-      </Container>
-    </>
+          </Loader>
+        ) : (
+          children
+        )}
+      </SettingsContainer>
+    </Container>
   );
 };
 

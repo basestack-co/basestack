@@ -1,8 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
-// SEO
-import Head from "next/head";
+import React, { useEffect, useMemo } from "react";
 // Router
 import { useRouter, usePathname } from "next/navigation";
 // Theme
@@ -80,39 +78,35 @@ const ProfileLayout = ({ children }: { children: React.ReactElement }) => {
     [t],
   );
 
+  useEffect(() => {
+    document.title = `${t("profile.seo.setting.title")} / ${t(
+      `profile.seo.setting.${activeLinkIndex}` as NamespaceKeys<
+        string,
+        "profile"
+      >,
+    )}`;
+  }, [activeLinkIndex, t]);
+
   return (
-    <>
-      <Head>
-        <title>
-          {t("profile.seo.setting.title")} /{" "}
-          {t(
-            `profile.seo.setting.${activeLinkIndex}` as NamespaceKeys<
-              string,
-              "profile"
-            >,
-          )}
-        </title>
-      </Head>
-      <Container>
-        <Text size="xLarge" mb={theme.spacing.s5}>
-          {t("navigation.internal.profile")}
-        </Text>
-        <SettingsContainer>
-          {isDesktop && <List top={activeLinkIndex * 100}>{renderLink}</List>}
-          {!isDesktop && (
-            <Tabs
-              items={items}
-              onSelect={(tab) => {
-                router.push(`/a/user/tab/${tab}`);
-              }}
-              sliderPosition={activeLinkIndex}
-              backgroundColor="transparent"
-            />
-          )}
-          {children}
-        </SettingsContainer>
-      </Container>
-    </>
+    <Container>
+      <Text size="xLarge" mb={theme.spacing.s5}>
+        {t("navigation.internal.profile")}
+      </Text>
+      <SettingsContainer>
+        {isDesktop && <List top={activeLinkIndex * 100}>{renderLink}</List>}
+        {!isDesktop && (
+          <Tabs
+            items={items}
+            onSelect={(tab) => {
+              router.push(`/a/user/tab/${tab}`);
+            }}
+            sliderPosition={activeLinkIndex}
+            backgroundColor="transparent"
+          />
+        )}
+        {children}
+      </SettingsContainer>
+    </Container>
   );
 };
 

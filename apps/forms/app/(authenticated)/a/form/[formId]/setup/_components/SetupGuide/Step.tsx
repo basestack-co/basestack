@@ -1,5 +1,7 @@
 import React, { Fragment, ReactNode } from "react";
+// Components
 import { Icon, Text } from "@basestack/design-system";
+// Styles
 import { useTheme } from "styled-components";
 import {
   IconContainer,
@@ -7,7 +9,7 @@ import {
   StepWrapper,
   TextHighlight,
 } from "./styles";
-import { Box } from "../styles";
+import { Box } from "../../styles";
 
 interface StepProps {
   step: number;

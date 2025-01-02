@@ -5,7 +5,7 @@ import React from "react";
 import { useParams } from "next/navigation";
 // Components
 import { CardList, CardListItem, SettingCardContainer } from "../styles";
-import FormEmails from "./FormEmails";
+import FormEmails from "./_components/FormEmails";
 // Utils
 import { PlanTypeId } from "@basestack/utils";
 // Server

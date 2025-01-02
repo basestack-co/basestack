@@ -17,23 +17,23 @@ import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 // Utils
 import { PlanTypeId } from "@basestack/utils";
-import { getWithPlanCardProps } from "../utils";
+import { getWithPlanCardProps } from "../../utils";
 // Styles
-import { TagsContainer } from "../styles";
+import { TagsContainer } from "../../styles";
 
 export const FormSchema = z.object({
-  ip: z.string().ip().optional().or(z.literal("")),
-  ips: z.array(z.string()),
+  website: z.string().url().optional().or(z.literal("")),
+  websites: z.array(z.string()),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
-  blockIpAddresses?: string;
+  websites?: string;
   planId: PlanTypeId;
 }
 
-const FormIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
+const FormWebsitesCard = ({ websites = "", planId }: Props) => {
   const router = useRouter();
   const { formId } = useParams<{ formId: string }>();
   const t = useTranslations();
@@ -51,26 +51,26 @@ const FormIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
     mode: "onChange",
     delayError: 250,
     defaultValues: {
-      ip: "",
-      ips: [],
+      website: "",
+      websites: [],
     },
   });
 
-  const ipsValues = watch("ips");
-  const ipValue = watch("ip");
+  const websitesValues = watch("websites");
+  const websiteValue = watch("website");
 
   useEffect(() => {
-    if (blockIpAddresses) {
-      setValue("ips", blockIpAddresses.split(","));
+    if (websites) {
+      setValue("websites", websites.split(","));
     }
-  }, [blockIpAddresses, setValue]);
+  }, [websites, setValue]);
 
   const onSave = useCallback(async () => {
     updateForm.mutate(
       {
         formId,
-        blockIpAddresses: ipsValues.join(","),
-        feature: "hasBlockIPs",
+        websites: websitesValues.join(","),
+        feature: "hasWebsites",
       },
       {
         onSuccess: (result) => {
@@ -83,70 +83,70 @@ const FormIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
               { formId: result.form.id },
               {
                 ...cache,
-                blockIpAddresses: result.form.blockIpAddresses,
+                websites: result.form.websites,
               },
             );
           }
 
-          toast.success(t("setting.security.ip-block-rules.toast.success"));
+          toast.success(t("setting.security.websites.toast.success"));
         },
         onError: (error) => {
           toast.error(error.message);
         },
       },
     );
-  }, [ipsValues, updateForm, formId, trpcUtils, t]);
+  }, [websitesValues, updateForm, formId, trpcUtils, t]);
 
   const onHandleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === "Enter" && !errors.ip && ipValue) {
-        const ipExists = ipsValues?.find((item) => item === ipValue);
+      if (event.key === "Enter" && !errors.website && websiteValue) {
+        const ipExists = websitesValues?.find((item) => item === websiteValue);
 
         if (ipExists) {
-          setError("ip", { message: "IP already exists" });
+          setError("website", { message: "Website already exists" });
         } else {
-          // Add the value to the list of IPs
-          setValue("ips", [...(ipsValues ?? []), ipValue]);
+          // Add the value to the list of websites
+          setValue("websites", [...(websitesValues ?? []), websiteValue]);
           // Clean up the input for the next value
-          setValue("ip", "");
+          setValue("website", "");
         }
       }
     },
-    [ipValue, setValue, ipsValues, errors, setError],
+    [websiteValue, setValue, websitesValues, errors, setError],
   );
 
-  const onDeleteIp = useCallback(
+  const onDeleteWebsite = useCallback(
     (value: string) => {
-      const ips = ipsValues?.filter((item) => item !== value);
-      setValue("ips", ips);
+      const ips = websitesValues?.filter((item) => item !== value);
+      setValue("websites", ips);
     },
-    [setValue, ipsValues],
+    [setValue, websitesValues],
   );
 
   return (
     <SettingCard
-      title={t("setting.security.ip-block-rules.title")}
-      description={t("setting.security.ip-block-rules.description")}
+      title={t("setting.security.websites.title")}
+      description={t("setting.security.websites.description")}
       {...getWithPlanCardProps({
         t,
         router,
         planId,
-        feature: "hasBlockIPs",
-        i18nKey: "setting.security.ip-block-rules.action",
-        i18nHintKey: "setting.security.ip-block-rules.text",
+        feature: "hasWebsites",
+        i18nKey: "setting.security.websites.action",
+        i18nHintKey: "setting.security.websites.text",
         onClick: onSave,
         isLoading: isSubmitting,
-        isDisabled: blockIpAddresses === ipsValues.join(","),
+        isDisabled: websites === websitesValues.join(","),
       })}
     >
       <>
         <Controller
-          name="ip"
+          name="website"
           control={control}
           defaultValue=""
           render={({ field }) => (
             <InputGroup
-              hint={errors.ip?.message}
+              hint={errors.website?.message}
               inputProps={{
                 type: "text",
                 name: field.name,
@@ -154,24 +154,24 @@ const FormIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
                 onChange: field.onChange,
                 onBlur: field.onBlur,
                 placeholder: t(
-                  "setting.security.ip-block-rules.inputs.name.placeholder",
+                  "setting.security.websites.inputs.name.placeholder",
                 ),
-                hasError: !!errors.ip,
+                hasError: !!errors.website,
                 onKeyDown: onHandleKeyDown,
                 maxWidth: 400,
               }}
             />
           )}
         />
-        {!!ipsValues?.length && (
+        {!!websitesValues?.length && (
           <TagsContainer>
-            {ipsValues.map((item, index) => (
+            {websitesValues.map((item, index) => (
               <Label key={index} text={item} size="normal" isTranslucent>
                 <IconButton
                   icon="close"
                   size="small"
                   variant="secondaryDark"
-                  onClick={() => onDeleteIp(item)}
+                  onClick={() => onDeleteWebsite(item)}
                 />
               </Label>
             ))}
@@ -182,4 +182,4 @@ const FormIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
   );
 };
 
-export default FormIpRulesCard;
+export default FormWebsitesCard;

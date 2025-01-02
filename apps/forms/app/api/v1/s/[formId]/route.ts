@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-// import { redirect } from 'next/navigation'
 // Utils
 import { PlanTypeId, config as utilsConfig } from "@basestack/utils";
 import { withUsageUpdate } from "server/db/utils/subscription";
@@ -21,8 +20,6 @@ import {
 } from "./utils";
 
 const { hasFormPlanFeature } = utilsConfig.plans;
-
-// redirect('https://nextjs.org/')
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
