@@ -6,7 +6,7 @@ import { FlagFormInputs, FlagFormSchema } from "./types";
 // Types
 import { TabType } from "types";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Tabs
 import Core from "./Tab/Core";
 import Advance from "./Tab/Advance";
@@ -29,7 +29,7 @@ const useFlagForm = ({
   projectId,
   flagId = "",
 }: UseFlagFormProps) => {
-  const trpcUtils = trpc.useUtils();
+  const trpcUtils = api.useUtils();
   const [selectedTab, setSelectedTab] = useState<TabType>(TabType.CORE);
 
   const {

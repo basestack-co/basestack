@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useConfig, type DocsThemeConfig } from "nextra-theme-docs";
+import { type DocsThemeConfig } from "nextra-theme-docs";
 // Utils
 import { config as defaults } from "@basestack/utils";
 
@@ -10,17 +10,18 @@ const config: DocsThemeConfig = {
     link: defaults.urls.repo,
   },
   docsRepositoryBase: `${defaults.urls.repo}/blob/master/apps/docs/pages`,
-  useNextSeoProps: function SEO() {
-    const { frontMatter } = useConfig();
-    const section = "Basestack Docs";
-    const defaultTitle = frontMatter.overrideTitle || section;
+  /* useNextSeoProps: function SEO() {
+        const { frontMatter } = useConfig();
+        const section = "Basestack Docs";
+        const defaultTitle = frontMatter.overrideTitle || section;
+    
+        return {
+          description: frontMatter.description,
+          defaultTitle,
+          titleTemplate: `%s – ${section}`,
+        };
+      }, */
 
-    return {
-      description: frontMatter.description,
-      defaultTitle,
-      titleTemplate: `%s – ${section}`,
-    };
-  },
   // Code retrieve from https://github.com/vercel/turbo/blob/main/docs/theme.config.tsx
   // This will add a "Last updated on" message to the footer of every page.
   gitTimestamp({ timestamp }) {
@@ -56,26 +57,26 @@ const config: DocsThemeConfig = {
     </>
   ),
   /* navbar: {
-    component: Navigation,
-    extraContent: (
-      <>
-        <Github />
-        <Discord />
-      </>
-    ),
-  }, */
+        component: Navigation,
+        extraContent: (
+          <>
+            <Github />
+            <Discord />
+          </>
+        ),
+      }, */
   footer: {
-    text: "© Basestack 2023",
+    content: "© Basestack 2023",
   },
   /* footer: {
-    component: () => <p>Basestack Docs</p>,
-  }, */
+        component: () => <p>Basestack Docs</p>,
+      }, */
   search: {
     placeholder: "Search documentation…",
   },
   i18n: [],
   editLink: {
-    text: "Edit this page on GitHub",
+    content: "Edit this page on GitHub",
   },
   chat: {
     link: defaults.urls.twitter,

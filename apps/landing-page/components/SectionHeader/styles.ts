@@ -9,7 +9,9 @@ import {
   TypographyProps,
 } from "styled-system";
 
-export const Container = styled.div<{ hasMarginBottom: boolean }>`
+export const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "hasMarginBottom",
+})<{ hasMarginBottom: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,12 +25,12 @@ export const Container = styled.div<{ hasMarginBottom: boolean }>`
 `;
 
 const animateText = keyframes`
-  0% {
-    background-position: 0 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
+    0% {
+        background-position: 0 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
 `;
 
 interface TitleProps extends SpaceProps, ColorProps, TypographyProps {
@@ -37,7 +39,10 @@ interface TitleProps extends SpaceProps, ColorProps, TypographyProps {
   hasAnimatedText: boolean;
 }
 
-export const Title = styled.h2<TitleProps>`
+export const Title = styled.h2.withConfig({
+  shouldForwardProp: (prop) =>
+    !["hasAnimatedText", "titleSize", "lineHeight", "textAlign"].includes(prop),
+})<TitleProps>`
   ${typography};
   ${space};
   ${color};
@@ -61,9 +66,7 @@ export const Title = styled.h2<TitleProps>`
       text-fill-color: transparent;
       background-size: 500% auto;
       animation: ${animateText} 5s ease-in-out infinite alternate;
-    `}
-
-  @media screen and ${({ theme }) => theme.device.max.md} {
+    `} @media screen and ${({ theme }) => theme.device.max.md} {
     font-size: ${rem("32px")};
   }
 `;

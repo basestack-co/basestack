@@ -4,7 +4,10 @@ import { rem, transparentize } from "polished";
 
 export type BannerVariant = "success" | "info" | "warning" | "danger";
 
-export const Container = styled.div<{
+export const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    !["isTranslucent", "borderRadius"].includes(prop),
+})<{
   variant: BannerVariant;
   bg: string;
   borderRadius?: number;
@@ -18,7 +21,9 @@ export const Container = styled.div<{
   ${space};
 `;
 
-export const Wrapper = styled.div<{ maxWidth?: number }>`
+export const Wrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "maxWidth",
+})<{ maxWidth?: number }>`
   display: flex;
   align-items: center;
   min-height: ${rem("56px")};

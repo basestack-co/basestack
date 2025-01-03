@@ -1,4 +1,4 @@
-import { StateCreator } from "zustand/esm";
+import { StateCreator } from "zustand";
 import { PersistOptions } from "zustand/middleware";
 import type { Flag } from "../types";
 

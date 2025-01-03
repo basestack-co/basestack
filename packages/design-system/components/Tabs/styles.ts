@@ -2,7 +2,9 @@ import styled, { css } from "styled-components";
 import { rem } from "polished";
 import { space } from "styled-system";
 
-export const Container = styled.div<{
+export const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "backgroundColor",
+})<{
   backgroundColor?: string;
 }>`
   position: relative;
@@ -26,7 +28,10 @@ export const ContentContainer = styled.div`
   }
 `;
 
-export const Wrapper = styled.div<{
+export const Wrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    !["isButtonGroup", "backgroundColor"].includes(prop),
+})<{
   backgroundColor?: string;
   isButtonGroup: boolean;
 }>`
@@ -54,7 +59,9 @@ const sharedButtonStyles = css`
   padding: 0 ${rem("12px")};
 `;
 
-export const Tab = styled.button<{
+export const Tab = styled.button.withConfig({
+  shouldForwardProp: (prop) => !["hoverBgColor", "borderColor"].includes(prop),
+})<{
   borderColor?: string;
   hoverBgColor?: string;
 }>`
@@ -73,7 +80,9 @@ export const Tab = styled.button<{
   }
 `;
 
-export const Button = styled.button<{
+export const Button = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== "isActive",
+})<{
   isActive: boolean;
 }>`
   ${sharedButtonStyles};
@@ -96,7 +105,15 @@ export const Button = styled.button<{
     `};
 `;
 
-export const Slider = styled.div<{
+export const Slider = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    ![
+      "backgroundColor",
+      "numberOfItems",
+      "translateX",
+      "activeBorderColor",
+    ].includes(prop),
+})<{
   numberOfItems: number;
   translateX: number | string;
   activeBorderColor?: string;

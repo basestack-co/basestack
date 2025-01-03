@@ -185,6 +185,7 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
           <p
             class="c8"
             font-family="roboto"
+            ml="0.5rem"
           >
             Moon flags
           </p>
@@ -210,6 +211,7 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
           <p
             class="c8"
             font-family="roboto"
+            ml="0.5rem"
           >
             Teams kids
           </p>
@@ -219,6 +221,8 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
     <button
       class="c9"
       data-testid="button"
+      mt="0.25rem"
+      variant="tertiary"
     >
       <span
         class=""

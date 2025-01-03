@@ -81,6 +81,7 @@ exports[`Popup tests should render Popup correctly 1`] = `
           class="c3"
           data-testid="button"
           font-weight="400"
+          variant="neutral"
         >
           <span
             class=""
@@ -96,6 +97,7 @@ exports[`Popup tests should render Popup correctly 1`] = `
           class="c3"
           data-testid="button"
           font-weight="400"
+          variant="neutral"
         >
           <span
             class=""
@@ -111,6 +113,7 @@ exports[`Popup tests should render Popup correctly 1`] = `
           class="c3"
           data-testid="button"
           font-weight="400"
+          variant="neutral"
         >
           <span
             class=""
@@ -217,6 +220,7 @@ exports[`Popup tests should render Popup with icons 1`] = `
           class="c3"
           data-testid="button"
           font-weight="400"
+          variant="neutral"
         >
           <div
             class="c4"
@@ -245,6 +249,7 @@ exports[`Popup tests should render Popup with icons 1`] = `
           class="c3"
           data-testid="button"
           font-weight="400"
+          variant="neutral"
         >
           <div
             class="c4"
@@ -273,6 +278,7 @@ exports[`Popup tests should render Popup with icons 1`] = `
           class="c3"
           data-testid="button"
           font-weight="400"
+          variant="neutral"
         >
           <div
             class="c4"

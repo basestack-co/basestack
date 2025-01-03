@@ -2,14 +2,25 @@ import styled, { css } from "styled-components";
 import { rem } from "polished";
 import { space, compose, layout } from "styled-system";
 
-export const Container = styled.div`
+export const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "maxWidth",
+})`
   ${compose(space, layout)};
   position: relative;
   display: flex;
   align-items: center;
 `;
 
-export const StyledInput = styled.input<{
+export const StyledInput = styled.input.withConfig({
+  shouldForwardProp: (prop) =>
+    ![
+      "hasError",
+      "isDarker",
+      "iconPlacement",
+      "hasRightIcon",
+      "hasLeftIcon",
+    ].includes(prop),
+})<{
   isDarker: boolean;
   format?: "small" | "normal";
   hasLeftIcon: boolean;
@@ -61,7 +72,9 @@ export const StyledInput = styled.input<{
     `};
 `;
 
-export const IconContainer = styled.div<{ iconPlacement?: "left" | "right" }>`
+export const IconContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "iconPlacement",
+})<{ iconPlacement?: "left" | "right" }>`
   display: inline-flex;
   position: absolute;
   left: ${({ iconPlacement }) =>

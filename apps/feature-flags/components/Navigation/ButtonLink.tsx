@@ -1,5 +1,5 @@
 import React, { memo, ReactNode } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { rem } from "polished";
 import styled, { css } from "styled-components";
 import { Button, ButtonVariant } from "@basestack/design-system";
@@ -27,7 +27,9 @@ export const ExternalLink = styled.a`
   text-decoration: none;
 `;
 
-export const ButtonContainer = styled.div<{ isActive: boolean }>`
+export const ButtonContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isActive",
+})<{ isActive: boolean }>`
   display: flex;
   align-items: center;
   position: relative;
@@ -66,9 +68,7 @@ const ButtonLink = ({
       ) : (
         <Button
           onClick={() => {
-            router.push({
-              pathname: href,
-            });
+            router.push(href);
           }}
           variant={ButtonVariant.PrimaryNeutral}
         >

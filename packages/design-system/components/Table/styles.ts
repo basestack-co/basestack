@@ -9,7 +9,9 @@ export const Container = styled.div`
   border-radius: 4px;
 `;
 
-export const StyledRow = styled.div<{ numberOfColumns: number }>`
+export const StyledRow = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "numberOfColumns",
+})<{ numberOfColumns: number }>`
   display: grid;
   grid-template-columns:
     repeat(${({ numberOfColumns }) => numberOfColumns || 3}, 1fr)

@@ -237,11 +237,14 @@ exports[`Modal tests should render Modal correctly open 1`] = `
         <h2
           class="c3"
           font-family="roboto"
+          mr="0.5rem"
         >
           Create Flag
         </h2>
         <button
           class="c4"
+          ml="auto"
+          variant="neutral"
         >
           <div
             class="c5"
@@ -273,6 +276,8 @@ exports[`Modal tests should render Modal correctly open 1`] = `
           <button
             class="c10"
             data-testid="button"
+            ml="0.25rem"
+            variant="neutral"
           >
             <span
               class=""
@@ -283,6 +288,8 @@ exports[`Modal tests should render Modal correctly open 1`] = `
           <button
             class="c11"
             data-testid="button"
+            ml="0.25rem"
+            variant="primary"
           >
             <span
               class=""
@@ -535,11 +542,14 @@ exports[`Modal tests should render Modal with custom props 1`] = `
         <h2
           class="c3"
           font-family="roboto"
+          mr="0.5rem"
         >
           Create Flag Large
         </h2>
         <button
           class="c4"
+          ml="auto"
+          variant="neutral"
         >
           <div
             class="c5"
@@ -571,6 +581,8 @@ exports[`Modal tests should render Modal with custom props 1`] = `
           <button
             class="c10"
             data-testid="button"
+            ml="0.25rem"
+            variant="neutral"
           >
             <span
               class=""
@@ -581,6 +593,8 @@ exports[`Modal tests should render Modal with custom props 1`] = `
           <button
             class="c11"
             data-testid="button"
+            ml="0.25rem"
+            variant="primary"
           >
             <span
               class=""

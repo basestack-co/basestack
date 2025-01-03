@@ -1,7 +1,11 @@
 import React, { useMemo, useState } from "react";
-import useTranslation from "next-translate/useTranslation";
+// Locales
+import { useTranslations } from "next-intl";
+// Components
 import { CalendarInput, Input } from "@basestack/design-system";
+// Utils
 import dayjs from "dayjs";
+// Styles
 import { InputContainer, ToolBar } from "./styles";
 
 interface ToolbarProps {
@@ -21,7 +25,7 @@ const Toolbar = ({
   showCalendarClearButton = false,
   onClearCalendar,
 }: ToolbarProps) => {
-  const { t } = useTranslation("modals");
+  const t = useTranslations("modal");
   const [isCalenderOpen, setIsCalenderOpen] = useState<boolean>(false);
 
   const selectedRange = useMemo(() => {

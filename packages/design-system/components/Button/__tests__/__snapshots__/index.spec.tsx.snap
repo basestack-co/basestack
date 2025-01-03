@@ -44,6 +44,7 @@ exports[`Button tests should render Button correctly 1`] = `
 <button
     class="c0"
     data-testid="button"
+    variant="primary"
   >
     <span
       class=""
@@ -98,6 +99,7 @@ exports[`Button tests should render Button link 1`] = `
 <a
     class="c0"
     data-testid="button"
+    variant="primary"
   >
     <span
       class=""
@@ -164,6 +166,7 @@ exports[`Button tests should render Button with icon 1`] = `
 <button
     class="c0"
     data-testid="button"
+    variant="primary"
   >
     <div
       class="c1"
@@ -233,6 +236,9 @@ exports[`Button tests should render Button with styled system utilities 1`] = `
 <button
     class="c0"
     data-testid="button"
+    flexdirection="column"
+    mb="100"
+    variant="primary"
   >
     <span
       class=""
@@ -292,6 +298,7 @@ exports[`Button tests should render Danger Button 1`] = `
 <button
     class="c0"
     data-testid="button"
+    variant="danger"
   >
     <span
       class=""
@@ -350,6 +357,7 @@ exports[`Button tests should render DangerFilled Button 1`] = `
 <button
     class="c0"
     data-testid="button"
+    variant="dangerFilled"
   >
     <span
       class=""
@@ -408,6 +416,7 @@ exports[`Button tests should render Neutral Button 1`] = `
 <button
     class="c0"
     data-testid="button"
+    variant="neutral"
   >
     <span
       class=""
@@ -469,6 +478,7 @@ exports[`Button tests should render Outlined Button 1`] = `
 <button
     class="c0"
     data-testid="button"
+    variant="outlined"
   >
     <span
       class=""
@@ -528,6 +538,7 @@ exports[`Button tests should render PrimaryNeutral Button 1`] = `
 <button
     class="c0"
     data-testid="button"
+    variant="primaryNeutral"
   >
     <span
       class=""
@@ -582,6 +593,7 @@ exports[`Button tests should render Secondary Button 1`] = `
 <button
     class="c0"
     data-testid="button"
+    variant="secondary"
   >
     <span
       class=""
@@ -636,6 +648,7 @@ exports[`Button tests should render Tertiary Button 1`] = `
 <button
     class="c0"
     data-testid="button"
+    variant="tertiary"
   >
     <span
       class=""

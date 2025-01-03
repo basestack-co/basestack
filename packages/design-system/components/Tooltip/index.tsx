@@ -12,8 +12,8 @@ import {
   useInteractions,
   useMergeRefs,
   FloatingPortal,
+  Placement,
 } from "@floating-ui/react";
-import type { Placement } from "@floating-ui/react";
 import { StyledContent, StyledTrigger } from "./styles";
 
 export interface TooltipProps {
@@ -53,10 +53,10 @@ export function useTooltip({
 
   const hover = useHover(context, {
     move: false,
-    enabled: controlledOpen == null,
+    enabled: controlledOpen === null,
   });
   const focus = useFocus(context, {
-    enabled: controlledOpen == null,
+    enabled: controlledOpen === null,
   });
   const dismiss = useDismiss(context);
   const role = useRole(context, { role: "tooltip" });
@@ -81,7 +81,7 @@ const TooltipContext = React.createContext<ContextType>(null);
 export const useTooltipContext = () => {
   const context = React.useContext(TooltipContext);
 
-  if (context == null) {
+  if (context === null) {
     throw new Error("Tooltip components must be wrapped in <Tooltip />");
   }
 
@@ -117,6 +117,7 @@ export const TooltipTrigger = React.forwardRef<
       context.getReferenceProps({
         ref,
         ...props,
+        // @ts-ignore
         ...children.props,
         "data-state": context.open ? "open" : "closed",
       }),

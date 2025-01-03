@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { rem } from "polished";
 
-export const Container = styled.div<{ isDarkMode: boolean }>`
+export const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isDarkMode",
+})<{ isDarkMode: boolean }>`
   display: flex;
   flex-direction: column;
   background: ${({ theme, isDarkMode }) =>

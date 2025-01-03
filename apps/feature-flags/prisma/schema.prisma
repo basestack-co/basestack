@@ -9,7 +9,7 @@ datasource db {
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch", "relationJoins", "nativeDistinct"]
+  previewFeatures = ["fullTextSearchPostgres", "relationJoins", "nativeDistinct"]
 }
 
 enum Role {

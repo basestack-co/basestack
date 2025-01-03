@@ -84,6 +84,7 @@ export const neutralButtonStyles = css`
     background-color: ${({ theme }) =>
       theme.button.neutral.hover.backgroundColor};
   }
+
   &:active:not(:disabled) {
     background-color: ${({ theme }) =>
       theme.button.neutral.active.backgroundColor};
@@ -101,6 +102,7 @@ export const primaryNeutralButtonStyles = css`
     background-color: ${({ theme }) =>
       theme.button.primaryNeutral.hover.backgroundColor};
   }
+
   &:active:not(:disabled) {
     background-color: ${({ theme }) =>
       theme.button.primaryNeutral.active.backgroundColor};
@@ -117,6 +119,7 @@ export const dangerButtonStyles = css`
     background-color: ${({ theme }) =>
       theme.button.danger.hover.backgroundColor};
   }
+
   &:active:not(:disabled) {
     background-color: ${({ theme }) =>
       theme.button.danger.active.backgroundColor};
@@ -132,6 +135,7 @@ export const dangerFilledButtonStyles = css`
     background-color: ${({ theme }) =>
       theme.button.dangerFilled.hover.backgroundColor};
   }
+
   &:active:not(:disabled) {
     background-color: ${({ theme }) =>
       theme.button.dangerFilled.active.backgroundColor};
@@ -173,7 +177,18 @@ const handleButtonSize = (size?: ButtonSize) => {
   }
 };
 
-export const StyledButton = styled.button<StyledButtonProps>`
+export const StyledButton = styled.button.withConfig({
+  shouldForwardProp: (prop) =>
+    ![
+      "isLoading",
+      "justifyContent",
+      "fullWidth",
+      "hasRightIcon",
+      "hasLeftIcon",
+      "flexShrink",
+      "backgroundColor",
+    ].includes(prop),
+})<StyledButtonProps>`
   ${({ size }) => handleButtonSize(size)};
   ${({ variant }) => handleButtonVariant(variant)};
   ${compose(flexbox, space, layout, typography, color)};
@@ -212,7 +227,9 @@ export const StyledButton = styled.button<StyledButtonProps>`
     `}
 `;
 
-export const TextContainer = styled.span<{ isLoading: boolean }>`
+export const TextContainer = styled.span.withConfig({
+  shouldForwardProp: (prop) => prop !== "isLoading",
+})<{ isLoading: boolean }>`
   ${({ isLoading }) =>
     isLoading &&
     css`

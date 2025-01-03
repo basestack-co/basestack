@@ -13,6 +13,7 @@ exports[`Card tests should render Card correctly 1`] = `
 <div
     class="c0"
     data-testid="card"
+    variant="default"
   >
     Content
   </div>
@@ -37,6 +38,7 @@ exports[`Card tests should render Card with hover animation 1`] = `
 <div
     class="c0"
     data-testid="card"
+    variant="default"
   >
     Content
   </div>
@@ -58,6 +60,7 @@ exports[`Card tests should render Card with outline 1`] = `
 <div
     class="c0"
     data-testid="card"
+    variant="primary"
   >
     Content
   </div>
@@ -78,6 +81,8 @@ exports[`Card tests should render Card with style system utils 1`] = `
 <div
     class="c0"
     data-testid="card"
+    mb="20"
+    variant="default"
   >
     Content
   </div>

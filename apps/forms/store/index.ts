@@ -1,14 +1,13 @@
-import { createWithEqualityFn } from "zustand/traditional";
-import { shallow } from "zustand/shallow";
+import { create } from "zustand/index";
 import { persist, createJSONStorage } from "zustand/middleware";
 // Types
-import { Store, Persist } from "./types";
+import { Store } from "./types";
 // Slices
 import { createModalsSlice } from "./slices/modals";
 import { createAppSlice } from "./slices/app";
 
-export const useStore = createWithEqualityFn<Store>(
-  (persist as Persist)(
+export const useStore = create<Store>()(
+  persist(
     (...a) => ({
       ...createAppSlice(...a),
       ...createModalsSlice(...a),
@@ -24,7 +23,6 @@ export const useStore = createWithEqualityFn<Store>(
       }),
     },
   ),
-  shallow,
 );
 
 // @ts-ignore

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 // Router
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 // Components
 import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
@@ -10,19 +10,18 @@ import { SubmitHandler } from "react-hook-form";
 import { useStore } from "store";
 import { useShallow } from "zustand/react/shallow";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Types
 import { FormInputs } from "../types";
 // Form
 import useEnvironmentForm from "../useEnvironmentForm";
 
 const EditEnvironmentModal = () => {
-  const { t } = useTranslation("modals");
-  const trpcUtils = trpc.useUtils();
-  const router = useRouter();
-  const { projectId } = router.query as { projectId: string };
+  const t = useTranslations();
+  const trpcUtils = api.useUtils();
+  const { projectId } = useParams<{ projectId: string }>();
 
   const [
     isModalOpen,
@@ -38,12 +37,12 @@ const EditEnvironmentModal = () => {
     ]),
   );
 
-  const updateEnvironment = trpc.environment.update.useMutation();
+  const updateEnvironment = api.environment.update.useMutation();
 
   const { handleSubmit, onRenderForm, reset, isSubmitting, setValue } =
     useEnvironmentForm();
 
-  const isSubmittingOrMutating = isSubmitting || updateEnvironment.isLoading;
+  const isSubmittingOrMutating = isSubmitting || updateEnvironment.isPending;
 
   const onClose = () => setUpdateEnvironmentModalOpen({ isOpen: false });
   const onSubmit: SubmitHandler<FormInputs> = (input: FormInputs) => {
@@ -118,14 +117,17 @@ const EditEnvironmentModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title={t("environment.update.title")}
+        title={t("modal.environment.update.title")}
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { children: t("environment.update.button.cancel"), onClick: onClose },
           {
-            children: t("environment.update.button.submit"),
+            children: t("modal.environment.update.button.cancel"),
+            onClick: onClose,
+          },
+          {
+            children: t("modal.environment.update.button.submit"),
             onClick: handleSubmit(onSubmit),
             isDisabled: isSubmittingOrMutating,
             isLoading: isSubmittingOrMutating,

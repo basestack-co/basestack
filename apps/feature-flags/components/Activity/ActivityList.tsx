@@ -1,11 +1,17 @@
 import React from "react";
-import { useTheme } from "styled-components";
-import useTranslation from "next-translate/useTranslation";
+// Locales
+import { useTranslations } from "next-intl";
+// Utils
 import dayjs from "dayjs";
+// Components
 import { Skeleton, Empty } from "@basestack/design-system";
-import { Environment, HistoryAction } from "types";
-import { HistoryItemDetails, typeMap } from "libs/prisma/utils/history";
 import HistoryCard from "../HistoryCard";
+// Types
+import { Environment, HistoryAction } from "types";
+// Server
+import { HistoryItemDetails, typeMap } from "server/db/utils/history";
+// Styles
+import { useTheme } from "styled-components";
 import { List, ListItem } from "./styles";
 
 export interface History extends HistoryItemDetails {
@@ -27,7 +33,7 @@ export interface ActivityListProps {
 
 const ActivityList = ({ data, isLoading, projectSlug }: ActivityListProps) => {
   const theme = useTheme();
-  const { t } = useTranslation("modals");
+  const t = useTranslations("modal");
 
   if (isLoading) {
     return (

@@ -242,6 +242,7 @@ exports[`InputGroup tests should render InputGroup with hint 1`] = `
       color="#757575"
       data-testid="input-group-hint"
       font-family="roboto"
+      mt="0.5rem"
     >
       no special characters
     </span>

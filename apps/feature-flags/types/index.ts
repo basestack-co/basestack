@@ -1,4 +1,4 @@
-import { RouterOutput } from "libs/trpc";
+import { RouterOutputs } from "utils/trpc/react";
 import type { RemoveNullAndUndefined } from "@basestack/utils";
 
 /*
@@ -7,7 +7,7 @@ import type { RemoveNullAndUndefined } from "@basestack/utils";
  *
  * */
 
-export type ProjectOutput = RouterOutput["project"]["byId"];
+export type ProjectOutput = RouterOutputs["project"]["byId"];
 export type Project = RemoveNullAndUndefined<ProjectOutput>;
 
 export interface ProjectSettings {

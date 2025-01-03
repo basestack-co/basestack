@@ -19,10 +19,10 @@ import {
   getAvatarDropdownList,
 } from "../utils";
 // Router
-import { useRouter } from "next/router";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Store
 import { useStore } from "store";
 // Auth
@@ -46,10 +46,11 @@ const DesktopNavigation = ({
   data,
   onClickMenuButton,
 }: NavigationProps) => {
-  const { t } = useTranslation("navigation");
+  const t = useTranslations();
   const theme = useTheme();
   const { data: session } = useSession();
   const router = useRouter();
+  const pathname = usePathname();
 
   const setCreateProjectModalOpen = useStore(
     (state) => state.setCreateProjectModalOpen,
@@ -62,7 +63,7 @@ const DesktopNavigation = ({
   const setIsDarkMode = useStore((state) => state.setDarkMode);
   const isDarkMode = useStore((state) => state.isDarkMode);
 
-  const { projectId } = router.query as { projectId: string };
+  const { projectId } = useParams<{ projectId: string }>();
 
   const onRenderItems = useCallback(
     (items: LinkItem[], type: string) =>
@@ -73,16 +74,15 @@ const DesktopNavigation = ({
               href={to}
               isExternal={isExternal}
               isActive={
-                router.pathname === to ||
-                router.pathname.includes(activeText.toLowerCase())
+                pathname === to || pathname.includes(activeText.toLowerCase())
               }
             >
-              {t(text)}
+              {text}
             </ButtonLink>
           </ListItem>
         );
       }),
-    [router.pathname, t],
+    [pathname],
   );
 
   const currentProject = useMemo(() => {
@@ -128,10 +128,10 @@ const DesktopNavigation = ({
               onCreate={() => setCreateProjectModalOpen({ isOpen: true })}
               current={currentProject}
               data={data ?? []}
-              title={t("projects.title")}
+              title={t("navigation.projects.title")}
               select={{
-                title: t("projects.select"),
-                create: t("create.project"),
+                title: t("navigation.projects.select"),
+                create: t("navigation.create.project"),
               }}
             />
             {!!projectId && (
@@ -142,7 +142,7 @@ const DesktopNavigation = ({
                     onClick={() => setCreateFlagModalOpen({ isOpen: true })}
                     variant={ButtonVariant.Primary}
                   >
-                    {t("create.flag")}
+                    {t("navigation.create.flag")}
                   </Button>
                 </ListItem>
               </>
@@ -155,10 +155,10 @@ const DesktopNavigation = ({
           {onRenderItems(getExternalLinks(t), "right")}
           <ListItem ml={theme.spacing.s3}>
             <AvatarDropdown
-              name={session?.user.name || t("dropdown.username")}
+              name={session?.user.name || t("navigation.dropdown.username")}
               email={session?.user.email || ""}
               src={session?.user.image || ""}
-              darkModeText={t("dropdown.dark-mode")}
+              darkModeText={t("navigation.dropdown.dark-mode")}
               isDarkMode={isDarkMode}
               onSetDarkMode={setIsDarkMode}
               list={getAvatarDropdownList(t, router, () =>

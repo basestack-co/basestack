@@ -43,6 +43,7 @@ exports[`SectionHeader tests should render default SectionHeader correctly 1`] =
     <h2
       class="c1"
       color="#000000"
+      mb="0.5rem"
     >
       Section Title
     </h2>
@@ -102,6 +103,7 @@ exports[`SectionHeader tests should render large SectionHeader in dark mode 1`] 
     <h2
       class="c1"
       color="#F6F6F6"
+      mb="0.5rem"
     >
       Section Title
     </h2>

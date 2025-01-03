@@ -1,0 +1,555 @@
+{
+  "auth": {
+    "sign-in": {
+      "panel": {
+        "title": "Basestack",
+        "slogan": "The Open-Source Stack for Developers and Startups",
+        "description": "Unlock Your Product Potential: Empower Your Team with Feature Flags"
+      },
+      "content": {
+        "title": "Welcome to Basestack Feature Flags",
+        "description": "Please select your preferred login service below to access your forms. By signing in, you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
+        "action": "Sign in with {name}"
+      }
+    },
+    "error": {
+      "oauth-account-not-linked": {
+        "title": "Account not linked",
+        "description": "You are already signed in with a different provider linked to the same email address."
+      }
+    }
+  },
+  "common": {
+    "not-found": {
+      "title": " This page could not be found",
+      "description": "Sorry, the page you are looking for doesn't exist or has been moved.",
+      "action": "Back to Homepage"
+    }
+  },
+  "flag": {
+    "seo": {
+      "title": "Flags"
+    },
+    "page": {
+      "title": "Feature Flags"
+    },
+    "toolbar": {
+      "search": {
+        "placeholder": "Filter by name"
+      },
+      "activity": {
+        "button": "Activity"
+      }
+    },
+    "list": {
+      "empty": {
+        "title": "This project has no Feature Flags",
+        "description": "No Feature Flags are currently available for this project.",
+        "action": "Create Feature Flag"
+      },
+      "card": {
+        "date": "Created {date}",
+        "actions": {
+          "edit": "Edit",
+          "delete": "Delete",
+          "activity": "Activity"
+        },
+        "delete": {
+          "title": "Are you sure you want to proceed?",
+          "description": "This action is irreversible. Deleting the {slug} flag will permanently remove associated comments, activity, and collaborator associations. Please proceed with caution.",
+          "action": "Delete Flag"
+        }
+      }
+    }
+  },
+  "home": {
+    "projects": {
+      "title": "Recent projects",
+      "action": "Create Project",
+      "empty": {
+        "title": "Create your first project",
+        "description": "Create your first project to start creating flags!",
+        "action": "Create Project"
+      }
+    },
+    "links": {
+      "title": "Quick links",
+      "sdks": {
+        "title": "Set Up the SDK",
+        "description": "Integrate Feature Flags into your Product using the official SDKs. Discover the available libraries.",
+        "action": "View Instructions"
+      },
+      "external": {
+        "title": "Documentation, Help and Support",
+        "read_the": "Read the",
+        "check_out_the": "Check out the",
+        "how_to": "How to",
+        "open_on": "Open an issue on",
+        "docs": "Documentation",
+        "sdks": "SDK’s",
+        "contribute": "Contribute?",
+        "github": "Github"
+      }
+    }
+  },
+  "modal": {
+    "common": {
+      "copy": {
+        "code": {
+          "default": "Copy Code",
+          "success": "Copied URL to Clipboard"
+        }
+      }
+    },
+    "project": {
+      "create": {
+        "title": "Create Project",
+        "button": {
+          "cancel": "Close",
+          "submit": "Create"
+        },
+        "input": {
+          "project-name": {
+            "title": "Project name",
+            "error": {
+              "max": "Must be 30 characters or less",
+              "min": "Required field"
+            }
+          },
+          "slug": {
+            "title": "Project slug",
+            "error": {
+              "max": "Must be 150 characters or less",
+              "min": "Required field"
+            }
+          }
+        }
+      }
+    },
+    "member": {
+      "invite": {
+        "title": "Add Team Member",
+        "button": {
+          "cancel": "Close",
+          "submit": "Add member"
+        },
+        "input": {
+          "member-id": {
+            "empty": "No members",
+            "default": "Select member",
+            "error": {
+              "min": "Required field"
+            }
+          }
+        }
+      }
+    },
+    "integration": {
+      "title": "Implementing Feature Flags",
+      "sdk": {
+        "reference": "SDK Reference",
+        "explore": "Explore the",
+        "docs": "SDK Docs",
+        "more": "to learn how to install and use the SDK."
+      },
+      "button": {
+        "cancel": "Close"
+      }
+    },
+    "flag": {
+      "tab": {
+        "core": {
+          "title": "Core",
+          "input": {
+            "name": {
+              "title": "Feature Key",
+              "hint": "Try to avoid spaces, or special characters",
+              "placeholder": "E.g. header_size",
+              "error": {
+                "max": "Must be 150 characters or less",
+                "min": "Required field"
+              }
+            },
+            "description": {
+              "title": "Description",
+              "placeholder": "Flag description",
+              "error": {
+                "max": "Must be 120 characters or less"
+              }
+            },
+            "environments": {
+              "title": "Enabled Environments"
+            }
+          }
+        },
+        "advanced": {
+          "title": "Advanced",
+          "input": {
+            "calendar": {
+              "title": "Expiration Date",
+              "placeholder": "dd/mm/yyyy"
+            },
+            "payload": {
+              "title": "Payload"
+            }
+          }
+        },
+        "activity": {
+          "title": "Activity"
+        }
+      },
+      "create": {
+        "title": "Create Feature Flag",
+        "button": {
+          "cancel": "Close",
+          "submit": "Create"
+        }
+      },
+      "update": {
+        "title": "Edit Feature Flag",
+        "button": {
+          "cancel": "Close",
+          "submit": "Update"
+        }
+      }
+    },
+    "confirm": {
+      "button": {
+        "cancel": "Close"
+      }
+    },
+    "environment": {
+      "create": {
+        "title": "Create Environment",
+        "button": {
+          "cancel": "Close",
+          "submit": "Create"
+        }
+      },
+      "update": {
+        "title": "Edit Environment",
+        "button": {
+          "cancel": "Close",
+          "submit": "Create"
+        }
+      },
+      "input": {
+        "name": {
+          "title": "Environment name",
+          "placeholder": "E.g. development",
+          "hint": "The feature flags will be copied based on the default environment",
+          "error": {
+            "max": "Must be 30 characters or less",
+            "min": "Required field"
+          }
+        },
+        "description": {
+          "title": "Description",
+          "placeholder": "Environment description",
+          "error": {
+            "max": "Must be 250 characters or less",
+            "min": "Required field"
+          }
+        }
+      }
+    },
+    "activity": {
+      "title": "Activity",
+      "button": {
+        "close": "Close"
+      },
+      "empty": {
+        "title": "No Results Found",
+        "description": "We couldn't find any results for your search. Please try a different search term or refine your search by date."
+      },
+      "toolbar": {
+        "search": {
+          "placeholder": "Search by name"
+        },
+        "calendar": {
+          "placeholder": "dd/mm/yyyy - dd/mm/yyyy"
+        }
+      },
+      "card": {
+        "description": {
+          "project": "created the project",
+          "flag": "{type} the flag"
+        }
+      }
+    }
+  },
+  "navigation": {
+    "create": {
+      "flag": "Create Flag",
+      "project": "Create Project"
+    },
+    "projects": {
+      "title": "Projects",
+      "select": "Select Project"
+    },
+    "forms": {
+      "title": "Forms",
+      "select": "Select form"
+    },
+    "dropdown": {
+      "username": "User Name",
+      "invite": "Invite Member (Coming soon)",
+      "settings": "Account Settings",
+      "logout": "Logout",
+      "dark-mode": "Dark Mode",
+      "billing": "Manage Subscription"
+    },
+    "external": {
+      "resources": "Resources",
+      "docs": "Documentation",
+      "github": "Github"
+    },
+    "internal": {
+      "submissions": "Submissions",
+      "features": "Features",
+      "settings": "Settings",
+      "setup": "Setup",
+      "profile": "Profile"
+    },
+    "setting": {
+      "general": "General",
+      "security": "Security",
+      "customization": "Customization",
+      "notifications": "Notifications",
+      "members": "Members",
+      "environments": "Environments"
+    },
+    "apps": {
+      "title": "Apps",
+      "forms": {
+        "title": "Forms",
+        "description": "Form creation and management"
+      },
+      "flags": {
+        "title": "Feature Flags",
+        "description": "Flag creation and control"
+      }
+    },
+    "profile": {
+      "general": "General",
+      "billing": "Billing"
+    }
+  },
+  "profile": {
+    "seo": {
+      "setting": {
+        "title": "Profile",
+        "0": "General",
+        "1": "Billing"
+      }
+    },
+    "general": {
+      "title": "General",
+      "card": {
+        "avatar": {
+          "title": "User Name",
+          "alt": "Profile picture of the user",
+          "description": "Update user details through your service provider."
+        },
+        "modals": {
+          "title": "Customize Modal Behavior",
+          "description": "Dismiss the modal automatically upon clicking outside the main content area."
+        },
+        "theme": {
+          "title": "Choose a Theme",
+          "description": "Toggle Between Light and Dark Modes for a Personalized Experience.",
+          "type": {
+            "light": "Light",
+            "dark": "Dark"
+          }
+        },
+        "flags": {
+          "title": "Feature Flags per Page",
+          "description": "Set the number of Feature Flags displayed on each page.",
+          "action": "Save",
+          "input": {
+            "number-of-flags": {
+              "error": {
+                "max": "Must be a value between 1 and 100.",
+                "min": "Required field"
+              }
+            }
+          }
+        }
+      }
+    },
+    "billing": {
+      "price": {
+        "symbol": "$",
+        "abbr": "USD"
+      },
+      "feature": {
+        "forms": "{value} Forms",
+        "submissions": "{value} Submissions",
+        "members": "{value} Members",
+        "spams": "{value} Spam AI Reports",
+        "integrations": "{value} Integrations Calls"
+      },
+      "segment": {
+        "monthly": "monthly",
+        "yearly": "yearly"
+      },
+      "cycle": {
+        "monthly": "billed monthly",
+        "yearly": "billed yearly"
+      },
+      "cycle-abbr": {
+        "monthly": "mo",
+        "yearly": "yr"
+      },
+      "link": {
+        "compare": "Compare Plans"
+      },
+      "plan": {
+        "free": "Free",
+        "hobby": "Hobby",
+        "launch": "Launch",
+        "scale": "Scale",
+        "current": {
+          "title": "Current Plan",
+          "renewal": "Renewal date",
+          "ending": "Ending date",
+          "status": {
+            "active": "Active",
+            "inactive": "Inactive"
+          },
+          "button": "Manage Subscription"
+        },
+        "details": {
+          "lastFour": "Ending in",
+          "expDate": "Exp date",
+          "button": "Update Payment Method"
+        },
+        "upgrade": {
+          "title": "Upgrade Plan",
+          "description": "Select billing cycle"
+        }
+      }
+    }
+  },
+  "setting": {
+    "seo": {
+      "setting": {
+        "title": "Settings",
+        "0": "General",
+        "1": "Security",
+        "2": "Customization",
+        "3": "Notifications"
+      }
+    },
+    "common": {
+      "copy": {
+        "url": {
+          "default": "Copy URL",
+          "success": "Copied URL to Clipboard"
+        },
+        "key": {
+          "default": "Copy Key",
+          "success": "Copied Key to Clipboard"
+        }
+      }
+    },
+    "general": {
+      "project": {
+        "title": "Project Name",
+        "description": "A name used to identify your project on the dashboard.",
+        "action": "Update",
+        "inputs": {
+          "name": {
+            "placeholder": "Project Name",
+            "error": {
+              "max": "Must be 30 characters or less",
+              "min": "Required field"
+            }
+          }
+        }
+      },
+      "endpoints": {
+        "title": "Endpoints",
+        "description": "Endpoints are essential for the SDKs to access and interact with features.",
+        "copy": {
+          "title": "Base Url"
+        }
+      },
+      "project-key": {
+        "title": "Project Key",
+        "description": "Here is your project key, which you can use to integrate and access the features in your project.",
+        "copy": {
+          "title": "Key"
+        }
+      },
+      "keys": {
+        "title": "API Keys",
+        "description": "API keys are used with the SDKs, such as JavaScript, React, etc.",
+        "table": {
+          "headers": {
+            "name": "Environment Name",
+            "key": "Environment Key"
+          }
+        }
+      },
+      "delete": {
+        "project": {
+          "title": "Delete Project",
+          "description": "Deleting the project will permanently remove all its environments and feature flags.",
+          "placeholder": "Warning: This action is irreversible. Proceed with caution.",
+          "action": "Delete",
+          "modal": {
+            "title": "Are you sure about this action?",
+            "description": "Warning: This action cannot be undone. It will permanently delete the {name} project, including flags, history, and all collaborator associations.",
+            "action": "Delete Project"
+          }
+        }
+      }
+    },
+    "members": {
+      "invite": {
+        "title": "Team Members",
+        "description": "Add members of your organization to manage this project. Developers can also be invited to access API keys for code integration.",
+        "placeholder": "Note: Users must already have an account to appear in the list (Email Invites Coming Soon).",
+        "action": "Add Member",
+        "table": {
+          "headers": {
+            "name": "Name",
+            "email": "Email",
+            "role": "Role",
+            "invited-at": "Invited At"
+          }
+        }
+      }
+    },
+    "others": {
+      "environments": {
+        "title": "Environments",
+        "description": "{type} environments for this project. Environments allow you to control how your feature flags behave in different settings or stages of development.",
+        "admin": "Create and edit",
+        "user": "All the",
+        "action": "Create New Environment",
+        "modal": {
+          "delete": {
+            "title": "Are you sure?",
+            "description": "This action cannot be undone. This will permanently delete the {name} environment, flags, history and remove all collaborator associations.",
+            "action": "Delete Environment"
+          }
+        },
+        "table": {
+          "headers": {
+            "environment": "Environment",
+            "slug": "Slug",
+            "description": "Description",
+            "created-at": "Created At"
+          }
+        },
+        "actions": {
+          "edit": "Edit",
+          "delete": "Delete"
+        }
+      }
+    }
+  }
+}

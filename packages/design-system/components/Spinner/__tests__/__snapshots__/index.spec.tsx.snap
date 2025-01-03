@@ -11,7 +11,7 @@ exports[`Spinner tests should render Spinner correctly 1`] = `
   border-right: 0.1875rem solid #EEEEEE;
   border-bottom: 0.1875rem solid #EEEEEE;
   border-left: 0.1875rem solid #276EF1;
-  animation: cilQsd 1.1s infinite linear;
+  animation: Hqxfx 1.1s infinite linear;
 }
 
 <div
@@ -31,10 +31,11 @@ exports[`Spinner tests should render custom styled Spinner 1`] = `
   border-right: 0.1875rem solid red;
   border-bottom: 0.1875rem solid red;
   border-left: 0.1875rem solid blue;
-  animation: cilQsd 1.1s infinite linear;
+  animation: Hqxfx 1.1s infinite linear;
 }
 
 <div
+    bg="red"
     class="c0"
     color="blue"
   />
@@ -52,7 +53,7 @@ exports[`Spinner tests should render large Spinner 1`] = `
   border-right: 0.25rem solid #EEEEEE;
   border-bottom: 0.25rem solid #EEEEEE;
   border-left: 0.25rem solid #276EF1;
-  animation: cilQsd 1.1s infinite linear;
+  animation: Hqxfx 1.1s infinite linear;
 }
 
 <div
@@ -72,7 +73,7 @@ exports[`Spinner tests should render medium Spinner 1`] = `
   border-right: 0.1875rem solid #EEEEEE;
   border-bottom: 0.1875rem solid #EEEEEE;
   border-left: 0.1875rem solid #276EF1;
-  animation: cilQsd 1.1s infinite linear;
+  animation: Hqxfx 1.1s infinite linear;
 }
 
 <div
@@ -92,7 +93,7 @@ exports[`Spinner tests should render small Spinner 1`] = `
   border-right: 0.1875rem solid #EEEEEE;
   border-bottom: 0.1875rem solid #EEEEEE;
   border-left: 0.1875rem solid #276EF1;
-  animation: cilQsd 1.1s infinite linear;
+  animation: Hqxfx 1.1s infinite linear;
 }
 
 <div
@@ -112,7 +113,7 @@ exports[`Spinner tests should render xLarge Spinner 1`] = `
   border-right: 0.3125rem solid #EEEEEE;
   border-bottom: 0.3125rem solid #EEEEEE;
   border-left: 0.3125rem solid #276EF1;
-  animation: cilQsd 1.1s infinite linear;
+  animation: Hqxfx 1.1s infinite linear;
 }
 
 <div
@@ -132,7 +133,7 @@ exports[`Spinner tests should render xxLarge Spinner 1`] = `
   border-right: 0.3125rem solid #EEEEEE;
   border-bottom: 0.3125rem solid #EEEEEE;
   border-left: 0.3125rem solid #276EF1;
-  animation: cilQsd 1.1s infinite linear;
+  animation: Hqxfx 1.1s infinite linear;
 }
 
 <div

@@ -3,14 +3,17 @@ import React, { useCallback, useState } from "react";
 import { useTheme } from "styled-components";
 import { InputGroup, Text, Switch, Skeleton } from "@basestack/design-system";
 // Form
-import { Controller } from "react-hook-form";
+import {
+  UseFormSetValue,
+  FieldErrors,
+  Control,
+  Controller,
+} from "react-hook-form";
 import { FlagFormInputs, EnvironmentInput } from "../types";
 // Styles
 import { Environments } from "../styles";
-// Types
-import { UseFormSetValue, FieldErrors, Control } from "react-hook-form";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { NamespaceKeys, useTranslations } from "next-intl";
 
 export interface Props {
   environments: EnvironmentInput[];
@@ -27,7 +30,7 @@ const CoreTab = ({
   control,
   isSubmitting,
 }: Props) => {
-  const { t } = useTranslation("modals");
+  const t = useTranslations();
   const theme = useTheme();
   const [textareaLength, setTextareaLength] = useState("");
 
@@ -62,9 +65,11 @@ const CoreTab = ({
         defaultValue=""
         render={({ field }) => (
           <InputGroup
-            title={t("flag.tab.core.input.name.title")}
+            title={t("modal.flag.tab.core.input.name.title")}
             hint={
-              t(errors.name?.message!) || t("flag.tab.core.input.name.hint")
+              errors.name?.message
+                ? t(errors.name?.message! as NamespaceKeys<string, "modal">)
+                : t("modal.flag.tab.core.input.name.hint")
             }
             inputProps={{
               type: "text",
@@ -72,7 +77,7 @@ const CoreTab = ({
               value: field.value.replace(/ /g, "_"),
               onChange: field.onChange,
               onBlur: field.onBlur,
-              placeholder: t("flag.tab.core.input.name.placeholder"),
+              placeholder: t("modal.flag.tab.core.input.name.placeholder"),
               hasError: !!errors.name,
               isDisabled: isSubmitting,
             }}
@@ -87,16 +92,27 @@ const CoreTab = ({
         defaultValue=""
         render={({ field }) => (
           <InputGroup
-            title={t("flag.tab.core.input.description.title")}
+            title={t("modal.flag.tab.core.input.description.title")}
             label={`${textareaLength.length} / 120`}
             textarea
-            hint={t(errors.description?.message!)}
+            hint={
+              errors.description?.message
+                ? t(
+                    errors.description?.message! as NamespaceKeys<
+                      string,
+                      "modal"
+                    >,
+                  )
+                : ""
+            }
             textareaProps={{
               name: field.name,
               value: field.value ?? "",
               onChange: onChangeTextarea,
               onBlur: field.onBlur,
-              placeholder: t("flag.tab.core.input.description.placeholder"),
+              placeholder: t(
+                "modal.flag.tab.core.input.description.placeholder",
+              ),
               maxlength: "120",
               hasError: !!errors.description,
               isDisabled: isSubmitting,
@@ -111,7 +127,7 @@ const CoreTab = ({
         data-testid="input-group-title"
         size="small"
       >
-        {t("flag.tab.core.input.environments.title")}
+        {t("modal.flag.tab.core.input.environments.title")}
       </Text>
       {!environments ? (
         <Skeleton

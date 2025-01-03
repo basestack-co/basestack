@@ -35,7 +35,9 @@ export const Button = styled.button`
   }
 `;
 
-export const Slider = styled.div<{
+export const Slider = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "translateX",
+})<{
   translateX: number | string;
   $width: number;
 }>`

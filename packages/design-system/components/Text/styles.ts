@@ -33,7 +33,10 @@ const sharedStyles = ({
   `}
 `;
 
-export const XSmallText = styled.span<TextProps>`
+export const XSmallText = styled.span.withConfig({
+  shouldForwardProp: (prop) =>
+    !["textAlign", "lineTruncate", "muted", "lineHeight"].includes(prop),
+})<TextProps>`
   display: flex;
   font-size: ${rem("12px")};
   line-height: ${rem("14px")};
@@ -42,7 +45,16 @@ export const XSmallText = styled.span<TextProps>`
     sharedStyles({ color, muted, fontFamily, lineTruncate })};
 `;
 
-export const SmallText = styled.p<TextProps>`
+export const SmallText = styled.p.withConfig({
+  shouldForwardProp: (prop) =>
+    ![
+      "textAlign",
+      "lineTruncate",
+      "lineHeight",
+      "flexShrink",
+      "muted",
+    ].includes(prop),
+})<TextProps>`
   font-size: ${rem("14px")};
   line-height: ${rem("22px")};
   font-weight: 400;
@@ -50,7 +62,16 @@ export const SmallText = styled.p<TextProps>`
     sharedStyles({ color, muted, fontFamily, lineTruncate })};
 `;
 
-export const MediumText = styled.p<TextProps>`
+export const MediumText = styled.p.withConfig({
+  shouldForwardProp: (prop) =>
+    ![
+      "textAlign",
+      "lineTruncate",
+      "lineHeight",
+      "muted",
+      "flexShrink",
+    ].includes(prop),
+})<TextProps>`
   font-size: ${rem("16px")};
   line-height: ${rem("24px")};
   font-weight: 500;
@@ -58,7 +79,10 @@ export const MediumText = styled.p<TextProps>`
     sharedStyles({ color, muted, fontFamily, lineTruncate })};
 `;
 
-export const LargeText = styled.h3<TextProps>`
+export const LargeText = styled.h3.withConfig({
+  shouldForwardProp: (prop) =>
+    !["textAlign", "lineTruncate", "muted", "lineHeight"].includes(prop),
+})<TextProps>`
   font-size: ${rem("18px")};
   line-height: ${rem("26px")};
   font-weight: 500;
@@ -66,7 +90,10 @@ export const LargeText = styled.h3<TextProps>`
     sharedStyles({ color, muted, fontFamily, lineTruncate })};
 `;
 
-export const XLargeText = styled.h2<TextProps>`
+export const XLargeText = styled.h2.withConfig({
+  shouldForwardProp: (prop) =>
+    !["textAlign", "lineTruncate", "lineHeight", "muted"].includes(prop),
+})<TextProps>`
   font-size: ${rem("20px")};
   line-height: ${rem("30px")};
   font-weight: 500;
@@ -74,7 +101,10 @@ export const XLargeText = styled.h2<TextProps>`
     sharedStyles({ color, muted, fontFamily, lineTruncate })};
 `;
 
-export const XXLargeText = styled.h1<TextProps>`
+export const XXLargeText = styled.h1.withConfig({
+  shouldForwardProp: (prop) =>
+    !["textAlign", "lineTruncate", "lineHeight", "muted"].includes(prop),
+})<TextProps>`
   font-size: ${rem("24px")};
   line-height: ${rem("36px")};
   font-weight: 700;

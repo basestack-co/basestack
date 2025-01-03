@@ -3,7 +3,9 @@ import { space } from "styled-system";
 import { rem } from "polished";
 import { Gradient, IconBoxVariant } from "./types";
 
-export const IconContainer = styled.div<{
+export const IconContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => !["outlinedBg", "filledBg"].includes(prop),
+})<{
   filledBg: string;
   outlinedBg?: string;
   variant: IconBoxVariant;

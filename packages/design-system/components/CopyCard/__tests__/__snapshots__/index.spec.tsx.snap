@@ -131,6 +131,7 @@ exports[`CopyCard tests should render CopyCard correctly 1`] = `
       >
         <button
           class="c7"
+          variant="neutral"
         >
           <div
             class="c8"

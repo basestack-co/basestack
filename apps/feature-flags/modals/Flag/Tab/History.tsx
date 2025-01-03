@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
 // Components
 import { Skeleton } from "@basestack/design-system";
-import { HistoryCard } from "components";
+import HistoryCard from "components/HistoryCard";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Utils
 import dayjs from "dayjs";
-import { getHistoryItemDetails } from "libs/prisma/utils/history";
+import { getHistoryItemDetails } from "server/db/utils/history";
 
 interface Props {
   projectId: string;
@@ -14,14 +14,17 @@ interface Props {
 }
 
 const HistoryTab = ({ projectId, flagId }: Props) => {
-  const { data, isLoading } = trpc.history.all.useQuery(
+  const { data, isLoading } = api.history.all.useQuery(
     {
       flagId,
       projectId,
       range: [],
       search: null,
     },
-    { enabled: !!projectId && !!flagId, keepPreviousData: true },
+    {
+      enabled: !!projectId && !!flagId,
+      //  keepPreviousData: true
+    },
   );
 
   const getHistory = useMemo(() => {

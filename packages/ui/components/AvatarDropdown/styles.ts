@@ -94,7 +94,9 @@ export const HeaderWrapper = styled.div`
   align-items: center;
 `;
 
-export const ThemeContainer = styled.div<{ showFullButton?: boolean }>`
+export const ThemeContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "showFullButton",
+})<{ showFullButton?: boolean }>`
   display: flex;
   align-items: center;
   height: ${rem("32px")};

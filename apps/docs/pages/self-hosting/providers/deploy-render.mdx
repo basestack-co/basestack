@@ -40,13 +40,13 @@ To ensure a successful deployment on Render, the platform requires a minimum set
 | ---------------------- | -------------------------------------------------------------------------------------------------------- |
 | `DATABASE_URL`         | Connection URL to your database using [PgBouncer](https://render.com/docs/databases#connection-pooling). |
 | `DIRECT_DATABASE_URL`  | Direct connection URL to the database used for migrations                                                |
-| `NEXTAUTH_SECRET`      | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens.                              |
-| `NEXTAUTH_URL`         | Set to the canonical URL of your site                                                                    |
+| `AUTH_SECRET`      | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens.                              |
+| `AUTH_URL`         | Set to the canonical URL of your site                                                                    |
 | `GITHUB_CLIENT_ID`     | Client Id generated in the [OAuth App](https://github.com/settings/developers) creation                  |
 | `GITHUB_CLIENT_SECRET` | Client Secret generated in the [OAuth App](https://github.com/settings/developers) creation              |
 
 <Callout type="info" emoji="ℹ️">
-  For the `NEXTAUTH_SECRET` variable you can use `openssl rand -base64 32` or
+  For the `AUTH_SECRET` variable you can use `openssl rand -base64 32` or
   generate a [random value](https://generate-secret.vercel.app/32).
 </Callout>
 
@@ -56,7 +56,7 @@ Begin by familiarizing yourself with the platform. Lastly, stay tuned about upda
 
 ## Troubleshooting
 
-### How to Retrieve the Project URL for `NEXTAUTH_URL` and Github OAuth App?
+### How to Retrieve the Project URL for `AUTH_URL` and Github OAuth App?
 
 If you don't have a domain yet, feel free to leave the fields below empty or use dummy information. Proceed with the deployment as usual. Once the deployment is complete, Render will generate a URL for your project.
 
@@ -64,7 +64,7 @@ Copy this URL and update the information in your [Github ↗](https://github.com
 
 **Environment Variables:**
 
-- `NEXTAUTH_URL`
+- `AUTH_URL`
 
 **Github [OAuth App](https://github.com/settings/developers) Fields:**
 

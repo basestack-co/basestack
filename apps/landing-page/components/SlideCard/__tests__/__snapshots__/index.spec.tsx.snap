@@ -56,7 +56,7 @@ exports[`SlideCard tests should render SlideCard active 1`] = `
   position: absolute;
   bottom: 0;
   left: 0;
-  animation: bHTXJE 10s linear;
+  animation: cmYSia 10s linear;
   height: 5px;
   background-color: #276EF1;
 }
@@ -90,6 +90,7 @@ exports[`SlideCard tests should render SlideCard active 1`] = `
       <h3
         class="c4"
         font-family="roboto"
+        ml="0.75rem"
       >
         title
       </h3>
@@ -185,6 +186,7 @@ exports[`SlideCard tests should render SlideCard correctly 1`] = `
       <h3
         class="c4"
         font-family="roboto"
+        ml="0.75rem"
       >
         title
       </h3>

@@ -131,6 +131,8 @@ exports[`Pagination tests should render Pagination correctly 1`] = `
     <button
       class="c7"
       data-testid="button"
+      ml="0.25rem"
+      variant="neutral"
     >
       <span
         class=""

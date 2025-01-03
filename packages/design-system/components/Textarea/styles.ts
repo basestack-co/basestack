@@ -2,7 +2,10 @@ import styled, { css } from "styled-components";
 import { rem } from "polished";
 import { space } from "styled-system";
 
-export const StyledTextarea = styled.textarea<{
+export const StyledTextarea = styled.textarea.withConfig({
+  shouldForwardProp: (prop) =>
+    !["hasError", "isDarker", "maxlength"].includes(prop),
+})<{
   isDarker: boolean;
   hasError: boolean;
   disabled: boolean;

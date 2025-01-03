@@ -19,6 +19,7 @@ exports[`Label tests should render Label correctly 1`] = `
 <div
     class="c0"
     data-testid="label-container"
+    variant="default"
   >
     <span>
       label
@@ -46,6 +47,7 @@ exports[`Label tests should render isTranslucent Label 1`] = `
 <div
     class="c0"
     data-testid="label-container"
+    variant="info"
   >
     <span>
       label
@@ -73,6 +75,7 @@ exports[`Label tests should render medium Label 1`] = `
 <div
     class="c0"
     data-testid="label-container"
+    variant="info"
   >
     <span>
       label
@@ -100,6 +103,7 @@ exports[`Label tests should render small Label 1`] = `
 <div
     class="c0"
     data-testid="label-container"
+    variant="info"
   >
     <span>
       label

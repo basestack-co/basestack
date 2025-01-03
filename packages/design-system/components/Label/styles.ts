@@ -44,7 +44,12 @@ const getSizeStyles = (size: LabelSize) => {
   return styles[size];
 };
 
-export const StyledLabel = styled.div<{
+export const StyledLabel = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    !["minHeight", "hasChildren", "isUppercase", "isTranslucent"].includes(
+      prop,
+    ),
+})<{
   variant: LabelVariant;
   size: LabelSize;
   isTranslucent: boolean;
@@ -69,10 +74,12 @@ export const StyledLabel = styled.div<{
     css`
       text-transform: uppercase;
     `}
-  ${compose(flexbox, space, layout)};
+    ${compose(flexbox, space, layout)};
 `;
 
-export const LabelDotContainer = styled.div<{
+export const LabelDotContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isUppercase",
+})<{
   variant: LabelVariant;
   size: LabelSize;
   isUppercase: boolean;

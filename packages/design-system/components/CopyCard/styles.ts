@@ -2,7 +2,9 @@ import styled, { css } from "styled-components";
 import { compose, space, layout } from "styled-system";
 import { rem } from "polished";
 
-export const Container = styled.div`
+export const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "maxWidth",
+})`
   height: ${rem("44px")};
   display: flex;
   background-color: ${({ theme }) => theme.copyCard.backgroundColor};

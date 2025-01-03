@@ -190,6 +190,7 @@ exports[`Table tests should render Table correctly 1`] = `
         >
           <button
             class="c7"
+            variant="neutral"
           >
             <div
               class="c8"
@@ -266,6 +267,7 @@ exports[`Table tests should render Table correctly 1`] = `
         >
           <button
             class="c7"
+            variant="neutral"
           >
             <div
               class="c8"
@@ -451,6 +453,7 @@ exports[`Table tests should render Table with images 1`] = `
           <div
             class="c5"
             data-testid="avatar"
+            mr="0.75rem"
             size="36"
           >
             <img
@@ -506,6 +509,7 @@ exports[`Table tests should render Table with images 1`] = `
         >
           <button
             class="c9"
+            variant="neutral"
           >
             <div
               class="c10"
@@ -538,6 +542,7 @@ exports[`Table tests should render Table with images 1`] = `
           <div
             class="c5"
             data-testid="avatar"
+            mr="0.75rem"
             size="36"
           >
             <img
@@ -593,6 +598,7 @@ exports[`Table tests should render Table with images 1`] = `
         >
           <button
             class="c9"
+            variant="neutral"
           >
             <div
               class="c10"
@@ -625,6 +631,7 @@ exports[`Table tests should render Table with images 1`] = `
           <div
             class="c5"
             data-testid="avatar"
+            mr="0.75rem"
             size="36"
           >
             <img
@@ -680,6 +687,7 @@ exports[`Table tests should render Table with images 1`] = `
         >
           <button
             class="c9"
+            variant="neutral"
           >
             <div
               class="c10"
@@ -712,6 +720,7 @@ exports[`Table tests should render Table with images 1`] = `
           <div
             class="c5"
             data-testid="avatar"
+            mr="0.75rem"
             size="36"
           >
             <img
@@ -767,6 +776,7 @@ exports[`Table tests should render Table with images 1`] = `
         >
           <button
             class="c9"
+            variant="neutral"
           >
             <div
               class="c10"
@@ -981,6 +991,7 @@ exports[`Table tests should render Table with space utils 1`] = `
         >
           <button
             class="c7"
+            variant="neutral"
           >
             <div
               class="c8"
@@ -1057,6 +1068,7 @@ exports[`Table tests should render Table with space utils 1`] = `
         >
           <button
             class="c7"
+            variant="neutral"
           >
             <div
               class="c8"

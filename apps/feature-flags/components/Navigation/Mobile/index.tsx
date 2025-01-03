@@ -2,7 +2,7 @@ import React from "react";
 // Store
 import { useStore } from "store";
 // Router
-import { useRouter } from "next/router";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 // Auth
 import { useSession } from "next-auth/react";
@@ -37,7 +37,7 @@ import {
   StyledLink,
 } from "./styles";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 // Data
 import {
   getInternalLinks,
@@ -59,11 +59,11 @@ const MobileNavigation = ({
   onClose,
   data,
 }: NavigationDrawerProps) => {
-  const { t } = useTranslation("navigation");
+  const t = useTranslations();
   const theme = useTheme();
   const { data: session } = useSession();
   const router = useRouter();
-  const { projectId } = router.query as { projectId: string };
+  const { projectId } = useParams<{ projectId: string }>();
 
   const setIsDarkMode = useStore((state) => state.setDarkMode);
   const isDarkMode = useStore((state) => state.isDarkMode);
@@ -115,13 +115,10 @@ const MobileNavigation = ({
                             variant={ButtonVariant.Neutral}
                             fullWidth
                             onClick={() => {
-                              router.push({
-                                pathname: item.to,
-                                query: { projectId },
-                              });
+                              router.push(item.to);
                             }}
                           >
-                            {t(item.text)}
+                            {item.text}
                           </Button>
                         </ListItem>
                       ))}
@@ -136,7 +133,7 @@ const MobileNavigation = ({
                             setCreateFlagModalOpen({ isOpen: true });
                           }}
                         >
-                          {t("create.flag")}
+                          {t("navigation.create.flag")}
                         </Button>
                       </ListItem>
                     </List>
@@ -146,7 +143,7 @@ const MobileNavigation = ({
                 <ScrollableContent>
                   <TitleContainer>
                     <Text muted fontWeight={500}>
-                      {t("projects.title")}
+                      {t("navigation.projects.title")}
                     </Text>
                   </TitleContainer>
                   <List>
@@ -174,14 +171,14 @@ const MobileNavigation = ({
                           setCreateProjectModalOpen({ isOpen: true });
                         }}
                       >
-                        {t("create.project")}
+                        {t("navigation.create.project")}
                       </Button>
                     </ListItem>
                   </List>
                   <HorizontalRule m={theme.spacing.s5} />
                   <TitleContainer>
                     <Text muted fontWeight={500}>
-                      {t("external.resources")}
+                      {t("navigation.external.resources")}
                     </Text>
                   </TitleContainer>
                   <List>
@@ -199,7 +196,7 @@ const MobileNavigation = ({
                             variant={ButtonVariant.Neutral}
                             fullWidth
                           >
-                            {t(item.text)}
+                            {item.text}
                           </Button>
                         </StyledLink>
                       </ListItem>
@@ -210,10 +207,10 @@ const MobileNavigation = ({
               <HorizontalRule mx={theme.spacing.s5} my={0} />
               <Footer>
                 <AvatarDropdown
-                  name={session?.user.name || t("dropdown.username")}
+                  name={session?.user.name || t("navigation.dropdown.username")}
                   email={session?.user.email || ""}
                   src={session?.user.image || ""}
-                  darkModeText={t("dropdown.dark-mode")}
+                  darkModeText={t("navigation.dropdown.dark-mode")}
                   popupPlacement="top"
                   isDarkMode={isDarkMode}
                   onSetDarkMode={setIsDarkMode}

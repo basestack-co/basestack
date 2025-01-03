@@ -1,0 +1,997 @@
+{
+  "auth": {
+    "sign-in": {
+      "panel": {
+        "title": "Basestack",
+        "slogan": "The Open-Source Stack for Developers and Startups",
+        "description": "Transform Your Site Experience: Capture Form Submissions Easily, No Backend Required"
+      },
+      "content": {
+        "title": "Welcome to Basestack Forms",
+        "description": "Please select your preferred login service below to access your forms. By signing in, you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
+        "action": "Sign in with {name}"
+      }
+    },
+    "error": {
+      "oauth-account-not-linked": {
+        "title": "Account not linked",
+        "description": "You are already signed in with a different provider linked to the same email address."
+      }
+    }
+  },
+  "common": {
+    "not-found": {
+      "title": " This page could not be found",
+      "description": "Sorry, the page you are looking for doesn't exist or has been moved.",
+      "action": "Back to Homepage"
+    },
+    "brand": {
+      "powered": {
+        "forms": "Powered by Basestack Forms"
+      }
+    },
+    "status": {
+      "form": {
+        "success": {
+          "title": "Thank you for the message!",
+          "description": "Your submission was successful.",
+          "action": "Go back"
+        },
+        "error": {
+          "title": "Opps something went wrong!",
+          "description": "Please try again or contact costumer service.",
+          "action": "Go back"
+        }
+      }
+    },
+    "plan": {
+      "forms": {
+        "upgrade": {
+          "partial": "Upgrade to Launch or Scale Plans",
+          "all": "Upgrade to Hobby, Launch or Scale Plans",
+          "description": "Please select the plan you want to upgrade to.",
+          "action": "Upgrade"
+        }
+      }
+    }
+  },
+  "home": {
+    "projects": {
+      "title": "Recent projects",
+      "action": "Create Project",
+      "empty": {
+        "title": "Create your first project",
+        "description": "Create your first project to start creating flags!",
+        "action": "Create Project"
+      }
+    },
+    "forms": {
+      "title": "Recent forms",
+      "action": "Create Form",
+      "empty": {
+        "title": "Create your first form",
+        "description": "Create your first form to start receiving submissions!",
+        "action": "Create Form"
+      },
+      "card": {
+        "menu": {
+          "submissions": "Submissions",
+          "settings": "Settings",
+          "setup": "Setup"
+        },
+        "label": {
+          "disabled": "Disabled"
+        }
+      }
+    },
+    "links": {
+      "title": "Quick links",
+      "sdks": {
+        "title": "Set Up the SDK",
+        "description": "Integrate Feature Flags into your Product using the official SDKs. Discover the available libraries.",
+        "action": "View Instructions"
+      },
+      "external": {
+        "title": "Documentation, Help and Support",
+        "read_the": "Read the",
+        "check_out_the": "Check out the",
+        "how_to": "How to",
+        "open_on": "Open an issue on",
+        "docs": "Documentation",
+        "sdks": "SDK’s",
+        "contribute": "Contribute?",
+        "github": "Github"
+      }
+    }
+  },
+  "form": {
+    "seo": {
+      "title": "Forms",
+      "submissions": "Submissions",
+      "setup": "Setup"
+    },
+    "page": {
+      "title": "Forms"
+    },
+    "toolbar": {
+      "search": {
+        "placeholder": "Search...",
+        "filter": {
+          "placeholder": "Search by"
+        }
+      },
+      "action": {
+        "select-all": "Select all",
+        "un-select-all": "Unselect all",
+        "mark-spam": "Mark as Spam",
+        "unmark-spam": "Unmark Spam",
+        "read-submissions": "Read Submissions",
+        "un-read-submissions": "Un-Read Submissions",
+        "delete-all": "Delete all",
+        "export": "Export"
+      },
+      "filter": {
+        "placeholder": "Filters",
+        "is-spam": "is Spam",
+        "is-not-spam": "is not Spam"
+      },
+      "sort": {
+        "placeholder": "Sort",
+        "newest": "Newest (default)",
+        "oldest": "Oldest"
+      }
+    },
+    "submission": {
+      "alert": {
+        "enabled": {
+          "description": "The form is currently disabled. To start receiving submissions and access other functionalities, please enable it."
+        },
+        "retention": {
+          "description": "Data retention is currently disabled. To view submissions on this page, navigate to settings, and under the general tab, enable data retention."
+        }
+      },
+      "empty": {
+        "title": "No Submissions Found",
+        "description": "No submissions have been found for this form."
+      },
+      "label": {
+        "new": "New",
+        "spam": "Spam"
+      },
+      "action": {
+        "read-submission": "Read Submission",
+        "un-read-submission": "Un-Read Submission",
+        "mark-spam": "Mark as Spam",
+        "unmark-spam": "Unmark Spam",
+        "delete": "Delete"
+      },
+      "event": {
+        "delete": {
+          "error": "Submission could not be deleted.",
+          "loading": "Deleting...",
+          "success": "{count, plural, one {Submission has been deleted successfully.} other {Submissions have been deleted successfully.}}"
+        },
+        "update": {
+          "error": "Submission could not be updated.",
+          "loading": "Updating...",
+          "success": "{count, plural, one {Submission has been updated successfully.} other {Submissions have been updated successfully.}}"
+        },
+        "export": {
+          "error": "Submissions could not be exported.",
+          "loading": "Exporting...",
+          "success": "Submissions have been exported successfully."
+        }
+      },
+      "metadata": {
+        "title": "Automatically captured metadata",
+        "expand": {
+          "less": "less"
+        },
+        "ip": {
+          "block": "Block IP Address",
+          "unblock": "Unblock IP Address",
+          "success": {
+            "block": "IP Address has been blocked successfully.",
+            "unblock": "IP Address has been unblocked successfully."
+          }
+        }
+      }
+    },
+    "setup": {
+      "card": {
+        "library": {
+          "html": "HTML",
+          "javascript": "Javascript",
+          "react": "React",
+          "vue": "Vue",
+          "rest": "REST API"
+        },
+        "endpoint": {
+          "title": "Form Endpoint",
+          "description": "This URL is specific to your form's API. Send your form submissions here.",
+          "copy": {
+            "url": {
+              "default": "Copy Endpoint URL",
+              "success": "Copied Endpoint URL to Clipboard"
+            }
+          }
+        },
+        "guide": {
+          "title": "Setup Guide",
+          "description": "Discover our detailed guide on how to build and collect form submissions using your front-end code.",
+          "platform": "Select Your Library/Language",
+          "html": {
+            "step-1": {
+              "title": "Update your form's action attribute to point to your endpoint.",
+              "description": "Configure your form action to [{url}] and method to [{method}]."
+            },
+            "step-2": {
+              "title": "Assign a name attribute to each form field.",
+              "description": "All form inputs, including textareas, checkboxes, and radios, should have a 'name' attribute specified, such as [name=\"example\"]."
+            },
+            "step-3": {
+              "title": "Your form is now set up.",
+              "description": "Feel free to use the code below to send a test submission."
+            }
+          },
+          "javascript": {
+            "step-1": {
+              "title": "Send data using the fetch API in any JavaScript environment.",
+              "description": "Ensure the mode on the query string is set to [{mode}] to retrieve the response in JSON format."
+            },
+            "step-2": {
+              "title": "Copy and paste this into your JavaScript file.",
+              "description": "Feel free to use the code below to send a test submission."
+            }
+          },
+          "react": {
+            "step-1": {
+              "title": "Use this on your React Project to send form data to your endpoint.",
+              "description": "Send data using the fetch API and ensure the mode on the query string is set to [{mode}] for retrieving the response in JSON format."
+            },
+            "step-2": {
+              "title": "Copy and paste this into your React component.",
+              "description": "Feel free to use the code below to send a test submission."
+            }
+          },
+          "vue": {
+            "step-1": {
+              "title": "Use this on your Vue Project to send form data to your endpoint.",
+              "description": "Send data using the fetch API and ensure the mode on the query string is set to [{mode}] for retrieving the response in JSON format."
+            },
+            "step-2": {
+              "title": "Copy and paste this into your Vue component.",
+              "description": "Feel free to use the code below to send a test submission."
+            }
+          },
+          "rest": {
+            "step-1": {
+              "title": "Use the CURL command to send form data to the endpoint.",
+              "description": "Ensure the mode is set to [{mode}] to retrieve the response in JSON format."
+            },
+            "step-2": {
+              "title": "Execute the following command in your terminal.",
+              "description": "You can use the CURL command below to send a test submission."
+            }
+          }
+        },
+        "form": {
+          "title": "Sample Form",
+          "description": "Try out this form to send submissions to your URL and review them in the submissions tab.",
+          "inputs": {
+            "name": {
+              "title": "Name",
+              "placeholder": "Enter your name"
+            },
+            "email": {
+              "title": "Email",
+              "placeholder": "Enter your email"
+            },
+            "message": {
+              "title": "Message",
+              "placeholder": "Enter your message"
+            }
+          },
+          "submit": "Submit",
+          "toast": {
+            "success": "Form saved. Please check the \"Submissions\" tab for further details."
+          }
+        },
+        "support": {
+          "title": "Examples and Demos",
+          "description": "Explore the links below to view examples and demos of forms that you can use to test your endpoint.",
+          "link": {
+            "business-contact-form": "Business Contact Form",
+            "email-subscription-form": "Email Subscription Form",
+            "client-review-form": "Client Review Form",
+            "patient-details-form": "Patient Details Form",
+            "job-application-form": "Job Application Form",
+            "online-order-form": "Online Order Form",
+            "delivery-feedback-form": "Delivery Feedback Form",
+            "reunion-form": "Reunion Form",
+            "school-application": "School Application Form",
+            "workshop-registration-form": "Workshop Registration Form",
+            "software-request-form": "Software Request Form",
+            "product-review-form": "Product Review Form"
+          }
+        }
+      }
+    }
+  },
+  "modal": {
+    "common": {
+      "copy": {
+        "code": {
+          "default": "Copy Code",
+          "success": "Copied URL to Clipboard"
+        }
+      }
+    },
+    "project": {
+      "create": {
+        "title": "Create Project",
+        "button": {
+          "cancel": "Close",
+          "submit": "Create"
+        },
+        "input": {
+          "project-name": {
+            "title": "Project name",
+            "error": {
+              "max": "Must be 30 characters or less",
+              "min": "Required field"
+            }
+          },
+          "slug": {
+            "title": "Project slug",
+            "error": {
+              "max": "Must be 150 characters or less",
+              "min": "Required field"
+            }
+          }
+        }
+      }
+    },
+    "member": {
+      "invite": {
+        "title": "Add Team Member",
+        "button": {
+          "cancel": "Close",
+          "submit": "Add member"
+        },
+        "input": {
+          "member-id": {
+            "empty": "No members",
+            "default": "Select member",
+            "error": {
+              "min": "Required field"
+            }
+          }
+        }
+      }
+    },
+    "integration": {
+      "title": "Implementing Feature Flags",
+      "sdk": {
+        "reference": "SDK Reference",
+        "explore": "Explore the",
+        "docs": "SDK Docs",
+        "more": "to learn how to install and use the SDK."
+      },
+      "button": {
+        "cancel": "Close"
+      }
+    },
+    "flag": {
+      "tab": {
+        "core": {
+          "title": "Core",
+          "input": {
+            "name": {
+              "title": "Feature Key",
+              "hint": "Try to avoid spaces, or special characters",
+              "placeholder": "E.g. header_size",
+              "error": {
+                "max": "Must be 150 characters or less",
+                "min": "Required field"
+              }
+            },
+            "description": {
+              "title": "Description",
+              "placeholder": "Flag description",
+              "error": {
+                "max": "Must be 120 characters or less"
+              }
+            },
+            "environments": {
+              "title": "Enabled Environments"
+            }
+          }
+        },
+        "advanced": {
+          "title": "Advanced",
+          "input": {
+            "calendar": {
+              "title": "Expiration Date",
+              "placeholder": "dd/mm/yyyy"
+            },
+            "payload": {
+              "title": "Payload"
+            }
+          }
+        },
+        "activity": {
+          "title": "Activity"
+        }
+      },
+      "create": {
+        "title": "Create Feature Flag",
+        "button": {
+          "cancel": "Close",
+          "submit": "Create"
+        }
+      },
+      "update": {
+        "title": "Edit Feature Flag",
+        "button": {
+          "cancel": "Close",
+          "submit": "Update"
+        }
+      }
+    },
+    "confirm": {
+      "button": {
+        "cancel": "Close"
+      }
+    },
+    "environment": {
+      "create": {
+        "title": "Create Environment",
+        "button": {
+          "cancel": "Close",
+          "submit": "Create"
+        }
+      },
+      "update": {
+        "title": "Edit Environment",
+        "button": {
+          "cancel": "Close",
+          "submit": "Create"
+        }
+      },
+      "input": {
+        "name": {
+          "title": "Environment name",
+          "placeholder": "E.g. development",
+          "hint": "The feature flags will be copied based on the default environment",
+          "error": {
+            "max": "Must be 30 characters or less",
+            "min": "Required field"
+          }
+        },
+        "description": {
+          "title": "Description",
+          "placeholder": "Environment description",
+          "error": {
+            "max": "Must be 250 characters or less",
+            "min": "Required field"
+          }
+        }
+      }
+    },
+    "activity": {
+      "title": "Activity",
+      "button": {
+        "close": "Close"
+      },
+      "empty": {
+        "title": "No Results Found",
+        "description": "We couldn't find any results for your search. Please try a different search term or refine your search by date."
+      },
+      "toolbar": {
+        "search": {
+          "placeholder": "Search by name"
+        },
+        "calendar": {
+          "placeholder": "dd/mm/yyyy - dd/mm/yyyy"
+        }
+      },
+      "card": {
+        "description": {
+          "project": "created the project"
+        }
+      }
+    },
+    "form": {
+      "create": {
+        "title": "Create Form",
+        "button": {
+          "cancel": "Close",
+          "submit": "Create"
+        },
+        "input": {
+          "project-name": {
+            "title": "Form name",
+            "error": {
+              "max": "Must be 30 characters or less",
+              "min": "Required field"
+            }
+          }
+        }
+      }
+    }
+  },
+  "navigation": {
+    "create": {
+      "project": "Create Project",
+      "form": "Create Form"
+    },
+    "projects": {
+      "title": "Projects",
+      "select": "Select Project"
+    },
+    "forms": {
+      "title": "Forms",
+      "select": "Select form"
+    },
+    "dropdown": {
+      "username": "User Name",
+      "invite": "Invite Member (Coming soon)",
+      "settings": "Account Settings",
+      "logout": "Logout",
+      "dark-mode": "Dark Mode",
+      "billing": "Manage Subscription"
+    },
+    "external": {
+      "resources": "Resources",
+      "docs": "Documentation",
+      "github": "Github"
+    },
+    "internal": {
+      "submissions": "Submissions",
+      "features": "Features",
+      "settings": "Settings",
+      "setup": "Setup",
+      "profile": "Profile"
+    },
+    "setting": {
+      "general": "General",
+      "security": "Security",
+      "customization": "Customization",
+      "notifications": "Notifications",
+      "members": "Members",
+      "environments": "Environments"
+    },
+    "apps": {
+      "title": "Apps",
+      "forms": {
+        "title": "Forms",
+        "description": "Form creation and management"
+      },
+      "flags": {
+        "title": "Feature Flags",
+        "description": "Flag creation and control"
+      }
+    },
+    "profile": {
+      "general": "General",
+      "billing": "Billing"
+    }
+  },
+  "profile": {
+    "seo": {
+      "setting": {
+        "title": "Profile",
+        "0": "General",
+        "1": "Billing"
+      }
+    },
+    "general": {
+      "title": "General",
+      "card": {
+        "avatar": {
+          "title": "User Name",
+          "alt": "Profile picture of the user",
+          "description": "Update user details through your service provider."
+        },
+        "modals": {
+          "title": "Customize Modal Behavior",
+          "description": "Dismiss the modal automatically upon clicking outside the main content area."
+        },
+        "theme": {
+          "title": "Choose a Theme",
+          "description": "Toggle Between Light and Dark Modes for a Personalized Experience.",
+          "type": {
+            "light": "Light",
+            "dark": "Dark"
+          }
+        },
+        "flags": {
+          "title": "Feature Flags per Page",
+          "description": "Set the number of Feature Flags displayed on each page.",
+          "action": "Save",
+          "input": {
+            "number-of-flags": {
+              "error": {
+                "max": "Must be a value between 1 and 100.",
+                "min": "Required field"
+              }
+            }
+          }
+        }
+      }
+    },
+    "billing": {
+      "price": {
+        "symbol": "$",
+        "abbr": "USD"
+      },
+      "feature": {
+        "forms": "{value} Forms",
+        "submissions": "{value} Submissions",
+        "members": "{value} Members",
+        "spams": "{value} Spam AI Reports",
+        "integrations": "{value} Integrations Calls"
+      },
+      "segment": {
+        "monthly": "monthly",
+        "yearly": "yearly"
+      },
+      "cycle": {
+        "monthly": "billed monthly",
+        "yearly": "billed yearly"
+      },
+      "cycle-abbr": {
+        "monthly": "mo",
+        "yearly": "yr"
+      },
+      "link": {
+        "compare": "Compare Plans"
+      },
+      "plan": {
+        "free": "Free",
+        "hobby": "Hobby",
+        "launch": "Launch",
+        "scale": "Scale",
+        "current": {
+          "title": "Current Plan",
+          "renewal": "Renewal date",
+          "ending": "Ending date",
+          "status": {
+            "active": "Active",
+            "inactive": "Inactive"
+          },
+          "button": "Manage Subscription"
+        },
+        "details": {
+          "lastFour": "Ending in",
+          "expDate": "Exp date",
+          "button": "Update Payment Method"
+        },
+        "upgrade": {
+          "title": "Upgrade Plan",
+          "description": "Select billing cycle"
+        }
+      }
+    }
+  },
+  "setting": {
+    "seo": {
+      "setting": {
+        "title": "Settings",
+        "0": "General",
+        "1": "Security",
+        "2": "Customization",
+        "3": "Notifications"
+      }
+    },
+    "common": {
+      "copy": {
+        "url": {
+          "default": "Copy URL",
+          "success": "Copied URL to Clipboard"
+        },
+        "key": {
+          "default": "Copy Key",
+          "success": "Copied Key to Clipboard"
+        }
+      }
+    },
+    "general": {
+      "project": {
+        "title": "Project Name",
+        "description": "A name used to identify your project on the dashboard.",
+        "action": "Update",
+        "inputs": {
+          "name": {
+            "placeholder": "Project Name",
+            "error": {
+              "max": "Must be 30 characters or less",
+              "min": "Required field"
+            }
+          }
+        }
+      },
+      "endpoints": {
+        "title": "Endpoints",
+        "description": "Endpoints are essential for the SDKs to access and interact with features.",
+        "copy": {
+          "title": "Base Url"
+        }
+      },
+      "project-key": {
+        "title": "Project Key",
+        "description": "Here is your project key, which you can use to integrate and access the features in your project.",
+        "copy": {
+          "title": "Key"
+        }
+      },
+      "form-key": {
+        "title": "Form ID",
+        "description": "Here is your form ID, which you can use to integrate and access the features in your websites.",
+        "copy": {
+          "title": "ID"
+        }
+      },
+      "keys": {
+        "title": "API Keys",
+        "description": "API keys are used with the SDKs, such as JavaScript, React, etc.",
+        "table": {
+          "headers": {
+            "name": "Environment Name",
+            "key": "Environment Key"
+          }
+        }
+      },
+      "delete": {
+        "form": {
+          "title": "Delete Form",
+          "description": "Deleting the form will permanently remove all its submissions.",
+          "placeholder": "Warning: This action is irreversible. Proceed with caution.",
+          "action": "Delete",
+          "modal": {
+            "title": "Are you sure about this action?",
+            "description": "Warning: This action cannot be undone. It will permanently delete the {name} form.",
+            "action": "Delete Form"
+          }
+        },
+        "project": {
+          "title": "Delete Project",
+          "description": "Deleting the project will permanently remove all its environments and feature flags.",
+          "placeholder": "Warning: This action is irreversible. Proceed with caution.",
+          "action": "Delete",
+          "modal": {
+            "title": "Are you sure about this action?",
+            "description": "Warning: This action cannot be undone. It will permanently delete the {name} project, including flags, history, and all collaborator associations.",
+            "action": "Delete Project"
+          }
+        }
+      },
+      "form": {
+        "title": "Form Name",
+        "description": "A name used to identify your form on the dashboard.",
+        "action": "Update",
+        "inputs": {
+          "name": {
+            "placeholder": "Form name",
+            "error": {
+              "max": "Must be 30 characters or less",
+              "min": "Required field"
+            }
+          }
+        },
+        "toast": {
+          "success": "Form name updated successfully"
+        }
+      },
+      "enable-form": {
+        "title": "Enable Form",
+        "description": "Activate/Deactivate the form to control submission collection.",
+        "toast": {
+          "success": "Form updated successfully"
+        }
+      },
+      "data-retention": {
+        "title": "Data Retention",
+        "description": "Store incoming submissions in the Basestack Forms database.",
+        "toast": {
+          "success": "Data retention updated successfully"
+        }
+      },
+      "webhook-url": {
+        "title": "Webhook URL",
+        "description": "Each time a new form submission is received, JSON data will be sent to the specified URL.",
+        "action": "Update",
+        "inputs": {
+          "name": {
+            "placeholder": "Enter an URL",
+            "error": {
+              "min": "Required field"
+            }
+          }
+        },
+        "toast": {
+          "success": "Webhook URL updated successfully"
+        }
+      }
+    },
+    "notifications": {
+      "emails": {
+        "title": "Emails",
+        "description": "Send submission notifications to these email addresses.",
+        "text": "Press Enter to add an email in the input field.",
+        "action": "Update",
+        "inputs": {
+          "name": {
+            "placeholder": "Enter an Email",
+            "error": {
+              "min": "Required field"
+            }
+          }
+        },
+        "toast": {
+          "success": "Emails updated successfully"
+        }
+      }
+    },
+    "security": {
+      "spam-protection": {
+        "title": "Spam AI ✨",
+        "description": "Our AI detects and filters out spam submissions. Data Retention needs to be enabled for the AI to work.",
+        "toast": {
+          "success": "Spam AI updated successfully"
+        }
+      },
+      "ip-block-rules": {
+        "title": "IP Block Rules",
+        "description": "List IP addresses to block; Basestack Forms will reject messages from those addresses.",
+        "text": "Press Enter to add an IP address in the input field.",
+        "action": "Update",
+        "inputs": {
+          "name": {
+            "placeholder": "Enter an IP address",
+            "error": {
+              "min": "Required field"
+            }
+          }
+        },
+        "toast": {
+          "success": "IP block rules updated successfully"
+        }
+      },
+      "honeypot": {
+        "title": "Honeypot",
+        "description": "If this field is present in the submission data, it will be ignored, and an error will be returned.",
+        "text": "A Honeypot field is a hidden field that is added to a form to catch bots without the user knowing.",
+        "action": "Update",
+        "inputs": {
+          "name": {
+            "placeholder": "Enter a field name",
+            "error": {
+              "min": "Required field",
+              "max": "Must be 30 characters or less"
+            }
+          }
+        },
+        "toast": {
+          "success": "Honeypot updated successfully"
+        }
+      },
+      "websites": {
+        "title": "Websites",
+        "description": "Add websites to restrict form submissions to only those originating from the specified URLs.",
+        "text": "Press Enter to add a website in the input field. Example: https://www.example.com",
+        "action": "Update",
+        "inputs": {
+          "name": {
+            "placeholder": "Enter a website URL"
+          }
+        },
+        "toast": {
+          "success": "Websites updated successfully"
+        }
+      }
+    },
+    "customization": {
+      "success-url": {
+        "title": "Custom Success URL",
+        "description": "After a successful form submission, users will be directed to your custom URL.",
+        "action": "Update",
+        "inputs": {
+          "name": {
+            "placeholder": "Enter an URL",
+            "error": {
+              "min": "Required field"
+            }
+          }
+        },
+        "toast": {
+          "success": "Success URL updated successfully"
+        }
+      },
+      "failed-url": {
+        "title": "Custom Failed URL",
+        "description": "After a failed form submission, users will be directed to your custom URL.",
+        "action": "Update",
+        "inputs": {
+          "name": {
+            "placeholder": "Enter an URL",
+            "error": {
+              "min": "Required field"
+            }
+          }
+        },
+        "toast": {
+          "success": "Failed URL updated successfully"
+        }
+      },
+      "redirect-url": {
+        "title": "Custom Redirect URL",
+        "description": "After submitting the form, users will be provided with the option to return to the specified URL.",
+        "action": "Update",
+        "inputs": {
+          "name": {
+            "placeholder": "Enter an URL",
+            "error": {
+              "min": "Required field"
+            }
+          }
+        },
+        "toast": {
+          "success": "Redirect URL updated successfully"
+        }
+      },
+      "data-query-string": {
+        "title": "Form Data as Query String",
+        "description": "Pass submission data through query parameters. The return URL will be dynamically populated with the submitted form data.",
+        "toast": {
+          "success": "Data query string updated successfully"
+        }
+      }
+    },
+    "members": {
+      "invite": {
+        "title": "Team Members",
+        "description": "Add members of your organization to manage this project. Developers can also be invited to access API keys for code integration.",
+        "placeholder": "Note: Users must already have an account to appear in the list (Email Invites Coming Soon).",
+        "action": "Add Member",
+        "table": {
+          "headers": {
+            "name": "Name",
+            "email": "Email",
+            "role": "Role",
+            "invited-at": "Invited At"
+          }
+        }
+      }
+    },
+    "others": {
+      "environments": {
+        "title": "Environments",
+        "description": "{type} environments for this project. Environments allow you to control how your feature flags behave in different settings or stages of development.",
+        "admin": "Create and edit",
+        "user": "All the",
+        "action": "Create New Environment",
+        "modal": {
+          "delete": {
+            "title": "Are you sure?",
+            "description": "This action cannot be undone. This will permanently delete the {name} environment, flags, history and remove all collaborator associations.",
+            "action": "Delete Environment"
+          }
+        },
+        "table": {
+          "headers": {
+            "environment": "Environment",
+            "slug": "Slug",
+            "description": "Description",
+            "created-at": "Created At"
+          }
+        },
+        "actions": {
+          "edit": "Edit",
+          "delete": "Delete"
+        }
+      }
+    }
+  }
+}

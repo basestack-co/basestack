@@ -5,12 +5,12 @@ import { InputGroup } from "@basestack/design-system";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { NamespaceKeys, useTranslations } from "next-intl";
 // Types
 import { FormInputs, FormSchema } from "./types";
 
 const useEnvironmentForm = (isCreate: boolean = false) => {
-  const { t } = useTranslation("modals");
+  const t = useTranslations();
   const theme = useTheme();
   const [textareaLength, setTextareaLength] = useState("");
   const {
@@ -24,7 +24,9 @@ const useEnvironmentForm = (isCreate: boolean = false) => {
     mode: "onChange",
   });
 
-  const defaultFallbackHint = isCreate ? t("environment.input.name.hint") : "";
+  const defaultFallbackHint = isCreate
+    ? t("modal.environment.input.name.hint")
+    : "";
 
   const onChangeTextarea = useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -46,15 +48,19 @@ const useEnvironmentForm = (isCreate: boolean = false) => {
           defaultValue=""
           render={({ field }) => (
             <InputGroup
-              title={t("environment.input.name.title")}
-              hint={t(errors.name?.message!) ?? defaultFallbackHint}
+              title={t("modal.environment.input.name.title")}
+              hint={
+                errors.name?.message
+                  ? t(errors.name?.message! as NamespaceKeys<string, "modal">)
+                  : defaultFallbackHint
+              }
               inputProps={{
                 type: "text",
                 name: field.name,
                 value: field.value,
                 onChange: field.onChange,
                 onBlur: field.onBlur,
-                placeholder: t("environment.input.name.placeholder"),
+                placeholder: t("modal.environment.input.name.placeholder"),
                 hasError: !!errors.name,
                 isDisabled: isSubmitting,
               }}
@@ -69,7 +75,7 @@ const useEnvironmentForm = (isCreate: boolean = false) => {
           defaultValue=""
           render={({ field }) => (
             <InputGroup
-              title={t("environment.input.description.title")}
+              title={t("modal.environment.input.description.title")}
               label={`${textareaLength.length} / 250`}
               textarea
               textareaProps={{
@@ -77,7 +83,9 @@ const useEnvironmentForm = (isCreate: boolean = false) => {
                 value: field.value ?? "",
                 onChange: onChangeTextarea,
                 onBlur: field.onBlur,
-                placeholder: t("environment.input.description.placeholder"),
+                placeholder: t(
+                  "modal.environment.input.description.placeholder",
+                ),
                 maxlength: "250",
                 hasError: !!errors.description,
                 isDisabled: isSubmitting,

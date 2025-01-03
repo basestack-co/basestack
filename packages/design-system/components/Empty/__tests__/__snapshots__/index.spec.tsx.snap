@@ -119,6 +119,8 @@ exports[`Empty tests should render Empty correctly 1`] = `
   >
     <div
       class="c1"
+      mb="1.25rem"
+      variant="outlined"
     >
       <div
         class="c2"
@@ -142,6 +144,7 @@ exports[`Empty tests should render Empty correctly 1`] = `
     <h3
       class="c5"
       font-family="roboto"
+      mb="0.25rem"
     >
       title
     </h3>
@@ -154,6 +157,8 @@ exports[`Empty tests should render Empty correctly 1`] = `
     <button
       class="c7"
       data-testid="button"
+      mt="1.25rem"
+      variant="primary"
     >
       <span
         class=""

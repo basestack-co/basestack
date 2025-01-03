@@ -1,6 +1,6 @@
 import React from "react";
 // Router
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 // Form
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,9 +15,9 @@ import { useStore } from "store";
 // Toast
 import { toast } from "sonner";
 // Server
-import { trpc } from "libs/trpc";
+import { api } from "utils/trpc/react";
 // Locales
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 export const FormSchema = z.object({
   name: z
@@ -29,10 +29,10 @@ export const FormSchema = z.object({
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const CreateFormModal = () => {
-  const { t } = useTranslation("modals");
+  const t = useTranslations("modal");
   const theme = useTheme();
   const router = useRouter();
-  const trpcUtils = trpc.useUtils();
+  const trpcUtils = api.useUtils();
 
   const isModalOpen = useStore((state) => state.isCreateFormModalOpen);
   const setCreateFormModalOpen = useStore(
@@ -42,7 +42,7 @@ const CreateFormModal = () => {
     (state) => state.closeModalsOnClickOutside,
   );
 
-  const createForm = trpc.form.create.useMutation();
+  const createForm = api.form.create.useMutation();
 
   const {
     control,
@@ -54,7 +54,7 @@ const CreateFormModal = () => {
     mode: "onChange",
   });
 
-  const isSubmittingOrMutating = isSubmitting || createForm.isLoading;
+  const isSubmittingOrMutating = isSubmitting || createForm.isPending;
 
   const onClose = () => setCreateFormModalOpen({ isOpen: false });
 
@@ -62,22 +62,42 @@ const CreateFormModal = () => {
     createForm.mutate(data, {
       onSuccess: async (result) => {
         // Get all the projects on the cache
-        const prev = trpcUtils.form.all.getData();
+        const prevAllForms = trpcUtils.form.all.getData();
 
-        if (prev && prev.forms) {
+        if (prevAllForms && prevAllForms.forms) {
           // Add the new form with the others
-          const forms = [result.form, ...prev.forms];
+          const forms = [result.form, ...prevAllForms.forms];
 
           // Update the cache with the new data
           trpcUtils.form.all.setData(undefined, { forms });
         }
 
+        // Get all the recent forms on the cache
+        const prevRecentForms = trpcUtils.form.recent.getData();
+
+        if (prevRecentForms) {
+          // Find the form and remove from the list
+          const forms = [
+            {
+              id: result.form.id,
+              name: result.form.name,
+              isEnabled: true,
+              _count: {
+                spam: 0,
+                unread: 0,
+                read: 0,
+              },
+            },
+            ...prevRecentForms,
+          ];
+
+          // Update the cache with the new data
+          trpcUtils.form.recent.setData(undefined, forms);
+        }
+
         onClose();
 
-        await router.push({
-          pathname: "/form/[formId]/submissions",
-          query: { formId: result.form.id },
-        });
+        router.push(`/a/form/${result.form.id}/submissions`);
       },
       onError: (error) => {
         toast.error(error.message);
@@ -111,7 +131,7 @@ const CreateFormModal = () => {
           render={({ field }) => (
             <InputGroup
               title={t("form.create.input.project-name.title")}
-              hint={t(errors.name?.message!)}
+              hint={errors.name?.message}
               inputProps={{
                 type: "text",
                 name: field.name,

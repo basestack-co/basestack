@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { space } from "styled-system";
 
-export const Hr = styled.hr<{ isDarker: boolean }>`
+export const Hr = styled.hr.withConfig({
+  shouldForwardProp: (prop) => prop !== "isDarker",
+})<{ isDarker: boolean }>`
   ${space};
   display: flex;
   flex-direction: column;

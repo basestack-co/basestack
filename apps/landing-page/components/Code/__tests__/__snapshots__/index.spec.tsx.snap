@@ -161,6 +161,7 @@ exports[`Code tests should render Code correctly 1`] = `
         <h2
           class="c3"
           color="#F6F6F6"
+          mb="0.5rem"
         >
           Explore our SDK Options
         </h2>
