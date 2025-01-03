@@ -12,7 +12,7 @@ import ProjectKey from "./_components/ProjectKey";
 // Server
 import { api } from "utils/trpc/react";
 // Types
-import { Role } from "@prisma/client";
+import { Role } from ".prisma/client";
 // Styles
 import { CardList, CardListItem, SettingCardContainer } from "../styles";
 

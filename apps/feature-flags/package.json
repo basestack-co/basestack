@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && yarn db:migrate:dev && next build",
-    "build:deploy": "prisma generate && yarn db:migrate:prod && next build",
-    "build:proxy": "prisma generate --data-proxy && yarn db:migrate:proxy && next build",
+    "build": "yarn db:generate && yarn db:migrate:dev && next build",
+    "build:deploy": "yarn db:generate && yarn db:migrate:prod && next build",
+    "build:proxy": "yarn db:generate --data-proxy && yarn db:migrate:proxy && next build",
     "deploy": "yarn build:deploy",
     "start": "next start",
     "lint": "next lint",

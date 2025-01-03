@@ -20,7 +20,7 @@ import { useStore } from "store";
 import dayjs from "dayjs";
 import { createTable } from "@basestack/utils";
 // Types
-import { Role } from "@prisma/client";
+import { Role } from ".prisma/client";
 // Locales
 import { useTranslations } from "next-intl";
 

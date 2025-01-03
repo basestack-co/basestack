@@ -23,7 +23,7 @@ import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
 // Types
-import { Role } from "@prisma/client";
+import { Role } from ".prisma/client";
 // Utils
 import dayjs from "dayjs";
 
