@@ -240,7 +240,6 @@ const PrivacyPolicyPage = () => {
           <p>Third parties we currently use include: </p>
           <ul>
             <li>Simple Analytics</li>
-            <li>Microsoft Clarity</li>
           </ul>
           <h3>Your Rights and Controlling Your Personal Information</h3>
           <p>
