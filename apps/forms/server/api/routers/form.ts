@@ -1,7 +1,7 @@
 import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
 import { TRPCError } from "@trpc/server";
 // Types
-import { Role } from "@prisma/client";
+import { Role } from ".prisma/client";
 // Utils
 import { z } from "zod";
 import { withRoles, PlanTypeId } from "@basestack/utils";

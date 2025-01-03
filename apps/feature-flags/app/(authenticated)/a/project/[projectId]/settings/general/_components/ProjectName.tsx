@@ -12,7 +12,7 @@ import { Input } from "@basestack/design-system";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Types
-import { Role } from "@prisma/client";
+import { Role } from ".prisma/client";
 // Locales
 import { useTranslations } from "next-intl";
 

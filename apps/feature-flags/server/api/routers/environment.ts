@@ -5,7 +5,7 @@ import { generateSlug } from "random-word-slugs";
 import { withRoles } from "@basestack/utils";
 import { z } from "zod";
 // Inputs
-import { Role } from "@prisma/client";
+import { Role } from ".prisma/client";
 
 export const environmentRouter = createTRPCRouter({
   all: protectedProcedure

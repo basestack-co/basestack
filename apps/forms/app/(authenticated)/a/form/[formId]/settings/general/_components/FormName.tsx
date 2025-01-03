@@ -12,7 +12,7 @@ import { SettingCard } from "@basestack/ui";
 // Components
 import { Input } from "@basestack/design-system";
 // Types
-import { Role } from "@prisma/client";
+import { Role } from ".prisma/client";
 // Toast
 import { toast } from "sonner";
 // Locales
