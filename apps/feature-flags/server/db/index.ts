@@ -1,5 +1,5 @@
 // Types
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from ".prisma/client";
 
 const createPrismaClient = () =>
   new PrismaClient({

@@ -2,7 +2,7 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 // Types
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
-import { Role } from "@prisma/client";
+import { Role } from ".prisma/client";
 import type { Provider } from "next-auth/providers";
 // Libs
 import { prisma } from "server/db";

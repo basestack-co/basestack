@@ -18,7 +18,7 @@ import { PlanTypeId } from "@basestack/utils";
 // Server
 import { api } from "utils/trpc/react";
 // Types
-import { Role } from "@prisma/client";
+import { Role } from ".prisma/client";
 
 const GeneralSettingsPage = () => {
   const { formId } = useParams<{ formId: string }>();
