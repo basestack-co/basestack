@@ -29,12 +29,12 @@ const getLinks = (projectId: string) => [
     tab: "general",
     href: `/a/project/${projectId}/settings/general`,
   },
-  {
-    id: "2",
-    i18nKey: "navigation.setting.members",
-    tab: "members",
-    href: `/a/project/${projectId}/settings/members`,
-  },
+  /* {
+         id: "2",
+         i18nKey: "navigation.setting.members",
+         tab: "members",
+         href: `/a/project/${projectId}/settings/members`,
+       }, */
   {
     id: "3",
     i18nKey: "navigation.setting.environments",
@@ -62,13 +62,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   const renderLink = useMemo(() => {
     return getLinks(projectId).map(({ id, i18nKey, href }) => (
       <ListItem key={`settings-button-list-${id}`}>
-        <StyledLink
-          href={{
-            pathname: href,
-            query: { projectId },
-          }}
-          passHref
-        >
+        <StyledLink href={href} passHref>
           <StyledButton isActive={pathname === href}>
             {t(i18nKey as NamespaceKeys<string, "navigation">)}
           </StyledButton>

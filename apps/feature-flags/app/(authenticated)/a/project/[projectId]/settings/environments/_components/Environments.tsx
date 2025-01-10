@@ -86,30 +86,17 @@ const EnvironmentsCard = () => {
           },
           {
             onSuccess: async (result) => {
-              // Get all the environments by project on the cache
-              const prev = trpcUtils.environment.all.getData({
-                projectId,
-              });
-
-              if (prev && prev.environments) {
-                const environments = prev.environments.filter(
-                  ({ id }) => id !== result.environment.id,
-                );
-
-                // Update the cache with the new data
-                trpcUtils.environment.all.setData(
-                  { projectId },
-                  {
-                    environments,
-                  },
-                );
+              if (result) {
+                await trpcUtils.environment.all.invalidate();
+                await trpcUtils.project.allKeys.invalidate({ projectId });
+                await trpcUtils.flag.environments.invalidate();
               }
             },
           },
         );
       }
     },
-    [project, deleteEnvironment, trpcUtils.environment.all],
+    [project, deleteEnvironment, trpcUtils],
   );
 
   const onClickDeleteEnvironment = useCallback(

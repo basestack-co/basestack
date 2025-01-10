@@ -15,6 +15,7 @@ import { useShallow } from "zustand/react/shallow";
 import { TabType } from "types";
 // Server
 import { api } from "utils/trpc/react";
+import { keepPreviousData } from "@tanstack/react-query";
 // Locales
 import { useTranslations } from "next-intl";
 // Hooks
@@ -51,7 +52,7 @@ const CreateFlagModal = () => {
     { projectId: project?.id! },
     {
       enabled: !!project?.id,
-      // keepPreviousData: true,
+      placeholderData: keepPreviousData,
     },
   );
 
@@ -75,6 +76,7 @@ const CreateFlagModal = () => {
           onSuccess: async (result) => {
             // Refresh the flag list and close the modal
             await trpcUtils.flag.all.invalidate({ projectId: project.id });
+            await trpcUtils.project.recent.invalidate();
             onClose();
           },
         },

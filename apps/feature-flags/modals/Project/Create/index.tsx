@@ -29,12 +29,12 @@ import { IconButtonContainer, SlugContainer } from "./styles";
 export const FormSchema = z.object({
   name: z
     .string()
-    .max(30, "modal.project.create.input.project-name.error.max")
-    .min(1, "modal.project.create.input.project-name.error.min"),
+    .max(30, "project.create.input.project-name.error.max")
+    .min(1, "project.create.input.project-name.error.min"),
   slug: z
     .string()
-    .max(150, "modal.project.create.input.slug.error.max")
-    .min(1, "modal.project.create.input.slug.error.min"),
+    .max(150, "project.create.input.slug.error.max")
+    .min(1, "project.create.input.slug.error.min"),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
@@ -140,7 +140,11 @@ const CreateProjectModal = () => {
           render={({ field }) => (
             <InputGroup
               title={t("project.create.input.project-name.title")}
-              hint={t(errors.name?.message! as NamespaceKeys<string, "modal">)}
+              hint={
+                errors.name?.message
+                  ? t(errors.name?.message as NamespaceKeys<string, "modal">)
+                  : ""
+              }
               inputProps={{
                 type: "text",
                 name: field.name,
@@ -163,9 +167,11 @@ const CreateProjectModal = () => {
             render={({ field }) => (
               <InputGroup
                 title={t("project.create.input.slug.title")}
-                hint={t(
-                  errors.slug?.message! as NamespaceKeys<string, "modal">,
-                )}
+                hint={
+                  errors.slug?.message
+                    ? t(errors.slug?.message as NamespaceKeys<string, "modal">)
+                    : ""
+                }
                 inputProps={{
                   name: "slug",
                   value: slugify(field.value),

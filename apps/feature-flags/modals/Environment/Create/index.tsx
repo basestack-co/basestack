@@ -36,21 +36,6 @@ const CreateEnvironmentModal = () => {
 
   const createEnvironment = api.environment.create.useMutation();
 
-  const [environments, defaultEnvironment] = useMemo(() => {
-    if (projectId) {
-      const cache = trpcUtils.environment.all.getData({
-        projectId,
-      });
-
-      const environments = (cache && cache.environments) || [];
-      const defaultEnvironment = environments.find((env) => env.isDefault);
-
-      return [environments, defaultEnvironment] as const;
-    }
-
-    return [] as const;
-  }, [projectId, trpcUtils]);
-
   const { handleSubmit, onRenderForm, reset, isSubmitting } =
     useEnvironmentForm(true);
 
@@ -65,24 +50,13 @@ const CreateEnvironmentModal = () => {
           name: input.name,
           description: input.description,
           projectId,
-          copyFromEnvId: defaultEnvironment?.id ?? "",
         },
         {
           onSuccess: async (result) => {
             if (result) {
-              if (environments) {
-                const updated = [result.environment, ...environments].sort(
-                  (a, b) => a.createdAt.getTime() - b.createdAt.getTime(),
-                );
-
-                // Update the cache with the new data
-                trpcUtils.environment.all.setData(
-                  { projectId },
-                  {
-                    environments: updated,
-                  },
-                );
-              }
+              await trpcUtils.environment.all.invalidate();
+              await trpcUtils.project.allKeys.invalidate({ projectId });
+              await trpcUtils.flag.environments.invalidate();
 
               onClose();
             }

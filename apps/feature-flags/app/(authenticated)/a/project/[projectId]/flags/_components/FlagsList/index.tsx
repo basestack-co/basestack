@@ -50,15 +50,6 @@ const FlagCards = ({
   const numberOfFlagsPerPage = useStore((state) => state.numberOfFlagsPerPage);
   const deleteFlag = api.flag.delete.useMutation();
 
-  const { data: count } = api.flag.total.useQuery(
-    {
-      projectId,
-    },
-    {
-      enabled: !!projectId,
-    },
-  );
-
   const { data, isLoading, fetchNextPage } = api.flag.all.useInfiniteQuery(
     {
       projectId,
@@ -104,6 +95,7 @@ const FlagCards = ({
         {
           onSuccess: async () => {
             await trpcUtils.flag.all.invalidate({ projectId });
+            await trpcUtils.project.recent.invalidate();
           },
         },
       );
