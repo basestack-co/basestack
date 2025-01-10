@@ -2,6 +2,8 @@ import React from "react";
 import { useTheme } from "styled-components";
 // Locales
 import { useTranslations } from "next-intl";
+// Server
+import { api } from "utils/trpc/react";
 // Form
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,6 +40,7 @@ export interface Props {
 const Form = ({ formId, isFormDisabled }: Props) => {
   const theme = useTheme();
   const t = useTranslations("form");
+  const trpcUtils = api.useUtils();
 
   const {
     control,
@@ -75,6 +78,8 @@ const Form = ({ formId, isFormDisabled }: Props) => {
       if (data.code === 200) {
         toast.success(t("setup.card.form.toast.success"));
         reset();
+
+        await trpcUtils.submission.all.invalidate();
       }
 
       if (data.error) {

@@ -43,15 +43,8 @@ export const getRightLinks = (t: TFunction): NavigationProps["rightLinks"] => {
       type: "link",
       icon: "description",
       isActive: false,
-      href: config.urls.docs.flags.base,
+      href: config.urls.docs.forms.base,
       text: t("navigation.external.docs"),
-    },
-    {
-      type: "link",
-      icon: "link",
-      isActive: false,
-      href: config.urls.repo,
-      text: t("navigation.external.github"),
     },
   ];
 };
