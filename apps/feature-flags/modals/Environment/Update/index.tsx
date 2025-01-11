@@ -84,6 +84,9 @@ const EditEnvironmentModal = () => {
                     environments,
                   },
                 );
+
+                await trpcUtils.project.allKeys.invalidate({ projectId });
+                await trpcUtils.flag.environments.invalidate();
               }
 
               onClose();

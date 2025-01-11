@@ -8,7 +8,6 @@ import type { Provider } from "next-auth/providers";
 import { prisma } from "server/db";
 // Providers
 import GitHubProvider from "next-auth/providers/github";
-import Auth0Provider from "next-auth/providers/auth0";
 import GoogleProvider from "next-auth/providers/google";
 
 declare module "next-auth" {
@@ -38,19 +37,6 @@ const providers: Provider[] = [
         gh_username: profile.login,
         email: profile.email,
         image: profile.avatar_url,
-      };
-    },
-  }),
-  Auth0Provider({
-    clientId: process.env.AUTH0_CLIENT_ID,
-    clientSecret: process.env.AUTH0_CLIENT_SECRET!,
-    issuer: `https://${process.env.AUTH0_DOMAIN}`,
-    profile: (profile) => {
-      return {
-        id: profile.sub,
-        name: profile.name,
-        email: profile.email,
-        image: profile.picture,
       };
     },
   }),

@@ -31,13 +31,6 @@ export const getExternalLinks = (t: TFunction) => {
       isExternal: true,
       text: t("navigation.external.docs"),
     },
-    {
-      icon: "link",
-      activeText: "Github",
-      to: config.urls.repo,
-      isExternal: true,
-      text: t("navigation.external.github"),
-    },
   ];
 };
 

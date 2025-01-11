@@ -48,7 +48,6 @@ export const environmentRouter = createTRPCRouter({
           projectId: z.string(),
           name: z.string(),
           description: z.string(),
-          copyFromEnvId: z.string(),
         })
         .required(),
     )
@@ -58,10 +57,20 @@ export const environmentRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.$transaction(async (tx) => {
+          const environment = await tx.environment.findFirst({
+            where: {
+              projectId: input.projectId,
+              isDefault: true,
+            },
+            select: {
+              id: true,
+            },
+          });
+
           // Get all the flags from a selected environment
           const flags = await tx.flag.findMany({
             where: {
-              environmentId: input.copyFromEnvId,
+              environmentId: environment?.id,
             },
             select: {
               slug: true,

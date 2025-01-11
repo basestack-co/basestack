@@ -4,6 +4,7 @@ import { Skeleton } from "@basestack/design-system";
 import HistoryCard from "components/HistoryCard";
 // Server
 import { api } from "utils/trpc/react";
+import { keepPreviousData } from "@tanstack/react-query";
 // Utils
 import dayjs from "dayjs";
 import { getHistoryItemDetails } from "server/db/utils/history";
@@ -23,7 +24,7 @@ const HistoryTab = ({ projectId, flagId }: Props) => {
     },
     {
       enabled: !!projectId && !!flagId,
-      //  keepPreviousData: true
+      placeholderData: keepPreviousData,
     },
   );
 

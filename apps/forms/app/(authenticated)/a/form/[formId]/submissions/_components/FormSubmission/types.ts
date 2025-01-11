@@ -32,6 +32,7 @@ export interface FormSubmissionProps extends Props {
   metadata: Metadata;
   blockIpAddresses?: string;
   formId: string;
+  onOpenCallback: (isOpen: boolean) => void;
 }
 
 export interface FormSubmissionHeaderProps extends Props {

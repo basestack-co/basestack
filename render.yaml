@@ -122,10 +122,6 @@ envVarGroups:
         # AUTHENTICATION - GITHUB
       - key: GITHUB_CLIENT_ID
       - key: GITHUB_CLIENT_SECRET
-        # AUTHENTICATION - AUTH0
-      - key: AUTH0_CLIENT_ID
-      - key: AUTH0_CLIENT_SECRET
-      - key: AUTH0_DOMAIN
         # AUTHENTICATION - GOOGLE
       - key: GOOGLE_CLIENT_ID
       - key: GOOGLE_CLIENT_SECRET

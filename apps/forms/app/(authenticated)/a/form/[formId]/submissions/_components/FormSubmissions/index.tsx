@@ -147,6 +147,7 @@ const FormSubmissions = ({
             setSelectIds([]);
 
             await trpcUtils.submission.all.invalidate({ formId });
+            await trpcUtils.form.recent.invalidate();
 
             toast.dismiss(loadingToastId);
             toast.success(
@@ -176,6 +177,7 @@ const FormSubmissions = ({
             setSelectIds([]);
 
             await trpcUtils.submission.all.invalidate({ formId });
+            await trpcUtils.form.recent.invalidate();
 
             toast.dismiss(loadingToastId);
             toast.success(
@@ -344,6 +346,11 @@ const FormSubmissions = ({
                             viewed={viewed!}
                             isSpam={isSpam!}
                             onDelete={() => onDelete([id])}
+                            onOpenCallback={(isOpen) => {
+                              if (isOpen && !viewed) {
+                                onUpdate([id], { viewed: true });
+                              }
+                            }}
                             onMarkSpam={() =>
                               onUpdate([id], { isSpam: !isSpam })
                             }

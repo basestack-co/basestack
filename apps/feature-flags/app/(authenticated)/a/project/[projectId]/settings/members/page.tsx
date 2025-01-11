@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 // Router
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 // Modules
 import Invite from "./_components/Invite";
 // Server
@@ -11,6 +11,7 @@ import { api } from "utils/trpc/react";
 import { CardList, CardListItem, SettingCardContainer } from "../styles";
 
 const MembersPage = () => {
+  const router = useRouter();
   const { projectId } = useParams<{ projectId: string }>();
   const { data: project } = api.project.byId.useQuery(
     { projectId },
@@ -18,6 +19,10 @@ const MembersPage = () => {
       enabled: !!projectId,
     },
   );
+
+  useEffect(() => {
+    router.back();
+  }, [router]);
 
   return (
     <CardList>

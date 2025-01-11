@@ -236,7 +236,6 @@ exports[`Button tests should render Button with styled system utilities 1`] = `
 <button
     class="c0"
     data-testid="button"
-    flexdirection="column"
     mb="100"
     variant="primary"
   >

@@ -16,6 +16,7 @@ const FormSubmission = ({
   onMarkSpam,
   onReadSubmission,
   onSelect,
+  onOpenCallback,
   isSelected = false,
   isActionsDisabled,
   metadata,
@@ -34,7 +35,10 @@ const FormSubmission = ({
   return (
     <Card pl={theme.spacing.s5}>
       <Header
-        onClick={() => setIsOpen((prevState) => !prevState)}
+        onClick={() => {
+          setIsOpen((prevState) => !prevState);
+          onOpenCallback(!isOpen);
+        }}
         checkbox={{
           checked,
           onChange: () => {

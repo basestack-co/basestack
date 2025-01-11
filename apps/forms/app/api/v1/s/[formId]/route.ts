@@ -129,7 +129,7 @@ export async function POST(
           );
         }
 
-        return NextResponse.redirect(successUrl, 307);
+        return NextResponse.redirect(successUrl, 303);
       }
     } else {
       throw new FormError({
@@ -152,7 +152,7 @@ export async function POST(
           { status: error.code, headers },
         );
       } else {
-        return NextResponse.redirect(error.url, 307);
+        return NextResponse.redirect(error.url, 303);
       }
     } else {
       return NextResponse.json(
