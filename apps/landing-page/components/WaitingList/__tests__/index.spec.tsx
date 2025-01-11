@@ -18,7 +18,7 @@ describe("WaitingList tests", () => {
             icon: "help",
             title: "title",
             text: "text",
-            image: { src: "", alt: "" },
+            image: { src: "https://i.pravatar.cc/150?img=5", alt: "" },
           },
         ]}
       />,
