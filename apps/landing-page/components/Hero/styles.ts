@@ -11,7 +11,7 @@ export const Container = styled.section`
 
   &::before {
     content: "";
-    background: rgba(238, 238, 238, 0.7);
+    background: rgba(246, 246, 246, 0.7);
     -webkit-backdrop-filter: saturate(180%) blur(150px);
     backdrop-filter: saturate(180%) blur(150px);
     position: absolute;

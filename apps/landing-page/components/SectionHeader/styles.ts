@@ -10,12 +10,13 @@ import {
 } from "styled-system";
 
 export const Container = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== "hasMarginBottom",
-})<{ hasMarginBottom: boolean }>`
+  shouldForwardProp: (prop) => !["hasMarginBottom", "maxWidth"].includes(prop),
+})<{ hasMarginBottom: boolean; maxWidth: number | string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 720px;
+  max-width: ${({ maxWidth }) =>
+    typeof maxWidth === "string" ? maxWidth : `${maxWidth}px`};
 
   ${({ hasMarginBottom }) =>
     hasMarginBottom &&

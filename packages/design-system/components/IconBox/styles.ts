@@ -1,7 +1,13 @@
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
 import { rem } from "polished";
-import { Gradient, IconBoxVariant } from "./types";
+import { Gradient, IconBoxVariant, Size } from "./types";
+
+const getSize = {
+  small: "32px",
+  medium: "40px",
+  large: "48px",
+};
 
 export const IconContainer = styled.div.withConfig({
   shouldForwardProp: (prop) => !["outlinedBg", "filledBg"].includes(prop),
@@ -10,11 +16,12 @@ export const IconContainer = styled.div.withConfig({
   outlinedBg?: string;
   variant: IconBoxVariant;
   gradient?: Gradient;
+  size?: Size;
 }>`
   ${space};
   position: relative;
-  height: ${rem("48px")};
-  width: ${rem("48px")};
+  height: ${({ size }) => rem(getSize[size || "large"])};
+  width: ${({ size }) => rem(getSize[size || "large"])};
   border-radius: ${rem("8px")};
   display: flex;
   align-items: center;

@@ -34,6 +34,7 @@ const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
           text={text}
           hasMarginBottom={false}
           hasAnimatedText
+          maxWidth="100%"
         />
         <ButtonsContainer>
           <Button

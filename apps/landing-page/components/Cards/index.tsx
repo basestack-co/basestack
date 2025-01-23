@@ -14,22 +14,13 @@ export interface CardsProps {
     text: string;
     icon: string;
   }>;
-  isDarkMode?: boolean;
 }
 
-const Cards = ({
-  title,
-  text,
-  cards,
-  isDarkMode = false,
-  id = "card",
-}: CardsProps) => {
-  const theme = useTheme();
-
+const Cards = ({ title, text, cards, id = "card" }: CardsProps) => {
   return (
-    <Container id={id} isDarkMode={isDarkMode}>
+    <Container id={id}>
       <ContentContainer>
-        <SectionHeader isDarkMode={isDarkMode} title={title} text={text} />
+        <SectionHeader title={title} text={text} />
         <CardsContainer>
           {cards?.map((card, index) => (
             <Card
@@ -37,7 +28,6 @@ const Cards = ({
               title={card.title}
               text={card.text}
               icon={card.icon}
-              isDarkMode={isDarkMode}
             />
           ))}
         </CardsContainer>

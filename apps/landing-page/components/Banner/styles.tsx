@@ -5,9 +5,7 @@ import { Button, ButtonProps } from "@basestack/design-system";
 export const Container = styled.section`
   display: flex;
   flex-direction: column;
-  padding: ${rem("100px")} ${({ theme }) => theme.spacing.s5}
-    ${({ theme }) => theme.spacing.s8} ${({ theme }) => theme.spacing.s5};
-  background-color: ${({ theme }) => theme.colors.gray800};
+  padding: ${rem("100px")} ${({ theme }) => theme.spacing.s5};
 `;
 
 export const ContentContainer = styled.div`

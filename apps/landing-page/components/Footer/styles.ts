@@ -1,87 +1,84 @@
 import styled from "styled-components";
+import Link from "next/link";
 import { rem } from "polished";
+import theme from "@basestack/design-system/theme/lightTheme";
 
 export const Container = styled.footer`
   display: flex;
-  padding: ${({ theme }) => theme.spacing.s8} ${({ theme }) => theme.spacing.s5};
-  background-color: ${({ theme }) => theme.colors.gray800};
+  flex-direction: column;
+  margin-top: auto;
+  padding: 0 ${({ theme }) => theme.spacing.s5};
 `;
 
-export const ContentContainer = styled.div`
+export const ContentWrapper = styled.footer`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  padding: ${({ theme }) => theme.spacing.s8} 0;
   max-width: ${rem("1440px")};
   width: 100%;
   margin: 0 auto;
-
-  @media screen and ${({ theme }) => theme.device.max.sm} {
-    flex-direction: column;
-    justify-content: initial;
-  }
 `;
 
-export const LeftColumn = styled.div`
+export const MainContent = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.s8};
+`;
+
+export const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  @media screen and ${({ theme }) => theme.device.max.sm} {
-    margin-top: ${({ theme }) => theme.spacing.s6};
-    order: 1;
-  }
 `;
 
-export const LeftColumnContent = styled.div`
+export const RightContainer = styled.div`
+  display: flex;
+  flex-grow: 1;
+  gap: ${({ theme }) => theme.spacing.s8};
+  justify-content: space-between;
+  max-width: ${rem("800px")};
+  margin-left: auto;
+`;
+
+export const BottomContainer = styled.div`
   display: flex;
   align-items: center;
-
-  @media screen and ${({ theme }) => theme.device.max.lg} {
-    flex-direction: column;
-    align-items: initial;
-    justify-content: center;
-  }
-`;
-
-export const CopyWrightContainer = styled.div`
-  display: inline-flex;
-  height: ${rem("36px")};
-  align-items: center;
+  justify-content: space-between;
+  padding-top: ${({ theme }) => theme.spacing.s4};
+  gap: ${({ theme }) => theme.spacing.s8};
 
   @media screen and ${({ theme }) => theme.device.max.lg} {
     margin: ${({ theme }) => theme.spacing.s2} 0;
   }
 `;
 
+export const ListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const List = styled.ul`
   display: flex;
-  margin-left: ${({ theme }) => theme.spacing.s4};
-
-  @media screen and ${({ theme }) => theme.device.max.lg} {
-    flex-direction: column;
-    margin-left: 0;
-  }
+  flex-direction: column;
+  margin-top: ${({ theme }) => theme.spacing.s4};
 `;
 
 export const ListItem = styled.li`
-  display: inline-flex;
-  height: ${rem("36px")};
-  align-items: center;
-  padding: 0 ${({ theme }) => theme.spacing.s4};
+  display: flex;
+  flex-direction: column;
 
-  &:hover {
-    cursor: pointer;
-  }
-
-  @media screen and ${({ theme }) => theme.device.max.lg} {
-    padding: 0;
-    margin: 0 0 ${({ theme }) => theme.spacing.s2} 0;
+  &:not(:last-child) {
+    margin-bottom: ${({ theme }) => theme.spacing.s2};
   }
 `;
 
-export const RightColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-width: ${rem("320px")};
-  width: 100%;
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: ${({ theme }) => theme.text.color};
+  line-height: 1.4;
+  font-weight: 400;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const InputContainer = styled.div`
@@ -96,14 +93,14 @@ export const Input = styled.input`
   border: none;
   margin-right: ${({ theme }) => theme.spacing.s4};
   padding: 0 ${({ theme }) => theme.spacing.s4};
-  color: ${({ theme }) => theme.colors.gray50};
-  background-color: ${({ theme }) => theme.colors.gray700};
+  color: ${({ theme }) => theme.input.color};
+  background-color: ${({ theme }) => theme.input.isDarker.backgroundColor};
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.gray400};
+    color: ${({ theme }) => theme.input.placeholder.color};
   }
 
   &:focus {
-    outline: 2px solid ${({ theme }) => theme.colors.gray500};
+    outline: 2px solid ${({ theme }) => theme.input.focus.outline};
   }
 `;

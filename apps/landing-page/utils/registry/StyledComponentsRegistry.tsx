@@ -10,8 +10,10 @@ import {
 } from "styled-components";
 import AppGlobalStyle from "styles/applGlobalStyles";
 // Themes
-import theme from "@basestack/design-system/theme/lightTheme";
+import darkTheme from "@basestack/design-system/theme/darkTheme";
+import lightTheme from "@basestack/design-system/theme/lightTheme";
 import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
+import { useStore } from "store";
 
 const StyledComponentsRegistry = ({
   children,
@@ -36,6 +38,9 @@ const StyledComponentsRegistry = ({
 };
 
 const WithThemeProvider = ({ children }: { children: React.ReactNode }) => {
+  const isDarkMode = useStore((state) => state.isDarkMode);
+  const theme = isDarkMode ? darkTheme : lightTheme;
+
   return (
     <ThemeProvider theme={theme}>
       <StyledComponentsRegistry>

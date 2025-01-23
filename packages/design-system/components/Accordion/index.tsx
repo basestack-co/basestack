@@ -44,19 +44,15 @@ const Accordion = ({ title, text, onClick }: AccordionProps) => {
           }
         }}
       >
-        <Text size="large" textAlign="left" color={theme.colors.gray300}>
+        <Text size="large" textAlign="left">
           {title}
         </Text>
-        <Icon
-          color={theme.colors.gray300}
-          size="large"
-          icon={isOpen ? "expand_less" : "expand_more"}
-        />
+        <Icon size="large" icon={isOpen ? "expand_less" : "expand_more"} />
       </Header>
       <AnimatedContent style={style}>
         <ContentWrapper ref={contentRef}>
           <Text
-            color={theme.colors.gray50}
+            muted
             size="medium"
             fontWeight={400}
             lineHeight={1.4}

@@ -10,8 +10,8 @@ export interface SectionHeaderProps {
   text: string;
   titleSize?: "normal" | "large";
   hasMarginBottom?: boolean;
-  isDarkMode?: boolean;
   hasAnimatedText?: boolean;
+  maxWidth?: number | string;
 }
 
 const SectionHeader = ({
@@ -19,19 +19,19 @@ const SectionHeader = ({
   text,
   titleSize = "normal",
   hasMarginBottom = true,
-  isDarkMode = false,
   hasAnimatedText = false,
+  maxWidth = 720,
 }: SectionHeaderProps) => {
   const theme = useTheme();
   const isMobile = useMedia(theme.device.max.md, false);
 
   return (
-    <Container hasMarginBottom={hasMarginBottom}>
+    <Container hasMarginBottom={hasMarginBottom} maxWidth={maxWidth}>
       <Title
         lineHeight="1.3"
         textAlign="center"
         mb={theme.spacing.s2}
-        color={isDarkMode ? theme.colors.gray50 : theme.colors.black}
+        color={theme.colors.black}
         titleSize={titleSize}
         hasAnimatedText={hasAnimatedText}
       >
@@ -44,7 +44,7 @@ const SectionHeader = ({
         lineHeight="1.6"
         // @ts-ignore
         as="p"
-        color={isDarkMode ? theme.colors.gray300 : theme.colors.gray500}
+        color={theme.colors.gray500}
       >
         {text}
       </Text>

@@ -1,17 +1,10 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
 
-export const Container = styled.section.withConfig({
-  shouldForwardProp: (prop) => prop !== "isDarkMode",
-})<{ isDarkMode: boolean }>`
+export const Container = styled.section`
   display: flex;
   flex-direction: column;
   padding: ${rem("100px")} ${({ theme }) => theme.spacing.s5};
-  ${({ isDarkMode }) =>
-    isDarkMode &&
-    css`
-      background-color: ${({ theme }) => theme.colors.gray800};
-    `}
 `;
 
 export const ContentContainer = styled.div`

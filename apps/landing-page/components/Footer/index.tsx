@@ -1,7 +1,9 @@
 import React from "react";
+import { useStore } from "store";
 // Router
 import { useRouter } from "next/navigation";
 // Utils
+import { useDarkModeToggle } from "@basestack/hooks";
 import { events } from "@basestack/utils";
 // Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -9,20 +11,41 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // Theme
 import { useTheme } from "styled-components";
 // Components
-import { Text, Button, ButtonSize } from "@basestack/design-system";
+import {
+  Text,
+  Button,
+  ButtonSize,
+  HorizontalRule,
+  Logo,
+  IconButton,
+  Input,
+  ButtonVariant,
+} from "@basestack/design-system";
 import {
   Container,
-  ContentContainer,
-  Input,
   InputContainer,
-  LeftColumn,
-  LeftColumnContent,
   List,
   ListItem,
-  RightColumn,
-  CopyWrightContainer,
+  ListContainer,
+  RightContainer,
+  LeftContainer,
+  ContentWrapper,
+  MainContent,
+  BottomContainer,
+  StyledLink,
 } from "./styles";
 import { z } from "zod";
+
+const products = [
+  {
+    text: "Feature Flags",
+    href: "/flags",
+  },
+  {
+    text: "Forms",
+    href: "/forms",
+  },
+];
 
 const links = [
   {
@@ -51,6 +74,10 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 const Footer = () => {
   const theme = useTheme();
   const router = useRouter();
+  const { toggleDarkMode } = useDarkModeToggle();
+
+  const setIsDarkMode = useStore((state) => state.setDarkMode);
+  const isDarkMode = useStore((state) => state.isDarkMode);
 
   const {
     control,
@@ -91,78 +118,120 @@ const Footer = () => {
 
   return (
     <Container>
-      <ContentContainer>
-        <LeftColumn>
-          <Text
-            size="xLarge"
-            color={theme.colors.gray300}
-            mb={theme.spacing.s2}
-          >
-            The Open-Source Stack for Developers and Startups
-          </Text>
-          <LeftColumnContent>
-            <CopyWrightContainer>
-              <Text size="medium" fontWeight={400} color={theme.colors.gray300}>
-                © Basestack {new Date().getFullYear()}. All rights reserved.
-              </Text>
-            </CopyWrightContainer>
-            <List>
-              {links.map((link, index) => (
-                <ListItem
-                  key={index.toString()}
-                  onClick={() => {
-                    events.landing.link(link.text, link.href);
-                    router.push(link.href);
-                  }}
-                >
-                  <Text
-                    size="medium"
-                    fontWeight={400}
-                    color={theme.colors.gray300}
-                  >
-                    {link.text}
-                  </Text>
-                </ListItem>
-              ))}
-            </List>
-          </LeftColumnContent>
-        </LeftColumn>
-        <RightColumn>
-          <Text
-            size="medium"
-            fontWeight={400}
-            color={theme.colors.gray300}
-            mb={theme.spacing.s2}
-          >
-            Get updates directly to your Inbox
-          </Text>
-          <InputContainer>
-            <Controller
-              name="email"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <Input
-                  placeholder="Enter your email"
-                  type="email"
-                  name={field.name}
-                  value={field.value}
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                  disabled={isSubmitting}
-                />
-              )}
-            />
-            <Button
-              onClick={handleSubmit(onSubmit)}
-              isLoading={isSubmitting}
-              size={ButtonSize.Medium}
+      <HorizontalRule isDarker={!isDarkMode} />
+      <ContentWrapper>
+        <MainContent>
+          <LeftContainer>
+            <Logo product="company" />
+            <Text
+              size="medium"
+              fontWeight={400}
+              mt={theme.spacing.s6}
+              mb={theme.spacing.s2}
             >
-              Subscribe
-            </Button>
-          </InputContainer>
-        </RightColumn>
-      </ContentContainer>
+              Get updates directly to your Inbox
+            </Text>
+            <InputContainer>
+              <Controller
+                name="email"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <Input
+                    isDarker={!isDarkMode}
+                    placeholder="Enter your email"
+                    type="email"
+                    name={field.name}
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    isDisabled={isSubmitting}
+                    mr={theme.spacing.s2}
+                  />
+                )}
+              />
+              <Button
+                onClick={handleSubmit(onSubmit)}
+                isLoading={isSubmitting}
+                size={ButtonSize.Medium}
+                variant={ButtonVariant.Tertiary}
+                height="44px"
+              >
+                Subscribe
+              </Button>
+            </InputContainer>
+          </LeftContainer>
+          <RightContainer>
+            <ListContainer>
+              <Text size="medium">Products</Text>
+              <List>
+                {products.map((link, index) => (
+                  <ListItem
+                    key={index.toString()}
+                    onClick={() => {
+                      events.landing.link(link.text, link.href);
+                      router.push(link.href);
+                    }}
+                  >
+                    <StyledLink href={link.href}>{link.text}</StyledLink>
+                  </ListItem>
+                ))}
+              </List>
+            </ListContainer>
+
+            <ListContainer>
+              <Text size="medium">Docs</Text>
+              <List>
+                {links.map((link, index) => (
+                  <ListItem
+                    key={index.toString()}
+                    onClick={() => {
+                      events.landing.link(link.text, link.href);
+                      router.push(link.href);
+                    }}
+                  >
+                    <StyledLink href={link.href}>{link.text}</StyledLink>
+                  </ListItem>
+                ))}
+              </List>
+            </ListContainer>
+
+            <ListContainer>
+              <Text size="medium">Company</Text>
+              <List>
+                {links.map((link, index) => (
+                  <ListItem
+                    key={index.toString()}
+                    onClick={() => {
+                      events.landing.link(link.text, link.href);
+                      router.push(link.href);
+                    }}
+                  >
+                    <StyledLink href={link.href}>{link.text}</StyledLink>
+                  </ListItem>
+                ))}
+              </List>
+            </ListContainer>
+          </RightContainer>
+        </MainContent>
+
+        <HorizontalRule isDarker={!isDarkMode} mt={theme.spacing.s8} />
+        <BottomContainer>
+          <Text size="small" muted>
+            © Basestack {new Date().getFullYear()}. All rights reserved.
+          </Text>
+
+          <IconButton
+            icon={isDarkMode ? "light_mode" : "dark_mode"}
+            size="medium"
+            onClick={() => {
+              toggleDarkMode(!isDarkMode, "bottom-right").then(() => {
+                setIsDarkMode(!isDarkMode);
+              });
+            }}
+          />
+        </BottomContainer>
+      </ContentWrapper>
     </Container>
   );
 };

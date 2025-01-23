@@ -12,6 +12,7 @@ const IconBox = ({
   backgroundColor,
   iconColor,
   gradient,
+  size = "large",
   ...props
 }: IconBoxProps) => {
   const { colors, isDarkMode } = useTheme();
@@ -65,10 +66,15 @@ const IconBox = ({
       filledBg={styles[color].backgroundColor}
       outlinedBg={backgroundColor}
       gradient={gradient}
+      size={size}
       {...props}
     >
       <ContentContainer>
-        <Icon icon={icon} color={iconColor || iconColorVariant} />
+        <Icon
+          icon={icon}
+          color={iconColor || iconColorVariant}
+          size={size === "small" ? "small" : "medium"}
+        />
       </ContentContainer>
     </IconContainer>
   );

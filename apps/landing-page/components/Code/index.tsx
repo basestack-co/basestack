@@ -5,7 +5,7 @@ import { events } from "@basestack/utils";
 // Code
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
-import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import { a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 // Components
 import { Tabs } from "@basestack/design-system";
 import { CodeContainer, Container, ContentContainer } from "./styles";
@@ -28,10 +28,9 @@ const Code = ({ id = "code" }: Props) => {
   }, [sliderPosition]);
 
   return (
-    <Container id={id} isDarkMode>
+    <Container id={id}>
       <ContentContainer>
         <SectionHeader
-          isDarkMode
           title="Explore our SDK Options"
           text="Discover our supported SDKs tailored to meet your development needs, enabling faster releases. Explore our comprehensive documentation for more in-depth information and guidance."
         />
@@ -43,17 +42,12 @@ const Code = ({ id = "code" }: Props) => {
               setSliderPosition(data.findIndex((tab) => tab.id === item));
             }}
             items={data}
-            backgroundColor={theme.colors.gray700}
-            borderColor={theme.colors.gray600}
-            textColor={theme.colors.gray300}
-            activeBorderColor={theme.colors.blue300}
-            hoverBgColor={theme.colors.gray600}
             textSize="medium"
           />
           {/* @ts-ignore */}
           <SyntaxHighlighter
             language="javascript"
-            style={a11yDark}
+            style={a11yLight}
             wrapLongLines
           >
             {tab.code}
