@@ -29,6 +29,7 @@ export const CodeContainer = styled.div`
 
   pre {
     min-height: 360px;
-    background: ${({ theme }) => theme.colors.white} !important;
+    background: ${({ theme }) =>
+      theme.isDarkMode ? theme.colors.gray800 : theme.colors.white} !important;
   }
 `;

@@ -5,7 +5,10 @@ import { events } from "@basestack/utils";
 // Code
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
-import { a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import {
+  a11yLight,
+  a11yDark,
+} from "react-syntax-highlighter/dist/cjs/styles/hljs";
 // Components
 import { Tabs } from "@basestack/design-system";
 import { CodeContainer, Container, ContentContainer } from "./styles";
@@ -20,7 +23,7 @@ export interface Props {
 }
 
 const Code = ({ id = "code" }: Props) => {
-  const theme = useTheme();
+  const { isDarkMode, colors } = useTheme();
   const [sliderPosition, setSliderPosition] = useState(1);
 
   const tab = useMemo(() => {
@@ -43,11 +46,12 @@ const Code = ({ id = "code" }: Props) => {
             }}
             items={data}
             textSize="medium"
+            backgroundColor={isDarkMode ? colors.gray800 : colors.white}
           />
           {/* @ts-ignore */}
           <SyntaxHighlighter
             language="javascript"
-            style={a11yLight}
+            style={isDarkMode ? a11yDark : a11yLight}
             wrapLongLines
           >
             {tab.code}

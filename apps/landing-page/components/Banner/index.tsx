@@ -5,7 +5,12 @@ import { useMedia } from "react-use";
 // Components
 import { useTheme } from "styled-components";
 import { rem } from "polished";
-import { Button, ButtonSize, Text } from "@basestack/design-system";
+import {
+  Button,
+  ButtonSize,
+  ButtonVariant,
+  Text,
+} from "@basestack/design-system";
 import Illustration, { IllustrationVariant } from "../Illustration";
 import {
   Container,
@@ -22,8 +27,8 @@ export interface Props {
   id?: string;
 }
 const BannerComp = ({ id = "banner" }: Props) => {
-  const theme = useTheme();
-  const isMobile = useMedia(theme.device.max.md, false);
+  const { colors, spacing, device, isDarkMode } = useTheme();
+  const isMobile = useMedia(device.max.md, false);
 
   return (
     <Container id={id}>
@@ -34,8 +39,8 @@ const BannerComp = ({ id = "banner" }: Props) => {
               size="xxLarge"
               fontSize={rem(isMobile ? "32px" : "42px")}
               lineHeight="1.3"
-              color={theme.colors.gray50}
-              mb={theme.spacing.s2}
+              color={isDarkMode ? colors.gray50 : colors.white}
+              mb={spacing.s2}
               fontFamily="robotoFlex"
               // @ts-ignore
               as="h2"
@@ -44,7 +49,7 @@ const BannerComp = ({ id = "banner" }: Props) => {
             </Text>
             <ButtonsContainer>
               <StyledButton
-                mr={theme.spacing.s3}
+                mr={spacing.s2}
                 onClick={() => {
                   events.landing.goToDocs();
                   window.open(config.urls.docs.flags.base, "_blank");
@@ -67,14 +72,14 @@ const BannerComp = ({ id = "banner" }: Props) => {
           <PlanetIllustration>
             <Illustration
               width={320}
-              color={theme.colors.white}
+              color={colors.white}
               variant={IllustrationVariant.Planet}
             />
           </PlanetIllustration>
           <HalfPlanetIllustration>
             <Illustration
               width={496}
-              color={theme.colors.white}
+              color={colors.white}
               variant={IllustrationVariant.HalfPlanet}
             />
           </HalfPlanetIllustration>

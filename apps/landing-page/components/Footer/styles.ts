@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { rem } from "polished";
-import theme from "@basestack/design-system/theme/lightTheme";
 
 export const Container = styled.footer`
   display: flex;
@@ -22,6 +21,10 @@ export const ContentWrapper = styled.footer`
 export const MainContent = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing.s8};
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    flex-direction: column;
+  }
 `;
 
 export const LeftContainer = styled.div`
@@ -32,10 +35,19 @@ export const LeftContainer = styled.div`
 export const RightContainer = styled.div`
   display: flex;
   flex-grow: 1;
+  flex-shrink: 0;
   gap: ${({ theme }) => theme.spacing.s8};
   justify-content: space-between;
   max-width: ${rem("800px")};
-  margin-left: auto;
+
+  @media screen and ${({ theme }) => theme.device.min.md} {
+    margin-left: auto;
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    flex-direction: column;
+    gap: ${({ theme }) => theme.spacing.s7};
+  }
 `;
 
 export const BottomContainer = styled.div`
@@ -44,10 +56,6 @@ export const BottomContainer = styled.div`
   justify-content: space-between;
   padding-top: ${({ theme }) => theme.spacing.s4};
   gap: ${({ theme }) => theme.spacing.s8};
-
-  @media screen and ${({ theme }) => theme.device.max.lg} {
-    margin: ${({ theme }) => theme.spacing.s2} 0;
-  }
 `;
 
 export const ListContainer = styled.div`
@@ -58,7 +66,7 @@ export const ListContainer = styled.div`
 export const List = styled.ul`
   display: flex;
   flex-direction: column;
-  margin-top: ${({ theme }) => theme.spacing.s4};
+  margin-top: ${({ theme }) => theme.spacing.s3};
 `;
 
 export const ListItem = styled.li`
@@ -83,24 +91,4 @@ export const StyledLink = styled(Link)`
 
 export const InputContainer = styled.div`
   display: flex;
-`;
-
-export const Input = styled.input`
-  font-size: ${rem("16px")};
-  height: ${rem("42px")};
-  width: 100%;
-  border-radius: ${rem("4px")};
-  border: none;
-  margin-right: ${({ theme }) => theme.spacing.s4};
-  padding: 0 ${({ theme }) => theme.spacing.s4};
-  color: ${({ theme }) => theme.input.color};
-  background-color: ${({ theme }) => theme.input.isDarker.backgroundColor};
-
-  &::placeholder {
-    color: ${({ theme }) => theme.input.placeholder.color};
-  }
-
-  &:focus {
-    outline: 2px solid ${({ theme }) => theme.input.focus.outline};
-  }
 `;

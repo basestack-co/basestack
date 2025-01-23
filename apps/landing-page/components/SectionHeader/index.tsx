@@ -22,16 +22,16 @@ const SectionHeader = ({
   hasAnimatedText = false,
   maxWidth = 720,
 }: SectionHeaderProps) => {
-  const theme = useTheme();
-  const isMobile = useMedia(theme.device.max.md, false);
+  const { device, spacing, colors, isDarkMode } = useTheme();
+  const isMobile = useMedia(device.max.md, false);
 
   return (
     <Container hasMarginBottom={hasMarginBottom} maxWidth={maxWidth}>
       <Title
         lineHeight="1.3"
         textAlign="center"
-        mb={theme.spacing.s2}
-        color={theme.colors.black}
+        mb={spacing.s2}
+        color={isDarkMode ? colors.gray300 : colors.black}
         titleSize={titleSize}
         hasAnimatedText={hasAnimatedText}
       >
@@ -44,7 +44,7 @@ const SectionHeader = ({
         lineHeight="1.6"
         // @ts-ignore
         as="p"
-        color={theme.colors.gray500}
+        color={isDarkMode ? colors.gray400 : colors.gray500}
       >
         {text}
       </Text>

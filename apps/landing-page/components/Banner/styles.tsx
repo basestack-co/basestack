@@ -22,7 +22,8 @@ export const Banner = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) =>
+    theme.isDarkMode ? theme.colors.blue500 : theme.colors.primary};
   border-radius: ${rem("8px")};
   padding: ${({ theme }) => theme.spacing.s8};
   min-height: 425px;
@@ -52,12 +53,17 @@ const ButtonWrap = ({ children, ...props }: ButtonProps) => (
 );
 
 export const StyledButton = styled(ButtonWrap)`
-  background-color: ${({ theme }) => theme.colors.white};
-  color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) =>
+    theme.isDarkMode ? theme.colors.gray50 : theme.colors.white};
+  color: ${({ theme }) =>
+    theme.isDarkMode ? theme.colors.gray800 : theme.colors.black};
 
   &:hover:not(:active, :disabled) {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: ${({ theme }) => theme.colors.black};
+    background-color: ${({ theme }) =>
+      theme.isDarkMode ? theme.colors.gray50 : theme.colors.white};
+    opacity: 0.9;
+    color: ${({ theme }) =>
+      theme.isDarkMode ? theme.colors.gray800 : theme.colors.black};
   }
 `;
 
