@@ -12,7 +12,8 @@ export const GlobalStyle = createGlobalStyle<{ isMenuOpen: boolean }>`
 `;
 
 const backgroundBlur = css`
-  background: rgba(246, 246, 246, 0.7);
+  background: ${({ theme }) =>
+    theme.isDarkMode ? "rgba(20, 20, 20, 0.7)" : "rgba(246, 246, 246, 0.7)"};
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
 `;

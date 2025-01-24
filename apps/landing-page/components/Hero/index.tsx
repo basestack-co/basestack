@@ -19,9 +19,15 @@ interface HeroProps {
   title: string;
   text: string;
   image?: ImageProps;
+  contentMaxWidth?: number | string;
 }
 
-const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
+const Hero = ({
+  title,
+  text,
+  image = { alt: "", src: "" },
+  contentMaxWidth = "100%",
+}: HeroProps) => {
   const theme = useTheme();
   const isMobile = useMedia(theme.device.max.sm, false);
 
@@ -34,7 +40,7 @@ const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
           text={text}
           hasMarginBottom={false}
           hasAnimatedText
-          maxWidth="100%"
+          maxWidth={contentMaxWidth}
         />
         <ButtonsContainer>
           <Button

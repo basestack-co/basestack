@@ -51,7 +51,7 @@ interface NavigationProps {
 }
 
 const GlobalNavigation = ({ hasBackdropFilter = true }: NavigationProps) => {
-  const theme = useTheme();
+  const { isDarkMode, spacing } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
   const [stargazers, setsStargazers] = useState(0);
@@ -70,7 +70,7 @@ const GlobalNavigation = ({ hasBackdropFilter = true }: NavigationProps) => {
       <Container hasBackdropFilter={hasBackdropFilter}>
         <ContentContainer>
           <LeftColumn>
-            <Logo product="company" />
+            <Logo product="company" isOnDark={isDarkMode} />
             <List>
               <ListItem>
                 <Dropdown
@@ -114,7 +114,7 @@ const GlobalNavigation = ({ hasBackdropFilter = true }: NavigationProps) => {
           <RightColumn>
             <Button
               variant={ButtonVariant.Tertiary}
-              mr={theme.spacing.s4}
+              mr={spacing.s4}
               onClick={() => {
                 if (typeof window !== "undefined") {
                   window.open(defaults.urls.repo, "_blank");

@@ -22,8 +22,6 @@ export const CardContainer = styled.button.withConfig({
   display: flex;
   flex-direction: column;
   text-align: left;
-  background-color: ${({ theme, isActive }) =>
-    isActive ? theme.colors.white : theme.colors.gray50};
   border-radius: ${rem("8px")};
   padding: ${({ theme }) => theme.spacing.s5} ${({ theme }) => theme.spacing.s5}
     ${rem("25px")} ${({ theme }) => theme.spacing.s5};
@@ -31,6 +29,19 @@ export const CardContainer = styled.button.withConfig({
   cursor: pointer;
   transition: scale 0.2s ease-in-out;
   overflow: hidden;
+
+  ${({ theme, isActive }) =>
+    theme.isDarkMode
+      ? css`
+          background-color: ${isActive
+            ? theme.colors.gray800
+            : theme.colors.gray900};
+        `
+      : css`
+          background-color: ${isActive
+            ? theme.colors.white
+            : theme.colors.gray50};
+        `};
 
   ${({ isActive, theme, animationTime }) =>
     isActive &&
@@ -42,7 +53,9 @@ export const CardContainer = styled.button.withConfig({
         left: 0;
         animation: ${indicatorAnimation} ${`${animationTime}s`} linear;
         height: 5px;
-        background-color: ${theme.colors.primary};
+        background-color: ${theme.isDarkMode
+          ? theme.colors.blue300
+          : theme.colors.primary};
       }
     `}
 `;

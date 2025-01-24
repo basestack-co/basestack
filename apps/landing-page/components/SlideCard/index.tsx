@@ -24,7 +24,10 @@ const SlideCard = ({
   onClick,
   animationTime = 10,
 }: SlideCardProps) => {
-  const theme = useTheme();
+  const { isDarkMode, colors, spacing } = useTheme();
+
+  const activeIconColor = isDarkMode ? colors.blue300 : colors.primary;
+  const iconColor = isDarkMode ? colors.gray300 : colors.black;
 
   return (
     <CardContainer
@@ -36,9 +39,9 @@ const SlideCard = ({
         <Icon
           icon={icon}
           size="medium"
-          color={isActive ? theme.colors.primary : theme.colors.black}
+          color={isActive ? activeIconColor : iconColor}
         />
-        <Text ml={theme.spacing.s3} size="large">
+        <Text ml={spacing.s3} size="large">
           {title}
         </Text>
       </TitleContainer>

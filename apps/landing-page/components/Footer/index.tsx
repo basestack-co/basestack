@@ -122,7 +122,7 @@ const Footer = () => {
       <ContentWrapper>
         <MainContent>
           <LeftContainer>
-            <Logo product="company" />
+            <Logo product="company" isOnDark={isDarkMode} />
             <Text
               size="medium"
               fontWeight={400}

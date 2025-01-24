@@ -28,7 +28,7 @@ export const CodeContainer = styled.div`
   box-shadow: ${({ theme }) => theme.shadow.elevation3};
 
   pre {
-    min-height: 360px;
+    min-height: 377px;
     background: ${({ theme }) =>
       theme.isDarkMode ? theme.colors.gray800 : theme.colors.white} !important;
   }

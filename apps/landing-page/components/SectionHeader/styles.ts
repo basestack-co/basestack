@@ -51,23 +51,37 @@ export const Title = styled.h2.withConfig({
   font-size: ${({ titleSize }) =>
     titleSize === "normal" ? rem("42px") : rem("60px")};
 
-  ${({ hasAnimatedText }) =>
+  ${({ hasAnimatedText, theme }) =>
     hasAnimatedText &&
     css`
-      background: linear-gradient(
-        to right,
-        ${({ theme }) => theme.colors.black} 20%,
-        ${({ theme }) => theme.colors.blue500} 30%,
-        ${({ theme }) => theme.colors.blue300} 70%,
-        ${({ theme }) => theme.colors.purple500} 80%
-      );
+      ${theme.isDarkMode
+        ? css`
+            background: linear-gradient(
+              to right,
+              ${theme.colors.gray300} 20%,
+              ${theme.colors.blue200} 30%,
+              ${theme.colors.blue300} 70%,
+              ${theme.colors.purple300} 80%
+            );
+          `
+        : css`
+            background: linear-gradient(
+              to right,
+              ${theme.colors.black} 20%,
+              ${theme.colors.blue500} 30%,
+              ${theme.colors.blue300} 70%,
+              ${theme.colors.purple500} 80%
+            );
+          `};
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
       text-fill-color: transparent;
       background-size: 500% auto;
       animation: ${animateText} 5s ease-in-out infinite alternate;
-    `} @media screen and ${({ theme }) => theme.device.max.md} {
+    `};
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
     font-size: ${rem("32px")};
   }
 `;

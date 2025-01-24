@@ -1,11 +1,8 @@
 "use client";
 
 import React from "react";
-// Hooks
-import { useIsTop } from "@basestack/hooks";
 // Components
 import {
-  Navigation,
   Hero,
   Footer,
   Banner,
@@ -13,16 +10,16 @@ import {
   Questions,
   Slider,
   Code,
+  GlobalNavigation,
+  Pricing,
 } from "components";
 // Content
 import { platform, why, questions, slides } from "content/landing-page";
 
 const LandingPage = () => {
-  const [isDarkSectionTop, darkContainer] = useIsTop({ offSet: 80 });
-
   return (
     <>
-      <Navigation isDarkMode={isDarkSectionTop} />
+      <GlobalNavigation />
       <Hero
         title="The Open-Source Feature Flag Platform"
         text="Basestack Feature Flags is a self-hosted platform that offers an effortless way to host your own Feature Flags management system."
@@ -30,6 +27,7 @@ const LandingPage = () => {
           src: "/images/flags_cards_popups.png",
           alt: "product demo",
         }}
+        contentMaxWidth={720}
       />
       <Cards
         id="platform"
@@ -50,6 +48,7 @@ const LandingPage = () => {
         text="Feature flagging is a powerful technique where developers wrap a new feature in an if/then statement to gain greater control over its release and behavior."
         cards={why}
       />
+      <Pricing />
       <Questions
         id="questions"
         title="Frequently Asked Questions"
