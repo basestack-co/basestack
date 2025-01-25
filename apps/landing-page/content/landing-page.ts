@@ -104,3 +104,60 @@ export const waitingList = [
     },
   },
 ];
+
+export const pricing = [
+  {
+    title: "Free",
+    price: "$0",
+    button: "Start for Free",
+    description: "To kickstart your projects, no credit card required.",
+    list: [
+      "10 000 flags per project",
+      "5 environments per team",
+      "10 project per organization",
+      "Enterprise use",
+    ],
+  },
+  {
+    isPopular: true,
+    title: "Pro",
+    price: "$19",
+    button: "Get Started",
+    description: "The resources, features, and support you need to launch.",
+    listDescription: "Everything in Free, plus...",
+    list: [
+      "10 000 flags per project",
+      "5 environments per team",
+      "10 project per organization",
+      "Enterprise use",
+    ],
+  },
+  {
+    title: "Team",
+    price: "$69",
+    button: "Get Started",
+    description:
+      "More capacity and functionality for scaling production workloads.",
+    listDescription: "Everything in Pro, plus...",
+    list: [
+      "10 000 flags per project",
+      "5 environments per team",
+      "10 project per organization",
+      "Enterprise use",
+    ],
+  },
+  {
+    isCustom: true,
+    title: "Enterprise",
+    price: "Custom",
+    button: "Contact Us",
+    description: "For larger workloads, with best compliance and security.",
+    listDescription: "Everything in Team, plus...",
+    list: [
+      "10 000 flags per project",
+      "5 environments per team",
+      "10 project per organization",
+      "Enterprise use",
+    ],
+  },
+];

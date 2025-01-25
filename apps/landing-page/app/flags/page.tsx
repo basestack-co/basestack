@@ -14,7 +14,13 @@ import {
   Pricing,
 } from "components";
 // Content
-import { platform, why, questions, slides } from "content/landing-page";
+import {
+  platform,
+  why,
+  questions,
+  slides,
+  pricing,
+} from "content/landing-page";
 
 const LandingPage = () => {
   return (
@@ -48,7 +54,11 @@ const LandingPage = () => {
         text="Feature flagging is a powerful technique where developers wrap a new feature in an if/then statement to gain greater control over its release and behavior."
         cards={why}
       />
-      <Pricing />
+      <Pricing
+        title="Pricing"
+        text="Flags provides an all-in-one platform for developing, implementing, and managing your feature flags."
+        items={pricing}
+      />
       <Questions
         id="questions"
         title="Frequently Asked Questions"

@@ -27,7 +27,7 @@ const Card = ({ title, text, icon = "help" }: CardProps) => {
     : {};
 
   return (
-    <Container isDarkMode={isDarkMode}>
+    <Container>
       <IconBox icon={icon} mb={spacing.s5} {...iconBoxProps} />
       <Text size="xLarge" mb={spacing.s2}>
         {title}

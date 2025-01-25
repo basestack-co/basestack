@@ -1,6 +1,5 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { rem } from "polished";
-import { Button, ButtonProps } from "@basestack/design-system";
 
 export const Container = styled.section`
   display: flex;
@@ -19,50 +18,53 @@ export const ContentContainer = styled.div`
 
 export const PriceContainer = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+  margin: ${({ theme }) => theme.spacing.s8} 0
+    ${({ theme }) => theme.spacing.s5} 0;
+`;
+
+export const FloatingLabel = styled.div`
+  display: inline-flex;
+  position: absolute;
+  top: ${rem("-20px")};
+  left: 0;
+`;
+
+export const Card = styled.div`
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: ${({ theme }) =>
+    theme.isDarkMode ? theme.colors.gray800 : theme.colors.white};
+  border-radius: ${rem("8px")};
+  padding: ${({ theme }) => theme.spacing.s5};
+  padding-bottom: ${rem("22px")};
+  box-shadow: ${({ theme }) => theme.shadow.elevation3};
 `;
 
 export const Cards = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: ${({ theme }) => theme.spacing.s5};
-  max-width: 780px;
   width: 100%;
+
+  @media screen and ${({ theme }) => theme.device.max.xl} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
   @media screen and ${({ theme }) => theme.device.max.md} {
     grid-template-columns: 1fr;
   }
 `;
 
-export const CardContainer = styled.div<{ isDark: boolean }>`
-  display: flex;
-  flex-direction: column;
-  background: ${({ theme, isDark }) =>
-    isDark ? theme.colors.gray700 : theme.colors.white};
-  border-radius: ${rem("20px")};
-  padding: ${({ theme }) => theme.spacing.s5};
-  box-shadow: ${({ theme }) => theme.shadow.elevation3};
-`;
-
-const ButtonWrap = ({ children, ...props }: ButtonProps) => (
-  <Button {...props}>{children}</Button>
-);
-
-export const StyledButton = styled(ButtonWrap)`
-  background-color: ${({ theme }) => theme.colors.white};
-  color: ${({ theme }) => theme.colors.black};
-
-  &:hover:not(:active, :disabled) {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: ${({ theme }) => theme.colors.black};
-  }
-`;
-
 export const List = styled.ul`
   display: flex;
   flex-direction: column;
-  margin: ${({ theme }) => theme.spacing.s6} 0;
 `;
 
 export const ListItem = styled.li`
