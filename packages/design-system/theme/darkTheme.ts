@@ -408,6 +408,10 @@ const segment = {
   icon: {
     color: colors.gray300,
   },
+  label: {
+    active: colors.blue300,
+    color: colors.gray400,
+  },
 };
 
 const select = {

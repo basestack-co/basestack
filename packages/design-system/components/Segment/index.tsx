@@ -6,6 +6,7 @@ import Icon from "../Icon";
 import { Container, Button, Slider, Wrapper } from "./styles";
 
 type Item = {
+  label?: string;
   text?: string;
   icon?: string;
   id: string;
@@ -95,6 +96,18 @@ const Segment = ({
                   flexShrink={0}
                 >
                   {item.text}
+                </Text>
+              )}
+              {!!item.label && (
+                <Text
+                  size="small"
+                  ml={theme.spacing.s1}
+                  flexShrink={0}
+                  color={
+                    theme.segment.label[selected === index ? "active" : "color"]
+                  }
+                >
+                  {item.label}
                 </Text>
               )}
             </Button>

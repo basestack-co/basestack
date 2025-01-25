@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useTheme } from "styled-components";
 import { rem } from "polished";
 // Components
@@ -9,6 +9,7 @@ import {
   ButtonSize,
   ButtonVariant,
   HorizontalRule,
+  Segment,
 } from "@basestack/design-system";
 import SectionHeader from "../SectionHeader";
 import {
@@ -21,10 +22,13 @@ import {
   ListItem,
   PriceContainer,
 } from "./styles";
+import { spacing } from "@basestack/design-system/theme/common";
+
+type Interval = "monthly" | "yearly";
 
 interface CardProps {
   title: string;
-  price: string;
+  price: string | { monthly: string; yearly: string };
   button: string;
   description: string;
   listDescription?: string;
@@ -32,6 +36,7 @@ interface CardProps {
   isCustom?: boolean;
   isPopular?: boolean;
   onClick: () => void;
+  interval: Interval;
 }
 
 const CardComp = ({
@@ -44,6 +49,7 @@ const CardComp = ({
   listDescription,
   isCustom = false,
   isPopular = false,
+  interval,
 }: CardProps) => {
   const { spacing, colors, isDarkMode } = useTheme();
   const iconColor = isDarkMode ? colors.gray300 : colors.black;
@@ -63,7 +69,7 @@ const CardComp = ({
           </FloatingLabel>
         )}
         <Text fontSize={rem("42px")} lineHeight="1" fontWeight={500}>
-          {price}
+          {typeof price === "string" ? price : price[interval]}
           {!isCustom && (
             <Text as="span" lineHeight="1" size="small" ml="2px" muted>
               /month
@@ -114,6 +120,8 @@ interface PricingProps {
 }
 
 const Pricing = ({ title, text, items }: PricingProps) => {
+  const [selectedInterval, setSelectedInterval] = useState<Interval>("monthly");
+
   const onClick = useCallback(() => {
     // Do something
   }, []);
@@ -122,6 +130,15 @@ const Pricing = ({ title, text, items }: PricingProps) => {
     <Container>
       <ContentContainer>
         <SectionHeader title={title} text={text} />
+        <Segment
+          selectedIndex={selectedInterval === "monthly" ? 0 : 1}
+          onSelect={(interval) => setSelectedInterval(interval as Interval)}
+          items={[
+            { id: "monthly", text: "Pay monthly" },
+            { id: "yearly", text: "Pay yearly", label: "save 20%" },
+          ]}
+          mb={spacing.s5}
+        />
         <Cards>
           {items.map((item, index) => (
             <CardComp
@@ -135,6 +152,7 @@ const Pricing = ({ title, text, items }: PricingProps) => {
               listDescription={item.listDescription}
               list={item.list}
               onClick={onClick}
+              interval={selectedInterval}
             />
           ))}
         </Cards>

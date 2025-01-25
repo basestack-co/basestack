@@ -403,6 +403,10 @@ const segment = {
   icon: {
     color: colors.black,
   },
+  label: {
+    active: colors.primary,
+    color: colors.gray500,
+  },
 };
 
 const select = {

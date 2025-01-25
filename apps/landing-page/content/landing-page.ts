@@ -108,7 +108,10 @@ export const waitingList = [
 export const pricing = [
   {
     title: "Free",
-    price: "$0",
+    price: {
+      monthly: "$0",
+      yearly: "$0",
+    },
     button: "Start for Free",
     description: "To kickstart your projects, no credit card required.",
     list: [
@@ -121,7 +124,10 @@ export const pricing = [
   {
     isPopular: true,
     title: "Pro",
-    price: "$19",
+    price: {
+      monthly: "$19",
+      yearly: "$17",
+    },
     button: "Get Started",
     description: "The resources, features, and support you need to launch.",
     listDescription: "Everything in Free, plus...",
@@ -134,7 +140,10 @@ export const pricing = [
   },
   {
     title: "Team",
-    price: "$69",
+    price: {
+      monthly: "$69",
+      yearly: "$52",
+    },
     button: "Get Started",
     description:
       "More capacity and functionality for scaling production workloads.",
