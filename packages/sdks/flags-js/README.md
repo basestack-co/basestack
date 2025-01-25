@@ -112,3 +112,104 @@ Error Response:
     }
 */
 ```
+
+```js
+// Basic Initialization
+const client = new FlagsSDK({
+  projectKey: "your-project-key",
+  environmentKey: "your-environment-key",
+});
+
+// Custom Configuration Example
+const advancedClient = new FlagsSDK({
+  projectKey: "proj-key",
+  environmentKey: "env-key",
+  baseURL: "https://custom-flags.company.com/api/v1",
+  preloadFlags: ["header", "footer"],
+  cache: {
+    enabled: true,
+    ttl: 10 * 60 * 1000, // 10-minute cache
+    maxSize: 50, // Limit cache to 50 entries
+  },
+});
+
+async function setupApp() {
+  // Preload flags
+  await client.init();
+}
+
+// Fetching a Single Flag
+async function checkFeatureFlag() {
+  try {
+    const headerFlag = await client.getFlag("header");
+
+    if (headerFlag.enabled) {
+      console.log("Header feature is enabled");
+      console.log("Payload:", headerFlag.payload);
+    } else {
+      console.log("Header feature is disabled");
+    }
+  } catch (error) {
+    console.error("Failed to fetch flag:", error);
+  }
+}
+
+// Fetching All Flags
+async function listAllFlags() {
+  try {
+    const { flags } = await client.getAllFlags();
+
+    flags.forEach((flag) => {
+      console.log(`Flag: ${flag.slug}`);
+      console.log(`Enabled: ${flag.enabled}`);
+      console.log(`Description: ${flag.description}`);
+    });
+  } catch (error) {
+    console.error("Failed to fetch flags:", error);
+  }
+}
+
+// Cache Management
+function manageCaching() {
+  // Clear entire cache
+  client.clearCache();
+
+  // Clear cache for a specific flag
+  client.clearFlagCache("header");
+}
+
+// Error Handling
+async function robustFlagChecking() {
+  try {
+    const flag = await client.getFlag("non-existent-flag");
+  } catch (error) {
+    // Handle specific error scenarios
+    if (error.message.includes("does not exist")) {
+      console.log("Flag not found");
+    }
+  }
+}
+
+// Practical Example
+const featureFlags = new FeatureFlagClient({
+  projectKey: process.env.PROJECT_KEY,
+  environmentKey: process.env.ENVIRONMENT_KEY,
+});
+
+async function renderFeature() {
+  try {
+    const headerFlag = await featureFlags.getFlag("new-header-design");
+
+    if (headerFlag.enabled) {
+      // Render new header design
+      renderNewHeader(headerFlag.payload);
+    } else {
+      // Render default header
+      renderDefaultHeader();
+    }
+  } catch (error) {
+    // Fallback to default implementation
+    renderDefaultHeader();
+  }
+}
+```
