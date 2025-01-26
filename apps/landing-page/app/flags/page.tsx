@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { config as defaults } from "@basestack/utils";
 // Components
 import {
   Hero,
@@ -12,6 +13,7 @@ import {
   Code,
   GlobalNavigation,
   Pricing,
+  ProductNavigation,
 } from "components";
 // Content
 import {
@@ -20,12 +22,17 @@ import {
   questions,
   slides,
   pricing,
+  flagsPageLinks,
 } from "content/landing-page";
 
 const LandingPage = () => {
   return (
     <>
-      <GlobalNavigation />
+      <GlobalNavigation isSticky={false} />
+      <ProductNavigation
+        items={flagsPageLinks}
+        button={{ text: "Get Feature Flags", href: defaults.urls.repo }}
+      />
       <Hero
         title="The Open-Source Feature Flag Platform"
         text="Basestack Feature Flags is a self-hosted platform that offers an effortless way to host your own Feature Flags management system."

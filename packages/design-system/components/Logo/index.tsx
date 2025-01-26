@@ -81,7 +81,7 @@ const Logo = ({
 }: LogoProps) => {
   const theme = useTheme();
 
-  const backgroundColor = isOnDark ? theme.colors.gray600 : theme.colors.black;
+  const backgroundColor = isOnDark ? theme.colors.gray700 : theme.colors.black;
   const color = isOnDark ? theme.colors.gray200 : theme.colors.white;
 
   const logoComponents = {

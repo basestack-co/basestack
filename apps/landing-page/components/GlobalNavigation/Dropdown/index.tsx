@@ -85,7 +85,7 @@ const Dropdown = ({ data, title }: AppsDropdownProps) => {
         ref={refs.setReference}
         variant={ButtonVariant.Tertiary}
         onClick={onClickMenu}
-        size={ButtonSize.Medium}
+        size={ButtonSize.Normal}
         backgroundColor="transparent"
         icon={isMenuOpen ? "arrow_drop_up" : "arrow_drop_down"}
       >

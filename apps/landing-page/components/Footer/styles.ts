@@ -7,6 +7,11 @@ export const Container = styled.footer`
   flex-direction: column;
   margin-top: auto;
   padding: 0 ${({ theme }) => theme.spacing.s5};
+  border-top: 1px solid
+    ${({ theme }) =>
+      theme.isDarkMode
+        ? theme.horizontalRule.backgroundColor
+        : theme.horizontalRule.darker.backgroundColor};
 `;
 
 export const ContentWrapper = styled.footer`

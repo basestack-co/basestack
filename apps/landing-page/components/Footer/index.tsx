@@ -118,7 +118,6 @@ const Footer = () => {
 
   return (
     <Container>
-      <HorizontalRule isDarker={!isDarkMode} />
       <ContentWrapper>
         <MainContent>
           <LeftContainer>

@@ -1,6 +1,5 @@
-import styled, { css } from "styled-components";
+import styled, { css, createGlobalStyle } from "styled-components";
 import { rem } from "polished";
-import Link from "next/link";
 
 const backgroundBlur = css`
   background: ${({ theme }) =>
@@ -9,32 +8,21 @@ const backgroundBlur = css`
   backdrop-filter: saturate(180%) blur(20px);
 `;
 
-export const Container = styled.nav.withConfig({
-  shouldForwardProp: (prop) => !["isSticky"].includes(prop),
-})<{
-  isSticky: boolean;
-}>`
-  z-index: 1001;
-  ${({ isSticky }) =>
-    isSticky
-      ? css`
-          position: sticky;
-          top: 0;
-        `
-      : css`
-          position: relative;
-          border-bottom: 1px solid
-            ${({ theme }) =>
-              theme.isDarkMode
-                ? theme.horizontalRule.backgroundColor
-                : theme.horizontalRule.darker.backgroundColor};
-        `};
+export const Container = styled.nav`
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
-  min-height: ${rem("64px")};
+  height: ${rem("64px")};
   padding: 0 ${({ theme }) => theme.spacing.s5};
-  transition: all 0.2s ease-in;
   ${backgroundBlur};
+  border-bottom: 1px solid
+    ${({ theme }) =>
+      theme.isDarkMode
+        ? theme.horizontalRule.backgroundColor
+        : theme.horizontalRule.darker.backgroundColor};
 `;
 
 export const ContentContainer = styled.div`
@@ -52,7 +40,6 @@ export const LeftColumn = styled.div`
 
 export const List = styled.ul`
   display: flex;
-  margin-left: ${({ theme }) => theme.spacing.s4};
 `;
 
 export const ListItem = styled.li`
@@ -62,8 +49,4 @@ export const ListItem = styled.li`
 export const RightColumn = styled.div`
   display: flex;
   margin-left: auto;
-`;
-
-export const StyledLink = styled(Link)`
-  display: inline-flex;
 `;

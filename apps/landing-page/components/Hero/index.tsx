@@ -28,8 +28,8 @@ const Hero = ({
   image = { alt: "", src: "" },
   contentMaxWidth = "100%",
 }: HeroProps) => {
-  const theme = useTheme();
-  const isMobile = useMedia(theme.device.max.sm, false);
+  const { isDarkMode, device } = useTheme();
+  const isMobile = useMedia(device.max.sm, false);
 
   return (
     <Container>
@@ -62,7 +62,9 @@ const Hero = ({
           <Button
             justifyContent="center"
             fullWidth={isMobile}
-            variant={ButtonVariant.Secondary}
+            variant={
+              isDarkMode ? ButtonVariant.Tertiary : ButtonVariant.Secondary
+            }
             size={ButtonSize.Medium}
             onClick={() => {
               events.landing.deploy("Explore more options");

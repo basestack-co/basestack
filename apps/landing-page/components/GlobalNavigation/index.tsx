@@ -20,39 +20,34 @@ import {
   List,
   ListItem,
   RightColumn,
-  GlobalStyle,
+  StyledLink,
 } from "./styles";
 
 const links = [
   {
-    text: "Platform",
-    href: "#platform",
+    text: "Enterprise",
+    href: "#enterprise",
   },
   {
-    text: "Features",
+    text: "About Us",
     href: "#features",
   },
   {
-    text: "Integration",
+    text: "Docs",
     href: "#code",
   },
   {
-    text: "Why Feature Flags?",
+    text: "Blog",
     href: "#why",
-  },
-  {
-    text: "FAQs",
-    href: "#questions",
   },
 ];
 
 interface NavigationProps {
-  hasBackdropFilter?: boolean;
+  isSticky?: boolean;
 }
 
-const GlobalNavigation = ({ hasBackdropFilter = true }: NavigationProps) => {
+const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
   const { isDarkMode, spacing } = useTheme();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
   const [stargazers, setsStargazers] = useState(0);
 
@@ -65,84 +60,85 @@ const GlobalNavigation = ({ hasBackdropFilter = true }: NavigationProps) => {
   }, []);
 
   return (
-    <>
-      <GlobalStyle isMenuOpen={isMenuOpen} />
-      <Container hasBackdropFilter={hasBackdropFilter}>
-        <ContentContainer>
-          <LeftColumn>
-            <Logo product="company" isOnDark={isDarkMode} />
-            <List>
-              <ListItem>
-                <Dropdown
-                  title="Products"
-                  data={[
-                    {
-                      title: "Feature Flags",
-                      description: "On and Off features",
-                      onClick: () => router.push("/flags"),
-                      icon: "flag",
-                    },
-                    {
-                      title: "Forms",
-                      description: "Send fast and easy",
-                      onClick: () => router.push("/forms"),
-                      icon: "description",
-                    },
-                  ]}
-                />
-              </ListItem>
+    <Container isSticky={isSticky}>
+      <ContentContainer>
+        <LeftColumn>
+          <StyledLink href="/">
+            <Logo product="company" isOnDark={isDarkMode} size={36} />
+          </StyledLink>
+          <List>
+            <ListItem>
+              <Dropdown
+                title="Products"
+                data={[
+                  {
+                    title: "Feature Flags",
+                    description: "On and Off features",
+                    onClick: () => router.push("/flags"),
+                    icon: "flag",
+                  },
+                  {
+                    title: "Forms",
+                    description: "Send fast and easy",
+                    onClick: () => router.push("/forms"),
+                    icon: "description",
+                  },
+                ]}
+              />
+            </ListItem>
 
-              {links.map((link, index) => {
-                return (
-                  <ListItem key={index.toString()}>
-                    <Button
-                      variant={ButtonVariant.Tertiary}
-                      onClick={() => {
-                        events.landing.navigation(link.text, link.href);
-                        router.push(link.href);
-                      }}
-                      size={ButtonSize.Medium}
-                      backgroundColor="transparent"
-                    >
-                      {link.text}
-                    </Button>
-                  </ListItem>
-                );
-              })}
-            </List>
-          </LeftColumn>
-          <RightColumn>
-            <Button
-              variant={ButtonVariant.Tertiary}
-              mr={spacing.s4}
-              onClick={() => {
-                if (typeof window !== "undefined") {
-                  window.open(defaults.urls.repo, "_blank");
-                }
-              }}
-              size={ButtonSize.Medium}
-              backgroundColor="transparent"
-              iconPlacement="left"
-              icon="github"
-            >
-              <span>Star</span>
-              {stargazers > 0 && <span>&nbsp;{stargazers}</span>}
-            </Button>
-            <Button
-              onClick={() => {
-                if (typeof window !== "undefined") {
-                  window.open(defaults.urls.docs.base, "_blank");
-                }
-              }}
-              size={ButtonSize.Medium}
-              variant={ButtonVariant.Secondary}
-            >
-              Docs
-            </Button>
-          </RightColumn>
-        </ContentContainer>
-      </Container>
-    </>
+            {links.map((link, index) => {
+              return (
+                <ListItem key={index.toString()}>
+                  <Button
+                    variant={ButtonVariant.Tertiary}
+                    onClick={() => {
+                      events.landing.navigation(link.text, link.href);
+                      router.push(link.href);
+                    }}
+                    size={ButtonSize.Normal}
+                    backgroundColor="transparent"
+                  >
+                    {link.text}
+                  </Button>
+                </ListItem>
+              );
+            })}
+          </List>
+        </LeftColumn>
+        <RightColumn>
+          <Button
+            variant={ButtonVariant.Tertiary}
+            mr={spacing.s4}
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                window.open(defaults.urls.repo, "_blank");
+              }
+            }}
+            size={ButtonSize.Normal}
+            backgroundColor="transparent"
+            iconPlacement="left"
+            icon="github"
+          >
+            <span>Star</span>
+            {stargazers > 0 && <span>&nbsp;{stargazers}</span>}
+          </Button>
+          <Button
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                window.open(defaults.urls.docs.base, "_blank");
+              }
+            }}
+            size={ButtonSize.Normal}
+            variant={
+              isDarkMode ? ButtonVariant.Tertiary : ButtonVariant.Secondary
+            }
+          >
+            Docs
+          </Button>
+        </RightColumn>
+      </ContentContainer>
+    </Container>
   );
 };
 

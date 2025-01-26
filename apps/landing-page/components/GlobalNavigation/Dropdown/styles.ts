@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { position, space, SpaceProps, PositionProps } from "styled-system";
 import { neutralButtonStyles } from "@basestack/design-system";
 import { rem } from "polished";
