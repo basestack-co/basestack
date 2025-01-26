@@ -1,32 +1,65 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { rem } from "polished";
 
 export const Container = styled.section`
   display: flex;
   flex-direction: column;
-  padding: ${rem("100px")} ${({ theme }) => theme.spacing.s5};
+  padding: ${rem("100px")} 0;
+`;
+
+export const HeaderContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 ${({ theme }) => theme.spacing.s5};
 `;
 
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: ${rem("1440px")};
+  max-width: ${rem("1480px")};
   width: 100%;
   margin: 0 auto;
 `;
 
-export const CardsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: ${({ theme }) => theme.spacing.s5};
-  width: 100%;
+export const Embla = styled.div`
+  max-width: 100%;
+  margin: auto;
+`;
 
-  @media screen and ${({ theme }) => theme.device.max.lg} {
-    grid-template-columns: repeat(2, 1fr);
+export const EmblaViewport = styled.ul`
+  overflow: hidden;
+  padding: 0 ${({ theme }) => theme.spacing.s5}
+    ${({ theme }) => theme.spacing.s2} ${({ theme }) => theme.spacing.s5};
+`;
+
+export const EmblaContainer = styled.ul`
+  backface-visibility: hidden;
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  margin-left: ${rem("-20px")};
+
+  @media screen and ${({ theme }) => theme.device.max.xl} {
+    margin-left: ${rem("-10px")};
+  }
+`;
+
+export const EmblaSlide = styled.li`
+  min-width: 0;
+  padding-left: ${rem("20px")};
+  flex: 0 0 calc(100% / 3);
+
+  @media screen and ${({ theme }) => theme.device.max.xl} {
+    flex: 0 0 calc(100% / 3);
+    padding-left: ${rem("10px")};
   }
 
-  @media screen and ${({ theme }) => theme.device.max.md} {
-    grid-template-columns: 1fr;
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    flex: 0 0 calc(100% / 2);
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    flex: 0 0 100%;
   }
 `;

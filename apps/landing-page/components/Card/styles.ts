@@ -4,6 +4,7 @@ import { rem } from "polished";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
   background: ${({ theme }) =>
     theme.isDarkMode ? theme.colors.gray800 : theme.colors.white};
   border-radius: ${rem("8px")};

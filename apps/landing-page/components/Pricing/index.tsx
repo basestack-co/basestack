@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
 import { rem } from "polished";
 // Components
@@ -25,9 +26,9 @@ import {
   List,
   ListItem,
   PriceContainer,
+  HeaderContainer,
 } from "./styles";
 import { spacing } from "@basestack/design-system/theme/common";
-import { useMedia } from "react-use";
 
 type Interval = "monthly" | "yearly";
 
@@ -145,21 +146,23 @@ const Pricing = ({ title, text, items }: PricingProps) => {
   return (
     <Container>
       <ContentContainer>
-        <SectionHeader title={title} text={text} />
-        <Segment
-          selectedIndex={selectedInterval === "monthly" ? 0 : 1}
-          onSelect={(interval) => setSelectedInterval(interval as Interval)}
-          items={[
-            { id: "monthly", text: "Pay monthly" },
-            { id: "yearly", text: "Pay yearly", label: "save 20%" },
-          ]}
-          mb={spacing.s5}
-        />
-        <Embla className="embla">
-          <EmblaViewport className="embla__viewport" ref={emblaRef}>
-            <EmblaContainer className="embla__container">
+        <HeaderContainer>
+          <SectionHeader title={title} text={text} />
+          <Segment
+            selectedIndex={selectedInterval === "monthly" ? 0 : 1}
+            onSelect={(interval) => setSelectedInterval(interval as Interval)}
+            items={[
+              { id: "monthly", text: "Pay monthly" },
+              { id: "yearly", text: "Pay yearly", label: "save 20%" },
+            ]}
+            mb={spacing.s5}
+          />
+        </HeaderContainer>
+        <Embla>
+          <EmblaViewport ref={emblaRef}>
+            <EmblaContainer>
               {items.map((item, index) => (
-                <EmblaSlide className="embla__slide" key={index}>
+                <EmblaSlide key={index}>
                   <CardComp
                     isCustom={item.isCustom}
                     isPopular={item.isPopular}

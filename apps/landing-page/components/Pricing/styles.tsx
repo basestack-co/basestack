@@ -7,6 +7,13 @@ export const Container = styled.section`
   padding: ${rem("100px")} 0;
 `;
 
+export const HeaderContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 ${({ theme }) => theme.spacing.s5};
+`;
+
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -64,7 +71,8 @@ export const Embla = styled.div`
 
 export const EmblaViewport = styled.ul`
   overflow: hidden;
-  padding: 0 20px 8px 20px;
+  padding: 0 ${({ theme }) => theme.spacing.s5}
+    ${({ theme }) => theme.spacing.s2} ${({ theme }) => theme.spacing.s5};
 `;
 
 export const EmblaContainer = styled.ul`
@@ -72,6 +80,10 @@ export const EmblaContainer = styled.ul`
   display: flex;
   touch-action: pan-y pinch-zoom;
   margin-left: ${rem("-20px")};
+
+  @media screen and ${({ theme }) => theme.device.max.xl} {
+    margin-left: ${rem("-10px")};
+  }
 `;
 
 export const EmblaSlide = styled.li`
@@ -81,6 +93,7 @@ export const EmblaSlide = styled.li`
 
   @media screen and ${({ theme }) => theme.device.max.xl} {
     flex: 0 0 calc(100% / 3);
+    padding-left: ${rem("10px")};
   }
 
   @media screen and ${({ theme }) => theme.device.max.lg} {

@@ -1,8 +1,18 @@
 import React from "react";
 import { useTheme } from "styled-components";
+import useEmblaCarousel from "embla-carousel-react";
+import { useMedia } from "react-use";
 // Components
 import Card from "../Card";
-import { CardsContainer, Container, ContentContainer } from "./styles";
+import {
+  Container,
+  ContentContainer,
+  Embla,
+  EmblaViewport,
+  EmblaSlide,
+  EmblaContainer,
+  HeaderContainer,
+} from "./styles";
 import SectionHeader from "../SectionHeader";
 
 export interface CardsProps {
@@ -17,20 +27,37 @@ export interface CardsProps {
 }
 
 const Cards = ({ title, text, cards, id = "card" }: CardsProps) => {
+  const { device } = useTheme();
+  const isDesktop = useMedia(device.min.lg, true);
+
+  const [emblaRef] = useEmblaCarousel({
+    active: !isDesktop,
+    align: "start",
+    slidesToScroll: 1,
+  });
+
   return (
     <Container id={id}>
       <ContentContainer>
-        <SectionHeader title={title} text={text} />
-        <CardsContainer>
-          {cards?.map((card, index) => (
-            <Card
-              key={index}
-              title={card.title}
-              text={card.text}
-              icon={card.icon}
-            />
-          ))}
-        </CardsContainer>
+        <HeaderContainer>
+          <SectionHeader title={title} text={text} />
+        </HeaderContainer>
+        <Embla>
+          <EmblaViewport ref={emblaRef}>
+            <EmblaContainer>
+              {cards?.map((card, index) => (
+                <EmblaSlide className="embla__slide" key={index}>
+                  <Card
+                    key={index}
+                    title={card.title}
+                    text={card.text}
+                    icon={card.icon}
+                  />
+                </EmblaSlide>
+              ))}
+            </EmblaContainer>
+          </EmblaViewport>
+        </Embla>
       </ContentContainer>
     </Container>
   );
