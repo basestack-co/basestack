@@ -13,6 +13,7 @@ interface ContextState {
 
 interface ProviderProps {
   children: React.ReactNode;
+  config: SDKConfig;
   onSuccessfulInit?: (success: boolean) => void;
 }
 
@@ -24,37 +25,28 @@ export const createFlagsClient = (config: SDKConfig) => {
   });
 };
 
-// Change the baseURL, projectKey, and environmentKey to match your project
-export const flagsClient = new FlagsSDK({
-  baseURL: process.env.NEXT_PUBLIC_FEATURE_FLAGS_BASE_URL,
-  projectKey: process.env.NEXT_PUBLIC_FEATURE_FLAGS_PROJECT_KEY!,
-  environmentKey: process.env.NEXT_PUBLIC_FEATURE_FLAGS_ENVIRONMENT_KEY!,
-});
-
 export const FeatureFlagsContext = createContext<ContextState | undefined>(
   undefined,
 );
 
 const FeatureFlagsProvider: React.FC<ProviderProps> = ({
   children,
+  config,
   onSuccessfulInit,
 }) => {
   const [state, setState] = useState<Omit<ContextState, "client">>({
     isInitialized: false,
     flags: [],
   });
-
-  const value = useMemo(
-    () => ({ ...state, client: flagsClient }),
-    [state, flagsClient],
-  );
+  const client = useMemo(() => createFlagsClient(config), [config]);
+  const value = useMemo(() => ({ ...state, client }), [state, client]);
 
   useEffect(() => {
     let isMounted = true;
 
     const initializeFlags = async () => {
       try {
-        const response = await flagsClient.getAllFlags();
+        const response = await client.getAllFlags();
 
         if (isMounted) {
           setState((prev) => ({
@@ -81,7 +73,7 @@ const FeatureFlagsProvider: React.FC<ProviderProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [flagsClient, onSuccessfulInit]);
+  }, [client, onSuccessfulInit]);
 
   return (
     <FeatureFlagsContext.Provider value={value}>

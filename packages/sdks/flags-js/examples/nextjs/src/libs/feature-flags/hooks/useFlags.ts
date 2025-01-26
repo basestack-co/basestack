@@ -2,37 +2,64 @@
 
 import { useContext, useEffect, useState, useMemo } from "react";
 // Feature Flags Context
-import { FeatureFlagsContext } from "..";
+import { FeatureFlagsContext } from "@/libs/feature-flags";
 // Note: Change to the correct dependency path
 import { Flag } from "../../../../../../dist";
 
-export const useFlags = () => {
-  const context = useContext(FeatureFlagsContext);
-  const [flags, setFlags] = useState<{ flags: Flag[] }>({
-    flags: [],
-  });
-  const [error, setError] = useState<Error | null>(null);
+interface FlagsState {
+  flags: Flag[];
+}
 
-  useEffect(() => {
-    if (context?.isInitialized && context?.client) {
-      if (context.flags.length > 0) {
-        setFlags({ flags: context.flags });
-      } else {
-        context.client.getAllFlags().then(setFlags).catch(setError);
-      }
-    }
-  }, [context]);
+interface UseFlagsResult extends FlagsState {
+  error: Error | null;
+  isInitialized: boolean;
+}
+
+export const useFlags = (): UseFlagsResult => {
+  const context = useContext(FeatureFlagsContext);
+  const [{ flags }, setFlags] = useState<FlagsState>({ flags: [] });
+  const [error, setError] = useState<Error | null>(null);
 
   if (!context) {
     throw new Error("useFlags must be used within a FeatureFlagsContext");
   }
 
+  useEffect(() => {
+    if (!context.isInitialized || !context.client) {
+      return;
+    }
+
+    if (context.flags.length > 0) {
+      setFlags({ flags: context.flags });
+      return;
+    }
+
+    let isMounted = true;
+
+    context.client
+      .getAllFlags()
+      .then((result) => {
+        if (isMounted) {
+          setFlags(result);
+        }
+      })
+      .catch((err) => {
+        if (isMounted) {
+          setError(err instanceof Error ? err : new Error(String(err)));
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [context.isInitialized, context.client, context.flags.length]);
+
   return useMemo(
     () => ({
       error,
       isInitialized: context.isInitialized,
-      ...flags,
+      flags,
     }),
-    [flags, context, error],
+    [flags, context.isInitialized, error],
   );
 };

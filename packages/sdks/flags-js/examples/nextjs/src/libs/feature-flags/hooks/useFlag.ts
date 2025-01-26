@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useState, useMemo } from "react";
 // Feature Flags Context
-import { FeatureFlagsContext } from "..";
+import { FeatureFlagsContext } from "@/libs/feature-flags";
 // Note: Change to the correct dependency path
 import { Flag } from "../../../../../../dist";
 

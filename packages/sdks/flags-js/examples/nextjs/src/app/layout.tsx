@@ -11,7 +11,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <FeatureFlagsProvider>{children}</FeatureFlagsProvider>
+        <FeatureFlagsProvider
+          config={{
+            baseURL: process.env.NEXT_PUBLIC_FEATURE_FLAGS_BASE_URL,
+            projectKey: process.env.NEXT_PUBLIC_FEATURE_FLAGS_PROJECT_KEY!,
+            environmentKey:
+              process.env.NEXT_PUBLIC_FEATURE_FLAGS_ENVIRONMENT_KEY!,
+          }}
+        >
+          {children}
+        </FeatureFlagsProvider>
       </body>
     </html>
   );
