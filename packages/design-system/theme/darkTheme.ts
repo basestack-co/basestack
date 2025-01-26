@@ -556,6 +556,12 @@ const horizontalRule = {
   },
 };
 
+const accordion = {
+  border: {
+    color: colors.gray700,
+  },
+};
+
 const copyCard = {
   backgroundColor: colors.gray700,
   title: {
@@ -632,6 +638,7 @@ const theme = {
   popupActions,
   table,
   horizontalRule,
+  accordion,
   calendar,
   empty,
   inputGroup,

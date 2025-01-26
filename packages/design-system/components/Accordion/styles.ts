@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray600};
+  border-bottom: 1px solid ${({ theme }) => theme.accordion.border.color};
 `;
 
 export const Header = styled.button`

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { animated, useSpring } from "react-spring";
-import { useTheme } from "styled-components";
 // Components
 import Text from "../Text";
 import Icon from "../Icon";
@@ -15,7 +14,6 @@ export interface AccordionProps {
 const AnimatedContent = animated(ContentContainer);
 
 const Accordion = ({ title, text, onClick }: AccordionProps) => {
-  const theme = useTheme();
   const contentRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 

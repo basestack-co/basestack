@@ -23,17 +23,17 @@ export const Container = styled.nav.withConfig({
         `
       : css`
           position: relative;
-          border-bottom: 1px solid
-            ${({ theme }) =>
-              theme.isDarkMode
-                ? theme.horizontalRule.backgroundColor
-                : theme.horizontalRule.darker.backgroundColor};
         `};
   display: flex;
   align-items: center;
   min-height: ${rem("64px")};
   padding: 0 ${({ theme }) => theme.spacing.s5};
   transition: all 0.2s ease-in;
+  border-bottom: 1px solid
+    ${({ theme }) =>
+      theme.isDarkMode
+        ? theme.horizontalRule.backgroundColor
+        : theme.horizontalRule.darker.backgroundColor};
   ${backgroundBlur};
 `;
 
