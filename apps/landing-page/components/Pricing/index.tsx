@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 import { useTheme } from "styled-components";
 import { rem } from "polished";
 // Components
@@ -14,15 +15,19 @@ import {
 import SectionHeader from "../SectionHeader";
 import {
   Card,
-  Cards,
   Container,
   ContentContainer,
+  Embla,
+  EmblaContainer,
+  EmblaSlide,
+  EmblaViewport,
   FloatingLabel,
   List,
   ListItem,
   PriceContainer,
 } from "./styles";
 import { spacing } from "@basestack/design-system/theme/common";
+import { useMedia } from "react-use";
 
 type Interval = "monthly" | "yearly";
 
@@ -113,14 +118,25 @@ const CardComp = ({
   );
 };
 
+type OmitMultiple<T, K extends keyof T> = Omit<T, K>;
+
 interface PricingProps {
   title: string;
   text: string;
-  items: Array<Omit<CardProps, "onClick">>;
+  items: Array<OmitMultiple<CardProps, "onClick" | "interval">>;
 }
 
 const Pricing = ({ title, text, items }: PricingProps) => {
+  const { device } = useTheme();
+  const isDesktop = useMedia(device.min.xl, true);
+
   const [selectedInterval, setSelectedInterval] = useState<Interval>("monthly");
+
+  const [emblaRef] = useEmblaCarousel({
+    active: !isDesktop,
+    align: "start",
+    slidesToScroll: 1,
+  });
 
   const onClick = useCallback(() => {
     // Do something
@@ -139,23 +155,28 @@ const Pricing = ({ title, text, items }: PricingProps) => {
           ]}
           mb={spacing.s5}
         />
-        <Cards>
-          {items.map((item, index) => (
-            <CardComp
-              key={index}
-              isCustom={item.isCustom}
-              isPopular={item.isPopular}
-              title={item.title}
-              price={item.price}
-              button={item.button}
-              description={item.description}
-              listDescription={item.listDescription}
-              list={item.list}
-              onClick={onClick}
-              interval={selectedInterval}
-            />
-          ))}
-        </Cards>
+        <Embla className="embla">
+          <EmblaViewport className="embla__viewport" ref={emblaRef}>
+            <EmblaContainer className="embla__container">
+              {items.map((item, index) => (
+                <EmblaSlide className="embla__slide" key={index}>
+                  <CardComp
+                    isCustom={item.isCustom}
+                    isPopular={item.isPopular}
+                    title={item.title}
+                    price={item.price}
+                    button={item.button}
+                    description={item.description}
+                    listDescription={item.listDescription}
+                    list={item.list}
+                    onClick={onClick}
+                    interval={selectedInterval}
+                  />
+                </EmblaSlide>
+              ))}
+            </EmblaContainer>
+          </EmblaViewport>
+        </Embla>
       </ContentContainer>
     </Container>
   );
