@@ -1,5 +1,5 @@
 // Flags SDK
-import { FlagsSDK } from "../../dist";
+import { FlagsSDK } from "../../../dist";
 
 const client = new FlagsSDK({
   baseURL: "http://localhost:3000/api/v1",
