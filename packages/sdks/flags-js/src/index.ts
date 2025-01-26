@@ -170,7 +170,12 @@ export class FlagsSDK {
 
     if (!response.ok) {
       const errorBody = await response.json();
-      throw new Error(errorBody.message || "Request failed");
+
+      return {
+        enabled: false,
+        error: true,
+        errorMessage: errorBody.message || "Request failed",
+      } as T;
     }
 
     const data = await response.json();

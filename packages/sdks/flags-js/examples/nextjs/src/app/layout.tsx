@@ -11,15 +11,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <FeatureFlagsProvider
-          config={{
-            baseURL: "http://localhost:3000/api/v1",
-            projectKey: "cm5qx25c900048onlrh1eloq5",
-            environmentKey: "cm5qx25c900068onlvbtk1cdy",
-          }}
-        >
-          {children}
-        </FeatureFlagsProvider>
+        <FeatureFlagsProvider>{children}</FeatureFlagsProvider>
       </body>
     </html>
   );
