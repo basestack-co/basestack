@@ -1,7 +1,7 @@
 const meta = {
   "rest-api": "Rest API",
-  javascript: "Javascript & Node",
-  react: "React",
+  javascript: "Javascript & NodeJS",
+  react: "React & NextJS",
 };
 
 export default meta;

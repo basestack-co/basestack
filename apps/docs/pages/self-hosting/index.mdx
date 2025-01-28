@@ -31,7 +31,7 @@ Getting up and running is an easy with various options available. Simply ensure 
 
 ## App hosting
 
-You have the flexibility to host the platform on any service capable of hosting [NextJS ↗](https://nextjs.org/) applications with serverless function support. Additionally, you'll need a separate database running elsewhere that the app can connect to. Some app hosting providers that support include Vercel, more coming, all of which offer a free tier option.
+You have the flexibility to host the platform on any service capable of hosting [NextJS ↗](https://nextjs.org/?ref=basestack.co) applications with serverless function support. Additionally, you'll need a separate database running elsewhere that the app can connect to. Some app hosting providers that support include Vercel, more coming, all of which offer a free tier option.
 
 <Cards>
   <Cards.Card title="Vercel" href="/self-hosting/providers/deploy-vercel" />
@@ -41,7 +41,7 @@ You have the flexibility to host the platform on any service capable of hosting 
 
 ## Managed databases
 
-Ensure that the PostgreSQL service or instance supports serverless environments. Any traditional instance of PostgreSQL with connection pooling, such as [PgBouncer ↗](https://www.pgbouncer.org/), will work effectively.
+Ensure that the PostgreSQL service or instance supports serverless environments. Any traditional instance of PostgreSQL with connection pooling, such as [PgBouncer ↗](https://www.pgbouncer.org/?ref=basestack.co), will work effectively.
 
 <Cards>
   <Cards.Card title="Neon - Serverless Postgres" href="/self-hosting/database/neon" />
@@ -67,7 +67,7 @@ For the `AUTH_SECRET` variable you can use `openssl rand -base64 32` or generate
 
 | Property          | Description                                                                 | Required | Example                                           |
 | ----------------- | --------------------------------------------------------------------------- | -------- | ------------------------------------------------- |
-| `AUTH_SECRET` | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. | true     | [generate](https://generate-secret.vercel.app/32) |
+| `AUTH_SECRET` | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. | true     | [generate](https://generate-secret.vercel.app/32?ref=basestack.co) |
 | `AUTH_URL`    | Set to the canonical URL of your site                                       | true     | https://your-basestack-instance.com               |
 
 ### Providers
@@ -101,8 +101,8 @@ The Basestack Platform uses SMTP for sending emails. To configure SMTP, set the 
 
 <Callout type="info" emoji="ℹ️">
   You can use any transactional email service, such as [SendGrid
-  ↗](https://sendgrid.com/en-us), [Mailgun ↗](https://www.mailgun.com/), or
-  [Resend ↗](https://resend.com) to send emails.
+  ↗](https://sendgrid.com/en-us?ref=basestack.co), [Mailgun ↗](https://www.mailgun.com/?ref=basestack.co), or
+  [Resend ↗](https://resend.com?ref=basestack.co) to send emails.
 </Callout>
 
 | Property                   | Description                                                                         | Required | Example                         |
@@ -130,7 +130,7 @@ The above environment variables are common across all platforms. However, there 
     Because the Forms Platform uses background jobs to handle tasks such as sending emails, you need to configure the following environment variables:
 
       <Callout type="info" emoji="ℹ️">
-          Why [UpStash ↗](https://upstash.com/)? Since the Basestack Platform can
+          Why [UpStash ↗](https://upstash.com/?ref=basestack.co)? Since the Basestack Platform can
           run in serverless environments, using a service like UpStash QStash to handle
           background jobs is essential. QStash is a service designed to handle task scheduling and message queuing in
           a serverless
@@ -154,8 +154,8 @@ The above environment variables are common across all platforms. However, there 
 
     | Property                | Description                                                | Required | Example                                                                                                                |
     | ----------------------- | ---------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
-    | `CLOUDFLARE_ACCOUNT_ID` | You can find your account ID on your Cloudflare dashboard. | true     | [Get Account ID ↗](https://developers.cloudflare.com/workers-ai/get-started/rest-api/#1-get-api-token-and-account-id) |
-    | `CLOUDFLARE_API_TOKEN`  | Obtain or create an API token.                             | true     | [Create an API token ↗](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/)                 |
+    | `CLOUDFLARE_ACCOUNT_ID` | You can find your account ID on your Cloudflare dashboard. | true     | [Get Account ID ↗](https://developers.cloudflare.com/workers-ai/get-started/rest-api/#1-get-api-token-and-account-id?ref=basestack.co) |
+    | `CLOUDFLARE_API_TOKEN`  | Obtain or create an API token.                             | true     | [Create an API token ↗](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/?ref=basestack.co)                 |
 
     #### Payments Configuration
 

@@ -2,6 +2,12 @@
 
 Integration with JavaScript Vanilla helps and facilitates the process of testing and developing features in production and other environments. The vanilla version can be integrated into any environment that uses JavaScript, you can use this integration in projects like Vue, Svelte or other JavaScript frameworks.
 
+## Why Feature Flags?
+
+Feature flags are an excellent way to test features in production. Take advantage of different environments to hide or show your features. This can be used to facilitate the development process on project features that are not yet ready to be presented in production or even disable in real-time if any of the features in production are malfunctioning
+
+## Getting Started
+
 Start by installing the library following the instructions below.
 
 Quick links
@@ -34,86 +40,8 @@ or with Script Tag
 This params values can be found on the on your project's settings
 
 ```js
-import FlagsJS from "@basestack/flags-js";
+import { FlagsSDK } from "@basestack/flags-js";
 
-const sdk = new FlagsJS({
-  apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
-  projectKey: "xxxxx",
-  envKey: "xxxxx",
-});
-```
-
-That's it! Now your app is ready to start using feature flags and other features. Follow the instructions of the supported methods to make the most of the Basestack Feature Flags functionalities.
-
-## Usage
-
-```js
-import FlagsJS from "@basestack/flags-js";
-
-const sdk = new FlagsJS({
-  apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
-  projectKey: "xxxxx",
-  envKey: "xxxxx",
-});
-
-//async/await
-const MyFeature = async () => {
-  try {
-    const flag = await sdk.flagAsync("header");
-    //flag.enabled true | false
-    //  ...code
-  } catch (e) {
-    throw e;
-  }
-};
-
-//Promises
-const AnotherFeature = async () => {
-  sdk
-    .flagAsync("my_flag")
-    .then((flag) => {
-      //flag.enabled
-      //...code
-    })
-    .catch((e) => throw e);
-};
-```
-
-## Flags
-
----
-
-Feature flags are an excellent way to test features in production. Take advantage of different environments to hide or show your features. This can be used to facilitate the development process on project features that are not yet ready to be presented in production or even disable in real-time if any of the features in production are malfunctioning
-
-```js
-sdk.flag("my_flag");
-
-/*
-
-Success Response: 
-
-    { 
-      slug: string;
-      enabled: boolean;
-      payload?: unknown;
-      expiredAt?: Date;
-      createdAt: Date;
-      updatedAt: Date;
-      description: string;
-      error: boolean;
-    }
-  
-Error Response: 
-
-    {
-      enabled: boolean;
-      error: boolean;
-      message: string;
-    }
-*/
-```
-
-```js
 // Basic Initialization
 const client = new FlagsSDK({
   projectKey: "your-project-key",
@@ -122,9 +50,9 @@ const client = new FlagsSDK({
 
 // Custom Configuration Example
 const advancedClient = new FlagsSDK({
-  projectKey: "proj-key",
-  environmentKey: "env-key",
-  baseURL: "https://custom-flags.company.com/api/v1",
+  baseURL: "https://your-basestack-hosted-app-domain.com/api/v1",
+  projectKey: "your-project-key",
+  environmentKey: "your-environment-key",
   preloadFlags: ["header", "footer"],
   cache: {
     enabled: true,
@@ -132,11 +60,24 @@ const advancedClient = new FlagsSDK({
     maxSize: 50, // Limit cache to 50 entries
   },
 });
+```
 
-async function setupApp() {
-  // Preload flags
-  await client.init();
-}
+That's it! Now your app is ready to start using feature flags and other features. Follow the instructions of the supported methods to make the most of the Basestack Feature Flags functionalities.
+
+## Usage
+
+```js
+import { FlagsSDK } from "@basestack/flags-js";
+
+const client = new FlagsSDK({
+  projectKey: "your-project-key",
+  environmentKey: "your-environment-key",
+});
+
+// Preload flags on initialization (optional)
+// This will fetch the flags and cache them for future use
+// But you can still fetch flags on-demand using getFlag()
+await client.init();
 
 // Fetching a Single Flag
 async function checkFeatureFlag() {
@@ -146,6 +87,7 @@ async function checkFeatureFlag() {
     if (headerFlag.enabled) {
       console.log("Header feature is enabled");
       console.log("Payload:", headerFlag.payload);
+      // Additional flag properties
     } else {
       console.log("Header feature is disabled");
     }
@@ -163,6 +105,7 @@ async function listAllFlags() {
       console.log(`Flag: ${flag.slug}`);
       console.log(`Enabled: ${flag.enabled}`);
       console.log(`Description: ${flag.description}`);
+      // Additional flag properties
     });
   } catch (error) {
     console.error("Failed to fetch flags:", error);
@@ -178,27 +121,11 @@ function manageCaching() {
   client.clearFlagCache("header");
 }
 
-// Error Handling
-async function robustFlagChecking() {
-  try {
-    const flag = await client.getFlag("non-existent-flag");
-  } catch (error) {
-    // Handle specific error scenarios
-    if (error.message.includes("does not exist")) {
-      console.log("Flag not found");
-    }
-  }
-}
-
 // Practical Example
-const featureFlags = new FeatureFlagClient({
-  projectKey: process.env.PROJECT_KEY,
-  environmentKey: process.env.ENVIRONMENT_KEY,
-});
 
 async function renderFeature() {
   try {
-    const headerFlag = await featureFlags.getFlag("new-header-design");
+    const headerFlag = await client.getFlag("new-header-design");
 
     if (headerFlag.enabled) {
       // Render new header design
@@ -212,4 +139,7 @@ async function renderFeature() {
     renderDefaultHeader();
   }
 }
+
+// Types
+import { CacheConfig, SDKConfig, Flag } from "@basestack/flags-js";
 ```

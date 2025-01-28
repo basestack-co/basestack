@@ -8,9 +8,9 @@ import { Steps, Callout, Tabs, Cards } from "nextra/components";
 
 # Deploy to Netlify
 
-[Netlify ↗](https://www.netlify.com/) is a cloud-based platform and service that offers web hosting, serverless computing, and automation tools for web developers. It is designed to simplify the process of deploying and managing web applications and websites.
+[Netlify ↗](https://www.netlify.com/?ref=basestack.co) is a cloud-based platform and service that offers web hosting, serverless computing, and automation tools for web developers. It is designed to simplify the process of deploying and managing web applications and websites.
 
-In this quick start guide, we demonstrate just how effortless it is to host the platform on [Netlify ↗](https://www.netlify.com/), complemented by a Database hosted at [Neon ↗](https://neon.tech/). Best of all, both services offer perfect free plans, allowing you to explore the platform and scale up as you progress.
+In this quick start guide, we demonstrate just how effortless it is to host the platform on [Netlify ↗](https://www.netlify.com/?ref=basestack.co), complemented by a Database hosted at [Neon ↗](https://neon.tech/?ref=basestack.co). Best of all, both services offer perfect free plans, allowing you to explore the platform and scale up as you progress.
 
 ## Getting started
 
@@ -21,7 +21,7 @@ Ensure that you have an operational PostgreSQL database server capable of accept
 
 <Callout type="info" emoji="ℹ️">
   Any traditional instance of PostgreSQL with connection pooling, such as
-  [PgBouncer ↗](https://www.pgbouncer.org/), will work effectively.
+  [PgBouncer ↗](https://www.pgbouncer.org/?ref=basestack.co), will work effectively.
 </Callout>
 
 If you do not already have a database, consider selecting one from the recommended list below:
@@ -32,9 +32,9 @@ If you do not already have a database, consider selecting one from the recommend
 
 ### Next, set up authentication.
 
-To simplify this guide, we will use [Github ↗](https://github.com/) as the authentication provider, allowing you to create an account and log in to the Platform. Additionally, this setup will allow other members of your organization to log in as well.
+To simplify this guide, we will use [Github ↗](https://github.com/?ref=basestack.co) as the authentication provider, allowing you to create an account and log in to the Platform. Additionally, this setup will allow other members of your organization to log in as well.
 
-**Create a new [OAuth App](https://github.com/settings/developers) by filling out the form with the following settings:**
+**Create a new [OAuth App](https://github.com/settings/developers?ref=basestack.co) by filling out the form with the following settings:**
 
 <Callout type="info" emoji="ℹ️">
   If you don't have a Project URL yet, you can leave it blank for now. Check out
@@ -49,7 +49,7 @@ To simplify this guide, we will use [Github ↗](https://github.com/) as the aut
 "Authorization callback URL": "https://your-basestack-instance.com/api/auth/callback/github"
 ```
 
-Once you've successfully created a new [OAuth App](https://github.com/settings/developers), it will generate two important keys: `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET`. Be sure to save these keys for later use during the deployment step, as they will be needed as environment variables.
+Once you've successfully created a new [OAuth App](https://github.com/settings/developers?ref=basestack.co), it will generate two important keys: `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET`. Be sure to save these keys for later use during the deployment step, as they will be needed as environment variables.
 
 ### Finally, proceed with the deployment.
 
@@ -57,7 +57,7 @@ Once you've successfully created a new [OAuth App](https://github.com/settings/d
 
   <Tabs items={['Feature Flags', 'Forms']}>
     <Tabs.Tab>
-      By clicking on the button below, a new repository will be created in your GitHub account from the [Basestack Platform](https://github.com/basestack-co/basestack) repository, and the platform will be deployed for you. This will be an independent copy with no connection to the main project.
+      By clicking on the button below, a new repository will be created in your GitHub account from the [Basestack Platform](https://github.com/basestack-co/basestack?ref=basestack.co) repository, and the platform will be deployed for you. This will be an independent copy with no connection to the main project.
 
       [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/basestack-co/basestack)
     </Tabs.Tab>
@@ -78,7 +78,7 @@ Page](/updates).
 
 ##### Import to Netlify
 
-1. Log in to [Netlify ↗](https://www.netlify.com/).
+1. Log in to [Netlify ↗](https://www.netlify.com/?ref=basestack.co).
 2. Click the `Add new site` dropdown button, then select `Import an existing project` from the menu.
 3. Click the `Deploy with Github` button.
 4. Connect your GitHub account and choose the forked platform repository.
@@ -120,14 +120,14 @@ To ensure a successful deployment on Netlify, the platform requires a minimum se
 | `DIRECT_DATABASE_URL`  | Direct connection URL to the database used for migrations                                   |         |
 | `AUTH_SECRET`      | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens.                 |         |
 | `AUTH_URL`         | Set to the canonical URL of your site                                                       |         |
-| `GITHUB_CLIENT_ID`     | Client Id generated in the [OAuth App](https://github.com/settings/developers) creation     |         |
-| `GITHUB_CLIENT_SECRET` | Client Secret generated in the [OAuth App](https://github.com/settings/developers) creation |         |
+| `GITHUB_CLIENT_ID`     | Client Id generated in the [OAuth App](https://github.com/settings/developers?ref=basestack.co) creation     |         |
+| `GITHUB_CLIENT_SECRET` | Client Secret generated in the [OAuth App](https://github.com/settings/developers?ref=basestack.co) creation |         |
 | `NODE_VERSION`         | Node version to use for the build process.                                                  | 18.12.0 |
 | `SKIP_INSTALL_DEPS`    | Disables npm install to use yarn                                                            | true    |
 
 <Callout type="info" emoji="ℹ️">
   For the `AUTH_SECRET` variable you can use `openssl rand -base64 32` or
-  generate a [random value](https://generate-secret.vercel.app/32).
+  generate a [random value](https://generate-secret.vercel.app/32?ref=basestack.co).
 </Callout>
 
 </Steps>
@@ -177,13 +177,13 @@ Lastly, stay tuned about updates, including new features and bug fixes. To ensur
 
 If you don't have a domain yet, feel free to leave the fields below empty or use dummy information. Proceed with the deployment as usual. Once the deployment is complete, Netlify will generate a URL for your project.
 
-Copy this URL and update the information in your [OAuth App](https://github.com/settings/developers). Next, modify the environment variables in the project settings on Netlify and initiate a new deployment on Netlify once again.
+Copy this URL and update the information in your [OAuth App](https://github.com/settings/developers?ref=basestack.co). Next, modify the environment variables in the project settings on Netlify and initiate a new deployment on Netlify once again.
 
 **Environment Variables:**
 
 - `AUTH_URL`
 
-**Github [OAuth App](https://github.com/settings/developers) Fields:**
+**Github [OAuth App](https://github.com/settings/developers?ref=basestack.co) Fields:**
 
 - `Homepage URL`
 - `Authorization callback URL`

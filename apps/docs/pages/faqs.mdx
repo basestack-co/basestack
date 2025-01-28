@@ -20,18 +20,18 @@ export function FAQBox({ title, children, isOpen = true }) {
 Explore our collection of useful questions and answers about the Basestack Platform. If you don't find the answer to your question here, feel free to [open a discussion](https://github.com/basestack-co/basestack/discussions). We're here to help!
 
 <FAQBox title="What are the requirements for self-hosting" isOpen={false}>
-  Any service that can host a [NextJS ↗](https://nextjs.org/) applications with
+  Any service that can host a [NextJS ↗](https://nextjs.org/?ref=basestack.co) applications with
   serverless function support and provide a Postgres database compatible with
   serverless environments will work seamlessly. Consider services such as [Neon
-  ↗](https://neon.tech), [Supabase ↗](https://supabase.com/), or traditional
+  ↗](https://neon.tech), [Supabase ↗](https://supabase.com/?ref=basestack.co), or traditional
   Postgres with connection pooling like [PgBouncer
-  ↗](https://www.pgbouncer.org/).
+  ↗](https://www.pgbouncer.org/?ref=basestack.co).
 </FAQBox>
 
 <FAQBox title="What are the supported databases?" isOpen={false}>
   The platform uses PostgreSQL as the database. The crucial aspect here is to ensure that the PostgreSQL service or instance supports serverless environments. To facilitate the hosting of the Feature Flags Platform, we have some suggestions that can simplify the deployment process.
 
-If you prefer not to use a third-party service, keep in mind that any traditional instance of PostgreSQL with connection pooling, such as [PgBouncer ↗](https://www.pgbouncer.org/), will work effectively.
+If you prefer not to use a third-party service, keep in mind that any traditional instance of PostgreSQL with connection pooling, such as [PgBouncer ↗](https://www.pgbouncer.org/?ref=basestack.co), will work effectively.
 
 - [Neon - Serverless Postgres](/self-hosting/database/neon)
 - Stay tuned for more upcoming guides!
