@@ -32,7 +32,7 @@ const ProductNavigation = ({ items, button }: ProductNavigationProps) => {
           <List>
             {items.map((item, index) => {
               return (
-                <ListItem key={index.toString()}>
+                <ListItem isActive={index === 0} key={index.toString()}>
                   <Button
                     icon={item.icon}
                     iconPlacement="left"

@@ -4,8 +4,6 @@ import { autoUpdate, offset, useFloating } from "@floating-ui/react";
 import { animated, config, useTransition } from "react-spring";
 import { useClickAway } from "react-use";
 import {
-  Logo,
-  LogoProps,
   slideBottom,
   Text,
   Button,
@@ -41,9 +39,11 @@ const Item = ({ onClick, title, description, icon }: ItemProps) => {
   return (
     <ListItem>
       <StyledButton onClick={onClick}>
-        <IconBox icon={icon} size="medium" />
+        <IconBox icon={icon} size="small" />
         <TextContainer>
-          <Text size="medium">{title}</Text>
+          <Text size="small" fontWeight={500}>
+            {title}
+          </Text>
           <Text size="xSmall" muted>
             {description}
           </Text>

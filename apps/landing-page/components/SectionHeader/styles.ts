@@ -49,7 +49,7 @@ export const Title = styled.h2.withConfig({
   ${color};
   font-family: ${({ theme }) => theme.typography.robotoFlex};
   font-size: ${({ titleSize }) =>
-    titleSize === "normal" ? rem("42px") : rem("60px")};
+    titleSize === "normal" ? rem("36px") : rem("42px")};
 
   ${({ hasAnimatedText, theme }) =>
     hasAnimatedText &&

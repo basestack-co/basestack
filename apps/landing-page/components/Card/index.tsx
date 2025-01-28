@@ -29,7 +29,7 @@ const Card = ({ title, text, icon = "help" }: CardProps) => {
   return (
     <Container>
       <IconBox icon={icon} mb={spacing.s5} {...iconBoxProps} />
-      <Text size="xLarge" mb={spacing.s2}>
+      <Text size="large" mb={spacing.s2}>
         {title}
       </Text>
       <Text size="medium" fontWeight={400} lineHeight={1.6} muted>

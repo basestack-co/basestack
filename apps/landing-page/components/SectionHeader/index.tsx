@@ -24,6 +24,7 @@ const SectionHeader = ({
 }: SectionHeaderProps) => {
   const { device, spacing, colors, isDarkMode } = useTheme();
   const isMobile = useMedia(device.max.md, false);
+  const descriptionSize = titleSize === "large" ? "xLarge" : "large";
 
   return (
     <Container hasMarginBottom={hasMarginBottom} maxWidth={maxWidth}>
@@ -38,13 +39,12 @@ const SectionHeader = ({
         {title}
       </Title>
       <Text
-        size={isMobile ? "large" : "xLarge"}
+        size={isMobile ? "large" : descriptionSize}
         fontWeight={400}
         textAlign="center"
         lineHeight="1.6"
-        // @ts-ignore
         as="p"
-        color={isDarkMode ? colors.gray400 : colors.gray500}
+        muted
       >
         {text}
       </Text>

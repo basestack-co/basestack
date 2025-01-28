@@ -1,4 +1,4 @@
-import styled, { css, createGlobalStyle } from "styled-components";
+import styled, { css } from "styled-components";
 import { rem } from "polished";
 
 const backgroundBlur = css`
@@ -14,7 +14,6 @@ export const Container = styled.nav`
   z-index: 1000;
   display: flex;
   flex-shrink: 0;
-  align-items: center;
   height: ${rem("64px")};
   padding: 0 ${({ theme }) => theme.spacing.s5};
   ${backgroundBlur};
@@ -27,7 +26,6 @@ export const Container = styled.nav`
 
 export const ContentContainer = styled.div`
   display: flex;
-  align-items: center;
   margin: 0 auto;
   width: 100%;
   max-width: ${rem("1440px")};
@@ -35,18 +33,39 @@ export const ContentContainer = styled.div`
 
 export const LeftColumn = styled.div`
   display: flex;
-  align-items: center;
 `;
 
 export const List = styled.ul`
   display: flex;
 `;
 
-export const ListItem = styled.li`
+export const ListItem = styled.li.withConfig({
+  shouldForwardProp: (prop) => !["isActive"].includes(prop),
+})<{
+  isActive: boolean;
+}>`
   display: flex;
+  align-items: center;
+  position: relative;
+
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: black;
+        z-index: 1;
+      }
+    `}
 `;
 
 export const RightColumn = styled.div`
   display: flex;
+  align-items: center;
   margin-left: auto;
 `;

@@ -4,7 +4,7 @@ import { rem } from "polished";
 import { Gradient, IconBoxVariant, Size } from "./types";
 
 const getSize = {
-  small: "32px",
+  small: "34px",
   medium: "40px",
   large: "48px",
 };

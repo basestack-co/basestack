@@ -30,7 +30,7 @@ export const ListItem = styled.li`
 
 export const StyledButton = styled.button`
   ${neutralButtonStyles};
-  padding: ${({ theme }) => theme.spacing.s2} ${({ theme }) => theme.spacing.s3};
+  padding: ${({ theme }) => theme.spacing.s2};
 `;
 
 export const TextContainer = styled.div`

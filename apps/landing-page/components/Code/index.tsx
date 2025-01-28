@@ -10,8 +10,15 @@ import {
   a11yDark,
 } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 // Components
-import { Tabs } from "@basestack/design-system";
-import { CodeContainer, Container, ContentContainer } from "./styles";
+import { IconButton, Segment } from "@basestack/design-system";
+import {
+  Circle,
+  Circles,
+  CodeContainer,
+  CodeHeader,
+  Container,
+  ContentContainer,
+} from "./styles";
 import SectionHeader from "../SectionHeader";
 // Data
 import data from "./data";
@@ -23,8 +30,8 @@ export interface Props {
 }
 
 const Code = ({ id = "code" }: Props) => {
-  const { isDarkMode, colors } = useTheme();
-  const [sliderPosition, setSliderPosition] = useState(1);
+  const { isDarkMode, colors, spacing } = useTheme();
+  const [sliderPosition, setSliderPosition] = useState(0);
 
   const tab = useMemo(() => {
     return data[sliderPosition];
@@ -37,17 +44,24 @@ const Code = ({ id = "code" }: Props) => {
           title="Explore our SDK Options"
           text="Discover our supported SDKs tailored to meet your development needs, enabling faster releases. Explore our comprehensive documentation for more in-depth information and guidance."
         />
+        <Segment
+          selectedIndex={sliderPosition}
+          onSelect={(item) => {
+            events.landing.code(`Selected ${item} tab`);
+            setSliderPosition(data.findIndex((tab) => tab.id === item));
+          }}
+          items={data}
+          mb={spacing.s5}
+        />
         <CodeContainer>
-          <Tabs
-            sliderPosition={sliderPosition}
-            onSelect={(item) => {
-              events.landing.code(`Selected ${item} tab`);
-              setSliderPosition(data.findIndex((tab) => tab.id === item));
-            }}
-            items={data}
-            textSize="medium"
-            backgroundColor={isDarkMode ? colors.gray800 : colors.white}
-          />
+          <CodeHeader>
+            <Circles>
+              <Circle color={colors.red200} />
+              <Circle color={colors.yellow200} />
+              <Circle color={colors.green200} />
+            </Circles>
+            <IconButton onClick={() => {}} icon="content_copy" size="small" />
+          </CodeHeader>
           {/* @ts-ignore */}
           <SyntaxHighlighter
             language="javascript"
