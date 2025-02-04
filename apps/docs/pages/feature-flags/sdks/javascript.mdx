@@ -13,8 +13,8 @@ Seamless integration with JavaScript/NodeJS streamlines the testing and developm
 <Callout type="info" emoji="ℹ️">
   We only support ESM (ECMAScript Modules) in the browser or server environment.
   If you are using CommonJS, you will need to use a bundler like
-  [Webpack](https://webpack.js.org/?ref=basestack.co) or [Rollup](https://rollupjs.org/?ref=basestack.co) to
-  bundle your code.
+  [Webpack](https://webpack.js.org/?ref=basestack.co) or
+  [Rollup](https://rollupjs.org/?ref=basestack.co) to bundle your code.
 </Callout>
 
 ## Getting started
@@ -144,7 +144,7 @@ async function renderFeature() {
 
 ## Server Implementation
 
-In a server environment like Node or Serverless, you can use the SDK as usual because it utilizes the Fetch API, which is supported in Node.js.
+In a server environment like Node or Serverless, you can use the SDK as usual because it uses the Fetch API, which is supported in Node.js.
 
 <Callout type="warning" emoji="⚠️">
   The Fetch API is available in Node.js starting from version 18.0.0.
@@ -202,14 +202,31 @@ const client = new FlagsSDK({
 The SDK is built with TypeScript. Therefore, when used in a TypeScript project, it comes with basic type inference out of the box.
 
 ```js copy filename="main.ts"
+/** Configuration for caching mechanism */
+export interface CacheConfig {
+  /** Enable or disable caching (default: true) */
+  enabled?: boolean;
+  /** Time-to-Live for cache entries in milliseconds (default: 5 minutes) */
+  ttl?: number;
+  /** Maximum number of cache entries (default: 100) */
+  maxSize?: number;
+}
 
-/**
-* Retrieve a specific flag by its slug
-* @param slug - Unique identifier for the flag
-* @returns Flag details
-* @throws {Error} If slug is not provided
-*/
-const flag = await client.getFlag("header");
+/** SDK Configuration Options */
+export interface SDKConfig {
+  /** Base URL for the feature flag service (optional) */
+  baseURL?: string;
+  /** Project identification key (required) */
+  projectKey: string;
+  /** Environment identification key (required) */
+  environmentKey: string;
+  /** Caching configuration options */
+  cache?: CacheConfig;
+  /** Custom fetch implementation (optional) */
+  fetchImpl?: typeof fetch;
+  /** Flags to preload during initialization */
+  preloadFlags?: string[];
+}
 
 /** Feature flag data structure */
 export interface Flag {

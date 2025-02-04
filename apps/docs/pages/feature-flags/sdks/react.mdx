@@ -4,24 +4,21 @@ description: Integration with React helps and facilitates the process of testing
 tags: Basestack, Feature Flags, React, SDK, Hooks, Components, State, Async, Flags, Flag, Initialize, Methods, Reference, Examples
 ---
 
-# React SDK Reference
+import { Callout, FileTree } from "nextra/components";
 
-Integration with React or NextJS helps and facilitates the process of testing and developing features in production and other environments.
+# React & NextJS SDK Reference
+
+Integration with [React ↗](https://react.dev/?ref=basestack.co) or [NextJS ↗](https://nextjs.org/?ref=basestack.co) helps and facilitates the process of testing and developing features in production and other environments.
 
 ## Getting started
 
-    For React and Next.js, we chose not to create a separate SDK, as it would
-    essentially act as a wrapper for our JavaScript SDK. Instead, we’ll show you
-    how to fully utilize the JavaScript SDK within a React or Next.js project.
-    This approach ensures you can access all the features of a React SDK without
-    needing to install additional packages. One key advantage is that you retain
-    complete control over the code, allowing you to extend its functionality with
-    custom implementations.
-
-### Examples
-
-- [react-js](https://github.com/basestack-co/examples/tree/main/feature-flags/react-js)
-- [next-js](https://github.com/basestack-co/examples/tree/main/feature-flags/next-js)
+For [React ↗](https://react.dev/?ref=basestack.co) and [NextJS ↗](https://nextjs.org/?ref=basestack.co), we chose not to create a separate SDK, as it would
+essentially act as a wrapper for our [JavaScript SDK](/feature-flags/sdks/javascript). Instead, we’ll show you
+how to fully use the JavaScript SDK within a React or Next.js project.
+This approach ensures you can access all the features of a React SDK without
+needing to install additional packages. One key advantage is that you retain
+complete control over the code, allowing you to extend its functionality with
+custom implementations.
 
 ### Install
 
@@ -35,12 +32,30 @@ npm i @basestack/flags-js
 
 Inside the `feature-flags` folder, create the following files and folders:
 
-- index.tsx
-- server.ts
-- `hooks` folder
-  - useFlag.tsx
-  - useFlags.tsx
-  - index.ts
+<FileTree>
+  <FileTree.Folder name="src" defaultOpen>
+    <FileTree.Folder name="libs" defaultOpen>
+      <FileTree.Folder name="feature-flags" defaultOpen>
+        <FileTree.Folder name="hooks" defaultOpen>
+          <FileTree.File name="useFlag.tsx" />
+          <FileTree.File name="useFlags.tsx" />
+          <FileTree.File name="index.ts" />
+        </FileTree.Folder>
+        <FileTree.File name="index.tsx" />
+        <FileTree.File name="server.ts" />
+      </FileTree.Folder>
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
+
+Let's start by creating a Provider. In React, a Provider is a component that allows you to pass down data or state to all components within its tree without having to manually pass props at every level. This will enable you to use the hooks created below anywhere in your components.
+
+In summary, this Provider initializes the `FlagsSDK, collects all the Feature Flags for a given environment to make them available in the context, and helps determine whether the Feature Flags have been initialized.
+
+<Callout type="info" emoji="ℹ️">
+  If you are only using React or Next.js in the Pages Router, you can remove the
+  `“use client”` directive from the page.
+</Callout>
 
 ```tsx copy filename="src/libs/feature-flags/index.tsx"
 "use client";
@@ -129,6 +144,8 @@ const FeatureFlagsProvider: React.FC<ProviderProps> = ({
 export default FeatureFlagsProvider;
 ```
 
+The `FlagsSDK` is versatile and can be used in various environments, including Node, Serverless environments, API Routes, Server Components, and API Endpoints. To avoid repeatedly initializing the client with environment variables, you can use the file below to simplify the process. Simply call this file as shown in the `usage` example below.
+
 ```ts copy filename="src/libs/feature-flags/server.ts"
 import { FlagsSDK, SDKConfig } from "@basestack/flags-react";
 
@@ -148,6 +165,8 @@ export class ServerFlagsSDK {
   }
 }
 ```
+
+This hook, `useFlag`, is used to validate a Feature Flag by searching for a specific flag. It returns the necessary information for the specified flag. See the usage example below. You can customize or modify this hook to fit your requirements.
 
 ```tsx copy filename="src/libs/feature-flags/hooks/useFlag.tsx"
 "use client";
@@ -208,6 +227,8 @@ export const useFlag = <P = Record<string, unknown>,>(slug: string) => {
   );
 };
 ```
+
+This hook, as the name suggests, is used to retrieve all the Feature Flags for a given environment. It can be used to display a list, perform new searches, or apply filtering.
 
 ```tsx copy filename="src/libs/feature-flags/hooks/useFlags.tsx"
 "use client";
@@ -276,6 +297,8 @@ export const useFlags = (): UseFlagsResult => {
 };
 ```
 
+Finally, export all the created hooks to make them easy to import. For example: `import { useFlag, useFlags } from "@/libs/feature-flags/hooks";`
+
 ```ts copy filename="src/libs/feature-flags/hooks/index.ts"
 export * from "./useFlag";
 export * from "./useFlags";
@@ -319,7 +342,13 @@ Your app is now fully equipped to take advantage of feature flags and other powe
 
 ### Usage
 
+The examples demonstrate how to integrate the provided code into your project. If you find that an important example is missing, please open an issue at the following [link](https://github.com/basestack-co/basestack/issues).
+
 #### In a React Component
+
+Use hooks in React components to fetch a single Feature Flag or all Feature Flags.
+
+To support types in the payload defined in the Dashboard within the _useFlag hook_, use the following syntax: `useFlag<YourPayloadType>`.
 
 ```tsx copy filename="src/app/page.tsx"
 "use client";
@@ -362,6 +391,8 @@ export default function Home() {
 
 #### In a API Route Handler
 
+On the server side, use the _server file_ that already has the `FlagsSDK` initialized. Use this file wherever the server is needed, such as in API Routes, Server Components, API Endpoints, etc.
+
 ```ts copy filename="src/app/api/count/route.ts"
 import { ServerFlagsSDK } from "@/libs/feature-flags/server";
 
@@ -374,7 +405,6 @@ export async function GET() {
   return Response.json({ data, flag });
 }
 ```
-
 
 ## Initialisation options
 
@@ -393,12 +423,16 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <FlagsProvider
-      sdk={sdk}
-      onSuccessfulInit={() => console.log("Successful Init FlagsJS SDK")}
+    <FeatureFlagsProvider
+      config={{
+        baseURL: process.env.NEXT_PUBLIC_FEATURE_FLAGS_BASE_URL,
+        projectKey: process.env.NEXT_PUBLIC_FEATURE_FLAGS_PROJECT_KEY!,
+        environmentKey:
+          process.env.NEXT_PUBLIC_FEATURE_FLAGS_ENVIRONMENT_KEY!,
+      }}
     >
-      <App />
-    </FlagsProvider>
+        <App />
+    </FeatureFlagsProvider>
   </React.StrictMode>,
 );
 ```
