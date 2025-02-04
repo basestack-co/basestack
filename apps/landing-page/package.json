@@ -22,9 +22,9 @@
     "@basestack/utils": "*",
     "@floating-ui/react": "^0.27.3",
     "@hookform/resolvers": "^3.10.0",
-    "babel-plugin-react-compiler": "^19.0.0-beta-decd7b8-20250118",
+    "babel-plugin-react-compiler": "^19.0.0-beta-714736e-20250131",
     "eslint-config-next": "^15.1.6",
-    "material-symbols": "^0.28.0",
+    "material-symbols": "^0.28.1",
     "next": "^15.1.6",
     "next-intl": "^3.26.3",
     "polished": "^4.3.1",
@@ -47,7 +47,7 @@
     "@testing-library/react": "^16.2.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.10.10",
+    "@types/node": "^22.13.1",
     "@types/react": "19.0.8",
     "@types/react-dom": "^19.0.3",
     "@types/react-syntax-highlighter": "^15.5.13",
@@ -58,9 +58,9 @@
     "jest-fetch-mock": "^3.0.3",
     "jest-mock-extended": "4.0.0-beta1",
     "jest-styled-components": "^7.2.0",
-    "lint-staged": "^15.4.2",
+    "lint-staged": "^15.4.3",
     "node-mocks-http": "^1.16.2",
-    "turbo": "2.3.4",
+    "turbo": "2.4.0",
     "typescript": "^5.7.3"
   }
 }

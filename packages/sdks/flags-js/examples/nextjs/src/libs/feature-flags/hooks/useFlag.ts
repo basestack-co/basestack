@@ -16,8 +16,6 @@ export const useFlag = <P = Record<string, unknown>>(slug: string) => {
   }
 
   useEffect(() => {
-    let isMounted = true;
-
     const fetchFlag = async () => {
       if (!context.isInitialized || !context.client) return;
 
@@ -25,25 +23,22 @@ export const useFlag = <P = Record<string, unknown>>(slug: string) => {
         if (context.flags.length > 0) {
           const foundFlag = context.flags.find((f) => f.slug === slug);
           if (foundFlag) {
-            isMounted && setFlag(foundFlag);
+            setFlag(foundFlag);
           } else {
-            isMounted && setError(new Error(`Flag "${slug}" not found`));
+            setError(new Error(`Flag "${slug}" not found`));
           }
         } else {
           const fetchedFlag = await context.client.getFlag(slug);
-          isMounted && setFlag(fetchedFlag);
+          setFlag(fetchedFlag);
         }
       } catch (err) {
-        isMounted &&
-          setError(err instanceof Error ? err : new Error(String(err)));
+        setError(err instanceof Error ? err : new Error(String(err)));
       }
     };
 
-    fetchFlag();
+    void fetchFlag();
 
-    return () => {
-      isMounted = false;
-    };
+    return () => {};
   }, [context.isInitialized, context.client, context.flags, slug]);
 
   return useMemo(

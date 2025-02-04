@@ -61,7 +61,7 @@ In summary, this Provider initializes the `FlagsSDK, collects all the Feature Fl
 "use client";
 
 import React, { createContext, useEffect, useMemo, useState } from "react";
-import { FlagsSDK, Flag, SDKConfig } from "@basestack/flags-react";
+import { FlagsSDK, Flag, SDKConfig } from "@basestack/flags-js";
 
 interface ContextState {
   client: FlagsSDK;
@@ -146,8 +146,15 @@ export default FeatureFlagsProvider;
 
 The `FlagsSDK` is versatile and can be used in various environments, including Node, Serverless environments, API Routes, Server Components, and API Endpoints. To avoid repeatedly initializing the client with environment variables, you can use the file below to simplify the process. Simply call this file as shown in the `usage` example below.
 
+<Callout type="info" emoji="ℹ️">
+  When it comes to environment variables, pay attention to the framework you're
+  using. For example, `NEXT_PUBLIC_` is specific to Next.js, while in
+  [Vite.js](https://vite.dev/?ref=basestack.co), it would be `VITE_`. Example
+  `VITE_FEATURE_FLAGS_BASE_URL=` or Node.js `FEATURE_FLAGS_BASE_URL=`
+</Callout>
+
 ```ts copy filename="src/libs/feature-flags/server.ts"
-import { FlagsSDK, SDKConfig } from "@basestack/flags-react";
+import { FlagsSDK, SDKConfig } from "@basestack/flags-js";
 
 export class ServerFlagsSDK {
   private static instance: FlagsSDK;
@@ -155,6 +162,8 @@ export class ServerFlagsSDK {
     baseURL: process.env.NEXT_PUBLIC_FEATURE_FLAGS_BASE_URL,
     projectKey: process.env.NEXT_PUBLIC_FEATURE_FLAGS_PROJECT_KEY!,
     environmentKey: process.env.NEXT_PUBLIC_FEATURE_FLAGS_ENVIRONMENT_KEY!,
+    // This is an example of how to use environment variables in Vite.js
+    // environmentKey: import.meta.env.VITE_FEATURE_FLAGS_ENVIRONMENT_KEY!,
   };
 
   public static getInstance(): FlagsSDK {
@@ -174,7 +183,7 @@ This hook, `useFlag`, is used to validate a Feature Flag by searching for a spec
 import { useContext, useEffect, useState, useMemo } from "react";
 // Feature Flags Context
 import { FeatureFlagsContext } from "@/libs/feature-flags";
-import { Flag } from "@basestack/flags-react";
+import { Flag } from "@basestack/flags-js";
 
 export const useFlag = <P = Record<string, unknown>,>(slug: string) => {
   const context = useContext(FeatureFlagsContext);
@@ -186,8 +195,6 @@ export const useFlag = <P = Record<string, unknown>,>(slug: string) => {
   }
 
   useEffect(() => {
-    let isMounted = true;
-
     const fetchFlag = async () => {
       if (!context.isInitialized || !context.client) return;
 
@@ -195,25 +202,22 @@ export const useFlag = <P = Record<string, unknown>,>(slug: string) => {
         if (context.flags.length > 0) {
           const foundFlag = context.flags.find((f) => f.slug === slug);
           if (foundFlag) {
-            isMounted && setFlag(foundFlag);
+            setFlag(foundFlag);
           } else {
-            isMounted && setError(new Error(`Flag "${slug}" not found`));
+            setError(new Error(`Flag "${slug}" not found`));
           }
         } else {
           const fetchedFlag = await context.client.getFlag(slug);
-          isMounted && setFlag(fetchedFlag);
+          setFlag(fetchedFlag);
         }
       } catch (err) {
-        isMounted &&
-          setError(err instanceof Error ? err : new Error(String(err)));
+        setError(err instanceof Error ? err : new Error(String(err)));
       }
     };
 
-    fetchFlag();
+    void fetchFlag();
 
-    return () => {
-      isMounted = false;
-    };
+    return () => {};
   }, [context.isInitialized, context.client, context.flags, slug]);
 
   return useMemo(
@@ -236,7 +240,7 @@ This hook, as the name suggests, is used to retrieve all the Feature Flags for a
 import { useContext, useEffect, useState, useMemo } from "react";
 // Feature Flags Context
 import { FeatureFlagsContext } from "@/libs/feature-flags";
-import { Flag } from "@basestack/flags-react";
+import { Flag } from "@basestack/flags-js";
 
 interface FlagsState {
   flags: Flag[];
@@ -257,34 +261,27 @@ export const useFlags = (): UseFlagsResult => {
   }
 
   useEffect(() => {
-    if (!context.isInitialized || !context.client) {
-      return;
-    }
+    if (!context.isInitialized || !context.client) return;
 
     if (context.flags.length > 0) {
       setFlags({ flags: context.flags });
       return;
     }
 
-    let isMounted = true;
-
     context.client
       .getAllFlags()
-      .then((result) => {
-        if (isMounted) {
-          setFlags(result);
-        }
-      })
-      .catch((err) => {
-        if (isMounted) {
-          setError(err instanceof Error ? err : new Error(String(err)));
-        }
-      });
+      .then((result) => setFlags(result))
+      .catch((err) =>
+        setError(err instanceof Error ? err : new Error(String(err))),
+      );
 
-    return () => {
-      isMounted = false;
-    };
-  }, [context.isInitialized, context.client, context.flags.length]);
+    return () => {};
+  }, [
+    context.isInitialized,
+    context.client,
+    context.flags.length,
+    context.flags,
+  ]);
 
   return useMemo(
     () => ({

@@ -22,7 +22,7 @@ export const javascriptCode = `
  `;
 
 export const reactCode = `
-    import { useFlag } from "@basestack/flags-react";
+    import { useFlag } from "@/libs/feature-flags";
      
     const AppComponent = () => {
       const { enabled } = useFlag("private_msg_2");

@@ -1,7 +1,7 @@
 {
   "name": "@basestack/flags-js",
   "description": "Easily integrate with Vanilla JavaScript to streamline feature testing and development across various environments, including production.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Basestack",
   "type": "module",
   "main": "./dist/index.js",

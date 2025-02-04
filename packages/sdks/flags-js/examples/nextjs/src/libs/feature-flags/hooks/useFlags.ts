@@ -25,34 +25,27 @@ export const useFlags = (): UseFlagsResult => {
   }
 
   useEffect(() => {
-    if (!context.isInitialized || !context.client) {
-      return;
-    }
+    if (!context.isInitialized || !context.client) return;
 
     if (context.flags.length > 0) {
       setFlags({ flags: context.flags });
       return;
     }
 
-    let isMounted = true;
-
     context.client
       .getAllFlags()
-      .then((result) => {
-        if (isMounted) {
-          setFlags(result);
-        }
-      })
-      .catch((err) => {
-        if (isMounted) {
-          setError(err instanceof Error ? err : new Error(String(err)));
-        }
-      });
+      .then((result) => setFlags(result))
+      .catch((err) =>
+        setError(err instanceof Error ? err : new Error(String(err))),
+      );
 
-    return () => {
-      isMounted = false;
-    };
-  }, [context.isInitialized, context.client, context.flags.length]);
+    return () => {};
+  }, [
+    context.isInitialized,
+    context.client,
+    context.flags.length,
+    context.flags,
+  ]);
 
   return useMemo(
     () => ({
