@@ -6,10 +6,17 @@ export const dynamic = "auto";
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET",
+  "Access-Control-Allow-Methods": "GET,OPTIONS",
   "Access-Control-Allow-Headers":
-    "Content-Type, Origin, Accept, X-Environment-Key, X-Project-Key",
+    "Content-Type,Origin,Accept,X-Environment-Key,X-Project-Key",
 };
+
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers,
+  });
+}
 
 export async function GET(req: Request) {
   try {

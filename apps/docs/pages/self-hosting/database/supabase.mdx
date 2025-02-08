@@ -6,14 +6,14 @@ tags: Supabase, Postgres, Configuration Guide, Open-Source, Serverless, Cloud, D
 
 # Supabase Postgres Configuration Guide
 
-[Supabase ↗](https://neon.tech/) is an open-source backend-as-a-service (BaaS) platform that provides developers with a suite of tools to build and manage their applications. It offers a real-time database, authentication, storage, and more, making it a popular choice for developers who want to quickly set up a scalable backend without managing the infrastructure themselves.
+[Supabase ↗](https://supabase.com/?ref=basestack.co) is an open-source backend-as-a-service (BaaS) platform that provides developers with a suite of tools to build and manage their applications. It offers a real-time database, authentication, storage, and more, making it a popular choice for developers who want to quickly set up a scalable backend without managing the infrastructure themselves.
 
 Supabase offers a PostgreSQL database. PostgreSQL is a powerful, open-source relational database management system known for its robustness, scalability, and feature set.
 
 For detailed guidance on how to implement this, please follow the official links from the provider.
 
-- [Register for a free account](https://supabase.com/dashboard/sign-in?returnTo=/projects)
-- [Documentation](https://supabase.com/docs)
+- [Register for a free account](https://supabase.com/dashboard/sign-in?returnTo=/projects?ref=basestack.co)
+- [Documentation](https://supabase.com/docs?ref=basestack.co)
 
 ### Database URL vs Direct Database URL
 
@@ -21,7 +21,7 @@ Our platform requires a direct connection to the database for conducting migrati
 
 ### Supabase & Prisma
 
-We use [Prisma ORM ↗](https://www.prisma.io/) in our project, which requires a direct connection to the database for migrations. Supabase supports both pooled and direct connections to the same database, configurable via Environment Variables for deploying our platform. Follow this official guide on integrating [Supabase with Prisma ↗](https://supabase.com/partners/integrations/prisma). Obtaining your Postgres connection string from your Supabase dashboard should be a straightforward process. The guide emphasizes the importance of using a direct connection for migrations.
+We use [Prisma ORM ↗](https://www.prisma.io/?ref=basestack.co) in our project, which requires a direct connection to the database for migrations. Supabase supports both pooled and direct connections to the same database, configurable via Environment Variables for deploying our platform. Follow this official guide on integrating [Supabase with Prisma ↗](https://supabase.com/partners/integrations/prisma). Obtaining your Postgres connection string from your Supabase dashboard should be a straightforward process. The guide emphasizes the importance of using a direct connection for migrations.
 
 ### Self-Hosting Environment Variables
 

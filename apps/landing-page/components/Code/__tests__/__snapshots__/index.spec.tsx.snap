@@ -268,7 +268,7 @@ exports[`Code tests should render Code correctly 1`] = `
               <span
                 style="color: rgb(171, 227, 56);"
               >
-                "@basestack/flags-react"
+                "@/libs/feature-flags"
               </span>
               <span>
                 ;

@@ -1,19 +1,30 @@
 {
   "name": "@basestack/flags-js",
-  "version": "1.0.2",
+  "description": "Easily integrate with Vanilla JavaScript to streamline feature testing and development across various environments, including production.",
+  "version": "1.0.3",
   "author": "Basestack",
+  "type": "module",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "source": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "sideEffects": false,
   "files": [
     "dist/**",
     "src"
   ],
   "license": "AGPL-3.0",
   "scripts": {
-    "build": "tsup src/index.ts --dts",
-    "dev": "tsup src/index.ts --watch --dts",
+    "dev": "tsc --watch",
+    "build": "tsc && terser ./dist/index.js -o ./dist/index.min.js",
     "test:blocked": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
@@ -33,17 +44,8 @@
     "type": "git",
     "url": "git+https://github.com/basestack-co/basestack.git"
   },
-  "description": "",
-  "dependencies": {
-    "cross-fetch": "^4.0.0",
-    "zustand": "^4.5.1"
-  },
   "devDependencies": {
-    "@basestack/config": "*",
-    "@basestack/tsconfig": "*",
-    "@swc/core": "^1.4.2",
-    "@types/node": "^20.11.24",
-    "tsup": "^8.0.2",
+    "terser": "^5.37.0",
     "typescript": "^5.7.2"
   }
 }

@@ -8,7 +8,7 @@ import { Callout } from "nextra/components";
 
 # Deploy to Render
 
-[Render ↗](https://render.com/) is a cloud platform that simplifies and accelerates the deployment and scaling of web applications, databases, and other services. It offers a range of features including one-click deployments, automatic scaling, support for multiple programming languages, and seamless integration with popular development tools and frameworks.
+[Render ↗](https://render.com/?ref=basestack.co) is a cloud platform that simplifies and accelerates the deployment and scaling of web applications, databases, and other services. It offers a range of features including one-click deployments, automatic scaling, support for multiple programming languages, and seamless integration with popular development tools and frameworks.
 
 The project includes a `render.yaml` configuration file that outlines all the essential services required to operate the platform. This encompasses the database service, the pgbouncer service, and, lastly, the dashboard for each service. This configuration has been meticulously designed to streamline the deployment process on Render, ensuring a seamless setup.
 
@@ -21,12 +21,12 @@ The project includes a `render.yaml` configuration file that outlines all the es
 
 ## Getting started
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/basestack-co/basestack)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/basestack-co/basestack?ref=basestack.co)
 
 Here are the steps to deploy the platform on Render.com:
 
 1. Fork the platform to your GitHub account.
-2. Log in to [Render.com ↗](https://render.com/).
+2. Log in to [Render.com ↗](https://render.com/?ref=basestack.co).
 3. Click the `New +` button, then select `Blueprint` from the menu.
 4. Connect your GitHub account and choose the forked platform repository.
 5. Follow the on-screen instructions to set up the necessary Environment Variables and click "Apply."
@@ -38,12 +38,12 @@ To ensure a successful deployment on Render, the platform requires a minimum set
 
 | Property               | Description                                                                                              |
 | ---------------------- | -------------------------------------------------------------------------------------------------------- |
-| `DATABASE_URL`         | Connection URL to your database using [PgBouncer](https://render.com/docs/databases#connection-pooling). |
+| `DATABASE_URL`         | Connection URL to your database using [PgBouncer](https://render.com/docs/databases#connection-pooling?ref=basestack.co). |
 | `DIRECT_DATABASE_URL`  | Direct connection URL to the database used for migrations                                                |
 | `AUTH_SECRET`      | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens.                              |
 | `AUTH_URL`         | Set to the canonical URL of your site                                                                    |
-| `GITHUB_CLIENT_ID`     | Client Id generated in the [OAuth App](https://github.com/settings/developers) creation                  |
-| `GITHUB_CLIENT_SECRET` | Client Secret generated in the [OAuth App](https://github.com/settings/developers) creation              |
+| `GITHUB_CLIENT_ID`     | Client Id generated in the [OAuth App](https://github.com/settings/developers?ref=basestack.co) creation                  |
+| `GITHUB_CLIENT_SECRET` | Client Secret generated in the [OAuth App](https://github.com/settings/developers?ref=basestack.co) creation              |
 
 <Callout type="info" emoji="ℹ️">
   For the `AUTH_SECRET` variable you can use `openssl rand -base64 32` or
@@ -60,7 +60,7 @@ Begin by familiarizing yourself with the platform. Lastly, stay tuned about upda
 
 If you don't have a domain yet, feel free to leave the fields below empty or use dummy information. Proceed with the deployment as usual. Once the deployment is complete, Render will generate a URL for your project.
 
-Copy this URL and update the information in your [Github ↗](https://github.com/) [OAuth App](https://github.com/settings/developers). Next, modify the environment variables in the project settings on Render and initiate a new deployment on Render once again.
+Copy this URL and update the information in your [Github ↗](https://github.com/) [OAuth App](https://github.com/settings/developers?ref=basestack.co). Next, modify the environment variables in the project settings on Render and initiate a new deployment on Render once again.
 
 **Environment Variables:**
 
