@@ -20,7 +20,7 @@
     "@basestack/design-system": "*",
     "@basestack/hooks": "*",
     "@basestack/utils": "*",
-    "@floating-ui/react": "^0.27.3",
+    "@floating-ui/react": "^0.27.4",
     "@hookform/resolvers": "^3.10.0",
     "babel-plugin-react-compiler": "^19.0.0-beta-714736e-20250131",
     "eslint-config-next": "^15.1.6",
@@ -34,9 +34,9 @@
     "react-spring": "^9.7.5",
     "react-syntax-highlighter": "^15.5.0",
     "react-use": "^17.6.0",
-    "styled-components": "^6.1.14",
+    "styled-components": "^6.1.15",
     "styled-system": "^5.1.5",
-    "stylis": "^4.3.5",
+    "stylis": "^4.3.6",
     "zod": "^3.24.1"
   },
   "devDependencies": {
