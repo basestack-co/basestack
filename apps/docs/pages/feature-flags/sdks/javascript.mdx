@@ -6,9 +6,11 @@ tags: Basestack, Feature Flags, JavaScript, SDK, Vanilla, Node, TypeScript, Stat
 
 import { Steps, Callout } from "nextra/components";
 
-# JavaScript & Node SDK Reference
+# JavaScript & Node SDK Reference (v1.0.3)
 
 Seamless integration with JavaScript/NodeJS streamlines the testing and development of features across production and various environments. This SDK effortlessly integrates into any JavaScript-based environment, allowing you to leverage this capability in projects like Vue, Svelte, or other JavaScript frameworks.
+
+## Getting started
 
 <Callout type="info" emoji="ℹ️">
   We only support ESM (ECMAScript Modules) in the browser or server environment.
@@ -17,7 +19,10 @@ Seamless integration with JavaScript/NodeJS streamlines the testing and developm
   [Rollup](https://rollupjs.org/?ref=basestack.co) to bundle your code.
 </Callout>
 
-## Getting started
+#### Examples
+
+- [Hono + NodeJS](https://github.com/basestack-co/examples/tree/main/feature-flags/hono)
+- [Vanilla + TypeScript + Vite](https://github.com/basestack-co/examples/tree/main/feature-flags/vanilla-ts)
 
 <Steps>
   ### Install
@@ -25,13 +30,31 @@ Seamless integration with JavaScript/NodeJS streamlines the testing and developm
 First, let's install some packages!
 
 ```sh copy npm2yarn
-npm i @basestack/flags-js
+npm install @basestack/flags-js
 ```
 
 or with Script Tag
 
 ```js copy
 <script type="module" src="https://unpkg.com/@basestack/flags-js"></script>
+```
+
+### Environment Variables
+
+Here are the example environment variables needed for this guide. Feel free to rename them according to your project's requirements:
+
+<Callout type="info" emoji="ℹ️">
+  When it comes to environment variables, pay attention to the framework you're
+  using. For example, `NEXT_PUBLIC_` is specific to Next.js, while in
+  [Vite.js](https://vite.dev/?ref=basestack.co), it would be `VITE_`. Example
+  `VITE_FEATURE_FLAGS_BASE_URL=` or Node.js `FEATURE_FLAGS_BASE_URL=`
+</Callout>
+
+```bash copy filename=".env"
+# BASESTACK FEATURE FLAGS
+FEATURE_FLAGS_BASE_URL="https://flags.basestack.co//api/v1" # or your own URL
+FEATURE_FLAGS_PROJECT_KEY=""
+FEATURE_FLAGS_ENVIRONMENT_KEY=""
 ```
 
 ### Create a new instance

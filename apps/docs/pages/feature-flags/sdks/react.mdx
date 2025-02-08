@@ -20,12 +20,36 @@ needing to install additional packages. One key advantage is that you retain
 complete control over the code, allowing you to extend its functionality with
 custom implementations.
 
+#### Examples
+
+- [React (Vite + TypeScript)](https://github.com/basestack-co/examples/tree/main/feature-flags/react-ts)
+- [Next,js (Pages Router)](https://github.com/basestack-co/examples/tree/main/feature-flags/nextjs-pages-router)
+- [Next,js (App Router)](https://github.com/basestack-co/examples/tree/main/feature-flags/nextjs-app-router)
+
 ### Install
 
 First, let's install some packages!
 
 ```sh copy npm2yarn
-npm i @basestack/flags-js
+npm install @basestack/flags-js
+```
+
+### Environment Variables
+
+Here are the example environment variables needed for this guide. Feel free to rename them according to your project's requirements:
+
+<Callout type="info" emoji="ℹ️">
+  When it comes to environment variables, pay attention to the framework you're
+  using. For example, `NEXT_PUBLIC_` is specific to Next.js, while in
+  [Vite.js](https://vite.dev/?ref=basestack.co), it would be `VITE_`. Example
+  `VITE_FEATURE_FLAGS_BASE_URL=` or Node.js `FEATURE_FLAGS_BASE_URL=`
+</Callout>
+
+```bash copy filename=".env"
+# BASESTACK FEATURE FLAGS
+NEXT_PUBLIC_FEATURE_FLAGS_BASE_URL="https://flags.basestack.co//api/v1" # or your own URL
+NEXT_PUBLIC_FEATURE_FLAGS_PROJECT_KEY=""
+NEXT_PUBLIC_FEATURE_FLAGS_ENVIRONMENT_KEY=""
 ```
 
 ### Create a new folder called `feature-flags` in the `src/libs` directory
@@ -46,6 +70,7 @@ Inside the `feature-flags` folder, create the following files and folders:
       </FileTree.Folder>
     </FileTree.Folder>
   </FileTree.Folder>
+  <FileTree.File name=".env" />
 </FileTree>
 
 Let's start by creating a Provider. In React, a Provider is a component that allows you to pass down data or state to all components within its tree without having to manually pass props at every level. This will enable you to use the hooks created below anywhere in your components.
@@ -145,13 +170,6 @@ export default FeatureFlagsProvider;
 ```
 
 The `FlagsSDK` is versatile and can be used in various environments, including Node, Serverless environments, API Routes, Server Components, and API Endpoints. To avoid repeatedly initializing the client with environment variables, you can use the file below to simplify the process. Simply call this file as shown in the `usage` example below.
-
-<Callout type="info" emoji="ℹ️">
-  When it comes to environment variables, pay attention to the framework you're
-  using. For example, `NEXT_PUBLIC_` is specific to Next.js, while in
-  [Vite.js](https://vite.dev/?ref=basestack.co), it would be `VITE_`. Example
-  `VITE_FEATURE_FLAGS_BASE_URL=` or Node.js `FEATURE_FLAGS_BASE_URL=`
-</Callout>
 
 ```ts copy filename="src/libs/feature-flags/server.ts"
 import { FlagsSDK, SDKConfig } from "@basestack/flags-js";
@@ -341,7 +359,7 @@ Your app is now fully equipped to take advantage of feature flags and other powe
 
 The examples demonstrate how to integrate the provided code into your project. If you find that an important example is missing, please open an issue at the following [link](https://github.com/basestack-co/basestack/issues).
 
-#### In a React Component
+#### React Component
 
 Use hooks in React components to fetch a single Feature Flag or all Feature Flags.
 
@@ -386,7 +404,7 @@ export default function Home() {
 }
 ```
 
-#### In a API Route Handler
+#### API Route Handler (App Router)
 
 On the server side, use the _server file_ that already has the `FlagsSDK` initialized. Use this file wherever the server is needed, such as in API Routes, Server Components, API Endpoints, etc.
 
@@ -400,6 +418,91 @@ export async function GET() {
   const data = await flagsClient.getAllFlags();
 
   return Response.json({ data, flag });
+}
+```
+
+#### API Endpoint (Pages Router)
+
+Here's an example of using the server instance in a Next.js Pages Router API endpoint:
+
+```ts copy filename="src/pages/api/hello.ts"
+import type { NextApiRequest, NextApiResponse } from "next";
+import { ServerFlagsSDK } from "@/libs/feature-flags/server";
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
+  const flagsClient = ServerFlagsSDK.getInstance();
+
+  const flag = await flagsClient.getFlag("count");
+  const data = await flagsClient.getAllFlags();
+
+  res.status(200).json({ data, flag });
+}
+```
+
+#### Server Component
+
+You can use the server instance in any server-side context, including `Server Components` in Next.js.
+
+```tsx copy filename="src/app/count/page.tsx"
+import { ServerFlagsSDK } from "@/libs/feature-flags/server";
+
+export default async function Page() {
+  const flagsClient = ServerFlagsSDK.getInstance();
+  const data = await flagsClient.getAllFlags();
+
+  return (
+    <div>
+      <h3>All the available flags in server component</h3>
+      <ul>
+        {data.flags.map((flag, index) => {
+          return (
+            <li key={index}>{`Slug: ${flag.slug} Enabled: ${flag.enabled}`}</li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+```
+
+#### Direct Call with Context
+
+You can access the client directly through the context, providing more control when working with useEffect, onClick handlers, or other scenarios where direct access is needed.
+
+```tsx copy filename="src/app/posts/page.tsx"
+"use client";
+
+import { useState, useEffect, useContext } from "react";
+// Feature Flags Context
+import { FeatureFlagsContext } from "@/libs/feature-flags";
+import { Flag } from "@basestack/flags-js";
+
+export default function Posts() {
+  const [flags, setFlags] = useState<Flag[]>([]);
+  const context = useContext(FeatureFlagsContext);
+
+  useEffect(() => {
+    async function fetchAllFlags() {
+      const data = await context?.client.getAllFlags();
+      setFlags(data?.flags ?? []);
+    }
+    fetchAllFlags();
+  }, []);
+
+  if (!flags) return <div>Loading...</div>;
+
+  return (
+    <ul>
+      {flags.map((flag, index) => {
+        return (
+          <li key={index}>{`Slug: ${flag.slug} Enabled: ${flag.enabled}`}</li>
+        );
+      })}
+    </ul>
+  );
 }
 ```
 
