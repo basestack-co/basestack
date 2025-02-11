@@ -5,7 +5,7 @@ import React from "react";
 import {
   GlobalNavigation,
   Footer,
-  Hero,
+  AppsHero,
   Cards,
   Slider,
   Code,
@@ -19,7 +19,7 @@ const LandingPage = () => {
   return (
     <>
       <GlobalNavigation />
-      <Hero
+      <AppsHero
         title="Develop faster with Basestack"
         text="The Open-Source Stack for Developers and Startups"
         image={{

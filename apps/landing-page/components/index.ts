@@ -11,3 +11,4 @@ export { default as Code } from "./Code";
 export { default as WaitingList } from "./WaitingList";
 export { default as GlobalNavigation } from "./GlobalNavigation";
 export { default as ProductNavigation } from "./ProductNavigation";
+export { default as AppsHero } from "./AppsHero";

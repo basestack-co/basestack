@@ -28,7 +28,7 @@ export const Embla = styled.div`
   margin: auto;
 `;
 
-export const EmblaViewport = styled.ul`
+export const EmblaViewport = styled.div`
   overflow: hidden;
   padding: 0 ${({ theme }) => theme.spacing.s5}
     ${({ theme }) => theme.spacing.s2} ${({ theme }) => theme.spacing.s5};

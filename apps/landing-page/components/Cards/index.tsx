@@ -46,7 +46,7 @@ const Cards = ({ title, text, cards, id = "card" }: CardsProps) => {
           <EmblaViewport ref={emblaRef}>
             <EmblaContainer>
               {cards?.map((card, index) => (
-                <EmblaSlide className="embla__slide" key={index}>
+                <EmblaSlide key={index}>
                   <Card
                     key={index}
                     title={card.title}

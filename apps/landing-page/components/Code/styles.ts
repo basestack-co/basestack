@@ -4,7 +4,14 @@ import { rem } from "polished";
 export const Container = styled.section`
   display: flex;
   flex-direction: column;
-  padding: ${rem("100px")} ${({ theme }) => theme.spacing.s5};
+  padding: ${rem("100px")} 0;
+`;
+
+export const HeaderContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 ${({ theme }) => theme.spacing.s5};
 `;
 
 export const ContentContainer = styled.div`
@@ -16,48 +23,59 @@ export const ContentContainer = styled.div`
   margin: 0 auto;
 `;
 
-export const CodeHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 48px;
-  padding-left: ${({ theme }) => theme.spacing.s2};
-  gap: ${({ theme }) => theme.spacing.s5};
-`;
-
-export const Circles = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.s2};
-`;
-
-export const Circle = styled.div<{ color: string }>`
-  height: 10px;
-  width: 10px;
-  border-radius: 50%;
-  background-color: ${({ color }) => color};
-`;
-
-export const CodeContainer = styled.div`
+export const Card = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 780px;
-  margin: 0 auto;
+  border: none;
+  padding: ${({ theme }) => theme.spacing.s6};
   border-radius: ${rem("8px")};
-  overflow: hidden;
-  font-size: ${rem("16px")};
+  transition: all 0.2s ease-in-out;
+  fill: ${({ theme }) =>
+    theme.isDarkMode ? theme.colors.gray300 : theme.colors.black};
   box-shadow: ${({ theme }) => theme.shadow.elevation3};
-  background: ${({ theme }) =>
+  background-color: ${({ theme }) =>
     theme.isDarkMode ? theme.colors.gray800 : theme.colors.white};
-  padding: 0 ${({ theme }) => theme.spacing.s5}
-    ${({ theme }) => theme.spacing.s5} ${({ theme }) => theme.spacing.s5};
+`;
 
-  pre {
-    min-height: 362px;
-    border-radius: 4px;
-    padding: 0 !important;
-    background: ${({ theme }) =>
-      theme.isDarkMode ? theme.colors.gray800 : theme.colors.white} !important;
+export const Embla = styled.div`
+  max-width: ${rem("1100px")};
+  width: 100%;
+  margin: auto;
+`;
+
+export const EmblaViewport = styled.div`
+  overflow: hidden;
+  padding: 0 ${({ theme }) => theme.spacing.s5}
+    ${({ theme }) => theme.spacing.s2} ${({ theme }) => theme.spacing.s5};
+`;
+
+export const EmblaContainer = styled.ul`
+  backface-visibility: hidden;
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  margin-left: ${rem("-20px")};
+
+  @media screen and ${({ theme }) => theme.device.max.xl} {
+    margin-left: ${rem("-10px")};
+  }
+`;
+
+export const EmblaSlide = styled.li`
+  min-width: 0;
+  padding-left: ${rem("20px")};
+  flex: 0 0 calc(100% / 3);
+
+  @media screen and ${({ theme }) => theme.device.max.xl} {
+    flex: 0 0 calc(100% / 3);
+    padding-left: ${rem("10px")};
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    flex: 0 0 calc(100% / 2);
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    flex: 0 0 100%;
   }
 `;
