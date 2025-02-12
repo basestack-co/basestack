@@ -70,6 +70,7 @@ const Slider = ({
 
     const onSelect = () => {
       setCurrentIndex(emblaImagesApi.selectedScrollSnap());
+      if (emblaApi) emblaApi.scrollTo(emblaImagesApi.selectedScrollSnap());
     };
 
     emblaImagesApi?.on("select", onSelect);
@@ -78,7 +79,7 @@ const Slider = ({
     return () => {
       emblaImagesApi?.off("select", onSelect);
     };
-  }, [emblaImagesApi]);
+  }, [emblaImagesApi, emblaApi]);
 
   useEffect(() => {
     const interval = setInterval(() => {

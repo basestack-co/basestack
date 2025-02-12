@@ -81,6 +81,10 @@ export const EmblaSlide = styled.li<{ isImageSlider: boolean }>`
           }
         `
       : css`
-          flex: 0 0 ${rem("1120px")};
+          flex: 0 0 100%;
+
+          @media screen and ${theme.device.max.xl} {
+            padding-left: ${rem("10px")};
+          }
         `}
 `;
