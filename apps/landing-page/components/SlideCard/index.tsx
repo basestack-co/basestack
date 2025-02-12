@@ -11,7 +11,7 @@ export interface SlideCardProps {
   isActive?: boolean;
   onClick: () => void;
   /**
-   * Time for the underline animation in seconds
+   * Time for the underline animation in ms
    * */
   animationTime?: number;
 }
@@ -22,7 +22,7 @@ const SlideCard = ({
   icon,
   isActive = false,
   onClick,
-  animationTime = 10,
+  animationTime = 10000,
 }: SlideCardProps) => {
   const { isDarkMode, colors, spacing } = useTheme();
 

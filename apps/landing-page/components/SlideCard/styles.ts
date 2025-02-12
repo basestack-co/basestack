@@ -52,7 +52,7 @@ export const CardContainer = styled.button.withConfig({
         position: absolute;
         bottom: 0;
         left: 0;
-        animation: ${indicatorAnimation} ${`${animationTime}s`} linear;
+        animation: ${indicatorAnimation} ${`${animationTime}ms`} linear;
         height: 5px;
         background-color: ${theme.isDarkMode
           ? theme.colors.blue300
