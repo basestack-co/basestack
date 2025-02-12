@@ -66,7 +66,7 @@ export const ListItem = styled.li`
 
 export const Embla = styled.div`
   max-width: 100%;
-  margin: auto;
+  margin: 0 auto;
 `;
 
 export const EmblaViewport = styled.ul`

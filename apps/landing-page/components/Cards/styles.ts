@@ -4,7 +4,7 @@ import { rem } from "polished";
 export const Container = styled.section`
   display: flex;
   flex-direction: column;
-  padding: ${rem("100px")} 0;
+  padding: ${rem("100px")} 0 ${rem("92px")} 0;
 `;
 
 export const HeaderContainer = styled.section`
@@ -25,7 +25,7 @@ export const ContentContainer = styled.div`
 
 export const Embla = styled.div`
   max-width: 100%;
-  margin: auto;
+  margin: 0 auto;
 `;
 
 export const EmblaViewport = styled.div`

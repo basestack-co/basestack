@@ -21,6 +21,7 @@ export const CardContainer = styled.button.withConfig({
   border: none;
   display: flex;
   flex-direction: column;
+  height: 100%;
   text-align: left;
   border-radius: ${rem("8px")};
   padding: ${({ theme }) => theme.spacing.s5} ${({ theme }) => theme.spacing.s5}
