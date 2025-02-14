@@ -40,6 +40,7 @@ export enum PlanTypeId {
   HOBBY = "hobby",
   LAUNCH = "launch",
   SCALE = "scale",
+  ENTERPRISE = "enterprise",
 }
 
 export interface Plan {
@@ -57,6 +58,9 @@ export interface Plan {
       variantId: number;
     };
   };
+}
+
+export interface FormPlan extends Plan {
   limits: {
     forms: number;
     submissions: number;
@@ -81,3 +85,30 @@ export interface Plan {
     hasSpamProtection: boolean;
   };
 }
+
+// launchdarkly pricing Free -> 12$ monthly
+// flagsmith pricing Free -> 45$ monthly
+// growthbook pricing Free Unlimited -> 20$ monthly per user
+// getunleash pricing Free -> 75$ monthly per seat minimum 5 seats
+
+export interface FlagsPlan extends Plan {
+  limits: {
+    projects: number;
+    environments: number;
+    flags: number;
+    members: number;
+  };
+  features: {
+    hasHistory: boolean;
+    hasRemoteConfig: boolean;
+    hasPreviewFeatures: boolean;
+    hasRollouts: boolean;
+    hasTags: boolean;
+    hasSegments: boolean;
+    hasBlockIPs: boolean;
+    hasWebsites: boolean;
+  };
+}
+
+// Hosted Private Instance
+

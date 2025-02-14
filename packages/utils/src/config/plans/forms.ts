@@ -1,9 +1,9 @@
 // Types
-import { PlanTypeId, Plan } from "../../types";
+import { PlanTypeId, FormPlan } from "../../types";
 
 // Forms Plan configuration
 
-const forms: Plan[] = [
+const forms: FormPlan[] = [
   {
     id: PlanTypeId.PREVIEW,
     name: "Preview",
@@ -131,7 +131,7 @@ const forms: Plan[] = [
         variantId: 368595,
       },
       yearly: {
-        amount: 38, // 20% off
+        amount: 39, // 20% off
         currency: "USD",
         variantId: 368596,
       },
@@ -212,11 +212,11 @@ const isValidFormPlan = (id: PlanTypeId) => {
   return forms.some((plan) => plan.id === id);
 };
 
-const getFormPlan = (id: PlanTypeId): Plan => {
-  const plan = forms.find((plan: Plan) => plan.id === id);
+const getFormPlan = (id: PlanTypeId): FormPlan => {
+  const plan = forms.find((plan: FormPlan) => plan.id === id);
   if (!plan) {
     // Fallback to free plan if plan is not found
-    return forms.find((plan: Plan) => plan.id === PlanTypeId.FREE)!;
+    return forms.find((plan: FormPlan) => plan.id === PlanTypeId.FREE)!;
   }
   return plan;
 };
@@ -233,20 +233,20 @@ const getFormPlanFeatures = (id: PlanTypeId) => {
 
 const hasFormPlanFeature = (
   id: PlanTypeId,
-  feature: keyof Plan["features"],
+  feature: keyof FormPlan["features"],
 ) => {
   const plan = getFormPlan(id);
   return plan.features[feature];
 };
 
-const getFormLimitByKey = (id: PlanTypeId, limit: keyof Plan["limits"]) => {
+const getFormLimitByKey = (id: PlanTypeId, limit: keyof FormPlan["limits"]) => {
   const plan = getFormPlan(id);
   return plan?.limits[limit];
 };
 
 const isUnderFormPlanLimit = (
   id: PlanTypeId,
-  limit: keyof Plan["limits"],
+  limit: keyof FormPlan["limits"],
   value: number,
 ) => {
   const plan = getFormPlan(id);
