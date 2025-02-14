@@ -47,12 +47,7 @@ const Cards = ({ title, text, cards, id = "card" }: CardsProps) => {
             <EmblaContainer>
               {cards?.map((card, index) => (
                 <EmblaSlide key={index}>
-                  <Card
-                    key={index}
-                    title={card.title}
-                    text={card.text}
-                    icon={card.icon}
-                  />
+                  <Card title={card.title} text={card.text} icon={card.icon} />
                 </EmblaSlide>
               ))}
             </EmblaContainer>

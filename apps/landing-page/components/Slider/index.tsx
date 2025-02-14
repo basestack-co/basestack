@@ -102,7 +102,7 @@ const Slider = ({
           <EmblaViewport ref={emblaRef} isImageSlider={false}>
             <EmblaContainer>
               {data?.map((item, index) => (
-                <EmblaSlide key={`card-${index}`} isImageSlider>
+                <EmblaSlide key={`card-${index}`} isImageSlider={false}>
                   <SlideCard
                     isActive={index === currentIndex}
                     icon={item.icon}
@@ -124,7 +124,7 @@ const Slider = ({
           <EmblaViewport ref={emblaImagesRef} isImageSlider>
             <EmblaContainer>
               {data?.map((item, index) => (
-                <EmblaSlide key={`image-${index}`} isImageSlider={false}>
+                <EmblaSlide key={`image-${index}`} isImageSlider>
                   <Image src={item.image.src} alt={item.image.alt} />
                 </EmblaSlide>
               ))}

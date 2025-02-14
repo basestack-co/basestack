@@ -18,7 +18,7 @@ export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: ${rem("1480px")};
+  max-width: ${rem("1440px")};
   width: 100%;
   margin: 0 auto;
 `;

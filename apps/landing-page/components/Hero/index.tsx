@@ -36,10 +36,8 @@ const Hero = ({
       <ContentContainer>
         <SectionHeader
           title={title}
-          titleSize="large"
           text={text}
           hasMarginBottom={false}
-          hasAnimatedText
           maxWidth={contentMaxWidth}
         />
         <ButtonsContainer>

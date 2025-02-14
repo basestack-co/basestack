@@ -42,7 +42,7 @@ export const ContentContainer = styled.div`
   align-items: center;
   margin: 0 auto;
   width: 100%;
-  max-width: ${rem("1440px")};
+  max-width: ${rem("1400px")};
 `;
 
 export const LeftColumn = styled.div`

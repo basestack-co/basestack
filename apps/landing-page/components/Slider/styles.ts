@@ -12,7 +12,7 @@ export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 ${({ theme }) => theme.spacing.s5};
-  max-width: ${rem("1440px")};
+  max-width: ${rem("1400px")};
 `;
 
 export const ContentContainer = styled.div`
@@ -30,7 +30,7 @@ export const Embla = styled.div.withConfig({
   width: 100%;
   max-width: ${rem("1140px")};
 
-  ${({ theme, isImageSlider }) =>
+  ${({ isImageSlider }) =>
     isImageSlider &&
     css`
       margin-top: ${rem("12px")};
@@ -65,13 +65,22 @@ export const EmblaContainer = styled.ul`
 
 export const EmblaSlide = styled.li.withConfig({
   shouldForwardProp: (prop) => !["isImageSlider"].includes(prop),
-})<{ isImageSlider: boolean }>`
+})<{
+  isImageSlider: boolean;
+}>`
   min-width: 0;
   padding-left: ${rem("20px")};
 
   ${({ theme, isImageSlider }) =>
     isImageSlider
       ? css`
+          flex: 0 0 100%;
+
+          @media screen and ${theme.device.max.xl} {
+            padding-left: ${rem("10px")};
+          }
+        `
+      : css`
           flex: 0 0 calc(100% / 3);
           @media screen and ${theme.device.max.xl} {
             flex: 0 0 calc(100% / 3);
@@ -84,13 +93,6 @@ export const EmblaSlide = styled.li.withConfig({
 
           @media screen and ${theme.device.max.sm} {
             flex: 0 0 100%;
-          }
-        `
-      : css`
-          flex: 0 0 100%;
-
-          @media screen and ${theme.device.max.xl} {
-            padding-left: ${rem("10px")};
           }
         `}
 `;

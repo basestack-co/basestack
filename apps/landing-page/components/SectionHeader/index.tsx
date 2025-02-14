@@ -1,50 +1,57 @@
 import React from "react";
 import { useTheme } from "styled-components";
-import { useMedia } from "react-use";
 // Components
 import { Text } from "@basestack/design-system";
-import { Container, Title } from "./styles";
+import { Container, Label, Title } from "./styles";
 
 export interface SectionHeaderProps {
   title: string;
   text: string;
-  titleSize?: "normal" | "large";
+  titleSize?: "medium" | "large";
   hasMarginBottom?: boolean;
   hasAnimatedText?: boolean;
-  maxWidth?: number | string;
+  textAlign?: "left" | "center" | "right";
+  alignItems?: "flex-end" | "center" | "flex-start";
+  label?: string;
+  textMaxWidth?: number;
 }
 
 const SectionHeader = ({
   title,
   text,
-  titleSize = "normal",
+  titleSize = "large",
   hasMarginBottom = true,
-  hasAnimatedText = false,
-  maxWidth = 720,
+  textAlign = "center",
+  alignItems = "center",
+  label,
+  textMaxWidth = 80,
 }: SectionHeaderProps) => {
-  const { device, spacing, colors, isDarkMode } = useTheme();
-  const isMobile = useMedia(device.max.md, false);
-  const descriptionSize = titleSize === "large" ? "xLarge" : "large";
+  const { spacing, colors, isDarkMode } = useTheme();
 
   return (
-    <Container hasMarginBottom={hasMarginBottom} maxWidth={maxWidth}>
+    <Container hasMarginBottom={hasMarginBottom} alignItems={alignItems}>
+      {label && (
+        <Label>
+          <Text size="xSmall">{label}</Text>
+        </Label>
+      )}
       <Title
         lineHeight="1.3"
-        textAlign="center"
+        textAlign={textAlign}
         mb={spacing.s2}
         color={isDarkMode ? colors.gray300 : colors.black}
         titleSize={titleSize}
-        hasAnimatedText={hasAnimatedText}
       >
         {title}
       </Title>
       <Text
-        size={isMobile ? "large" : descriptionSize}
+        size="large"
         fontWeight={400}
-        textAlign="center"
+        textAlign={textAlign}
         lineHeight="1.6"
         as="p"
         muted
+        maxWidth={`${textMaxWidth}ch`}
       >
         {text}
       </Text>

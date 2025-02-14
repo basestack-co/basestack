@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import { rem } from "polished";
 import {
   space,
@@ -8,15 +8,15 @@ import {
   ColorProps,
   TypographyProps,
 } from "styled-system";
+import theme from "@basestack/design-system/theme/lightTheme";
 
 export const Container = styled.div.withConfig({
-  shouldForwardProp: (prop) => !["hasMarginBottom", "maxWidth"].includes(prop),
-})<{ hasMarginBottom: boolean; maxWidth: number | string }>`
+  shouldForwardProp: (prop) =>
+    !["hasMarginBottom", "alignItems"].includes(prop),
+})<{ hasMarginBottom: boolean; alignItems: string }>`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  max-width: ${({ maxWidth }) =>
-    typeof maxWidth === "string" ? maxWidth : `${maxWidth}px`};
+  align-items: ${({ alignItems }) => alignItems};
 
   ${({ hasMarginBottom }) =>
     hasMarginBottom &&
@@ -25,63 +25,37 @@ export const Container = styled.div.withConfig({
     `}
 `;
 
-const animateText = keyframes`
-    0% {
-        background-position: 0 50%;
-    }
-    100% {
-        background-position: 100% 50%;
-    }
-`;
-
 interface TitleProps extends SpaceProps, ColorProps, TypographyProps {
-  titleSize: "normal" | "large";
+  titleSize: "medium" | "large";
   as: string;
-  hasAnimatedText: boolean;
 }
 
 export const Title = styled.h2.withConfig({
   shouldForwardProp: (prop) =>
-    !["hasAnimatedText", "titleSize", "lineHeight", "textAlign"].includes(prop),
+    !["titleSize", "lineHeight", "textAlign"].includes(prop),
 })<TitleProps>`
   ${typography};
   ${space};
   ${color};
   font-family: ${({ theme }) => theme.typography.robotoFlex};
   font-size: ${({ titleSize }) =>
-    titleSize === "normal" ? rem("36px") : rem("42px")};
-
-  ${({ hasAnimatedText, theme }) =>
-    hasAnimatedText &&
-    css`
-      ${theme.isDarkMode
-        ? css`
-            background: linear-gradient(
-              to right,
-              ${theme.colors.gray300} 20%,
-              ${theme.colors.blue200} 30%,
-              ${theme.colors.blue300} 70%,
-              ${theme.colors.purple300} 80%
-            );
-          `
-        : css`
-            background: linear-gradient(
-              to right,
-              ${theme.colors.black} 20%,
-              ${theme.colors.blue500} 30%,
-              ${theme.colors.blue300} 70%,
-              ${theme.colors.purple500} 80%
-            );
-          `};
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-fill-color: transparent;
-      background-size: 500% auto;
-      animation: ${animateText} 5s ease-in-out infinite alternate;
-    `};
+    titleSize === "medium" ? rem("36px") : rem("48px")};
+  font-weight: 700;
 
   @media screen and ${({ theme }) => theme.device.max.md} {
-    font-size: ${rem("32px")};
+    font-size: ${({ titleSize }) =>
+      titleSize === "medium" ? rem("24px") : rem("32px")};
   }
+`;
+
+export const Label = styled.div`
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: ${({ theme }) => theme.spacing.s4};
+  padding: 0 ${({ theme }) => theme.spacing.s3};
+  height: ${rem("26px")};
+  border-radius: ${rem("13px")};
+  box-shadow: ${({ theme }) => theme.shadow.elevation2};
+  background-color: ${({ theme }) =>
+    theme.isDarkMode ? theme.colors.gray800 : theme.colors.white};
 `;

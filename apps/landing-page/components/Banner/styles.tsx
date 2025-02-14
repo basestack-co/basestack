@@ -11,7 +11,7 @@ export const Container = styled.section`
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: ${rem("1440px")};
+  max-width: ${rem("1400px")};
   width: 100%;
   margin: 0 auto;
 `;

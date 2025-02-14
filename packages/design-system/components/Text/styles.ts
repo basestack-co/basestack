@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { space, typography, flexbox, compose } from "styled-system";
+import { space, typography, flexbox, compose, layout } from "styled-system";
 import { rem } from "polished";
 import { TextProps, FontFamily } from "./types";
 
@@ -10,13 +10,22 @@ interface sharedStylesProps {
   lineTruncate?: boolean;
 }
 
+const shouldForwardProps = [
+  "textAlign",
+  "lineTruncate",
+  "lineHeight",
+  "flexShrink",
+  "muted",
+  "maxWidth",
+];
+
 const sharedStyles = ({
   color,
   muted,
   fontFamily,
   lineTruncate,
 }: sharedStylesProps) => css`
-  ${compose(space, typography, flexbox)};
+  ${compose(space, typography, flexbox, layout)};
   font-family: ${({ theme }) =>
     fontFamily === "robotoFlex"
       ? theme.typography.robotoFlex
@@ -34,8 +43,7 @@ const sharedStyles = ({
 `;
 
 export const XSmallText = styled.span.withConfig({
-  shouldForwardProp: (prop) =>
-    !["textAlign", "lineTruncate", "muted", "lineHeight"].includes(prop),
+  shouldForwardProp: (prop) => !shouldForwardProps.includes(prop),
 })<TextProps>`
   display: flex;
   font-size: ${rem("12px")};
@@ -46,14 +54,7 @@ export const XSmallText = styled.span.withConfig({
 `;
 
 export const SmallText = styled.p.withConfig({
-  shouldForwardProp: (prop) =>
-    ![
-      "textAlign",
-      "lineTruncate",
-      "lineHeight",
-      "flexShrink",
-      "muted",
-    ].includes(prop),
+  shouldForwardProp: (prop) => !shouldForwardProps.includes(prop),
 })<TextProps>`
   font-size: ${rem("14px")};
   line-height: ${rem("22px")};
@@ -63,14 +64,7 @@ export const SmallText = styled.p.withConfig({
 `;
 
 export const MediumText = styled.p.withConfig({
-  shouldForwardProp: (prop) =>
-    ![
-      "textAlign",
-      "lineTruncate",
-      "lineHeight",
-      "muted",
-      "flexShrink",
-    ].includes(prop),
+  shouldForwardProp: (prop) => !shouldForwardProps.includes(prop),
 })<TextProps>`
   font-size: ${rem("16px")};
   line-height: ${rem("24px")};
@@ -80,8 +74,7 @@ export const MediumText = styled.p.withConfig({
 `;
 
 export const LargeText = styled.h3.withConfig({
-  shouldForwardProp: (prop) =>
-    !["textAlign", "lineTruncate", "muted", "lineHeight"].includes(prop),
+  shouldForwardProp: (prop) => !shouldForwardProps.includes(prop),
 })<TextProps>`
   font-size: ${rem("18px")};
   line-height: ${rem("26px")};
@@ -91,8 +84,7 @@ export const LargeText = styled.h3.withConfig({
 `;
 
 export const XLargeText = styled.h2.withConfig({
-  shouldForwardProp: (prop) =>
-    !["textAlign", "lineTruncate", "lineHeight", "muted"].includes(prop),
+  shouldForwardProp: (prop) => !shouldForwardProps.includes(prop),
 })<TextProps>`
   font-size: ${rem("20px")};
   line-height: ${rem("30px")};
@@ -102,8 +94,7 @@ export const XLargeText = styled.h2.withConfig({
 `;
 
 export const XXLargeText = styled.h1.withConfig({
-  shouldForwardProp: (prop) =>
-    !["textAlign", "lineTruncate", "lineHeight", "muted"].includes(prop),
+  shouldForwardProp: (prop) => !shouldForwardProps.includes(prop),
 })<TextProps>`
   font-size: ${rem("24px")};
   line-height: ${rem("36px")};

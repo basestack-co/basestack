@@ -11,9 +11,10 @@ import {
   Code,
   Questions,
   Banner,
+  SectionCards,
 } from "components";
 // Content
-import { platform, why, questions, slides } from "content/landing-page";
+import {platform, why, questions, slides, sectionCardsMock} from "content/landing-page";
 
 const LandingPage = () => {
   return (
@@ -21,7 +22,7 @@ const LandingPage = () => {
       <GlobalNavigation />
       <AppsHero
         title="Develop faster with Basestack"
-        text="The Open-Source Stack for Developers and Startups"
+        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
         image={{
           src: "/images/flags_cards_popups.png",
           alt: "product demo",
@@ -32,6 +33,12 @@ const LandingPage = () => {
         title="Introducing the Platform"
         text="Basestack Feature Flags is a user-friendly platform that simplifies the development, implementation, and management of your feature flags."
         cards={platform}
+      />
+      <SectionCards
+        id="something"
+        title="Introducing the Platform"
+        text="Basestack Feature Flags is a user-friendly platform that simplifies the development, implementation, and management of your feature flags."
+        cards={sectionCardsMock}
       />
       <Slider
         id="features"

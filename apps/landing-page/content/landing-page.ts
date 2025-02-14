@@ -198,3 +198,42 @@ export const flagsPageLinks = [
     icon: "question_answer",
   },
 ];
+
+export const sectionCardsMock = [
+  {
+    label: "Lorem Ipsum",
+    title: "Release Features",
+    text: "Unlock release flexibility with Feature Flags. Manage everything in one dashboard and get started with our SDKs.",
+    image: {
+      src: "/images/flags_multiple_projects.png",
+      alt: "An image of a feature flag control panel displaying multiple projects and environments, with intuitive controls for easily managing feature releases.",
+    },
+  },
+  {
+    label: "Lorem Ipsum",
+    title: "Decision Making",
+    text: "Empower your decisions with Feature Flags. Optimize product releases without the Developer involvement.",
+    image: {
+      src: "/images/flags_multiple_projects.png",
+      alt: "An image of a feature flag control panel displaying multiple projects and environments, with intuitive controls for easily managing feature releases.",
+    },
+  },
+  {
+    label: "Lorem Ipsum",
+    title: "Flexible Workflow",
+    text: "Our Platform adapts to your specific needs. The perfect feature flagging tool for your developers and testers.",
+    image: {
+      src: "/images/flags_multiple_projects.png",
+      alt: "An image of a feature flag control panel displaying multiple projects and environments, with intuitive controls for easily managing feature releases.",
+    },
+  },
+  {
+    label: "Lorem Ipsum",
+    title: "Flexible Workflow",
+    text: "Our Platform adapts to your specific needs. The perfect feature flagging tool for your developers and testers.",
+    image: {
+      src: "/images/flags_multiple_projects.png",
+      alt: "An image of a feature flag control panel displaying multiple projects and environments, with intuitive controls for easily managing feature releases.",
+    },
+  },
+];

@@ -18,7 +18,7 @@ export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: ${rem("1440px")};
+  max-width: ${rem("1400px")};
   width: 100%;
   margin: 0 auto;
 `;
@@ -28,7 +28,7 @@ export const Card = styled.div`
   flex-direction: column;
   width: 100%;
   border: none;
-  padding: ${({ theme }) => theme.spacing.s6};
+  padding: ${({ theme }) => theme.spacing.s5};
   border-radius: ${rem("8px")};
   transition: all 0.2s ease-in-out;
   fill: ${({ theme }) =>
