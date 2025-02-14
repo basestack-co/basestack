@@ -23,7 +23,9 @@ export const ContentContainer = styled.div`
   margin: 0 auto;
 `;
 
-export const Embla = styled.div<{ isImageSlider: boolean }>`
+export const Embla = styled.div.withConfig({
+  shouldForwardProp: (prop) => !["isImageSlider"].includes(prop),
+})<{ isImageSlider: boolean }>`
   margin: 0 auto;
   width: 100%;
   max-width: ${rem("1140px")};
@@ -35,7 +37,9 @@ export const Embla = styled.div<{ isImageSlider: boolean }>`
     `}
 `;
 
-export const EmblaViewport = styled.div<{ isImageSlider: boolean }>`
+export const EmblaViewport = styled.div.withConfig({
+  shouldForwardProp: (prop) => !["isImageSlider"].includes(prop),
+})<{ isImageSlider: boolean }>`
   ${({ theme, isImageSlider }) =>
     isImageSlider
       ? css`
@@ -59,7 +63,9 @@ export const EmblaContainer = styled.ul`
   }
 `;
 
-export const EmblaSlide = styled.li<{ isImageSlider: boolean }>`
+export const EmblaSlide = styled.li.withConfig({
+  shouldForwardProp: (prop) => !["isImageSlider"].includes(prop),
+})<{ isImageSlider: boolean }>`
   min-width: 0;
   padding-left: ${rem("20px")};
 

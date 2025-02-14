@@ -12,9 +12,6 @@ const nextConfig: NextConfig = {
       fullUrl: true,
     },
   },
-  experimental: {
-    reactCompiler: true,
-  },
   compiler: {
     styledComponents: true,
   },
