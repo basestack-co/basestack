@@ -17,7 +17,7 @@ export const Container = styled.footer`
 export const ContentWrapper = styled.footer`
   display: flex;
   flex-direction: column;
-  padding: ${({ theme }) => theme.spacing.s8} 0;
+  padding: 100px 0 ${({ theme }) => theme.spacing.s8} 0;
   max-width: ${rem("1400px")};
   width: 100%;
   margin: 0 auto;

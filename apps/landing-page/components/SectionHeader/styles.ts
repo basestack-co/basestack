@@ -8,7 +8,6 @@ import {
   ColorProps,
   TypographyProps,
 } from "styled-system";
-import theme from "@basestack/design-system/theme/lightTheme";
 
 export const Container = styled.div.withConfig({
   shouldForwardProp: (prop) =>
@@ -28,11 +27,12 @@ export const Container = styled.div.withConfig({
 interface TitleProps extends SpaceProps, ColorProps, TypographyProps {
   titleSize: "medium" | "large";
   as: string;
+  titleMaxWidth: number | "initial";
 }
 
 export const Title = styled.h2.withConfig({
   shouldForwardProp: (prop) =>
-    !["titleSize", "lineHeight", "textAlign"].includes(prop),
+    !["titleSize", "lineHeight", "textAlign", "titleMaxWidth"].includes(prop),
 })<TitleProps>`
   ${typography};
   ${space};
@@ -41,6 +41,8 @@ export const Title = styled.h2.withConfig({
   font-size: ${({ titleSize }) =>
     titleSize === "medium" ? rem("36px") : rem("48px")};
   font-weight: 700;
+  max-width: ${({ titleMaxWidth }) =>
+    typeof titleMaxWidth === "number" ? `${titleMaxWidth}ch` : "initial"};
 
   @media screen and ${({ theme }) => theme.device.max.md} {
     font-size: ${({ titleSize }) =>

@@ -1,89 +1,72 @@
 import React from "react";
-// Utils
-import { config, events } from "@basestack/utils";
 import { useMedia } from "react-use";
-// Components
 import { useTheme } from "styled-components";
 import { rem } from "polished";
-import {
-  Button,
-  ButtonSize,
-  ButtonVariant,
-  Text,
-} from "@basestack/design-system";
-import Illustration, { IllustrationVariant } from "../Illustration";
+import { Button, ButtonSize, ButtonVariant } from "@basestack/design-system";
+import SectionHeader, { SectionHeaderProps } from "../SectionHeader";
 import {
   Container,
   ContentContainer,
-  Banner,
   BannerContent,
   ButtonsContainer,
-  StyledButton,
-  PlanetIllustration,
-  HalfPlanetIllustration,
 } from "./styles";
+import { Card } from "../styles";
 
 export interface Props {
   id?: string;
+  title: SectionHeaderProps["title"];
+  text?: SectionHeaderProps["text"];
+  titleMaxWidth?: SectionHeaderProps["titleMaxWidth"];
+  textMaxWidth?: SectionHeaderProps["textMaxWidth"];
+  label?: SectionHeaderProps["label"];
+  buttons: Array<{ text: string; onClick: () => void }>;
 }
-const BannerComp = ({ id = "banner" }: Props) => {
-  const { colors, spacing, device, isDarkMode } = useTheme();
-  const isMobile = useMedia(device.max.md, false);
+
+const BannerComp = ({
+  id = "banner",
+  title,
+  text,
+  buttons,
+  titleMaxWidth = 60,
+  textMaxWidth = 60,
+  label,
+}: Props) => {
+  const { device } = useTheme();
+  const isMobile = useMedia(device.max.sm, false);
 
   return (
     <Container id={id}>
       <ContentContainer>
-        <Banner>
+        <Card p={rem("50px")}>
           <BannerContent>
-            <Text
-              size="xxLarge"
-              fontSize={rem(isMobile ? "32px" : "42px")}
-              lineHeight="1.3"
-              color={isDarkMode ? colors.gray50 : colors.white}
-              mb={spacing.s2}
-              fontFamily="robotoFlex"
-              // @ts-ignore
-              as="h2"
-            >
-              Ready to Ship Your Code with Confidence?
-            </Text>
+            <SectionHeader
+              title={title}
+              text={text}
+              hasMarginBottom={false}
+              titleMaxWidth={titleMaxWidth}
+              textMaxWidth={textMaxWidth}
+              label={label}
+            />
             <ButtonsContainer>
-              <StyledButton
-                mr={spacing.s2}
-                onClick={() => {
-                  events.landing.goToDocs();
-                  window.open(config.urls.docs.flags.base, "_blank");
-                }}
-                size={ButtonSize.Medium}
-              >
-                Get Started
-              </StyledButton>
-              <Button
-                onClick={() => {
-                  events.landing.gotToGitHubRepo();
-                  window.open(config.urls.repo, "_blank");
-                }}
-                size={ButtonSize.Medium}
-              >
-                Star Us on GitHub
-              </Button>
+              {buttons.map((button, index) => (
+                <Button
+                  key={index}
+                  onClick={button.onClick}
+                  size={ButtonSize.Medium}
+                  variant={
+                    index === 0
+                      ? ButtonVariant.Secondary
+                      : ButtonVariant.Outlined
+                  }
+                  fullWidth={isMobile}
+                  justifyContent="center"
+                >
+                  {button.text}
+                </Button>
+              ))}
             </ButtonsContainer>
           </BannerContent>
-          <PlanetIllustration>
-            <Illustration
-              width={320}
-              color={colors.white}
-              variant={IllustrationVariant.Planet}
-            />
-          </PlanetIllustration>
-          <HalfPlanetIllustration>
-            <Illustration
-              width={496}
-              color={colors.white}
-              variant={IllustrationVariant.HalfPlanet}
-            />
-          </HalfPlanetIllustration>
-        </Banner>
+        </Card>
       </ContentContainer>
     </Container>
   );

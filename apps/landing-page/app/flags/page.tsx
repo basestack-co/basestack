@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { config as defaults } from "@basestack/utils";
+import { config, config as defaults, events } from "@basestack/utils";
 // Components
 import {
   Hero,
@@ -72,7 +72,27 @@ const LandingPage = () => {
         text="Explore our collection of useful questions and answers about the Feature Flags Platform. If you don't find the answer to your question here, feel free to open a discussion on Github."
         data={questions}
       />
-      <Banner id="banner" />
+      <Banner
+        id="banner"
+        title="Ready to Ship Your Code with Confidence?"
+        text="Basestack Feature Flags is a user-friendly platform that simplifies the development, implementation."
+        buttons={[
+          {
+            text: "Get Started",
+            onClick: () => {
+              events.landing.goToDocs();
+              window.open(config.urls.docs.flags.base, "_blank");
+            },
+          },
+          {
+            text: "Star Us on GitHub",
+            onClick: () => {
+              events.landing.gotToGitHubRepo();
+              window.open(config.urls.repo, "_blank");
+            },
+          },
+        ]}
+      />
       <Footer />
     </>
   );

@@ -121,7 +121,7 @@ const Footer = () => {
       <ContentWrapper>
         <MainContent>
           <LeftContainer>
-            <Logo product="company" isOnDark={isDarkMode} />
+            <Logo product="company" size={36} isOnDark={isDarkMode} />
             <Text
               size="medium"
               fontWeight={400}
