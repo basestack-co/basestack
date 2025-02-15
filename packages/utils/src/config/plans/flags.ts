@@ -23,7 +23,10 @@ const flags: FlagsPlan[] = [
       projects: 10,
       environments: 10,
       flags: 100,
+      segments: 0,
+      rollouts: 0,
       members: 20,
+      apiRequests: Infinity,
     },
     features: {
       hasHistory: true,
@@ -55,7 +58,10 @@ const flags: FlagsPlan[] = [
       projects: 1,
       environments: 1,
       flags: 5,
+      segments: 0,
+      rollouts: 0,
       members: 0,
+      apiRequests: Infinity,
     },
     features: {
       hasHistory: false,
@@ -75,19 +81,22 @@ const flags: FlagsPlan[] = [
       monthly: {
         amount: 5,
         currency: "USD",
-        variantId: 0,
+        variantId: 695368,
       },
       yearly: {
-        amount: 4, // 20% off
+        amount: 4.5, // 10% off
         currency: "USD",
-        variantId: 0,
+        variantId: 695369,
       },
     },
     limits: {
       projects: 5,
       environments: 2,
       flags: 200,
+      segments: 0,
+      rollouts: 0,
       members: 0,
+      apiRequests: Infinity,
     },
     features: {
       hasHistory: false,
@@ -107,19 +116,22 @@ const flags: FlagsPlan[] = [
       monthly: {
         amount: 49,
         currency: "USD",
-        variantId: 0,
+        variantId: 695372,
       },
       yearly: {
-        amount: 39, // 20% off
+        amount: 44.1, // 10% off
         currency: "USD",
-        variantId: 0,
+        variantId: 695373,
       },
     },
     limits: {
       projects: Infinity,
       environments: 3,
       flags: Infinity,
+      segments: 0,
+      rollouts: 0,
       members: 0,
+      apiRequests: Infinity,
     },
     features: {
       hasHistory: false,
@@ -139,19 +151,22 @@ const flags: FlagsPlan[] = [
       monthly: {
         amount: 99,
         currency: "USD",
-        variantId: 0,
+        variantId: 695376,
       },
       yearly: {
-        amount: 79, // 20% off
+        amount: 89.1, // 10% off
         currency: "USD",
-        variantId: 0,
+        variantId: 695377,
       },
     },
     limits: {
       projects: Infinity,
       environments: Infinity,
       flags: Infinity,
+      segments: 0,
+      rollouts: 0,
       members: 20,
+      apiRequests: Infinity,
     },
     features: {
       hasHistory: true,
@@ -165,6 +180,10 @@ const flags: FlagsPlan[] = [
     },
   },
 ];
+
+const getFlagsPlanLimitsDefaults = () => ({
+  apiRequests: 0,
+});
 
 const isValidFlagsPlan = (id: PlanTypeId) => {
   return flags.some((plan) => plan.id === id);
@@ -230,6 +249,7 @@ const getFlagsPlanByVariantId = (variantId: number) => {
 
 export const config = {
   flags,
+  getFlagsPlanLimitsDefaults,
   getFlagsPlan,
   getFlagsPlanLimits,
   getFlagsPlanFeatures,

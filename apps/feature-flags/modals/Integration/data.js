@@ -2,17 +2,16 @@
 import { config } from "@basestack/utils";
 
 export const javascriptCode = `
-  import FlagsJS from "@basestack/flags-js";
+  import { FlagsSDK } from "@basestack/flags-js";
    
-  const sdk = new FlagsJS({
-    apiUrl: "https://your-basestack-hosted-app-domain.com/api/v1",
-    projectKey: "xxxxx",
-    envKey: "xxxxx",
+  const client = new FlagsSDK({
+    projectKey: "your-project-key",
+    environmentKey: "your-environment-key",
   });
   
   const MyFeature = async () => {
     try {
-      const flag = await sdk.flagAsync("header");
+      const flag = await client.getFlag("header");
       //flag.enabled true | false
       //  ...code
     } catch (e) {

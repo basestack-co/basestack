@@ -3,7 +3,7 @@ import { DefaultArgs } from ".prisma/client/runtime/library";
 // tRPC
 import { TRPCError } from "@trpc/server";
 // Utils
-import { config, FormPlan, PlanTypeId } from "@basestack/utils";
+import { config, FlagsPlan, PlanTypeId } from "@basestack/utils";
 
 export const getSubscriptionUsage = async (
   prisma: PrismaClient,
@@ -29,9 +29,7 @@ export const getSubscriptionUsage = async (
       : {
           planId: PlanTypeId.FREE,
           subscriptionId: "",
-          forms: 0,
-          members: 0,
-          ...config.plans.getFormPlanLimitsDefaults(),
+          ...config.plans.getFlagsPlanLimitsDefaults(),
         };
   } catch {
     throw new TRPCError({ code: "BAD_REQUEST" });
@@ -51,7 +49,7 @@ export const withUsageUpdate = async (
         | "$extends"
       >,
   userId: string,
-  limit: keyof FormPlan["limits"],
+  limit: keyof FlagsPlan["limits"],
   action: "increment" | "decrement",
 ) => {
   try {
@@ -82,7 +80,7 @@ export const withUsageUpdate = async (
 
 export function withLimits(
   planId: PlanTypeId,
-  limitKey: keyof FormPlan["limits"],
+  limitKey: keyof FlagsPlan["limits"],
   count: number,
 ) {
   return function <T extends (...args: any[]) => Promise<any>>(promise: T): T {
@@ -90,7 +88,7 @@ export function withLimits(
       this: unknown,
       ...args: Parameters<T>
     ): Promise<ReturnType<T>> {
-      const limit = config.plans.getFormLimitByKey(planId, limitKey);
+      const limit = config.plans.getFlagsLimitByKey(planId, limitKey);
 
       if (count < limit) {
         return promise.apply(this, args);
@@ -107,7 +105,7 @@ export function withLimits(
 
 export function withFeatures(
   planId: PlanTypeId,
-  feature: keyof FormPlan["features"] | null,
+  feature: keyof FlagsPlan["features"] | null,
 ) {
   return function <T extends (...args: any[]) => Promise<any>>(promise: T): T {
     return async function (
@@ -115,7 +113,7 @@ export function withFeatures(
       ...args: Parameters<T>
     ): Promise<ReturnType<T>> {
       const hasFeature = feature
-        ? config.plans.hasFormPlanFeature(planId, feature)
+        ? config.plans.hasFlagsPlanFeature(planId, feature)
         : true;
 
       if (hasFeature) {

@@ -7,14 +7,14 @@ import { prisma } from "server/db";
 import dayjs from "dayjs";
 import { PlanTypeId, config, SubscriptionEvent } from "@basestack/utils";
 
-const { getFormPlanLimitsDefaults } = config.plans;
+const { getFlagsPlanLimitsDefaults } = config.plans;
 
 //  cron: "0 19 * * *", // Run every day at 7 PM
 
 export const { POST } = serve(
   async (context) => {
     console.info(
-      "Job: Check Forms Subscriptions - Received the scheduled event",
+      "Job: Check Feature Flags Subscriptions - Received the scheduled event",
     );
 
     await context.run("check-users-subscriptions-step", async () => {
@@ -30,7 +30,7 @@ export const { POST } = serve(
           today.isSame(billingCycle.startOf("day"));
 
         console.info(
-          `Job: Check Forms Subscriptions - User with ID: ${sub.userId} subscription billingCycle is ${billingCycle.format("YYYY-MM-DD")} and is overdue: ${isOverdue}`,
+          `Job: Check Feature Flags Subscriptions - User with ID: ${sub.userId} subscription billingCycle is ${billingCycle.format("YYYY-MM-DD")} and is overdue: ${isOverdue}`,
         );
 
         // Check if it's time to update the subscription
@@ -39,7 +39,7 @@ export const { POST } = serve(
 
           if (sub.cancelled || sub.paused) {
             console.info(
-              `Job: Check Forms Subscriptions - User with ID ${sub.userId} has an cancelled or paused subscription`,
+              `Job: Check Feature Flags Subscriptions - User with ID ${sub.userId} has an cancelled or paused subscription`,
             );
 
             payload = {
@@ -57,13 +57,13 @@ export const { POST } = serve(
               billingCycleStart: dayjs(billingCycle)
                 .add(1, "month")
                 .toISOString(),
-              ...getFormPlanLimitsDefaults(),
+              ...getFlagsPlanLimitsDefaults(),
               ...payload,
             },
           });
 
           console.info(
-            `Job: Check Forms Subscriptions - User ${sub.userId} subscription updated successfully`,
+            `Job: Check Feature Flags Subscriptions - User ${sub.userId} subscription updated successfully`,
             response,
           );
         }
@@ -82,7 +82,7 @@ export const { POST } = serve(
       failHeaders,
     }) => {
       console.error(
-        `Job: Check Forms Subscriptions - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
+        `Job: Check Feature Flags Subscriptions - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
       );
     },
   },

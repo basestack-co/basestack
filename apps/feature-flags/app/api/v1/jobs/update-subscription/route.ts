@@ -9,17 +9,22 @@ import { prisma } from "server/db";
 import dayjs from "dayjs";
 import { PlanTypeId, config, SubscriptionEvent } from "@basestack/utils";
 
-const { getSubscriptionEvents, getFormPlanByVariantId } = config.plans;
+const { getSubscriptionEvents, getFlagsPlanByVariantId } = config.plans;
 
 export const { POST } = serve<UpdateSubscriptionEventPayload>(
   async (context) => {
     const body = context.requestPayload;
 
-    console.info(`Job: Update Forms Subscriptions - Webhook Event Body`, body);
+    console.info(
+      `Job: Update Feature Flags Subscriptions - Webhook Event Body`,
+      body,
+    );
     console.info(`Subscription Event:${body.meta.event_name}`);
 
     if (!getSubscriptionEvents.includes(body.meta.event_name)) {
-      console.error("Job: Update Forms Subscriptions - Invalid event name received");
+      console.error(
+        "Job: Update Feature Flags Subscriptions - Invalid event name received",
+      );
       return;
     }
 
@@ -36,7 +41,7 @@ export const { POST } = serve<UpdateSubscriptionEventPayload>(
           const userId = body.meta.custom_data.user_id;
 
           console.info(
-            "Job: Update Forms Subscriptions - Checking if user has a subscription",
+            "Job: Update Feature Flags Subscriptions - Checking if user has a subscription",
             userId,
           );
 
@@ -79,7 +84,7 @@ export const { POST } = serve<UpdateSubscriptionEventPayload>(
               ...payload,
             },
             update: {
-              planId: getFormPlanByVariantId(variantId)?.id,
+              planId: getFlagsPlanByVariantId(variantId)?.id,
               ...payload,
               ...(isUpdate
                 ? {
@@ -95,7 +100,7 @@ export const { POST } = serve<UpdateSubscriptionEventPayload>(
           });
 
           console.info(
-            "Job: Update Forms Subscriptions - Subscription updated on DB",
+            "Job: Update Feature Flags Subscriptions - Subscription updated on DB",
             res,
           );
         });
@@ -114,7 +119,7 @@ export const { POST } = serve<UpdateSubscriptionEventPayload>(
       failHeaders,
     }) => {
       console.error(
-        `Job: Update Forms Subscriptions - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
+        `Job: Update Feature Flags Subscriptions - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
       );
     },
   },

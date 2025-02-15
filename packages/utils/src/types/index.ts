@@ -86,17 +86,15 @@ export interface FormPlan extends Plan {
   };
 }
 
-// launchdarkly pricing Free -> 12$ monthly
-// flagsmith pricing Free -> 45$ monthly
-// growthbook pricing Free Unlimited -> 20$ monthly per user
-// getunleash pricing Free -> 75$ monthly per seat minimum 5 seats
-
 export interface FlagsPlan extends Plan {
   limits: {
     projects: number;
     environments: number;
     flags: number;
+    segments: number;
+    rollouts: number;
     members: number;
+    apiRequests: number;
   };
   features: {
     hasHistory: boolean;
@@ -109,6 +107,3 @@ export interface FlagsPlan extends Plan {
     hasWebsites: boolean;
   };
 }
-
-// Hosted Private Instance
-

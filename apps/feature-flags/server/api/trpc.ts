@@ -9,6 +9,7 @@ import { auth } from "server/auth";
 import { prisma } from "server/db";
 import { getUserInProject } from "server/db/utils/user";
 import { createHistory } from "server/db/utils/history";
+import { getSubscriptionUsage } from "server/db/utils/subscription";
 // CONTEXT
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
@@ -95,10 +96,13 @@ export const isAuthenticated = middleware(
       };
     }
 
+    const usage = await getSubscriptionUsage(ctx.prisma, ctx.session.user.id);
+
     return next({
       ctx: {
         ...ctx,
         session: ctx.session,
+        usage,
       },
     });
   },

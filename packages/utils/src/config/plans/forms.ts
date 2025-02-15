@@ -60,7 +60,7 @@ const forms: FormPlan[] = [
     },
     limits: {
       forms: 1,
-      submissions: 25,
+      submissions: 10,
       members: 0,
       spams: 0,
       fileUploadLimit: 0, // GB
@@ -92,7 +92,7 @@ const forms: FormPlan[] = [
         variantId: 368586,
       },
       yearly: {
-        amount: 4, // 20% off
+        amount: 4.5, // 10% off
         currency: "USD",
         variantId: 368587,
       },
@@ -131,7 +131,7 @@ const forms: FormPlan[] = [
         variantId: 368595,
       },
       yearly: {
-        amount: 39, // 20% off
+        amount: 44.1, // 10% off
         currency: "USD",
         variantId: 368596,
       },
@@ -170,7 +170,7 @@ const forms: FormPlan[] = [
         variantId: 368599,
       },
       yearly: {
-        amount: 79, // 20% off
+        amount: 89.1, // 10% off
         currency: "USD",
         variantId: 368600,
       },
