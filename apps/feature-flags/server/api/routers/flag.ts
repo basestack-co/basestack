@@ -1,7 +1,9 @@
 import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
 import { TRPCError } from "@trpc/server";
 // Utils
+import { withLimits, withUsageUpdate } from "server/db/utils/subscription";
 import { z } from "zod";
+import { PlanTypeId } from "@basestack/utils";
 
 export const flagRouter = createTRPCRouter({
   all: protectedProcedure
@@ -243,8 +245,33 @@ export const flagRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
+      const planId = ctx.usage.planId as PlanTypeId;
+      const userId = ctx.session.user.id;
+
+      const authorized = withLimits(
+        planId,
+        "flags",
+        ctx.usage.flags,
+      )(() =>
+        ctx.prisma.$transaction(async (tx) => {
+          const response = await Promise.all(
+            input.data.map(async (flagCreateData) =>
+              tx.flag.create({ data: flagCreateData }),
+            ),
+          );
+
+          await withUsageUpdate(tx, userId, "flags", "increment");
+
+          return response;
+        }),
+      );
+
+      const flags = await authorized();
+
+      return { flags };
+
       // TODO: this is workaround for prisma bug on createMany not returning the created data
-      const flags = await ctx.prisma.$transaction(async (tx) => {
+      /* const flags = await ctx.prisma.$transaction(async (tx) => {
         return await Promise.all(
           input.data.map(async (flagCreateData) =>
             tx.flag.create({ data: flagCreateData }),
@@ -252,7 +279,7 @@ export const flagRouter = createTRPCRouter({
         );
       });
 
-      return { flags };
+      return { flags }; */
     }),
   update: protectedProcedure
     .meta({
@@ -315,11 +342,15 @@ export const flagRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+
       const flags = await ctx.prisma.flag.deleteMany({
         where: {
           slug: input.flagSlug,
         },
       });
+
+      await withUsageUpdate(ctx.prisma, userId, "flags", "decrement");
 
       return { flags };
     }),

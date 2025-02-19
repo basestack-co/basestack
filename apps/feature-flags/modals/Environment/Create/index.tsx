@@ -10,6 +10,8 @@ import { api } from "utils/trpc/react";
 // Store
 import { useStore } from "store";
 import { useShallow } from "zustand/react/shallow";
+// Toast
+import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
 // Types
@@ -60,6 +62,9 @@ const CreateEnvironmentModal = () => {
 
               onClose();
             }
+          },
+          onError: (error) => {
+            toast.error(error.message);
           },
         },
       );

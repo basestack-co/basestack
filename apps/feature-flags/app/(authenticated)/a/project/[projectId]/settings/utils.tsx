@@ -1,6 +1,6 @@
 import React from "react";
 // Utils
-import { config, PlanTypeId, FormPlan } from "@basestack/utils";
+import { config, PlanTypeId, FlagsPlan } from "@basestack/utils";
 // Types
 import { useRouter } from "next/navigation";
 import { TFunction } from "types/locale";
@@ -9,7 +9,7 @@ import { CardVariant } from "@basestack/design-system";
 
 export interface WithPlanCardProps {
   planId: PlanTypeId;
-  feature: keyof FormPlan["features"];
+  feature: keyof FlagsPlan["features"];
   t: TFunction;
   i18nKey: string;
   i18nHintKey?: string;
@@ -32,17 +32,17 @@ export const getWithPlanCardProps = ({
   partial = true,
   router,
 }: WithPlanCardProps) => {
-  const hasFeature = config.plans.hasFormPlanFeature(planId, feature);
+  const hasFeature = config.plans.hasFlagsPlanFeature(planId, feature);
 
   return !hasFeature
     ? {
-        button: t("common.plan.forms.upgrade.action"),
+        button: t("common.plan.flags.upgrade.action"),
         onClick: () => router.push("/a/user/tab/billing"),
         hasOverlay: true,
         variant: CardVariant.PRIMARY,
         label: partial
-          ? t("common.plan.forms.upgrade.partial")
-          : t("common.plan.forms.upgrade.all"),
+          ? t("common.plan.flags.upgrade.partial")
+          : t("common.plan.flags.upgrade.all"),
       }
     : {
         button: t(i18nKey as any),
@@ -55,7 +55,7 @@ export const getWithPlanCardProps = ({
 
 export interface WithPlanSwitchProps {
   planId: PlanTypeId;
-  feature: keyof FormPlan["features"];
+  feature: keyof FlagsPlan["features"];
   t: TFunction;
   isDisabled: boolean;
   partial?: boolean;
@@ -72,13 +72,13 @@ export const getWithPlanSwitchProps = ({
   onChange,
   checked,
 }: WithPlanSwitchProps) => {
-  const hasFeature = config.plans.hasFormPlanFeature(planId, feature);
+  const hasFeature = config.plans.hasFlagsPlanFeature(planId, feature);
 
   return !hasFeature
     ? {
         variant: CardVariant.PRIMARY,
         hasOverlay: true,
-        label: t(`common.plan.forms.upgrade.${partial ? "partial" : "all"}`),
+        label: t(`common.plan.flags.upgrade.${partial ? "partial" : "all"}`),
         onChange: () => null,
         checked: false,
       }

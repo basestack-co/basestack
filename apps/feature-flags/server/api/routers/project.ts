@@ -1,10 +1,16 @@
 import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
 // Utils
 import { generateSlug } from "random-word-slugs";
-import { withRoles } from "@basestack/utils";
+import { PlanTypeId, withRoles } from "@basestack/utils";
 import { z } from "zod";
+import {
+  withFeatures,
+  withLimits,
+  withUsageUpdate,
+} from "server/db/utils/subscription";
 // Types
 import { Role } from ".prisma/client";
+import { TRPCError } from "@trpc/server";
 
 export const projectRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -184,58 +190,68 @@ export const projectRouter = createTRPCRouter({
       z
         .object({
           name: z.string(),
-          slug: z.string(),
         })
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
+      const planId = ctx.usage.planId as PlanTypeId;
 
-      return ctx.prisma.$transaction(async (tx) => {
-        const project = await tx.project.create({
-          data: {
-            ...input,
-            slug: `${input.slug}`,
-            environments: {
-              create: [
-                {
-                  name: "develop",
-                  slug: `${generateSlug()}`,
-                  description: "The default develop environment",
-                  isDefault: true,
-                },
-                {
-                  name: "staging",
-                  slug: `${generateSlug()}`,
-                  description: "The default staging environment",
-                },
-                {
-                  name: "production",
-                  slug: `${generateSlug()}`,
-                  description: "The default production environment",
-                },
-              ],
-            },
-          },
-        });
-
-        const connection = await tx.projectsOnUsers.create({
-          data: {
-            project: {
-              connect: {
-                id: project.id,
+      const authorized = withLimits(
+        planId,
+        "projects",
+        ctx.usage.projects,
+      )(() =>
+        ctx.prisma.$transaction(async (tx) => {
+          const project = await tx.project.create({
+            data: {
+              ...input,
+              slug: `${generateSlug()}`,
+              environments: {
+                create: [
+                  {
+                    name: "develop",
+                    slug: `${generateSlug()}`,
+                    description: "The default develop environment",
+                    isDefault: true,
+                  },
+                  {
+                    name: "staging",
+                    slug: `${generateSlug()}`,
+                    description: "The default staging environment",
+                  },
+                  {
+                    name: "production",
+                    slug: `${generateSlug()}`,
+                    description: "The default production environment",
+                  },
+                ],
               },
             },
-            user: {
-              connect: {
-                id: userId,
+          });
+
+          const connection = await tx.projectsOnUsers.create({
+            data: {
+              project: {
+                connect: {
+                  id: project.id,
+                },
+              },
+              user: {
+                connect: {
+                  id: userId,
+                },
               },
             },
-          },
-        });
+          });
 
-        return { project, connection };
-      });
+          await withUsageUpdate(tx, userId, "projects", "increment");
+
+          return { project, connection };
+        }),
+      );
+
+      return authorized();
     }),
   update: protectedProcedure
     .meta({
@@ -245,20 +261,49 @@ export const projectRouter = createTRPCRouter({
       z
         .object({
           projectId: z.string(),
-          name: z.string(),
+          name: z.string().nullable().default(null),
+          blockIpAddresses: z.string().nullable().default(null),
+          websites: z.string().nullable().default(null),
+          feature: z
+            .enum([
+              "hasHistory",
+              "hasBlockIPs",
+              "hasRollouts",
+              "hasSegments",
+              "hasWebsites",
+              "hasTags",
+              "hasRemoteConfig",
+              "hasPreviewFeatures",
+            ])
+            .nullable()
+            .default(null),
         })
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
-        ctx.prisma.project.update({
-          where: {
-            id: input.projectId,
-          },
-          data: {
-            name: input.name,
-          },
-        }),
+      const planId = ctx.usage.planId as PlanTypeId;
+      const { projectId, feature, ...props } = input;
+
+      const data = Object.fromEntries(
+        Object.entries(props).filter(([_, value]) => value !== null),
+      );
+
+      if (Object.keys(data).length === 0) {
+        throw new TRPCError({ code: "BAD_REQUEST" });
+      }
+
+      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(
+        withFeatures(
+          planId,
+          feature,
+        )(() =>
+          ctx.prisma.project.update({
+            where: {
+              id: input.projectId,
+            },
+            data,
+          }),
+        ),
       );
 
       const project = await authorized();
@@ -277,11 +322,19 @@ export const projectRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+
       const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
-        ctx.prisma.project.delete({
-          where: {
-            id: input.projectId,
-          },
+        ctx.prisma.$transaction(async (tx) => {
+          const response = await tx.project.delete({
+            where: {
+              id: input.projectId,
+            },
+          });
+
+          await withUsageUpdate(tx, userId, "projects", "decrement");
+
+          return response;
         }),
       );
 
@@ -302,21 +355,34 @@ export const projectRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
-        ctx.prisma.projectsOnUsers.create({
-          data: {
-            project: {
-              connect: {
-                id: input.projectId,
+      const planId = ctx.usage.planId as PlanTypeId;
+      const userId = ctx.session.user.id;
+
+      const authorized = withLimits(
+        planId,
+        "members",
+        ctx.usage.members,
+      )(() =>
+        ctx.prisma.$transaction(async (tx) => {
+          const response = await tx.projectsOnUsers.create({
+            data: {
+              project: {
+                connect: {
+                  id: input.projectId,
+                },
               },
-            },
-            user: {
-              connect: {
-                id: input.userId,
+              user: {
+                connect: {
+                  id: input.userId,
+                },
               },
+              role: "USER",
             },
-            role: "USER",
-          },
+          });
+
+          await withUsageUpdate(tx, userId, "members", "increment");
+
+          return response;
         }),
       );
 
@@ -373,14 +439,22 @@ export const projectRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+
       const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
-        ctx.prisma.projectsOnUsers.delete({
-          where: {
-            projectId_userId: {
-              projectId: input.projectId,
-              userId: input.userId,
+        ctx.prisma.$transaction(async (tx) => {
+          const response = await tx.projectsOnUsers.delete({
+            where: {
+              projectId_userId: {
+                projectId: input.projectId,
+                userId: input.userId,
+              },
             },
-          },
+          });
+
+          await withUsageUpdate(tx, userId, "members", "decrement");
+
+          return response;
         }),
       );
 

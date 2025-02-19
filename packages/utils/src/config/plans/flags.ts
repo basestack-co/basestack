@@ -29,14 +29,14 @@ const flags: FlagsPlan[] = [
       apiRequests: Infinity,
     },
     features: {
-      hasHistory: true,
-      hasBlockIPs: true,
-      hasRollouts: true,
-      hasSegments: true,
-      hasWebsites: true,
-      hasTags: true,
-      hasRemoteConfig: true,
-      hasPreviewFeatures: true,
+      hasHistory: false,
+      hasBlockIPs: false,
+      hasRollouts: false,
+      hasSegments: false,
+      hasWebsites: false,
+      hasTags: false,
+      hasRemoteConfig: false,
+      hasPreviewFeatures: false,
     },
   },
   {
@@ -182,6 +182,12 @@ const flags: FlagsPlan[] = [
 ];
 
 const getFlagsPlanLimitsDefaults = () => ({
+  projects: 0,
+  environments: 0,
+  flags: 0,
+  segments: 0,
+  rollouts: 0,
+  members: 0,
   apiRequests: 0,
 });
 

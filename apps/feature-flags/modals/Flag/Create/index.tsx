@@ -16,6 +16,8 @@ import { TabType } from "types";
 // Server
 import { api } from "utils/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";
+// Toast
+import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
 // Hooks
@@ -78,6 +80,9 @@ const CreateFlagModal = () => {
             await trpcUtils.flag.all.invalidate({ projectId: project.id });
             await trpcUtils.project.recent.invalidate();
             onClose();
+          },
+          onError: (error) => {
+            toast.error(error.message);
           },
         },
       );

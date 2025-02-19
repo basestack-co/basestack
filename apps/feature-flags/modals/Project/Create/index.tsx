@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { animated, useSpring } from "react-spring";
 // Router
 import { useRouter } from "next/navigation";
 // Form
@@ -10,43 +9,31 @@ import { z } from "zod";
 import { useTheme } from "styled-components";
 // Components
 import Portal from "@basestack/design-system/global/Portal";
-import { Modal, InputGroup, IconButton } from "@basestack/design-system";
+import { Modal, InputGroup } from "@basestack/design-system";
+// Toast
+import { toast } from "sonner";
 // Store
 import { useStore } from "store";
 import { useShallow } from "zustand/react/shallow";
 // Server
 import { api } from "utils/trpc/react";
-// Utils
-import { generateSlug } from "random-word-slugs";
-import { slugify } from "@basestack/utils";
-// Hooks
-import { useDebounce } from "react-use";
 // Locales
 import { NamespaceKeys, useTranslations } from "next-intl";
-// Styles
-import { IconButtonContainer, SlugContainer } from "./styles";
 
 export const FormSchema = z.object({
   name: z
     .string()
     .max(30, "project.create.input.project-name.error.max")
     .min(1, "project.create.input.project-name.error.min"),
-  slug: z
-    .string()
-    .max(150, "project.create.input.slug.error.max")
-    .min(1, "project.create.input.slug.error.min"),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
-
-const AnimatedIconButton = animated(IconButtonContainer);
 
 const CreateProjectModal = () => {
   const t = useTranslations("modal");
   const theme = useTheme();
   const router = useRouter();
   const trpcUtils = api.useUtils();
-  const [numberOfRefresh, setNumberOfRefresh] = useState(0);
   const [isModalOpen, setCreateProjectModalOpen, closeModalsOnClickOutside] =
     useStore(
       useShallow((state) => [
@@ -61,17 +48,12 @@ const CreateProjectModal = () => {
   const {
     control,
     handleSubmit,
-    watch,
     formState: { errors, isSubmitting },
-    setValue,
     reset,
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
   });
-
-  const watchName = watch("name");
-  const watchSlug = watch("slug");
 
   const isSubmittingOrMutating = isSubmitting || createProject.isPending;
 
@@ -93,26 +75,13 @@ const CreateProjectModal = () => {
 
         onClose();
 
-        await router.push(`/a/project/${result.project.id}/flags`);
+        router.push(`/a/project/${result.project.id}/flags`);
+      },
+      onError: (error) => {
+        toast.error(error.message);
       },
     });
   };
-
-  useDebounce(
-    () => {
-      // Only update the slug if the user hasn't typed anything
-      if (watchName && !watchSlug) {
-        setValue("slug", watchName);
-      }
-    },
-    500,
-    [watchName],
-  );
-
-  const refreshTransition = useSpring({
-    from: { transform: "rotate(0deg)" },
-    to: { transform: `rotate(${360 * numberOfRefresh}deg)` },
-  });
 
   return (
     <Portal selector="#portal">
@@ -159,42 +128,6 @@ const CreateProjectModal = () => {
             />
           )}
         />
-        <SlugContainer>
-          <Controller
-            name="slug"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <InputGroup
-                title={t("project.create.input.slug.title")}
-                hint={
-                  errors.slug?.message
-                    ? t(errors.slug?.message as NamespaceKeys<string, "modal">)
-                    : ""
-                }
-                inputProps={{
-                  name: "slug",
-                  value: slugify(field.value),
-                  onChange: field.onChange,
-                  onBlur: field.onBlur,
-                  placeholder: "pr-chat",
-                  hasError: !!errors.slug,
-                  isDisabled: isSubmitting,
-                }}
-              />
-            )}
-          />
-          <AnimatedIconButton style={refreshTransition}>
-            <IconButton
-              size="medium"
-              icon="refresh"
-              onClick={() => {
-                setNumberOfRefresh((prevState) => prevState + 1);
-                setValue("slug", generateSlug());
-              }}
-            />
-          </AnimatedIconButton>
-        </SlugContainer>
       </Modal>
     </Portal>
   );
