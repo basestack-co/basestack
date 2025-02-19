@@ -23,19 +23,11 @@ export const ContentContainer = styled.div`
   margin: 0 auto;
 `;
 
-export const Card = styled.div`
+export const CardContent = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  border: none;
-  padding: ${({ theme }) => theme.spacing.s5};
-  border-radius: ${rem("8px")};
-  transition: all 0.2s ease-in-out;
   fill: ${({ theme }) =>
     theme.isDarkMode ? theme.colors.gray300 : theme.colors.black};
-  box-shadow: ${({ theme }) => theme.shadow.elevation3};
-  background-color: ${({ theme }) =>
-    theme.isDarkMode ? theme.colors.gray800 : theme.colors.white};
 `;
 
 export const Embla = styled.div`

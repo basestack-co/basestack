@@ -13,6 +13,7 @@ import {
   Questions,
   Banner,
   SectionCards,
+  MiniCards,
 } from "components";
 // Content
 import {
@@ -21,6 +22,7 @@ import {
   questions,
   slides,
   sectionCardsMock,
+  miniCardsMock,
 } from "content/landing-page";
 
 const LandingPage = () => {
@@ -40,6 +42,11 @@ const LandingPage = () => {
         title="Introducing the Platform"
         text="Basestack Feature Flags is a user-friendly platform that simplifies the development, implementation, and management of your feature flags."
         cards={platform}
+      />
+      <MiniCards
+        id="mini-cards"
+        title="...mini cards are awesome"
+        cards={miniCardsMock}
       />
       <SectionCards
         id="something"

@@ -3,10 +3,14 @@ import { useTheme } from "styled-components";
 import { useMedia } from "react-use";
 import useEmblaCarousel from "embla-carousel-react";
 // Components
-import {Text, ButtonVariant, Button, ButtonSize} from "@basestack/design-system";
+import {
+  Text,
+  ButtonVariant,
+  Button,
+  ButtonSize,
+} from "@basestack/design-system";
 import SectionHeader from "../SectionHeader";
 import {
-  Card,
   Container,
   ContentContainer,
   Embla,
@@ -14,8 +18,10 @@ import {
   EmblaViewport,
   EmblaSlide,
   HeaderContainer,
+  CardContent,
 } from "./styles";
 import { ReactIcon, JavascriptIcon, JsonIcon } from "./icons";
+import { Card } from "../styles";
 
 export interface Props {
   id?: string;
@@ -55,23 +61,25 @@ const CardComp = ({ icon, title, description, button, onClick }: CardProps) => {
 
   return (
     <Card>
-      {icon}
-      <Text size="large" mt={spacing.s5}>
-        {title}
-      </Text>
-      <Text size="medium" mt={spacing.s1} fontWeight={400} muted>
-        {description}
-      </Text>
-      <Button
-        onClick={onClick}
-        mt={spacing.s5}
-        variant={ButtonVariant.Outlined}
-        fullWidth
-        justifyContent="center"
-        size={ButtonSize.Medium}
-      >
-        {button}
-      </Button>
+      <CardContent>
+        {icon}
+        <Text size="large" mt={spacing.s5}>
+          {title}
+        </Text>
+        <Text size="medium" mt={spacing.s1} fontWeight={400} muted>
+          {description}
+        </Text>
+        <Button
+          onClick={onClick}
+          mt={spacing.s5}
+          variant={ButtonVariant.Outlined}
+          fullWidth
+          justifyContent="center"
+          size={ButtonSize.Medium}
+        >
+          {button}
+        </Button>
+      </CardContent>
     </Card>
   );
 };

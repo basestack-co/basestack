@@ -62,6 +62,7 @@ const IconBox = ({
 
   return (
     <IconContainer
+      className="icon-box"
       variant={variant}
       filledBg={styles[color].backgroundColor}
       outlinedBg={backgroundColor}

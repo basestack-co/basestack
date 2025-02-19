@@ -36,17 +36,6 @@ export const Cards = styled.div`
   gap: 20px;
 `;
 
-export const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  background: ${({ theme }) =>
-    theme.isDarkMode ? theme.colors.gray800 : theme.colors.white};
-  border-radius: ${rem("8px")};
-  overflow: hidden;
-  padding: 20px 20px 0 20px;
-  box-shadow: ${({ theme }) => theme.shadow.elevation3};
-`;
-
 export const ImageContainer = styled.div`
   display: flex;
   flex-direction: column;

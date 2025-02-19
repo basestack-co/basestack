@@ -12,6 +12,9 @@ export const Card = styled.div.withConfig({
     theme.isDarkMode ? theme.colors.gray800 : theme.colors.white};
   border-radius: ${rem("8px")};
   box-shadow: ${({ theme }) => theme.shadow.elevation3};
+  border: 1px solid
+    ${({ theme }) =>
+      theme.isDarkMode ? theme.colors.gray700 : theme.colors.gray200};
   padding: ${({ p, theme }) =>
     p !== undefined && p !== null
       ? typeof p === "number"

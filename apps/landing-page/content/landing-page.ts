@@ -237,3 +237,45 @@ export const sectionCardsMock = [
     },
   },
 ];
+
+export const miniCardsMock = [
+  {
+    title: "Release Features",
+    icon: "dashboard_customize",
+    description: "lorem ipsum dolor sit amet consequer",
+  },
+  {
+    title: "Decision Making",
+    icon: "event_upcoming",
+    description: "lorem ipsum dolor sit amet consequer",
+  },
+  {
+    title: "Flexible Workflow Now",
+    icon: "flowsheet",
+    description: "lorem ipsum dolor sit amet consequer",
+  },
+  {
+    title: "Release Features",
+    icon: "dashboard_customize",
+    description: "lorem ipsum dolor sit amet consequer",
+  },
+  {
+    title: "Decision Making",
+    icon: "event_upcoming",
+    description: "lorem ipsum dolor sit amet consequer",
+  },
+  {
+    title: "Flexible Workflow",
+    icon: "flowsheet",
+    description: "lorem ipsum dolor sit amet consequer",
+  },
+  {
+    title: "Decision Making",
+    icon: "event_upcoming",
+    description: "lorem ipsum dolor sit amet consequer",
+  },
+  {
+    title: "Flexible Workflow",
+    icon: "flowsheet",
+  },
+];

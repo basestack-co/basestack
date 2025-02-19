@@ -2,7 +2,7 @@ import React from "react";
 import { useTheme } from "styled-components";
 // Components
 import { Text, IconBox } from "@basestack/design-system";
-import { Container } from "./styles";
+import { Card } from "../styles";
 
 export interface CardProps {
   title: string;
@@ -10,7 +10,7 @@ export interface CardProps {
   icon?: string;
 }
 
-const Card = ({ title, text, icon = "help" }: CardProps) => {
+const CardComp = ({ title, text, icon = "help" }: CardProps) => {
   const { colors, spacing, isDarkMode } = useTheme();
 
   const iconBoxProps = isDarkMode
@@ -27,7 +27,7 @@ const Card = ({ title, text, icon = "help" }: CardProps) => {
     : {};
 
   return (
-    <Container>
+    <Card>
       <IconBox icon={icon} mb={spacing.s5} {...iconBoxProps} />
       <Text size="large" mb={spacing.s2}>
         {title}
@@ -35,8 +35,8 @@ const Card = ({ title, text, icon = "help" }: CardProps) => {
       <Text size="medium" fontWeight={400} lineHeight={1.6} muted>
         {text}
       </Text>
-    </Container>
+    </Card>
   );
 };
 
-export default Card;
+export default CardComp;

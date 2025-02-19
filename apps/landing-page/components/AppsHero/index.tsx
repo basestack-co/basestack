@@ -1,4 +1,6 @@
 import React from "react";
+import { useMedia } from "react-use";
+import { rem } from "polished";
 // Theme
 import { useTheme } from "styled-components";
 // Utils
@@ -6,7 +8,6 @@ import { config, events } from "@basestack/utils";
 // Components
 import { Button, ButtonSize, Text } from "@basestack/design-system";
 import {
-  Card,
   Container,
   ContentContainer,
   InfoContainer,
@@ -15,7 +16,7 @@ import {
   ImageContainer,
 } from "./styles";
 import SectionHeader from "../SectionHeader";
-import { useMedia } from "react-use";
+import { Card } from "../styles";
 
 interface HeroProps {
   title: string;
@@ -54,7 +55,7 @@ const AppsHero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
           </Button>
         </InfoContainer>
         <Cards>
-          <Card>
+          <Card p={`${rem("20px")} ${rem("20px")} 0 ${rem("20px")}`}>
             <Text size="large" mb={spacing.s2}>
               Feature Flags
             </Text>
@@ -65,7 +66,7 @@ const AppsHero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
               <Image src={image?.src} alt={image?.alt} />
             </ImageContainer>
           </Card>
-          <Card>
+          <Card p={`${rem("20px")} ${rem("20px")} 0 ${rem("20px")}`}>
             <Text size="large" mb={spacing.s2}>
               Forms
             </Text>

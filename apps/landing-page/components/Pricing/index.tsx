@@ -15,7 +15,6 @@ import {
 } from "@basestack/design-system";
 import SectionHeader from "../SectionHeader";
 import {
-  Card,
   Container,
   ContentContainer,
   Embla,
@@ -28,7 +27,7 @@ import {
   PriceContainer,
   HeaderContainer,
 } from "./styles";
-import { spacing } from "@basestack/design-system/theme/common";
+import { Card } from "../styles";
 
 type Interval = "monthly" | "yearly";
 
@@ -128,7 +127,7 @@ interface PricingProps {
 }
 
 const Pricing = ({ title, text, items }: PricingProps) => {
-  const { device } = useTheme();
+  const { device, spacing } = useTheme();
   const isDesktop = useMedia(device.min.xl, true);
 
   const [selectedInterval, setSelectedInterval] = useState<Interval>("monthly");
