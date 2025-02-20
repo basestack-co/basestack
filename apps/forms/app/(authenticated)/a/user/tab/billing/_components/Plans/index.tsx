@@ -26,6 +26,7 @@ import { Container, List, ListItem } from "./styles";
 import ActivePlan from "./ActivePlan";
 
 const freePlanLimits = config.plans.getFormPlanLimits(PlanTypeId.FREE);
+const freePlanFeatures = config.plans.getFormPlanFeatures(PlanTypeId.FREE);
 
 const Plans = () => {
   const t = useTranslations("profile");
@@ -106,11 +107,26 @@ const Plans = () => {
             t("billing.feature.submissions", {
               value: formatNumber(freePlanLimits.submissions),
             }),
-            t("billing.feature.integrations", {
-              value: formatNumber(freePlanLimits.integrationsCalls),
-            }),
             t("billing.feature.members", {
               value: formatNumber(freePlanLimits.members),
+            }),
+            t("billing.feature.has-email-notifications", {
+              value: freePlanFeatures.hasEmailNotifications ? "✔️" : "✖️",
+            }),
+            t("billing.feature.has-custom-urls", {
+              value: freePlanFeatures.hasCustomUrls ? "✔️" : "✖️",
+            }),
+            t("billing.feature.has-webhooks", {
+              value: freePlanFeatures.hasWebhooks ? "✔️" : "✖️",
+            }),
+            t("billing.feature.has-spam-protection", {
+              value: freePlanFeatures.hasSpamProtection ? "✔️" : "✖️",
+            }),
+            t("billing.feature.has-security", {
+              value:
+                freePlanFeatures.hasWebsites || freePlanFeatures.hasBlockIPs
+                  ? "✔️"
+                  : "✖️",
             }),
           ]}
           amount={{
@@ -148,11 +164,26 @@ const Plans = () => {
                       t("billing.feature.submissions", {
                         value: formatNumber(limits.submissions),
                       }),
-                      t("billing.feature.integrations", {
-                        value: formatNumber(limits.integrationsCalls),
-                      }),
                       t("billing.feature.members", {
                         value: formatNumber(limits.members),
+                      }),
+                      t("billing.feature.has-email-notifications", {
+                        value: features.hasEmailNotifications ? "✔️" : "✖️",
+                      }),
+                      t("billing.feature.has-custom-urls", {
+                        value: features.hasCustomUrls ? "✔️" : "✖️",
+                      }),
+                      t("billing.feature.has-webhooks", {
+                        value: features.hasWebhooks ? "✔️" : "✖️",
+                      }),
+                      t("billing.feature.has-spam-protection", {
+                        value: features.hasSpamProtection ? "✔️" : "✖️",
+                      }),
+                      t("billing.feature.has-security", {
+                        value:
+                          features.hasWebsites || features.hasBlockIPs
+                            ? "✔️"
+                            : "✖️",
                       }),
                     ]}
                     amount={{

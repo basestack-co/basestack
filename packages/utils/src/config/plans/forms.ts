@@ -21,7 +21,7 @@ const forms: FormPlan[] = [
     },
     limits: {
       forms: 1,
-      submissions: 10,
+      submissions: 50,
       members: 0,
       spams: 0,
       fileUploadLimit: 0, // GB
@@ -32,7 +32,7 @@ const forms: FormPlan[] = [
       hasDataQueryString: false,
       hasCustomUrls: false,
       hasRules: false,
-      hasEmailNotifications: false,
+      hasEmailNotifications: true,
       hasBlockIPs: false,
       hasWebhooks: false,
       hasWebsites: false,
@@ -48,22 +48,22 @@ const forms: FormPlan[] = [
     name: "Hobby",
     price: {
       monthly: {
-        amount: 5,
+        amount: 9,
         currency: "USD",
         variantId: 368586,
       },
       yearly: {
-        amount: 4.5, // 10% off
+        amount: 7.67, // 15% off
         currency: "USD",
         variantId: 368587,
       },
     },
     limits: {
       forms: 5,
-      submissions: 500,
-      members: 2,
+      submissions: 1000,
+      members: 3,
       spams: 1000,
-      fileUploadLimit: 0.5, // GB
+      fileUploadLimit: 1, // GB
       integrationsCalls: 100,
     },
     features: {
@@ -71,9 +71,9 @@ const forms: FormPlan[] = [
       hasDataQueryString: false,
       hasCustomUrls: true,
       hasRules: false,
-      hasEmailNotifications: false,
+      hasEmailNotifications: true,
       hasBlockIPs: false,
-      hasWebhooks: false,
+      hasWebhooks: true,
       hasWebsites: false,
       hasCustomExport: true,
       hasAutoResponses: false,
@@ -87,22 +87,22 @@ const forms: FormPlan[] = [
     name: "Launch",
     price: {
       monthly: {
-        amount: 49,
+        amount: 39,
         currency: "USD",
         variantId: 368595,
       },
       yearly: {
-        amount: 44.1, // 10% off
+        amount: 33.17, // 15% off
         currency: "USD",
         variantId: 368596,
       },
     },
     limits: {
       forms: Infinity,
-      submissions: 2000,
-      members: 5,
+      submissions: 10000,
+      members: 10,
       spams: 2000,
-      fileUploadLimit: 1, // GB
+      fileUploadLimit: 3, // GB
       integrationsCalls: 500, // Calls
     },
     features: {
@@ -117,7 +117,7 @@ const forms: FormPlan[] = [
       hasCustomExport: true,
       hasAutoResponses: true,
       hasIntegrations: true,
-      hasCustomEmailTemplates: false,
+      hasCustomEmailTemplates: true,
       hasSpamProtection: true,
     },
   },
@@ -131,14 +131,14 @@ const forms: FormPlan[] = [
         variantId: 368599,
       },
       yearly: {
-        amount: 89.1, // 10% off
+        amount: 84.08, // 15% off
         currency: "USD",
         variantId: 368600,
       },
     },
     limits: {
       forms: Infinity,
-      submissions: 100000,
+      submissions: Infinity,
       members: 20,
       spams: 100000,
       fileUploadLimit: 10, // GB
