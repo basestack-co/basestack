@@ -4,11 +4,8 @@ import { TRPCError } from "@trpc/server";
 import { generateSlug } from "random-word-slugs";
 import { PlanTypeId, withRoles } from "@basestack/utils";
 import { z } from "zod";
-import {
-  withFeatures,
-  withLimits,
-  withUsageUpdate,
-} from "server/db/utils/subscription";
+// DB
+import { withLimits, withUsageUpdate } from "server/db/utils/subscription";
 // Inputs
 import { Role } from ".prisma/client";
 
