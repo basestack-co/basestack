@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Link from "next/link";
 import { rem } from "polished";
 
@@ -7,17 +7,45 @@ export const Container = styled.footer`
   flex-direction: column;
   margin-top: auto;
   padding: 0 ${({ theme }) => theme.spacing.s5};
-  border-top: 1px solid
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: ${({ theme }) => theme.colors.gray200};
     ${({ theme }) =>
       theme.isDarkMode
-        ? theme.horizontalRule.backgroundColor
-        : theme.horizontalRule.darker.backgroundColor};
+        ? css`
+            background-image: linear-gradient(
+              to right,
+              ${theme.colors.gray900} 0%,
+              ${theme.colors.gray700} 25%,
+              ${theme.colors.gray700} 50%,
+              ${theme.colors.gray700} 75%,
+              ${theme.colors.gray900} 100%
+            );
+          `
+        : css`
+            background-image: linear-gradient(
+              to right,
+              ${theme.colors.gray50} 0%,
+              ${theme.colors.gray200} 25%,
+              ${theme.colors.gray200} 50%,
+              ${theme.colors.gray200} 75%,
+              ${theme.colors.gray50} 100%
+            );
+          `};
+  }
 `;
 
 export const ContentWrapper = styled.footer`
   display: flex;
   flex-direction: column;
-  padding: 100px 0 ${({ theme }) => theme.spacing.s8} 0;
+  padding-bottom: ${({ theme }) => theme.spacing.s8};
   max-width: ${rem("1400px")};
   width: 100%;
   margin: 0 auto;
@@ -26,6 +54,7 @@ export const ContentWrapper = styled.footer`
 export const MainContent = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing.s8};
+  padding: ${({ theme }) => theme.spacing.s8} 0;
 
   @media screen and ${({ theme }) => theme.device.max.md} {
     flex-direction: column;

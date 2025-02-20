@@ -28,7 +28,7 @@ export const CardContainer = styled.button.withConfig({
     ${rem("25px")} ${({ theme }) => theme.spacing.s5};
   box-shadow: ${({ theme }) => theme.shadow.elevation3};
   cursor: pointer;
-  transition: scale 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
   overflow: hidden;
 
   ${({ theme, isActive }) =>

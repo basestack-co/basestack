@@ -40,7 +40,6 @@ const LandingPage = () => {
           src: "/images/flags_cards_popups.png",
           alt: "product demo",
         }}
-        contentMaxWidth={720}
       />
       <Cards
         id="platform"

@@ -23,6 +23,7 @@ import {
   slides,
   sectionCardsMock,
   miniCardsMock,
+  apps,
 } from "content/landing-page";
 
 const LandingPage = () => {
@@ -32,10 +33,7 @@ const LandingPage = () => {
       <AppsHero
         title="Develop faster with Basestack"
         text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
-        image={{
-          src: "/images/flags_cards_popups.png",
-          alt: "product demo",
-        }}
+        data={apps}
       />
       <Cards
         id="platform"

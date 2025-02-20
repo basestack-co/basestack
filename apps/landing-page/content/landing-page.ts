@@ -279,3 +279,33 @@ export const miniCardsMock = [
     icon: "flowsheet",
   },
 ];
+
+export const apps = [
+  {
+    icon: "flag",
+    title: "Feature Flags",
+    text: "Control feature releases across multiple projects and environments.",
+    image: {
+      src: "/images/flags_multiple_projects.png",
+      alt: "An image of a feature flag control panel displaying multiple projects and environments, with intuitive controls for easily managing feature releases.",
+    },
+  },
+  {
+    icon: "history",
+    title: "Forms",
+    text: "Streamlined management, monitoring, and automated change tracking.",
+    image: {
+      src: "/images/flag_history.png",
+      alt: "An image of a feature flag dashboard displaying streamlined management, monitoring, and automated change tracking features. The dashboard provides clear and concise data visualization and intuitive controls for easy navigation and management.",
+    },
+  },
+  {
+    icon: "send",
+    title: "Emails",
+    text: "Optimize your feature flag config with dynamic payload data changes.",
+    image: {
+      src: "/images/create_flag_advanced.png",
+      alt: "An image of a feature flag configuration interface, displaying dynamic payload data changes. The interface provides intuitive controls for easily making and testing feature flag changes.",
+    },
+  },
+];

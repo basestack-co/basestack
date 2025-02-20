@@ -119,6 +119,7 @@ const Footer = () => {
   return (
     <Container>
       <ContentWrapper>
+        <HorizontalRule isDarker={!isDarkMode} />
         <MainContent>
           <LeftContainer>
             <Logo product="company" size={36} isOnDark={isDarkMode} />
@@ -214,7 +215,7 @@ const Footer = () => {
           </RightContainer>
         </MainContent>
 
-        <HorizontalRule isDarker={!isDarkMode} mt={theme.spacing.s8} />
+        <HorizontalRule isDarker={!isDarkMode} />
         <BottomContainer>
           <Text size="small" muted>
             © Basestack {new Date().getFullYear()}. All rights reserved.

@@ -19,27 +19,16 @@ interface HeroProps {
   title: string;
   text: string;
   image?: ImageProps;
-  contentMaxWidth?: number | string;
 }
 
-const Hero = ({
-  title,
-  text,
-  image = { alt: "", src: "" },
-  contentMaxWidth = "100%",
-}: HeroProps) => {
+const Hero = ({ title, text, image = { alt: "", src: "" } }: HeroProps) => {
   const { isDarkMode, device } = useTheme();
   const isMobile = useMedia(device.max.sm, false);
 
   return (
     <Container>
       <ContentContainer>
-        <SectionHeader
-          title={title}
-          text={text}
-          hasMarginBottom={false}
-          maxWidth={contentMaxWidth}
-        />
+        <SectionHeader title={title} text={text} hasMarginBottom={false} />
         <ButtonsContainer>
           <Button
             justifyContent="center"

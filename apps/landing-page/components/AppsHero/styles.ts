@@ -1,52 +1,113 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { rem } from "polished";
 
 export const Container = styled.section`
   display: flex;
   flex-direction: column;
-  padding: ${rem("100px")} ${({ theme }) => theme.spacing.s5};
+  padding: ${rem("100px")} 0;
+  overflow: hidden;
+`;
+
+export const HeaderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 ${({ theme }) => theme.spacing.s5};
+  max-width: ${rem("1400px")};
+  margin-bottom: ${rem("100px")};
 `;
 
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: ${rem("1400px")};
+  align-items: center;
   width: 100%;
   margin: 0 auto;
-`;
-
-export const InfoContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: ${({ theme }) => theme.spacing.s8};
 `;
 
 export const ButtonsContainer = styled.div`
   display: flex;
   margin-top: ${({ theme }) => theme.spacing.s5};
-  gap: ${({ theme }) => theme.spacing.s5};
-  max-width: 600px;
+  gap: ${({ theme }) => theme.spacing.s4};
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    align-items: center;
+    flex-direction: column;
+    max-width: ${rem("400px")};
+    width: 100%;
+  }
+`;
+
+export const Embla = styled.div.withConfig({
+  shouldForwardProp: (prop) => !["isImageSlider"].includes(prop),
+})<{ isImageSlider: boolean }>`
+  margin: 0 auto;
   width: 100%;
-  margin: ${({ theme }) => theme.spacing.s5} auto 0 auto;
+  max-width: ${rem("1140px")};
+
+  ${({ isImageSlider }) =>
+    isImageSlider &&
+    css`
+      margin-top: ${rem("12px")};
+    `}
 `;
 
-export const Cards = styled.div`
+export const EmblaViewport = styled.div.withConfig({
+  shouldForwardProp: (prop) => !["isImageSlider"].includes(prop),
+})<{ isImageSlider: boolean }>`
+  ${({ theme, isImageSlider }) =>
+    isImageSlider
+      ? css`
+          overflow: visible;
+          padding: ${`0 ${theme.spacing.s5}`};
+        `
+      : css`
+          overflow: hidden;
+          padding: ${`0 ${theme.spacing.s5} ${theme.spacing.s2} ${theme.spacing.s5}`};
+        `}
+`;
+
+export const EmblaContainer = styled.ul`
+  backface-visibility: hidden;
   display: flex;
-  gap: 20px;
+  touch-action: pan-y pinch-zoom;
+  margin-left: ${rem("-20px")};
+
+  @media screen and ${({ theme }) => theme.device.max.xl} {
+    margin-left: ${rem("-10px")};
+  }
 `;
 
-export const ImageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-  border-top-left-radius: ${rem("8px")};
-  border-top-right-radius: ${rem("8px")};
-  overflow: hidden;
-  border: 1px solid ${({ theme }) => theme.colors.gray100};
-`;
+export const EmblaSlide = styled.li.withConfig({
+  shouldForwardProp: (prop) => !["isImageSlider"].includes(prop),
+})<{
+  isImageSlider: boolean;
+}>`
+  min-width: 0;
+  padding-left: ${rem("20px")};
 
-export const Image = styled.img`
-  width: 100%;
-  height: auto;
+  ${({ theme, isImageSlider }) =>
+    isImageSlider
+      ? css`
+          flex: 0 0 100%;
+
+          @media screen and ${theme.device.max.xl} {
+            padding-left: ${rem("10px")};
+          }
+        `
+      : css`
+          flex: 0 0 calc(100% / 3);
+          @media screen and ${theme.device.max.xl} {
+            flex: 0 0 calc(100% / 3);
+            padding-left: ${rem("10px")};
+          }
+
+          @media screen and ${theme.device.max.lg} {
+            flex: 0 0 calc(100% / 2);
+          }
+
+          @media screen and ${theme.device.max.sm} {
+            flex: 0 0 100%;
+          }
+        `}
 `;
