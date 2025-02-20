@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 // Router
 import { useParams } from "next/navigation";
 // Components
@@ -15,13 +15,14 @@ import { useShallow } from "zustand/react/shallow";
 import { TabType } from "types";
 // Server
 import { api } from "utils/trpc/react";
-import { keepPreviousData } from "@tanstack/react-query";
 // Toast
 import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
 // Hooks
 import useFlagForm, { tabPosition } from "../useFlagForm";
+// Utils
+import { config, PlanTypeId } from "@basestack/utils";
 
 const CreateFlagModal = () => {
   const t = useTranslations();
@@ -50,12 +51,16 @@ const CreateFlagModal = () => {
 
   const createFlag = api.flag.create.useMutation();
 
-  const { data, isLoading } = api.environment.all.useQuery(
-    { projectId: project?.id! },
-    {
-      enabled: !!project?.id,
-      placeholderData: keepPreviousData,
-    },
+  const [{ data, isLoading }, usage] = api.useQueries((t) => [
+    t.environment.all({ projectId }, { enabled: !!projectId }),
+    t.subscription.usage(undefined, { enabled: !!projectId }),
+  ]);
+
+  const planId = (usage.data?.planId ?? PlanTypeId.FREE) as PlanTypeId;
+
+  const hasRemoteConfigFeature = useMemo(
+    () => config.plans.hasFlagsPlanFeature(planId, "hasRemoteConfig"),
+    [planId],
   );
 
   const isSubmittingOrMutating = isSubmitting || createFlag.isPending;
@@ -127,6 +132,7 @@ const CreateFlagModal = () => {
           items={[
             { text: t("modal.flag.tab.core.title"), id: TabType.CORE },
             { text: t("modal.flag.tab.advanced.title"), id: TabType.ADVANCED },
+            //   ...(hasRemoteConfigFeature ? [ { text: t("modal.flag.tab.advanced.title"), id: TabType.ADVANCED }] : [])
           ]}
           onSelect={(tab: string) => setSelectedTab(tab as TabType)}
           sliderPosition={tabPosition[selectedTab]}

@@ -394,11 +394,20 @@
         "segments": "{value} Segments",
         "rollouts": "{value} Rollouts",
         "members": "{value} Members",
-        "api-requests": "{value} API requests"
+        "api-requests": "{value} API Requests",
+        "has-history": "{value} Activity Log",
+        "has-tags": "{value} Tags",
+        "has-remote-config": "{value} Remote Config",
+        "has-preview-features": "{value} Preview Features",
+        "has-websites": "{value} Website Whitelist",
+        "has-block-ips": "{value} Block IPS",
+        "has-rollouts": "{value} Rollouts",
+        "has-segments": "{value} Segments",
+        "has-security": "{value} Security Rules"
       },
       "segment": {
-        "monthly": "monthly",
-        "yearly": "yearly"
+        "monthly": "Monthly",
+        "yearly": "Yearly (Save 15%)"
       },
       "cycle": {
         "monthly": "billed monthly",

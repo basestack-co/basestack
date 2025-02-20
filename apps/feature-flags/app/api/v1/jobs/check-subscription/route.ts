@@ -5,9 +5,7 @@ import { Receiver } from "@upstash/qstash";
 import { prisma } from "server/db";
 // Utils
 import dayjs from "dayjs";
-import { PlanTypeId, config, SubscriptionEvent } from "@basestack/utils";
-
-const { getFlagsPlanLimitsDefaults } = config.plans;
+import { PlanTypeId, SubscriptionEvent } from "@basestack/utils";
 
 //  cron: "0 19 * * *", // Run every day at 7 PM
 
@@ -57,7 +55,7 @@ export const { POST } = serve(
               billingCycleStart: dayjs(billingCycle)
                 .add(1, "month")
                 .toISOString(),
-              ...getFlagsPlanLimitsDefaults(),
+              apiRequests: 0,
               ...payload,
             },
           });

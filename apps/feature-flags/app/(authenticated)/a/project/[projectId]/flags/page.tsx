@@ -18,6 +18,7 @@ import { useTheme } from "styled-components";
 import { FlagsListContainer } from "./_components/FlagsList/styles";
 // Types
 import { SelectedView } from "types";
+import { PlanTypeId } from "@basestack/utils";
 // Server
 import { api } from "utils/trpc/react";
 
@@ -31,12 +32,12 @@ const FlagsPage = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const { projectId } = useParams<{ projectId: string }>();
 
-  const { data: project } = api.project.byId.useQuery(
-    { projectId },
-    {
-      enabled: !!projectId,
-    },
-  );
+  const [{ data: project, isError, isLoading }, usage] = api.useQueries((t) => [
+    t.project.byId({ projectId }, { enabled: !!projectId }),
+    t.subscription.usage(undefined, { enabled: !!projectId }),
+  ]);
+
+  const planId = (usage.data?.planId ?? PlanTypeId.FREE) as PlanTypeId;
 
   useEffect(() => {
     if (!isDesktop) {
@@ -74,6 +75,7 @@ const FlagsPage = () => {
           projectId={projectId}
           selectedView={selectedView}
           searchValue={searchValue}
+          planId={planId}
         />
       </FlagsListContainer>
     </>

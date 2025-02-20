@@ -15,6 +15,8 @@ import {
   AmountContainer,
   ArrowContainer,
 } from "./styles";
+// Utils
+import { formatNumber } from "@basestack/utils";
 
 interface PlanCardProps {
   title: string;
@@ -116,7 +118,7 @@ const PlanCard = ({
               <Text size="medium" mr={spacing.s1} lineHeight={rem("26px")}>
                 {/* @ts-ignore */}
                 <animated.span style={{ color: spring.color }}>
-                  {spring.number.to((val) => Math.floor(val))}
+                  {spring.number.to((val) => formatNumber(val, "en-US", 2, 2))}
                 </animated.span>
               </Text>
               <Text size="medium" mr={spacing.s1} lineHeight={rem("26px")}>

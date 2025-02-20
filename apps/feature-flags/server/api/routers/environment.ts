@@ -67,7 +67,7 @@ export const environmentRouter = createTRPCRouter({
         withLimits(
           planId,
           "environments",
-          ctx.usage.flags,
+          ctx.usage.environments,
         )(() =>
           ctx.prisma.$transaction(async (tx) => {
             const environment = await tx.environment.findFirst({

@@ -49,6 +49,10 @@ const Navigation = ({ data }: NavigationProps) => {
     (state) => state.setCreateProjectModalOpen,
   );
 
+  const setCreateFlagModalOpen = useStore(
+    (state) => state.setCreateFlagModalOpen,
+  );
+
   const useBilling = useMemo(
     () => getCookieValueAsBoolean(config.cookies.useBilling) || config.isDev,
     [],
@@ -66,7 +70,6 @@ const Navigation = ({ data }: NavigationProps) => {
       `${process.env.NEXT_PUBLIC_APP_MODE ?? "production"}` as AppEnv,
     );
   }, []);
-
 
   const toggleDarkMode = async (isDarkMode: boolean): Promise<void> => {
     /**
@@ -116,7 +119,11 @@ const Navigation = ({ data }: NavigationProps) => {
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
       leftLinks={
-        !!projectId ? getLeftLinks(router, pathname, t, projectId) : []
+        !!projectId
+          ? getLeftLinks(router, pathname, t, projectId, () =>
+              setCreateFlagModalOpen({ isOpen: true }),
+            )
+          : []
       }
       rightLinks={getRightLinks(t)}
       rightLinksTitle={t("navigation.external.resources")}

@@ -196,6 +196,7 @@ export const projectRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
       const planId = ctx.usage.planId as PlanTypeId;
+      const hasOnlyOneEnv = planId === PlanTypeId.FREE;
 
       const authorized = withLimits(
         planId,
@@ -215,16 +216,20 @@ export const projectRouter = createTRPCRouter({
                     description: "The default develop environment",
                     isDefault: true,
                   },
-                  {
-                    name: "staging",
-                    slug: `${generateSlug()}`,
-                    description: "The default staging environment",
-                  },
-                  {
-                    name: "production",
-                    slug: `${generateSlug()}`,
-                    description: "The default production environment",
-                  },
+                  ...(!hasOnlyOneEnv
+                    ? [
+                        {
+                          name: "staging",
+                          slug: `${generateSlug()}`,
+                          description: "The default staging environment",
+                        },
+                        {
+                          name: "production",
+                          slug: `${generateSlug()}`,
+                          description: "The default production environment",
+                        },
+                      ]
+                    : []),
                 ],
               },
             },
@@ -326,13 +331,34 @@ export const projectRouter = createTRPCRouter({
 
       const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
         ctx.prisma.$transaction(async (tx) => {
-          const response = await tx.project.delete({
+          const environmentWithFlagCount = await tx.environment.findFirst({
             where: {
-              id: input.projectId,
+              projectId: input.projectId,
+              isDefault: true,
+            },
+            select: {
+              id: true,
+              _count: {
+                select: {
+                  flags: true,
+                },
+              },
             },
           });
 
+          const response = await tx.project.delete({
+            where: { id: input.projectId },
+            select: { id: true },
+          });
+
           await withUsageUpdate(tx, userId, "projects", "decrement");
+          await withUsageUpdate(
+            tx,
+            userId,
+            "flags",
+            "decrement",
+            environmentWithFlagCount?._count.flags ?? 0,
+          );
 
           return response;
         }),

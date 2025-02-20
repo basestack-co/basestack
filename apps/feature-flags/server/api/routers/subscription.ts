@@ -137,6 +137,7 @@ export const subscriptionRouter = createTRPCRouter({
         expiresAt: dayjs().add(1, "hour").format(),
         preview: true,
       };
+
       const { statusCode, error, data } = await createCheckout(
         storeId,
         variantId,

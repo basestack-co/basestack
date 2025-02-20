@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 // Server
 import { initTRPC, TRPCError } from "@trpc/server";
 // Utils
@@ -85,6 +86,8 @@ export const isAuthenticated = middleware(
         ctx?.session?.user.id!,
         projectId!,
       );
+
+      console.log("GET THE PROJECY = ", project);
 
       // If the user does not exist in the project, return an error
       if (!project) {

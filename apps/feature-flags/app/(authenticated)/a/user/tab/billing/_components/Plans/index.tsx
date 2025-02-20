@@ -25,8 +25,8 @@ import ActivePlan from "./ActivePlan";
 import { useTheme } from "styled-components";
 import { Container, List, ListItem } from "./styles";
 
-
 const freePlanLimits = config.plans.getFlagsPlanLimits(PlanTypeId.FREE);
+const freePlanFeatures = config.plans.getFlagsPlanFeatures(PlanTypeId.FREE);
 
 const Plans = () => {
   const t = useTranslations("profile");
@@ -113,6 +113,18 @@ const Plans = () => {
             t("billing.feature.members", {
               value: formatNumber(freePlanLimits.members),
             }),
+            t("billing.feature.has-history", {
+              value: freePlanFeatures.hasHistory ? "✔️" : "✖️",
+            }),
+            t("billing.feature.has-remote-config", {
+              value: freePlanFeatures.hasRemoteConfig ? "✔️" : "✖️",
+            }),
+            t("billing.feature.has-security", {
+              value:
+                freePlanFeatures.hasWebsites || freePlanFeatures.hasBlockIPs
+                  ? "✔️"
+                  : "✖️",
+            }),
           ]}
           amount={{
             symbol: t("billing.price.symbol"),
@@ -129,7 +141,7 @@ const Plans = () => {
         <List>
           {config.plans.flags
             .filter((item) => item.id !== PlanTypeId.FREE)
-            .map(({ id, price, features, limits }) => {
+            .map(({ id, price, limits, features }) => {
               const value =
                 interval === "monthly"
                   ? price.monthly.amount
@@ -138,6 +150,7 @@ const Plans = () => {
                 interval === "monthly"
                   ? t("billing.cycle.monthly")
                   : t("billing.cycle.yearly");
+
               return (
                 <ListItem key={id}>
                   <PlanCard
@@ -154,6 +167,18 @@ const Plans = () => {
                       }),
                       t("billing.feature.members", {
                         value: formatNumber(limits.members),
+                      }),
+                      t("billing.feature.has-history", {
+                        value: features.hasHistory ? "✔️" : "✖️",
+                      }),
+                      t("billing.feature.has-remote-config", {
+                        value: features.hasRemoteConfig ? "✔️" : "✖️",
+                      }),
+                      t("billing.feature.has-security", {
+                        value:
+                          features.hasWebsites || features.hasBlockIPs
+                            ? "✔️"
+                            : "✖️",
                       }),
                     ]}
                     amount={{

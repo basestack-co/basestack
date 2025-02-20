@@ -2,6 +2,7 @@ import { NavigationProps } from "@basestack/ui";
 // Types
 import { useRouter } from "next/navigation";
 import { TFunction } from "types/locale";
+import { ButtonVariant } from "@basestack/design-system";
 // Utils
 import { config, Product } from "@basestack/utils";
 import { signOut } from "next-auth/react";
@@ -11,6 +12,7 @@ export const getLeftLinks = (
   pathname: string,
   t: TFunction,
   projectId: string,
+  onCreateFlag: () => void,
 ): NavigationProps["leftLinks"] => {
   return [
     {
@@ -27,6 +29,15 @@ export const getLeftLinks = (
       text: t("navigation.internal.settings"),
       isActive: pathname.includes("settings"),
     },
+    {
+      type: "button",
+      icon: "settings",
+      onClick: onCreateFlag,
+      text: t("navigation.create.flag"),
+      isActive: pathname.includes("create"),
+      buttonVariant: ButtonVariant.Primary,
+      space: { ml: 2 },
+    },
   ];
 };
 
@@ -34,7 +45,7 @@ export const getRightLinks = (t: TFunction): NavigationProps["rightLinks"] => {
   return [
     {
       type: "link",
-      icon: "description",
+      icon: "flag",
       isActive: false,
       href: config.urls.docs.forms.base,
       text: t("navigation.external.docs"),

@@ -62,25 +62,3 @@ export interface WithPlanSwitchProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   checked: boolean;
 }
-
-export const getWithPlanSwitchProps = ({
-  planId,
-  feature,
-  t,
-  isDisabled,
-  partial = true,
-  onChange,
-  checked,
-}: WithPlanSwitchProps) => {
-  const hasFeature = config.plans.hasFlagsPlanFeature(planId, feature);
-
-  return !hasFeature
-    ? {
-        variant: CardVariant.PRIMARY,
-        hasOverlay: true,
-        label: t(`common.plan.flags.upgrade.${partial ? "partial" : "all"}`),
-        onChange: () => null,
-        checked: false,
-      }
-    : { hasOverlay: isDisabled, onChange, checked };
-};

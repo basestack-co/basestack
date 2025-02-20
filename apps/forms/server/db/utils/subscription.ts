@@ -59,8 +59,7 @@ export const withUsageUpdate = async (
       // Create a new subscription if it doesn't exist with the free plan
       create: {
         userId,
-        // TODO: This is a temporary solution until we have a proper subscription system
-        planId: PlanTypeId.PREVIEW,
+        planId: PlanTypeId.FREE,
         subscriptionId: "",
         billingCycleStart: new Date(),
         [limit]: 1,
@@ -90,6 +89,15 @@ export function withLimits(
       this: unknown,
       ...args: Parameters<T>
     ): Promise<ReturnType<T>> {
+      if (!config.plans.isValidFormPlan(planId)) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message:
+            "Your current plan is not supported. Please upgrade to continue.",
+          cause: "InvalidPlan",
+        });
+      }
+
       const limit = config.plans.getFormLimitByKey(planId, limitKey);
 
       if (count < limit) {
@@ -114,6 +122,15 @@ export function withFeatures(
       this: unknown,
       ...args: Parameters<T>
     ): Promise<ReturnType<T>> {
+      if (!config.plans.isValidFormPlan(planId)) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message:
+            "Your current plan is not supported. Please upgrade to continue.",
+          cause: "InvalidPlan",
+        });
+      }
+
       const hasFeature = feature
         ? config.plans.hasFormPlanFeature(planId, feature)
         : true;

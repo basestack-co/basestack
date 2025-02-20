@@ -248,6 +248,8 @@ export const flagRouter = createTRPCRouter({
       const planId = ctx.usage.planId as PlanTypeId;
       const userId = ctx.session.user.id;
 
+      console.log("GO JOE", planId);
+
       const authorized = withLimits(
         planId,
         "flags",

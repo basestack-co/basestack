@@ -5,41 +5,6 @@ import { PlanTypeId, FlagsPlan } from "../../types";
 
 const flags: FlagsPlan[] = [
   {
-    id: PlanTypeId.PREVIEW,
-    name: "Preview",
-    price: {
-      monthly: {
-        amount: 0,
-        currency: "USD",
-        variantId: 0,
-      },
-      yearly: {
-        amount: 0,
-        currency: "USD",
-        variantId: 0,
-      },
-    },
-    limits: {
-      projects: 10,
-      environments: 10,
-      flags: 100,
-      segments: 0,
-      rollouts: 0,
-      members: 20,
-      apiRequests: Infinity,
-    },
-    features: {
-      hasHistory: false,
-      hasBlockIPs: false,
-      hasRollouts: false,
-      hasSegments: false,
-      hasWebsites: false,
-      hasTags: false,
-      hasRemoteConfig: false,
-      hasPreviewFeatures: false,
-    },
-  },
-  {
     id: PlanTypeId.FREE,
     name: "Free",
     price: {
@@ -56,12 +21,12 @@ const flags: FlagsPlan[] = [
     },
     limits: {
       projects: 1,
-      environments: 1,
-      flags: 5,
+      environments: 0,
+      flags: 10,
       segments: 0,
       rollouts: 0,
       members: 0,
-      apiRequests: Infinity,
+      apiRequests: 50000,
     },
     features: {
       hasHistory: false,
@@ -79,24 +44,24 @@ const flags: FlagsPlan[] = [
     name: "Hobby",
     price: {
       monthly: {
-        amount: 5,
+        amount: 9,
         currency: "USD",
         variantId: 695368,
       },
       yearly: {
-        amount: 4.5, // 10% off
+        amount: 7.65, // 15% off
         currency: "USD",
         variantId: 695369,
       },
     },
     limits: {
       projects: 5,
-      environments: 2,
-      flags: 200,
+      environments: Infinity,
+      flags: 500,
       segments: 0,
       rollouts: 0,
       members: 0,
-      apiRequests: Infinity,
+      apiRequests: 500000,
     },
     features: {
       hasHistory: false,
@@ -119,25 +84,25 @@ const flags: FlagsPlan[] = [
         variantId: 695372,
       },
       yearly: {
-        amount: 44.1, // 10% off
+        amount: 41.65, // 15% off
         currency: "USD",
         variantId: 695373,
       },
     },
     limits: {
       projects: Infinity,
-      environments: 3,
+      environments: Infinity,
       flags: Infinity,
-      segments: 0,
-      rollouts: 0,
-      members: 0,
-      apiRequests: Infinity,
+      segments: 5,
+      rollouts: 10,
+      members: 5,
+      apiRequests: 5000000,
     },
     features: {
-      hasHistory: false,
+      hasHistory: true,
       hasBlockIPs: true,
       hasRollouts: false,
-      hasSegments: false,
+      hasSegments: true,
       hasWebsites: true,
       hasTags: false,
       hasRemoteConfig: true,
@@ -149,12 +114,12 @@ const flags: FlagsPlan[] = [
     name: "Scale",
     price: {
       monthly: {
-        amount: 99,
+        amount: 119,
         currency: "USD",
         variantId: 695376,
       },
       yearly: {
-        amount: 89.1, // 10% off
+        amount: 101.15, // 15% off
         currency: "USD",
         variantId: 695377,
       },
@@ -163,9 +128,9 @@ const flags: FlagsPlan[] = [
       projects: Infinity,
       environments: Infinity,
       flags: Infinity,
-      segments: 0,
-      rollouts: 0,
-      members: 20,
+      segments: Infinity,
+      rollouts: Infinity,
+      members: 25,
       apiRequests: Infinity,
     },
     features: {

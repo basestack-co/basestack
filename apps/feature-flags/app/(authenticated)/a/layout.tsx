@@ -21,7 +21,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     },
   });
 
-  const [flags, usage] = api.useQueries((t) => [
+  const [projects, usage] = api.useQueries((t) => [
     t.project.all(undefined, {
       enabled: status === "authenticated",
       select: (data) =>
@@ -37,7 +37,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     }),
   ]);
 
-  if (status === "loading" || flags.isLoading || usage.isLoading) {
+  if (status === "loading" || projects.isLoading || usage.isLoading) {
     return (
       <Loader hasDelay={false}>
         <Splash product="flags" />
@@ -47,7 +47,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Fragment>
-      <Navigation data={flags.data} />
+      <Navigation data={projects.data} />
       {children}
     </Fragment>
   );

@@ -634,8 +634,8 @@
         "integrations": "{value} Integrations Calls"
       },
       "segment": {
-        "monthly": "monthly",
-        "yearly": "yearly"
+        "monthly": "Monthly",
+        "yearly": "Yearly (Save 15%)"
       },
       "cycle": {
         "monthly": "billed monthly",

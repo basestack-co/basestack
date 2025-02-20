@@ -51,14 +51,14 @@ export const withUsageUpdate = async (
   userId: string,
   limit: keyof FlagsPlan["limits"],
   action: "increment" | "decrement",
+  value: number = 1,
 ) => {
   try {
     return await prisma.subscription.upsert({
       // Create a new subscription if it doesn't exist with the free plan
       create: {
         userId,
-        // TODO: This is a temporary solution until we have a proper subscription system
-        planId: PlanTypeId.PREVIEW,
+        planId: PlanTypeId.FREE,
         subscriptionId: "",
         billingCycleStart: new Date(),
         [limit]: 1,
@@ -66,7 +66,7 @@ export const withUsageUpdate = async (
       // Increment or decrement the limit
       update: {
         [limit]: {
-          [action]: 1,
+          [action]: value,
         },
       },
       where: {
@@ -88,6 +88,15 @@ export function withLimits(
       this: unknown,
       ...args: Parameters<T>
     ): Promise<ReturnType<T>> {
+      if (!config.plans.isValidFlagsPlan(planId)) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message:
+            "Your current plan is not supported. Please upgrade to continue.",
+          cause: "InvalidPlan",
+        });
+      }
+
       const limit = config.plans.getFlagsLimitByKey(planId, limitKey);
 
       if (count < limit) {
@@ -112,6 +121,15 @@ export function withFeatures(
       this: unknown,
       ...args: Parameters<T>
     ): Promise<ReturnType<T>> {
+      if (!config.plans.isValidFlagsPlan(planId)) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message:
+            "Your current plan is not supported. Please upgrade to continue.",
+          cause: "InvalidPlan",
+        });
+      }
+
       const hasFeature = feature
         ? config.plans.hasFlagsPlanFeature(planId, feature)
         : true;

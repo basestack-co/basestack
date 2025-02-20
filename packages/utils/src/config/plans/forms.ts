@@ -5,45 +5,6 @@ import { PlanTypeId, FormPlan } from "../../types";
 
 const forms: FormPlan[] = [
   {
-    id: PlanTypeId.PREVIEW,
-    name: "Preview",
-    price: {
-      monthly: {
-        amount: 0,
-        currency: "USD",
-        variantId: 0,
-      },
-      yearly: {
-        amount: 0,
-        currency: "USD",
-        variantId: 0,
-      },
-    },
-    limits: {
-      forms: 100,
-      submissions: 10000,
-      members: 100,
-      spams: 10000,
-      fileUploadLimit: 1, // GB
-      integrationsCalls: 500,
-    },
-    features: {
-      hasFileUploads: true,
-      hasDataQueryString: true,
-      hasCustomUrls: true,
-      hasRules: true,
-      hasEmailNotifications: true,
-      hasBlockIPs: true,
-      hasWebhooks: true,
-      hasWebsites: true,
-      hasCustomExport: true,
-      hasAutoResponses: true,
-      hasIntegrations: true,
-      hasCustomEmailTemplates: true,
-      hasSpamProtection: true,
-    },
-  },
-  {
     id: PlanTypeId.FREE,
     name: "Free",
     price: {

@@ -15,7 +15,7 @@ import { api } from "utils/trpc/react";
 const SecuritySettingsPage = () => {
   const { projectId } = useParams<{ projectId: string }>();
 
-  const [form, usage] = api.useQueries((t) => [
+  const [project, usage] = api.useQueries((t) => [
     t.project.byId({ projectId }, { enabled: !!projectId }),
     t.subscription.usage(undefined, { enabled: !!projectId }),
   ]);
@@ -26,13 +26,16 @@ const SecuritySettingsPage = () => {
     <CardList>
       <CardListItem>
         <SettingCardContainer>
-          <FlagsWebsites websites={form.data?.websites ?? ""} planId={planId} />
+          <FlagsWebsites
+            websites={project.data?.websites ?? ""}
+            planId={planId}
+          />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>
         <SettingCardContainer>
           <FlagsIpRules
-            blockIpAddresses={form.data?.blockIpAddresses ?? ""}
+            blockIpAddresses={project.data?.blockIpAddresses ?? ""}
             planId={planId}
           />
         </SettingCardContainer>
