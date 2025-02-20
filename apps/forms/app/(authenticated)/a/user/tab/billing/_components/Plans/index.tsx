@@ -49,7 +49,7 @@ const Plans = () => {
   }, []);
 
   const onCreateCheckout = useCallback(
-    (planId: PlanTypeId, interval: BillingInterval) => {
+    (planId: PlanTypeId) => {
       setIsLoading(true);
       createCheckout.mutate(
         {
@@ -76,7 +76,7 @@ const Plans = () => {
         },
       );
     },
-    [createCheckout, isDarkMode, onHandleExternalUrl],
+    [createCheckout, interval, isDarkMode, onHandleExternalUrl],
   );
 
   if (isLoadingSubscription) {
@@ -193,7 +193,7 @@ const Plans = () => {
                       symbol: t("billing.price.symbol"),
                       abbr: t("billing.price.abbr"),
                     }}
-                    onClick={() => onCreateCheckout(id, "monthly")}
+                    onClick={() => onCreateCheckout(id)}
                     isDisabled={isLoading}
                   />
                 </ListItem>
