@@ -7,6 +7,8 @@ const flags: FlagsPlan[] = [
   {
     id: PlanTypeId.FREE,
     name: "Free",
+    description:
+      "Get started with feature flags at no cost. Manage up to 10 feature flags in 1 project with 50,000 API requests per month. Ideal for small experiments and personal projects. Does not include segments, rollouts, or advanced features.",
     price: {
       monthly: {
         amount: 0,
@@ -42,6 +44,8 @@ const flags: FlagsPlan[] = [
   {
     id: PlanTypeId.HOBBY,
     name: "Hobby",
+    description:
+      "Perfect for indie developers and small teams. Create up to 500 feature flags across 5 projects with unlimited environments. Supports 500,000 API requests per month. Great for testing features across multiple projects but does not include advanced segmentation or rollouts.",
     price: {
       monthly: {
         amount: 9,
@@ -77,6 +81,8 @@ const flags: FlagsPlan[] = [
   {
     id: PlanTypeId.LAUNCH,
     name: "Launch",
+    description:
+      "Built for startups and growing teams. Get unlimited feature flags and unlimited projects with up to 5 user segments and 10 rollouts. Includes history tracking, remote config, website support, and IP blocking for added security. Comes with 5 team members and 5 million API requests per month.",
     price: {
       monthly: {
         amount: 49,
@@ -112,6 +118,8 @@ const flags: FlagsPlan[] = [
   {
     id: PlanTypeId.SCALE,
     name: "Scale",
+    description:
+      "The ultimate solution for scaling businesses. Enjoy unlimited projects, flags, segments, rollouts, API requests, and 25 team members. Includes full segmentation, advanced rollouts, preview features, remote config, and history tracking. Designed for teams that need flexibility, control, and high performance.",
     price: {
       monthly: {
         amount: 119,
