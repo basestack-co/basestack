@@ -86,7 +86,7 @@ const UpdateFlagModal = () => {
           data,
         },
         {
-          onSuccess: async (result) => {
+          onSuccess: async () => {
             await trpcUtils.flag.bySlug.invalidate({
               slug: modalPayload?.flag?.slug!,
               projectId: project?.id!,

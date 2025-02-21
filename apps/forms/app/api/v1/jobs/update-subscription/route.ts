@@ -19,7 +19,9 @@ export const { POST } = serve<UpdateSubscriptionEventPayload>(
     console.info(`Subscription Event:${body.meta.event_name}`);
 
     if (!getSubscriptionEvents.includes(body.meta.event_name)) {
-      console.error("Job: Update Forms Subscriptions - Invalid event name received");
+      console.error(
+        "Job: Update Forms Subscriptions - Invalid event name received",
+      );
       return;
     }
 

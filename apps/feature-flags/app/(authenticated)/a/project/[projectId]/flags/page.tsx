@@ -32,7 +32,7 @@ const FlagsPage = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const { projectId } = useParams<{ projectId: string }>();
 
-  const [{ data: project, isError, isLoading }, usage] = api.useQueries((t) => [
+  const [{ data: project }, usage] = api.useQueries((t) => [
     t.project.byId({ projectId }, { enabled: !!projectId }),
     t.subscription.usage(undefined, { enabled: !!projectId }),
   ]);

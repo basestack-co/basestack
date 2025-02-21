@@ -58,8 +58,8 @@ const EndpointCard = ({ formId }: Props) => {
                 size="medium"
                 variant="secondaryDark"
                 icon="content_copy"
-                onClick={() => {
-                  navigator.clipboard.writeText(url);
+                onClick={async () => {
+                  await navigator.clipboard.writeText(url);
                   setShowTooltipSuccess(true);
                 }}
               />

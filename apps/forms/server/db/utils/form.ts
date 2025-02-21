@@ -1,14 +1,18 @@
 // DB
 import { prisma } from "server/db";
 // Utils
-import {AppEnv, config as utilsConfig, PlanTypeId, Product} from "@basestack/utils";
+import {
+  AppEnv,
+  config as utilsConfig,
+  PlanTypeId,
+  Product,
+} from "@basestack/utils";
 
 const { urls } = utilsConfig;
 
-
 const productUrl = urls.getAppWithEnv(
-    Product.FORMS,
-    `${process.env.NEXT_PUBLIC_APP_MODE ?? "production"}` as AppEnv,
+  Product.FORMS,
+  `${process.env.NEXT_PUBLIC_APP_MODE ?? "production"}` as AppEnv,
 );
 
 export const defaultSuccessUrl = `${productUrl}/status/success`;

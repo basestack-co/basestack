@@ -1,4 +1,4 @@
-import { darken, transparentize } from "polished";
+import { transparentize } from "polished";
 import { typography, colors, spacing, zIndex, device } from "./common";
 
 const shadow = {

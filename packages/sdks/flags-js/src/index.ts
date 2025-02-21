@@ -40,12 +40,12 @@ export interface Flag {
 
 export class FlagsSDK {
   private config: Required<SDKConfig>;
-  private BASE_URL: string;
+  private readonly BASE_URL: string;
   private cache: Map<
     string,
     { data: Flag | { flags: Flag[] }; timestamp: number }
   >;
-  private fetchImplementation: typeof fetch;
+  private readonly fetchImplementation: typeof fetch;
   private initPromise: Promise<void> | null = null;
 
   /**

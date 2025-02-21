@@ -5,6 +5,8 @@ import { withLimits, withUsageUpdate } from "server/db/utils/subscription";
 import { z } from "zod";
 import { PlanTypeId } from "@basestack/utils";
 
+// config.plans.hasFlagsPlanFeature(planId, "hasRemoteConfig")
+
 export const flagRouter = createTRPCRouter({
   all: protectedProcedure
     .input(
@@ -247,8 +249,6 @@ export const flagRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const planId = ctx.usage.planId as PlanTypeId;
       const userId = ctx.session.user.id;
-
-      console.log("GO JOE", planId);
 
       const authorized = withLimits(
         planId,

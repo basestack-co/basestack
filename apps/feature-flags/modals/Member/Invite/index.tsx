@@ -81,7 +81,7 @@ const InviteMemberModal = () => {
         addUserToProject.mutate(
           { projectId, userId: input.memberId },
           {
-            onSuccess: async (result) => {
+            onSuccess: async () => {
               await trpcUtils.project.members.invalidate();
               onClose();
             },

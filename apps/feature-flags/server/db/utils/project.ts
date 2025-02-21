@@ -15,7 +15,7 @@ export const productUrl = urls.getAppWithEnv(
   `${process.env.NEXT_PUBLIC_APP_MODE ?? "production"}` as AppEnv,
 );
 
-export const getProjectOnUser = async (projectKey: string, referer: string) => {
+export const getProjectOnUser = async (projectKey: string) => {
   const current = await prisma.projectsOnUsers.findFirst({
     where: {
       project: {

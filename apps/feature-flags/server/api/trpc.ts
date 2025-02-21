@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 // Server
 import { initTRPC, TRPCError } from "@trpc/server";
 // Utils
@@ -87,8 +86,6 @@ export const isAuthenticated = middleware(
         projectId!,
       );
 
-      console.log("GET THE PROJECY = ", project);
-
       // If the user does not exist in the project, return an error
       if (!project) {
         throw new TRPCError({ code: "FORBIDDEN" });
@@ -114,5 +111,4 @@ export const isAuthenticated = middleware(
 // PROCEDURES
 
 export const publicProcedure = t.procedure;
-const loggedProcedure = t.procedure.use(logger);
 export const protectedProcedure = t.procedure.use(logger).use(isAuthenticated);

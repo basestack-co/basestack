@@ -44,10 +44,9 @@ export interface FormCardProps {
 interface DetailProps {
   value: number;
   icon: string;
-  mr?: string;
 }
 
-const Detail = ({ value, icon, mr }: DetailProps) => {
+const Detail = ({ value, icon }: DetailProps) => {
   const theme = useTheme();
 
   return (

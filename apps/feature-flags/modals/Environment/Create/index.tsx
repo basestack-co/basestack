@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
 // Router

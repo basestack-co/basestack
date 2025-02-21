@@ -54,7 +54,7 @@ export const verifyRequest = async (
   referer: string,
   metadata: { ip: string | null },
 ) => {
-  const project = await getProjectOnUser(projectKey, referer);
+  const project = await getProjectOnUser(projectKey);
 
   if (!project) {
     throw new RequestError({
