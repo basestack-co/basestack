@@ -103,11 +103,11 @@ databases:
   - name: basestack-feature-flags-db
     region: frankfurt # change to your preferred region. options: frankfurt, oregon, singapore, ohio
     plan: starter
-    ipAllowList: [ ] # only allow internal connections
+    ipAllowList: [] # only allow internal connections
   - name: basestack-forms-db
     region: frankfurt
     plan: starter
-    ipAllowList: [ ]
+    ipAllowList: []
 envVarGroups:
   - name: basestack-env-group
     envVars:
@@ -156,3 +156,5 @@ envVarGroups:
         value: 22.6.0
       - key: SKIP_INSTALL_DEPS
         value: "true" # disables npm install to use yarn
+      - key: NEXT_PUBLIC_APP_MODE
+        value: "dev"

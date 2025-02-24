@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from "react";
+import React, { memo, useState } from "react";
 import { LayoutProps, SpaceProps } from "styled-system";
 // Components
 import Text from "../Text";
@@ -37,8 +37,8 @@ const CopyCard = ({ title, description, tooltip, ...props }: CopyCardProps) => {
             <IconButton
               variant="neutral"
               icon="content_copy"
-              onClick={() => {
-                navigator.clipboard.writeText(description);
+              onClick={async () => {
+                await navigator.clipboard.writeText(description);
                 setShowTooltipSuccess(true);
               }}
             />

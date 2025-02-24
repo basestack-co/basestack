@@ -23,8 +23,8 @@ const CopyButton = ({ text }: Props) => {
         <IconButton
           icon="content_copy"
           variant="secondary"
-          onClick={() => {
-            navigator.clipboard.writeText(text);
+          onClick={async () => {
+            await navigator.clipboard.writeText(text);
             setShowTooltipSuccess(true);
           }}
         />

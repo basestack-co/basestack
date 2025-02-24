@@ -94,3 +94,10 @@ export const SettingCardContainer = styled.div`
     max-width: calc(100vw - ${rem("40px")});
   }
 `;
+
+export const TagsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: ${({ theme }) => theme.spacing.s5};
+  gap: ${({ theme }) => theme.spacing.s2};
+`;

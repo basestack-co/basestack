@@ -631,11 +631,25 @@
         "submissions": "{value} Submissions",
         "members": "{value} Members",
         "spams": "{value} Spam AI Reports",
-        "integrations": "{value} Integrations Calls"
+        "integrations": "{value} Integrations Calls",
+        "has-file-uploads": "{value} File Uploads",
+        "has-data-query-string": "{value} Data Query String",
+        "has-custom-urls": "{value} Custom URLs",
+        "has-rules": "{value} Rules",
+        "has-email-notifications": "{value} Email Notifications",
+        "has-block-ips": "{value} IP Block Rules",
+        "has-webhooks": "{value} Webhooks",
+        "has-websites": "{value} Websites",
+        "has-custom-export": "{value} Custom Export",
+        "has-auto-responses": "{value} Auto Responses",
+        "has-integrations": "{value} Integrations",
+        "has-custom-email-templates": "{value} Custom Email Templates",
+        "has-spam-protection": "{value} Spam AI",
+        "has-security": "{value} Security Rules"
       },
       "segment": {
-        "monthly": "monthly",
-        "yearly": "yearly"
+        "monthly": "Monthly",
+        "yearly": "Yearly (Save 15%)"
       },
       "cycle": {
         "monthly": "billed monthly",

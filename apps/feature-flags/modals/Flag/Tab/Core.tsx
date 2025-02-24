@@ -19,7 +19,7 @@ export interface Props {
   environments: EnvironmentInput[];
   setValue: UseFormSetValue<FlagFormInputs>;
   errors: FieldErrors<FlagFormInputs>;
-  control: Control<FlagFormInputs, any>;
+  control: Control<FlagFormInputs>;
   isSubmitting: boolean;
 }
 

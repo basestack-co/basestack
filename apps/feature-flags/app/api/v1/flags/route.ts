@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 // Prisma
 import { getAllFlagsBySlugs } from "server/db/utils/flag";
+// Utils
+import { verifyRequest, getMetadata } from "./utils";
 
 export const dynamic = "auto";
 
@@ -34,22 +36,29 @@ export async function GET(req: Request) {
       );
     }
 
-    const flags = await getAllFlagsBySlugs(projectKey, environmentKey);
+    const referer = req.headers.get("referer") || "/";
+    const metadata = getMetadata(req);
 
-    return NextResponse.json(
-      { flags },
-      {
-        status: 200,
-        headers,
-      },
-    );
+    const isAllowed = await verifyRequest(projectKey, referer, metadata);
+
+    if (isAllowed) {
+      const flags = await getAllFlagsBySlugs(projectKey, environmentKey);
+
+      return NextResponse.json(
+        { flags },
+        {
+          status: 200,
+          headers,
+        },
+      );
+    }
   } catch (error: any) {
     return NextResponse.json(
       {
         error: true,
         message: error.message ?? "Something went wrong",
       },
-      { status: error.code ?? 400 },
+      { status: error.code ?? 400, headers },
     );
   }
 }

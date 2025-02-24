@@ -47,7 +47,7 @@ const CalendarInput = ({
 }: CalendarInputProps) => {
   const calendarRef = useRef(null);
 
-  const { refs, floatingStyles, context } = useFloating({
+  const { refs, floatingStyles } = useFloating({
     placement: "bottom-start",
     middleware: [offset(4), shift(), flip()],
     whileElementsMounted: autoUpdate,

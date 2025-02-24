@@ -15,6 +15,7 @@ import { useStore } from "store";
 // Types
 import { SelectedView, TabType } from "types";
 // Utils
+import { config, PlanTypeId } from "@basestack/utils";
 import dayjs from "dayjs";
 // Locales
 import { useTranslations } from "next-intl";
@@ -31,12 +32,14 @@ interface FlagCardsProps {
   selectedView: SelectedView;
   projectId: string;
   searchValue: string;
+  planId: PlanTypeId;
 }
 
 const FlagCards = ({
   selectedView,
   projectId,
   searchValue,
+  planId,
 }: FlagCardsProps) => {
   const trpcUtils = api.useUtils();
   const t = useTranslations("flag");
@@ -49,6 +52,11 @@ const FlagCards = ({
   );
   const numberOfFlagsPerPage = useStore((state) => state.numberOfFlagsPerPage);
   const deleteFlag = api.flag.delete.useMutation();
+
+  const hasHistoryFeature = useMemo(
+    () => config.plans.hasFlagsPlanFeature(planId, "hasHistory"),
+    [planId],
+  );
 
   const { data, isLoading, fetchNextPage } = api.flag.all.useInfiniteQuery(
     {
@@ -164,17 +172,21 @@ const FlagCards = ({
                             TabType.CORE,
                           ),
                       },
-                      {
-                        icon: "history",
-                        text: t("list.card.actions.activity"),
-                        onClick: () =>
-                          onUpdateOrHistory(
-                            flag.id,
-                            flag.slug,
-                            "",
-                            TabType.HISTORY,
-                          ),
-                      },
+                      ...(hasHistoryFeature
+                        ? [
+                            {
+                              icon: "history",
+                              text: t("list.card.actions.activity"),
+                              onClick: () =>
+                                onUpdateOrHistory(
+                                  flag.id,
+                                  flag.slug,
+                                  "",
+                                  TabType.HISTORY,
+                                ),
+                            },
+                          ]
+                        : []),
                       {
                         icon: "delete",
                         text: t("list.card.actions.delete"),

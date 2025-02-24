@@ -17,8 +17,8 @@ const CopyClipboard = ({ tooltip }: CopyClipboardProps) => {
         <IconButton
           variant="neutral"
           icon="content_copy"
-          onClick={() => {
-            navigator.clipboard.writeText(tooltip.textToCopy);
+          onClick={async () => {
+            await navigator.clipboard.writeText(tooltip.textToCopy);
             setShowTooltipSuccess(true);
           }}
         />

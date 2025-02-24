@@ -60,7 +60,7 @@ const FormSubmissions = ({
   const deleteSubmissions = api.submission.delete.useMutation();
   const updateSubmissions = api.submission.update.useMutation();
 
-  const { data, isLoading, fetchNextPage, ...rest } =
+  const { data, isLoading, fetchNextPage } =
     api.submission.all.useInfiniteQuery(
       {
         formId,

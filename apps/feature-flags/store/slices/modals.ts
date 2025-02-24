@@ -22,44 +22,44 @@ export const createModalsSlice: StateCreator<
   isIntegrationModalOpen: false,
   isActivityModalOpen: false,
   setCreateEnvironmentModalOpen: ({ isOpen, data }) =>
-    set((state) => ({
+    set(() => ({
       isCreateEnvironmentModalOpen: isOpen,
       environmentModalPayload: data,
     })),
   setUpdateEnvironmentModalOpen: ({ isOpen, data }) =>
-    set((state) => ({
+    set(() => ({
       isUpdateEnvironmentModalOpen: isOpen,
       environmentModalPayload: data,
     })),
   setInviteMemberModalOpen: ({ isOpen, data }) =>
-    set((state) => ({
+    set(() => ({
       isInviteMemberModalOpen: isOpen,
       inviteMemberModalPayload: data,
     })),
   setCreateProjectModalOpen: ({ isOpen }) =>
-    set((state) => ({
+    set(() => ({
       isCreateProjectModalOpen: isOpen,
     })),
   setCreateFlagModalOpen: ({ isOpen }) =>
-    set((state) => ({
+    set(() => ({
       isCreateFlagModalOpen: isOpen,
     })),
   setUpdateFlagModalOpen: ({ isOpen, data }) =>
-    set((state) => ({
+    set(() => ({
       isUpdateFlagModalOpen: isOpen,
       flagModalPayload: data,
     })),
   setConfirmModalOpen: ({ isOpen, data }) =>
-    set((state) => ({
+    set(() => ({
       isConfirmModalOpen: isOpen,
       ...(!isOpen ? {} : { confirmModalPayload: data }),
     })),
   setIntegrationModalOpen: ({ isOpen }) =>
-    set((state) => ({
+    set(() => ({
       isIntegrationModalOpen: isOpen,
     })),
   setActivityModalOpen: ({ isOpen }) =>
-    set((state) => ({
+    set(() => ({
       isActivityModalOpen: isOpen,
     })),
 });

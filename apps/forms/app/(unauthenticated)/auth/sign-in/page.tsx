@@ -31,7 +31,7 @@ const Link = styled.a`
 
 const SignInPage = () => {
   const t = useTranslations("auth");
-  const { status, ...rest } = useSession();
+  const { status } = useSession();
   const router = useRouter();
   const [error, setError] = useState("");
 
@@ -75,7 +75,7 @@ const SignInPage = () => {
         </>
       }
       action={(name) => t("sign-in.content.action", { name })}
-      onClickProvider={(id) => signIn(id, { callbackUrl: "/" })}
+      onClickProvider={(id) => signIn(id, { redirectTo: "/" })}
       errors={[
         ...(error === "OAuthAccountNotLinked"
           ? [

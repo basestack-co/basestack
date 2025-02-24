@@ -32,7 +32,7 @@ describe("Segment tests", () => {
   });
 
   test("should render active Segment", () => {
-    const { container, getAllByTestId } = renderWithTheme(
+    const { getAllByTestId } = renderWithTheme(
       <Segment
         onSelect={jest.fn()}
         items={[

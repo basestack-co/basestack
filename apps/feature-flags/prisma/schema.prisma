@@ -63,6 +63,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   projects      ProjectsOnUsers[]
+  subscription  Subscription?
   role          Role              @default(ADMIN)
   createdAt     DateTime          @default(now())
   updatedAt     DateTime          @updatedAt
@@ -78,14 +79,47 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model Subscription {
+  id                String    @id @default(cuid())
+  userId            String    @unique
+  subscriptionId    String
+  customerId        Int?
+  productId         Int?
+  variantId         Int?
+  status            String?
+  scheduleId        String?   @unique
+  planId            String
+  event             String?
+  billingCycleStart DateTime
+  paused            Boolean?  @default(false)
+  cancelled         Boolean?  @default(false)
+  projects          Int       @default(0)
+  environments      Int       @default(0)
+  flags             Int       @default(0)
+  segments          Int       @default(0)
+  rollouts          Int       @default(0)
+  members           Int       @default(0)
+  apiRequests       Int       @default(0)
+  renewsAt          DateTime?
+  endsAt            DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, subscriptionId])
+}
+
 model Project {
-  id           String        @id @default(cuid())
-  name         String        @db.VarChar(30)
-  slug         String        @unique @db.VarChar(150)
-  key          String?       @unique @default(cuid())
-  environments Environment[]
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  id               String        @id @default(cuid())
+  name             String        @db.VarChar(30)
+  slug             String        @unique @db.VarChar(150)
+  key              String?       @unique @default(cuid())
+  environments     Environment[]
+  blockIpAddresses String?
+  websites         String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
 
   users   ProjectsOnUsers[]
   history History[]

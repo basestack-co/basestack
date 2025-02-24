@@ -29,7 +29,10 @@ export async function POST(req: NextRequest) {
 
   await updateSubscriptionEvent(body);
 
-  return new Response("Update subscription event job successfully started.", {
-    status: 200,
-  });
+  return new Response(
+    "Basestack Forms: Update subscription event job successfully started.",
+    {
+      status: 200,
+    },
+  );
 }

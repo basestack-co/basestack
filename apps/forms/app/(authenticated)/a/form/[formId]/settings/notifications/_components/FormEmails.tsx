@@ -10,12 +10,7 @@ import { api } from "utils/trpc/react";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
-import {
-  Label,
-  IconButton,
-  InputGroup,
-  CardVariant,
-} from "@basestack/design-system";
+import { Label, IconButton, InputGroup } from "@basestack/design-system";
 // Toast
 import { toast } from "sonner";
 // Locales

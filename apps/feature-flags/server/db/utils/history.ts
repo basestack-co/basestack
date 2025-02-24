@@ -142,7 +142,7 @@ export const createHistory = async (
 
   if (!action) return;
 
-  let projectId =
+  const projectId =
     path === "project.create" ? data.project.id : (input.projectId ?? "");
 
   if (!projectId) return;

@@ -21,9 +21,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     },
   });
 
-  const { data, isLoading: isLoadingProjects } = api.project.all.useQuery(
-    undefined,
-    {
+  const [projects, usage] = api.useQueries((t) => [
+    t.project.all(undefined, {
       enabled: status === "authenticated",
       select: (data) =>
         data?.projects.map((item) => ({
@@ -32,10 +31,13 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           onClick: () => router.push(`/a/project/${item.id}/flags`),
           text: item.name,
         })),
-    },
-  );
+    }),
+    t.subscription.usage(undefined, {
+      enabled: status === "authenticated",
+    }),
+  ]);
 
-  if (status === "loading" || isLoadingProjects) {
+  if (status === "loading" || projects.isLoading || usage.isLoading) {
     return (
       <Loader hasDelay={false}>
         <Splash product="flags" />
@@ -45,7 +47,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Fragment>
-      <Navigation data={data} />
+      <Navigation data={projects.data} />
       {children}
     </Fragment>
   );

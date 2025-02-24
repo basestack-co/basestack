@@ -63,7 +63,7 @@ const PopupActions = forwardRef<HTMLDivElement, PopupActionsProps>(
         </Header>
         {items && (
           <List>
-            {items.map((item, index) => {
+            {items.map((item) => {
               return (
                 <ListItem key={`pop-up-button-${item.id}`}>
                   <PopUpButton onClick={() => onHandleClick(item.onClick)}>

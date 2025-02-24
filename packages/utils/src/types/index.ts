@@ -40,11 +40,13 @@ export enum PlanTypeId {
   HOBBY = "hobby",
   LAUNCH = "launch",
   SCALE = "scale",
+  ENTERPRISE = "enterprise",
 }
 
 export interface Plan {
   id: PlanTypeId;
   name: string;
+  description: string;
   price: {
     monthly: {
       amount: number;
@@ -57,6 +59,9 @@ export interface Plan {
       variantId: number;
     };
   };
+}
+
+export interface FormPlan extends Plan {
   limits: {
     forms: number;
     submissions: number;
@@ -79,5 +84,27 @@ export interface Plan {
     hasIntegrations: boolean;
     hasCustomEmailTemplates: boolean;
     hasSpamProtection: boolean;
+  };
+}
+
+export interface FlagsPlan extends Plan {
+  limits: {
+    projects: number;
+    environments: number;
+    flags: number;
+    segments: number;
+    rollouts: number;
+    members: number;
+    apiRequests: number;
+  };
+  features: {
+    hasHistory: boolean;
+    hasRemoteConfig: boolean;
+    hasPreviewFeatures: boolean;
+    hasRollouts: boolean;
+    hasTags: boolean;
+    hasSegments: boolean;
+    hasBlockIPs: boolean;
+    hasWebsites: boolean;
   };
 }

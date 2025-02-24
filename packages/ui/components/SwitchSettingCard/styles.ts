@@ -47,7 +47,7 @@ export const RightColumn = styled.div.withConfig({
   align-items: center;
   margin-left: ${({ theme }) => theme.spacing.s5};
   flex-shrink: 0;
-  ${({ hasLabel, theme }) =>
+  ${({ hasLabel }) =>
     hasLabel &&
     css`
       @media screen and ${({ theme }) => theme.device.max.sm} {

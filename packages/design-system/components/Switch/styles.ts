@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { space } from "styled-system";
-import { transparentize } from "polished";
 
 export const Container = styled.div`
   ${space};

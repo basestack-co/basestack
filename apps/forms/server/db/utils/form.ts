@@ -1,17 +1,27 @@
 // DB
 import { prisma } from "server/db";
 // Utils
-import { config as utilsConfig, PlanTypeId } from "@basestack/utils";
+import {
+  AppEnv,
+  config as utilsConfig,
+  PlanTypeId,
+  Product,
+} from "@basestack/utils";
 
 const { urls } = utilsConfig;
 
-export const defaultSuccessUrl = `${urls.app.production.forms}/status/success`;
-export const defaultErrorUrl = `${urls.app.production.forms}/status/error`;
+const productUrl = urls.getAppWithEnv(
+  Product.FORMS,
+  `${process.env.NEXT_PUBLIC_APP_MODE ?? "production"}` as AppEnv,
+);
+
+export const defaultSuccessUrl = `${productUrl}/status/success`;
+export const defaultErrorUrl = `${productUrl}/status/error`;
 
 export const getFormOnUser = async (formId: string, referer: string) => {
   const current = await prisma.formOnUsers.findFirst({
     where: {
-      formId: formId,
+      formId,
     },
     select: {
       form: {
