@@ -21,12 +21,12 @@
     "@basestack/hooks": "*",
     "@basestack/utils": "*",
     "@floating-ui/react": "^0.27.4",
-    "@hookform/resolvers": "^3.10.0",
+    "@hookform/resolvers": "^4.1.2",
     "babel-plugin-react-compiler": "^19.0.0-beta-714736e-20250131",
-    "eslint-config-next": "^15.1.6",
-    "material-symbols": "^0.28.1",
-    "next": "^15.1.6",
-    "next-intl": "^3.26.3",
+    "eslint-config-next": "^15.1.7",
+    "material-symbols": "^0.28.2",
+    "next": "^15.1.7",
+    "next-intl": "^3.26.5",
     "polished": "^4.3.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -37,7 +37,7 @@
     "styled-components": "^6.1.15",
     "styled-system": "^5.1.5",
     "stylis": "^4.3.6",
-    "zod": "^3.24.1"
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@basestack/config": "*",
@@ -47,9 +47,9 @@
     "@testing-library/react": "^16.2.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.13.1",
-    "@types/react": "19.0.8",
-    "@types/react-dom": "^19.0.3",
+    "@types/node": "^22.13.5",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "^19.0.4",
     "@types/react-syntax-highlighter": "^15.5.13",
     "@types/styled-system": "^5.1.23",
     "eslint": "8.57.0",
@@ -60,7 +60,7 @@
     "jest-styled-components": "^7.2.0",
     "lint-staged": "^15.4.3",
     "node-mocks-http": "^1.16.2",
-    "turbo": "2.4.0",
+    "turbo": "2.4.2",
     "typescript": "^5.7.3"
   }
 }

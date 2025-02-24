@@ -18,7 +18,7 @@ describe("Pagination tests", () => {
   });
 
   test("should render Pagination with core elements", () => {
-    const { getByTestId, getByText } = renderWithTheme(
+    const { getByTestId } = renderWithTheme(
       <Pagination
         currentPage={10}
         totalPages={11}

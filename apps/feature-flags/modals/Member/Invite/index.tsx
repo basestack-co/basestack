@@ -12,6 +12,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // Libs
 import { api } from "utils/trpc/react";
+// Toast
+import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
 
@@ -79,9 +81,12 @@ const InviteMemberModal = () => {
         addUserToProject.mutate(
           { projectId, userId: input.memberId },
           {
-            onSuccess: async (result) => {
+            onSuccess: async () => {
               await trpcUtils.project.members.invalidate();
               onClose();
+            },
+            onError: (error) => {
+              toast.error(error.message);
             },
           },
         );

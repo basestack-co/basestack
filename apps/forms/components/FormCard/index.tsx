@@ -44,10 +44,9 @@ export interface FormCardProps {
 interface DetailProps {
   value: number;
   icon: string;
-  mr?: string;
 }
 
-const Detail = ({ value, icon, mr }: DetailProps) => {
+const Detail = ({ value, icon }: DetailProps) => {
   const theme = useTheme();
 
   return (
@@ -170,7 +169,7 @@ const FormCard = ({
               <Detail icon="mark_email_read" value={submissions.read} />
             )}
             {!submissions.read && !submissions.unread && (
-              <Detail icon="mail" value={0} mr={theme.spacing.s4} />
+              <Detail icon="mail" value={0} />
             )}
             {!!spam && <Detail icon="report" value={spam} />}
           </Footer>

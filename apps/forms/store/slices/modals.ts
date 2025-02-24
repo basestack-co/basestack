@@ -12,11 +12,11 @@ export const createModalsSlice: StateCreator<
   isConfirmModalOpen: false,
   confirmModalPayload: null,
   setCreateFormModalOpen: ({ isOpen }) =>
-    set((state) => ({
+    set(() => ({
       isCreateFormModalOpen: isOpen,
     })),
   setConfirmModalOpen: ({ isOpen, data }) =>
-    set((state) => ({
+    set(() => ({
       isConfirmModalOpen: isOpen,
       ...(!isOpen ? {} : { confirmModalPayload: data }),
     })),

@@ -1,6 +1,6 @@
 import React from "react";
 // Utils
-import { config, PlanTypeId, Plan } from "@basestack/utils";
+import { config, PlanTypeId, FormPlan } from "@basestack/utils";
 // Types
 import { useRouter } from "next/navigation";
 import { TFunction } from "types/locale";
@@ -9,7 +9,7 @@ import { CardVariant } from "@basestack/design-system";
 
 export interface WithPlanCardProps {
   planId: PlanTypeId;
-  feature: keyof Plan["features"];
+  feature: keyof FormPlan["features"];
   t: TFunction;
   i18nKey: string;
   i18nHintKey?: string;
@@ -37,7 +37,7 @@ export const getWithPlanCardProps = ({
   return !hasFeature
     ? {
         button: t("common.plan.forms.upgrade.action"),
-        onClick: () => router.push("/a/user/profile/settings"),
+        onClick: () => router.push("/a/user/tab/billing"),
         hasOverlay: true,
         variant: CardVariant.PRIMARY,
         label: partial
@@ -55,7 +55,7 @@ export const getWithPlanCardProps = ({
 
 export interface WithPlanSwitchProps {
   planId: PlanTypeId;
-  feature: keyof Plan["features"];
+  feature: keyof FormPlan["features"];
   t: TFunction;
   isDisabled: boolean;
   partial?: boolean;

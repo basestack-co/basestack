@@ -15,11 +15,13 @@ export const { POST } = serve<UpdateSubscriptionEventPayload>(
   async (context) => {
     const body = context.requestPayload;
 
-    console.info(`Job: Update Subscriptions - Webhook Event Body`, body);
+    console.info(`Job: Update Forms Subscriptions - Webhook Event Body`, body);
     console.info(`Subscription Event:${body.meta.event_name}`);
 
     if (!getSubscriptionEvents.includes(body.meta.event_name)) {
-      console.error("Job: Update Subscriptions - Invalid event name received");
+      console.error(
+        "Job: Update Forms Subscriptions - Invalid event name received",
+      );
       return;
     }
 
@@ -36,7 +38,7 @@ export const { POST } = serve<UpdateSubscriptionEventPayload>(
           const userId = body.meta.custom_data.user_id;
 
           console.info(
-            "Job: Update Subscriptions - Checking if user has a subscription",
+            "Job: Update Forms Subscriptions - Checking if user has a subscription",
             userId,
           );
 
@@ -95,10 +97,14 @@ export const { POST } = serve<UpdateSubscriptionEventPayload>(
           });
 
           console.info(
-            "Job: Update Subscriptions - Subscription updated on DB",
+            "Job: Update Forms Subscriptions - Subscription updated on DB",
             res,
           );
         });
+      } else {
+        console.error(
+          `Job: Update Forms Subscriptions - Subscription not found for user ${body.meta.custom_data.user_id}`,
+        );
       }
     }
   },
@@ -114,7 +120,7 @@ export const { POST } = serve<UpdateSubscriptionEventPayload>(
       failHeaders,
     }) => {
       console.error(
-        `Job: Update Subscriptions - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
+        `Job: Update Forms Subscriptions - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
       );
     },
   },

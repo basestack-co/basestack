@@ -69,7 +69,7 @@ try {
 `;
 
 export const getReactDemoCode = (url: string) => `
-import React, { useState } from "react";
+import { useState } from "react";
 
 const FormComponent = () => {
   // You can also use rect-hook-form or formik for form handling

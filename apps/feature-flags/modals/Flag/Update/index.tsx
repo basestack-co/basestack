@@ -15,6 +15,8 @@ import { useShallow } from "zustand/react/shallow";
 import { TabType } from "types";
 // Server
 import { api } from "utils/trpc/react";
+// Toast
+import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
 // Hooks
@@ -84,7 +86,7 @@ const UpdateFlagModal = () => {
           data,
         },
         {
-          onSuccess: async (result) => {
+          onSuccess: async () => {
             await trpcUtils.flag.bySlug.invalidate({
               slug: modalPayload?.flag?.slug!,
               projectId: project?.id!,
@@ -95,6 +97,9 @@ const UpdateFlagModal = () => {
               slug: modalPayload?.flag.slug,
             });
             onClose();
+          },
+          onError: (error) => {
+            toast.error(error.message);
           },
         },
       );
