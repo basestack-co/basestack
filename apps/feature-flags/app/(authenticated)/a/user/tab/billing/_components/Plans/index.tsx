@@ -56,7 +56,7 @@ const Plans = () => {
           planId,
           interval,
           isDarkMode,
-          redirectUrl: `${getBrowserUrl()}/user/profile/billing`,
+          redirectUrl: `${getBrowserUrl()}/a/user/tab/billing`,
         },
         {
           onSuccess: (result) => {

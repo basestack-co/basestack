@@ -104,6 +104,10 @@ export const { POST } = serve<UpdateSubscriptionEventPayload>(
             res,
           );
         });
+      } else {
+        console.error(
+          `Job: Update Feature Flags Subscriptions - Subscription not found for user ${body.meta.custom_data.user_id}`,
+        );
       }
     }
   },
