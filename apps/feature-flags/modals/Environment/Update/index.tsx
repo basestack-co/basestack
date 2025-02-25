@@ -13,6 +13,8 @@ import { useShallow } from "zustand/react/shallow";
 import { api } from "utils/trpc/react";
 // Locales
 import { useTranslations } from "next-intl";
+// Toast
+import { toast } from "sonner";
 // Types
 import { FormInputs } from "../types";
 // Form
@@ -91,6 +93,9 @@ const EditEnvironmentModal = () => {
 
               onClose();
             }
+          },
+          onError: (error) => {
+            toast.error(error.message);
           },
         },
       );

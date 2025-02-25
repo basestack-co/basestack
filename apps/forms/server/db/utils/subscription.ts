@@ -3,7 +3,7 @@ import { DefaultArgs } from ".prisma/client/runtime/library";
 // tRPC
 import { TRPCError } from "@trpc/server";
 // Utils
-import { config, Plan, PlanTypeId } from "@basestack/utils";
+import { config, FormPlan, PlanTypeId } from "@basestack/utils";
 
 export const getSubscriptionUsage = async (
   prisma: PrismaClient,
@@ -51,7 +51,7 @@ export const withUsageUpdate = async (
         | "$extends"
       >,
   userId: string,
-  limit: keyof Plan["limits"],
+  limit: keyof FormPlan["limits"],
   action: "increment" | "decrement",
 ) => {
   try {
@@ -59,8 +59,7 @@ export const withUsageUpdate = async (
       // Create a new subscription if it doesn't exist with the free plan
       create: {
         userId,
-        // TODO: This is a temporary solution until we have a proper subscription system
-        planId: PlanTypeId.PREVIEW,
+        planId: PlanTypeId.FREE,
         subscriptionId: "",
         billingCycleStart: new Date(),
         [limit]: 1,
@@ -82,7 +81,7 @@ export const withUsageUpdate = async (
 
 export function withLimits(
   planId: PlanTypeId,
-  limitKey: keyof Plan["limits"],
+  limitKey: keyof FormPlan["limits"],
   count: number,
 ) {
   return function <T extends (...args: any[]) => Promise<any>>(promise: T): T {
@@ -90,6 +89,15 @@ export function withLimits(
       this: unknown,
       ...args: Parameters<T>
     ): Promise<ReturnType<T>> {
+      if (!config.plans.isValidFormPlan(planId)) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message:
+            "Your current plan is not supported. Please upgrade to continue.",
+          cause: "InvalidPlan",
+        });
+      }
+
       const limit = config.plans.getFormLimitByKey(planId, limitKey);
 
       if (count < limit) {
@@ -107,13 +115,22 @@ export function withLimits(
 
 export function withFeatures(
   planId: PlanTypeId,
-  feature: keyof Plan["features"] | null,
+  feature: keyof FormPlan["features"] | null,
 ) {
   return function <T extends (...args: any[]) => Promise<any>>(promise: T): T {
     return async function (
       this: unknown,
       ...args: Parameters<T>
     ): Promise<ReturnType<T>> {
+      if (!config.plans.isValidFormPlan(planId)) {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message:
+            "Your current plan is not supported. Please upgrade to continue.",
+          cause: "InvalidPlan",
+        });
+      }
+
       const hasFeature = feature
         ? config.plans.hasFormPlanFeature(planId, feature)
         : true;

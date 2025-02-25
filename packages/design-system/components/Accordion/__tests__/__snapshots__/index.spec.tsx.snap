@@ -12,7 +12,7 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
   text-align: left;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
-  color: #F6F6F6;
+  color: #757575;
 }
 
 .c2 {
@@ -23,7 +23,7 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
   text-align: left;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
-  color: #CBCBCB;
+  color: #000000;
 }
 
 .c3 {
@@ -33,14 +33,14 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
 }
 
 .c4 {
-  color: #CBCBCB;
+  color: #000000;
   font-size: 2rem;
 }
 
 .c0 {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #545454;
+  border-bottom: 1px solid #E2E2E2;
 }
 
 .c1 {
@@ -78,7 +78,6 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
     >
       <h3
         class="c2"
-        color="#CBCBCB"
         font-family="roboto"
       >
         My Accordion
@@ -90,7 +89,6 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
       >
         <span
           class="c4 material-symbols-rounded"
-          color="#CBCBCB"
           data-testid="icon"
           size="32"
         >
@@ -107,7 +105,6 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
       >
         <p
           class="c7"
-          color="#F6F6F6"
           font-family="roboto"
           font-weight="400"
         >

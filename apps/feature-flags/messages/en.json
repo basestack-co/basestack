@@ -8,7 +8,7 @@
       },
       "content": {
         "title": "Welcome to Basestack Feature Flags",
-        "description": "Please select your preferred login service below to access your forms. By signing in, you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
+        "description": "Please select your preferred login service below to access your Feature Flags. By signing in, you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
         "action": "Sign in with {name}"
       }
     },
@@ -24,6 +24,16 @@
       "title": " This page could not be found",
       "description": "Sorry, the page you are looking for doesn't exist or has been moved.",
       "action": "Back to Homepage"
+    },
+    "plan": {
+      "flags": {
+        "upgrade": {
+          "partial": "Upgrade to Launch or Scale Plans",
+          "all": "Upgrade to Hobby, Launch or Scale Plans",
+          "description": "Please select the plan you want to upgrade to.",
+          "action": "Upgrade"
+        }
+      }
     }
   },
   "flag": {
@@ -230,7 +240,7 @@
         "title": "Edit Environment",
         "button": {
           "cancel": "Close",
-          "submit": "Create"
+          "submit": "Update"
         }
       },
       "input": {
@@ -287,10 +297,6 @@
       "title": "Projects",
       "select": "Select Project"
     },
-    "forms": {
-      "title": "Forms",
-      "select": "Select form"
-    },
     "dropdown": {
       "username": "User Name",
       "invite": "Invite Member (Coming soon)",
@@ -314,8 +320,6 @@
     "setting": {
       "general": "General",
       "security": "Security",
-      "customization": "Customization",
-      "notifications": "Notifications",
       "members": "Members",
       "environments": "Environments"
     },
@@ -384,15 +388,26 @@
         "abbr": "USD"
       },
       "feature": {
-        "forms": "{value} Forms",
-        "submissions": "{value} Submissions",
+        "projects": "{value} Projects",
+        "environments": "{value} Environments",
+        "flags": "{value} Flags",
+        "segments": "{value} Segments",
+        "rollouts": "{value} Rollouts",
         "members": "{value} Members",
-        "spams": "{value} Spam AI Reports",
-        "integrations": "{value} Integrations Calls"
+        "api-requests": "{value} API Requests",
+        "has-history": "{value} Activity Log",
+        "has-tags": "{value} Tags",
+        "has-remote-config": "{value} Remote Config",
+        "has-preview-features": "{value} Preview Features",
+        "has-websites": "{value} Website Whitelist",
+        "has-block-ips": "{value} Block IPS",
+        "has-rollouts": "{value} Rollouts",
+        "has-segments": "{value} Segments",
+        "has-security": "{value} Security Rules"
       },
       "segment": {
-        "monthly": "monthly",
-        "yearly": "yearly"
+        "monthly": "Monthly",
+        "yearly": "Yearly (Save 15%)"
       },
       "cycle": {
         "monthly": "billed monthly",
@@ -504,6 +519,39 @@
             "description": "Warning: This action cannot be undone. It will permanently delete the {name} project, including flags, history, and all collaborator associations.",
             "action": "Delete Project"
           }
+        }
+      }
+    },
+    "security": {
+      "ip-block-rules": {
+        "title": "IP Block Rules",
+        "description": "List IP addresses to block; Basestack Feature Flags will reject requests from those addresses.",
+        "text": "Press Enter to add an IP address in the input field.",
+        "action": "Update",
+        "inputs": {
+          "name": {
+            "placeholder": "Enter an IP address",
+            "error": {
+              "min": "Required field"
+            }
+          }
+        },
+        "toast": {
+          "success": "IP block rules updated successfully"
+        }
+      },
+      "websites": {
+        "title": "Websites",
+        "description": "Add websites to restrict requests to only those originating from the specified URLs.",
+        "text": "Press Enter to add a website in the input field. Example: https://www.example.com",
+        "action": "Update",
+        "inputs": {
+          "name": {
+            "placeholder": "Enter a website URL"
+          }
+        },
+        "toast": {
+          "success": "Websites updated successfully"
         }
       }
     },

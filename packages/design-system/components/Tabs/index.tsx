@@ -90,8 +90,10 @@ const Tabs = ({
   useEffect(() => {
     checkScrollPossibility();
 
-    if (scrollRef.current) {
-      scrollRef.current.addEventListener("scroll", checkScrollPossibility);
+    const ref = scrollRef.current;
+
+    if (ref) {
+      ref.addEventListener("scroll", checkScrollPossibility);
     }
 
     const handleWindowResize = () => {
@@ -101,8 +103,8 @@ const Tabs = ({
     window.addEventListener("resize", handleWindowResize);
 
     return () => {
-      if (scrollRef.current) {
-        scrollRef.current.removeEventListener("scroll", checkScrollPossibility);
+      if (ref) {
+        ref.removeEventListener("scroll", checkScrollPossibility);
       }
       window.removeEventListener("resize", handleWindowResize);
     };
@@ -112,12 +114,26 @@ const Tabs = ({
     const isLeftButton = position === "left";
     return (
       <IconButton
-        onClick={() => {
+        /*onClick={() => {
           if (scrollRef.current) {
             isLeftButton
               ? (scrollRef.current.scrollLeft -= 110)
               : (scrollRef.current.scrollLeft += 110);
           }
+        }} */
+
+        onClick={() => {
+          if (!scrollRef.current) return;
+
+          const scrollAmount = 110;
+          const targetScroll =
+            scrollRef.current.scrollLeft +
+            (isLeftButton ? -scrollAmount : scrollAmount);
+
+          scrollRef.current.scrollTo({
+            left: targetScroll,
+            behavior: "smooth",
+          });
         }}
         variant="secondary"
         position="absolute"

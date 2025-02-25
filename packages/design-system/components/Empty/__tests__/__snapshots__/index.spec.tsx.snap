@@ -118,7 +118,7 @@ exports[`Empty tests should render Empty correctly 1`] = `
     class="c0"
   >
     <div
-      class="c1"
+      class="c1 icon-box"
       mb="1.25rem"
       variant="outlined"
     >

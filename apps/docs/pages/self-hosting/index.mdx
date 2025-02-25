@@ -31,7 +31,7 @@ Getting up and running is an easy with various options available. Simply ensure 
 
 ## App hosting
 
-You have the flexibility to host the platform on any service capable of hosting [NextJS ↗](https://nextjs.org/) applications with serverless function support. Additionally, you'll need a separate database running elsewhere that the app can connect to. Some app hosting providers that support include Vercel, more coming, all of which offer a free tier option.
+You have the flexibility to host the platform on any service capable of hosting [NextJS ↗](https://nextjs.org/?ref=basestack.co) applications with serverless function support. Additionally, you'll need a separate database running elsewhere that the app can connect to. Some app hosting providers that support include Vercel, more coming, all of which offer a free tier option.
 
 <Cards>
   <Cards.Card title="Vercel" href="/self-hosting/providers/deploy-vercel" />
@@ -41,11 +41,17 @@ You have the flexibility to host the platform on any service capable of hosting 
 
 ## Managed databases
 
-Ensure that the PostgreSQL service or instance supports serverless environments. Any traditional instance of PostgreSQL with connection pooling, such as [PgBouncer ↗](https://www.pgbouncer.org/), will work effectively.
+Ensure that the PostgreSQL service or instance supports serverless environments. Any traditional instance of PostgreSQL with connection pooling, such as [PgBouncer ↗](https://www.pgbouncer.org/?ref=basestack.co), will work effectively.
 
 <Cards>
-  <Cards.Card title="Neon - Serverless Postgres" href="/self-hosting/database/neon" />
-  <Cards.Card title="Supabase Postgres" href="/self-hosting/database/supabase" />
+  <Cards.Card
+    title="Neon - Serverless Postgres"
+    href="/self-hosting/database/neon"
+  />
+  <Cards.Card
+    title="Supabase Postgres"
+    href="/self-hosting/database/supabase"
+  />
 </Cards>
 
 ## Environment Variables
@@ -61,16 +67,16 @@ The platform has a straightforward configuration process, requiring a set of ess
 
 ### Authentication Configuration
 
-### General
+#### General
 
 For the `AUTH_SECRET` variable you can use `openssl rand -base64 32` or generate a [random value](https://generate-secret.vercel.app/32).
 
-| Property          | Description                                                                 | Required | Example                                           |
-| ----------------- | --------------------------------------------------------------------------- | -------- | ------------------------------------------------- |
-| `AUTH_SECRET` | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. | true     | [generate](https://generate-secret.vercel.app/32) |
-| `AUTH_URL`    | Set to the canonical URL of your site                                       | true     | https://your-basestack-instance.com               |
+| Property      | Description                                                                 | Required | Example                                                            |
+| ------------- | --------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------ |
+| `AUTH_SECRET` | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. | true     | [generate](https://generate-secret.vercel.app/32?ref=basestack.co) |
+| `AUTH_URL`    | Set to the canonical URL of your site                                       | true     | https://your-basestack-instance.com                                |
 
-### Providers
+#### Providers
 
 Authentication Providers in the Platform are services that you and your team can use for signing in. To find the list of supported providers, check below:
 
@@ -95,14 +101,15 @@ We highly recommend securing the `REST API` requests to ensure they originate fr
 | --------------------------------- | --------------------------------------------------------------------------------------- | -------- | ------- |
 | `API_ACCESS_CONTROL_ALLOW_ORIGIN` | Indicates whether the response can be shared with requesting code from the given origin | false    | \*      |
 
-#### Email Configuration
+### Email Configuration
 
 The Basestack Platform uses SMTP for sending emails. To configure SMTP, set the following environment variables:
 
 <Callout type="info" emoji="ℹ️">
   You can use any transactional email service, such as [SendGrid
-  ↗](https://sendgrid.com/en-us), [Mailgun ↗](https://www.mailgun.com/), or
-  [Resend ↗](https://resend.com) to send emails.
+  ↗](https://sendgrid.com/en-us?ref=basestack.co), [Mailgun
+  ↗](https://www.mailgun.com/?ref=basestack.co), or [Resend
+  ↗](https://resend.com?ref=basestack.co) to send emails.
 </Callout>
 
 | Property                   | Description                                                                         | Required | Example                         |
@@ -114,8 +121,44 @@ The Basestack Platform uses SMTP for sending emails. To configure SMTP, set the 
 | `EMAIL_SMTP_AUTH_USER`     | SMTP authentication username for authenticating to the SMTP server.                 | true     |                                 |
 | `EMAIL_SMTP_AUTH_PASSWORD` | SMTP authentication password for authenticating to the SMTP server.                 | true     |                                 |
 
+### Background Jobs Configuration
 
-#### Platform-Specific Configuration
+Because the Basestack Platform uses background jobs to handle tasks such as sending emails, you need to configure the following environment variables:
+
+<Callout type="info" emoji="ℹ️">
+  Why [UpStash ↗](https://upstash.com/?ref=basestack.co)? Since the Basestack
+  Platform can run in serverless environments, using a service like UpStash
+  QStash to handle background jobs is essential. QStash is a service designed to
+  handle task scheduling and message queuing in a serverless environment. It’s
+  particularly useful for serverless or edge applications that need to offload
+  tasks asynchronously or schedule them for future execution.
+</Callout>
+
+| Environment Variable         | Description                                                               | Required |
+| ---------------------------- | ------------------------------------------------------------------------- | -------- |
+| `UPSTASH_WORKFLOW_URL`       | Set a tunnel URL when working locally to route requests through a tunnel. | true     |
+| `QSTASH_TOKEN`               | The authentication token required for accessing QStash services.          | true     |
+| `QSTASH_URL`                 | The base URL for QStash API requests.                                     | true     |
+| `QSTASH_CURRENT_SIGNING_KEY` | The current key used to sign requests to ensure secure communication.     | true     |
+| `QSTASH_NEXT_SIGNING_KEY`    | The upcoming signing key used to rotate keys for security purposes.       | true     |
+
+### Payments Configuration
+
+The Basestack Platform uses [LemonSqueezy ↗](https://www.lemonsqueezy.com/) for payments. To configure [LemonSqueezy ↗](https://www.lemonsqueezy.com/), set the following environment variables:
+
+| Property                        | Description                                                                                           | Required |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------- | -------- |
+| `LEMONSQUEEZY_STORE_ID`         | Store identifier for LemonSqueezy, identifying the specific store or account within the system.       | false    |
+| `LEMONSQUEEZY_SIGNATURE_SECRET` | Secret key used for request signature validation in LemonSqueezy, ensuring secure API communications. | false    |
+| `LEMONSQUEEZY_API_KEY`          | API key for accessing LemonSqueezy services, facilitating authorized interaction with the platform.   | false    |
+
+### Additional Configurations
+
+| Property               | Description                                                                                                                                                                 | Required |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `NEXT_PUBLIC_APP_MODE` | APP_MODE can be set to `development` or `production`. The `development` mode is used for local development, while the `production` mode is used for production deployments. | true     |
+
+### Platform-Specific Configuration
 
 The above environment variables are common across all platforms. However, there are specific configurations unique to each platform. Below are the configurations for each platform:
 
@@ -125,47 +168,14 @@ The above environment variables are common across all platforms. However, there 
   </Tabs.Tab>
   <Tabs.Tab>
 
-    #### Background Jobs Configuration
-
-    Because the Forms Platform uses background jobs to handle tasks such as sending emails, you need to configure the following environment variables:
-
-      <Callout type="info" emoji="ℹ️">
-          Why [UpStash ↗](https://upstash.com/)? Since the Basestack Platform can
-          run in serverless environments, using a service like UpStash QStash to handle
-          background jobs is essential. QStash is a service designed to handle task scheduling and message queuing in
-          a serverless
-          environment. It’s particularly useful for serverless or edge applications that need to offload tasks
-          asynchronously or schedule them for future execution.
-      </Callout>
-
-
-      | Environment Variable           | Description                                                             |Required |
-    |---------------------------------|-------------------------------------------------------------------------| -------- |
-    | `UPSTASH_WORKFLOW_URL`          | Set a tunnel URL when working locally to route requests through a tunnel. |true     |
-    | `QSTASH_TOKEN`                  | The authentication token required for accessing QStash services.         |true     |
-    | `QSTASH_URL`                    | The base URL for QStash API requests.                                   |true     |
-    | `QSTASH_CURRENT_SIGNING_KEY`    | The current key used to sign requests to ensure secure communication.    |true     |
-    | `QSTASH_NEXT_SIGNING_KEY`       | The upcoming signing key used to rotate keys for security purposes.      |true     |
-
-
     #### Cloudflare API Configuration
 
     The Forms Platform uses Cloudflare services, including Cloudflare AI for spam detection. To configure the Cloudflare API, set the following environment variables:
 
     | Property                | Description                                                | Required | Example                                                                                                                |
     | ----------------------- | ---------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
-    | `CLOUDFLARE_ACCOUNT_ID` | You can find your account ID on your Cloudflare dashboard. | true     | [Get Account ID ↗](https://developers.cloudflare.com/workers-ai/get-started/rest-api/#1-get-api-token-and-account-id) |
-    | `CLOUDFLARE_API_TOKEN`  | Obtain or create an API token.                             | true     | [Create an API token ↗](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/)                 |
-
-    #### Payments Configuration
-
-    The Forms Platform uses [LemonSqueezy ↗](https://www.lemonsqueezy.com/) for payments. To configure [LemonSqueezy ↗](https://www.lemonsqueezy.com/), set the following environment variables:
-
-    | Property                        | Description                                                                                           | Required |
-    | ------------------------------- | ----------------------------------------------------------------------------------------------------- | -------- |
-    | `LEMONSQUEEZY_STORE_ID`         | Store identifier for LemonSqueezy, identifying the specific store or account within the system.       | false    |
-    | `LEMONSQUEEZY_SIGNATURE_SECRET` | Secret key used for request signature validation in LemonSqueezy, ensuring secure API communications. | false    |
-    | `LEMONSQUEEZY_API_KEY`          | API key for accessing LemonSqueezy services, facilitating authorized interaction with the platform.   | false    |
+    | `CLOUDFLARE_ACCOUNT_ID` | You can find your account ID on your Cloudflare dashboard. | true     | [Get Account ID ↗](https://developers.cloudflare.com/workers-ai/get-started/rest-api/#1-get-api-token-and-account-id?ref=basestack.co) |
+    | `CLOUDFLARE_API_TOKEN`  | Obtain or create an API token.                             | true     | [Create an API token ↗](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/?ref=basestack.co)                 |
 
   </Tabs.Tab>
 </Tabs>

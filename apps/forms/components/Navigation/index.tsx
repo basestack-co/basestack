@@ -16,7 +16,12 @@ import { useTranslations } from "next-intl";
 import { PopupActionProps } from "@basestack/design-system";
 import { Navigation as NavigationUI } from "@basestack/ui";
 // Utils
-import { config, getCookieValueAsBoolean, Product } from "@basestack/utils";
+import {
+  AppEnv,
+  config,
+  getCookieValueAsBoolean,
+  Product,
+} from "@basestack/utils";
 import {
   getAppsList,
   getAvatarDropdownList,
@@ -58,7 +63,10 @@ const Navigation = ({ data }: NavigationProps) => {
   }, [formId, data]);
 
   const onSelectApp = useCallback((app: Product) => {
-    window.location.href = config.urls.getAppWithEnv(app, "production");
+    window.location.href = config.urls.getAppWithEnv(
+      app,
+      `${process.env.NEXT_PUBLIC_APP_MODE ?? "production"}` as AppEnv,
+    );
   }, []);
 
   const handleDarkModeToggle = () => {
@@ -86,7 +94,7 @@ const Navigation = ({ data }: NavigationProps) => {
         },
       }}
       appsTitle={t("navigation.apps.title")}
-      // apps={getAppsList(t, onSelectApp)}
+      apps={getAppsList(t, onSelectApp)}
       avatar={{
         name: session?.user.name || t("navigation.dropdown.username"),
         email: session?.user.email || "",

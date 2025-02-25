@@ -19,11 +19,11 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
-    "@types/react": "19.0.4",
-    "@types/react-dom": "^19.0.2",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "^19.0.4",
     "raf-stub": "^3.0.0",
     "react": "19.0.0",
-    "tsup": "^8.3.5",
+    "tsup": "^8.4.0",
     "typescript": "^5.7.3"
   }
 }

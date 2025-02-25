@@ -1,15 +1,24 @@
 import { NextResponse } from "next/server";
 // Prisma
 import { getAllFlagsBySlugs } from "server/db/utils/flag";
+// Utils
+import { verifyRequest, getMetadata } from "./utils";
 
 export const dynamic = "auto";
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET",
+  "Access-Control-Allow-Methods": "GET,OPTIONS",
   "Access-Control-Allow-Headers":
-    "Content-Type, Origin, Accept, X-Environment-Key, X-Project-Key",
+    "Content-Type,Origin,Accept,X-Environment-Key,X-Project-Key",
 };
+
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers,
+  });
+}
 
 export async function GET(req: Request) {
   try {
@@ -27,22 +36,29 @@ export async function GET(req: Request) {
       );
     }
 
-    const flags = await getAllFlagsBySlugs(projectKey, environmentKey);
+    const referer = req.headers.get("referer") || "/";
+    const metadata = getMetadata(req);
 
-    return NextResponse.json(
-      { flags },
-      {
-        status: 200,
-        headers,
-      },
-    );
+    const isAllowed = await verifyRequest(projectKey, referer, metadata);
+
+    if (isAllowed) {
+      const flags = await getAllFlagsBySlugs(projectKey, environmentKey);
+
+      return NextResponse.json(
+        { flags },
+        {
+          status: 200,
+          headers,
+        },
+      );
+    }
   } catch (error: any) {
     return NextResponse.json(
       {
         error: true,
         message: error.message ?? "Something went wrong",
       },
-      { status: error.code ?? 400 },
+      { status: error.code ?? 400, headers },
     );
   }
 }

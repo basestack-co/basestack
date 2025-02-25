@@ -43,4 +43,6 @@ const CardSlider = forwardRef<HTMLDivElement, CardSliderProps>(
   },
 );
 
+CardSlider.displayName = "CardSlider";
+
 export default CardSlider;

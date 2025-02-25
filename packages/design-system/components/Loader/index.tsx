@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
 
 export interface LoaderProps {
   hasDelay?: boolean;
   delayTime?: number;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const Loader = ({

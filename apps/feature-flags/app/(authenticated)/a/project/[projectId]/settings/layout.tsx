@@ -41,6 +41,12 @@ const getLinks = (projectId: string) => [
     tab: "environments",
     href: `/a/project/${projectId}/settings/environments`,
   },
+  {
+    id: "4",
+    i18nKey: "navigation.setting.security",
+    tab: "security",
+    href: `/a/project/${projectId}/settings/security`,
+  },
 ];
 
 const SettingsLayout = ({ children }: { children: React.ReactElement }) => {

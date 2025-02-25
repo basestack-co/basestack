@@ -15,7 +15,8 @@ import { useShallow } from "zustand/react/shallow";
 import { TabType } from "types";
 // Server
 import { api } from "utils/trpc/react";
-import { keepPreviousData } from "@tanstack/react-query";
+// Toast
+import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
 // Hooks
@@ -49,10 +50,9 @@ const CreateFlagModal = () => {
   const createFlag = api.flag.create.useMutation();
 
   const { data, isLoading } = api.environment.all.useQuery(
-    { projectId: project?.id! },
+    { projectId },
     {
-      enabled: !!project?.id,
-      placeholderData: keepPreviousData,
+      enabled: !!projectId,
     },
   );
 
@@ -73,11 +73,14 @@ const CreateFlagModal = () => {
       createFlag.mutate(
         { projectId: project.id, environments: input.environments, data },
         {
-          onSuccess: async (result) => {
+          onSuccess: async () => {
             // Refresh the flag list and close the modal
             await trpcUtils.flag.all.invalidate({ projectId: project.id });
             await trpcUtils.project.recent.invalidate();
             onClose();
+          },
+          onError: (error) => {
+            toast.error(error.message);
           },
         },
       );

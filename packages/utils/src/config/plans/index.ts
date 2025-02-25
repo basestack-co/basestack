@@ -1,5 +1,6 @@
 // Plans Configs
 import { config as formsConfig } from "./forms";
+import { config as flagsConfig } from "./flags";
 
 const getSubscriptionEvents = [
   "subscription_created",
@@ -19,4 +20,5 @@ const getSubscriptionEvents = [
 export const plans = {
   getSubscriptionEvents,
   ...formsConfig,
+  ...flagsConfig,
 };

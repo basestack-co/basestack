@@ -12,7 +12,8 @@
     "GOOGLE_CLIENT_ID",
     "GOOGLE_CLIENT_SECRET",
     "AUTH_SECRET",
-    "AUTH_URL"
+    "AUTH_URL",
+    "NEXT_PUBLIC_APP_MODE"
   ],
   "tasks": {
     "clean": {
@@ -40,7 +41,18 @@
     "@basestack/feature-flags#deploy": {
       "dependsOn": ["^build", "lint"],
       "outputs": ["dist/**", ".next/**"],
-      "env": ["DATABASE_URL", "DIRECT_DATABASE_URL"]
+      "env": [
+        "DATABASE_URL",
+        "DIRECT_DATABASE_URL",
+        "UPSTASH_WORKFLOW_URL",
+        "QSTASH_TOKEN",
+        "QSTASH_URL",
+        "QSTASH_CURRENT_SIGNING_KEY",
+        "QSTASH_NEXT_SIGNING_KEY",
+        "LEMONSQUEEZY_STORE_ID",
+        "LEMONSQUEEZY_SIGNATURE_SECRET",
+        "LEMONSQUEEZY_API_KEY"
+      ]
     },
     "@basestack/forms#deploy": {
       "dependsOn": ["^build", "lint"],
@@ -54,7 +66,10 @@
         "QSTASH_TOKEN",
         "QSTASH_URL",
         "QSTASH_CURRENT_SIGNING_KEY",
-        "QSTASH_NEXT_SIGNING_KEY"
+        "QSTASH_NEXT_SIGNING_KEY",
+        "LEMONSQUEEZY_STORE_ID",
+        "LEMONSQUEEZY_SIGNATURE_SECRET",
+        "LEMONSQUEEZY_API_KEY"
       ]
     },
     "@basestack/landing-page#deploy": {

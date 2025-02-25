@@ -1,15 +1,24 @@
 import { NextResponse } from "next/server";
 // Prisma
 import { getFlagBySlug } from "server/db/utils/flag";
+// Utils
+import { verifyRequest, getMetadata } from "../utils";
 
 export const dynamic = "auto";
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET",
+  "Access-Control-Allow-Methods": "GET,OPTIONS",
   "Access-Control-Allow-Headers":
-    "Content-Type, Origin, Accept, X-Environment-Key, X-Project-Key",
+    "Content-Type,Origin,Accept,X-Environment-Key,X-Project-Key",
 };
+
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers,
+  });
+}
 
 export async function GET(
   req: Request,
@@ -32,30 +41,37 @@ export async function GET(
       );
     }
 
-    const flag = await getFlagBySlug(projectKey, environmentKey, slug);
+    const referer = req.headers.get("referer") || "/";
+    const metadata = getMetadata(req);
 
-    if (!flag) {
-      return NextResponse.json(
-        {
-          enabled: false,
-          error: true,
-          message: `Flag with slug ${slug} does not exist`,
-        },
-        { status: 404, headers },
-      );
+    const isAllowed = await verifyRequest(projectKey, referer, metadata);
+
+    if (isAllowed) {
+      const flag = await getFlagBySlug(projectKey, environmentKey, slug);
+
+      if (!flag) {
+        return NextResponse.json(
+          {
+            enabled: false,
+            error: true,
+            message: `Flag with slug ${slug} does not exist`,
+          },
+          { status: 404, headers },
+        );
+      }
+
+      return NextResponse.json(flag, {
+        status: 200,
+        headers,
+      });
     }
-
-    return NextResponse.json(flag, {
-      status: 200,
-      headers,
-    });
   } catch (error: any) {
     return NextResponse.json(
       {
         error: true,
         message: error.message ?? "Something went wrong",
       },
-      { status: error.code ?? 400 },
+      { status: error.code ?? 400, headers },
     );
   }
 }
