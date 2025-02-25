@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 // Router
 import { useRouter } from "next/navigation";
@@ -5,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { config as defaults, events } from "@basestack/utils";
 // Theme
 import { useTheme } from "styled-components";
+// Locales
+import { useTranslations } from "next-intl";
 // Components
 import {
   Button,
@@ -22,25 +26,7 @@ import {
   RightColumn,
   StyledLink,
 } from "./styles";
-
-const links = [
-  {
-    text: "Enterprise",
-    href: "#enterprise",
-  },
-  {
-    text: "About Us",
-    href: "#features",
-  },
-  {
-    text: "Docs",
-    href: "#code",
-  },
-  {
-    text: "Blog",
-    href: "#why",
-  },
-];
+import { isExternal } from "util/types";
 
 interface NavigationProps {
   isSticky?: boolean;
@@ -50,6 +36,7 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
   const { isDarkMode, spacing } = useTheme();
   const router = useRouter();
   const [stargazers, setsStargazers] = useState(0);
+  const t = useTranslations("navigation");
 
   useEffect(() => {
     fetch("https://api.github.com/repos/basestack-co/basestack")
@@ -69,32 +56,52 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
           <List>
             <ListItem>
               <Dropdown
-                title="Products"
+                title={t("main.product.title")}
                 data={[
                   {
-                    title: "Feature Flags",
-                    description: "On and Off features",
-                    onClick: () => router.push("/flags"),
+                    title: t("main.product.flags.title"),
+                    description: t("main.product.flags.description"),
+                    onClick: () => router.push("/product/feature-flags"),
                     icon: "flag",
                   },
                   {
-                    title: "Forms",
-                    description: "Send fast and easy",
-                    onClick: () => router.push("/forms"),
+                    title: t("main.product.forms.title"),
+                    description: t("main.product.forms.description"),
+                    onClick: () => router.push("/product/forms"),
                     icon: "description",
                   },
                 ]}
               />
             </ListItem>
 
-            {links.map((link, index) => {
+            {[
+              {
+                text: t("main.docs.title"),
+                href: "https://docs.basestack.co/",
+                isExternal: true,
+              },
+              {
+                text: t("main.blog.title"),
+                href: "https://blog.basestack.co/",
+                isExternal: true,
+              },
+              {
+                text: t("main.support.title"),
+                href: "https://docs.basestack.co/help",
+                isExternal: true,
+              },
+            ].map((link, index) => {
               return (
                 <ListItem key={index.toString()}>
                   <Button
                     variant={ButtonVariant.Tertiary}
                     onClick={() => {
                       events.landing.navigation(link.text, link.href);
-                      router.push(link.href);
+                      if (link.isExternal) {
+                        window.open(link.href, "_blank");
+                      } else {
+                        router.push(link.href);
+                      }
                     }}
                     size={ButtonSize.Normal}
                     backgroundColor="transparent"

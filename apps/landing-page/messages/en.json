@@ -1,3 +1,26 @@
 {
-  "example": "Hello, World!"
+  "navigation": {
+    "main": {
+      "product": {
+        "title": "Products",
+        "flags": {
+          "title": "Feature Flags",
+          "description": "Form creation and management"
+        },
+        "forms": {
+          "title": "Forms",
+          "description": "Feature creation and control"
+        }
+      },
+      "docs": {
+        "title": "Docs"
+      },
+      "blog": {
+        "title": "Blog"
+      },
+      "support": {
+        "title": "Support"
+      }
+    }
+  }
 }

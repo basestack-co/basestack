@@ -570,7 +570,7 @@
       },
       "flags": {
         "title": "Feature Flags",
-        "description": "Flag creation and control"
+        "description": "Feature creation and control"
       }
     },
     "profile": {
