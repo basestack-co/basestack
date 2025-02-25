@@ -291,7 +291,7 @@ export const apps = [
     },
   },
   {
-    icon: "history",
+    icon: "description",
     title: "Forms",
     text: "Streamlined management, monitoring, and automated change tracking.",
     image: {

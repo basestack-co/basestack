@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { rem } from "polished";
 
 export const Card = styled.div.withConfig({
-  shouldForwardProp: (prop) => !["p", "bg"].includes(prop),
-})<{ p?: string | number; bg?: string }>`
+  shouldForwardProp: (prop) => !["p", "bg", "transitionBg"].includes(prop),
+})<{ p?: string | number; bg?: string; transitionBg?: boolean }>`
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -18,4 +18,10 @@ export const Card = styled.div.withConfig({
         ? `${p}px`
         : p
       : theme.spacing.s5};
+
+  ${({ transitionBg }) =>
+    transitionBg &&
+    css`
+      transition: background-color 0.2s ease-in-out;
+    `};
 `;

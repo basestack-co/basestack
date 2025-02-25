@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { rem } from "polished";
 
 export const Container = styled.section`
@@ -38,76 +38,9 @@ export const ButtonsContainer = styled.div`
   }
 `;
 
-export const Embla = styled.div.withConfig({
-  shouldForwardProp: (prop) => !["isImageSlider"].includes(prop),
-})<{ isImageSlider: boolean }>`
-  margin: 0 auto;
-  width: 100%;
-  max-width: ${rem("1140px")};
-
-  ${({ isImageSlider }) =>
-    isImageSlider &&
-    css`
-      margin-top: ${rem("12px")};
-    `}
-`;
-
-export const EmblaViewport = styled.div.withConfig({
-  shouldForwardProp: (prop) => !["isImageSlider"].includes(prop),
-})<{ isImageSlider: boolean }>`
-  ${({ theme, isImageSlider }) =>
-    isImageSlider
-      ? css`
-          overflow: visible;
-          padding: ${`0 ${theme.spacing.s5}`};
-        `
-      : css`
-          overflow: hidden;
-          padding: ${`0 ${theme.spacing.s5} ${theme.spacing.s2} ${theme.spacing.s5}`};
-        `}
-`;
-
-export const EmblaContainer = styled.ul`
-  backface-visibility: hidden;
+export const ImagesContainer = styled.div`
+  max-width: ${rem("1100px")};
+  margin: ${({ theme }) => theme.spacing.s3} auto 0 auto;
   display: flex;
-  touch-action: pan-y pinch-zoom;
-  margin-left: ${rem("-20px")};
-
-  @media screen and ${({ theme }) => theme.device.max.xl} {
-    margin-left: ${rem("-10px")};
-  }
-`;
-
-export const EmblaSlide = styled.li.withConfig({
-  shouldForwardProp: (prop) => !["isImageSlider"].includes(prop),
-})<{
-  isImageSlider: boolean;
-}>`
-  min-width: 0;
-  padding-left: ${rem("20px")};
-
-  ${({ theme, isImageSlider }) =>
-    isImageSlider
-      ? css`
-          flex: 0 0 100%;
-
-          @media screen and ${theme.device.max.xl} {
-            padding-left: ${rem("10px")};
-          }
-        `
-      : css`
-          flex: 0 0 calc(100% / 3);
-          @media screen and ${theme.device.max.xl} {
-            flex: 0 0 calc(100% / 3);
-            padding-left: ${rem("10px")};
-          }
-
-          @media screen and ${theme.device.max.lg} {
-            flex: 0 0 calc(100% / 2);
-          }
-
-          @media screen and ${theme.device.max.sm} {
-            flex: 0 0 100%;
-          }
-        `}
+  flex-direction: column;
 `;
