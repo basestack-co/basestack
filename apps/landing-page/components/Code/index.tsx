@@ -20,33 +20,7 @@ import {
   HeaderContainer,
   CardContent,
 } from "./styles";
-import { ReactIcon, JavascriptIcon, JsonIcon } from "./icons";
 import { Card } from "../styles";
-
-export interface Props {
-  id?: string;
-}
-
-const data = [
-  {
-    icon: ReactIcon,
-    title: "React",
-    description: "Lorem ipsum dolor sit amet",
-    button: "Install now",
-  },
-  {
-    icon: JavascriptIcon,
-    title: "Javascript",
-    description: "Lorem ipsum dolor sit amet",
-    button: "Install now",
-  },
-  {
-    icon: JsonIcon,
-    title: "Rest API",
-    description: "Lorem ipsum dolor sit amet",
-    button: "Install now",
-  },
-];
 
 export interface CardProps {
   icon: React.ReactNode;
@@ -54,6 +28,13 @@ export interface CardProps {
   description: string;
   button: string;
   onClick: () => void;
+}
+
+export interface Props {
+  id?: string;
+  title: string;
+  description: string;
+  data: CardProps[];
 }
 
 const CardComp = ({ icon, title, description, button, onClick }: CardProps) => {
@@ -84,7 +65,7 @@ const CardComp = ({ icon, title, description, button, onClick }: CardProps) => {
   );
 };
 
-const Code = ({ id = "code" }: Props) => {
+const Code = ({ id = "code", title, description, data }: Props) => {
   const { device } = useTheme();
   const isDesktop = useMedia(device.min.lg, true);
 
@@ -98,24 +79,20 @@ const Code = ({ id = "code" }: Props) => {
     <Container id={id}>
       <ContentContainer>
         <HeaderContainer>
-          <SectionHeader
-            title="Explore our SDK Options"
-            text="Discover our supported SDKs tailored to meet your development needs, enabling faster releases. Explore our comprehensive documentation for more in-depth information and guidance."
-          />
+          <SectionHeader title={title} text={description} />
         </HeaderContainer>
         <Embla>
           <EmblaViewport ref={emblaRef}>
             <EmblaContainer>
               {data.map((item, index) => {
-                const LanguageIcon = item.icon;
                 return (
                   <EmblaSlide key={index}>
                     <CardComp
                       title={item.title}
                       description={item.description}
                       button={item.button}
-                      icon={<LanguageIcon />}
-                      onClick={() => console.log("")}
+                      icon={item.icon}
+                      onClick={item.onClick}
                     />
                   </EmblaSlide>
                 );

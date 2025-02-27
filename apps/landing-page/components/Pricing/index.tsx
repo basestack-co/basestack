@@ -121,12 +121,13 @@ const CardComp = ({
 type OmitMultiple<T, K extends keyof T> = Omit<T, K>;
 
 interface PricingProps {
+  id?: string;
   title: string;
   text: string;
   items: Array<OmitMultiple<CardProps, "onClick" | "interval">>;
 }
 
-const Pricing = ({ title, text, items }: PricingProps) => {
+const Pricing = ({ title, text, items, id = "pricing" }: PricingProps) => {
   const { device, spacing } = useTheme();
   const isDesktop = useMedia(device.min.xl, true);
 
@@ -143,7 +144,7 @@ const Pricing = ({ title, text, items }: PricingProps) => {
   }, []);
 
   return (
-    <Container>
+    <Container id={id}>
       <ContentContainer>
         <HeaderContainer>
           <SectionHeader title={title} text={text} />

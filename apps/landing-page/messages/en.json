@@ -21,6 +21,135 @@
       "support": {
         "title": "Support"
       }
+    },
+    "product": {
+      "features": {
+        "title": "Features"
+      },
+      "pricing": {
+        "title": "Pricing"
+      },
+      "docs": {
+        "title": "Docs"
+      },
+      "sdks": {
+        "title": "SDKs"
+      },
+      "roadmap": {
+        "title": "Roadmap"
+      },
+      "get-started": {
+        "title": "Get started - free"
+      },
+      "self-hosting": {
+        "title": "Self-hosting"
+      }
+    }
+  },
+  "page": {
+    "product": {
+      "flags": {
+        "hero": {
+          "title": "Unlock Precision Control with Feature Flags",
+          "description": "Empower your team to deploy faster, test smarter, and roll out features with confidence. Feature Flags let you toggle functionality in real-time, minimize risks, and deliver seamless user experiences—all without breaking a sweat.",
+          "action": {
+            "get-free": "Get Feature Flags free",
+            "request-demo": "Request a demo"
+          }
+        },
+        "features": {
+          "title": "Feature Flags That Fuel Your Workflow",
+          "description": "From seamless rollouts to instant rollbacks, explore how Feature Flags streamline development, boost flexibility, and keep your releases on track. Discover the tools that make every deploy a win.",
+          "slide": {
+            "one": {
+              "title": "Manage Multiple Projects Easily",
+              "description": "Control feature releases across multiple projects and environments.",
+              "alt": "An image of a feature flag control panel displaying multiple projects and environments, with intuitive controls for easily managing feature releases."
+            },
+            "two": {
+              "title": "Confident Feature Flag Control",
+              "description": "Streamlined management, monitoring, and automated change tracking.",
+              "alt": "An image of a feature flag dashboard displaying streamlined management, monitoring, and automated change tracking features. The dashboard provides clear and concise data visualization and intuitive controls for easy navigation and management."
+            },
+            "three": {
+              "title": "Efficient Remote Configuration",
+              "description": "Optimize your feature flag config with dynamic payload data changes.",
+              "alt": "An image of a feature flag configuration interface, displaying dynamic payload data changes. The interface provides intuitive controls for easily making and testing feature flag changes."
+            }
+          }
+        },
+        "more-features": {
+          "title": "Feature Flags, Full Toolkit",
+          "card": {
+            "history": {
+              "title": "Activity & History Tracking",
+              "description": "Track who toggled a feature flag, its value, and the page they were on—all in one view."
+            },
+            "rollbacks": {
+              "title": "One-Click Rollbacks",
+              "description": "Turn off a feature instantly—no code changes needed."
+            },
+            "bootstrapping": {
+              "title": "Instant Flag Activation",
+              "description": "Load flags and values at page start for seamless, immediate updates."
+            },
+            "admin": {
+              "title": "Flag Management Hub",
+              "description": "Review flag history or assign user roles to control who can edit flags."
+            },
+            "sdks": {
+              "title": "SDKs & API Ready",
+              "description": "Copy code snippets for your library of choice, or implement yourself with the API"
+            },
+            "environment": {
+              "title": "Multi-Environment Sync",
+              "description": "Test flags across dev, staging, and more with unified flag keys."
+            },
+            "security": {
+              "title": "Secure Request Control",
+              "description": "Block unwanted sources and IPs with ease."
+            }
+          }
+        },
+        "sdks": {
+          "title": "SDKs Built for Your Stack",
+          "description": "Integrate Feature Flags effortlessly with SDKs tailored to your favorite languages and frameworks. Grab ready-to-use code snippets or dive into our API for custom control—your workflow, your way.",
+          "action": "Explore the Docs",
+          "react": {
+            "title": "React & NextJS",
+            "description": "Toggle features seamlessly in your React or NextJS app with a lightweight SDK."
+          },
+          "js": {
+            "title": "JavaScript & NodeJS",
+            "description": "Add Feature Flags to your JS or NodeJS project with minimal setup."
+          },
+          "api": {
+            "title": "API Reference",
+            "description": "Build your own integration with our flexible, powerful API."
+          }
+        },
+        "why": {
+          "title": "Unconvinced about Feature Flags?",
+          "description": "Feature flagging is a powerful technique where developers wrap a new feature in an if/then statement to gain greater control over its release and behavior.",
+          "card": {
+            "benefits": {
+              "title": "Maximize Flag Benefits",
+              "description": "Feature flags (also known as feature switches, feature toggles, conditional features, etc.) are a powerful technique that allows developers and teams to modify system behavior without changing the underlying code."
+            },
+            "implementation": {
+              "title": "Minimize Implementation Debt",
+              "description": "Feature Flags are like variables used in conditional statements. They allow you to toggle 'on or off' blocks of code, similar to commenting out code. This gives developers the flexibility to control the flow of their software and bypass features that are not ready for deployment."
+            },
+            "branching": {
+              "title": "Feature Flags vs. Branching",
+              "description": "Feature branching allows developers to collaborate effectively around a central code base by keeping all changes to a specific feature in its own branch. By adding feature flags to the mix, feature branching becomes even more powerful and faster, separating feature release management from code deployment."
+            }
+          }
+        },
+        "questions": {
+
+        }
+      }
     }
   }
 }

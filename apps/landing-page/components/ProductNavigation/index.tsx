@@ -12,7 +12,12 @@ import {
 } from "./styles";
 
 interface ProductNavigationProps {
-  items: Array<{ text: string; href: string; icon: string }>;
+  items: Array<{
+    text: string;
+    href: string;
+    icon: string;
+    isExternal?: boolean;
+  }>;
   button: {
     text: string;
     href: string;
@@ -24,11 +29,15 @@ const ProductNavigation = ({ items, button }: ProductNavigationProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    if (typeof window === "undefined") return; // Ensure it's running on the client side
+    if (typeof window === "undefined") return;
 
     const sectionElements = items
-      .map((item) => document.querySelector(item.href))
-      .filter((el): el is Element => el !== null); // Remove null values
+      .map((item) =>
+        document.querySelector(
+          item.href.startsWith("#") ? item.href : `[data-href="${item.href}"]`,
+        ),
+      )
+      .filter((el): el is Element => el !== null);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -66,7 +75,11 @@ const ProductNavigation = ({ items, button }: ProductNavigationProps) => {
                   variant={ButtonVariant.Tertiary}
                   onClick={() => {
                     events.landing.navigation(item.text, item.href);
-                    router.push(item.href);
+                    if (item.isExternal) {
+                      window.open(item.href, "_blank");
+                    } else {
+                      router.push(item.href);
+                    }
                   }}
                   size={ButtonSize.Normal}
                   backgroundColor="transparent"
