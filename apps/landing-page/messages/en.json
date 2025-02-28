@@ -76,10 +76,47 @@
               "description": "Optimize your feature flag config with dynamic payload data changes.",
               "alt": "An image of a feature flag configuration interface, displaying dynamic payload data changes. The interface provides intuitive controls for easily making and testing feature flag changes."
             }
+          },
+          "card": {
+            "title": "Feature Flags in Action",
+            "description": "Check out the key features that make Basestack Feature Flags a must-have for developers. See how each tool streamlines workflows and keeps your releases on track.",
+            "feature": {
+              "projects": {
+                "label": "Management",
+                "title": "Organize with Projects",
+                "description": "Group your feature flags into projects to keep your workflows tidy and efficient.",
+                "alt": "Illustration of a dashboard showing feature flags organized into projects."
+              },
+              "history": {
+                "label": "Transparency",
+                "title": "Track Every Move",
+                "description": "View a detailed log of flag changes—who toggled what, when, and where.",
+                "alt": "Screenshot of a history log displaying feature flag activity details."
+              },
+              "remote-config": {
+                "label": "Flexibility",
+                "title": "Adjust on the Fly",
+                "description": "Update flag settings remotely to tweak functionality without redeploying.",
+                "alt": "Diagram showing remote configuration adjustments for feature flags."
+              },
+              "environments": {
+                "label": "Scalability",
+                "title": "Test Across Environments",
+                "description": "Manage flags seamlessly across dev, staging, and production with one key.",
+                "alt": "Visual of feature flags syncing across multiple environment stages."
+              },
+              "security": {
+                "label": "Protection",
+                "title": "Lock Down Access",
+                "description": "Secure your flags with controls to block unauthorized requests and IPs.",
+                "alt": "Illustration of a security shield protecting feature flag settings."
+              }
+            }
           }
         },
         "more-features": {
           "title": "Feature Flags, Full Toolkit",
+          "description": "Equip your team with a complete set of tools to manage feature flags effortlessly. From real-time toggles to multi-environment testing, Basestack Feature Flags delivers everything you need to deploy with confidence and control.",
           "card": {
             "history": {
               "title": "Activity & History Tracking",

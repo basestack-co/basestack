@@ -15,8 +15,11 @@ import {
   Pricing,
   ProductNavigation,
   MiniCards,
+  SectionCards,
 } from "components";
 import { JavascriptIcon, JsonIcon, ReactIcon } from "components/Code/icons";
+// Styles
+import { useTheme } from "styled-components";
 // Locales
 import { useTranslations } from "next-intl";
 
@@ -24,6 +27,7 @@ const { plans, urls } = defaults;
 
 const ProductFeatureFlagsPage = () => {
   const t = useTranslations();
+  const { isDarkMode } = useTheme();
 
   return (
     <Fragment>
@@ -52,7 +56,7 @@ const ProductFeatureFlagsPage = () => {
           }, */
           {
             text: t("navigation.product.docs.title"),
-            href: urls.docs.base,
+            href: urls.docs.flags.base,
             icon: "docs",
             isExternal: true,
           },
@@ -79,7 +83,7 @@ const ProductFeatureFlagsPage = () => {
           },
         ]}
         image={{
-          src: "/images/flags_cards_popups.png",
+          src: `/images/product/flags/flags_cards_popups${isDarkMode ? "_dark" : ""}.png`,
           alt: "product demo",
         }}
       />
@@ -93,7 +97,7 @@ const ProductFeatureFlagsPage = () => {
             title: t("page.product.flags.features.slide.one.title"),
             text: t("page.product.flags.features.slide.one.description"),
             image: {
-              src: "/images/flags_multiple_projects.png",
+              src: `/images/product/flags/multiple_projects${isDarkMode ? "_dark" : ""}.png`,
               alt: t("page.product.flags.features.slide.one.alt"),
             },
           },
@@ -102,7 +106,7 @@ const ProductFeatureFlagsPage = () => {
             title: t("page.product.flags.features.slide.two.title"),
             text: t("page.product.flags.features.slide.two.description"),
             image: {
-              src: "/images/flag_history.png",
+              src: `/images/product/flags/activity${isDarkMode ? "_dark" : ""}.png`,
               alt: t("page.product.flags.features.slide.two.alt"),
             },
           },
@@ -111,15 +115,91 @@ const ProductFeatureFlagsPage = () => {
             title: t("page.product.flags.features.slide.three.title"),
             text: t("page.product.flags.features.slide.three.description"),
             image: {
-              src: "/images/create_flag_advanced.png",
+              src: `/images/product/flags/remote_config${isDarkMode ? "_dark" : ""}.png`,
               alt: t("page.product.flags.features.slide.three.alt"),
             },
           },
         ]}
       />
+      <SectionCards
+        id="feature-cards"
+        title={t("page.product.flags.features.card.title")}
+        text={t("page.product.flags.features.card.description")}
+        cards={[
+          {
+            label: t("page.product.flags.features.card.feature.projects.label"),
+            title: t("page.product.flags.features.card.feature.projects.title"),
+            text: t(
+              "page.product.flags.features.card.feature.projects.description",
+            ),
+            image: {
+              src: `/images/product/flags/projects_card${isDarkMode ? "_dark" : ""}.png`,
+              alt: t("page.product.flags.features.card.feature.projects.alt"),
+            },
+          },
+          {
+            label: t(
+              "page.product.flags.features.card.feature.environments.label",
+            ),
+            title: t(
+              "page.product.flags.features.card.feature.environments.title",
+            ),
+            text: t(
+              "page.product.flags.features.card.feature.environments.description",
+            ),
+            image: {
+              src: `/images/product/flags/envs_card${isDarkMode ? "_dark" : ""}.png`,
+              alt: t(
+                "page.product.flags.features.card.feature.environments.alt",
+              ),
+            },
+          },
+          {
+            label: t("page.product.flags.features.card.feature.history.label"),
+            title: t("page.product.flags.features.card.feature.history.title"),
+            text: t(
+              "page.product.flags.features.card.feature.history.description",
+            ),
+            image: {
+              src: `/images/product/flags/activity_card${isDarkMode ? "_dark" : ""}.png`,
+              alt: t("page.product.flags.features.card.feature.history.alt"),
+            },
+          },
+          {
+            label: t(
+              "page.product.flags.features.card.feature.remote-config.label",
+            ),
+            title: t(
+              "page.product.flags.features.card.feature.remote-config.title",
+            ),
+            text: t(
+              "page.product.flags.features.card.feature.remote-config.description",
+            ),
+            image: {
+              src: `/images/product/flags/remote_config_card${isDarkMode ? "_dark" : ""}.png`,
+              alt: t(
+                "page.product.flags.features.card.feature.remote-config.alt",
+              ),
+            },
+          },
+          {
+            label: t("page.product.flags.features.card.feature.security.label"),
+            title: t("page.product.flags.features.card.feature.security.title"),
+            text: t(
+              "page.product.flags.features.card.feature.security.description",
+            ),
+            image: {
+              src: `/images/product/flags/security_card${isDarkMode ? "_dark" : ""}.png`,
+              alt: t("page.product.flags.features.card.feature.security.alt"),
+            },
+          },
+        ]}
+        isFlatMode
+      />
       <MiniCards
         id="mini-cards"
         title={t("page.product.flags.more-features.title")}
+        text={t("page.product.flags.more-features.description")}
         cards={[
           {
             title: t("page.product.flags.more-features.card.history.title"),
@@ -214,28 +294,6 @@ const ProductFeatureFlagsPage = () => {
           },
         ]}
       />
-      <Cards
-        id="why"
-        title={t("page.product.flags.why.title")}
-        text={t("page.product.flags.why.description")}
-        cards={[
-          {
-            title: t("page.product.flags.why.card.benefits.title"),
-            text: t("page.product.flags.why.card.benefits.description"),
-            icon: "deployed_code_update",
-          },
-          {
-            title: t("page.product.flags.why.card.implementation.title"),
-            text: t("page.product.flags.why.card.implementation.description"),
-            icon: "toggle_on",
-          },
-          {
-            title: t("page.product.flags.why.card.branching.title"),
-            text: t("page.product.flags.why.card.branching.description"),
-            icon: "terminal",
-          },
-        ]}
-      />
       <Pricing
         id="pricing"
         title={t("common.pricing.title")}
@@ -260,7 +318,7 @@ const ProductFeatureFlagsPage = () => {
               const price = isEnterprise
                 ? "Custom"
                 : {
-                    monthly: `$${formatNumber(plan.price.monthly.amount, "en-US", 2, 2)}`,
+                    monthly: `$${formatNumber(plan.price.monthly.amount, "en-US", 0, 0)}`,
                     yearly: `$${formatNumber(plan.price.yearly.amount, "en-US", 2, 2)}`,
                   };
 
@@ -370,6 +428,28 @@ const ProductFeatureFlagsPage = () => {
           {
             title: t("page.product.flags.questions.3.title"),
             text: t("page.product.flags.questions.3.description"),
+          },
+        ]}
+      />
+      <Cards
+        id="why"
+        title={t("page.product.flags.why.title")}
+        text={t("page.product.flags.why.description")}
+        cards={[
+          {
+            title: t("page.product.flags.why.card.benefits.title"),
+            text: t("page.product.flags.why.card.benefits.description"),
+            icon: "deployed_code_update",
+          },
+          {
+            title: t("page.product.flags.why.card.implementation.title"),
+            text: t("page.product.flags.why.card.implementation.description"),
+            icon: "toggle_on",
+          },
+          {
+            title: t("page.product.flags.why.card.branching.title"),
+            text: t("page.product.flags.why.card.branching.description"),
+            icon: "terminal",
           },
         ]}
       />

@@ -25,6 +25,7 @@ export interface CardsProps {
     text: string;
     image: { src: string; alt: string };
   }>;
+  isFlatMode?: boolean;
 }
 
 const SectionCards = ({
@@ -32,6 +33,7 @@ const SectionCards = ({
   text,
   cards,
   id = "section-cards",
+  isFlatMode = false,
 }: CardsProps) => (
   <Container id={id}>
     <ContentContainer>
@@ -50,11 +52,13 @@ const SectionCards = ({
                       ? `${rem("30px")} ${rem("30px")} 0 0`
                       : `${rem("30px")} 0 0 ${rem("30px")}`
                   }
+                  isFlatMode={isFlatMode}
                 >
                   <Image
                     src={card.image.src}
                     alt={card.image.alt}
                     isEven={isEven}
+                    isFlatMode={isFlatMode}
                   />
                 </Card>
               </CardContainer>

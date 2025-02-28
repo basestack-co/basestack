@@ -2,16 +2,18 @@ import styled, { css } from "styled-components";
 import { rem } from "polished";
 
 export const Card = styled.div.withConfig({
-  shouldForwardProp: (prop) => !["p", "bg", "transitionBg"].includes(prop),
-})<{ p?: string | number; bg?: string; transitionBg?: boolean }>`
+  shouldForwardProp: (prop) =>
+    !["p", "bg", "transitionBg", "isFlatMode"].includes(prop),
+})<{
+  p?: string | number;
+  bg?: string;
+  transitionBg?: boolean;
+  isFlatMode?: boolean;
+}>`
   display: flex;
   flex-direction: column;
   overflow: hidden;
   height: 100%;
-  background-color: ${({ theme, bg }) =>
-    bg ? bg : theme.isDarkMode ? theme.colors.gray800 : theme.colors.white};
-  border-radius: ${rem("8px")};
-  box-shadow: ${({ theme }) => theme.shadow.elevation3};
   padding: ${({ p, theme }) =>
     p !== undefined && p !== null
       ? typeof p === "number"
@@ -24,4 +26,16 @@ export const Card = styled.div.withConfig({
     css`
       transition: background-color 0.2s ease-in-out;
     `};
+
+  ${({ isFlatMode, theme, bg }) =>
+    !isFlatMode &&
+    css`
+      background-color: ${bg
+        ? bg
+        : theme.isDarkMode
+          ? theme.colors.gray800
+          : theme.colors.white};
+      border-radius: ${rem("8px")};
+      box-shadow: ${theme.shadow.elevation3};
+    `}
 `;
