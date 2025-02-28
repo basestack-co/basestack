@@ -172,6 +172,49 @@ const forms: FormPlan[] = [
       hasSpamProtection: true,
     },
   },
+  {
+    id: PlanTypeId.ENTERPRISE,
+    name: "Enterprise",
+    slogan:
+      "Tailored for larger workloads, with top-tier compliance and security.",
+    description:
+      "Our Enterprise solution provides a private instance of our platform, deployed in your chosen region. Fully managed by us, it remains completely isolated and secure, tailored to meet your specific requirements.",
+    price: {
+      monthly: {
+        amount: Infinity,
+        currency: "USD",
+        variantId: 0,
+      },
+      yearly: {
+        amount: Infinity,
+        currency: "USD",
+        variantId: 0,
+      },
+    },
+    limits: {
+      forms: Infinity,
+      submissions: Infinity,
+      members: Infinity,
+      spams: Infinity,
+      fileUploadLimit: Infinity,
+      integrationsCalls: Infinity,
+    },
+    features: {
+      hasFileUploads: true,
+      hasDataQueryString: true,
+      hasCustomUrls: true,
+      hasRules: true,
+      hasEmailNotifications: true,
+      hasBlockIPs: true,
+      hasWebhooks: true,
+      hasWebsites: true,
+      hasCustomExport: true,
+      hasAutoResponses: true,
+      hasIntegrations: true,
+      hasCustomEmailTemplates: true,
+      hasSpamProtection: true,
+    },
+  },
 ];
 
 const getFormPlanLimitsDefaults = () => ({

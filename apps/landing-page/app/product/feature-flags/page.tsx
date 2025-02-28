@@ -194,7 +194,6 @@ const ProductFeatureFlagsPage = () => {
             },
           },
         ]}
-        isFlatMode={false}
       />
       <MiniCards
         id="mini-cards"
@@ -369,21 +368,21 @@ const ProductFeatureFlagsPage = () => {
                         },
                         {
                           text: t(
-                            "page.product.flags.pricing.feature.members",
-                            {
-                              value: formatNumber(limits.members),
-                            },
-                          ),
-                          icon: limits.members > 0 ? "check" : "close",
-                        },
-                        {
-                          text: t(
                             "page.product.flags.pricing.feature.api-requests",
                             {
                               value: formatNumber(limits.apiRequests),
                             },
                           ),
                           icon: "check",
+                        },
+                        {
+                          text: t(
+                            "page.product.flags.pricing.feature.members",
+                            {
+                              value: formatNumber(limits.members),
+                            },
+                          ),
+                          icon: limits.members > 0 ? "check" : "close",
                         },
                         {
                           text: t(

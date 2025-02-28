@@ -34,7 +34,10 @@ import {
   BottomContainer,
   StyledLink,
 } from "./styles";
+// Utils
 import { z } from "zod";
+// Locales
+import { useTranslations } from "next-intl";
 
 const products = [
   {
@@ -72,6 +75,7 @@ export const FormSchema = z.object({
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const Footer = () => {
+  const t = useTranslations();
   const theme = useTheme();
   const router = useRouter();
   const { toggleDarkMode } = useDarkModeToggle();
@@ -129,7 +133,7 @@ const Footer = () => {
               mt={theme.spacing.s6}
               mb={theme.spacing.s2}
             >
-              Get updates directly to your Inbox
+              {t("footer.newsletter.title")}
             </Text>
             <InputContainer>
               <Controller
@@ -157,7 +161,7 @@ const Footer = () => {
                 variant={ButtonVariant.Tertiary}
                 height="44px"
               >
-                Subscribe
+                {t("footer.newsletter.action")}
               </Button>
             </InputContainer>
           </LeftContainer>
