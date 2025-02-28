@@ -7,6 +7,7 @@ const flags: FlagsPlan[] = [
   {
     id: PlanTypeId.FREE,
     name: "Free",
+    slogan: "Get started with feature flags at no cost.",
     description:
       "Get started with feature flags at no cost. Manage up to 10 feature flags in 1 project with 50,000 API requests per month. Ideal for small experiments and personal projects. Does not include segments, rollouts, or advanced features.",
     price: {
@@ -44,6 +45,7 @@ const flags: FlagsPlan[] = [
   {
     id: PlanTypeId.HOBBY,
     name: "Hobby",
+    slogan: "Perfect for indie developers and small teams.",
     description:
       "Perfect for indie developers and small teams. Create up to 500 feature flags across 5 projects with unlimited environments. Supports 500,000 API requests per month. Great for testing features across multiple projects but does not include advanced segmentation or rollouts.",
     price: {
@@ -81,6 +83,7 @@ const flags: FlagsPlan[] = [
   {
     id: PlanTypeId.LAUNCH,
     name: "Launch",
+    slogan: "Designed for startups and expanding teams.",
     description:
       "Built for startups and growing teams. Get unlimited feature flags and unlimited projects with up to 5 user segments and 10 rollouts. Includes history tracking, remote config, website support, and IP blocking for added security. Comes with 5 team members and 5 million API requests per month.",
     price: {
@@ -118,6 +121,7 @@ const flags: FlagsPlan[] = [
   {
     id: PlanTypeId.SCALE,
     name: "Scale",
+    slogan: "The ultimate solution for scaling businesses.",
     description:
       "The ultimate solution for scaling businesses. Enjoy unlimited projects, flags, segments, rollouts, API requests, and 25 team members. Includes full segmentation, advanced rollouts, preview features, remote config, and history tracking. Designed for teams that need flexibility, control, and high performance.",
     price: {
@@ -139,6 +143,45 @@ const flags: FlagsPlan[] = [
       segments: Infinity,
       rollouts: Infinity,
       members: 25,
+      apiRequests: Infinity,
+    },
+    features: {
+      hasHistory: true,
+      hasBlockIPs: true,
+      hasRollouts: true,
+      hasSegments: true,
+      hasWebsites: true,
+      hasTags: true,
+      hasRemoteConfig: true,
+      hasPreviewFeatures: true,
+    },
+  },
+  {
+    id: PlanTypeId.ENTERPRISE,
+    name: "Enterprise",
+    slogan:
+      "Tailored for larger workloads, with top-tier compliance and security.",
+    description:
+      "Our Enterprise solution provides a private instance of our platform, deployed in your chosen region. Fully managed by us, it remains completely isolated and secure, tailored to meet your specific requirements.",
+    price: {
+      monthly: {
+        amount: Infinity,
+        currency: "USD",
+        variantId: 0,
+      },
+      yearly: {
+        amount: Infinity,
+        currency: "USD",
+        variantId: 695377,
+      },
+    },
+    limits: {
+      projects: Infinity,
+      environments: Infinity,
+      flags: Infinity,
+      segments: Infinity,
+      rollouts: Infinity,
+      members: Infinity,
       apiRequests: Infinity,
     },
     features: {

@@ -39,11 +39,11 @@ import { z } from "zod";
 const products = [
   {
     text: "Feature Flags",
-    href: "/flags",
+    href: "/product/feature-flags",
   },
   {
     text: "Forms",
-    href: "/forms",
+    href: "/product/forms",
   },
 ];
 

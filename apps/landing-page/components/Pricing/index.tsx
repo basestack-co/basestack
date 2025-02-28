@@ -28,6 +28,8 @@ import {
   HeaderContainer,
 } from "./styles";
 import { Card } from "../styles";
+// Locales
+import { useTranslations } from "next-intl";
 
 type Interval = "monthly" | "yearly";
 
@@ -37,7 +39,7 @@ interface CardProps {
   button: string;
   description: string;
   listDescription?: string;
-  list: Array<string>;
+  list: Array<{ text: string; icon?: string }>;
   isCustom?: boolean;
   isPopular?: boolean;
   onClick: () => void;
@@ -56,6 +58,7 @@ const CardComp = ({
   isPopular = false,
   interval,
 }: CardProps) => {
+  const t = useTranslations();
   const { spacing, colors, isDarkMode } = useTheme();
   const iconColor = isDarkMode ? colors.gray300 : colors.black;
   const popularIconColor = isDarkMode ? colors.blue300 : colors.primary;
@@ -69,7 +72,7 @@ const CardComp = ({
         {!isCustom && (
           <FloatingLabel>
             <Text lineHeight="1" size="small" muted>
-              From
+              {t("common.pricing.segment.from")}
             </Text>
           </FloatingLabel>
         )}
@@ -77,7 +80,7 @@ const CardComp = ({
           {typeof price === "string" ? price : price[interval]}
           {!isCustom && (
             <Text as="span" lineHeight="1" size="small" ml="2px" muted>
-              /month
+              {t("common.pricing.segment.month")}
             </Text>
           )}
         </Text>
@@ -101,15 +104,17 @@ const CardComp = ({
         </Text>
       )}
       <List>
-        {list?.map((item, index) => (
+        {list?.map(({ text, icon }, index) => (
           <ListItem key={index}>
-            <Icon
-              icon="check"
-              size="medium"
-              color={isPopular ? popularIconColor : iconColor}
-            />
+            {icon && (
+              <Icon
+                icon={icon}
+                size="medium"
+                color={isPopular ? popularIconColor : iconColor}
+              />
+            )}
             <Text size="medium" fontWeight={400} ml={spacing.s3}>
-              {item}
+              {text}
             </Text>
           </ListItem>
         ))}
@@ -125,9 +130,16 @@ interface PricingProps {
   title: string;
   text: string;
   items: Array<OmitMultiple<CardProps, "onClick" | "interval">>;
+  segment?: Array<{ id: string; text: string; label?: string }>;
 }
 
-const Pricing = ({ title, text, items, id = "pricing" }: PricingProps) => {
+const Pricing = ({
+  title,
+  text,
+  items,
+  id = "pricing",
+  segment = [],
+}: PricingProps) => {
   const { device, spacing } = useTheme();
   const isDesktop = useMedia(device.min.xl, true);
 
@@ -150,11 +162,10 @@ const Pricing = ({ title, text, items, id = "pricing" }: PricingProps) => {
           <SectionHeader title={title} text={text} />
           <Segment
             selectedIndex={selectedInterval === "monthly" ? 0 : 1}
-            onSelect={(interval) => setSelectedInterval(interval as Interval)}
-            items={[
-              { id: "monthly", text: "Pay monthly" },
-              { id: "yearly", text: "Pay yearly", label: "save 20%" },
-            ]}
+            onSelect={(interval) => {
+              setSelectedInterval(interval.toLowerCase() as Interval);
+            }}
+            items={segment}
             mb={spacing.s5}
           />
         </HeaderContainer>

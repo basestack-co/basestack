@@ -46,6 +46,7 @@ export enum PlanTypeId {
 export interface Plan {
   id: PlanTypeId;
   name: string;
+  slogan: string;
   description: string;
   price: {
     monthly: {

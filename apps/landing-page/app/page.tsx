@@ -9,7 +9,6 @@ import {
   AppsHero,
   Cards,
   Slider,
-  Code,
   Questions,
   Banner,
   SectionCards,
@@ -58,7 +57,6 @@ const LandingPage = () => {
         text="Discover a complete platform for creating, implementing, and managing your feature flags with Basestack Feature Flags."
         data={slides}
       />
-      <Code id="code" />
       <Cards
         id="why"
         title="Unconvinced about Feature Flags?"

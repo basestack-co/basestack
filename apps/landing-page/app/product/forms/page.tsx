@@ -53,18 +53,13 @@ const LandingPage = () => {
         text="Discover a complete platform for creating, implementing, and managing your feature flags with Basestack Feature Flags."
         data={slides}
       />
-      <Code id="code" />
       <Cards
         id="why"
         title="Unconvinced about Feature Flags?"
         text="Feature flagging is a powerful technique where developers wrap a new feature in an if/then statement to gain greater control over its release and behavior."
         cards={why}
       />
-      <Pricing
-        title="Pricing"
-        text="Flags provides an all-in-one platform for developing, implementing, and managing your feature flags."
-        items={pricing}
-      />
+
       <Questions
         id="questions"
         title="Frequently Asked Questions"

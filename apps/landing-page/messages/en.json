@@ -147,8 +147,82 @@
           }
         },
         "questions": {
-
+          "title": "Frequently Asked Questions",
+          "description": "Explore our collection of useful questions and answers about the Feature Flags Platform. If you don't find the answer to your question here, feel free to open a discussion on Github.",
+          "1": {
+            "title": "Have more questions? Can I chat with someone?",
+            "description": "Of course! If you have additional questions, please contact us at support@basestack.co — we’re here to assist you."
+          },
+          "2": {
+            "title": "Is there a discount for annual plans?",
+            "description": "Yes, we provide annual discounts on all plans. Contact us for details."
+          },
+          "3": {
+            "title": "Are Basestack Feature Flags available at no cost?",
+            "description": "Basestack Feature Flags offers a free plan, perfect for getting started or for solo developers. It’s an ideal way to explore feature flags and test the waters before selecting the deployment option and team plan that best fit your needs."
+          }
+        },
+        "banner": {
+          "title": "Ready to Ship Your Code with Confidence?",
+          "description": "Basestack Feature Flags is a user-friendly platform that streamlines the development and implementation of feature flags.",
+          "action": {
+            "get-free": "Get Feature Flags free",
+            "star-github": "Star Us on GitHub"
+          }
+        },
+        "pricing": {
+          "feature": {
+            "projects": "{value} Projects",
+            "environments": "{value} Environments",
+            "flags": "{value} Flags",
+            "segments": "{value} Segments",
+            "rollouts": "{value} Rollouts",
+            "members": "{value} Members",
+            "api-requests": "{value} API Requests",
+            "has-history": "Activity Log",
+            "has-tags": "Tags",
+            "has-remote-config": "Remote Config",
+            "has-preview-features": "Preview Features",
+            "has-websites": "Website Whitelist",
+            "has-block-ips": "Block IPS",
+            "has-rollouts": "Rollouts",
+            "has-segments": "Segments",
+            "has-security": "Security Rules"
+          }
         }
+      }
+    }
+  },
+  "common": {
+    "pricing": {
+      "title": "Flexible Pricing for Every Developer & Teams",
+      "description": "Choose a plan that matches your needs, from free access for individual developers to robust options for growing teams. Basestack Platform delivers clear, affordable pricing designed to support your projects at every stage.",
+      "segment": {
+        "monthly": "Monthly",
+        "yearly": "Yearly",
+        "discount": "(Save 15%)",
+        "from": "From",
+        "month": "/month"
+      },
+      "info": {
+        "preview-features": "Also includes access to new features in preview and beta stages.\n\n"
+      },
+      "action": {
+        "get-started-free": "Get started free",
+        "get-started": "Get started",
+        "contact-us": "Contact us"
+      },
+      "price": {
+        "symbol": "$",
+        "abbr": "USD"
+      },
+      "cycle": {
+        "monthly": "billed monthly",
+        "yearly": "billed yearly"
+      },
+      "cycle-abbr": {
+        "monthly": "mo",
+        "yearly": "yr"
       }
     }
   }
