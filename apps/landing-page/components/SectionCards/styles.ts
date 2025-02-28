@@ -44,27 +44,24 @@ export const Row = styled.div.withConfig({
 `;
 
 export const Image = styled.img.withConfig({
-  shouldForwardProp: (prop) => !["isEven", "isFlatMode"].includes(prop),
-})<{ isEven: boolean; isFlatMode?: boolean }>`
+  shouldForwardProp: (prop) => !["isEven"].includes(prop),
+})<{ isEven: boolean }>`
   width: 100%;
   height: auto;
+  border: 1px solid
+    ${({ theme }) =>
+      theme.isDarkMode
+        ? theme.horizontalRule.backgroundColor
+        : theme.horizontalRule.backgroundColor};
 
-  ${({ isFlatMode, isEven, theme }) =>
-    !isFlatMode &&
-    css`
-      border: 1px solid
-        ${theme.isDarkMode
-          ? theme.horizontalRule.backgroundColor
-          : theme.horizontalRule.backgroundColor};
-
-      ${isEven
-        ? css`
-            border-top-right-radius: ${rem("8px")};
-          `
-        : css`
-            border-top-left-radius: ${rem("8px")};
-          `};
-    `}
+  ${({ isEven }) =>
+    isEven
+      ? css`
+          border-top-right-radius: ${rem("8px")};
+        `
+      : css`
+          border-top-left-radius: ${rem("8px")};
+        `};
 `;
 
 export const CardContainer = styled.div`

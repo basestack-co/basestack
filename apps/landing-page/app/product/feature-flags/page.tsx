@@ -194,7 +194,7 @@ const ProductFeatureFlagsPage = () => {
             },
           },
         ]}
-        isFlatMode
+        isFlatMode={false}
       />
       <MiniCards
         id="mini-cards"
