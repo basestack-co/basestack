@@ -4,7 +4,7 @@ import { useStore } from "store";
 import { useRouter } from "next/navigation";
 // Utils
 import { useDarkModeToggle } from "@basestack/hooks";
-import { events } from "@basestack/utils";
+import { config as defaults, events } from "@basestack/utils";
 // Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,32 +38,10 @@ import {
 import { z } from "zod";
 // Locales
 import { useTranslations } from "next-intl";
+// Toast
+import { toast } from "sonner";
 
-const products = [
-  {
-    text: "Feature Flags",
-    href: "/product/feature-flags",
-  },
-  {
-    text: "Forms",
-    href: "/product/forms",
-  },
-];
-
-const links = [
-  {
-    text: "Privacy Policy",
-    href: "/legal/privacy",
-  },
-  {
-    text: "Cookies Policy",
-    href: "/legal/cookies",
-  },
-  {
-    text: "Term of Use",
-    href: "/legal/terms",
-  },
-];
+const { urls } = defaults;
 
 export const FormSchema = z.object({
   email: z
@@ -73,6 +51,146 @@ export const FormSchema = z.object({
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
+
+interface FooterLink {
+  text: string;
+  href: string;
+  isExternal?: boolean;
+}
+
+interface FooterLinksSection {
+  title: string;
+  links: FooterLink[];
+}
+
+const FooterLinkItem: React.FC<FooterLink> = ({ text, href, isExternal }) => {
+  const router = useRouter();
+
+  const onHandleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    events.landing.link(text, href);
+    if (isExternal) {
+      window.open(href, "_blank");
+    } else {
+      router.push(href);
+    }
+  };
+
+  return (
+    <ListItem key={href} onClick={onHandleClick}>
+      <StyledLink href={href}>{text}</StyledLink>
+    </ListItem>
+  );
+};
+
+const FooterLinksSection: React.FC<{ section: FooterLinksSection }> = ({
+  section,
+}) => {
+  const { title, links } = section;
+
+  return (
+    <ListContainer>
+      <Text size="medium">{title}</Text>
+      <List>
+        {links.map((link) => (
+          <FooterLinkItem key={link.href} {...link} />
+        ))}
+      </List>
+    </ListContainer>
+  );
+};
+
+const FooterLinks: React.FC = () => {
+  const t = useTranslations();
+
+  const footerSections: FooterLinksSection[] = [
+    {
+      title: t("footer.section.products.title"),
+      links: [
+        {
+          text: t("navigation.main.product.flags.title"),
+          href: "/product/feature-flags",
+        },
+        {
+          text: t("navigation.main.product.forms.title"),
+          href: "/product/forms",
+        },
+      ],
+    },
+    {
+      title: t("footer.section.resources.title"),
+      links: [
+        {
+          text: t("footer.section.resources.blog"),
+          href: urls.blog,
+          isExternal: true,
+        },
+        {
+          text: t("footer.section.resources.support"),
+          href: urls.support,
+          isExternal: true,
+        },
+        {
+          text: t("footer.section.resources.system-status"),
+          href: urls.status,
+          isExternal: true,
+        },
+      ],
+    },
+    {
+      title: t("footer.section.developers.title"),
+      links: [
+        {
+          text: t("footer.section.developers.docs"),
+          href: urls.docs.base,
+          isExternal: true,
+        },
+        {
+          text: t("footer.section.developers.contributing"),
+          href: `${urls.docs.base}/contributing`,
+          isExternal: true,
+        },
+        {
+          text: t("footer.section.developers.open-source"),
+          href: urls.repo,
+          isExternal: true,
+        },
+        {
+          text: t("footer.section.developers.self-hosting"),
+          href: `${urls.docs.base}/self-hosting`,
+          isExternal: true,
+        },
+      ],
+    },
+    {
+      title: t("footer.section.company.title"),
+      links: [
+        {
+          text: t("footer.section.company.privacy-policy"),
+          href: "/legal/privacy",
+        },
+        {
+          text: t("footer.section.company.cookies-policy"),
+          href: "/legal/cookies",
+        },
+        {
+          text: t("footer.section.company.term-of-use"),
+          href: "/legal/terms",
+        },
+      ],
+    },
+  ];
+
+  return (
+    <RightContainer>
+      {footerSections.map((section) => (
+        <FooterLinksSection key={section.title} section={section} />
+      ))}
+    </RightContainer>
+  );
+};
 
 const Footer = () => {
   const t = useTranslations();
@@ -86,7 +204,7 @@ const Footer = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
     reset,
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
@@ -108,6 +226,8 @@ const Footer = () => {
 
       await res.json();
 
+      toast.success(t("common.toast.newsletter.success"));
+
       events.landing.newsletter(
         "Subscribe Success",
         "Subscribe with success to the Newsletter",
@@ -115,7 +235,7 @@ const Footer = () => {
       reset();
     } catch (error) {
       const { message } = error as Error;
-
+      toast.error(message);
       events.landing.newsletter("Subscribe Error", message);
     }
   };
@@ -165,66 +285,17 @@ const Footer = () => {
               </Button>
             </InputContainer>
           </LeftContainer>
-          <RightContainer>
-            <ListContainer>
-              <Text size="medium">Products</Text>
-              <List>
-                {products.map((link, index) => (
-                  <ListItem
-                    key={index.toString()}
-                    onClick={() => {
-                      events.landing.link(link.text, link.href);
-                      router.push(link.href);
-                    }}
-                  >
-                    <StyledLink href={link.href}>{link.text}</StyledLink>
-                  </ListItem>
-                ))}
-              </List>
-            </ListContainer>
-
-            <ListContainer>
-              <Text size="medium">Docs</Text>
-              <List>
-                {links.map((link, index) => (
-                  <ListItem
-                    key={index.toString()}
-                    onClick={() => {
-                      events.landing.link(link.text, link.href);
-                      router.push(link.href);
-                    }}
-                  >
-                    <StyledLink href={link.href}>{link.text}</StyledLink>
-                  </ListItem>
-                ))}
-              </List>
-            </ListContainer>
-
-            <ListContainer>
-              <Text size="medium">Company</Text>
-              <List>
-                {links.map((link, index) => (
-                  <ListItem
-                    key={index.toString()}
-                    onClick={() => {
-                      events.landing.link(link.text, link.href);
-                      router.push(link.href);
-                    }}
-                  >
-                    <StyledLink href={link.href}>{link.text}</StyledLink>
-                  </ListItem>
-                ))}
-              </List>
-            </ListContainer>
-          </RightContainer>
+          <FooterLinks />
         </MainContent>
-
         <HorizontalRule isDarker={!isDarkMode} />
         <BottomContainer>
           <Text size="small" muted>
-            © Basestack {new Date().getFullYear()}. All rights reserved.
+            {t("footer.company", {
+              year: new Date().getFullYear(),
+              portugal: "🇵🇹",
+              europe: "🇪🇺",
+            })}
           </Text>
-
           <IconButton
             icon={isDarkMode ? "light_mode" : "dark_mode"}
             size="medium"

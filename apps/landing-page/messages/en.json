@@ -47,9 +47,34 @@
     }
   },
   "footer": {
+    "company": "© Basestack {year}. All rights reserved. Crafted in {portugal}, hosted in {europe}.",
     "newsletter": {
       "title": "Get updates directly to your Inbox",
       "action": "Subscribe"
+    },
+    "section": {
+      "products": {
+        "title": "Products"
+      },
+      "resources": {
+        "title": "Resources",
+        "support": "Support",
+        "system-status": "System Status",
+        "blog": "Blog"
+      },
+      "developers": {
+        "title": "Developers",
+        "docs": "Documentation",
+        "contributing": "Contributing",
+        "open-source": "Open Source",
+        "self-hosting": "Self-Hosting"
+      },
+      "company": {
+        "title": "Company",
+        "privacy-policy": "Privacy Policy",
+        "cookies-policy": "Cookies Policy",
+        "term-of-use": "Term of Use"
+      }
     }
   },
   "page": {
@@ -187,22 +212,6 @@
               "title": "Feature Flags vs. Branching",
               "description": "Feature branching allows developers to collaborate effectively around a central code base by keeping all changes to a specific feature in its own branch. By adding feature flags to the mix, feature branching becomes even more powerful and faster, separating feature release management from code deployment."
             }
-          }
-        },
-        "questions": {
-          "title": "Frequently Asked Questions",
-          "description": "Explore our collection of useful questions and answers about the Feature Flags Platform. If you don't find the answer to your question here, feel free to open a discussion on Github.",
-          "1": {
-            "title": "Have more questions? Can I chat with someone?",
-            "description": "Of course! If you have additional questions, please contact us at support@basestack.co — we’re here to assist you."
-          },
-          "2": {
-            "title": "Is there a discount for annual plans?",
-            "description": "Yes, we provide annual discounts on all plans. Contact us for details."
-          },
-          "3": {
-            "title": "Are Basestack Feature Flags available at no cost?",
-            "description": "Basestack Feature Flags offers a free plan, perfect for getting started or for solo developers. It’s an ideal way to explore feature flags and test the waters before selecting the deployment option and team plan that best fit your needs."
           }
         },
         "banner": {
@@ -346,20 +355,21 @@
             }
           }
         },
-        "questions": {
-          "title": "Frequently Asked Questions",
-          "description": "Explore our collection of useful questions and answers about the Forms Platform. If you don't find the answer to your question here, feel free to open a discussion on Github.",
-          "1": {
-            "title": "Have more questions? Can I chat with someone?",
-            "description": "Of course! If you have additional questions, please contact us at support@basestack.co — we’re here to assist you."
+        "guide": {
+          "title": "Integrate Forms Your Way",
+          "description": "Connect Basestack Forms to your projects effortlessly. Whether you’re using HTML, JavaScript, or Next.js, our straightforward integration options let you get up and running in minutes.",
+          "action": "Get the Code",
+          "html": {
+            "title": "HTML Made Simple",
+            "description": "Point your form’s action to our endpoint and start collecting submissions."
           },
-          "2": {
-            "title": "Is there a discount for annual plans?",
-            "description": "Yes, we provide annual discounts on all plans. Contact us for details."
+          "js": {
+            "title": "JavaScript Flexibility",
+            "description": "Add custom form logic with simple JavaScript—no complex setup needed."
           },
-          "3": {
-            "title": "Are Basestack Forms available at no cost?",
-            "description": "Basestack Forms offers a free plan, perfect for getting started or for solo developers. It’s an ideal way to explore forms and test the waters before selecting the deployment option and team plan that best fit your needs."
+          "next": {
+            "title": "Next.js Ready",
+            "description": "Hit our endpoint with Fetch or Axios in plain React or Next.js—no extras needed."
           }
         },
         "banner": {
@@ -415,9 +425,14 @@
     }
   },
   "common": {
+    "toast": {
+      "newsletter": {
+        "success": "Subscribe with success to the Newsletter"
+      }
+    },
     "pricing": {
       "title": "Flexible Pricing for Every Developer & Teams",
-      "description": "Choose a plan that matches your needs, from free access for individual developers to robust options for growing teams. Basestack Platform delivers clear, affordable pricing designed to support your projects at every stage.",
+      "description": "Choose a plan that matches your needs, from free access for individual developers to robust options for growing teams. {product} delivers clear, affordable pricing designed to support your projects at every stage.",
       "segment": {
         "monthly": "Monthly",
         "yearly": "Yearly",
@@ -426,7 +441,7 @@
         "month": "/month"
       },
       "info": {
-        "preview-features": "Also includes access to new features in preview and beta stages.\n\n"
+        "preview-features": "Also includes access to new features in preview and beta stages."
       },
       "action": {
         "get-started-free": "Get started free",
@@ -444,6 +459,30 @@
       "cycle-abbr": {
         "monthly": "mo",
         "yearly": "yr"
+      }
+    },
+    "questions": {
+      "title": "Frequently Asked Questions",
+      "description": "Explore our collection of useful questions and answers about the {product}. If you don't find the answer to your question here, feel free to open a discussion on Github.",
+      "1": {
+        "title": "Have more questions? Can I chat with someone?",
+        "description": "Of course! If you have additional questions, please contact us at support@basestack.co — we’re here to assist you."
+      },
+      "2": {
+        "title": "Is there a discount for annual plans?",
+        "description": "Yes, we provide annual discounts on all plans. Contact us for details."
+      },
+      "3": {
+        "title": "Are {product} available at no cost?",
+        "description": "{product} offers a free plan, perfect for getting started or for solo developers. It’s an ideal way to explore and test the waters before selecting the deployment option and team plan that best fit your needs."
+      },
+      "4": {
+        "title": "Can I use Basestack Feature Flags, Basestack Forms and other Basestack Products separately, and how does pricing work for each?",
+        "description": "Yes, each tool—Feature Flags, Forms, and others—operates independently with its own pricing. You only pay for what you need, and you can select different plans for each product to match your specific requirements. This flexibility lets you customize your experience without overpaying for unused features."
+      },
+      "5": {
+        "title": "What’s your refund policy?",
+        "description": "We don’t offer refunds on paid plans, but our generous free version gives you plenty of time to test the platform thoroughly. You can decide if it’s the right fit before upgrading—and cancel anytime if needed—no pressure, no surprises."
       }
     }
   }

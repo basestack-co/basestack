@@ -10,6 +10,9 @@ const commons = {
   baseLandingUrl,
   repo: "https://github.com/basestack-co/basestack",
   twitter: "https://twitter.com/basestack_co",
+  blog: "https://blog.basestack.co/",
+  status: "https://status.basestack.co/",
+  support: "https://docs.basestack.co/help",
   product: {
     flags: `${baseLandingUrl}/feature-flags`,
     forms: `${baseLandingUrl}/forms`,

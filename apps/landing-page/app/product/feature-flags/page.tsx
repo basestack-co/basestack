@@ -296,7 +296,9 @@ const ProductFeatureFlagsPage = () => {
       <Pricing
         id="pricing"
         title={t("common.pricing.title")}
-        text={t("common.pricing.description")}
+        text={t("common.pricing.description", {
+          product: "Basestack Feature Flags",
+        })}
         segment={[
           {
             id: "monthly",
@@ -413,20 +415,34 @@ const ProductFeatureFlagsPage = () => {
       />
       <Questions
         id="questions"
-        title={t("page.product.flags.questions.title")}
-        text={t("page.product.flags.questions.description")}
+        title={t("common.questions.title")}
+        text={t("common.questions.description", {
+          product: "Basestack Feature Flags",
+        })}
         data={[
           {
-            title: t("page.product.flags.questions.1.title"),
-            text: t("page.product.flags.questions.1.description"),
+            title: t("common.questions.1.title"),
+            text: t("common.questions.1.description"),
           },
           {
-            title: t("page.product.flags.questions.2.title"),
-            text: t("page.product.flags.questions.2.description"),
+            title: t("common.questions.4.title"),
+            text: t("common.questions.4.description"),
           },
           {
-            title: t("page.product.flags.questions.3.title"),
-            text: t("page.product.flags.questions.3.description"),
+            title: t("common.questions.2.title"),
+            text: t("common.questions.2.description"),
+          },
+          {
+            title: t("common.questions.3.title", {
+              product: "Basestack Feature Flags",
+            }),
+            text: t("common.questions.3.description", {
+              product: "Basestack Feature Flags",
+            }),
+          },
+          {
+            title: t("common.questions.5.title"),
+            text: t("common.questions.5.description"),
           },
         ]}
       />

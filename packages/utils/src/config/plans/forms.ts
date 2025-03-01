@@ -110,7 +110,7 @@ const forms: FormPlan[] = [
       forms: Infinity,
       submissions: 10000,
       members: 10,
-      spams: 2000,
+      spams: 10000,
       fileUploadLimit: 3, // GB
       integrationsCalls: 500, // Calls
     },

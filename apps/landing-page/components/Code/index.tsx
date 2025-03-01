@@ -23,7 +23,7 @@ import {
 import { Card } from "../styles";
 
 export interface CardProps {
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   title: string;
   description: string;
   button: string;
