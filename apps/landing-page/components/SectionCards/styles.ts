@@ -48,11 +48,6 @@ export const Image = styled.img.withConfig({
 })<{ isEven: boolean }>`
   width: 100%;
   height: auto;
-  border: 1px solid
-    ${({ theme }) =>
-      theme.isDarkMode
-        ? theme.horizontalRule.backgroundColor
-        : theme.horizontalRule.backgroundColor};
 
   ${({ isEven }) =>
     isEven
@@ -68,7 +63,6 @@ export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  max-height: 400px;
 `;
 
 export const TextContainer = styled.div`

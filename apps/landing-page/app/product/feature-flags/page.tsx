@@ -16,12 +16,15 @@ import {
   ProductNavigation,
   MiniCards,
   SectionCards,
+  BentoCards,
+  FlagsCardSlider,
 } from "components";
 import { JavascriptIcon, JsonIcon, ReactIcon } from "components/Code/icons";
 // Styles
 import { useTheme } from "styled-components";
 // Locales
 import { useTranslations } from "next-intl";
+import EnvironmentLabels from "../../../components/EnvironmentLabels";
 
 const { plans, urls } = defaults;
 
@@ -121,7 +124,75 @@ const ProductFeatureFlagsPage = () => {
           },
         ]}
       />
-      <SectionCards
+      <BentoCards
+        id="feature-cards"
+        title={t("page.product.flags.features.card.title")}
+        text={t("page.product.flags.features.card.description")}
+        cards={[
+          {
+            title: t("page.product.flags.features.card.feature.projects.title"),
+            text: t(
+              "page.product.flags.features.card.feature.projects.description",
+            ),
+            component: <FlagsCardSlider />,
+            image: {
+              src: `/images/product/flags/projects_card${isDarkMode ? "_dark" : ""}.png`,
+              alt: t("page.product.flags.features.card.feature.projects.alt"),
+            },
+          },
+          {
+            title: t(
+              "page.product.flags.features.card.feature.environments.title",
+            ),
+            text: t(
+              "page.product.flags.features.card.feature.environments.description",
+            ),
+            component: <EnvironmentLabels />,
+            image: {
+              src: `/images/product/flags/envs_card${isDarkMode ? "_dark" : ""}.png`,
+              alt: t(
+                "page.product.flags.features.card.feature.environments.alt",
+              ),
+            },
+          },
+          {
+            title: t("page.product.flags.features.card.feature.history.title"),
+            text: t(
+              "page.product.flags.features.card.feature.history.description",
+            ),
+            image: {
+              src: `/images/product/flags/activity_card${isDarkMode ? "_dark" : ""}.png`,
+              alt: t("page.product.flags.features.card.feature.history.alt"),
+            },
+          },
+          {
+            title: t(
+              "page.product.flags.features.card.feature.remote-config.title",
+            ),
+            text: t(
+              "page.product.flags.features.card.feature.remote-config.description",
+            ),
+            image: {
+              src: `/images/product/flags/remote_config_card${isDarkMode ? "_dark" : ""}.png`,
+              alt: t(
+                "page.product.flags.features.card.feature.remote-config.alt",
+              ),
+            },
+          },
+          {
+            title: t("page.product.flags.features.card.feature.security.title"),
+            text: t(
+              "page.product.flags.features.card.feature.security.description",
+            ),
+            image: {
+              src: `/images/product/flags/security_card${isDarkMode ? "_dark" : ""}.png`,
+              alt: t("page.product.flags.features.card.feature.security.alt"),
+            },
+          },
+        ]}
+      />
+      {/*
+        <SectionCards
         id="feature-cards"
         title={t("page.product.flags.features.card.title")}
         text={t("page.product.flags.features.card.description")}
@@ -195,6 +266,7 @@ const ProductFeatureFlagsPage = () => {
           },
         ]}
       />
+        */}
       <MiniCards
         id="mini-cards"
         title={t("page.product.flags.more-features.title")}

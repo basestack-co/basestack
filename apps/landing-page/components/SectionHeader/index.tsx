@@ -2,7 +2,8 @@ import React from "react";
 import { useTheme } from "styled-components";
 // Components
 import { Text } from "@basestack/design-system";
-import { Container, Label, Title } from "./styles";
+import { Container, Title } from "./styles";
+import { Label } from "../styles";
 
 export interface SectionHeaderProps {
   title: string;

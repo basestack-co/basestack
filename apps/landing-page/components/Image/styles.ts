@@ -6,7 +6,8 @@ export const Container = styled.div`
   ${space};
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.gray50};
+  background-color: ${({ theme }) =>
+    theme.isDarkMode ? theme.colors.gray900 : theme.colors.gray50};
   box-shadow: ${({ theme }) => theme.shadow.elevation4};
   border-radius: ${rem("8px")};
   width: 100%;

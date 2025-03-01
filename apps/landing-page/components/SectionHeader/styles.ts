@@ -49,15 +49,3 @@ export const Title = styled.h2.withConfig({
       titleSize === "medium" ? rem("24px") : rem("32px")};
   }
 `;
-
-export const Label = styled.div`
-  display: inline-flex;
-  align-items: center;
-  margin-bottom: ${({ theme }) => theme.spacing.s4};
-  padding: 0 ${({ theme }) => theme.spacing.s2};
-  height: ${rem("28px")};
-  border-radius: ${rem("4px")};
-  box-shadow: ${({ theme }) => theme.shadow.elevation2};
-  background-color: ${({ theme }) =>
-    theme.isDarkMode ? theme.colors.gray800 : theme.colors.white};
-`;
