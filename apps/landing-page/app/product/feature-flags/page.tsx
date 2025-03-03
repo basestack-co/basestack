@@ -5,26 +5,23 @@ import { config as defaults, events, formatNumber } from "@basestack/utils";
 // Components
 import {
   Hero,
-  Footer,
   Banner,
   Cards,
   Questions,
   Slider,
   Code,
-  GlobalNavigation,
   Pricing,
   ProductNavigation,
   MiniCards,
-  SectionCards,
   BentoCards,
   FlagsCardSlider,
+  EnvironmentLabels,
 } from "components";
 import { JavascriptIcon, JsonIcon, ReactIcon } from "components/Code/icons";
 // Styles
 import { useTheme } from "styled-components";
 // Locales
 import { useTranslations } from "next-intl";
-import EnvironmentLabels from "../../../components/EnvironmentLabels";
 
 const { plans, urls } = defaults;
 
@@ -34,7 +31,6 @@ const ProductFeatureFlagsPage = () => {
 
   return (
     <Fragment>
-      <GlobalNavigation isSticky={false} />
       <ProductNavigation
         items={[
           {
@@ -560,7 +556,6 @@ const ProductFeatureFlagsPage = () => {
           },
         ]}
       />
-      <Footer />
     </Fragment>
   );
 };

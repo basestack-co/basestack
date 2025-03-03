@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { useStore } from "store";
 // Router

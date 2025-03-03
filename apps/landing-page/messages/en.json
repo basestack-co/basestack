@@ -47,7 +47,7 @@
     }
   },
   "footer": {
-    "company": "© Basestack {year}. All rights reserved. Crafted in {portugal}, hosted in {europe}.",
+    "company": "© Basestack {year}. All rights reserved. Crafted in {portugal} hosted in {europe}",
     "newsletter": {
       "title": "Get updates directly to your Inbox",
       "action": "Subscribe"
@@ -78,6 +78,73 @@
     }
   },
   "page": {
+    "main": {
+      "hero": {
+        "title": "Your Growth Toolkit, Built on Basestack",
+        "description": "Basestack equips solo devs, teams, and startups with open-source tools you can self-host for free—or choose our hosted solution for simplicity. Scalable and versatile, it’s the foundation for every stage of your journey.",
+        "action": {
+          "learn-more": "Learn more",
+          "request-demo": "Request a demo"
+        },
+        "card": {
+          "flags": {
+            "title": "Feature Flags",
+            "description": "Toggle features instantly to manage deployments smoothly."
+          },
+          "forms": {
+            "title": "Forms",
+            "description": "Collect submissions seamlessly with a no-code forms solution."
+          },
+          "feedback": {
+            "title": "Feedback (Coming Soon)",
+            "description": "Gather user insights to shape your product—launching soon."
+          }
+        }
+      },
+      "highlights": {
+        "title": "Tools to Build, Control, and Grow",
+        "description": "",
+        "slide": {
+          "one": {
+            "title": "Feature Flags",
+            "description": "Control at Your Fingertips – Toggle features without redeploys.",
+            "alt": ""
+          },
+          "two": {
+            "title": "Forms",
+            "description": "Fast Forms, No Hassle – Set up submissions in minutes.",
+            "alt": ""
+          },
+          "three": {
+            "title": "Feedback",
+            "description": "Listen and Improve – User insights, arriving soon.",
+            "alt": ""
+          }
+        }
+      },
+      "why": {
+        "title": "Why Choose Basestack",
+        "description": ".",
+        "card": {
+          "benefits": {
+            "title": "",
+            "description": ""
+          },
+          "implementation": {
+            "title": "",
+            "description": ""
+          },
+          "branching": {
+            "title": "",
+            "description": ""
+          }
+        }
+      },
+      "who": {
+        "title": "Who It’s For",
+        "description": ""
+      }
+    },
     "product": {
       "flags": {
         "hero": {

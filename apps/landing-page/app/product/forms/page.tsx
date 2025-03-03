@@ -5,12 +5,10 @@ import { config as defaults, events, formatNumber } from "@basestack/utils";
 // Components
 import {
   Hero,
-  Footer,
   Banner,
   Cards,
   Questions,
   Slider,
-  GlobalNavigation,
   Pricing,
   ProductNavigation,
   MiniCards,
@@ -29,7 +27,6 @@ const ProductFormsPage = () => {
 
   return (
     <Fragment>
-      <GlobalNavigation isSticky={false} />
       <ProductNavigation
         items={[
           {
@@ -420,7 +417,6 @@ const ProductFormsPage = () => {
           },
         ]}
       />
-      <Footer />
     </Fragment>
   );
 };

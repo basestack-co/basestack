@@ -171,34 +171,6 @@ export const pricing = [
   },
 ];
 
-export const flagsPageLinks = [
-  {
-    text: "Platform",
-    href: "#platform",
-    icon: "devices",
-  },
-  {
-    text: "Features",
-    href: "#features",
-    icon: "widgets",
-  },
-  {
-    text: "Integration",
-    href: "#code",
-    icon: "link",
-  },
-  {
-    text: "Why Feature Flags?",
-    href: "#why",
-    icon: "flag",
-  },
-  {
-    text: "FAQs",
-    href: "#questions",
-    icon: "question_answer",
-  },
-];
-
 export const sectionCardsMock = [
   {
     label: "Lorem Ipsum",

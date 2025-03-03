@@ -37,9 +37,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
     <html lang={locale} className={`${robotoFlex.variable} ${roboto.variable}`}>
       <body>
         <NextIntlClientProvider messages={messages}>
-          <Registry>
-            {children}
-          </Registry>
+          <Registry>{children}</Registry>
         </NextIntlClientProvider>
         <div id="portal" />
         <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />

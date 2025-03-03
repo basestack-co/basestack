@@ -21,6 +21,12 @@ export interface SliderProps {
   id?: string;
   title: string;
   text: string;
+  actions: Array<{
+    id: string;
+    text: string;
+    href: string;
+    isTertiary?: boolean;
+  }>;
   data: Array<{
     icon: string;
     title: string;
@@ -29,7 +35,13 @@ export interface SliderProps {
   }>;
 }
 
-const AppsHero = ({ title, text, data, id = "apps-hero" }: SliderProps) => {
+const AppsHero = ({
+  title,
+  text,
+  data,
+  id = "apps-hero",
+  actions,
+}: SliderProps) => {
   const { isDarkMode, device, spacing } = useTheme();
   const isMobile = useMedia(device.max.sm, false);
   const isDesktop = useMedia(device.min.lg, true);
@@ -57,41 +69,31 @@ const AppsHero = ({ title, text, data, id = "apps-hero" }: SliderProps) => {
         <HeaderContainer>
           <SectionHeader title={title} text={text} hasMarginBottom={false} />
           <ButtonsContainer>
-            <Button
-              justifyContent="center"
-              fullWidth={isMobile}
-              onClick={() => {
-                events.landing.deploy("Deploy to Vercel");
-                if (typeof window !== "undefined") {
-                  window.open(
-                    `${config.urls.docs.base}/self-hosting/providers/deploy-vercel`,
-                    "_blank",
-                  );
-                }
-              }}
-              size={ButtonSize.Medium}
-            >
-              Deploy to Vercel
-            </Button>
-            <Button
-              justifyContent="center"
-              fullWidth={isMobile}
-              variant={
-                isDarkMode ? ButtonVariant.Tertiary : ButtonVariant.Secondary
-              }
-              size={ButtonSize.Medium}
-              onClick={() => {
-                events.landing.deploy("Explore more options");
-                if (typeof window !== "undefined") {
-                  window.open(
-                    `${config.urls.docs.base}/self-hosting`,
-                    "_blank",
-                  );
-                }
-              }}
-            >
-              Explore more options
-            </Button>
+            {actions.map(({ id, text, isTertiary, href }) => {
+              return (
+                <Button
+                  key={id}
+                  justifyContent="center"
+                  fullWidth={isMobile}
+                  onClick={() => {
+                    events.landing.deploy(text);
+                    if (typeof window !== "undefined") {
+                      window.open(href, "_blank");
+                    }
+                  }}
+                  size={ButtonSize.Medium}
+                  {...(isTertiary
+                    ? {
+                        variant: isDarkMode
+                          ? ButtonVariant.Tertiary
+                          : ButtonVariant.Secondary,
+                      }
+                    : {})}
+                >
+                  {text}
+                </Button>
+              );
+            })}
           </ButtonsContainer>
         </HeaderContainer>
 
