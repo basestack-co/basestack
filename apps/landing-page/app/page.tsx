@@ -1,27 +1,8 @@
 "use client";
 
 import React, { Fragment } from "react";
-import { config, events } from "@basestack/utils";
 // Components
-import {
-  AppsHero,
-  Cards,
-  Slider,
-  Questions,
-  Banner,
-  SectionCards,
-  MiniCards,
-} from "components";
-// Content
-import {
-  platform,
-  why,
-  questions,
-  slides,
-  sectionCardsMock,
-  miniCardsMock,
-  apps,
-} from "content/landing-page";
+import { AppsHero } from "components";
 // Locales
 import { useTranslations } from "next-intl";
 // Styles

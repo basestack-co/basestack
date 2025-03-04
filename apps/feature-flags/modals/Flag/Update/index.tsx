@@ -96,6 +96,8 @@ const UpdateFlagModal = () => {
               projectId: project.id,
               slug: modalPayload?.flag.slug,
             });
+            await trpcUtils.history.all.invalidate();
+
             onClose();
           },
           onError: (error) => {
