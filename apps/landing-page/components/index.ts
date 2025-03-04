@@ -17,3 +17,4 @@ export { default as FlagsCardSlider } from "./FlagsCardSlider";
 export { default as BentoCards } from "./BentoCards";
 export { default as EnvironmentLabels } from "./EnvironmentLabels";
 export { default as CodeAnimation } from "./CodeAnimation";
+export { default as AccessLabelsAnimation } from "./AccessLabelsAnimation";

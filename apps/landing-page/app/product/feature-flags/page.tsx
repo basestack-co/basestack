@@ -17,6 +17,7 @@ import {
   FlagsCardSlider,
   EnvironmentLabels,
   CodeAnimation,
+  AccessLabelsAnimation,
 } from "components";
 import { JavascriptIcon, JsonIcon, ReactIcon } from "components/Code/icons";
 // Styles
@@ -132,10 +133,6 @@ const ProductFeatureFlagsPage = () => {
               "page.product.flags.features.card.feature.projects.description",
             ),
             component: <FlagsCardSlider />,
-            image: {
-              src: `/images/product/flags/projects_card${isDarkMode ? "_dark" : ""}.png`,
-              alt: t("page.product.flags.features.card.feature.projects.alt"),
-            },
           },
           {
             title: t(
@@ -145,12 +142,6 @@ const ProductFeatureFlagsPage = () => {
               "page.product.flags.features.card.feature.environments.description",
             ),
             component: <EnvironmentLabels />,
-            image: {
-              src: `/images/product/flags/envs_card${isDarkMode ? "_dark" : ""}.png`,
-              alt: t(
-                "page.product.flags.features.card.feature.environments.alt",
-              ),
-            },
           },
           {
             title: t("page.product.flags.features.card.feature.history.title"),
@@ -170,26 +161,17 @@ const ProductFeatureFlagsPage = () => {
               "page.product.flags.features.card.feature.remote-config.description",
             ),
             component: <CodeAnimation />,
-            image: {
-              src: `/images/product/flags/remote_config_card${isDarkMode ? "_dark" : ""}.png`,
-              alt: t(
-                "page.product.flags.features.card.feature.remote-config.alt",
-              ),
-            },
           },
           {
             title: t("page.product.flags.features.card.feature.security.title"),
             text: t(
               "page.product.flags.features.card.feature.security.description",
             ),
-            image: {
-              src: `/images/product/flags/security_card${isDarkMode ? "_dark" : ""}.png`,
-              alt: t("page.product.flags.features.card.feature.security.alt"),
-            },
+            component: <AccessLabelsAnimation />,
           },
         ]}
       />
-      {/*
+      {/* TODO images from this content were removed mybe remove them from the project, the label was also removed mybe remove it from the translated content
         <SectionCards
         id="feature-cards"
         title={t("page.product.flags.features.card.title")}

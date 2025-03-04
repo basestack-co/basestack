@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useTheme } from "styled-components";
 import { useSpring, animated } from "@react-spring/web";
 import { Container, TextWrapper, Text } from "./styles";
-import { useTheme } from "styled-components";
 
 type TextType = "colon" | "comma" | "key" | "value";
 
