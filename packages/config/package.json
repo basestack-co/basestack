@@ -13,6 +13,6 @@
   },
   "dependencies": {
     "eslint-config-next": "^15.1.7",
-    "eslint-config-prettier": "^10.0.1"
+    "eslint-config-prettier": "^10.0.2"
   }
 }
