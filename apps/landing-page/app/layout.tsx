@@ -6,7 +6,7 @@ import Registry from "utils/registry";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 // Fonts
-import { Roboto_Flex, Roboto } from "next/font/google";
+import { Roboto_Flex, Roboto, Roboto_Mono } from "next/font/google";
 
 export const metadata = {
   title: "Basestack",
@@ -17,13 +17,19 @@ export const metadata = {
   },
 };
 
+const robotoMono = Roboto({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-roboto-mono",
+});
+
 const robotoFlex = Roboto_Flex({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-roboto-flex",
 });
 
-const roboto = Roboto({
+const roboto = Roboto_Mono({
   subsets: ["latin"],
   weight: ["300", "400", "500", "700"],
   variable: "--font-roboto",
@@ -34,7 +40,10 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${robotoFlex.variable} ${roboto.variable}`}>
+    <html
+      lang={locale}
+      className={`${robotoFlex.variable} ${roboto.variable} ${robotoMono.variable}`}
+    >
       <body>
         <NextIntlClientProvider messages={messages}>
           <Registry>{children}</Registry>

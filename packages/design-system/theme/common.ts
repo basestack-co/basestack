@@ -3,6 +3,7 @@ import { rem } from "polished";
 export const typography = {
   roboto: "'Roboto', sans-serif",
   robotoFlex: "'Roboto Flex', sans-serif",
+  robotoMono: "'Roboto Mono', monospace",
 };
 
 export const colors = {

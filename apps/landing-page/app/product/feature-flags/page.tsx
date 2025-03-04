@@ -16,6 +16,7 @@ import {
   BentoCards,
   FlagsCardSlider,
   EnvironmentLabels,
+  CodeAnimation,
 } from "components";
 import { JavascriptIcon, JsonIcon, ReactIcon } from "components/Code/icons";
 // Styles
@@ -168,6 +169,7 @@ const ProductFeatureFlagsPage = () => {
             text: t(
               "page.product.flags.features.card.feature.remote-config.description",
             ),
+            component: <CodeAnimation />,
             image: {
               src: `/images/product/flags/remote_config_card${isDarkMode ? "_dark" : ""}.png`,
               alt: t(
