@@ -49,7 +49,7 @@ const AccessLabelsAnimation = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       const newLabel = {
-        id: Date.now(),
+        id: 6,
         text: generateRandomIP(),
         type: "ip" as const,
       };
@@ -69,10 +69,14 @@ const AccessLabelsAnimation = () => {
   };
 
   useEffect(() => {
-    if (labels.length === 0) {
-      setLabels(initialLabels);
-    }
-  }, [labels]);
+    const timeout = setTimeout(() => {
+      if (labels.length === 0) {
+        setLabels(initialLabels);
+      }
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [labels.length]);
 
   const transitions = useTransition(labels, {
     keys: (label) => label.id,
@@ -109,7 +113,15 @@ const AccessLabelsAnimation = () => {
             label ? (
               <AnimatedLabel style={style} key={label.id}>
                 <Label text={label.text} variant={variant}>
-                  <Button onClick={() => setRandomIpLabel(null)} />
+                  <ButtonContainer>
+                    <IconButton
+                      onClick={() => null}
+                      icon="close"
+                      variant="secondary"
+                      size="small"
+                      isDisabled
+                    />
+                  </ButtonContainer>
                 </Label>
               </AnimatedLabel>
             ) : null,

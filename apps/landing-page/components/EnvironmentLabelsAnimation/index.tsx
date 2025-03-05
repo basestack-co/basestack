@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Label } from "@basestack/design-system";
 import { Container, ContentContainer, Labels } from "./styles";
 
-const EnvironmentLabels = () => {
+const EnvironmentLabelsAnimation = () => {
   const [isActive, setIsActive] = useState(true);
 
   return (
@@ -31,4 +31,4 @@ const EnvironmentLabels = () => {
   );
 };
 
-export default EnvironmentLabels;
+export default EnvironmentLabelsAnimation;

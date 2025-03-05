@@ -59,7 +59,7 @@ const data = [
   { title: "CLI Tools", flags: 1 },
 ];
 
-const FlagsCardSlider = () => {
+const FlagsCardSliderAnimation = () => {
   const autoScrollPlugin = useRef<ReturnType<typeof AutoScroll> | null>(null);
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
@@ -110,4 +110,4 @@ const FlagsCardSlider = () => {
   );
 };
 
-export default FlagsCardSlider;
+export default FlagsCardSliderAnimation;

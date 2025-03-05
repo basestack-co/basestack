@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { rem } from "polished";
 
 export const Container = styled.div`
   display: flex;
@@ -20,6 +21,7 @@ export const Labels = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
+  min-height: ${rem("36px")};
   gap: ${({ theme }) => theme.spacing.s2};
 `;
 

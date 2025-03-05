@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 // Components
 import { Skeleton } from "@basestack/design-system";
-import HistoryCard from "components/HistoryCard";
+import { HistoryCard } from "@basestack/ui";
 // Server
 import { api } from "utils/trpc/react";
 import { keepPreviousData } from "@tanstack/react-query";

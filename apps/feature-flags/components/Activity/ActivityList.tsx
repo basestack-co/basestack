@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import dayjs from "dayjs";
 // Components
 import { Skeleton, Empty } from "@basestack/design-system";
-import HistoryCard from "../HistoryCard";
+import { HistoryCard } from "@basestack/ui";
 // Types
 import { Environment, HistoryAction } from "types";
 // Server

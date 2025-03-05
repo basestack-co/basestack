@@ -87,4 +87,6 @@ const HistoryCard = ({
   );
 };
 
+export type { HistoryCardProps };
+
 export default memo(HistoryCard);

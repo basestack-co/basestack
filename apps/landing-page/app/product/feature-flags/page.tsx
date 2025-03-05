@@ -14,10 +14,11 @@ import {
   ProductNavigation,
   MiniCards,
   BentoCards,
-  FlagsCardSlider,
-  EnvironmentLabels,
+  FlagsCardSliderAnimation,
+  EnvironmentLabelsAnimation,
   CodeAnimation,
   AccessLabelsAnimation,
+  ActivityCardsAnimation,
 } from "components";
 import { JavascriptIcon, JsonIcon, ReactIcon } from "components/Code/icons";
 // Styles
@@ -132,7 +133,7 @@ const ProductFeatureFlagsPage = () => {
             text: t(
               "page.product.flags.features.card.feature.projects.description",
             ),
-            component: <FlagsCardSlider />,
+            component: <FlagsCardSliderAnimation />,
           },
           {
             title: t(
@@ -141,17 +142,14 @@ const ProductFeatureFlagsPage = () => {
             text: t(
               "page.product.flags.features.card.feature.environments.description",
             ),
-            component: <EnvironmentLabels />,
+            component: <EnvironmentLabelsAnimation />,
           },
           {
             title: t("page.product.flags.features.card.feature.history.title"),
             text: t(
               "page.product.flags.features.card.feature.history.description",
             ),
-            image: {
-              src: `/images/product/flags/activity_card${isDarkMode ? "_dark" : ""}.png`,
-              alt: t("page.product.flags.features.card.feature.history.alt"),
-            },
+            component: <ActivityCardsAnimation />,
           },
           {
             title: t(

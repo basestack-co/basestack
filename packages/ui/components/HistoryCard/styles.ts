@@ -2,7 +2,10 @@ import styled, { css } from "styled-components";
 import { space } from "styled-system";
 import { Type } from "./types";
 
-export const Container = styled.div<{
+export const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    !["hasPaddingTop", "hasPaddingBottom"].includes(prop),
+})<{
   hasPaddingTop: boolean;
   hasPaddingBottom: boolean;
 }>`
@@ -15,7 +18,9 @@ export const Container = styled.div<{
   ${space};
 `;
 
-export const Wrapper = styled.div<{ hasLeftLine?: boolean }>`
+export const Wrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) => !["hasLeftLine"].includes(prop),
+})<{ hasLeftLine?: boolean }>`
   display: flex;
   position: relative;
 
@@ -55,7 +60,9 @@ export const TextContainer = styled.div`
   margin-top: 3px;
 `;
 
-export const TitleContainer = styled.div<{ type: Type }>`
+export const TitleContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => !["type"].includes(prop),
+})<{ type: Type }>`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
