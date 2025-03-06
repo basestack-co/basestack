@@ -8,6 +8,7 @@ import { prisma } from "server/db";
 // Utils
 import dayjs from "dayjs";
 import { PlanTypeId, config, SubscriptionEvent } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
 
 const { getSubscriptionEvents, getFormPlanByVariantId } = config.plans;
 
@@ -81,7 +82,7 @@ export const { POST } = serve<UpdateSubscriptionEventPayload>(
               ...payload,
             },
             update: {
-              planId: getFormPlanByVariantId(variantId)?.id,
+              planId: getFormPlanByVariantId(variantId, AppMode)?.id,
               ...payload,
               ...(isUpdate
                 ? {

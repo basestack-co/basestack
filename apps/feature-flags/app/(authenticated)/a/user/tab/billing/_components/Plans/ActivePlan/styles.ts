@@ -25,7 +25,9 @@ export const Column = styled.div<SpaceProps>`
 
 interface RowProps extends FlexboxProps, SpaceProps {}
 
-export const Row = styled.div<RowProps>`
+export const Row = styled.div.withConfig({
+  shouldForwardProp: (prop) => !["alignItems", "flexWrap"].includes(prop),
+})<RowProps>`
   display: flex;
   ${compose(flexbox, space)};
 `;

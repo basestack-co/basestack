@@ -15,12 +15,8 @@ import { useTranslations } from "next-intl";
 import { PopupActionProps } from "@basestack/design-system";
 import { Navigation as NavigationUI } from "@basestack/ui";
 // Utils
-import {
-  config,
-  getCookieValueAsBoolean,
-  Product,
-  AppEnv,
-} from "@basestack/utils";
+import { config, Product, AppEnv } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
 import {
   getAppsList,
   getAvatarDropdownList,
@@ -53,11 +49,6 @@ const Navigation = ({ data }: NavigationProps) => {
     (state) => state.setCreateFlagModalOpen,
   );
 
-  const useBilling = useMemo(
-    () => getCookieValueAsBoolean(config.cookies.useBilling) || config.isDev,
-    [],
-  );
-
   const currentProject = useMemo(() => {
     const project = data?.find(({ id }) => id === projectId);
 
@@ -65,10 +56,7 @@ const Navigation = ({ data }: NavigationProps) => {
   }, [projectId, data]);
 
   const onSelectApp = useCallback((app: Product) => {
-    window.location.href = config.urls.getAppWithEnv(
-      app,
-      `${process.env.NEXT_PUBLIC_APP_MODE ?? "production"}` as AppEnv,
-    );
+    window.location.href = config.urls.getAppWithEnv(app, AppMode as AppEnv);
   }, []);
 
   const toggleDarkMode = async (isDarkMode: boolean): Promise<void> => {
@@ -148,7 +136,7 @@ const Navigation = ({ data }: NavigationProps) => {
         onSetDarkMode: toggleDarkMode,
         list: getAvatarDropdownList(t, router, () =>
           setCreateProjectModalOpen({ isOpen: true }),
-        ).filter((item) => !(item.id === "3" && !useBilling)),
+        ),
       }}
     />
   );

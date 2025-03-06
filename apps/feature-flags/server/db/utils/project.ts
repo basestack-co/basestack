@@ -7,13 +7,11 @@ import {
   PlanTypeId,
   Product,
 } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
 
 const { urls } = utilsConfig;
 
-export const productUrl = urls.getAppWithEnv(
-  Product.FLAGS,
-  `${process.env.NEXT_PUBLIC_APP_MODE ?? "production"}` as AppEnv,
-);
+export const productUrl = urls.getAppWithEnv(Product.FLAGS, AppMode as AppEnv);
 
 export const getProjectOnUser = async (projectKey: string) => {
   const current = await prisma.projectsOnUsers.findFirst({

@@ -10,15 +10,15 @@ import { toast } from "sonner";
 // Utils
 import {
   config,
-  PlanTypeId,
-  getBrowserUrl,
   formatNumber,
+  getBrowserUrl,
+  PlanTypeId,
 } from "@basestack/utils";
 import dayjs from "dayjs";
 // Types
 import { BillingInterval } from "./types";
 // Components
-import { Text, Skeleton } from "@basestack/design-system";
+import { Skeleton, Text } from "@basestack/design-system";
 import PlanCard from "./PlanCard";
 import UpgradePlanHeader from "./UpgradePlanHeader";
 import ActivePlan from "./ActivePlan";
@@ -140,7 +140,11 @@ const Plans = () => {
         />
         <List>
           {config.plans.flags
-            .filter((item) => item.id !== PlanTypeId.FREE)
+            .filter(
+              (item) =>
+                item.id !== PlanTypeId.FREE &&
+                item.id !== PlanTypeId.ENTERPRISE,
+            )
             .map(({ id, price, limits, features }) => {
               const value =
                 interval === "monthly"

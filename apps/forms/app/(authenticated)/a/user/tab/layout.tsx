@@ -17,8 +17,6 @@ import {
 } from "./styles";
 // Hooks
 import { useMedia } from "react-use";
-// Utils
-import { getCookieValueAsBoolean, config } from "@basestack/utils";
 // Locales
 import { useTranslations, NamespaceKeys } from "next-intl";
 
@@ -44,29 +42,22 @@ const ProfileLayout = ({ children }: { children: React.ReactElement }) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const useBilling = useMemo(
-    () => getCookieValueAsBoolean(config.cookies.useBilling) || config.isDev,
-    [],
-  );
-
   const renderLink = useMemo(() => {
-    return links
-      .filter((link) => link.id === "1" || useBilling)
-      .map(({ id, i18nKey, href }) => (
-        <ListItem key={`profile-settings-button-list-${id}`}>
-          <StyledLink
-            href={{
-              pathname: href,
-            }}
-            passHref
-          >
-            <StyledButton isActive={pathname === href}>
-              {t(i18nKey as NamespaceKeys<string, "navigation">)}
-            </StyledButton>
-          </StyledLink>
-        </ListItem>
-      ));
-  }, [pathname, t, useBilling]);
+    return links.map(({ id, i18nKey, href }) => (
+      <ListItem key={`profile-settings-button-list-${id}`}>
+        <StyledLink
+          href={{
+            pathname: href,
+          }}
+          passHref
+        >
+          <StyledButton isActive={pathname === href}>
+            {t(i18nKey as NamespaceKeys<string, "navigation">)}
+          </StyledButton>
+        </StyledLink>
+      </ListItem>
+    ));
+  }, [pathname, t]);
 
   const activeLinkIndex = useMemo(
     () => links.findIndex((button) => button.href === pathname),
