@@ -12,24 +12,14 @@ export const Container = styled.div`
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.s2};
+  gap: ${({ theme }) => theme.spacing.s4};
+  min-width: ${rem("200px")};
 `;
 
-export const Labels = styled.div`
+export const Item = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
+  justify-content: space-between;
   gap: ${({ theme }) => theme.spacing.s2};
-
-  &:first-child {
-    padding-right: ${rem("100px")};
-  }
-
-  &:nth-child(2) {
-    padding-left: ${rem("50px")};
-  }
-
-  &:last-child {
-    padding-left: ${rem("100px")};
-  }
 `;

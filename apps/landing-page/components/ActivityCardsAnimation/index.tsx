@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { HistoryCard, HistoryCardProps } from "@basestack/ui";
 import { Container, List, ListItem } from "./styles";
 
@@ -38,31 +38,13 @@ const activityData = [
   },
 ] as HistoryCardProps[];
 
-const randomizeEnvironments = () => {
-  return [
-    { name: "develop", enabled: true },
-    { name: "staging", enabled: Math.random() > 0.5 },
-    { name: "production", enabled: Math.random() > 0.5 },
-  ];
-};
+interface ActivityCardsAnimationProps {
+  environments: HistoryCardProps["environments"];
+}
 
-const ActivityCardsAnimation = () => {
-  const [randomEnvs, setRandomEnvs] = useState<
-    HistoryCardProps["environments"]
-  >([
-    { name: "develop", enabled: true },
-    { name: "staging", enabled: false },
-    { name: "production", enabled: false },
-  ]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRandomEnvs(randomizeEnvironments());
-    }, 15000);
-
-    return () => clearInterval(interval);
-  }, []);
-
+const ActivityCardsAnimation = ({
+  environments,
+}: ActivityCardsAnimationProps) => {
   return (
     <Container>
       <List>
@@ -73,7 +55,7 @@ const ActivityCardsAnimation = () => {
               description={activity.description}
               flagName={activity.flagName}
               date={activity.date}
-              environments={index === 0 ? randomEnvs : activity.environments}
+              environments={index === 0 ? environments : activity.environments}
               type={activity.type}
               avatar={activity.avatar}
               hasLeftLine={activity.hasLeftLine}

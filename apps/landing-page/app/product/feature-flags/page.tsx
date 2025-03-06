@@ -14,11 +14,6 @@ import {
   ProductNavigation,
   MiniCards,
   BentoCards,
-  FlagsCardSliderAnimation,
-  EnvironmentLabelsAnimation,
-  CodeAnimation,
-  AccessLabelsAnimation,
-  ActivityCardsAnimation,
 } from "components";
 import { JavascriptIcon, JsonIcon, ReactIcon } from "components/Code/icons";
 // Styles
@@ -133,7 +128,7 @@ const ProductFeatureFlagsPage = () => {
             text: t(
               "page.product.flags.features.card.feature.projects.description",
             ),
-            component: <FlagsCardSliderAnimation />,
+            component: "flagsCardSliderAnimation",
           },
           {
             title: t(
@@ -142,14 +137,14 @@ const ProductFeatureFlagsPage = () => {
             text: t(
               "page.product.flags.features.card.feature.environments.description",
             ),
-            component: <EnvironmentLabelsAnimation />,
+            component: "environmentToggleAnimation",
           },
           {
             title: t("page.product.flags.features.card.feature.history.title"),
             text: t(
               "page.product.flags.features.card.feature.history.description",
             ),
-            component: <ActivityCardsAnimation />,
+            component: "activityCardsAnimation",
           },
           {
             title: t(
@@ -158,14 +153,14 @@ const ProductFeatureFlagsPage = () => {
             text: t(
               "page.product.flags.features.card.feature.remote-config.description",
             ),
-            component: <CodeAnimation />,
+            component: "codeAnimation",
           },
           {
             title: t("page.product.flags.features.card.feature.security.title"),
             text: t(
               "page.product.flags.features.card.feature.security.description",
             ),
-            component: <AccessLabelsAnimation />,
+            component: "accessLabelsAnimation",
           },
         ]}
       />

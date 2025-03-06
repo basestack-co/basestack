@@ -15,7 +15,7 @@ export { default as SectionCards } from "./SectionCards";
 export { default as MiniCards } from "./MiniCards";
 export { default as FlagsCardSliderAnimation } from "./FlagsCardSliderAnimation";
 export { default as BentoCards } from "./BentoCards";
-export { default as EnvironmentLabelsAnimation } from "./EnvironmentLabelsAnimation";
+export { default as EnvironmentToggleAnimation } from "./EnvironmentToggleAnimation";
 export { default as CodeAnimation } from "./CodeAnimation";
 export { default as AccessLabelsAnimation } from "./AccessLabelsAnimation";
 export { default as ActivityCardsAnimation } from "./ActivityCardsAnimation";
