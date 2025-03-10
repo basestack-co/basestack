@@ -43,22 +43,29 @@ export enum PlanTypeId {
   ENTERPRISE = "enterprise",
 }
 
+export interface PlanVariantIds {
+  local: number;
+  development: number;
+  production: number;
+}
+
+export interface PlanPriceInterval {
+  amount: number;
+  currency: string;
+  variantIds: PlanVariantIds;
+}
+
+export interface PlanPrice {
+  monthly: PlanPriceInterval;
+  yearly: PlanPriceInterval;
+}
+
 export interface Plan {
   id: PlanTypeId;
   name: string;
+  slogan: string;
   description: string;
-  price: {
-    monthly: {
-      amount: number;
-      currency: string;
-      variantId: number;
-    };
-    yearly: {
-      amount: number;
-      currency: string;
-      variantId: number;
-    };
-  };
+  price: PlanPrice;
 }
 
 export interface FormPlan extends Plan {

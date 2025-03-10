@@ -14,6 +14,7 @@ import {
 } from "@basestack/design-system";
 // Utils
 import { config } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
 // Styles
 import {
   Column,
@@ -46,7 +47,7 @@ const ActivePlan = ({
 }: ActivePlanProps) => {
   const t = useTranslations("profile");
   const { spacing } = useTheme();
-  const currentPlan = config.plans.getFormPlanByVariantId(variantId);
+  const currentPlan = config.plans.getFormPlanByVariantId(variantId, AppMode);
   const price = isBilledMonthly
     ? currentPlan?.price.monthly.amount
     : currentPlan?.price.yearly.amount;

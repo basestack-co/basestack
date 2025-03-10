@@ -143,7 +143,11 @@ const Plans = () => {
         />
         <List>
           {config.plans.forms
-            .filter((item) => item.id !== PlanTypeId.FREE)
+            .filter(
+              (item) =>
+                item.id !== PlanTypeId.FREE &&
+                item.id !== PlanTypeId.ENTERPRISE,
+            )
             .map(({ id, price, features, limits }) => {
               const value =
                 interval === "monthly"

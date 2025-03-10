@@ -7,13 +7,11 @@ import {
   PlanTypeId,
   Product,
 } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
 
 const { urls } = utilsConfig;
 
-const productUrl = urls.getAppWithEnv(
-  Product.FORMS,
-  `${process.env.NEXT_PUBLIC_APP_MODE ?? "production"}` as AppEnv,
-);
+const productUrl = urls.getAppWithEnv(Product.FORMS, AppMode as AppEnv);
 
 export const defaultSuccessUrl = `${productUrl}/status/success`;
 export const defaultErrorUrl = `${productUrl}/status/error`;
