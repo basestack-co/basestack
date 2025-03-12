@@ -1,7 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSpring, animated, config } from "react-spring";
 import { events } from "@basestack/utils";
-import { Button, ButtonVariant, ButtonSize } from "@basestack/design-system";
+import { useTheme } from "styled-components";
+import {
+  Button,
+  ButtonVariant,
+  ButtonSize,
+  IconBox,
+  Text,
+  LogoProps,
+} from "@basestack/design-system";
 import {
   Container,
   ContentContainer,
@@ -22,53 +31,51 @@ interface ProductNavigationProps {
     text: string;
     href: string;
   };
+  product: LogoProps["product"];
 }
 
-const ProductNavigation = ({ items, button }: ProductNavigationProps) => {
+const AnimatedContentContainer = animated(ContentContainer);
+
+const ProductNavigation = ({
+  items,
+  button,
+  product,
+}: ProductNavigationProps) => {
+  const { isDarkMode, colors, spacing } = useTheme();
   const router = useRouter();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
 
-    const sectionElements = items
-      .map((item) =>
-        document.querySelector(
-          item.href.startsWith("#") ? item.href : `[data-href="${item.href}"]`,
-        ),
-      )
-      .filter((el): el is Element => el !== null);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = items.findIndex(
-              (item) => `#${entry.target.id}` === item.href,
-            );
-            if (index !== -1) setActiveIndex(index);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: "0px 0px -60% 0px",
-        threshold: 0.3,
-      },
-    );
-
-    sectionElements.forEach((section) => observer.observe(section));
-
-    return () => observer.disconnect();
-  }, [items]);
+  const styles = useSpring({
+    maxWidth: scrollY >= 64 ? 1400 : 1100,
+    config: config.default,
+  });
 
   return (
     <Container>
-      <ContentContainer>
+      <AnimatedContentContainer style={styles}>
         <LeftColumn>
+          <IconBox
+            size="medium"
+            icon={product === "flags" ? "flag" : "description"}
+            backgroundColor={isDarkMode ? colors.gray900 : colors.gray50}
+          />
+          <Text ml={spacing.s3} size="medium">
+            {product === "flags" ? "Flags" : "Forms"}
+          </Text>
+        </LeftColumn>
+        <RightColumn>
           <List>
             {items.map((item, index) => (
-              <ListItem isActive={index === activeIndex} key={index.toString()}>
+              <ListItem key={index.toString()}>
                 <Button
                   icon={item.icon}
                   iconPlacement="left"
@@ -89,8 +96,6 @@ const ProductNavigation = ({ items, button }: ProductNavigationProps) => {
               </ListItem>
             ))}
           </List>
-        </LeftColumn>
-        <RightColumn>
           <Button
             onClick={() => window.open(button.href, "_blank")}
             size={ButtonSize.Normal}
@@ -99,7 +104,7 @@ const ProductNavigation = ({ items, button }: ProductNavigationProps) => {
             {button.text}
           </Button>
         </RightColumn>
-      </ContentContainer>
+      </AnimatedContentContainer>
     </Container>
   );
 };

@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
+import { gradientBorderStyles } from "../styles";
 
 const backgroundBlur = css`
   background: ${({ theme }) =>
@@ -17,51 +18,34 @@ export const Container = styled.nav`
   height: ${rem("64px")};
   padding: 0 ${({ theme }) => theme.spacing.s5};
   ${backgroundBlur};
-  border-bottom: 1px solid
-    ${({ theme }) =>
-      theme.isDarkMode
-        ? theme.horizontalRule.backgroundColor
-        : theme.horizontalRule.darker.backgroundColor};
+  ${gradientBorderStyles("bottom")};
 `;
 
 export const ContentContainer = styled.div`
   display: flex;
   margin: 0 auto;
   width: 100%;
-  max-width: ${rem("1400px")};
 `;
 
 export const LeftColumn = styled.div`
   display: flex;
+  align-items: center;
+
+  .icon-box {
+    width: 36px;
+    height: 36px;
+  }
 `;
 
 export const List = styled.ul`
   display: flex;
+  margin-right: ${({ theme }) => theme.spacing.s3};
 `;
 
-export const ListItem = styled.li.withConfig({
-  shouldForwardProp: (prop) => !["isActive"].includes(prop),
-})<{
-  isActive: boolean;
-}>`
+export const ListItem = styled.li`
   display: flex;
   align-items: center;
   position: relative;
-
-  ${({ isActive }) =>
-    isActive &&
-    css`
-      &::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background-color: black;
-        z-index: 1;
-      }
-    `}
 `;
 
 export const RightColumn = styled.div`

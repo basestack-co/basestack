@@ -30,6 +30,7 @@ const ProductFeatureFlagsPage = () => {
   return (
     <Fragment>
       <ProductNavigation
+        product="flags"
         items={[
           {
             text: t("navigation.product.features.title"),

@@ -64,8 +64,8 @@ export const ImageContainer = styled.div`
     border-radius: 50%;
     z-index: -2;
     height: 500px;
-    width: 500px;
-    left: -250px;
-    top: -150px;
+    width: 100%;
+    left: 0;
+    top: -100px;
   }
 `;

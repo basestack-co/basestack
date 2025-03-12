@@ -41,3 +41,38 @@ export const Label = styled.div`
   background-color: ${({ theme }) =>
     theme.isDarkMode ? theme.colors.gray800 : theme.colors.white};
 `;
+
+export const gradientBorderStyles = (position: "top" | "bottom") => css`
+  &::before {
+    content: "";
+    position: absolute;
+    top: ${position === "top" ? 0 : "initial"};
+    bottom: ${position === "bottom" ? 0 : "initial"};
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: ${({ theme }) => theme.colors.gray200};
+    ${({ theme }) =>
+      theme.isDarkMode
+        ? css`
+            background-image: linear-gradient(
+              to right,
+              ${theme.colors.gray900} 0%,
+              ${theme.colors.gray700} 25%,
+              ${theme.colors.gray700} 50%,
+              ${theme.colors.gray700} 75%,
+              ${theme.colors.gray900} 100%
+            );
+          `
+        : css`
+            background-image: linear-gradient(
+              to right,
+              ${theme.colors.gray50} 0%,
+              ${theme.colors.gray200} 25%,
+              ${theme.colors.gray200} 50%,
+              ${theme.colors.gray200} 75%,
+              ${theme.colors.gray50} 100%
+            );
+          `};
+  }
+`;

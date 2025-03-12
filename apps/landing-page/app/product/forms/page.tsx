@@ -28,6 +28,7 @@ const ProductFormsPage = () => {
   return (
     <Fragment>
       <ProductNavigation
+        product="forms"
         items={[
           {
             text: t("navigation.product.features.title"),

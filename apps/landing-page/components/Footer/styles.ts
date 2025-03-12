@@ -1,6 +1,7 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import Link from "next/link";
 import { rem } from "polished";
+import { gradientBorderStyles } from "../styles";
 
 export const Container = styled.footer`
   display: flex;
@@ -8,38 +9,7 @@ export const Container = styled.footer`
   margin-top: auto;
   padding: 0 ${({ theme }) => theme.spacing.s5};
   position: relative;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background-color: ${({ theme }) => theme.colors.gray200};
-    ${({ theme }) =>
-      theme.isDarkMode
-        ? css`
-            background-image: linear-gradient(
-              to right,
-              ${theme.colors.gray900} 0%,
-              ${theme.colors.gray700} 25%,
-              ${theme.colors.gray700} 50%,
-              ${theme.colors.gray700} 75%,
-              ${theme.colors.gray900} 100%
-            );
-          `
-        : css`
-            background-image: linear-gradient(
-              to right,
-              ${theme.colors.gray50} 0%,
-              ${theme.colors.gray200} 25%,
-              ${theme.colors.gray200} 50%,
-              ${theme.colors.gray200} 75%,
-              ${theme.colors.gray50} 100%
-            );
-          `};
-  }
+  ${gradientBorderStyles("top")};
 `;
 
 export const ContentWrapper = styled.footer`
