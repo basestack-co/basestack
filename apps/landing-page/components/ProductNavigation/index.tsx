@@ -36,6 +36,8 @@ interface ProductNavigationProps {
 
 const AnimatedContentContainer = animated(ContentContainer);
 
+const MAIN_NAN_HEIGHT = 64;
+
 const ProductNavigation = ({
   items,
   button,
@@ -43,11 +45,17 @@ const ProductNavigation = ({
 }: ProductNavigationProps) => {
   const { isDarkMode, colors, spacing } = useTheme();
   const router = useRouter();
-  const [scrollY, setScrollY] = useState(0);
+  const [maxWidth, setMaxWidth] = useState(1100);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      const currentScroll = window.scrollY;
+
+      if (currentScroll >= MAIN_NAN_HEIGHT) {
+        setMaxWidth(1400);
+      } else if (currentScroll <= MAIN_NAN_HEIGHT / 2) {
+        setMaxWidth(1100);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -55,7 +63,7 @@ const ProductNavigation = ({
   }, []);
 
   const styles = useSpring({
-    maxWidth: scrollY >= 64 ? 1400 : 1100,
+    maxWidth,
     config: config.default,
   });
 
