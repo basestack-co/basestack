@@ -52,7 +52,11 @@ export const LeftColumn = styled.div`
 
 export const List = styled.ul`
   display: flex;
-  margin-left: ${({ theme }) => theme.spacing.s4};
+  margin-left: ${({ theme }) => theme.spacing.s3};
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    display: none;
+  }
 `;
 
 export const ListItem = styled.li`
@@ -66,4 +70,13 @@ export const RightColumn = styled.div`
 
 export const StyledLink = styled(Link)`
   display: inline-flex;
+`;
+
+export const IconButtonContainer = styled.ul`
+  display: none;
+  margin-right: ${({ theme }) => theme.spacing.s4};
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    display: inline-flex;
+  }
 `;

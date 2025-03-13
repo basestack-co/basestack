@@ -8,7 +8,6 @@ import {
   ButtonVariant,
   ButtonSize,
   IconBox,
-  Text,
   LogoProps,
 } from "@basestack/design-system";
 import {
@@ -18,7 +17,9 @@ import {
   List,
   ListItem,
   RightColumn,
+  Title,
 } from "./styles";
+import Dropdown from "./Dropdown";
 
 interface ProductNavigationProps {
   items: Array<{
@@ -43,7 +44,7 @@ const ProductNavigation = ({
   button,
   product,
 }: ProductNavigationProps) => {
-  const { isDarkMode, colors, spacing } = useTheme();
+  const { isDarkMode, colors, spacing, typography } = useTheme();
   const router = useRouter();
   const [maxWidth, setMaxWidth] = useState(1100);
 
@@ -76,9 +77,14 @@ const ProductNavigation = ({
             icon={product === "flags" ? "flag" : "description"}
             backgroundColor={isDarkMode ? colors.gray900 : colors.gray50}
           />
-          <Text ml={spacing.s3} size="medium">
+          <Title ml={spacing.s3} size="medium">
             {product === "flags" ? "Flags" : "Forms"}
-          </Text>
+          </Title>
+          {/* Mobile */}
+          <Dropdown
+            title={product === "flags" ? "Flags" : "Forms"}
+            data={items}
+          />
         </LeftColumn>
         <RightColumn>
           <List>
@@ -87,7 +93,7 @@ const ProductNavigation = ({
                 <Button
                   icon={item.icon}
                   iconPlacement="left"
-                  variant={ButtonVariant.Tertiary}
+                  variant={ButtonVariant.Neutral}
                   onClick={() => {
                     events.landing.navigation(item.text, item.href);
                     if (item.isExternal) {
@@ -97,7 +103,6 @@ const ProductNavigation = ({
                     }
                   }}
                   size={ButtonSize.Normal}
-                  backgroundColor="transparent"
                 >
                   {item.text}
                 </Button>

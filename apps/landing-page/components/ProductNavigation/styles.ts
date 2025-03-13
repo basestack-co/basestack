@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
+import { Text } from "@basestack/design-system";
 import { gradientBorderStyles } from "../styles";
 
 const backgroundBlur = css`
@@ -21,6 +22,12 @@ export const Container = styled.nav`
   ${gradientBorderStyles("bottom")};
 `;
 
+export const Title = styled(Text)`
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    display: none;
+  }
+`;
+
 export const ContentContainer = styled.div`
   display: flex;
   margin: 0 auto;
@@ -40,6 +47,10 @@ export const LeftColumn = styled.div`
 export const List = styled.ul`
   display: flex;
   margin-right: ${({ theme }) => theme.spacing.s3};
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    display: none;
+  }
 `;
 
 export const ListItem = styled.li`

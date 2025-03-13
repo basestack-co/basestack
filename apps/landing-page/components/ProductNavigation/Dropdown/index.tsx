@@ -1,33 +1,30 @@
 import React, { memo, useCallback, useRef, useState } from "react";
-// Components
 import { autoUpdate, offset, useFloating } from "@floating-ui/react";
 import { animated, config, useTransition } from "react-spring";
-import { useClickAway } from "react-use";
+import { useClickAway, useMedia } from "react-use";
 import {
   slideBottom,
-  Text,
   Button,
   ButtonVariant,
   ButtonSize,
-  IconBox,
 } from "@basestack/design-system";
-// Styles
 import {
   Dropdown as StyledDropdown,
   Container,
   List,
   ListItem,
-  StyledButton,
-  TextContainer,
 } from "./styles";
+import { useTheme } from "styled-components";
+import { events } from "@basestack/utils";
+import { useRouter } from "next/navigation";
 
 const AnimatedDropdown: any = animated(StyledDropdown);
 
 export interface ItemProps {
-  onClick: () => void;
-  title: string;
-  description: string;
+  text: string;
+  href: string;
   icon: string;
+  isExternal?: boolean;
 }
 
 export interface AppsDropdownProps {
@@ -35,27 +32,14 @@ export interface AppsDropdownProps {
   title: string;
 }
 
-const Item = ({ onClick, title, description, icon }: ItemProps) => {
-  return (
-    <ListItem>
-      <StyledButton onClick={onClick}>
-        <IconBox icon={icon} size="small" />
-        <TextContainer>
-          <Text size="small" fontWeight={500}>
-            {title}
-          </Text>
-          <Text size="xSmall" muted>
-            {description}
-          </Text>
-        </TextContainer>
-      </StyledButton>
-    </ListItem>
-  );
-};
-
 const Dropdown = ({ data, title }: AppsDropdownProps) => {
+  const { device } = useTheme();
+  const isMobile = useMedia(device.max.md, false);
+  const router = useRouter();
+
   const menuWrapperRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const { x, y, refs, strategy } = useFloating({
     placement: "bottom-start",
     whileElementsMounted: autoUpdate,
@@ -75,12 +59,10 @@ const Dropdown = ({ data, title }: AppsDropdownProps) => {
     setIsMenuOpen(false);
   });
 
+  if (!isMobile) return null;
+
   return (
-    <Container
-      ref={menuWrapperRef}
-      onMouseEnter={() => setIsMenuOpen(true)}
-      onMouseLeave={() => setIsMenuOpen(false)}
-    >
+    <Container ref={menuWrapperRef}>
       <Button
         ref={refs.setReference}
         variant={ButtonVariant.Neutral}
@@ -102,7 +84,26 @@ const Dropdown = ({ data, title }: AppsDropdownProps) => {
             >
               <List>
                 {data.map((item, index) => (
-                  <Item key={index} {...item} />
+                  <ListItem key={index}>
+                    <Button
+                      variant={ButtonVariant.Neutral}
+                      onClick={() => {
+                        events.landing.navigation(item.text, item.href);
+                        if (item.isExternal) {
+                          window.open(item.href, "_blank");
+                        } else {
+                          router.push(item.href);
+                        }
+                        setIsMenuOpen(false);
+                      }}
+                      size={ButtonSize.Normal}
+                      icon={item.icon}
+                      iconPlacement="left"
+                      fullWidth
+                    >
+                      {item.text}
+                    </Button>
+                  </ListItem>
                 ))}
               </List>
             </AnimatedDropdown>

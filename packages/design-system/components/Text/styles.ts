@@ -25,7 +25,6 @@ const sharedStyles = ({
   fontFamily,
   lineTruncate,
 }: sharedStylesProps) => css`
-  ${compose(space, typography, flexbox, layout)};
   font-family: ${({ theme }) =>
     fontFamily === "robotoFlex"
       ? theme.typography.robotoFlex
@@ -33,6 +32,7 @@ const sharedStyles = ({
   word-break: break-word;
   color: ${({ theme }) =>
     color || (muted ? theme.text.muted : theme.text.color)};
+  ${compose(space, typography, flexbox, layout)};
 
   ${lineTruncate &&
   css`
