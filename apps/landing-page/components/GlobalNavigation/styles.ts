@@ -80,3 +80,5 @@ export const IconButtonContainer = styled.ul`
     display: inline-flex;
   }
 `;
+
+export const Span = styled.span``;

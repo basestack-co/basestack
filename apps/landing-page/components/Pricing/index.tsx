@@ -1,9 +1,10 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import { animated, useSpring, config } from "react-spring";
 import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
 import { rem } from "polished";
-// Components
+import { useTranslations } from "next-intl";
 import {
   Text,
   Button,
@@ -26,10 +27,9 @@ import {
   ListItem,
   PriceContainer,
   HeaderContainer,
+  Span,
 } from "./styles";
 import { Card } from "../styles";
-// Locales
-import { useTranslations } from "next-intl";
 
 type Interval = "monthly" | "yearly";
 
@@ -46,6 +46,8 @@ interface CardProps {
   interval: Interval;
 }
 
+const AnimatedSpan = animated(Span);
+
 const CardComp = ({
   title,
   price,
@@ -60,8 +62,48 @@ const CardComp = ({
 }: CardProps) => {
   const t = useTranslations();
   const { spacing, colors, isDarkMode } = useTheme();
-  const iconColor = isDarkMode ? colors.gray300 : colors.black;
+  const [hasMounted, setHasMounted] = useState(false);
+
+  const textColor = isDarkMode ? colors.gray300 : colors.black;
   const popularIconColor = isDarkMode ? colors.blue300 : colors.primary;
+
+  const value =
+    typeof price !== "string" && price[interval]?.replace(/[^\d.-]/g, "");
+
+  const symbol =
+    typeof price !== "string" && price[interval]?.replace(/[0-9.-]/g, "");
+
+  const valueNumber = +value || 0;
+
+  const valueAnimation = useSpring({
+    from: { x: 0 },
+    to: { x: valueNumber },
+    config: { ...config.stiff, duration: 1000 },
+  });
+
+  const [colorAnimation, setColorAnimation] = useSpring(() => ({
+    from: { color: textColor },
+    to: { color: textColor },
+    config: { ...config.stiff, duration: 1000 },
+  }));
+
+  useEffect(() => {
+    if (!hasMounted) {
+      setHasMounted(true);
+      return;
+    }
+
+    const targetColor =
+      interval === "monthly" ? colors.red400 : colors.green400;
+
+    setColorAnimation({
+      to: { color: targetColor },
+      reset: true,
+      onRest: () => {
+        setColorAnimation({ to: { color: textColor }, reset: true });
+      },
+    });
+  }, [interval, textColor]);
 
   return (
     <Card>
@@ -77,7 +119,16 @@ const CardComp = ({
           </FloatingLabel>
         )}
         <Text fontSize={rem("42px")} lineHeight="1" fontWeight={500}>
-          {typeof price === "string" ? price : price[interval]}
+          {typeof price === "string" ? (
+            price
+          ) : (
+            <>
+              {symbol}
+              <AnimatedSpan style={colorAnimation}>
+                {valueAnimation.x.to((n) => n.toFixed(2))}
+              </AnimatedSpan>
+            </>
+          )}
           {!isCustom && (
             <Text as="span" lineHeight="1" size="small" ml="2px" muted>
               {t("common.pricing.segment.month")}
@@ -110,7 +161,7 @@ const CardComp = ({
               <Icon
                 icon={icon}
                 size="medium"
-                color={isPopular ? popularIconColor : iconColor}
+                color={isPopular ? popularIconColor : textColor}
               />
             )}
             <Text size="medium" fontWeight={400} ml={spacing.s3}>

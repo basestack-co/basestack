@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useSpring, animated } from "react-spring";
 // Router
 import { useRouter } from "next/navigation";
 // Utils
@@ -27,6 +28,7 @@ import {
   List,
   ListItem,
   RightColumn,
+  Span,
   StyledLink,
 } from "./styles";
 import MobileMenu from "./MobileMenu";
@@ -35,13 +37,15 @@ interface NavigationProps {
   isSticky?: boolean;
 }
 
+const AnimatedSpan = animated(Span);
+
 const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
   const { isDarkMode, spacing, device } = useTheme();
   const router = useRouter();
-  const [stargazers, setsStargazers] = useState(0);
   const t = useTranslations("navigation");
   const isMobile = useMedia(device.max.md, false);
 
+  const [stargazers, setsStargazers] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -100,6 +104,12 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
     },
   ];
 
+  const numberAnimation = useSpring({
+    from: { x: 0 },
+    to: { x: stargazers || 0 },
+    config: { duration: 1000, tension: 200, friction: 20 },
+  });
+
   return (
     <>
       <Container isSticky={isSticky}>
@@ -156,8 +166,12 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
               icon="github"
               minWidth="101px"
             >
-              <span>Star</span>
-              {stargazers > 0 && <span>&nbsp;{stargazers}</span>}
+              <span>Star</span>&nbsp;
+              {stargazers > 0 && (
+                <AnimatedSpan>
+                  {numberAnimation.x.to((n) => n.toFixed(0))}
+                </AnimatedSpan>
+              )}
             </Button>
             <Dropdown
               title="Create"

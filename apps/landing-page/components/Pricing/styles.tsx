@@ -104,3 +104,5 @@ export const EmblaSlide = styled.li`
     flex: 0 0 100%;
   }
 `;
+
+export const Span = styled.span``;
