@@ -1,17 +1,17 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useTheme } from "styled-components";
 import useEmblaCarousel from "embla-carousel-react";
 import { Button, ButtonSize, ButtonVariant } from "@basestack/design-system";
 import { useMedia } from "react-use";
 // Utils
-import { config, events } from "@basestack/utils";
+import { events } from "@basestack/utils";
 // Components
 import {
+  ButtonsContainer,
   Container,
   ContentContainer,
   HeaderContainer,
-  ButtonsContainer,
-  ImagesContainer,
+  StyledImageContainer,
 } from "./styles";
 import Image from "../Image";
 import SectionHeader from "../SectionHeader";
@@ -32,6 +32,7 @@ export interface SliderProps {
     title: string;
     text: string;
     image: { src: string; alt: string };
+    isDisabled?: boolean;
   }>;
 }
 
@@ -68,6 +69,7 @@ const AppsHero = ({
       <ContentContainer>
         <HeaderContainer>
           <SectionHeader title={title} text={text} hasMarginBottom={false} />
+
           <ButtonsContainer>
             {actions.map(({ id, text, isTertiary, href }) => {
               return (
@@ -107,12 +109,12 @@ const AppsHero = ({
           currentIndex={currentIndex}
         />
 
-        <ImagesContainer>
+        <StyledImageContainer>
           <Image
             src={data[currentIndex].image.src}
             alt={data[currentIndex].image.alt}
           />
-        </ImagesContainer>
+        </StyledImageContainer>
       </ContentContainer>
     </Container>
   );

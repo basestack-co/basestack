@@ -8,6 +8,10 @@ export const Button = styled.button`
   text-align: left;
   cursor: pointer;
   height: 100%;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export const ContentContainer = styled.div`

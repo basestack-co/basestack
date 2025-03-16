@@ -42,6 +42,27 @@ export const Label = styled.div`
     theme.isDarkMode ? theme.colors.gray800 : theme.colors.white};
 `;
 
+export const ImageContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: ${rem("1100px")};
+  width: 100%;
+
+  &::after {
+    content: "";
+    background: ${({ theme }) => theme.colors.primary};
+    opacity: 0.5;
+    position: absolute;
+    border-radius: 50%;
+    z-index: -2;
+    height: 500px;
+    width: 100%;
+    left: 0;
+    top: -100px;
+  }
+`;
+
 export const gradientBorderStyles = (position: "top" | "bottom") => css`
   &::before {
     content: "";
@@ -74,5 +95,21 @@ export const gradientBorderStyles = (position: "top" | "bottom") => css`
               ${theme.colors.gray50} 100%
             );
           `};
+  }
+`;
+
+export const containerBlurStyles = css`
+  &::before {
+    content: "";
+    background: ${({ theme }) =>
+      theme.isDarkMode ? "rgba(20, 20, 20, 0.7)" : "rgba(246, 246, 246, 0.7)"};
+    -webkit-backdrop-filter: saturate(180%) blur(150px);
+    backdrop-filter: saturate(180%) blur(150px);
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
   }
 `;

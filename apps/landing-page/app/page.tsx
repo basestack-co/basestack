@@ -36,8 +36,8 @@ const LandingPage = () => {
             title: t("page.main.hero.card.flags.title"),
             text: t("page.main.hero.card.flags.description"),
             image: {
-              src: "/images/flags_multiple_projects.png",
-              alt: "An image of a feature flag control panel displaying multiple projects and environments, with intuitive controls for easily managing feature releases.",
+              src: `/images/product/flags/flags_cards_popups${isDarkMode ? "_dark" : ""}.png`,
+              alt: "Product demo",
             },
           },
           {
@@ -45,8 +45,8 @@ const LandingPage = () => {
             title: t("page.main.hero.card.forms.title"),
             text: t("page.main.hero.card.forms.description"),
             image: {
-              src: "/images/flag_history.png",
-              alt: "An image of a feature flag dashboard displaying streamlined management, monitoring, and automated change tracking features. The dashboard provides clear and concise data visualization and intuitive controls for easy navigation and management.",
+              src: `/images/product/forms/submissions${isDarkMode ? "_dark" : ""}.png`,
+              alt: "Product demo",
             },
           },
           {
@@ -54,9 +54,10 @@ const LandingPage = () => {
             title: t("page.main.hero.card.feedback.title"),
             text: t("page.main.hero.card.feedback.description"),
             image: {
-              src: "/images/create_flag_advanced.png",
-              alt: "An image of a feature flag configuration interface, displaying dynamic payload data changes. The interface provides intuitive controls for easily making and testing feature flag changes.",
+              src: "",
+              alt: "Product demo",
             },
+            isDisabled: true,
           },
         ]}
       />

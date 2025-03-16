@@ -10,7 +10,7 @@ import {
   ButtonsContainer,
   Container,
   ContentContainer,
-  ImageContainer,
+  StyledImageContainer,
 } from "./styles";
 import SectionHeader from "../SectionHeader";
 import { useMedia } from "react-use";
@@ -68,10 +68,10 @@ const Hero = ({
           })}
         </ButtonsContainer>
         {image?.src && (
-          <ImageContainer>
+          <StyledImageContainer>
             {/* eslint-disable-next-line jsx-a11y/alt-text */}
             <Image {...image} />
-          </ImageContainer>
+          </StyledImageContainer>
         )}
       </ContentContainer>
     </Container>

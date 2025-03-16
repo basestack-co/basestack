@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import { rem } from "polished";
+import { ImageContainer, containerBlurStyles } from "../styles";
 
 export const Container = styled.section`
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: ${rem("100px")} 0;
   overflow: hidden;
+  ${containerBlurStyles};
 `;
 
 export const HeaderContainer = styled.div`
@@ -38,9 +41,6 @@ export const ButtonsContainer = styled.div`
   }
 `;
 
-export const ImagesContainer = styled.div`
-  max-width: ${rem("1100px")};
+export const StyledImageContainer = styled(ImageContainer)`
   margin: ${({ theme }) => theme.spacing.s3} auto 0 auto;
-  display: flex;
-  flex-direction: column;
 `;

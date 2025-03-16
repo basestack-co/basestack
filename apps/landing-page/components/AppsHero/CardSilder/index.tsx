@@ -11,6 +11,7 @@ export interface CardSliderProps {
     title: string;
     text: string;
     image: { src: string; alt: string };
+    isDisabled?: boolean;
   }>;
   onClick: (index: number) => void;
   currentIndex: number;
@@ -33,6 +34,7 @@ const CardSlider = forwardRef<HTMLDivElement, CardSliderProps>(
                   title={item.title}
                   description={item.text}
                   onClick={() => onClick(index)}
+                  isDisabled={item.isDisabled}
                 />
               </EmblaSlide>
             ))}

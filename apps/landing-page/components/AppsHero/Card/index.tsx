@@ -10,6 +10,7 @@ export interface CardProps {
   icon?: string;
   isActive: boolean;
   onClick: () => void;
+  isDisabled?: boolean;
 }
 
 const CardComp = ({
@@ -18,6 +19,7 @@ const CardComp = ({
   icon = "help",
   isActive,
   onClick,
+  isDisabled = false,
 }: CardProps) => {
   const { colors, spacing, isDarkMode } = useTheme();
 
@@ -38,7 +40,7 @@ const CardComp = ({
   const bg = isDarkMode ? colors.gray900 : colors.gray50;
 
   return (
-    <Button onClick={onClick}>
+    <Button onClick={onClick} disabled={isDisabled}>
       <Card bg={isActive ? activeBg : bg} transitionBg>
         <ContentContainer>
           <TextContainer>

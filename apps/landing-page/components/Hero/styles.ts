@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { rem } from "polished";
+import { containerBlurStyles, ImageContainer } from "../styles";
 
 export const Container = styled.section`
   position: relative;
@@ -8,20 +9,7 @@ export const Container = styled.section`
   padding: ${rem("100px")} ${({ theme }) => theme.spacing.s5};
   z-index: 1;
   overflow: hidden;
-
-  &::before {
-    content: "";
-    background: ${({ theme }) =>
-      theme.isDarkMode ? "rgba(20, 20, 20, 0.7)" : "rgba(246, 246, 246, 0.7)"};
-    -webkit-backdrop-filter: saturate(180%) blur(150px);
-    backdrop-filter: saturate(180%) blur(150px);
-    position: absolute;
-    z-index: -1;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-  }
+  ${containerBlurStyles};
 `;
 
 export const ContentContainer = styled.div`
@@ -46,26 +34,6 @@ export const ButtonsContainer = styled.div`
   }
 `;
 
-export const ImageContainer = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
+export const StyledImageContainer = styled(ImageContainer)`
   margin-top: ${rem("100px")};
-  min-height: ${rem("100px")};
-  max-width: ${rem("1100px")};
-  aspect-ratio: 1.482;
-  width: 100%;
-
-  &::after {
-    content: "";
-    background: ${({ theme }) => theme.colors.primary};
-    opacity: 0.5;
-    position: absolute;
-    border-radius: 50%;
-    z-index: -2;
-    height: 500px;
-    width: 100%;
-    left: 0;
-    top: -100px;
-  }
 `;
