@@ -21,36 +21,50 @@ export const ContentWrapper = styled.footer`
   margin: 0 auto;
 `;
 
-export const MainContent = styled.div`
+export const NewsletterContainer = styled.div`
   display: flex;
-  gap: ${({ theme }) => theme.spacing.s8};
+  align-items: center;
+  justify-content: space-between;
   padding: ${({ theme }) => theme.spacing.s8} 0;
+  gap: ${({ theme }) => theme.spacing.s5};
 
   @media screen and ${({ theme }) => theme.device.max.md} {
     flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 `;
 
-export const LeftContainer = styled.div`
+export const NewsletterContent = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-export const RightContainer = styled.div`
+export const InputContainer = styled.div`
   display: flex;
   flex-grow: 1;
-  flex-shrink: 0;
-  gap: ${({ theme }) => theme.spacing.s8};
-  justify-content: space-between;
-  max-width: ${rem("800px")};
+  justify-content: flex-end;
 
-  @media screen and ${({ theme }) => theme.device.min.md} {
-    margin-left: auto;
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    width: 100%;
+    justify-content: flex-start;
+  }
+`;
+
+export const LinksContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, auto));
+  width: 100%;
+  grid-gap: ${({ theme }) => theme.spacing.s8};
+  padding: ${({ theme }) => theme.spacing.s8} 0;
+  justify-content: space-between;
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   @media screen and ${({ theme }) => theme.device.max.sm} {
-    flex-direction: column;
-    gap: ${({ theme }) => theme.spacing.s7};
+    grid-template-columns: 1fr;
   }
 `;
 
@@ -58,8 +72,13 @@ export const BottomContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: ${({ theme }) => theme.spacing.s4};
+  padding-top: ${rem("25px")};
   gap: ${({ theme }) => theme.spacing.s8};
+`;
+
+export const CompanyContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const ListContainer = styled.div`
@@ -93,6 +112,7 @@ export const StyledLink = styled(Link)`
   }
 `;
 
-export const InputContainer = styled.div`
-  display: flex;
+export const LogoContainer = styled.div`
+  display: inline-flex;
+  flex-shrink: 0;
 `;

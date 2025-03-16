@@ -49,7 +49,8 @@
   "footer": {
     "company": "© Basestack {year}. All rights reserved. Crafted in {portugal} hosted in {europe}",
     "newsletter": {
-      "title": "Get updates directly to your Inbox",
+      "title": "Join our Newsletter",
+      "text": "Get updates directly to your Inbox",
       "action": "Subscribe"
     },
     "section": {

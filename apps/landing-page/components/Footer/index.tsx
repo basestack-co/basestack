@@ -29,12 +29,14 @@ import {
   List,
   ListItem,
   ListContainer,
-  RightContainer,
-  LeftContainer,
+  CompanyContainer,
   ContentWrapper,
-  MainContent,
   BottomContainer,
   StyledLink,
+  LinksContainer,
+  NewsletterContainer,
+  NewsletterContent,
+  LogoContainer,
 } from "./styles";
 // Utils
 import { z } from "zod";
@@ -42,6 +44,7 @@ import { z } from "zod";
 import { useTranslations } from "next-intl";
 // Toast
 import { toast } from "sonner";
+import { spacing } from "@basestack/design-system/theme/common";
 
 const { urls } = defaults;
 
@@ -186,18 +189,17 @@ const FooterLinks: React.FC = () => {
   ];
 
   return (
-    <RightContainer>
+    <LinksContainer>
       {footerSections.map((section) => (
         <FooterLinksSection key={section.title} section={section} />
       ))}
-    </RightContainer>
+    </LinksContainer>
   );
 };
 
 const Footer = () => {
   const t = useTranslations();
   const theme = useTheme();
-  const router = useRouter();
   const { toggleDarkMode } = useDarkModeToggle();
 
   const setIsDarkMode = useStore((state) => state.setDarkMode);
@@ -245,60 +247,70 @@ const Footer = () => {
   return (
     <Container>
       <ContentWrapper>
+        <FooterLinks />
+
         <HorizontalRule isDarker={!isDarkMode} />
-        <MainContent>
-          <LeftContainer>
-            <Logo product="company" size={36} isOnDark={isDarkMode} />
-            <Text
-              size="medium"
-              fontWeight={400}
-              mt={theme.spacing.s6}
-              mb={theme.spacing.s2}
-            >
+
+        <NewsletterContainer>
+          <NewsletterContent>
+            <Text size="xLarge" mb={theme.spacing.s1}>
               {t("footer.newsletter.title")}
             </Text>
-            <InputContainer>
-              <Controller
-                name="email"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <Input
-                    isDarker={!isDarkMode}
-                    placeholder="Enter your email"
-                    type="email"
-                    name={field.name}
-                    value={field.value}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    isDisabled={isSubmitting}
-                    mr={theme.spacing.s2}
-                  />
-                )}
-              />
-              <Button
-                onClick={handleSubmit(onSubmit)}
-                isLoading={isSubmitting}
-                size={ButtonSize.Medium}
-                variant={ButtonVariant.Tertiary}
-                height="44px"
-              >
-                {t("footer.newsletter.action")}
-              </Button>
-            </InputContainer>
-          </LeftContainer>
-          <FooterLinks />
-        </MainContent>
+            <Text size="medium" fontWeight={400}>
+              {t("footer.newsletter.text")}
+            </Text>
+          </NewsletterContent>
+
+          <InputContainer>
+            <Controller
+              name="email"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <Input
+                  isDarker={!isDarkMode}
+                  placeholder="Enter your email"
+                  type="email"
+                  name={field.name}
+                  value={field.value}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  isDisabled={isSubmitting}
+                  mr={theme.spacing.s2}
+                  maxWidth="240px"
+                  width="100%"
+                />
+              )}
+            />
+            <Button
+              onClick={handleSubmit(onSubmit)}
+              isLoading={isSubmitting}
+              size={ButtonSize.Medium}
+              variant={ButtonVariant.Tertiary}
+              height="44px"
+            >
+              {t("footer.newsletter.action")}
+            </Button>
+          </InputContainer>
+        </NewsletterContainer>
+
         <HorizontalRule isDarker={!isDarkMode} />
+
         <BottomContainer>
-          <Text size="small" muted>
-            {t("footer.company", {
-              year: new Date().getFullYear(),
-              portugal: "🇵🇹",
-              europe: "🇪🇺",
-            })}
-          </Text>
+          <CompanyContainer>
+            <LogoContainer>
+              <Logo product="company" size={32} isOnDark={isDarkMode} />
+            </LogoContainer>
+            <Text size="small" ml={spacing.s4} muted>
+              {t("footer.company", {
+                year: new Date().getFullYear(),
+                portugal: "🇵🇹",
+                europe: "🇪🇺",
+              })}
+            </Text>
+          </CompanyContainer>
           <IconButton
+            flexShrink={0}
             icon={isDarkMode ? "light_mode" : "dark_mode"}
             size="medium"
             onClick={() => {

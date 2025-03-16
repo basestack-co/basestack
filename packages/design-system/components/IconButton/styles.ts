@@ -113,7 +113,8 @@ const handleButtonVariant = (variant?: Variant) => {
 };
 
 export const StyledButton = styled.button.withConfig({
-  shouldForwardProp: (prop) => !["iconSize", "zIndex"].includes(prop),
+  shouldForwardProp: (prop) =>
+    !["iconSize", "zIndex", "flexShrink"].includes(prop),
 })<{
   variant: Variant;
   iconSize: string;
