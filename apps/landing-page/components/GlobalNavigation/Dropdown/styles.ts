@@ -38,4 +38,5 @@ export const TextContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   margin-left: ${({ theme }) => theme.spacing.s3};
+  flex-grow: 1;
 `;

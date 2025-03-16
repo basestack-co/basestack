@@ -1,8 +1,9 @@
 import React, { memo, useCallback, useRef, useState } from "react";
-// Components
 import { autoUpdate, offset, useFloating } from "@floating-ui/react";
 import { animated, config, useTransition } from "react-spring";
 import { useClickAway } from "react-use";
+import { rem } from "polished";
+import { useTheme } from "styled-components";
 import {
   slideBottom,
   Text,
@@ -10,8 +11,8 @@ import {
   ButtonVariant,
   ButtonSize,
   IconBox,
+  Icon,
 } from "@basestack/design-system";
-// Styles
 import {
   Dropdown as StyledDropdown,
   Container,
@@ -26,16 +27,21 @@ const AnimatedDropdown: any = animated(StyledDropdown);
 export interface ItemProps {
   onClick: () => void;
   title: string;
-  description: string;
+  description?: string;
   icon: string;
+  isExternal?: boolean;
 }
 
 export interface AppsDropdownProps {
   data: Array<ItemProps>;
   title: string;
+  placement?: "right" | "left";
+  buttonVariant?: ButtonVariant;
 }
 
-const Item = ({ onClick, title, description, icon }: ItemProps) => {
+const Item = ({ onClick, title, description, icon, isExternal }: ItemProps) => {
+  const { spacing } = useTheme();
+
   return (
     <ListItem>
       <StyledButton onClick={onClick}>
@@ -44,20 +50,28 @@ const Item = ({ onClick, title, description, icon }: ItemProps) => {
           <Text size="small" fontWeight={500}>
             {title}
           </Text>
-          <Text size="xSmall" muted>
-            {description}
-          </Text>
+          {description && (
+            <Text size="xSmall" muted>
+              {description}
+            </Text>
+          )}
         </TextContainer>
+        {isExternal && <Icon ml={spacing.s3} muted icon="open_in_new" />}
       </StyledButton>
     </ListItem>
   );
 };
 
-const Dropdown = ({ data, title }: AppsDropdownProps) => {
+const Dropdown = ({
+  data,
+  title,
+  placement = "left",
+  buttonVariant = ButtonVariant.Neutral,
+}: AppsDropdownProps) => {
   const menuWrapperRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { x, y, refs, strategy } = useFloating({
-    placement: "bottom-start",
+    placement: placement === "left" ? "bottom-start" : "bottom-end",
     whileElementsMounted: autoUpdate,
     middleware: [offset(0)],
   });
@@ -76,17 +90,14 @@ const Dropdown = ({ data, title }: AppsDropdownProps) => {
   });
 
   return (
-    <Container
-      ref={menuWrapperRef}
-      onMouseEnter={() => setIsMenuOpen(true)}
-      onMouseLeave={() => setIsMenuOpen(false)}
-    >
+    <Container ref={menuWrapperRef}>
       <Button
         ref={refs.setReference}
-        variant={ButtonVariant.Neutral}
+        variant={buttonVariant}
         onClick={onClickMenu}
         size={ButtonSize.Normal}
         icon={isMenuOpen ? "arrow_drop_up" : "arrow_drop_down"}
+        pr={rem("8px")}
       >
         {title}
       </Button>

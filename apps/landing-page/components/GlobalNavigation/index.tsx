@@ -85,6 +85,21 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
     },
   ];
 
+  const apps = [
+    {
+      title: t("main.product.flags.title"),
+      onClick: () => router.push("/product/feature-flags"),
+      icon: "flag",
+      isExternal: true,
+    },
+    {
+      title: t("main.product.forms.title"),
+      onClick: () => router.push("/product/forms"),
+      icon: "description",
+      isExternal: true,
+    },
+  ];
+
   return (
     <>
       <Container isSticky={isSticky}>
@@ -144,19 +159,14 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
               <span>Star</span>
               {stargazers > 0 && <span>&nbsp;{stargazers}</span>}
             </Button>
-            <Button
-              onClick={() => {
-                if (typeof window !== "undefined") {
-                  window.open(defaults.urls.docs.base, "_blank");
-                }
-              }}
-              size={ButtonSize.Normal}
-              variant={
+            <Dropdown
+              title="Create"
+              data={apps}
+              placement="right"
+              buttonVariant={
                 isDarkMode ? ButtonVariant.Tertiary : ButtonVariant.Secondary
               }
-            >
-              Docs
-            </Button>
+            />
           </RightColumn>
         </ContentContainer>
       </Container>
