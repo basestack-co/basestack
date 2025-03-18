@@ -2,7 +2,7 @@
 
 import React, { Fragment } from "react";
 // Components
-import { AppsHero } from "components";
+import { AppsHero, OrderedCards, Cards } from "components";
 // Locales
 import { useTranslations } from "next-intl";
 // Styles
@@ -58,6 +58,59 @@ const LandingPage = () => {
               alt: "Product demo",
             },
             isDisabled: true,
+          },
+        ]}
+      />
+      <Cards
+        title="Why choose basestack?"
+        id="why"
+        cards={[
+          {
+            title: "Open-Source Freedom",
+            text: "Self-host for free or use our hosted version.",
+            icon: "code",
+          },
+          {
+            title: "Scales with You",
+            text: "From solo projects to startup teams, we’ve got you covered.",
+            icon: "trending_up",
+          },
+          {
+            title: "No Lock-In",
+            text: "Flexible tools that adapt to your stack, not the other way around.",
+            icon: "lock_open",
+          },
+        ]}
+      />
+      <OrderedCards
+        id="how"
+        title="How It Works"
+        // TODO update or remove
+        text="Simplify your workflow with our tools that provide clear insights, minimizing the complexity of managing intricate deployment data."
+        data={[
+          {
+            title: "Pick Your Product",
+            text: "Choose Forms, Feature Flags, or both.",
+            image: {
+              src: ``,
+              alt: "Random product selection image",
+            },
+          },
+          {
+            title: "Set It Up",
+            text: "Self-host or use our cloud—no steep learning curve.",
+            image: {
+              src: ``,
+              alt: "Random setup process image",
+            },
+          },
+          {
+            title: "Start Building",
+            text: "Integrate and go live fast.",
+            image: {
+              src: ``,
+              alt: "Random building process image",
+            },
           },
         ]}
       />

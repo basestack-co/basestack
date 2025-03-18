@@ -18,7 +18,7 @@ import SectionHeader from "../SectionHeader";
 export interface CardsProps {
   id?: string;
   title: string;
-  text: string;
+  text?: string;
   cards: Array<{
     title: string;
     text: string;

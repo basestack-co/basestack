@@ -18,3 +18,4 @@ export { default as EnvironmentToggleAnimation } from "./EnvironmentToggleAnimat
 export { default as CodeAnimation } from "./CodeAnimation";
 export { default as AccessLabelsAnimation } from "./AccessLabelsAnimation";
 export { default as ActivityCardsAnimation } from "./ActivityCardsAnimation";
+export { default as OrderedCards } from "./OrderedCards";
