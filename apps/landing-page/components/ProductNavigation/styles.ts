@@ -64,3 +64,10 @@ export const RightColumn = styled.div`
   align-items: center;
   margin-left: auto;
 `;
+
+export const StyledButton = styled.button`
+  display: inline-flex;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+`;

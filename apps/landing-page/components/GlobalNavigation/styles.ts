@@ -68,8 +68,11 @@ export const RightColumn = styled.div`
   margin-left: auto;
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledButton = styled.button`
   display: inline-flex;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
 `;
 
 export const IconButtonContainer = styled.ul`

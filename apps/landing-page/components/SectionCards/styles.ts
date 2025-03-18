@@ -17,7 +17,6 @@ export const HeaderContainer = styled.section`
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   max-width: ${rem("1400px")};
   width: 100%;
   margin: 0 auto;
@@ -40,6 +39,7 @@ export const Row = styled.div.withConfig({
   @media screen and ${({ theme }) => theme.device.max.md} {
     flex-direction: column-reverse;
     gap: ${({ theme }) => theme.spacing.s5};
+    align-items: flex-start;
   }
 `;
 

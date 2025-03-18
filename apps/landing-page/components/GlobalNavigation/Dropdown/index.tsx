@@ -113,7 +113,14 @@ const Dropdown = ({
             >
               <List>
                 {data.map((item, index) => (
-                  <Item key={index} {...item} />
+                  <Item
+                    key={index}
+                    {...item}
+                    onClick={() => {
+                      item.onClick();
+                      setIsMenuOpen(false);
+                    }}
+                  />
                 ))}
               </List>
             </AnimatedDropdown>

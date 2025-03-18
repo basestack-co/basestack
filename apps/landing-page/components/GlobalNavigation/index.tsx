@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 // Router
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 // Utils
 import { useMedia } from "react-use";
 import { config as defaults, events } from "@basestack/utils";
@@ -29,7 +29,7 @@ import {
   ListItem,
   RightColumn,
   Span,
-  StyledLink,
+  StyledButton,
 } from "./styles";
 import MobileMenu from "./MobileMenu";
 
@@ -42,6 +42,7 @@ const AnimatedSpan = animated(Span);
 const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
   const { isDarkMode, spacing, device } = useTheme();
   const router = useRouter();
+  const pathname = usePathname();
   const t = useTranslations("navigation");
   const isMobile = useMedia(device.max.md, false);
 
@@ -123,9 +124,17 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
               />
             </IconButtonContainer>
 
-            <StyledLink href="/">
+            <StyledButton
+              onClick={() => {
+                if (pathname !== "/") {
+                  router.push("/");
+                } else {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }}
+            >
               <Logo product="company" isOnDark={isDarkMode} size={36} />
-            </StyledLink>
+            </StyledButton>
             <List>
               <ListItem>
                 <Dropdown title={t("main.product.title")} data={products} />

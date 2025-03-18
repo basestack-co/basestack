@@ -17,6 +17,7 @@ import {
   List,
   ListItem,
   RightColumn,
+  StyledButton,
   Title,
 } from "./styles";
 import Dropdown from "./Dropdown";
@@ -72,11 +73,17 @@ const ProductNavigation = ({
     <Container>
       <AnimatedContentContainer style={styles}>
         <LeftColumn>
-          <IconBox
-            size="medium"
-            icon={product === "flags" ? "flag" : "description"}
-            backgroundColor={isDarkMode ? colors.gray900 : colors.gray50}
-          />
+          <StyledButton
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          >
+            <IconBox
+              size="medium"
+              icon={product === "flags" ? "flag" : "description"}
+              backgroundColor={isDarkMode ? colors.gray900 : colors.gray50}
+            />
+          </StyledButton>
           <Title ml={spacing.s3} size="medium">
             {product === "flags" ? "Flags" : "Forms"}
           </Title>

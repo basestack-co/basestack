@@ -82,6 +82,7 @@ const LandingPage = () => {
           },
         ]}
       />
+      {/* TODO section 2 */}
       <OrderedCards
         id="how"
         title="How It Works"
