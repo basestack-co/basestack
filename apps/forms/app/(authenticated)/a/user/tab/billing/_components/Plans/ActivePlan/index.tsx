@@ -47,7 +47,12 @@ const ActivePlan = ({
 }: ActivePlanProps) => {
   const t = useTranslations("profile");
   const { spacing } = useTheme();
-  const currentPlan = config.plans.getFormPlanByVariantId(variantId, AppMode);
+
+  const currentPlan = config.plans.getFormPlanByVariantId(
+    variantId,
+    isBilledMonthly,
+    AppMode,
+  );
   const price = isBilledMonthly
     ? currentPlan?.price.monthly.amount
     : currentPlan?.price.yearly.amount;

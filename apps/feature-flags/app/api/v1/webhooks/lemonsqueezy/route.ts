@@ -6,6 +6,10 @@ import {
 } from "libs/qstash";
 // Utils
 import crypto from "crypto";
+import { PlanTypeId, config, SubscriptionEvent } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
+
+const { getFlagsPlanByVariantId } = config.plans;
 
 export async function POST(req: NextRequest) {
   const text = await req.text();
@@ -27,7 +31,18 @@ export async function POST(req: NextRequest) {
 
   const body = JSON.parse(text) as UpdateSubscriptionEventPayload;
 
-  await updateSubscriptionEvent(body);
+  const variantId = body.data.attributes.variant_id;
+  const isBilledMonthly = body.data.attributes.variant_name === "Monthly";
+  const plan = getFlagsPlanByVariantId(variantId, isBilledMonthly, AppMode);
+
+  const isValidEvent = [SubscriptionEvent.SUBSCRIPTION_UPDATED].includes(
+    body.meta.event_name as SubscriptionEvent,
+  );
+
+  // Only trigger job if the event and plan on the request is valid
+  if (isValidEvent && !!plan) {
+    await updateSubscriptionEvent(body);
+  }
 
   return new Response(
     "Basestack Flags: Update subscription event job successfully started.",

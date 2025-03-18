@@ -7,9 +7,7 @@ import type { UpdateSubscriptionEventPayload } from "libs/qstash";
 import { prisma } from "server/db";
 // Utils
 import dayjs from "dayjs";
-import { PlanTypeId, config, SubscriptionEvent } from "@basestack/utils";
-
-const { getSubscriptionEvents, getFlagsPlanByVariantId } = config.plans;
+import { PlanTypeId, SubscriptionEvent } from "@basestack/utils";
 
 export const { POST } = serve<UpdateSubscriptionEventPayload>(
   async (context) => {
@@ -21,95 +19,53 @@ export const { POST } = serve<UpdateSubscriptionEventPayload>(
     );
     console.info(`Subscription Event:${body.meta.event_name}`);
 
-    if (!getSubscriptionEvents.includes(body.meta.event_name)) {
-      console.error(
-        "Job: Update Feature Flags Subscriptions - Invalid event name received",
-      );
-      return;
-    }
+    await context.run("update-user-subscription-step", async () => {
+      const userId = body.meta.custom_data.user_id;
 
-    if (
-      [
-        SubscriptionEvent.SUBSCRIPTION_UPDATED,
-        SubscriptionEvent.SUBSCRIPTION_CREATED,
-        SubscriptionEvent.SUBSCRIPTION_CANCELLED,
-      ].includes(body.meta.event_name as SubscriptionEvent)
-    ) {
-      const sub = await context.run(
-        "check-user-subscription-step",
-        async () => {
-          const userId = body.meta.custom_data.user_id;
+      const isUpdate =
+        SubscriptionEvent.SUBSCRIPTION_UPDATED === body.meta.event_name;
 
-          console.info(
-            "Job: Update Feature Flags Subscriptions - Checking if user has a subscription",
-            userId,
-          );
+      const planId = (body.meta.custom_data.plan_id ??
+        PlanTypeId.FREE) as PlanTypeId;
 
-          return prisma.subscription.findFirst({
-            where: {
-              userId,
-            },
-            select: {
-              id: true,
-            },
-          });
+      const payload = {
+        subscriptionId: body.data.id,
+        customerId: body.data.attributes.customer_id,
+        status: body.data.attributes.status,
+        productId: body.data.attributes.product_id,
+        event: body.meta.event_name,
+        variantId: body.data.attributes.variant_id,
+      };
+
+      const res = await prisma.subscription.upsert({
+        create: {
+          userId,
+          planId,
+          billingCycleStart: dayjs().add(1, "month").toISOString(),
+          ...payload,
         },
+        // Update the subscription if it exists
+        update: {
+          planId,
+          ...payload,
+          ...(isUpdate
+            ? {
+                billingCycleStart: dayjs().add(1, "month").toISOString(),
+                cancelled: body.data.attributes.cancelled ?? false,
+                paused: body.data.attributes.cancelled ?? false,
+              }
+            : {}),
+        },
+        where: {
+          userId,
+        },
+      });
+
+      console.info(
+        "Job: Update Feature Flags Subscriptions - Subscription updated on DB",
+        res,
       );
-
-      // Update the subscription if it exists
-      if (!!sub?.id) {
-        await context.run("update-user-subscription-step", async () => {
-          const userId = body.meta.custom_data.user_id;
-
-          const isUpdate =
-            SubscriptionEvent.SUBSCRIPTION_UPDATED === body.meta.event_name;
-
-          const variantId = body.data.attributes.variant_id;
-
-          const payload = {
-            subscriptionId: body.data.id,
-            customerId: body.data.attributes.customer_id,
-            status: body.data.attributes.status,
-            productId: body.data.attributes.product_id,
-            event: body.meta.event_name,
-            variantId,
-          };
-
-          const res = await prisma.subscription.upsert({
-            create: {
-              userId,
-              planId: (body.meta.custom_data.plan_id ??
-                PlanTypeId.FREE) as PlanTypeId,
-              billingCycleStart: dayjs().add(1, "month").toISOString(),
-              ...payload,
-            },
-            update: {
-              planId: getFlagsPlanByVariantId(variantId)?.id,
-              ...payload,
-              ...(isUpdate
-                ? {
-                    billingCycleStart: dayjs().add(1, "month").toISOString(),
-                    cancelled: body.data.attributes.cancelled ?? false,
-                    paused: body.data.attributes.cancelled ?? false,
-                  }
-                : {}),
-            },
-            where: {
-              userId,
-            },
-          });
-
-          console.info(
-            "Job: Update Feature Flags Subscriptions - Subscription updated on DB",
-            res,
-          );
-        });
-      } else {
-        console.error(
-          `Job: Update Feature Flags Subscriptions - Subscription not found for user ${body.meta.custom_data.user_id}`,
-        );
-      }
-    }
+    });
   },
   {
     receiver: new Receiver({

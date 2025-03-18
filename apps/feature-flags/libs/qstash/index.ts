@@ -32,6 +32,7 @@ export interface UpdateSubscriptionEventPayload {
       order_id: number;
       paused: boolean;
       variant_id: number;
+      variant_name: string;
     };
   };
 }

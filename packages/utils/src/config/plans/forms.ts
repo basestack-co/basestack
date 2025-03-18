@@ -317,19 +317,23 @@ const getFormPlanVariantId = (
   mode: string = "production",
 ) => {
   const stage = getAppMode(mode);
-
+2
   const plan = getFormPlan(id);
   return plan.price[interval].variantIds[stage];
 };
 
 const getFormPlanByVariantId = (
   variantId: number,
+  isBilledMonthly: boolean = false,
   mode: string = "production",
 ) => {
   const stage = getAppMode(mode);
 
   return forms.find((plan) => {
-    return plan.price.monthly.variantIds[stage] === variantId;
+    return (
+      plan.price[isBilledMonthly ? "monthly" : "yearly"].variantIds[stage] ===
+      variantId
+    );
   });
 };
 
