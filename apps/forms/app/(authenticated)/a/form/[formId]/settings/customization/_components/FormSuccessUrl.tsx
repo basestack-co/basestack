@@ -94,15 +94,20 @@ const FormSuccessUrlCard = ({ successUrl = "", planId }: Props) => {
       title={t("setting.customization.success-url.title")}
       description={t("setting.customization.success-url.description")}
       {...getWithPlanCardProps({
-        t,
         router,
         planId,
         feature: "hasCustomUrls",
-        i18nKey: "setting.customization.success-url.action",
         onClick: handleSubmit(onSave),
         isLoading: isSubmitting,
         isDisabled: isSubmitting || watchUrl === successUrl || !!errors.url,
         partial: false,
+        labels: {
+          partial: t("common.plan.forms.upgrade.partial"),
+          all: t("common.plan.forms.upgrade.all"),
+          upgrade: t("common.plan.forms.upgrade.action"),
+          save: t("setting.customization.success-url.action"),
+          text: "",
+        },
       })}
     >
       <Controller

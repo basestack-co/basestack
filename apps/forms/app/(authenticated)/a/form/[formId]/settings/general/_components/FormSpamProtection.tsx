@@ -69,13 +69,12 @@ const FormSpamProtectionCard = ({
       title={t("setting.security.spam-protection.title")}
       description={t("setting.security.spam-protection.description")}
       {...getWithPlanSwitchProps({
-        t,
         planId,
         feature: "hasSpamProtection",
         isDisabled,
         onChange,
         checked: hasSpamProtection,
-        partial: false,
+        label: t(`common.plan.forms.upgrade.all`),
       })}
     />
   );

@@ -102,8 +102,16 @@ const Navigation = ({ data }: NavigationProps) => {
       product={Product.FORMS}
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
-      leftLinks={!!formId ? getLeftLinks(router, pathname, t, formId) : []}
-      rightLinks={getRightLinks(t)}
+      leftLinks={
+        !!formId
+          ? getLeftLinks(router, pathname, formId, {
+              submissions: t("navigation.internal.submissions"),
+              setup: t("navigation.internal.setup"),
+              settings: t("navigation.internal.settings"),
+            })
+          : []
+      }
+      rightLinks={getRightLinks({ docs: t("navigation.external.docs") })}
       rightLinksTitle={t("navigation.external.resources")}
       projects={{
         onCreate: () => setCreateFormModalOpen({ isOpen: true }),
@@ -116,7 +124,16 @@ const Navigation = ({ data }: NavigationProps) => {
         },
       }}
       appsTitle={t("navigation.apps.title")}
-      apps={getAppsList(t, onSelectApp)}
+      apps={getAppsList(onSelectApp, {
+        flags: {
+          title: t("navigation.apps.flags.title"),
+          description: t("navigation.apps.flags.description"),
+        },
+        forms: {
+          title: t("navigation.apps.forms.title"),
+          description: t("navigation.apps.forms.description"),
+        },
+      })}
       avatar={{
         name: session?.user.name || t("navigation.dropdown.username"),
         email: session?.user.email || "",
@@ -124,8 +141,15 @@ const Navigation = ({ data }: NavigationProps) => {
         darkModeText: t("navigation.dropdown.dark-mode"),
         isDarkMode: isDarkMode,
         onSetDarkMode: toggleDarkMode,
-        list: getAvatarDropdownList(t, router, () =>
-          setCreateFormModalOpen({ isOpen: true }),
+        list: getAvatarDropdownList(
+          router,
+          () => setCreateFormModalOpen({ isOpen: true }),
+          {
+            createForm: t("navigation.create.form"),
+            settings: t("navigation.dropdown.settings"),
+            billing: t("navigation.dropdown.billing"),
+            logout: t("navigation.dropdown.logout"),
+          },
         ),
       }}
     />

@@ -4,7 +4,7 @@ import Script from "next/script";
 import Registry from "utils/registry";
 // Locales
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
+import { getLocale } from "next-intl/server";
 // Fonts
 import { Roboto_Flex, Roboto } from "next/font/google";
 
@@ -31,12 +31,11 @@ const roboto = Roboto({
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   const locale = await getLocale();
-  const messages = await getMessages();
 
   return (
     <html lang={locale} className={`${robotoFlex.variable} ${roboto.variable}`}>
       <body>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider>
           <Registry>{children}</Registry>
         </NextIntlClientProvider>
         <div id="portal" />

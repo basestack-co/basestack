@@ -3,50 +3,49 @@ import React from "react";
 import { config, PlanTypeId, FormPlan } from "@basestack/utils";
 // Types
 import { useRouter } from "next/navigation";
-import { TFunction } from "types/locale";
 // Design System
 import { CardVariant } from "@basestack/design-system";
 
 export interface WithPlanCardProps {
   planId: PlanTypeId;
   feature: keyof FormPlan["features"];
-  t: TFunction;
-  i18nKey: string;
-  i18nHintKey?: string;
   onClick: () => void;
   isLoading: boolean;
   isDisabled: boolean;
   partial?: boolean;
   router: ReturnType<typeof useRouter>;
+  labels: {
+    partial: string;
+    all: string;
+    upgrade: string;
+    save: string;
+    text: string;
+  };
 }
 
 export const getWithPlanCardProps = ({
   planId,
   feature,
-  t,
-  i18nKey,
-  i18nHintKey,
   onClick,
   isLoading,
   isDisabled,
   partial = true,
   router,
+  labels,
 }: WithPlanCardProps) => {
   const hasFeature = config.plans.hasFormPlanFeature(planId, feature);
 
   return !hasFeature
     ? {
-        button: t("common.plan.forms.upgrade.action"),
+        button: labels.upgrade,
         onClick: () => router.push("/a/user/tab/billing"),
         hasOverlay: true,
         variant: CardVariant.PRIMARY,
-        label: partial
-          ? t("common.plan.forms.upgrade.partial")
-          : t("common.plan.forms.upgrade.all"),
+        label: partial ? labels.partial : labels.all,
       }
     : {
-        button: t(i18nKey as any),
-        text: i18nHintKey ? t(i18nHintKey as any) : "",
+        button: labels.save,
+        text: labels.text,
         onClick,
         isLoading,
         isDisabled,
@@ -56,21 +55,19 @@ export const getWithPlanCardProps = ({
 export interface WithPlanSwitchProps {
   planId: PlanTypeId;
   feature: keyof FormPlan["features"];
-  t: TFunction;
   isDisabled: boolean;
-  partial?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   checked: boolean;
+  label: string;
 }
 
 export const getWithPlanSwitchProps = ({
   planId,
   feature,
-  t,
   isDisabled,
-  partial = true,
   onChange,
   checked,
+  label,
 }: WithPlanSwitchProps) => {
   const hasFeature = config.plans.hasFormPlanFeature(planId, feature);
 
@@ -78,7 +75,7 @@ export const getWithPlanSwitchProps = ({
     ? {
         variant: CardVariant.PRIMARY,
         hasOverlay: true,
-        label: t(`common.plan.forms.upgrade.${partial ? "partial" : "all"}`),
+        label,
         onChange: () => null,
         checked: false,
       }
