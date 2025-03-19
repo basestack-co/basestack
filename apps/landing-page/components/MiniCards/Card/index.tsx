@@ -1,5 +1,6 @@
 import React from "react";
 import { useTheme } from "styled-components";
+import { rem } from "polished";
 import { Text, IconBox } from "@basestack/design-system";
 import { Card } from "../../styles";
 import {
@@ -33,7 +34,7 @@ const CardComp = ({ title, description, icon = "help" }: CardProps) => {
 
   return (
     <CardContainer>
-      <Card>
+      <Card p={`${rem("24px")} ${spacing.s5}`}>
         <ContentContainer>
           <IconBox size="large" icon={icon} mb={spacing.s5} {...iconBoxProps} />
           <TextContainer>

@@ -3,7 +3,14 @@
 import React, { Fragment } from "react";
 import { useRouter } from "next/navigation";
 // Components
-import { AppsHero, OrderedCards, Cards, VerticalCards } from "components";
+import {
+  AppsHero,
+  OrderedCards,
+  Cards,
+  VerticalCards,
+  Banner,
+  MiniCards,
+} from "components";
 // Locales
 import { useTranslations } from "next-intl";
 // Styles
@@ -65,7 +72,7 @@ const LandingPage = () => {
       />
       <Cards
         title="Why choose basestack?"
-        id="why"
+        text="Discover why basestack stands out as a versatile, scalable, and open solution tailored to fit projects of all sizes and complexities."
         cards={[
           {
             title: "Open-Source Freedom",
@@ -84,9 +91,10 @@ const LandingPage = () => {
           },
         ]}
       />
+
       <VerticalCards
         title="Product Highlights"
-        id="highlights"
+        text="Explore our powerful tools designed to simplify feature management, streamline user interactions, and gather valuable feedback — all in one place."
         cards={[
           {
             onClick: () => router.push("/product/feature-flags"),
@@ -137,10 +145,34 @@ const LandingPage = () => {
           },
         ]}
       />
+      <MiniCards
+        title="Who It’s For"
+        text="Whether you're working solo, part of a team, scaling a startup, or managing a large enterprise, our solution adapts to your needs and grows with you."
+        cards={[
+          {
+            title: "Solo Developers",
+            description: "Quick setup and full control over projects.",
+            icon: "person",
+          },
+          {
+            title: "Teams",
+            description: "Collaborate easily with version control and reviews.",
+            icon: "groups",
+          },
+          {
+            title: "Startups",
+            description: "Scalable and flexible, no long-term commitments.",
+            icon: "rocket_launch",
+          },
+          {
+            title: "Enterprises",
+            description: "Advanced features for large-scale projects.",
+            icon: "corporate_fare",
+          },
+        ]}
+      />
       <OrderedCards
-        id="how"
         title="How It Works"
-        // TODO update or remove
         text="Simplify your workflow with our tools that provide clear insights, minimizing the complexity of managing intricate deployment data."
         data={[
           {
@@ -165,6 +197,24 @@ const LandingPage = () => {
             image: {
               src: ``,
               alt: "Random building process image",
+            },
+          },
+        ]}
+      />
+      <Banner
+        title="Join the comunity"
+        text="Basestack is open-source—fork it, tweak it, or self-host it. Prefer ease? Our hosted plans have you covered."
+        buttons={[
+          {
+            text: "Check the code",
+            onClick: () => {
+              // something
+            },
+          },
+          {
+            text: "Go hosted",
+            onClick: () => {
+              // something
             },
           },
         ]}

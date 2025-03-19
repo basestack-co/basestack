@@ -188,7 +188,7 @@ const Pricing = ({
   title,
   text,
   items,
-  id = "pricing",
+  id,
   segment = [],
 }: PricingProps) => {
   const { device, spacing } = useTheme();

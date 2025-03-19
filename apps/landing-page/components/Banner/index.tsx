@@ -23,7 +23,7 @@ export interface Props {
 }
 
 const BannerComp = ({
-  id = "banner",
+  id,
   title,
   text,
   buttons,

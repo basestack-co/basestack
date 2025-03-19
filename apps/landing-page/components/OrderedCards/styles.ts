@@ -11,7 +11,6 @@ export const HeaderContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 ${({ theme }) => theme.spacing.s5};
 `;
 
 export const ContentContainer = styled.div`

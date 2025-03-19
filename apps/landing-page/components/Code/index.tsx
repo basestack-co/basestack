@@ -65,7 +65,7 @@ const CardComp = ({ icon, title, description, button, onClick }: CardProps) => {
   );
 };
 
-const Code = ({ id = "code", title, description, data }: Props) => {
+const Code = ({ id, title, description, data }: Props) => {
   const { device } = useTheme();
   const isDesktop = useMedia(device.min.lg, true);
 

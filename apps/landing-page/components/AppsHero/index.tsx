@@ -36,13 +36,7 @@ export interface SliderProps {
   }>;
 }
 
-const AppsHero = ({
-  title,
-  text,
-  data,
-  id = "apps-hero",
-  actions,
-}: SliderProps) => {
+const AppsHero = ({ title, text, data, id, actions }: SliderProps) => {
   const { isDarkMode, device, spacing } = useTheme();
   const isMobile = useMedia(device.max.sm, false);
   const isDesktop = useMedia(device.min.lg, true);

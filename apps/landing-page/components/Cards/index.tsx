@@ -26,7 +26,7 @@ export interface CardsProps {
   }>;
 }
 
-const Cards = ({ title, text, cards, id = "card" }: CardsProps) => {
+const Cards = ({ title, text, cards, id }: CardsProps) => {
   const { device } = useTheme();
   const isDesktop = useMedia(device.min.lg, true);
 

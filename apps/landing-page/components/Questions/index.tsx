@@ -13,7 +13,7 @@ export interface QuestionsProps {
   data: Array<{ title: string; text: string }>;
 }
 
-const Questions = ({ title, text, data, id = "questions" }: QuestionsProps) => {
+const Questions = ({ title, text, data, id }: QuestionsProps) => {
   return (
     <Container id={id}>
       <ContentContainer>

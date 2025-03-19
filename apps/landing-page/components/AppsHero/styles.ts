@@ -42,5 +42,7 @@ export const ButtonsContainer = styled.div`
 `;
 
 export const StyledImageContainer = styled(ImageContainer)`
+  max-width: ${rem("1140px")};
   margin: ${({ theme }) => theme.spacing.s3} auto 0 auto;
+  padding: 0 ${({ theme }) => theme.spacing.s5};
 `;

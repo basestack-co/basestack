@@ -14,7 +14,7 @@ export interface CardsProps {
   }>;
 }
 
-const MiniCards = ({ title, text, cards, id = "card" }: CardsProps) => (
+const MiniCards = ({ title, text, cards, id }: CardsProps) => (
   <Container id={id}>
     <ContentContainer>
       <HeaderContainer>

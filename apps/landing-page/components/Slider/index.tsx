@@ -36,7 +36,7 @@ const Slider = ({
   title,
   text,
   data,
-  id = "features-section",
+  id,
 }: SliderProps) => {
   const { device } = useTheme();
   const isDesktop = useMedia(device.min.lg, true);

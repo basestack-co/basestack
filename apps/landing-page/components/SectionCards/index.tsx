@@ -31,7 +31,7 @@ const SectionCards = ({
   title,
   text,
   cards,
-  id = "section-cards",
+  id,
 }: CardsProps) => (
   <Container id={id}>
     <ContentContainer>
