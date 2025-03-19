@@ -14,7 +14,6 @@ import {
 } from "@basestack/design-system";
 // Utils
 import { config } from "@basestack/utils";
-import { AppMode } from "utils/helpers/general";
 // Styles
 import {
   Column,
@@ -24,7 +23,19 @@ import {
   Separator,
 } from "./styles";
 
-interface ActivePlanProps {
+export interface CurrentPlan {
+  name: string;
+  price: {
+    monthly: {
+      amount: number;
+    };
+    yearly: {
+      amount: number;
+    };
+  };
+}
+
+export interface ActivePlanProps {
   isActive: boolean;
   isBilledMonthly: boolean;
   cardBrand: string;
@@ -32,11 +43,11 @@ interface ActivePlanProps {
   onManage: () => void;
   onUpdate: () => void;
   renewsAt: string;
-  variantId: number;
+  currentPlan?: CurrentPlan;
+  isLoadingExternalUrl: boolean;
 }
 
 const ActivePlan = ({
-  variantId,
   isActive,
   onManage,
   onUpdate,
@@ -44,15 +55,12 @@ const ActivePlan = ({
   isBilledMonthly,
   renewsAt,
   cardBrand,
+  currentPlan,
+  isLoadingExternalUrl,
 }: ActivePlanProps) => {
   const t = useTranslations("profile");
   const { spacing } = useTheme();
 
-  const currentPlan = config.plans.getFormPlanByVariantId(
-    variantId,
-    isBilledMonthly,
-    AppMode,
-  );
   const price = isBilledMonthly
     ? currentPlan?.price.monthly.amount
     : currentPlan?.price.yearly.amount;
@@ -136,10 +144,18 @@ const ActivePlan = ({
 
       <HorizontalRule mt="auto" />
       <FooterContainer>
-        <Button onClick={onUpdate} variant={ButtonVariant.Outlined}>
+        <Button
+          onClick={onUpdate}
+          variant={ButtonVariant.Outlined}
+          isDisabled={isLoadingExternalUrl}
+        >
           {t("billing.plan.details.button")}
         </Button>
-        <Button onClick={onManage} variant={ButtonVariant.Secondary}>
+        <Button
+          onClick={onManage}
+          variant={ButtonVariant.Secondary}
+          isDisabled={isLoadingExternalUrl}
+        >
           {t("billing.plan.current.button")}
         </Button>
       </FooterContainer>
