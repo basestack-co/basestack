@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { useTheme } from "styled-components";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
@@ -85,17 +85,9 @@ const FlagsCardSliderAnimation = () => {
     }
   }, [emblaApi]);
 
-  const handleMouseEnter = useCallback(() => {
-    autoScrollPlugin.current?.stop();
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    autoScrollPlugin.current?.play();
-  }, []);
-
   return (
     <Container>
-      <Embla onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <Embla>
         <EmblaViewport ref={emblaRef}>
           <EmblaContainer>
             {data.map((item, index) => (

@@ -10,6 +10,7 @@ import {
   VerticalCards,
   Banner,
   MiniCards,
+  AutoSlidingCards,
 } from "components";
 // Locales
 import { useTranslations } from "next-intl";
@@ -91,7 +92,6 @@ const LandingPage = () => {
           },
         ]}
       />
-
       <VerticalCards
         title="Product Highlights"
         text="Explore our powerful tools designed to simplify feature management, streamline user interactions, and gather valuable feedback — all in one place."
@@ -201,18 +201,48 @@ const LandingPage = () => {
           },
         ]}
       />
+      <AutoSlidingCards
+        title="What Our Users Are Saying"
+        text="Discover how basestack is empowering developers, teams, and businesses to innovate faster, optimize workflows, and drive growth."
+        cards={[
+          {
+            text: `"Feature Flags allowed me to control app releases with precision, speeding up deployment."`,
+            icon: "flag",
+          },
+          {
+            text: `"Dynamic Forms saved our team countless hours in customer outreach and boosted user engagement."`,
+            icon: "description",
+          },
+          {
+            text: `"User Feedback helps us refine our roadmap with real-time insights and better decision-making."`,
+            icon: "campaign",
+          },
+          {
+            text: `"The flexibility of Feature Flags made our app launch smoother and more predictable."`,
+            icon: "flag",
+          },
+          {
+            text: `"With Dynamic Forms, we streamlined our communication and enhanced the user experience."`,
+            icon: "description",
+          },
+          {
+            text: `"User Feedback has been invaluable for understanding user needs and guiding our product improvements."`,
+            icon: "campaign",
+          },
+        ]}
+      />
       <Banner
-        title="Join the comunity"
-        text="Basestack is open-source—fork it, tweak it, or self-host it. Prefer ease? Our hosted plans have you covered."
+        title="Join the Community"
+        text="Be part of the growing basestack community! Fork the code, customize it your way, or choose our hassle-free hosted plans for a seamless experience."
         buttons={[
           {
-            text: "Check the code",
+            text: "Explore the Code",
             onClick: () => {
               // something
             },
           },
           {
-            text: "Go hosted",
+            text: "Try Hosted",
             onClick: () => {
               // something
             },
