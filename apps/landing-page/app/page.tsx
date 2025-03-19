@@ -2,9 +2,7 @@
 
 import React, { Fragment } from "react";
 import { useRouter } from "next/navigation";
-// Components
 import {
-  AppsHero,
   OrderedCards,
   Cards,
   VerticalCards,
@@ -12,86 +10,14 @@ import {
   MiniCards,
   AutoSlidingCards,
 } from "components";
-// Locales
 import { useTranslations } from "next-intl";
-// Styles
-import { useTheme } from "styled-components";
 
 const LandingPage = () => {
   const t = useTranslations();
-  const { isDarkMode } = useTheme();
   const router = useRouter();
 
   return (
     <Fragment>
-      <AppsHero
-        title={t("page.main.hero.title")}
-        text={t("page.main.hero.description")}
-        actions={[
-          {
-            id: "1",
-            text: t("page.main.hero.action.learn-more"),
-            href: "",
-          },
-          {
-            id: "2",
-            text: t("page.main.hero.action.request-demo"),
-            href: "",
-            isTertiary: true,
-          },
-        ]}
-        data={[
-          {
-            icon: "flag",
-            title: t("page.main.hero.card.flags.title"),
-            text: t("page.main.hero.card.flags.description"),
-            image: {
-              src: `/images/product/flags/flags_cards_popups${isDarkMode ? "_dark" : ""}.png`,
-              alt: "Product demo",
-            },
-          },
-          {
-            icon: "description",
-            title: t("page.main.hero.card.forms.title"),
-            text: t("page.main.hero.card.forms.description"),
-            image: {
-              src: `/images/product/forms/submissions${isDarkMode ? "_dark" : ""}.png`,
-              alt: "Product demo",
-            },
-          },
-          {
-            icon: "campaign",
-            title: t("page.main.hero.card.feedback.title"),
-            text: t("page.main.hero.card.feedback.description"),
-            image: {
-              src: "",
-              alt: "Product demo",
-            },
-            isDisabled: true,
-          },
-        ]}
-      />
-      <Cards
-        title="Why choose basestack?"
-        text="Discover why basestack stands out as a versatile, scalable, and open solution tailored to fit projects of all sizes and complexities."
-        cards={[
-          {
-            title: "Open-Source Freedom",
-            text: "Self-host for free or use our hosted version.",
-            icon: "code",
-          },
-          {
-            title: "Scales with You",
-            text: "From solo projects to startup teams, we’ve got you covered.",
-            icon: "trending_up",
-          },
-          {
-            title: "No Lock-In",
-            text: "Flexible tools that adapt to your stack, not the other way around.",
-            icon: "lock_open",
-          },
-        ]}
-      />
       <VerticalCards
         title="Product Highlights"
         text="Explore our powerful tools designed to simplify feature management, streamline user interactions, and gather valuable feedback — all in one place."
@@ -131,7 +57,7 @@ const LandingPage = () => {
           {
             color: "green",
             icon: "campaign",
-            title: "User Feedback",
+            title: "User Feedback (Soon)",
             text: "Gain valuable insights directly from your users to optimize experiences.",
             items: [
               "Customizable widgets",
@@ -142,6 +68,27 @@ const LandingPage = () => {
               "Anonymous feedback",
               "Data export options",
             ],
+          },
+        ]}
+      />
+      <Cards
+        title="Why choose basestack?"
+        text="Discover why basestack stands out as a versatile, scalable, and open solution tailored to fit projects of all sizes and complexities."
+        cards={[
+          {
+            title: "Open-Source Freedom",
+            text: "Self-host for free or use our hosted version.",
+            icon: "code",
+          },
+          {
+            title: "Scales with You",
+            text: "From solo projects to startup teams, we’ve got you covered.",
+            icon: "trending_up",
+          },
+          {
+            title: "No Lock-In",
+            text: "Flexible tools that adapt to your stack, not the other way around.",
+            icon: "lock_open",
           },
         ]}
       />

@@ -9,7 +9,6 @@ export { default as Code } from "./Code";
 export { default as WaitingList } from "./WaitingList";
 export { default as GlobalNavigation } from "./GlobalNavigation";
 export { default as ProductNavigation } from "./ProductNavigation";
-export { default as AppsHero } from "./AppsHero";
 export { default as SectionCards } from "./SectionCards";
 export { default as MiniCards } from "./MiniCards";
 export { default as FlagsCardSliderAnimation } from "./FlagsCardSliderAnimation";
