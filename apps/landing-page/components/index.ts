@@ -19,3 +19,4 @@ export { default as CodeAnimation } from "./CodeAnimation";
 export { default as AccessLabelsAnimation } from "./AccessLabelsAnimation";
 export { default as ActivityCardsAnimation } from "./ActivityCardsAnimation";
 export { default as OrderedCards } from "./OrderedCards";
+export { default as VerticalCards } from "./VerticalCards";

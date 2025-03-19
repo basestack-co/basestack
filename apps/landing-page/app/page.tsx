@@ -1,8 +1,9 @@
 "use client";
 
 import React, { Fragment } from "react";
+import { useRouter } from "next/navigation";
 // Components
-import { AppsHero, OrderedCards, Cards } from "components";
+import { AppsHero, OrderedCards, Cards, VerticalCards } from "components";
 // Locales
 import { useTranslations } from "next-intl";
 // Styles
@@ -11,6 +12,7 @@ import { useTheme } from "styled-components";
 const LandingPage = () => {
   const t = useTranslations();
   const { isDarkMode } = useTheme();
+  const router = useRouter();
 
   return (
     <Fragment>
@@ -82,7 +84,59 @@ const LandingPage = () => {
           },
         ]}
       />
-      {/* TODO section 2 */}
+      <VerticalCards
+        title="Product Highlights"
+        id="highlights"
+        cards={[
+          {
+            onClick: () => router.push("/product/feature-flags"),
+            color: "blue",
+            icon: "flag",
+            title: "Feature Flags",
+            text: "Effortlessly control feature rollouts and toggle settings instantly.",
+            items: [
+              "Granular user targeting",
+              "Remote configuration",
+              "A/B testing support",
+              "Instant rollback",
+              "CI/CD integration",
+              "Multi-environment support",
+              "Scalable to high traffic",
+            ],
+          },
+          {
+            onClick: () => router.push("product/forms"),
+            color: "yellow",
+            icon: "description",
+            title: "Dynamic Forms",
+            text: "Design intuitive, customizable forms that adapt to user inputs.",
+            items: [
+              "Drag-and-drop builder",
+              "Real-time validation",
+              "Third-party integrations",
+              "Multi-step progress",
+              "Accessible design",
+              "Submission analytics",
+              "GDPR compliance",
+            ],
+          },
+          {
+            color: "green",
+            icon: "campaign",
+            title: "User Feedback",
+            text: "Gain valuable insights directly from your users to optimize experiences.",
+            items: [
+              "Customizable widgets",
+              "Sentiment analysis",
+              "Real-time reports",
+              "Feedback tagging",
+              "Slack/Email alerts",
+              "Anonymous feedback",
+              "Data export options",
+            ],
+          },
+        ]}
+      />
       <OrderedCards
         id="how"
         title="How It Works"

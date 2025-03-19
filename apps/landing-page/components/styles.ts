@@ -2,16 +2,18 @@ import styled, { css } from "styled-components";
 import { rem } from "polished";
 
 export const Card = styled.div.withConfig({
-  shouldForwardProp: (prop) => !["p", "bg", "transitionBg"].includes(prop),
+  shouldForwardProp: (prop) =>
+    !["p", "bg", "transitionBg", "height"].includes(prop),
 })<{
   p?: string | number;
   bg?: string;
   transitionBg?: boolean;
+  height?: string;
 }>`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  height: 100%;
+  height: ${({ height }) => height || "100%"};
   background-color: ${({ theme, bg }) =>
     bg ? bg : theme.isDarkMode ? theme.colors.gray800 : theme.colors.white};
   border-radius: ${rem("8px")};
