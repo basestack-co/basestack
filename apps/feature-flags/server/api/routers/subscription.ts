@@ -134,6 +134,8 @@ export const subscriptionRouter = createTRPCRouter({
           custom: {
             userId,
             planId: input.planId,
+            appMode: AppMode,
+            product: "flags",
           },
         },
         expiresAt: dayjs().add(1, "hour").format(),

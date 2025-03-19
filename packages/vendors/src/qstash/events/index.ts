@@ -1,18 +1,18 @@
-import { Client } from "@upstash/qstash";
-
-export const client = new Client({ token: process.env.QSTASH_TOKEN! });
-export const baseUrl = process.env.UPSTASH_WORKFLOW_URL;
+// Client
+import { client, baseUrl } from "../client";
+// Types
+import type {
+  CheckDataForSpamPayload,
+  SendEmailPayload,
+  SendDataToExternalWebhookPayload,
+  UpdateSubscriptionEventPayload,
+} from "../types";
 
 // AI JOBS
 
 const aiQueue = client.queue({
   queueName: "ai-queue",
 });
-
-export interface CheckDataForSpamPayload {
-  submissionId: string;
-  data: any;
-}
 
 export const checkDataForSpamEvent = async (body: CheckDataForSpamPayload) => {
   await aiQueue.enqueueJSON({
@@ -29,13 +29,6 @@ const notificationsQueue = client.queue({
   queueName: "notifications-queue",
 });
 
-export interface SendEmailPayload {
-  to: string[];
-  subject: string;
-  template: string;
-  props?: any;
-}
-
 export const sendEmailEvent = async (body: SendEmailPayload) => {
   await notificationsQueue.enqueueJSON({
     url: `${baseUrl}/api/v1/jobs/send-email`,
@@ -43,11 +36,6 @@ export const sendEmailEvent = async (body: SendEmailPayload) => {
     body,
   });
 };
-
-export interface SendDataToExternalWebhookPayload {
-  url: string;
-  body: any;
-}
 
 export const sendDataToExternalWebhookEvent = async (
   body: SendDataToExternalWebhookPayload,
@@ -64,34 +52,6 @@ export const sendDataToExternalWebhookEvent = async (
 const subscriptionsQueue = client.queue({
   queueName: "subscriptions-queue",
 });
-
-export interface UpdateSubscriptionEventPayload {
-  meta: {
-    test_mode: boolean;
-    webhook_id: string;
-    event_name: string;
-    custom_data: {
-      plan_id: string;
-      user_id: string;
-    };
-  };
-  data: {
-    id: string;
-    type: string;
-    attributes: {
-      customer_id: number;
-      status: string;
-      ends_at: string;
-      renews_at: string;
-      product_id: number;
-      cancelled: boolean;
-      order_id: number;
-      paused: boolean;
-      variant_id: number;
-      variant_name: string
-    };
-  };
-}
 
 export const updateSubscriptionEvent = async (
   body: UpdateSubscriptionEventPayload,

@@ -1,13 +1,19 @@
-import { Client } from "@upstash/qstash";
+export interface CheckDataForSpamPayload {
+  submissionId: string;
+  data: any;
+}
 
-export const client = new Client({ token: process.env.QSTASH_TOKEN! });
-export const baseUrl = process.env.UPSTASH_WORKFLOW_URL;
+export interface SendEmailPayload {
+  to: string[];
+  subject: string;
+  template: string;
+  props?: any;
+}
 
-// SUBSCRIPTION JOBS
-
-const subscriptionsQueue = client.queue({
-  queueName: "subscriptions-queue",
-});
+export interface SendDataToExternalWebhookPayload {
+  url: string;
+  body: any;
+}
 
 export interface UpdateSubscriptionEventPayload {
   meta: {
@@ -17,6 +23,8 @@ export interface UpdateSubscriptionEventPayload {
     custom_data: {
       plan_id: string;
       user_id: string;
+      product: string;
+      app_mode: string;
     };
   };
   data: {
@@ -36,13 +44,3 @@ export interface UpdateSubscriptionEventPayload {
     };
   };
 }
-
-export const updateSubscriptionEvent = async (
-  body: UpdateSubscriptionEventPayload,
-) => {
-  await subscriptionsQueue.enqueueJSON({
-    url: `${baseUrl}/api/v1/jobs/update-subscription`,
-    retries: 2,
-    body,
-  });
-};

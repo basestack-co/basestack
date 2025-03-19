@@ -317,7 +317,7 @@ const getFormPlanVariantId = (
   mode: string = "production",
 ) => {
   const stage = getAppMode(mode);
-2
+
   const plan = getFormPlan(id);
   return plan.price[interval].variantIds[stage];
 };
