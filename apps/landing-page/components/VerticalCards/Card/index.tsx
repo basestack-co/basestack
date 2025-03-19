@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "styled-components";
 import { Text, Icon, Label } from "@basestack/design-system";
+import { useSpring, animated } from "react-spring";
 import {
   Container,
   Header,
   HeaderContent,
+  IconContainer,
   Indicator,
   List,
   ListItem,
@@ -23,6 +25,8 @@ export interface CardProps {
   onClick?: () => void;
 }
 
+const AnimatedIconContainer = animated(IconContainer);
+
 const CardComp = ({
   title,
   text,
@@ -32,6 +36,7 @@ const CardComp = ({
   onClick,
 }: CardProps) => {
   const { colors, spacing, isDarkMode } = useTheme();
+  const [isHovered, setIsHovered] = useState(false);
 
   const indicatorColors = {
     blue: colors[isDarkMode ? "blue500" : "blue400"],
@@ -41,14 +46,26 @@ const CardComp = ({
 
   const indicatorColor = indicatorColors[color];
 
+  const animatedStyle = useSpring({
+    transform: isHovered ? "rotate(90deg)" : "rotate(0deg)",
+    config: { tension: 300, friction: 20 },
+  });
+
   return (
     <Container>
-      <StyledButton onClick={onClick} disabled={typeof onClick !== "function"}>
+      <StyledButton
+        onClick={onClick}
+        disabled={typeof onClick !== "function"}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <Header>
           <Indicator color={indicatorColor as Color} />
           <HeaderContent>
             <Text size="large">{title}</Text>
-            <Icon icon={icon} />
+            <AnimatedIconContainer style={animatedStyle}>
+              <Icon icon={isHovered ? "arrow_upward" : icon} />
+            </AnimatedIconContainer>
           </HeaderContent>
         </Header>
       </StyledButton>

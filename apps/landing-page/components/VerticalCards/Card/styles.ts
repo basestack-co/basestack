@@ -70,3 +70,7 @@ export const StyledButton = styled.button`
     box-shadow: ${({ theme }) => theme.shadow.elevation4};
   }
 `;
+
+export const IconContainer = styled.div`
+  display: inline-flex;
+`;
