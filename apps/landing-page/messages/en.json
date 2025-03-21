@@ -91,20 +91,48 @@
         "description": "Basestack equips solo devs, teams, and startups with open-source tools you can self-host for free—or choose our hosted solution for simplicity. Scalable and versatile, it’s the foundation for every stage of your journey.",
         "action": {
           "learn-more": "Learn more",
-          "request-demo": "Request a demo"
+          "request-demo": "Request a demo",
+          "quote": "Get a Quote"
         },
         "card": {
           "flags": {
             "title": "Feature Flags",
-            "description": "Toggle features instantly to manage deployments smoothly."
+            "description": "Toggle features instantly to manage deployments smoothly.",
+            "feature": {
+              "1": "Activity & History Tracking",
+              "2": "One-Click Rollbacks",
+              "3": "Instant Flag Activation",
+              "4": "Flag Management Hub",
+              "5": "Multi-Environment Sync",
+              "6": "Secure Request Control",
+              "7": "SDKs & API Ready"
+            }
           },
           "forms": {
             "title": "Forms",
-            "description": "Collect submissions seamlessly with a no-code forms solution."
+            "description": "Collect submissions seamlessly with a no-code forms solution.",
+            "feature": {
+              "1": "Submissions Hub",
+              "2": "Redirect Control",
+              "3": "Data Downloads",
+              "4": "Spam Filter",
+              "5": "Quick Form Setup",
+              "6": "HTML & JavaScript Forms",
+              "7": "Forms API"
+            }
           },
           "feedback": {
             "title": "Feedback (Soon)",
-            "description": "Gather user insights to shape your product—launching soon."
+            "description": "Gather user insights to shape your product—launching soon.",
+            "feature": {
+              "1": "Collect Feedback",
+              "2": "Analyze Feedback",
+              "3": "Prioritize Feedback",
+              "4": "Planning & Roadmaps",
+              "5": "Share Updates",
+              "6": "Feedback Moderation",
+              "7": "Anonymous Feedback"
+            }
           }
         }
       },
@@ -618,7 +646,55 @@
       },
       "5": {
         "title": "What’s your refund policy?",
-        "description": "We don’t offer refunds on paid plans, but our generous free version gives you plenty of time to test the platform thoroughly. You can decide if it’s the right fit before upgrading—and cancel anytime if needed—no pressure, no surprises."
+        "description": "At Basestack, we offer refunds within 15 days of purchase if you’re not fully satisfied. Beyond that, refunds may still be considered for serious reasons—just reach out to us. With our generous free tier, you can test everything thoroughly beforehand, and you’re always free to cancel anytime.\n\n"
+      },
+      "6": {
+        "title": "Which payment provider does Basestack use?",
+        "description": "We partner with Lemon Squeezy to handle all payments securely and efficiently. As our merchant of record, Lemon Squeezy manages transactions, tax compliance, and global payment methods, so you can focus on using our tools without the hassle."
+      },
+      "7": {
+        "title": "What is Basestack, and who is it for?",
+        "description": "Basestack is a suite of open-source tools—like Forms and Feature Flags—designed for solo developers, teams, and startups. Whether you’re building solo or scaling a business, you can self-host for free or use our hosted plans to streamline your workflow."
+      },
+      "8": {
+        "title": "Is Basestack really free to use?",
+        "description": "Yes, our open-source tools are free to self-host forever. You only pay if you opt for our hosted plans, which add convenience and support—perfect if you want to skip the setup."
+      },
+      "9": {
+        "title": "How do I get started with Basestack?",
+        "description": "It’s simple: choose your tool, decide to self-host or go hosted, and integrate it into your project. Check our docs for quick setup guides, or request a demo for a closer look."
+      },
+      "10": {
+        "title": "What’s the Feedback tool, and when’s it coming?",
+        "description": "Feedback is our upcoming tool to capture user insights, competing with platforms like Canny. It’s launching soon—stay tuned for updates or sign up to be notified!"
+      },
+      "11": {
+        "title": "How secure is Basestack?",
+        "description": "Security is a priority. Self-hosted setups give you full control, while our hosted plans include robust protection like request filtering and data encryption to keep your projects safe."
+      },
+      "12": {
+        "title": "What support do I get with Basestack?",
+        "description": "Self-hosters tap into our open-source community and docs. Hosted plan users get priority support from our team—reach out anytime at support@basestack.com for help."
+      },
+      "13": {
+        "title": "How does Basestack compare to competitors?",
+        "description": "Unlike rigid platforms, Basestack offers open-source freedom and modular pricing. You get tailored tools like Forms and Feature Flags, plus a hosted option, all without bloated extras."
+      },
+      "14": {
+        "title": "How often do you update Basestack tools?",
+        "description": "We regularly roll out updates to keep our tools sharp and secure. Self-hosters can pull the latest from our repo, while hosted users get upgrades automatically—no effort required."
+      },
+      "15": {
+        "title": "Can I use Basestack with my existing tech stack?",
+        "description": "Yes, Basestack integrates easily with most setups. Forms work with basic HTML or JS, Feature Flags fit any codebase, and our docs guide you through the details."
+      },
+      "16": {
+        "title": "Is there a trial for hosted plans?",
+        "description": "Our free tier acts as your trial—test everything there first. Hosted plans don’t have a separate trial, but you can cancel within 15 days for a refund if it’s not a fit."
+      },
+      "17": {
+        "title": "Why open-source and hosted together?",
+        "description": "Open-source gives you control and no cost, while hosted offers convenience and support. Pick what suits you—Basestack adapts to your style, not the other way around."
       }
     }
   }

@@ -400,6 +400,14 @@ const ProductFormsPage = () => {
             title: t("common.questions.5.title"),
             text: t("common.questions.5.description"),
           },
+          {
+            title: t("common.questions.6.title"),
+            text: t("common.questions.6.description"),
+          },
+          {
+            title: t("common.questions.16.title"),
+            text: t("common.questions.16.description"),
+          },
         ]}
       />
       <Banner

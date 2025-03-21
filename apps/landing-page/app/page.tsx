@@ -9,6 +9,7 @@ import {
   Banner,
   MiniCards,
   AutoSlidingCards,
+  Questions,
 } from "components";
 // Locales
 import { useTranslations } from "next-intl";
@@ -28,18 +29,18 @@ const LandingPage = () => {
           titleTag: "h1",
           titleSize: "xLarge",
           title: t("page.main.hero.title"),
-          text: "Explore our powerful tools designed to simplify feature management, streamline user interactions, and gather valuable feedback — all in one place.",
+          text: t("page.main.hero.description"),
           hasAnimatedText: true,
         }}
         actions={[
           {
             id: "1",
-            text: "Start Now",
+            text: t("page.main.hero.action.quote"),
             href: "",
           },
           {
             id: "2",
-            text: "Go Now",
+            text: t("page.main.hero.action.request-demo"),
             href: "",
             isTertiary: true,
           },
@@ -49,47 +50,47 @@ const LandingPage = () => {
             onClick: () => router.push("/product/feature-flags"),
             color: "blue",
             icon: "flag",
-            title: "Feature Flags",
-            text: "Effortlessly control feature rollouts and toggle settings instantly.",
+            title: t("page.main.hero.card.flags.title"),
+            text: t("page.main.hero.card.flags.description"),
             items: [
-              "Granular user targeting",
-              "Remote configuration",
-              "A/B testing support",
-              "Instant rollback",
-              "CI/CD integration",
-              "Multi-environment support",
-              "Scalable to high traffic",
+              t("page.main.hero.card.flags.feature.1"),
+              t("page.main.hero.card.flags.feature.2"),
+              t("page.main.hero.card.flags.feature.3"),
+              t("page.main.hero.card.flags.feature.4"),
+              t("page.main.hero.card.flags.feature.5"),
+              t("page.main.hero.card.flags.feature.6"),
+              t("page.main.hero.card.flags.feature.7"),
             ],
           },
           {
             onClick: () => router.push("product/forms"),
             color: "yellow",
             icon: "description",
-            title: "Dynamic Forms",
-            text: "Design intuitive, customizable forms that adapt to user inputs.",
+            title: t("page.main.hero.card.forms.title"),
+            text: t("page.main.hero.card.forms.description"),
             items: [
-              "Drag-and-drop builder",
-              "Real-time validation",
-              "Third-party integrations",
-              "Multi-step progress",
-              "Accessible design",
-              "Submission analytics",
-              "GDPR compliance",
+              t("page.main.hero.card.forms.feature.1"),
+              t("page.main.hero.card.forms.feature.2"),
+              t("page.main.hero.card.forms.feature.3"),
+              t("page.main.hero.card.forms.feature.4"),
+              t("page.main.hero.card.forms.feature.5"),
+              t("page.main.hero.card.forms.feature.6"),
+              t("page.main.hero.card.forms.feature.7"),
             ],
           },
           {
             color: "green",
             icon: "campaign",
-            title: "User Feedback (Soon)",
-            text: "Gain valuable insights directly from your users to optimize experiences.",
+            title: t("page.main.hero.card.feedback.title"),
+            text: t("page.main.hero.card.feedback.description"),
             items: [
-              "Customizable widgets",
-              "Sentiment analysis",
-              "Real-time reports",
-              "Feedback tagging",
-              "Slack/Email alerts",
-              "Anonymous feedback",
-              "Data export options",
+              t("page.main.hero.card.feedback.feature.1"),
+              t("page.main.hero.card.feedback.feature.2"),
+              t("page.main.hero.card.feedback.feature.3"),
+              t("page.main.hero.card.feedback.feature.4"),
+              t("page.main.hero.card.feedback.feature.5"),
+              t("page.main.hero.card.feedback.feature.6"),
+              t("page.main.hero.card.feedback.feature.7"),
             ],
           },
         ]}
@@ -209,6 +210,57 @@ const LandingPage = () => {
           },
         ]}
       />
+
+      <Questions
+        id="questions"
+        title={t("common.questions.title")}
+        text={t("common.questions.description", {
+          product: "Basestack Platform",
+        })}
+        data={[
+          {
+            title: t("common.questions.7.title"),
+            text: t("common.questions.7.description"),
+          },
+          {
+            title: t("common.questions.8.title"),
+            text: t("common.questions.8.description"),
+          },
+          {
+            title: t("common.questions.9.title"),
+            text: t("common.questions.9.description"),
+          },
+          {
+            title: t("common.questions.10.title"),
+            text: t("common.questions.10.description"),
+          },
+          {
+            title: t("common.questions.11.title"),
+            text: t("common.questions.11.description"),
+          },
+          {
+            title: t("common.questions.12.title"),
+            text: t("common.questions.12.description"),
+          },
+          {
+            title: t("common.questions.13.title"),
+            text: t("common.questions.13.description"),
+          },
+          {
+            title: t("common.questions.14.title"),
+            text: t("common.questions.14.description"),
+          },
+          {
+            title: t("common.questions.15.title"),
+            text: t("common.questions.15.description"),
+          },
+          {
+            title: t("common.questions.17.title"),
+            text: t("common.questions.17.description"),
+          },
+        ]}
+      />
+
       <Banner
         title={t("page.main.community.title")}
         text={t("page.main.community.description")}
