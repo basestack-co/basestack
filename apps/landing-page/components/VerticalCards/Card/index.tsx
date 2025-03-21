@@ -10,8 +10,10 @@ import {
   Indicator,
   List,
   ListItem,
+  HeaderContainer,
   StyledButton,
-  StyledCard,
+  ContentContainer,
+  IndicatorContainer,
 } from "./styles";
 
 type Color = "blue" | "green" | "yellow";
@@ -35,13 +37,13 @@ const CardComp = ({
   items,
   onClick,
 }: CardProps) => {
-  const { colors, spacing, isDarkMode } = useTheme();
+  const { colors, spacing } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
 
   const indicatorColors = {
-    blue: colors[isDarkMode ? "blue500" : "blue400"],
-    green: colors[isDarkMode ? "green500" : "green400"],
-    yellow: colors[isDarkMode ? "yellow500" : "yellow400"],
+    blue: colors.blue400,
+    green: colors.green400,
+    yellow: colors.yellow400,
   };
 
   const indicatorColor = indicatorColors[color];
@@ -59,35 +61,43 @@ const CardComp = ({
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <Header>
-          <Indicator color={indicatorColor as Color} />
-          <HeaderContent>
-            <Text size="large">{title}</Text>
-            <AnimatedIconContainer style={animatedStyle}>
-              <Icon icon={isHovered ? "arrow_upward" : icon} />
-            </AnimatedIconContainer>
-          </HeaderContent>
-        </Header>
+        <HeaderContainer>
+          <Header>
+            <IndicatorContainer>
+              <Indicator color={indicatorColor as Color} />
+            </IndicatorContainer>
+            <HeaderContent>
+              <Text size="large">{title}</Text>
+              <AnimatedIconContainer style={animatedStyle}>
+                <Icon icon={isHovered ? "arrow_upward" : icon} />
+              </AnimatedIconContainer>
+            </HeaderContent>
+          </Header>
+        </HeaderContainer>
+        <ContentContainer>
+          <Text
+            size="medium"
+            fontWeight={400}
+            lineHeight={1.6}
+            muted
+            mb={spacing.s5}
+          >
+            {text}
+          </Text>
+          <List>
+            {items.map((item, index) => (
+              <ListItem key={index}>
+                <Label
+                  size="medium"
+                  text={item}
+                  variant="light"
+                  isTranslucent
+                />
+              </ListItem>
+            ))}
+          </List>
+        </ContentContainer>
       </StyledButton>
-
-      <StyledCard height="auto">
-        <Text
-          size="medium"
-          fontWeight={400}
-          lineHeight={1.6}
-          muted
-          mb={spacing.s5}
-        >
-          {text}
-        </Text>
-        <List>
-          {items.map((item, index) => (
-            <ListItem key={index}>
-              <Label size="medium" text={item} variant="light" isTranslucent />
-            </ListItem>
-          ))}
-        </List>
-      </StyledCard>
     </Container>
   );
 };

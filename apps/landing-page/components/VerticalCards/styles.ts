@@ -4,7 +4,7 @@ import { rem } from "polished";
 export const Container = styled.section`
   display: flex;
   flex-direction: column;
-  padding: ${rem("100px")} 0 ${rem("92px")} 0;
+  padding: ${rem("100px")} 0 ${rem("80px")} 0;
 `;
 
 export const HeaderContainer = styled.section`
@@ -30,8 +30,8 @@ export const Embla = styled.div`
 
 export const EmblaViewport = styled.div`
   overflow: hidden;
-  padding: 0 ${({ theme }) => theme.spacing.s5}
-    ${({ theme }) => theme.spacing.s2} ${({ theme }) => theme.spacing.s5};
+  padding: ${({ theme }) =>
+    `0 ${theme.spacing.s5} ${theme.spacing.s5} ${theme.spacing.s5}`};
 `;
 
 export const EmblaContainer = styled.ul`

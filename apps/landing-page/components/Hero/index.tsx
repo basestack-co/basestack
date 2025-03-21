@@ -1,9 +1,6 @@
 import React from "react";
-// Theme
 import { useTheme } from "styled-components";
-// Utils
 import { events } from "@basestack/utils";
-// Components
 import Image, { ImageProps } from "../Image";
 import { Button, ButtonVariant, ButtonSize } from "@basestack/design-system";
 import {
@@ -69,8 +66,7 @@ const Hero = ({
         </ButtonsContainer>
         {image?.src && (
           <StyledImageContainer>
-            {/* eslint-disable-next-line jsx-a11y/alt-text */}
-            <Image {...image} />
+            <Image alt={image.alt} src={image.src} />
           </StyledImageContainer>
         )}
       </ContentContainer>

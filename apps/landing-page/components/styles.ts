@@ -74,7 +74,8 @@ export const gradientBorderStyles = (position: "top" | "bottom") => css`
     left: 0;
     right: 0;
     height: 1px;
-    background-color: ${({ theme }) => theme.colors.gray200};
+    background-color: ${({ theme }) =>
+      theme.colors[theme.isDarkMode ? "gray700" : "gray200"]};
     ${({ theme }) =>
       theme.isDarkMode
         ? css`
