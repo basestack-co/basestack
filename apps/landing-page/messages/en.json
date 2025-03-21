@@ -5,11 +5,11 @@
         "title": "Products",
         "flags": {
           "title": "Feature Flags",
-          "description": "Form creation and management"
+          "description": "Control feature rollouts with ease"
         },
         "forms": {
           "title": "Forms",
-          "description": "Feature creation and control"
+          "description": "Build and manage forms effortlessly"
         }
       },
       "docs": {
@@ -22,7 +22,7 @@
         "title": "Support"
       },
       "star": {
-        "title": "Star"
+        "title": "Star on GitHub"
       },
       "launch": {
         "title": "Launch"
@@ -39,25 +39,25 @@
         "title": "Docs"
       },
       "sdks": {
-        "title": "SDKs"
+        "title": "SDKs & Integrations"
       },
       "roadmap": {
-        "title": "Roadmap"
+        "title": "Product Roadmap"
       },
       "get-started": {
-        "title": "Get started - free"
+        "title": "Get Started for Free"
       },
       "self-hosting": {
-        "title": "Self-hosting"
+        "title": "Self-Hosting Guide"
       }
     }
   },
   "footer": {
-    "company": "© Basestack {year}. All rights reserved. Crafted in {portugal} hosted in {europe}",
+    "company": "© Basestack {year}. All rights reserved. Crafted in {portugal}, hosted in {europe}.",
     "newsletter": {
-      "title": "Join our Newsletter",
-      "text": "Get updates directly to your Inbox",
-      "action": "Subscribe"
+      "title": "Stay Updated",
+      "text": "Subscribe to receive the latest updates and insights.",
+      "action": "Subscribe Now"
     },
     "section": {
       "products": {
@@ -65,177 +65,177 @@
       },
       "resources": {
         "title": "Resources",
-        "support": "Support",
+        "support": "Customer Support",
         "system-status": "System Status",
         "blog": "Blog"
       },
       "developers": {
-        "title": "Developers",
-        "docs": "Documentation",
-        "contributing": "Contributing",
+        "title": "For Developers",
+        "docs": "Docs",
+        "contributing": "Contribute",
         "open-source": "Open Source",
-        "self-hosting": "Self-Hosting"
+        "self-hosting": "Self-Hosting Guide"
       },
       "company": {
         "title": "Company",
         "privacy-policy": "Privacy Policy",
         "cookies-policy": "Cookies Policy",
-        "term-of-use": "Term of Use"
+        "term-of-use": "Terms of Use"
       }
     }
   },
   "page": {
     "main": {
       "hero": {
-        "title": "Your Growth Toolkit, Built on Basestack",
-        "description": "Basestack equips solo devs, teams, and startups with open-source tools you can self-host for free—or choose our hosted solution for simplicity. Scalable and versatile, it’s the foundation for every stage of your journey.",
+        "title": "Your All-in-One Growth Toolkit, Powered by Basestack",
+        "description": "Basestack empowers solo developers, teams, and startups with open-source tools you can self-host for free—or choose our hassle-free hosted solution. Scalable, flexible, and designed for growth, it’s the perfect foundation for every stage of your journey.",
         "action": {
-          "learn-more": "Learn more",
-          "request-demo": "Request a demo",
-          "quote": "Get a Quote"
+          "learn-more": "Discover More",
+          "request-demo": "Request a Demo",
+          "quote": "Get a Custom Quote"
         },
         "card": {
           "flags": {
             "title": "Feature Flags",
-            "description": "Toggle features instantly to manage deployments smoothly.",
+            "description": "Instantly toggle features to streamline deployments and manage risk.",
             "feature": {
               "1": "Activity & History Tracking",
               "2": "One-Click Rollbacks",
               "3": "Instant Flag Activation",
-              "4": "Flag Management Hub",
-              "5": "Multi-Environment Sync",
+              "4": "Centralized Flag Management",
+              "5": "Multi-Environment Synchronization",
               "6": "Secure Request Control",
-              "7": "SDKs & API Ready"
+              "7": "Ready-to-Use SDKs & API"
             }
           },
           "forms": {
             "title": "Forms",
-            "description": "Collect submissions seamlessly with a no-code forms solution.",
+            "description": "Collect and manage submissions effortlessly with our no-code form builder.",
             "feature": {
-              "1": "Submissions Hub",
-              "2": "Redirect Control",
-              "3": "Data Downloads",
-              "4": "Spam Filter",
-              "5": "Quick Form Setup",
-              "6": "HTML & JavaScript Forms",
-              "7": "Forms API"
+              "1": "Centralized Submissions Hub",
+              "2": "Custom Redirect Control",
+              "3": "Downloadable Data Reports",
+              "4": "Spam Filtering",
+              "5": "Fast Form Setup",
+              "6": "HTML & JavaScript Compatibility",
+              "7": "Forms API Integration"
             }
           },
           "feedback": {
-            "title": "Feedback (Soon)",
-            "description": "Gather user insights to shape your product—launching soon.",
+            "title": "Feedback (Coming Soon)",
+            "description": "Capture valuable user insights to guide your product development—coming soon.",
             "feature": {
-              "1": "Collect Feedback",
-              "2": "Analyze Feedback",
-              "3": "Prioritize Feedback",
-              "4": "Planning & Roadmaps",
-              "5": "Share Updates",
-              "6": "Feedback Moderation",
-              "7": "Anonymous Feedback"
+              "1": "Seamless Feedback Collection",
+              "2": "Advanced Feedback Analysis",
+              "3": "Prioritize Insights",
+              "4": "Integrated Planning & Roadmaps",
+              "5": "Instant Updates Sharing",
+              "6": "Moderation Controls",
+              "7": "Anonymous Feedback Support"
             }
           }
         }
       },
       "highlights": {
-        "title": "Tools to Build, Control, and Grow",
+        "title": "Powerful Tools to Build, Manage, and Scale",
         "description": "",
         "slide": {
           "one": {
             "title": "Feature Flags",
-            "description": "Control at Your Fingertips – Toggle features without redeploys.",
+            "description": "Instant Control – Toggle features seamlessly without redeploying.",
             "alt": ""
           },
           "two": {
             "title": "Forms",
-            "description": "Fast Forms, No Hassle – Set up submissions in minutes.",
+            "description": "Set Up in Minutes – Effortless form creation and submission management.",
             "alt": ""
           },
           "three": {
             "title": "Feedback",
-            "description": "Listen and Improve – User insights, arriving soon.",
+            "description": "Listen, Learn, and Grow – Capture actionable user insights (coming soon).",
             "alt": ""
           }
         }
       },
       "why": {
         "title": "Why Choose Basestack?",
-        "description": "Basestack delivers the tools you need to build smarter and scale faster. Open-source flexibility, tailored options, and a focus on simplicity make it the go-to choice for developers and growing businesses alike.",
+        "description": "Basestack equips you with powerful tools to build smarter, scale faster, and stay flexible. Whether you prefer open-source control or hassle-free hosting, we offer tailored solutions that streamline your workflow, so you can focus on what matters most.",
         "card": {
           "open": {
-            "title": "Open-Source at Heart",
-            "description": "Self-host for free with full control, or let us handle hosting—your stack, your rules."
+            "title": "Open-Source Flexibility",
+            "description": "Host it yourself for full control, or let us take care of the hosting—your stack, your way."
           },
           "scale": {
-            "title": "Scales with Your Vision",
-            "description": "From solo projects to startup teams, Basestack adapts to your needs without missing a beat."
+            "title": "Scalable for Every Stage",
+            "description": "From solo developers to growing teams, Basestack scales effortlessly with your vision, no matter the size."
           },
           "learning": {
-            "title": "No Learning Curve",
-            "description": "Jump in with tools that fit your workflow—no new frameworks or complex setups required."
+            "title": "No Complex Setup",
+            "description": "Get started instantly with intuitive tools that fit seamlessly into your existing workflow—no new frameworks or steep learning curves."
           }
         }
       },
       "who": {
-        "title": "Who It’s For",
-        "description": "Basestack is built for creators at every level. Whether you’re coding solo, collaborating with a team, or scaling a business, our tools fit your needs with flexibility and ease.",
+        "title": "Who It's Built For",
+        "description": "Basestack is designed for creators at every stage. Whether you're a solo developer, a growing team, or an expanding business, our tools offer flexibility and scalability to meet your needs with ease.",
         "card": {
           "solo": {
             "title": "Solo Developers",
-            "description": "Launch projects fast with lightweight, customizable tools."
+            "description": "Launch projects quickly with lightweight, customizable tools that grow with you."
           },
           "teams": {
             "title": "Teams",
-            "description": "Streamline collaboration with tools that scale effortlessly."
+            "description": "Boost collaboration and productivity with tools that scale as your team grows."
           },
           "startups": {
             "title": "Startups",
-            "description": "Grow confidently with a stack that adapts to your pace."
+            "description": "Build and scale with confidence using a stack that evolves alongside your business."
           },
           "enterprises": {
             "title": "Enterprises",
-            "description": "Manage complex workflows with secure, reliable solutions."
+            "description": "Streamline complex workflows with secure, scalable solutions designed for large organizations."
           }
         }
       },
       "how-it-works": {
         "title": "How It Works",
-        "description": "Getting started with Basestack is straightforward and fast. Follow these three steps to pick your tools, set them up your way, and start building—no complications, just results.",
+        "description": "Getting started with Basestack is simple and fast. Follow these three easy steps to choose your tools, set them up your way, and start building—no hassle, just results. Whether you're a solo developer or part of a team, we've made the process seamless and adaptable to your needs.",
         "step": {
           "one": {
-            "title": "Choose Your Tools",
-            "description": "Select from Forms, Feature Flags, or more to match your project’s needs."
+            "title": "Select Your Tools",
+            "description": "Choose from our suite of tools like Forms, Feature Flags, and more to match the specific needs of your project. Whether you’re looking to streamline user submissions, manage feature releases, or gather user feedback, we have the right solution for you."
           },
           "two": {
-            "title": "Set Up Your Way",
-            "description": "Self-host for free with open-source code, or go with our hosted option for ease."
+            "title": "Set Up with Ease",
+            "description": "Set up your tools with minimal effort. Opt for self-hosting to maintain complete control over your stack or choose our hosted solution for a simplified, hassle-free experience. The choice is yours, and both options are designed to scale with your needs."
           },
           "three": {
             "title": "Build and Scale",
-            "description": "Integrate quickly and grow your stack as your goals evolve."
+            "description": "Start building right away by integrating Basestack’s tools into your existing workflow. As your project grows, you can easily expand your stack and add new tools, adapting to your evolving goals and scaling efficiently without disruption."
           }
         }
       },
       "use-cases": {
         "title": "Use Cases",
-        "description": "See how Basestack transforms workflows for developers, teams, and startups. From streamlining submissions to managing releases, our tools tackle real-world challenges with ease.",
+        "description": "Discover how Basestack simplifies workflows for developers, teams, and startups. From streamlining user submissions to managing feature releases, our tools address real-world challenges efficiently and effectively.",
         "card": {
           "forms": {
-            "one": "A small business uses Basestack Forms to collect customer inquiries and auto-reply instantly—no server setup needed.",
-            "two": "An event organizer captures sign-ups and files with Forms, exporting data to CSV for quick planning.",
-            "three": "A researcher gathers responses with Basestack Forms, using analytics to track participation in real time.",
-            "four": "A marketer sets up a form to collect leads, redirecting submitters to a custom thank-you page effortlessly."
+            "one": "A small business uses Basestack Forms to collect customer inquiries and auto-reply instantly—no server setup required, saving time and effort while enhancing customer experience.",
+            "two": "An event organizer captures attendee sign-ups and essential files through Forms, exporting data to CSV for quick, organized event planning and seamless follow-ups.",
+            "three": "A researcher gathers survey responses using Basestack Forms, leveraging real-time analytics to track participation and measure responses for actionable insights.",
+            "four": "A marketer sets up a form to collect leads and automatically redirects submitters to a custom thank-you page, ensuring a smooth and personalized lead capture process."
           },
           "flags": {
-            "one": "A startup rolls out new features to select users with Feature Flags, toggling access without redeploying.",
-            "two": "A team deploys updates confidently, using Flags to disable buggy features instantly if needed.",
-            "three": "A product team tests two versions of a feature with Flags, switching between them to find the winner.",
-            "four": "A dev team hides unfinished features during a live update, revealing them only when ready."
+            "one": "A startup deploys new features to a select group of users using Feature Flags, granting access based on specific criteria without needing to redeploy, optimizing rollouts.",
+            "two": "A development team confidently deploys updates, utilizing Feature Flags to disable problematic features instantly, ensuring smooth user experiences even during bug fixes.",
+            "three": "A product team conducts A/B testing with Feature Flags, switching between two versions of a feature to gather user feedback and determine which performs best.",
+            "four": "A dev team hides unfinished features during a live update with Feature Flags, keeping them invisible to users until they’re polished and ready for release."
           }
         }
       },
       "community": {
         "title": "Join the Basestack Community",
-        "description": "Basestack thrives on collaboration. Connect with developers, contribute to our open-source projects, or tap into a network that’s shaping the future of startup tools—your voice matters here.",
+        "description": "Basestack is powered by collaboration. Connect with like-minded developers, contribute to our open-source projects, and be part of a growing network that’s shaping the future of tools for startups. Your input helps drive innovation, and together, we build better solutions.",
         "action": {
           "explore": "Explore the Code",
           "involved": "Get Involved"
@@ -246,143 +246,143 @@
       "flags": {
         "hero": {
           "title": "Unlock Precision Control with Feature Flags",
-          "description": "Empower your team to deploy faster, test smarter, and roll out features with confidence. Feature Flags let you toggle functionality in real-time, minimize risks, and deliver seamless user experiences—all without breaking a sweat.",
+          "description": "Supercharge your development process with Feature Flags. Enable faster deployments, smarter testing, and safer rollouts. Control features in real-time, reduce risks, and deliver flawless user experiences—effortlessly and confidently.",
           "action": {
-            "get-free": "Get Feature Flags - free",
-            "request-demo": "Request a demo"
+            "get-free": "Get Feature Flags - Free",
+            "request-demo": "Request a Demo"
           }
         },
         "features": {
-          "title": "Feature Flags That Fuel Your Workflow",
-          "description": "From seamless rollouts to instant rollbacks, explore how Feature Flags streamline development, boost flexibility, and keep your releases on track. Discover the tools that make every deploy a win.",
+          "title": "Feature Flags That Power Your Workflow",
+          "description": "Streamline deployments, enhance flexibility, and manage releases effortlessly. Feature Flags give you complete control, enabling safe rollouts and instant rollbacks—all while maintaining smooth user experiences.",
           "slide": {
             "one": {
-              "title": "Manage Multiple Projects Easily",
-              "description": "Control feature releases across multiple projects and environments.",
-              "alt": "An image of a feature flag control panel displaying multiple projects and environments, with intuitive controls for easily managing feature releases."
+              "title": "Multi-Project Management",
+              "description": "Seamlessly manage feature releases across multiple projects and environments with ease.",
+              "alt": "A control panel showing multiple projects and environments, with intuitive feature flag management controls."
             },
             "two": {
-              "title": "Confident Feature Flag Control",
-              "description": "Streamlined management, monitoring, and automated change tracking.",
-              "alt": "An image of a feature flag dashboard displaying streamlined management, monitoring, and automated change tracking features. The dashboard provides clear and concise data visualization and intuitive controls for easy navigation and management."
+              "title": "Complete Flag Control",
+              "description": "Simplify management with powerful monitoring and automated change tracking.",
+              "alt": "A feature flag dashboard with clear, concise data and intuitive management controls."
             },
             "three": {
-              "title": "Efficient Remote Configuration",
-              "description": "Optimize your feature flag config with dynamic payload data changes.",
-              "alt": "An image of a feature flag configuration interface, displaying dynamic payload data changes. The interface provides intuitive controls for easily making and testing feature flag changes."
+              "title": "Remote Configuration",
+              "description": "Adapt features instantly with dynamic payload updates, no redeploy required.",
+              "alt": "A configuration interface for dynamically adjusting feature flags in real-time."
             }
           },
           "card": {
             "title": "Feature Flags in Action",
-            "description": "Check out the key features that make Basestack Feature Flags a must-have for developers. See how each tool streamlines workflows and keeps your releases on track.",
+            "description": "See how Basestack Feature Flags drive efficiency, transparency, and scalability across your development process.",
             "feature": {
               "projects": {
-                "label": "Management",
-                "title": "Organize with Projects",
-                "description": "Group your feature flags into projects to keep your workflows tidy and efficient.",
-                "alt": "Illustration of a dashboard showing feature flags organized into projects."
+                "label": "Organization",
+                "title": "Stay Organized with Projects",
+                "description": "Group your feature flags by project for a streamlined workflow. This approach ensures you can easily manage flags specific to each project, simplifying tracking and updates.",
+                "alt": "Illustration of flags organized within a project dashboard."
               },
               "history": {
                 "label": "Transparency",
-                "title": "Track Every Move",
-                "description": "View a detailed log of flag changes—who toggled what, when, and where.",
-                "alt": "Screenshot of a history log displaying feature flag activity details."
+                "title": "Track Every Change",
+                "description": "View a complete history of feature flag changes, including who toggled what, when, and why. This gives you full accountability and enhances team coordination.",
+                "alt": "History log showing detailed feature flag activity."
               },
               "remote-config": {
                 "label": "Flexibility",
-                "title": "Adjust on the Fly",
-                "description": "Update flag settings remotely to tweak functionality without redeploying.",
-                "alt": "Diagram showing remote configuration adjustments for feature flags."
+                "title": "Adjust Settings On the Fly",
+                "description": "With remote configuration, you can update flags dynamically, making real-time adjustments without redeploying. It’s perfect for rapid changes and A/B testing.",
+                "alt": "Diagram showing remote adjustments for feature flag settings."
               },
               "environments": {
                 "label": "Scalability",
-                "title": "Test Across Environments",
-                "description": "Manage flags seamlessly across dev, staging, and production with one key.",
-                "alt": "Visual of feature flags syncing across multiple environment stages."
+                "title": "Manage Across Environments",
+                "description": "Easily sync and manage flags across development, staging, and production environments. This makes testing and deployment more efficient as your project scales.",
+                "alt": "Visual of flags syncing across multiple environments."
               },
               "security": {
-                "label": "Protection",
-                "title": "Lock Down Access",
-                "description": "Secure your flags with controls to block unauthorized requests and IPs.",
-                "alt": "Illustration of a security shield protecting feature flag settings."
+                "label": "Security",
+                "title": "Protect Your Features",
+                "description": "With advanced security features like access controls and IP blocking, your feature flags are safe from unauthorized changes, keeping your product secure and compliant.",
+                "alt": "Shield icon representing security for feature flags."
               }
             }
           }
         },
         "more-features": {
           "title": "Feature Flags, Full Toolkit",
-          "description": "Equip your team with a complete set of tools to manage feature flags effortlessly. From real-time toggles to multi-environment testing, Basestack Feature Flags delivers everything you need to deploy with confidence and control.",
+          "description": "Equip your team with a complete set of tools to manage feature flags effortlessly. From toggles to multi-environment testing, Basestack Feature Flags delivers everything you need to deploy with confidence and control.",
           "card": {
             "history": {
-              "title": "Activity & History Tracking",
-              "description": "Track who toggled a feature flag, its value, and the page they were on—all in one view."
+              "title": "Track Flag Changes",
+              "description": "See who toggled a flag and when, all in one view."
             },
             "rollbacks": {
-              "title": "One-Click Rollbacks",
-              "description": "Turn off a feature instantly—no code changes needed."
+              "title": "Instant Rollbacks",
+              "description": "Disable features with a single click, no code changes required."
             },
             "bootstrapping": {
-              "title": "Instant Flag Activation",
-              "description": "Load flags and values at page start for seamless, immediate updates."
+              "title": "Instant Activation",
+              "description": "Activate flags on page load for immediate updates."
             },
             "admin": {
-              "title": "Flag Management Hub",
-              "description": "Review flag history or assign user roles to control who can edit flags."
+              "title": "Manage Flag Access",
+              "description": "Control who can edit flags with role-based permissions."
             },
             "sdks": {
-              "title": "SDKs & API Ready",
-              "description": "Copy code snippets for your library of choice, or implement yourself with the API"
+              "title": "SDK & API Integration",
+              "description": "Easily integrate with SDKs or use our API for custom setups."
             },
             "environment": {
-              "title": "Multi-Environment Sync",
-              "description": "Test flags across dev, staging, and more with unified flag keys."
+              "title": "Sync Across Environments",
+              "description": "Manage flags seamlessly across dev, staging, and production."
             },
             "security": {
-              "title": "Secure Request Control",
-              "description": "Block unwanted sources and IPs with ease."
+              "title": "Secure Access Control",
+              "description": "Block unwanted sources and ensure secure flag management."
             }
           }
         },
         "sdks": {
           "title": "SDKs Built for Your Stack",
-          "description": "Integrate Feature Flags effortlessly with SDKs tailored to your favorite languages and frameworks. Grab ready-to-use code snippets or dive into our API for custom control—your workflow, your way.",
+          "description": "Integrate Feature Flags seamlessly with SDKs designed for your preferred languages and frameworks. Use code snippets or leverage our API for full control—customize your workflow as needed.",
           "action": "Explore the Docs",
           "react": {
             "title": "React & NextJS",
-            "description": "Toggle features seamlessly in your React or NextJS app with a lightweight SDK."
+            "description": "Easily toggle features in React or NextJS apps with a lightweight SDK."
           },
           "js": {
             "title": "JavaScript & NodeJS",
-            "description": "Add Feature Flags to your JS or NodeJS project with minimal setup."
+            "description": "Implement Feature Flags in your JS or NodeJS project with minimal setup."
           },
           "api": {
             "title": "API Reference",
-            "description": "Build your own integration with our flexible, powerful API."
+            "description": "Create custom integrations with our flexible, powerful API."
           }
         },
         "why": {
-          "title": "Unconvinced about Feature Flags?",
-          "description": "Feature flagging is a powerful technique where developers wrap a new feature in an if/then statement to gain greater control over its release and behavior.",
+          "title": "Still Unconvinced About Feature Flags?",
+          "description": "Feature flagging allows developers to control the release and behavior of features, wrapping them in conditional statements for greater flexibility and control.",
           "card": {
             "benefits": {
-              "title": "Maximize Flag Benefits",
-              "description": "Feature flags (also known as feature switches, feature toggles, conditional features, etc.) are a powerful technique that allows developers and teams to modify system behavior without changing the underlying code."
+              "title": "Unlock Flag Benefits",
+              "description": "Feature flags (also known as feature toggles) enable developers to adjust system behavior dynamically, without altering the core code, making releases safer and more controlled."
             },
             "implementation": {
-              "title": "Minimize Implementation Debt",
-              "description": "Feature Flags are like variables used in conditional statements. They allow you to toggle 'on or off' blocks of code, similar to commenting out code. This gives developers the flexibility to control the flow of their software and bypass features that are not ready for deployment."
+              "title": "Reduce Implementation Debt",
+              "description": "Feature flags let developers toggle specific code blocks on or off, offering the flexibility to skip unfinished features or conduct gradual rollouts without rewriting code."
             },
             "branching": {
               "title": "Feature Flags vs. Branching",
-              "description": "Feature branching allows developers to collaborate effectively around a central code base by keeping all changes to a specific feature in its own branch. By adding feature flags to the mix, feature branching becomes even more powerful and faster, separating feature release management from code deployment."
+              "description": "Feature flags enhance feature branching by separating feature release management from code deployment, speeding up development and reducing merge conflicts."
             }
           }
         },
         "banner": {
           "title": "Ready to Ship Your Code with Confidence?",
-          "description": "Basestack Feature Flags is a user-friendly platform that streamlines the development and implementation of feature flags.",
+          "description": "Basestack Feature Flags simplifies the deployment and management of feature flags, empowering you to ship your code smoothly and securely.",
           "action": {
-            "get-free": "Get Feature Flags - free",
+            "get-free": "Get Feature Flags - Free",
             "star-github": "Star Us on GitHub"
           }
         },
@@ -410,155 +410,155 @@
       "forms": {
         "hero": {
           "title": "Simplify Forms, Amplify Results",
-          "description": "Capture submissions effortlessly with a powerful, no-code forms solution. Our Forms as a Service app handles the heavy lifting—secure data collection, seamless integrations, and reliable processing—so you can focus on what matters.",
+          "description": "Easily capture submissions with our no-code Forms solution. Basestack Forms handles secure data collection, integrations, and processing—so you can focus on what matters most.",
           "action": {
-            "get-free": "Get Forms - free",
-            "request-demo": "Request a demo"
+            "get-free": "Get Forms - Free",
+            "request-demo": "Request a Demo"
           }
         },
         "features": {
           "title": "Explore Our Top Forms Features",
-          "description": "Discover the standout features that make Basestack Forms a top choice for developers. From effortless setup to flexible customization, these highlights show how we simplify form management for you.",
+          "description": "Discover why Basestack Forms is the go-to solution for developers. With easy setup, customization, and security, these features make form management a breeze.",
           "slide": {
             "one": {
               "title": "All Your Forms in One Place",
-              "description": "View and manage every form you’ve created on a single, clean dashboard.",
-              "alt": "Screenshot of the main Basestack Forms page displaying a list of created forms."
+              "description": "Easily manage all your forms from a single, organized dashboard.",
+              "alt": "Screenshot of the Basestack Forms dashboard with a list of created forms."
             },
             "two": {
               "title": "Quick Form Setup",
-              "description": "Set up forms fast by linking to our endpoint—no complex coding needed.",
-              "alt": "Illustration showing the simple process of setting up a form in Basestack Forms."
+              "description": "Set up forms in minutes by simply linking to our endpoint—no complex code required.",
+              "alt": "Illustration showing the fast setup process in Basestack Forms."
             },
             "three": {
               "title": "Secure Your Forms",
-              "description": "Keep your forms safe with built-in tools to control access and protect data.",
-              "alt": "Visual of security settings being applied to a form in Basestack Forms."
+              "description": "Ensure the safety of your forms with built-in access controls and data protection tools.",
+              "alt": "Visual of security settings applied to a form in Basestack Forms."
             }
           },
           "card": {
-            "title": "Feature Flags in Action",
-            "description": "Check out the key features that make Basestack Feature Flags a must-have for developers. See how each tool streamlines workflows and keeps your releases on track.",
+            "title": "Forms in Action",
+            "description": "Check out the key features that make Basestack Forms a game-changer for developers.",
             "feature": {
               "projects": {
-                "label": "Management",
-                "title": "Organize with Projects",
-                "description": "Group your feature flags into projects to keep your workflows tidy and efficient.",
-                "alt": "Illustration of a dashboard showing feature flags organized into projects."
+                "label": "Organization",
+                "title": "Manage Your Forms Efficiently",
+                "description": "Keep your forms organized by grouping them into projects for better workflow management.",
+                "alt": "Illustration of a dashboard displaying organized forms."
               },
               "history": {
-                "label": "Transparency",
-                "title": "Track Every Move",
-                "description": "View a detailed log of flag changes—who toggled what, when, and where.",
-                "alt": "Screenshot of a history log displaying feature flag activity details."
+                "label": "Tracking",
+                "title": "Track Submissions & Changes",
+                "description": "Easily monitor form submissions and track any changes with a detailed history log.",
+                "alt": "Screenshot of form submission history and changes log."
               },
               "remote-config": {
                 "label": "Flexibility",
-                "title": "Adjust on the Fly",
-                "description": "Update flag settings remotely to tweak functionality without redeploying.",
-                "alt": "Diagram showing remote configuration adjustments for feature flags."
+                "title": "Edit Forms on the Fly",
+                "description": "Make real-time adjustments to form settings without redeploying your app.",
+                "alt": "Diagram showing real-time changes to form settings."
               },
               "environments": {
                 "label": "Scalability",
-                "title": "Test Across Environments",
-                "description": "Manage flags seamlessly across dev, staging, and production with one key.",
-                "alt": "Visual of feature flags syncing across multiple environment stages."
+                "title": "Test Across Multiple Environments",
+                "description": "Test forms across development, staging, and production environments effortlessly.",
+                "alt": "Visual showing forms synced across multiple environments."
               },
               "security": {
                 "label": "Protection",
-                "title": "Lock Down Access",
-                "description": "Secure your flags with controls to block unauthorized requests and IPs.",
-                "alt": "Illustration of a security shield protecting feature flag settings."
+                "title": "Protect Your Data",
+                "description": "Control who accesses your forms and safeguard your data with security features.",
+                "alt": "Illustration of security measures protecting form data."
               }
             }
           }
         },
         "more-features": {
           "title": "Centralize Your Form Management",
-          "description": "Enhance productivity with a single platform designed to adapt to your growing form automation needs.\n\n",
+          "description": "Boost efficiency with a unified platform that adapts to your growing form automation needs.",
           "card": {
             "inbox": {
               "title": "Submissions Hub",
-              "description": "View, share, and organize form submissions easily."
+              "description": "Easily view, share, and organize form submissions in one place."
             },
             "uploads": {
-              "title": "File Storage (Soon)",
-              "description": "Securely store and retrieve files and images."
+              "title": "File Storage (Coming Soon)",
+              "description": "Securely store and retrieve files and images submitted through forms."
             },
             "responses": {
-              "title": "Auto-Replies (Soon)",
-              "description": "Send instant follow-ups to submitters."
+              "title": "Auto-Replies (Coming Soon)",
+              "description": "Automatically send follow-up emails to form submitters."
             },
             "redirects": {
               "title": "Redirect Control",
-              "description": "Guide submitters to custom success or error pages."
+              "description": "Direct submitters to custom success or error pages after submission."
             },
             "sharing": {
-              "title": "Team Access (Soon)",
-              "description": "Share forms with clients or team members."
+              "title": "Team Access (Coming Soon)",
+              "description": "Share forms and submissions with team members or clients."
             },
             "templates": {
-              "title": "Email Templates (Soon)",
-              "description": "Design custom HTML emails."
+              "title": "Email Templates (Coming Soon)",
+              "description": "Create custom HTML email templates for form responses."
             },
             "analytics": {
-              "title": "Performance Insights (Soon)",
-              "description": "Track form traffic and conversion metrics."
+              "title": "Performance Insights (Coming Soon)",
+              "description": "Monitor form traffic and analyze conversion rates."
             },
             "export": {
               "title": "Data Downloads",
-              "description": "Export submissions to CSV or JSON formats."
+              "description": "Export form submissions to CSV or JSON for further analysis."
             },
             "builder": {
-              "title": "Form Creator (Soon)",
-              "description": "Build and tailor forms with an easy-to-use tool."
+              "title": "Form Builder (Coming Soon)",
+              "description": "Create and customize forms easily with our intuitive builder."
             },
             "spam": {
               "title": "Spam Filter",
-              "description": "Detect and block malicious submissions automatically."
+              "description": "Automatically detect and block spam submissions."
             }
           }
         },
         "guide": {
           "title": "Integrate Forms Your Way",
-          "description": "Connect Basestack Forms to your projects effortlessly. Whether you’re using HTML, JavaScript, or Next.js, our straightforward integration options let you get up and running in minutes.",
+          "description": "Easily connect Basestack Forms to your projects. Whether you’re using HTML, JavaScript, or Next.js, our simple integration methods let you start in minutes.",
           "action": "Get the Code",
           "html": {
-            "title": "HTML Made Simple",
-            "description": "Point your form’s action to our endpoint and start collecting submissions."
+            "title": "HTML Integration",
+            "description": "Just point your form’s action to our endpoint and begin collecting submissions."
           },
           "js": {
-            "title": "JavaScript Flexibility",
-            "description": "Add custom form logic with simple JavaScript—no complex setup needed."
+            "title": "JavaScript Integration",
+            "description": "Add custom form logic with JavaScript—no complex setup required."
           },
           "next": {
             "title": "Next.js Ready",
-            "description": "Hit our endpoint with Fetch or Axios in plain React or Next.js—no extras needed."
+            "description": "Use Fetch or Axios with plain React or Next.js to interact with our endpoint."
           }
         },
         "banner": {
           "title": "Ready to Simplify Your Forms?",
-          "description": "Join Basestack Forms today and start building smarter, faster forms with ease. Create your free account now and take control of your form management.",
+          "description": "Start using Basestack Forms today and build smarter, faster forms with ease. Create your free account now and take control of your form management.",
           "action": {
-            "get-free": "Get Forms - free",
+            "get-free": "Get Forms - Free",
             "star-github": "Star Us on GitHub"
           }
         },
         "why": {
-          "title": "Create Forms, Your Style",
-          "description": "Basestack Forms works seamlessly with your existing setup, enabling you to create and scale forms efficiently—no need for additional frameworks, languages, or tools.",
+          "title": "Create Forms, Your Way",
+          "description": "Basestack Forms integrates seamlessly with your existing setup, enabling efficient form creation and scaling—no need for extra frameworks, languages, or tools.",
           "card": {
             "html": {
               "title": "Effortless HTML Forms",
-              "description": "Simply point your form’s action to our endpoint—no additional server-side code needed."
+              "description": "Point your form’s action to our endpoint—no server-side code required."
             },
             "javascript": {
               "title": "Streamlined JavaScript Forms",
-              "description": "Leverage Basestack Forms to craft custom form experiences with complete frontend flexibility."
+              "description": "Use Basestack Forms to create custom form experiences with full frontend flexibility."
             },
             "api": {
               "title": "Powerful Forms API",
-              "description": "Easily create and customize Basestack forms directly through the API."
+              "description": "Create and customize forms directly through the Basestack API with ease."
             }
           }
         },
@@ -591,12 +591,12 @@
   "common": {
     "toast": {
       "newsletter": {
-        "success": "Subscribe with success to the Newsletter"
+        "success": "Successfully subscribed to the newsletter!"
       }
     },
     "pricing": {
-      "title": "Flexible Pricing for Every Developer & Teams",
-      "description": "Choose a plan that matches your needs, from free access for individual developers to robust options for growing teams. {product} delivers clear, affordable pricing designed to support your projects at every stage.",
+      "title": "Flexible Pricing for Developers & Teams",
+      "description": "Choose a plan tailored to your needs—from free access for individual developers to comprehensive options for growing teams. {product} offers transparent, affordable pricing to support your projects at every stage.",
       "segment": {
         "monthly": "Monthly",
         "yearly": "Yearly",
@@ -605,12 +605,12 @@
         "month": "/month"
       },
       "info": {
-        "preview-features": "Also includes access to new features in preview and beta stages."
+        "preview-features": "Also includes access to preview and beta features."
       },
       "action": {
-        "get-started-free": "Get started free",
-        "get-started": "Get started",
-        "contact-us": "Contact us"
+        "get-started-free": "Get Started Free",
+        "get-started": "Get Started",
+        "contact-us": "Contact Us"
       },
       "price": {
         "symbol": "$",
@@ -627,74 +627,74 @@
     },
     "questions": {
       "title": "Frequently Asked Questions",
-      "description": "Explore our collection of useful questions and answers about the {product}. If you don't find the answer to your question here, feel free to open a discussion on Github.",
+      "description": "Find answers to common questions about {product}. If you don't see what you're looking for, feel free to reach out on GitHub.",
       "1": {
-        "title": "Have more questions? Can I chat with someone?",
-        "description": "Of course! If you have additional questions, please contact us at support@basestack.co — we’re here to assist you."
+        "title": "Can I chat with someone if I have more questions?",
+        "description": "Absolutely! For further inquiries, contact us at support@basestack.co. We're here to help!"
       },
       "2": {
         "title": "Is there a discount for annual plans?",
-        "description": "Yes, we provide annual discounts on all plans. Contact us for details."
+        "description": "Yes! We offer annual discounts on all plans. Contact us for more details."
       },
       "3": {
-        "title": "Are {product} available at no cost?",
-        "description": "{product} offers a free plan, perfect for getting started or for solo developers. It’s an ideal way to explore and test the waters before selecting the deployment option and team plan that best fit your needs."
+        "title": "Is {product} available for free?",
+        "description": "{product} offers a free plan, ideal for solo developers or those just starting out. It’s a great way to test the waters before selecting a paid plan that suits your needs."
       },
       "4": {
-        "title": "Can I use Basestack Feature Flags, Basestack Forms and other Basestack Products separately, and how does pricing work for each?",
-        "description": "Yes, each tool—Feature Flags, Forms, and others—operates independently with its own pricing. You only pay for what you need, and you can select different plans for each product to match your specific requirements. This flexibility lets you customize your experience without overpaying for unused features."
+        "title": "Can I use Basestack's tools separately, and how is pricing structured?",
+        "description": "Yes, each tool—Feature Flags, Forms, and others—works independently, with its own pricing. You only pay for the tools you need, and you can select different plans for each, based on your specific requirements."
       },
       "5": {
         "title": "What’s your refund policy?",
-        "description": "At Basestack, we offer refunds within 15 days of purchase if you’re not fully satisfied. Beyond that, refunds may still be considered for serious reasons—just reach out to us. With our generous free tier, you can test everything thoroughly beforehand, and you’re always free to cancel anytime.\n\n"
+        "description": "We offer a 15-day refund policy if you're not fully satisfied. After that, refunds may be considered under special circumstances. Our free tier allows you to test everything before committing, and you can cancel anytime."
       },
       "6": {
         "title": "Which payment provider does Basestack use?",
-        "description": "We partner with Lemon Squeezy to handle all payments securely and efficiently. As our merchant of record, Lemon Squeezy manages transactions, tax compliance, and global payment methods, so you can focus on using our tools without the hassle."
+        "description": "We use Lemon Squeezy to process payments securely. They handle transactions, tax compliance, and global payment methods, so you can focus on building with our tools."
       },
       "7": {
         "title": "What is Basestack, and who is it for?",
-        "description": "Basestack is a suite of open-source tools—like Forms and Feature Flags—designed for solo developers, teams, and startups. Whether you’re building solo or scaling a business, you can self-host for free or use our hosted plans to streamline your workflow."
+        "description": "Basestack is a suite of open-source tools, like Forms and Feature Flags, designed for developers, teams, and startups. Whether you're working solo or scaling a business, you can self-host for free or opt for our hosted plans for added convenience."
       },
       "8": {
-        "title": "Is Basestack really free to use?",
-        "description": "Yes, our open-source tools are free to self-host forever. You only pay if you opt for our hosted plans, which add convenience and support—perfect if you want to skip the setup."
+        "title": "Is Basestack really free?",
+        "description": "Yes! Our open-source tools are free to self-host forever. You only pay if you choose our hosted plans, which offer additional convenience and support."
       },
       "9": {
         "title": "How do I get started with Basestack?",
-        "description": "It’s simple: choose your tool, decide to self-host or go hosted, and integrate it into your project. Check our docs for quick setup guides, or request a demo for a closer look."
+        "description": "Getting started is easy: choose your tool, decide whether to self-host or use our hosted plans, and integrate it into your project. Our docs provide quick setup guides, or you can request a demo."
       },
       "10": {
-        "title": "What’s the Feedback tool, and when’s it coming?",
-        "description": "Feedback is our upcoming tool to capture user insights, competing with platforms like Canny. It’s launching soon—stay tuned for updates or sign up to be notified!"
+        "title": "What’s the Feedback tool, and when will it be available?",
+        "description": "Our upcoming Feedback tool will help you capture user insights and feedback, similar to platforms like Canny. Stay tuned for updates, or sign up to be notified when it launches!"
       },
       "11": {
         "title": "How secure is Basestack?",
-        "description": "Security is a priority. Self-hosted setups give you full control, while our hosted plans include robust protection like request filtering and data encryption to keep your projects safe."
+        "description": "Security is our priority. Self-hosted setups give you full control, while our hosted plans include advanced protections like request filtering and data encryption to keep your projects safe."
       },
       "12": {
-        "title": "What support do I get with Basestack?",
-        "description": "Self-hosters tap into our open-source community and docs. Hosted plan users get priority support from our team—reach out anytime at support@basestack.com for help."
+        "title": "What kind of support do I get with Basestack?",
+        "description": "Self-hosted users can access our community and documentation. Hosted plan users get priority support directly from our team—reach out anytime at support@basestack.com."
       },
       "13": {
         "title": "How does Basestack compare to competitors?",
-        "description": "Unlike rigid platforms, Basestack offers open-source freedom and modular pricing. You get tailored tools like Forms and Feature Flags, plus a hosted option, all without bloated extras."
+        "description": "Unlike rigid platforms, Basestack offers open-source flexibility and modular pricing. Our tools, like Forms and Feature Flags, are tailored to your needs, with the option for hosted plans if desired."
       },
       "14": {
-        "title": "How often do you update Basestack tools?",
-        "description": "We regularly roll out updates to keep our tools sharp and secure. Self-hosters can pull the latest from our repo, while hosted users get upgrades automatically—no effort required."
+        "title": "How often are Basestack tools updated?",
+        "description": "We roll out regular updates to keep our tools up to date and secure. Self-hosted users can pull updates from our repo, while hosted users automatically receive updates."
       },
       "15": {
         "title": "Can I use Basestack with my existing tech stack?",
-        "description": "Yes, Basestack integrates easily with most setups. Forms work with basic HTML or JS, Feature Flags fit any codebase, and our docs guide you through the details."
+        "description": "Absolutely! Basestack integrates with most setups. Forms work with HTML or JS, Feature Flags can be used with any codebase, and our docs provide easy integration guides."
       },
       "16": {
         "title": "Is there a trial for hosted plans?",
-        "description": "Our free tier acts as your trial—test everything there first. Hosted plans don’t have a separate trial, but you can cancel within 15 days for a refund if it’s not a fit."
+        "description": "Our free tier serves as your trial to explore the tools. Hosted plans don’t have a separate trial, but you can cancel within 15 days for a full refund if it’s not the right fit."
       },
       "17": {
-        "title": "Why open-source and hosted together?",
-        "description": "Open-source gives you control and no cost, while hosted offers convenience and support. Pick what suits you—Basestack adapts to your style, not the other way around."
+        "title": "Why offer both open-source and hosted options?",
+        "description": "Open-source gives you full control with no cost, while hosted options offer convenience, support, and easy setup. You choose the best fit for your needs."
       }
     }
   }

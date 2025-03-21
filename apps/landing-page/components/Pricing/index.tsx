@@ -103,7 +103,14 @@ const CardComp = ({
         setColorAnimation({ to: { color: textColor }, reset: true });
       },
     });
-  }, [interval, textColor]);
+  }, [
+    colors.green400,
+    colors.red400,
+    hasMounted,
+    interval,
+    setColorAnimation,
+    textColor,
+  ]);
 
   return (
     <Card>

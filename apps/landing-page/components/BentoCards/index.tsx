@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import Card from "./Card";
 import { HistoryCardProps } from "@basestack/ui";
 import { Container, ContentContainer, Grid, HeaderContainer } from "./styles";
@@ -48,18 +48,18 @@ const BentoCards = ({ title, text, cards, id }: CardsProps) => {
     { name: "production", enabled: false },
   ]);
 
-  const handleEnvironmentChange = (updatedEnv: {
-    name: string;
-    enabled: boolean;
-  }) => {
-    setRandomEnvs((prevEnvs) =>
-      prevEnvs.map((env) =>
-        env.name === updatedEnv.name
-          ? { ...env, enabled: updatedEnv.enabled }
-          : env,
-      ),
-    );
-  };
+  const onHandleEnvironmentChange = useCallback(
+    (updatedEnv: { name: string; enabled: boolean }) => {
+      setRandomEnvs((prevEnvs) =>
+        prevEnvs.map((env) =>
+          env.name === updatedEnv.name
+            ? { ...env, enabled: updatedEnv.enabled }
+            : env,
+        ),
+      );
+    },
+    [],
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -75,7 +75,7 @@ const BentoCards = ({ title, text, cards, id }: CardsProps) => {
       environmentToggleAnimation: (
         <EnvironmentToggleAnimation
           environments={randomEnvs}
-          onChange={handleEnvironmentChange}
+          onChange={onHandleEnvironmentChange}
         />
       ),
       activityCardsAnimation: (
@@ -84,7 +84,7 @@ const BentoCards = ({ title, text, cards, id }: CardsProps) => {
       codeAnimation: <CodeAnimation />,
       accessLabelsAnimation: <AccessLabelsAnimation />,
     }),
-    [randomEnvs, handleEnvironmentChange],
+    [randomEnvs, onHandleEnvironmentChange],
   );
 
   return (

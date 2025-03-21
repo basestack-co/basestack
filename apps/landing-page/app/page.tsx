@@ -31,6 +31,7 @@ const LandingPage = () => {
           title: t("page.main.hero.title"),
           text: t("page.main.hero.description"),
           hasAnimatedText: true,
+          titleMaxWidth: 30,
         }}
         actions={[
           {

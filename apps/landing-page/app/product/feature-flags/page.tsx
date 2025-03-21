@@ -15,6 +15,7 @@ import {
   MiniCards,
   BentoCards,
 } from "components";
+// Icons
 import { JavascriptIcon, JsonIcon, ReactIcon } from "components/Code/icons";
 // Styles
 import { useTheme } from "styled-components";
@@ -273,13 +274,6 @@ const ProductFeatureFlagsPage = () => {
               "page.product.flags.more-features.card.bootstrapping.description",
             ),
             icon: "task",
-          },
-          {
-            title: t("page.product.flags.more-features.card.admin.title"),
-            description: t(
-              "page.product.flags.more-features.card.admin.description",
-            ),
-            icon: "admin_panel_settings",
           },
           {
             title: t("page.product.flags.more-features.card.sdks.title"),

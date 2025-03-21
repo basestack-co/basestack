@@ -2,6 +2,8 @@
 
 import React, { Fragment } from "react";
 import { config as defaults, events, formatNumber } from "@basestack/utils";
+// Icons
+import { HtmlIcon, JavascriptIcon, NextJsIcon } from "components/Code/icons";
 // Components
 import {
   Hero,
@@ -226,6 +228,7 @@ const ProductFormsPage = () => {
         description={t("page.product.forms.guide.description")}
         data={[
           {
+            icon: <HtmlIcon />,
             title: t("page.product.forms.guide.html.title"),
             description: t("page.product.forms.guide.html.description"),
             button: t("page.product.forms.guide.action"),
@@ -233,6 +236,7 @@ const ProductFormsPage = () => {
               window.open(`${urls.docs.base}/forms/guides/html`, "_blank"),
           },
           {
+            icon: <JavascriptIcon />,
             title: t("page.product.forms.guide.js.title"),
             description: t("page.product.forms.guide.js.description"),
             button: t("page.product.forms.guide.action"),
@@ -243,6 +247,7 @@ const ProductFormsPage = () => {
               ),
           },
           {
+            icon: <NextJsIcon />,
             title: t("page.product.forms.guide.next.title"),
             description: t("page.product.forms.guide.next.description"),
             button: t("page.product.forms.guide.action"),

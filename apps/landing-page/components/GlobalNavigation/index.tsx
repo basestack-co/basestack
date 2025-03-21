@@ -114,7 +114,7 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
         isExternal: true,
       },
     ],
-    [router, t],
+    [t],
   );
 
   const numberAnimation = useSpring({
