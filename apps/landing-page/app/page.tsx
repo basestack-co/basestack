@@ -21,6 +21,19 @@ const LandingPage = () => {
       <VerticalCards
         title="Product Highlights"
         text="Explore our powerful tools designed to simplify feature management, streamline user interactions, and gather valuable feedback — all in one place."
+        actions={[
+          {
+            id: "1",
+            text: "Start Now",
+            href: "",
+          },
+          {
+            id: "2",
+            text: "Go Now",
+            href: "",
+            isTertiary: true,
+          },
+        ]}
         cards={[
           {
             onClick: () => router.push("/product/feature-flags"),

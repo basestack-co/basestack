@@ -9,7 +9,9 @@ export const Container = styled.div`
   gap: ${({ theme }) => theme.spacing.s3};
 `;
 
-export const StyledButton = styled.button`
+export const StyledButton = styled.button.withConfig({
+  shouldForwardProp: (prop) => !["color"].includes(prop),
+})<{ color: "blue" | "green" | "yellow" }>`
   cursor: pointer;
   border: none;
   display: flex;
@@ -21,6 +23,33 @@ export const StyledButton = styled.button`
   border-radius: ${rem("8px")};
   box-shadow: ${({ theme }) => theme.shadow.elevation3};
   transition: box-shadow 0.2s ease-in-out;
+  position: relative;
+
+  &::before {
+    content: "";
+    background: ${({ theme }) =>
+      theme.isDarkMode ? "rgba(31, 31, 31, 0.7)" : "rgba(255, 255, 255, 0.7)"};
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    position: absolute;
+    z-index: 1;
+    left: ${rem("-5px")};
+    top: ${rem("-5px")};
+    right: ${rem("-5px")};
+    bottom: ${rem("-5px")};
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    border-top-right-radius: ${rem("10px")};
+    border-bottom-right-radius: ${rem("10px")};
+    left: 0;
+    top: ${rem("24px")};
+    width: ${rem("20px")};
+    height: ${rem("26px")};
+    background-color: ${({ color }) => color};
+  }
 
   &:hover:not(:disabled) {
     box-shadow: ${({ theme }) => theme.shadow.elevation4};
@@ -32,31 +61,17 @@ export const StyledButton = styled.button`
 `;
 
 export const ContentContainer = styled.div`
+  position: relative;
+  z-index: 2;
   padding: ${({ theme }) => theme.spacing.s5};
 `;
 
 export const HeaderContent = styled.div`
   display: flex;
   align-items: center;
-  padding: ${({ theme }) =>
-    `${theme.spacing.s5} ${theme.spacing.s5} ${theme.spacing.s5} 0`};
+  padding: ${({ theme }) => `${rem("24px")} ${theme.spacing.s5}`};
   flex-grow: 1;
   justify-content: space-between;
-`;
-
-export const IndicatorContainer = styled.div`
-  flex-shrink: 0;
-  padding: ${({ theme }) => theme.spacing.s5};
-`;
-
-export const Indicator = styled.div.withConfig({
-  shouldForwardProp: (prop) => !["color"].includes(prop),
-})<{ color: "blue" | "green" | "yellow" }>`
-  display: inline-flex;
-  width: ${rem("10px")};
-  border-radius: ${rem("5px")};
-  height: ${rem("40px")};
-  background-color: ${({ color }) => color};
 `;
 
 export const List = styled.ul`
@@ -72,6 +87,7 @@ export const ListItem = styled.li`
 `;
 
 export const HeaderContainer = styled.div`
+  z-index: 2;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -111,11 +127,6 @@ export const HeaderContainer = styled.div`
             );
           `};
   }
-`;
-
-export const Header = styled.div`
-  display: flex;
-  align-items: center;
 `;
 
 export const IconContainer = styled.div`

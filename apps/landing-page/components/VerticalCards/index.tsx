@@ -1,6 +1,8 @@
 import React from "react";
 import { useTheme } from "styled-components";
 import useEmblaCarousel from "embla-carousel-react";
+import { Button, ButtonSize, ButtonVariant } from "@basestack/design-system";
+import { events } from "@basestack/utils";
 import { useMedia } from "react-use";
 import Card, { CardProps } from "./Card";
 import {
@@ -11,6 +13,7 @@ import {
   EmblaSlide,
   EmblaContainer,
   HeaderContainer,
+  ButtonsContainer,
 } from "./styles";
 import SectionHeader from "../SectionHeader";
 
@@ -19,11 +22,24 @@ export interface VerticalCardsProps {
   title: string;
   text?: string;
   cards: Array<CardProps>;
+  actions?: Array<{
+    id: string;
+    text: string;
+    href: string;
+    isTertiary?: boolean;
+  }>;
 }
 
-const VerticalCards = ({ title, text, cards, id }: VerticalCardsProps) => {
-  const { device } = useTheme();
+const VerticalCards = ({
+  title,
+  text,
+  cards,
+  id,
+  actions,
+}: VerticalCardsProps) => {
+  const { device, isDarkMode } = useTheme();
   const isDesktop = useMedia(device.min.lg, true);
+  const isMobile = useMedia(device.max.sm, false);
 
   const [emblaRef] = useEmblaCarousel({
     active: !isDesktop,
@@ -35,7 +51,34 @@ const VerticalCards = ({ title, text, cards, id }: VerticalCardsProps) => {
     <Container id={id}>
       <ContentContainer>
         <HeaderContainer>
-          <SectionHeader title={title} text={text} />
+          <SectionHeader title={title} text={text} hasMarginBottom={false} />
+          <ButtonsContainer>
+            {actions?.map(({ id, text, href, isTertiary }) => {
+              return (
+                <Button
+                  key={id}
+                  justifyContent="center"
+                  fullWidth={isMobile}
+                  onClick={() => {
+                    events.landing.deploy(`Click on ${text}`);
+                    if (typeof window !== "undefined") {
+                      window.open(href, "_blank");
+                    }
+                  }}
+                  size={ButtonSize.Medium}
+                  {...(isTertiary
+                    ? {
+                        variant: isDarkMode
+                          ? ButtonVariant.Tertiary
+                          : ButtonVariant.Secondary,
+                      }
+                    : {})}
+                >
+                  {text}
+                </Button>
+              );
+            })}
+          </ButtonsContainer>
         </HeaderContainer>
         <Embla>
           <EmblaViewport ref={emblaRef}>

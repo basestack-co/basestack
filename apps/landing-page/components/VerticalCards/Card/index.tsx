@@ -4,16 +4,13 @@ import { Text, Icon, Label } from "@basestack/design-system";
 import { useSpring, animated } from "react-spring";
 import {
   Container,
-  Header,
   HeaderContent,
   IconContainer,
-  Indicator,
   List,
   ListItem,
   HeaderContainer,
   StyledButton,
   ContentContainer,
-  IndicatorContainer,
 } from "./styles";
 
 type Color = "blue" | "green" | "yellow";
@@ -56,23 +53,19 @@ const CardComp = ({
   return (
     <Container>
       <StyledButton
+        color={indicatorColor as Color}
         onClick={onClick}
         disabled={typeof onClick !== "function"}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         <HeaderContainer>
-          <Header>
-            <IndicatorContainer>
-              <Indicator color={indicatorColor as Color} />
-            </IndicatorContainer>
-            <HeaderContent>
-              <Text size="large">{title}</Text>
-              <AnimatedIconContainer style={animatedStyle}>
-                <Icon icon={isHovered ? "arrow_upward" : icon} />
-              </AnimatedIconContainer>
-            </HeaderContent>
-          </Header>
+          <HeaderContent>
+            <Text size="large">{title}</Text>
+            <AnimatedIconContainer style={animatedStyle}>
+              <Icon icon={isHovered ? "arrow_upward" : icon} />
+            </AnimatedIconContainer>
+          </HeaderContent>
         </HeaderContainer>
         <ContentContainer>
           <Text
