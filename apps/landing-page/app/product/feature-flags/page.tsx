@@ -69,6 +69,8 @@ const ProductFeatureFlagsPage = () => {
           titleTag: "h1",
           title: t("page.product.flags.hero.title"),
           text: t("page.product.flags.hero.description"),
+          titleSize: "xLarge",
+          titleMaxWidth: 22,
         }}
         actions={[
           {

@@ -1,6 +1,6 @@
 import { SpaceProps } from "styled-system";
 
-export type Type =
+export type HistoryType =
   | "deleted"
   | "edited"
   | "created"
@@ -15,7 +15,7 @@ export interface HistoryCardProps extends SpaceProps {
   flagName: string;
   date: string;
   environments: Array<{ name: string; enabled: boolean }>;
-  type: Type;
+  type: HistoryType;
   hasPaddingTop?: boolean;
   hasPaddingBottom?: boolean;
   hasLeftLine?: boolean;

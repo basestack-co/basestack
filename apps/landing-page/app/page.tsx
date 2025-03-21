@@ -10,7 +10,12 @@ import {
   MiniCards,
   AutoSlidingCards,
 } from "components";
+// Locales
 import { useTranslations } from "next-intl";
+// Utils
+import { config as defaults } from "@basestack/utils";
+
+const { urls } = defaults;
 
 const LandingPage = () => {
   const t = useTranslations();
@@ -22,7 +27,7 @@ const LandingPage = () => {
         header={{
           titleTag: "h1",
           titleSize: "xLarge",
-          title: "Product Highlights",
+          title: t("page.main.hero.title"),
           text: "Explore our powerful tools designed to simplify feature management, streamline user interactions, and gather valuable feedback — all in one place.",
           hasAnimatedText: true,
         }}
@@ -90,75 +95,75 @@ const LandingPage = () => {
         ]}
       />
       <Cards
-        title="Why choose basestack?"
-        text="Discover why basestack stands out as a versatile, scalable, and open solution tailored to fit projects of all sizes and complexities."
+        title={t("page.main.why.title")}
+        text={t("page.main.why.description")}
         cards={[
           {
-            title: "Open-Source Freedom",
-            text: "Self-host for free or use our hosted version.",
+            title: t("page.main.why.card.open.title"),
+            text: t("page.main.why.card.open.description"),
             icon: "code",
           },
           {
-            title: "Scales with You",
-            text: "From solo projects to startup teams, we’ve got you covered.",
+            title: t("page.main.why.card.scale.title"),
+            text: t("page.main.why.card.scale.description"),
             icon: "trending_up",
           },
           {
-            title: "No Lock-In",
-            text: "Flexible tools that adapt to your stack, not the other way around.",
-            icon: "lock_open",
+            title: t("page.main.why.card.learning.title"),
+            text: t("page.main.why.card.learning.description"),
+            icon: "school",
           },
         ]}
       />
       <MiniCards
-        title="Who It’s For"
-        text="Whether you're working solo, part of a team, scaling a startup, or managing a large enterprise, our solution adapts to your needs and grows with you."
+        title={t("page.main.who.title")}
+        text={t("page.main.who.description")}
         cards={[
           {
-            title: "Solo Developers",
-            description: "Quick setup and full control over projects.",
+            title: t("page.main.who.card.solo.title"),
+            description: t("page.main.who.card.solo.description"),
             icon: "person",
           },
           {
-            title: "Teams",
-            description: "Collaborate easily with version control and reviews.",
+            title: t("page.main.who.card.teams.title"),
+            description: t("page.main.who.card.teams.description"),
             icon: "groups",
           },
           {
-            title: "Startups",
-            description: "Scalable and flexible, no long-term commitments.",
+            title: t("page.main.who.card.startups.title"),
+            description: t("page.main.who.card.startups.description"),
             icon: "rocket_launch",
           },
           {
-            title: "Enterprises",
-            description: "Advanced features for large-scale projects.",
+            title: t("page.main.who.card.enterprises.title"),
+            description: t("page.main.who.card.enterprises.description"),
             icon: "corporate_fare",
           },
         ]}
       />
       <OrderedCards
-        title="How It Works"
-        text="Simplify your workflow with our tools that provide clear insights, minimizing the complexity of managing intricate deployment data."
+        title={t("page.main.how-it-works.title")}
+        text={t("page.main.how-it-works.description")}
         data={[
           {
-            title: "Pick Your Product",
-            text: "Choose Forms, Feature Flags, or both.",
+            title: t("page.main.how-it-works.step.one.title"),
+            text: t("page.main.how-it-works.step.one.description"),
             image: {
               src: ``,
               alt: "Random product selection image",
             },
           },
           {
-            title: "Set It Up",
-            text: "Self-host or use our cloud—no steep learning curve.",
+            title: t("page.main.how-it-works.step.two.title"),
+            text: t("page.main.how-it-works.step.two.description"),
             image: {
               src: ``,
               alt: "Random setup process image",
             },
           },
           {
-            title: "Start Building",
-            text: "Integrate and go live fast.",
+            title: t("page.main.how-it-works.step.three.title"),
+            text: t("page.main.how-it-works.step.three.description"),
             image: {
               src: ``,
               alt: "Random building process image",
@@ -167,49 +172,57 @@ const LandingPage = () => {
         ]}
       />
       <AutoSlidingCards
-        title="What Our Users Are Saying"
-        text="Discover how basestack is empowering developers, teams, and businesses to innovate faster, optimize workflows, and drive growth."
+        title={t("page.main.use-cases.title")}
+        text={t("page.main.use-cases.description")}
         cards={[
           {
-            text: `"Feature Flags allowed me to control app releases with precision, speeding up deployment."`,
+            text: `"${t("page.main.use-cases.card.flags.one")}"`,
             icon: "flag",
           },
           {
-            text: `"Dynamic Forms saved our team countless hours in customer outreach and boosted user engagement."`,
+            text: `"${t("page.main.use-cases.card.forms.one")}"`,
             icon: "description",
           },
           {
-            text: `"User Feedback helps us refine our roadmap with real-time insights and better decision-making."`,
-            icon: "campaign",
-          },
-          {
-            text: `"The flexibility of Feature Flags made our app launch smoother and more predictable."`,
+            text: `"${t("page.main.use-cases.card.flags.two")}"`,
             icon: "flag",
           },
           {
-            text: `"With Dynamic Forms, we streamlined our communication and enhanced the user experience."`,
+            text: `"${t("page.main.use-cases.card.forms.two")}"`,
             icon: "description",
           },
           {
-            text: `"User Feedback has been invaluable for understanding user needs and guiding our product improvements."`,
-            icon: "campaign",
+            text: `"${t("page.main.use-cases.card.flags.three")}"`,
+            icon: "flag",
+          },
+          {
+            text: `"${t("page.main.use-cases.card.forms.three")}"`,
+            icon: "description",
+          },
+          {
+            text: `"${t("page.main.use-cases.card.flags.four")}"`,
+            icon: "flag",
+          },
+          {
+            text: `"${t("page.main.use-cases.card.forms.four")}"`,
+            icon: "description",
           },
         ]}
       />
       <Banner
-        title="Join the Community"
-        text="Be part of the growing basestack community! Fork the code, customize it your way, or choose our hassle-free hosted plans for a seamless experience."
+        title={t("page.main.community.title")}
+        text={t("page.main.community.description")}
         buttons={[
           {
-            text: "Explore the Code",
+            text: t("page.main.community.action.explore"),
             onClick: () => {
-              // something
+              window.open(`${urls.docs.base}/self-hosting`, "_blank");
             },
           },
           {
-            text: "Try Hosted",
+            text: t("page.main.community.action.involved"),
             onClick: () => {
-              // something
+              window.open(`${urls.repo}/discussions`, "_blank");
             },
           },
         ]}

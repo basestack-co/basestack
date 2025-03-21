@@ -20,6 +20,12 @@
       },
       "support": {
         "title": "Support"
+      },
+      "star": {
+        "title": "Star"
+      },
+      "launch": {
+        "title": "Launch"
       }
     },
     "product": {
@@ -97,7 +103,7 @@
             "description": "Collect submissions seamlessly with a no-code forms solution."
           },
           "feedback": {
-            "title": "Feedback (Coming Soon)",
+            "title": "Feedback (Soon)",
             "description": "Gather user insights to shape your product—launching soon."
           }
         }
@@ -124,26 +130,88 @@
         }
       },
       "why": {
-        "title": "Why Choose Basestack",
-        "description": ".",
+        "title": "Why Choose Basestack?",
+        "description": "Basestack delivers the tools you need to build smarter and scale faster. Open-source flexibility, tailored options, and a focus on simplicity make it the go-to choice for developers and growing businesses alike.",
         "card": {
-          "benefits": {
-            "title": "",
-            "description": ""
+          "open": {
+            "title": "Open-Source at Heart",
+            "description": "Self-host for free with full control, or let us handle hosting—your stack, your rules."
           },
-          "implementation": {
-            "title": "",
-            "description": ""
+          "scale": {
+            "title": "Scales with Your Vision",
+            "description": "From solo projects to startup teams, Basestack adapts to your needs without missing a beat."
           },
-          "branching": {
-            "title": "",
-            "description": ""
+          "learning": {
+            "title": "No Learning Curve",
+            "description": "Jump in with tools that fit your workflow—no new frameworks or complex setups required."
           }
         }
       },
       "who": {
         "title": "Who It’s For",
-        "description": ""
+        "description": "Basestack is built for creators at every level. Whether you’re coding solo, collaborating with a team, or scaling a business, our tools fit your needs with flexibility and ease.",
+        "card": {
+          "solo": {
+            "title": "Solo Developers",
+            "description": "Launch projects fast with lightweight, customizable tools."
+          },
+          "teams": {
+            "title": "Teams",
+            "description": "Streamline collaboration with tools that scale effortlessly."
+          },
+          "startups": {
+            "title": "Startups",
+            "description": "Grow confidently with a stack that adapts to your pace."
+          },
+          "enterprises": {
+            "title": "Enterprises",
+            "description": "Manage complex workflows with secure, reliable solutions."
+          }
+        }
+      },
+      "how-it-works": {
+        "title": "How It Works",
+        "description": "Getting started with Basestack is straightforward and fast. Follow these three steps to pick your tools, set them up your way, and start building—no complications, just results.",
+        "step": {
+          "one": {
+            "title": "Choose Your Tools",
+            "description": "Select from Forms, Feature Flags, or more to match your project’s needs."
+          },
+          "two": {
+            "title": "Set Up Your Way",
+            "description": "Self-host for free with open-source code, or go with our hosted option for ease."
+          },
+          "three": {
+            "title": "Build and Scale",
+            "description": "Integrate quickly and grow your stack as your goals evolve."
+          }
+        }
+      },
+      "use-cases": {
+        "title": "Use Cases",
+        "description": "See how Basestack transforms workflows for developers, teams, and startups. From streamlining submissions to managing releases, our tools tackle real-world challenges with ease.",
+        "card": {
+          "forms": {
+            "one": "A small business uses Basestack Forms to collect customer inquiries and auto-reply instantly—no server setup needed.",
+            "two": "An event organizer captures sign-ups and files with Forms, exporting data to CSV for quick planning.",
+            "three": "A researcher gathers responses with Basestack Forms, using analytics to track participation in real time.",
+            "four": "A marketer sets up a form to collect leads, redirecting submitters to a custom thank-you page effortlessly."
+          },
+          "flags": {
+            "one": "A startup rolls out new features to select users with Feature Flags, toggling access without redeploying.",
+            "two": "A team deploys updates confidently, using Flags to disable buggy features instantly if needed.",
+            "three": "A product team tests two versions of a feature with Flags, switching between them to find the winner.",
+            "four": "A dev team hides unfinished features during a live update, revealing them only when ready."
+          }
+        }
+      },
+      "community": {
+        "title": "Join the Basestack Community",
+        "description": "Basestack thrives on collaboration. Connect with developers, contribute to our open-source projects, or tap into a network that’s shaping the future of startup tools—your voice matters here.",
+        "action": {
+          "explore": "Explore the Code",
+          "involved": "Get Involved"
+        }
       }
     },
     "product": {
@@ -386,11 +454,11 @@
               "description": "View, share, and organize form submissions easily."
             },
             "uploads": {
-              "title": "File Storage (Coming Soon)",
+              "title": "File Storage (Soon)",
               "description": "Securely store and retrieve files and images."
             },
             "responses": {
-              "title": "Auto-Replies (Coming Soon)",
+              "title": "Auto-Replies (Soon)",
               "description": "Send instant follow-ups to submitters."
             },
             "redirects": {
@@ -398,15 +466,15 @@
               "description": "Guide submitters to custom success or error pages."
             },
             "sharing": {
-              "title": "Team Access (Coming Soon)",
+              "title": "Team Access (Soon)",
               "description": "Share forms with clients or team members."
             },
             "templates": {
-              "title": "Email Templates (Coming Soon)",
+              "title": "Email Templates (Soon)",
               "description": "Design custom HTML emails."
             },
             "analytics": {
-              "title": "Performance Insights (Coming Soon)",
+              "title": "Performance Insights (Soon)",
               "description": "Track form traffic and conversion metrics."
             },
             "export": {
@@ -414,7 +482,7 @@
               "description": "Export submissions to CSV or JSON formats."
             },
             "builder": {
-              "title": "Form Creator (Coming Soon)",
+              "title": "Form Creator (Soon)",
               "description": "Build and tailor forms with an easy-to-use tool."
             },
             "spam": {

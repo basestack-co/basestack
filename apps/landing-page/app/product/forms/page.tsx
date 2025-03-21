@@ -67,6 +67,7 @@ const ProductFormsPage = () => {
           titleTag: "h1",
           title: t("page.product.forms.hero.title"),
           text: t("page.product.forms.hero.description"),
+          titleSize: "xLarge",
         }}
         actions={[
           {

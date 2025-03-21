@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
-import { Type } from "./types";
+import { HistoryType } from "./types";
 
 export const Container = styled.div.withConfig({
   shouldForwardProp: (prop) =>
@@ -62,7 +62,7 @@ export const TextContainer = styled.div`
 
 export const TitleContainer = styled.div.withConfig({
   shouldForwardProp: (prop) => !["type"].includes(prop),
-})<{ type: Type }>`
+})<{ type: HistoryType }>`
   display: flex;
   align-items: center;
   flex-wrap: wrap;

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useSpring, animated } from "react-spring";
 // Router
 import { useRouter, usePathname } from "next/navigation";
@@ -33,6 +33,8 @@ import {
 } from "./styles";
 import MobileMenu from "./MobileMenu";
 
+const { urls } = defaults;
+
 interface NavigationProps {
   isSticky?: boolean;
 }
@@ -57,53 +59,63 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
       });
   }, []);
 
-  const links = [
-    {
-      text: t("main.docs.title"),
-      href: "https://docs.basestack.co/",
-      isExternal: true,
-    },
-    {
-      text: t("main.blog.title"),
-      href: "https://blog.basestack.co/",
-      isExternal: true,
-    },
-    {
-      text: t("main.support.title"),
-      href: "https://docs.basestack.co/help",
-      isExternal: true,
-    },
-  ];
+  const links = useMemo(
+    () => [
+      {
+        text: t("main.docs.title"),
+        href: urls.docs.base,
+        isExternal: true,
+      },
+      {
+        text: t("main.blog.title"),
+        href: urls.blog,
+        isExternal: true,
+      },
+      {
+        text: t("main.support.title"),
+        href: `${urls.docs.base}/help`,
+        isExternal: true,
+      },
+    ],
+    [t],
+  );
 
-  const products = [
-    {
-      title: t("main.product.flags.title"),
-      description: t("main.product.flags.description"),
-      onClick: () => router.push("/product/feature-flags"),
-      icon: "flag",
-    },
-    {
-      title: t("main.product.forms.title"),
-      description: t("main.product.forms.description"),
-      onClick: () => router.push("/product/forms"),
-      icon: "description",
-    },
-  ];
+  const products = useMemo(
+    () => [
+      {
+        title: t("main.product.flags.title"),
+        description: t("main.product.flags.description"),
+        onClick: () => router.push("/product/feature-flags"),
+        icon: "flag",
+      },
+      {
+        title: t("main.product.forms.title"),
+        description: t("main.product.forms.description"),
+        onClick: () => router.push("/product/forms"),
+        icon: "description",
+      },
+    ],
+    [router, t],
+  );
 
-  const apps = [
-    {
-      title: t("main.product.flags.title"),
-      onClick: () => router.push("/product/feature-flags"),
-      icon: "flag",
-      isExternal: true,
-    },
-    {
-      title: t("main.product.forms.title"),
-      onClick: () => router.push("/product/forms"),
-      icon: "description",
-      isExternal: true,
-    },
-  ];
+  const apps = useMemo(
+    () => [
+      {
+        title: t("main.product.flags.title"),
+        onClick: () => window.open(urls.app.production.flags, "_blank"),
+
+        icon: "flag",
+        isExternal: true,
+      },
+      {
+        title: t("main.product.forms.title"),
+        onClick: () => window.open(urls.app.production.forms, "_blank"),
+        icon: "description",
+        isExternal: true,
+      },
+    ],
+    [router, t],
+  );
 
   const numberAnimation = useSpring({
     from: { x: 0 },
@@ -123,7 +135,6 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
                 onClick={() => setIsMenuOpen((prevState) => !prevState)}
               />
             </IconButtonContainer>
-
             <StyledButton
               onClick={() => {
                 if (pathname !== "/") {
@@ -175,7 +186,7 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
               icon="github"
               minWidth="101px"
             >
-              <span>Star</span>&nbsp;
+              <span>{t("main.star.title")}</span>&nbsp;
               {stargazers > 0 && (
                 <AnimatedSpan>
                   {numberAnimation.x.to((n) => n.toFixed(0))}
@@ -183,7 +194,7 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
               )}
             </Button>
             <Dropdown
-              title="Create"
+              title={t("main.launch.title")}
               data={apps}
               placement="right"
               buttonVariant={
