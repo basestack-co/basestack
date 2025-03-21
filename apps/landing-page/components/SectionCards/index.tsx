@@ -27,12 +27,7 @@ export interface CardsProps {
   }>;
 }
 
-const SectionCards = ({
-  title,
-  text,
-  cards,
-  id,
-}: CardsProps) => (
+const SectionCards = ({ title, text, cards, id }: CardsProps) => (
   <Container id={id}>
     <ContentContainer>
       <HeaderContainer>

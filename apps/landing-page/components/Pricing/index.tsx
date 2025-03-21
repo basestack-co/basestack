@@ -184,13 +184,7 @@ interface PricingProps {
   segment?: Array<{ id: string; text: string; label?: string }>;
 }
 
-const Pricing = ({
-  title,
-  text,
-  items,
-  id,
-  segment = [],
-}: PricingProps) => {
+const Pricing = ({ title, text, items, id, segment = [] }: PricingProps) => {
   const { device, spacing } = useTheme();
   const isDesktop = useMedia(device.min.xl, true);
 

@@ -32,12 +32,7 @@ export interface SliderProps {
 
 const ANIMATION_TIME = 20000;
 
-const Slider = ({
-  title,
-  text,
-  data,
-  id,
-}: SliderProps) => {
+const Slider = ({ title, text, data, id }: SliderProps) => {
   const { device } = useTheme();
   const isDesktop = useMedia(device.min.lg, true);
   const [currentIndex, setCurrentIndex] = useState(0);
