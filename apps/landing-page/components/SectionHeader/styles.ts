@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { rem } from "polished";
 import {
   space,
@@ -25,27 +25,76 @@ export const Container = styled.div.withConfig({
 `;
 
 interface TitleProps extends SpaceProps, ColorProps, TypographyProps {
-  titleSize: "medium" | "large";
+  titleSize: "medium" | "large" | "xLarge";
   as: string;
   titleMaxWidth: number | "initial";
+  hasAnimatedText: boolean;
 }
+
+const animateText = keyframes`
+    0% {
+        background-position: 0 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+`;
+
+const getTitleSize = {
+  medium: rem("36px"),
+  large: rem("48px"),
+  xLarge: rem("60px"),
+};
+
+const getMobileTitleSize = {
+  medium: rem("14px"),
+  large: rem("32px"),
+  xLarge: rem("40px"),
+};
 
 export const Title = styled.h2.withConfig({
   shouldForwardProp: (prop) =>
-    !["titleSize", "lineHeight", "textAlign", "titleMaxWidth"].includes(prop),
+    ![
+      "titleSize",
+      "lineHeight",
+      "textAlign",
+      "titleMaxWidth",
+      "hasAnimatedText",
+    ].includes(prop),
 })<TitleProps>`
   ${typography};
   ${space};
   ${color};
   font-family: ${({ theme }) => theme.typography.robotoFlex};
-  font-size: ${({ titleSize }) =>
-    titleSize === "medium" ? rem("36px") : rem("48px")};
+  font-size: ${({ titleSize }) => getTitleSize[titleSize]};
   font-weight: 700;
   max-width: ${({ titleMaxWidth }) =>
     typeof titleMaxWidth === "number" ? `${titleMaxWidth}ch` : "initial"};
 
+  ${({ hasAnimatedText }) =>
+    hasAnimatedText &&
+    css`
+      background: linear-gradient(
+        to right,
+        ${({ theme }) => theme.colors[theme.isDarkMode ? "gray300" : "black"]}
+          20%,
+        ${({ theme }) => theme.colors[theme.isDarkMode ? "blue300" : "blue500"]}
+          30%,
+        ${({ theme }) => theme.colors[theme.isDarkMode ? "blue200" : "blue300"]}
+          70%,
+        ${({ theme }) =>
+            theme.colors[theme.isDarkMode ? "purple300" : "purple500"]}
+          80%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-fill-color: transparent;
+      background-size: 500% auto;
+      animation: ${animateText} 5s ease-in-out infinite alternate;
+    `}
+
   @media screen and ${({ theme }) => theme.device.max.md} {
-    font-size: ${({ titleSize }) =>
-      titleSize === "medium" ? rem("24px") : rem("32px")};
+    font-size: ${({ titleSize }) => getMobileTitleSize[titleSize]};
   }
 `;

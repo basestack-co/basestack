@@ -19,8 +19,13 @@ const LandingPage = () => {
   return (
     <Fragment>
       <VerticalCards
-        title="Product Highlights"
-        text="Explore our powerful tools designed to simplify feature management, streamline user interactions, and gather valuable feedback — all in one place."
+        header={{
+          titleTag: "h1",
+          titleSize: "xLarge",
+          title: "Product Highlights",
+          text: "Explore our powerful tools designed to simplify feature management, streamline user interactions, and gather valuable feedback — all in one place.",
+          hasAnimatedText: true,
+        }}
         actions={[
           {
             id: "1",

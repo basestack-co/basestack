@@ -63,8 +63,11 @@ const ProductFormsPage = () => {
         }}
       />
       <Hero
-        title={t("page.product.forms.hero.title")}
-        text={t("page.product.forms.hero.description")}
+        header={{
+          titleTag: "h1",
+          title: t("page.product.forms.hero.title"),
+          text: t("page.product.forms.hero.description"),
+        }}
         actions={[
           {
             id: "1",

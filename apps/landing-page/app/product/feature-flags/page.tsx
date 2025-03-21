@@ -65,8 +65,11 @@ const ProductFeatureFlagsPage = () => {
         }}
       />
       <Hero
-        title={t("page.product.flags.hero.title")}
-        text={t("page.product.flags.hero.description")}
+        header={{
+          titleTag: "h1",
+          title: t("page.product.flags.hero.title"),
+          text: t("page.product.flags.hero.description"),
+        }}
         actions={[
           {
             id: "1",

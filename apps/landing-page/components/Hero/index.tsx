@@ -9,12 +9,11 @@ import {
   ContentContainer,
   StyledImageContainer,
 } from "./styles";
-import SectionHeader from "../SectionHeader";
+import SectionHeader, { SectionHeaderProps } from "../SectionHeader";
 import { useMedia } from "react-use";
 
 interface HeroProps {
-  title: string;
-  text: string;
+  header: Omit<SectionHeaderProps, "hasMarginBottom">;
   image?: ImageProps;
   actions?: Array<{
     id: string;
@@ -24,19 +23,14 @@ interface HeroProps {
   }>;
 }
 
-const Hero = ({
-  title,
-  text,
-  image = { alt: "", src: "" },
-  actions,
-}: HeroProps) => {
+const Hero = ({ header, image = { alt: "", src: "" }, actions }: HeroProps) => {
   const { isDarkMode, device } = useTheme();
   const isMobile = useMedia(device.max.sm, false);
 
   return (
     <Container>
       <ContentContainer>
-        <SectionHeader title={title} text={text} hasMarginBottom={false} />
+        <SectionHeader {...header} hasMarginBottom={false} />
         <ButtonsContainer>
           {actions?.map(({ id, text, href, isTertiary }) => {
             return (

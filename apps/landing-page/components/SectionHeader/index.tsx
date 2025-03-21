@@ -1,14 +1,15 @@
 import React from "react";
 import { useTheme } from "styled-components";
-// Components
 import { Text } from "@basestack/design-system";
 import { Container, Title } from "./styles";
 import { Label } from "../styles";
 
+type TitleSize = "medium" | "large" | "xLarge";
+
 export interface SectionHeaderProps {
   title: string;
   text?: string;
-  titleSize?: "medium" | "large";
+  titleSize?: TitleSize;
   hasMarginBottom?: boolean;
   hasAnimatedText?: boolean;
   textAlign?: "left" | "center" | "right";
@@ -16,6 +17,7 @@ export interface SectionHeaderProps {
   label?: string;
   textMaxWidth?: number | "initial";
   titleMaxWidth?: number | "initial";
+  titleTag?: string;
 }
 
 const SectionHeader = ({
@@ -28,6 +30,8 @@ const SectionHeader = ({
   label,
   textMaxWidth = 80,
   titleMaxWidth = "initial",
+  hasAnimatedText = false,
+  titleTag = "h2",
 }: SectionHeaderProps) => {
   const { spacing, colors, isDarkMode } = useTheme();
 
@@ -39,12 +43,14 @@ const SectionHeader = ({
         </Label>
       )}
       <Title
+        as={titleTag}
         lineHeight="1.3"
         textAlign={textAlign}
         mb={spacing.s2}
         color={isDarkMode ? colors.gray300 : colors.black}
         titleSize={titleSize}
         titleMaxWidth={titleMaxWidth}
+        hasAnimatedText={hasAnimatedText}
       >
         {title}
       </Title>

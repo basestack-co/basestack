@@ -15,13 +15,12 @@ import {
   HeaderContainer,
   ButtonsContainer,
 } from "./styles";
-import SectionHeader from "../SectionHeader";
+import SectionHeader, { SectionHeaderProps } from "../SectionHeader";
 
 export interface VerticalCardsProps {
   id?: string;
-  title: string;
-  text?: string;
   cards: Array<CardProps>;
+  header: Omit<SectionHeaderProps, "hasMarginBottom">;
   actions?: Array<{
     id: string;
     text: string;
@@ -30,13 +29,7 @@ export interface VerticalCardsProps {
   }>;
 }
 
-const VerticalCards = ({
-  title,
-  text,
-  cards,
-  id,
-  actions,
-}: VerticalCardsProps) => {
+const VerticalCards = ({ cards, id, actions, header }: VerticalCardsProps) => {
   const { device, isDarkMode } = useTheme();
   const isDesktop = useMedia(device.min.lg, true);
   const isMobile = useMedia(device.max.sm, false);
@@ -51,7 +44,7 @@ const VerticalCards = ({
     <Container id={id}>
       <ContentContainer>
         <HeaderContainer>
-          <SectionHeader title={title} text={text} hasMarginBottom={false} />
+          <SectionHeader {...header} hasMarginBottom={false} />
           <ButtonsContainer>
             {actions?.map(({ id, text, href, isTertiary }) => {
               return (
