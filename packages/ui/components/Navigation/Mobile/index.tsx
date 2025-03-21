@@ -92,6 +92,8 @@ const MobileNavigation = ({
                               fullWidth
                               onClick={(e) => {
                                 e.stopPropagation();
+                                onClose();
+
                                 if (item.onClick) {
                                   item.onClick();
                                 }

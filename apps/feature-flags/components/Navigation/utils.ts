@@ -34,7 +34,7 @@ export const getLeftLinks = (
     },
     {
       type: "button",
-      icon: "settings",
+      icon: "add",
       onClick: onCreateFlag,
       text: labels.createFlag,
       isActive: pathname.includes("create"),
