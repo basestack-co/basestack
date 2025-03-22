@@ -5,7 +5,6 @@ import type {
   CheckDataForSpamPayload,
   SendEmailPayload,
   SendDataToExternalWebhookPayload,
-  UpdateSubscriptionEventPayload,
 } from "../types";
 
 // AI JOBS
@@ -42,22 +41,6 @@ export const sendDataToExternalWebhookEvent = async (
 ) => {
   await notificationsQueue.enqueueJSON({
     url: `${baseUrl}/api/v1/jobs/send-data-to-external-webhook`,
-    retries: 2,
-    body,
-  });
-};
-
-// SUBSCRIPTION JOBS
-
-const subscriptionsQueue = client.queue({
-  queueName: "subscriptions-queue",
-});
-
-export const updateSubscriptionEvent = async (
-  body: UpdateSubscriptionEventPayload,
-) => {
-  await subscriptionsQueue.enqueueJSON({
-    url: `${baseUrl}/api/v1/jobs/update-subscription`,
     retries: 2,
     body,
   });

@@ -10,5 +10,6 @@ import * as auth from "./src/auth";
 // Types
 export * from "./src/qstash/types";
 export * from "./src/auth/types";
+export * from "./src/lemonsqueezy/types";
 
 export { qstash, ai, lemonsqueezy, auth };
