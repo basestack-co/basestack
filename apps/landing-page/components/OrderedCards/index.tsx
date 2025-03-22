@@ -29,7 +29,7 @@ const OrderedCards = ({ id, title, text, data }: OrderedCardsProps) => {
               <CardComp
                 title={item.title}
                 text={item.text}
-                image={item.image}
+                icon={item.icon}
                 number={index + 1}
                 isFirst={index === 0}
                 isLast={index + 1 === length}

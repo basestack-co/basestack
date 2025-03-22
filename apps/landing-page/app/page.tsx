@@ -30,7 +30,6 @@ const LandingPage = () => {
           titleSize: "xLarge",
           title: t("page.main.hero.title"),
           text: t("page.main.hero.description"),
-          hasAnimatedText: true,
           titleMaxWidth: 30,
         }}
         actions={[
@@ -49,7 +48,6 @@ const LandingPage = () => {
         cards={[
           {
             onClick: () => router.push("/product/feature-flags"),
-            color: "blue",
             icon: "flag",
             title: t("page.main.hero.card.flags.title"),
             text: t("page.main.hero.card.flags.description"),
@@ -65,7 +63,6 @@ const LandingPage = () => {
           },
           {
             onClick: () => router.push("product/forms"),
-            color: "yellow",
             icon: "description",
             title: t("page.main.hero.card.forms.title"),
             text: t("page.main.hero.card.forms.description"),
@@ -80,7 +77,6 @@ const LandingPage = () => {
             ],
           },
           {
-            color: "green",
             icon: "campaign",
             title: t("page.main.hero.card.feedback.title"),
             text: t("page.main.hero.card.feedback.description"),
@@ -150,26 +146,17 @@ const LandingPage = () => {
           {
             title: t("page.main.how-it-works.step.one.title"),
             text: t("page.main.how-it-works.step.one.description"),
-            image: {
-              src: ``,
-              alt: "Random product selection image",
-            },
+            icon: "layers",
           },
           {
             title: t("page.main.how-it-works.step.two.title"),
             text: t("page.main.how-it-works.step.two.description"),
-            image: {
-              src: ``,
-              alt: "Random setup process image",
-            },
+            icon: "tune",
           },
           {
             title: t("page.main.how-it-works.step.three.title"),
             text: t("page.main.how-it-works.step.three.description"),
-            image: {
-              src: ``,
-              alt: "Random building process image",
-            },
+            icon: "trending_up",
           },
         ]}
       />

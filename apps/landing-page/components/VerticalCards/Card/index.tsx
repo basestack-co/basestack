@@ -13,13 +13,10 @@ import {
   ContentContainer,
 } from "./styles";
 
-type Color = "blue" | "green" | "yellow";
-
 export interface CardProps {
   title: string;
   text: string;
   icon?: string;
-  color: Color;
   items: Array<string>;
   onClick?: () => void;
 }
@@ -30,20 +27,11 @@ const CardComp = ({
   title,
   text,
   icon = "help",
-  color = "blue",
   items,
   onClick,
 }: CardProps) => {
-  const { colors, spacing } = useTheme();
+  const { spacing } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
-
-  const indicatorColors = {
-    blue: colors.blue400,
-    green: colors.green400,
-    yellow: colors.yellow400,
-  };
-
-  const indicatorColor = indicatorColors[color];
 
   const animatedStyle = useSpring({
     transform: isHovered ? "rotate(90deg)" : "rotate(0deg)",
@@ -53,7 +41,6 @@ const CardComp = ({
   return (
     <Container>
       <StyledButton
-        color={indicatorColor as Color}
         onClick={onClick}
         disabled={typeof onClick !== "function"}
         onMouseEnter={() => setIsHovered(true)}

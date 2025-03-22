@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import { rem } from "polished";
+import { containerBlurStyles } from "../styles";
 
 export const Container = styled.section`
   display: flex;
   flex-direction: column;
   padding: ${rem("100px")} 0 ${rem("80px")} 0;
+  position: relative;
+  ${containerBlurStyles}
 `;
 
 export const HeaderContainer = styled.section`
@@ -12,7 +15,7 @@ export const HeaderContainer = styled.section`
   flex-direction: column;
   align-items: center;
   padding: 0 ${({ theme }) => theme.spacing.s5};
-  margin-bottom: ${({ theme }) => theme.spacing.s8};
+  margin-bottom: ${rem("100px")};
 `;
 
 export const ContentContainer = styled.div`
@@ -27,6 +30,27 @@ export const Embla = styled.div`
   max-width: 100%;
   width: 100%;
   margin: 0 auto;
+`;
+
+export const Indicators = styled.div`
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  align-items: center;
+  height: 0;
+`;
+
+export const Indicator = styled.div.withConfig({
+  shouldForwardProp: (prop) => !["color"].includes(prop),
+})<{
+  color: string;
+}>`
+  background: ${({ color }) => color};
+  opacity: 0.5;
+  border-radius: 50%;
+  z-index: -2;
+  height: ${rem("450px")};
+  flex: 1;
 `;
 
 export const EmblaViewport = styled.div`

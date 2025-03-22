@@ -14,6 +14,8 @@ import {
   EmblaContainer,
   HeaderContainer,
   ButtonsContainer,
+  Indicator,
+  Indicators,
 } from "./styles";
 import SectionHeader, { SectionHeaderProps } from "../SectionHeader";
 
@@ -30,7 +32,7 @@ export interface VerticalCardsProps {
 }
 
 const VerticalCards = ({ cards, id, actions, header }: VerticalCardsProps) => {
-  const { device, isDarkMode } = useTheme();
+  const { device, isDarkMode, colors } = useTheme();
   const isDesktop = useMedia(device.min.lg, true);
   const isMobile = useMedia(device.max.sm, false);
 
@@ -74,6 +76,11 @@ const VerticalCards = ({ cards, id, actions, header }: VerticalCardsProps) => {
           </ButtonsContainer>
         </HeaderContainer>
         <Embla>
+          <Indicators>
+            <Indicator color={colors.blue400} />
+            <Indicator color={colors.yellow400} />
+            <Indicator color={colors.green400} />
+          </Indicators>
           <EmblaViewport ref={emblaRef}>
             <EmblaContainer>
               {cards?.map((card, index) => (
