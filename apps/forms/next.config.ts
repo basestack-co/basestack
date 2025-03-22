@@ -6,7 +6,11 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   // output: "standalone", // Enable this if the app is a standalone app for docker deployment
-  transpilePackages: ["@basestack/design-system", "@basestack/ui"],
+  transpilePackages: [
+    "@basestack/design-system",
+    "@basestack/ui",
+    "@basestack/vendors",
+  ],
   logging: {
     fetches: {
       fullUrl: true,

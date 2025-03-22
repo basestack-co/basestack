@@ -128,15 +128,19 @@ const FormIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
       title={t("setting.security.ip-block-rules.title")}
       description={t("setting.security.ip-block-rules.description")}
       {...getWithPlanCardProps({
-        t,
         router,
         planId,
         feature: "hasBlockIPs",
-        i18nKey: "setting.security.ip-block-rules.action",
-        i18nHintKey: "setting.security.ip-block-rules.text",
         onClick: onSave,
         isLoading: isSubmitting,
         isDisabled: blockIpAddresses === ipsValues.join(","),
+        labels: {
+          partial: t("common.plan.forms.upgrade.partial"),
+          all: t("common.plan.forms.upgrade.all"),
+          upgrade: t("common.plan.forms.upgrade.action"),
+          save: t("setting.security.ip-block-rules.action"),
+          text: t("setting.security.ip-block-rules.text"),
+        },
       })}
     >
       <>

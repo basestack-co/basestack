@@ -1,5 +1,4 @@
 import React from "react";
-import Script from "next/script";
 // Registries
 import Registry from "utils/registry";
 // Locales
@@ -31,16 +30,14 @@ const roboto = Roboto({
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   const locale = await getLocale();
-  const messages = await getMessages();
 
   return (
     <html lang={locale} className={`${robotoFlex.variable} ${roboto.variable}`}>
       <body>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider>
           <Registry>{children}</Registry>
         </NextIntlClientProvider>
         <div id="portal" />
-        <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
       </body>
     </html>
   );

@@ -94,15 +94,20 @@ const FormRedirectUrlCard = ({ redirectUrl = "", planId }: Props) => {
       title={t("setting.customization.redirect-url.title")}
       description={t("setting.customization.redirect-url.description")}
       {...getWithPlanCardProps({
-        t,
         router,
         planId,
         feature: "hasCustomUrls",
-        i18nKey: "setting.customization.redirect-url.action",
         onClick: handleSubmit(onSave),
         isLoading: isSubmitting,
         isDisabled: isSubmitting || watchUrl === redirectUrl || !!errors.url,
         partial: false,
+        labels: {
+          partial: t("common.plan.forms.upgrade.partial"),
+          all: t("common.plan.forms.upgrade.all"),
+          upgrade: t("common.plan.forms.upgrade.action"),
+          save: t("setting.customization.redirect-url.action"),
+          text: "",
+        },
       })}
     >
       <Controller

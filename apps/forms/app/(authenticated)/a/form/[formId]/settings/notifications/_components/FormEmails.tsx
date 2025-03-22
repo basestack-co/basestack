@@ -128,15 +128,19 @@ const FormEmailsCard = ({ emails = "", planId }: Props) => {
       title={t("setting.notifications.emails.title")}
       description={t("setting.notifications.emails.description")}
       {...getWithPlanCardProps({
-        t,
         router,
         planId,
         feature: "hasEmailNotifications",
-        i18nKey: "setting.notifications.emails.action",
-        i18nHintKey: "setting.notifications.emails.text",
         onClick: onSave,
         isLoading: isSubmitting,
         isDisabled: emails === emailsValues.join(","),
+        labels: {
+          partial: t("common.plan.forms.upgrade.partial"),
+          all: t("common.plan.forms.upgrade.all"),
+          upgrade: t("common.plan.forms.upgrade.action"),
+          save: t("setting.notifications.emails.action"),
+          text: t("setting.notifications.emails.text"),
+        },
       })}
     >
       <>

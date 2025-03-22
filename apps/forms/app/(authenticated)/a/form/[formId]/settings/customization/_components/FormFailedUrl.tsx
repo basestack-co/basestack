@@ -94,15 +94,20 @@ const FormFailedUrlCard = ({ errorUrl = "", planId }: Props) => {
       title={t("setting.customization.failed-url.title")}
       description={t("setting.customization.failed-url.description")}
       {...getWithPlanCardProps({
-        t,
         router,
         planId,
         feature: "hasCustomUrls",
-        i18nKey: "setting.customization.failed-url.action",
         onClick: handleSubmit(onSave),
         isLoading: isSubmitting,
         isDisabled: isSubmitting || watchUrl === errorUrl || !!errors.url,
         partial: false,
+        labels: {
+          partial: t("common.plan.forms.upgrade.partial"),
+          all: t("common.plan.forms.upgrade.all"),
+          upgrade: t("common.plan.forms.upgrade.action"),
+          save: t("setting.customization.failed-url.action"),
+          text: "",
+        },
       })}
     >
       <Controller

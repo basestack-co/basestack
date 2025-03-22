@@ -1,7 +1,6 @@
 import { NavigationProps } from "@basestack/ui";
 // Types
 import { useRouter } from "next/navigation";
-import { TFunction } from "types/locale";
 import { ButtonVariant } from "@basestack/design-system";
 // Utils
 import { config, Product } from "@basestack/utils";
@@ -10,30 +9,34 @@ import { signOut } from "next-auth/react";
 export const getLeftLinks = (
   router: ReturnType<typeof useRouter>,
   pathname: string,
-  t: TFunction,
   projectId: string,
   onCreateFlag: () => void,
+  labels: {
+    flags: string;
+    settings: string;
+    createFlag: string;
+  },
 ): NavigationProps["leftLinks"] => {
   return [
     {
       type: "button",
       icon: "flag",
       onClick: () => router.push(`/a/project/${projectId}/flags`),
-      text: t("navigation.internal.features"),
+      text: labels.flags,
       isActive: pathname.includes("flags"),
     },
     {
       type: "button",
       icon: "settings",
       onClick: () => router.push(`/a/project/${projectId}/settings/general`),
-      text: t("navigation.internal.settings"),
+      text: labels.settings,
       isActive: pathname.includes("settings"),
     },
     {
       type: "button",
-      icon: "settings",
+      icon: "add",
       onClick: onCreateFlag,
-      text: t("navigation.create.flag"),
+      text: labels.createFlag,
       isActive: pathname.includes("create"),
       buttonVariant: ButtonVariant.Primary,
       space: { ml: 2 },
@@ -41,69 +44,85 @@ export const getLeftLinks = (
   ];
 };
 
-export const getRightLinks = (t: TFunction): NavigationProps["rightLinks"] => {
+export const getRightLinks = (labels: {
+  docs: string;
+}): NavigationProps["rightLinks"] => {
   return [
     {
       type: "link",
       icon: "flag",
       isActive: false,
       href: config.urls.docs.forms.base,
-      text: t("navigation.external.docs"),
+      text: labels.docs,
     },
   ];
 };
 
 export const getAvatarDropdownList = (
-  t: TFunction,
   router: ReturnType<typeof useRouter>,
   onCreateProject: () => void,
+  labels: {
+    project: string;
+    settings: string;
+    billing: string;
+    logout: string;
+  },
 ) => {
   return [
     {
       id: "1",
       icon: "add_circle",
-      text: t("navigation.create.project"),
+      text: labels.project,
       onClick: onCreateProject,
       separator: true,
     },
     {
       id: "2",
       icon: "settings",
-      text: t("navigation.dropdown.settings"),
+      text: labels.settings,
       onClick: () => router.push("/a/user/tab/general"),
     },
     {
       id: "3",
       icon: "credit_card",
-      text: t("navigation.dropdown.billing"),
+      text: labels.billing,
       onClick: () => router.push("/a/user/tab/billing"),
     },
     {
       id: "4",
       icon: "logout",
-      text: t("navigation.dropdown.logout"),
+      text: labels.logout,
       onClick: signOut,
     },
   ];
 };
 
 export const getAppsList = (
-  t: TFunction,
   onSelectApp: (app: Product) => void,
+  labels: {
+    flags: {
+      title: string;
+      description: string;
+    };
+    forms: {
+      title: string;
+      description: string;
+    };
+  },
 ) => {
   return [
     {
       onClick: () => null,
       product: Product.FLAGS,
-      title: t("navigation.apps.flags.title"),
-      description: t("navigation.apps.flags.description"),
+      title: labels.flags.title,
+      description: labels.flags.description,
       isActive: true,
     },
     {
       onClick: () => onSelectApp(Product.FORMS),
       product: Product.FORMS,
-      title: t("navigation.apps.forms.title"),
-      description: t("navigation.apps.forms.description"),
+      title: labels.forms.title,
+      description: labels.forms.description,
       isActive: false,
     },
   ];

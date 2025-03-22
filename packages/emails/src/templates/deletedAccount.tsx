@@ -84,7 +84,7 @@ export const DeletedAccountEmailTemplate = ({
             Help & Support
           </Link>
           <Text style={{ ...Styles.ParagraphMuted, fontSize: "14px" }}>
-            © Basestack 2024
+            © Basestack {new Date().getFullYear()}. All rights reserved.
           </Text>
         </Container>
       </Body>

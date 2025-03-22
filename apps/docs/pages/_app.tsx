@@ -5,12 +5,7 @@ import Script from "next/script";
 import "material-symbols";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <>
-      <Component {...pageProps} />
-      <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
-    </>
-  );
+  return <Component {...pageProps} />;
 }
 
 export default MyApp;

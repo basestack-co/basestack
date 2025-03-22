@@ -94,14 +94,20 @@ const FormWebHookUrlCard = ({ webhookUrl = "", planId }: Props) => {
       title={t("setting.general.webhook-url.title")}
       description={t("setting.general.webhook-url.description")}
       {...getWithPlanCardProps({
-        t,
         router,
         planId,
         feature: "hasWebhooks",
-        i18nKey: "setting.general.webhook-url.action",
         onClick: handleSubmit(onSave),
         isLoading: isSubmitting,
         isDisabled: isSubmitting || watchUrl === webhookUrl || !!errors.url,
+        partial: false,
+        labels: {
+          partial: t("common.plan.forms.upgrade.partial"),
+          all: t("common.plan.forms.upgrade.all"),
+          upgrade: t("common.plan.forms.upgrade.action"),
+          save: t("setting.general.webhook-url.action"),
+          text: "",
+        },
       })}
     >
       <Controller

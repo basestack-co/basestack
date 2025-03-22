@@ -22,7 +22,7 @@ const TermsPolicyPage = () => {
             These Terms of Service govern your use of the website located at{" "}
             <a href="https://www.basestack.co" target="_blank" rel="noreferrer">
               https://www.basestack.co
-            </a>
+            </a>{" "}
             and any related services provided by Basestack.
           </p>
           <p>

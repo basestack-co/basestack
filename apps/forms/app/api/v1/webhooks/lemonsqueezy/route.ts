@@ -1,38 +1,87 @@
 // UpStash
 import { NextRequest } from "next/server";
-import {
-  UpdateSubscriptionEventPayload,
-  updateSubscriptionEvent,
-} from "libs/qstash";
+// Vendors
+import { lemonsqueezy } from "@basestack/vendors";
 // Utils
-import crypto from "crypto";
+import { config } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
+import dayjs from "dayjs";
+// DB
+import { prisma } from "server/db";
+
+const { getFormPlanByVariantId } = config.plans;
 
 export async function POST(req: NextRequest) {
-  const text = await req.text();
-  const hmac = crypto.createHmac(
-    "sha256",
-    process.env.LEMONSQUEEZY_SIGNATURE_SECRET ?? "",
-  );
-  const digest = Buffer.from(hmac.update(text).digest("hex"), "utf8");
-  const signature = Buffer.from(
-    req.headers.get("x-signature") as string,
-    "utf8",
-  );
+  return lemonsqueezy.webhook.createSubscriptionEvent({
+    req,
+    signature: process.env.LEMONSQUEEZY_SIGNATURE_SECRET ?? "",
+    product: "Forms",
+    getPlan: (variantId, isBilledMonthly) => {
+      const plan = getFormPlanByVariantId(variantId, isBilledMonthly, AppMode);
 
-  if (!crypto.timingSafeEqual(digest, signature)) {
-    return new Response("Invalid signature.", {
-      status: 400,
-    });
-  }
+      if (!plan) return null;
 
-  const body = JSON.parse(text) as UpdateSubscriptionEventPayload;
-
-  await updateSubscriptionEvent(body);
-
-  return new Response(
-    "Basestack Forms: Update subscription event job successfully started.",
-    {
-      status: 200,
+      return {
+        id: plan.id,
+        name: plan.id,
+      };
     },
-  );
+    onSubscriptionUpdated: async ({
+      userId,
+      planId,
+      payload,
+      paused,
+      cancelled,
+    }) => {
+      try {
+        const userExists = await prisma.user.findUnique({
+          where: { id: userId },
+          select: { id: true },
+        });
+
+        if (!userExists) {
+          console.info(
+            `LS Webhook: Basestack Forms - User ${userId} does not exist. Skipping subscription update.`,
+          );
+          return;
+        }
+
+        const res = await prisma.subscription.upsert({
+          create: {
+            userId,
+            planId,
+            billingCycleStart: dayjs().add(1, "month").toISOString(),
+            ...payload,
+          },
+          update: {
+            planId,
+            billingCycleStart: dayjs().add(1, "month").toISOString(),
+            cancelled,
+            paused,
+            ...payload,
+          },
+          where: {
+            userId,
+          },
+          select: {
+            id: true,
+            customerId: true,
+            productId: true,
+            status: true,
+            planId: true,
+          },
+        });
+
+        console.info(
+          `LS Webhook: Basestack Forms - Subscription updated on DB`,
+          res,
+        );
+      } catch (e) {
+        console.info(
+          `LS Webhook: Basestack Forms - Subscription failed to update on DB`,
+          e,
+        );
+      }
+    },
+  });
 }

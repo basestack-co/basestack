@@ -45,7 +45,7 @@ const PrivacyPolicyPage = () => {
             site.
           </p>
           <p>This policy is effective as of 23 February 2023. </p>
-          <p>Last updated: 26 November 2024 </p>
+          <p>Last updated: 19 March 2025 </p>
           <h3>Information We Collect</h3>
           <p>
             Information we collect falls into one of two categories:
@@ -239,7 +239,42 @@ const PrivacyPolicyPage = () => {
           </ul>
           <p>Third parties we currently use include: </p>
           <ul>
-            <li>Simple Analytics</li>
+            <li>
+              <a href="https://upstash.com/?ref=basestack.co" target="_blank">
+                Upstash
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.lemonsqueezy.com/?ref=basestack.co"
+                target="_blank"
+              >
+                Lemon Squeezy
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.cloudflare.com/?ref=basestack.co"
+                target="_blank"
+              >
+                Cloudflare
+              </a>
+            </li>
+            <li>
+              <a href="https://railway.com/?ref=basestack.co" target="_blank">
+                Railway
+              </a>
+            </li>
+            <li>
+              <a href="https://neon.tech/?ref=basestack.co" target="_blank">
+                Neon
+              </a>
+            </li>
+            <li>
+              <a href="https://resend.com/?ref=basestack.co" target="_blank">
+                Resend
+              </a>
+            </li>
           </ul>
           <h3>Your Rights and Controlling Your Personal Information</h3>
           <p>

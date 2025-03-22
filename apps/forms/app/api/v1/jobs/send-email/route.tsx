@@ -3,7 +3,7 @@ import { serve } from "@upstash/workflow/nextjs";
 import { Receiver } from "@upstash/qstash";
 // Types
 import React, { ElementType } from "react";
-import type { SendEmailPayload } from "libs/qstash";
+import type { SendEmailPayload } from "@basestack/vendors";
 // Email
 import {
   sendEmail,
@@ -22,10 +22,10 @@ export const { POST } = serve<SendEmailPayload>(
     const { to, subject, template, props } = context.requestPayload;
 
     console.info(
-      `Job: Send Email - Preparing to send email to ${to} with subject: ${subject}`,
+      `Job: Basestack Forms - Send Email - Preparing to send email to ${to} with subject: ${subject}`,
     );
     console.info(
-      `Job: Send Email - Email with the template ${template} with props: ${JSON.stringify(props)}`,
+      `Job: Basestack Forms - Send Email - Email with the template ${template} with props: ${JSON.stringify(props)}`,
     );
 
     await context.run("send-email-step", async () => {
@@ -46,7 +46,9 @@ export const { POST } = serve<SendEmailPayload>(
         }),
       );
 
-      console.info("Job: Send Email - ✨ Email sent successfully! ✨");
+      console.info(
+        "Job: Basestack Forms - Send Email - ✨ Email sent successfully! ✨",
+      );
     });
   },
   {
@@ -61,7 +63,7 @@ export const { POST } = serve<SendEmailPayload>(
       failHeaders,
     }) => {
       console.error(
-        `Job: Send Email - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
+        `Job: Basestack Forms - Send Email - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
       );
     },
   },

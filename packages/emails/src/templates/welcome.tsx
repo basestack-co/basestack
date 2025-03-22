@@ -39,7 +39,7 @@ export const WelcomeEmailTemplate = ({
           fontStyle="normal"
         />
       </Head>
-      <Preview>Welcome to Basestack Forms</Preview>
+      <Preview>{content.title ?? "Welcome to Basestack"}</Preview>
       <Body style={Styles.Main}>
         <Container style={Styles.Container}>
           <Img
@@ -51,12 +51,11 @@ export const WelcomeEmailTemplate = ({
           />
           <Text style={Styles.Paragraph}>Hi {content.name},</Text>
           <Text style={{ ...Styles.Paragraph, margin: "20px 0" }}>
-            Welcome to Basestack Forms, the platform that elevates your website
-            with powerful, customizable forms.
+            {content.description}
           </Text>
           <Button
             style={Styles.PrimaryButton}
-            href={`https://forms.basestack.co`}
+            href={content.link ?? "https://basestack.co"}
           >
             Get Started
           </Button>
@@ -71,7 +70,7 @@ export const WelcomeEmailTemplate = ({
             Help & Support
           </Link>
           <Text style={{ ...Styles.ParagraphMuted, fontSize: "14px" }}>
-            © Basestack 2024
+            © Basestack {new Date().getFullYear()}. All rights reserved.
           </Text>
         </Container>
       </Body>
@@ -82,6 +81,10 @@ export const WelcomeEmailTemplate = ({
 WelcomeEmailTemplate.PreviewProps = {
   content: {
     name: "Dexter",
+    title: "Welcome to Basestack Forms",
+    description:
+      "Welcome to Basestack Forms, the platform that elevates your website with powerful, customizable forms.",
+    link: "https://forms.basestack.co",
   },
 } as WelcomeEmailTemplateProps;
 

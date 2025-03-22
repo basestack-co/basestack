@@ -128,15 +128,19 @@ const FlagsWebsitesCard = ({ websites = "", planId }: Props) => {
       title={t("setting.security.websites.title")}
       description={t("setting.security.websites.description")}
       {...getWithPlanCardProps({
-        t,
         router,
         planId,
         feature: "hasWebsites",
-        i18nKey: "setting.security.websites.action",
-        i18nHintKey: "setting.security.websites.text",
         onClick: onSave,
         isLoading: isSubmitting,
         isDisabled: websites === websitesValues.join(","),
+        labels: {
+          partial: t("common.plan.flags.upgrade.partial"),
+          all: t("common.plan.flags.upgrade.all"),
+          upgrade: t("common.plan.flags.upgrade.action"),
+          save: t("setting.security.websites.action"),
+          text: t("setting.security.websites.text"),
+        },
       })}
     >
       <>
