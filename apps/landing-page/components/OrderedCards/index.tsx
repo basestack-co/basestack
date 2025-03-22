@@ -7,13 +7,13 @@ import {
   List,
   ListItem,
 } from "./styles";
-import CardComp, { CardProps } from "./Card";
+import CardComp from "./Card";
 
 export interface OrderedCardsProps {
   id?: string;
   title: string;
   text?: string;
-  data: Array<Omit<CardProps, "number" | "isFirst" | "isLast">>;
+  data: Array<{ title: string; text: string; icon: string }>;
 }
 
 const OrderedCards = ({ id, title, text, data }: OrderedCardsProps) => {
@@ -33,6 +33,7 @@ const OrderedCards = ({ id, title, text, data }: OrderedCardsProps) => {
                 number={index + 1}
                 isFirst={index === 0}
                 isLast={index + 1 === length}
+                order={index % 2 === 0 ? "normal" : "inverse"}
               />
             </ListItem>
           ))}

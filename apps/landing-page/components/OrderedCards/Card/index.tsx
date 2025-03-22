@@ -9,6 +9,7 @@ import {
   TextContentContainer,
   NumberWrapper,
   IconContainer,
+  Placeholder,
 } from "./styles";
 
 export interface CardProps {
@@ -18,6 +19,7 @@ export interface CardProps {
   isFirst?: boolean;
   icon: string;
   isLast?: boolean;
+  order?: string;
 }
 
 const CardComp = ({
@@ -27,12 +29,15 @@ const CardComp = ({
   isFirst = false,
   isLast = false,
   icon = "help",
+  order = "normal",
 }: CardProps) => {
   const { spacing } = useTheme();
 
   return (
     <Container>
-      <ContentContainer>
+      <ContentContainer order={order}>
+        <Placeholder />
+
         <NumberContainer isFirst={isFirst} isLast={isLast}>
           <NumberWrapper>
             <Text size="medium" fontWeight={400} muted>

@@ -7,8 +7,15 @@ export const Container = styled.div`
   position: relative;
 `;
 
-export const ContentContainer = styled.div`
+export const ContentContainer = styled.div<{ order: string }>`
   display: flex;
+  flex-direction: ${({ order }) =>
+    order === "inverse" ? "row-reverse" : "row"};
+  gap: ${({ theme }) => theme.spacing.s5};
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    flex-direction: row;
+  }
 `;
 
 const lineStyles = (isFirst = false, isLast = false) => css`
@@ -38,7 +45,6 @@ export const NumberContainer = styled.div.withConfig({
   align-items: center;
   justify-content: center;
   gap: ${({ theme }) => theme.spacing.s1};
-  margin-right: ${({ theme }) => theme.spacing.s6};
   position: relative;
 
   ${({ isFirst, isLast }) =>
@@ -67,10 +73,6 @@ export const NumberContainer = styled.div.withConfig({
       }
     `}
 
-  @media screen and ${({ theme }) => theme.device.max.md} {
-    margin-right: ${({ theme }) => theme.spacing.s5};
-  }
-
   @media screen and ${({ theme }) => theme.device.max.sm} {
     position: absolute;
     top: -16px;
@@ -84,6 +86,25 @@ export const NumberContainer = styled.div.withConfig({
   }
 `;
 
+const borderStyles = css`
+  background: ${({ theme }) =>
+    `linear-gradient(220deg, 
+        ${theme.colors[theme.isDarkMode ? "gray900" : "gray50"]} 0%, 
+        ${theme.colors[theme.isDarkMode ? "gray600" : "gray300"]} 30%, 
+        ${theme.colors[theme.isDarkMode ? "gray700" : "gray200"]} 70%, 
+        ${theme.colors[theme.isDarkMode ? "gray900" : "gray50"]} 100%)`};
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    background-color: ${({ theme }) =>
+      theme.colors[theme.isDarkMode ? "gray900" : "gray50"]};
+    border-radius: ${rem("7px")};
+    z-index: 0;
+  }
+`;
+
 export const NumberWrapper = styled.div`
   display: inline-flex;
   align-items: center;
@@ -94,8 +115,12 @@ export const NumberWrapper = styled.div`
   width: ${rem("40px")};
   border-radius: ${rem("8px")};
   flex-shrink: 0;
-  border: 1px solid
-    ${({ theme }) => theme.colors[theme.isDarkMode ? "gray700" : "gray200"]};
+  position: relative;
+  ${borderStyles};
+
+  & > * {
+    z-index: 1;
+  }
 
   @media screen and ${({ theme }) => theme.device.max.sm} {
     height: ${rem("36px")};
@@ -103,29 +128,25 @@ export const NumberWrapper = styled.div`
   }
 `;
 
+export const Placeholder = styled.div`
+  flex: 1 0 0;
+  height: 0;
+  padding: ${({ theme }) => theme.spacing.s5};
+  pointer-events: none;
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    display: none;
+  }
+`;
+
 export const TextContainer = styled.div`
   display: flex;
   justify-content: center;
+  flex: 1 0 0;
   padding: ${({ theme }) => theme.spacing.s5};
-  position: relative;
   border-radius: ${rem("8px")};
-
-  background: ${({ theme }) =>
-    `linear-gradient(220deg, 
-        ${theme.colors[theme.isDarkMode ? "gray900" : "gray50"]} 0%, 
-        ${theme.colors[theme.isDarkMode ? "gray700" : "gray200"]} 30%, 
-        ${theme.colors[theme.isDarkMode ? "gray700" : "gray200"]} 70%, 
-        ${theme.colors[theme.isDarkMode ? "gray900" : "gray50"]} 100%)`};
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 1px;
-    background: ${({ theme }) =>
-      theme.colors[theme.isDarkMode ? "gray900" : "gray50"]};
-    border-radius: ${rem("7px")};
-    z-index: 0;
-  }
+  position: relative;
+  ${borderStyles};
 `;
 
 export const TextContentContainer = styled.div`
