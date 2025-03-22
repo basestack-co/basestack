@@ -2410,20 +2410,20 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
   integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
 
-"@trpc/client@^11.0.0-rc.724":
-  version "11.0.0-rc.768"
-  resolved "https://registry.yarnpkg.com/@trpc/client/-/client-11.0.0-rc.768.tgz#86b0c66e41a5b93882dbfcfb98544a890e53f436"
-  integrity sha512-eZNNjQQhP6nsr1tniI/84P1SKyh6BjvKNMq0vXKnKFV57El27XTfn6wfmdLNcyL3f24ZmDxm/sMxXlzM+zaG/g==
+"@trpc/client@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@trpc/client/-/client-11.0.0.tgz#3020392edf87abc046594cee0acd379f2c6289d9"
+  integrity sha512-U2THlxsdr4ykAX5lpTU8k5WRADPQ+68Ex2gfUht3MlCxGK7njBmNSSzjpQSWNt7tMI/xsYrddFiRlmEPrh+Cbg==
 
-"@trpc/next@^11.0.0-rc.724":
-  version "11.0.0-rc.768"
-  resolved "https://registry.yarnpkg.com/@trpc/next/-/next-11.0.0-rc.768.tgz#4754b854694ae32baa4e1270c1024dc941a9bfb4"
-  integrity sha512-e+m17Qzw5vb+XfdEwg2jMc5Ejt6Nc2imG/8JyevfGcqFEiHTQosPj5ASOlVJXV5X2P/F+e0oljWb6/vc6xfFWw==
+"@trpc/next@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@trpc/next/-/next-11.0.0.tgz#d83e1fac595629c3bc02ba5bbe2595508b7c55ee"
+  integrity sha512-HpowgsF0jfXG30jEBVK8v90ltbEZiQZq/x0rsjScfZuedkAfapqZvrsrkzv6Pkemz7sxaxJcZB3HEqXxWfkGoA==
 
-"@trpc/react-query@^11.0.0-rc.724":
-  version "11.0.0-rc.768"
-  resolved "https://registry.yarnpkg.com/@trpc/react-query/-/react-query-11.0.0-rc.768.tgz#fdc7b33bf3ebc49f4760c93c8019d54f3ea4ee56"
-  integrity sha512-9ATcL+jq1dQMDA+Egf0BHx8bf0/2t2Ng+3x338N+y9BvYvxa20vXtlZzv9IogXjaC8dUdKsGCu5MqGy9XaPnmA==
+"@trpc/react-query@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@trpc/react-query/-/react-query-11.0.0.tgz#6fb849baf715fb33d2eb6a417d7e75fc00307ae6"
+  integrity sha512-HeE9bBLA6nqC2xk5wlNZIPQ5vmyli3tgNNab8fTE489+ksNMKxaIx66pZKsMJIorDcP1wS0rWNV+GroU0iR98g==
 
 "@trpc/react@^9.26.2":
   version "9.27.4"
@@ -2432,10 +2432,10 @@
   dependencies:
     "@babel/runtime" "^7.9.0"
 
-"@trpc/server@^11.0.0-rc.724":
-  version "11.0.0-rc.768"
-  resolved "https://registry.yarnpkg.com/@trpc/server/-/server-11.0.0-rc.768.tgz#e401fed7ce08656b5bba27ff7683d8e5a0c6f6e8"
-  integrity sha512-+2du6a3uZEcQBj1OdT6EfWxa6dw/vqBG37aNR7YReTJ/UOMnheOmI/bskHkbK+x/kAcHPj8YN+/xc01QJDxwXQ==
+"@trpc/server@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@trpc/server/-/server-11.0.0.tgz#5a49758fa3c052a83314c328155d68027164f077"
+  integrity sha512-xY9q/b/wR/tWGYTm5xmRjivkYD2EZZXmOKmHuNJRYZuLbieeNUsdfQRjJC409WB1pjKWInomhHwuA8bahZJ4lQ==
 
 "@types/acorn@^4.0.0":
   version "4.0.6"
@@ -2850,10 +2850,10 @@
   dependencies:
     undici-types "~6.20.0"
 
-"@types/node@22.13.10", "@types/node@^22.13.10":
-  version "22.13.10"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.13.10.tgz#df9ea358c5ed991266becc3109dc2dc9125d77e4"
-  integrity sha512-I6LPUvlRH+O6VRUqYOcMudhaIdUVWfsjnZavnsraHvpBwaEyMN29ry+0UVJhImYL16xsscu0aske3yA+uPOWfw==
+"@types/node@22.13.11", "@types/node@^22.13.11":
+  version "22.13.11"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.13.11.tgz#f0ed6b302dcf0f4229d44ea707e77484ad46d234"
+  integrity sha512-iEUCUJoU0i3VnrCmgoWCXttklWcvoCIx4jzcP22fioIVSdTmjgoEvmAO/QPw6TcS9k5FrNgn4w7q5lGOd1CT5g==
   dependencies:
     undici-types "~6.20.0"
 
@@ -7822,10 +7822,10 @@ marked@^13.0.2:
   resolved "https://registry.yarnpkg.com/marked/-/marked-13.0.3.tgz#5c5b4a5d0198060c7c9bc6ef9420a7fed30f822d"
   integrity sha512-rqRix3/TWzE9rIoFGIn8JmsVfhiuC8VIQ8IdX5TfzmeBucdY05/0UlzKaw0eVtpcN/OdVFpBk7CjKGo9iHJ/zA==
 
-material-symbols@^0.29.1:
-  version "0.29.1"
-  resolved "https://registry.yarnpkg.com/material-symbols/-/material-symbols-0.29.1.tgz#fc4bf1735df18178e433b2e3697390038ef6cfe8"
-  integrity sha512-kZACL+R/u+bbvPBQJifF3pDH8Pko0MR1V8+NwTQ1S8pXH36uAOnl86qY6dHqOy2ut8EfYL/w0HL7wd9eYBSMCg==
+material-symbols@^0.29.2:
+  version "0.29.2"
+  resolved "https://registry.yarnpkg.com/material-symbols/-/material-symbols-0.29.2.tgz#ea57d784e77e8899696ac1c506aee72064f0f339"
+  integrity sha512-YbEfk6vUnPqVL0u3Gh9zrWl+0fJK2vOCrEuOeGTrS7oUsPWt5e8UMEUrMehbA+U/kpnUIfFk3qGdzdnWMrKR/Q==
 
 math-intrinsics@^1.1.0:
   version "1.1.0"

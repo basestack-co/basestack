@@ -105,7 +105,7 @@ export const createSubscriptionEvent = async ({
 
     if (event === SubscriptionEvent.SUBSCRIPTION_UPDATED) {
       console.info(
-        `LS Webhook: Basestack ${product} - Updating subscription for user ID: ${userId} with plan ID: ${planId} and payload: ${JSON.stringify(payload)}`,
+        `LS Webhook: Basestack ${product} - Updating subscription for user ID: ${userId} with plan ID: ${planId}`,
       );
 
       const cancelled = attributes.cancelled ?? false;

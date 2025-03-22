@@ -34,6 +34,18 @@ export async function POST(req: NextRequest) {
       cancelled,
     }) => {
       try {
+        const userExists = await prisma.user.findUnique({
+          where: { id: userId },
+          select: { id: true },
+        });
+
+        if (!userExists) {
+          console.info(
+            `LS Webhook: Basestack Forms - User ${userId} does not exist. Skipping subscription update.`,
+          );
+          return;
+        }
+
         const res = await prisma.subscription.upsert({
           create: {
             userId,
