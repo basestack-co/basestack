@@ -47,10 +47,16 @@ const getTitleSize = {
   xLarge: rem("60px"),
 };
 
+const getTabletTitleSize = {
+  medium: rem("32px"),
+  large: rem("36px"),
+  xLarge: rem("48px"),
+};
+
 const getMobileTitleSize = {
-  medium: rem("14px"),
+  medium: rem("28px"),
   large: rem("32px"),
-  xLarge: rem("40px"),
+  xLarge: rem("36px"),
 };
 
 export const Title = styled.h2.withConfig({
@@ -94,6 +100,10 @@ export const Title = styled.h2.withConfig({
       background-size: 500% auto;
       animation: ${animateText} 5s ease-in-out infinite alternate;
     `}
+
+  @media screen and ${({ theme }) => theme.device.max.xl} {
+    font-size: ${({ titleSize }) => getTabletTitleSize[titleSize]};
+  }
 
   @media screen and ${({ theme }) => theme.device.max.md} {
     font-size: ${({ titleSize }) => getMobileTitleSize[titleSize]};
