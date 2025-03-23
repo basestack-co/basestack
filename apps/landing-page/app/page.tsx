@@ -36,7 +36,7 @@ const LandingPage = () => {
           {
             id: "1",
             text: t("page.main.hero.action.quote"),
-            onClick: () => router.push("/contact"),
+            onClick: () => router.push("/enterprise"),
           },
           {
             id: "2",

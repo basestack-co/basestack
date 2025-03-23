@@ -1,5 +1,18 @@
-import React from "react";
+import React, { useMemo } from "react";
+// Form
+import {
+  useForm,
+  SubmitHandler,
+  Controller,
+  UseFormReset,
+} from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+// Locales
+import { useTranslations } from "next-intl";
+// Hooks
 import { useMedia } from "react-use";
+// Components
 import { useTheme } from "styled-components";
 import { rem } from "polished";
 import {
@@ -11,6 +24,7 @@ import {
   Text,
 } from "@basestack/design-system";
 import SectionHeader, { TextAlign, AlignItems } from "../SectionHeader";
+// Styles
 import {
   StyledForm,
   Col,
@@ -23,21 +37,63 @@ import {
 } from "./styles";
 import { Card } from "../styles";
 
-interface FormProps {
+export const FormSchema = z.object({
+  firstName: z
+    .string()
+    .min(2, "First name must be at least 2 characters")
+    .max(50, "First name must be at most 50 characters"),
+  lastName: z
+    .string()
+    .min(2, "Last name must be at least 2 characters")
+    .max(50, "Last name must be at most 50 characters"),
+  email: z.string().email("Invalid email format"),
+  message: z
+    .string()
+    .min(10, "Message must be at least 10 characters")
+    .max(500, "Message must be at most 500 characters"),
+});
+
+export type FormInputs = z.TypeOf<typeof FormSchema>;
+
+export interface FormProps {
   header: { title: string; text: string; caption?: string };
   id?: string;
+  onSave: (inputs: FormInputs, reset: UseFormReset<FormInputs>) => void;
 }
 
-const FormComp = ({ header, id }: FormProps) => {
+const FormComp = ({ header, id, onSave }: FormProps) => {
+  const t = useTranslations();
   const { device, spacing } = useTheme();
   const isMobile = useMedia(device.max.md, false);
 
-  const headerProps = isMobile
-    ? {}
-    : {
-        alignItems: "flex-start" as AlignItems,
-        textAlign: "left" as TextAlign,
-      };
+  const headerProps = useMemo(
+    () =>
+      isMobile
+        ? {}
+        : {
+            alignItems: "flex-start" as AlignItems,
+            textAlign: "left" as TextAlign,
+          },
+    [isMobile],
+  );
+
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<FormInputs>({
+    resolver: zodResolver(FormSchema),
+    mode: "onChange",
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      message: "",
+    },
+  });
+
+  const onSubmit: SubmitHandler<FormInputs> = (inputs) => onSave(inputs, reset);
 
   return (
     <Container id={id}>
@@ -46,6 +102,7 @@ const FormComp = ({ header, id }: FormProps) => {
           <SectionHeader
             {...header}
             textMaxWidth={60}
+            titleMaxWidth={25}
             hasMarginBottom={isMobile}
             {...headerProps}
           />
@@ -55,61 +112,110 @@ const FormComp = ({ header, id }: FormProps) => {
             <StyledForm>
               <Row>
                 <Col>
-                  <InputGroup
-                    title="First Name"
-                    inputProps={{
-                      value: "",
-                      name: "firstName",
-                      placeholder: "First Name",
-                      onChange: () => console.log(""),
-                    }}
+                  <Controller
+                    name="firstName"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <InputGroup
+                        title={t("common.form.contact.input.first-name.label")}
+                        hint={errors?.firstName?.message}
+                        inputProps={{
+                          name: field.name,
+                          value: field.value as string,
+                          onChange: field.onChange,
+                          onBlur: field.onBlur,
+                          placeholder: t(
+                            "common.form.contact.input.first-name.placeholder",
+                          ),
+                          hasError: !!errors.firstName,
+                          isDisabled: isSubmitting,
+                        }}
+                      />
+                    )}
                   />
                 </Col>
                 <Col>
-                  <InputGroup
-                    title="Last Name"
-                    inputProps={{
-                      value: "",
-                      name: "lastName",
-                      placeholder: "Last Name",
-                      onChange: () => console.log(""),
-                    }}
+                  <Controller
+                    name="lastName"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <InputGroup
+                        title={t("common.form.contact.input.last-name.label")}
+                        hint={errors?.lastName?.message}
+                        inputProps={{
+                          name: field.name,
+                          value: field.value as string,
+                          onChange: field.onChange,
+                          onBlur: field.onBlur,
+                          placeholder: t(
+                            "common.form.contact.input.last-name.placeholder",
+                          ),
+                          hasError: !!errors.lastName,
+                          isDisabled: isSubmitting,
+                        }}
+                      />
+                    )}
                   />
                 </Col>
               </Row>
-              <InputGroup
-                title="Email"
-                inputProps={{
-                  value: "",
-                  name: "email",
-                  placeholder: "Email",
-                  onChange: () => console.log(""),
-                }}
+              <Controller
+                name="email"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <InputGroup
+                    title={t("common.form.contact.input.company-email.label")}
+                    hint={errors?.email?.message}
+                    inputProps={{
+                      name: field.name,
+                      value: field.value as string,
+                      onChange: field.onChange,
+                      onBlur: field.onBlur,
+                      placeholder: t(
+                        "common.form.contact.input.company-email.placeholder",
+                      ),
+                      hasError: !!errors.email,
+                      isDisabled: isSubmitting,
+                    }}
+                  />
+                )}
               />
-              <InputGroup
-                textarea
-                title="Message"
-                textareaProps={{
-                  value: "",
-                  name: "message",
-                  placeholder: "Message",
-                  onChange: () => console.log(""),
-                }}
+              <Controller
+                name="message"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <InputGroup
+                    textarea
+                    title={t("common.form.contact.input.description.label")}
+                    hint={errors?.message?.message}
+                    textareaProps={{
+                      name: field.name,
+                      value: field.value as string,
+                      onChange: field.onChange,
+                      onBlur: field.onBlur,
+                      placeholder: t(
+                        "common.form.contact.input.description.placeholder",
+                      ),
+                      hasError: !!errors.message,
+                      isDisabled: isSubmitting,
+                    }}
+                  />
+                )}
               />
               <HorizontalRule />
               <Button
-                onClick={() => console.log("")}
+                onClick={handleSubmit(onSubmit)}
                 variant={ButtonVariant.Primary}
                 size={ButtonSize.Medium}
                 fullWidth
                 justifyContent="center"
               >
-                Contact
+                {t("common.form.contact.action.submit")}
               </Button>
-              <Text muted>
-                By submitting this form, I confirm that I have read and
-                understood the Privacy Policy.
-              </Text>
+              <Text muted>{t("common.form.contact.note.privacy-policy")}</Text>
             </StyledForm>
           </Card>
           <Text
@@ -118,9 +224,9 @@ const FormComp = ({ header, id }: FormProps) => {
             lineHeight={rem("22px")}
             muted
           >
-            Powered by {""}
-            <StyledLink href="/product/feature-flags">
-              Basestack Forms
+            {t("common.form.contact.note.powered-by")} {""}
+            <StyledLink href="/product/forms">
+              {t("common.form.contact.note.forms")}
             </StyledLink>
           </Text>
         </FormWrapper>

@@ -1,8 +1,10 @@
 import React from "react";
-import { useTheme } from "styled-components";
-import { events } from "@basestack/utils";
+import { useRouter } from "next/navigation";
+// Components
 import Image, { ImageProps } from "../Image";
 import { Button, ButtonVariant, ButtonSize } from "@basestack/design-system";
+// Styles
+import { useTheme } from "styled-components";
 import {
   ButtonsContainer,
   Container,
@@ -10,6 +12,7 @@ import {
   StyledImageContainer,
 } from "./styles";
 import SectionHeader, { SectionHeaderProps } from "../SectionHeader";
+// Hooks
 import { useMedia } from "react-use";
 
 interface HeroProps {
@@ -20,10 +23,12 @@ interface HeroProps {
     text: string;
     href: string;
     isTertiary?: boolean;
+    isExternal?: boolean;
   }>;
 }
 
 const Hero = ({ header, image = { alt: "", src: "" }, actions }: HeroProps) => {
+  const router = useRouter();
   const { isDarkMode, device } = useTheme();
   const isMobile = useMedia(device.max.sm, false);
 
@@ -32,16 +37,17 @@ const Hero = ({ header, image = { alt: "", src: "" }, actions }: HeroProps) => {
       <ContentContainer>
         <SectionHeader {...header} hasMarginBottom={false} />
         <ButtonsContainer>
-          {actions?.map(({ id, text, href, isTertiary }) => {
+          {actions?.map(({ id, text, href, isTertiary, isExternal }) => {
             return (
               <Button
                 key={id}
                 justifyContent="center"
                 fullWidth={isMobile}
                 onClick={() => {
-                  events.landing.deploy(`Click on ${text}`);
-                  if (typeof window !== "undefined") {
-                    window.open(href, "_blank");
+                  if (isExternal) {
+                    window?.open(href, "_blank");
+                  } else {
+                    router.push(href);
                   }
                 }}
                 size={ButtonSize.Medium}

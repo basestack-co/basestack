@@ -1,10 +1,8 @@
 import React, { useCallback, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+// Components
 import useEmblaCarousel from "embla-carousel-react";
 import { animated, useSpring, config } from "react-spring";
-import { useMedia } from "react-use";
-import { useTheme } from "styled-components";
-import { rem } from "polished";
-import { useTranslations } from "next-intl";
 import {
   Text,
   Button,
@@ -14,6 +12,13 @@ import {
   HorizontalRule,
   Segment,
 } from "@basestack/design-system";
+// Hooks
+import { useMedia } from "react-use";
+// Locales
+import { useTranslations } from "next-intl";
+// Styles
+import { useTheme } from "styled-components";
+import { rem } from "polished";
 import SectionHeader from "../SectionHeader";
 import {
   Container,
@@ -30,6 +35,10 @@ import {
   Span,
 } from "./styles";
 import { Card } from "../styles";
+// Utils
+import { config as defaults } from "@basestack/utils";
+
+const { plans, urls } = defaults;
 
 type Interval = "monthly" | "yearly";
 
@@ -187,11 +196,20 @@ interface PricingProps {
   id?: string;
   title: string;
   text: string;
+  product: string;
   items: Array<OmitMultiple<CardProps, "onClick" | "interval">>;
   segment?: Array<{ id: string; text: string; label?: string }>;
 }
 
-const Pricing = ({ title, text, items, id, segment = [] }: PricingProps) => {
+const Pricing = ({
+  title,
+  text,
+  items,
+  id,
+  segment = [],
+  product,
+}: PricingProps) => {
+  const router = useRouter();
   const { device, spacing } = useTheme();
   const isDesktop = useMedia(device.min.xl, true);
 
@@ -203,9 +221,24 @@ const Pricing = ({ title, text, items, id, segment = [] }: PricingProps) => {
     slidesToScroll: 1,
   });
 
-  const onClick = useCallback(() => {
-    // Do something
-  }, []);
+  const onClick = useCallback(
+    (isCustom?: boolean) => {
+      if (isCustom) {
+        return router.push("/enterprise");
+      }
+
+      const productUrls: Record<string, string> = {
+        forms: urls.app.production.forms,
+        flags: urls.app.production.flags,
+      };
+
+      const targetUrl = productUrls[product];
+      if (targetUrl) {
+        window.open(targetUrl, "_blank");
+      }
+    },
+    [product, router],
+  );
 
   return (
     <Container id={id}>
@@ -235,7 +268,7 @@ const Pricing = ({ title, text, items, id, segment = [] }: PricingProps) => {
                     description={item.description}
                     listDescription={item.listDescription}
                     list={item.list}
-                    onClick={onClick}
+                    onClick={() => onClick(item.isCustom)}
                     interval={selectedInterval}
                   />
                 </EmblaSlide>

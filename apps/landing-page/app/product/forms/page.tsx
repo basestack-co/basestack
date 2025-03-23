@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Fragment } from "react";
-import { config as defaults, events, formatNumber } from "@basestack/utils";
+import { config as defaults, formatNumber } from "@basestack/utils";
 // Icons
 import { HtmlIcon, JavascriptIcon, NextJsIcon } from "components/Code/icons";
 // Components
@@ -76,12 +76,14 @@ const ProductFormsPage = () => {
             id: "1",
             text: t("page.product.forms.hero.action.get-free"),
             href: urls.app.production.forms,
+            isExternal: true,
           },
           {
             id: "2",
             text: t("page.product.forms.hero.action.request-demo"),
-            href: urls.app.production.forms,
+            href: "/contact",
             isTertiary: true,
+            isExternal: false,
           },
         ]}
         image={{
@@ -258,6 +260,7 @@ const ProductFormsPage = () => {
       />
       <Pricing
         id="pricing"
+        product="forms"
         title={t("common.pricing.title")}
         text={t("common.pricing.description", { product: "Basestack Forms" })}
         segment={[
@@ -291,7 +294,6 @@ const ProductFormsPage = () => {
                 button: isEnterprise
                   ? "Contact Us"
                   : t("common.pricing.action.get-started"),
-
                 isPopular: id === "launch",
                 ...(isEnterprise
                   ? {
@@ -429,7 +431,6 @@ const ProductFormsPage = () => {
           {
             text: t("page.product.forms.banner.action.star-github"),
             onClick: () => {
-              events.landing.gotToGitHubRepo();
               window.open(urls.repo, "_blank");
             },
           },

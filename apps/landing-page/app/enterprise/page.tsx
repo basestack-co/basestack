@@ -9,31 +9,28 @@ import { useTranslations } from "next-intl";
 // Form
 import { UseFormReset } from "react-hook-form";
 
-const RequestDemoPage = () => {
+const ContactEnterprisePage = () => {
   const t = useTranslations();
 
   const onSubmit = async (
     inputs: FormInputs,
     reset: UseFormReset<FormInputs>,
   ) => {
-    if (!process.env.NEXT_PUBLIC_FORM_REQUEST_DEMO_ENDPOINT) return;
+    if (!process.env.NEXT_PUBLIC_FORM_QUOTES_ENDPOINT) return;
 
     try {
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_FORM_REQUEST_DEMO_ENDPOINT,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(inputs),
+      const res = await fetch(process.env.NEXT_PUBLIC_FORM_QUOTES_ENDPOINT, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(inputs),
+      });
 
       await res.json();
 
-      toast.success(t("common.toast.sales.success"));
+      toast.success(t("common.toast.enterprise.success"));
 
       reset();
     } catch (error) {
@@ -46,9 +43,9 @@ const RequestDemoPage = () => {
     <Fragment>
       <Form
         header={{
-          caption: t("page.contact.caption"),
-          title: t("page.contact.title"),
-          text: t("page.contact.description"),
+          caption: t("page.enterprise.caption"),
+          title: t("page.enterprise.title"),
+          text: t("page.enterprise.description"),
         }}
         onSave={onSubmit}
       />
@@ -56,4 +53,4 @@ const RequestDemoPage = () => {
   );
 };
 
-export default RequestDemoPage;
+export default ContactEnterprisePage;

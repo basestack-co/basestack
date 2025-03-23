@@ -6,7 +6,7 @@ import { useStore } from "store";
 import { useRouter } from "next/navigation";
 // Utils
 import { useDarkModeToggle } from "@basestack/hooks";
-import { config as defaults, events } from "@basestack/utils";
+import { config as defaults } from "@basestack/utils";
 // Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -74,7 +74,6 @@ const FooterLinkItem: React.FC<FooterLink> = ({ text, href, isExternal }) => {
     e.preventDefault();
     e.stopPropagation();
 
-    events.landing.link(text, href);
     if (isExternal) {
       window.open(href, "_blank");
     } else {
@@ -230,15 +229,10 @@ const Footer = () => {
 
       toast.success(t("common.toast.newsletter.success"));
 
-      events.landing.newsletter(
-        "Subscribe Success",
-        "Subscribe with success to the Newsletter",
-      );
       reset();
     } catch (error) {
       const { message } = error as Error;
       toast.error(message);
-      events.landing.newsletter("Subscribe Error", message);
     }
   };
 

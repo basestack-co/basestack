@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useTheme } from "styled-components";
 import useEmblaCarousel from "embla-carousel-react";
 import { useMedia } from "react-use";
-// Utils
-import { events } from "@basestack/utils";
 // Components
 import {
   Container,
@@ -105,7 +103,6 @@ const Slider = ({ title, text, data, id }: SliderProps) => {
                     text={item.text}
                     animationTime={ANIMATION_TIME}
                     onClick={() => {
-                      events.landing.slider(item.title, item.text);
                       scrollTo(index);
                     }}
                   />

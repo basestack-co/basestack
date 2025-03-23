@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, ButtonVariant, Text } from "@basestack/design-system";
-import { events } from "@basestack/utils";
 import { useRouter } from "next/navigation";
 import { useTheme } from "styled-components";
 import {
@@ -117,7 +116,6 @@ const MobileNavigation = ({
                   <Button
                     variant={ButtonVariant.Neutral}
                     onClick={() => {
-                      events.landing.navigation(item.text, item.href);
                       if (item.isExternal) {
                         window.open(item.href, "_blank");
                       } else {

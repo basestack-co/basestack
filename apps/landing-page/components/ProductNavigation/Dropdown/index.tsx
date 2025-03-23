@@ -15,7 +15,6 @@ import {
   ListItem,
 } from "./styles";
 import { useTheme } from "styled-components";
-import { events } from "@basestack/utils";
 import { useRouter } from "next/navigation";
 
 const AnimatedDropdown: any = animated(StyledDropdown);
@@ -88,7 +87,6 @@ const Dropdown = ({ data, title }: AppsDropdownProps) => {
                     <Button
                       variant={ButtonVariant.Neutral}
                       onClick={() => {
-                        events.landing.navigation(item.text, item.href);
                         if (item.isExternal) {
                           window.open(item.href, "_blank");
                         } else {

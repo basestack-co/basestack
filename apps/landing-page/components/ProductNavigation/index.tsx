@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSpring, animated, config } from "react-spring";
-import { events } from "@basestack/utils";
 import { useTheme } from "styled-components";
 import {
   Button,
@@ -102,7 +101,6 @@ const ProductNavigation = ({
                   iconPlacement="left"
                   variant={ButtonVariant.Neutral}
                   onClick={() => {
-                    events.landing.navigation(item.text, item.href);
                     if (item.isExternal) {
                       window.open(item.href, "_blank");
                     } else {

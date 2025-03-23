@@ -1,6 +1,4 @@
 import React from "react";
-// Utils
-import { events } from "@basestack/utils";
 // Components
 import { Accordion } from "@basestack/design-system";
 import { AccordionsContainer, Container, ContentContainer } from "./styles";
@@ -20,12 +18,7 @@ const Questions = ({ title, text, data, id }: QuestionsProps) => {
         <SectionHeader title={title} text={text} />
         <AccordionsContainer>
           {data?.map((item, index) => (
-            <Accordion
-              key={index}
-              title={item.title}
-              text={item.text}
-              onClick={() => events.landing.question(item.title, item.text)}
-            />
+            <Accordion key={index} title={item.title} text={item.text} />
           ))}
         </AccordionsContainer>
       </ContentContainer>

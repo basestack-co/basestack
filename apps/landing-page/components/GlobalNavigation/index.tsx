@@ -6,7 +6,7 @@ import { useSpring, animated } from "react-spring";
 import { useRouter, usePathname } from "next/navigation";
 // Utils
 import { useMedia } from "react-use";
-import { config as defaults, events } from "@basestack/utils";
+import { config as defaults } from "@basestack/utils";
 // Theme
 import { useTheme } from "styled-components";
 // Locales
@@ -62,18 +62,23 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
   const links = useMemo(
     () => [
       {
+        text: t("main.enterprise.title"),
+        href: "/enterprise",
+        isExternal: false,
+      },
+      {
         text: t("main.docs.title"),
         href: urls.docs.base,
         isExternal: true,
       },
       {
-        text: t("main.blog.title"),
-        href: urls.blog,
+        text: t("main.support.title"),
+        href: `${urls.docs.base}/help`,
         isExternal: true,
       },
       {
-        text: t("main.support.title"),
-        href: `${urls.docs.base}/help`,
+        text: t("main.blog.title"),
+        href: urls.blog,
         isExternal: true,
       },
     ],
@@ -156,7 +161,6 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
                     <Button
                       variant={ButtonVariant.Neutral}
                       onClick={() => {
-                        events.landing.navigation(link.text, link.href);
                         if (link.isExternal) {
                           window.open(link.href, "_blank");
                         } else {

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Fragment } from "react";
-import { config as defaults, events, formatNumber } from "@basestack/utils";
+import { config as defaults, formatNumber } from "@basestack/utils";
 // Components
 import {
   Hero,
@@ -78,12 +78,14 @@ const ProductFeatureFlagsPage = () => {
             id: "1",
             text: t("page.product.flags.hero.action.get-free"),
             href: urls.app.production.flags,
+            isExternal: true,
           },
           {
             id: "2",
             text: t("page.product.flags.hero.action.request-demo"),
-            href: urls.app.production.flags,
+            href: "/contact",
             isTertiary: true,
+            isExternal: false,
           },
         ]}
         image={{
@@ -340,6 +342,7 @@ const ProductFeatureFlagsPage = () => {
       />
       <Pricing
         id="pricing"
+        product="flags"
         title={t("common.pricing.title")}
         text={t("common.pricing.description", {
           product: "Basestack Feature Flags",
@@ -535,7 +538,6 @@ const ProductFeatureFlagsPage = () => {
           {
             text: t("page.product.flags.banner.action.star-github"),
             onClick: () => {
-              events.landing.gotToGitHubRepo();
               window.open(urls.repo, "_blank");
             },
           },
