@@ -1,0 +1,32 @@
+{
+  "name": "@basestack/vendors",
+  "version": "0.0.0",
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "test:skip": "jest",
+    "test:update": "jest -u",
+    "test:watch": "jest --watchAll",
+    "test:coverage": "jest --coverage",
+    "test:log": "jest --no-coverage >& ./logs/jest.log",
+    "clean": "rm -rf .turbo && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "@basestack/config": "*",
+    "@basestack/tsconfig": "*",
+    "@basestack/utils": "*",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@types/react": "19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "jest-styled-components": "^7.2.0",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@auth/prisma-adapter": "^2.8.0",
+    "@lemonsqueezy/lemonsqueezy.js": "^4.0.0",
+    "@upstash/qstash": "^2.7.22",
+    "@upstash/workflow": "^0.2.12",
+    "next-auth": "5.0.0-beta.25"
+  }
+}

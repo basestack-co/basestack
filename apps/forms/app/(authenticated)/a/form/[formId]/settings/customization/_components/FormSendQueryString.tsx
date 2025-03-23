@@ -69,13 +69,12 @@ const FormSendQueryStringCard = ({
       title={t("setting.customization.data-query-string.title")}
       description={t("setting.customization.data-query-string.description")}
       {...getWithPlanSwitchProps({
-        t,
         planId,
         feature: "hasDataQueryString",
         isDisabled: false,
         onChange,
         checked: hasDataQueryString,
-        partial: true,
+        label: t(`common.plan.forms.upgrade.partial`),
       })}
     />
   );

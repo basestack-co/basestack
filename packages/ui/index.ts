@@ -41,3 +41,4 @@ export {
   default as Navigation,
   type NavigationProps,
 } from "./components/Navigation";
+export { default as Plans, type PlansProps } from "./components/Plans";
