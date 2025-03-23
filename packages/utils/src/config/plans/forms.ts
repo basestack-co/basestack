@@ -1,5 +1,7 @@
 // Types
 import { PlanTypeId, FormPlan } from "../../types";
+// Utils
+import { getAppMode } from "./utils";
 
 // Forms Plan configuration
 
@@ -14,12 +16,20 @@ const forms: FormPlan[] = [
       monthly: {
         amount: 0,
         currency: "USD",
-        variantId: 0,
+        variantIds: {
+          local: 0,
+          development: 0,
+          production: 0,
+        },
       },
       yearly: {
         amount: 0,
         currency: "USD",
-        variantId: 0,
+        variantIds: {
+          local: 0,
+          development: 0,
+          production: 0,
+        },
       },
     },
     limits: {
@@ -56,12 +66,20 @@ const forms: FormPlan[] = [
       monthly: {
         amount: 9,
         currency: "USD",
-        variantId: 368586,
+        variantIds: {
+          local: 368586,
+          development: 368586,
+          production: 716252,
+        },
       },
       yearly: {
         amount: 7.67, // 15% off
         currency: "USD",
-        variantId: 368587,
+        variantIds: {
+          local: 368587,
+          development: 368587,
+          production: 716253,
+        },
       },
     },
     limits: {
@@ -98,12 +116,20 @@ const forms: FormPlan[] = [
       monthly: {
         amount: 39,
         currency: "USD",
-        variantId: 368595,
+        variantIds: {
+          local: 368595,
+          development: 368595,
+          production: 716255,
+        },
       },
       yearly: {
         amount: 33.17, // 15% off
         currency: "USD",
-        variantId: 368596,
+        variantIds: {
+          local: 368596,
+          development: 368596,
+          production: 716256,
+        },
       },
     },
     limits: {
@@ -140,12 +166,20 @@ const forms: FormPlan[] = [
       monthly: {
         amount: 99,
         currency: "USD",
-        variantId: 368599,
+        variantIds: {
+          local: 368599,
+          development: 368599,
+          production: 716258,
+        },
       },
       yearly: {
         amount: 84.08, // 15% off
         currency: "USD",
-        variantId: 368600,
+        variantIds: {
+          local: 368600,
+          development: 368600,
+          production: 716259,
+        },
       },
     },
     limits: {
@@ -183,12 +217,20 @@ const forms: FormPlan[] = [
       monthly: {
         amount: Infinity,
         currency: "USD",
-        variantId: 0,
+        variantIds: {
+          local: 0,
+          development: 0,
+          production: 0,
+        },
       },
       yearly: {
         amount: Infinity,
         currency: "USD",
-        variantId: 0,
+        variantIds: {
+          local: 0,
+          development: 0,
+          production: 0,
+        },
       },
     },
     limits: {
@@ -272,14 +314,26 @@ const isUnderFormPlanLimit = (
 const getFormPlanVariantId = (
   id: PlanTypeId,
   interval: "monthly" | "yearly",
+  mode: string = "production",
 ) => {
+  const stage = getAppMode(mode);
+
   const plan = getFormPlan(id);
-  return plan.price[interval].variantId;
+  return plan.price[interval].variantIds[stage];
 };
 
-const getFormPlanByVariantId = (variantId: number) => {
+const getFormPlanByVariantId = (
+  variantId: number,
+  isBilledMonthly: boolean = false,
+  mode: string = "production",
+) => {
+  const stage = getAppMode(mode);
+
   return forms.find((plan) => {
-    return plan.price.monthly.variantId === variantId;
+    return (
+      plan.price[isBilledMonthly ? "monthly" : "yearly"].variantIds[stage] ===
+      variantId
+    );
   });
 };
 

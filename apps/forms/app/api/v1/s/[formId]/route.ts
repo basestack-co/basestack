@@ -4,12 +4,8 @@ import { PlanTypeId, config as utilsConfig } from "@basestack/utils";
 import { withUsageUpdate } from "server/db/utils/subscription";
 // Prisma
 import { prisma } from "server/db";
-// Jobs
-import {
-  sendEmailEvent,
-  sendDataToExternalWebhookEvent,
-  checkDataForSpamEvent,
-} from "libs/qstash";
+// Vendors
+import { qstash } from "@basestack/vendors";
 // Utils
 import {
   FormError,
@@ -75,7 +71,7 @@ export async function POST(
             form.hasSpamProtection &&
             hasFormPlanFeature(planId, "hasSpamProtection")
           ) {
-            await checkDataForSpamEvent({
+            await qstash.events.checkDataForSpamEvent({
               submissionId: submission.id,
               data,
             });
@@ -83,7 +79,7 @@ export async function POST(
         }
 
         if (!!form.webhookUrl && hasFormPlanFeature(planId, "hasWebhooks")) {
-          await sendDataToExternalWebhookEvent({
+          await qstash.events.sendDataToExternalWebhookEvent({
             url: form.webhookUrl,
             body: {
               formId,
@@ -97,7 +93,7 @@ export async function POST(
           !!form.emails &&
           hasFormPlanFeature(planId, "hasEmailNotifications")
         ) {
-          await sendEmailEvent({
+          await qstash.events.sendEmailEvent({
             template: "new-submission",
             to: form.emails.split(",").map((email) => email.trim()),
             subject: `New form submission received for ${form.name}`,

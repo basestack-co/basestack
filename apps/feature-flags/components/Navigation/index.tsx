@@ -15,12 +15,8 @@ import { useTranslations } from "next-intl";
 import { PopupActionProps } from "@basestack/design-system";
 import { Navigation as NavigationUI } from "@basestack/ui";
 // Utils
-import {
-  config,
-  getCookieValueAsBoolean,
-  Product,
-  AppEnv,
-} from "@basestack/utils";
+import { config, Product, AppEnv } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
 import {
   getAppsList,
   getAvatarDropdownList,
@@ -53,11 +49,6 @@ const Navigation = ({ data }: NavigationProps) => {
     (state) => state.setCreateFlagModalOpen,
   );
 
-  const useBilling = useMemo(
-    () => getCookieValueAsBoolean(config.cookies.useBilling) || config.isDev,
-    [],
-  );
-
   const currentProject = useMemo(() => {
     const project = data?.find(({ id }) => id === projectId);
 
@@ -65,10 +56,7 @@ const Navigation = ({ data }: NavigationProps) => {
   }, [projectId, data]);
 
   const onSelectApp = useCallback((app: Product) => {
-    window.location.href = config.urls.getAppWithEnv(
-      app,
-      `${process.env.NEXT_PUBLIC_APP_MODE ?? "production"}` as AppEnv,
-    );
+    window.location.href = config.urls.getAppWithEnv(app, AppMode as AppEnv);
   }, []);
 
   const toggleDarkMode = async (isDarkMode: boolean): Promise<void> => {
@@ -120,12 +108,20 @@ const Navigation = ({ data }: NavigationProps) => {
       onClickLogo={() => router.push("/")}
       leftLinks={
         !!projectId
-          ? getLeftLinks(router, pathname, t, projectId, () =>
-              setCreateFlagModalOpen({ isOpen: true }),
+          ? getLeftLinks(
+              router,
+              pathname,
+              projectId,
+              () => setCreateFlagModalOpen({ isOpen: true }),
+              {
+                createFlag: t("navigation.create.flag"),
+                settings: t("navigation.internal.settings"),
+                flags: t("navigation.internal.features"),
+              },
             )
           : []
       }
-      rightLinks={getRightLinks(t)}
+      rightLinks={getRightLinks({ docs: t("navigation.external.docs") })}
       rightLinksTitle={t("navigation.external.resources")}
       projects={{
         onCreate: () => setCreateProjectModalOpen({ isOpen: true }),
@@ -138,7 +134,16 @@ const Navigation = ({ data }: NavigationProps) => {
         },
       }}
       appsTitle={t("navigation.apps.title")}
-      apps={getAppsList(t, onSelectApp)}
+      apps={getAppsList(onSelectApp, {
+        flags: {
+          title: t("navigation.apps.flags.title"),
+          description: t("navigation.apps.flags.description"),
+        },
+        forms: {
+          title: t("navigation.apps.forms.title"),
+          description: t("navigation.apps.forms.description"),
+        },
+      })}
       avatar={{
         name: session?.user.name || t("navigation.dropdown.username"),
         email: session?.user.email || "",
@@ -146,9 +151,16 @@ const Navigation = ({ data }: NavigationProps) => {
         darkModeText: t("navigation.dropdown.dark-mode"),
         isDarkMode: isDarkMode,
         onSetDarkMode: toggleDarkMode,
-        list: getAvatarDropdownList(t, router, () =>
-          setCreateProjectModalOpen({ isOpen: true }),
-        ).filter((item) => !(item.id === "3" && !useBilling)),
+        list: getAvatarDropdownList(
+          router,
+          () => setCreateProjectModalOpen({ isOpen: true }),
+          {
+            project: t("navigation.create.project"),
+            settings: t("navigation.dropdown.settings"),
+            billing: t("navigation.dropdown.billing"),
+            logout: t("navigation.dropdown.logout"),
+          },
+        ),
       }}
     />
   );

@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import { getSubscriptionUsage } from "server/db/utils/subscription";
 import { z } from "zod";
 import { PlanTypeId, config } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
 
 lemonSqueezySetup({
   apiKey: process.env.LEMONSQUEEZY_API_KEY,
@@ -117,6 +118,7 @@ export const subscriptionRouter = createTRPCRouter({
       const variantId = config.plans.getFormPlanVariantId(
         input.planId,
         input.interval,
+        AppMode,
       );
 
       const configuration: NewCheckout = {
@@ -132,10 +134,12 @@ export const subscriptionRouter = createTRPCRouter({
           custom: {
             userId,
             planId: input.planId,
+            appMode: AppMode,
+            product: "forms",
           },
         },
         expiresAt: dayjs().add(1, "hour").format(),
-        preview: true,
+        preview: AppMode !== "production",
       };
       const { statusCode, error, data } = await createCheckout(
         storeId,

@@ -6,22 +6,22 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
-  font-weight: 500;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #757575;
+  font-family: roboto;
+  font-weight: 500;
 }
 
 .c8 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
-  margin-left: 0.5rem;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #000000;
+  font-family: roboto;
+  margin-left: 0.5rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

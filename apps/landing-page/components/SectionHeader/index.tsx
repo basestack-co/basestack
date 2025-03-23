@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "styled-components";
 import { Text } from "@basestack/design-system";
-import {Container, StyledCaption, Title} from "./styles";
+import { Container, StyledCaption, Title } from "./styles";
 import { Label } from "../styles";
 
 type TitleSize = "medium" | "large" | "xLarge";

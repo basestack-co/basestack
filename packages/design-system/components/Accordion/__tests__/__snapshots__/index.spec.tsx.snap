@@ -6,24 +6,24 @@ exports[`Accordion tests should render Accordion correctly 1`] = `
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #757575;
   font-family: roboto;
   font-weight: 400;
   line-height: 1.4;
   text-align: left;
-  font-family: 'Roboto',sans-serif;
-  word-break: break-word;
-  color: #757575;
 }
 
 .c2 {
   font-size: 1.125rem;
   line-height: 1.625rem;
   font-weight: 500;
-  font-family: roboto;
-  text-align: left;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #000000;
+  font-family: roboto;
+  text-align: left;
 }
 
 .c3 {

@@ -49,7 +49,6 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
           <Registry>{children}</Registry>
         </NextIntlClientProvider>
         <div id="portal" />
-        <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
       </body>
     </html>
   );

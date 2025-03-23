@@ -2,7 +2,6 @@
 
 import React, { useCallback, useMemo } from "react";
 import { useTheme } from "styled-components";
-import { flushSync } from "react-dom";
 // Store
 import { useStore } from "store";
 // Hooks
@@ -16,12 +15,8 @@ import { useTranslations } from "next-intl";
 import { PopupActionProps } from "@basestack/design-system";
 import { Navigation as NavigationUI } from "@basestack/ui";
 // Utils
-import {
-  AppEnv,
-  config,
-  getCookieValueAsBoolean,
-  Product,
-} from "@basestack/utils";
+import { AppEnv, config, Product } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
 import {
   getAppsList,
   getAvatarDropdownList,
@@ -51,11 +46,6 @@ const Navigation = ({ data }: NavigationProps) => {
     (state) => state.setCreateFormModalOpen,
   );
 
-  const useBilling = useMemo(
-    () => getCookieValueAsBoolean(config.cookies.useBilling) || config.isDev,
-    [],
-  );
-
   const currentForm = useMemo(() => {
     const form = data?.find(({ slug }) => slug === formId);
 
@@ -63,10 +53,7 @@ const Navigation = ({ data }: NavigationProps) => {
   }, [formId, data]);
 
   const onSelectApp = useCallback((app: Product) => {
-    window.location.href = config.urls.getAppWithEnv(
-      app,
-      `${process.env.NEXT_PUBLIC_APP_MODE ?? "production"}` as AppEnv,
-    );
+    window.location.href = config.urls.getAppWithEnv(app, AppMode as AppEnv);
   }, []);
 
   const handleDarkModeToggle = () => {
@@ -80,8 +67,16 @@ const Navigation = ({ data }: NavigationProps) => {
       product={Product.FORMS}
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
-      leftLinks={!!formId ? getLeftLinks(router, pathname, t, formId) : []}
-      rightLinks={getRightLinks(t)}
+      leftLinks={
+        !!formId
+          ? getLeftLinks(router, pathname, formId, {
+              submissions: t("navigation.internal.submissions"),
+              setup: t("navigation.internal.setup"),
+              settings: t("navigation.internal.settings"),
+            })
+          : []
+      }
+      rightLinks={getRightLinks({ docs: t("navigation.external.docs") })}
       rightLinksTitle={t("navigation.external.resources")}
       projects={{
         onCreate: () => setCreateFormModalOpen({ isOpen: true }),
@@ -94,7 +89,16 @@ const Navigation = ({ data }: NavigationProps) => {
         },
       }}
       appsTitle={t("navigation.apps.title")}
-      apps={getAppsList(t, onSelectApp)}
+      apps={getAppsList(onSelectApp, {
+        flags: {
+          title: t("navigation.apps.flags.title"),
+          description: t("navigation.apps.flags.description"),
+        },
+        forms: {
+          title: t("navigation.apps.forms.title"),
+          description: t("navigation.apps.forms.description"),
+        },
+      })}
       avatar={{
         name: session?.user.name || t("navigation.dropdown.username"),
         email: session?.user.email || "",
@@ -102,9 +106,16 @@ const Navigation = ({ data }: NavigationProps) => {
         darkModeText: t("navigation.dropdown.dark-mode"),
         isDarkMode: isDarkMode,
         onSetDarkMode: handleDarkModeToggle,
-        list: getAvatarDropdownList(t, router, () =>
-          setCreateFormModalOpen({ isOpen: true }),
-        ).filter((item) => !(item.id === "3" && !useBilling)),
+        list: getAvatarDropdownList(
+          router,
+          () => setCreateFormModalOpen({ isOpen: true }),
+          {
+            createForm: t("navigation.create.form"),
+            settings: t("navigation.dropdown.settings"),
+            billing: t("navigation.dropdown.billing"),
+            logout: t("navigation.dropdown.logout"),
+          },
+        ),
       }}
     />
   );

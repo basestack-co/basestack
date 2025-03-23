@@ -6,21 +6,21 @@ exports[`Table tests should render Table correctly 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #757575;
+  font-family: roboto;
 }
 
 .c5 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
-  font-weight: 400;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #000000;
+  font-family: roboto;
+  font-weight: 400;
 }
 
 .c8 {
@@ -297,21 +297,21 @@ exports[`Table tests should render Table with images 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #757575;
+  font-family: roboto;
 }
 
 .c7 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
-  font-weight: 400;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #000000;
+  font-family: roboto;
+  font-weight: 400;
 }
 
 .c10 {
@@ -806,21 +806,21 @@ exports[`Table tests should render Table with space utils 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #757575;
+  font-family: roboto;
 }
 
 .c5 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
-  font-weight: 400;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #000000;
+  font-family: roboto;
+  font-weight: 400;
 }
 
 .c8 {

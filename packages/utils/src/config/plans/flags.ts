@@ -1,5 +1,7 @@
 // Types
 import { PlanTypeId, FlagsPlan } from "../../types";
+// Utils
+import { getAppMode } from "./utils";
 
 // Flags Plan configuration
 
@@ -14,12 +16,20 @@ const flags: FlagsPlan[] = [
       monthly: {
         amount: 0,
         currency: "USD",
-        variantId: 0,
+        variantIds: {
+          local: 0,
+          development: 0,
+          production: 0,
+        },
       },
       yearly: {
         amount: 0,
         currency: "USD",
-        variantId: 0,
+        variantIds: {
+          local: 0,
+          development: 0,
+          production: 0,
+        },
       },
     },
     limits: {
@@ -52,12 +62,20 @@ const flags: FlagsPlan[] = [
       monthly: {
         amount: 9,
         currency: "USD",
-        variantId: 695368,
+        variantIds: {
+          local: 695368,
+          development: 695368,
+          production: 716243,
+        },
       },
       yearly: {
         amount: 7.65, // 15% off
         currency: "USD",
-        variantId: 695369,
+        variantIds: {
+          local: 695369,
+          development: 695369,
+          production: 716244,
+        },
       },
     },
     limits: {
@@ -90,12 +108,20 @@ const flags: FlagsPlan[] = [
       monthly: {
         amount: 49,
         currency: "USD",
-        variantId: 695372,
+        variantIds: {
+          local: 695372,
+          development: 695372,
+          production: 716246,
+        },
       },
       yearly: {
         amount: 41.65, // 15% off
         currency: "USD",
-        variantId: 695373,
+        variantIds: {
+          local: 695373,
+          development: 695373,
+          production: 716247,
+        },
       },
     },
     limits: {
@@ -128,12 +154,20 @@ const flags: FlagsPlan[] = [
       monthly: {
         amount: 119,
         currency: "USD",
-        variantId: 695376,
+        variantIds: {
+          local: 695376,
+          development: 695376,
+          production: 716249,
+        },
       },
       yearly: {
         amount: 101.15, // 15% off
         currency: "USD",
-        variantId: 695377,
+        variantIds: {
+          local: 695377,
+          development: 695377,
+          production: 716250,
+        },
       },
     },
     limits: {
@@ -167,12 +201,20 @@ const flags: FlagsPlan[] = [
       monthly: {
         amount: Infinity,
         currency: "USD",
-        variantId: 0,
+        variantIds: {
+          local: 0,
+          development: 0,
+          production: 0,
+        },
       },
       yearly: {
         amount: Infinity,
         currency: "USD",
-        variantId: 695377,
+        variantIds: {
+          local: 0,
+          development: 0,
+          production: 0,
+        },
       },
     },
     limits: {
@@ -258,14 +300,26 @@ const isUnderFlagsPlanLimit = (
 const getFlagsPlanVariantId = (
   id: PlanTypeId,
   interval: "monthly" | "yearly",
+  mode: string = "production",
 ) => {
+  const stage = getAppMode(mode);
+
   const plan = getFlagsPlan(id);
-  return plan.price[interval].variantId;
+  return plan.price[interval].variantIds[stage];
 };
 
-const getFlagsPlanByVariantId = (variantId: number) => {
+const getFlagsPlanByVariantId = (
+  variantId: number,
+  isBilledMonthly: boolean = false,
+  mode: string = "production",
+) => {
+  const stage = getAppMode(mode);
+
   return flags.find((plan) => {
-    return plan.price.monthly.variantId === variantId;
+    return (
+      plan.price[isBilledMonthly ? "monthly" : "yearly"].variantIds[stage] ===
+      variantId
+    );
   });
 };
 

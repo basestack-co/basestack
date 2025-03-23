@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from "react";
 // Auth
 import { useSession, signIn } from "next-auth/react";
-import { providerMap } from "server/auth/config";
+// Vendors
+import { auth } from "@basestack/vendors";
 // Locales
 import { useTranslations } from "next-intl";
 // Router
@@ -52,7 +53,7 @@ const SignInPage = () => {
 
   return (
     <SignInComponent
-      providers={providerMap as unknown as Provider}
+      providers={auth.providerMap as unknown as Provider}
       isLoading={status === "loading"}
       title={t("sign-in.panel.title")}
       description={t("sign-in.panel.description")}
