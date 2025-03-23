@@ -36,12 +36,12 @@ const LandingPage = () => {
           {
             id: "1",
             text: t("page.main.hero.action.quote"),
-            href: "",
+            onClick: () => router.push("/contact"),
           },
           {
             id: "2",
             text: t("page.main.hero.action.request-demo"),
-            href: "",
+            onClick: () => router.push("/contact"),
             isTertiary: true,
           },
         ]}

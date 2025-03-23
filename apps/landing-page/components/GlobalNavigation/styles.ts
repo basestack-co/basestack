@@ -65,6 +65,7 @@ export const ListItem = styled.li`
 
 export const RightColumn = styled.div`
   display: flex;
+  align-items: center;
   margin-left: auto;
 `;
 

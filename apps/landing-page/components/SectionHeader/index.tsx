@@ -1,23 +1,26 @@
 import React from "react";
 import { useTheme } from "styled-components";
 import { Text } from "@basestack/design-system";
-import { Container, Title } from "./styles";
+import {Container, StyledCaption, Title} from "./styles";
 import { Label } from "../styles";
 
 type TitleSize = "medium" | "large" | "xLarge";
+type TextAlign = "left" | "center" | "right";
+type AlignItems = "flex-end" | "center" | "flex-start";
 
-export interface SectionHeaderProps {
+interface SectionHeaderProps {
   title: string;
   text?: string;
   titleSize?: TitleSize;
   hasMarginBottom?: boolean;
   hasAnimatedText?: boolean;
-  textAlign?: "left" | "center" | "right";
-  alignItems?: "flex-end" | "center" | "flex-start";
+  textAlign?: TextAlign;
+  alignItems?: AlignItems;
   label?: string;
   textMaxWidth?: number | "initial";
   titleMaxWidth?: number | "initial";
   titleTag?: string;
+  caption?: string;
 }
 
 const SectionHeader = ({
@@ -32,11 +35,24 @@ const SectionHeader = ({
   titleMaxWidth = "initial",
   hasAnimatedText = false,
   titleTag = "h2",
+  caption,
 }: SectionHeaderProps) => {
-  const { spacing, colors, isDarkMode } = useTheme();
+  const { spacing, colors, isDarkMode, typography } = useTheme();
 
   return (
     <Container hasMarginBottom={hasMarginBottom} alignItems={alignItems}>
+      {caption && (
+        <StyledCaption
+          size="medium"
+          fontWeight={400}
+          mb={spacing.s3}
+          color={colors.blue400}
+          // @ts-ignore
+          fontFamily={typography.robotoMono}
+        >
+          {caption.toUpperCase()}
+        </StyledCaption>
+      )}
       {label && (
         <Label>
           <Text size="xSmall">{label}</Text>
@@ -46,7 +62,7 @@ const SectionHeader = ({
         as={titleTag}
         lineHeight="1.3"
         textAlign={textAlign}
-        mb={spacing.s2}
+        mb={spacing.s3}
         color={isDarkMode ? colors.gray300 : colors.black}
         titleSize={titleSize}
         titleMaxWidth={titleMaxWidth}
@@ -73,4 +89,5 @@ const SectionHeader = ({
   );
 };
 
+export type { TitleSize, TextAlign, AlignItems, SectionHeaderProps };
 export default SectionHeader;

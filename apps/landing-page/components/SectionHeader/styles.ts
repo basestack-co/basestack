@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 import { rem } from "polished";
+import { Text } from "@basestack/design-system";
 import {
   space,
   typography,
@@ -97,4 +98,16 @@ export const Title = styled.h2.withConfig({
   @media screen and ${({ theme }) => theme.device.max.md} {
     font-size: ${({ titleSize }) => getMobileTitleSize[titleSize]};
   }
+`;
+
+export const StyledCaption = styled(Text)`
+  background: linear-gradient(
+    to right,
+    ${({ theme }) => theme.colors[theme.isDarkMode ? "blue300" : "blue400"]},
+    ${({ theme }) => theme.colors[theme.isDarkMode ? "purple300" : "purple400"]}
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
 `;

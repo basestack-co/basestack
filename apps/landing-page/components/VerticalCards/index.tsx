@@ -2,7 +2,6 @@ import React from "react";
 import { useTheme } from "styled-components";
 import useEmblaCarousel from "embla-carousel-react";
 import { Button, ButtonSize, ButtonVariant } from "@basestack/design-system";
-import { events } from "@basestack/utils";
 import { useMedia } from "react-use";
 import Card, { CardProps } from "./Card";
 import {
@@ -26,7 +25,7 @@ export interface VerticalCardsProps {
   actions?: Array<{
     id: string;
     text: string;
-    href: string;
+    onClick: () => void;
     isTertiary?: boolean;
   }>;
 }
@@ -48,18 +47,13 @@ const VerticalCards = ({ cards, id, actions, header }: VerticalCardsProps) => {
         <HeaderContainer>
           <SectionHeader {...header} hasMarginBottom={false} />
           <ButtonsContainer>
-            {actions?.map(({ id, text, href, isTertiary }) => {
+            {actions?.map(({ id, text, onClick, isTertiary }) => {
               return (
                 <Button
                   key={id}
                   justifyContent="center"
                   fullWidth={isMobile}
-                  onClick={() => {
-                    events.landing.deploy(`Click on ${text}`);
-                    if (typeof window !== "undefined") {
-                      window.open(href, "_blank");
-                    }
-                  }}
+                  onClick={onClick}
                   size={ButtonSize.Medium}
                   {...(isTertiary
                     ? {

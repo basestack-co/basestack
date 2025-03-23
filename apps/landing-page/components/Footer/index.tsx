@@ -44,7 +44,6 @@ import { z } from "zod";
 import { useTranslations } from "next-intl";
 // Toast
 import { toast } from "sonner";
-import { spacing } from "@basestack/design-system/theme/common";
 
 const { urls } = defaults;
 
@@ -199,11 +198,10 @@ const FooterLinks: React.FC = () => {
 
 const Footer = () => {
   const t = useTranslations();
-  const theme = useTheme();
+  const { isDarkMode, spacing } = useTheme();
   const { toggleDarkMode } = useDarkModeToggle();
 
   const setIsDarkMode = useStore((state) => state.setDarkMode);
-  const isDarkMode = useStore((state) => state.isDarkMode);
 
   const {
     control,
@@ -253,7 +251,7 @@ const Footer = () => {
 
         <NewsletterContainer>
           <NewsletterContent>
-            <Text size="xLarge" mb={theme.spacing.s1}>
+            <Text size="xLarge" mb={spacing.s1}>
               {t("footer.newsletter.title")}
             </Text>
             <Text size="medium" fontWeight={400}>
@@ -276,7 +274,7 @@ const Footer = () => {
                   onChange={field.onChange}
                   onBlur={field.onBlur}
                   isDisabled={isSubmitting}
-                  mr={theme.spacing.s2}
+                  mr={spacing.s2}
                   maxWidth="240px"
                   width="100%"
                 />
