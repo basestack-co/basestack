@@ -25,7 +25,7 @@
         "title": "Support"
       },
       "star": {
-        "title": "Star on GitHub"
+        "title": "Star"
       },
       "launch": {
         "title": "Launch"
@@ -60,7 +60,7 @@
     "newsletter": {
       "title": "Stay Updated",
       "text": "Subscribe to receive the latest updates and insights.",
-      "action": "Subscribe Now"
+      "action": "Subscribe"
     },
     "section": {
       "products": {
@@ -238,7 +238,7 @@
       },
       "community": {
         "title": "Join the Basestack Community",
-        "description": "Basestack is powered by collaboration. Connect with like-minded developers, contribute to our open-source projects, and be part of a growing network that’s shaping the future of tools for startups. Your input helps drive innovation, and together, we build better solutions.",
+        "description": "Basestack is powered by collaboration. Connect with like-minded developers, contribute to our open-source projects, and be part of a growing network that’s shaping the future of tools for startups.",
         "action": {
           "explore": "Explore the Code",
           "involved": "Get Involved"
