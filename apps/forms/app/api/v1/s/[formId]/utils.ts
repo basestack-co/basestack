@@ -1,57 +1,23 @@
 // Utils
 import formidable from "formidable";
 import { Readable } from "stream";
-import requestIp from "request-ip";
 import { IncomingMessage } from "http";
-import { PlanTypeId, config as utilsConfig } from "@basestack/utils";
+import {
+  PlanTypeId,
+  config as utilsConfig,
+  RequestError,
+  getValidWebsite,
+  isValidIpAddress,
+  isRefererValid,
+} from "@basestack/utils";
 // Prisma
 import { getFormOnUser, defaultErrorUrl } from "server/db/utils/form";
+
 const { hasFormPlanFeature, getFormLimitByKey } = utilsConfig.plans;
 
 export enum FormMode {
   REST = "rest",
 }
-
-export class FormError extends Error {
-  code: number;
-  url: string;
-
-  constructor({
-    code,
-    url,
-    message,
-  }: {
-    code: number;
-    url: string;
-    message: string;
-  }) {
-    super(message);
-    this.code = code;
-    this.url = url;
-
-    this.name = "FormError";
-
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, FormError);
-    }
-  }
-}
-
-export const getMetadata = (req: Request) => {
-  const headers: Record<string, string> = {};
-  req.headers.forEach((value, key) => {
-    headers[key] = value;
-  });
-
-  const ip = requestIp.getClientIp({ headers } as any);
-
-  return {
-    ip,
-    referer: req.headers.get("referer") || "/",
-    userAgent: req.headers.get("user-agent") || "",
-    acceptLanguage: req.headers.get("accept-language") || "",
-  };
-};
 
 export const formatFormData = async (
   req: Request,
@@ -63,7 +29,7 @@ export const formatFormData = async (
 
   const body = req.body;
   if (!body) {
-    throw new FormError({
+    throw new RequestError({
       code: 400,
       url,
       message: "Error: No body found in the request",
@@ -96,7 +62,7 @@ export const formatFormData = async (
   try {
     ({ fields, files } = await parseFormData());
   } catch (error: any) {
-    throw new FormError({
+    throw new RequestError({
       code: 400,
       url,
       message: `Error: Failed to parse form data - ${error.message}`,
@@ -104,7 +70,7 @@ export const formatFormData = async (
   }
 
   if (Object.keys(fields).length === 0) {
-    throw new FormError({
+    throw new RequestError({
       code: 400,
       url,
       message: "Error: No fields found in the request",
@@ -119,7 +85,7 @@ export const formatFormData = async (
   );
 
   if (typeof _trap === "string" && _trap.trim() !== "") {
-    throw new FormError({
+    throw new RequestError({
       code: 403,
       url,
       message: "Error: You are a bot!",
@@ -134,66 +100,97 @@ export const verifyForm = async (
   referer: string,
   metadata: { ip: string | null },
 ) => {
-  if (!formId) {
-    throw new FormError({
-      code: 404,
-      url: `${defaultErrorUrl}?goBackUrl=${referer}`,
-      message: "No formId found in the request",
-    });
-  }
-
-  const form = await getFormOnUser(formId, referer);
-
-  if (!form) {
-    throw new FormError({
-      code: 404,
-      url: `${defaultErrorUrl}?goBackUrl=${referer}`,
-      message: "Error: No form found with the ID in the request",
-    });
-  }
-
-  if (form?.isEnabled) {
-    const planId = form.usage.planId as PlanTypeId;
-
-    if (form.usage.submissions >= getFormLimitByKey(planId, "submissions")) {
-      throw new FormError({
-        code: 403,
-        url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
-        message:
-          "Error: Form submission limit exceeded. Please consider upgrading.",
+  try {
+    if (!formId) {
+      throw new RequestError({
+        code: 404,
+        url: `${defaultErrorUrl}?goBackUrl=${referer}`,
+        message: "No formId found in the request",
       });
     }
 
-    if (!!form.websites && hasFormPlanFeature(planId, "hasWebsites")) {
-      const websites = form.websites.split(",");
-      const isValid = websites.some((website) => referer.includes(website));
+    const form = await getFormOnUser(formId, referer);
 
-      if (!isValid) {
-        throw new FormError({
+    if (!form) {
+      throw new RequestError({
+        code: 404,
+        url: `${defaultErrorUrl}?goBackUrl=${referer}`,
+        message: "Error: No form found with the ID in the request",
+      });
+    }
+
+    if (form?.isEnabled) {
+      const planId = form.usage.planId as PlanTypeId;
+
+      if (form.usage.submissions >= getFormLimitByKey(planId, "submissions")) {
+        throw new RequestError({
           code: 403,
           url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
-          message: "Error: The website is not allowed to submit the form",
+          message:
+            "Error: Form submission limit exceeded. Please consider upgrading.",
         });
+      }
+
+      if (
+        !!form.websites &&
+        hasFormPlanFeature(planId, "hasWebsites") &&
+        isRefererValid(referer)
+      ) {
+        const isValid = getValidWebsite(referer, form.websites);
+
+        if (!isValid) {
+          throw new RequestError({
+            code: 403,
+            url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
+            message: "Error: The website is not allowed to submit the form",
+          });
+        }
+      }
+
+      if (
+        !!form.blockIpAddresses &&
+        metadata?.ip &&
+        hasFormPlanFeature(planId, "hasBlockIPs")
+      ) {
+        const blockIpAddresses = form.blockIpAddresses
+          .split(",")
+          .map((ip) => ip.trim())
+          .filter(Boolean)
+          .filter(isValidIpAddress);
+
+        const clientIp = metadata.ip.trim();
+
+        if (clientIp && isValidIpAddress(clientIp)) {
+          const isBlocked = blockIpAddresses.some((ip) => ip === clientIp);
+
+          if (isBlocked) {
+            throw new RequestError({
+              code: 403,
+              url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
+              message:
+                "Error: Your IP address is blocked from submitting the form",
+            });
+          }
+        }
       }
     }
 
-    if (
-      !!form.blockIpAddresses &&
-      metadata?.ip &&
-      hasFormPlanFeature(planId, "hasBlockIPs")
-    ) {
-      const blockIpAddresses = form.blockIpAddresses.split(",");
-      const isBlocked = blockIpAddresses.some((ip) => ip === metadata.ip);
+    return form;
+  } catch (error) {
+    if (!(error instanceof RequestError)) {
+      console.error("Unexpected error in verifyForm:", error, {
+        formId,
+        referer,
+        ip: metadata?.ip,
+      });
 
-      if (isBlocked) {
-        throw new FormError({
-          code: 403,
-          url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
-          message: "Error: Your IP address is blocked from submitting the form",
-        });
-      }
+      throw new RequestError({
+        code: 500,
+        url: `${defaultErrorUrl}?goBackUrl=${referer}`,
+        message: "An internal error occurred",
+      });
     }
+
+    throw error;
   }
-
-  return form;
 };

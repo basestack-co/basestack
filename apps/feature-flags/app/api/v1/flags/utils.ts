@@ -1,6 +1,13 @@
 // Utils
-import requestIp from "request-ip";
-import { PlanTypeId, config as utilsConfig, config } from "@basestack/utils";
+import {
+  PlanTypeId,
+  config as utilsConfig,
+  config,
+  isRefererValid,
+  getValidWebsite,
+  isValidIpAddress,
+  RequestError,
+} from "@basestack/utils";
 // DB
 import { prisma } from "server/db";
 import { getProjectOnUser, productUrl } from "server/db/utils/project";
@@ -8,107 +15,120 @@ import { withUsageUpdate } from "server/db/utils/subscription";
 
 const { hasFlagsPlanFeature } = utilsConfig.plans;
 
-export class RequestError extends Error {
-  code: number;
-  url: string;
-
-  constructor({
-    code,
-    url,
-    message,
-  }: {
-    code: number;
-    url: string;
-    message: string;
-  }) {
-    super(message);
-    this.code = code;
-    this.url = url;
-
-    this.name = "RequestError";
-
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, RequestError);
-    }
-  }
-}
-
-export const getMetadata = (req: Request) => {
-  const headers: Record<string, string> = {};
-  req.headers.forEach((value, key) => {
-    headers[key] = value;
-  });
-
-  const ip = requestIp.getClientIp({ headers } as any);
-
-  return {
-    ip,
-    referer: req.headers.get("referer") || "/",
-    userAgent: req.headers.get("user-agent") || "",
-    acceptLanguage: req.headers.get("accept-language") || "",
-  };
-};
-
 export const verifyRequest = async (
-  projectKey: string,
+  key: string,
   referer: string,
   metadata: { ip: string | null },
 ) => {
-  const project = await getProjectOnUser(projectKey);
+  try {
+    const projectKey = key.trim();
 
-  if (!project) {
-    throw new RequestError({
-      code: 404,
-      url: productUrl,
-      message: "Error: No project found with the ID in the request",
-    });
-  }
+    const project = await getProjectOnUser(projectKey);
 
-  const planId = project.usage.planId as PlanTypeId;
+    if (!project) {
+      console.info(`"Error: No project found with the ID in the request`, {
+        product: "Feature Flags",
+        referer,
+      });
 
-  if (!!project.websites && hasFlagsPlanFeature(planId, "hasWebsites")) {
-    const websites = project.websites.split(",");
-    const isValid = websites.some((website) => referer.includes(website));
-
-    if (!isValid) {
       throw new RequestError({
-        code: 403,
+        code: 404,
         url: productUrl,
-        message: "Error: The website is not allowed to fetch feature flags",
+        message: "Error: No project found",
       });
     }
-  }
 
-  if (
-    !!project.blockIpAddresses &&
-    metadata?.ip &&
-    hasFlagsPlanFeature(planId, "hasBlockIPs")
-  ) {
-    const blockIpAddresses = project.blockIpAddresses.split(",");
-    const isBlocked = blockIpAddresses.some((ip) => ip === metadata.ip);
+    const planId = project.usage.planId as PlanTypeId;
 
-    if (isBlocked) {
+    if (
+      !!project.websites &&
+      hasFlagsPlanFeature(planId, "hasWebsites") &&
+      isRefererValid(referer)
+    ) {
+      const isValid = getValidWebsite(referer, project.websites);
+
+      if (!isValid) {
+        console.info(
+          `"Error: The website is not allowed to fetch feature flags`,
+          {
+            product: "Feature Flags",
+            referer,
+          },
+        );
+
+        throw new RequestError({
+          code: 403,
+          url: productUrl,
+          message: "Unauthorized request",
+        });
+      }
+    }
+
+    if (
+      !!project.blockIpAddresses &&
+      metadata?.ip &&
+      hasFlagsPlanFeature(planId, "hasBlockIPs")
+    ) {
+      const blockIpAddresses = project.blockIpAddresses
+        .split(",")
+        .map((ip) => ip.trim())
+        .filter(Boolean)
+        .filter(isValidIpAddress);
+
+      const clientIp = metadata.ip.trim();
+
+      if (clientIp && isValidIpAddress(clientIp)) {
+        const isBlocked = blockIpAddresses.some((ip) => ip === clientIp);
+
+        if (isBlocked) {
+          console.info(
+            `Error: Your IP address is blocked from fetching feature flags`,
+            {
+              product: "Feature Flags",
+              referer,
+            },
+          );
+
+          throw new RequestError({
+            code: 403,
+            url: productUrl,
+            message: "Access denied",
+          });
+        }
+      }
+    }
+
+    const limit = config.plans.getFlagsLimitByKey(planId, "apiRequests");
+
+    if (project.usage.apiRequests >= limit) {
+      console.info(
+        `Error: Plan limit exceeded for API requests. Please consider upgrading.`,
+        {
+          product: "Feature Flags",
+          referer,
+        },
+      );
+
       throw new RequestError({
-        code: 403,
+        code: 429,
         url: productUrl,
-        message:
-          "Error: Your IP address is blocked from fetching feature flags",
+        message: "Rate limit exceeded",
       });
     }
+
+    await withUsageUpdate(prisma, project.userId, "apiRequests", "increment");
+
+    return true;
+  } catch (error) {
+    if (!(error instanceof RequestError)) {
+      console.error("Unexpected error in verifyRequest:", error);
+      throw new RequestError({
+        code: 500,
+        url: productUrl,
+        message: "An internal error occurred",
+      });
+    }
+
+    throw error;
   }
-
-  const limit = config.plans.getFlagsLimitByKey(planId, "apiRequests");
-
-  if (project.usage.apiRequests >= limit) {
-    throw new RequestError({
-      code: 429,
-      url: productUrl,
-      message:
-        "Error: Plan limit exceeded for API requests. Please consider upgrading.",
-    });
-  }
-
-  await withUsageUpdate(prisma, project.userId, "apiRequests", "increment");
-
-  return true;
 };

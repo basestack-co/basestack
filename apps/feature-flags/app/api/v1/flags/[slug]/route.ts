@@ -2,22 +2,20 @@ import { NextResponse } from "next/server";
 // Prisma
 import { getFlagBySlug } from "server/db/utils/flag";
 // Utils
-import { verifyRequest, getMetadata } from "../utils";
+import { getMetadata } from "@basestack/utils";
+import { verifyRequest } from "../utils";
 
 export const dynamic = "auto";
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET,OPTIONS",
+  "Access-Control-Allow-Methods": "GET, OPTIONS",
   "Access-Control-Allow-Headers":
-    "Content-Type,Origin,Accept,X-Environment-Key,X-Project-Key",
+    "Content-Type, Origin, Accept, X-Environment-Key, X-Project-Key",
 };
 
 export async function OPTIONS() {
-  return new Response(null, {
-    status: 204,
-    headers,
-  });
+  return NextResponse.json({}, { status: 200, headers });
 }
 
 export async function GET(
@@ -64,12 +62,20 @@ export async function GET(
         status: 200,
         headers,
       });
+    } else {
+      return NextResponse.json(
+        {
+          error: true,
+          message: "You are not allowed to access this resource.",
+        },
+        { status: 403, headers },
+      );
     }
   } catch (error: any) {
     return NextResponse.json(
       {
         error: true,
-        message: error.message ?? "Something went wrong",
+        message: "Something went wrong, please try again later.",
       },
       { status: error.code ?? 400, headers },
     );

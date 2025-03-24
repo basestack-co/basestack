@@ -56,15 +56,6 @@
     }
   },
   "home": {
-    "projects": {
-      "title": "Recent projects",
-      "action": "Create Project",
-      "empty": {
-        "title": "Create your first project",
-        "description": "Create your first project to start creating flags!",
-        "action": "Create Project"
-      }
-    },
     "forms": {
       "title": "Recent forms",
       "action": "Create Form",
@@ -86,11 +77,6 @@
     },
     "links": {
       "title": "Quick links",
-      "sdks": {
-        "title": "Set Up the SDK",
-        "description": "Integrate Feature Flags into your Product using the official SDKs. Discover the available libraries.",
-        "action": "View Instructions"
-      },
       "external": {
         "title": "Documentation, Help and Support",
         "read_the": "Read the",
@@ -98,7 +84,6 @@
         "how_to": "How to",
         "open_on": "Open an issue on",
         "docs": "Documentation",
-        "sdks": "SDK’s",
         "contribute": "Contribute?",
         "github": "Github"
       }
@@ -327,31 +312,6 @@
         }
       }
     },
-    "project": {
-      "create": {
-        "title": "Create Project",
-        "button": {
-          "cancel": "Close",
-          "submit": "Create"
-        },
-        "input": {
-          "project-name": {
-            "title": "Project name",
-            "error": {
-              "max": "Must be 30 characters or less",
-              "min": "Required field"
-            }
-          },
-          "slug": {
-            "title": "Project slug",
-            "error": {
-              "max": "Must be 150 characters or less",
-              "min": "Required field"
-            }
-          }
-        }
-      }
-    },
     "member": {
       "invite": {
         "title": "Add Team Member",
@@ -370,136 +330,9 @@
         }
       }
     },
-    "integration": {
-      "title": "Implementing Feature Flags",
-      "sdk": {
-        "reference": "SDK Reference",
-        "explore": "Explore the",
-        "docs": "SDK Docs",
-        "more": "to learn how to install and use the SDK."
-      },
-      "button": {
-        "cancel": "Close"
-      }
-    },
-    "flag": {
-      "tab": {
-        "core": {
-          "title": "Core",
-          "input": {
-            "name": {
-              "title": "Feature Key",
-              "hint": "Try to avoid spaces, or special characters",
-              "placeholder": "E.g. header_size",
-              "error": {
-                "max": "Must be 150 characters or less",
-                "min": "Required field"
-              }
-            },
-            "description": {
-              "title": "Description",
-              "placeholder": "Flag description",
-              "error": {
-                "max": "Must be 120 characters or less"
-              }
-            },
-            "environments": {
-              "title": "Enabled Environments"
-            }
-          }
-        },
-        "advanced": {
-          "title": "Advanced",
-          "input": {
-            "calendar": {
-              "title": "Expiration Date",
-              "placeholder": "dd/mm/yyyy"
-            },
-            "payload": {
-              "title": "Payload"
-            }
-          }
-        },
-        "activity": {
-          "title": "Activity"
-        }
-      },
-      "create": {
-        "title": "Create Feature Flag",
-        "button": {
-          "cancel": "Close",
-          "submit": "Create"
-        }
-      },
-      "update": {
-        "title": "Edit Feature Flag",
-        "button": {
-          "cancel": "Close",
-          "submit": "Update"
-        }
-      }
-    },
     "confirm": {
       "button": {
         "cancel": "Close"
-      }
-    },
-    "environment": {
-      "create": {
-        "title": "Create Environment",
-        "button": {
-          "cancel": "Close",
-          "submit": "Create"
-        }
-      },
-      "update": {
-        "title": "Edit Environment",
-        "button": {
-          "cancel": "Close",
-          "submit": "Create"
-        }
-      },
-      "input": {
-        "name": {
-          "title": "Environment name",
-          "placeholder": "E.g. development",
-          "hint": "The feature flags will be copied based on the default environment",
-          "error": {
-            "max": "Must be 30 characters or less",
-            "min": "Required field"
-          }
-        },
-        "description": {
-          "title": "Description",
-          "placeholder": "Environment description",
-          "error": {
-            "max": "Must be 250 characters or less",
-            "min": "Required field"
-          }
-        }
-      }
-    },
-    "activity": {
-      "title": "Activity",
-      "button": {
-        "close": "Close"
-      },
-      "empty": {
-        "title": "No Results Found",
-        "description": "We couldn't find any results for your search. Please try a different search term or refine your search by date."
-      },
-      "toolbar": {
-        "search": {
-          "placeholder": "Search by name"
-        },
-        "calendar": {
-          "placeholder": "dd/mm/yyyy - dd/mm/yyyy"
-        }
-      },
-      "card": {
-        "description": {
-          "project": "created the project"
-        }
       }
     },
     "form": {
@@ -523,12 +356,7 @@
   },
   "navigation": {
     "create": {
-      "project": "Create Project",
       "form": "Create Form"
-    },
-    "projects": {
-      "title": "Projects",
-      "select": "Select Project"
     },
     "forms": {
       "title": "Forms",
@@ -559,8 +387,7 @@
       "security": "Security",
       "customization": "Customization",
       "notifications": "Notifications",
-      "members": "Members",
-      "environments": "Environments"
+      "members": "Members"
     },
     "apps": {
       "title": "Apps",
@@ -604,19 +431,6 @@
           "type": {
             "light": "Light",
             "dark": "Dark"
-          }
-        },
-        "flags": {
-          "title": "Feature Flags per Page",
-          "description": "Set the number of Feature Flags displayed on each page.",
-          "action": "Save",
-          "input": {
-            "number-of-flags": {
-              "error": {
-                "max": "Must be a value between 1 and 100.",
-                "min": "Required field"
-              }
-            }
           }
         }
       }
@@ -712,20 +526,6 @@
       }
     },
     "general": {
-      "project": {
-        "title": "Project Name",
-        "description": "A name used to identify your project on the dashboard.",
-        "action": "Update",
-        "inputs": {
-          "name": {
-            "placeholder": "Project Name",
-            "error": {
-              "max": "Must be 30 characters or less",
-              "min": "Required field"
-            }
-          }
-        }
-      },
       "endpoints": {
         "title": "Endpoints",
         "description": "Endpoints are essential for the SDKs to access and interact with features.",
@@ -733,28 +533,11 @@
           "title": "Base Url"
         }
       },
-      "project-key": {
-        "title": "Project Key",
-        "description": "Here is your project key, which you can use to integrate and access the features in your project.",
-        "copy": {
-          "title": "Key"
-        }
-      },
       "form-key": {
         "title": "Form ID",
         "description": "Here is your form ID, which you can use to integrate and access the features in your websites.",
         "copy": {
           "title": "ID"
-        }
-      },
-      "keys": {
-        "title": "API Keys",
-        "description": "API keys are used with the SDKs, such as JavaScript, React, etc.",
-        "table": {
-          "headers": {
-            "name": "Environment Name",
-            "key": "Environment Key"
-          }
         }
       },
       "delete": {
@@ -767,17 +550,6 @@
             "title": "Are you sure about this action?",
             "description": "Warning: This action cannot be undone. It will permanently delete the {name} form.",
             "action": "Delete Form"
-          }
-        },
-        "project": {
-          "title": "Delete Project",
-          "description": "Deleting the project will permanently remove all its environments and feature flags.",
-          "placeholder": "Warning: This action is irreversible. Proceed with caution.",
-          "action": "Delete",
-          "modal": {
-            "title": "Are you sure about this action?",
-            "description": "Warning: This action cannot be undone. It will permanently delete the {name} project, including flags, history, and all collaborator associations.",
-            "action": "Delete Project"
           }
         }
       },
@@ -976,34 +748,6 @@
             "role": "Role",
             "invited-at": "Invited At"
           }
-        }
-      }
-    },
-    "others": {
-      "environments": {
-        "title": "Environments",
-        "description": "{type} environments for this project. Environments allow you to control how your feature flags behave in different settings or stages of development.",
-        "admin": "Create and edit",
-        "user": "All the",
-        "action": "Create New Environment",
-        "modal": {
-          "delete": {
-            "title": "Are you sure?",
-            "description": "This action cannot be undone. This will permanently delete the {name} environment, flags, history and remove all collaborator associations.",
-            "action": "Delete Environment"
-          }
-        },
-        "table": {
-          "headers": {
-            "environment": "Environment",
-            "slug": "Slug",
-            "description": "Description",
-            "created-at": "Created At"
-          }
-        },
-        "actions": {
-          "edit": "Edit",
-          "delete": "Delete"
         }
       }
     }

@@ -8,9 +8,11 @@ import { z } from "zod";
 // Server
 import { api } from "utils/trpc/react";
 // Components
-import { Input } from "@basestack/design-system";
+import { InputGroup } from "@basestack/design-system";
 // UI
 import { SettingCard } from "@basestack/ui";
+// Utils
+import { isEmptyObject } from "@basestack/utils";
 // Types
 import { Role } from ".prisma/client";
 // Locales
@@ -42,10 +44,13 @@ const ProjectNameCard = ({ role, name }: Props) => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
+    watch,
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
   });
+
+  const inputName = watch("name");
 
   const onSaveProjectName: SubmitHandler<FormInputs> = async (input) => {
     updateProject.mutate(
@@ -101,7 +106,13 @@ const ProjectNameCard = ({ role, name }: Props) => {
       description={t("general.project.description")}
       button={t("general.project.action")!}
       onClick={handleSubmit(onSaveProjectName)}
-      isDisabled={isSubmitting || !name || updateProject.isPending}
+      isDisabled={
+        isSubmitting ||
+        !name ||
+        updateProject.isPending ||
+        name === inputName ||
+        !isEmptyObject(errors)
+      }
       isLoading={isSubmitting || updateProject.isPending}
       hasFooter={isAdmin}
     >
@@ -110,15 +121,19 @@ const ProjectNameCard = ({ role, name }: Props) => {
         control={control}
         defaultValue=""
         render={({ field }) => (
-          <Input
-            maxWidth={400}
-            onChange={field.onChange}
-            onBlur={field.onBlur}
-            placeholder={t("general.project.inputs.name.placeholder")}
-            name={field.name}
-            value={field.value}
-            hasError={!!errors.name}
-            isDisabled={isSubmitting || !name || !isAdmin}
+          <InputGroup
+            hint={errors.name?.message ? t(errors.name?.message as never) : ""}
+            inputProps={{
+              type: "text",
+              name: field.name,
+              value: field.value as string,
+              onChange: field.onChange,
+              onBlur: field.onBlur,
+              placeholder: t("general.project.inputs.name.placeholder"),
+              hasError: !!errors.name,
+              isDisabled: isSubmitting || !name || !isAdmin,
+              maxWidth: 400,
+            }}
           />
         )}
       />

@@ -17,7 +17,7 @@ import { toast } from "sonner";
 // Server
 import { api } from "utils/trpc/react";
 // Locales
-import { useTranslations } from "next-intl";
+import { NamespaceKeys, useTranslations } from "next-intl";
 
 export const FormSchema = z.object({
   name: z
@@ -131,7 +131,11 @@ const CreateFormModal = () => {
           render={({ field }) => (
             <InputGroup
               title={t("form.create.input.project-name.title")}
-              hint={errors.name?.message}
+              hint={
+                errors.name?.message
+                  ? t(errors.name?.message as NamespaceKeys<string, "modal">)
+                  : ""
+              }
               inputProps={{
                 type: "text",
                 name: field.name,
