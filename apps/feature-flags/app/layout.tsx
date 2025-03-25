@@ -3,7 +3,7 @@ import React from "react";
 import Registry from "utils/registry";
 // Locales
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
+import { getLocale } from "next-intl/server";
 // Fonts
 import { Roboto_Flex, Roboto } from "next/font/google";
 

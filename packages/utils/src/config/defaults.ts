@@ -14,8 +14,8 @@ const commons = {
   status: "https://status.basestack.co/",
   support: "https://docs.basestack.co/help",
   product: {
-    flags: `${baseLandingUrl}/feature-flags`,
-    forms: `${baseLandingUrl}/forms`,
+    flags: `${baseLandingUrl}/product/feature-flags`,
+    forms: `${baseLandingUrl}/product/forms`,
   },
   legal: {
     privacy: `${baseLandingUrl}/legal/privacy`,

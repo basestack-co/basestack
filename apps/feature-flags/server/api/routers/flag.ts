@@ -5,8 +5,6 @@ import { withLimits, withUsageUpdate } from "server/db/utils/subscription";
 import { z } from "zod";
 import { PlanTypeId } from "@basestack/utils";
 
-// config.plans.hasFlagsPlanFeature(planId, "hasRemoteConfig")
-
 export const flagRouter = createTRPCRouter({
   all: protectedProcedure
     .input(

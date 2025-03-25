@@ -30,7 +30,7 @@ export async function POST(
   req: Request,
   { params }: { params: Promise<{ formId: string }> },
 ) {
-  const referer = req.headers.get("referer") || "/";
+  const referer = req.headers.get("referer") || "http://localhost:3003";
   const { formId } = await params;
 
   const { searchParams } = new URL(req.url);
@@ -151,7 +151,10 @@ export async function POST(
           { status: error.code, headers },
         );
       } else {
-        return NextResponse.redirect(error.url, 303);
+        return NextResponse.redirect(
+          `${error.url}&message=${error.message}`,
+          303,
+        );
       }
     } else {
       return NextResponse.json(
