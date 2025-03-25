@@ -51,6 +51,17 @@ export const Indicator = styled.div.withConfig({
   z-index: -2;
   height: ${rem("450px")};
   flex: 1;
+  transition: background-color 0.2s ease-in-out;
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    height: ${rem("350px")};
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    &:not(:first-child) {
+      display: none;
+    }
+  }
 `;
 
 export const EmblaViewport = styled.div`

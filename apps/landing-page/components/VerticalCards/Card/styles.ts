@@ -14,6 +14,7 @@ export const StyledButton = styled.button`
   border: none;
   display: flex;
   flex-direction: column;
+  height: 100%;
   text-align: left;
   overflow: hidden;
   background-color: ${({ theme }) =>
@@ -41,7 +42,7 @@ export const HeaderContent = styled.div`
   display: flex;
   align-items: center;
   padding: ${({ theme }) => `${rem("24px")} ${theme.spacing.s5}`};
-  flex-grow: 1;
+  width: 100%;
   justify-content: space-between;
 `;
 

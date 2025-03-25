@@ -46,6 +46,7 @@ const ContactEnterprisePage = () => {
           caption: t("page.enterprise.caption"),
           title: t("page.enterprise.title"),
           text: t("page.enterprise.description"),
+          titleTag: "h1",
         }}
         onSave={onSubmit}
       />

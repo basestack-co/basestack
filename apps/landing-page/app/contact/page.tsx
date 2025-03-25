@@ -49,6 +49,7 @@ const RequestDemoPage = () => {
           caption: t("page.contact.caption"),
           title: t("page.contact.title"),
           text: t("page.contact.description"),
+          titleTag: "h1",
         }}
         onSave={onSubmit}
       />

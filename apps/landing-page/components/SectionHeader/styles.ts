@@ -22,7 +22,17 @@ export const Container = styled.div.withConfig({
     hasMarginBottom &&
     css`
       margin-bottom: ${({ theme }) => theme.spacing.s8};
-    `}
+    `};
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    align-items: flex-start;
+    h1,
+    h2,
+    p,
+    span {
+      text-align: left;
+    }
+  }
 `;
 
 interface TitleProps extends SpaceProps, ColorProps, TypographyProps {

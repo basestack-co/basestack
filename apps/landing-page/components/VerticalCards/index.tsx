@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTheme } from "styled-components";
 import useEmblaCarousel from "embla-carousel-react";
 import { Button, ButtonSize, ButtonVariant } from "@basestack/design-system";
@@ -35,11 +35,30 @@ const VerticalCards = ({ cards, id, actions, header }: VerticalCardsProps) => {
   const isDesktop = useMedia(device.min.lg, true);
   const isMobile = useMedia(device.max.sm, false);
 
-  const [emblaRef] = useEmblaCarousel({
+  const [emblaRef, emblaApi] = useEmblaCarousel({
     active: !isDesktop,
     align: "start",
     slidesToScroll: 1,
   });
+
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    if (emblaApi) {
+      const onSelect = () => {
+        const currentIndex = emblaApi.selectedScrollSnap();
+        setActiveSlide(currentIndex);
+      };
+
+      emblaApi.on("select", onSelect);
+
+      return () => emblaApi.off("select", onSelect);
+    }
+
+    return () => {};
+  }, [emblaApi]);
+
+  const indicatorColors = [colors.blue400, colors.yellow400, colors.green400];
 
   return (
     <Container id={id}>
@@ -71,7 +90,9 @@ const VerticalCards = ({ cards, id, actions, header }: VerticalCardsProps) => {
         </HeaderContainer>
         <Embla>
           <Indicators>
-            <Indicator color={colors.blue400} />
+            <Indicator
+              color={isMobile ? indicatorColors[activeSlide] : colors.blue400}
+            />
             <Indicator color={colors.yellow400} />
             <Indicator color={colors.green400} />
           </Indicators>

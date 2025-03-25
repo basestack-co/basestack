@@ -63,6 +63,18 @@ export const ImageContainer = styled.div`
     left: 0;
     top: -100px;
   }
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    &::after {
+      height: 250px;
+    }
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    &::after {
+      height: 150px;
+    }
+  }
 `;
 
 export const gradientBorderStyles = (position: "top" | "bottom") => css`

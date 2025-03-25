@@ -29,11 +29,12 @@ export const ButtonsContainer = styled.div`
   @media screen and ${({ theme }) => theme.device.max.sm} {
     align-items: center;
     flex-direction: column;
-    max-width: ${rem("400px")};
     width: 100%;
   }
 `;
 
 export const StyledImageContainer = styled(ImageContainer)`
   margin-top: ${rem("100px")};
+  aspect-ratio: 1.482;
+  width: 100%;
 `;

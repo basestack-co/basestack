@@ -23,7 +23,11 @@ import {
   ButtonSize,
   Text,
 } from "@basestack/design-system";
-import SectionHeader, { TextAlign, AlignItems } from "../SectionHeader";
+import SectionHeader, {
+  TextAlign,
+  AlignItems,
+  SectionHeaderProps,
+} from "../SectionHeader";
 // Styles
 import {
   StyledForm,
@@ -56,7 +60,7 @@ export const FormSchema = z.object({
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface FormProps {
-  header: { title: string; text: string; caption?: string };
+  header: SectionHeaderProps;
   id?: string;
   onSave: (inputs: FormInputs, reset: UseFormReset<FormInputs>) => void;
 }
@@ -100,11 +104,11 @@ const FormComp = ({ header, id, onSave }: FormProps) => {
       <ContentContainer>
         <ContentWrapper>
           <SectionHeader
-            {...header}
             textMaxWidth={60}
             titleMaxWidth={25}
             hasMarginBottom={isMobile}
             {...headerProps}
+            {...header}
           />
         </ContentWrapper>
         <FormWrapper>
