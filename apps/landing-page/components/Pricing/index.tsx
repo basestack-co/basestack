@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 // Components
 import useEmblaCarousel from "embla-carousel-react";
@@ -39,7 +39,7 @@ import { Card } from "../styles";
 import { config as defaults } from "@basestack/utils";
 import CarouselButtons from "../CarouselButtons";
 
-const { plans, urls } = defaults;
+const { urls } = defaults;
 
 type Interval = "monthly" | "yearly";
 
@@ -215,6 +215,7 @@ const Pricing = ({
   const router = useRouter();
   const { device, spacing } = useTheme();
   const isDesktop = useMedia(device.min.xl, true);
+  const isMobile = useMedia(device.max.sm, false);
 
   const [selectedInterval, setSelectedInterval] = useState<Interval>("monthly");
 
@@ -223,6 +224,11 @@ const Pricing = ({
     align: "start",
     slidesToScroll: 1,
   });
+
+  const indexPopularItem = useMemo(
+    () => items.findIndex((item) => item.isPopular),
+    [items],
+  );
 
   const onClick = useCallback(
     (isCustom?: boolean) => {
@@ -242,6 +248,12 @@ const Pricing = ({
     },
     [product, router],
   );
+
+  useEffect(() => {
+    if (isMobile && emblaApi) {
+      emblaApi.scrollTo(indexPopularItem);
+    }
+  }, [emblaApi, isMobile, indexPopularItem]);
 
   return (
     <Container id={id}>

@@ -38,19 +38,6 @@ export const FloatingLabel = styled.div`
   left: 0;
 `;
 
-export const Card = styled.div`
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background: ${({ theme }) =>
-    theme.isDarkMode ? theme.colors.gray800 : theme.colors.white};
-  border-radius: ${rem("8px")};
-  padding: ${({ theme }) => theme.spacing.s5};
-  padding-bottom: ${rem("22px")};
-  box-shadow: ${({ theme }) => theme.shadow.elevation3};
-`;
-
 export const List = styled.ul`
   display: flex;
   flex-direction: column;
@@ -69,7 +56,7 @@ export const Embla = styled.div`
   margin: 0 auto;
 `;
 
-export const EmblaViewport = styled.ul`
+export const EmblaViewport = styled.div`
   overflow: hidden;
   padding: 0 ${({ theme }) => theme.spacing.s5}
     ${({ theme }) => theme.spacing.s2} ${({ theme }) => theme.spacing.s5};
