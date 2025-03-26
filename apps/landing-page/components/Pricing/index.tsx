@@ -37,6 +37,7 @@ import {
 import { Card } from "../styles";
 // Utils
 import { config as defaults } from "@basestack/utils";
+import CarouselButtons from "../CarouselButtons";
 
 const { plans, urls } = defaults;
 
@@ -215,7 +216,7 @@ const Pricing = ({
 
   const [selectedInterval, setSelectedInterval] = useState<Interval>("monthly");
 
-  const [emblaRef] = useEmblaCarousel({
+  const [emblaRef, emblaApi] = useEmblaCarousel({
     active: !isDesktop,
     align: "start",
     slidesToScroll: 1,
@@ -276,6 +277,7 @@ const Pricing = ({
             </EmblaContainer>
           </EmblaViewport>
         </Embla>
+        <CarouselButtons emblaApi={emblaApi} hasMarginTop />
       </ContentContainer>
     </Container>
   );

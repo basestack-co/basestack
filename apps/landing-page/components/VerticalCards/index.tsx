@@ -17,6 +17,7 @@ import {
   Indicators,
 } from "./styles";
 import SectionHeader, { SectionHeaderProps } from "../SectionHeader";
+import CarouselButtons from "../CarouselButtons";
 
 export interface VerticalCardsProps {
   id?: string;
@@ -105,6 +106,7 @@ const VerticalCards = ({ cards, id, actions, header }: VerticalCardsProps) => {
             </EmblaContainer>
           </EmblaViewport>
         </Embla>
+        <CarouselButtons emblaApi={emblaApi} />
       </ContentContainer>
     </Container>
   );

@@ -21,6 +21,7 @@ import {
   CardContent,
 } from "./styles";
 import { Card } from "../styles";
+import CarouselButtons from "../CarouselButtons";
 
 export interface CardProps {
   icon?: React.ReactNode;
@@ -69,7 +70,7 @@ const Code = ({ id, title, description, data }: Props) => {
   const { device } = useTheme();
   const isDesktop = useMedia(device.min.lg, true);
 
-  const [emblaRef] = useEmblaCarousel({
+  const [emblaRef, emblaApi] = useEmblaCarousel({
     active: !isDesktop,
     align: "start",
     slidesToScroll: 1,
@@ -100,6 +101,7 @@ const Code = ({ id, title, description, data }: Props) => {
             </EmblaContainer>
           </EmblaViewport>
         </Embla>
+        <CarouselButtons emblaApi={emblaApi} hasMarginTop />
       </ContentContainer>
     </Container>
   );

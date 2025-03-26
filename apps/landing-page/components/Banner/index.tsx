@@ -1,7 +1,6 @@
 import React from "react";
 import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
-import { rem } from "polished";
 import { Button, ButtonSize, ButtonVariant } from "@basestack/design-system";
 import SectionHeader, { SectionHeaderProps } from "../SectionHeader";
 import {

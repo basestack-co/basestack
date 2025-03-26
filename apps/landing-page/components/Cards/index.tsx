@@ -2,7 +2,6 @@ import React from "react";
 import { useTheme } from "styled-components";
 import useEmblaCarousel from "embla-carousel-react";
 import { useMedia } from "react-use";
-// Components
 import Card from "../Card";
 import {
   Container,
@@ -14,6 +13,7 @@ import {
   HeaderContainer,
 } from "./styles";
 import SectionHeader from "../SectionHeader";
+import CarouselButtons from "../CarouselButtons";
 
 export interface CardsProps {
   id?: string;
@@ -30,7 +30,7 @@ const Cards = ({ title, text, cards, id }: CardsProps) => {
   const { device } = useTheme();
   const isDesktop = useMedia(device.min.lg, true);
 
-  const [emblaRef] = useEmblaCarousel({
+  const [emblaRef, emblaApi] = useEmblaCarousel({
     active: !isDesktop,
     align: "start",
     slidesToScroll: 1,
@@ -53,6 +53,7 @@ const Cards = ({ title, text, cards, id }: CardsProps) => {
             </EmblaContainer>
           </EmblaViewport>
         </Embla>
+        <CarouselButtons emblaApi={emblaApi} hasMarginTop />
       </ContentContainer>
     </Container>
   );

@@ -37,7 +37,7 @@ export const Grid = styled.div`
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media screen and (max-width: 420px) {
+  @media screen and (max-width: 374px) {
     grid-template-columns: 1fr;
   }
 `;

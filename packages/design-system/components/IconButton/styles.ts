@@ -22,7 +22,7 @@ const primaryStyles = css`
   background-color: ${({ theme }) => theme.iconButton.primary.backgroundColor};
   color: ${({ theme }) => theme.iconButton.primary.color};
 
-  &:hover:not(:active) {
+  &:hover:not(:active):not(:disabled) {
     background-color: ${({ theme }) =>
       theme.iconButton.primary.hover.backgroundColor};
   }
@@ -34,7 +34,7 @@ const secondaryStyles = css`
     theme.iconButton.secondary.backgroundColor};
   color: ${({ theme }) => theme.iconButton.secondary.color};
 
-  &:hover:not(:active) {
+  &:hover:not(:active):not(:disabled) {
     background-color: ${({ theme }) =>
       theme.iconButton.secondary.hover.backgroundColor};
   }
@@ -46,7 +46,7 @@ const secondaryDarkStyles = css`
     theme.iconButton.secondaryDark.backgroundColor};
   color: ${({ theme }) => theme.iconButton.secondaryDark.color};
 
-  &:hover:not(:active) {
+  &:hover:not(:active):not(:disabled) {
     background-color: ${({ theme }) =>
       theme.iconButton.secondaryDark.hover.backgroundColor};
   }
@@ -62,12 +62,12 @@ const neutralStyles = css`
     color: inherit;
   }
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: ${({ theme }) =>
       theme.iconButton.neutral.hover.backgroundColor};
   }
 
-  &:active {
+  &:active:not(:disabled) {
     background-color: ${({ theme }) =>
       theme.iconButton.neutral.active.backgroundColor};
   }
@@ -122,4 +122,9 @@ export const StyledButton = styled.button.withConfig({
   ${({ variant }) => handleButtonVariant(variant)};
   height: ${({ iconSize }) => rem(iconSize)};
   width: ${({ iconSize }) => rem(iconSize)};
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: initial;
+  }
 `;
