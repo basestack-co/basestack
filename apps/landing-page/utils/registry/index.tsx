@@ -18,10 +18,16 @@ const Registry = ({ children }: { children: React.ReactNode }) => {
     [pathname],
   );
 
+  const hasGlobalNavigation = useMemo(
+    () =>
+      !["/legal/privacy", "/legal/cookies", "/legal/terms"].includes(pathname),
+    [pathname],
+  );
+
   return (
     <StyledComponentsRegistry>
       <Fragment>
-        <GlobalNavigation isSticky={!isProductPage} />
+        {hasGlobalNavigation && <GlobalNavigation isSticky={!isProductPage} />}
         {children}
         <Footer />
       </Fragment>

@@ -61,12 +61,17 @@ exports[`CopyCard tests should render CopyCard correctly 1`] = `
   color: inherit;
 }
 
-.c7:hover {
+.c7:hover:not(:disabled) {
   background-color: #EEEEEE;
 }
 
-.c7:active {
+.c7:active:not(:disabled) {
   background-color: #E2E2E2;
+}
+
+.c7:disabled {
+  opacity: 0.5;
+  cursor: initial;
 }
 
 .c0 {
