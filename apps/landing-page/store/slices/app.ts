@@ -10,4 +10,10 @@ export const createAppSlice: StateCreator<Store, [], [], AppSliceState> = (
     set(() => ({
       isDarkMode: payload,
     })),
+
+  stargazers: 0,
+  setStargazers: (payload) =>
+    set(() => ({
+      stargazers: payload,
+    })),
 });

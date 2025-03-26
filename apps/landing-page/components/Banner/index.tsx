@@ -3,6 +3,7 @@ import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
 import { Button, ButtonSize, ButtonVariant } from "@basestack/design-system";
 import SectionHeader, { SectionHeaderProps } from "../SectionHeader";
+import StarsPattern from "../StarsPattern";
 import {
   Container,
   ContentContainer,
@@ -20,6 +21,7 @@ export interface Props {
   textMaxWidth?: SectionHeaderProps["textMaxWidth"];
   label?: SectionHeaderProps["label"];
   buttons: Array<{ text: string; onClick: () => void }>;
+  stars?: number;
 }
 
 const BannerComp = ({
@@ -31,6 +33,7 @@ const BannerComp = ({
   textMaxWidth = 60,
   label,
   caption,
+  stars,
 }: Props) => {
   const { device } = useTheme();
   const isMobile = useMedia(device.max.sm, false);
@@ -68,6 +71,7 @@ const BannerComp = ({
               ))}
             </ButtonsContainer>
           </BannerContent>
+          {!!stars && <StarsPattern count={stars} />}
         </StyledCard>
       </ContentContainer>
     </Container>

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import { useSpring, animated } from "react-spring";
+import { useStore } from "store";
 // Router
 import { useRouter, usePathname } from "next/navigation";
 // Utils
@@ -51,13 +52,16 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
   const [stargazers, setsStargazers] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const setStoreStargazers = useStore((state) => state.setStargazers);
+
   useEffect(() => {
     fetch("https://api.github.com/repos/basestack-co/basestack")
       .then((res) => res.json())
       .then((data) => {
         setsStargazers(data.stargazers_count ?? 0);
+        setStoreStargazers(data.stargazers_count ?? 0);
       });
-  }, []);
+  }, [setStoreStargazers]);
 
   const links = useMemo(
     () => [

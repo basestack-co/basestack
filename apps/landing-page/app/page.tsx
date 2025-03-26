@@ -11,6 +11,7 @@ import {
   AutoSlidingCards,
   Questions,
 } from "components";
+import { useStore } from "store";
 // Locales
 import { useTranslations } from "next-intl";
 // Utils
@@ -21,6 +22,9 @@ const { urls } = defaults;
 const LandingPage = () => {
   const t = useTranslations();
   const router = useRouter();
+  const stargazers = useStore((state) => state.stargazers);
+
+  console.log("stargazers = ", stargazers);
 
   return (
     <Fragment>
@@ -254,6 +258,7 @@ const LandingPage = () => {
       />
 
       <Banner
+        stars={stargazers}
         title={t("page.main.community.title")}
         text={t("page.main.community.description")}
         buttons={[

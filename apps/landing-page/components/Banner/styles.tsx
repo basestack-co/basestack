@@ -22,6 +22,7 @@ export const BannerContent = styled.div`
   align-items: center;
   justify-content: center;
   min-height: ${rem("300px")};
+  z-index: 2;
 `;
 
 export const ButtonsContainer = styled.div`
@@ -38,6 +39,7 @@ export const ButtonsContainer = styled.div`
 
 export const StyledCard = styled(Card)`
   padding: ${({ theme }) => theme.spacing.s8};
+  position: relative;
 
   @media screen and ${({ theme }) => theme.device.max.sm} {
     padding: ${({ theme }) => theme.spacing.s6};
