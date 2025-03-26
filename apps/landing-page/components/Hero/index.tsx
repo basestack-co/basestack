@@ -1,9 +1,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
-// Components
 import Image, { ImageProps } from "../Image";
 import { Button, ButtonVariant, ButtonSize } from "@basestack/design-system";
-// Styles
 import { useTheme } from "styled-components";
 import {
   ButtonsContainer,
@@ -12,8 +10,6 @@ import {
   StyledImageContainer,
 } from "./styles";
 import SectionHeader, { SectionHeaderProps } from "../SectionHeader";
-// Hooks
-import { useMedia } from "react-use";
 
 interface HeroProps {
   header: Omit<SectionHeaderProps, "hasMarginBottom">;
@@ -30,7 +26,6 @@ interface HeroProps {
 const Hero = ({ header, image = { alt: "", src: "" }, actions }: HeroProps) => {
   const router = useRouter();
   const { isDarkMode, device } = useTheme();
-  const isMobile = useMedia(device.max.sm, false);
 
   return (
     <Container>
@@ -42,7 +37,6 @@ const Hero = ({ header, image = { alt: "", src: "" }, actions }: HeroProps) => {
               <Button
                 key={id}
                 justifyContent="center"
-                fullWidth={isMobile}
                 onClick={() => {
                   if (isExternal) {
                     window?.open(href, "_blank");

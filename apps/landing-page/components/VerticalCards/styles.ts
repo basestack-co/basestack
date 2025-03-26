@@ -108,7 +108,10 @@ export const ButtonsContainer = styled.div`
   @media screen and ${({ theme }) => theme.device.max.sm} {
     align-items: center;
     flex-direction: column;
-    max-width: ${rem("400px")};
     width: 100%;
+
+    button {
+      width: 100%;
+    }
   }
 `;

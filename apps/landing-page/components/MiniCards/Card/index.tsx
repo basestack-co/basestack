@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "styled-components";
-import { rem } from "polished";
 import { Text, IconBox } from "@basestack/design-system";
-import { Card } from "../../styles";
+import { useMedia } from "react-use";
 import {
   ContentContainer,
   TextContainer,
   InnerContentContainer,
   CardContainer,
+  StyledCard,
 } from "./styles";
 
 export interface CardProps {
@@ -17,7 +17,9 @@ export interface CardProps {
 }
 
 const CardComp = ({ title, description, icon = "help" }: CardProps) => {
-  const { colors, spacing, isDarkMode } = useTheme();
+  const { colors, spacing, isDarkMode, device } = useTheme();
+  const isTouchDevice = useMedia("(hover: none)", false);
+  const [showContent, setShowContent] = useState<boolean>(false);
 
   const iconBoxProps = isDarkMode
     ? {
@@ -32,9 +34,19 @@ const CardComp = ({ title, description, icon = "help" }: CardProps) => {
       }
     : {};
 
+  useEffect(() => {
+    if (!isTouchDevice) {
+      setShowContent(false);
+    }
+  }, [isTouchDevice]);
+
   return (
-    <CardContainer>
-      <Card p={`${rem("24px")} ${spacing.s5}`}>
+    <CardContainer
+      onClick={
+        isTouchDevice ? () => setShowContent((prev) => !prev) : undefined
+      }
+    >
+      <StyledCard>
         <ContentContainer>
           <IconBox size="large" icon={icon} mb={spacing.s5} {...iconBoxProps} />
           <TextContainer>
@@ -45,16 +57,16 @@ const CardComp = ({ title, description, icon = "help" }: CardProps) => {
         </ContentContainer>
 
         {description && (
-          <InnerContentContainer className="inner-content">
-            <Text size="large" textAlign="center" mb={spacing.s2}>
-              {title}
-            </Text>
+          <InnerContentContainer
+            isVisible={showContent}
+            className="inner-content"
+          >
             <Text size="medium" fontWeight={400} textAlign="center" muted>
               {description}
             </Text>
           </InnerContentContainer>
         )}
-      </Card>
+      </StyledCard>
     </CardContainer>
   );
 };

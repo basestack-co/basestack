@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { rem } from "polished";
+import { Card } from "../../styles";
 
 export const CardContainer = styled.div`
   display: flex;
@@ -8,10 +9,12 @@ export const CardContainer = styled.div`
   position: relative;
   cursor: default;
 
-  &:hover {
-    .inner-content {
-      opacity: 1;
-      transform: scale(1);
+  @media (hover: hover) {
+    &:hover {
+      .inner-content {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
   }
 `;
@@ -35,7 +38,12 @@ export const TextContainer = styled.div`
   align-items: center;
 `;
 
-export const InnerContentContainer = styled.div`
+export const InnerContentContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => !["isVisible"].includes(prop),
+})<{
+  isVisible: boolean;
+}>`
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,10 +52,29 @@ export const InnerContentContainer = styled.div`
   z-index: 2;
   inset: 1px;
   border-radius: ${rem("8px")};
-  padding: ${({ theme }) => theme.spacing.s5};
+  padding: ${({ theme }) => theme.spacing.s3};
   background-color: ${({ theme }) =>
     theme.isDarkMode ? theme.colors.gray800 : theme.colors.white};
   opacity: 0;
   transform: scale(0.8);
   transition: all 0.2s ease-in-out;
+
+  ${({ isVisible }) =>
+    isVisible &&
+    css`
+      opacity: 1;
+      transform: scale(1);
+    `};
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    padding: ${({ theme }) => theme.spacing.s2};
+  }
+`;
+
+export const StyledCard = styled(Card)`
+  padding: ${rem("24px")} ${({ theme }) => theme.spacing.s5};
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    padding: ${rem("30px")} ${({ theme }) => theme.spacing.s5};
+  }
 `;

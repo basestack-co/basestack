@@ -71,7 +71,6 @@ const VerticalCards = ({ cards, id, actions, header }: VerticalCardsProps) => {
                 <Button
                   key={id}
                   justifyContent="center"
-                  fullWidth={isMobile}
                   onClick={onClick}
                   size={ButtonSize.Medium}
                   {...(isTertiary

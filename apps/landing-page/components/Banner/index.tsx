@@ -9,8 +9,8 @@ import {
   ContentContainer,
   BannerContent,
   ButtonsContainer,
+  StyledCard,
 } from "./styles";
-import { Card } from "../styles";
 
 export interface Props {
   id?: string;
@@ -37,7 +37,7 @@ const BannerComp = ({
   return (
     <Container id={id}>
       <ContentContainer>
-        <Card p={rem("50px")}>
+        <StyledCard>
           <BannerContent>
             <SectionHeader
               title={title}
@@ -66,7 +66,7 @@ const BannerComp = ({
               ))}
             </ButtonsContainer>
           </BannerContent>
-        </Card>
+        </StyledCard>
       </ContentContainer>
     </Container>
   );

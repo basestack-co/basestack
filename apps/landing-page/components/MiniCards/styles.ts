@@ -33,7 +33,11 @@ export const Grid = styled.div`
     gap: ${({ theme }) => theme.spacing.s2};
   }
 
-  @media screen and ${({ theme }) => theme.device.max.md} {
+  @media screen and ${({ theme }) => theme.device.max.lg} {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 420px) {
+    grid-template-columns: 1fr;
   }
 `;

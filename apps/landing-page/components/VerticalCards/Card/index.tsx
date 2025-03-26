@@ -3,7 +3,6 @@ import { useTheme } from "styled-components";
 import { Text, Icon, Label } from "@basestack/design-system";
 import { useSpring, animated } from "react-spring";
 import {
-  Container,
   HeaderContent,
   IconContainer,
   List,
@@ -39,46 +38,39 @@ const CardComp = ({
   });
 
   return (
-    <Container>
-      <StyledButton
-        onClick={onClick}
-        disabled={typeof onClick !== "function"}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <HeaderContainer>
-          <HeaderContent>
-            <Text size="large">{title}</Text>
-            <AnimatedIconContainer style={animatedStyle}>
-              <Icon icon={isHovered ? "arrow_upward" : icon} />
-            </AnimatedIconContainer>
-          </HeaderContent>
-        </HeaderContainer>
-        <ContentContainer>
-          <Text
-            size="medium"
-            fontWeight={400}
-            lineHeight={1.6}
-            muted
-            mb={spacing.s5}
-          >
-            {text}
-          </Text>
-          <List>
-            {items.map((item, index) => (
-              <ListItem key={index}>
-                <Label
-                  size="medium"
-                  text={item}
-                  variant="light"
-                  isTranslucent
-                />
-              </ListItem>
-            ))}
-          </List>
-        </ContentContainer>
-      </StyledButton>
-    </Container>
+    <StyledButton
+      onClick={onClick}
+      disabled={typeof onClick !== "function"}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <HeaderContainer>
+        <HeaderContent>
+          <Text size="large">{title}</Text>
+          <AnimatedIconContainer style={animatedStyle}>
+            <Icon icon={isHovered ? "arrow_upward" : icon} />
+          </AnimatedIconContainer>
+        </HeaderContent>
+      </HeaderContainer>
+      <ContentContainer>
+        <Text
+          size="medium"
+          fontWeight={400}
+          lineHeight={1.6}
+          muted
+          mb={spacing.s5}
+        >
+          {text}
+        </Text>
+        <List>
+          {items.map((item, index) => (
+            <ListItem key={index}>
+              <Label size="medium" text={item} variant="light" isTranslucent />
+            </ListItem>
+          ))}
+        </List>
+      </ContentContainer>
+    </StyledButton>
   );
 };
 

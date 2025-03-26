@@ -2,19 +2,13 @@ import styled, { css } from "styled-components";
 import { rem } from "polished";
 import { gradientBorderStyles } from "../../styles";
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  gap: ${({ theme }) => theme.spacing.s3};
-`;
-
 export const StyledButton = styled.button`
   cursor: pointer;
   border: none;
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
   text-align: left;
   overflow: hidden;
   background-color: ${({ theme }) =>
@@ -63,6 +57,7 @@ export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  width: 100%;
   ${gradientBorderStyles("bottom")};
 
   &::before {

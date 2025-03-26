@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { rem } from "polished";
+import { Card } from "../styles";
 
 export const Container = styled.section`
   display: flex;
@@ -32,5 +33,13 @@ export const ButtonsContainer = styled.div`
 
   @media screen and ${({ theme }) => theme.device.max.sm} {
     flex-direction: column;
+  }
+`;
+
+export const StyledCard = styled(Card)`
+  padding: ${({ theme }) => theme.spacing.s8};
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    padding: ${({ theme }) => theme.spacing.s6};
   }
 `;

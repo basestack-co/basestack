@@ -30,6 +30,10 @@ export const ButtonsContainer = styled.div`
     align-items: center;
     flex-direction: column;
     width: 100%;
+
+    button {
+      width: 100%;
+    }
   }
 `;
 
