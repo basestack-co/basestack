@@ -1,4 +1,6 @@
 import React from "react";
+// Types
+import type { Metadata } from "next";
 // Registries
 import Registry from "utils/registry";
 // Locales
@@ -7,13 +9,39 @@ import { getLocale } from "next-intl/server";
 // Fonts
 import { Roboto_Flex, Roboto } from "next/font/google";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Basestack Feature Flags",
   description:
     "Unlock Your Product Potential: Empower Your Team with Feature Flags",
   icons: {
     icon: "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏳️</text></svg>",
   },
+  applicationName: "Basestack Feature Flags",
+  authors: [
+    {
+      name: "Vitor Amaral",
+      url: "https://vitoramaral.co",
+    },
+    {
+      name: "Flavio Amaral",
+    },
+  ],
+  keywords: [
+    "feature flags",
+    "feature toggles",
+    "open-source feature flags",
+    "software development tools",
+    "release management",
+    "A/B testing",
+    "remote configuration",
+    "developer tools",
+    "startup tech stack",
+    "self-hosted feature flags",
+    "hosted feature flags",
+    "scalability tools",
+    "Basestack feature flags",
+  ],
+  category: "software",
 };
 
 const robotoFlex = Roboto_Flex({

@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /private/
+
+User-agent: Googlebot
+Allow: /public/
+Disallow: /private/
+
+Host: https://basestack.co
+
+Sitemap: https://basestack.co/sitemap.xml
