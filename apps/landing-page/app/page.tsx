@@ -93,6 +93,7 @@ const LandingPage = () => {
         ]}
       />
       <Cards
+        caption={t("page.main.why.caption")}
         title={t("page.main.why.title")}
         text={t("page.main.why.description")}
         cards={[
@@ -114,6 +115,7 @@ const LandingPage = () => {
         ]}
       />
       <MiniCards
+        caption={t("page.main.who.caption")}
         title={t("page.main.who.title")}
         text={t("page.main.who.description")}
         cards={[
@@ -140,6 +142,7 @@ const LandingPage = () => {
         ]}
       />
       <OrderedCards
+        caption={t("page.main.how-it-works.caption")}
         title={t("page.main.how-it-works.title")}
         text={t("page.main.how-it-works.description")}
         data={[
@@ -161,6 +164,7 @@ const LandingPage = () => {
         ]}
       />
       <AutoSlidingCards
+        caption={t("page.main.use-cases.caption")}
         title={t("page.main.use-cases.title")}
         text={t("page.main.use-cases.description")}
         cards={[

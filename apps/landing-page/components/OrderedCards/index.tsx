@@ -12,16 +12,23 @@ import CardComp from "./Card";
 export interface OrderedCardsProps {
   id?: string;
   title: string;
+  caption?: string;
   text?: string;
   data: Array<{ title: string; text: string; icon: string }>;
 }
 
-const OrderedCards = ({ id, title, text, data }: OrderedCardsProps) => {
+const OrderedCards = ({
+  id,
+  title,
+  text,
+  data,
+  caption,
+}: OrderedCardsProps) => {
   return (
     <Container id={id}>
       <ContentContainer>
         <HeaderContainer>
-          <SectionHeader title={title} text={text} />
+          <SectionHeader title={title} text={text} caption={caption} />
         </HeaderContainer>
         <List>
           {data.map((item, index, { length }) => (

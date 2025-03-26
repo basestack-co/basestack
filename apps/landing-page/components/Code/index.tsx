@@ -34,6 +34,7 @@ export interface CardProps {
 export interface Props {
   id?: string;
   title: string;
+  caption?: string;
   description: string;
   data: CardProps[];
 }
@@ -66,7 +67,7 @@ const CardComp = ({ icon, title, description, button, onClick }: CardProps) => {
   );
 };
 
-const Code = ({ id, title, description, data }: Props) => {
+const Code = ({ id, title, description, data, caption }: Props) => {
   const { device } = useTheme();
   const isDesktop = useMedia(device.min.lg, true);
 
@@ -80,7 +81,7 @@ const Code = ({ id, title, description, data }: Props) => {
     <Container id={id}>
       <ContentContainer>
         <HeaderContainer>
-          <SectionHeader title={title} text={description} />
+          <SectionHeader title={title} text={description} caption={caption} />
         </HeaderContainer>
         <Embla>
           <EmblaViewport ref={emblaRef}>

@@ -6,6 +6,7 @@ import SectionHeader from "../SectionHeader";
 export interface CardsProps {
   id?: string;
   title: string;
+  caption?: string;
   text?: string;
   cards: Array<{
     title: string;
@@ -14,11 +15,11 @@ export interface CardsProps {
   }>;
 }
 
-const MiniCards = ({ title, text, cards, id }: CardsProps) => (
+const MiniCards = ({ title, text, cards, id, caption }: CardsProps) => (
   <Container id={id}>
     <ContentContainer>
       <HeaderContainer>
-        <SectionHeader title={title} text={text} />
+        <SectionHeader title={title} text={text} caption={caption} />
       </HeaderContainer>
       <Grid>
         {cards?.map((card, index) => (

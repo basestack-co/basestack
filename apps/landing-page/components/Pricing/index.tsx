@@ -196,6 +196,7 @@ type OmitMultiple<T, K extends keyof T> = Omit<T, K>;
 interface PricingProps {
   id?: string;
   title: string;
+  caption?: string;
   text: string;
   product: string;
   items: Array<OmitMultiple<CardProps, "onClick" | "interval">>;
@@ -204,6 +205,7 @@ interface PricingProps {
 
 const Pricing = ({
   title,
+  caption,
   text,
   items,
   id,
@@ -245,7 +247,7 @@ const Pricing = ({
     <Container id={id}>
       <ContentContainer>
         <HeaderContainer>
-          <SectionHeader title={title} text={text} />
+          <SectionHeader title={title} text={text} caption={caption} />
           <Segment
             selectedIndex={selectedInterval === "monthly" ? 0 : 1}
             onSelect={(interval) => {

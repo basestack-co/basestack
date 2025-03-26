@@ -14,6 +14,7 @@ import {
 export interface Props {
   id?: string;
   title: SectionHeaderProps["title"];
+  caption?: string;
   text?: SectionHeaderProps["text"];
   titleMaxWidth?: SectionHeaderProps["titleMaxWidth"];
   textMaxWidth?: SectionHeaderProps["textMaxWidth"];
@@ -29,6 +30,7 @@ const BannerComp = ({
   titleMaxWidth = 60,
   textMaxWidth = 60,
   label,
+  caption,
 }: Props) => {
   const { device } = useTheme();
   const isMobile = useMedia(device.max.sm, false);
@@ -45,6 +47,7 @@ const BannerComp = ({
               titleMaxWidth={titleMaxWidth}
               textMaxWidth={textMaxWidth}
               label={label}
+              caption={caption}
             />
             <ButtonsContainer>
               {buttons.map((button, index) => (

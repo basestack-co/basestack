@@ -19,6 +19,7 @@ import SectionHeader from "../SectionHeader";
 export interface SliderProps {
   id?: string;
   title: string;
+  caption?: string;
   text: string;
   data: Array<{
     icon: string;
@@ -30,7 +31,7 @@ export interface SliderProps {
 
 const ANIMATION_TIME = 20000;
 
-const Slider = ({ title, text, data, id }: SliderProps) => {
+const Slider = ({ title, text, data, id, caption }: SliderProps) => {
   const { device } = useTheme();
   const isDesktop = useMedia(device.min.lg, true);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -89,7 +90,7 @@ const Slider = ({ title, text, data, id }: SliderProps) => {
     <Container ref={containerRef} id={id}>
       <ContentContainer>
         <HeaderContainer>
-          <SectionHeader title={title} text={text} />
+          <SectionHeader title={title} text={text} caption={caption} />
         </HeaderContainer>
         <Embla isImageSlider={false}>
           <EmblaViewport ref={emblaRef} isImageSlider={false}>

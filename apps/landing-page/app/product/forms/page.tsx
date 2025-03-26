@@ -93,6 +93,7 @@ const ProductFormsPage = () => {
       />
       <Cards
         id="why"
+        caption={t("page.product.forms.why.caption")}
         title={t("page.product.forms.why.title")}
         text={t("page.product.forms.why.description")}
         cards={[
@@ -115,6 +116,7 @@ const ProductFormsPage = () => {
       />
       <Slider
         id="features"
+        caption={t("page.product.forms.features.caption")}
         title={t("page.product.forms.features.title")}
         text={t("page.product.forms.features.description")}
         data={[
@@ -149,6 +151,7 @@ const ProductFormsPage = () => {
       />
       <MiniCards
         id="mini-cards"
+        caption={t("page.product.forms.more-features.caption")}
         title={t("page.product.forms.more-features.title")}
         text={t("page.product.forms.more-features.description")}
         cards={[
@@ -226,6 +229,7 @@ const ProductFormsPage = () => {
       />
       <Code
         id="guides"
+        caption={t("page.product.forms.guide.caption")}
         title={t("page.product.forms.guide.title")}
         description={t("page.product.forms.guide.description")}
         data={[

@@ -17,6 +17,7 @@ import CarouselButtons from "../CarouselButtons";
 
 export interface CardsProps {
   id?: string;
+  caption?: string;
   title: string;
   text?: string;
   cards: Array<{
@@ -26,7 +27,7 @@ export interface CardsProps {
   }>;
 }
 
-const Cards = ({ title, text, cards, id }: CardsProps) => {
+const Cards = ({ title, text, cards, id, caption }: CardsProps) => {
   const { device } = useTheme();
   const isDesktop = useMedia(device.min.lg, true);
 
@@ -40,7 +41,7 @@ const Cards = ({ title, text, cards, id }: CardsProps) => {
     <Container id={id}>
       <ContentContainer>
         <HeaderContainer>
-          <SectionHeader title={title} text={text} />
+          <SectionHeader title={title} text={text} caption={caption} />
         </HeaderContainer>
         <Embla>
           <EmblaViewport ref={emblaRef}>

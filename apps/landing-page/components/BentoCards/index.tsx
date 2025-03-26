@@ -20,6 +20,7 @@ export interface CardsProps {
   id?: string;
   title: string;
   text?: string;
+  caption?: string;
   cards: Array<{
     title: string;
     text: string;
@@ -39,7 +40,7 @@ const randomizeEnvironments = () => {
   ];
 };
 
-const BentoCards = ({ title, text, cards, id }: CardsProps) => {
+const BentoCards = ({ title, text, cards, id, caption }: CardsProps) => {
   const [randomEnvs, setRandomEnvs] = useState<
     HistoryCardProps["environments"]
   >([
@@ -91,7 +92,7 @@ const BentoCards = ({ title, text, cards, id }: CardsProps) => {
     <Container id={id}>
       <ContentContainer>
         <HeaderContainer>
-          <SectionHeader title={title} text={text} />
+          <SectionHeader title={title} text={text} caption={caption} />
         </HeaderContainer>
         <Grid>
           {cards?.map((item, index) => {

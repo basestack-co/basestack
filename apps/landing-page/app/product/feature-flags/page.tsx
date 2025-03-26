@@ -95,6 +95,7 @@ const ProductFeatureFlagsPage = () => {
       />
       <Slider
         id="features"
+        caption={t("page.product.flags.features.caption")}
         title={t("page.product.flags.features.title")}
         text={t("page.product.flags.features.description")}
         data={[
@@ -129,6 +130,7 @@ const ProductFeatureFlagsPage = () => {
       />
       <BentoCards
         id="feature-cards"
+        caption={t("page.product.flags.features.card.caption")}
         title={t("page.product.flags.features.card.title")}
         text={t("page.product.flags.features.card.description")}
         cards={[
@@ -173,84 +175,9 @@ const ProductFeatureFlagsPage = () => {
           },
         ]}
       />
-      {/* TODO images from this content were removed mybe remove them from the project, the label was also removed mybe remove it from the translated content
-        <SectionCards
-        id="feature-cards"
-        title={t("page.product.flags.features.card.title")}
-        text={t("page.product.flags.features.card.description")}
-        cards={[
-          {
-            label: t("page.product.flags.features.card.feature.projects.label"),
-            title: t("page.product.flags.features.card.feature.projects.title"),
-            text: t(
-              "page.product.flags.features.card.feature.projects.description",
-            ),
-            image: {
-              src: `/images/product/flags/projects_card${isDarkMode ? "_dark" : ""}.png`,
-              alt: t("page.product.flags.features.card.feature.projects.alt"),
-            },
-          },
-          {
-            label: t(
-              "page.product.flags.features.card.feature.environments.label",
-            ),
-            title: t(
-              "page.product.flags.features.card.feature.environments.title",
-            ),
-            text: t(
-              "page.product.flags.features.card.feature.environments.description",
-            ),
-            image: {
-              src: `/images/product/flags/envs_card${isDarkMode ? "_dark" : ""}.png`,
-              alt: t(
-                "page.product.flags.features.card.feature.environments.alt",
-              ),
-            },
-          },
-          {
-            label: t("page.product.flags.features.card.feature.history.label"),
-            title: t("page.product.flags.features.card.feature.history.title"),
-            text: t(
-              "page.product.flags.features.card.feature.history.description",
-            ),
-            image: {
-              src: `/images/product/flags/activity_card${isDarkMode ? "_dark" : ""}.png`,
-              alt: t("page.product.flags.features.card.feature.history.alt"),
-            },
-          },
-          {
-            label: t(
-              "page.product.flags.features.card.feature.remote-config.label",
-            ),
-            title: t(
-              "page.product.flags.features.card.feature.remote-config.title",
-            ),
-            text: t(
-              "page.product.flags.features.card.feature.remote-config.description",
-            ),
-            image: {
-              src: `/images/product/flags/remote_config_card${isDarkMode ? "_dark" : ""}.png`,
-              alt: t(
-                "page.product.flags.features.card.feature.remote-config.alt",
-              ),
-            },
-          },
-          {
-            label: t("page.product.flags.features.card.feature.security.label"),
-            title: t("page.product.flags.features.card.feature.security.title"),
-            text: t(
-              "page.product.flags.features.card.feature.security.description",
-            ),
-            image: {
-              src: `/images/product/flags/security_card${isDarkMode ? "_dark" : ""}.png`,
-              alt: t("page.product.flags.features.card.feature.security.alt"),
-            },
-          },
-        ]}
-      />
-        */}
       <MiniCards
         id="mini-cards"
+        caption={t("page.product.flags.more-features.caption")}
         title={t("page.product.flags.more-features.title")}
         text={t("page.product.flags.more-features.description")}
         cards={[
@@ -302,6 +229,7 @@ const ProductFeatureFlagsPage = () => {
       />
       <Code
         id="code"
+        caption={t("page.product.flags.sdks.caption")}
         title={t("page.product.flags.sdks.title")}
         description={t("page.product.flags.sdks.description")}
         data={[
@@ -504,6 +432,7 @@ const ProductFeatureFlagsPage = () => {
       />
       <Cards
         id="why"
+        caption={t("page.product.flags.why.caption")}
         title={t("page.product.flags.why.title")}
         text={t("page.product.flags.why.description")}
         cards={[

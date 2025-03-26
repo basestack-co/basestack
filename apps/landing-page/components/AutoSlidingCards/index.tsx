@@ -18,6 +18,7 @@ import SectionHeader from "../SectionHeader";
 export interface AutoSlidingCardsProps {
   id?: string;
   title: string;
+  caption?: string;
   text?: string;
   cards: Array<{
     text: string;
@@ -25,7 +26,7 @@ export interface AutoSlidingCardsProps {
   }>;
 }
 
-const Cards = ({ title, text, cards, id }: AutoSlidingCardsProps) => {
+const Cards = ({ title, text, cards, id, caption }: AutoSlidingCardsProps) => {
   const { spacing, colors, isDarkMode } = useTheme();
   const autoScrollPlugin = useRef<ReturnType<typeof AutoScroll> | null>(null);
 
@@ -69,7 +70,7 @@ const Cards = ({ title, text, cards, id }: AutoSlidingCardsProps) => {
     <Container id={id}>
       <ContentContainer>
         <HeaderContainer>
-          <SectionHeader title={title} text={text} />
+          <SectionHeader title={title} text={text} caption={caption} />
         </HeaderContainer>
         <Embla>
           <EmblaViewport ref={emblaRef}>
