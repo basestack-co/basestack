@@ -16,12 +16,10 @@ exports[`Icon tests should render Icon correctly 1`] = `
 <div
     class="c0"
     data-testid="icon-container"
-    size="24"
   >
     <span
       class="c1 material-symbols-rounded"
       data-testid="icon"
-      size="24"
     >
       help
     </span>
@@ -45,12 +43,10 @@ exports[`Icon tests should render large Icon 1`] = `
 <div
     class="c0"
     data-testid="icon-container"
-    size="32"
   >
     <span
       class="c1 material-symbols-rounded"
       data-testid="icon"
-      size="32"
     >
       help
     </span>
@@ -74,12 +70,10 @@ exports[`Icon tests should render medium Icon 1`] = `
 <div
     class="c0"
     data-testid="icon-container"
-    size="24"
   >
     <span
       class="c1 material-symbols-rounded"
       data-testid="icon"
-      size="24"
     >
       help
     </span>
@@ -103,12 +97,10 @@ exports[`Icon tests should render muted Icon 1`] = `
 <div
     class="c0"
     data-testid="icon-container"
-    size="24"
   >
     <span
       class="c1 material-symbols-rounded"
       data-testid="icon"
-      size="24"
     >
       help
     </span>
@@ -132,13 +124,10 @@ exports[`Icon tests should render red Icon 1`] = `
 <div
     class="c0"
     data-testid="icon-container"
-    size="24"
   >
     <span
       class="c1 material-symbols-rounded"
-      color="red"
       data-testid="icon"
-      size="24"
     >
       help
     </span>
@@ -162,12 +151,10 @@ exports[`Icon tests should render small Icon 1`] = `
 <div
     class="c0"
     data-testid="icon-container"
-    size="18"
   >
     <span
       class="c1 material-symbols-rounded"
       data-testid="icon"
-      size="18"
     >
       help
     </span>
@@ -191,12 +178,10 @@ exports[`Icon tests should render xLarge Icon 1`] = `
 <div
     class="c0"
     data-testid="icon-container"
-    size="48"
   >
     <span
       class="c1 material-symbols-rounded"
       data-testid="icon"
-      size="48"
     >
       help
     </span>

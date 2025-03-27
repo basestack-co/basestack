@@ -200,13 +200,10 @@ exports[`Table tests should render Table correctly 1`] = `
             <div
               class="c8"
               data-testid="icon-container"
-              size="24"
             >
               <span
                 class="c9 material-symbols-rounded"
-                color="#000000"
                 data-testid="icon"
-                size="24"
               >
                 more_horiz
               </span>
@@ -277,13 +274,10 @@ exports[`Table tests should render Table correctly 1`] = `
             <div
               class="c8"
               data-testid="icon-container"
-              size="24"
             >
               <span
                 class="c9 material-symbols-rounded"
-                color="#000000"
                 data-testid="icon"
-                size="24"
               >
                 more_horiz
               </span>
@@ -524,13 +518,10 @@ exports[`Table tests should render Table with images 1`] = `
             <div
               class="c10"
               data-testid="icon-container"
-              size="24"
             >
               <span
                 class="c11 material-symbols-rounded"
-                color="#000000"
                 data-testid="icon"
-                size="24"
               >
                 more_horiz
               </span>
@@ -613,13 +604,10 @@ exports[`Table tests should render Table with images 1`] = `
             <div
               class="c10"
               data-testid="icon-container"
-              size="24"
             >
               <span
                 class="c11 material-symbols-rounded"
-                color="#000000"
                 data-testid="icon"
-                size="24"
               >
                 more_horiz
               </span>
@@ -702,13 +690,10 @@ exports[`Table tests should render Table with images 1`] = `
             <div
               class="c10"
               data-testid="icon-container"
-              size="24"
             >
               <span
                 class="c11 material-symbols-rounded"
-                color="#000000"
                 data-testid="icon"
-                size="24"
               >
                 more_horiz
               </span>
@@ -791,13 +776,10 @@ exports[`Table tests should render Table with images 1`] = `
             <div
               class="c10"
               data-testid="icon-container"
-              size="24"
             >
               <span
                 class="c11 material-symbols-rounded"
-                color="#000000"
                 data-testid="icon"
-                size="24"
               >
                 more_horiz
               </span>
@@ -1011,13 +993,10 @@ exports[`Table tests should render Table with space utils 1`] = `
             <div
               class="c8"
               data-testid="icon-container"
-              size="24"
             >
               <span
                 class="c9 material-symbols-rounded"
-                color="#000000"
                 data-testid="icon"
-                size="24"
               >
                 more_horiz
               </span>
@@ -1088,13 +1067,10 @@ exports[`Table tests should render Table with space utils 1`] = `
             <div
               class="c8"
               data-testid="icon-container"
-              size="24"
             >
               <span
                 class="c9 material-symbols-rounded"
-                color="#000000"
                 data-testid="icon"
-                size="24"
               >
                 more_horiz
               </span>

@@ -24,8 +24,6 @@ const LandingPage = () => {
   const router = useRouter();
   const stargazers = useStore((state) => state.stargazers);
 
-  console.log("stargazers = ", stargazers);
-
   return (
     <Fragment>
       <VerticalCards

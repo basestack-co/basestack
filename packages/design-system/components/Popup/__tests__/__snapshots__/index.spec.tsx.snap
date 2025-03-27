@@ -225,12 +225,11 @@ exports[`Popup tests should render Popup with icons 1`] = `
           <div
             class="c4"
             data-testid="icon-container"
-            size="18"
+            mr="0.5rem"
           >
             <span
               class="c5 material-symbols-rounded"
               data-testid="icon"
-              size="18"
             >
               edit
             </span>
@@ -254,12 +253,11 @@ exports[`Popup tests should render Popup with icons 1`] = `
           <div
             class="c4"
             data-testid="icon-container"
-            size="18"
+            mr="0.5rem"
           >
             <span
               class="c5 material-symbols-rounded"
               data-testid="icon"
-              size="18"
             >
               edit
             </span>
@@ -283,12 +281,11 @@ exports[`Popup tests should render Popup with icons 1`] = `
           <div
             class="c4"
             data-testid="icon-container"
-            size="18"
+            mr="0.5rem"
           >
             <span
               class="c5 material-symbols-rounded"
               data-testid="icon"
-              size="18"
             >
               edit
             </span>

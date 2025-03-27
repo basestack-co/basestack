@@ -82,13 +82,10 @@ exports[`Segment tests should render Segment correctly 1`] = `
         <div
           class="c3"
           data-testid="icon-container"
-          size="24"
         >
           <span
             class="c4 material-symbols-rounded"
-            color="#000000"
             data-testid="icon"
-            size="24"
           >
             view_module
           </span>
@@ -101,13 +98,10 @@ exports[`Segment tests should render Segment correctly 1`] = `
         <div
           class="c3"
           data-testid="icon-container"
-          size="24"
         >
           <span
             class="c4 material-symbols-rounded"
-            color="#000000"
             data-testid="icon"
-            size="24"
           >
             view_stream
           </span>
@@ -215,13 +209,10 @@ exports[`Segment tests should render Segment with icons and test 1`] = `
         <div
           class="c3"
           data-testid="icon-container"
-          size="24"
         >
           <span
             class="c4 material-symbols-rounded"
-            color="#000000"
             data-testid="icon"
-            size="24"
           >
             view_module
           </span>
@@ -241,13 +232,10 @@ exports[`Segment tests should render Segment with icons and test 1`] = `
         <div
           class="c3"
           data-testid="icon-container"
-          size="24"
         >
           <span
             class="c4 material-symbols-rounded"
-            color="#000000"
             data-testid="icon"
-            size="24"
           >
             view_stream
           </span>

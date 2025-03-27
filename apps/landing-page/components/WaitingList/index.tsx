@@ -127,12 +127,7 @@ const WaitingList = ({ data }: WaitingListProps) => {
     <Container>
       <ContentContainer>
         <Header>
-          <Text
-            size="xxLarge"
-            fontWeight={700}
-            lineHeight="1.6"
-            fontFamily="robotoFlex"
-          >
+          <Text size="xxLarge" fontWeight={700} lineHeight="1.6">
             Basestack
           </Text>
         </Header>

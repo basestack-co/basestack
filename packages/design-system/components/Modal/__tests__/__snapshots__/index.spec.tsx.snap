@@ -254,13 +254,10 @@ exports[`Modal tests should render Modal correctly open 1`] = `
           <div
             class="c5"
             data-testid="icon-container"
-            size="24"
           >
             <span
               class="c6 material-symbols-rounded"
-              color="#000000"
               data-testid="icon"
-              size="24"
             >
               close
             </span>
@@ -564,13 +561,10 @@ exports[`Modal tests should render Modal with custom props 1`] = `
           <div
             class="c5"
             data-testid="icon-container"
-            size="24"
           >
             <span
               class="c6 material-symbols-rounded"
-              color="#000000"
               data-testid="icon"
-              size="24"
             >
               close
             </span>

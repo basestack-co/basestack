@@ -225,11 +225,16 @@ const Footer = () => {
         body: JSON.stringify({ email: input.email }),
       });
 
-      await res.json();
+      const data = await res.json();
 
-      toast.success(t("common.toast.newsletter.success"));
+      if (data.error) {
+        toast.error(data.message);
+      }
 
-      reset();
+      if (data.code === 200) {
+        toast.success(t("common.toast.newsletter.success"));
+        reset();
+      }
     } catch (error) {
       const { message } = error as Error;
       toast.error(message);

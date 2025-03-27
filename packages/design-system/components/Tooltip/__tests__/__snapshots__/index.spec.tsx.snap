@@ -26,13 +26,10 @@ exports[`Tooltip tests should render Tooltip correctly 1`] = `
     <div
       class="c1"
       data-testid="icon-container"
-      size="18"
     >
       <span
         class="c2 material-symbols-rounded"
-        color="black"
         data-testid="icon"
-        size="18"
       >
         info
       </span>

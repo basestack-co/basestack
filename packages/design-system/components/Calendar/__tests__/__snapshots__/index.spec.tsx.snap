@@ -241,12 +241,10 @@ exports[`Calendar tests render Calendar correctly 1`] = `
           <div
             class="c1"
             data-testid="icon-container"
-            size="18"
           >
             <span
               class="c2 material-symbols-rounded"
               data-testid="icon"
-              size="18"
             >
               keyboard_double_arrow_left
             </span>
@@ -260,12 +258,10 @@ exports[`Calendar tests render Calendar correctly 1`] = `
           <div
             class="c1"
             data-testid="icon-container"
-            size="18"
           >
             <span
               class="c2 material-symbols-rounded"
               data-testid="icon"
-              size="18"
             >
               chevron_left
             </span>
@@ -291,12 +287,10 @@ exports[`Calendar tests render Calendar correctly 1`] = `
           <div
             class="c1"
             data-testid="icon-container"
-            size="18"
           >
             <span
               class="c2 material-symbols-rounded"
               data-testid="icon"
-              size="18"
             >
               chevron_right
             </span>
@@ -310,12 +304,10 @@ exports[`Calendar tests render Calendar correctly 1`] = `
           <div
             class="c1"
             data-testid="icon-container"
-            size="18"
           >
             <span
               class="c2 material-symbols-rounded"
               data-testid="icon"
-              size="18"
             >
               keyboard_double_arrow_right
             </span>
