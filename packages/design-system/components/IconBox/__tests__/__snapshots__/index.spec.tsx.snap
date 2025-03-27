@@ -49,13 +49,10 @@ exports[`IconBox tests should render IconBox blue 1`] = `
       <div
         class="c2"
         data-testid="icon-container"
-        size="24"
       >
         <span
           class="c3 material-symbols-rounded"
-          color="#757575"
           data-testid="icon"
-          size="24"
         >
           help
         </span>
@@ -114,13 +111,10 @@ exports[`IconBox tests should render IconBox gray 1`] = `
       <div
         class="c2"
         data-testid="icon-container"
-        size="24"
       >
         <span
           class="c3 material-symbols-rounded"
-          color="#757575"
           data-testid="icon"
-          size="24"
         >
           help
         </span>
@@ -179,13 +173,10 @@ exports[`IconBox tests should render IconBox green 1`] = `
       <div
         class="c2"
         data-testid="icon-container"
-        size="24"
       >
         <span
           class="c3 material-symbols-rounded"
-          color="#757575"
           data-testid="icon"
-          size="24"
         >
           help
         </span>
@@ -244,13 +235,10 @@ exports[`IconBox tests should render IconBox outlined 1`] = `
       <div
         class="c2"
         data-testid="icon-container"
-        size="24"
       >
         <span
           class="c3 material-symbols-rounded"
-          color="#757575"
           data-testid="icon"
-          size="24"
         >
           help
         </span>
@@ -309,13 +297,10 @@ exports[`IconBox tests should render IconBox purple 1`] = `
       <div
         class="c2"
         data-testid="icon-container"
-        size="24"
       >
         <span
           class="c3 material-symbols-rounded"
-          color="#757575"
           data-testid="icon"
-          size="24"
         >
           help
         </span>

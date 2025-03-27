@@ -102,13 +102,10 @@ exports[`Input tests should render input with left icon 1`] = `
       <div
         class="c2"
         data-testid="icon-container"
-        size="24"
       >
         <span
           class="c3 material-symbols-rounded"
-          color="#757575"
           data-testid="icon"
-          size="24"
         >
           search
         </span>
@@ -193,13 +190,10 @@ exports[`Input tests should render input with right icon 1`] = `
       <div
         class="c3"
         data-testid="icon-container"
-        size="24"
       >
         <span
           class="c4 material-symbols-rounded"
-          color="#757575"
           data-testid="icon"
-          size="24"
         >
           search
         </span>

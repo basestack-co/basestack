@@ -52,13 +52,10 @@ exports[`IconButton tests should render IconButton correctly 1`] = `
     <div
       class="c1"
       data-testid="icon-container"
-      size="24"
     >
       <span
         class="c2 material-symbols-rounded"
-        color="#000000"
         data-testid="icon"
-        size="24"
       >
         help
       </span>
@@ -110,13 +107,10 @@ exports[`IconButton tests should render IconButton with different size 1`] = `
     <div
       class="c1"
       data-testid="icon-container"
-      size="32"
     >
       <span
         class="c2 material-symbols-rounded"
-        color="#000000"
         data-testid="icon"
-        size="32"
       >
         help
       </span>
@@ -168,13 +162,10 @@ exports[`IconButton tests should render primary IconButton 1`] = `
     <div
       class="c1"
       data-testid="icon-container"
-      size="24"
     >
       <span
         class="c2 material-symbols-rounded"
-        color="#FFFFFF"
         data-testid="icon"
-        size="24"
       >
         help
       </span>
@@ -236,13 +227,10 @@ exports[`IconButton tests should render primaryNeutral IconButton 1`] = `
     <div
       class="c1"
       data-testid="icon-container"
-      size="24"
     >
       <span
         class="c2 material-symbols-rounded"
-        color="#000000"
         data-testid="icon"
-        size="24"
       >
         help
       </span>
@@ -294,13 +282,10 @@ exports[`IconButton tests should render secondary IconButton 1`] = `
     <div
       class="c1"
       data-testid="icon-container"
-      size="24"
     >
       <span
         class="c2 material-symbols-rounded"
-        color="#000000"
         data-testid="icon"
-        size="24"
       >
         help
       </span>

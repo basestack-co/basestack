@@ -128,13 +128,10 @@ exports[`Empty tests should render Empty correctly 1`] = `
         <div
           class="c3"
           data-testid="icon-container"
-          size="24"
         >
           <span
             class="c4 material-symbols-rounded"
-            color="#757575"
             data-testid="icon"
-            size="24"
           >
             info
           </span>

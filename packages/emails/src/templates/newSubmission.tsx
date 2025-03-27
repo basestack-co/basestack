@@ -112,7 +112,7 @@ export const NewSubmissionEmailTemplate = ({
           <List data={content} />
           <Button
             style={{ ...Styles.PrimaryButton, marginTop: "20px" }}
-            href={`https://forms.basestack.co/form/${formId}/submissions`}
+            href={`https://forms.basestack.co/a/form/${formId}/submissions`}
           >
             View submission
           </Button>

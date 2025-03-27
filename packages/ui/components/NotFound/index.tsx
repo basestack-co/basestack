@@ -24,7 +24,6 @@ const NotFound = ({ onClick, title, description, action }: NotFoundProps) => {
           size="xxLarge"
           fontSize={rem("28px")}
           lineHeight="1.4"
-          fontFamily="robotoFlex"
           mt={theme.spacing.s3}
           mb={theme.spacing.s1}
           fontWeight={800}

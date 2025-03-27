@@ -141,13 +141,10 @@ exports[`CopyCard tests should render CopyCard correctly 1`] = `
           <div
             class="c8"
             data-testid="icon-container"
-            size="24"
           >
             <span
               class="c9 material-symbols-rounded"
-              color="#000000"
               data-testid="icon"
-              size="24"
             >
               content_copy
             </span>

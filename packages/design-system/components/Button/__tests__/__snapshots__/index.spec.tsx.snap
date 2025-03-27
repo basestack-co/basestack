@@ -171,12 +171,11 @@ exports[`Button tests should render Button with icon 1`] = `
     <div
       class="c1"
       data-testid="icon-container"
-      size="24"
+      mr="0.5rem"
     >
       <span
         class="c2 material-symbols-rounded"
         data-testid="icon"
-        size="24"
       >
         help
       </span>

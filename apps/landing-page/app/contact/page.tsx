@@ -31,11 +31,16 @@ const RequestDemoPage = () => {
         },
       );
 
-      await res.json();
+      const data = await res.json();
 
-      toast.success(t("common.toast.sales.success"));
+      if (data.error) {
+        toast.error(data.message);
+      }
 
-      reset();
+      if (data.code === 200) {
+        toast.success(t("common.toast.sales.success"));
+        reset();
+      }
     } catch (error) {
       const { message } = error as Error;
       toast.error(message);
