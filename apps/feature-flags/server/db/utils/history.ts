@@ -3,7 +3,7 @@ import { PrismaClient } from ".prisma/client";
 import { Session } from "next-auth";
 // Types
 import { HistoryAction, Environment } from "types";
-import { Type } from "components/HistoryCard/types";
+import { HistoryType } from "@basestack/ui";
 import { RouterOutputs } from "utils/trpc/react";
 
 export const pathActionMap: { [id: string]: string } = {
@@ -17,7 +17,7 @@ export const pathActionMap: { [id: string]: string } = {
   "flag.delete": HistoryAction.deleteFlag,
 };
 
-export const typeMap: { [id: string]: Type } = {
+export const typeMap: { [id: string]: HistoryType } = {
   [HistoryAction.createProject]: "createdProject",
   [HistoryAction.updateProject]: "edited",
   [HistoryAction.createEnvironment]: "created",
@@ -68,7 +68,7 @@ export interface HistoryItemDetails {
   description: string;
   slug: string;
   createdAt: string | Date;
-  type: Type;
+  type: HistoryType;
   environments: Environment[];
 }
 

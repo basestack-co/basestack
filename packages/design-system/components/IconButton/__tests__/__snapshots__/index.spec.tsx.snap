@@ -32,12 +32,17 @@ exports[`IconButton tests should render IconButton correctly 1`] = `
   color: inherit;
 }
 
-.c0:hover {
+.c0:hover:not(:disabled) {
   background-color: #EEEEEE;
 }
 
-.c0:active {
+.c0:active:not(:disabled) {
   background-color: #E2E2E2;
+}
+
+.c0:disabled {
+  opacity: 0.5;
+  cursor: initial;
 }
 
 <button
@@ -89,8 +94,13 @@ exports[`IconButton tests should render IconButton with different size 1`] = `
   width: 2.5rem;
 }
 
-.c0:hover:not(:active) {
+.c0:hover:not(:active):not(:disabled) {
   background-color: #E2E2E2;
+}
+
+.c0:disabled {
+  opacity: 0.5;
+  cursor: initial;
 }
 
 <button
@@ -142,8 +152,13 @@ exports[`IconButton tests should render primary IconButton 1`] = `
   width: 2.25rem;
 }
 
-.c0:hover:not(:active) {
+.c0:hover:not(:active):not(:disabled) {
   background-color: #0e55d7;
+}
+
+.c0:disabled {
+  opacity: 0.5;
+  cursor: initial;
 }
 
 <button
@@ -209,6 +224,11 @@ exports[`IconButton tests should render primaryNeutral IconButton 1`] = `
   background-color: #D4E2FC;
 }
 
+.c0:disabled {
+  opacity: 0.5;
+  cursor: initial;
+}
+
 <button
     class="c0"
     variant="primaryNeutral"
@@ -258,8 +278,13 @@ exports[`IconButton tests should render secondary IconButton 1`] = `
   width: 2.25rem;
 }
 
-.c0:hover:not(:active) {
+.c0:hover:not(:active):not(:disabled) {
   background-color: #E2E2E2;
+}
+
+.c0:disabled {
+  opacity: 0.5;
+  cursor: initial;
 }
 
 <button

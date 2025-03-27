@@ -403,6 +403,10 @@ const segment = {
   icon: {
     color: colors.black,
   },
+  label: {
+    active: colors.primary,
+    color: colors.gray500,
+  },
 };
 
 const select = {
@@ -547,6 +551,12 @@ const horizontalRule = {
   },
 };
 
+const accordion = {
+  border: {
+    color: colors.gray200,
+  },
+};
+
 const copyCard = {
   backgroundColor: colors.gray50,
   title: {
@@ -623,6 +633,7 @@ const theme = {
   popupActions,
   table,
   horizontalRule,
+  accordion,
   calendar,
   empty,
   inputGroup,

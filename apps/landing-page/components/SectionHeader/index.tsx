@@ -1,55 +1,93 @@
 import React from "react";
 import { useTheme } from "styled-components";
-import { useMedia } from "react-use";
-// Components
 import { Text } from "@basestack/design-system";
-import { Container, Title } from "./styles";
+import { Container, StyledCaption, Title } from "./styles";
+import { Label } from "../styles";
 
-export interface SectionHeaderProps {
+type TitleSize = "medium" | "large" | "xLarge";
+type TextAlign = "left" | "center" | "right";
+type AlignItems = "flex-end" | "center" | "flex-start";
+
+interface SectionHeaderProps {
   title: string;
-  text: string;
-  titleSize?: "normal" | "large";
+  text?: string;
+  titleSize?: TitleSize;
   hasMarginBottom?: boolean;
-  isDarkMode?: boolean;
   hasAnimatedText?: boolean;
+  textAlign?: TextAlign;
+  alignItems?: AlignItems;
+  label?: string;
+  textMaxWidth?: number | "initial";
+  titleMaxWidth?: number | "initial";
+  titleTag?: string;
+  caption?: string;
 }
 
 const SectionHeader = ({
   title,
   text,
-  titleSize = "normal",
+  titleSize = "large",
   hasMarginBottom = true,
-  isDarkMode = false,
+  textAlign = "center",
+  alignItems = "center",
+  label,
+  textMaxWidth = 80,
+  titleMaxWidth = "initial",
   hasAnimatedText = false,
+  titleTag = "h2",
+  caption,
 }: SectionHeaderProps) => {
-  const theme = useTheme();
-  const isMobile = useMedia(theme.device.max.md, false);
+  const { spacing, colors, isDarkMode, typography } = useTheme();
 
   return (
-    <Container hasMarginBottom={hasMarginBottom}>
+    <Container hasMarginBottom={hasMarginBottom} alignItems={alignItems}>
+      {caption && (
+        <StyledCaption
+          size="medium"
+          fontWeight={400}
+          mb={spacing.s3}
+          color={colors.blue400}
+          // @ts-ignore
+          fontFamily={typography.robotoMono}
+        >
+          {caption.toUpperCase()}
+        </StyledCaption>
+      )}
+      {label && (
+        <Label>
+          <Text size="xSmall">{label}</Text>
+        </Label>
+      )}
       <Title
+        as={titleTag}
         lineHeight="1.3"
-        textAlign="center"
-        mb={theme.spacing.s2}
-        color={isDarkMode ? theme.colors.gray50 : theme.colors.black}
+        textAlign={textAlign}
+        mb={spacing.s3}
+        color={isDarkMode ? colors.gray300 : colors.black}
         titleSize={titleSize}
+        titleMaxWidth={titleMaxWidth}
         hasAnimatedText={hasAnimatedText}
       >
         {title}
       </Title>
-      <Text
-        size={isMobile ? "large" : "xLarge"}
-        fontWeight={400}
-        textAlign="center"
-        lineHeight="1.6"
-        // @ts-ignore
-        as="p"
-        color={isDarkMode ? theme.colors.gray300 : theme.colors.gray500}
-      >
-        {text}
-      </Text>
+      {text && (
+        <Text
+          size="large"
+          fontWeight={400}
+          textAlign={textAlign}
+          lineHeight="1.6"
+          as="p"
+          muted
+          maxWidth={
+            typeof textMaxWidth === "number" ? `${textMaxWidth}ch` : "initial"
+          }
+        >
+          {text}
+        </Text>
+      )}
     </Container>
   );
 };
 
+export type { TitleSize, TextAlign, AlignItems, SectionHeaderProps };
 export default SectionHeader;

@@ -1,18 +1,18 @@
 "use client";
 
+import { Suspense } from "react";
+// UI
 import { StatusPage } from "@basestack/ui";
 // Navigation
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 // Utils
 import { config } from "@basestack/utils";
 // Locales
 import { useTranslations } from "next-intl";
 
-const FormStatusSuccess = () => {
-  const { goBackUrl } = useParams<{
-    goBackUrl: string;
-  }>();
+const SuccessStatus = () => {
   const t = useTranslations("common");
+  const searchParams = useSearchParams();
 
   return (
     <StatusPage
@@ -25,9 +25,18 @@ const FormStatusSuccess = () => {
       }}
       button={{
         text: t("status.form.success.action"),
-        onClick: () => window.open(goBackUrl ?? "/", "_blank"),
+        onClick: () =>
+          window.open(searchParams.get("goBackUrl") ?? "/", "_blank"),
       }}
     />
+  );
+};
+
+const FormStatusSuccess = () => {
+  return (
+    <Suspense>
+      <SuccessStatus />
+    </Suspense>
   );
 };
 

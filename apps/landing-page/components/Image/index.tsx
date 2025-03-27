@@ -11,7 +11,7 @@ export interface ImageProps extends SpaceProps {
 const ImageComp = ({ src = "", alt = "", ...props }: ImageProps) => {
   return (
     <Container {...props}>
-      <Image src={src} alt={alt} />
+      <Image src={src} alt={alt} loading="lazy" />
     </Container>
   );
 };

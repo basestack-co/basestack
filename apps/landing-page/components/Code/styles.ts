@@ -1,52 +1,73 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { rem } from "polished";
 
-export const Container = styled.section.withConfig({
-  shouldForwardProp: (prop) => prop !== "isDarkMode",
-})<{ isDarkMode: boolean }>`
+export const Container = styled.section`
   display: flex;
   flex-direction: column;
-  padding: ${rem("100px")} ${({ theme }) => theme.spacing.s5};
-  ${({ isDarkMode }) =>
-    isDarkMode &&
-    css`
-      background-color: ${({ theme }) => theme.colors.gray800};
-    `}
+  padding: ${rem("100px")} 0 ${rem("92px")} 0;
+`;
+
+export const HeaderContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 ${({ theme }) => theme.spacing.s5};
 `;
 
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: ${rem("1440px")};
+  max-width: ${rem("1400px")};
   width: 100%;
   margin: 0 auto;
 `;
 
-export const CodeContainer = styled.div`
+export const CardContent = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 780px;
-  margin: 0 auto;
-  border-radius: ${rem("8px")};
-  overflow: hidden;
-  font-size: ${rem("16px")};
-  box-shadow: ${({ theme }) => theme.shadow.elevation3};
+  fill: ${({ theme }) =>
+    theme.isDarkMode ? theme.colors.gray300 : theme.colors.black};
+`;
 
-  pre {
-    min-height: 360px;
-    background: ${({ theme }) => theme.colors.gray700} !important;
+export const Embla = styled.div`
+  max-width: ${rem("1140px")};
+  width: 100%;
+  margin: 0 auto;
+`;
+
+export const EmblaViewport = styled.div`
+  overflow: hidden;
+  padding: 0 ${({ theme }) => theme.spacing.s5}
+    ${({ theme }) => theme.spacing.s2} ${({ theme }) => theme.spacing.s5};
+`;
+
+export const EmblaContainer = styled.ul`
+  backface-visibility: hidden;
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  margin-left: ${rem("-20px")};
+
+  @media screen and ${({ theme }) => theme.device.max.xl} {
+    margin-left: ${rem("-10px")};
   }
 `;
 
-export const TabsContainer = styled.div<{ isDarkMode: boolean }>`
-  display: flex;
-  flex-direction: column;
+export const EmblaSlide = styled.li`
+  min-width: 0;
+  padding-left: ${rem("20px")};
+  flex: 0 0 calc(100% / 3);
 
-  ${({ isDarkMode }) =>
-    isDarkMode &&
-    css`
-      background-color: ${({ theme }) => theme.colors.gray800};
-    `}
+  @media screen and ${({ theme }) => theme.device.max.xl} {
+    flex: 0 0 calc(100% / 3);
+    padding-left: ${rem("10px")};
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    flex: 0 0 calc(100% / 2);
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    flex: 0 0 100%;
+  }
 `;

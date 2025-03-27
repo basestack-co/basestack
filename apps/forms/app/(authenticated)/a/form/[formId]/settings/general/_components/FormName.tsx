@@ -10,11 +10,13 @@ import { api } from "utils/trpc/react";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Components
-import { Input } from "@basestack/design-system";
+import { InputGroup } from "@basestack/design-system";
 // Types
 import { Role } from ".prisma/client";
 // Toast
 import { toast } from "sonner";
+// Utils
+import { isEmptyObject } from "@basestack/utils";
 // Locales
 import { useTranslations } from "next-intl";
 
@@ -126,7 +128,12 @@ const FormNameCard = ({ role, name }: Props) => {
       description={t("general.form.description")}
       button={t("general.form.action")!}
       onClick={handleSubmit(onSaveFormName)}
-      isDisabled={isSubmitting || name === inputName || !!errors.name}
+      isDisabled={
+        isSubmitting ||
+        name === inputName ||
+        !!errors.name ||
+        !isEmptyObject(errors)
+      }
       isLoading={isSubmitting}
       hasFooter={isAdmin}
     >
@@ -135,15 +142,19 @@ const FormNameCard = ({ role, name }: Props) => {
         control={control}
         defaultValue=""
         render={({ field }) => (
-          <Input
-            maxWidth={400}
-            onChange={field.onChange}
-            onBlur={field.onBlur}
-            placeholder={t("general.form.inputs.name.placeholder")}
-            name={field.name}
-            value={field.value}
-            hasError={!!errors.name}
-            isDisabled={isSubmitting || !name || !isAdmin}
+          <InputGroup
+            hint={errors.name?.message ? t(errors.name?.message as never) : ""}
+            inputProps={{
+              type: "text",
+              name: field.name,
+              value: field.value as string,
+              onChange: field.onChange,
+              onBlur: field.onBlur,
+              placeholder: t("general.form.inputs.name.placeholder"),
+              hasError: !!errors.name,
+              isDisabled: isSubmitting || !name || !isAdmin,
+              maxWidth: 400,
+            }}
           />
         )}
       />

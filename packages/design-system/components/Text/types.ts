@@ -1,5 +1,10 @@
 import { ReactNode } from "react";
-import { SpaceProps, TypographyProps, FlexboxProps } from "styled-system";
+import {
+  SpaceProps,
+  TypographyProps,
+  FlexboxProps,
+  LayoutProps,
+} from "styled-system";
 
 export type Size =
   | "xxLarge"
@@ -11,7 +16,11 @@ export type Size =
 
 export type FontFamily = "roboto" | "robotoFlex";
 
-export interface TextProps extends SpaceProps, TypographyProps, FlexboxProps {
+export interface TextProps
+  extends SpaceProps,
+    TypographyProps,
+    FlexboxProps,
+    LayoutProps {
   /**
    * Change text tag
    */

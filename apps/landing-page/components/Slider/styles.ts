@@ -1,68 +1,98 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { rem } from "polished";
 
 export const Container = styled.section`
   display: flex;
   flex-direction: column;
   padding: ${rem("100px")} 0;
+  overflow: hidden;
 `;
 
 export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 ${({ theme }) => theme.spacing.s5};
+  max-width: ${rem("1400px")};
 `;
 
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: ${rem("1440px")};
   width: 100%;
   margin: 0 auto;
 `;
 
-export const CardsContainer = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.s5};
+export const Embla = styled.div.withConfig({
+  shouldForwardProp: (prop) => !["isImageSlider"].includes(prop),
+})<{ isImageSlider: boolean }>`
+  margin: 0 auto;
+  width: 100%;
   max-width: ${rem("1140px")};
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 ${({ theme }) => theme.spacing.s5}
-    ${({ theme }) => theme.spacing.s8} ${({ theme }) => theme.spacing.s5};
 
-  @media screen and ${({ theme }) => theme.device.max.md} {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scroll-padding: ${({ theme }) => theme.spacing.s5};
+  ${({ isImageSlider }) =>
+    isImageSlider &&
+    css`
+      margin-top: ${rem("12px")};
+    `}
+`;
 
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+export const EmblaViewport = styled.div.withConfig({
+  shouldForwardProp: (prop) => !["isImageSlider"].includes(prop),
+})<{ isImageSlider: boolean }>`
+  ${({ theme, isImageSlider }) =>
+    isImageSlider
+      ? css`
+          overflow: visible;
+          padding: ${`0 ${theme.spacing.s5}`};
+        `
+      : css`
+          overflow: hidden;
+          padding: ${`0 ${theme.spacing.s5} ${theme.spacing.s2} ${theme.spacing.s5}`};
+        `}
+`;
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
+export const EmblaContainer = styled.ul`
+  backface-visibility: hidden;
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  margin-left: ${rem("-20px")};
+
+  @media screen and ${({ theme }) => theme.device.max.xl} {
+    margin-left: ${rem("-10px")};
   }
 `;
 
-export const CardContainer = styled.div`
-  display: flex;
-  flex: 1 0 0;
+export const EmblaSlide = styled.li.withConfig({
+  shouldForwardProp: (prop) => !["isImageSlider"].includes(prop),
+})<{
+  isImageSlider: boolean;
+}>`
+  min-width: 0;
+  padding-left: ${rem("20px")};
 
-  @media screen and ${({ theme }) => theme.device.max.md} {
-    min-width: 320px;
-    scroll-snap-align: start;
-  }
-`;
+  ${({ theme, isImageSlider }) =>
+    isImageSlider
+      ? css`
+          flex: 0 0 100%;
 
-export const SlideCardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+          @media screen and ${theme.device.max.xl} {
+            padding-left: ${rem("10px")};
+          }
+        `
+      : css`
+          flex: 0 0 calc(100% / 3);
+          @media screen and ${theme.device.max.xl} {
+            flex: 0 0 calc(100% / 3);
+            padding-left: ${rem("10px")};
+          }
 
-export const ImageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 0 ${({ theme }) => theme.spacing.s5};
+          @media screen and ${theme.device.max.lg} {
+            flex: 0 0 calc(100% / 2);
+          }
+
+          @media screen and ${theme.device.max.sm} {
+            flex: 0 0 100%;
+          }
+        `}
 `;

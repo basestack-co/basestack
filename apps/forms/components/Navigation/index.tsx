@@ -2,10 +2,10 @@
 
 import React, { useCallback, useMemo } from "react";
 import { useTheme } from "styled-components";
-import { flushSync } from "react-dom";
 // Store
 import { useStore } from "store";
 // Hooks
+import { useDarkModeToggle } from "@basestack/hooks";
 import { useRouter, useParams, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useMedia } from "react-use";
@@ -33,6 +33,7 @@ const Navigation = ({ data }: NavigationProps) => {
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
+  const { toggleDarkMode } = useDarkModeToggle();
   const { data: session } = useSession();
   const isMobile = useMedia(theme.device.max.lg, false);
 
@@ -55,46 +56,10 @@ const Navigation = ({ data }: NavigationProps) => {
     window.location.href = config.urls.getAppWithEnv(app, AppMode as AppEnv);
   }, []);
 
-  const toggleDarkMode = async (isDarkMode: boolean): Promise<void> => {
-    /**
-     * Return early if View Transition API is not supported
-     * or user prefers reduced motion
-     */
-    if (
-      !document.startViewTransition ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      setIsDarkMode(isDarkMode);
-      return;
-    }
-
-    // Start the view transition and toggle dark mode state
-    await document.startViewTransition(() => {
-      flushSync(() => {
-        setIsDarkMode(isDarkMode);
-      });
-    }).ready;
-
-    // Set the initial and final sizes of the rectangle
-    const initialTop = 0; // Start from the top
-    const initialRight = 0; // Start from the right
-    const initialBottom = window.innerHeight; // Start with the full height
-    const initialLeft = window.innerWidth; // Start with the full width
-
-    // Animate the clip-path expanding from the top-right corner as a rectangle
-    document.documentElement.animate(
-      {
-        clipPath: [
-          `inset(${initialTop}px ${initialRight}px ${initialBottom}px ${initialLeft}px)`,
-          `inset(0px 0px 0px 0px)`,
-        ],
-      },
-      {
-        duration: 400,
-        easing: "cubic-bezier(0.250, 0.460, 0.450, 0.940)",
-        pseudoElement: "::view-transition-new(root)",
-      },
-    );
+  const handleDarkModeToggle = () => {
+    toggleDarkMode(!isDarkMode).then(() => {
+      setIsDarkMode(!isDarkMode);
+    });
   };
 
   return (
@@ -140,7 +105,7 @@ const Navigation = ({ data }: NavigationProps) => {
         src: session?.user.image || "",
         darkModeText: t("navigation.dropdown.dark-mode"),
         isDarkMode: isDarkMode,
-        onSetDarkMode: toggleDarkMode,
+        onSetDarkMode: handleDarkModeToggle,
         list: getAvatarDropdownList(
           router,
           () => setCreateFormModalOpen({ isOpen: true }),

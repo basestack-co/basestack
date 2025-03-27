@@ -119,23 +119,28 @@ exports[`Modal tests should render Modal correctly open 1`] = `
   color: inherit;
 }
 
-.c4:hover {
+.c4:hover:not(:disabled) {
   background-color: #EEEEEE;
 }
 
-.c4:active {
+.c4:active:not(:disabled) {
   background-color: #E2E2E2;
+}
+
+.c4:disabled {
+  opacity: 0.5;
+  cursor: initial;
 }
 
 .c3 {
   font-size: 1.25rem;
   line-height: 1.875rem;
   font-weight: 500;
-  font-family: roboto;
-  margin-right: 0.5rem;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #000000;
+  font-family: roboto;
+  margin-right: 0.5rem;
 }
 
 .c0 {
@@ -424,23 +429,28 @@ exports[`Modal tests should render Modal with custom props 1`] = `
   color: inherit;
 }
 
-.c4:hover {
+.c4:hover:not(:disabled) {
   background-color: #EEEEEE;
 }
 
-.c4:active {
+.c4:active:not(:disabled) {
   background-color: #E2E2E2;
+}
+
+.c4:disabled {
+  opacity: 0.5;
+  cursor: initial;
 }
 
 .c3 {
   font-size: 1.25rem;
   line-height: 1.875rem;
   font-weight: 500;
-  font-family: roboto;
-  margin-right: 0.5rem;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #000000;
+  font-family: roboto;
+  margin-right: 0.5rem;
 }
 
 .c0 {

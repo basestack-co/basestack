@@ -6,10 +6,10 @@ exports[`Pill tests should render Pill correctly 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #000000;
+  font-family: roboto;
 }
 
 .c0 {

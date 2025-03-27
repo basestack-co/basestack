@@ -77,7 +77,6 @@ const SignIn = ({
           size="xLarge"
           fontWeight={700}
           lineHeight="1.6"
-          fontFamily="robotoFlex"
           color={colors[isDarkMode ? "gray200" : "white"]}
         >
           {title}
@@ -85,7 +84,6 @@ const SignIn = ({
         <Text
           size="xxLarge"
           lineHeight="1.4"
-          fontFamily="robotoFlex"
           color={colors[isDarkMode ? "gray200" : "white"]}
           mt={isDesktop ? rem("120px") : spacing.s6}
           fontWeight={800}

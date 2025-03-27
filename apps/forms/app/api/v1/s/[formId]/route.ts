@@ -1,33 +1,36 @@
 import { NextResponse } from "next/server";
 // Utils
-import { PlanTypeId, config as utilsConfig } from "@basestack/utils";
+import {
+  PlanTypeId,
+  config as utilsConfig,
+  RequestError,
+  getMetadata,
+} from "@basestack/utils";
 import { withUsageUpdate } from "server/db/utils/subscription";
 // Prisma
 import { prisma } from "server/db";
 // Vendors
 import { qstash } from "@basestack/vendors";
 // Utils
-import {
-  FormError,
-  FormMode,
-  getMetadata,
-  formatFormData,
-  verifyForm,
-} from "./utils";
+import { FormMode, formatFormData, verifyForm } from "./utils";
 
 const { hasFormPlanFeature } = utilsConfig.plans;
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "POST",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Origin, Accept",
 };
+
+export async function OPTIONS() {
+  return NextResponse.json({}, { status: 200, headers });
+}
 
 export async function POST(
   req: Request,
   { params }: { params: Promise<{ formId: string }> },
 ) {
-  const referer = req.headers.get("referer") || "/";
+  const referer = req.headers.get("referer") || "http://localhost:3003";
   const { formId } = await params;
 
   const { searchParams } = new URL(req.url);
@@ -128,7 +131,7 @@ export async function POST(
         return NextResponse.redirect(successUrl, 303);
       }
     } else {
-      throw new FormError({
+      throw new RequestError({
         code: 409,
         url: `${form?.errorUrl}?goBackUrl=${form?.redirectUrl}`,
         message:
@@ -136,7 +139,7 @@ export async function POST(
       });
     }
   } catch (error) {
-    if (error instanceof FormError) {
+    if (error instanceof RequestError) {
       if (mode === FormMode.REST) {
         return NextResponse.json(
           {
@@ -148,7 +151,10 @@ export async function POST(
           { status: error.code, headers },
         );
       } else {
-        return NextResponse.redirect(error.url, 303);
+        return NextResponse.redirect(
+          `${error.url}&message=${error.message}`,
+          303,
+        );
       }
     } else {
       return NextResponse.json(

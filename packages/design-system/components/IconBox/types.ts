@@ -1,4 +1,7 @@
 import { SpaceProps } from "styled-system";
+
+export type Size = "small" | "medium" | "large";
+
 export type IconBoxColor = "blue" | "purple" | "gray" | "green";
 
 export type IconBoxVariant = "outlined" | "filled";
@@ -30,4 +33,8 @@ export interface IconBoxProps extends SpaceProps {
    * Changes the icon color
    * */
   iconColor?: string;
+  /****
+   * Changes the size
+   * */
+  size?: Size;
 }

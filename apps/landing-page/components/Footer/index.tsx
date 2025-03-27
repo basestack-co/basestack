@@ -1,43 +1,51 @@
+"use client";
+
 import React from "react";
+import { useStore } from "store";
 // Router
 import { useRouter } from "next/navigation";
 // Utils
-import { events } from "@basestack/utils";
+import { useDarkModeToggle } from "@basestack/hooks";
+import { config as defaults } from "@basestack/utils";
 // Form
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Theme
 import { useTheme } from "styled-components";
 // Components
-import { Text, Button, ButtonSize } from "@basestack/design-system";
+import {
+  Text,
+  Button,
+  ButtonSize,
+  HorizontalRule,
+  Logo,
+  IconButton,
+  Input,
+  ButtonVariant,
+} from "@basestack/design-system";
 import {
   Container,
-  ContentContainer,
-  Input,
   InputContainer,
-  LeftColumn,
-  LeftColumnContent,
   List,
   ListItem,
-  RightColumn,
-  CopyWrightContainer,
+  ListContainer,
+  CompanyContainer,
+  ContentWrapper,
+  BottomContainer,
+  StyledLink,
+  LinksContainer,
+  NewsletterContainer,
+  NewsletterContent,
+  LogoContainer,
 } from "./styles";
+// Utils
 import { z } from "zod";
+// Locales
+import { useTranslations } from "next-intl";
+// Toast
+import { toast } from "sonner";
 
-const links = [
-  {
-    text: "Privacy Policy",
-    href: "/legal/privacy",
-  },
-  {
-    text: "Cookies Policy",
-    href: "/legal/cookies",
-  },
-  {
-    text: "Term of Use",
-    href: "/legal/terms",
-  },
-];
+const { urls } = defaults;
 
 export const FormSchema = z.object({
   email: z
@@ -48,14 +56,156 @@ export const FormSchema = z.object({
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
-const Footer = () => {
-  const theme = useTheme();
+interface FooterLink {
+  text: string;
+  href: string;
+  isExternal?: boolean;
+}
+
+interface FooterLinksSection {
+  title: string;
+  links: FooterLink[];
+}
+
+const FooterLinkItem: React.FC<FooterLink> = ({ text, href, isExternal }) => {
   const router = useRouter();
+
+  const onHandleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (isExternal) {
+      window.open(href, "_blank");
+    } else {
+      router.push(href);
+    }
+  };
+
+  return (
+    <ListItem key={href} onClick={onHandleClick}>
+      <StyledLink href={href}>{text}</StyledLink>
+    </ListItem>
+  );
+};
+
+const FooterLinksSection: React.FC<{ section: FooterLinksSection }> = ({
+  section,
+}) => {
+  const { title, links } = section;
+
+  return (
+    <ListContainer>
+      <Text size="medium">{title}</Text>
+      <List>
+        {links.map((link) => (
+          <FooterLinkItem key={link.href} {...link} />
+        ))}
+      </List>
+    </ListContainer>
+  );
+};
+
+const FooterLinks: React.FC = () => {
+  const t = useTranslations();
+
+  const footerSections: FooterLinksSection[] = [
+    {
+      title: t("footer.section.products.title"),
+      links: [
+        {
+          text: t("navigation.main.product.flags.title"),
+          href: "/product/feature-flags",
+        },
+        {
+          text: t("navigation.main.product.forms.title"),
+          href: "/product/forms",
+        },
+      ],
+    },
+    {
+      title: t("footer.section.resources.title"),
+      links: [
+        {
+          text: t("footer.section.resources.blog"),
+          href: urls.blog,
+          isExternal: true,
+        },
+        {
+          text: t("footer.section.resources.support"),
+          href: urls.support,
+          isExternal: true,
+        },
+        {
+          text: t("footer.section.resources.system-status"),
+          href: urls.status,
+          isExternal: true,
+        },
+      ],
+    },
+    {
+      title: t("footer.section.developers.title"),
+      links: [
+        {
+          text: t("footer.section.developers.docs"),
+          href: urls.docs.base,
+          isExternal: true,
+        },
+        {
+          text: t("footer.section.developers.contributing"),
+          href: `${urls.docs.base}/contributing`,
+          isExternal: true,
+        },
+        {
+          text: t("footer.section.developers.open-source"),
+          href: urls.repo,
+          isExternal: true,
+        },
+        {
+          text: t("footer.section.developers.self-hosting"),
+          href: `${urls.docs.base}/self-hosting`,
+          isExternal: true,
+        },
+      ],
+    },
+    {
+      title: t("footer.section.company.title"),
+      links: [
+        {
+          text: t("footer.section.company.privacy-policy"),
+          href: "/legal/privacy",
+        },
+        {
+          text: t("footer.section.company.cookies-policy"),
+          href: "/legal/cookies",
+        },
+        {
+          text: t("footer.section.company.term-of-use"),
+          href: "/legal/terms",
+        },
+      ],
+    },
+  ];
+
+  return (
+    <LinksContainer>
+      {footerSections.map((section) => (
+        <FooterLinksSection key={section.title} section={section} />
+      ))}
+    </LinksContainer>
+  );
+};
+
+const Footer = () => {
+  const t = useTranslations();
+  const { isDarkMode, spacing } = useTheme();
+  const { toggleDarkMode } = useDarkModeToggle();
+
+  const setIsDarkMode = useStore((state) => state.setDarkMode);
 
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
     reset,
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
@@ -77,65 +227,32 @@ const Footer = () => {
 
       await res.json();
 
-      events.landing.newsletter(
-        "Subscribe Success",
-        "Subscribe with success to the Newsletter",
-      );
+      toast.success(t("common.toast.newsletter.success"));
+
       reset();
     } catch (error) {
       const { message } = error as Error;
-
-      events.landing.newsletter("Subscribe Error", message);
+      toast.error(message);
     }
   };
 
   return (
     <Container>
-      <ContentContainer>
-        <LeftColumn>
-          <Text
-            size="xLarge"
-            color={theme.colors.gray300}
-            mb={theme.spacing.s2}
-          >
-            The Open-Source Stack for Developers and Startups
-          </Text>
-          <LeftColumnContent>
-            <CopyWrightContainer>
-              <Text size="medium" fontWeight={400} color={theme.colors.gray300}>
-                © Basestack {new Date().getFullYear()}. All rights reserved.
-              </Text>
-            </CopyWrightContainer>
-            <List>
-              {links.map((link, index) => (
-                <ListItem
-                  key={index.toString()}
-                  onClick={() => {
-                    events.landing.link(link.text, link.href);
-                    router.push(link.href);
-                  }}
-                >
-                  <Text
-                    size="medium"
-                    fontWeight={400}
-                    color={theme.colors.gray300}
-                  >
-                    {link.text}
-                  </Text>
-                </ListItem>
-              ))}
-            </List>
-          </LeftColumnContent>
-        </LeftColumn>
-        <RightColumn>
-          <Text
-            size="medium"
-            fontWeight={400}
-            color={theme.colors.gray300}
-            mb={theme.spacing.s2}
-          >
-            Get updates directly to your Inbox
-          </Text>
+      <ContentWrapper>
+        <FooterLinks />
+
+        <HorizontalRule isDarker={!isDarkMode} />
+
+        <NewsletterContainer>
+          <NewsletterContent>
+            <Text size="xLarge" mb={spacing.s1}>
+              {t("footer.newsletter.title")}
+            </Text>
+            <Text size="medium" fontWeight={400}>
+              {t("footer.newsletter.text")}
+            </Text>
+          </NewsletterContent>
+
           <InputContainer>
             <Controller
               name="email"
@@ -143,13 +260,17 @@ const Footer = () => {
               defaultValue=""
               render={({ field }) => (
                 <Input
+                  isDarker={!isDarkMode}
                   placeholder="Enter your email"
                   type="email"
                   name={field.name}
                   value={field.value}
                   onChange={field.onChange}
                   onBlur={field.onBlur}
-                  disabled={isSubmitting}
+                  isDisabled={isSubmitting}
+                  mr={spacing.s2}
+                  maxWidth="240px"
+                  width="100%"
                 />
               )}
             />
@@ -157,12 +278,41 @@ const Footer = () => {
               onClick={handleSubmit(onSubmit)}
               isLoading={isSubmitting}
               size={ButtonSize.Medium}
+              variant={ButtonVariant.Tertiary}
+              height="44px"
             >
-              Subscribe
+              {t("footer.newsletter.action")}
             </Button>
           </InputContainer>
-        </RightColumn>
-      </ContentContainer>
+        </NewsletterContainer>
+
+        <HorizontalRule isDarker={!isDarkMode} />
+
+        <BottomContainer>
+          <CompanyContainer>
+            <LogoContainer>
+              <Logo product="company" size={32} isOnDark={isDarkMode} />
+            </LogoContainer>
+            <Text size="small" ml={spacing.s4} muted>
+              {t("footer.company", {
+                year: new Date().getFullYear(),
+                portugal: "🇵🇹",
+                europe: "🇪🇺",
+              })}
+            </Text>
+          </CompanyContainer>
+          <IconButton
+            flexShrink={0}
+            icon={isDarkMode ? "light_mode" : "dark_mode"}
+            size="medium"
+            onClick={() => {
+              toggleDarkMode(!isDarkMode, "bottom-right").then(() => {
+                setIsDarkMode(!isDarkMode);
+              });
+            }}
+          />
+        </BottomContainer>
+      </ContentWrapper>
     </Container>
   );
 };

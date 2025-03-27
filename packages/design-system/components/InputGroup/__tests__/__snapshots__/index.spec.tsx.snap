@@ -29,11 +29,11 @@ exports[`InputGroup tests should render InputGroup as textarea 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
-  font-weight: 500;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #000000;
+  font-family: roboto;
+  font-weight: 500;
 }
 
 .c0 {
@@ -101,11 +101,11 @@ exports[`InputGroup tests should render InputGroup correctly 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
-  font-weight: 500;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #000000;
+  font-family: roboto;
+  font-weight: 500;
 }
 
 .c0 {
@@ -182,22 +182,22 @@ exports[`InputGroup tests should render InputGroup with hint 1`] = `
   font-size: 0.75rem;
   line-height: 0.875rem;
   font-weight: 400;
-  font-family: roboto;
-  margin-top: 0.5rem;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #757575;
+  font-family: roboto;
+  margin-top: 0.5rem;
 }
 
 .c1 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
-  font-weight: 500;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #000000;
+  font-family: roboto;
+  font-weight: 500;
 }
 
 .c0 {
@@ -282,21 +282,21 @@ exports[`InputGroup tests should render InputGroup with label 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
-  font-weight: 500;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #000000;
+  font-family: roboto;
+  font-weight: 500;
 }
 
 .c2 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #757575;
+  font-family: roboto;
 }
 
 .c0 {

@@ -1,11 +1,17 @@
 import styled from "styled-components";
 import { rem } from "polished";
-import { Button, ButtonProps } from "@basestack/design-system";
 
 export const Container = styled.section`
   display: flex;
   flex-direction: column;
-  padding: ${rem("100px")} ${({ theme }) => theme.spacing.s5};
+  padding: ${rem("100px")} 0;
+`;
+
+export const HeaderContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 ${({ theme }) => theme.spacing.s5};
 `;
 
 export const ContentContainer = styled.div`
@@ -19,50 +25,22 @@ export const ContentContainer = styled.div`
 
 export const PriceContainer = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+  margin: ${({ theme }) => theme.spacing.s8} 0
+    ${({ theme }) => theme.spacing.s5} 0;
 `;
 
-export const Cards = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: ${({ theme }) => theme.spacing.s5};
-  max-width: 780px;
-  width: 100%;
-
-  @media screen and ${({ theme }) => theme.device.max.md} {
-    grid-template-columns: 1fr;
-  }
-`;
-
-export const CardContainer = styled.div<{ isDark: boolean }>`
-  display: flex;
-  flex-direction: column;
-  background: ${({ theme, isDark }) =>
-    isDark ? theme.colors.gray700 : theme.colors.white};
-  border-radius: ${rem("20px")};
-  padding: ${({ theme }) => theme.spacing.s5};
-  box-shadow: ${({ theme }) => theme.shadow.elevation3};
-`;
-
-const ButtonWrap = ({ children, ...props }: ButtonProps) => (
-  <Button {...props}>{children}</Button>
-);
-
-export const StyledButton = styled(ButtonWrap)`
-  background-color: ${({ theme }) => theme.colors.white};
-  color: ${({ theme }) => theme.colors.black};
-
-  &:hover:not(:active, :disabled) {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: ${({ theme }) => theme.colors.black};
-  }
+export const FloatingLabel = styled.div`
+  display: inline-flex;
+  position: absolute;
+  top: ${rem("-20px")};
+  left: 0;
 `;
 
 export const List = styled.ul`
   display: flex;
   flex-direction: column;
-  margin: ${({ theme }) => theme.spacing.s6} 0;
 `;
 
 export const ListItem = styled.li`
@@ -72,3 +50,46 @@ export const ListItem = styled.li`
     margin-bottom: ${({ theme }) => theme.spacing.s3};
   }
 `;
+
+export const Embla = styled.div`
+  max-width: 100%;
+  margin: 0 auto;
+`;
+
+export const EmblaViewport = styled.div`
+  overflow: hidden;
+  padding: 0 ${({ theme }) => theme.spacing.s5}
+    ${({ theme }) => theme.spacing.s2} ${({ theme }) => theme.spacing.s5};
+`;
+
+export const EmblaContainer = styled.ul`
+  backface-visibility: hidden;
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  margin-left: ${rem("-20px")};
+
+  @media screen and ${({ theme }) => theme.device.max.xl} {
+    margin-left: ${rem("-10px")};
+  }
+`;
+
+export const EmblaSlide = styled.li`
+  min-width: 0;
+  padding-left: ${rem("20px")};
+  flex: 0 0 calc(100% / 4);
+
+  @media screen and ${({ theme }) => theme.device.max.xl} {
+    flex: 0 0 calc(100% / 3);
+    padding-left: ${rem("10px")};
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.lg} {
+    flex: 0 0 calc(100% / 2);
+  }
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    flex: 0 0 100%;
+  }
+`;
+
+export const Span = styled.span``;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { animated, useSpring } from "react-spring";
-import { useTheme } from "styled-components";
 // Components
 import Text from "../Text";
 import Icon from "../Icon";
@@ -15,7 +14,6 @@ export interface AccordionProps {
 const AnimatedContent = animated(ContentContainer);
 
 const Accordion = ({ title, text, onClick }: AccordionProps) => {
-  const theme = useTheme();
   const contentRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -44,19 +42,15 @@ const Accordion = ({ title, text, onClick }: AccordionProps) => {
           }
         }}
       >
-        <Text size="large" textAlign="left" color={theme.colors.gray300}>
+        <Text size="large" textAlign="left">
           {title}
         </Text>
-        <Icon
-          color={theme.colors.gray300}
-          size="large"
-          icon={isOpen ? "expand_less" : "expand_more"}
-        />
+        <Icon size="large" icon={isOpen ? "expand_less" : "expand_more"} />
       </Header>
       <AnimatedContent style={style}>
         <ContentWrapper ref={contentRef}>
           <Text
-            color={theme.colors.gray50}
+            muted
             size="medium"
             fontWeight={400}
             lineHeight={1.4}

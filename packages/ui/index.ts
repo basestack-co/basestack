@@ -42,3 +42,8 @@ export {
   type NavigationProps,
 } from "./components/Navigation";
 export { default as Plans, type PlansProps } from "./components/Plans";
+export { default as HistoryCard } from "./components/HistoryCard";
+export {
+  type HistoryType,
+  type HistoryCardProps,
+} from "./components/HistoryCard/types";

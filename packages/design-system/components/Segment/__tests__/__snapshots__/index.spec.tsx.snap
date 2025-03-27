@@ -127,12 +127,12 @@ exports[`Segment tests should render Segment with icons and test 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
-  margin-left: 0.25rem;
-  flex-shrink: 0;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #000000;
+  font-family: roboto;
+  margin-left: 0.25rem;
+  flex-shrink: 0;
 }
 
 .c3 {

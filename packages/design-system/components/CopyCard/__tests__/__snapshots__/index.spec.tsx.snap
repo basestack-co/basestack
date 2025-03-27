@@ -6,20 +6,20 @@ exports[`CopyCard tests should render CopyCard correctly 1`] = `
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #000000;
+  font-family: roboto;
 }
 
 .c4 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
-  font-family: roboto;
   font-family: 'Roboto',sans-serif;
   word-break: break-word;
   color: #000000;
+  font-family: roboto;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -61,12 +61,17 @@ exports[`CopyCard tests should render CopyCard correctly 1`] = `
   color: inherit;
 }
 
-.c7:hover {
+.c7:hover:not(:disabled) {
   background-color: #EEEEEE;
 }
 
-.c7:active {
+.c7:active:not(:disabled) {
   background-color: #E2E2E2;
+}
+
+.c7:disabled {
+  opacity: 0.5;
+  cursor: initial;
 }
 
 .c0 {

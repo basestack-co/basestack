@@ -6,14 +6,11 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: "export",
-  transpilePackages: ["@basestack/design-system"],
+  transpilePackages: ["@basestack/design-system", "@basestack/ui"],
   logging: {
     fetches: {
       fullUrl: true,
     },
-  },
-  experimental: {
-    reactCompiler: true,
   },
   compiler: {
     styledComponents: true,

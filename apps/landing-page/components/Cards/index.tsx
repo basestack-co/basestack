@@ -1,46 +1,60 @@
 import React from "react";
 import { useTheme } from "styled-components";
-// Components
+import useEmblaCarousel from "embla-carousel-react";
+import { useMedia } from "react-use";
 import Card from "../Card";
-import { CardsContainer, Container, ContentContainer } from "./styles";
+import {
+  Container,
+  ContentContainer,
+  Embla,
+  EmblaViewport,
+  EmblaSlide,
+  EmblaContainer,
+  HeaderContainer,
+} from "./styles";
 import SectionHeader from "../SectionHeader";
+import CarouselButtons from "../CarouselButtons";
 
 export interface CardsProps {
   id?: string;
+  caption?: string;
   title: string;
-  text: string;
+  text?: string;
   cards: Array<{
     title: string;
     text: string;
     icon: string;
   }>;
-  isDarkMode?: boolean;
 }
 
-const Cards = ({
-  title,
-  text,
-  cards,
-  isDarkMode = false,
-  id = "card",
-}: CardsProps) => {
-  const theme = useTheme();
+const Cards = ({ title, text, cards, id, caption }: CardsProps) => {
+  const { device } = useTheme();
+  const isDesktop = useMedia(device.min.lg, true);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    active: !isDesktop,
+    align: "start",
+    slidesToScroll: 1,
+  });
 
   return (
-    <Container id={id} isDarkMode={isDarkMode}>
+    <Container id={id}>
       <ContentContainer>
-        <SectionHeader isDarkMode={isDarkMode} title={title} text={text} />
-        <CardsContainer>
-          {cards?.map((card, index) => (
-            <Card
-              key={index}
-              title={card.title}
-              text={card.text}
-              icon={card.icon}
-              isDarkMode={isDarkMode}
-            />
-          ))}
-        </CardsContainer>
+        <HeaderContainer>
+          <SectionHeader title={title} text={text} caption={caption} />
+        </HeaderContainer>
+        <Embla>
+          <EmblaViewport ref={emblaRef}>
+            <EmblaContainer>
+              {cards?.map((card, index) => (
+                <EmblaSlide key={index}>
+                  <Card title={card.title} text={card.text} icon={card.icon} />
+                </EmblaSlide>
+              ))}
+            </EmblaContainer>
+          </EmblaViewport>
+        </Embla>
+        <CarouselButtons emblaApi={emblaApi} hasMarginTop />
       </ContentContainer>
     </Container>
   );

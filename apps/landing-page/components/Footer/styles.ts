@@ -1,109 +1,118 @@
 import styled from "styled-components";
+import Link from "next/link";
 import { rem } from "polished";
+import { gradientBorderStyles } from "../styles";
 
 export const Container = styled.footer`
   display: flex;
-  padding: ${({ theme }) => theme.spacing.s8} ${({ theme }) => theme.spacing.s5};
-  background-color: ${({ theme }) => theme.colors.gray800};
+  flex-direction: column;
+  margin-top: auto;
+  padding: 0 ${({ theme }) => theme.spacing.s5};
+  position: relative;
+  ${gradientBorderStyles("top")};
 `;
 
-export const ContentContainer = styled.div`
+export const ContentWrapper = styled.footer`
   display: flex;
-  justify-content: space-between;
-  max-width: ${rem("1440px")};
+  flex-direction: column;
+  padding-bottom: ${({ theme }) => theme.spacing.s8};
+  max-width: ${rem("1400px")};
   width: 100%;
   margin: 0 auto;
+`;
 
-  @media screen and ${({ theme }) => theme.device.max.sm} {
+export const NewsletterContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: ${({ theme }) => theme.spacing.s8} 0;
+  gap: ${({ theme }) => theme.spacing.s5};
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
     flex-direction: column;
-    justify-content: initial;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 `;
 
-export const LeftColumn = styled.div`
+export const NewsletterContent = styled.div`
   display: flex;
   flex-direction: column;
-
-  @media screen and ${({ theme }) => theme.device.max.sm} {
-    margin-top: ${({ theme }) => theme.spacing.s6};
-    order: 1;
-  }
-`;
-
-export const LeftColumnContent = styled.div`
-  display: flex;
-  align-items: center;
-
-  @media screen and ${({ theme }) => theme.device.max.lg} {
-    flex-direction: column;
-    align-items: initial;
-    justify-content: center;
-  }
-`;
-
-export const CopyWrightContainer = styled.div`
-  display: inline-flex;
-  height: ${rem("36px")};
-  align-items: center;
-
-  @media screen and ${({ theme }) => theme.device.max.lg} {
-    margin: ${({ theme }) => theme.spacing.s2} 0;
-  }
-`;
-
-export const List = styled.ul`
-  display: flex;
-  margin-left: ${({ theme }) => theme.spacing.s4};
-
-  @media screen and ${({ theme }) => theme.device.max.lg} {
-    flex-direction: column;
-    margin-left: 0;
-  }
-`;
-
-export const ListItem = styled.li`
-  display: inline-flex;
-  height: ${rem("36px")};
-  align-items: center;
-  padding: 0 ${({ theme }) => theme.spacing.s4};
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  @media screen and ${({ theme }) => theme.device.max.lg} {
-    padding: 0;
-    margin: 0 0 ${({ theme }) => theme.spacing.s2} 0;
-  }
-`;
-
-export const RightColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-width: ${rem("320px")};
-  width: 100%;
 `;
 
 export const InputContainer = styled.div`
   display: flex;
+  flex-grow: 1;
+  justify-content: flex-end;
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    width: 100%;
+    justify-content: flex-start;
+  }
 `;
 
-export const Input = styled.input`
-  font-size: ${rem("16px")};
-  height: ${rem("42px")};
+export const LinksContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, auto));
   width: 100%;
-  border-radius: ${rem("4px")};
-  border: none;
-  margin-right: ${({ theme }) => theme.spacing.s4};
-  padding: 0 ${({ theme }) => theme.spacing.s4};
-  color: ${({ theme }) => theme.colors.gray50};
-  background-color: ${({ theme }) => theme.colors.gray700};
+  grid-gap: ${({ theme }) => theme.spacing.s8};
+  padding: ${({ theme }) => theme.spacing.s8} 0;
+  justify-content: space-between;
 
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.gray400};
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  &:focus {
-    outline: 2px solid ${({ theme }) => theme.colors.gray500};
+  @media screen and (max-width: 374px) {
+    grid-template-columns: 1fr;
   }
+`;
+
+export const BottomContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: ${rem("25px")};
+  gap: ${({ theme }) => theme.spacing.s8};
+`;
+
+export const CompanyContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const ListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const List = styled.ul`
+  display: flex;
+  flex-direction: column;
+  margin-top: ${({ theme }) => theme.spacing.s3};
+`;
+
+export const ListItem = styled.li`
+  display: flex;
+  flex-direction: column;
+
+  &:not(:last-child) {
+    margin-bottom: ${({ theme }) => theme.spacing.s2};
+  }
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: ${({ theme }) => theme.text.color};
+  line-height: 1.4;
+  font-weight: 400;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+export const LogoContainer = styled.div`
+  display: inline-flex;
+  flex-shrink: 0;
 `;

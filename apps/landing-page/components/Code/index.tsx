@@ -1,64 +1,108 @@
-import React, { useState, useMemo } from "react";
+import React from "react";
 import { useTheme } from "styled-components";
-// Utils
-import { events } from "@basestack/utils";
-// Code
-import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
-import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+import { useMedia } from "react-use";
+import useEmblaCarousel from "embla-carousel-react";
 // Components
-import { Tabs } from "@basestack/design-system";
-import { CodeContainer, Container, ContentContainer } from "./styles";
+import {
+  Text,
+  ButtonVariant,
+  Button,
+  ButtonSize,
+} from "@basestack/design-system";
 import SectionHeader from "../SectionHeader";
-// Data
-import data from "./data";
+import {
+  Container,
+  ContentContainer,
+  Embla,
+  EmblaContainer,
+  EmblaViewport,
+  EmblaSlide,
+  HeaderContainer,
+  CardContent,
+} from "./styles";
+import { Card } from "../styles";
+import CarouselButtons from "../CarouselButtons";
 
-SyntaxHighlighter.registerLanguage("typescript", ts);
+export interface CardProps {
+  icon?: React.ReactNode;
+  title: string;
+  description: string;
+  button: string;
+  onClick: () => void;
+}
 
 export interface Props {
   id?: string;
+  title: string;
+  caption?: string;
+  description: string;
+  data: CardProps[];
 }
 
-const Code = ({ id = "code" }: Props) => {
-  const theme = useTheme();
-  const [sliderPosition, setSliderPosition] = useState(1);
-
-  const tab = useMemo(() => {
-    return data[sliderPosition];
-  }, [sliderPosition]);
+const CardComp = ({ icon, title, description, button, onClick }: CardProps) => {
+  const { spacing } = useTheme();
 
   return (
-    <Container id={id} isDarkMode>
+    <Card>
+      <CardContent>
+        {icon}
+        <Text size="large" mt={spacing.s5}>
+          {title}
+        </Text>
+        <Text size="medium" mt={spacing.s1} fontWeight={400} muted>
+          {description}
+        </Text>
+        <Button
+          onClick={onClick}
+          mt={spacing.s5}
+          variant={ButtonVariant.Outlined}
+          fullWidth
+          justifyContent="center"
+          size={ButtonSize.Medium}
+        >
+          {button}
+        </Button>
+      </CardContent>
+    </Card>
+  );
+};
+
+const Code = ({ id, title, description, data, caption }: Props) => {
+  const { device } = useTheme();
+  const isDesktop = useMedia(device.min.lg, true);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    active: !isDesktop,
+    align: "start",
+    slidesToScroll: 1,
+  });
+
+  return (
+    <Container id={id}>
       <ContentContainer>
-        <SectionHeader
-          isDarkMode
-          title="Explore our SDK Options"
-          text="Discover our supported SDKs tailored to meet your development needs, enabling faster releases. Explore our comprehensive documentation for more in-depth information and guidance."
-        />
-        <CodeContainer>
-          <Tabs
-            sliderPosition={sliderPosition}
-            onSelect={(item) => {
-              events.landing.code(`Selected ${item} tab`);
-              setSliderPosition(data.findIndex((tab) => tab.id === item));
-            }}
-            items={data}
-            backgroundColor={theme.colors.gray700}
-            borderColor={theme.colors.gray600}
-            textColor={theme.colors.gray300}
-            activeBorderColor={theme.colors.blue300}
-            hoverBgColor={theme.colors.gray600}
-            textSize="medium"
-          />
-          {/* @ts-ignore */}
-          <SyntaxHighlighter
-            language="javascript"
-            style={a11yDark}
-            wrapLongLines
-          >
-            {tab.code}
-          </SyntaxHighlighter>
-        </CodeContainer>
+        <HeaderContainer>
+          <SectionHeader title={title} text={description} caption={caption} />
+        </HeaderContainer>
+        <Embla>
+          <EmblaViewport ref={emblaRef}>
+            <EmblaContainer>
+              {data.map((item, index) => {
+                return (
+                  <EmblaSlide key={index}>
+                    <CardComp
+                      title={item.title}
+                      description={item.description}
+                      button={item.button}
+                      icon={item.icon}
+                      onClick={item.onClick}
+                    />
+                  </EmblaSlide>
+                );
+              })}
+            </EmblaContainer>
+          </EmblaViewport>
+        </Embla>
+        <CarouselButtons emblaApi={emblaApi} hasMarginTop />
       </ContentContainer>
     </Container>
   );

@@ -11,23 +11,12 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
     }
 
-    html,
-    body {
-        height: 100%;
-    }
-
     body {
         font-family: ${({ theme }) => theme.typography.roboto};
         ${({ theme }) =>
           `background-color: ${
             theme.colors[theme.isDarkMode ? "gray900" : "gray50"]
           };`}
-    }
-
-    #__next {
-        min-height: 100%;
-        display: flex;
-        flex-direction: column;
     }
 
     button,
