@@ -73,11 +73,11 @@ const Plans = ({
       setIsLoadingExternalUrl(true);
 
       window.location.href = `${url}`;
-
-      setTimeout(() => {
-        setIsLoadingExternalUrl(false);
-      }, 1000);
     }
+
+    setTimeout(() => {
+      setIsLoadingExternalUrl(false);
+    }, 1000);
   }, []);
 
   const onCreateCheckout = useCallback(
@@ -167,16 +167,16 @@ const Plans = ({
           { intlKey: "billing.feature.environments", key: "environments" },
           { intlKey: "billing.feature.members", key: "members" },
           {
-            intlKey: "billing.feature.has-history",
-            valueKey: "hasHistory",
+            intlKey: "billing.feature.has-security",
+            valueKey: "hasBlockIPs",
           },
           {
             intlKey: "billing.feature.has-remote-config",
             valueKey: "hasRemoteConfig",
           },
           {
-            intlKey: "billing.feature.has-security",
-            valueKey: "hasBlockIPs",
+            intlKey: "billing.feature.has-history",
+            valueKey: "hasHistory",
           },
         ],
       },

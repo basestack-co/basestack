@@ -89,10 +89,10 @@ const flags: FlagsPlan[] = [
     },
     features: {
       hasHistory: false,
-      hasBlockIPs: false,
+      hasBlockIPs: true,
       hasRollouts: false,
       hasSegments: false,
-      hasWebsites: false,
+      hasWebsites: true,
       hasTags: false,
       hasRemoteConfig: false,
       hasPreviewFeatures: false,
