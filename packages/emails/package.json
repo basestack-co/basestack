@@ -20,7 +20,7 @@
     "@react-email/components": "0.0.34",
     "@react-email/render": "1.0.5",
     "nodemailer": "^6.10.0",
-    "react-email": "3.0.7"
+    "react-email": "4.0.2"
   },
   "devDependencies": {
     "@basestack/config": "*",
@@ -29,7 +29,7 @@
     "@types/react": "19.0.12",
     "@types/react-dom": "^19.0.4",
     "raf-stub": "^3.0.0",
-    "react": "19.0.0",
+    "react": "19.1.0",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2"
   }
