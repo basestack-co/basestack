@@ -28,7 +28,7 @@ const formsFreePlanLimits = config.plans.getFormPlanLimits(PlanTypeId.FREE);
 const formsFreePlanFeatures = config.plans.getFormPlanFeatures(PlanTypeId.FREE);
 
 export interface PlansProps {
-  product: "forms" | "flags";
+  product: "forms" | "feature-flags";
   isLoadingSubscription: boolean;
   onCreateCheckoutCallback: (
     planId: PlanTypeId,
@@ -71,13 +71,12 @@ const Plans = ({
   const onHandleExternalUrl = useCallback((url?: string) => {
     if (url) {
       setIsLoadingExternalUrl(true);
-
       window.location.href = `${url}`;
     }
 
     setTimeout(() => {
       setIsLoadingExternalUrl(false);
-    }, 1000);
+    }, 10000);
   }, []);
 
   const onCreateCheckout = useCallback(
@@ -100,7 +99,7 @@ const Plans = ({
       typeof value === "boolean" ? (value ? "✔️" : "✖️") : formatNumber(value);
 
     const productFeatures = {
-      flags: {
+      "feature-flags": {
         "billing.feature.projects": flagsFreePlanLimits.projects,
         "billing.feature.flags": flagsFreePlanLimits.flags,
         "billing.feature.environments": flagsFreePlanLimits.environments,
@@ -159,7 +158,7 @@ const Plans = ({
       );
 
     const productPlans = {
-      flags: {
+      "feature-flags": {
         plans: config.plans.flags,
         featureKeys: [
           { intlKey: "billing.feature.projects", key: "projects" },
@@ -280,6 +279,7 @@ const Plans = ({
           isDisabled={isLoading}
         />
         <UpgradePlanHeader
+          externalCompareUrl={`${config.urls.baseLandingUrl}/product/${product}#pricing`}
           onSelectCycle={(value) => setInterval(value)}
           mt={theme.spacing.s7}
         />

@@ -10,10 +10,12 @@ import { BillingInterval } from "../types";
 
 interface UpgradePlanHeaderProps extends SpaceProps {
   onSelectCycle: (value: BillingInterval) => void;
+  externalCompareUrl: string;
 }
 
 const UpgradePlanHeader = ({
   onSelectCycle,
+  externalCompareUrl,
   ...props
 }: UpgradePlanHeaderProps) => {
   const t = useTranslations("profile");
@@ -38,7 +40,7 @@ const UpgradePlanHeader = ({
             ]}
           />
         </LeftContent>
-        <StyledLink href="/">
+        <StyledLink href={externalCompareUrl} target="_blank">
           <Text color="inherit" size="small">
             {t("billing.link.compare")}
           </Text>

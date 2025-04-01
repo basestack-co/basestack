@@ -6,23 +6,14 @@
 including Feature Flags, with additional tools such as Feedback, Forms, and more on the horizon. Our goal is to empower
 you in building great products.
 
-#### Tools
+![Basestack Feature Flags Demo](https://i.imgur.com/Oq3YxXR.gif)
 
-- ⛳ Feature Flags (In Progress) [Docs](https://docs.basestack.co/feature-flags) | [Website](https://basestack.co/)
-- 📄 Forms (In Progress) [Docs](https://docs.basestack.co/forms) | [Website](https://basestack.co/)
+#### Products
+
+- ⛳ Feature Flags (In Progress) [Docs](https://docs.basestack.co/feature-flags) | [Website](https://basestack.co/product/feature-flags)
+- 📄 Forms (In Progress) [Docs](https://docs.basestack.co/forms) | [Website](https://basestack.co/product/forms)
 - 💬 Feedback (Planned)
 - ⏳ UpTime (Planned)
-
-## Getting started with Feature Flags
-
-Basestack is a self-hosting platform that provides an effortless method to host your very own Feature Flags management
-platform. By leveraging services like [Vercel ↗](https://vercel.com/), any developer, whether an indie or startup, gains
-full control over their features and data. Ultimately, the platform is housed in your account, under your management,
-giving you complete control over your data.
-
-- Quick Start with the following [Guide](https://docs.basestack.co/feature-flags#quick-start).
-
-![Basestack Feature Flags Demo](https://i.imgur.com/Oq3YxXR.gif)
 
 ## Help & Support
 
@@ -32,7 +23,7 @@ feedback, don't hesitate to [open a discussion](https://github.com/basestack-co/
 ## Deployment & Self-hosting
 
 Want to self-host Basestack Tools on your server? Explore
-the [self-hosting installation instructions](https://docs.basestack.co/feature-flags/deployment) for detailed guidance.
+the [self-hosting installation instructions](https://docs.basestack.co/self-hosting) for detailed guidance.
 
 ## How to Contribute
 
