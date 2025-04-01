@@ -440,6 +440,13 @@
         "symbol": "$",
         "abbr": "USD"
       },
+      "status": {
+        "checkout": {
+          "redirect": {
+            "loading": "Redirecting to checkout..."
+          }
+        }
+      },
       "feature": {
         "forms": "{value} Forms",
         "submissions": "{value} Submissions",

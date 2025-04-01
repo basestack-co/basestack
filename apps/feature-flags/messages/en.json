@@ -387,6 +387,13 @@
         "symbol": "$",
         "abbr": "USD"
       },
+      "status": {
+        "checkout": {
+          "redirect": {
+            "loading": "Redirecting to checkout..."
+          }
+        }
+      },
       "feature": {
         "projects": "{value} Projects",
         "environments": "{value} Environments",

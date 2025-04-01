@@ -9,6 +9,8 @@ import { toast } from "sonner";
 import { api } from "utils/trpc/react";
 // Store
 import { useStore } from "store";
+// Locales
+import { useTranslations } from "next-intl";
 // Utils
 import { config, PlanTypeId } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
@@ -16,6 +18,7 @@ import { AppMode } from "utils/helpers/general";
 import { CardListItem, CardList, ProfileCardContainer } from "../styles";
 
 const UserProfileBillingPage = () => {
+  const t = useTranslations("profile");
   const isDarkMode = useStore((state) => state.isDarkMode);
 
   const { data, isLoading: isLoadingSubscription } =
@@ -52,13 +55,24 @@ const UserProfileBillingPage = () => {
         },
         {
           onSuccess: (result) => {
+            let toastId: string | number = "";
+
             if (result.error) {
+              setIsLoading(false);
               toast.error(result.error.message);
             }
 
             if (result.statusCode === 201 && result.url) {
-              toast.success("Redirecting to checkout...");
+              toastId = toast.loading(
+                t("billing.status.checkout.redirect.loading"),
+              );
+
               onHandleExternalUrl(result.url);
+
+              setTimeout(() => {
+                setIsLoading(false);
+                toast.dismiss(toastId);
+              }, 10000);
             }
           },
           onError: (error) => {
@@ -68,7 +82,7 @@ const UserProfileBillingPage = () => {
         },
       );
     },
-    [createCheckout, isDarkMode],
+    [createCheckout, isDarkMode, t],
   );
 
   return (
@@ -76,7 +90,7 @@ const UserProfileBillingPage = () => {
       <CardListItem>
         <ProfileCardContainer>
           <Plans
-            product="flags"
+            product="feature-flags"
             isLoadingSubscription={isLoadingSubscription}
             onCreateCheckoutCallback={onCreateFlagsCheckout}
             currentPlan={currentPlan}
