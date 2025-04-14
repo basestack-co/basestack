@@ -29,12 +29,12 @@ const getLinks = (projectId: string) => [
     tab: "general",
     href: `/a/project/${projectId}/settings/general`,
   },
-  /* {
-         id: "2",
-         i18nKey: "navigation.setting.members",
-         tab: "members",
-         href: `/a/project/${projectId}/settings/members`,
-       }, */
+  {
+    id: "2",
+    i18nKey: "navigation.setting.members",
+    tab: "members",
+    href: `/a/project/${projectId}/settings/members`,
+  },
   {
     id: "3",
     i18nKey: "navigation.setting.environments",

@@ -35,6 +35,7 @@ const forms: FormPlan[] = [
     limits: {
       forms: 1,
       submissions: 50,
+      teams: 0,
       members: 0,
       spams: 0,
       fileUploadLimit: 0, // GB
@@ -85,6 +86,7 @@ const forms: FormPlan[] = [
     limits: {
       forms: 5,
       submissions: 1000,
+      teams: 1,
       members: 3,
       spams: 1000,
       fileUploadLimit: 1, // GB
@@ -135,6 +137,7 @@ const forms: FormPlan[] = [
     limits: {
       forms: Infinity,
       submissions: 10000,
+      teams: 2,
       members: 10,
       spams: 10000,
       fileUploadLimit: 3, // GB
@@ -185,6 +188,7 @@ const forms: FormPlan[] = [
     limits: {
       forms: Infinity,
       submissions: Infinity,
+      teams: 4,
       members: 20,
       spams: 100000,
       fileUploadLimit: 10, // GB
@@ -236,6 +240,7 @@ const forms: FormPlan[] = [
     limits: {
       forms: Infinity,
       submissions: Infinity,
+      teams: Infinity,
       members: Infinity,
       spams: Infinity,
       fileUploadLimit: Infinity,
@@ -264,6 +269,8 @@ const getFormPlanLimitsDefaults = () => ({
   spams: 0,
   fileUploadLimit: 0,
   integrationsCalls: 0,
+  teams: 0,
+  members: 0,
 });
 
 const isValidFormPlan = (id: PlanTypeId) => {

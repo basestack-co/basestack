@@ -42,6 +42,11 @@ export interface ModalPayload<T> {
   data?: T;
 }
 
+export interface TeamModalPayload {
+  id: string;
+  name: string;
+}
+
 export type ModalAction<P, A> = (payload: P) => A;
 
 export interface ModalsSliceActions {
@@ -55,6 +60,8 @@ export interface ModalsSliceActions {
   >;
   setInviteMemberModalOpen: ModalAction<ModalPayload<null>, void>;
   setCreateProjectModalOpen: ModalAction<ModalPayload<null>, void>;
+  setCreateTeamModalOpen: ModalAction<ModalPayload<null>, void>;
+  setManageTeamModalOpen: ModalAction<ModalPayload<TeamModalPayload>, void>;
   setCreateFlagModalOpen: ModalAction<ModalPayload<null>, void>;
   setUpdateFlagModalOpen: ModalAction<ModalPayload<FlagModalPayload>, void>;
   setConfirmModalOpen: ModalAction<ModalPayload<ConfirmModalPayload>, void>;
@@ -67,10 +74,13 @@ export interface ModalsSliceState extends ModalsSliceActions {
   isUpdateEnvironmentModalOpen: boolean;
   isInviteMemberModalOpen: boolean;
   isCreateProjectModalOpen: boolean;
+  isCreateTeamModalOpen: boolean;
+  isManageTeamModalOpen: boolean;
   isCreateFlagModalOpen: boolean;
   isUpdateFlagModalOpen: boolean;
   flagModalPayload: FlagModalPayload | null;
   environmentModalPayload: EnvironmentModalPayload | null;
+  teamModalPayload: TeamModalPayload | null;
   inviteMemberModalPayload: null;
   isConfirmModalOpen: boolean;
   confirmModalPayload: ConfirmModalPayload | null;

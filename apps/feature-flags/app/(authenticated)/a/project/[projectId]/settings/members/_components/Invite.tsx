@@ -66,7 +66,7 @@ const InviteCard = ({ role }: Props) => {
             onSuccess: async (result) => {
               if (session?.data?.user.id === userId) {
                 // the user removed himself from the project, so we redirect him to the dashboard
-                await router.push("/");
+                router.push("/");
               } else {
                 const prev = trpcUtils.project.members.getData({
                   projectId,

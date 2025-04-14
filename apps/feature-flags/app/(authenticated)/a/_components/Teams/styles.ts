@@ -24,21 +24,15 @@ export const Header = styled.div`
   min-height: ${rem("36px")};
 `;
 
-export const StyledLink = styled.a`
-  text-decoration: none;
-  color: ${({ theme }) =>
-    theme.colors[theme.isDarkMode ? "blue300" : "primary"]};
-  cursor: pointer;
 
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-export const ContentContainer = styled.div`
+export const TeamsList = styled.ul`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: ${({ theme }) => theme.spacing.s3};
+
+  @media screen and ${({ theme }) => theme.device.max.md} {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
   @media screen and ${({ theme }) => theme.device.max.sm} {
     grid-template-columns: 1fr;

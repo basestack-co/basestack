@@ -21,7 +21,7 @@ interface GetStartedCardProps {
   };
 }
 
-const GetStartedCard = ({
+const EmptyStateWithAction = ({
   button,
   icon,
   title,
@@ -45,4 +45,4 @@ const GetStartedCard = ({
   );
 };
 
-export default GetStartedCard;
+export default EmptyStateWithAction;

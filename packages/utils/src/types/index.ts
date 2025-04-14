@@ -72,6 +72,7 @@ export interface FormPlan extends Plan {
   limits: {
     forms: number;
     submissions: number;
+    teams: number;
     members: number;
     spams: number;
     fileUploadLimit: number;
@@ -101,6 +102,7 @@ export interface FlagsPlan extends Plan {
     flags: number;
     segments: number;
     rollouts: number;
+    teams: number;
     members: number;
     apiRequests: number;
   };

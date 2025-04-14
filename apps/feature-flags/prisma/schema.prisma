@@ -15,7 +15,10 @@ generator client {
 
 enum Role {
   USER
-  ADMIN
+  ADMIN // Full access to create, modify, delete, and view all feature flags, environments, and settings
+  DEVELOPER // Can create and modify feature flags, but might have limitations on the settings
+  VIEWER // Read-only access to see feature flags and their states but cannot modify them
+  TESTER // Can toggle flags only
 }
 
 model Account {
@@ -63,6 +66,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   projects      ProjectsOnUsers[]
+  teams         TeamMembers[]
   subscription  Subscription?
   role          Role              @default(ADMIN)
   createdAt     DateTime          @default(now())
@@ -99,6 +103,7 @@ model Subscription {
   segments          Int       @default(0)
   rollouts          Int       @default(0)
   members           Int       @default(0)
+  teams             Int       @default(0)
   apiRequests       Int       @default(0)
   renewsAt          DateTime?
   endsAt            DateTime?
@@ -118,8 +123,11 @@ model Project {
   environments     Environment[]
   blockIpAddresses String?
   websites         String?
+  teamId           String?
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt
+
+  team Team? @relation(fields: [teamId], references: [id])
 
   users   ProjectsOnUsers[]
   history History[]
@@ -181,4 +189,45 @@ model History {
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@id([id, projectId])
+}
+
+model Team {
+  id          String   @id @default(cuid())
+  name        String   @db.VarChar(50)
+  description String?  @db.VarChar(250)
+  slug        String   @unique @db.VarChar(150)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  members     TeamMembers[]
+  projects    Project[]
+  invitations TeamInvitation[]
+
+  @@index([slug])
+}
+
+model TeamMembers {
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([teamId, userId])
+}
+
+model TeamInvitation {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  role      Role     @default(DEVELOPER)
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email, teamId])
 }

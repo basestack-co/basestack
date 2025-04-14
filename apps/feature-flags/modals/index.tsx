@@ -15,6 +15,9 @@ import ConfirmModal from "./Confirm";
 import IntegrationModal from "./Integration";
 // Activity
 import ActivityModal from "./Activity";
+// Teams
+import CreateTeamModal from "./Team/Create";
+import ManageTeamModal from "./Team/Manage";
 
 const Modals = () => {
   return (
@@ -28,6 +31,8 @@ const Modals = () => {
       <ConfirmModal />
       <IntegrationModal />
       <ActivityModal />
+      <CreateTeamModal />
+      <ManageTeamModal />
     </Fragment>
   );
 };

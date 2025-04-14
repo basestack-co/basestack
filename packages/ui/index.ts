@@ -47,3 +47,4 @@ export {
   type HistoryType,
   type HistoryCardProps,
 } from "./components/HistoryCard/types";
+export { default as EmptyStateWithAction } from "./components/EmptyStateWithAction";
