@@ -3,7 +3,7 @@ import { createTRPCRouter, protectedProcedure } from "server/api/trpc";
 import { Role } from ".prisma/client";
 // Utils
 import { z } from "zod";
-import { PlanTypeId, withRoles } from "@basestack/utils";
+import { PlanTypeId } from "@basestack/utils";
 import { withLimits, withUsageUpdate } from "server/db/utils/subscription";
 import { generateSlug } from "random-word-slugs";
 import { TRPCError } from "@trpc/server";
@@ -12,7 +12,7 @@ import dayjs from "dayjs";
 
 export const teamRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx.session.user.id;
+    const userId = ctx?.session?.user.id!;
 
     return await ctx.prisma.team.findMany({
       where: {
@@ -60,7 +60,7 @@ export const teamRouter = createTRPCRouter({
         .object({
           teamId: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       return await ctx.prisma.team.findUnique({
@@ -116,16 +116,16 @@ export const teamRouter = createTRPCRouter({
         .object({
           name: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const userId = ctx?.session?.user.id!;
       const planId = ctx.usage.planId as PlanTypeId;
 
       const authorized = withLimits(
         planId,
         "teams",
-        ctx.usage.teams,
+        ctx.usage.teams
       )(() =>
         ctx.prisma.$transaction(async (tx) => {
           const team = await tx.team.create({
@@ -145,7 +145,7 @@ export const teamRouter = createTRPCRouter({
           await withUsageUpdate(tx, userId, "teams", "increment");
 
           return { team };
-        }),
+        })
       );
 
       return authorized();
@@ -157,7 +157,7 @@ export const teamRouter = createTRPCRouter({
           teamId: z.string(),
           name: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return await ctx.prisma.team.update({
@@ -172,13 +172,13 @@ export const teamRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(z.object({ teamId: z.string() }).required())
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const userId = ctx?.session?.user.id!;
       const planId = ctx.usage.planId as PlanTypeId;
 
       const authorized = withLimits(
         planId,
         "teams",
-        ctx.usage.teams,
+        ctx.usage.teams
       )(() =>
         ctx.prisma.$transaction(async (tx) => {
           await tx.teamMembers.deleteMany({
@@ -225,7 +225,7 @@ export const teamRouter = createTRPCRouter({
           await withUsageUpdate(tx, userId, "teams", "decrement");
 
           return { team };
-        }),
+        })
       );
 
       return authorized();
@@ -237,49 +237,47 @@ export const teamRouter = createTRPCRouter({
           teamId: z.string(),
           userId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const userId = ctx?.session?.user.id!;
       const planId = ctx.usage.planId as PlanTypeId;
 
       // TODO: Need to get the role by the user and not from the project
-      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(
-        withLimits(
-          planId,
-          "members",
-          ctx.usage.teams,
-        )(() =>
-          ctx.prisma.$transaction(async (tx) => {
-            const member = await tx.teamMembers.delete({
-              where: {
-                teamId_userId: {
-                  teamId: input.teamId,
-                  userId: input.userId,
+      const authorized = withLimits(
+        planId,
+        "members",
+        ctx.usage.teams
+      )(() =>
+        ctx.prisma.$transaction(async (tx) => {
+          const member = await tx.teamMembers.delete({
+            where: {
+              teamId_userId: {
+                teamId: input.teamId,
+                userId: input.userId,
+              },
+            },
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                  email: true,
                 },
               },
-              include: {
-                user: {
-                  select: {
-                    id: true,
-                    name: true,
-                    email: true,
-                  },
-                },
-                team: {
-                  select: {
-                    id: true,
-                    name: true,
-                  },
+              team: {
+                select: {
+                  id: true,
+                  name: true,
                 },
               },
-            });
+            },
+          });
 
-            await withUsageUpdate(tx, userId, "members", "decrement");
+          await withUsageUpdate(tx, userId, "members", "decrement");
 
-            return { member };
-          }),
-        ),
+          return { member };
+        })
       );
 
       return authorized();
@@ -292,7 +290,7 @@ export const teamRouter = createTRPCRouter({
           userId: z.string(),
           role: z.enum(["ADMIN", "USER"]),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return await ctx.prisma.teamMembers.update({
@@ -330,7 +328,7 @@ export const teamRouter = createTRPCRouter({
           email: z.string().email(),
           role: z.enum(["ADMIN", "USER"]),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return await ctx.prisma.$transaction(async (tx) => {

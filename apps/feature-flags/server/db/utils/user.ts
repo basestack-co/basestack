@@ -5,23 +5,35 @@ import { TRPCError } from "@trpc/server";
 export const getUserInProject = async (
   prisma: PrismaClient,
   userId: string,
-  projectId: string,
+  projectId: string
 ) => {
   try {
-    const data = await prisma.projectsOnUsers.findFirst({
-      where: {
-        projectId,
-        userId,
-      },
-      select: {
-        role: true,
-      },
-    });
+    const [user, admin] = await prisma.$transaction([
+      prisma.projectsOnUsers.findFirst({
+        where: {
+          projectId,
+          userId,
+        },
+        select: {
+          role: true,
+        },
+      }),
+      prisma.projectsOnUsers.findFirst({
+        where: {
+          projectId,
+          role: "ADMIN",
+        },
+        select: {
+          userId: true,
+        },
+      }),
+    ]);
 
-    if (!data) return null;
+    if (!user) return null;
 
     return {
-      role: data.role ?? "USER",
+      role: user.role ?? "VIEWER",
+      adminUserId: admin?.userId ?? "",
     };
   } catch {
     throw new TRPCError({ code: "FORBIDDEN" });

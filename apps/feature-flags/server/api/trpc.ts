@@ -10,6 +10,9 @@ import { prisma } from "server/db";
 import { getUserInProject } from "server/db/utils/user";
 import { createHistory } from "server/db/utils/history";
 import { getSubscriptionUsage } from "server/db/utils/subscription";
+// types
+import { Role } from ".prisma/client";
+
 // CONTEXT
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
@@ -19,7 +22,8 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
     prisma,
     session,
     project: {
-      role: "USER", // default as fallback
+      role: "VIEWER", // default as fallback
+      adminUserId: "",
     },
     ...opts,
   };
@@ -64,17 +68,33 @@ const logger = t.middleware(async ({ path, type, next, getRawInput, ctx }) => {
   return result;
 });
 
-export const isAuthenticated = middleware(
-  async ({ next, ctx, meta, getRawInput }) => {
-    // Check if the user is logged in
-    if (!ctx.session) {
-      throw new TRPCError({ code: "UNAUTHORIZED" });
-    }
+export const isAuthenticated = middleware(async ({ next, ctx }) => {
+  // Check if the user is logged in
+  if (!ctx.session) {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+      message: "Not authenticated",
+      cause: "Unauthorized",
+    });
+  }
 
-    const { restricted = false } = (meta ?? {}) as { restricted: boolean };
+  return next({
+    ctx: {
+      ...ctx,
+      session: ctx.session,
+    },
+  });
+});
+
+export const withPermissions = middleware(
+  async ({ next, ctx, meta, getRawInput }) => {
+    const { isProjectRestricted = false, roles = [] } = (meta ?? {}) as {
+      isProjectRestricted: boolean;
+      roles: Role[];
+    };
 
     // This is for routes that need to verify any action if the user allowed in that project
-    if (restricted) {
+    if (isProjectRestricted) {
       const { projectId = "" } = (await getRawInput()) as {
         projectId: string;
       };
@@ -83,32 +103,61 @@ export const isAuthenticated = middleware(
       const project = await getUserInProject(
         ctx.prisma,
         ctx?.session?.user.id!,
-        projectId!,
+        projectId!
       );
 
       // If the user does not exist in the project, return an error
       if (!project) {
-        throw new TRPCError({ code: "FORBIDDEN" });
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "User not found in project",
+          cause: "UserNotFoundInProject",
+        });
+      }
+
+      // checks if the user has the required role
+      if (roles.length > 0 && !roles.includes(project.role)) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "You do not have the permission to perform this action",
+          cause: "UserDoesNotHaveRequiredRole",
+        });
       }
 
       ctx.project = {
         role: project.role,
+        adminUserId: project.adminUserId,
       };
     }
-
-    const usage = await getSubscriptionUsage(ctx.prisma, ctx.session.user.id);
 
     return next({
       ctx: {
         ...ctx,
-        session: ctx.session,
-        usage,
       },
     });
-  },
+  }
 );
+
+export const withUsage = middleware(async ({ next, ctx }) => {
+  const usage = await getSubscriptionUsage(
+    ctx.prisma,
+    ctx?.session?.user.id ?? ""
+  );
+
+  return next({
+    ctx: {
+      ...ctx,
+      usage,
+    },
+  });
+});
 
 // PROCEDURES
 
 export const publicProcedure = t.procedure;
-export const protectedProcedure = t.procedure.use(logger).use(isAuthenticated);
+
+export const protectedProcedure = t.procedure
+  .use(logger)
+  .use(isAuthenticated)
+  .use(withPermissions)
+  .use(withUsage);

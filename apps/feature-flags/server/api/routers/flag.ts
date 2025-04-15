@@ -13,7 +13,7 @@ export const flagRouter = createTRPCRouter({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(), // <-- "cursor" needs to exist, but can be any type
         search: z.string().optional().nullable(),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const limit = input.limit ?? 50;
@@ -85,14 +85,14 @@ export const flagRouter = createTRPCRouter({
     }),
   total: protectedProcedure
     .meta({
-      restricted: true,
+      isProjectRestricted: true,
     })
     .input(
       z
         .object({
           projectId: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -126,7 +126,7 @@ export const flagRouter = createTRPCRouter({
     }),
   environments: protectedProcedure
     .meta({
-      restricted: true,
+      isProjectRestricted: true,
     })
     .input(
       z
@@ -134,7 +134,7 @@ export const flagRouter = createTRPCRouter({
           projectId: z.string(),
           slug: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       const allEnvironments = await ctx.prisma.flag.findMany({
@@ -162,7 +162,7 @@ export const flagRouter = createTRPCRouter({
     }),
   bySlug: protectedProcedure
     .meta({
-      restricted: true,
+      isProjectRestricted: true,
     })
     .input(
       z
@@ -170,7 +170,7 @@ export const flagRouter = createTRPCRouter({
           projectId: z.string(),
           slug: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       const flags = await ctx.prisma.flag.findMany({
@@ -212,13 +212,13 @@ export const flagRouter = createTRPCRouter({
             flagId,
             payload: JSON.stringify(payload),
             expiredAt,
-          }),
+          })
         ),
       };
     }),
   create: protectedProcedure
     .meta({
-      restricted: true,
+      isProjectRestricted: true,
     })
     .input(
       z
@@ -229,7 +229,7 @@ export const flagRouter = createTRPCRouter({
               name: z.string(),
               id: z.string(),
               enabled: z.boolean(),
-            }),
+            })
           ),
           data: z.array(
             z.object({
@@ -239,51 +239,40 @@ export const flagRouter = createTRPCRouter({
               expiredAt: z.date().optional().nullable(),
               description: z.string().optional(),
               environmentId: z.string(),
-            }),
+            })
           ),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const planId = ctx.usage.planId as PlanTypeId;
-      const userId = ctx.session.user.id;
+      const projectAdminUserId = ctx.project.adminUserId;
 
       const authorized = withLimits(
         planId,
         "flags",
-        ctx.usage.flags,
+        ctx.usage.flags
       )(() =>
         ctx.prisma.$transaction(async (tx) => {
           const response = await Promise.all(
             input.data.map(async (flagCreateData) =>
-              tx.flag.create({ data: flagCreateData }),
-            ),
+              tx.flag.create({ data: flagCreateData })
+            )
           );
 
-          await withUsageUpdate(tx, userId, "flags", "increment");
+          await withUsageUpdate(tx, projectAdminUserId, "flags", "increment");
 
           return response;
-        }),
+        })
       );
 
       const flags = await authorized();
 
       return { flags };
-
-      // TODO: this is workaround for prisma bug on createMany not returning the created data
-      /* const flags = await ctx.prisma.$transaction(async (tx) => {
-        return await Promise.all(
-          input.data.map(async (flagCreateData) =>
-            tx.flag.create({ data: flagCreateData }),
-          ),
-        );
-      });
-
-      return { flags }; */
     }),
   update: protectedProcedure
     .meta({
-      restricted: true,
+      isProjectRestricted: true,
     })
     .input(
       z
@@ -294,7 +283,7 @@ export const flagRouter = createTRPCRouter({
               name: z.string(),
               id: z.string(),
               enabled: z.boolean(),
-            }),
+            })
           ),
           data: z.array(
             z.object({
@@ -304,10 +293,10 @@ export const flagRouter = createTRPCRouter({
               expiredAt: z.date().optional().nullable(),
               description: z.string().optional(),
               id: z.string(),
-            }),
+            })
           ),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const flags = await ctx.prisma.$transaction(async (tx) => {
@@ -323,7 +312,7 @@ export const flagRouter = createTRPCRouter({
             return {
               ...updatedFlag,
             };
-          }),
+          })
         );
       });
 
@@ -331,7 +320,7 @@ export const flagRouter = createTRPCRouter({
     }),
   delete: protectedProcedure
     .meta({
-      restricted: true,
+      isProjectRestricted: true,
     })
     .input(
       z
@@ -339,10 +328,10 @@ export const flagRouter = createTRPCRouter({
           projectId: z.string(),
           flagSlug: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const projectAdminUserId = ctx.project.adminUserId;
 
       const flags = await ctx.prisma.flag.deleteMany({
         where: {
@@ -350,7 +339,12 @@ export const flagRouter = createTRPCRouter({
         },
       });
 
-      await withUsageUpdate(ctx.prisma, userId, "flags", "decrement");
+      await withUsageUpdate(
+        ctx.prisma,
+        projectAdminUserId,
+        "flags",
+        "decrement"
+      );
 
       return { flags };
     }),
