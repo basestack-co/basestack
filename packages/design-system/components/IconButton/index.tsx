@@ -36,12 +36,12 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
             bg: "40px",
             icon: "large", // icon 32
           };
-        default:
         case "mediumLarge":
           return {
             bg: "36px",
             icon: "medium", // icon 24
           };
+        default:
         case "medium":
           return {
             bg: "32px",
