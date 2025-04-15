@@ -47,3 +47,8 @@ export {
   type HistoryType,
   type HistoryCardProps,
 } from "./components/HistoryCard/types";
+export { default as ProjectCard } from "./components/ProjectCard";
+export {
+  default as UsageCard,
+  type UsageCardProps,
+} from "./components/UsageCard";

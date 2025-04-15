@@ -11,71 +11,29 @@ import { useStore } from "store";
 import { api } from "utils/trpc/react";
 // Components
 import {
-  Avatar,
   Button,
   ButtonVariant,
   Card,
   IconBox,
   Text,
-  HorizontalRule,
-  Icon,
   Skeleton,
 } from "@basestack/design-system";
 import GetStartedCard from "./_components/GetStarted/GetStartedCard";
 import TextLink from "./_components/GetStarted/TextLink";
+import { ProjectCard } from "@basestack/ui";
 // Styles
 import { useTheme } from "styled-components";
 import {
-  Box,
   Container,
   ContentContainer,
   Header,
-  ProjectCardButton,
   ProjectsList,
   ProjectsListItem,
-  Row,
   Section,
 } from "./_components/GetStarted/styles";
+import UsageSection from "../../../components/Usage";
 // Utils
 import { config } from "@basestack/utils";
-
-interface ProjectCardProps {
-  text: string;
-  onClick: () => void;
-  flags: number;
-}
-
-const ProjectCard = ({ onClick, text, flags = 0 }: ProjectCardProps) => {
-  const theme = useTheme();
-  return (
-    <ProjectsListItem>
-      <ProjectCardButton onClick={onClick}>
-        <Card height="100%" width="100%" hasHoverAnimation>
-          <Box mb="auto" p={theme.spacing.s5}>
-            <Avatar
-              size="xSmall"
-              userName={text}
-              alt={`${text} project`}
-              round={false}
-            />
-            <Text size="small" textAlign="left" mt={theme.spacing.s3}>
-              {text}
-            </Text>
-          </Box>
-          <HorizontalRule />
-          <Box p={`${theme.spacing.s3} ${theme.spacing.s5}`}>
-            <Row>
-              <Icon icon="flag" size="small" />
-              <Text size="small" textAlign="left" ml={theme.spacing.s1}>
-                {flags}
-              </Text>
-            </Row>
-          </Box>
-        </Card>
-      </ProjectCardButton>
-    </ProjectsListItem>
-  );
-};
 
 const MainPage = () => {
   const t = useTranslations("home");
@@ -100,6 +58,13 @@ const MainPage = () => {
   const setCreateProjectModalOpen = useStore(
     (state) => state.setCreateProjectModalOpen,
   );
+
+  const usageMock = [
+    { title: "Storage", used: 0.07, total: 0.5, description: "GB" },
+    { title: "Compute", used: 2.12, total: 200, description: "h" },
+    { title: "Branch Compute", used: 4, total: 5, description: "h" },
+    { title: "Projects", used: 2, total: 10 },
+  ];
 
   return (
     <div>
@@ -149,16 +114,27 @@ const MainPage = () => {
           {!isLoading && !!data?.length && (
             <ProjectsList>
               {data.slice(0, 4).map((project) => (
-                <ProjectCard
-                  key={project.id}
-                  text={project.text}
-                  onClick={project.onClick}
-                  flags={project.flags.count}
-                />
+                <ProjectsListItem key={project.id}>
+                  <ProjectCard
+                    text={project.text}
+                    onClick={project.onClick}
+                    flags={project.flags.count}
+                  />
+                </ProjectsListItem>
               ))}
             </ProjectsList>
           )}
         </Section>
+
+        <UsageSection
+          mb={theme.spacing.s7}
+          title={t("usage.title")}
+          date="Apr 1, 2025 to now"
+          link="Upgrade"
+          href="/"
+          data={usageMock}
+        />
+
         <Section>
           <Header>
             <Text size="xLarge" mr={theme.spacing.s5}>

@@ -82,6 +82,9 @@
         "action": "Create Project"
       }
     },
+    "usage": {
+      "title": "Account Usage"
+    },
     "links": {
       "title": "Quick links",
       "sdks": {

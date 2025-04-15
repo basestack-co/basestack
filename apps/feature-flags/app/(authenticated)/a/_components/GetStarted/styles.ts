@@ -1,16 +1,6 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { space, SpaceProps } from "styled-system";
 import { rem } from "polished";
-
-const flexCenter = css`
-  display: flex;
-  align-items: center;
-`;
-
-const flexColumn = css`
-  display: flex;
-  flex-direction: column;
-`;
 
 export const Container = styled.main`
   padding: ${({ theme }) => theme.spacing.s6} ${({ theme }) => theme.spacing.s5};
@@ -20,21 +10,14 @@ export const Container = styled.main`
 `;
 
 export const Section = styled.section<SpaceProps>`
-  ${flexColumn};
+  display: flex;
+  flex-direction: column;
   ${space};
-`;
-
-export const Box = styled.div<SpaceProps>`
-  ${flexColumn};
-  ${space};
-`;
-
-export const Row = styled.div`
-  ${flexCenter};
 `;
 
 export const Header = styled.div`
-  ${flexCenter};
+  display: flex;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: ${({ theme }) => theme.spacing.s5};
   min-height: ${rem("36px")};
@@ -66,15 +49,8 @@ export const ProjectsList = styled.ul`
 `;
 
 export const ProjectsListItem = styled.li`
-  ${flexColumn};
-`;
-
-export const ProjectCardButton = styled.button`
-  ${flexColumn};
-  flex-grow: 1;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ContentContainer = styled.div`
