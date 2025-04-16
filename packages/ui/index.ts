@@ -52,3 +52,7 @@ export {
   default as UsageCard,
   type UsageCardProps,
 } from "./components/UsageCard";
+export {
+  default as UsageSection,
+  type UsageSectionProps,
+} from "./components/UsageSection";

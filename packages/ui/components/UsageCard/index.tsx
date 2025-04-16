@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import { useTheme } from "styled-components";
 import { Text, CircularProgress, Card } from "@basestack/design-system";
 import { Container, ContentContainer } from "./styles";
@@ -25,10 +25,10 @@ const UsageCard = ({ title, description, used, total }: UsageCardProps) => {
           </Text>
 
           <Text size="xLarge" fontWeight={500}>
-            {used}&nbsp;
+            {used.toLocaleString("en-US")}&nbsp;
             <Text as="span" size="small" muted fontWeight={400}>
               /&nbsp;
-              {total}
+              {total.toLocaleString("en-US")}
               &nbsp;
             </Text>
             {!!description && (
@@ -38,13 +38,14 @@ const UsageCard = ({ title, description, used, total }: UsageCardProps) => {
             )}
           </Text>
         </ContentContainer>
-
-        <CircularProgress
-          size={48}
-          usage={used}
-          total={total}
-          variant={variant}
-        />
+        {total !== Infinity && (
+          <CircularProgress
+            size={48}
+            usage={used}
+            total={total}
+            variant={variant}
+          />
+        )}
       </Container>
     </Card>
   );

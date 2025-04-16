@@ -83,7 +83,18 @@
       }
     },
     "usage": {
-      "title": "Account Usage"
+      "title": "Account Usage",
+      "link": {
+        "upgrade": "Upgrade"
+      },
+      "date": "Renews at {date}",
+      "resource": {
+        "projects": "Projects",
+        "flags": "Flags",
+        "environments": "Environments",
+        "members": "Members",
+        "api-requests": "API Requests"
+      }
     },
     "links": {
       "title": "Quick links",

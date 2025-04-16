@@ -31,7 +31,7 @@ import {
   ProjectsListItem,
   Section,
 } from "./_components/GetStarted/styles";
-import UsageSection from "../../../components/Usage";
+import AccountUsage from "./_components/AccountUsage";
 // Utils
 import { config } from "@basestack/utils";
 
@@ -59,16 +59,10 @@ const MainPage = () => {
     (state) => state.setCreateProjectModalOpen,
   );
 
-  const usageMock = [
-    { title: "Storage", used: 0.07, total: 0.5, description: "GB" },
-    { title: "Compute", used: 2.12, total: 200, description: "h" },
-    { title: "Branch Compute", used: 4, total: 5, description: "h" },
-    { title: "Projects", used: 2, total: 10 },
-  ];
-
   return (
     <div>
       <Container>
+        <AccountUsage />
         <Section mb={theme.spacing.s7}>
           <Header>
             <Text size="xLarge" mr={theme.spacing.s5}>
@@ -125,16 +119,6 @@ const MainPage = () => {
             </ProjectsList>
           )}
         </Section>
-
-        <UsageSection
-          mb={theme.spacing.s7}
-          title={t("usage.title")}
-          date="Apr 1, 2025 to now"
-          link="Upgrade"
-          href="/"
-          data={usageMock}
-        />
-
         <Section>
           <Header>
             <Text size="xLarge" mr={theme.spacing.s5}>

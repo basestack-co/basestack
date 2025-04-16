@@ -74,6 +74,8 @@ const CreateProjectModal = () => {
 
           // Reset the recent projects cache
           await trpcUtils.project.recent.invalidate();
+          // Reset the usage cache
+          await trpcUtils.subscription.usage.invalidate();
         }
 
         onClose();

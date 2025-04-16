@@ -10,7 +10,8 @@ import { useStore } from "store";
 // Locales
 import { useTranslations } from "next-intl";
 // Components
-import { useTheme } from "styled-components";
+import AccountUsage from "./_components/AccountUsage";
+
 import {
   Button,
   ButtonVariant,
@@ -21,6 +22,7 @@ import {
 import FormCard from "components/FormCard";
 import LinksCard from "components/LinksCard";
 // Styles
+import { useTheme } from "styled-components";
 import { Container, Header, Section, List, BottomContainer } from "./styles";
 
 const MainPage = () => {
@@ -49,6 +51,7 @@ const MainPage = () => {
   return (
     <Fragment>
       <Container>
+        <AccountUsage />
         <Section mb={theme.spacing.s7}>
           <Header>
             <Text size="xLarge" mr={theme.spacing.s5}>

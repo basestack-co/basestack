@@ -7,13 +7,13 @@ import type { CheckDataForSpamPayload } from "../../types";
 import { TextGenerationModel, cfAiClient, instructions } from "../../../cf/ai";
 
 export interface CheckSpamJobArgs {
-  onSuccess: (submissionId: string) => Promise<void>;
+  onSuccess: (submissionId: string, userId: string) => Promise<void>;
 }
 
 export const CheckSpamJob = ({ onSuccess }: CheckSpamJobArgs) =>
   serve<CheckDataForSpamPayload>(
     async (context) => {
-      const { submissionId, data } = context.requestPayload;
+      const { submissionId, data, userId } = context.requestPayload;
 
       console.info(
         `Job: Check Spam - Preparing to check data for spam: ${JSON.stringify(data)} with submission ID: ${submissionId}`,
@@ -37,7 +37,7 @@ export const CheckSpamJob = ({ onSuccess }: CheckSpamJobArgs) =>
               `Job: Check Spam - The data is spam. Submission ID: ${submissionId}. Preparing to update the form Submission status on the DB.`,
             );
 
-            await onSuccess(submissionId);
+            await onSuccess(submissionId, userId);
           }
         }
       });

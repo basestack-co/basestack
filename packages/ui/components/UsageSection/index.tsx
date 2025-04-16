@@ -1,7 +1,10 @@
 import React from "react";
+// Components
 import { Text } from "@basestack/design-system";
 import { SpaceProps } from "styled-system";
-import { UsageCard, UsageCardProps } from "@basestack/ui";
+// UI
+import UsageCard, { UsageCardProps } from "../UsageCard";
+// Styles
 import {
   Header,
   Section,
@@ -11,7 +14,7 @@ import {
 } from "./styles";
 import { useTheme } from "styled-components";
 
-interface UsageProps extends SpaceProps {
+export interface UsageSectionProps extends SpaceProps {
   title: string;
   date: string;
   link: string;
@@ -19,7 +22,14 @@ interface UsageProps extends SpaceProps {
   href: string;
 }
 
-const Usage = ({ title, date, href, link, data, ...props }: UsageProps) => {
+const UsageSection = ({
+  title,
+  date,
+  href,
+  link,
+  data,
+  ...props
+}: UsageSectionProps) => {
   const theme = useTheme();
 
   return (
@@ -58,4 +68,4 @@ const Usage = ({ title, date, href, link, data, ...props }: UsageProps) => {
   );
 };
 
-export default Usage;
+export default UsageSection;

@@ -16,6 +16,7 @@ import { Skeleton, Text } from "@basestack/design-system";
 import PlanCard from "./PlanCard";
 import UpgradePlanHeader from "./UpgradePlanHeader";
 import ActivePlan, { CurrentPlan } from "./ActivePlan";
+// Styles
 import { useTheme } from "styled-components";
 import { Container, List, ListItem } from "./styles";
 
