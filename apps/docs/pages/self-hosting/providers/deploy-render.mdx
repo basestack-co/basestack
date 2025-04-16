@@ -36,12 +36,12 @@ Here are the steps to deploy the platform on Render.com:
 
 To ensure a successful deployment on Render, the platform requires a minimum set of environment variables. Below is the list of environment variables that you must fill in. For the complete list of Environment Variables, please refer to the [Configuration Page](/self-hosting#environment-variables).
 
-| Property               | Description                                                                                              |
-| ---------------------- | -------------------------------------------------------------------------------------------------------- |
+| Property               | Description                                                                                                               |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | `DATABASE_URL`         | Connection URL to your database using [PgBouncer](https://render.com/docs/databases#connection-pooling?ref=basestack.co). |
-| `DIRECT_DATABASE_URL`  | Direct connection URL to the database used for migrations                                                |
-| `AUTH_SECRET`      | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens.                              |
-| `AUTH_URL`         | Set to the canonical URL of your site                                                                    |
+| `DIRECT_DATABASE_URL`  | Direct connection URL to the database used for migrations                                                                 |
+| `AUTH_SECRET`          | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens.                                               |
+| `AUTH_URL`             | Set to the canonical URL of your site                                                                                     |
 | `GITHUB_CLIENT_ID`     | Client Id generated in the [OAuth App](https://github.com/settings/developers?ref=basestack.co) creation                  |
 | `GITHUB_CLIENT_SECRET` | Client Secret generated in the [OAuth App](https://github.com/settings/developers?ref=basestack.co) creation              |
 
@@ -86,11 +86,11 @@ To build the following connection: `postgres://USER:PASSWORD@PGBOUNCER_HOST:PORT
 
 To initiate the connection, please access the address of the Connection Pooling service you just created. Refer to the image below to see how to copy this address, which includes the `PGBOUNCER_HOST` and `PORT` fields.
 
-![PgBouncer Service](/images/render/pgbouncer_service.png)
+![PgBouncer Service](https://i.imgur.com/t7Q0sjD.png)
 
 After obtaining the address, you'll need to include the `USER` and `PASSWORD` fields. Refer to the image below to see how to retrieve this information.
 
-![PgBouncer Service](/images/render/db_service.png)
+![DB Service](https://i.imgur.com/PBGpVe0.png)
 
 After collecting all the required information, you'll have the necessary fields to construct the connection string, which should look something like this:
 
