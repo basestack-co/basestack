@@ -40,12 +40,16 @@ const UsageSection = ({
         </Text>
 
         <LinkContainer>
-          <Text size="small" muted>
-            {date}
-          </Text>
-          <Text size="small" muted mx={theme.spacing.s2}>
-            •
-          </Text>
+          {!!date && (
+            <>
+              <Text size="small" muted>
+                {date}
+              </Text>
+              <Text size="small" muted mx={theme.spacing.s2}>
+                •
+              </Text>
+            </>
+          )}
           <StyledLink href={href}>
             <Text color="inherit" size="small" fontWeight={500}>
               {link}

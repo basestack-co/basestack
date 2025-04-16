@@ -55,11 +55,13 @@ const AccountUsage = () => {
     <UsageSection
       mb={theme.spacing.s7}
       title={t("usage.title")}
-      date={t("usage.date", {
-        date: subscription.data?.renewsAt
-          ? dayjs(subscription.data?.renewsAt).format("MMMM D, YYYY")
-          : "",
-      })}
+      date={
+        subscription.data?.renewsAt
+          ? t("usage.date", {
+              date: dayjs(subscription.data?.renewsAt).format("MMMM D, YYYY"),
+            })
+          : ""
+      }
       link={t("usage.link.upgrade")}
       href="/a/user/tab/billing"
       data={currentUsage}
