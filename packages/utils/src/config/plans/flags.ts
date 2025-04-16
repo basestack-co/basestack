@@ -34,12 +34,12 @@ const flags: FlagsPlan[] = [
     },
     limits: {
       projects: 1,
-      environments: 0,
-      flags: 10,
+      environments: 1,
+      flags: 2,
       segments: 0,
       rollouts: 0,
-      teams: 0,
-      members: 0,
+      teams: 1,
+      members: 2,
       apiRequests: 50000,
     },
     features: {

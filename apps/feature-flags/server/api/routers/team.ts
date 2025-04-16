@@ -3,8 +3,7 @@ import { createTRPCRouter, protectedProcedure } from "server/api/trpc";
 import { Role } from ".prisma/client";
 // Utils
 import { z } from "zod";
-import { PlanTypeId } from "@basestack/utils";
-import { withLimits, withUsageUpdate } from "server/db/utils/subscription";
+import { withUsageUpdate } from "server/db/utils/subscription";
 import { generateSlug } from "random-word-slugs";
 import { TRPCError } from "@trpc/server";
 import { v4 as uuidv4 } from "uuid";
@@ -111,6 +110,9 @@ export const teamRouter = createTRPCRouter({
       });
     }),
   create: protectedProcedure
+    .meta({
+      usageLimitKey: "teams",
+    })
     .input(
       z
         .object({
@@ -120,35 +122,26 @@ export const teamRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
-      const planId = ctx.usage.planId as PlanTypeId;
 
-      const authorized = withLimits(
-        planId,
-        "teams",
-        ctx.usage.teams
-      )(() =>
-        ctx.prisma.$transaction(async (tx) => {
-          const team = await tx.team.create({
-            data: {
-              name: input.name,
-              slug: `team-${generateSlug()}`,
-              description: `The default team for ${input.name}`,
-              members: {
-                create: {
-                  userId: userId,
-                  role: Role.ADMIN,
-                },
+      return await ctx.prisma.$transaction(async (tx) => {
+        const team = await tx.team.create({
+          data: {
+            name: input.name,
+            slug: `team-${generateSlug()}`,
+            description: `The default team for ${input.name}`,
+            members: {
+              create: {
+                userId: userId,
+                role: Role.ADMIN,
               },
             },
-          });
+          },
+        });
 
-          await withUsageUpdate(tx, userId, "teams", "increment");
+        await withUsageUpdate(tx, userId, "teams", "increment");
 
-          return { team };
-        })
-      );
-
-      return authorized();
+        return { team };
+      });
     }),
   update: protectedProcedure
     .input(
@@ -170,67 +163,64 @@ export const teamRouter = createTRPCRouter({
       });
     }),
   delete: protectedProcedure
+    .meta({
+      usageLimitKey: "teams",
+    })
     .input(z.object({ teamId: z.string() }).required())
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
-      const planId = ctx.usage.planId as PlanTypeId;
 
-      const authorized = withLimits(
-        planId,
-        "teams",
-        ctx.usage.teams
-      )(() =>
-        ctx.prisma.$transaction(async (tx) => {
-          await tx.teamMembers.deleteMany({
+      return await ctx.prisma.$transaction(async (tx) => {
+        await tx.teamMembers.deleteMany({
+          where: {
+            teamId: input.teamId,
+          },
+        });
+
+        /*  const projects = await tx.project.findMany({
+          where: {
+            teamId: input.teamId,
+          },
+          select: {
+            id: true,
+          },
+        });
+
+        const projectIds = projects.map((project) => project.id);
+
+        if (projectIds.length > 0) {
+          await tx.environment.deleteMany({
             where: {
-              teamId: input.teamId,
-            },
-          });
-
-          /*  const projects = await tx.project.findMany({
-            where: {
-              teamId: input.teamId,
-            },
-            select: {
-              id: true,
-            },
-          });
-
-          const projectIds = projects.map((project) => project.id);
-
-          if (projectIds.length > 0) {
-            await tx.environment.deleteMany({
-              where: {
-                projectId: {
-                  in: projectIds,
-                },
+              projectId: {
+                in: projectIds,
               },
-            });
-
-            await tx.project.deleteMany({
-              where: {
-                id: {
-                  in: projectIds,
-                },
-              },
-            });
-          } */
-
-          const team = await tx.team.delete({
-            where: {
-              id: input.teamId,
             },
           });
 
-          await withUsageUpdate(tx, userId, "teams", "decrement");
+          await tx.project.deleteMany({
+            where: {
+              id: {
+                in: projectIds,
+              },
+            },
+          });
+        } */
 
-          return { team };
-        })
-      );
+        const team = await tx.team.delete({
+          where: {
+            id: input.teamId,
+          },
+        });
 
-      return authorized();
+        await withUsageUpdate(tx, userId, "teams", "decrement");
+
+        return { team };
+      });
     }),
   removeMember: protectedProcedure
+    .meta({
+      usageLimitKey: "members",
+    })
     .input(
       z
         .object({
@@ -241,46 +231,37 @@ export const teamRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
-      const planId = ctx.usage.planId as PlanTypeId;
 
       // TODO: Need to get the role by the user and not from the project
-      const authorized = withLimits(
-        planId,
-        "members",
-        ctx.usage.teams
-      )(() =>
-        ctx.prisma.$transaction(async (tx) => {
-          const member = await tx.teamMembers.delete({
-            where: {
-              teamId_userId: {
-                teamId: input.teamId,
-                userId: input.userId,
+      return await ctx.prisma.$transaction(async (tx) => {
+        const member = await tx.teamMembers.delete({
+          where: {
+            teamId_userId: {
+              teamId: input.teamId,
+              userId: input.userId,
+            },
+          },
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
               },
             },
-            include: {
-              user: {
-                select: {
-                  id: true,
-                  name: true,
-                  email: true,
-                },
-              },
-              team: {
-                select: {
-                  id: true,
-                  name: true,
-                },
+            team: {
+              select: {
+                id: true,
+                name: true,
               },
             },
-          });
+          },
+        });
 
-          await withUsageUpdate(tx, userId, "members", "decrement");
+        await withUsageUpdate(tx, userId, "members", "decrement");
 
-          return { member };
-        })
-      );
-
-      return authorized();
+        return { member };
+      });
     }),
   updateMember: protectedProcedure
     .input(

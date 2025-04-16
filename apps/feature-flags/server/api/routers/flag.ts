@@ -1,12 +1,16 @@
 import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
 import { TRPCError } from "@trpc/server";
 // Utils
-import { withLimits, withUsageUpdate } from "server/db/utils/subscription";
+import { withUsageUpdate } from "server/db/utils/subscription";
 import { z } from "zod";
-import { PlanTypeId } from "@basestack/utils";
+// Types
+import { Role } from ".prisma/client";
 
 export const flagRouter = createTRPCRouter({
   all: protectedProcedure
+    .meta({
+      isProjectRestricted: true,
+    })
     .input(
       z.object({
         projectId: z.string(),
@@ -219,6 +223,8 @@ export const flagRouter = createTRPCRouter({
   create: protectedProcedure
     .meta({
       isProjectRestricted: true,
+      roles: [Role.ADMIN, Role.DEVELOPER],
+      usageLimitKey: "flags",
     })
     .input(
       z
@@ -245,34 +251,26 @@ export const flagRouter = createTRPCRouter({
         .required()
     )
     .mutation(async ({ ctx, input }) => {
-      const planId = ctx.usage.planId as PlanTypeId;
       const projectAdminUserId = ctx.project.adminUserId;
 
-      const authorized = withLimits(
-        planId,
-        "flags",
-        ctx.usage.flags
-      )(() =>
-        ctx.prisma.$transaction(async (tx) => {
-          const response = await Promise.all(
-            input.data.map(async (flagCreateData) =>
-              tx.flag.create({ data: flagCreateData })
-            )
-          );
+      const flags = await ctx.prisma.$transaction(async (tx) => {
+        const response = await Promise.all(
+          input.data.map(async (flagCreateData) =>
+            tx.flag.create({ data: flagCreateData })
+          )
+        );
 
-          await withUsageUpdate(tx, projectAdminUserId, "flags", "increment");
+        await withUsageUpdate(tx, projectAdminUserId, "flags", "increment");
 
-          return response;
-        })
-      );
-
-      const flags = await authorized();
+        return response;
+      });
 
       return { flags };
     }),
   update: protectedProcedure
     .meta({
       isProjectRestricted: true,
+      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
     })
     .input(
       z
@@ -321,6 +319,7 @@ export const flagRouter = createTRPCRouter({
   delete: protectedProcedure
     .meta({
       isProjectRestricted: true,
+      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
     })
     .input(
       z

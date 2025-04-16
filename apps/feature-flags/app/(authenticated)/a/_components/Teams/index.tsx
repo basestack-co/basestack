@@ -26,13 +26,12 @@ import { Section, Header, TeamsList } from "./styles";
 const Teams = () => {
   const t = useTranslations("home");
   const theme = useTheme();
-  const router = useRouter();
 
   const [setCreateTeamModalOpen, setManageTeamModalOpen] = useStore(
     useShallow((state) => [
       state.setCreateTeamModalOpen,
       state.setManageTeamModalOpen,
-    ]),
+    ])
   );
 
   const { data, isLoading } = api.team.all.useQuery(undefined, {

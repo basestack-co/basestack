@@ -3,11 +3,7 @@ import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
 import { generateSlug } from "random-word-slugs";
 import { PlanTypeId } from "@basestack/utils";
 import { z } from "zod";
-import {
-  withFeatures,
-  withLimits,
-  withUsageUpdate,
-} from "server/db/utils/subscription";
+import { withFeatures, withUsageUpdate } from "server/db/utils/subscription";
 // Types
 import { Role } from ".prisma/client";
 import { TRPCError } from "@trpc/server";
@@ -123,6 +119,9 @@ export const projectRouter = createTRPCRouter({
       };
     }),
   allKeys: protectedProcedure
+    .meta({
+      isProjectRestricted: true,
+    })
     .input(
       z
         .object({
@@ -186,6 +185,9 @@ export const projectRouter = createTRPCRouter({
       return { users };
     }),
   create: protectedProcedure
+    .meta({
+      usageLimitKey: "projects",
+    })
     .input(
       z
         .object({
@@ -198,65 +200,57 @@ export const projectRouter = createTRPCRouter({
       const planId = ctx.usage.planId as PlanTypeId;
       const hasOnlyOneEnv = planId === PlanTypeId.FREE;
 
-      const authorized = withLimits(
-        planId,
-        "projects",
-        ctx.usage.projects
-      )(() =>
-        ctx.prisma.$transaction(async (tx) => {
-          const project = await tx.project.create({
-            data: {
-              ...input,
-              slug: `${generateSlug()}`,
-              environments: {
-                create: [
-                  {
-                    name: "develop",
-                    slug: `${generateSlug()}`,
-                    description: "The default develop environment",
-                    isDefault: true,
-                  },
-                  ...(!hasOnlyOneEnv
-                    ? [
-                        {
-                          name: "staging",
-                          slug: `${generateSlug()}`,
-                          description: "The default staging environment",
-                        },
-                        {
-                          name: "production",
-                          slug: `${generateSlug()}`,
-                          description: "The default production environment",
-                        },
-                      ]
-                    : []),
-                ],
+      return await ctx.prisma.$transaction(async (tx) => {
+        const project = await tx.project.create({
+          data: {
+            ...input,
+            slug: `${generateSlug()}`,
+            environments: {
+              create: [
+                {
+                  name: "develop",
+                  slug: `${generateSlug()}`,
+                  description: "The default develop environment",
+                  isDefault: true,
+                },
+                ...(!hasOnlyOneEnv
+                  ? [
+                      {
+                        name: "staging",
+                        slug: `${generateSlug()}`,
+                        description: "The default staging environment",
+                      },
+                      {
+                        name: "production",
+                        slug: `${generateSlug()}`,
+                        description: "The default production environment",
+                      },
+                    ]
+                  : []),
+              ],
+            },
+          },
+        });
+
+        const connection = await tx.projectsOnUsers.create({
+          data: {
+            project: {
+              connect: {
+                id: project.id,
               },
             },
-          });
-
-          const connection = await tx.projectsOnUsers.create({
-            data: {
-              project: {
-                connect: {
-                  id: project.id,
-                },
-              },
-              user: {
-                connect: {
-                  id: userId,
-                },
+            user: {
+              connect: {
+                id: userId,
               },
             },
-          });
+          },
+        });
 
-          await withUsageUpdate(tx, userId, "projects", "increment");
+        await withUsageUpdate(tx, userId, "projects", "increment");
 
-          return { project, connection };
-        })
-      );
-
-      return authorized();
+        return { project, connection };
+      });
     }),
   update: protectedProcedure
     .meta({
@@ -372,6 +366,7 @@ export const projectRouter = createTRPCRouter({
     .meta({
       isProjectRestricted: true,
       roles: [Role.ADMIN, Role.DEVELOPER],
+      usageLimitKey: "members",
     })
     .input(
       z
@@ -382,38 +377,29 @@ export const projectRouter = createTRPCRouter({
         .required()
     )
     .mutation(async ({ ctx, input }) => {
-      const planId = ctx.usage.planId as PlanTypeId;
       const projectAdminUserId = ctx.project.adminUserId;
 
-      const authorized = withLimits(
-        planId,
-        "members",
-        ctx.usage.members
-      )(() =>
-        ctx.prisma.$transaction(async (tx) => {
-          const response = await tx.projectsOnUsers.create({
-            data: {
-              project: {
-                connect: {
-                  id: input.projectId,
-                },
+      const connection = await ctx.prisma.$transaction(async (tx) => {
+        const response = await tx.projectsOnUsers.create({
+          data: {
+            project: {
+              connect: {
+                id: input.projectId,
               },
-              user: {
-                connect: {
-                  id: input.userId,
-                },
-              },
-              role: "USER",
             },
-          });
+            user: {
+              connect: {
+                id: input.userId,
+              },
+            },
+            role: "USER",
+          },
+        });
 
-          await withUsageUpdate(tx, projectAdminUserId, "members", "increment");
+        await withUsageUpdate(tx, projectAdminUserId, "members", "increment");
 
-          return response;
-        })
-      );
-
-      const connection = await authorized();
+        return response;
+      });
 
       return { connection };
     }),

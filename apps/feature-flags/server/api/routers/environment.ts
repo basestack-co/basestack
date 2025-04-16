@@ -2,11 +2,10 @@ import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
 import { TRPCError } from "@trpc/server";
 // Utils
 import { generateSlug } from "random-word-slugs";
-import { PlanTypeId } from "@basestack/utils";
 import { z } from "zod";
 // DB
-import { withLimits, withUsageUpdate } from "server/db/utils/subscription";
-// Inputs
+import { withUsageUpdate } from "server/db/utils/subscription";
+// Types
 import { Role } from ".prisma/client";
 
 export const environmentRouter = createTRPCRouter({
@@ -44,6 +43,11 @@ export const environmentRouter = createTRPCRouter({
       });
     }),
   create: protectedProcedure
+    .meta({
+      isProjectRestricted: true,
+      roles: [Role.ADMIN, Role.DEVELOPER],
+      usageLimitKey: "environments",
+    })
     .input(
       z
         .object({
@@ -53,72 +57,59 @@ export const environmentRouter = createTRPCRouter({
         })
         .required()
     )
-    .meta({
-      isProjectRestricted: true,
-      roles: [Role.ADMIN, Role.DEVELOPER],
-    })
     .mutation(async ({ ctx, input }) => {
-      const planId = ctx.usage.planId as PlanTypeId;
       const projectAdminUserId = ctx.project.adminUserId;
 
-      const authorized = withLimits(
-        planId,
-        "environments",
-        ctx.usage.environments
-      )(() =>
-        ctx.prisma.$transaction(async (tx) => {
-          const environment = await tx.environment.findFirst({
-            where: {
-              projectId: input.projectId,
-              isDefault: true,
-            },
-            select: {
-              id: true,
-            },
-          });
+      const environment = ctx.prisma.$transaction(async (tx) => {
+        const environment = await tx.environment.findFirst({
+          where: {
+            projectId: input.projectId,
+            isDefault: true,
+          },
+          select: {
+            id: true,
+          },
+        });
 
-          // Get all the flags from a selected environment
-          const flags = await tx.flag.findMany({
-            where: {
-              environmentId: environment?.id,
-            },
-            select: {
-              slug: true,
-              payload: true,
-              expiredAt: true,
-              description: true,
-            },
-          });
+        // Get all the flags from a selected environment
+        const flags = await tx.flag.findMany({
+          where: {
+            environmentId: environment?.id,
+          },
+          select: {
+            slug: true,
+            payload: true,
+            expiredAt: true,
+            description: true,
+          },
+        });
 
-          const newEnvironment = await tx.environment.create({
-            data: {
-              name: input.name,
-              slug: generateSlug(),
-              description: input.description,
-              project: {
-                connect: {
-                  id: input.projectId,
-                },
-              },
-              flags: {
-                // @ts-ignore
-                create: flags,
+        const newEnvironment = await tx.environment.create({
+          data: {
+            name: input.name,
+            slug: generateSlug(),
+            description: input.description,
+            project: {
+              connect: {
+                id: input.projectId,
               },
             },
-          });
+            flags: {
+              // @ts-ignore
+              create: flags,
+            },
+          },
+        });
 
-          await withUsageUpdate(
-            tx,
-            projectAdminUserId,
-            "environments",
-            "increment"
-          );
+        await withUsageUpdate(
+          tx,
+          projectAdminUserId,
+          "environments",
+          "increment"
+        );
 
-          return newEnvironment;
-        })
-      );
-
-      const environment = await authorized();
+        return newEnvironment;
+      });
 
       return { environment };
     }),

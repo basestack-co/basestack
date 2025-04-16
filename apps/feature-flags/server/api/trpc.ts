@@ -10,6 +10,7 @@ import { prisma } from "server/db";
 import { getUserInProject } from "server/db/utils/user";
 import { createHistory } from "server/db/utils/history";
 import { getSubscriptionUsage } from "server/db/utils/subscription";
+import { config, FlagsPlan, PlanTypeId } from "@basestack/utils";
 // types
 import { Role } from ".prisma/client";
 
@@ -138,18 +139,52 @@ export const withPermissions = middleware(
   }
 );
 
-export const withUsage = middleware(async ({ next, ctx }) => {
+export const withUsage = middleware(async ({ next, ctx, meta }) => {
+  const { usageLimitKey } = (meta ?? {}) as {
+    usageLimitKey: keyof FlagsPlan["limits"];
+  };
+
   const usage = await getSubscriptionUsage(
     ctx.prisma,
     ctx?.session?.user.id ?? ""
   );
 
-  return next({
-    ctx: {
-      ...ctx,
-      usage,
-    },
-  });
+  if (!usageLimitKey) {
+    return next({
+      ctx: {
+        ...ctx,
+        usage,
+      },
+    });
+  }
+
+  const planId = usage.planId as PlanTypeId;
+
+  if (!config.plans.isValidFlagsPlan(planId)) {
+    throw new TRPCError({
+      code: "PRECONDITION_FAILED",
+      message:
+        "Your current plan is not supported. Please upgrade to continue.",
+      cause: "InvalidPlan",
+    });
+  }
+
+  const limit = config.plans.getFlagsLimitByKey(planId, usageLimitKey);
+
+  if (usage[usageLimitKey] < limit) {
+    return next({
+      ctx: {
+        ...ctx,
+        usage,
+      },
+    });
+  } else {
+    throw new TRPCError({
+      code: "PRECONDITION_FAILED",
+      message: "Plan limit exceeded. Please consider upgrading.",
+      cause: "LimitExceeded",
+    });
+  }
 });
 
 // PROCEDURES
