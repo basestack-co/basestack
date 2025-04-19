@@ -22,9 +22,6 @@ export const teamRouter = createTRPCRouter({
         members: {
           some: {
             userId: userId,
-            role: {
-              in: [Role.ADMIN],
-            },
           },
         },
       },
@@ -430,7 +427,7 @@ export const teamRouter = createTRPCRouter({
           props: {
             product: "Basestack Feature Flags",
             fromUserName: user?.name ?? "",
-            toUserName: "",
+            toUserName: input.email,
             team: invitation.team.name,
             linkText: "Accept Invitation",
             linkUrl: `${config.urls.getAppWithEnv(Product.FLAGS, AppMode as AppEnv)}/a/invite/${token}`,
