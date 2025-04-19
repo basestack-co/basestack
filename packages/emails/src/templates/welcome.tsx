@@ -59,9 +59,6 @@ export const WelcomeEmailTemplate = ({
           >
             Get Started
           </Button>
-          <Text style={{ ...Styles.Paragraph, marginTop: "20px" }}>
-            Basestack Team
-          </Text>
           <Hr style={{ ...Styles.Hr, margin: "20px 0" }} />
           <Link
             href="https://github.com/basestack-co/basestack/discussions"

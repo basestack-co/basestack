@@ -51,7 +51,6 @@ const Teams = () => {
         members: item.members,
         total: {
           members: item._count.members,
-          projects: item._count.projects,
         },
       })),
   });

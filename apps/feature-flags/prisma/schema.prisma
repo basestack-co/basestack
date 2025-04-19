@@ -123,11 +123,8 @@ model Project {
   environments     Environment[]
   blockIpAddresses String?
   websites         String?
-  teamId           String?
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt
-
-  team Team? @relation(fields: [teamId], references: [id])
 
   users   ProjectsOnUsers[]
   history History[]
@@ -200,7 +197,6 @@ model Team {
   updatedAt   DateTime @updatedAt
 
   members     TeamMembers[]
-  projects    Project[]
   invitations TeamInvitation[]
 
   @@index([slug])

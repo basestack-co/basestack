@@ -61,7 +61,7 @@ export const environmentRouter = createTRPCRouter({
       const projectAdminUserId = ctx.project.adminUserId;
 
       const environment = ctx.prisma.$transaction(async (tx) => {
-        const environment = await tx.environment.findFirst({
+        const defaultEnvironment = await tx.environment.findFirst({
           where: {
             projectId: input.projectId,
             isDefault: true,
@@ -74,7 +74,7 @@ export const environmentRouter = createTRPCRouter({
         // Get all the flags from a selected environment
         const flags = await tx.flag.findMany({
           where: {
-            environmentId: environment?.id,
+            environmentId: defaultEnvironment?.id,
           },
           select: {
             slug: true,

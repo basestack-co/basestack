@@ -1,11 +1,15 @@
 import { createTRPCRouter, protectedProcedure } from "server/api/trpc";
+import { TRPCError } from "@trpc/server";
 // Types
 import { Role } from ".prisma/client";
+// Vendors
+import { qstash } from "@basestack/vendors";
 // Utils
+import { AppMode } from "utils/helpers/general";
+import { config, Product, AppEnv } from "@basestack/utils";
 import { z } from "zod";
 import { withUsageUpdate } from "server/db/utils/subscription";
 import { generateSlug } from "random-word-slugs";
-import { TRPCError } from "@trpc/server";
 import { v4 as uuidv4 } from "uuid";
 import dayjs from "dayjs";
 
@@ -18,6 +22,9 @@ export const teamRouter = createTRPCRouter({
         members: {
           some: {
             userId: userId,
+            role: {
+              in: [Role.ADMIN],
+            },
           },
         },
       },
@@ -44,7 +51,6 @@ export const teamRouter = createTRPCRouter({
         _count: {
           select: {
             members: true,
-            projects: true,
           },
         },
       },
@@ -54,6 +60,9 @@ export const teamRouter = createTRPCRouter({
     });
   }),
   byId: protectedProcedure
+    .meta({
+      roles: [Role.ADMIN],
+    })
     .input(
       z
         .object({
@@ -91,19 +100,9 @@ export const teamRouter = createTRPCRouter({
               createdAt: "asc",
             },
           },
-          projects: {
-            select: {
-              id: true,
-              name: true,
-            },
-            orderBy: {
-              createdAt: "desc",
-            },
-          },
           _count: {
             select: {
               members: true,
-              projects: true,
             },
           },
         },
@@ -144,6 +143,9 @@ export const teamRouter = createTRPCRouter({
       });
     }),
   update: protectedProcedure
+    .meta({
+      roles: [Role.ADMIN],
+    })
     .input(
       z
         .object({
@@ -164,6 +166,7 @@ export const teamRouter = createTRPCRouter({
     }),
   delete: protectedProcedure
     .meta({
+      roles: [Role.ADMIN],
       usageLimitKey: "teams",
     })
     .input(z.object({ teamId: z.string() }).required())
@@ -171,40 +174,38 @@ export const teamRouter = createTRPCRouter({
       const userId = ctx?.session?.user.id!;
 
       return await ctx.prisma.$transaction(async (tx) => {
+        const members = await tx.teamMembers.findMany({
+          where: { teamId: input.teamId },
+          select: { userId: true },
+        });
+
+        const userIds = members.map((m) => m.userId);
+
+        const usersInProjects = await tx.projectsOnUsers.findMany({
+          where: {
+            userId: { in: userIds },
+          },
+          select: {
+            project: { select: { name: true } },
+            user: { select: { name: true } },
+          },
+        });
+
+        if (usersInProjects.length > 0) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: `Some team members are still assigned to projects: ${usersInProjects
+              .map((u) => `User ${u.user.name} in project ${u.project.name}`)
+              .join(", ")}. Remove the users from the projects first.`,
+            cause: "CannotDeleteTeamWithMembersInProjects",
+          });
+        }
+
         await tx.teamMembers.deleteMany({
           where: {
             teamId: input.teamId,
           },
         });
-
-        /*  const projects = await tx.project.findMany({
-          where: {
-            teamId: input.teamId,
-          },
-          select: {
-            id: true,
-          },
-        });
-
-        const projectIds = projects.map((project) => project.id);
-
-        if (projectIds.length > 0) {
-          await tx.environment.deleteMany({
-            where: {
-              projectId: {
-                in: projectIds,
-              },
-            },
-          });
-
-          await tx.project.deleteMany({
-            where: {
-              id: {
-                in: projectIds,
-              },
-            },
-          });
-        } */
 
         const team = await tx.team.delete({
           where: {
@@ -213,12 +214,21 @@ export const teamRouter = createTRPCRouter({
         });
 
         await withUsageUpdate(tx, userId, "teams", "decrement");
+        await withUsageUpdate(
+          tx,
+          userId,
+          "members",
+          "decrement",
+          // Remove the Admin from the count
+          members.length - 1
+        );
 
         return { team };
       });
     }),
   removeMember: protectedProcedure
     .meta({
+      roles: [Role.ADMIN],
       usageLimitKey: "members",
     })
     .input(
@@ -232,8 +242,31 @@ export const teamRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
 
-      // TODO: Need to get the role by the user and not from the project
       return await ctx.prisma.$transaction(async (tx) => {
+        const projects = await tx.projectsOnUsers.findMany({
+          where: {
+            userId: input.userId,
+            role: {
+              not: Role.ADMIN,
+            },
+          },
+          select: {
+            project: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        });
+
+        if (projects.length > 0) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: `User is a member of ${projects.map((p) => p.project.name).join(", ")}. Remove the user from the projects first.`,
+            cause: "CannotRemoveMember",
+          });
+        }
+
         const member = await tx.teamMembers.delete({
           where: {
             teamId_userId: {
@@ -264,12 +297,15 @@ export const teamRouter = createTRPCRouter({
       });
     }),
   updateMember: protectedProcedure
+    .meta({
+      roles: [Role.ADMIN],
+    })
     .input(
       z
         .object({
           teamId: z.string(),
           userId: z.string(),
-          role: z.enum(["ADMIN", "USER"]),
+          role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
         .required()
     )
@@ -302,27 +338,44 @@ export const teamRouter = createTRPCRouter({
       });
     }),
   invite: protectedProcedure
+    .meta({
+      roles: [Role.ADMIN],
+    })
     .input(
       z
         .object({
           teamId: z.string(),
           email: z.string().email(),
-          role: z.enum(["ADMIN", "USER"]),
+          role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
         .required()
     )
     .mutation(async ({ ctx, input }) => {
+      const user = ctx.session?.user;
+
       return await ctx.prisma.$transaction(async (tx) => {
         const existingUser = await tx.user.findUnique({
           where: { email: input.email },
         });
 
         if (existingUser) {
-          const existingMember = await tx.teamMembers.findUnique({
+          const existingMember = await tx.teamMembers.findFirst({
             where: {
-              teamId_userId: {
-                teamId: input.teamId,
-                userId: existingUser.id,
+              OR: [
+                {
+                  teamId: input.teamId,
+                  userId: existingUser.id,
+                },
+                {
+                  userId: existingUser.id,
+                },
+              ],
+            },
+            include: {
+              team: {
+                select: {
+                  name: true,
+                },
               },
             },
           });
@@ -330,13 +383,13 @@ export const teamRouter = createTRPCRouter({
           if (existingMember) {
             throw new TRPCError({
               code: "BAD_REQUEST",
-              message: "User is already a member of this team",
+              message: `User is already a member of ${existingMember.team.name}`,
+              cause: "AlreadyAMember",
             });
           }
 
           const existingInvitation = await tx.teamInvitation.findFirst({
             where: {
-              teamId: input.teamId,
               email: input.email,
             },
           });
@@ -344,7 +397,8 @@ export const teamRouter = createTRPCRouter({
           if (existingInvitation) {
             throw new TRPCError({
               code: "BAD_REQUEST",
-              message: "An invitation has already been sent to this email",
+              message: `An invitation has already been sent to ${existingInvitation.email}`,
+              cause: "AlreadyInvited",
             });
           }
         }
@@ -369,6 +423,20 @@ export const teamRouter = createTRPCRouter({
           },
         });
 
+        await qstash.events.sendEmailEvent({
+          template: "invite",
+          to: [input.email],
+          subject: `You have been invited to join ${invitation.team.name} team on Basestack Feature Flags`,
+          props: {
+            product: "Basestack Feature Flags",
+            fromUserName: user?.name ?? "",
+            toUserName: "",
+            team: invitation.team.name,
+            linkText: "Accept Invitation",
+            linkUrl: `${config.urls.getAppWithEnv(Product.FLAGS, AppMode as AppEnv)}/a/invite/${token}`,
+          },
+        });
+
         return { invitation };
       });
     }),
@@ -385,8 +453,9 @@ export const teamRouter = createTRPCRouter({
 
         if (!invitation) {
           throw new TRPCError({
-            code: "BAD_REQUEST",
+            code: "NOT_FOUND",
             message: "Invalid invitation token",
+            cause: "InvalidToken",
           });
         }
 
@@ -394,6 +463,7 @@ export const teamRouter = createTRPCRouter({
           throw new TRPCError({
             code: "BAD_REQUEST",
             message: "Invitation has expired",
+            cause: "ExpiredToken",
           });
         }
 
@@ -403,8 +473,9 @@ export const teamRouter = createTRPCRouter({
 
         if (!userToAdd) {
           throw new TRPCError({
-            code: "BAD_REQUEST",
+            code: "NOT_FOUND",
             message: "User account required",
+            cause: "UserNotFound",
           });
         }
 
@@ -423,8 +494,9 @@ export const teamRouter = createTRPCRouter({
           });
 
           throw new TRPCError({
-            code: "BAD_REQUEST",
+            code: "CONFLICT",
             message: "You are already a member of this team",
+            cause: "AlreadyAMember",
           });
         }
 

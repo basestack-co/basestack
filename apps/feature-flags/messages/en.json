@@ -621,7 +621,7 @@
       "invite": {
         "title": "Team Members",
         "description": "Add members to manage this project. Developers can also be invited to access API keys for code integration.",
-        "placeholder": "You need to create a team before you can add members.",
+        "placeholder": "You need to create a team before you can add members. [ADD LINK HERE]",
         "action": "Add Member",
         "table": {
           "headers": {

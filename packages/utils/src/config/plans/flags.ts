@@ -35,7 +35,7 @@ const flags: FlagsPlan[] = [
     limits: {
       projects: 1,
       environments: 1,
-      flags: 2,
+      flags: 10,
       segments: 0,
       rollouts: 0,
       teams: 1,

@@ -5,11 +5,16 @@ import { Receiver } from "@upstash/qstash";
 import React, { ElementType } from "react";
 import type { SendEmailPayload } from "@basestack/vendors";
 // Email
-import { sendEmail, WelcomeEmailTemplate } from "@basestack/emails";
+import {
+  sendEmail,
+  WelcomeEmailTemplate,
+  InviteEmailTemplate,
+} from "@basestack/emails";
 import { render } from "@react-email/render";
 
 const templateList: { [key: string]: ElementType } = {
   welcome: WelcomeEmailTemplate,
+  invite: InviteEmailTemplate,
 };
 
 export const { POST } = serve<SendEmailPayload>(
@@ -17,10 +22,10 @@ export const { POST } = serve<SendEmailPayload>(
     const { to, subject, template, props } = context.requestPayload;
 
     console.info(
-      `Job: Basestack Feature Flags - Send Email - Preparing to send email to ${to} with subject: ${subject}`,
+      `Job: Basestack Feature Flags - Send Email - Preparing to send email to ${to} with subject: ${subject}`
     );
     console.info(
-      `Job: Basestack Feature Flags - Send Email - Email with the template ${template} with props: ${JSON.stringify(props)}`,
+      `Job: Basestack Feature Flags - Send Email - Email with the template ${template} with props: ${JSON.stringify(props)}`
     );
 
     await context.run("send-email-step", async () => {
@@ -38,11 +43,11 @@ export const { POST } = serve<SendEmailPayload>(
               to: email,
             },
           });
-        }),
+        })
       );
 
       console.info(
-        "Job: Basestack Feature Flags - Send Email - ✨ Email sent successfully! ✨",
+        "Job: Basestack Feature Flags - Send Email - ✨ Email sent successfully! ✨"
       );
     });
   },
@@ -58,8 +63,8 @@ export const { POST } = serve<SendEmailPayload>(
       failHeaders,
     }) => {
       console.error(
-        `Job: Basestack Feature Flags - Send Email - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
+        `Job: Basestack Feature Flags - Send Email - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `
       );
     },
-  },
+  }
 );
