@@ -75,6 +75,7 @@ export async function POST(
             hasFormPlanFeature(planId, "hasSpamProtection")
           ) {
             await qstash.events.checkDataForSpamEvent({
+              userId: form.userId,
               submissionId: submission.id,
               data,
             });

@@ -616,6 +616,16 @@ const banner = {
   },
 };
 
+const circularProgress = {
+  stroke: colors.gray200,
+  progress: {
+    default: colors.black,
+    success: colors.green400,
+    warning: colors.orange400,
+    danger: colors.red400,
+  },
+};
+
 const theme = {
   isDarkMode: false,
   button,
@@ -650,6 +660,7 @@ const theme = {
   pagination,
   iconBox,
   banner,
+  circularProgress,
   background,
   typography,
   colors,

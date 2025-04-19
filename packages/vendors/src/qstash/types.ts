@@ -1,4 +1,5 @@
 export interface CheckDataForSpamPayload {
+  userId: string;
   submissionId: string;
   data: any;
 }

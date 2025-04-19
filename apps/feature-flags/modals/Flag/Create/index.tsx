@@ -77,6 +77,8 @@ const CreateFlagModal = () => {
             // Refresh the flag list and close the modal
             await trpcUtils.flag.all.invalidate({ projectId: project.id });
             await trpcUtils.project.recent.invalidate();
+            // Reset the usage cache
+            await trpcUtils.subscription.usage.invalidate();
             onClose();
           },
           onError: (error) => {
