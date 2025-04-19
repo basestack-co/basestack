@@ -64,7 +64,7 @@ const UsageSection = ({
             numberOfItems={4}
             items={[
               { h: 20, w: "50%", mt: 2, mb: 12 },
-              { h: 26, w: 50, mb: 0 },
+              { h: 28, w: 50, mb: 0 },
             ]}
             padding="20px"
           />
