@@ -62,6 +62,7 @@ const MainPage = () => {
   return (
     <div>
       <Container>
+        <AccountUsage />
         <Section mb={theme.spacing.s7}>
           <Header>
             <Text size="xLarge" mr={theme.spacing.s5}>
@@ -118,7 +119,6 @@ const MainPage = () => {
             </ProjectsList>
           )}
         </Section>
-        <AccountUsage />
         <Section>
           <Header>
             <Text size="xLarge" mr={theme.spacing.s5}>

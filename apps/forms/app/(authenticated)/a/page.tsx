@@ -51,6 +51,7 @@ const MainPage = () => {
   return (
     <Fragment>
       <Container>
+        <AccountUsage />
         <Section mb={theme.spacing.s7}>
           <Header>
             <Text size="xLarge" mr={theme.spacing.s5}>
@@ -110,7 +111,6 @@ const MainPage = () => {
             </Fragment>
           )}
         </Section>
-        <AccountUsage />
         <Section>
           <Header>
             <Text size="xLarge" mr={theme.spacing.s5}>
