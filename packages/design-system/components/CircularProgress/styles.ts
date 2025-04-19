@@ -21,6 +21,6 @@ export const CircleProgress = styled.circle`
   transition: stroke-dashoffset 0.5s ease;
 `;
 
-export const Percentage = styled.div`
+export const TextContainer = styled.div`
   position: absolute;
 `;

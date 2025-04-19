@@ -25,11 +25,13 @@ const UsageCard = ({ title, description, used, total }: UsageCardProps) => {
           </Text>
           <Text size="xLarge" fontWeight={500}>
             {used.toLocaleString("en-US")}&nbsp;
-            <Text as="span" size="small" muted fontWeight={400}>
-              /&nbsp;
-              {total.toLocaleString("en-US")}
-              &nbsp;
-            </Text>
+            {total !== Infinity && (
+              <Text as="span" size="small" muted fontWeight={400}>
+                /&nbsp;
+                {total.toLocaleString("en-US")}
+                &nbsp;
+              </Text>
+            )}
             {!!description && (
               <Text as="span" size="small" muted fontWeight={400}>
                 {description}
@@ -37,14 +39,13 @@ const UsageCard = ({ title, description, used, total }: UsageCardProps) => {
             )}
           </Text>
         </ContentContainer>
-        {total !== Infinity && (
-          <CircularProgress
-            size={48}
-            usage={used}
-            total={total}
-            variant={variant}
-          />
-        )}
+        <CircularProgress
+          size={48}
+          usage={used}
+          total={total}
+          variant={variant}
+          description={total === Infinity ? total.toLocaleString("en-US") : ""}
+        />
       </Container>
     </Card>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "styled-components";
 import Text from "../Text";
-import { CircleWrapper, Svg, CircleProgress, Percentage } from "./styles";
+import { CircleWrapper, Svg, CircleProgress, TextContainer } from "./styles";
 
 export interface CircularProgressProps {
   usage: number;
@@ -10,6 +10,7 @@ export interface CircularProgressProps {
   strokeWidth?: number;
   displayPercentage?: boolean;
   variant: "default" | "success" | "warning" | "danger";
+  description?: string;
 }
 
 const CircularProgress = ({
@@ -19,6 +20,7 @@ const CircularProgress = ({
   displayPercentage = false,
   strokeWidth = 5,
   variant = "default",
+  description,
 }: CircularProgressProps) => {
   const theme = useTheme();
   const radius = size / 2 - strokeWidth;
@@ -59,10 +61,15 @@ const CircularProgress = ({
           strokeDashoffset={offset}
         />
       </Svg>
+      {!!description && (
+        <TextContainer>
+          <Text muted>{description}</Text>
+        </TextContainer>
+      )}
       {displayPercentage && (
-        <Percentage>
+        <TextContainer>
           <Text>{percentage}%</Text>
-        </Percentage>
+        </TextContainer>
       )}
     </CircleWrapper>
   );
