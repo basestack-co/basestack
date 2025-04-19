@@ -23,7 +23,6 @@ const UsageCard = ({ title, description, used, total }: UsageCardProps) => {
           <Text size="medium" muted fontWeight={400} mb={theme.spacing.s2}>
             {title}
           </Text>
-
           <Text size="xLarge" fontWeight={500}>
             {used.toLocaleString("en-US")}&nbsp;
             <Text as="span" size="small" muted fontWeight={400}>

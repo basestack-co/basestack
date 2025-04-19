@@ -1,6 +1,6 @@
 import React from "react";
 // Components
-import { Text } from "@basestack/design-system";
+import { Skeleton, Text } from "@basestack/design-system";
 import { SpaceProps } from "styled-system";
 // UI
 import UsageCard, { UsageCardProps } from "../UsageCard";
@@ -20,6 +20,7 @@ export interface UsageSectionProps extends SpaceProps {
   link: string;
   data: UsageCardProps[];
   href: string;
+  isLoading?: boolean;
 }
 
 const UsageSection = ({
@@ -28,6 +29,7 @@ const UsageSection = ({
   href,
   link,
   data,
+  isLoading = false,
   ...props
 }: UsageSectionProps) => {
   const theme = useTheme();
@@ -38,7 +40,6 @@ const UsageSection = ({
         <Text size="xLarge" mr={theme.spacing.s5}>
           {title}
         </Text>
-
         <LinkContainer>
           {!!date && (
             <>
@@ -58,15 +59,26 @@ const UsageSection = ({
         </LinkContainer>
       </Header>
       <Container>
-        {data.map((item, index) => (
-          <UsageCard
-            key={index}
-            title={item.title}
-            used={item.used}
-            total={item.total}
-            description={item.description}
+        {isLoading ? (
+          <Skeleton
+            numberOfItems={4}
+            items={[
+              { h: 20, w: "50%", mt: 2, mb: 12 },
+              { h: 26, w: 50, mb: 0 },
+            ]}
+            padding="20px"
           />
-        ))}
+        ) : (
+          data.map((item, index) => (
+            <UsageCard
+              key={index}
+              title={item.title}
+              used={item.used}
+              total={item.total}
+              description={item.description}
+            />
+          ))
+        )}
       </Container>
     </Section>
   );

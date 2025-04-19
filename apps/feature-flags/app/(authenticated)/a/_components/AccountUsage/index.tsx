@@ -70,6 +70,7 @@ const AccountUsage = () => {
       link={t("usage.link.upgrade")}
       href="/a/user/tab/billing"
       data={currentUsage}
+      isLoading={subscription.isLoading || usage.isLoading}
     />
   );
 };
