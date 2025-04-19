@@ -43,10 +43,7 @@ export const Label = styled.div.withConfig({
         `};
 `;
 
-export const PopupWrapper = styled.div`
-  height: ${rem("32px")};
-  width: ${rem("32px")};
-`;
+export const PopupWrapper = styled.div``;
 
 export const TooltipContainer = styled.div<{ index: number; length: number }>`
   &:not(:first-child) {

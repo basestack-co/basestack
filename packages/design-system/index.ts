@@ -82,6 +82,10 @@ export {
 export { default as Banner, type BannerProps } from "./components/Banner";
 export { type BannerVariant } from "./components/Banner/styles";
 export { default as Search, type SearchProps } from "./components/Search";
+export {
+  default as CircularProgress,
+  type CircularProgressProps,
+} from "./components/CircularProgress";
 
 // Other
 export * from "./animations/springs";

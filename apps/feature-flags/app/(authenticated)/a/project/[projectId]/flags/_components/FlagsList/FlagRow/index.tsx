@@ -110,7 +110,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
               </TooltipContainer>
             ))}
           </Labels>
-          <Text data-testid="flag-title" size="large" lineTruncate>
+          <Text data-testid="flag-title" size="medium" lineTruncate>
             {title}
           </Text>
           <Text data-testid="flag-description" size="small" lineTruncate>
@@ -132,6 +132,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
           <PopupWrapper ref={popupWrapperRef}>
             <IconButton
               {...getReferenceProps}
+              size="medium"
               ref={refs.setReference}
               icon="more_horiz"
               onClick={onClickMore}

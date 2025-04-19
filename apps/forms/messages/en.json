@@ -75,6 +75,21 @@
         }
       }
     },
+    "usage": {
+      "title": "Account Usage",
+      "link": {
+        "upgrade": "Upgrade"
+      },
+      "date": "Renews at {date}",
+      "resource": {
+        "forms": "Forms",
+        "submissions": "Submissions",
+        "members": "Members",
+        "file-upload-limit": "File Upload",
+        "integrations-calls": "Integrations Calls",
+        "spams": "Spam AI ✨"
+      }
+    },
     "teams": {
       "title": "Teams",
       "action": "Create Team",

@@ -82,6 +82,20 @@
         "action": "Create Project"
       }
     },
+    "usage": {
+      "title": "Account Usage",
+      "link": {
+        "upgrade": "Upgrade"
+      },
+      "date": "Renews at {date}",
+      "resource": {
+        "projects": "Projects",
+        "flags": "Flags",
+        "environments": "Environments",
+        "members": "Members",
+        "api-requests": "API Requests"
+      }
+    },
     "teams": {
       "title": "Teams",
       "action": "Create Team",

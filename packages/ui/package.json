@@ -17,10 +17,10 @@
     "@basestack/tsconfig": "*",
     "@basestack/utils": "*",
     "@testing-library/jest-dom": "^6.6.3",
-    "@types/react": "19.1.0",
-    "@types/react-dom": "^19.1.1",
+    "@types/react": "19.1.2",
+    "@types/react-dom": "^19.1.2",
     "jest-styled-components": "^7.2.0",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "@basestack/design-system": "*",
