@@ -341,6 +341,26 @@
           "flag": "{type} the flag"
         }
       }
+    },
+    "members": {
+      "input": {
+        "title": "Email",
+        "placeholder": "Enter email address",
+        "button": "Send Invite"
+      },
+      "list": {
+        "title": "Members",
+        "item": {
+          "avatar": {
+            "alt": "user avatar"
+          },
+          "dropdown": {
+            "admin": "Admin",
+            "viewer": "Can View",
+            "owner": "Owner"
+          }
+        }
+      }
     }
   },
   "navigation": {

@@ -24,6 +24,10 @@ export const Header = styled.div`
   min-height: ${rem("36px")};
 `;
 
+export const Box = styled.div<SpaceProps>`
+  ${flexColumn};
+  ${space};
+`;
 
 export const TeamsList = styled.ul`
   display: grid;
@@ -37,4 +41,20 @@ export const TeamsList = styled.ul`
   @media screen and ${({ theme }) => theme.device.max.sm} {
     grid-template-columns: 1fr;
   }
+`;
+
+export const Row = styled.div`
+  ${flexCenter};
+`;
+
+export const CardButton = styled.button`
+  ${flexColumn};
+  flex-grow: 1;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+`;
+
+export const ListItem = styled.li`
+  ${flexColumn};
 `;

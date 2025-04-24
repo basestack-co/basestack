@@ -110,7 +110,6 @@ const CreateTeamModal = () => {
                 hasError: !!errors.name,
                 isDisabled: isSubmitting,
               }}
-              mb={theme.spacing.s6}
             />
           )}
         />

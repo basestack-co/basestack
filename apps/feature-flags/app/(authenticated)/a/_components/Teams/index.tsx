@@ -13,15 +13,65 @@ import { api } from "utils/trpc/react";
 // Components
 import { EmptyStateWithAction } from "@basestack/ui";
 import {
+  Avatar,
   Button,
   ButtonVariant,
+  Card,
+  HorizontalRule,
+  Icon,
   Skeleton,
   Text,
 } from "@basestack/design-system";
 // Styles
 import { useTheme } from "styled-components";
 // Utils
-import { Section, Header, TeamsList } from "./styles";
+import {
+  Section,
+  Header,
+  TeamsList,
+  Row,
+  ListItem,
+  Box,
+  CardButton,
+} from "./styles";
+
+interface TeamCardProps {
+  text: string;
+  onClick: () => void;
+  flags: number;
+}
+
+const TeamCard = ({ onClick, text, flags = 0 }: TeamCardProps) => {
+  const theme = useTheme();
+  return (
+    <ListItem>
+      <CardButton onClick={onClick}>
+        <Card height="100%" width="100%" hasHoverAnimation>
+          <Box mb="auto" p={theme.spacing.s5}>
+            <Avatar
+              size="xSmall"
+              userName={text}
+              alt={`${text} project`}
+              round={false}
+            />
+            <Text size="small" textAlign="left" mt={theme.spacing.s3}>
+              {text}
+            </Text>
+          </Box>
+          <HorizontalRule />
+          <Box p={`${theme.spacing.s3} ${theme.spacing.s5}`}>
+            <Row>
+              <Icon icon="flag" size="small" />
+              <Text size="small" textAlign="left" ml={theme.spacing.s1}>
+                {flags}
+              </Text>
+            </Row>
+          </Box>
+        </Card>
+      </CardButton>
+    </ListItem>
+  );
+};
 
 const Teams = () => {
   const t = useTranslations("home");
@@ -31,7 +81,7 @@ const Teams = () => {
     useShallow((state) => [
       state.setCreateTeamModalOpen,
       state.setManageTeamModalOpen,
-    ])
+    ]),
   );
 
   const { data, isLoading } = api.team.all.useQuery(undefined, {
@@ -101,11 +151,13 @@ const Teams = () => {
       )}
       {!isLoading && !!data?.length && (
         <TeamsList>
-          {data.slice(0, 4).map((team) => (
-            <div key={team.id}>
-              <h2>{team.name}</h2>
-              <button onClick={team.onClick}>Manage</button>
-            </div>
+          {data.map((team) => (
+            <TeamCard
+              key={team.id}
+              text={team.name}
+              onClick={team.onClick}
+              flags={10}
+            />
           ))}
         </TeamsList>
       )}
