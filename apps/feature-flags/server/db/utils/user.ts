@@ -9,7 +9,7 @@ export const getUserInProject = async (
 ) => {
   try {
     const [user, admin] = await prisma.$transaction([
-      prisma.projectsOnUsers.findFirst({
+      prisma.projectsOnUsers.findFirstOrThrow({
         where: {
           projectId,
           userId,
@@ -18,7 +18,7 @@ export const getUserInProject = async (
           role: true,
         },
       }),
-      prisma.projectsOnUsers.findFirst({
+      prisma.projectsOnUsers.findFirstOrThrow({
         where: {
           projectId,
           role: "ADMIN",
@@ -28,8 +28,6 @@ export const getUserInProject = async (
         },
       }),
     ]);
-
-    if (!user) return null;
 
     return {
       role: user.role ?? "VIEWER",

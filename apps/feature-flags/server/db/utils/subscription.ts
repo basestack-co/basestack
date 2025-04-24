@@ -7,7 +7,7 @@ import { config, FlagsPlan, PlanTypeId } from "@basestack/utils";
 
 export const getSubscriptionUsage = async (
   prisma: PrismaClient,
-  userId: string,
+  userId: string
 ) => {
   try {
     const usage = await prisma.subscription.findFirst({
@@ -18,7 +18,6 @@ export const getSubscriptionUsage = async (
         userId: true,
         updatedAt: true,
         createdAt: true,
-        billingCycleStart: true,
         scheduleId: true,
         event: true,
       },
@@ -29,6 +28,7 @@ export const getSubscriptionUsage = async (
       : {
           planId: PlanTypeId.FREE,
           subscriptionId: "",
+          billingCycleStart: null,
           ...config.plans.getFlagsPlanLimitsDefaults(),
         };
   } catch {
@@ -51,7 +51,7 @@ export const withUsageUpdate = async (
   userId: string,
   limit: keyof FlagsPlan["limits"],
   action: "increment" | "decrement",
-  value: number = 1,
+  value: number = 1
 ) => {
   try {
     return await prisma.subscription.upsert({
@@ -81,7 +81,7 @@ export const withUsageUpdate = async (
 export function withLimits(
   planId: PlanTypeId,
   limitKey: keyof FlagsPlan["limits"],
-  count: number,
+  count: number
 ) {
   return function <T extends (...args: any[]) => Promise<any>>(promise: T): T {
     return async function (
@@ -114,7 +114,7 @@ export function withLimits(
 
 export function withFeatures(
   planId: PlanTypeId,
-  feature: keyof FlagsPlan["features"] | null,
+  feature: keyof FlagsPlan["features"] | null
 ) {
   return function <T extends (...args: any[]) => Promise<any>>(promise: T): T {
     return async function (

@@ -349,8 +349,10 @@ export const teamRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const user = ctx.session?.user;
+      const token = uuidv4();
+      const expiresAt = dayjs().add(7, "day").toDate();
 
-      return await ctx.prisma.$transaction(async (tx) => {
+      const invitation = await ctx.prisma.$transaction(async (tx) => {
         const existingUser = await tx.user.findUnique({
           where: { email: input.email },
         });
@@ -400,10 +402,7 @@ export const teamRouter = createTRPCRouter({
           }
         }
 
-        const token = uuidv4();
-        const expiresAt = dayjs().add(7, "day").toDate();
-
-        const invitation = await tx.teamInvitation.create({
+        return await tx.teamInvitation.create({
           data: {
             token,
             email: input.email,
@@ -419,23 +418,23 @@ export const teamRouter = createTRPCRouter({
             },
           },
         });
-
-        await qstash.events.sendEmailEvent({
-          template: "invite",
-          to: [input.email],
-          subject: `You have been invited to join ${invitation.team.name} team on Basestack Feature Flags`,
-          props: {
-            product: "Basestack Feature Flags",
-            fromUserName: user?.name ?? "",
-            toUserName: input.email,
-            team: invitation.team.name,
-            linkText: "Accept Invitation",
-            linkUrl: `${config.urls.getAppWithEnv(Product.FLAGS, AppMode as AppEnv)}/a/invite/${token}`,
-          },
-        });
-
-        return { invitation };
       });
+
+      await qstash.events.sendEmailEvent({
+        template: "invite",
+        to: [input.email],
+        subject: `You have been invited to join ${invitation.team.name} team on Basestack Feature Flags`,
+        props: {
+          product: "Basestack Feature Flags",
+          fromUserName: user?.name ?? "",
+          toUserName: input.email,
+          team: invitation.team.name,
+          linkText: "Accept Invitation",
+          linkUrl: `${config.urls.getAppWithEnv(Product.FLAGS, AppMode as AppEnv)}/a/invite/${token}`,
+        },
+      });
+
+      return { invitation };
     }),
   acceptInvitation: protectedProcedure
     .input(z.object({ token: z.string() }))

@@ -265,12 +265,13 @@ const forms: FormPlan[] = [
 ];
 
 const getFormPlanLimitsDefaults = () => ({
+  forms: 0,
   submissions: 0,
+  teams: 0,
+  members: 0,
   spams: 0,
   fileUploadLimit: 0,
   integrationsCalls: 0,
-  teams: 0,
-  members: 0,
 });
 
 const isValidFormPlan = (id: PlanTypeId) => {
@@ -298,7 +299,7 @@ const getFormPlanFeatures = (id: PlanTypeId) => {
 
 const hasFormPlanFeature = (
   id: PlanTypeId,
-  feature: keyof FormPlan["features"],
+  feature: keyof FormPlan["features"]
 ) => {
   const plan = getFormPlan(id);
   return plan.features[feature];
@@ -312,7 +313,7 @@ const getFormLimitByKey = (id: PlanTypeId, limit: keyof FormPlan["limits"]) => {
 const isUnderFormPlanLimit = (
   id: PlanTypeId,
   limit: keyof FormPlan["limits"],
-  value: number,
+  value: number
 ) => {
   const plan = getFormPlan(id);
   return plan?.limits[limit] >= value;
@@ -321,7 +322,7 @@ const isUnderFormPlanLimit = (
 const getFormPlanVariantId = (
   id: PlanTypeId,
   interval: "monthly" | "yearly",
-  mode: string = "production",
+  mode: string = "production"
 ) => {
   const stage = getAppMode(mode);
 
@@ -332,7 +333,7 @@ const getFormPlanVariantId = (
 const getFormPlanByVariantId = (
   variantId: number,
   isBilledMonthly: boolean = false,
-  mode: string = "production",
+  mode: string = "production"
 ) => {
   const stage = getAppMode(mode);
 

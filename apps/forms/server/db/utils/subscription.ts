@@ -7,7 +7,7 @@ import { config, FormPlan, PlanTypeId } from "@basestack/utils";
 
 export const getSubscriptionUsage = async (
   prisma: PrismaClient,
-  userId: string,
+  userId: string
 ) => {
   try {
     const usage = await prisma.subscription.findFirst({
@@ -18,7 +18,6 @@ export const getSubscriptionUsage = async (
         userId: true,
         updatedAt: true,
         createdAt: true,
-        billingCycleStart: true,
         scheduleId: true,
         event: true,
       },
@@ -29,8 +28,7 @@ export const getSubscriptionUsage = async (
       : {
           planId: PlanTypeId.FREE,
           subscriptionId: "",
-          forms: 0,
-          members: 0,
+          billingCycleStart: null,
           ...config.plans.getFormPlanLimitsDefaults(),
         };
   } catch {
@@ -52,7 +50,7 @@ export const withUsageUpdate = async (
       >,
   userId: string,
   limit: keyof FormPlan["limits"],
-  action: "increment" | "decrement",
+  action: "increment" | "decrement"
 ) => {
   try {
     return await prisma.subscription.upsert({
@@ -82,7 +80,7 @@ export const withUsageUpdate = async (
 export function withLimits(
   planId: PlanTypeId,
   limitKey: keyof FormPlan["limits"],
-  count: number,
+  count: number
 ) {
   return function <T extends (...args: any[]) => Promise<any>>(promise: T): T {
     return async function (
@@ -115,7 +113,7 @@ export function withLimits(
 
 export function withFeatures(
   planId: PlanTypeId,
-  feature: keyof FormPlan["features"] | null,
+  feature: keyof FormPlan["features"] | null
 ) {
   return function <T extends (...args: any[]) => Promise<any>>(promise: T): T {
     return async function (

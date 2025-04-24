@@ -218,7 +218,7 @@ model TeamInvitation {
   id        String   @id @default(cuid())
   email     String
   token     String   @unique
-  role      Role     @default(DEVELOPER)
+  role      Role     @default(VIEWER)
   team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
   teamId    String
   expiresAt DateTime

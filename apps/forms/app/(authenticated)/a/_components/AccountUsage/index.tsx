@@ -26,15 +26,24 @@ const AccountUsage = () => {
       config.plans.getFormPlanByVariantId(
         subscription.data?.product?.variantId ?? 0,
         subscription.data?.product.variant === "Monthly",
-        AppMode,
+        AppMode
       ),
-    [subscription.data],
+    [subscription.data]
   );
 
-  const limits = useMemo(
-    () => config.plans.getFormPlanLimits(currentPlan?.id as PlanTypeId),
-    [currentPlan],
+  const isSubscriptionActive = useMemo(
+    () => subscription.data?.status === "active",
+    [subscription.data]
   );
+
+  const limits = useMemo(() => {
+    const planId =
+      isSubscriptionActive && currentPlan?.id
+        ? (currentPlan.id as PlanTypeId)
+        : PlanTypeId.FREE;
+
+    return config.plans.getFormPlanLimits(planId);
+  }, [currentPlan, isSubscriptionActive]);
 
   const currentUsage = useMemo(() => {
     const resourceMap = [
@@ -56,9 +65,9 @@ const AccountUsage = () => {
       mb={theme.spacing.s7}
       title={t("usage.title")}
       date={
-        subscription.data?.renewsAt
+        usage?.data?.billingCycleStart
           ? t("usage.date", {
-              date: dayjs(subscription.data?.renewsAt).format("MMMM D, YYYY"),
+              date: dayjs(usage.data?.billingCycleStart).format("MMMM D, YYYY"),
             })
           : ""
       }
