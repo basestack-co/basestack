@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Avatar, Button, Text, Input } from "@basestack/design-system";
+import { Button, Text, Input } from "@basestack/design-system";
 import { api } from "utils/trpc/react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
@@ -7,11 +7,9 @@ import {
   Container,
   InputGroupContainer,
   InputGroupWrapper,
-  MemberInfo,
   MembersList,
-  MembersListItem,
 } from "./styles";
-import Dropdown from "./Dropdown";
+import MemberCard from "./MemberCard";
 
 export interface Props {
   teamId: string;
@@ -45,21 +43,6 @@ const Members = ({ teamId }: Props) => {
     );
   }, [invite, teamId, email]);
 
-  const popupItems = [
-    {
-      text: t("members.list.item.dropdown.admin"),
-      onClick: () => undefined,
-    },
-    {
-      text: t("members.list.item.dropdown.owner"),
-      onClick: () => undefined,
-    },
-    {
-      text: t("members.list.item.dropdown.viewer"),
-      onClick: () => undefined,
-    },
-  ];
-
   return (
     <Container>
       <Text size="small" fontWeight={500}>
@@ -84,25 +67,14 @@ const Members = ({ teamId }: Props) => {
       </Text>
       <MembersList>
         {data?.members.map((member, index) => (
-          <MembersListItem key={index}>
-            <Avatar
-              src={member.user.image || ""}
-              userName={member.user.name || ""}
-              alt={t("members.list.item.avatar.alt")}
-              size="medium"
-              round
-            />
-            <MemberInfo>
-              <Text size="medium" fontWeight={500}>
-                {member.user.name || ""}
-              </Text>
-              <Text size="small" muted>
-                {member.user.email || ""}
-              </Text>
-            </MemberInfo>
-
-            <Dropdown button="Owner" items={popupItems} />
-          </MembersListItem>
+          <MemberCard
+            key={index}
+            name={member.user.name || ""}
+            src={member.user.image || ""}
+            email={member.user.email || ""}
+            onCancelInvite={() => undefined}
+            isPending={false}
+          />
         ))}
       </MembersList>
     </Container>

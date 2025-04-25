@@ -1,76 +1,14 @@
 "use client";
 
 import React from "react";
-// Locales
 import { useTranslations } from "next-intl";
-// Router
 import { useRouter } from "next/navigation";
-// Store
 import { useStore } from "store";
-// Server
 import { api } from "utils/trpc/react";
-// Components
-import {
-  Avatar,
-  Button,
-  ButtonVariant,
-  Card,
-  Text,
-  HorizontalRule,
-  Icon,
-  Skeleton,
-  Empty,
-} from "@basestack/design-system";
-// Styles
+import { ProjectCard, ProjectCardLoading } from "@basestack/ui";
+import { Button, ButtonVariant, Text, Empty } from "@basestack/design-system";
 import { useTheme } from "styled-components";
-// Utils
-import {
-  Box,
-  ProjectCardButton,
-  ProjectsListItem,
-  ProjectsList,
-  Row,
-  Section,
-  Header,
-} from "./styles";
-
-interface ProjectCardProps {
-  text: string;
-  onClick: () => void;
-  flags: number;
-}
-
-const ProjectCard = ({ onClick, text, flags = 0 }: ProjectCardProps) => {
-  const theme = useTheme();
-  return (
-    <ProjectsListItem>
-      <ProjectCardButton onClick={onClick}>
-        <Card height="100%" width="100%" hasHoverAnimation>
-          <Box mb="auto" p={theme.spacing.s5}>
-            <Avatar
-              size="xSmall"
-              userName={text}
-              alt={`${text} project`}
-              round={false}
-            />
-            <Text size="small" textAlign="left" mt={theme.spacing.s3}>
-              {text}
-            </Text>
-          </Box>
-          <HorizontalRule />
-          <Box p={`${theme.spacing.s3} ${theme.spacing.s5}`}>
-            <Row>
-              <Icon icon="flag" size="small" />
-              <Text size="small" textAlign="left" ml={theme.spacing.s1}>
-                {flags}
-              </Text>
-            </Row>
-          </Box>
-        </Card>
-      </ProjectCardButton>
-    </ProjectsListItem>
-  );
-};
+import { ProjectsListItem, ProjectsList, Section, Header } from "./styles";
 
 const RecentProjects = () => {
   const t = useTranslations("home");
@@ -108,8 +46,10 @@ const RecentProjects = () => {
           </Button>
         )}
       </Header>
+
       {!isLoading && !data?.length && (
         <Empty
+          p={`${theme.spacing.s6} ${theme.spacing.s5}`}
           iconName="folder_open"
           title={t("projects.empty.title")}
           description={t("projects.empty.description")}
@@ -121,26 +61,19 @@ const RecentProjects = () => {
       )}
       {isLoading && (
         <ProjectsList>
-          <Skeleton
-            numberOfItems={1}
-            items={[
-              { h: 28, w: 28, mb: 12 },
-              { h: 22, w: "50%", mb: 32 },
-              { h: 22, w: 28 },
-            ]}
-            padding="20px 20px 12px 20px"
-          />
+          <ProjectCardLoading />
         </ProjectsList>
       )}
       {!isLoading && !!data?.length && (
         <ProjectsList>
           {data.slice(0, 4).map((project) => (
-            <ProjectCard
-              key={project.id}
-              text={project.text}
-              onClick={project.onClick}
-              flags={project.flags.count}
-            />
+            <ProjectsListItem key={project.id}>
+              <ProjectCard
+                text={project.text}
+                onClick={project.onClick}
+                flags={project.flags.count}
+              />
+            </ProjectsListItem>
           ))}
         </ProjectsList>
       )}

@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import { space } from "styled-system";
+import { space, SpaceProps } from "styled-system";
 import { rem } from "polished";
 
-export const Container = styled.div`
+export const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => !["p"].includes(prop),
+})<SpaceProps>`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme.empty.backgroundColor};

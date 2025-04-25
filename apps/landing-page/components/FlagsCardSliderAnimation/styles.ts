@@ -1,32 +1,11 @@
 import styled from "styled-components";
 import { rem } from "polished";
-import { space, SpaceProps } from "styled-system";
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   justify-content: center;
-`;
-
-export const ProjectCardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  border: none;
-  background-color: transparent;
-  pointer-events: none;
-`;
-
-export const Box = styled.div<SpaceProps>`
-  display: flex;
-  flex-direction: column;
-  ${space};
-`;
-
-export const Row = styled.div`
-  display: flex;
-  align-items: center;
 `;
 
 export const Embla = styled.div`
@@ -47,6 +26,7 @@ export const EmblaContainer = styled.ul`
 
 export const EmblaSlide = styled.li`
   min-width: 0;
+  display: flex;
   padding-left: ${rem("10px")};
   flex: 0 0 240px;
 `;

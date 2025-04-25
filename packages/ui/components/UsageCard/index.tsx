@@ -20,7 +20,7 @@ const UsageCard = ({ title, description, used, total }: UsageCardProps) => {
     <Card p={theme.spacing.s5}>
       <Container>
         <ContentContainer>
-          <Text size="medium" muted fontWeight={400} mb={theme.spacing.s2}>
+          <Text size="small" fontWeight={400} mb={theme.spacing.s2}>
             {title}
           </Text>
           <Text size="xLarge" fontWeight={500}>

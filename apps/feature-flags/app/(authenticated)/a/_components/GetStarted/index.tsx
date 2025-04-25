@@ -6,8 +6,13 @@ import { useTranslations } from "next-intl";
 // Store
 import { useStore } from "store";
 // Components
-import { ButtonVariant, Card, IconBox, Text } from "@basestack/design-system";
-import { EmptyStateWithAction} from "@basestack/ui";
+import {
+  Button,
+  ButtonVariant,
+  Card,
+  IconBox,
+  Text,
+} from "@basestack/design-system";
 import TextLink from "./TextLink";
 // Styles
 import { useTheme } from "styled-components";
@@ -31,21 +36,26 @@ const GetStarted = () => {
         </Text>
       </Header>
       <ContentContainer>
-        <EmptyStateWithAction
-          icon={{
-            name: "downloading",
-          }}
-          title={t("links.sdks.title")}
-          description={t("links.sdks.description")}
-          button={{
-            text: t("links.sdks.action"),
-            onClick: () => setIntegrationModalOpen({ isOpen: true }),
-            variant: ButtonVariant.Outlined,
-          }}
-        />
+        <Card p={theme.spacing.s5}>
+          <IconBox icon="downloading" mb={theme.spacing.s5} />
+          <Text size="medium" mb={theme.spacing.s2}>
+            {t("links.sdks.title")}
+          </Text>
+          <Text muted size="small" mb={theme.spacing.s6}>
+            {t("links.sdks.description")}
+          </Text>
+          <Button
+            mt="auto"
+            variant={ButtonVariant.Outlined}
+            onClick={() => setIntegrationModalOpen({ isOpen: true })}
+          >
+            {t("links.sdks.action")}
+          </Button>
+        </Card>
+
         <Card hasHoverAnimation p={theme.spacing.s5}>
           <IconBox icon="folder_open" mb={theme.spacing.s5} />
-          <Text size="large" mb={theme.spacing.s2}>
+          <Text size="medium" mb={theme.spacing.s2}>
             {t("links.external.title")}
           </Text>
           <TextLink

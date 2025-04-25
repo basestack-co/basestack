@@ -6,21 +6,43 @@ import {
   Avatar,
   HorizontalRule,
   Icon,
+  Skeleton,
 } from "@basestack/design-system";
-import { Button, Box, Row } from "./styles";
+import { Button, Body, Footer, Avatars, AvatarListItem } from "./styles";
 
 interface ProjectCardProps {
   text: string;
   onClick: () => void;
-  flags: number;
+  flags?: number;
+  avatars?: Array<{ name: string | null; image: string | null }>;
 }
 
-const ProjectCard = ({ onClick, text, flags = 0 }: ProjectCardProps) => {
+const ProjectCardLoading = () => (
+  <Skeleton
+    numberOfItems={1}
+    items={[
+      { h: 28, w: 28, mb: 12 },
+      { h: 22, w: "50%", mb: 32 },
+      { h: 22, w: 28 },
+    ]}
+    padding="20px 20px 12px 20px"
+  />
+);
+
+const NUMBER_OF_AVATARS = 5;
+
+const ProjectCard = ({ onClick, text, flags, avatars }: ProjectCardProps) => {
   const theme = useTheme();
+  const isButton = typeof onClick === "function";
+
   return (
-    <Button onClick={onClick}>
-      <Card height="100%" width="100%" hasHoverAnimation>
-        <Box mb="auto" p={theme.spacing.s5}>
+    <Button
+      onClick={onClick}
+      as={isButton ? "button" : "div"}
+      isButton={isButton}
+    >
+      <Card height="100%" width="100%" hasHoverAnimation={isButton}>
+        <Body>
           <Avatar
             size="xSmall"
             userName={text}
@@ -30,21 +52,45 @@ const ProjectCard = ({ onClick, text, flags = 0 }: ProjectCardProps) => {
           <Text size="small" textAlign="left" mt={theme.spacing.s3}>
             {text}
           </Text>
-        </Box>
+        </Body>
         <HorizontalRule />
-        <Box p={`${theme.spacing.s3} ${theme.spacing.s5}`}>
-          <Row>
-            <Icon icon="flag" size="small" />
-            <Text size="small" textAlign="left" ml={theme.spacing.s1}>
-              {flags}
-            </Text>
-          </Row>
-        </Box>
+        <Footer>
+          {avatars && avatars.length > 0 && (
+            <Avatars>
+              {avatars.slice(0, NUMBER_OF_AVATARS).map((avatar, index) => (
+                <AvatarListItem key={index} index={index}>
+                  <Avatar
+                    size="xSmall"
+                    userName={avatar.name || ""}
+                    alt={avatar.name || ""}
+                    src={avatar.image || ""}
+                    round
+                  />
+                </AvatarListItem>
+              ))}
+
+              {avatars.length > NUMBER_OF_AVATARS && (
+                <Text size="small" textAlign="left" ml={theme.spacing.s1} muted>
+                  +{avatars.length - NUMBER_OF_AVATARS}
+                </Text>
+              )}
+            </Avatars>
+          )}
+
+          {typeof flags === "number" && (
+            <>
+              <Icon icon="flag" size="small" />
+              <Text size="small" textAlign="left" ml={theme.spacing.s1}>
+                {flags}
+              </Text>
+            </>
+          )}
+        </Footer>
       </Card>
     </Button>
   );
 };
 
-export type { ProjectCardProps };
+export { type ProjectCardProps, ProjectCardLoading };
 
 export default memo(ProjectCard);

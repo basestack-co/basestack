@@ -1,78 +1,17 @@
 "use client";
 
 import React from "react";
-// Locales
 import { useTranslations } from "next-intl";
-// Router
-import { useRouter } from "next/navigation";
-// Store
 import { useShallow } from "zustand/react/shallow";
 import { useStore } from "store";
-// Server
 import { api } from "utils/trpc/react";
-// Components
-import { EmptyStateWithAction } from "@basestack/ui";
+import { Button, ButtonVariant, Text, Empty } from "@basestack/design-system";
 import {
-  Avatar,
-  Button,
-  ButtonVariant,
-  Card,
-  HorizontalRule,
-  Icon,
-  Skeleton,
-  Text,
-  Empty,
-} from "@basestack/design-system";
-// Styles
+  ProjectCard as TeamCard,
+  ProjectCardLoading as TeamCardLoading,
+} from "@basestack/ui";
 import { useTheme } from "styled-components";
-// Utils
-import {
-  Section,
-  Header,
-  TeamsList,
-  Row,
-  ListItem,
-  Box,
-  CardButton,
-} from "./styles";
-
-interface TeamCardProps {
-  text: string;
-  onClick: () => void;
-  flags: number;
-}
-
-const TeamCard = ({ onClick, text, flags = 0 }: TeamCardProps) => {
-  const theme = useTheme();
-  return (
-    <ListItem>
-      <CardButton onClick={onClick}>
-        <Card height="100%" width="100%" hasHoverAnimation>
-          <Box mb="auto" p={theme.spacing.s5}>
-            <Avatar
-              size="xSmall"
-              userName={text}
-              alt={`${text} project`}
-              round={false}
-            />
-            <Text size="small" textAlign="left" mt={theme.spacing.s3}>
-              {text}
-            </Text>
-          </Box>
-          <HorizontalRule />
-          <Box p={`${theme.spacing.s3} ${theme.spacing.s5}`}>
-            <Row>
-              <Icon icon="flag" size="small" />
-              <Text size="small" textAlign="left" ml={theme.spacing.s1}>
-                {flags}
-              </Text>
-            </Row>
-          </Box>
-        </Card>
-      </CardButton>
-    </ListItem>
-  );
-};
+import { Section, Header, TeamsList, ListItem } from "./styles";
 
 const Teams = () => {
   const t = useTranslations("home");
@@ -99,7 +38,10 @@ const Teams = () => {
             },
           }),
         name: item.name,
-        members: item.members,
+        members: item.members.map((member) => ({
+          name: member.user.name,
+          image: member.user.image,
+        })),
         total: {
           members: item._count.members,
         },
@@ -124,38 +66,33 @@ const Teams = () => {
       </Header>
       {!isLoading && !data?.length && (
         <Empty
+          p={`${theme.spacing.s6} ${theme.spacing.s5}`}
           iconName="group"
           title={t("teams.empty.title")}
           description={t("teams.empty.description")}
           button={{
             text: t("teams.empty.action"),
             onClick: () => setCreateTeamModalOpen({ isOpen: true }),
+            variant: ButtonVariant.Primary,
           }}
         />
       )}
 
       {isLoading && (
         <TeamsList>
-          <Skeleton
-            numberOfItems={1}
-            items={[
-              { h: 28, w: 28, mb: 12 },
-              { h: 22, w: "50%", mb: 32 },
-              { h: 22, w: 28 },
-            ]}
-            padding="20px 20px 12px 20px"
-          />
+          <TeamCardLoading />
         </TeamsList>
       )}
       {!isLoading && !!data?.length && (
         <TeamsList>
-          {data.map((team) => (
-            <TeamCard
-              key={team.id}
-              text={team.name}
-              onClick={team.onClick}
-              flags={10}
-            />
+          {data.map((team, index) => (
+            <ListItem key={team.id}>
+              <TeamCard
+                text={team.name}
+                onClick={team.onClick}
+                avatars={team.members}
+              />
+            </ListItem>
           ))}
         </TeamsList>
       )}

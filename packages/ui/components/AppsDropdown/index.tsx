@@ -44,9 +44,11 @@ const Item = ({
   return (
     <ListItem>
       <StyledButton isActive={isActive} onClick={onClick}>
-        <Logo product={product} size={32} />
+        <Logo product={product} size={28} />
         <TextContainer>
-          <Text size="medium">{title}</Text>
+          <Text size="small" fontWeight={500}>
+            {title}
+          </Text>
           <Text size="xSmall" muted>
             {description}
           </Text>
