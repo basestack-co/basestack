@@ -40,13 +40,15 @@ const InviteCard = ({ role }: Props) => {
   const trpcUtils = api.useUtils();
   const { projectId } = useParams<{ projectId: string }>();
   const setInviteMemberModalOpen = useStore(
-    (state) => state.setInviteMemberModalOpen,
+    (state) => state.setInviteMemberModalOpen
   );
 
   const { data, isLoading } = api.project.members.useQuery(
     { projectId },
-    { enabled: !!projectId },
+    { enabled: !!projectId }
   );
+
+  console.log("data = ", data);
 
   const removeUserFromProject = api.project.removeMember.useMutation();
   const updateUserRole = api.project.updateMember.useMutation();
@@ -74,23 +76,23 @@ const InviteCard = ({ role }: Props) => {
 
                 if (prev?.users) {
                   const users = prev.users.filter(
-                    (item) => item.userId !== result.connection.userId,
+                    (item) => item.userId !== result.connection.userId
                   );
 
                   trpcUtils.project.members.setData(
                     {
                       projectId,
                     },
-                    { users },
+                    { users }
                   );
                 }
               }
             },
-          },
+          }
         );
       }
     },
-    [projectId, removeUserFromProject, trpcUtils, session, router],
+    [projectId, removeUserFromProject, trpcUtils, session, router]
   );
 
   const onHandleUpdateRole = useCallback(
@@ -124,20 +126,20 @@ const InviteCard = ({ role }: Props) => {
                   {
                     projectId,
                   },
-                  { users },
+                  { users }
                 );
               }
             },
-          },
+          }
         );
       }
     },
-    [projectId, updateUserRole, trpcUtils],
+    [projectId, updateUserRole, trpcUtils]
   );
 
   const getTable = useMemo(() => {
     const numberOfAdmins = data?.users.filter(
-      (item) => item.role === "ADMIN",
+      (item) => item.role === Role.ADMIN
     ).length;
 
     return createTable(
@@ -148,18 +150,20 @@ const InviteCard = ({ role }: Props) => {
         t("members.invite.table.headers.role"),
         t("members.invite.table.headers.invited-at"),
       ],
-      (item) => [
-        {
-          image: {
-            userName: item.user.name!,
-            src: item.user.image!,
+      (item) => {
+        return [
+          {
+            image: {
+              userName: item.user.name!,
+              src: item.user.image!,
+            },
+            title: item.user.name!,
           },
-          title: item.user.name!,
-        },
-        { title: item.user.email! },
-        { title: item.role === Role.ADMIN ? "Admin" : "User" },
-        { title: dayjs(item.createdAt).fromNow() },
-      ],
+          { title: item.user.email! },
+          { title: item.role },
+          { title: dayjs(item.createdAt).fromNow() },
+        ];
+      },
       (item) => {
         const isSameUser = session?.data?.user.id === item.userId;
         const isAdmin = item.role === Role.ADMIN;
@@ -187,7 +191,7 @@ const InviteCard = ({ role }: Props) => {
               ]
             : []),
         ];
-      },
+      }
     );
   }, [
     t,

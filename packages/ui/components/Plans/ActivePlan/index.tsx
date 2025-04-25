@@ -132,7 +132,7 @@ const ActivePlan = ({
   };
 
   return (
-    <Card hasHoverAnimation width="100%">
+    <Card width="100%">
       <Column p={spacing.s5}>
         <Header />
         <ContentContainer>
@@ -141,7 +141,6 @@ const ActivePlan = ({
           <BillingDetails />
         </ContentContainer>
       </Column>
-
       <HorizontalRule mt="auto" />
       <FooterContainer>
         <Button

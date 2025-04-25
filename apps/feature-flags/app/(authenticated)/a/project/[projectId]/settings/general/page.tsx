@@ -5,6 +5,7 @@ import React from "react";
 import { useParams } from "next/navigation";
 // Components
 import ProjectName from "./_components/ProjectName";
+import ProjectOwner from "./_components/ProjectOwner";
 import DeleteProject from "./_components/DeleteProject";
 import Endpoints from "./_components/Endpoints";
 import Keys from "./_components/Keys";
@@ -22,7 +23,7 @@ const GeneralPage = () => {
     { projectId },
     {
       enabled: !!projectId,
-    },
+    }
   );
 
   return (
@@ -30,6 +31,15 @@ const GeneralPage = () => {
       <CardListItem>
         <SettingCardContainer>
           <ProjectName role={project?.role} name={project?.name} />
+        </SettingCardContainer>
+      </CardListItem>
+      <CardListItem>
+        <SettingCardContainer>
+          <ProjectOwner
+            name={project?.owner?.name ?? ""}
+            email={project?.owner?.email ?? ""}
+            image={project?.owner?.image ?? ""}
+          />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>

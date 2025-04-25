@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 // Components
 import { CardList, CardListItem, SettingCardContainer } from "../styles";
 import FormName from "./_components/FormName";
+import FormOwner from "./_components/FormOwner";
 import DeleteForm from "./_components/DeleteForm";
 import EnableForm from "./_components/EnableForm";
 import FormDataRetention from "./_components/FormDataRetention";
@@ -35,6 +36,15 @@ const GeneralSettingsPage = () => {
       <CardListItem>
         <SettingCardContainer>
           <FormName role={form.data?.role} name={form.data?.name} />
+        </SettingCardContainer>
+      </CardListItem>
+      <CardListItem>
+        <SettingCardContainer>
+          <FormOwner
+            name={form.data?.owner?.name ?? ""}
+            email={form.data?.owner?.email ?? ""}
+            image={form.data?.owner?.image ?? ""}
+          />
         </SettingCardContainer>
       </CardListItem>
       <CardListItem>

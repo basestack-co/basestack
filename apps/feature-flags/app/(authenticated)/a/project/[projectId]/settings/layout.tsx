@@ -62,7 +62,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
       { projectId },
       {
         enabled: !!projectId,
-      },
+      }
     );
 
   const renderLink = useMemo(() => {
@@ -79,7 +79,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
 
   const activeLinkIndex = useMemo(
     () => getLinks(projectId).findIndex((button) => button.href === pathname),
-    [pathname, projectId],
+    [pathname, projectId]
   );
 
   const items = useMemo(
@@ -90,7 +90,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
           text: t(i18nKey as NamespaceKeys<string, "navigation">),
         };
       }),
-    [t, projectId],
+    [t, projectId]
   );
 
   useEffect(() => {

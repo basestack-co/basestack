@@ -21,6 +21,7 @@ import {
   Icon,
   Skeleton,
   Text,
+  Empty,
 } from "@basestack/design-system";
 // Styles
 import { useTheme } from "styled-components";
@@ -81,7 +82,7 @@ const Teams = () => {
     useShallow((state) => [
       state.setCreateTeamModalOpen,
       state.setManageTeamModalOpen,
-    ]),
+    ])
   );
 
   const { data, isLoading } = api.team.all.useQuery(undefined, {
@@ -122,16 +123,13 @@ const Teams = () => {
         )}
       </Header>
       {!isLoading && !data?.length && (
-        <EmptyStateWithAction
-          icon={{
-            name: "group",
-          }}
+        <Empty
+          iconName="group"
           title={t("teams.empty.title")}
           description={t("teams.empty.description")}
           button={{
             text: t("teams.empty.action"),
             onClick: () => setCreateTeamModalOpen({ isOpen: true }),
-            variant: ButtonVariant.Primary,
           }}
         />
       )}

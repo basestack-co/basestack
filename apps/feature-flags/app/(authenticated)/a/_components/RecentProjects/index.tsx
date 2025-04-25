@@ -10,7 +10,6 @@ import { useStore } from "store";
 // Server
 import { api } from "utils/trpc/react";
 // Components
-import { EmptyStateWithAction} from "@basestack/ui";
 import {
   Avatar,
   Button,
@@ -20,6 +19,7 @@ import {
   HorizontalRule,
   Icon,
   Skeleton,
+  Empty,
 } from "@basestack/design-system";
 // Styles
 import { useTheme } from "styled-components";
@@ -33,7 +33,6 @@ import {
   Section,
   Header,
 } from "./styles";
-
 
 interface ProjectCardProps {
   text: string;
@@ -78,7 +77,7 @@ const RecentProjects = () => {
   const theme = useTheme();
   const router = useRouter();
   const setCreateProjectModalOpen = useStore(
-    (state) => state.setCreateProjectModalOpen,
+    (state) => state.setCreateProjectModalOpen
   );
 
   const { data, isLoading } = api.project.recent.useQuery(undefined, {
@@ -89,6 +88,7 @@ const RecentProjects = () => {
         onClick: () => router.push(`/a/project/${item.id}/flags`),
         text: item.name,
         flags: item.flags,
+        isAdmin: item.isAdmin,
       })),
   });
 
@@ -109,16 +109,13 @@ const RecentProjects = () => {
         )}
       </Header>
       {!isLoading && !data?.length && (
-        <EmptyStateWithAction
-          icon={{
-            name: "folder_open",
-          }}
+        <Empty
+          iconName="folder_open"
           title={t("projects.empty.title")}
           description={t("projects.empty.description")}
           button={{
             text: t("projects.empty.action"),
             onClick: () => setCreateProjectModalOpen({ isOpen: true }),
-            variant: ButtonVariant.Primary,
           }}
         />
       )}

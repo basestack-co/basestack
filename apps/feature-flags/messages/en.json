@@ -566,6 +566,10 @@
           }
         }
       },
+      "owner": {
+        "title": "Project Owner",
+        "description": "The owner of the project. Contact the owner for support."
+      },
       "endpoints": {
         "title": "Endpoints",
         "description": "Endpoints are essential for the SDKs to access and interact with features.",

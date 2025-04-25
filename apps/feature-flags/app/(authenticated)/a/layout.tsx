@@ -30,6 +30,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           slug: item.slug,
           onClick: () => router.push(`/a/project/${item.id}/flags`),
           text: item.name,
+          isAdmin: item.isAdmin,
         })),
     }),
     t.subscription.usage(undefined, {

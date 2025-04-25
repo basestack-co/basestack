@@ -12,7 +12,7 @@ export const projectRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx?.session?.user.id;
 
-    const projects = await ctx.prisma.project.findMany({
+    const all = await ctx.prisma.project.findMany({
       where: {
         users: {
           some: {
@@ -25,7 +25,26 @@ export const projectRouter = createTRPCRouter({
       orderBy: {
         createdAt: "desc",
       },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        users: {
+          where: {
+            userId,
+          },
+          select: {
+            role: true,
+          },
+          take: 1,
+        },
+      },
     });
+
+    const projects = all.map((project) => ({
+      ...project,
+      isAdmin: project.users[0]?.role === Role.ADMIN,
+    }));
 
     return { projects };
   }),
@@ -59,7 +78,6 @@ export const projectRouter = createTRPCRouter({
             },
           },
         },
-
         orderBy: {
           createdAt: "desc",
         },
@@ -78,8 +96,19 @@ export const projectRouter = createTRPCRouter({
             },
           });
 
+          const userProject = await tx.projectsOnUsers.findFirst({
+            where: {
+              projectId: project.id,
+              userId,
+            },
+            select: {
+              role: true,
+            },
+          });
+
           return {
             ...project,
+            isAdmin: userProject?.role === Role.ADMIN,
             flags: {
               count,
             },
@@ -109,13 +138,38 @@ export const projectRouter = createTRPCRouter({
         },
         select: {
           role: true,
-          project: true,
+          project: {
+            select: {
+              id: true,
+              name: true,
+              key: true,
+              websites: true,
+              blockIpAddresses: true,
+              users: {
+                where: { role: Role.ADMIN },
+                select: {
+                  user: {
+                    select: {
+                      name: true,
+                      email: true,
+                      image: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
       });
 
       return {
-        ...data?.project,
+        id: data?.project.id,
+        name: data?.project.name,
+        key: data?.project.key,
+        websites: data?.project.websites,
+        blockIpAddresses: data?.project.blockIpAddresses,
         role: data?.role,
+        owner: data?.project.users[0]?.user,
       };
     }),
   allKeys: protectedProcedure

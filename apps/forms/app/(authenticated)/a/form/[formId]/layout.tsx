@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useMemo } from "react";
 // Router
 import { useParams, useRouter } from "next/navigation";
 // Server
@@ -11,15 +11,21 @@ const FormLayout = ({ children }: { children: React.ReactNode }) => {
   const { formId } = useParams<{ formId: string }>();
   const trpcUtils = api.useUtils();
 
-  useEffect(() => {
+  const form = useMemo(() => {
     const data = trpcUtils.form.all.getData();
 
-    const form = data?.forms?.find((project) => project.id === formId);
+    return data?.forms?.find((project) => project.id === formId);
+  }, [formId, trpcUtils.form.all]);
 
+  useEffect(() => {
     if (!form) {
       router.replace("/not-found");
     }
-  }, [formId, router, trpcUtils.form.all]);
+  }, [form, router]);
+
+  if (!form) {
+    return null;
+  }
 
   return <Fragment>{children}</Fragment>;
 };

@@ -11,7 +11,7 @@ export const formRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx?.session?.user.id!;
 
-    const forms = await ctx.prisma.form.findMany({
+    const all = await ctx.prisma.form.findMany({
       where: {
         users: {
           some: {
@@ -21,14 +21,28 @@ export const formRouter = createTRPCRouter({
           },
         },
       },
-      select: {
-        id: true,
-        name: true,
-      },
       orderBy: {
         createdAt: "desc",
       },
+      select: {
+        id: true,
+        name: true,
+        users: {
+          where: {
+            userId,
+          },
+          select: {
+            role: true,
+          },
+          take: 1,
+        },
+      },
     });
+
+    const forms = all.map((form) => ({
+      ...form,
+      isAdmin: form.users[0]?.role === Role.ADMIN,
+    }));
 
     return { forms };
   }),
@@ -42,31 +56,27 @@ export const formRouter = createTRPCRouter({
       {
         id: string;
         name: string;
-        _all: number;
         isEnabled: boolean;
+        _all: number;
         _spam: number;
         _viewed: number;
+        role: string;
       }[]
     >`
-            SELECT f.id,
-                   f.name,
-                   f."isEnabled",
-                   COUNT(s."id")                                      AS _all,
-                   SUM(CASE WHEN s."isSpam" = true THEN 1 ELSE 0 END) AS _spam,
-                   SUM(CASE WHEN s."viewed" = true THEN 1 ELSE 0 END) AS _viewed
-            FROM public."Form" f
-                     LEFT JOIN
-                 public."Submission" s
-                 ON
-                     f.id = s."formId"
-            WHERE EXISTS (SELECT 1
-                          FROM public."FormOnUsers" uf
-                          WHERE uf."form_id" = f.id
-                            AND uf."user_id" = ${userId})
-            GROUP BY f.id, f.name, f."isEnabled"
-            ORDER BY f."createdAt" DESC LIMIT
-          8;
-        `;
+      SELECT f.id,
+            f.name,
+            f."isEnabled",
+            COUNT(s."id")                                      AS _all,
+            SUM(CASE WHEN s."isSpam" = true THEN 1 ELSE 0 END) AS _spam,
+            SUM(CASE WHEN s."viewed" = true THEN 1 ELSE 0 END) AS _viewed,
+            uf.role                                            AS role
+      FROM public."Form" f
+              LEFT JOIN public."Submission" s ON f.id = s."formId"
+              INNER JOIN public."FormOnUsers" uf ON uf."form_id" = f.id AND uf."user_id" = ${userId}
+      GROUP BY f.id, f.name, f."isEnabled", uf.role
+      ORDER BY f."createdAt" DESC
+      LIMIT 8;
+    `;
 
     return formsWithCounts.map((form) => {
       const _all = Number(form._all);
@@ -77,6 +87,7 @@ export const formRouter = createTRPCRouter({
         id: form.id,
         name: form.name,
         isEnabled: form.isEnabled,
+        isAdmin: form.role === Role.ADMIN,
         _count: {
           spam: _spam,
           unread: _all - _viewed,
@@ -108,18 +119,55 @@ export const formRouter = createTRPCRouter({
         select: {
           role: true,
           form: {
-            omit: {
-              createdAt: true,
-              updatedAt: true,
-              rules: true,
+            select: {
+              id: true,
+              name: true,
+              hasDataQueryString: true,
+              redirectUrl: true,
+              successUrl: true,
+              errorUrl: true,
+              isEnabled: true,
+              hasRetention: true,
+              hasSpamProtection: true,
+              webhookUrl: true,
+              emails: true,
+              websites: true,
+              honeypot: true,
+              blockIpAddresses: true,
+              users: {
+                where: { role: Role.ADMIN },
+                select: {
+                  user: {
+                    select: {
+                      name: true,
+                      email: true,
+                      image: true,
+                    },
+                  },
+                },
+              },
             },
           },
         },
       });
 
       return {
-        ...data?.form,
+        id: data?.form.id,
+        name: data?.form.name,
+        hasDataQueryString: data?.form.hasDataQueryString,
+        redirectUrl: data?.form.redirectUrl,
+        successUrl: data?.form.successUrl,
+        errorUrl: data?.form.errorUrl,
+        isEnabled: data?.form.isEnabled,
+        hasRetention: data?.form.hasRetention,
+        hasSpamProtection: data?.form.hasSpamProtection,
+        webhookUrl: data?.form.webhookUrl,
+        emails: data?.form.emails,
+        websites: data?.form.websites,
+        honeypot: data?.form.honeypot,
+        blockIpAddresses: data?.form.blockIpAddresses,
         role: data?.role,
+        owner: data?.form.users[0]?.user,
       };
     }),
   create: protectedProcedure

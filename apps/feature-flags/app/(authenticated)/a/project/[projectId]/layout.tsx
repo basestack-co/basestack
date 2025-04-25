@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useMemo } from "react";
 // Router
 import { useParams, useRouter } from "next/navigation";
 // Server
@@ -11,15 +11,21 @@ const ProjectLayout = ({ children }: { children: React.ReactNode }) => {
   const { projectId } = useParams<{ projectId: string }>();
   const trpcUtils = api.useUtils();
 
-  useEffect(() => {
+  const project = useMemo(() => {
     const data = trpcUtils.project.all.getData();
 
-    const project = data?.projects?.find((project) => project.id === projectId);
+    return data?.projects?.find((project) => project.id === projectId);
+  }, [projectId, trpcUtils.project.all]);
 
+  useEffect(() => {
     if (!project) {
       router.replace("/not-found");
     }
-  }, [trpcUtils.project.all, projectId, router]);
+  }, [router, project]);
+
+  if (!project) {
+    return null;
+  }
 
   return <Fragment>{children}</Fragment>;
 };

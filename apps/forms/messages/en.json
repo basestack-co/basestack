@@ -619,6 +619,10 @@
           "success": "Form name updated successfully"
         }
       },
+      "owner": {
+        "title": "Form Owner",
+        "description": "The owner of the form, contact them if you need to update the form."
+      },
       "enable-form": {
         "title": "Enable Form",
         "description": "Activate/Deactivate the form to control submission collection.",
