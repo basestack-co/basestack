@@ -7,18 +7,19 @@ import {
   getValidWebsite,
   isValidIpAddress,
   RequestError,
+  Product,
 } from "@basestack/utils";
 // DB
 import { prisma } from "server/db";
 import { getProjectOnUser, productUrl } from "server/db/utils/project";
 import { withUsageUpdate } from "server/db/utils/subscription";
 
-const { hasFlagsPlanFeature } = utilsConfig.plans;
+const { hasPlanFeature } = utilsConfig.plans;
 
 export const verifyRequest = async (
   key: string,
   referer: string,
-  metadata: { ip: string | null },
+  metadata: { ip: string | null }
 ) => {
   try {
     const projectKey = key.trim();
@@ -42,7 +43,7 @@ export const verifyRequest = async (
 
     if (
       !!project.websites &&
-      hasFlagsPlanFeature(planId, "hasWebsites") &&
+      hasPlanFeature(Product.FLAGS, planId, "hasWebsites") &&
       isRefererValid(referer)
     ) {
       const isValid = getValidWebsite(referer, project.websites);
@@ -53,7 +54,7 @@ export const verifyRequest = async (
           {
             product: "Feature Flags",
             referer,
-          },
+          }
         );
 
         throw new RequestError({
@@ -67,7 +68,7 @@ export const verifyRequest = async (
     if (
       !!project.blockIpAddresses &&
       metadata?.ip &&
-      hasFlagsPlanFeature(planId, "hasBlockIPs")
+      hasPlanFeature(Product.FLAGS, planId, "hasBlockIPs")
     ) {
       const blockIpAddresses = project.blockIpAddresses
         .split(",")
@@ -86,7 +87,7 @@ export const verifyRequest = async (
             {
               product: "Feature Flags",
               referer,
-            },
+            }
           );
 
           throw new RequestError({
@@ -98,7 +99,11 @@ export const verifyRequest = async (
       }
     }
 
-    const limit = config.plans.getFlagsLimitByKey(planId, "apiRequests");
+    const limit = config.plans.getPlanLimitByKey(
+      Product.FLAGS,
+      planId,
+      "apiRequests"
+    );
 
     if (project.usage.apiRequests >= limit) {
       console.info(
@@ -106,7 +111,7 @@ export const verifyRequest = async (
         {
           product: "Feature Flags",
           referer,
-        },
+        }
       );
 
       throw new RequestError({

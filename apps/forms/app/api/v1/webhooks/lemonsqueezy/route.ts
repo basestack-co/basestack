@@ -3,13 +3,13 @@ import { NextRequest } from "next/server";
 // Vendors
 import { lemonsqueezy } from "@basestack/vendors";
 // Utils
-import { config } from "@basestack/utils";
+import { config, Product } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 import dayjs from "dayjs";
 // DB
 import { prisma } from "server/db";
 
-const { getFormPlanByVariantId } = config.plans;
+const { getPlanByVariantId } = config.plans;
 
 export async function POST(req: NextRequest) {
   return lemonsqueezy.webhook.createSubscriptionEvent({
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     signature: process.env.LEMONSQUEEZY_SIGNATURE_SECRET ?? "",
     product: "Forms",
     getPlan: (variantId, isBilledMonthly) => {
-      const plan = getFormPlanByVariantId(variantId, isBilledMonthly, AppMode);
+      const plan = getPlanByVariantId(Product.FORMS, variantId, isBilledMonthly, AppMode);
 
       if (!plan) return null;
 

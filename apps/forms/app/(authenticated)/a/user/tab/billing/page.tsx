@@ -12,7 +12,7 @@ import { useTranslations } from "next-intl";
 // Store
 import { useStore } from "store";
 // Utils
-import { config, PlanTypeId } from "@basestack/utils";
+import { config, PlanTypeId, Product } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 // Styles
 import { CardListItem, CardList, ProfileCardContainer } from "../styles";
@@ -30,7 +30,8 @@ const UserProfileBillingPage = () => {
 
   const currentPlan = useMemo(
     () =>
-      config.plans.getFormPlanByVariantId(
+      config.plans.getPlanByVariantId(
+        Product.FORMS,
         data?.product?.variantId ?? 0,
         data?.product.variant === "Monthly",
         AppMode,

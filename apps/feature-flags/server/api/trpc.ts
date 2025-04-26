@@ -10,7 +10,7 @@ import { prisma } from "server/db";
 import { getUserInProject } from "server/db/utils/user";
 import { createHistory } from "server/db/utils/history";
 import { getSubscriptionUsage } from "server/db/utils/subscription";
-import { config, FlagsPlan, PlanTypeId } from "@basestack/utils";
+import { config, FlagsPlan, PlanTypeId, Product } from "@basestack/utils";
 // types
 import { Role } from ".prisma/client";
 
@@ -160,7 +160,7 @@ export const withUsage = middleware(async ({ next, ctx, meta }) => {
 
   const planId = usage.planId as PlanTypeId;
 
-  if (!config.plans.isValidFlagsPlan(planId)) {
+  if (!config.plans.isValidPlan(Product.FLAGS, planId)) {
     throw new TRPCError({
       code: "PRECONDITION_FAILED",
       message:
@@ -169,7 +169,7 @@ export const withUsage = middleware(async ({ next, ctx, meta }) => {
     });
   }
 
-  const limit = config.plans.getFlagsLimitByKey(planId, usageLimitKey);
+  const limit = config.plans.getPlanLimitByKey(Product.FLAGS, planId, usageLimitKey);
 
   if (usage[usageLimitKey] < limit) {
     return next({

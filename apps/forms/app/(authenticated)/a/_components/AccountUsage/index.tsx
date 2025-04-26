@@ -9,7 +9,7 @@ import { useTheme } from "styled-components";
 import { useTranslations } from "next-intl";
 // Utils
 import { AppMode } from "utils/helpers/general";
-import { config, PlanTypeId } from "@basestack/utils";
+import { config, PlanTypeId, Product } from "@basestack/utils";
 import dayjs from "dayjs";
 
 const AccountUsage = () => {
@@ -23,7 +23,8 @@ const AccountUsage = () => {
 
   const currentPlan = useMemo(
     () =>
-      config.plans.getFormPlanByVariantId(
+      config.plans.getPlanByVariantId(
+        Product.FORMS,
         subscription.data?.product?.variantId ?? 0,
         subscription.data?.product.variant === "Monthly",
         AppMode
@@ -42,7 +43,7 @@ const AccountUsage = () => {
         ? (currentPlan.id as PlanTypeId)
         : PlanTypeId.FREE;
 
-    return config.plans.getFormPlanLimits(planId);
+    return config.plans.getPlanLimits(Product.FORMS, planId);
   }, [currentPlan, isSubscriptionActive]);
 
   const currentUsage = useMemo(() => {

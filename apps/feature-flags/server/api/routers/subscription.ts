@@ -11,7 +11,7 @@ import {
 import dayjs from "dayjs";
 import { getSubscriptionUsage } from "server/db/utils/subscription";
 import { z } from "zod";
-import { PlanTypeId, config } from "@basestack/utils";
+import { PlanTypeId, config, Product } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 
 lemonSqueezySetup({
@@ -108,17 +108,18 @@ export const subscriptionRouter = createTRPCRouter({
           isDarkMode: z.boolean().optional(),
           redirectUrl: z.string().url(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
       const email = ctx?.session?.user.email!;
       const name = ctx?.session?.user.name!;
       const storeId = +process.env.LEMONSQUEEZY_STORE_ID!;
-      const variantId = config.plans.getFlagsPlanVariantId(
+      const variantId = config.plans.getPlanVariantId(
+        Product.FLAGS,
         input.planId,
         input.interval,
-        AppMode,
+        AppMode
       );
 
       const configuration: NewCheckout = {
@@ -145,7 +146,7 @@ export const subscriptionRouter = createTRPCRouter({
       const { statusCode, error, data } = await createCheckout(
         storeId,
         variantId,
-        configuration,
+        configuration
       );
 
       return {

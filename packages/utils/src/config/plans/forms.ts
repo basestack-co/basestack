@@ -1,9 +1,5 @@
 // Types
 import { PlanTypeId, FormPlan } from "../../types";
-// Utils
-import { getAppMode } from "./utils";
-
-// Forms Plan configuration
 
 const forms: FormPlan[] = [
   {
@@ -274,87 +270,7 @@ const getFormPlanLimitsDefaults = () => ({
   integrationsCalls: 0,
 });
 
-const isValidFormPlan = (id: PlanTypeId) => {
-  return forms.some((plan) => plan.id === id);
-};
-
-const getFormPlan = (id: PlanTypeId): FormPlan => {
-  const plan = forms.find((plan: FormPlan) => plan.id === id);
-  if (!plan) {
-    // Fallback to free plan if plan is not found
-    return forms.find((plan: FormPlan) => plan.id === PlanTypeId.FREE)!;
-  }
-  return plan;
-};
-
-const getFormPlanLimits = (id: PlanTypeId) => {
-  const plan = getFormPlan(id);
-  return plan.limits;
-};
-
-const getFormPlanFeatures = (id: PlanTypeId) => {
-  const plan = getFormPlan(id);
-  return plan.features;
-};
-
-const hasFormPlanFeature = (
-  id: PlanTypeId,
-  feature: keyof FormPlan["features"]
-) => {
-  const plan = getFormPlan(id);
-  return plan.features[feature];
-};
-
-const getFormLimitByKey = (id: PlanTypeId, limit: keyof FormPlan["limits"]) => {
-  const plan = getFormPlan(id);
-  return plan?.limits[limit];
-};
-
-const isUnderFormPlanLimit = (
-  id: PlanTypeId,
-  limit: keyof FormPlan["limits"],
-  value: number
-) => {
-  const plan = getFormPlan(id);
-  return plan?.limits[limit] >= value;
-};
-
-const getFormPlanVariantId = (
-  id: PlanTypeId,
-  interval: "monthly" | "yearly",
-  mode: string = "production"
-) => {
-  const stage = getAppMode(mode);
-
-  const plan = getFormPlan(id);
-  return plan.price[interval].variantIds[stage];
-};
-
-const getFormPlanByVariantId = (
-  variantId: number,
-  isBilledMonthly: boolean = false,
-  mode: string = "production"
-) => {
-  const stage = getAppMode(mode);
-
-  return forms.find((plan) => {
-    return (
-      plan.price[isBilledMonthly ? "monthly" : "yearly"].variantIds[stage] ===
-      variantId
-    );
-  });
-};
-
 export const config = {
   forms,
-  getFormPlan,
-  getFormPlanLimits,
-  getFormPlanFeatures,
-  hasFormPlanFeature,
-  getFormLimitByKey,
-  isUnderFormPlanLimit,
   getFormPlanLimitsDefaults,
-  getFormPlanVariantId,
-  getFormPlanByVariantId,
-  isValidFormPlan,
 };

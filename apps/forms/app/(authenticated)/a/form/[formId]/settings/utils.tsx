@@ -1,6 +1,6 @@
 import React from "react";
 // Utils
-import { config, PlanTypeId, FormPlan } from "@basestack/utils";
+import { config, PlanTypeId, FormPlan, Product } from "@basestack/utils";
 // Types
 import { useRouter } from "next/navigation";
 // Design System
@@ -33,7 +33,11 @@ export const getWithPlanCardProps = ({
   router,
   labels,
 }: WithPlanCardProps) => {
-  const hasFeature = config.plans.hasFormPlanFeature(planId, feature);
+  const hasFeature = config.plans.hasPlanFeature(
+    Product.FORMS,
+    planId,
+    feature
+  );
 
   return !hasFeature
     ? {
@@ -69,7 +73,11 @@ export const getWithPlanSwitchProps = ({
   checked,
   label,
 }: WithPlanSwitchProps) => {
-  const hasFeature = config.plans.hasFormPlanFeature(planId, feature);
+  const hasFeature = config.plans.hasPlanFeature(
+    Product.FORMS,
+    planId,
+    feature
+  );
 
   return !hasFeature
     ? {

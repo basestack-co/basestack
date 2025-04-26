@@ -7,6 +7,9 @@ import {
   formatNumber,
   getBrowserUrl,
   PlanTypeId,
+  Product,
+  FlagsPlan,
+  FormPlan,
 } from "@basestack/utils";
 import dayjs from "dayjs";
 // Types
@@ -20,13 +23,25 @@ import ActivePlan, { CurrentPlan } from "./ActivePlan";
 import { useTheme } from "styled-components";
 import { Container, List, ListItem } from "./styles";
 
-const flagsFreePlanLimits = config.plans.getFlagsPlanLimits(PlanTypeId.FREE);
-const flagsFreePlanFeatures = config.plans.getFlagsPlanFeatures(
-  PlanTypeId.FREE,
-);
+const flagsFreePlanLimits = config.plans.getPlanLimits(
+  Product.FLAGS,
+  PlanTypeId.FREE
+) as FlagsPlan["limits"];
 
-const formsFreePlanLimits = config.plans.getFormPlanLimits(PlanTypeId.FREE);
-const formsFreePlanFeatures = config.plans.getFormPlanFeatures(PlanTypeId.FREE);
+const flagsFreePlanFeatures = config.plans.getPlanFeatures(
+  Product.FLAGS,
+  PlanTypeId.FREE
+) as FlagsPlan["features"];
+
+const formsFreePlanLimits = config.plans.getPlanLimits(
+  Product.FORMS,
+  PlanTypeId.FREE
+) as FormPlan["limits"];
+
+const formsFreePlanFeatures = config.plans.getPlanFeatures(
+  Product.FORMS,
+  PlanTypeId.FREE
+) as FormPlan["features"];
 
 export interface PlansProps {
   product: "forms" | "feature-flags";
@@ -36,7 +51,7 @@ export interface PlansProps {
     interval: "monthly" | "yearly",
     redirectUrl: string,
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-    onHandleExternalUrl: (url?: string) => void,
+    onHandleExternalUrl: (url?: string) => void
   ) => void;
   currentPlan?: CurrentPlan;
   productVariant: string;
@@ -89,10 +104,10 @@ const Plans = ({
         interval,
         `${getBrowserUrl()}/a/user/tab/billing`,
         setIsLoading,
-        onHandleExternalUrl,
+        onHandleExternalUrl
       );
     },
-    [interval, onCreateCheckoutCallback, onHandleExternalUrl],
+    [interval, onCreateCheckoutCallback, onHandleExternalUrl]
   );
 
   const getFreeFeatures = useCallback(() => {
@@ -131,7 +146,7 @@ const Plans = ({
     return productFeatures[product]
       ? Object.entries(productFeatures[product]).map(([key, value]) =>
           // @ts-ignore
-          t(key, { value: formatValue(value) }),
+          t(key, { value: formatValue(value) })
         )
       : [];
   }, [product, t]);
@@ -155,7 +170,7 @@ const Plans = ({
           return t(intlKey, {
             value: formatValue(valueKey ? features[valueKey] : limits[key]),
           });
-        },
+        }
       );
 
     const productPlans = {
@@ -214,7 +229,7 @@ const Plans = ({
 
     return productPlans[product].plans
       .filter(
-        ({ id }) => id !== PlanTypeId.FREE && id !== PlanTypeId.ENTERPRISE,
+        ({ id }) => id !== PlanTypeId.FREE && id !== PlanTypeId.ENTERPRISE
       )
       .map(({ id, price, limits, features }) => {
         const value =
@@ -222,7 +237,7 @@ const Plans = ({
         const description = t(
           interval === "monthly"
             ? "billing.cycle.monthly"
-            : "billing.cycle.yearly",
+            : "billing.cycle.yearly"
         );
 
         return (
@@ -232,7 +247,7 @@ const Plans = ({
               features={getPlanFeatures(
                 limits,
                 features,
-                productPlans[product].featureKeys,
+                productPlans[product].featureKeys
               )}
               amount={{
                 value,

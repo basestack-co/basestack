@@ -4,11 +4,11 @@ import { lemonsqueezy } from "@basestack/vendors";
 // DB
 import { prisma } from "server/db";
 // Utils
-import { config } from "@basestack/utils";
+import { config, Product } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 import dayjs from "dayjs";
 
-const { getFlagsPlanByVariantId } = config.plans;
+const { getPlanByVariantId } = config.plans;
 
 export async function POST(req: NextRequest) {
   return lemonsqueezy.webhook.createSubscriptionEvent({
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     signature: process.env.LEMONSQUEEZY_SIGNATURE_SECRET ?? "",
     product: "Feature Flags",
     getPlan: (variantId, isBilledMonthly) => {
-      const plan = getFlagsPlanByVariantId(variantId, isBilledMonthly, AppMode);
+      const plan = getPlanByVariantId(Product.FLAGS, variantId, isBilledMonthly, AppMode);
 
       if (!plan) return null;
 

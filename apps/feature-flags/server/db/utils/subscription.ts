@@ -3,7 +3,7 @@ import { DefaultArgs } from ".prisma/client/runtime/library";
 // tRPC
 import { TRPCError } from "@trpc/server";
 // Utils
-import { config, FlagsPlan, PlanTypeId } from "@basestack/utils";
+import { config, FlagsPlan, PlanTypeId, Product } from "@basestack/utils";
 
 export const getSubscriptionUsage = async (
   prisma: PrismaClient,
@@ -88,7 +88,7 @@ export function withLimits(
       this: unknown,
       ...args: Parameters<T>
     ): Promise<ReturnType<T>> {
-      if (!config.plans.isValidFlagsPlan(planId)) {
+      if (!config.plans.isValidPlan(Product.FLAGS, planId)) {
         throw new TRPCError({
           code: "PRECONDITION_FAILED",
           message:
@@ -97,7 +97,11 @@ export function withLimits(
         });
       }
 
-      const limit = config.plans.getFlagsLimitByKey(planId, limitKey);
+      const limit = config.plans.getPlanLimitByKey(
+        Product.FLAGS,
+        planId,
+        limitKey
+      );
 
       if (count < limit) {
         return promise.apply(this, args);
@@ -121,7 +125,7 @@ export function withFeatures(
       this: unknown,
       ...args: Parameters<T>
     ): Promise<ReturnType<T>> {
-      if (!config.plans.isValidFlagsPlan(planId)) {
+      if (!config.plans.isValidPlan(Product.FLAGS, planId)) {
         throw new TRPCError({
           code: "PRECONDITION_FAILED",
           message:
@@ -131,7 +135,7 @@ export function withFeatures(
       }
 
       const hasFeature = feature
-        ? config.plans.hasFlagsPlanFeature(planId, feature)
+        ? config.plans.hasPlanFeature(Product.FLAGS, planId, feature)
         : true;
 
       if (hasFeature) {

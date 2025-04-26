@@ -1,9 +1,5 @@
 // Types
 import { PlanTypeId, FlagsPlan } from "../../types";
-// Utils
-import { getAppMode } from "./utils";
-
-// Flags Plan configuration
 
 const flags: FlagsPlan[] = [
   {
@@ -38,8 +34,8 @@ const flags: FlagsPlan[] = [
       flags: 10,
       segments: 0,
       rollouts: 0,
-      teams: 1,
-      members: 2,
+      teams: 0,
+      members: 0,
       apiRequests: 50000,
     },
     features: {
@@ -255,90 +251,7 @@ const getFlagsPlanLimitsDefaults = () => ({
   apiRequests: 0,
 });
 
-const isValidFlagsPlan = (id: PlanTypeId) => {
-  return flags.some((plan) => plan.id === id);
-};
-
-const getFlagsPlan = (id: PlanTypeId): FlagsPlan => {
-  const plan = flags.find((plan: FlagsPlan) => plan.id === id);
-  if (!plan) {
-    // Fallback to free plan if plan is not found
-    return flags.find((plan: FlagsPlan) => plan.id === PlanTypeId.FREE)!;
-  }
-  return plan;
-};
-
-const getFlagsPlanLimits = (id: PlanTypeId) => {
-  const plan = getFlagsPlan(id);
-  return plan.limits;
-};
-
-const getFlagsPlanFeatures = (id: PlanTypeId) => {
-  const plan = getFlagsPlan(id);
-  return plan.features;
-};
-
-const hasFlagsPlanFeature = (
-  id: PlanTypeId,
-  feature: keyof FlagsPlan["features"],
-) => {
-  const plan = getFlagsPlan(id);
-  return plan.features[feature];
-};
-
-const getFlagsLimitByKey = (
-  id: PlanTypeId,
-  limit: keyof FlagsPlan["limits"],
-) => {
-  const plan = getFlagsPlan(id);
-  return plan?.limits[limit];
-};
-
-const isUnderFlagsPlanLimit = (
-  id: PlanTypeId,
-  limit: keyof FlagsPlan["limits"],
-  value: number,
-) => {
-  const plan = getFlagsPlan(id);
-  return plan?.limits[limit] >= value;
-};
-
-const getFlagsPlanVariantId = (
-  id: PlanTypeId,
-  interval: "monthly" | "yearly",
-  mode: string = "production",
-) => {
-  const stage = getAppMode(mode);
-
-  const plan = getFlagsPlan(id);
-  return plan.price[interval].variantIds[stage];
-};
-
-const getFlagsPlanByVariantId = (
-  variantId: number,
-  isBilledMonthly: boolean = false,
-  mode: string = "production",
-) => {
-  const stage = getAppMode(mode);
-
-  return flags.find((plan) => {
-    return (
-      plan.price[isBilledMonthly ? "monthly" : "yearly"].variantIds[stage] ===
-      variantId
-    );
-  });
-};
-
 export const config = {
   flags,
   getFlagsPlanLimitsDefaults,
-  getFlagsPlan,
-  getFlagsPlanLimits,
-  getFlagsPlanFeatures,
-  hasFlagsPlanFeature,
-  getFlagsLimitByKey,
-  isUnderFlagsPlanLimit,
-  getFlagsPlanVariantId,
-  getFlagsPlanByVariantId,
-  isValidFlagsPlan,
 };
