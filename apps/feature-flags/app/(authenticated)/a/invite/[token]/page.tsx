@@ -1,46 +1,100 @@
 "use client";
 
-// Navigation
 import { useParams, useRouter } from "next/navigation";
-// Server
 import { api } from "utils/trpc/react";
-// Toast
+import { useTheme } from "styled-components";
 import { toast } from "sonner";
+import {
+  Card,
+  Button,
+  ButtonVariant,
+  Text,
+  Avatar,
+  IconBox,
+} from "@basestack/design-system";
+import { Body, Buttons, Container, Footer, Header } from "./styles";
 
 const InvitePage = () => {
+  const { spacing } = useTheme();
   const router = useRouter();
   const { token } = useParams<{ token: string }>();
   const trpcUtils = api.useUtils();
   const acceptInvitation = api.team.acceptInvitation.useMutation();
 
   return (
-    <div>
-      <br />
-      <h1>Invitation to join team {token}</h1>
+    <Container>
+      <Card p={spacing.s5}>
+        <Header>
+          <Text size="small" muted>
+            Today, April 10 2025
+          </Text>
+          <Text size="xLarge" fontWeight={400} mt={spacing.s1}>
+            Pending Invite
+          </Text>
+        </Header>
 
-      <button
-        onClick={() =>
-          acceptInvitation.mutate(
-            { token },
-            {
-              onSuccess: async () => {
-                await trpcUtils.project.all.invalidate();
-                await trpcUtils.project.recent.invalidate();
+        <Body>
+          <Avatar src="" userName="Sandro Gee" alt="Sandro Gee" size="large" />
 
-                toast.success("Successfully joined team, redirecting...");
+          <Text
+            size="xxLarge"
+            fontWeight={400}
+            mt={spacing.s3}
+            textAlign="center"
+          >
+            You have being invited to join the team
+          </Text>
+          <Text size="xxLarge" fontWeight={500}>
+            {`"${token}"`}
+          </Text>
 
-                router.push("/a");
-              },
-              onError: (error) => {
-                toast.error(error.message);
-              },
-            }
-          )
-        }
-      >
-        Accept Invitation
-      </button>
-    </div>
+          <IconBox icon="group_add" mt={spacing.s7} size="large" />
+          <Text
+            size="medium"
+            fontWeight={400}
+            muted
+            mt={spacing.s3}
+            textAlign="center"
+          >
+            6 from your team have already accepted
+          </Text>
+        </Body>
+
+        <Footer>
+          <Text size="small" fontWeight={400} muted>
+            Your invitation expires in 7 days
+          </Text>
+          <Buttons>
+            <Button variant={ButtonVariant.Outlined} onClick={() => undefined}>
+              Decline
+            </Button>
+            <Button
+              variant={ButtonVariant.Primary}
+              onClick={() =>
+                acceptInvitation.mutate(
+                  { token },
+                  {
+                    onSuccess: async () => {
+                      await trpcUtils.project.all.invalidate();
+                      await trpcUtils.project.recent.invalidate();
+
+                      toast.success("Successfully joined team, redirecting...");
+
+                      router.push("/a");
+                    },
+                    onError: (error) => {
+                      toast.error(error.message);
+                    },
+                  },
+                )
+              }
+            >
+              Accept Invitation
+            </Button>
+          </Buttons>
+        </Footer>
+      </Card>
+    </Container>
   );
 };
 

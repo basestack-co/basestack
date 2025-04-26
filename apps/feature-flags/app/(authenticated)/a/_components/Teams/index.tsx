@@ -21,7 +21,7 @@ const Teams = () => {
     useShallow((state) => [
       state.setCreateTeamModalOpen,
       state.setManageTeamModalOpen,
-    ])
+    ]),
   );
 
   const { data, isLoading } = api.team.all.useQuery(undefined, {
@@ -73,7 +73,6 @@ const Teams = () => {
           button={{
             text: t("teams.empty.action"),
             onClick: () => setCreateTeamModalOpen({ isOpen: true }),
-            variant: ButtonVariant.Primary,
           }}
         />
       )}
