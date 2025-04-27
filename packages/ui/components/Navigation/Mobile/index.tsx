@@ -191,6 +191,7 @@ const MobileNavigation = ({
                         {apps.map((item, index) => (
                           <ListItem key={index}>
                             <Button
+                              onClick={item.onClick}
                               variant={ButtonVariant.Neutral}
                               leftElement={
                                 <AppsLogo>
