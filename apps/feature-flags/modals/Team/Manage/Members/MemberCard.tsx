@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Avatar, Text, Label, IconButton } from "@basestack/design-system";
-import Dropdown from "./Dropdown";
+import {
+  Avatar,
+  ButtonVariant,
+  IconButton,
+  Label,
+  Text,
+} from "@basestack/design-system";
+import { Dropdown } from "@basestack/ui";
+
 import { MemberInfo, MembersListItem } from "./styles";
 
 export interface MemberCardProps {
@@ -65,7 +72,10 @@ const MemberCard = ({
           />
         </>
       ) : (
-        <Dropdown button={role} items={popupItems} />
+        <Dropdown
+          button={{ text: role, variant: ButtonVariant.Outlined }}
+          items={popupItems}
+        />
       )}
     </MembersListItem>
   );

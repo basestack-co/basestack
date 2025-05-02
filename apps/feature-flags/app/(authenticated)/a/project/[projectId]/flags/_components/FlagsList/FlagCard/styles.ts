@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { rem } from "polished";
 
 export const Labels = styled.div`
   display: flex;
@@ -13,8 +14,10 @@ export const LoadingContainer = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.s3};
 `;
 
-export const PopupWrapper = styled.div`
-  height: 0;
+export const DropdownWrapper = styled.div`
+  position: absolute;
+  right: ${rem("14px")};
+  top: ${rem("14px")};
 `;
 
 export const Footer = styled.div`

@@ -6,13 +6,19 @@ import {
   ButtonVariant,
   Popup,
   PopupProps,
+  IconButton,
 } from "@basestack/design-system";
 import { rem } from "polished";
+import { Container } from "./styles";
 
 const AnimatedPopup = animated(Popup);
 
 interface DropdownProps {
-  button: string;
+  button?: {
+    text: string;
+    variant?: ButtonVariant;
+    icon?: string;
+  };
   items: PopupProps["items"];
 }
 
@@ -32,18 +38,27 @@ const Dropdown = ({ button, items }: DropdownProps) => {
   } = useFloatingPopup({});
 
   return (
-    <div ref={popupWrapperRef}>
-      <Button
-        {...getReferenceProps}
-        ref={refs.setReference}
-        onClick={onClickMore}
-        variant={ButtonVariant.Outlined}
-        icon={isPopupOpen ? "arrow_drop_up" : "arrow_drop_down"}
-        iconPlacement="right"
-        pr={rem("6px")}
-      >
-        {button}
-      </Button>
+    <Container ref={popupWrapperRef}>
+      {button && !!button.text ? (
+        <Button
+          {...getReferenceProps}
+          ref={refs.setReference}
+          onClick={onClickMore}
+          variant={button.variant || ButtonVariant.Neutral}
+          icon={isPopupOpen ? "arrow_drop_up" : "arrow_drop_down"}
+          iconPlacement="right"
+          pr={rem("6px")}
+        >
+          {button.text}
+        </Button>
+      ) : (
+        <IconButton
+          {...getReferenceProps}
+          ref={refs.setReference}
+          onClick={onClickMore}
+          icon="more_horiz"
+        />
+      )}
       {transition(
         (styles, item) =>
           item &&
@@ -60,8 +75,10 @@ const Dropdown = ({ button, items }: DropdownProps) => {
             />
           ),
       )}
-    </div>
+    </Container>
   );
 };
+
+export { type DropdownProps };
 
 export default Dropdown;
