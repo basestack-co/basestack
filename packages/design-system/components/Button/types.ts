@@ -33,7 +33,7 @@ export interface ButtonProps
   /**
    * Pass ref to element
    */
-  ref: React.Ref<HTMLDivElement>;
+  ref?: React.Ref<HTMLDivElement>;
   /**
    * Change button or link
    */
@@ -94,7 +94,7 @@ export interface StyledButtonProps
     LayoutProps,
     TypographyProps,
     ColorProps {
-  ref: React.Ref<HTMLDivElement>;
+  ref?: React.Ref<HTMLDivElement>;
   hasLeftIcon: boolean;
   hasRightIcon: boolean;
   fullWidth: boolean;
