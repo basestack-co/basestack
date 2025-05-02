@@ -1,79 +1,132 @@
-import React, { useCallback, useState } from "react";
-import { Button, Text, Input } from "@basestack/design-system";
-import { api } from "utils/trpc/react";
-import { useTranslations } from "next-intl";
-import { toast } from "sonner";
-import {
-  Container,
-  InputGroupContainer,
-  InputGroupWrapper,
-  MembersList,
-} from "./styles";
+import React, { useCallback } from "react";
+// Components
+import { Text } from "@basestack/design-system";
 import MemberCard from "./MemberCard";
+import InviteForm from "./InviteForm";
+// Server
+import { api } from "utils/trpc/react";
+import { keepPreviousData } from "@tanstack/react-query";
+// Toast
+import { toast } from "sonner";
+// Locales
+import { useTranslations } from "next-intl";
+// Styles
+import { Container, MembersList } from "./styles";
+// types
+import { Role } from ".prisma/client";
 
 export interface Props {
   teamId: string;
 }
 
 const Members = ({ teamId }: Props) => {
-  const [email, setEmail] = useState("");
-
   const t = useTranslations("modal");
-  const { data, isLoading } = api.team.byId.useQuery(
+  const trpcUtils = api.useUtils();
+
+  const { data } = api.team.byId.useQuery(
     { teamId },
     {
+      select: (data) => {
+        const members =
+          data?.members.map((member) => ({
+            userId: member.user.id,
+            name: member.user.name ?? "",
+            src: member.user.image ?? "",
+            email: member.user.email ?? "",
+            role: member.role,
+            isPending: false,
+          })) ?? [];
+
+        const invitations =
+          data?.invitations.map((invitation) => ({
+            userId: "",
+            inviteId: invitation.id,
+            name: invitation.email ?? "",
+            src: "",
+            email: "",
+            role: invitation.role,
+            isPending: true,
+          })) ?? [];
+
+        return [...invitations, ...members];
+      },
       enabled: !!teamId,
+      placeholderData: keepPreviousData,
     },
   );
 
-  const invite = api.team.invite.useMutation();
+  const removeMember = api.team.removeMember.useMutation();
+  const updateMember = api.team.updateMember.useMutation();
 
-  const onSend = useCallback(() => {
-    invite.mutate(
-      { teamId, email, role: "DEVELOPER" },
-      {
-        onSuccess: () => {
-          toast.success("Invitation sent successfully");
-          setEmail("");
+  const onSelectRole = useCallback(
+    (userId: string, role: Role) => {
+      updateMember.mutate(
+        {
+          teamId,
+          role: role as "DEVELOPER" | "VIEWER" | "TESTER",
+          userId,
         },
-        onError: (error) => {
-          toast.error(error.message);
+        {
+          onSuccess: async () => {
+            await trpcUtils.team.all.invalidate();
+            await trpcUtils.team.byId.invalidate({ teamId });
+            toast.success(
+              t("team.manage.tab.members.list.status.update.success"),
+            );
+          },
+          onError: (error) => {
+            toast.error(error.message);
+          },
         },
-      },
-    );
-  }, [invite, teamId, email]);
+      );
+    },
+    [t, teamId, trpcUtils, updateMember],
+  );
+
+  const onRemoveMember = useCallback(
+    (userId: string) => {
+      removeMember.mutate(
+        {
+          teamId,
+          userId,
+        },
+        {
+          onSuccess: async () => {
+            await trpcUtils.team.all.invalidate();
+            await trpcUtils.team.byId.invalidate({ teamId });
+            toast.success(
+              t("team.manage.tab.members.list.status.remove.success"),
+            );
+          },
+          onError: (error) => {
+            toast.error(error.message);
+          },
+        },
+      );
+    },
+    [removeMember, t, teamId, trpcUtils],
+  );
+
+  const onCancelInvite = useCallback((inviteId?: string) => {
+    if (inviteId) {
+      console.log("cancel the invite here");
+    }
+  }, []);
 
   return (
     <Container>
+      <InviteForm teamId={teamId} />
       <Text size="small" fontWeight={500}>
-        {t("members.input.title")}
-      </Text>
-      <InputGroupContainer>
-        <InputGroupWrapper>
-          <Input
-            onChange={(e) => setEmail(e.target.value)}
-            value=""
-            name="email"
-            placeholder={t("members.input.placeholder")}
-          />
-        </InputGroupWrapper>
-
-        <Button onClick={onSend} isDisabled={invite.isPending}>
-          {t("members.input.button")}
-        </Button>
-      </InputGroupContainer>
-      <Text size="small" fontWeight={500}>
-        {t("members.list.title")}
+        {t("team.manage.tab.members.title")}
       </Text>
       <MembersList>
-        {data?.members.map((member, index) => (
+        {data?.map((member, index) => (
           <MemberCard
             key={index}
-            name={member.user.name || ""}
-            src={member.user.image || ""}
-            email={member.user.email || ""}
-            onCancelInvite={() => undefined}
-            isPending={false}
+            onCancelInvite={onCancelInvite}
+            onSelectRole={onSelectRole}
+            onRemoveMember={onRemoveMember}
+            {...member}
           />
         ))}
       </MembersList>

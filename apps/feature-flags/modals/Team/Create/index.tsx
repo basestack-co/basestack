@@ -3,8 +3,6 @@ import React from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-// Theme
-import { useTheme } from "styled-components";
 // Components
 import Portal from "@basestack/design-system/global/Portal";
 import { Modal, InputGroup } from "@basestack/design-system";
@@ -29,7 +27,6 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const CreateTeamModal = () => {
   const t = useTranslations("modal");
-  const theme = useTheme();
   const trpcUtils = api.useUtils();
   const [isModalOpen, setCreateTeamModalOpen, closeModalsOnClickOutside] =
     useStore(

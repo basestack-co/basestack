@@ -158,10 +158,40 @@
         },
         "tab": {
           "members": {
-            "title": "Members"
+            "title": "Members",
+            "list": {
+              "avatar": {
+                "alt": "user avatar"
+              },
+              "option": {
+                "developer": "Developer",
+                "tester": "Tester",
+                "viewer": "Viewer",
+                "remove": "Remove"
+              },
+              "status": {
+                "pending": "Pending",
+                "remove": {
+                  "success": "The member was successfully removed from the team"
+                },
+                "update": {
+                  "success": "The member has been successfully updated"
+                },
+                "invite": {
+                  "success": "The invitation was successfully canceled"
+                }
+              }
+            }
           },
           "invites": {
-            "title": "Invites"
+            "title": "Invites",
+            "form": {
+              "email": {
+                "title": "Email",
+                "placeholder": "Enter email address"
+              },
+              "submit": "Send Invite"
+            }
           }
         }
       }
@@ -339,26 +369,6 @@
         "description": {
           "project": "created the project",
           "flag": "{type} the flag"
-        }
-      }
-    },
-    "members": {
-      "input": {
-        "title": "Email",
-        "placeholder": "Enter email address",
-        "button": "Send Invite"
-      },
-      "list": {
-        "title": "Members",
-        "item": {
-          "avatar": {
-            "alt": "user avatar"
-          },
-          "dropdown": {
-            "admin": "Admin",
-            "viewer": "Can View",
-            "owner": "Owner"
-          }
         }
       }
     }
