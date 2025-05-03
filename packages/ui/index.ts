@@ -59,5 +59,7 @@ export {
   default as UsageSection,
   type UsageSectionProps,
 } from "./components/UsageSection";
-export { default as Dropdown, type DropdownProps } from "./components/Dropdown";
-export { default as TooltipIcon, type TooltipIconProps } from "./components/TooltipIcon";
+export {
+  default as TooltipIcon,
+  type TooltipIconProps,
+} from "./components/TooltipIcon";

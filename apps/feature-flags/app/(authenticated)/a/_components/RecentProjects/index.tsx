@@ -15,7 +15,7 @@ const RecentProjects = () => {
   const theme = useTheme();
   const router = useRouter();
   const setCreateProjectModalOpen = useStore(
-    (state) => state.setCreateProjectModalOpen
+    (state) => state.setCreateProjectModalOpen,
   );
 
   const { data, isLoading } = api.project.recent.useQuery(undefined, {
@@ -72,6 +72,19 @@ const RecentProjects = () => {
                 text={project.text}
                 onClick={project.onClick}
                 flags={project.flags.count}
+                menuItems={[
+                  {
+                    icon: "edit",
+                    text: "Edit",
+                    onClick: () => console.log("edit"),
+                  },
+                  {
+                    icon: "delete",
+                    text: "Delete",
+                    onClick: () => console.log("delete"),
+                    variant: ButtonVariant.Danger,
+                  },
+                ]}
               />
             </ProjectsListItem>
           ))}

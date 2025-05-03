@@ -8,6 +8,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   Skeleton,
+  PopupMenu,
 } from "@basestack/design-system";
 import TooltipIcon from "components/TooltipIcon";
 import {
@@ -18,7 +19,6 @@ import {
   IconsContainer,
 } from "./styles";
 import { FlagRowProps } from "./types";
-import { Dropdown } from "@basestack/ui";
 
 const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
   (
@@ -106,7 +106,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
               />
             )}
           </IconsContainer>
-          <Dropdown items={popupItems} />
+          <PopupMenu items={popupItems} />
         </CardWrapper>
       </Card>
     );

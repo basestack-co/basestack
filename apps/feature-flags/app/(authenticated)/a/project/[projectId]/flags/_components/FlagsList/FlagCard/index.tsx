@@ -1,8 +1,14 @@
 import React, { memo, forwardRef } from "react";
 import { useTheme } from "styled-components";
 import { api } from "utils/trpc/react";
-import { Text, Label, Card, Skeleton } from "@basestack/design-system";
-import { Dropdown, TooltipIcon } from "@basestack/ui";
+import {
+  Text,
+  Label,
+  Card,
+  Skeleton,
+  PopupMenu,
+} from "@basestack/design-system";
+import { TooltipIcon } from "@basestack/ui";
 import { Labels, Footer, LoadingContainer, DropdownWrapper } from "./styles";
 import { FlagCardProps } from "./types";
 
@@ -104,7 +110,7 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
           )}
         </Footer>
         <DropdownWrapper>
-          <Dropdown items={popupItems} />
+          <PopupMenu items={popupItems} />
         </DropdownWrapper>
       </Card>
     );

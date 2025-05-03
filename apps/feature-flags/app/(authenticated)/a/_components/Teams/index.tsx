@@ -90,6 +90,19 @@ const Teams = () => {
                 text={team.name}
                 onClick={team.onClick}
                 avatars={team.members}
+                menuItems={[
+                  {
+                    icon: "edit",
+                    text: "Edit",
+                    onClick: () => console.log("edit"),
+                  },
+                  {
+                    icon: "delete",
+                    text: "Delete",
+                    onClick: () => console.log("delete"),
+                    variant: ButtonVariant.Danger,
+                  },
+                ]}
               />
             </ListItem>
           ))}

@@ -86,6 +86,10 @@ export {
   default as CircularProgress,
   type CircularProgressProps,
 } from "./components/CircularProgress";
+export {
+  default as PopupMenu,
+  type PopupMenuProps,
+} from "./components/PopupMenu";
 
 // Other
 export * from "./animations/springs";

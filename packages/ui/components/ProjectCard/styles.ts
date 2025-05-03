@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import { rem } from "polished";
 
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+`;
+
 export const Button = styled.button.withConfig({
   shouldForwardProp: (prop) => prop !== "isButton",
 })<{ isButton: boolean }>`
@@ -45,4 +52,10 @@ export const AvatarListItem = styled.li.withConfig({
   &:first-child {
     margin-left: 0;
   }
+`;
+
+export const PopupMenuWrapper = styled.div`
+  position: absolute;
+  right: ${rem("14px")};
+  top: ${rem("14px")};
 `;

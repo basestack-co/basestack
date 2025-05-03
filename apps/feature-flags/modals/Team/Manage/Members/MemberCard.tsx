@@ -8,8 +8,8 @@ import {
   IconButton,
   Label,
   Text,
+  PopupMenu,
 } from "@basestack/design-system";
-import { Dropdown } from "@basestack/ui";
 // types
 import { Role } from ".prisma/client";
 
@@ -90,7 +90,7 @@ const MemberCard = ({
     ];
 
     return (
-      <Dropdown
+      <PopupMenu
         button={{ text: getRoleString(role), variant: ButtonVariant.Outlined }}
         items={dropdownItems}
       />

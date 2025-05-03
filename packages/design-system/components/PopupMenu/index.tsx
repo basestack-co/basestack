@@ -1,19 +1,15 @@
 import React from "react";
 import { animated } from "react-spring";
-import { useFloatingPopup } from "@basestack/hooks";
-import {
-  Button,
-  ButtonVariant,
-  Popup,
-  PopupProps,
-  IconButton,
-} from "@basestack/design-system";
 import { rem } from "polished";
+import { useFloatingPopup } from "@basestack/hooks";
+import { Button, ButtonVariant } from "../Button";
+import Popup, { PopupProps } from "../Popup";
+import IconButton from "../IconButton";
 import { Container } from "./styles";
 
 const AnimatedPopup = animated(Popup);
 
-interface DropdownProps {
+interface PopupMenuProps {
   button?: {
     text: string;
     variant?: ButtonVariant;
@@ -22,7 +18,7 @@ interface DropdownProps {
   items: PopupProps["items"];
 }
 
-const Dropdown = ({ button, items }: DropdownProps) => {
+const PopupMenu = ({ button, items }: PopupMenuProps) => {
   const {
     popupWrapperRef,
     x,
@@ -79,6 +75,6 @@ const Dropdown = ({ button, items }: DropdownProps) => {
   );
 };
 
-export { type DropdownProps };
+export { type PopupMenuProps };
 
-export default Dropdown;
+export default PopupMenu;
