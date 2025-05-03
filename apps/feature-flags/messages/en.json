@@ -695,5 +695,33 @@
         }
       }
     }
+  },
+  "invite": {
+    "team": {
+      "title": "Pending Invite",
+      "description": "You have being invited to join",
+      "name": "{name} Team",
+      "count": "{count, plural, one {# member of your team has already accepted} other {# members of your team have already accepted}}",
+      "created-at": {
+        "not-available": "Date not available"
+      },
+      "expires-at": {
+        "not-available": "Expiration date not available",
+        "expired": "Invitation has expired",
+        "message": "Your invitation expires {date}"
+      },
+      "action": {
+        "decline": "Decline",
+        "accept": "Accept Invitation"
+      },
+      "toast": {
+        "join": {
+          "success": "Successfully joined team, redirecting..."
+        },
+        "decline": {
+          "success": "You’ve declined the invitation. Redirecting..."
+        }
+      }
+    }
   }
 }

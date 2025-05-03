@@ -353,6 +353,68 @@ export const teamRouter = createTRPCRouter({
         },
       });
     }),
+  inviteDetails: protectedProcedure
+    /* .meta({
+      roles: [Role.ADMIN],
+    }) */
+    .input(
+      z
+        .object({
+          token: z.string(),
+        })
+        .required(),
+    )
+    .query(async ({ ctx, input }) => {
+      const invitation = await ctx.prisma.teamInvitation.findUnique({
+        where: {
+          token: input.token,
+        },
+        select: {
+          id: true,
+          email: true,
+          role: true,
+          expiresAt: true,
+          createdAt: true,
+          teamId: true,
+          team: {
+            select: {
+              id: true,
+              name: true,
+              _count: {
+                select: {
+                  members: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (!invitation) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Invitation not found. It might be invalid or already used.",
+        });
+      }
+
+      if (invitation.expiresAt < new Date()) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "This invitation has expired.",
+        });
+      }
+
+      return {
+        invitationId: invitation.id,
+        teamId: invitation.team.id,
+        teamName: invitation.team.name,
+        existingMemberCount: invitation.team._count.members,
+        invitedEmail: invitation.email,
+        invitedRole: invitation.role,
+        expiresAt: invitation.expiresAt,
+        createdAt: invitation.createdAt,
+      };
+    }),
   invite: protectedProcedure
     .meta({
       roles: [Role.ADMIN],
@@ -455,6 +517,33 @@ export const teamRouter = createTRPCRouter({
 
       return { invitation };
     }),
+  removeInvite: protectedProcedure
+    .meta({
+      roles: [Role.ADMIN],
+    })
+    .input(
+      z
+        .object({
+          inviteId: z.string(),
+        })
+        .required(),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const invitation = await ctx.prisma.teamInvitation.delete({
+        where: {
+          id: input.inviteId,
+        },
+        include: {
+          team: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
+
+      return { invitation };
+    }),
   acceptInvitation: protectedProcedure
     .input(z.object({ token: z.string() }))
     .mutation(async ({ ctx, input }) => {
@@ -503,10 +592,8 @@ export const teamRouter = createTRPCRouter({
           },
         });
 
-        if (existingMember) {
-          await tx.teamInvitation.delete({
-            where: { id: invitation.id },
-          });
+        if (existingMember && existingMember.userId === userToAdd.id) {
+          await tx.teamInvitation.delete({ where: { id: invitation.id } });
 
           throw new TRPCError({
             code: "CONFLICT",
@@ -515,26 +602,39 @@ export const teamRouter = createTRPCRouter({
           });
         }
 
-        const teamMember = await tx.teamMembers.create({
-          data: {
-            teamId: invitation.teamId,
-            userId: userToAdd.id,
-            role: invitation.role,
-          },
-          include: {
-            team: {
-              select: {
-                name: true,
+        const [adminMember, teamMember] = await Promise.all([
+          tx.teamMembers.findFirst({
+            where: {
+              teamId: invitation.teamId,
+              role: Role.ADMIN,
+            },
+            select: {
+              userId: true,
+            },
+          }),
+          tx.teamMembers.create({
+            data: {
+              teamId: invitation.teamId,
+              userId: userToAdd.id,
+              role: invitation.role,
+            },
+            include: {
+              team: {
+                select: {
+                  name: true,
+                },
+              },
+              user: {
+                select: {
+                  name: true,
+                  email: true,
+                },
               },
             },
-            user: {
-              select: {
-                name: true,
-                email: true,
-              },
-            },
-          },
-        });
+          }),
+        ]);
+
+        await withUsageUpdate(tx, adminMember?.userId!, "members", "increment");
 
         await tx.teamInvitation.delete({
           where: { id: invitation.id },

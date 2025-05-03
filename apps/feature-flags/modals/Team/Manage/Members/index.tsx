@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 // Components
 import { Text } from "@basestack/design-system";
 import MemberCard from "./MemberCard";
@@ -10,6 +10,8 @@ import { keepPreviousData } from "@tanstack/react-query";
 import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
+// Auth
+import { useSession } from "next-auth/react";
 // Styles
 import { Container, MembersList } from "./styles";
 // types
@@ -21,6 +23,7 @@ export interface Props {
 
 const Members = ({ teamId }: Props) => {
   const t = useTranslations("modal");
+  const { data: session } = useSession();
   const trpcUtils = api.useUtils();
 
   const { data } = api.team.byId.useQuery(
@@ -55,8 +58,14 @@ const Members = ({ teamId }: Props) => {
     },
   );
 
+  const hasRoleOptions = useMemo(() => {
+    const user = data?.find(({ userId }) => userId === session?.user?.id);
+    return user?.role === Role.ADMIN;
+  }, [data, session?.user?.id]);
+
   const removeMember = api.team.removeMember.useMutation();
   const updateMember = api.team.updateMember.useMutation();
+  const removeInvite = api.team.removeInvite.useMutation();
 
   const onSelectRole = useCallback(
     (userId: string, role: Role) => {
@@ -107,11 +116,30 @@ const Members = ({ teamId }: Props) => {
     [removeMember, t, teamId, trpcUtils],
   );
 
-  const onCancelInvite = useCallback((inviteId?: string) => {
-    if (inviteId) {
-      console.log("cancel the invite here");
-    }
-  }, []);
+  const onCancelInvite = useCallback(
+    (inviteId?: string) => {
+      if (inviteId) {
+        removeInvite.mutate(
+          {
+            inviteId,
+          },
+          {
+            onSuccess: async () => {
+              await trpcUtils.team.all.invalidate();
+              await trpcUtils.team.byId.invalidate({ teamId });
+              toast.success(
+                t("team.manage.tab.members.list.status.invite.success"),
+              );
+            },
+            onError: (error) => {
+              toast.error(error.message);
+            },
+          },
+        );
+      }
+    },
+    [removeInvite, t, teamId, trpcUtils],
+  );
 
   return (
     <Container>
@@ -126,6 +154,7 @@ const Members = ({ teamId }: Props) => {
             onCancelInvite={onCancelInvite}
             onSelectRole={onSelectRole}
             onRemoveMember={onRemoveMember}
+            hasRoleOptions={hasRoleOptions}
             {...member}
           />
         ))}

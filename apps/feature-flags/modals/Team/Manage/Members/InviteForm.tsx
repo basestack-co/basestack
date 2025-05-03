@@ -14,6 +14,8 @@ import { useTranslations } from "next-intl";
 import { InputGroupContainer, InputGroupWrapper } from "./styles";
 // Utils
 import { isEmptyObject } from "@basestack/utils";
+// types
+import { Role } from ".prisma/client";
 
 export const FormSchema = z.object({
   email: z.string().email().optional().or(z.literal("")),
@@ -33,6 +35,7 @@ const InviteForm = ({ teamId }: Props) => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
@@ -46,10 +49,11 @@ const InviteForm = ({ teamId }: Props) => {
   const onSendInvite: SubmitHandler<FormInputs> = async (input) => {
     if (!!input.email) {
       invite.mutate(
-        { teamId, email: input.email, role: "DEVELOPER" },
+        { teamId, email: input.email, role: Role.VIEWER },
         {
           onSuccess: () => {
             toast.success("Invitation sent successfully");
+            reset();
           },
           onError: (error) => {
             toast.error(error.message);

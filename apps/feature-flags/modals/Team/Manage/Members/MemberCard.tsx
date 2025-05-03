@@ -22,6 +22,7 @@ export interface MemberCardProps {
   name: string;
   email: string;
   isPending: boolean;
+  hasRoleOptions?: boolean;
   role: Role;
   onCancelInvite: (inviteId?: string) => void;
   onSelectRole: (userId: string, role: Role) => void;
@@ -35,6 +36,7 @@ const MemberCard = ({
   name,
   email,
   role,
+  hasRoleOptions,
   isPending,
   onSelectRole,
   onRemoveMember,
@@ -56,7 +58,7 @@ const MemberCard = ({
   );
 
   const onRenderOptions = useCallback(() => {
-    if (role === Role.ADMIN) return null;
+    if (!hasRoleOptions || role === Role.ADMIN) return null;
 
     if (isPending) {
       return (
@@ -97,6 +99,7 @@ const MemberCard = ({
     );
   }, [
     getRoleString,
+    hasRoleOptions,
     inviteId,
     isPending,
     onCancelInvite,
