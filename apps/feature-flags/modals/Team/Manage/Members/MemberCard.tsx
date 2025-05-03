@@ -22,6 +22,7 @@ export interface MemberCardProps {
   name: string;
   email: string;
   isPending: boolean;
+  isSubmitting?: boolean;
   hasRoleOptions?: boolean;
   role: Role;
   onCancelInvite: (inviteId?: string) => void;
@@ -38,6 +39,7 @@ const MemberCard = ({
   role,
   hasRoleOptions,
   isPending,
+  isSubmitting,
   onSelectRole,
   onRemoveMember,
   onCancelInvite,
@@ -47,6 +49,7 @@ const MemberCard = ({
   const getRoleString = useCallback(
     (role: Role) => {
       const list: { [role: string]: string } = {
+        [Role.ADMIN]: t("team.manage.tab.members.list.option.admin"),
         [Role.DEVELOPER]: t("team.manage.tab.members.list.option.developer"),
         [Role.TESTER]: t("team.manage.tab.members.list.option.tester"),
         [Role.VIEWER]: t("team.manage.tab.members.list.option.viewer"),
@@ -58,7 +61,11 @@ const MemberCard = ({
   );
 
   const onRenderOptions = useCallback(() => {
-    if (!hasRoleOptions || role === Role.ADMIN) return null;
+    if (!hasRoleOptions || role === Role.ADMIN) {
+      return (
+        <Label text={getRoleString(role)} variant="default" isTranslucent />
+      );
+    }
 
     if (isPending) {
       return (
@@ -93,7 +100,11 @@ const MemberCard = ({
 
     return (
       <PopupMenu
-        button={{ text: getRoleString(role), variant: ButtonVariant.Outlined }}
+        button={{
+          text: getRoleString(role),
+          variant: ButtonVariant.Outlined,
+          isDisabled: isSubmitting,
+        }}
         items={dropdownItems}
       />
     );
@@ -102,6 +113,7 @@ const MemberCard = ({
     hasRoleOptions,
     inviteId,
     isPending,
+    isSubmitting,
     onCancelInvite,
     onRemoveMember,
     onSelectRole,

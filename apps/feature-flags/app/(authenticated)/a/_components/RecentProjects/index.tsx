@@ -1,12 +1,18 @@
 "use client";
 
 import React from "react";
+// Locales
 import { useTranslations } from "next-intl";
+// Router
 import { useRouter } from "next/navigation";
+// Store
 import { useStore } from "store";
+// Server
 import { api } from "utils/trpc/react";
+// Components
 import { ProjectCard, ProjectCardLoading } from "@basestack/ui";
 import { Button, ButtonVariant, Text, Empty } from "@basestack/design-system";
+// Styles
 import { useTheme } from "styled-components";
 import { ProjectsListItem, ProjectsList, Section, Header } from "./styles";
 
@@ -74,15 +80,16 @@ const RecentProjects = () => {
                 flags={project.flags.count}
                 menuItems={[
                   {
-                    icon: "edit",
-                    text: "Edit",
-                    onClick: () => console.log("edit"),
+                    icon: "flag",
+                    text: t("projects.menu.features"),
+                    onClick: () =>
+                      router.push(`/a/project/${project.id}/flags`),
                   },
                   {
-                    icon: "delete",
-                    text: "Delete",
-                    onClick: () => console.log("delete"),
-                    variant: ButtonVariant.Danger,
+                    icon: "settings",
+                    text: t("projects.menu.settings"),
+                    onClick: () =>
+                      router.push(`/a/project/${project.id}/settings`),
                   },
                 ]}
               />

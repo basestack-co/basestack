@@ -14,6 +14,8 @@ interface PopupMenuProps {
     text: string;
     variant?: ButtonVariant;
     icon?: string;
+    isLoading?: boolean;
+    isDisabled?: boolean;
   };
   items: PopupProps["items"];
 }
@@ -44,6 +46,8 @@ const PopupMenu = ({ button, items }: PopupMenuProps) => {
           icon={isPopupOpen ? "arrow_drop_up" : "arrow_drop_down"}
           iconPlacement="right"
           pr={rem("6px")}
+          isDisabled={button.isDisabled}
+          isLoading={button.isLoading}
         >
           {button.text}
         </Button>

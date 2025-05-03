@@ -30,12 +30,14 @@ const InvitePage = () => {
   const { token } = useParams<{ token: string }>();
   const trpcUtils = api.useUtils();
 
-  const { data, isLoading, isError, error } = api.team.inviteDetails.useQuery(
-    { token },
-    {
-      enabled: !!token,
-    },
-  );
+  const { data, isLoading, isError, error, ...rest } =
+    api.team.inviteDetails.useQuery(
+      { token },
+      {
+        enabled: !!token,
+        retry: 1,
+      },
+    );
 
   const acceptInvitation = api.team.acceptInvitation.useMutation();
   const removeInvite = api.team.removeInvite.useMutation();
@@ -99,7 +101,14 @@ const InvitePage = () => {
     }
   }, [data?.invitationId, removeInvite, router, t, trpcUtils.team.all]);
 
-  if (isLoading) return null;
+  useEffect(() => {
+    if (!isLoading && isError) {
+      toast.error(error?.message ?? "");
+      setTimeout(() => router.push("/a"), 0);
+    }
+  }, [error?.message, isError, isLoading, router]);
+
+  if (isLoading || isError) return null;
 
   return (
     <Container>

@@ -76,6 +76,10 @@
     "projects": {
       "title": "Recent projects",
       "action": "Create Project",
+      "menu": {
+        "features": "Feature Flags",
+        "settings": "Settings"
+      },
       "empty": {
         "title": "Create your first project",
         "description": "Create your first project to start creating flags!",
@@ -98,11 +102,26 @@
     },
     "teams": {
       "title": "Teams",
+      "name": "{name} Team",
       "action": "Create Team",
+      "menu": {
+        "manage": "Manage",
+        "delete": "Delete"
+      },
       "empty": {
         "title": "Create your first team",
         "description": "Create your first team to start collaborating.",
         "action": "Create Team"
+      },
+      "confirm": {
+        "delete": {
+          "title": "Are you sure about this action?",
+          "description": "Warning: This action cannot be undone. It will permanently delete the {name} team, including all members associations.",
+          "action": "Delete Team",
+          "status": {
+            "success": "You’ve successfully deleted the team and all its members."
+          }
+        }
       }
     },
     "links": {
@@ -152,7 +171,7 @@
         }
       },
       "manage": {
-        "title": "Manage {name} Team",
+        "title": "{name} Team",
         "button": {
           "cancel": "Close"
         },
@@ -164,6 +183,7 @@
                 "alt": "user avatar"
               },
               "option": {
+                "admin": "Admin",
                 "developer": "Developer",
                 "tester": "Tester",
                 "viewer": "Viewer",

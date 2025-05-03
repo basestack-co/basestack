@@ -22,7 +22,14 @@ const ManageTeamModal = () => {
     ]),
   );
 
-  const onClose = () => setManageTeamModalOpen({ isOpen: false });
+  const onClose = () =>
+    setManageTeamModalOpen({
+      isOpen: false,
+      data: {
+        id: "",
+        name: payload?.name ?? "",
+      },
+    });
 
   return (
     <Portal selector="#portal">

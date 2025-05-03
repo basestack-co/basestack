@@ -32,7 +32,6 @@ export const teamRouter = createTRPCRouter({
         members: {
           omit: {
             teamId: true,
-            userId: true,
             createdAt: true,
             updatedAt: true,
           },

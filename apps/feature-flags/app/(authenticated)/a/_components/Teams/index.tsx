@@ -1,28 +1,43 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
+// Locales
 import { useTranslations } from "next-intl";
+// Store
 import { useShallow } from "zustand/react/shallow";
 import { useStore } from "store";
+// Server
 import { api } from "utils/trpc/react";
+// Auth
+import { useSession } from "next-auth/react";
+// Toast
+import { toast } from "sonner";
+// Components
 import { Button, ButtonVariant, Text, Empty } from "@basestack/design-system";
 import {
   ProjectCard as TeamCard,
   ProjectCardLoading as TeamCardLoading,
 } from "@basestack/ui";
+// Styles
 import { useTheme } from "styled-components";
 import { Section, Header, TeamsList, ListItem } from "./styles";
+// types
+import { Role } from ".prisma/client";
 
 const Teams = () => {
+  const { data: session } = useSession();
+  const trpcUtils = api.useUtils();
   const t = useTranslations("home");
   const theme = useTheme();
 
-  const [setCreateTeamModalOpen, setManageTeamModalOpen] = useStore(
-    useShallow((state) => [
-      state.setCreateTeamModalOpen,
-      state.setManageTeamModalOpen,
-    ]),
-  );
+  const [setCreateTeamModalOpen, setManageTeamModalOpen, setConfirmModalOpen] =
+    useStore(
+      useShallow((state) => [
+        state.setCreateTeamModalOpen,
+        state.setManageTeamModalOpen,
+        state.setConfirmModalOpen,
+      ]),
+    );
 
   const { data, isLoading } = api.team.all.useQuery(undefined, {
     select: (teams) =>
@@ -41,12 +56,52 @@ const Teams = () => {
         members: item.members.map((member) => ({
           name: member.user.name,
           image: member.user.image,
+          role: member.role,
+          userId: member.userId,
         })),
         total: {
           members: item._count.members,
         },
       })),
   });
+
+  const deleteTeam = api.team.delete.useMutation();
+
+  const onDeleteTeam = useCallback(
+    (teamId: string, teamName: string) => {
+      setConfirmModalOpen({
+        isOpen: true,
+        data: {
+          title: t("teams.confirm.delete.title"),
+          description: t("teams.confirm.delete.description", {
+            name: `<b>${teamName}</b>`,
+          }),
+          type: "delete",
+          buttonText: t("teams.confirm.delete.action"),
+          onClick: () => {
+            deleteTeam.mutate(
+              {
+                teamId,
+              },
+              {
+                onSuccess: async () => {
+                  setConfirmModalOpen({
+                    isOpen: false,
+                  });
+                  await trpcUtils.team.all.invalidate();
+                  toast.success(t("teams.confirm.delete.status.success"));
+                },
+                onError: (error) => {
+                  toast.error(error.message);
+                },
+              },
+            );
+          },
+        },
+      });
+    },
+    [deleteTeam, setConfirmModalOpen, t, trpcUtils],
+  );
 
   return (
     <Section mb={theme.spacing.s7}>
@@ -76,7 +131,6 @@ const Teams = () => {
           }}
         />
       )}
-
       {isLoading && (
         <TeamsList>
           <TeamCardLoading />
@@ -84,28 +138,38 @@ const Teams = () => {
       )}
       {!isLoading && !!data?.length && (
         <TeamsList>
-          {data.map((team, index) => (
-            <ListItem key={team.id}>
-              <TeamCard
-                text={team.name}
-                onClick={team.onClick}
-                avatars={team.members}
-                menuItems={[
-                  {
-                    icon: "edit",
-                    text: "Edit",
-                    onClick: () => console.log("edit"),
-                  },
-                  {
-                    icon: "delete",
-                    text: "Delete",
-                    onClick: () => console.log("delete"),
-                    variant: ButtonVariant.Danger,
-                  },
-                ]}
-              />
-            </ListItem>
-          ))}
+          {data.map((team, index) => {
+            const isOwnerOfTeam =
+              team.members.find(({ userId }) => userId === session?.user?.id)
+                ?.role === Role.ADMIN;
+
+            return (
+              <ListItem key={team.id}>
+                <TeamCard
+                  text={t("teams.name", { name: team.name })}
+                  onClick={team.onClick}
+                  avatars={team.members}
+                  {...(isOwnerOfTeam
+                    ? {
+                        menuItems: [
+                          {
+                            icon: "edit",
+                            text: t("teams.menu.manage"),
+                            onClick: team.onClick,
+                          },
+                          {
+                            icon: "delete",
+                            text: t("teams.menu.delete"),
+                            onClick: () => onDeleteTeam(team.id, team.name),
+                            variant: ButtonVariant.Danger,
+                          },
+                        ],
+                      }
+                    : {})}
+                />
+              </ListItem>
+            );
+          })}
         </TeamsList>
       )}
     </Section>

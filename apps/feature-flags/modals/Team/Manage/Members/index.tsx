@@ -26,7 +26,7 @@ const Members = ({ teamId }: Props) => {
   const { data: session } = useSession();
   const trpcUtils = api.useUtils();
 
-  const { data } = api.team.byId.useQuery(
+  const { data, isLoading } = api.team.byId.useQuery(
     { teamId },
     {
       select: (data) => {
@@ -58,7 +58,7 @@ const Members = ({ teamId }: Props) => {
     },
   );
 
-  const hasRoleOptions = useMemo(() => {
+  const isOwnerOfTeam = useMemo(() => {
     const user = data?.find(({ userId }) => userId === session?.user?.id);
     return user?.role === Role.ADMIN;
   }, [data, session?.user?.id]);
@@ -143,7 +143,7 @@ const Members = ({ teamId }: Props) => {
 
   return (
     <Container>
-      <InviteForm teamId={teamId} />
+      {isOwnerOfTeam && <InviteForm teamId={teamId} />}
       <Text size="small" fontWeight={500}>
         {t("team.manage.tab.members.title")}
       </Text>
@@ -154,7 +154,13 @@ const Members = ({ teamId }: Props) => {
             onCancelInvite={onCancelInvite}
             onSelectRole={onSelectRole}
             onRemoveMember={onRemoveMember}
-            hasRoleOptions={hasRoleOptions}
+            hasRoleOptions={isOwnerOfTeam}
+            isSubmitting={
+              removeInvite.isPending ||
+              updateMember.isPending ||
+              removeMember.isPending ||
+              isLoading
+            }
             {...member}
           />
         ))}
