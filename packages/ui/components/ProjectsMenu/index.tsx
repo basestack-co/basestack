@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useRef, useState } from "react";
 import { useTheme } from "styled-components";
 import { useClickAway } from "react-use";
+import { rem } from "polished";
 import { animated, config, useTransition } from "react-spring";
 // Components
 import { autoUpdate, offset, useFloating } from "@floating-ui/react";
@@ -74,6 +75,7 @@ const ProjectsMenu = ({
         icon={isProjectsPopupOpen ? "arrow_drop_up" : "arrow_drop_down"}
         variant={ButtonVariant.PrimaryNeutral}
         onClick={onClickProjects}
+        pr={rem("8px")}
         leftElement={
           !!current ? (
             <Avatar

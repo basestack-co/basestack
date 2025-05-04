@@ -24,7 +24,7 @@ export const StyledRow = styled.div.withConfig({
 `;
 
 export const Col = styled.div`
-  height: ${rem("45px")};
+  height: ${rem("46px")};
   display: flex;
   flex-direction: column;
   justify-content: center;

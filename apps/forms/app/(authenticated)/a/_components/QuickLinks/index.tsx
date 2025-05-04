@@ -54,7 +54,7 @@ const QuickLinks = () => {
       <BottomContainer>
         <Card p={theme.spacing.s5}>
           <IconBox icon="folder_open" mb={theme.spacing.s5} />
-          <Text size="large">{t("links.external.title")}</Text>
+          <Text size="medium">{t("links.external.title")}</Text>
           <TextLink
             data={[
               { text: t("links.external.read_the") },

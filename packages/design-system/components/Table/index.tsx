@@ -43,6 +43,11 @@ const Row = ({ cols = [], more, numberOfCols, tooltip }: RowProps) => {
         cols.map((col, index) => {
           const imageSrc = col.image?.src ?? "";
           const imageUsername = col.image?.userName ?? "";
+
+          if (col.children) {
+            return <Col key={`${index.toString()}-col`}>{col.children}</Col>;
+          }
+
           return (
             <Col key={`${index.toString()}-col`}>
               {!!col.link ? (

@@ -59,3 +59,7 @@ export const PopupMenuWrapper = styled.div`
   right: ${rem("14px")};
   top: ${rem("14px")};
 `;
+
+export const TooltipContainer = styled.div`
+  margin-left: auto;
+`;

@@ -9,6 +9,10 @@ import {
   Skeleton,
   PopupMenu,
   PopupMenuProps,
+  Label,
+  TooltipTrigger,
+  TooltipContent,
+  Tooltip,
 } from "@basestack/design-system";
 import {
   Button,
@@ -18,6 +22,7 @@ import {
   AvatarListItem,
   PopupMenuWrapper,
   Container,
+  TooltipContainer,
 } from "./styles";
 
 interface ProjectCardProps {
@@ -26,6 +31,10 @@ interface ProjectCardProps {
   flags?: number;
   avatars?: Array<{ name: string | null; image: string | null }>;
   menuItems?: PopupMenuProps["items"];
+  label?: {
+    text: string;
+    tooltip?: string;
+  };
 }
 
 const ProjectCardLoading = () => (
@@ -48,6 +57,7 @@ const ProjectCard = ({
   flags,
   avatars,
   menuItems,
+  label,
 }: ProjectCardProps) => {
   const theme = useTheme();
   const isButton = typeof onClick === "function";
@@ -111,6 +121,28 @@ const ProjectCard = ({
                 <Text size="small" textAlign="left" ml={theme.spacing.s1}>
                   {flags}
                 </Text>
+              </>
+            )}
+
+            {label && (
+              <>
+                {!!label?.tooltip ? (
+                  <TooltipContainer>
+                    <Tooltip placement="top">
+                      <TooltipTrigger>
+                        <Label text="External" size="small" variant="light" />
+                      </TooltipTrigger>
+                      <TooltipContent>{label.tooltip}</TooltipContent>
+                    </Tooltip>
+                  </TooltipContainer>
+                ) : (
+                  <Label
+                    text={label.text}
+                    size="small"
+                    variant="light"
+                    ml="auto"
+                  />
+                )}
               </>
             )}
           </Footer>

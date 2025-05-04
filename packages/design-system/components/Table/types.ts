@@ -1,3 +1,4 @@
+import React from "react";
 import { SpaceProps } from "styled-system";
 import { PopupItemsProps } from "../Popup";
 
@@ -27,6 +28,10 @@ export type TableColProps = {
    * Optional eye icon to show and hide text
    */
   hideText?: boolean;
+  /**
+   * Optional element
+   */
+  children?: React.ReactNode;
 };
 
 export type TableRowProps = {

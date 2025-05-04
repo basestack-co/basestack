@@ -149,6 +149,10 @@ const Teams = () => {
                   text={t("teams.name", { name: team.name })}
                   onClick={team.onClick}
                   avatars={team.members}
+                  label={{
+                    text: "External",
+                    tooltip: "You was invited to this team",
+                  }}
                   {...(isOwnerOfTeam
                     ? {
                         menuItems: [

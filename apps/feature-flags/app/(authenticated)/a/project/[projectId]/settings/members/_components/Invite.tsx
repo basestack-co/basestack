@@ -1,15 +1,16 @@
-import React, { useMemo, useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 // Components
 import {
   ButtonVariant,
   Loader,
+  PopupMenu,
   Skeleton,
   Table,
 } from "@basestack/design-system";
 import { useTheme } from "styled-components";
 import { useMedia } from "react-use";
 // UI
-import { SettingCard, MobileSettingCardView } from "@basestack/ui";
+import { MobileSettingCardView, SettingCard } from "@basestack/ui";
 // Server
 import { api } from "utils/trpc/react";
 // Store
@@ -40,15 +41,13 @@ const InviteCard = ({ role }: Props) => {
   const trpcUtils = api.useUtils();
   const { projectId } = useParams<{ projectId: string }>();
   const setInviteMemberModalOpen = useStore(
-    (state) => state.setInviteMemberModalOpen
+    (state) => state.setInviteMemberModalOpen,
   );
 
   const { data, isLoading } = api.project.members.useQuery(
     { projectId },
-    { enabled: !!projectId }
+    { enabled: !!projectId },
   );
-
-  console.log("data = ", data);
 
   const removeUserFromProject = api.project.removeMember.useMutation();
   const updateUserRole = api.project.updateMember.useMutation();
@@ -76,23 +75,23 @@ const InviteCard = ({ role }: Props) => {
 
                 if (prev?.users) {
                   const users = prev.users.filter(
-                    (item) => item.userId !== result.connection.userId
+                    (item) => item.userId !== result.connection.userId,
                   );
 
                   trpcUtils.project.members.setData(
                     {
                       projectId,
                     },
-                    { users }
+                    { users },
                   );
                 }
               }
             },
-          }
+          },
         );
       }
     },
-    [projectId, removeUserFromProject, trpcUtils, session, router]
+    [projectId, removeUserFromProject, trpcUtils, session, router],
   );
 
   const onHandleUpdateRole = useCallback(
@@ -126,20 +125,20 @@ const InviteCard = ({ role }: Props) => {
                   {
                     projectId,
                   },
-                  { users }
+                  { users },
                 );
               }
             },
-          }
+          },
         );
       }
     },
-    [projectId, updateUserRole, trpcUtils]
+    [projectId, updateUserRole, trpcUtils],
   );
 
   const getTable = useMemo(() => {
     const numberOfAdmins = data?.users.filter(
-      (item) => item.role === Role.ADMIN
+      (item) => item.role === Role.ADMIN,
     ).length;
 
     return createTable(
@@ -160,7 +159,15 @@ const InviteCard = ({ role }: Props) => {
             title: item.user.name!,
           },
           { title: item.user.email! },
-          { title: item.role },
+          {
+            title: item.role,
+            children: (
+              <PopupMenu
+                button={{ text: "Admin", variant: ButtonVariant.Tertiary }}
+                items={[{ text: "Example", onClick: () => undefined }]}
+              />
+            ),
+          },
           { title: dayjs(item.createdAt).fromNow() },
         ];
       },
@@ -191,7 +198,7 @@ const InviteCard = ({ role }: Props) => {
               ]
             : []),
         ];
-      }
+      },
     );
   }, [
     t,
