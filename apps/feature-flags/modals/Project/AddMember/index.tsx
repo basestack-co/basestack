@@ -12,38 +12,39 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // Libs
 import { api } from "utils/trpc/react";
+// Auth
+import { useSession } from "next-auth/react";
 // Toast
 import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
 
 export const FormSchema = z.object({
-  memberId: z.string().min(1, "member.invite.input.member-id.error.min"),
+  member: z.object({
+    userId: z.string().min(1, "member.invite.input.member-id.error.min"),
+    role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
+  }),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
-const InviteMemberModal = () => {
+const AddMemberProjectModal = () => {
   const t = useTranslations("modal");
+  const { data: session } = useSession();
   const { projectId } = useParams<{ projectId: string }>();
   const trpcUtils = api.useUtils();
-  const [isModalOpen, setInviteMemberModalOpen, closeModalsOnClickOutside] =
+  const [isModalOpen, setAddMemberProjectModalOpen, closeModalsOnClickOutside] =
     useStore(
       useShallow((state) => [
-        state.isInviteMemberModalOpen,
-        state.setInviteMemberModalOpen,
+        state.isAddMemberProjectModalOpen,
+        state.setAddMemberProjectModalOpen,
         state.closeModalsOnClickOutside,
-      ]),
+      ])
     );
 
-  const { data, isLoading } = api.user.all.useQuery(
-    {
-      excludeProjectId: projectId,
-    },
-    {
-      enabled: isModalOpen && !!projectId,
-    },
-  );
+  const { data, isLoading } = api.team.all.useQuery(undefined, {
+    enabled: isModalOpen && !!projectId,
+  });
 
   const addUserToProject = api.project.addMember.useMutation();
 
@@ -61,25 +62,38 @@ const InviteMemberModal = () => {
 
   const options = useMemo(() => {
     if (!isLoading && data) {
-      return data.users.map((item) => ({
-        value: item.id,
-        label: item.name,
-      }));
+      return data
+        .filter((team) =>
+          team.members.some(
+            (member) =>
+              member.userId === session?.user.id && member.role === "ADMIN"
+          )
+        )
+        .map((team) => ({
+          label: t("team.manage.title", { name: team.name }),
+          options: team.members
+            .filter((member) => member.userId !== session?.user.id)
+            .map((member) => ({
+              label: member.user.name,
+              value: member.userId,
+              role: member.role,
+            })),
+        }));
     }
 
     return [];
-  }, [isLoading, data]);
+  }, [isLoading, data, session?.user.id, t]);
 
   const onClose = useCallback(() => {
-    setInviteMemberModalOpen({ isOpen: false });
+    setAddMemberProjectModalOpen({ isOpen: false });
     reset();
-  }, [setInviteMemberModalOpen, reset]);
+  }, [setAddMemberProjectModalOpen, reset]);
 
   const onSubmit: SubmitHandler<FormInputs> = useCallback(
     (input: FormInputs) => {
       if (projectId) {
         addUserToProject.mutate(
-          { projectId, userId: input.memberId },
+          { projectId, userId: input.member.userId, role: input.member.role },
           {
             onSuccess: async () => {
               await trpcUtils.project.members.invalidate();
@@ -88,17 +102,18 @@ const InviteMemberModal = () => {
             onError: (error) => {
               toast.error(error.message);
             },
-          },
+          }
         );
       }
     },
-    [addUserToProject, projectId, onClose, trpcUtils],
+    [addUserToProject, projectId, onClose, trpcUtils]
   );
 
   const onChangeMember = useCallback((option: unknown, setField: any) => {
-    if (option) {
-      const { value } = option as (typeof options)[0];
-      setField(value);
+    const { value, role } = option as { value: string; role: string };
+
+    if (value) {
+      setField({ userId: value, role });
     }
   }, []);
 
@@ -121,9 +136,9 @@ const InviteMemberModal = () => {
         closeOnClickOutside={closeModalsOnClickOutside}
       >
         <Controller
-          name="memberId"
+          name="member"
           control={control}
-          defaultValue=""
+          defaultValue={{ userId: "", role: "VIEWER" }}
           render={({ field }) => (
             <Select
               ref={field.ref}
@@ -133,15 +148,9 @@ const InviteMemberModal = () => {
                   : t("member.invite.input.member-id.default")
               }
               options={options}
-              value={
-                (options &&
-                  options.find((option) => option.value === field.value)) ||
-                []
-              }
               onChange={(option) => onChangeMember(option, field.onChange)}
               isDisabled={!options.length}
               isLoading={isLoading}
-              isClearable
             />
           )}
         />
@@ -150,4 +159,4 @@ const InviteMemberModal = () => {
   );
 };
 
-export default InviteMemberModal;
+export default AddMemberProjectModal;

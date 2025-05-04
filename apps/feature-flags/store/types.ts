@@ -9,7 +9,7 @@ import { TabType, SelectedView } from "types";
 
 export type Persist = (
   config: StateCreator<Store>,
-  options: PersistOptions<Store>,
+  options: PersistOptions<Store>
 ) => StateCreator<Store>;
 
 /**
@@ -58,7 +58,7 @@ export interface ModalsSliceActions {
     ModalPayload<EnvironmentModalPayload>,
     void
   >;
-  setInviteMemberModalOpen: ModalAction<ModalPayload<null>, void>;
+  setAddMemberProjectModalOpen: ModalAction<ModalPayload<null>, void>;
   setCreateProjectModalOpen: ModalAction<ModalPayload<null>, void>;
   setCreateTeamModalOpen: ModalAction<ModalPayload<null>, void>;
   setManageTeamModalOpen: ModalAction<ModalPayload<TeamModalPayload>, void>;
@@ -72,7 +72,7 @@ export interface ModalsSliceActions {
 export interface ModalsSliceState extends ModalsSliceActions {
   isCreateEnvironmentModalOpen: boolean;
   isUpdateEnvironmentModalOpen: boolean;
-  isInviteMemberModalOpen: boolean;
+  isAddMemberProjectModalOpen: boolean;
   isCreateProjectModalOpen: boolean;
   isCreateTeamModalOpen: boolean;
   isManageTeamModalOpen: boolean;
@@ -81,7 +81,6 @@ export interface ModalsSliceState extends ModalsSliceActions {
   flagModalPayload: FlagModalPayload | null;
   environmentModalPayload: EnvironmentModalPayload | null;
   teamModalPayload: TeamModalPayload | null;
-  inviteMemberModalPayload: null;
   isConfirmModalOpen: boolean;
   confirmModalPayload: ConfirmModalPayload | null;
   isIntegrationModalOpen: boolean;

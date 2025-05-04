@@ -40,8 +40,13 @@ const InviteCard = ({ role }: Props) => {
   const router = useRouter();
   const trpcUtils = api.useUtils();
   const { projectId } = useParams<{ projectId: string }>();
+<<<<<<< Updated upstream
   const setInviteMemberModalOpen = useStore(
     (state) => state.setInviteMemberModalOpen,
+=======
+  const setAddMemberProjectModalOpen = useStore(
+    (state) => state.setAddMemberProjectModalOpen
+>>>>>>> Stashed changes
   );
 
   const { data, isLoading } = api.project.members.useQuery(
@@ -55,8 +60,8 @@ const InviteCard = ({ role }: Props) => {
   const isCurrentUserAdmin = role === Role.ADMIN;
 
   const onHandleInvite = useCallback(() => {
-    setInviteMemberModalOpen({ isOpen: true });
-  }, [setInviteMemberModalOpen]);
+    setAddMemberProjectModalOpen({ isOpen: true });
+  }, [setAddMemberProjectModalOpen]);
 
   const onHandleDelete = useCallback(
     async (userId: string) => {
@@ -67,7 +72,7 @@ const InviteCard = ({ role }: Props) => {
             onSuccess: async (result) => {
               if (session?.data?.user.id === userId) {
                 // the user removed himself from the project, so we redirect him to the dashboard
-                router.push("/");
+                router.push("/a");
               } else {
                 const prev = trpcUtils.project.members.getData({
                   projectId,

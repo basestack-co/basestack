@@ -29,7 +29,7 @@ export interface Props {
 
 const InviteForm = ({ teamId }: Props) => {
   const t = useTranslations("modal");
-
+  const trpcUtils = api.useUtils();
   const invite = api.team.invite.useMutation();
 
   const {
@@ -37,6 +37,7 @@ const InviteForm = ({ teamId }: Props) => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
+    watch,
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
@@ -46,19 +47,22 @@ const InviteForm = ({ teamId }: Props) => {
     },
   });
 
+  const email = watch("email");
+
   const onSendInvite: SubmitHandler<FormInputs> = async (input) => {
     if (!!input.email) {
       invite.mutate(
         { teamId, email: input.email, role: Role.VIEWER },
         {
-          onSuccess: () => {
+          onSuccess: async () => {
+            await trpcUtils.team.byId.invalidate({ teamId });
             toast.success("Invitation sent successfully");
             reset();
           },
           onError: (error) => {
             toast.error(error.message);
           },
-        },
+        }
       );
     }
   };
@@ -84,7 +88,7 @@ const InviteForm = ({ teamId }: Props) => {
                   onChange: field.onChange,
                   onBlur: field.onBlur,
                   placeholder: t(
-                    "team.manage.tab.invites.form.email.placeholder",
+                    "team.manage.tab.invites.form.email.placeholder"
                   ),
                   hasError: !!errors.email,
                   isDisabled: isSubmitting,
@@ -95,7 +99,7 @@ const InviteForm = ({ teamId }: Props) => {
         </InputGroupWrapper>
         <Button
           onClick={handleSubmit(onSendInvite)}
-          isDisabled={isSubmitting || !isEmptyObject(errors)}
+          isDisabled={isSubmitting || !isEmptyObject(errors) || !email}
           isLoading={isSubmitting}
         >
           {t("team.manage.tab.invites.form.submit")}

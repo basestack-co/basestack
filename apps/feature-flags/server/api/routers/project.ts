@@ -1,12 +1,15 @@
 import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
 // Utils
 import { generateSlug } from "random-word-slugs";
-import { PlanTypeId } from "@basestack/utils";
+import { PlanTypeId, Product, AppEnv, config } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
 import { z } from "zod";
 import { withFeatures, withUsageUpdate } from "server/db/utils/subscription";
 // Types
 import { Role } from ".prisma/client";
 import { TRPCError } from "@trpc/server";
+// Vendors
+import { qstash } from "@basestack/vendors";
 
 export const projectRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -420,40 +423,63 @@ export const projectRouter = createTRPCRouter({
     .meta({
       isProjectRestricted: true,
       roles: [Role.ADMIN, Role.DEVELOPER],
-      usageLimitKey: "members",
     })
     .input(
       z
         .object({
           projectId: z.string(),
           userId: z.string(),
+          role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
         .required()
     )
     .mutation(async ({ ctx, input }) => {
-      const projectAdminUserId = ctx.project.adminUserId;
+      const user = ctx.session?.user;
 
-      const connection = await ctx.prisma.$transaction(async (tx) => {
-        const response = await tx.projectsOnUsers.create({
-          data: {
-            project: {
-              connect: {
-                id: input.projectId,
-              },
+      const connection = await ctx.prisma.projectsOnUsers.create({
+        data: {
+          project: {
+            connect: {
+              id: input.projectId,
             },
-            user: {
-              connect: {
-                id: input.userId,
-              },
+          },
+          user: {
+            connect: {
+              id: input.userId,
             },
-            role: "USER",
+          },
+          role: input.role,
+        },
+        select: {
+          user: {
+            select: {
+              name: true,
+              email: true,
+            },
+          },
+          project: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
+
+      if (!!connection.user.email) {
+        await qstash.events.sendEmailEvent({
+          template: "addProjectMember",
+          to: [connection.user.email],
+          subject: `You have been added to ${connection.project.name} project on Basestack Feature Flags`,
+          props: {
+            product: "Basestack Feature Flags",
+            fromUserName: user?.name ?? "",
+            toUserName: connection.user.name,
+            project: connection.project.name,
+            linkText: "Open Project",
+            linkUrl: `${config.urls.getAppWithEnv(Product.FLAGS, AppMode as AppEnv)}/a/project/${input.projectId}/flags`,
           },
         });
-
-        await withUsageUpdate(tx, projectAdminUserId, "members", "increment");
-
-        return response;
-      });
+      }
 
       return { connection };
     }),

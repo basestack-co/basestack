@@ -9,12 +9,14 @@ import {
   sendEmail,
   WelcomeEmailTemplate,
   InviteEmailTemplate,
+  AddProjectMemberEmailTemplate,
 } from "@basestack/emails";
 import { render } from "@react-email/render";
 
 const templateList: { [key: string]: ElementType } = {
   welcome: WelcomeEmailTemplate,
   invite: InviteEmailTemplate,
+  addProjectMember: AddProjectMemberEmailTemplate,
 };
 
 export const { POST } = serve<SendEmailPayload>(
