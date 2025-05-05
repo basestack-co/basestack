@@ -21,7 +21,7 @@ import { useTranslations } from "next-intl";
 
 export const FormSchema = z.object({
   member: z.object({
-    userId: z.string().min(1, "member.invite.input.member-id.error.min"),
+    userId: z.string().min(1, "member.add.input.select.error.min"),
     role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
   }),
 });
@@ -42,16 +42,19 @@ const AddProjectMemberModal = () => {
       ])
     );
 
-  const { data, isLoading } = api.team.all.useQuery(undefined, {
-    enabled: isModalOpen && !!projectId,
-  });
+  const [team, members] = api.useQueries((t) => [
+    t.team.all(undefined, {
+      enabled: isModalOpen && !!projectId,
+    }),
+    t.project.members({ projectId }, { enabled: isModalOpen && !!projectId }),
+  ]);
 
   const addUserToProject = api.project.addMember.useMutation();
 
   const {
     control,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, isValid },
     reset,
   } = useForm<FormInputs>({
     resolver: zodResolver(FormSchema),
@@ -61,8 +64,11 @@ const AddProjectMemberModal = () => {
   const isSubmittingOrMutating = isSubmitting || addUserToProject.isPending;
 
   const options = useMemo(() => {
-    if (!isLoading && data) {
-      return data
+    if (!team.isLoading && team.data && !members.isLoading && members.data) {
+      const projectUserIds =
+        members.data?.users.map((user) => user.userId) ?? [];
+
+      return team.data
         .filter((team) =>
           team.members.some(
             (member) =>
@@ -72,7 +78,11 @@ const AddProjectMemberModal = () => {
         .map((team) => ({
           label: t("team.manage.title", { name: team.name }),
           options: team.members
-            .filter((member) => member.userId !== session?.user.id)
+            .filter(
+              (member) =>
+                member.userId !== session?.user.id &&
+                !projectUserIds.includes(member.userId)
+            )
             .map((member) => ({
               label: member.user.name,
               value: member.userId,
@@ -82,7 +92,14 @@ const AddProjectMemberModal = () => {
     }
 
     return [];
-  }, [isLoading, data, session?.user.id, t]);
+  }, [
+    team.isLoading,
+    team.data,
+    members.isLoading,
+    members.data,
+    session?.user.id,
+    t,
+  ]);
 
   const onClose = useCallback(() => {
     setAddProjectMemberModalOpen({ isOpen: false });
@@ -120,16 +137,20 @@ const AddProjectMemberModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title={t("member.invite.title")}
+        title={t("member.add.title")}
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { children: t("member.invite.button.cancel"), onClick: onClose },
+          { children: t("member.add.button.cancel"), onClick: onClose },
           {
-            children: t("member.invite.button.submit"),
+            children: t("member.add.button.submit"),
             onClick: handleSubmit(onSubmit),
-            isDisabled: !projectId || !options.length || isSubmittingOrMutating,
+            isDisabled:
+              !projectId ||
+              !options.length ||
+              isSubmittingOrMutating ||
+              !isValid,
             isLoading: isSubmittingOrMutating,
           },
         ]}
@@ -142,15 +163,11 @@ const AddProjectMemberModal = () => {
           render={({ field }) => (
             <Select
               ref={field.ref}
-              placeholder={
-                !options.length
-                  ? t("member.invite.input.member-id.empty")
-                  : t("member.invite.input.member-id.default")
-              }
+              placeholder={t("member.add.input.select.default")}
               options={options}
               onChange={(option) => onChangeMember(option, field.onChange)}
-              isDisabled={!options.length}
-              isLoading={isLoading}
+              isLoading={team.isLoading || members.isLoading}
+              noOptionsMessage={() => t("member.add.input.select.empty")}
             />
           )}
         />

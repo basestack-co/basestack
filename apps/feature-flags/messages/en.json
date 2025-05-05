@@ -250,15 +250,15 @@
       }
     },
     "member": {
-      "invite": {
-        "title": "Add Team Member",
+      "add": {
+        "title": "Add Member to Project",
         "button": {
           "cancel": "Close",
-          "submit": "Add member"
+          "submit": "Save"
         },
         "input": {
-          "member-id": {
-            "empty": "No members",
+          "select": {
+            "empty": "All your team members are already part of this project.",
             "default": "Select member",
             "error": {
               "min": "Required field"
@@ -683,7 +683,7 @@
       "add": {
         "title": "Team Members",
         "description": "Add members to manage this project.",
-        "placeholder": "You need to create a team before you can add members.",
+        "placeholder": "A team is required to add members.",
         "action": "Add Member",
         "table": {
           "headers": {

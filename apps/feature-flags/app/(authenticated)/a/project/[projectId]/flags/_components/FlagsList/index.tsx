@@ -15,10 +15,11 @@ import { useStore } from "store";
 // Types
 import { SelectedView, TabType } from "types";
 // Utils
-import { config, PlanTypeId } from "@basestack/utils";
 import dayjs from "dayjs";
 // Locales
 import { useTranslations } from "next-intl";
+// Toast
+import { toast } from "sonner";
 // Styles
 import {
   FlagsCardGrid,
@@ -43,10 +44,10 @@ const FlagCards = ({
   const t = useTranslations("flag");
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
   const setCreateFlagModalOpen = useStore(
-    (state) => state.setCreateFlagModalOpen,
+    (state) => state.setCreateFlagModalOpen
   );
   const setUpdateFlagModalOpen = useStore(
-    (state) => state.setUpdateFlagModalOpen,
+    (state) => state.setUpdateFlagModalOpen
   );
   const numberOfFlagsPerPage = useStore((state) => state.numberOfFlagsPerPage);
   const deleteFlag = api.flag.delete.useMutation();
@@ -60,7 +61,7 @@ const FlagCards = ({
     {
       enabled: !!projectId,
       getNextPageParam: (lastPage) => lastPage.nextCursor,
-    },
+    }
   );
 
   const [currentPage, totalPages] = useMemo(() => {
@@ -75,7 +76,7 @@ const FlagCards = ({
       flagId: string,
       flagSlug: string,
       environmentId: string,
-      selectedTab: TabType,
+      selectedTab: TabType
     ) => {
       setUpdateFlagModalOpen({
         isOpen: true,
@@ -86,7 +87,7 @@ const FlagCards = ({
         },
       });
     },
-    [setUpdateFlagModalOpen],
+    [setUpdateFlagModalOpen]
   );
 
   const onDelete = useCallback(
@@ -100,11 +101,14 @@ const FlagCards = ({
             // Reset the usage cache
             await trpcUtils.subscription.usage.invalidate();
           },
-        },
+          onError: (error) => {
+            toast.error(error.message);
+          },
+        }
       );
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [projectId, deleteFlag],
+    [projectId, deleteFlag]
   );
 
   if (isLoading)
@@ -164,7 +168,7 @@ const FlagCards = ({
                             flag.id,
                             flag.slug,
                             "",
-                            TabType.CORE,
+                            TabType.CORE
                           ),
                       },
                       {
@@ -175,7 +179,7 @@ const FlagCards = ({
                             flag.id,
                             flag.slug,
                             "",
-                            TabType.HISTORY,
+                            TabType.HISTORY
                           ),
                       },
                       {
