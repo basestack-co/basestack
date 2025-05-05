@@ -4,7 +4,7 @@ import React from "react";
 // Router
 import { useParams } from "next/navigation";
 // Modules
-import Invite from "./_components/Invite";
+import MembersTableCard from "./_components/MembersTable";
 // Server
 import { api } from "utils/trpc/react";
 // Styles
@@ -23,7 +23,7 @@ const MembersPage = () => {
     <CardList>
       <CardListItem>
         <SettingCardContainer>
-          <Invite role={project?.role} />
+          <MembersTableCard role={project?.role} />
         </SettingCardContainer>
       </CardListItem>
     </CardList>

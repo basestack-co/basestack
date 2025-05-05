@@ -138,7 +138,7 @@ const Teams = () => {
       )}
       {!isLoading && !!data?.length && (
         <TeamsList>
-          {data.map((team, index) => {
+          {data.map((team) => {
             const isOwnerOfTeam =
               team.members.find(({ userId }) => userId === session?.user?.id)
                 ?.role === Role.ADMIN;
@@ -149,10 +149,6 @@ const Teams = () => {
                   text={t("teams.name", { name: team.name })}
                   onClick={team.onClick}
                   avatars={team.members}
-                  label={{
-                    text: "External",
-                    tooltip: "You was invited to this team",
-                  }}
                   {...(isOwnerOfTeam
                     ? {
                         menuItems: [
@@ -169,7 +165,12 @@ const Teams = () => {
                           },
                         ],
                       }
-                    : {})}
+                    : {
+                        label: {
+                          text: t("teams.tag.text"),
+                          tooltip: t("teams.tag.tooltip"),
+                        },
+                      })}
                 />
               </ListItem>
             );

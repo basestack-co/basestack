@@ -57,7 +57,7 @@ const MemberCard = ({
 
       return list[role];
     },
-    [t],
+    [t]
   );
 
   const onRenderOptions = useCallback(() => {
@@ -89,6 +89,7 @@ const MemberCard = ({
     const dropdownItems = [
       ...assignableRoles.map((assignableRole) => ({
         text: getRoleString(assignableRole),
+        isDisabled: role === assignableRole,
         onClick: () => onSelectRole(userId, assignableRole),
       })),
       {

@@ -28,16 +28,16 @@ export const FormSchema = z.object({
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
-const AddMemberProjectModal = () => {
+const AddProjectMemberModal = () => {
   const t = useTranslations("modal");
   const { data: session } = useSession();
   const { projectId } = useParams<{ projectId: string }>();
   const trpcUtils = api.useUtils();
-  const [isModalOpen, setAddMemberProjectModalOpen, closeModalsOnClickOutside] =
+  const [isModalOpen, setAddProjectMemberModalOpen, closeModalsOnClickOutside] =
     useStore(
       useShallow((state) => [
-        state.isAddMemberProjectModalOpen,
-        state.setAddMemberProjectModalOpen,
+        state.isAddProjectMemberModalOpen,
+        state.setAddProjectMemberModalOpen,
         state.closeModalsOnClickOutside,
       ])
     );
@@ -85,9 +85,9 @@ const AddMemberProjectModal = () => {
   }, [isLoading, data, session?.user.id, t]);
 
   const onClose = useCallback(() => {
-    setAddMemberProjectModalOpen({ isOpen: false });
+    setAddProjectMemberModalOpen({ isOpen: false });
     reset();
-  }, [setAddMemberProjectModalOpen, reset]);
+  }, [setAddProjectMemberModalOpen, reset]);
 
   const onSubmit: SubmitHandler<FormInputs> = useCallback(
     (input: FormInputs) => {
@@ -159,4 +159,4 @@ const AddMemberProjectModal = () => {
   );
 };
 
-export default AddMemberProjectModal;
+export default AddProjectMemberModal;

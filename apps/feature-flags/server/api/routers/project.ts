@@ -493,7 +493,7 @@ export const projectRouter = createTRPCRouter({
         .object({
           projectId: z.string(),
           userId: z.string(),
-          role: z.enum(["USER", "ADMIN"]),
+          role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
         .required()
     )

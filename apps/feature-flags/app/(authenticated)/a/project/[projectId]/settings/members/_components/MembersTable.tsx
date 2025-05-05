@@ -21,6 +21,8 @@ import { createTable } from "@basestack/utils";
 import { useSession } from "next-auth/react";
 // Router
 import { useParams, useRouter } from "next/navigation";
+// Toast
+import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
 // Types
@@ -32,26 +34,21 @@ export interface Props {
   role?: Role;
 }
 
-const InviteCard = ({ role }: Props) => {
-  const t = useTranslations("setting");
+const MembersTableCard = ({ role }: Props) => {
+  const t = useTranslations();
   const theme = useTheme();
   const isMobile = useMedia(theme.device.max.md, false);
   const session = useSession();
   const router = useRouter();
   const trpcUtils = api.useUtils();
   const { projectId } = useParams<{ projectId: string }>();
-<<<<<<< Updated upstream
-  const setInviteMemberModalOpen = useStore(
-    (state) => state.setInviteMemberModalOpen,
-=======
-  const setAddMemberProjectModalOpen = useStore(
-    (state) => state.setAddMemberProjectModalOpen
->>>>>>> Stashed changes
+  const setAddProjectMemberModalOpen = useStore(
+    (state) => state.setAddProjectMemberModalOpen
   );
 
   const { data, isLoading } = api.project.members.useQuery(
     { projectId },
-    { enabled: !!projectId },
+    { enabled: !!projectId }
   );
 
   const removeUserFromProject = api.project.removeMember.useMutation();
@@ -59,9 +56,9 @@ const InviteCard = ({ role }: Props) => {
 
   const isCurrentUserAdmin = role === Role.ADMIN;
 
-  const onHandleInvite = useCallback(() => {
-    setAddMemberProjectModalOpen({ isOpen: true });
-  }, [setAddMemberProjectModalOpen]);
+  const onAddMemberModal = useCallback(() => {
+    setAddProjectMemberModalOpen({ isOpen: true });
+  }, [setAddProjectMemberModalOpen]);
 
   const onHandleDelete = useCallback(
     async (userId: string) => {
@@ -80,33 +77,47 @@ const InviteCard = ({ role }: Props) => {
 
                 if (prev?.users) {
                   const users = prev.users.filter(
-                    (item) => item.userId !== result.connection.userId,
+                    (item) => item.userId !== result.connection.userId
                   );
 
                   trpcUtils.project.members.setData(
                     {
                       projectId,
                     },
-                    { users },
+                    { users }
                   );
                 }
+
+                toast.success(
+                  t("modal.team.manage.tab.members.list.status.remove.success")
+                );
               }
             },
-          },
+            onError: (error) => {
+              toast.error(error.message);
+            },
+          }
         );
       }
     },
-    [projectId, removeUserFromProject, trpcUtils, session, router],
+    [
+      projectId,
+      removeUserFromProject,
+      session?.data?.user.id,
+      router,
+      trpcUtils.project.members,
+      t,
+    ]
   );
 
   const onHandleUpdateRole = useCallback(
-    async (userId: string, isAdmin: boolean) => {
+    async (userId: string, role: "DEVELOPER" | "VIEWER" | "TESTER") => {
       if (projectId) {
         updateUserRole.mutate(
           {
             projectId,
             userId,
-            role: isAdmin ? "USER" : "ADMIN",
+            role,
           },
           {
             onSuccess: async (result) => {
@@ -130,29 +141,43 @@ const InviteCard = ({ role }: Props) => {
                   {
                     projectId,
                   },
-                  { users },
+                  { users }
+                );
+
+                toast.success(
+                  t("modal.team.manage.tab.members.list.status.update.success")
                 );
               }
             },
-          },
+            onError: (error) => {
+              toast.error(error.message);
+            },
+          }
         );
       }
     },
-    [projectId, updateUserRole, trpcUtils],
+    [projectId, updateUserRole, trpcUtils.project.members, t]
   );
 
   const getTable = useMemo(() => {
-    const numberOfAdmins = data?.users.filter(
-      (item) => item.role === Role.ADMIN,
-    ).length;
+    const roleList: { [role: string]: string } = {
+      [Role.ADMIN]: t("modal.team.manage.tab.members.list.option.admin"),
+      [Role.DEVELOPER]: t(
+        "modal.team.manage.tab.members.list.option.developer"
+      ),
+      [Role.TESTER]: t("modal.team.manage.tab.members.list.option.tester"),
+      [Role.VIEWER]: t("modal.team.manage.tab.members.list.option.viewer"),
+    };
+
+    const assignableRoles = [Role.DEVELOPER, Role.TESTER, Role.VIEWER];
 
     return createTable(
       !isLoading && !!data ? data.users : [],
       [
-        t("members.invite.table.headers.name"),
-        t("members.invite.table.headers.email"),
-        t("members.invite.table.headers.role"),
-        t("members.invite.table.headers.invited-at"),
+        t("setting.members.add.table.headers.name"),
+        t("setting.members.add.table.headers.email"),
+        t("setting.members.add.table.headers.added-at"),
+        t("setting.members.add.table.headers.role"),
       ],
       (item) => {
         return [
@@ -164,55 +189,53 @@ const InviteCard = ({ role }: Props) => {
             title: item.user.name!,
           },
           { title: item.user.email! },
-          {
-            title: item.role,
-            children: (
-              <PopupMenu
-                button={{ text: "Admin", variant: ButtonVariant.Tertiary }}
-                items={[{ text: "Example", onClick: () => undefined }]}
-              />
-            ),
-          },
           { title: dayjs(item.createdAt).fromNow() },
+          {
+            title: roleList[item.role],
+            ...(isCurrentUserAdmin &&
+              item.userId !== session?.data?.user.id && {
+                children: (
+                  <PopupMenu
+                    button={{
+                      text: roleList[item.role],
+                      variant: ButtonVariant.Tertiary,
+                      isDisabled:
+                        updateUserRole.isPending ||
+                        removeUserFromProject.isPending,
+                    }}
+                    items={[
+                      ...assignableRoles.map((role) => ({
+                        text: roleList[role],
+                        isDisabled: role === item.role,
+                        onClick: () => onHandleUpdateRole(item.userId, role),
+                      })),
+                      {
+                        text: t(
+                          "modal.team.manage.tab.members.list.option.remove"
+                        ),
+                        onClick: () => onHandleDelete(item.userId),
+                        variant: ButtonVariant.Danger,
+                      },
+                    ]}
+                  />
+                ),
+              }),
+          },
         ];
       },
-      (item) => {
-        const isSameUser = session?.data?.user.id === item.userId;
-        const isAdmin = item.role === Role.ADMIN;
-
-        return [
-          ...(isCurrentUserAdmin && !isSameUser
-            ? [
-                {
-                  icon: "shield",
-                  text: `Set as ${isAdmin ? "User" : "Admin"}`,
-                  onClick: () => onHandleUpdateRole(item.userId, isAdmin),
-                },
-              ]
-            : []),
-
-          ...(isCurrentUserAdmin || isSameUser
-            ? [
-                {
-                  icon: isSameUser ? "exit_to_app" : "delete",
-                  text: isSameUser ? "Leave" : "Remove",
-                  variant: ButtonVariant.Danger,
-                  onClick: () => onHandleDelete(item.userId),
-                  isDisabled: isAdmin && (numberOfAdmins ?? 0) <= 1,
-                },
-              ]
-            : []),
-        ];
-      },
+      // Disable actions
+      () => []
     );
   }, [
-    t,
     data,
+    t,
     isLoading,
-    session?.data?.user.id,
     isCurrentUserAdmin,
+    session?.data?.user.id,
     onHandleUpdateRole,
     onHandleDelete,
+    removeUserFromProject.isPending,
+    updateUserRole.isPending,
   ]);
 
   const getContent = () => {
@@ -241,11 +264,11 @@ const InviteCard = ({ role }: Props) => {
 
   return (
     <SettingCard
-      title={t("members.invite.title")}
-      description={t("members.invite.description")}
-      button={t("members.invite.action")!}
-      text={t("members.invite.placeholder")}
-      onClick={onHandleInvite}
+      title={t("setting.members.add.title")}
+      description={t("setting.members.add.description")}
+      button={t("setting.members.add.action")!}
+      text={t("setting.members.add.placeholder")}
+      onClick={onAddMemberModal}
       hasFooter={isCurrentUserAdmin}
     >
       {isLoading || !data ? (
@@ -267,4 +290,4 @@ const InviteCard = ({ role }: Props) => {
   );
 };
 
-export default InviteCard;
+export default MembersTableCard;

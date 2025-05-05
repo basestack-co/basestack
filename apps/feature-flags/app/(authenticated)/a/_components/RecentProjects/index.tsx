@@ -21,7 +21,7 @@ const RecentProjects = () => {
   const theme = useTheme();
   const router = useRouter();
   const setCreateProjectModalOpen = useStore(
-    (state) => state.setCreateProjectModalOpen,
+    (state) => state.setCreateProjectModalOpen
   );
 
   const { data, isLoading } = api.project.recent.useQuery(undefined, {
@@ -92,6 +92,12 @@ const RecentProjects = () => {
                       router.push(`/a/project/${project.id}/settings`),
                   },
                 ]}
+                {...(!project.isAdmin && {
+                  label: {
+                    text: t("projects.tag.text"),
+                    tooltip: t("projects.tag.tooltip"),
+                  },
+                })}
               />
             </ProjectsListItem>
           ))}

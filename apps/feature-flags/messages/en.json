@@ -76,6 +76,10 @@
     "projects": {
       "title": "Recent projects",
       "action": "Create Project",
+      "tag": {
+        "text": "External",
+        "tooltip": "You are a member of this project, not the owner."
+      },
       "menu": {
         "features": "Feature Flags",
         "settings": "Settings"
@@ -104,6 +108,10 @@
       "title": "Teams",
       "name": "{name} Team",
       "action": "Create Team",
+      "tag": {
+        "text": "External",
+        "tooltip": "This team was created by someone else. You have limited permissions."
+      },
       "menu": {
         "manage": "Manage",
         "delete": "Delete"
@@ -672,9 +680,9 @@
       }
     },
     "members": {
-      "invite": {
+      "add": {
         "title": "Team Members",
-        "description": "Add members to manage this project. Developers can also be invited to access API keys for code integration.",
+        "description": "Add members to manage this project.",
         "placeholder": "You need to create a team before you can add members.",
         "action": "Add Member",
         "table": {
@@ -682,7 +690,7 @@
             "name": "Name",
             "email": "Email",
             "role": "Role",
-            "invited-at": "Invited At"
+            "added-at": "Added At"
           }
         }
       }
