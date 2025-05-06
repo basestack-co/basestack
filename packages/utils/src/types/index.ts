@@ -117,3 +117,20 @@ export interface FlagsPlan extends Plan {
     hasWebsites: boolean;
   };
 }
+
+export type FlagsPermission =
+  | "view_project_flags"
+  | "view_project_keys"
+  | "view_project_environments"
+  | "view_project_security"
+  | "add_project_flags"
+  | "add_project_member"
+  | "add_project_environment"
+  | "edit_project_flags"
+  | "edit_project_name"
+  | "edit_project_environment"
+  | "delete_project_flags"
+  | "delete_project_environment"
+  | "delete_project";
+
+export type FormsPermission = "delete_form";

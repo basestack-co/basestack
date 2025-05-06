@@ -25,7 +25,7 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
       isExpired = false,
       ...props
     },
-    ref,
+    ref
   ) => {
     const theme = useTheme();
 
@@ -36,7 +36,7 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
       },
       {
         enabled: !!projectId,
-      },
+      }
     );
 
     return (
@@ -109,12 +109,14 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
             />
           )}
         </Footer>
-        <DropdownWrapper>
-          <PopupMenu items={popupItems} />
-        </DropdownWrapper>
+        {popupItems && (
+          <DropdownWrapper>
+            <PopupMenu items={popupItems} />
+          </DropdownWrapper>
+        )}
       </Card>
     );
-  },
+  }
 );
 
 FlagCard.displayName = "FlagCard";

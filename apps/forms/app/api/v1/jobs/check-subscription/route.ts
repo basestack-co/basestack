@@ -2,11 +2,8 @@
 import { prisma } from "server/db";
 // Utils
 import dayjs from "dayjs";
-import { config } from "@basestack/utils";
 // Vendors
 import { qstash } from "@basestack/vendors";
-
-const { getFormPlanLimitsDefaults } = config.plans;
 
 export const { POST } = qstash.jobs.CheckSubscriptionJob({
   product: "Forms",
@@ -28,8 +25,9 @@ export const { POST } = qstash.jobs.CheckSubscriptionJob({
       },
       data: {
         billingCycleStart: dayjs(billingCycle).add(1, "month").toISOString(),
-        ...getFormPlanLimitsDefaults(),
         ...payload,
+        submissions: 0,
+        spams: 0,
       },
     });
   },

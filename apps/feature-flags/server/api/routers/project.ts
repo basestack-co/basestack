@@ -47,6 +47,7 @@ export const projectRouter = createTRPCRouter({
     const projects = all.map((project) => ({
       ...project,
       isAdmin: project.users[0]?.role === Role.ADMIN,
+      role: project.users[0]?.role ?? Role.VIEWER,
     }));
 
     return { projects };
@@ -156,6 +157,11 @@ export const projectRouter = createTRPCRouter({
                       name: true,
                       email: true,
                       image: true,
+                      subscription: {
+                        select: {
+                          planId: true,
+                        },
+                      },
                     },
                   },
                 },

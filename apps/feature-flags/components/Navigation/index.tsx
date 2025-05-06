@@ -11,6 +11,8 @@ import { useSession } from "next-auth/react";
 import { useMedia } from "react-use";
 // Locales
 import { useTranslations } from "next-intl";
+// Types
+import { Role } from ".prisma/client";
 // Components
 import { PopupActionProps } from "@basestack/design-system";
 import { Navigation as NavigationUI } from "@basestack/ui";
@@ -42,17 +44,20 @@ const Navigation = ({ data }: NavigationProps) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
 
   const setCreateProjectModalOpen = useStore(
-    (state) => state.setCreateProjectModalOpen,
+    (state) => state.setCreateProjectModalOpen
   );
 
   const setCreateFlagModalOpen = useStore(
-    (state) => state.setCreateFlagModalOpen,
+    (state) => state.setCreateFlagModalOpen
   );
 
-  const currentProject = useMemo(() => {
-    const project = data?.find(({ id }) => id === projectId);
+  const [projectName, projectRole] = useMemo(() => {
+    const project = data?.find(({ id }) => id === projectId) as unknown as {
+      text: string;
+      role: Role;
+    };
 
-    return project?.text ?? "";
+    return [project?.text ?? "", project?.role ?? Role.VIEWER];
   }, [projectId, data]);
 
   const onSelectApp = useCallback((app: Product) => {
@@ -97,7 +102,7 @@ const Navigation = ({ data }: NavigationProps) => {
         duration: 400,
         easing: "cubic-bezier(0.250, 0.460, 0.450, 0.940)",
         pseudoElement: "::view-transition-new(root)",
-      },
+      }
     );
   };
 
@@ -106,26 +111,23 @@ const Navigation = ({ data }: NavigationProps) => {
       product={Product.FLAGS}
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
-      leftLinks={
-        !!projectId
-          ? getLeftLinks(
-              router,
-              pathname,
-              projectId,
-              () => setCreateFlagModalOpen({ isOpen: true }),
-              {
-                createFlag: t("navigation.create.flag"),
-                settings: t("navigation.internal.settings"),
-                flags: t("navigation.internal.features"),
-              },
-            )
-          : []
-      }
+      leftLinks={getLeftLinks(
+        router,
+        pathname,
+        projectId,
+        projectRole,
+        () => setCreateFlagModalOpen({ isOpen: true }),
+        {
+          createFlag: t("navigation.create.flag"),
+          settings: t("navigation.internal.settings"),
+          flags: t("navigation.internal.features"),
+        }
+      )}
       rightLinks={getRightLinks({ docs: t("navigation.external.docs") })}
       rightLinksTitle={t("navigation.external.resources")}
       projects={{
         onCreate: () => setCreateProjectModalOpen({ isOpen: true }),
-        current: currentProject,
+        current: projectName,
         data: data ?? [],
         title: t("navigation.projects.title"),
         select: {
@@ -159,7 +161,7 @@ const Navigation = ({ data }: NavigationProps) => {
             settings: t("navigation.dropdown.settings"),
             billing: t("navigation.dropdown.billing"),
             logout: t("navigation.dropdown.logout"),
-          },
+          }
         ),
       }}
     />

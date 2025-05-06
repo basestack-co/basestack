@@ -12,13 +12,16 @@ import Keys from "./_components/Keys";
 import ProjectKey from "./_components/ProjectKey";
 // Server
 import { api } from "utils/trpc/react";
-// Types
-import { Role } from ".prisma/client";
+// Utils
+import { config } from "@basestack/utils";
 // Styles
 import { CardList, CardListItem, SettingCardContainer } from "../styles";
 
+const { hasFlagsPermission } = config.plans;
+
 const GeneralPage = () => {
   const { projectId } = useParams<{ projectId: string }>();
+
   const { data: project } = api.project.byId.useQuery(
     { projectId },
     {
@@ -28,11 +31,13 @@ const GeneralPage = () => {
 
   return (
     <CardList>
-      <CardListItem>
-        <SettingCardContainer>
-          <ProjectName role={project?.role} name={project?.name} />
-        </SettingCardContainer>
-      </CardListItem>
+      {hasFlagsPermission(project?.role, "edit_project_name") && (
+        <CardListItem>
+          <SettingCardContainer>
+            <ProjectName role={project?.role} name={project?.name} />
+          </SettingCardContainer>
+        </CardListItem>
+      )}
       <CardListItem>
         <SettingCardContainer>
           <ProjectOwner
@@ -42,22 +47,26 @@ const GeneralPage = () => {
           />
         </SettingCardContainer>
       </CardListItem>
-      <CardListItem>
-        <SettingCardContainer>
-          <Endpoints />
-        </SettingCardContainer>
-      </CardListItem>
-      <CardListItem>
-        <SettingCardContainer>
-          <ProjectKey projectKey={project?.key ?? ""} />
-        </SettingCardContainer>
-      </CardListItem>
-      <CardListItem>
-        <SettingCardContainer>
-          <Keys />
-        </SettingCardContainer>
-      </CardListItem>
-      {project?.role === Role.ADMIN && (
+      {hasFlagsPermission(project?.role, "view_project_keys") && (
+        <>
+          <CardListItem>
+            <SettingCardContainer>
+              <Endpoints />
+            </SettingCardContainer>
+          </CardListItem>
+          <CardListItem>
+            <SettingCardContainer>
+              <ProjectKey projectKey={project?.key ?? ""} />
+            </SettingCardContainer>
+          </CardListItem>
+          <CardListItem>
+            <SettingCardContainer>
+              <Keys />
+            </SettingCardContainer>
+          </CardListItem>
+        </>
+      )}
+      {hasFlagsPermission(project?.role, "delete_project") && (
         <CardListItem>
           <SettingCardContainer>
             <DeleteProject name={project?.name} />

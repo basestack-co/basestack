@@ -1,5 +1,5 @@
 // Types
-import { PlanTypeId, FormPlan } from "../../types";
+import { PlanTypeId, FormPlan, FormsPermission } from "../../types";
 
 const forms: FormPlan[] = [
   {
@@ -260,6 +260,20 @@ const forms: FormPlan[] = [
   },
 ];
 
+const formsPermissions: Record<string, FormsPermission[]> = {
+  ADMIN: [],
+  DEVELOPER: [],
+  TESTER: [],
+  VIEWER: [],
+};
+
+const hasFormsPermission = (
+  role: string | undefined,
+  permission: FormsPermission
+): boolean => {
+  return formsPermissions[role ?? "VIEWER"]?.includes(permission) ?? false;
+};
+
 const getFormPlanLimitsDefaults = () => ({
   forms: 0,
   submissions: 0,
@@ -272,5 +286,7 @@ const getFormPlanLimitsDefaults = () => ({
 
 export const config = {
   forms,
+  formsPermissions,
   getFormPlanLimitsDefaults,
+  hasFormsPermission,
 };

@@ -142,6 +142,11 @@ export const formRouter = createTRPCRouter({
                       name: true,
                       email: true,
                       image: true,
+                      subscription: {
+                        select: {
+                          planId: true,
+                        },
+                      },
                     },
                   },
                 },

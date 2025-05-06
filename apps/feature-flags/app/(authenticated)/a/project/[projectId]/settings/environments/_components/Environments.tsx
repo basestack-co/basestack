@@ -24,7 +24,11 @@ import { Role } from ".prisma/client";
 // Locales
 import { useTranslations } from "next-intl";
 
-const EnvironmentsCard = () => {
+export interface Props {
+  role?: Role;
+}
+
+const EnvironmentsCard = ({ role }: Props) => {
   const t = useTranslations("setting");
   const theme = useTheme();
   const isMobile = useMedia(theme.device.max.md, false);
@@ -33,26 +37,25 @@ const EnvironmentsCard = () => {
   const { projectId } = useParams<{ projectId: string }>();
 
   const setCreateEnvironmentModalOpen = useStore(
-    (state) => state.setCreateEnvironmentModalOpen,
+    (state) => state.setCreateEnvironmentModalOpen
   );
   const setUpdateEnvironmentModalOpen = useStore(
-    (state) => state.setUpdateEnvironmentModalOpen,
+    (state) => state.setUpdateEnvironmentModalOpen
   );
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
 
-  const [project, environment] = api.useQueries((t) => [
-    t.project.byId({ projectId }, { enabled: !!projectId }),
-    t.environment.all({ projectId }, { enabled: !!projectId }),
-  ]);
+  const { data, isLoading } = api.environment.all.useQuery(
+    { projectId },
+    {
+      enabled: !!projectId,
+    }
+  );
 
   const deleteEnvironment = api.environment.delete.useMutation();
-  const isCurrentUserAdmin = project?.data?.role === Role.ADMIN;
+  const isCurrentUserAdmin = role === Role.ADMIN;
   const environments = useMemo(
-    () =>
-      !environment.isLoading && !!environment.data
-        ? environment.data.environments
-        : [],
-    [environment.isLoading, environment.data],
+    () => (!isLoading && !!data ? data.environments : []),
+    [isLoading, data]
   );
 
   const onHandleEdit = useCallback(
@@ -66,7 +69,7 @@ const EnvironmentsCard = () => {
         });
       }
     },
-    [projectId, setUpdateEnvironmentModalOpen],
+    [projectId, setUpdateEnvironmentModalOpen]
   );
 
   const onHandleCreate = useCallback(() => {
@@ -77,8 +80,7 @@ const EnvironmentsCard = () => {
 
   const onHandleDelete = useCallback(
     async (environmentId: string) => {
-      if (project?.data?.id) {
-        const projectId = project?.data?.id;
+      if (projectId) {
         deleteEnvironment.mutate(
           {
             environmentId,
@@ -92,11 +94,11 @@ const EnvironmentsCard = () => {
                 await trpcUtils.flag.environments.invalidate();
               }
             },
-          },
+          }
         );
       }
     },
-    [project, deleteEnvironment, trpcUtils],
+    [deleteEnvironment, trpcUtils]
   );
 
   const onClickDeleteEnvironment = useCallback(
@@ -119,7 +121,7 @@ const EnvironmentsCard = () => {
         },
       });
     },
-    [onHandleDelete, setConfirmModalOpen, t],
+    [onHandleDelete, setConfirmModalOpen, t]
   );
 
   const getTable = useMemo(
@@ -151,10 +153,10 @@ const EnvironmentsCard = () => {
             onClick: () => onClickDeleteEnvironment(item.id, item.name),
             isDisabled: !!item.isDefault,
           },
-        ],
+        ]
       ),
 
-    [onHandleEdit, environments, onClickDeleteEnvironment, t],
+    [onHandleEdit, environments, onClickDeleteEnvironment, t]
   );
 
   const getContent = () => {
@@ -185,7 +187,7 @@ const EnvironmentsCard = () => {
       onClick={onHandleCreate}
       hasFooter={isCurrentUserAdmin}
     >
-      {environment.isLoading || !environment ? (
+      {isLoading || !data ? (
         <Loader hasDelay={false}>
           <Skeleton
             items={[

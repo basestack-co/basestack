@@ -2,28 +2,33 @@ import { NavigationProps } from "@basestack/ui";
 // Types
 import { useRouter } from "next/navigation";
 import { ButtonVariant } from "@basestack/design-system";
+import { Role } from ".prisma/client";
 // Utils
 import { config, Product } from "@basestack/utils";
 import { signOut } from "next-auth/react";
+
+const { hasFlagsPermission } = config.plans;
 
 export const getLeftLinks = (
   router: ReturnType<typeof useRouter>,
   pathname: string,
   projectId: string,
+  projectRole: Role,
   onCreateFlag: () => void,
   labels: {
     flags: string;
     settings: string;
     createFlag: string;
-  },
+  }
 ): NavigationProps["leftLinks"] => {
-  return [
+  const links = [
     {
       type: "button",
       icon: "flag",
       onClick: () => router.push(`/a/project/${projectId}/flags`),
       text: labels.flags,
       isActive: pathname.includes("flags"),
+      isVisible: !!projectId,
     },
     {
       type: "button",
@@ -31,6 +36,7 @@ export const getLeftLinks = (
       onClick: () => router.push(`/a/project/${projectId}/settings/general`),
       text: labels.settings,
       isActive: pathname.includes("settings"),
+      isVisible: !!projectId,
     },
     {
       type: "button",
@@ -40,8 +46,12 @@ export const getLeftLinks = (
       isActive: pathname.includes("create"),
       buttonVariant: ButtonVariant.Primary,
       space: { ml: 2 },
+      isVisible:
+        !!projectId && hasFlagsPermission(projectRole, "add_project_flags"),
     },
-  ];
+  ].filter((link) => link.isVisible);
+
+  return links as NavigationProps["leftLinks"];
 };
 
 export const getRightLinks = (labels: {
@@ -66,7 +76,7 @@ export const getAvatarDropdownList = (
     settings: string;
     billing: string;
     logout: string;
-  },
+  }
 ) => {
   return [
     {
@@ -108,7 +118,7 @@ export const getAppsList = (
       title: string;
       description: string;
     };
-  },
+  }
 ) => {
   return [
     {

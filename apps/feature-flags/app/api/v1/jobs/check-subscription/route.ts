@@ -2,11 +2,8 @@
 import { prisma } from "server/db";
 // Utils
 import dayjs from "dayjs";
-import { config } from "@basestack/utils";
 // Vendors
 import { qstash } from "@basestack/vendors";
-
-const { getFlagsPlanLimitsDefaults } = config.plans;
 
 export const { POST } = qstash.jobs.CheckSubscriptionJob({
   product: "Feature Flags",
@@ -28,8 +25,8 @@ export const { POST } = qstash.jobs.CheckSubscriptionJob({
       },
       data: {
         billingCycleStart: dayjs(billingCycle).add(1, "month").toISOString(),
-        ...getFlagsPlanLimitsDefaults(),
         ...payload,
+        apiRequests: 0,
       },
     });
   },

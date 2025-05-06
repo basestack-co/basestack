@@ -17,7 +17,7 @@ export interface FlagRowProps extends SpaceProps, PositionProps {
   /**
    * Popup items array
    */
-  popupItems: Array<PopupItemsProps>;
+  popupItems?: Array<PopupItemsProps>;
   /**
    * Card slug
    */

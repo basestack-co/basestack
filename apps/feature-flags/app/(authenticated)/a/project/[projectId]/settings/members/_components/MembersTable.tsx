@@ -29,6 +29,9 @@ import { useTranslations } from "next-intl";
 import { Role } from ".prisma/client";
 // Utils
 import dayjs from "dayjs";
+import { config } from "@basestack/utils";
+
+const { hasFlagsPermission } = config.plans;
 
 export interface Props {
   role?: Role;
@@ -269,7 +272,7 @@ const MembersTableCard = ({ role }: Props) => {
       button={t("setting.members.add.action")!}
       text={t("setting.members.add.placeholder")}
       onClick={onAddMemberModal}
-      hasFooter={isCurrentUserAdmin}
+      hasFooter={hasFlagsPermission(role, "add_project_member")}
     >
       {isLoading || !data ? (
         <Loader hasDelay={false}>
