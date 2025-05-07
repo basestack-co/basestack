@@ -59,6 +59,10 @@ export interface TableProps extends SpaceProps {
    * Table data
    */
   data: TableData;
+  /**
+   * If true changes layout on mobile
+   */
+  isResponsive?: boolean;
 }
 
 export interface RowProps {
@@ -66,4 +70,6 @@ export interface RowProps {
   more: Array<PopupItemsProps>;
   numberOfCols: number;
   tooltip?: tooltip;
+  headers: Array<string>;
+  isResponsive: boolean;
 }

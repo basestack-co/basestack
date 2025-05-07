@@ -12,6 +12,7 @@ import {
   Col,
   Container,
   ContentRow,
+  MobileLabel,
   PopupWrapper,
   StyledLink,
   StyledRow,
@@ -21,7 +22,14 @@ import CopyClipboard from "./CopyClipboard";
 
 const AnimatedPopup = animated(Popup);
 
-const Row = ({ cols = [], more, numberOfCols, tooltip }: RowProps) => {
+const Row = ({
+  headers = [],
+  cols = [],
+  more,
+  numberOfCols = 3,
+  tooltip,
+  isResponsive,
+}: RowProps) => {
   const theme = useTheme();
 
   const {
@@ -38,18 +46,37 @@ const Row = ({ cols = [], more, numberOfCols, tooltip }: RowProps) => {
   } = useFloatingPopup({});
 
   return (
-    <StyledRow numberOfColumns={numberOfCols} data-testid="row">
+    <StyledRow
+      numberOfColumns={numberOfCols}
+      hasSmallCol={!!tooltip || more.length > 0}
+      isResponsive={isResponsive}
+      data-testid="row"
+    >
       {cols &&
         cols.map((col, index) => {
           const imageSrc = col.image?.src ?? "";
           const imageUsername = col.image?.userName ?? "";
 
           if (col.children) {
-            return <Col key={`${index.toString()}-col`}>{col.children}</Col>;
+            return (
+              <Col isResponsive={isResponsive} key={`${index.toString()}-col`}>
+                {isResponsive && (
+                  <MobileLabel muted size="xSmall" mb={theme.spacing.s1}>
+                    {headers[index].toUpperCase()}
+                  </MobileLabel>
+                )}
+                {col.children}
+              </Col>
+            );
           }
 
           return (
-            <Col key={`${index.toString()}-col`}>
+            <Col isResponsive={isResponsive} key={`${index.toString()}-col`}>
+              {isResponsive && (
+                <MobileLabel muted size="xSmall" mb={theme.spacing.s1}>
+                  {headers[index].toUpperCase()}
+                </MobileLabel>
+              )}
               {!!col.link ? (
                 <StyledLink>
                   <Text
@@ -84,7 +111,7 @@ const Row = ({ cols = [], more, numberOfCols, tooltip }: RowProps) => {
           );
         })}
       {!tooltip && more.length > 0 && (
-        <Col>
+        <Col isSmallCol isResponsive={isResponsive}>
           <PopupWrapper ref={popupWrapperRef}>
             <IconButton
               {...getReferenceProps}
@@ -111,7 +138,7 @@ const Row = ({ cols = [], more, numberOfCols, tooltip }: RowProps) => {
         </Col>
       )}
       {tooltip && (
-        <Col>
+        <Col isSmallCol isResponsive={isResponsive}>
           <CopyClipboard tooltip={tooltip} />
         </Col>
       )}
@@ -119,15 +146,28 @@ const Row = ({ cols = [], more, numberOfCols, tooltip }: RowProps) => {
   );
 };
 
-const Table = ({ data, ...props }: TableProps) => {
+const Table = ({ isResponsive = true, data, ...props }: TableProps) => {
   const numberOfCols = data.headers.length;
+  const hasTooltip = data.rows.some((row) => !!row.tooltip);
+  const hasMoreMenu =
+    data.rows.length > 1 && data.rows.some((row) => row.more.length > 0);
+
   return (
     <Container data-testid="table" {...props}>
-      <StyledRow numberOfColumns={numberOfCols} data-testid="header">
+      <StyledRow
+        hasSmallCol={hasTooltip || hasMoreMenu}
+        numberOfColumns={numberOfCols}
+        isResponsive={isResponsive}
+        data-testid="header"
+        isHeader
+      >
         {data.headers &&
           data.headers.map((header, index) => {
             return (
-              <Col key={`${index.toString()}-header`}>
+              <Col
+                isResponsive={isResponsive}
+                key={`${index.toString()}-header`}
+              >
                 <Text muted size="small">
                   {header}
                 </Text>
@@ -140,10 +180,12 @@ const Table = ({ data, ...props }: TableProps) => {
           return (
             <Row
               key={`${index.toString()}-row`}
+              headers={data.headers}
               cols={row.cols}
               more={data.rows.length > 1 ? row.more : []}
               numberOfCols={numberOfCols}
               tooltip={row.tooltip}
+              isResponsive={isResponsive}
             />
           );
         })}
