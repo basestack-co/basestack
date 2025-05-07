@@ -1,7 +1,8 @@
 import styled, { css } from "styled-components";
-import Text from "../Text";
 import { space } from "styled-system";
 import { rem } from "polished";
+import Text from "../Text";
+import { Breakpoint } from "./types";
 
 export const Container = styled.div`
   ${space};
@@ -13,14 +14,19 @@ export const Container = styled.div`
 
 export const StyledRow = styled.div.withConfig({
   shouldForwardProp: (prop) =>
-    !["numberOfColumns", "hasSmallCol", "isHeader", "isResponsive"].includes(
-      prop,
-    ),
+    ![
+      "numberOfColumns",
+      "hasSmallCol",
+      "isHeader",
+      "isResponsive",
+      "breakpoint",
+    ].includes(prop),
 })<{
   numberOfColumns: number;
   hasSmallCol: boolean;
   isHeader?: boolean;
   isResponsive: boolean;
+  breakpoint: Breakpoint;
 }>`
   display: grid;
   grid-gap: ${({ theme }) => theme.spacing.s5};
@@ -29,7 +35,7 @@ export const StyledRow = styled.div.withConfig({
       ? css`
           grid-template-columns:
             repeat(${numberOfColumns}, minmax(0, 1fr))
-            36px;
+            ${rem("32px")};
         `
       : css`
           grid-template-columns: repeat(${numberOfColumns}, minmax(0, 1fr));
@@ -38,10 +44,10 @@ export const StyledRow = styled.div.withConfig({
     border-bottom: 1px solid ${({ theme }) => theme.table.border};
   }
 
-  ${({ isResponsive, isHeader, theme }) =>
+  ${({ isResponsive, isHeader, theme, breakpoint }) =>
     isResponsive &&
     css`
-      @media screen and ${theme.device.max.lg} {
+      @media screen and ${theme.device.max[breakpoint]} {
         display: flex;
         flex-direction: column;
 
@@ -58,20 +64,22 @@ export const StyledRow = styled.div.withConfig({
 `;
 
 export const Col = styled.div.withConfig({
-  shouldForwardProp: (prop) => !["isResponsive", "isSmallCol"].includes(prop),
+  shouldForwardProp: (prop) =>
+    !["isResponsive", "isSmallCol", "breakpoint"].includes(prop),
 })<{
   isResponsive: boolean;
   isSmallCol?: boolean;
+  breakpoint: Breakpoint;
 }>`
   height: ${rem("46px")};
   display: flex;
   flex-direction: column;
   justify-content: center;
 
-  ${({ isResponsive, theme, isSmallCol }) =>
+  ${({ isResponsive, theme, isSmallCol, breakpoint }) =>
     isResponsive &&
     css`
-      @media screen and ${theme.device.max.lg} {
+      @media screen and ${theme.device.max[breakpoint]} {
         height: initial;
 
         ${isSmallCol &&
@@ -99,13 +107,12 @@ export const ContentRow = styled.div`
   align-items: center;
 `;
 
-export const PopupWrapper = styled.div`
-  height: ${rem("32px")};
-  width: ${rem("32px")};
-`;
-
-export const MobileLabel = styled(Text)`
-  @media screen and ${({ theme }) => theme.device.min.lg} {
+export const MobileLabel = styled(Text).withConfig({
+  shouldForwardProp: (prop) => !["breakpoint"].includes(prop),
+})<{
+  breakpoint: Breakpoint;
+}>`
+  @media screen and ${({ theme, breakpoint }) => theme.device.min[breakpoint]} {
     display: none;
   }
 `;

@@ -1,17 +1,14 @@
 import React, { useMemo, useCallback } from "react";
-import { useTheme } from "styled-components";
-import { useMedia } from "react-use";
 // Router
 import { useParams } from "next/navigation";
-// Components
+// UI
 import {
   ButtonVariant,
   Loader,
   Skeleton,
   Table,
 } from "@basestack/design-system";
-// UI
-import { SettingCard, MobileSettingCardView } from "@basestack/ui";
+import { SettingCard } from "@basestack/ui";
 // Server
 import { api } from "utils/trpc/react";
 // Store
@@ -30,17 +27,15 @@ export interface Props {
 
 const EnvironmentsCard = ({ role }: Props) => {
   const t = useTranslations("setting");
-  const theme = useTheme();
-  const isMobile = useMedia(theme.device.max.md, false);
   const trpcUtils = api.useUtils();
 
   const { projectId } = useParams<{ projectId: string }>();
 
   const setCreateEnvironmentModalOpen = useStore(
-    (state) => state.setCreateEnvironmentModalOpen
+    (state) => state.setCreateEnvironmentModalOpen,
   );
   const setUpdateEnvironmentModalOpen = useStore(
-    (state) => state.setUpdateEnvironmentModalOpen
+    (state) => state.setUpdateEnvironmentModalOpen,
   );
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
 
@@ -48,14 +43,14 @@ const EnvironmentsCard = ({ role }: Props) => {
     { projectId },
     {
       enabled: !!projectId,
-    }
+    },
   );
 
   const deleteEnvironment = api.environment.delete.useMutation();
   const isCurrentUserAdmin = role === Role.ADMIN;
   const environments = useMemo(
     () => (!isLoading && !!data ? data.environments : []),
-    [isLoading, data]
+    [isLoading, data],
   );
 
   const onHandleEdit = useCallback(
@@ -69,7 +64,7 @@ const EnvironmentsCard = ({ role }: Props) => {
         });
       }
     },
-    [projectId, setUpdateEnvironmentModalOpen]
+    [projectId, setUpdateEnvironmentModalOpen],
   );
 
   const onHandleCreate = useCallback(() => {
@@ -94,11 +89,11 @@ const EnvironmentsCard = ({ role }: Props) => {
                 await trpcUtils.flag.environments.invalidate();
               }
             },
-          }
+          },
         );
       }
     },
-    [deleteEnvironment, trpcUtils]
+    [deleteEnvironment, trpcUtils],
   );
 
   const onClickDeleteEnvironment = useCallback(
@@ -121,7 +116,7 @@ const EnvironmentsCard = ({ role }: Props) => {
         },
       });
     },
-    [onHandleDelete, setConfirmModalOpen, t]
+    [onHandleDelete, setConfirmModalOpen, t],
   );
 
   const getTable = useMemo(
@@ -153,29 +148,11 @@ const EnvironmentsCard = ({ role }: Props) => {
             onClick: () => onClickDeleteEnvironment(item.id, item.name),
             isDisabled: !!item.isDefault,
           },
-        ]
+        ],
       ),
 
-    [onHandleEdit, environments, onClickDeleteEnvironment, t]
+    [onHandleEdit, environments, onClickDeleteEnvironment, t],
   );
-
-  const getContent = () => {
-    if (isMobile) {
-      return environments?.map(({ id, slug, name, description, createdAt }) => (
-        <MobileSettingCardView
-          key={id}
-          title={name}
-          data={[
-            { icon: "tag", text: slug },
-            { icon: "description", text: description || "" },
-            { icon: "calendar_month", text: dayjs(createdAt).fromNow() },
-          ]}
-        />
-      ));
-    }
-
-    return <Table data={getTable} />;
-  };
 
   return (
     <SettingCard
@@ -201,7 +178,7 @@ const EnvironmentsCard = ({ role }: Props) => {
           />
         </Loader>
       ) : (
-        <>{getContent()}</>
+        <Table data={getTable} />
       )}
     </SettingCard>
   );

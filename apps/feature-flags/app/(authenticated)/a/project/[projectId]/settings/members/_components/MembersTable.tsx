@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-// Components
+// UI
 import {
   ButtonVariant,
   Loader,
@@ -7,9 +7,6 @@ import {
   Skeleton,
   Table,
 } from "@basestack/design-system";
-import { useTheme } from "styled-components";
-import { useMedia } from "react-use";
-// UI
 import { SettingCard } from "@basestack/ui";
 // Server
 import { api } from "utils/trpc/react";
@@ -17,6 +14,7 @@ import { api } from "utils/trpc/react";
 import { useStore } from "store";
 // Utils
 import { createTable, config } from "@basestack/utils";
+import dayjs from "dayjs";
 // Auth
 import { useSession } from "next-auth/react";
 // Router
@@ -27,8 +25,6 @@ import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 // Types
 import { Role } from ".prisma/client";
-// Utils
-import dayjs from "dayjs";
 
 const { hasFlagsPermission } = config.plans;
 
@@ -38,8 +34,6 @@ export interface Props {
 
 const MembersTableCard = ({ role }: Props) => {
   const t = useTranslations();
-  const theme = useTheme();
-  const isMobile = useMedia(theme.device.max.md, false);
   const session = useSession();
   const router = useRouter();
   const trpcUtils = api.useUtils();

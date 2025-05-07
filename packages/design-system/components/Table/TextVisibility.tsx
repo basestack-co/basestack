@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useTheme } from "styled-components";
+import { rem } from "polished";
 import IconButton from "../IconButton";
 import Text from "../Text";
 
@@ -21,7 +22,11 @@ const TextVisibility = ({ title }: { title: string }) => {
         mr={theme.spacing.s2}
         size="small"
       />
-      <Text fontWeight="400" size={isEyeVisible ? "small" : "large"}>
+      <Text
+        fontWeight="400"
+        lineHeight={rem("22px")}
+        size={isEyeVisible ? "small" : "large"}
+      >
         {isEyeVisible ? title : renderDots()}
       </Text>
     </>

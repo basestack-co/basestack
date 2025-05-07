@@ -2,6 +2,8 @@ import React from "react";
 import { SpaceProps } from "styled-system";
 import { PopupItemsProps } from "../Popup";
 
+export type Breakpoint = "sm" | "md" | "lg" | "xl" | "xxl";
+
 export type tooltip = {
   textToCopy: string;
   defaultText: string;
@@ -63,6 +65,10 @@ export interface TableProps extends SpaceProps {
    * If true changes layout on mobile
    */
   isResponsive?: boolean;
+  /**
+   * Changes the breakpoint where the table ui changes to mobile
+   */
+  breakpoint?: Breakpoint;
 }
 
 export interface RowProps {
@@ -72,4 +78,5 @@ export interface RowProps {
   tooltip?: tooltip;
   headers: Array<string>;
   isResponsive: boolean;
+  breakpoint: Breakpoint;
 }
