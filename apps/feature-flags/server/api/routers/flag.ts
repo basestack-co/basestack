@@ -1,4 +1,9 @@
-import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
+import {
+  protectedProcedure,
+  createTRPCRouter,
+  withProjectRestrictions,
+  withUsageLimits,
+} from "server/api/trpc";
 import { TRPCError } from "@trpc/server";
 // Utils
 import { withUsageUpdate } from "server/db/utils/subscription";
@@ -8,9 +13,7 @@ import { Role } from ".prisma/client";
 
 export const flagRouter = createTRPCRouter({
   all: protectedProcedure
-    .meta({
-      isProjectRestricted: true,
-    })
+    .use(withProjectRestrictions)
     .input(
       z.object({
         projectId: z.string(),
@@ -88,9 +91,7 @@ export const flagRouter = createTRPCRouter({
       });
     }),
   total: protectedProcedure
-    .meta({
-      isProjectRestricted: true,
-    })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -129,9 +130,7 @@ export const flagRouter = createTRPCRouter({
       });
     }),
   environments: protectedProcedure
-    .meta({
-      isProjectRestricted: true,
-    })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -165,9 +164,7 @@ export const flagRouter = createTRPCRouter({
       };
     }),
   bySlug: protectedProcedure
-    .meta({
-      isProjectRestricted: true,
-    })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -222,10 +219,11 @@ export const flagRouter = createTRPCRouter({
     }),
   create: protectedProcedure
     .meta({
-      isProjectRestricted: true,
       roles: [Role.ADMIN, Role.DEVELOPER],
       usageLimitKey: "flags",
     })
+    .use(withProjectRestrictions)
+    .use(withUsageLimits)
     .input(
       z
         .object({
@@ -269,9 +267,9 @@ export const flagRouter = createTRPCRouter({
     }),
   update: protectedProcedure
     .meta({
-      isProjectRestricted: true,
       roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
     })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -318,9 +316,9 @@ export const flagRouter = createTRPCRouter({
     }),
   delete: protectedProcedure
     .meta({
-      isProjectRestricted: true,
       roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
     })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({

@@ -1,4 +1,9 @@
-import { createTRPCRouter, protectedProcedure } from "server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  withUsageLimits,
+  withTeamRestrictions,
+} from "server/api/trpc";
 import { TRPCError } from "@trpc/server";
 // Types
 import { Role } from ".prisma/client";
@@ -56,9 +61,6 @@ export const teamRouter = createTRPCRouter({
     });
   }),
   byId: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN],
-    })
     .input(
       z
         .object({
@@ -127,6 +129,7 @@ export const teamRouter = createTRPCRouter({
     .meta({
       usageLimitKey: "teams",
     })
+    .use(withUsageLimits)
     .input(
       z
         .object({
@@ -161,6 +164,7 @@ export const teamRouter = createTRPCRouter({
     .meta({
       roles: [Role.ADMIN],
     })
+    .use(withTeamRestrictions)
     .input(
       z
         .object({
@@ -184,6 +188,8 @@ export const teamRouter = createTRPCRouter({
       roles: [Role.ADMIN],
       usageLimitKey: "teams",
     })
+    .use(withTeamRestrictions)
+    .use(withUsageLimits)
     .input(z.object({ teamId: z.string() }).required())
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
@@ -246,6 +252,8 @@ export const teamRouter = createTRPCRouter({
       roles: [Role.ADMIN],
       usageLimitKey: "members",
     })
+    .use(withTeamRestrictions)
+    .use(withUsageLimits)
     .input(
       z
         .object({
@@ -315,6 +323,7 @@ export const teamRouter = createTRPCRouter({
     .meta({
       roles: [Role.ADMIN],
     })
+    .use(withTeamRestrictions)
     .input(
       z
         .object({
@@ -415,6 +424,7 @@ export const teamRouter = createTRPCRouter({
     .meta({
       roles: [Role.ADMIN],
     })
+    .use(withTeamRestrictions)
     .input(
       z
         .object({
@@ -516,11 +526,14 @@ export const teamRouter = createTRPCRouter({
     }),
   removeInvite: protectedProcedure
     .meta({
+      teamId: z.string(),
       roles: [Role.ADMIN],
     })
+    .use(withTeamRestrictions)
     .input(
       z
         .object({
+          teamId: z.string(),
           inviteId: z.string(),
         })
         .required()

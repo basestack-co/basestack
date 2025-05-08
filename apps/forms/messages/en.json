@@ -78,7 +78,8 @@
     "usage": {
       "title": "Account Usage",
       "link": {
-        "upgrade": "Upgrade"
+        "upgrade": "Upgrade",
+        "manage": "Manage"
       },
       "date": "Renews at {date}",
       "resource": {

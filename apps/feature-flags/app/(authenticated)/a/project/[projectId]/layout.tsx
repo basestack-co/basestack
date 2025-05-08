@@ -3,27 +3,34 @@
 import React, { Fragment, useEffect, useMemo } from "react";
 // Router
 import { useParams, useRouter } from "next/navigation";
+// Toast
+import { toast } from "sonner";
 // Server
 import { api } from "utils/trpc/react";
 
 const ProjectLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const { projectId } = useParams<{ projectId: string }>();
-  const trpcUtils = api.useUtils();
 
-  const project = useMemo(() => {
-    const data = trpcUtils.project.all.getData();
-
-    return data?.projects?.find((project) => project.id === projectId);
-  }, [projectId, trpcUtils.project.all]);
+  const { data, isLoading, isError, error } = api.project.byId.useQuery(
+    { projectId },
+    {
+      enabled: !!projectId,
+      retry: 1,
+    }
+  );
 
   useEffect(() => {
-    if (!project) {
-      router.replace("/not-found");
-    }
-  }, [router, project]);
+    if (isError) {
+      toast.error(error?.message);
 
-  if (!project) {
+      setTimeout(() => {
+        router.replace("/a");
+      }, 0);
+    }
+  }, [router, isError, error?.message]);
+
+  if (!data || isLoading || isError) {
     return null;
   }
 

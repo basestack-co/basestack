@@ -1,5 +1,5 @@
 // Types
-import { PlanTypeId, FlagsPlan, FlagsPermission, Role } from "../../types";
+import { PlanTypeId, FlagsPlan, FlagsPermission } from "../../types";
 
 const flags: FlagsPlan[] = [
   {
@@ -255,6 +255,7 @@ const flagsPermissions: Record<string, FlagsPermission[]> = {
     "delete_project_flags",
     "delete_project",
     "delete_project_environment",
+    "add_team",
   ],
   DEVELOPER: [
     "view_project_flags",

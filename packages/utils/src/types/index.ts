@@ -119,6 +119,7 @@ export interface FlagsPlan extends Plan {
 }
 
 export type FlagsPermission =
+  // Project Permissions
   | "view_project_flags"
   | "view_project_keys"
   | "view_project_environments"

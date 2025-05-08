@@ -7,7 +7,7 @@ import { ZodError } from "zod";
 import { auth } from "server/auth";
 // Database
 import { prisma } from "server/db";
-import { getUserInProject } from "server/db/utils/user";
+import { getUserInProject, getUserInTeam } from "server/db/utils/user";
 import { createHistory } from "server/db/utils/history";
 import { getSubscriptionUsage } from "server/db/utils/subscription";
 import { config, FlagsPlan, PlanTypeId, Product } from "@basestack/utils";
@@ -87,76 +87,11 @@ export const isAuthenticated = middleware(async ({ next, ctx }) => {
   });
 });
 
-export const withPermissions = middleware(
-  async ({ next, ctx, meta, getRawInput }) => {
-    const { isProjectRestricted = false, roles = [] } = (meta ?? {}) as {
-      isProjectRestricted: boolean;
-      roles: Role[];
-    };
-
-    // This is for routes that need to verify any action if the user allowed in that project
-    if (isProjectRestricted) {
-      const { projectId = "" } = (await getRawInput()) as {
-        projectId: string;
-      };
-
-      // checks if the user is in the project
-      const project = await getUserInProject(
-        ctx.prisma,
-        ctx?.session?.user.id!,
-        projectId!
-      );
-
-      // If the user does not exist in the project, return an error
-      if (!project) {
-        throw new TRPCError({
-          code: "FORBIDDEN",
-          message: "User not found in project",
-          cause: "UserNotFoundInProject",
-        });
-      }
-
-      // checks if the user has the required role
-      if (roles.length > 0 && !roles.includes(project.role)) {
-        throw new TRPCError({
-          code: "FORBIDDEN",
-          message: "You do not have the permission to perform this action",
-          cause: "UserDoesNotHaveRequiredRole",
-        });
-      }
-
-      ctx.project = {
-        role: project.role,
-        adminUserId: project.adminUserId,
-      };
-    }
-
-    return next({
-      ctx: {
-        ...ctx,
-      },
-    });
-  }
-);
-
-export const withUsage = middleware(async ({ next, ctx, meta }) => {
-  const { usageLimitKey } = (meta ?? {}) as {
-    usageLimitKey: keyof FlagsPlan["limits"];
-  };
-
+export const withSubscriptionUsage = middleware(async ({ next, ctx, meta }) => {
   const usage = await getSubscriptionUsage(
     ctx.prisma,
     ctx?.session?.user.id ?? ""
   );
-
-  if (!usageLimitKey) {
-    return next({
-      ctx: {
-        ...ctx,
-        usage,
-      },
-    });
-  }
 
   const planId = usage.planId as PlanTypeId;
 
@@ -169,7 +104,135 @@ export const withUsage = middleware(async ({ next, ctx, meta }) => {
     });
   }
 
-  const limit = config.plans.getPlanLimitByKey(Product.FLAGS, planId, usageLimitKey);
+  return next({
+    ctx: {
+      ...ctx,
+      usage,
+    },
+  });
+});
+
+export const withProjectRestrictions = middleware(
+  async ({ next, ctx, meta, getRawInput }) => {
+    const { roles = [] } = (meta ?? {}) as {
+      roles: Role[];
+    };
+
+    // This is for routes that need to verify any action if the user allowed in that project
+    const { projectId = "" } = (await getRawInput()) as {
+      projectId: string;
+    };
+
+    if (!projectId) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "Project ID is missing",
+        cause: "ProjectIdMissing",
+      });
+    }
+
+    // checks if the user is in the project
+    const project = await getUserInProject(
+      ctx.prisma,
+      ctx?.session?.user.id!,
+      projectId!
+    );
+
+    // If the user does not exist in the project, return an error
+    if (!project) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "User not found in project",
+        cause: "UserNotFoundInProject",
+      });
+    }
+
+    // checks if the user has the required role
+    if (roles.length > 0 && !roles.includes(project.role)) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "You do not have the permission to perform this action",
+        cause: "UserDoesNotHaveRequiredRole",
+      });
+    }
+
+    ctx.project = {
+      role: project.role,
+      adminUserId: project.adminUserId,
+    };
+
+    return next({
+      ctx: {
+        ...ctx,
+      },
+    });
+  }
+);
+
+export const withTeamRestrictions = middleware(
+  async ({ next, ctx, meta, getRawInput }) => {
+    const { roles = [] } = (meta ?? {}) as {
+      roles: Role[];
+    };
+
+    const { teamId = "" } = (await getRawInput()) as {
+      teamId: string;
+    };
+
+    if (!teamId) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "Team ID is missing",
+        cause: "TeamIdMissing",
+      });
+    }
+
+    const userInTeam = await getUserInTeam(
+      ctx.prisma,
+      ctx?.session?.user.id!,
+      teamId!
+    );
+
+    if (!userInTeam) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "User not found in team",
+        cause: "UserNotFoundInTeam",
+      });
+    }
+
+    if (roles.length > 0 && !roles.includes(userInTeam.role)) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "You do not have the permission to perform this action",
+        cause: "UserDoesNotHaveRequiredRole",
+      });
+    }
+
+    return next({
+      ctx: {
+        ...ctx,
+      },
+    });
+  }
+);
+
+export const withUsageLimits = middleware(async ({ next, ctx, meta }) => {
+  const { usageLimitKey } = (meta ?? {}) as {
+    usageLimitKey: keyof FlagsPlan["limits"];
+  };
+
+  const { usage } = ctx as unknown as {
+    usage: Awaited<ReturnType<typeof getSubscriptionUsage>>;
+  };
+
+  const planId = usage.planId as PlanTypeId;
+
+  const limit = config.plans.getPlanLimitByKey(
+    Product.FLAGS,
+    planId,
+    usageLimitKey
+  );
 
   if (usage[usageLimitKey] < limit) {
     return next({
@@ -194,5 +257,4 @@ export const publicProcedure = t.procedure;
 export const protectedProcedure = t.procedure
   .use(logger)
   .use(isAuthenticated)
-  .use(withPermissions)
-  .use(withUsage);
+  .use(withSubscriptionUsage);

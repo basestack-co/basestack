@@ -55,7 +55,7 @@ const Members = ({ teamId }: Props) => {
       },
       enabled: !!teamId,
       placeholderData: keepPreviousData,
-    },
+    }
   );
 
   const isOwnerOfTeam = useMemo(() => {
@@ -80,16 +80,16 @@ const Members = ({ teamId }: Props) => {
             await trpcUtils.team.all.invalidate();
             await trpcUtils.team.byId.invalidate({ teamId });
             toast.success(
-              t("team.manage.tab.members.list.status.update.success"),
+              t("team.manage.tab.members.list.status.update.success")
             );
           },
           onError: (error) => {
             toast.error(error.message);
           },
-        },
+        }
       );
     },
-    [t, teamId, trpcUtils, updateMember],
+    [t, teamId, trpcUtils, updateMember]
   );
 
   const onRemoveMember = useCallback(
@@ -104,16 +104,16 @@ const Members = ({ teamId }: Props) => {
             await trpcUtils.team.all.invalidate();
             await trpcUtils.team.byId.invalidate({ teamId });
             toast.success(
-              t("team.manage.tab.members.list.status.remove.success"),
+              t("team.manage.tab.members.list.status.remove.success")
             );
           },
           onError: (error) => {
             toast.error(error.message);
           },
-        },
+        }
       );
     },
-    [removeMember, t, teamId, trpcUtils],
+    [removeMember, t, teamId, trpcUtils]
   );
 
   const onCancelInvite = useCallback(
@@ -121,6 +121,7 @@ const Members = ({ teamId }: Props) => {
       if (inviteId) {
         removeInvite.mutate(
           {
+            teamId,
             inviteId,
           },
           {
@@ -128,17 +129,17 @@ const Members = ({ teamId }: Props) => {
               await trpcUtils.team.all.invalidate();
               await trpcUtils.team.byId.invalidate({ teamId });
               toast.success(
-                t("team.manage.tab.members.list.status.invite.success"),
+                t("team.manage.tab.members.list.status.invite.success")
               );
             },
             onError: (error) => {
               toast.error(error.message);
             },
-          },
+          }
         );
       }
     },
-    [removeInvite, t, teamId, trpcUtils],
+    [removeInvite, t, teamId, trpcUtils]
   );
 
   return (

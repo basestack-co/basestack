@@ -1,4 +1,4 @@
-import { PrismaClient } from ".prisma/client";
+import { PrismaClient, Role } from ".prisma/client";
 // tRPC
 import { TRPCError } from "@trpc/server";
 
@@ -21,7 +21,7 @@ export const getUserInProject = async (
       prisma.projectsOnUsers.findFirstOrThrow({
         where: {
           projectId,
-          role: "ADMIN",
+          role: Role.ADMIN,
         },
         select: {
           userId: true,
@@ -30,10 +30,42 @@ export const getUserInProject = async (
     ]);
 
     return {
-      role: user.role ?? "VIEWER",
+      role: user.role ?? Role.VIEWER,
       adminUserId: admin?.userId ?? "",
     };
   } catch {
-    throw new TRPCError({ code: "FORBIDDEN" });
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "User not found or project not found",
+      cause: "UserNotFoundInProject",
+    });
+  }
+};
+
+export const getUserInTeam = async (
+  prisma: PrismaClient,
+  userId: string,
+  teamId: string
+) => {
+  try {
+    const user = await prisma.teamMembers.findFirstOrThrow({
+      where: {
+        teamId,
+        userId,
+      },
+      select: {
+        role: true,
+      },
+    });
+
+    return {
+      role: user.role ?? Role.VIEWER,
+    };
+  } catch {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "User not found or team not found",
+      cause: "UserNotFoundInTeam",
+    });
   }
 };

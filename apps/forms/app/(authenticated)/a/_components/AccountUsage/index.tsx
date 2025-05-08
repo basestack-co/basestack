@@ -49,7 +49,11 @@ const AccountUsage = () => {
             })
           : ""
       }
-      link={t("usage.link.upgrade")}
+      link={
+        data?.planId === PlanTypeId.SCALE
+          ? t("usage.link.manage")
+          : t("usage.link.upgrade")
+      }
       href="/a/user/tab/billing"
       data={currentUsage}
       isLoading={isLoading}

@@ -1,4 +1,9 @@
-import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
+import {
+  protectedProcedure,
+  createTRPCRouter,
+  withProjectRestrictions,
+  withUsageLimits,
+} from "server/api/trpc";
 // Utils
 import { generateSlug } from "random-word-slugs";
 import { PlanTypeId, Product, AppEnv, config } from "@basestack/utils";
@@ -122,9 +127,7 @@ export const projectRouter = createTRPCRouter({
     });
   }),
   byId: protectedProcedure
-    .meta({
-      isProjectRestricted: true,
-    })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -182,9 +185,7 @@ export const projectRouter = createTRPCRouter({
       };
     }),
   allKeys: protectedProcedure
-    .meta({
-      isProjectRestricted: true,
-    })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -212,9 +213,7 @@ export const projectRouter = createTRPCRouter({
       return { keys };
     }),
   members: protectedProcedure
-    .meta({
-      isProjectRestricted: true,
-    })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -251,6 +250,7 @@ export const projectRouter = createTRPCRouter({
     .meta({
       usageLimitKey: "projects",
     })
+    .use(withUsageLimits)
     .input(
       z
         .object({
@@ -316,8 +316,8 @@ export const projectRouter = createTRPCRouter({
       });
     }),
   update: protectedProcedure
+    .use(withProjectRestrictions)
     .meta({
-      isProjectRestricted: true,
       roles: [Role.ADMIN],
     })
     .input(
@@ -376,8 +376,8 @@ export const projectRouter = createTRPCRouter({
       return { project };
     }),
   delete: protectedProcedure
+    .use(withProjectRestrictions)
     .meta({
-      isProjectRestricted: true,
       roles: [Role.ADMIN],
     })
     .input(
@@ -426,8 +426,8 @@ export const projectRouter = createTRPCRouter({
       return { project };
     }),
   addMember: protectedProcedure
+    .use(withProjectRestrictions)
     .meta({
-      isProjectRestricted: true,
       roles: [Role.ADMIN, Role.DEVELOPER],
     })
     .input(
@@ -491,9 +491,9 @@ export const projectRouter = createTRPCRouter({
     }),
   updateMember: protectedProcedure
     .meta({
-      isProjectRestricted: true,
       roles: [Role.ADMIN],
     })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -524,9 +524,9 @@ export const projectRouter = createTRPCRouter({
     }),
   removeMember: protectedProcedure
     .meta({
-      isProjectRestricted: true,
       roles: [Role.ADMIN],
     })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({

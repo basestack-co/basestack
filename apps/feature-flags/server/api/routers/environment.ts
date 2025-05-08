@@ -1,4 +1,9 @@
-import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
+import {
+  protectedProcedure,
+  createTRPCRouter,
+  withProjectRestrictions,
+  withUsageLimits,
+} from "server/api/trpc";
 import { TRPCError } from "@trpc/server";
 // Utils
 import { generateSlug } from "random-word-slugs";
@@ -10,9 +15,7 @@ import { Role } from ".prisma/client";
 
 export const environmentRouter = createTRPCRouter({
   all: protectedProcedure
-    .meta({
-      isProjectRestricted: true,
-    })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -44,10 +47,11 @@ export const environmentRouter = createTRPCRouter({
     }),
   create: protectedProcedure
     .meta({
-      isProjectRestricted: true,
       roles: [Role.ADMIN, Role.DEVELOPER],
       usageLimitKey: "environments",
     })
+    .use(withProjectRestrictions)
+    .use(withUsageLimits)
     .input(
       z
         .object({
@@ -115,9 +119,9 @@ export const environmentRouter = createTRPCRouter({
     }),
   update: protectedProcedure
     .meta({
-      isProjectRestricted: true,
       roles: [Role.ADMIN, Role.DEVELOPER],
     })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -143,9 +147,9 @@ export const environmentRouter = createTRPCRouter({
     }),
   delete: protectedProcedure
     .meta({
-      isProjectRestricted: true,
       roles: [Role.ADMIN, Role.DEVELOPER],
     })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
