@@ -18,13 +18,12 @@ import { ListItem } from "./styles";
 
 export interface ProjectsMenuProps {
   current: string;
-  data: Array<PopupActionProps>;
+  data: Array<{ title: string; items: PopupActionProps[] }>;
   onCreate: () => void;
   select: {
     title: string;
     create: string;
   };
-  title: string;
 }
 
 const AnimatedProjectsPopup: any = animated(PopupActions);
@@ -34,7 +33,6 @@ const ProjectsMenu = ({
   current,
   onCreate,
   select,
-  title,
 }: ProjectsMenuProps) => {
   const theme = useTheme();
   const menuWrapperRef = useRef(null);
@@ -99,8 +97,7 @@ const ProjectsMenu = ({
               position={strategy}
               top={y}
               left={x}
-              title={title}
-              items={data}
+              data={data}
               onCallback={onClickProjects}
               button={{
                 text: select.create,

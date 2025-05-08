@@ -1,9 +1,17 @@
-import { forwardRef, memo, useCallback } from "react";
+import { forwardRef, Fragment, memo, useCallback } from "react";
 import { PositionProps } from "styled-system";
 import Text from "../Text";
 import Avatar from "../Avatar";
 import { Button, ButtonVariant } from "../Button";
-import { Container, Header, List, ListItem, PopUpButton } from "./styles";
+import {
+  Col,
+  Container,
+  Header,
+  List,
+  ListItem,
+  PopUpButton,
+  Wrapper,
+} from "./styles";
 import { useTheme } from "styled-components";
 
 export interface PopupActionProps {
@@ -15,13 +23,9 @@ export interface PopupActionProps {
 
 export interface PopupActionsProps extends PositionProps {
   /**
-   * Popup title
-   */
-  title: string;
-  /**
    * List of actions
    */
-  items: Array<PopupActionProps>;
+  data: Array<{ title: string; items: PopupActionProps[] }>;
   /**
    * Button props
    */
@@ -37,10 +41,7 @@ export interface PopupActionsProps extends PositionProps {
 }
 
 const PopupActions = forwardRef<HTMLDivElement, PopupActionsProps>(
-  (
-    { items, button, title, onCallback, truncateText = true, ...props },
-    ref,
-  ) => {
+  ({ data, button, onCallback, truncateText = true, ...props }, ref) => {
     const theme = useTheme();
 
     const onHandleClick = useCallback(
@@ -56,32 +57,34 @@ const PopupActions = forwardRef<HTMLDivElement, PopupActionsProps>(
 
     return (
       <Container ref={ref} {...props}>
-        <Header>
-          <Text muted fontWeight={500}>
-            {title}
-          </Text>
-        </Header>
-        {items && (
-          <List>
-            {items.map((item) => {
-              return (
-                <ListItem key={`pop-up-button-${item.id}`}>
-                  <PopUpButton onClick={() => onHandleClick(item.onClick)}>
-                    <Avatar
-                      round={false}
-                      userName={item.text}
-                      alt={`Select ${item.text} from the list`}
-                      size="xSmall"
-                    />
-                    <Text ml={theme.spacing.s2} lineTruncate={truncateText}>
-                      {item.text}
-                    </Text>
-                  </PopUpButton>
-                </ListItem>
-              );
-            })}
-          </List>
-        )}
+        <Wrapper>
+          {data?.map(({ title, items }, index) => (
+            <Col key={index}>
+              <Header>
+                <Text muted>{title}</Text>
+              </Header>
+              <List>
+                {items.map((item) => {
+                  return (
+                    <ListItem key={`pop-up-button-${item.id}`}>
+                      <PopUpButton onClick={() => onHandleClick(item.onClick)}>
+                        <Avatar
+                          round={false}
+                          userName={item.text}
+                          alt={`Select ${item.text} from the list`}
+                          size="xSmall"
+                        />
+                        <Text ml={theme.spacing.s2} lineTruncate={truncateText}>
+                          {item.text}
+                        </Text>
+                      </PopUpButton>
+                    </ListItem>
+                  );
+                })}
+              </List>
+            </Col>
+          ))}
+        </Wrapper>
         <Button
           mt={theme.spacing.s1}
           justifyContent="center"

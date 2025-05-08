@@ -13,19 +13,34 @@ export const Container = styled.div`
   z-index: ${({ theme }) => theme.zIndex.popup};
 `;
 
+export const Col = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-height: 264px;
+  overflow-y: auto;
+  ${scrollbar};
+`;
+
 export const Header = styled.div`
   display: flex;
   align-items: center;
-  height: ${rem("32px")};
-  padding: 0 ${({ theme }) => theme.spacing.s2};
+  position: sticky;
+  background-color: ${({ theme }) => theme.popupActions.backgroundColor};
+  top: 0;
+  padding: ${({ theme }) => theme.spacing.s1} ${({ theme }) => theme.spacing.s2}
+    0 ${({ theme }) => theme.spacing.s2};
+  will-change: transform;
+  transform: translateZ(0);
 `;
 
 export const List = styled.ul`
   display: flex;
   flex-direction: column;
-  max-height: 264px;
-  overflow-y: scroll;
-  ${scrollbar};
 `;
 
 export const ListItem = styled.li`

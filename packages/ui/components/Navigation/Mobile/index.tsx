@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 // Components
 import AvatarDropdown from "../../AvatarDropdown";
 import {
@@ -109,50 +109,55 @@ const MobileNavigation = ({
                   </>
                 )}
                 <ScrollableContent>
-                  <TitleContainer>
-                    <Text muted fontWeight={500}>
-                      {projects.title}
-                    </Text>
-                  </TitleContainer>
-                  <List>
-                    {projects.data.map((item) => (
-                      <ListItem key={item.id}>
-                        <ButtonContainer
-                          isActive={
-                            item.text.toLowerCase() ===
-                            projects.current.toLowerCase()
-                          }
-                        >
+                  {projects.data.map(({ title, items }, index) => (
+                    <Fragment key={index}>
+                      <TitleContainer>
+                        <Text muted fontWeight={500}>
+                          {title}
+                        </Text>
+                      </TitleContainer>
+                      <List>
+                        {items.map((item) => (
+                          <ListItem key={item.id}>
+                            <ButtonContainer
+                              isActive={
+                                item.text.toLowerCase() ===
+                                projects.current.toLowerCase()
+                              }
+                            >
+                              <Button
+                                iconPlacement="left"
+                                icon="tag"
+                                variant={ButtonVariant.Neutral}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  onClose();
+                                  item.onClick();
+                                }}
+                                fullWidth
+                              >
+                                {item.text}
+                              </Button>
+                            </ButtonContainer>
+                          </ListItem>
+                        ))}
+                        <ListItem>
                           <Button
                             iconPlacement="left"
-                            icon="tag"
+                            icon="add"
                             variant={ButtonVariant.Neutral}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              item.onClick();
-                            }}
                             fullWidth
+                            onClick={() => {
+                              onClose();
+                              projects.onCreate();
+                            }}
                           >
-                            {item.text}
+                            {projects.select.create}
                           </Button>
-                        </ButtonContainer>
-                      </ListItem>
-                    ))}
-                    <ListItem>
-                      <Button
-                        iconPlacement="left"
-                        icon="add"
-                        variant={ButtonVariant.Neutral}
-                        fullWidth
-                        onClick={() => {
-                          onClose();
-                          projects.onCreate();
-                        }}
-                      >
-                        {projects.select.create}
-                      </Button>
-                    </ListItem>
-                  </List>
+                        </ListItem>
+                      </List>
+                    </Fragment>
+                  ))}
                   <HorizontalRule m={theme.spacing.s5} mb={0} />
                   <TitleContainer>
                     <Text muted fontWeight={500}>
