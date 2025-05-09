@@ -39,12 +39,12 @@ const MembersTableCard = ({ role }: Props) => {
   const trpcUtils = api.useUtils();
   const { projectId } = useParams<{ projectId: string }>();
   const setAddProjectMemberModalOpen = useStore(
-    (state) => state.setAddProjectMemberModalOpen,
+    (state) => state.setAddProjectMemberModalOpen
   );
 
   const { data, isLoading } = api.project.members.useQuery(
     { projectId },
-    { enabled: !!projectId },
+    { enabled: !!projectId }
   );
 
   const removeUserFromProject = api.project.removeMember.useMutation();
@@ -67,32 +67,34 @@ const MembersTableCard = ({ role }: Props) => {
                 // the user removed himself from the project, so we redirect him to the dashboard
                 router.push("/a");
               } else {
+                await trpcUtils.project.recent.invalidate();
+
                 const prev = trpcUtils.project.members.getData({
                   projectId,
                 });
 
                 if (prev?.users) {
                   const users = prev.users.filter(
-                    (item) => item.userId !== result.connection.userId,
+                    (item) => item.userId !== result.connection.userId
                   );
 
                   trpcUtils.project.members.setData(
                     {
                       projectId,
                     },
-                    { users },
+                    { users }
                   );
                 }
 
                 toast.success(
-                  t("modal.team.manage.tab.members.list.status.remove.success"),
+                  t("modal.team.manage.tab.members.list.status.remove.success")
                 );
               }
             },
             onError: (error) => {
               toast.error(error.message);
             },
-          },
+          }
         );
       }
     },
@@ -101,9 +103,9 @@ const MembersTableCard = ({ role }: Props) => {
       removeUserFromProject,
       session?.data?.user.id,
       router,
-      trpcUtils.project.members,
+      trpcUtils,
       t,
-    ],
+    ]
   );
 
   const onHandleUpdateRole = useCallback(
@@ -137,29 +139,29 @@ const MembersTableCard = ({ role }: Props) => {
                   {
                     projectId,
                   },
-                  { users },
+                  { users }
                 );
 
                 toast.success(
-                  t("modal.team.manage.tab.members.list.status.update.success"),
+                  t("modal.team.manage.tab.members.list.status.update.success")
                 );
               }
             },
             onError: (error) => {
               toast.error(error.message);
             },
-          },
+          }
         );
       }
     },
-    [projectId, updateUserRole, trpcUtils.project.members, t],
+    [projectId, updateUserRole, trpcUtils.project.members, t]
   );
 
   const getTable = useMemo(() => {
     const roleList: { [role: string]: string } = {
       [Role.ADMIN]: t("modal.team.manage.tab.members.list.option.admin"),
       [Role.DEVELOPER]: t(
-        "modal.team.manage.tab.members.list.option.developer",
+        "modal.team.manage.tab.members.list.option.developer"
       ),
       [Role.TESTER]: t("modal.team.manage.tab.members.list.option.tester"),
       [Role.VIEWER]: t("modal.team.manage.tab.members.list.option.viewer"),
@@ -207,7 +209,7 @@ const MembersTableCard = ({ role }: Props) => {
                       })),
                       {
                         text: t(
-                          "modal.team.manage.tab.members.list.option.remove",
+                          "modal.team.manage.tab.members.list.option.remove"
                         ),
                         onClick: () => onHandleDelete(item.userId),
                         variant: ButtonVariant.Danger,
@@ -220,7 +222,7 @@ const MembersTableCard = ({ role }: Props) => {
         ];
       },
       // Disable actions
-      () => [],
+      () => []
     );
   }, [
     data,

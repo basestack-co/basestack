@@ -40,7 +40,7 @@ const CreateProjectModal = () => {
         state.isCreateProjectModalOpen,
         state.setCreateProjectModalOpen,
         state.closeModalsOnClickOutside,
-      ]),
+      ])
     );
 
   const createProject = api.project.create.useMutation();
@@ -62,22 +62,12 @@ const CreateProjectModal = () => {
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     createProject.mutate(data, {
       onSuccess: async (result) => {
-        // Get all the projects on the cache
-        const prev = trpcUtils.project.all.getData();
-
-        if (prev && prev.projects) {
-          // Add the new project with the others
-          const projects = [result.project, ...prev.projects];
-
-          // Update the cache with the new data
-          trpcUtils.project.all.setData(undefined, { projects });
-
-          // Reset the recent projects cache
-          await trpcUtils.project.recent.invalidate();
-          // Reset the usage cache
-          await trpcUtils.subscription.usage.invalidate();
-        }
-
+        // Invalidate the project list cache
+        await trpcUtils.project.all.invalidate();
+        // Reset the recent projects cache
+        await trpcUtils.project.recent.invalidate();
+        // Reset the usage cache
+        await trpcUtils.subscription.usage.invalidate();
         onClose();
 
         router.push(`/a/project/${result.project.id}/flags`);

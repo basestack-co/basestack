@@ -409,6 +409,7 @@
     },
     "projects": {
       "title": "Projects",
+      "external": "External",
       "select": "Select Project"
     },
     "dropdown": {

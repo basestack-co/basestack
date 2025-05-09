@@ -73,6 +73,7 @@ const ProjectsMenu = ({
         icon={isProjectsPopupOpen ? "arrow_drop_up" : "arrow_drop_down"}
         variant={ButtonVariant.PrimaryNeutral}
         onClick={onClickProjects}
+        isDisabled={!data?.length}
         pr={rem("8px")}
         leftElement={
           !!current ? (
