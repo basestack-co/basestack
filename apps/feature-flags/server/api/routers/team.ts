@@ -11,11 +11,10 @@ import { Role } from ".prisma/client";
 import { qstash } from "@basestack/vendors";
 // Utils
 import { AppMode } from "utils/helpers/general";
-import { config, Product, AppEnv } from "@basestack/utils";
+import { config, Product, AppEnv, generateSecureToken } from "@basestack/utils";
 import { z } from "zod";
 import { withUsageUpdate } from "server/db/utils/subscription";
 import { generateSlug } from "random-word-slugs";
-import { v4 as uuidv4 } from "uuid";
 import dayjs from "dayjs";
 
 export const teamRouter = createTRPCRouter({
@@ -66,7 +65,7 @@ export const teamRouter = createTRPCRouter({
         .object({
           teamId: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       return ctx.prisma.team.findUnique({
@@ -135,7 +134,7 @@ export const teamRouter = createTRPCRouter({
         .object({
           name: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
@@ -171,7 +170,7 @@ export const teamRouter = createTRPCRouter({
           teamId: z.string(),
           name: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.team.update({
@@ -252,7 +251,7 @@ export const teamRouter = createTRPCRouter({
           "members",
           "decrement",
           // Remove the Admin from the count
-          members.length - 1,
+          members.length - 1
         );
 
         return { team };
@@ -271,7 +270,7 @@ export const teamRouter = createTRPCRouter({
           teamId: z.string(),
           userId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
@@ -350,7 +349,7 @@ export const teamRouter = createTRPCRouter({
           userId: z.string(),
           role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.teamMembers.update({
@@ -386,7 +385,7 @@ export const teamRouter = createTRPCRouter({
         .object({
           token: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       const invitation = await ctx.prisma.teamInvitation.findUnique({
@@ -451,11 +450,11 @@ export const teamRouter = createTRPCRouter({
           email: z.string().email(),
           role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const user = ctx.session?.user;
-      const token = uuidv4();
+      const token = generateSecureToken();
       const expiresAt = dayjs().add(7, "day").toDate();
 
       const invitation = await ctx.prisma.$transaction(async (tx) => {
@@ -554,7 +553,7 @@ export const teamRouter = createTRPCRouter({
           teamId: z.string(),
           inviteId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const invitation = await ctx.prisma.teamInvitation.delete({
