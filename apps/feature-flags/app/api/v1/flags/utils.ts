@@ -19,7 +19,7 @@ const { hasPlanFeature } = utilsConfig.plans;
 export const verifyRequest = async (
   key: string,
   referer: string,
-  metadata: { ip: string | null }
+  metadata: { ip: string | null },
 ) => {
   try {
     const projectKey = key.trim();
@@ -54,7 +54,7 @@ export const verifyRequest = async (
           {
             product: "Feature Flags",
             referer,
-          }
+          },
         );
 
         throw new RequestError({
@@ -87,7 +87,7 @@ export const verifyRequest = async (
             {
               product: "Feature Flags",
               referer,
-            }
+            },
           );
 
           throw new RequestError({
@@ -102,7 +102,7 @@ export const verifyRequest = async (
     const limit = config.plans.getPlanLimitByKey(
       Product.FLAGS,
       planId,
-      "apiRequests"
+      "apiRequests",
     );
 
     if (project.usage.apiRequests >= limit) {
@@ -111,7 +111,7 @@ export const verifyRequest = async (
         {
           product: "Feature Flags",
           referer,
-        }
+        },
       );
 
       throw new RequestError({

@@ -87,7 +87,7 @@ export const withPermissions = middleware(
       const form = await getUserInForm(
         ctx.prisma,
         ctx?.session?.user.id!,
-        formId
+        formId,
       );
 
       // If the user does not exist in the form, return an error
@@ -119,7 +119,7 @@ export const withPermissions = middleware(
         ...ctx,
       },
     });
-  }
+  },
 );
 
 export const withUsage = middleware(async ({ next, ctx, meta }) => {
@@ -129,7 +129,7 @@ export const withUsage = middleware(async ({ next, ctx, meta }) => {
 
   const usage = await getSubscriptionUsage(
     ctx.prisma,
-    ctx?.session?.user.id ?? ""
+    ctx?.session?.user.id ?? "",
   );
 
   if (!usageLimitKey) {
@@ -155,7 +155,7 @@ export const withUsage = middleware(async ({ next, ctx, meta }) => {
   const limit = config.plans.getPlanLimitByKey(
     Product.FORMS,
     planId,
-    usageLimitKey
+    usageLimitKey,
   );
 
   if (usage[usageLimitKey] < limit) {

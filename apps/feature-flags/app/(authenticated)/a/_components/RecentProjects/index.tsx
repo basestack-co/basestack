@@ -31,8 +31,17 @@ const RecentProjects = () => {
         slug: item.slug,
         onClick: () => router.push(`/a/project/${item.id}/flags`),
         text: item.name,
-        flags: item.flags,
         isAdmin: item.isAdmin,
+        count: [
+          {
+            icon: "flag",
+            value: item.count.flags ?? 0,
+          },
+          {
+            icon: "group",
+            value: item.count.members ?? 0,
+          },
+        ],
       })),
   });
 
@@ -77,7 +86,7 @@ const RecentProjects = () => {
               <ProjectCard
                 text={project.text}
                 onClick={project.onClick}
-                flags={project.flags.count}
+                count={project.count}
                 menuItems={[
                   {
                     icon: "flag",

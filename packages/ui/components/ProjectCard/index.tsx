@@ -23,18 +23,22 @@ import {
   PopupMenuWrapper,
   Container,
   TooltipContainer,
+  DetailContainer,
 } from "./styles";
 
 interface ProjectCardProps {
   text: string;
   onClick: () => void;
-  flags?: number;
   avatars?: Array<{ name: string | null; image: string | null }>;
   menuItems?: PopupMenuProps["items"];
   label?: {
     text: string;
     tooltip?: string;
   };
+  count?: Array<{
+    icon: string;
+    value: number;
+  }>;
 }
 
 const ProjectCardLoading = () => (
@@ -49,15 +53,33 @@ const ProjectCardLoading = () => (
   />
 );
 
+interface DetailProps {
+  value: number;
+  icon: string;
+}
+
+const Detail = ({ value, icon }: DetailProps) => {
+  const theme = useTheme();
+
+  return (
+    <DetailContainer>
+      <Icon icon={icon} size="small" />
+      <Text size="small" textAlign="left" ml={theme.spacing.s1}>
+        {value >= 99 ? "+99" : value}
+      </Text>
+    </DetailContainer>
+  );
+};
+
 const NUMBER_OF_AVATARS = 5;
 
 const ProjectCard = ({
   onClick,
   text,
-  flags,
   avatars,
   menuItems,
   label,
+  count,
 }: ProjectCardProps) => {
   const theme = useTheme();
   const isButton = typeof onClick === "function";
@@ -115,14 +137,10 @@ const ProjectCard = ({
               </Avatars>
             )}
 
-            {typeof flags === "number" && (
-              <>
-                <Icon icon="flag" size="small" />
-                <Text size="small" textAlign="left" ml={theme.spacing.s1}>
-                  {flags}
-                </Text>
-              </>
-            )}
+            {count &&
+              count.map((item) => (
+                <Detail icon={item.icon} value={item.value} />
+              ))}
 
             {label && (
               <>

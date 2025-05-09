@@ -66,7 +66,7 @@ export const teamRouter = createTRPCRouter({
         .object({
           teamId: z.string(),
         })
-        .required()
+        .required(),
     )
     .query(async ({ ctx, input }) => {
       return ctx.prisma.team.findUnique({
@@ -135,7 +135,7 @@ export const teamRouter = createTRPCRouter({
         .object({
           name: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
@@ -171,7 +171,7 @@ export const teamRouter = createTRPCRouter({
           teamId: z.string(),
           name: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.team.update({
@@ -200,11 +200,22 @@ export const teamRouter = createTRPCRouter({
           select: { userId: true },
         });
 
-        const userIds = members.map((m) => m.userId);
+        // Remove the current user from the list of users to delete because is the admin
+        const userIds = members
+          .filter((m) => m.userId !== userId)
+          .map((m) => m.userId);
 
         const usersInProjects = await tx.projectsOnUsers.findMany({
           where: {
             userId: { in: userIds },
+            project: {
+              users: {
+                some: {
+                  userId: userId,
+                  role: Role.ADMIN,
+                },
+              },
+            },
           },
           select: {
             project: { select: { name: true } },
@@ -241,7 +252,7 @@ export const teamRouter = createTRPCRouter({
           "members",
           "decrement",
           // Remove the Admin from the count
-          members.length - 1
+          members.length - 1,
         );
 
         return { team };
@@ -260,7 +271,7 @@ export const teamRouter = createTRPCRouter({
           teamId: z.string(),
           userId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
@@ -271,6 +282,14 @@ export const teamRouter = createTRPCRouter({
             userId: input.userId,
             role: {
               not: Role.ADMIN,
+            },
+            project: {
+              users: {
+                some: {
+                  userId: userId,
+                  role: Role.ADMIN,
+                },
+              },
             },
           },
           select: {
@@ -331,7 +350,7 @@ export const teamRouter = createTRPCRouter({
           userId: z.string(),
           role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.teamMembers.update({
@@ -367,7 +386,7 @@ export const teamRouter = createTRPCRouter({
         .object({
           token: z.string(),
         })
-        .required()
+        .required(),
     )
     .query(async ({ ctx, input }) => {
       const invitation = await ctx.prisma.teamInvitation.findUnique({
@@ -432,7 +451,7 @@ export const teamRouter = createTRPCRouter({
           email: z.string().email(),
           role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const user = ctx.session?.user;
@@ -447,7 +466,6 @@ export const teamRouter = createTRPCRouter({
         if (existingUser) {
           const existingMember = await tx.teamMembers.findFirst({
             where: {
-              teamId: input.teamId,
               userId: existingUser.id,
               team: {
                 members: {
@@ -536,7 +554,7 @@ export const teamRouter = createTRPCRouter({
           teamId: z.string(),
           inviteId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const invitation = await ctx.prisma.teamInvitation.delete({

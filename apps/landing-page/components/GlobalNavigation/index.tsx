@@ -86,7 +86,7 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
         isExternal: true,
       },
     ],
-    [t]
+    [t],
   );
 
   const products = useMemo(
@@ -104,7 +104,7 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
         icon: "description",
       },
     ],
-    [router, t]
+    [router, t],
   );
 
   const apps = useMemo(
@@ -123,7 +123,7 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
         isExternal: true,
       },
     ],
-    [t]
+    [t],
   );
 
   const numberAnimation = useSpring({

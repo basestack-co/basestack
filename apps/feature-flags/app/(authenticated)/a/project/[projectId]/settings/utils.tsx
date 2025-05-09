@@ -35,7 +35,7 @@ export const getWithPlanCardProps = ({
   const hasFeature = config.plans.hasPlanFeature(
     Product.FLAGS,
     planId,
-    feature
+    feature,
   );
 
   return !hasFeature

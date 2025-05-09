@@ -90,7 +90,7 @@ export const isAuthenticated = middleware(async ({ next, ctx }) => {
 export const withSubscriptionUsage = middleware(async ({ next, ctx, meta }) => {
   const usage = await getSubscriptionUsage(
     ctx.prisma,
-    ctx?.session?.user.id ?? ""
+    ctx?.session?.user.id ?? "",
   );
 
   const planId = usage.planId as PlanTypeId;
@@ -135,7 +135,7 @@ export const withProjectRestrictions = middleware(
     const project = await getUserInProject(
       ctx.prisma,
       ctx?.session?.user.id!,
-      projectId!
+      projectId!,
     );
 
     // If the user does not exist in the project, return an error
@@ -166,7 +166,7 @@ export const withProjectRestrictions = middleware(
         ...ctx,
       },
     });
-  }
+  },
 );
 
 export const withTeamRestrictions = middleware(
@@ -190,7 +190,7 @@ export const withTeamRestrictions = middleware(
     const userInTeam = await getUserInTeam(
       ctx.prisma,
       ctx?.session?.user.id!,
-      teamId!
+      teamId!,
     );
 
     if (!userInTeam) {
@@ -214,7 +214,7 @@ export const withTeamRestrictions = middleware(
         ...ctx,
       },
     });
-  }
+  },
 );
 
 export const withUsageLimits = middleware(async ({ next, ctx, meta }) => {
@@ -231,7 +231,7 @@ export const withUsageLimits = middleware(async ({ next, ctx, meta }) => {
   const limit = config.plans.getPlanLimitByKey(
     Product.FLAGS,
     planId,
-    usageLimitKey
+    usageLimitKey,
   );
 
   if (usage[usageLimitKey] < limit) {

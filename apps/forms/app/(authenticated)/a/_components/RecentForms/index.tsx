@@ -23,7 +23,7 @@ import { Header, Section, List } from "./styles";
 const RecentForms = () => {
   const t = useTranslations("home");
   const setCreateFormModalOpen = useStore(
-    (state) => state.setCreateFormModalOpen
+    (state) => state.setCreateFormModalOpen,
   );
   const theme = useTheme();
   const router = useRouter();

@@ -21,7 +21,7 @@ export const environmentRouter = createTRPCRouter({
         .object({
           projectId: z.string(),
         })
-        .required()
+        .required(),
     )
     .query(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id;
@@ -59,7 +59,7 @@ export const environmentRouter = createTRPCRouter({
           name: z.string(),
           description: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const projectAdminUserId = ctx.project.adminUserId;
@@ -109,7 +109,7 @@ export const environmentRouter = createTRPCRouter({
           tx,
           projectAdminUserId,
           "environments",
-          "increment"
+          "increment",
         );
 
         return newEnvironment;
@@ -130,7 +130,7 @@ export const environmentRouter = createTRPCRouter({
           name: z.string(),
           description: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const environment = await ctx.prisma.environment.update({
@@ -156,7 +156,7 @@ export const environmentRouter = createTRPCRouter({
           projectId: z.string(),
           environmentId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const projectAdminUserId = ctx.project.adminUserId;
@@ -179,7 +179,7 @@ export const environmentRouter = createTRPCRouter({
             tx,
             projectAdminUserId,
             "environments",
-            "decrement"
+            "decrement",
           );
 
           return environment;

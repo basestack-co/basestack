@@ -33,7 +33,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
       date,
       ...props
     },
-    ref
+    ref,
   ) => {
     const theme = useTheme();
 
@@ -44,7 +44,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
       },
       {
         enabled: !!projectId,
-      }
+      },
     );
 
     return (
@@ -110,7 +110,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
         </CardWrapper>
       </Card>
     );
-  }
+  },
 );
 
 FlagRow.displayName = "FlagRow";

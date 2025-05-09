@@ -62,7 +62,7 @@ const InviteForm = ({ teamId }: Props) => {
           onError: (error) => {
             toast.error(error.message);
           },
-        }
+        },
       );
     }
   };
@@ -88,7 +88,7 @@ const InviteForm = ({ teamId }: Props) => {
                   onChange: field.onChange,
                   onBlur: field.onBlur,
                   placeholder: t(
-                    "team.manage.tab.invites.form.email.placeholder"
+                    "team.manage.tab.invites.form.email.placeholder",
                   ),
                   hasError: !!errors.email,
                   isDisabled: isSubmitting,

@@ -16,7 +16,7 @@ const MembersPage = () => {
     { projectId },
     {
       enabled: !!projectId,
-    }
+    },
   );
 
   return (

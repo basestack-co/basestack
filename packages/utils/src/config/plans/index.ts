@@ -36,12 +36,12 @@ const isValidPlan = (product: Product, id: PlanTypeId) => {
 
 const getPlan = (product: Product, id: PlanTypeId): FormPlan | FlagsPlan => {
   const plan = currentPlans[product].find(
-    (plan: FormPlan | FlagsPlan) => plan.id === id
+    (plan: FormPlan | FlagsPlan) => plan.id === id,
   );
   if (!plan) {
     // Fallback to free plan if plan is not found
     return currentPlans[product].find(
-      (plan: FormPlan | FlagsPlan) => plan.id === PlanTypeId.FREE
+      (plan: FormPlan | FlagsPlan) => plan.id === PlanTypeId.FREE,
     )!;
   }
   return plan;
@@ -49,7 +49,7 @@ const getPlan = (product: Product, id: PlanTypeId): FormPlan | FlagsPlan => {
 
 const getPlanLimits = (
   product: Product,
-  id: PlanTypeId
+  id: PlanTypeId,
 ): FlagsPlan["limits"] | FormPlan["limits"] => {
   const plan = getPlan(product, id);
   return plan.limits;
@@ -57,7 +57,7 @@ const getPlanLimits = (
 
 const getPlanFeatures = (
   product: Product,
-  id: PlanTypeId
+  id: PlanTypeId,
 ): FlagsPlan["features"] | FormPlan["features"] => {
   const plan = getPlan(product, id);
   return plan.features;
@@ -66,7 +66,7 @@ const getPlanFeatures = (
 const hasPlanFeature = (
   product: Product,
   id: PlanTypeId,
-  feature: keyof FormPlan["features"] | keyof FlagsPlan["features"]
+  feature: keyof FormPlan["features"] | keyof FlagsPlan["features"],
 ) => {
   const plan = getPlan(product, id);
   return plan.features[feature as keyof typeof plan.features];
@@ -75,7 +75,7 @@ const hasPlanFeature = (
 const getPlanLimitByKey = (
   product: Product,
   id: PlanTypeId,
-  limit: keyof FormPlan["limits"] | keyof FlagsPlan["limits"]
+  limit: keyof FormPlan["limits"] | keyof FlagsPlan["limits"],
 ) => {
   const plan = getPlan(product, id);
   return plan.limits[limit as keyof typeof plan.limits];
@@ -85,7 +85,7 @@ const isUnderPlanLimit = (
   product: Product,
   id: PlanTypeId,
   limit: keyof FormPlan["limits"] | keyof FlagsPlan["limits"],
-  value: number
+  value: number,
 ) => {
   const plan = getPlan(product, id);
   return plan.limits[limit as keyof typeof plan.limits] >= value;
@@ -95,7 +95,7 @@ const getPlanVariantId = (
   product: Product,
   id: PlanTypeId,
   interval: "monthly" | "yearly",
-  mode: string = "production"
+  mode: string = "production",
 ) => {
   const stage = getAppMode(mode);
   const plan = getPlan(product, id);
@@ -106,21 +106,21 @@ const getPlanByVariantId = (
   product: Product,
   variantId: number,
   isBilledMonthly: boolean = false,
-  mode: string = "production"
+  mode: string = "production",
 ) => {
   const stage = getAppMode(mode);
 
   return currentPlans[product].find(
     (plan) =>
       plan.price[isBilledMonthly ? "monthly" : "yearly"].variantIds[stage] ===
-      variantId
+      variantId,
   );
 };
 
 const getLimitByKey = (
   product: Product,
   id: PlanTypeId,
-  limit: keyof FormPlan["limits"] | keyof FlagsPlan["limits"]
+  limit: keyof FormPlan["limits"] | keyof FlagsPlan["limits"],
 ): number => {
   const plan = getPlan(product, id);
   return plan?.limits[limit as keyof typeof plan.limits] || 0;

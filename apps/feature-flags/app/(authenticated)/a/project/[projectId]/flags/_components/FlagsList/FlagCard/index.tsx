@@ -25,7 +25,7 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
       isExpired = false,
       ...props
     },
-    ref
+    ref,
   ) => {
     const theme = useTheme();
 
@@ -36,7 +36,7 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
       },
       {
         enabled: !!projectId,
-      }
+      },
     );
 
     return (
@@ -116,7 +116,7 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
         )}
       </Card>
     );
-  }
+  },
 );
 
 FlagCard.displayName = "FlagCard";

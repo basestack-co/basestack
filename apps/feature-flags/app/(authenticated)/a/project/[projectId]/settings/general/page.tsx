@@ -26,7 +26,7 @@ const GeneralPage = () => {
     { projectId },
     {
       enabled: !!projectId,
-    }
+    },
   );
 
   return (

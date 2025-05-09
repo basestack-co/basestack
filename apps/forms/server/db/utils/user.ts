@@ -5,7 +5,7 @@ import { TRPCError } from "@trpc/server";
 export const getUserInForm = async (
   prisma: PrismaClient,
   userId: string,
-  formId: string
+  formId: string,
 ) => {
   try {
     const [user, admin] = await prisma.$transaction([

@@ -16,7 +16,12 @@ export async function POST(req: NextRequest) {
     signature: process.env.LEMONSQUEEZY_SIGNATURE_SECRET ?? "",
     product: "Feature Flags",
     getPlan: (variantId, isBilledMonthly) => {
-      const plan = getPlanByVariantId(Product.FLAGS, variantId, isBilledMonthly, AppMode);
+      const plan = getPlanByVariantId(
+        Product.FLAGS,
+        variantId,
+        isBilledMonthly,
+        AppMode,
+      );
 
       if (!plan) return null;
 

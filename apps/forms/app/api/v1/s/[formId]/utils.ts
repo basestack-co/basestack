@@ -24,7 +24,7 @@ export const formatFormData = async (
   req: Request,
   errorUrl: string,
   redirectUrl: string,
-  honeypot: string = "_trap"
+  honeypot: string = "_trap",
 ) => {
   const url = `${errorUrl}?goBackUrl=${redirectUrl}`;
 
@@ -55,7 +55,7 @@ export const formatFormData = async (
             resolve({ fields, files });
           }
         });
-      }
+      },
     );
 
   let fields: formidable.Fields, files: formidable.Files;
@@ -82,7 +82,7 @@ export const formatFormData = async (
     Object.entries(fields).map(([key, value]) => [
       key,
       Array.isArray(value) ? value[0] : value,
-    ])
+    ]),
   );
 
   if (typeof _trap === "string" && _trap.trim() !== "") {
@@ -99,7 +99,7 @@ export const formatFormData = async (
 export const verifyForm = async (
   formId: string,
   referer: string,
-  metadata: { ip: string | null }
+  metadata: { ip: string | null },
 ) => {
   try {
     if (!formId) {

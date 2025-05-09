@@ -279,7 +279,7 @@ const flagsPermissions: Record<string, FlagsPermission[]> = {
 
 const hasFlagsPermission = (
   role: string | undefined,
-  permission: FlagsPermission
+  permission: FlagsPermission,
 ): boolean => {
   return flagsPermissions[role ?? "VIEWER"]?.includes(permission) ?? false;
 };

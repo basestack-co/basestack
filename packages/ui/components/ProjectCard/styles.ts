@@ -29,8 +29,11 @@ export const Body = styled.div`
 export const Footer = styled.div`
   display: flex;
   align-items: center;
-  height: 46px;
-  padding: 0 ${({ theme }) => theme.spacing.s5};
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing.s4};
+  row-gap: ${({ theme }) => theme.spacing.s3};
+  padding: ${({ theme }) => theme.spacing.s2} ${({ theme }) => theme.spacing.s5};
+  min-height: ${rem("46px")};
 `;
 
 export const Avatars = styled.ul`
@@ -62,4 +65,9 @@ export const PopupMenuWrapper = styled.div`
 
 export const TooltipContainer = styled.div`
   margin-left: auto;
+`;
+
+export const DetailContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;

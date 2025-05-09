@@ -36,7 +36,7 @@ export const getWithPlanCardProps = ({
   const hasFeature = config.plans.hasPlanFeature(
     Product.FORMS,
     planId,
-    feature
+    feature,
   );
 
   return !hasFeature
@@ -76,7 +76,7 @@ export const getWithPlanSwitchProps = ({
   const hasFeature = config.plans.hasPlanFeature(
     Product.FORMS,
     planId,
-    feature
+    feature,
   );
 
   return !hasFeature

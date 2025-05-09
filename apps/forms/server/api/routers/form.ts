@@ -106,7 +106,7 @@ export const formRouter = createTRPCRouter({
         .object({
           formId: z.string(),
         })
-        .required()
+        .required(),
     )
     .query(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
@@ -184,7 +184,7 @@ export const formRouter = createTRPCRouter({
         .object({
           name: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
@@ -261,13 +261,13 @@ export const formRouter = createTRPCRouter({
           honeypot: z.string().nullable().default(null),
           websites: z.string().nullable().default(null),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const planId = ctx.usage.planId as PlanTypeId;
       const { formId, feature, ...props } = input;
       const data = Object.fromEntries(
-        Object.entries(props).filter(([_, value]) => value !== null)
+        Object.entries(props).filter(([_, value]) => value !== null),
       );
 
       if (Object.keys(data).length === 0) {
@@ -276,14 +276,14 @@ export const formRouter = createTRPCRouter({
 
       const authorized = withFeatures(
         planId,
-        feature
+        feature,
       )(() =>
         ctx.prisma.form.update({
           where: {
             id: formId,
           },
           data,
-        })
+        }),
       );
 
       const form = await authorized();
@@ -300,7 +300,7 @@ export const formRouter = createTRPCRouter({
         .object({
           formId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;

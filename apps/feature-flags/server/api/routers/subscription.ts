@@ -108,7 +108,7 @@ export const subscriptionRouter = createTRPCRouter({
           isDarkMode: z.boolean().optional(),
           redirectUrl: z.string().url(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
@@ -119,7 +119,7 @@ export const subscriptionRouter = createTRPCRouter({
         Product.FLAGS,
         input.planId,
         input.interval,
-        AppMode
+        AppMode,
       );
 
       const configuration: NewCheckout = {
@@ -146,7 +146,7 @@ export const subscriptionRouter = createTRPCRouter({
       const { statusCode, error, data } = await createCheckout(
         storeId,
         variantId,
-        configuration
+        configuration,
       );
 
       return {

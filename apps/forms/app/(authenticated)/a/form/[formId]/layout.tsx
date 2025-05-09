@@ -1,29 +1,35 @@
 "use client";
 
-import React, { Fragment, useEffect, useMemo } from "react";
+import React, { Fragment, useEffect } from "react";
 // Router
 import { useParams, useRouter } from "next/navigation";
+// Toast
+import { toast } from "sonner";
 // Server
 import { api } from "utils/trpc/react";
 
 const FormLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const { formId } = useParams<{ formId: string }>();
-  const trpcUtils = api.useUtils();
 
-  const form = useMemo(() => {
-    const data = trpcUtils.form.all.getData();
-
-    return data?.forms?.find((project) => project.id === formId);
-  }, [formId, trpcUtils.form.all]);
+  const { data, isLoading, isError, error } = api.form.byId.useQuery(
+    { formId },
+    {
+      enabled: !!formId,
+    },
+  );
 
   useEffect(() => {
-    if (!form) {
-      router.replace("/not-found");
-    }
-  }, [form, router]);
+    if (isError) {
+      toast.error(error?.message);
 
-  if (!form) {
+      setTimeout(() => {
+        router.replace("/a");
+      }, 0);
+    }
+  }, [router, isError, error?.message]);
+
+  if (!data || isLoading || isError) {
     return null;
   }
 

@@ -9,7 +9,7 @@ import { TabType, SelectedView } from "types";
 
 export type Persist = (
   config: StateCreator<Store>,
-  options: PersistOptions<Store>
+  options: PersistOptions<Store>,
 ) => StateCreator<Store>;
 
 /**

@@ -29,7 +29,7 @@ export async function OPTIONS() {
 
 export async function POST(
   req: Request,
-  { params }: { params: Promise<{ formId: string }> }
+  { params }: { params: Promise<{ formId: string }> },
 ) {
   const referer = req.headers.get("referer") || "http://localhost:3003";
   const { formId } = await params;
@@ -49,7 +49,7 @@ export async function POST(
         req,
         form.errorUrl,
         form.redirectUrl,
-        form.honeypot ?? ""
+        form.honeypot ?? "",
       );
 
       if (data) {
@@ -129,7 +129,7 @@ export async function POST(
               message: "Your form has been submitted successfully!",
               url: successUrl,
             },
-            { status: 200, headers }
+            { status: 200, headers },
           );
         }
 
@@ -153,18 +153,18 @@ export async function POST(
             message: error.message,
             url: error.url,
           },
-          { status: error.code, headers }
+          { status: error.code, headers },
         );
       } else {
         return NextResponse.redirect(
           `${error.url}&message=${error.message}`,
-          303
+          303,
         );
       }
     } else {
       return NextResponse.json(
         { error: true, message: "An unexpected error occurred." },
-        { status: 500, headers }
+        { status: 500, headers },
       );
     }
   }

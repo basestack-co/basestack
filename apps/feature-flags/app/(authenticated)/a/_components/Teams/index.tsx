@@ -36,7 +36,7 @@ const Teams = () => {
         state.setCreateTeamModalOpen,
         state.setManageTeamModalOpen,
         state.setConfirmModalOpen,
-      ])
+      ]),
     );
 
   const { data, isLoading } = api.team.all.useQuery(undefined, {
@@ -94,13 +94,13 @@ const Teams = () => {
                 onError: (error) => {
                   toast.error(error.message, { duration: 10000 });
                 },
-              }
+              },
             );
           },
         },
       });
     },
-    [deleteTeam, setConfirmModalOpen, t, trpcUtils]
+    [deleteTeam, setConfirmModalOpen, t, trpcUtils],
   );
 
   return (
