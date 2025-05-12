@@ -264,7 +264,7 @@ export const formRouter = createTRPCRouter({
     }),
   update: protectedProcedure
     .meta({
-      roles: [Role.ADMIN, Role.DEVELOPER],
+      roles: [Role.ADMIN],
     })
     .use(withFormRestrictions)
     .input(

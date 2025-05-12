@@ -48,21 +48,21 @@ const getLinks = (formId: string, role: Role | undefined) => [
     i18nKey: "navigation.setting.security",
     tab: "security",
     href: `/a/form/${formId}/settings/security`,
-    isVisible: hasFormsPermission(role, "view_form_security"),
+    isVisible: hasFormsPermission(role, "view_form_security_settings"),
   },
   {
     id: "4",
     i18nKey: "navigation.setting.customization",
     tab: "customization",
     href: `/a/form/${formId}/settings/customization`,
-    isVisible: true,
+    isVisible: hasFormsPermission(role, "view_form_customization_settings"),
   },
   {
     id: "5",
     i18nKey: "navigation.setting.notifications",
     tab: "notifications",
     href: `/a/form/${formId}/settings/notifications`,
-    isVisible: true,
+    isVisible: hasFormsPermission(role, "view_form_notifications_settings"),
   },
 ];
 
@@ -124,6 +124,16 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
       >
     )}`;
   }, [activeLinkIndex, data?.name, t]);
+
+  useEffect(() => {
+    const link = getLinks(formId, data?.role).find(
+      (link) => link.href === pathname
+    );
+
+    if (!link?.isVisible) {
+      router.push(`/a/form/${formId}/settings/general`);
+    }
+  }, [pathname, activeLinkIndex, formId, data?.role, router]);
 
   return (
     <Container>

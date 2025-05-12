@@ -59,6 +59,10 @@
     "forms": {
       "title": "Recent forms",
       "action": "Create Form",
+      "tag": {
+        "text": "External",
+        "tooltip": "You are a member of this form, not the owner."
+      },
       "empty": {
         "title": "Create your first form",
         "description": "Create your first form to start receiving submissions!",

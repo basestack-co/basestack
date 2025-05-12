@@ -72,7 +72,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
       { projectId },
       {
         enabled: !!projectId,
-      },
+      }
     );
 
   const renderLink = useMemo(() => {
@@ -92,9 +92,9 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   const activeLinkIndex = useMemo(
     () =>
       getLinks(projectId, project?.role).findIndex(
-        (button) => button.href === pathname,
+        (button) => button.href === pathname
       ),
-    [pathname, projectId, project?.role],
+    [pathname, projectId, project?.role]
   );
 
   const items = useMemo(
@@ -107,12 +107,22 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
             text: t(i18nKey as NamespaceKeys<string, "navigation">),
           };
         }),
-    [t, projectId, project?.role],
+    [t, projectId, project?.role]
   );
 
   useEffect(() => {
     document.title = `${project?.name ?? "Project"} / Settings`;
   }, [project?.name]);
+
+  useEffect(() => {
+    const link = getLinks(projectId, project?.role).find(
+      (link) => link.href === pathname
+    );
+
+    if (!link?.isVisible) {
+      router.push(`/a/project/${projectId}/settings/general`);
+    }
+  }, [pathname, projectId, project?.role, router]);
 
   return (
     <Container>

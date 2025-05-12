@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 // Router
 import { useParams, useRouter } from "next/navigation";
 // Components
@@ -22,18 +22,12 @@ const SecuritySettingsPage = () => {
     { projectId },
     {
       enabled: !!projectId,
-    },
+    }
   );
 
   const planId = useMemo(() => {
     return (data?.owner?.subscription?.planId ?? PlanTypeId.FREE) as PlanTypeId;
   }, [data]);
-
-  useEffect(() => {
-    if (!hasFlagsPermission(data?.role, "view_project_security")) {
-      router.push(`/a/project/${projectId}/settings/general`);
-    }
-  }, [data?.role, projectId]);
 
   return (
     <CardList>

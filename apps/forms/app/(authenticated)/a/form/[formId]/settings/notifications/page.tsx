@@ -1,33 +1,41 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 // Router
 import { useParams } from "next/navigation";
 // Components
 import { CardList, CardListItem, SettingCardContainer } from "../styles";
 import FormEmails from "./_components/FormEmails";
 // Utils
-import { PlanTypeId } from "@basestack/utils";
+import { PlanTypeId, config } from "@basestack/utils";
 // Server
 import { api } from "utils/trpc/react";
+
+const { hasFormsPermission } = config.plans;
 
 const NotificationsSettingsPage = () => {
   const { formId } = useParams<{ formId: string }>();
 
-  const [form, usage] = api.useQueries((t) => [
-    t.form.byId({ formId }, { enabled: !!formId }),
-    t.subscription.usage(undefined, { enabled: !!formId }),
-  ]);
+  const { data } = api.form.byId.useQuery(
+    { formId },
+    {
+      enabled: !!formId,
+    }
+  );
 
-  const planId = (usage.data?.planId ?? PlanTypeId.FREE) as PlanTypeId;
+  const planId = useMemo(() => {
+    return (data?.owner?.subscription?.planId ?? PlanTypeId.FREE) as PlanTypeId;
+  }, [data]);
 
   return (
     <CardList>
-      <CardListItem>
-        <SettingCardContainer>
-          <FormEmails emails={form.data?.emails ?? ""} planId={planId} />
-        </SettingCardContainer>
-      </CardListItem>
+      {hasFormsPermission(data?.role, "edit_form_notifications_emails") && (
+        <CardListItem>
+          <SettingCardContainer>
+            <FormEmails emails={data?.emails ?? ""} planId={planId} />
+          </SettingCardContainer>
+        </CardListItem>
+      )}
     </CardList>
   );
 };

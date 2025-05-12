@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useCallback } from "react";
 // Router
 import { useRouter } from "next/navigation";
 // Server
@@ -15,7 +15,7 @@ import {
   Text,
   Empty,
 } from "@basestack/design-system";
-import FormCard from "components/FormCard";
+import { ProjectCard as FormCard } from "@basestack/ui";
 // Styles
 import { useTheme } from "styled-components";
 import { Header, Section, List } from "./styles";
@@ -23,7 +23,7 @@ import { Header, Section, List } from "./styles";
 const RecentForms = () => {
   const t = useTranslations("home");
   const setCreateFormModalOpen = useStore(
-    (state) => state.setCreateFormModalOpen,
+    (state) => state.setCreateFormModalOpen
   );
   const theme = useTheme();
   const router = useRouter();
@@ -34,15 +34,31 @@ const RecentForms = () => {
         formId: id,
         title: name,
         isAdmin,
-        spam: _count.spam,
-        submissions: {
-          unread: _count.unread,
-          read: _count.read,
-        },
+        count: [
+          {
+            icon: "mark_email_unread",
+            value: _count.unread ?? 0,
+          },
+          {
+            icon: "mark_email_read",
+            value: _count.read ?? 0,
+          },
+          {
+            icon: "mail",
+            value: _count.spam ?? 0,
+          },
+        ],
         isEnabled: isEnabled,
       }));
     },
   });
+
+  const onClickMenuItem = useCallback(
+    (path: string, formId: string) => {
+      router.push(`/a/form/${formId}/${path}`);
+    },
+    [router]
+  );
 
   return (
     <Section mb={theme.spacing.s7}>
@@ -76,17 +92,39 @@ const RecentForms = () => {
         <Fragment>
           {!!data?.length ? (
             <List>
-              {data.map((item, index) => (
+              {data.map((form, index) => (
                 <FormCard
                   key={index}
-                  formId={item.formId}
-                  text={item.title}
+                  text={form.title}
                   onClick={() =>
-                    router.push(`/a/form/${item.formId}/submissions`)
+                    router.push(`/a/form/${form.formId}/submissions`)
                   }
-                  spam={item.spam}
-                  submissions={item.submissions}
-                  isEnabled={item.isEnabled}
+                  count={form.count.filter((item) => item.value > 0)}
+                  menuItems={[
+                    {
+                      icon: "view_agenda",
+                      text: t("forms.card.menu.submissions"),
+                      onClick: () =>
+                        onClickMenuItem("submissions", form.formId),
+                    },
+                    {
+                      icon: "integration_instructions",
+                      text: t("forms.card.menu.setup"),
+                      onClick: () => onClickMenuItem("setup", form.formId),
+                    },
+                    {
+                      icon: "settings",
+                      text: t("forms.card.menu.settings"),
+                      onClick: () =>
+                        onClickMenuItem("settings/general", form.formId),
+                    },
+                  ]}
+                  {...(!form.isAdmin && {
+                    label: {
+                      text: t("forms.tag.text"),
+                      tooltip: t("forms.tag.tooltip"),
+                    },
+                  })}
                 />
               ))}
             </List>

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 // Router
 import { useParams } from "next/navigation";
 // Components
@@ -15,79 +15,99 @@ import FormEndpoint from "./_components/FormEndpoint";
 import FormKey from "./_components/FormKey";
 import FormSpamProtection from "./_components/FormSpamProtection";
 // Utils
-import { PlanTypeId } from "@basestack/utils";
+import { PlanTypeId, config } from "@basestack/utils";
 // Server
 import { api } from "utils/trpc/react";
 // Types
 import { Role } from ".prisma/client";
 
+const { hasFormsPermission } = config.plans;
+
 const GeneralSettingsPage = () => {
   const { formId } = useParams<{ formId: string }>();
 
-  const [form, usage] = api.useQueries((t) => [
-    t.form.byId({ formId }, { enabled: !!formId }),
-    t.subscription.usage(undefined, { enabled: !!formId }),
-  ]);
+  const { data } = api.form.byId.useQuery(
+    { formId },
+    {
+      enabled: !!formId,
+    }
+  );
 
-  const planId = (usage.data?.planId ?? PlanTypeId.FREE) as PlanTypeId;
+  const planId = useMemo(() => {
+    return (data?.owner?.subscription?.planId ?? PlanTypeId.FREE) as PlanTypeId;
+  }, [data]);
 
   return (
     <CardList>
-      <CardListItem>
-        <SettingCardContainer>
-          <FormName role={form.data?.role} name={form.data?.name} />
-        </SettingCardContainer>
-      </CardListItem>
+      {hasFormsPermission(data?.role, "edit_form_name") && (
+        <CardListItem>
+          <SettingCardContainer>
+            <FormName role={data?.role} name={data?.name} />
+          </SettingCardContainer>
+        </CardListItem>
+      )}
       <CardListItem>
         <SettingCardContainer>
           <FormOwner
-            name={form.data?.owner?.name ?? ""}
-            email={form.data?.owner?.email ?? ""}
-            image={form.data?.owner?.image ?? ""}
+            name={data?.owner?.name ?? ""}
+            email={data?.owner?.email ?? ""}
+            image={data?.owner?.image ?? ""}
           />
         </SettingCardContainer>
       </CardListItem>
-      <CardListItem>
-        <SettingCardContainer>
-          <FormEndpoint formId={form.data?.id ?? ""} />
-        </SettingCardContainer>
-      </CardListItem>
-      <CardListItem>
-        <SettingCardContainer>
-          <FormKey formId={form.data?.id ?? ""} />
-        </SettingCardContainer>
-      </CardListItem>
-      <CardListItem>
-        <SettingCardContainer>
-          <EnableForm isEnabled={form.data?.isEnabled} />
-        </SettingCardContainer>
-      </CardListItem>
-      <CardListItem>
-        <SettingCardContainer>
-          <FormDataRetention hasRetention={form.data?.hasRetention} />
-        </SettingCardContainer>
-      </CardListItem>
-      <CardListItem>
-        <SettingCardContainer>
-          <FormSpamProtection
-            hasSpamProtection={form.data?.hasSpamProtection}
-            isDisabled={!form.data?.hasRetention}
-            planId={planId}
-          />
-        </SettingCardContainer>
-      </CardListItem>
-      <CardListItem>
-        <SettingCardContainer>
-          <FormWebHookUrl
-            webhookUrl={form.data?.webhookUrl ?? ""}
-            planId={planId}
-          />
-        </SettingCardContainer>
-      </CardListItem>
-      {form.data?.role === Role.ADMIN && (
+      {hasFormsPermission(data?.role, "view_form_endpoint") && (
         <CardListItem>
           <SettingCardContainer>
-            <DeleteForm name={form.data?.name} />
+            <FormEndpoint formId={data?.id ?? ""} />
+          </SettingCardContainer>
+        </CardListItem>
+      )}
+      {hasFormsPermission(data?.role, "view_form_id") && (
+        <CardListItem>
+          <SettingCardContainer>
+            <FormKey formId={data?.id ?? ""} />
+          </SettingCardContainer>
+        </CardListItem>
+      )}
+      {hasFormsPermission(data?.role, "enable_form") && (
+        <CardListItem>
+          <SettingCardContainer>
+            <EnableForm isEnabled={data?.isEnabled} />
+          </SettingCardContainer>
+        </CardListItem>
+      )}
+      {hasFormsPermission(data?.role, "enable_form_data_retention") && (
+        <CardListItem>
+          <SettingCardContainer>
+            <FormDataRetention hasRetention={data?.hasRetention} />
+          </SettingCardContainer>
+        </CardListItem>
+      )}
+      {hasFormsPermission(data?.role, "enable_form_spam_protection") && (
+        <CardListItem>
+          <SettingCardContainer>
+            <FormSpamProtection
+              hasSpamProtection={data?.hasSpamProtection}
+              isDisabled={!data?.hasRetention}
+              planId={planId}
+            />
+          </SettingCardContainer>
+        </CardListItem>
+      )}
+      {hasFormsPermission(data?.role, "enable_form_webhook") && (
+        <CardListItem>
+          <SettingCardContainer>
+            <FormWebHookUrl
+              webhookUrl={data?.webhookUrl ?? ""}
+              planId={planId}
+            />
+          </SettingCardContainer>
+        </CardListItem>
+      )}
+      {hasFormsPermission(data?.role, "delete_form") && (
+        <CardListItem>
+          <SettingCardContainer>
+            <DeleteForm name={data?.name} />
           </SettingCardContainer>
         </CardListItem>
       )}
