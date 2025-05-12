@@ -1,11 +1,18 @@
-import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
+import {
+  protectedProcedure,
+  createTRPCRouter,
+  withFormRestrictions,
+} from "server/api/trpc";
 import { TRPCError } from "@trpc/server";
 // Types
 import { Role } from ".prisma/client";
 // Utils
 import { z } from "zod";
-import { PlanTypeId } from "@basestack/utils";
+import { PlanTypeId, Product, AppEnv, config } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
 import { withUsageUpdate, withFeatures } from "server/db/utils/subscription";
+// Vendors
+import { qstash } from "@basestack/vendors";
 
 export const formRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -42,6 +49,7 @@ export const formRouter = createTRPCRouter({
     const forms = all.map((form) => ({
       ...form,
       isAdmin: form.users[0]?.role === Role.ADMIN,
+      role: form.users[0]?.role ?? Role.VIEWER,
     }));
 
     return { forms };
@@ -98,15 +106,15 @@ export const formRouter = createTRPCRouter({
   }),
   byId: protectedProcedure
     .meta({
-      isFormRestricted: true,
       roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER, Role.VIEWER],
     })
+    .use(withFormRestrictions)
     .input(
       z
         .object({
           formId: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
@@ -175,6 +183,40 @@ export const formRouter = createTRPCRouter({
         owner: data?.form.users[0]?.user,
       };
     }),
+  members: protectedProcedure
+    .use(withFormRestrictions)
+    .input(
+      z
+        .object({
+          formId: z.string(),
+        })
+        .required()
+    )
+    .query(async ({ ctx, input }) => {
+      const users = await ctx.prisma.formOnUsers.findMany({
+        where: {
+          formId: input.formId,
+        },
+        select: {
+          userId: true,
+          formId: true,
+          role: true,
+          user: {
+            select: {
+              name: true,
+              email: true,
+              image: true,
+            },
+          },
+          createdAt: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+
+      return { users };
+    }),
   create: protectedProcedure
     .meta({
       usageLimitKey: "forms",
@@ -184,7 +226,7 @@ export const formRouter = createTRPCRouter({
         .object({
           name: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
@@ -222,9 +264,9 @@ export const formRouter = createTRPCRouter({
     }),
   update: protectedProcedure
     .meta({
-      isFormRestricted: true,
       roles: [Role.ADMIN, Role.DEVELOPER],
     })
+    .use(withFormRestrictions)
     .input(
       z
         .object({
@@ -261,13 +303,13 @@ export const formRouter = createTRPCRouter({
           honeypot: z.string().nullable().default(null),
           websites: z.string().nullable().default(null),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const planId = ctx.usage.planId as PlanTypeId;
       const { formId, feature, ...props } = input;
       const data = Object.fromEntries(
-        Object.entries(props).filter(([_, value]) => value !== null),
+        Object.entries(props).filter(([_, value]) => value !== null)
       );
 
       if (Object.keys(data).length === 0) {
@@ -276,14 +318,14 @@ export const formRouter = createTRPCRouter({
 
       const authorized = withFeatures(
         planId,
-        feature,
+        feature
       )(() =>
         ctx.prisma.form.update({
           where: {
             id: formId,
           },
           data,
-        }),
+        })
       );
 
       const form = await authorized();
@@ -293,14 +335,14 @@ export const formRouter = createTRPCRouter({
   delete: protectedProcedure
     .meta({
       roles: [Role.ADMIN],
-      isFormRestricted: true,
     })
+    .use(withFormRestrictions)
     .input(
       z
         .object({
           formId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
@@ -318,5 +360,127 @@ export const formRouter = createTRPCRouter({
       });
 
       return { form };
+    }),
+  addMember: protectedProcedure
+    .use(withFormRestrictions)
+    .meta({
+      roles: [Role.ADMIN, Role.DEVELOPER],
+    })
+    .input(
+      z
+        .object({
+          formId: z.string(),
+          userId: z.string(),
+          role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
+        })
+        .required()
+    )
+    .mutation(async ({ ctx, input }) => {
+      const user = ctx.session?.user;
+
+      const connection = await ctx.prisma.formOnUsers.create({
+        data: {
+          form: {
+            connect: {
+              id: input.formId,
+            },
+          },
+          user: {
+            connect: {
+              id: input.userId,
+            },
+          },
+          role: input.role,
+        },
+        select: {
+          user: {
+            select: {
+              name: true,
+              email: true,
+            },
+          },
+          form: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
+
+      if (!!connection.user.email) {
+        await qstash.events.sendEmailEvent({
+          template: "addFormMember",
+          to: [connection.user.email],
+          subject: `You have been added to ${connection.form.name} form on Basestack Forms`,
+          props: {
+            product: "Basestack Forms",
+            fromUserName: user?.name ?? "",
+            toUserName: connection.user.name,
+            form: connection.form.name,
+            linkText: "Open Form",
+            linkUrl: `${config.urls.getAppWithEnv(Product.FORMS, AppMode as AppEnv)}/a/form/${input.formId}`,
+          },
+        });
+      }
+
+      return { connection };
+    }),
+  updateMember: protectedProcedure
+    .meta({
+      roles: [Role.ADMIN],
+    })
+    .use(withFormRestrictions)
+    .input(
+      z
+        .object({
+          formId: z.string(),
+          userId: z.string(),
+          role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
+        })
+        .required()
+    )
+    .mutation(async ({ ctx, input }) => {
+      const connection = await ctx.prisma.formOnUsers.update({
+        where: {
+          formId_userId: {
+            formId: input.formId,
+            userId: input.userId,
+          },
+        },
+        data: {
+          role: input.role,
+        },
+        select: {
+          userId: true,
+          role: true,
+        },
+      });
+
+      return { connection };
+    }),
+  removeMember: protectedProcedure
+    .meta({
+      roles: [Role.ADMIN],
+    })
+    .use(withFormRestrictions)
+    .input(
+      z
+        .object({
+          formId: z.string(),
+          userId: z.string(),
+        })
+        .required()
+    )
+    .mutation(async ({ ctx, input }) => {
+      const connection = await ctx.prisma.formOnUsers.delete({
+        where: {
+          formId_userId: {
+            formId: input.formId,
+            userId: input.userId,
+          },
+        },
+      });
+
+      return { connection };
     }),
 });

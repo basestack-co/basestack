@@ -204,10 +204,10 @@ export const teamRouter = createTRPCRouter({
           .filter((m) => m.userId !== userId)
           .map((m) => m.userId);
 
-        const usersInProjects = await tx.projectsOnUsers.findMany({
+        const usersInForms = await tx.formOnUsers.findMany({
           where: {
             userId: { in: userIds },
-            project: {
+            form: {
               users: {
                 some: {
                   userId: userId,
@@ -217,18 +217,18 @@ export const teamRouter = createTRPCRouter({
             },
           },
           select: {
-            project: { select: { name: true } },
+            form: { select: { name: true } },
             user: { select: { name: true } },
           },
         });
 
-        if (usersInProjects.length > 0) {
+        if (usersInForms.length > 0) {
           throw new TRPCError({
             code: "BAD_REQUEST",
-            message: `Some team members are still assigned to projects: ${usersInProjects
-              .map((u) => `User ${u.user.name} in project ${u.project.name}`)
-              .join(", ")}. Remove the users from the projects first.`,
-            cause: "CannotDeleteTeamWithMembersInProjects",
+            message: `Some team members are still assigned to forms: ${usersInForms
+              .map((u) => `User ${u.user.name} in form ${u.form.name}`)
+              .join(", ")}. Remove the users from the forms first.`,
+            cause: "CannotDeleteTeamWithMembersInForms",
           });
         }
 
@@ -276,13 +276,13 @@ export const teamRouter = createTRPCRouter({
       const userId = ctx?.session?.user.id!;
 
       return await ctx.prisma.$transaction(async (tx) => {
-        const projects = await tx.projectsOnUsers.findMany({
+        const forms = await tx.formOnUsers.findMany({
           where: {
             userId: input.userId,
             role: {
               not: Role.ADMIN,
             },
-            project: {
+            form: {
               users: {
                 some: {
                   userId: userId,
@@ -292,7 +292,7 @@ export const teamRouter = createTRPCRouter({
             },
           },
           select: {
-            project: {
+            form: {
               select: {
                 name: true,
               },
@@ -300,10 +300,10 @@ export const teamRouter = createTRPCRouter({
           },
         });
 
-        if (projects.length > 0) {
+        if (forms.length > 0) {
           throw new TRPCError({
             code: "BAD_REQUEST",
-            message: `User is a member of ${projects.map((p) => p.project.name).join(", ")}. Remove the user from the projects first.`,
+            message: `User is a member of ${forms.map((f) => f.form.name).join(", ")}. Remove the user from the forms first.`,
             cause: "CannotRemoveMember",
           });
         }
@@ -528,14 +528,14 @@ export const teamRouter = createTRPCRouter({
       await qstash.events.sendEmailEvent({
         template: "invite",
         to: [input.email],
-        subject: `You have been invited to join ${invitation.team.name} team on Basestack Feature Flags`,
+        subject: `You have been invited to join ${invitation.team.name} team on Basestack Forms`,
         props: {
-          product: "Basestack Feature Flags",
+          product: "Basestack Forms",
           fromUserName: user?.name ?? "",
           toUserName: input.email,
           team: invitation.team.name,
           linkText: "Accept Invitation",
-          linkUrl: `${config.urls.getAppWithEnv(Product.FLAGS, AppMode as AppEnv)}/a/invite/${token}`,
+          linkUrl: `${config.urls.getAppWithEnv(Product.FORMS, AppMode as AppEnv)}/a/invite/${token}`,
         },
       });
 

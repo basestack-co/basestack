@@ -134,4 +134,13 @@ export type FlagsPermission =
   | "delete_project_environment"
   | "delete_project";
 
-export type FormsPermission = "delete_form";
+export type FormsPermission =
+  // Form Permissions
+  | "view_form_submissions"
+  | "view_form_security"
+  | "add_form_submissions"
+  | "add_form_member"
+  | "edit_form_submissions"
+  | "edit_form_name"
+  | "delete_form_submissions"
+  | "delete_form";

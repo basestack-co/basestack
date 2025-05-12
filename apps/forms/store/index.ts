@@ -14,15 +14,15 @@ export const useStore = create<Store>()(
     }),
     {
       version: 1,
-      name: "feature-flags-app",
+      name: "forms-app",
       storage: createJSONStorage(() => localStorage),
       // @ts-ignore
       partialize: (state) => ({
         isDarkMode: state.isDarkMode,
         closeModalsOnClickOutside: state.closeModalsOnClickOutside,
       }),
-    },
-  ),
+    }
+  )
 );
 
 // @ts-ignore

@@ -9,12 +9,16 @@ import {
   sendEmail,
   NewSubmissionEmailTemplate,
   WelcomeEmailTemplate,
+  AddProjectMemberEmailTemplate,
+  InviteEmailTemplate,
 } from "@basestack/emails";
 import { render } from "@react-email/render";
 
 const templateList: { [key: string]: ElementType } = {
   "new-submission": NewSubmissionEmailTemplate,
   welcome: WelcomeEmailTemplate,
+  invite: InviteEmailTemplate,
+  addFormMember: AddProjectMemberEmailTemplate,
 };
 
 export const { POST } = serve<SendEmailPayload>(
@@ -22,10 +26,10 @@ export const { POST } = serve<SendEmailPayload>(
     const { to, subject, template, props } = context.requestPayload;
 
     console.info(
-      `Job: Basestack Forms - Send Email - Preparing to send email to ${to} with subject: ${subject}`,
+      `Job: Basestack Forms - Send Email - Preparing to send email to ${to} with subject: ${subject}`
     );
     console.info(
-      `Job: Basestack Forms - Send Email - Email with the template ${template} with props: ${JSON.stringify(props)}`,
+      `Job: Basestack Forms - Send Email - Email with the template ${template} with props: ${JSON.stringify(props)}`
     );
 
     await context.run("send-email-step", async () => {
@@ -43,11 +47,11 @@ export const { POST } = serve<SendEmailPayload>(
               to: email,
             },
           });
-        }),
+        })
       );
 
       console.info(
-        "Job: Basestack Forms - Send Email - ✨ Email sent successfully! ✨",
+        "Job: Basestack Forms - Send Email - ✨ Email sent successfully! ✨"
       );
     });
   },
@@ -63,8 +67,8 @@ export const { POST } = serve<SendEmailPayload>(
       failHeaders,
     }) => {
       console.error(
-        `Job: Basestack Forms - Send Email - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
+        `Job: Basestack Forms - Send Email - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `
       );
     },
-  },
+  }
 );

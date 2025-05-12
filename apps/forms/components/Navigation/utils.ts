@@ -1,27 +1,32 @@
 import { NavigationProps } from "@basestack/ui";
 // Types
 import { useRouter } from "next/navigation";
+import { Role } from ".prisma/client";
 // Utils
 import { config, Product } from "@basestack/utils";
 import { signOut } from "next-auth/react";
+
+const { hasFormsPermission } = config.plans;
 
 export const getLeftLinks = (
   router: ReturnType<typeof useRouter>,
   pathname: string,
   formId: string,
+  formRole: Role,
   labels: {
     submissions: string;
     setup: string;
     settings: string;
-  },
+  }
 ): NavigationProps["leftLinks"] => {
-  return [
+  const links = [
     {
       type: "button",
       icon: "mail",
       onClick: () => router.push(`/a/form/${formId}/submissions`),
       text: labels.submissions,
       isActive: pathname.includes("submissions"),
+      isVisible: !!formId,
     },
     {
       type: "button",
@@ -29,6 +34,7 @@ export const getLeftLinks = (
       onClick: () => router.push(`/a/form/${formId}/setup`),
       text: labels.setup,
       isActive: pathname.includes("setup"),
+      isVisible: !!formId,
     },
     {
       type: "button",
@@ -36,8 +42,11 @@ export const getLeftLinks = (
       onClick: () => router.push(`/a/form/${formId}/settings/general`),
       text: labels.settings,
       isActive: pathname.includes("settings"),
+      isVisible: !!formId,
     },
-  ];
+  ].filter((link) => link.isVisible);
+
+  return links as NavigationProps["leftLinks"];
 };
 
 export const getRightLinks = (labels: {
@@ -62,7 +71,7 @@ export const getAvatarDropdownList = (
     settings: string;
     billing: string;
     logout: string;
-  },
+  }
 ) => {
   return [
     {
@@ -104,7 +113,7 @@ export const getAppsList = (
       title: string;
       description: string;
     };
-  },
+  }
 ) => {
   return [
     {

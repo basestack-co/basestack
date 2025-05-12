@@ -213,7 +213,7 @@
             }
           },
           "invites": {
-            "title": "Invites",
+            "title": "Invite Member",
             "form": {
               "email": {
                 "title": "Email",

@@ -1,4 +1,8 @@
-import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
+import {
+  protectedProcedure,
+  createTRPCRouter,
+  withFormRestrictions,
+} from "server/api/trpc";
 // Utils
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
@@ -8,9 +12,9 @@ import { Role } from ".prisma/client";
 export const submissionRouter = createTRPCRouter({
   all: protectedProcedure
     .meta({
-      isFormRestricted: true,
       roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER, Role.VIEWER],
     })
+    .use(withFormRestrictions)
     .input(
       z.object({
         formId: z.string(),
@@ -20,7 +24,7 @@ export const submissionRouter = createTRPCRouter({
         searchFilter: z.string().optional().nullable(),
         filters: z.object({ isSpam: z.boolean() }).nullable().default(null),
         orderBy: z.string().optional().nullable().default("desc"),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
@@ -94,13 +98,13 @@ export const submissionRouter = createTRPCRouter({
     }),
   export: protectedProcedure
     .meta({
-      isFormRestricted: true,
       roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
     })
+    .use(withFormRestrictions)
     .input(
       z.object({
         formId: z.string(),
-      }),
+      })
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
@@ -143,7 +147,7 @@ export const submissionRouter = createTRPCRouter({
       submissions.forEach((item) => {
         const dataRow: string[] = dataHeaders.map(
           (header) =>
-            (item.data && item.data[header as keyof typeof item.data]) || "",
+            (item.data && item.data[header as keyof typeof item.data]) || ""
         );
 
         const commonRow: (string | boolean | undefined | null)[] =
@@ -167,9 +171,9 @@ export const submissionRouter = createTRPCRouter({
     }),
   update: protectedProcedure
     .meta({
-      isFormRestricted: true,
       roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
     })
+    .use(withFormRestrictions)
     .input(
       z
         .object({
@@ -178,13 +182,13 @@ export const submissionRouter = createTRPCRouter({
           isSpam: z.boolean().nullable().default(null),
           viewed: z.boolean().nullable().default(null),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
       const { formId, ids, ...props } = input;
       const data = Object.fromEntries(
-        Object.entries(props).filter(([_, value]) => value !== null),
+        Object.entries(props).filter(([_, value]) => value !== null)
       );
 
       if (Object.keys(data).length === 0) {
@@ -214,14 +218,14 @@ export const submissionRouter = createTRPCRouter({
     }),
   delete: protectedProcedure
     .meta({
-      isFormRestricted: true,
       roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
     })
+    .use(withFormRestrictions)
     .input(
       z.object({
         formId: z.string(),
         ids: z.array(z.string()),
-      }),
+      })
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;

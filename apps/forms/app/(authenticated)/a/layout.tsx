@@ -31,6 +31,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           onClick: () => router.push(`/a/form/${item.id}/submissions`),
           text: item.name,
           isAdmin: item.isAdmin,
+          role: item.role,
         })),
     }),
     t.subscription.usage(undefined, {

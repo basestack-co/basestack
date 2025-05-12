@@ -10,7 +10,7 @@ export const getSubscriptionUsage = async (
   userId: string,
 ) => {
   try {
-    const usage = await prisma.subscription.findFirst({
+    const usage = await prisma.subscription.findFirstOrThrow({
       where: {
         userId,
       },
@@ -51,6 +51,7 @@ export const withUsageUpdate = async (
   userId: string,
   limit: keyof FormPlan["limits"],
   action: "increment" | "decrement",
+  value: number = 1
 ) => {
   try {
     return await prisma.subscription.upsert({
@@ -65,7 +66,7 @@ export const withUsageUpdate = async (
       // Increment or decrement the limit
       update: {
         [limit]: {
-          [action]: 1,
+          [action]: value,
         },
       },
       where: {

@@ -261,15 +261,34 @@ const forms: FormPlan[] = [
 ];
 
 const formsPermissions: Record<string, FormsPermission[]> = {
-  ADMIN: [],
-  DEVELOPER: [],
-  TESTER: [],
-  VIEWER: [],
+  ADMIN: [
+    "view_form_submissions",
+    "view_form_security",
+    "add_form_submissions",
+    "add_form_member",
+    "edit_form_submissions",
+    "edit_form_name",
+    "delete_form_submissions",
+    "delete_form",
+  ],
+  DEVELOPER: [
+    "view_form_submissions",
+    "view_form_security",
+    "add_form_submissions",
+    "edit_form_submissions",
+  ],
+  TESTER: [
+    "view_form_submissions",
+    "view_form_submissions",
+    "add_form_submissions",
+    "edit_form_submissions",
+  ],
+  VIEWER: ["view_form_submissions"],
 };
 
 const hasFormsPermission = (
   role: string | undefined,
-  permission: FormsPermission,
+  permission: FormsPermission
 ): boolean => {
   return formsPermissions[role ?? "VIEWER"]?.includes(permission) ?? false;
 };
