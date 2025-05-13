@@ -351,7 +351,7 @@ export const projectRouter = createTRPCRouter({
         .required()
     )
     .mutation(async ({ ctx, input }) => {
-      const planId = ctx.usage.planId as PlanTypeId;
+      const planId = ctx.project.adminSubscriptionPlanId;
       const { projectId, feature, ...props } = input;
 
       const data = Object.fromEntries(

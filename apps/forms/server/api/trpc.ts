@@ -24,6 +24,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
     form: {
       role: "VIEWER", // default as fallback
       adminUserId: "",
+      adminSubscriptionPlanId: PlanTypeId.FREE,
     },
     ...opts,
   };
@@ -143,6 +144,7 @@ export const withFormRestrictions = middleware(
     ctx.form = {
       role: form.role,
       adminUserId: form.adminUserId,
+      adminSubscriptionPlanId: form.adminSubscriptionPlanId,
     };
 
     return next({

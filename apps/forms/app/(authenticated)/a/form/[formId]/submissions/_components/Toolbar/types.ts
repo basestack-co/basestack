@@ -1,4 +1,5 @@
 import { ButtonProps, PopupProps } from "@basestack/design-system";
+import { Role } from ".prisma/client";
 
 export enum SelectedFilter {
   IS_SPAM = "is_spam",
@@ -29,6 +30,7 @@ export interface ToolbarProps {
   isDisabled?: boolean;
   formId: string;
   searchFilterOptions: { text: string }[];
+  formRole: Role;
 }
 
 export type ButtonSharedProps = Pick<ButtonProps, "variant" | "iconPlacement">;

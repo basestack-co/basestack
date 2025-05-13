@@ -9,6 +9,8 @@ import { api } from "utils/trpc/react";
 import { useTranslations } from "next-intl";
 // Components
 import FormSubmissions from "./_components/FormSubmissions";
+// Types
+import { Role } from ".prisma/client";
 
 const FormSubmissionsPage = () => {
   const t = useTranslations("form");
@@ -18,7 +20,7 @@ const FormSubmissionsPage = () => {
     { formId },
     {
       enabled: !!formId,
-    },
+    }
   );
 
   useEffect(() => {
@@ -32,6 +34,7 @@ const FormSubmissionsPage = () => {
         hasRetention={form?.hasRetention ?? true}
         name={form?.name ?? ""}
         blockIpAddresses={form?.blockIpAddresses ?? ""}
+        formRole={form?.role ?? Role.VIEWER}
       />
     </Fragment>
   );

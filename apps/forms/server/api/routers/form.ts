@@ -264,7 +264,7 @@ export const formRouter = createTRPCRouter({
     }),
   update: protectedProcedure
     .meta({
-      roles: [Role.ADMIN],
+      roles: [Role.ADMIN, Role.DEVELOPER],
     })
     .use(withFormRestrictions)
     .input(
@@ -306,14 +306,19 @@ export const formRouter = createTRPCRouter({
         .required()
     )
     .mutation(async ({ ctx, input }) => {
-      const planId = ctx.usage.planId as PlanTypeId;
+      const planId = ctx.form.adminSubscriptionPlanId;
+
       const { formId, feature, ...props } = input;
       const data = Object.fromEntries(
         Object.entries(props).filter(([_, value]) => value !== null)
       );
 
       if (Object.keys(data).length === 0) {
-        throw new TRPCError({ code: "BAD_REQUEST" });
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "No valid fields to update",
+          cause: "NoValidFieldsToUpdate",
+        });
       }
 
       const authorized = withFeatures(

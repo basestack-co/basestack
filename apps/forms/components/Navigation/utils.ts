@@ -34,7 +34,8 @@ export const getLeftLinks = (
       onClick: () => router.push(`/a/form/${formId}/setup`),
       text: labels.setup,
       isActive: pathname.includes("setup"),
-      isVisible: !!formId,
+      isVisible:
+        !!formId && hasFormsPermission(formRole, "view_form_setup_page"),
     },
     {
       type: "button",

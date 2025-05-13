@@ -21,12 +21,15 @@ import { Container, List, ListItem, PaginationContainer } from "./styles";
 import Toolbar from "../Toolbar";
 import FormSubmission from "../FormSubmission";
 // Utils
-import { downloadCSV } from "@basestack/utils";
+import { downloadCSV, config } from "@basestack/utils";
 import dayjs from "dayjs";
 import { formatFormSubmissions, getSearchFilterKeys } from "./utils";
 // Types
 import { Metadata } from "../FormSubmission/types";
 import { SelectedFilter, SelectedSort } from "../Toolbar/types";
+import { Role } from ".prisma/client";
+
+const { hasFormsPermission } = config.plans;
 
 const limit = 10;
 
@@ -34,6 +37,7 @@ export interface Props {
   name: string;
   hasRetention: boolean;
   isEnabled: boolean;
+  formRole: Role;
   blockIpAddresses?: string;
 }
 
@@ -42,6 +46,7 @@ const FormSubmissions = ({
   hasRetention,
   isEnabled,
   blockIpAddresses,
+  formRole,
 }: Props) => {
   const theme = useTheme();
   const trpcUtils = api.useUtils();
@@ -73,7 +78,7 @@ const FormSubmissions = ({
       {
         enabled: !!formId,
         getNextPageParam: (lastPage) => lastPage.nextCursor,
-      },
+      }
     );
 
   useEffect(() => {
@@ -101,7 +106,7 @@ const FormSubmissions = ({
   const pageSubmissionIds = useMemo(() => {
     return (
       data?.pages.flatMap((page) =>
-        page.submissions.map((submission) => submission.id),
+        page.submissions.map((submission) => submission.id)
       ) ?? []
     );
   }, [data]);
@@ -115,7 +120,7 @@ const FormSubmissions = ({
     return (
       sortedSelectIds.length === sortedPageSubmissionIds.length &&
       sortedSelectIds.every(
-        (value, index) => value === sortedPageSubmissionIds[index],
+        (value, index) => value === sortedPageSubmissionIds[index]
       )
     );
   }, [selectIds, pageSubmissionIds]);
@@ -138,7 +143,7 @@ const FormSubmissions = ({
   const onDelete = useCallback(
     (ids: string[]) => {
       const loadingToastId = toast.loading(
-        t("submission.event.delete.loading"),
+        t("submission.event.delete.loading")
       );
       deleteSubmissions.mutate(
         { ids, formId },
@@ -151,23 +156,26 @@ const FormSubmissions = ({
 
             toast.dismiss(loadingToastId);
             toast.success(
-              t("submission.event.delete.success", { count: ids.length }),
+              t("submission.event.delete.success", { count: ids.length })
             );
           },
           onError: (error) => {
             toast.dismiss(loadingToastId);
             toast.error(error.message ?? t("submission.event.delete.error"));
           },
-        },
+        }
       );
     },
-    [deleteSubmissions, formId, trpcUtils, t],
+    [deleteSubmissions, formId, trpcUtils, t]
   );
 
   const onUpdate = useCallback(
     (ids: string[], payload: { isSpam?: boolean; viewed?: boolean }) => {
+      if (!hasFormsPermission(formRole, "view_form_submissions_actions"))
+        return null;
+
       const loadingToastId = toast.loading(
-        t("submission.event.update.loading"),
+        t("submission.event.update.loading")
       );
 
       updateSubmissions.mutate(
@@ -181,17 +189,17 @@ const FormSubmissions = ({
 
             toast.dismiss(loadingToastId);
             toast.success(
-              t("submission.event.update.success", { count: ids.length }),
+              t("submission.event.update.success", { count: ids.length })
             );
           },
           onError: (error) => {
             toast.dismiss(loadingToastId);
             toast.error(error.message ?? t("submission.event.update.error"));
           },
-        },
+        }
       );
     },
-    [updateSubmissions, formId, trpcUtils, t],
+    [updateSubmissions, formId, trpcUtils, t, formRole]
   );
 
   const onExport = useCallback(() => {
@@ -210,7 +218,7 @@ const FormSubmissions = ({
           toast.dismiss(loadingToastId);
           toast.error(error.message ?? t("submission.event.export.error"));
         },
-      },
+      }
     );
   }, [exportSubmissions, formId, t, name]);
 
@@ -222,13 +230,13 @@ const FormSubmissions = ({
             filters: {
               isSpam: value === SelectedFilter.IS_SPAM,
             },
-          },
+          }
     );
   }, []);
 
   const onSelectSort = useCallback((value: SelectedSort | null) => {
     setOrderBy(
-      value === SelectedSort.NEWEST || value === null ? "desc" : "asc",
+      value === SelectedSort.NEWEST || value === null ? "desc" : "asc"
     );
   }, []);
 
@@ -240,7 +248,7 @@ const FormSubmissions = ({
         updateSubmissions.variables?.hasOwnProperty(key)
       );
     },
-    [updateSubmissions],
+    [updateSubmissions]
   );
 
   const getSubmissionDeleteLoading = useCallback(
@@ -250,7 +258,7 @@ const FormSubmissions = ({
         (deleteSubmissions.variables?.ids ?? []).includes(id)
       );
     },
-    [deleteSubmissions],
+    [deleteSubmissions]
   );
 
   return (
@@ -281,6 +289,7 @@ const FormSubmissions = ({
 
         <Toolbar
           formId={formId}
+          formRole={formRole}
           onUnReadSubmissions={() => onUpdate(selectIds, { viewed: false })}
           onReadSubmissions={() => onUpdate(selectIds, { viewed: true })}
           onUnMarkSpamAll={() => onUpdate(selectIds, { isSpam: false })}
@@ -363,20 +372,26 @@ const FormSubmissions = ({
                             isSelected={selectIds.includes(id)}
                             blockIpAddresses={blockIpAddresses}
                             isDeleteSubmissionLoading={getSubmissionDeleteLoading(
-                              id,
+                              id
                             )}
                             isMarkSpamLoading={getSubmissionUpdateLoading(
                               id,
-                              "isSpam",
+                              "isSpam"
                             )}
                             isReadSubmissionLoading={getSubmissionUpdateLoading(
                               id,
-                              "viewed",
+                              "viewed"
                             )}
+                            isActionsDisabled={
+                              !hasFormsPermission(
+                                formRole,
+                                "view_form_submissions_actions"
+                              )
+                            }
                           />
                         </ListItem>
                       );
-                    },
+                    }
                   )}
                 </Fragment>
               );

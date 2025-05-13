@@ -2,11 +2,13 @@
 
 import React, { Fragment, useEffect } from "react";
 // Router
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 // Server
 import { api } from "utils/trpc/react";
 // Locales
 import { useTranslations } from "next-intl";
+// Utils
+import { config } from "@basestack/utils";
 // Components
 import { Banners } from "@basestack/ui";
 import EndpointCard from "./_components/EndpointCard";
@@ -18,16 +20,19 @@ import Links from "./_components/Links";
 import { useTheme } from "styled-components";
 import { Column, Container, Row } from "./styles";
 
+const { hasFormsPermission } = config.plans;
+
 const SetupPage = () => {
   const t = useTranslations("form");
   const theme = useTheme();
   const { formId } = useParams<{ formId: string }>();
+  const router = useRouter();
 
   const { data: form } = api.form.byId.useQuery(
     { formId },
     {
       enabled: !!formId,
-    },
+    }
   );
 
   const isEnabled = form?.isEnabled ?? true;
@@ -36,6 +41,16 @@ const SetupPage = () => {
   useEffect(() => {
     document.title = `${form?.name ?? "Form"} / ${t("seo.setup")}`;
   }, [form?.name, t]);
+
+  useEffect(() => {
+    if (!hasFormsPermission(form?.role, "view_form_setup_page")) {
+      router.push(`/a/form/${formId}/submissions`);
+    }
+  }, [form?.role, formId, router]);
+
+  if (!hasFormsPermission(form?.role, "view_form_setup_page")) {
+    return null;
+  }
 
   return (
     <Fragment>

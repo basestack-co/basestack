@@ -25,6 +25,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
     project: {
       role: "VIEWER", // default as fallback
       adminUserId: "",
+      adminSubscriptionPlanId: PlanTypeId.FREE,
     },
     ...opts,
   };
@@ -159,6 +160,7 @@ export const withProjectRestrictions = middleware(
     ctx.project = {
       role: project.role,
       adminUserId: project.adminUserId,
+      adminSubscriptionPlanId: project.adminSubscriptionPlanId,
     };
 
     return next({
