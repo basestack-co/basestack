@@ -14,8 +14,7 @@ import { useTranslations } from "next-intl";
 // Types
 import { Role } from ".prisma/client";
 // Components
-import { PopupActionProps } from "@basestack/design-system";
-import { Navigation as NavigationUI } from "@basestack/ui";
+import { Navigation as NavigationUI, PopupActionProps } from "@basestack/ui";
 // Utils
 import { config, Product, AppEnv } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";

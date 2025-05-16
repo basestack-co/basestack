@@ -9,10 +9,9 @@ import {
   Avatar,
   Button,
   ButtonVariant,
-  PopupActions,
-  PopupActionProps,
   slideBottom,
 } from "@basestack/design-system";
+import PopupActions, { PopupActionProps } from "../PopupActions";
 // Types
 import { ListItem } from "./styles";
 

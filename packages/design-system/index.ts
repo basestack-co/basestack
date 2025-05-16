@@ -45,11 +45,6 @@ export {
   type PopupProps,
 } from "./components/Popup";
 export { default as Tabs, type TabsProps } from "./components/Tabs";
-export {
-  default as PopupActions,
-  type PopupActionProps,
-  type PopupActionsProps,
-} from "./components/PopupActions";
 export { default as Select } from "./components/Select";
 export {
   Tooltip,

@@ -59,3 +59,8 @@ export {
   default as TooltipIcon,
   type TooltipIconProps,
 } from "./components/TooltipIcon";
+export {
+  default as PopupActions,
+  type PopupActionProps,
+  type PopupActionsProps,
+} from "./components/PopupActions";

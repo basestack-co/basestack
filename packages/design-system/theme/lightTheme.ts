@@ -505,6 +505,9 @@ const popupActions = {
     active: {
       backgroundColor: colors.gray200,
     },
+    selected: {
+      border: colors.primary,
+    },
   },
 };
 

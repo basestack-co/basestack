@@ -1,8 +1,6 @@
-import { forwardRef, Fragment, memo, useCallback } from "react";
+import { forwardRef, memo, useCallback } from "react";
 import { PositionProps } from "styled-system";
-import Text from "../Text";
-import Avatar from "../Avatar";
-import { Button, ButtonVariant } from "../Button";
+import { Text, Avatar, Button, ButtonVariant } from "@basestack/design-system";
 import {
   Col,
   Container,
@@ -19,6 +17,7 @@ export interface PopupActionProps {
   slug: string;
   onClick: () => void;
   text: string;
+  isActive: boolean;
 }
 
 export interface PopupActionsProps extends PositionProps {
@@ -67,7 +66,11 @@ const PopupActions = forwardRef<HTMLDivElement, PopupActionsProps>(
                 {items.map((item) => {
                   return (
                     <ListItem key={`pop-up-button-${item.id}`}>
-                      <PopUpButton onClick={() => onHandleClick(item.onClick)}>
+                      <PopUpButton
+                        isActive={item.isActive}
+                        disabled={item.isActive}
+                        onClick={() => onHandleClick(item.onClick)}
+                      >
                         <Avatar
                           round={false}
                           userName={item.text}

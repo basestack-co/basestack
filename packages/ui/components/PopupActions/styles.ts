@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { rem } from "polished";
+import { scrollbar } from "@basestack/design-system/styles";
 import { position } from "styled-system";
-import { scrollbar } from "../../styles";
 
 export const Container = styled.div`
   ${position};
@@ -48,21 +48,39 @@ export const ListItem = styled.li`
   flex-direction: column;
 `;
 
-export const PopUpButton = styled.button`
+export const PopUpButton = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== "isActive",
+})<{ isActive: boolean }>`
   display: flex;
   align-items: center;
   background-color: ${({ theme }) => theme.popupActions.button.backgroundColor};
   border: none;
-  padding: ${rem("8px")};
-  cursor: pointer;
+  padding: ${rem("6px")} ${rem("8px")};
   border-radius: 4px;
+  position: relative;
 
-  &:hover {
-    background-color: ${({ theme }) =>
-      theme.popupActions.button.hover.backgroundColor};
+  &:not(:disabled) {
+    cursor: pointer;
+    &:hover {
+      background-color: ${({ theme }) =>
+        theme.popupActions.button.hover.backgroundColor};
+    }
+    &:active {
+      background-color: ${({ theme }) =>
+        theme.popupActions.button.active.backgroundColor};
+    }
   }
-  &:active {
-    background-color: ${({ theme }) =>
-      theme.popupActions.button.active.backgroundColor};
-  }
+
+  ${({ isActive, theme }) =>
+    isActive &&
+    css`
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        height: ${rem("28px")};
+        width: 3px;
+        background-color: ${theme.popupActions.button.selected.border};
+      }
+    `};
 `;
