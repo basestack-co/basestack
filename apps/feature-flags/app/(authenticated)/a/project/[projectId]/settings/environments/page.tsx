@@ -22,14 +22,14 @@ const EnvironmentsPage = () => {
     { projectId },
     {
       enabled: !!projectId,
-    },
+    }
   );
 
   useEffect(() => {
     if (!hasFlagsPermission(project?.role, "view_project_environments")) {
       router.push(`/a/project/${projectId}/settings/general`);
     }
-  }, [project?.role, projectId]);
+  }, [project?.role, projectId, router]);
 
   return (
     <CardList>

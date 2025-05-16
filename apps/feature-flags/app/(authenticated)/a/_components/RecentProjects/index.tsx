@@ -86,7 +86,7 @@ const RecentProjects = () => {
               <ProjectCard
                 text={project.text}
                 onClick={project.onClick}
-                count={project.count.filter((item) => item.value > 0)}
+                count={project.count}
                 menuItems={[
                   {
                     icon: "flag",

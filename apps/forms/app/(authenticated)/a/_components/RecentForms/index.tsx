@@ -44,7 +44,7 @@ const RecentForms = () => {
             value: _count.read ?? 0,
           },
           {
-            icon: "mail",
+            icon: "report",
             value: _count.spam ?? 0,
           },
         ],
@@ -99,7 +99,7 @@ const RecentForms = () => {
                   onClick={() =>
                     router.push(`/a/form/${form.formId}/submissions`)
                   }
-                  count={form.count.filter((item) => item.value > 0)}
+                  count={form.count}
                   menuItems={[
                     {
                       icon: "view_agenda",

@@ -3,6 +3,7 @@ import {
   createTRPCRouter,
   withProjectRestrictions,
   withUsageLimits,
+  withHistoryActivity,
 } from "server/api/trpc";
 // Utils
 import { generateSlug } from "random-word-slugs";
@@ -257,6 +258,7 @@ export const projectRouter = createTRPCRouter({
     .meta({
       usageLimitKey: "projects",
     })
+    .use(withHistoryActivity)
     .use(withUsageLimits)
     .input(
       z
@@ -323,10 +325,10 @@ export const projectRouter = createTRPCRouter({
       });
     }),
   update: protectedProcedure
-    .use(withProjectRestrictions)
     .meta({
-      roles: [Role.ADMIN],
+      roles: [Role.ADMIN, Role.DEVELOPER],
     })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({

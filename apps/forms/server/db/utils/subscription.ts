@@ -10,7 +10,7 @@ export const getSubscriptionUsage = async (
   userId: string,
 ) => {
   try {
-    const usage = await prisma.subscription.findFirstOrThrow({
+    const usage = await prisma.subscription.findFirst({
       where: {
         userId,
       },

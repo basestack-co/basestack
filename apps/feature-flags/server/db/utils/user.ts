@@ -11,7 +11,7 @@ export const getUserInProject = async (
 ) => {
   try {
     const [user, admin] = await prisma.$transaction([
-      prisma.projectsOnUsers.findFirstOrThrow({
+      prisma.projectsOnUsers.findFirst({
         where: {
           projectId,
           userId,
@@ -20,7 +20,7 @@ export const getUserInProject = async (
           role: true,
         },
       }),
-      prisma.projectsOnUsers.findFirstOrThrow({
+      prisma.projectsOnUsers.findFirst({
         where: {
           projectId,
           role: Role.ADMIN,
@@ -41,7 +41,7 @@ export const getUserInProject = async (
     ]);
 
     return {
-      role: user.role ?? Role.VIEWER,
+      role: user?.role ?? Role.VIEWER,
       adminUserId: admin?.userId ?? "",
       adminSubscriptionPlanId: (admin?.user.subscription?.planId ??
         PlanTypeId.FREE) as PlanTypeId,
@@ -61,7 +61,7 @@ export const getUserInTeam = async (
   teamId: string
 ) => {
   try {
-    const user = await prisma.teamMembers.findFirstOrThrow({
+    const user = await prisma.teamMembers.findFirst({
       where: {
         teamId,
         userId,
@@ -72,7 +72,7 @@ export const getUserInTeam = async (
     });
 
     return {
-      role: user.role ?? Role.VIEWER,
+      role: user?.role ?? Role.VIEWER,
     };
   } catch {
     throw new TRPCError({

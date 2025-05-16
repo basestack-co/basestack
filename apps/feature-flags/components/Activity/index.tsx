@@ -23,7 +23,7 @@ const Activity = () => {
       const cache = trpcUtils.project.all.getData();
 
       return ((cache && cache.projects) || []).find(
-        (project) => project.id === projectId,
+        (project) => project.id === projectId
       );
     }
 
@@ -37,7 +37,7 @@ const Activity = () => {
       search: debouncedSearchValue,
       projectId: project?.id as string,
     },
-    { enabled: !!project?.id },
+    { enabled: !!project?.id }
   );
 
   useDebounce(
@@ -46,7 +46,7 @@ const Activity = () => {
       setDebouncedSearchValue(searchValue);
     },
     500,
-    [searchValue],
+    [searchValue]
   );
 
   const onChangeDate = useCallback((value: Date[]) => {
@@ -57,7 +57,7 @@ const Activity = () => {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setSearchValue(event.target.value);
     },
-    [],
+    []
   );
 
   return (
@@ -72,7 +72,7 @@ const Activity = () => {
       />
       <ActivityList
         data={data as unknown as ActivityListData}
-        projectSlug={project?.slug!}
+        projectSlug={project?.name ?? ""}
         isLoading={isLoading}
       />
     </Container>

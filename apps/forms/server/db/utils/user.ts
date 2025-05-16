@@ -11,7 +11,7 @@ export const getUserInForm = async (
 ) => {
   try {
     const [user, admin] = await prisma.$transaction([
-      prisma.formOnUsers.findFirstOrThrow({
+      prisma.formOnUsers.findFirst({
         where: {
           formId,
           userId,
@@ -20,7 +20,7 @@ export const getUserInForm = async (
           role: true,
         },
       }),
-      prisma.formOnUsers.findFirstOrThrow({
+      prisma.formOnUsers.findFirst({
         where: {
           formId,
           role: "ADMIN",
@@ -41,7 +41,7 @@ export const getUserInForm = async (
     ]);
 
     return {
-      role: user.role ?? Role.VIEWER,
+      role: user?.role ?? Role.VIEWER,
       adminUserId: admin?.userId ?? "",
       adminSubscriptionPlanId: (admin?.user.subscription?.planId ??
         PlanTypeId.FREE) as PlanTypeId,

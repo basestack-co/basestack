@@ -3,6 +3,7 @@ import {
   createTRPCRouter,
   withProjectRestrictions,
   withUsageLimits,
+  withHistoryActivity,
 } from "server/api/trpc";
 import { TRPCError } from "@trpc/server";
 // Utils
@@ -20,7 +21,7 @@ export const flagRouter = createTRPCRouter({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(), // <-- "cursor" needs to exist, but can be any type
         search: z.string().optional().nullable(),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const limit = input.limit ?? 50;
@@ -97,7 +98,7 @@ export const flagRouter = createTRPCRouter({
         .object({
           projectId: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -137,7 +138,7 @@ export const flagRouter = createTRPCRouter({
           projectId: z.string(),
           slug: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       const allEnvironments = await ctx.prisma.flag.findMany({
@@ -171,7 +172,7 @@ export const flagRouter = createTRPCRouter({
           projectId: z.string(),
           slug: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       const flags = await ctx.prisma.flag.findMany({
@@ -213,17 +214,18 @@ export const flagRouter = createTRPCRouter({
             flagId,
             payload: JSON.stringify(payload),
             expiredAt,
-          }),
+          })
         ),
       };
     }),
   create: protectedProcedure
     .meta({
-      roles: [Role.ADMIN, Role.DEVELOPER],
+      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
       usageLimitKey: "flags",
     })
     .use(withProjectRestrictions)
     .use(withUsageLimits)
+    .use(withHistoryActivity)
     .input(
       z
         .object({
@@ -233,7 +235,7 @@ export const flagRouter = createTRPCRouter({
               name: z.string(),
               id: z.string(),
               enabled: z.boolean(),
-            }),
+            })
           ),
           data: z.array(
             z.object({
@@ -243,10 +245,10 @@ export const flagRouter = createTRPCRouter({
               expiredAt: z.date().optional().nullable(),
               description: z.string().optional(),
               environmentId: z.string(),
-            }),
+            })
           ),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const projectAdminUserId = ctx.project.adminUserId;
@@ -254,8 +256,8 @@ export const flagRouter = createTRPCRouter({
       const flags = await ctx.prisma.$transaction(async (tx) => {
         const response = await Promise.all(
           input.data.map(async (flagCreateData) =>
-            tx.flag.create({ data: flagCreateData }),
-          ),
+            tx.flag.create({ data: flagCreateData })
+          )
         );
 
         await withUsageUpdate(tx, projectAdminUserId, "flags", "increment");
@@ -270,6 +272,7 @@ export const flagRouter = createTRPCRouter({
       roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
     })
     .use(withProjectRestrictions)
+    .use(withHistoryActivity)
     .input(
       z
         .object({
@@ -279,7 +282,7 @@ export const flagRouter = createTRPCRouter({
               name: z.string(),
               id: z.string(),
               enabled: z.boolean(),
-            }),
+            })
           ),
           data: z.array(
             z.object({
@@ -289,10 +292,10 @@ export const flagRouter = createTRPCRouter({
               expiredAt: z.date().optional().nullable(),
               description: z.string().optional(),
               id: z.string(),
-            }),
+            })
           ),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const flags = await ctx.prisma.$transaction(async (tx) => {
@@ -308,7 +311,7 @@ export const flagRouter = createTRPCRouter({
             return {
               ...updatedFlag,
             };
-          }),
+          })
         );
       });
 
@@ -319,13 +322,14 @@ export const flagRouter = createTRPCRouter({
       roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
     })
     .use(withProjectRestrictions)
+    .use(withHistoryActivity)
     .input(
       z
         .object({
           projectId: z.string(),
           flagSlug: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const projectAdminUserId = ctx.project.adminUserId;
@@ -340,7 +344,7 @@ export const flagRouter = createTRPCRouter({
         ctx.prisma,
         projectAdminUserId,
         "flags",
-        "decrement",
+        "decrement"
       );
 
       return { flags };
