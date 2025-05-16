@@ -130,7 +130,7 @@ export const projectRouter = createTRPCRouter({
               members: membersCount,
             },
           };
-        })
+        }),
       );
     });
   }),
@@ -141,7 +141,7 @@ export const projectRouter = createTRPCRouter({
         .object({
           projectId: z.string(),
         })
-        .required()
+        .required(),
     )
     .query(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id;
@@ -199,7 +199,7 @@ export const projectRouter = createTRPCRouter({
         .object({
           projectId: z.string(),
         })
-        .required()
+        .required(),
     )
     .query(async ({ ctx, input }) => {
       const keys = await ctx.prisma.project.findUnique({
@@ -227,7 +227,7 @@ export const projectRouter = createTRPCRouter({
         .object({
           projectId: z.string(),
         })
-        .required()
+        .required(),
     )
     .query(async ({ ctx, input }) => {
       const users = await ctx.prisma.projectsOnUsers.findMany({
@@ -265,7 +265,7 @@ export const projectRouter = createTRPCRouter({
         .object({
           name: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;
@@ -350,14 +350,14 @@ export const projectRouter = createTRPCRouter({
             .nullable()
             .default(null),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const planId = ctx.project.adminSubscriptionPlanId;
       const { projectId, feature, ...props } = input;
 
       const data = Object.fromEntries(
-        Object.entries(props).filter(([_, value]) => value !== null)
+        Object.entries(props).filter(([_, value]) => value !== null),
       );
 
       if (Object.keys(data).length === 0) {
@@ -370,14 +370,14 @@ export const projectRouter = createTRPCRouter({
 
       const authorized = withFeatures(
         planId,
-        feature
+        feature,
       )(() =>
         ctx.prisma.project.update({
           where: {
             id: input.projectId,
           },
           data,
-        })
+        }),
       );
 
       const project = await authorized();
@@ -394,7 +394,7 @@ export const projectRouter = createTRPCRouter({
         .object({
           projectId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const projectAdminUserId = ctx.project.adminUserId;
@@ -426,7 +426,7 @@ export const projectRouter = createTRPCRouter({
           projectAdminUserId,
           "flags",
           "decrement",
-          environmentWithFlagCount?._count.flags ?? 0
+          environmentWithFlagCount?._count.flags ?? 0,
         );
 
         return response;
@@ -446,7 +446,7 @@ export const projectRouter = createTRPCRouter({
           userId: z.string(),
           role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const user = ctx.session?.user;
@@ -510,7 +510,7 @@ export const projectRouter = createTRPCRouter({
           userId: z.string(),
           role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const connection = await ctx.prisma.projectsOnUsers.update({
@@ -542,7 +542,7 @@ export const projectRouter = createTRPCRouter({
           projectId: z.string(),
           userId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const connection = await ctx.prisma.projectsOnUsers.delete({

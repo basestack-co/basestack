@@ -327,7 +327,7 @@ const formsPermissions: Record<string, FormsPermission[]> = {
 
 const hasFormsPermission = (
   role: string | undefined,
-  permission: FormsPermission
+  permission: FormsPermission,
 ): boolean => {
   return formsPermissions[role ?? "VIEWER"]?.includes(permission) ?? false;
 };

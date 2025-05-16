@@ -32,10 +32,10 @@ const EnvironmentsCard = ({ role }: Props) => {
   const { projectId } = useParams<{ projectId: string }>();
 
   const setCreateEnvironmentModalOpen = useStore(
-    (state) => state.setCreateEnvironmentModalOpen
+    (state) => state.setCreateEnvironmentModalOpen,
   );
   const setUpdateEnvironmentModalOpen = useStore(
-    (state) => state.setUpdateEnvironmentModalOpen
+    (state) => state.setUpdateEnvironmentModalOpen,
   );
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
 
@@ -43,14 +43,14 @@ const EnvironmentsCard = ({ role }: Props) => {
     { projectId },
     {
       enabled: !!projectId,
-    }
+    },
   );
 
   const deleteEnvironment = api.environment.delete.useMutation();
   const isCurrentUserAdmin = role === Role.ADMIN;
   const environments = useMemo(
     () => (!isLoading && !!data ? data.environments : []),
-    [isLoading, data]
+    [isLoading, data],
   );
 
   const onHandleEdit = useCallback(
@@ -64,7 +64,7 @@ const EnvironmentsCard = ({ role }: Props) => {
         });
       }
     },
-    [projectId, setUpdateEnvironmentModalOpen]
+    [projectId, setUpdateEnvironmentModalOpen],
   );
 
   const onHandleCreate = useCallback(() => {
@@ -89,11 +89,11 @@ const EnvironmentsCard = ({ role }: Props) => {
                 await trpcUtils.flag.environments.invalidate();
               }
             },
-          }
+          },
         );
       }
     },
-    [deleteEnvironment, projectId, trpcUtils]
+    [deleteEnvironment, projectId, trpcUtils],
   );
 
   const onClickDeleteEnvironment = useCallback(
@@ -116,7 +116,7 @@ const EnvironmentsCard = ({ role }: Props) => {
         },
       });
     },
-    [onHandleDelete, setConfirmModalOpen, t]
+    [onHandleDelete, setConfirmModalOpen, t],
   );
 
   const getTable = useMemo(
@@ -148,10 +148,10 @@ const EnvironmentsCard = ({ role }: Props) => {
             onClick: () => onClickDeleteEnvironment(item.id, item.name),
             isDisabled: !!item.isDefault,
           },
-        ]
+        ],
       ),
 
-    [onHandleEdit, environments, onClickDeleteEnvironment, t]
+    [onHandleEdit, environments, onClickDeleteEnvironment, t],
   );
 
   return (

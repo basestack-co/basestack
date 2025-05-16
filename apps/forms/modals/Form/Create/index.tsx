@@ -36,10 +36,10 @@ const CreateFormModal = () => {
 
   const isModalOpen = useStore((state) => state.isCreateFormModalOpen);
   const setCreateFormModalOpen = useStore(
-    (state) => state.setCreateFormModalOpen
+    (state) => state.setCreateFormModalOpen,
   );
   const closeModalsOnClickOutside = useStore(
-    (state) => state.closeModalsOnClickOutside
+    (state) => state.closeModalsOnClickOutside,
   );
 
   const createForm = api.form.create.useMutation();

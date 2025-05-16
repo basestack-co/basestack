@@ -51,7 +51,7 @@ export const withUsageUpdate = async (
   userId: string,
   limit: keyof FormPlan["limits"],
   action: "increment" | "decrement",
-  value: number = 1
+  value: number = 1,
 ) => {
   try {
     return await prisma.subscription.upsert({

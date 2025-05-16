@@ -32,7 +32,7 @@ const SetupPage = () => {
     { formId },
     {
       enabled: !!formId,
-    }
+    },
   );
 
   const isEnabled = form?.isEnabled ?? true;

@@ -39,7 +39,7 @@ const AddFormMemberModal = () => {
         state.isAddFormMemberModalOpen,
         state.setAddFormMemberModalOpen,
         state.closeModalsOnClickOutside,
-      ])
+      ]),
     );
 
   const [team, members] = api.useQueries((t) => [
@@ -72,8 +72,8 @@ const AddFormMemberModal = () => {
         .filter((team) =>
           team.members.some(
             (member) =>
-              member.userId === session?.user.id && member.role === "ADMIN"
-          )
+              member.userId === session?.user.id && member.role === "ADMIN",
+          ),
         )
         .map((team) => ({
           label: t("team.manage.title", { name: team.name }),
@@ -81,7 +81,7 @@ const AddFormMemberModal = () => {
             .filter(
               (member) =>
                 member.userId !== session?.user.id &&
-                !projectUserIds.includes(member.userId)
+                !projectUserIds.includes(member.userId),
             )
             .map((member) => ({
               label: member.user.name,
@@ -120,11 +120,11 @@ const AddFormMemberModal = () => {
             onError: (error) => {
               toast.error(error.message);
             },
-          }
+          },
         );
       }
     },
-    [addUserToForm, formId, onClose, trpcUtils]
+    [addUserToForm, formId, onClose, trpcUtils],
   );
 
   const onChangeMember = useCallback((option: unknown, setField: any) => {

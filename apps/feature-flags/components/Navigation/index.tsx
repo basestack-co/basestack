@@ -44,11 +44,11 @@ const Navigation = ({ data }: NavigationProps) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
 
   const setCreateProjectModalOpen = useStore(
-    (state) => state.setCreateProjectModalOpen
+    (state) => state.setCreateProjectModalOpen,
   );
 
   const setCreateFlagModalOpen = useStore(
-    (state) => state.setCreateFlagModalOpen
+    (state) => state.setCreateFlagModalOpen,
   );
 
   const [projectName, projectRole] = useMemo(() => {
@@ -138,7 +138,7 @@ const Navigation = ({ data }: NavigationProps) => {
         duration: 400,
         easing: "cubic-bezier(0.250, 0.460, 0.450, 0.940)",
         pseudoElement: "::view-transition-new(root)",
-      }
+      },
     );
   };
 
@@ -157,7 +157,7 @@ const Navigation = ({ data }: NavigationProps) => {
           createFlag: t("navigation.create.flag"),
           settings: t("navigation.internal.settings"),
           flags: t("navigation.internal.features"),
-        }
+        },
       )}
       rightLinks={getRightLinks({ docs: t("navigation.external.docs") })}
       rightLinksTitle={t("navigation.external.resources")}
@@ -196,7 +196,7 @@ const Navigation = ({ data }: NavigationProps) => {
             settings: t("navigation.dropdown.settings"),
             billing: t("navigation.dropdown.billing"),
             logout: t("navigation.dropdown.logout"),
-          }
+          },
         ),
       }}
     />

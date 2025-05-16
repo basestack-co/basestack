@@ -8,7 +8,7 @@ import { PersistOptions } from "zustand/middleware";
 
 export type Persist = (
   config: StateCreator<Store>,
-  options: PersistOptions<Store>
+  options: PersistOptions<Store>,
 ) => StateCreator<Store>;
 
 /**

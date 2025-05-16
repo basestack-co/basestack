@@ -23,7 +23,7 @@ const CustomizationSettingsPage = () => {
     { formId },
     {
       enabled: !!formId,
-    }
+    },
   );
 
   const planId = useMemo(() => {
@@ -34,7 +34,7 @@ const CustomizationSettingsPage = () => {
     <CardList>
       {hasFormsPermission(
         data?.role,
-        "edit_form_customization_data_query_string"
+        "edit_form_customization_data_query_string",
       ) && (
         <CardListItem>
           <SettingCardContainer>
@@ -47,7 +47,7 @@ const CustomizationSettingsPage = () => {
       )}
       {hasFormsPermission(
         data?.role,
-        "edit_form_customization_redirect_url"
+        "edit_form_customization_redirect_url",
       ) && (
         <CardListItem>
           <SettingCardContainer>
@@ -60,7 +60,7 @@ const CustomizationSettingsPage = () => {
       )}
       {hasFormsPermission(
         data?.role,
-        "edit_form_customization_success_url"
+        "edit_form_customization_success_url",
       ) && (
         <CardListItem>
           <SettingCardContainer>

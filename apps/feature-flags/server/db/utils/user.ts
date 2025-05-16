@@ -7,7 +7,7 @@ import { PlanTypeId } from "@basestack/utils";
 export const getUserInProject = async (
   prisma: PrismaClient,
   userId: string,
-  projectId: string
+  projectId: string,
 ) => {
   try {
     const [user, admin] = await prisma.$transaction([
@@ -58,7 +58,7 @@ export const getUserInProject = async (
 export const getUserInTeam = async (
   prisma: PrismaClient,
   userId: string,
-  teamId: string
+  teamId: string,
 ) => {
   try {
     const user = await prisma.teamMembers.findFirst({

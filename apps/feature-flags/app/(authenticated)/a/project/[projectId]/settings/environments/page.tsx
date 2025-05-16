@@ -22,7 +22,7 @@ const EnvironmentsPage = () => {
     { projectId },
     {
       enabled: !!projectId,
-    }
+    },
   );
 
   useEffect(() => {

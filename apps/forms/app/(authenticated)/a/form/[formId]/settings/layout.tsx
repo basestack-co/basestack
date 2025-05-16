@@ -78,7 +78,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
     { formId },
     {
       enabled: !!formId,
-    }
+    },
   );
 
   const renderLink = useMemo(() => {
@@ -98,9 +98,9 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   const activeLinkIndex = useMemo(
     () =>
       getLinks(formId, data?.role).findIndex(
-        (button) => button.href === pathname
+        (button) => button.href === pathname,
       ),
-    [pathname, formId, data?.role]
+    [pathname, formId, data?.role],
   );
 
   const items = useMemo(
@@ -113,7 +113,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
             text: t(i18nKey as NamespaceKeys<string, "navigation">),
           };
         }),
-    [t, formId, data?.role]
+    [t, formId, data?.role],
   );
 
   useEffect(() => {
@@ -121,13 +121,13 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
       `setting.seo.setting.${activeLinkIndex}` as NamespaceKeys<
         string,
         "setting"
-      >
+      >,
     )}`;
   }, [activeLinkIndex, data?.name, t]);
 
   useEffect(() => {
     const link = getLinks(formId, data?.role).find(
-      (link) => link.href === pathname
+      (link) => link.href === pathname,
     );
 
     if (!link?.isVisible) {

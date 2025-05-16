@@ -22,7 +22,7 @@ const SecuritySettingsPage = () => {
     { projectId },
     {
       enabled: !!projectId,
-    }
+    },
   );
 
   const planId = useMemo(() => {

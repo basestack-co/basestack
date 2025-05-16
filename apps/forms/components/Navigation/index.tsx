@@ -45,7 +45,7 @@ const Navigation = ({ data }: NavigationProps) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
 
   const setCreateFormModalOpen = useStore(
-    (state) => state.setCreateFormModalOpen
+    (state) => state.setCreateFormModalOpen,
   );
 
   const [formName, formRole] = useMemo(() => {
@@ -150,7 +150,7 @@ const Navigation = ({ data }: NavigationProps) => {
             settings: t("navigation.dropdown.settings"),
             billing: t("navigation.dropdown.billing"),
             logout: t("navigation.dropdown.logout"),
-          }
+          },
         ),
       }}
     />

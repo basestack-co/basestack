@@ -17,7 +17,7 @@ export const getLeftLinks = (
     submissions: string;
     setup: string;
     settings: string;
-  }
+  },
 ): NavigationProps["leftLinks"] => {
   const links = [
     {
@@ -72,7 +72,7 @@ export const getAvatarDropdownList = (
     settings: string;
     billing: string;
     logout: string;
-  }
+  },
 ) => {
   return [
     {
@@ -114,7 +114,7 @@ export const getAppsList = (
       title: string;
       description: string;
     };
-  }
+  },
 ) => {
   return [
     {

@@ -20,7 +20,7 @@ const NotificationsSettingsPage = () => {
     { formId },
     {
       enabled: !!formId,
-    }
+    },
   );
 
   const planId = useMemo(() => {

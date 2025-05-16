@@ -78,7 +78,7 @@ const FormSubmissions = ({
       {
         enabled: !!formId,
         getNextPageParam: (lastPage) => lastPage.nextCursor,
-      }
+      },
     );
 
   useEffect(() => {
@@ -106,7 +106,7 @@ const FormSubmissions = ({
   const pageSubmissionIds = useMemo(() => {
     return (
       data?.pages.flatMap((page) =>
-        page.submissions.map((submission) => submission.id)
+        page.submissions.map((submission) => submission.id),
       ) ?? []
     );
   }, [data]);
@@ -120,7 +120,7 @@ const FormSubmissions = ({
     return (
       sortedSelectIds.length === sortedPageSubmissionIds.length &&
       sortedSelectIds.every(
-        (value, index) => value === sortedPageSubmissionIds[index]
+        (value, index) => value === sortedPageSubmissionIds[index],
       )
     );
   }, [selectIds, pageSubmissionIds]);
@@ -143,7 +143,7 @@ const FormSubmissions = ({
   const onDelete = useCallback(
     (ids: string[]) => {
       const loadingToastId = toast.loading(
-        t("submission.event.delete.loading")
+        t("submission.event.delete.loading"),
       );
       deleteSubmissions.mutate(
         { ids, formId },
@@ -156,17 +156,17 @@ const FormSubmissions = ({
 
             toast.dismiss(loadingToastId);
             toast.success(
-              t("submission.event.delete.success", { count: ids.length })
+              t("submission.event.delete.success", { count: ids.length }),
             );
           },
           onError: (error) => {
             toast.dismiss(loadingToastId);
             toast.error(error.message ?? t("submission.event.delete.error"));
           },
-        }
+        },
       );
     },
-    [deleteSubmissions, formId, trpcUtils, t]
+    [deleteSubmissions, formId, trpcUtils, t],
   );
 
   const onUpdate = useCallback(
@@ -175,7 +175,7 @@ const FormSubmissions = ({
         return null;
 
       const loadingToastId = toast.loading(
-        t("submission.event.update.loading")
+        t("submission.event.update.loading"),
       );
 
       updateSubmissions.mutate(
@@ -189,17 +189,17 @@ const FormSubmissions = ({
 
             toast.dismiss(loadingToastId);
             toast.success(
-              t("submission.event.update.success", { count: ids.length })
+              t("submission.event.update.success", { count: ids.length }),
             );
           },
           onError: (error) => {
             toast.dismiss(loadingToastId);
             toast.error(error.message ?? t("submission.event.update.error"));
           },
-        }
+        },
       );
     },
-    [updateSubmissions, formId, trpcUtils, t, formRole]
+    [updateSubmissions, formId, trpcUtils, t, formRole],
   );
 
   const onExport = useCallback(() => {
@@ -218,7 +218,7 @@ const FormSubmissions = ({
           toast.dismiss(loadingToastId);
           toast.error(error.message ?? t("submission.event.export.error"));
         },
-      }
+      },
     );
   }, [exportSubmissions, formId, t, name]);
 
@@ -230,13 +230,13 @@ const FormSubmissions = ({
             filters: {
               isSpam: value === SelectedFilter.IS_SPAM,
             },
-          }
+          },
     );
   }, []);
 
   const onSelectSort = useCallback((value: SelectedSort | null) => {
     setOrderBy(
-      value === SelectedSort.NEWEST || value === null ? "desc" : "asc"
+      value === SelectedSort.NEWEST || value === null ? "desc" : "asc",
     );
   }, []);
 
@@ -248,7 +248,7 @@ const FormSubmissions = ({
         updateSubmissions.variables?.hasOwnProperty(key)
       );
     },
-    [updateSubmissions]
+    [updateSubmissions],
   );
 
   const getSubmissionDeleteLoading = useCallback(
@@ -258,7 +258,7 @@ const FormSubmissions = ({
         (deleteSubmissions.variables?.ids ?? []).includes(id)
       );
     },
-    [deleteSubmissions]
+    [deleteSubmissions],
   );
 
   return (
@@ -372,26 +372,26 @@ const FormSubmissions = ({
                             isSelected={selectIds.includes(id)}
                             blockIpAddresses={blockIpAddresses}
                             isDeleteSubmissionLoading={getSubmissionDeleteLoading(
-                              id
+                              id,
                             )}
                             isMarkSpamLoading={getSubmissionUpdateLoading(
                               id,
-                              "isSpam"
+                              "isSpam",
                             )}
                             isReadSubmissionLoading={getSubmissionUpdateLoading(
                               id,
-                              "viewed"
+                              "viewed",
                             )}
                             isActionsDisabled={
                               !hasFormsPermission(
                                 formRole,
-                                "view_form_submissions_actions"
+                                "view_form_submissions_actions",
                               )
                             }
                           />
                         </ListItem>
                       );
-                    }
+                    },
                   )}
                 </Fragment>
               );

@@ -30,7 +30,7 @@ const GeneralSettingsPage = () => {
     { formId },
     {
       enabled: !!formId,
-    }
+    },
   );
 
   const planId = useMemo(() => {

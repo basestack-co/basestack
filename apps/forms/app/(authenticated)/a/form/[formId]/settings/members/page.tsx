@@ -16,7 +16,7 @@ const MembersPage = () => {
     { formId },
     {
       enabled: !!formId,
-    }
+    },
   );
 
   return (

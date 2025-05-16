@@ -38,7 +38,7 @@ const UpdateFlagModal = () => {
       state.flagModalPayload,
       state.setUpdateFlagModalOpen,
       state.closeModalsOnClickOutside,
-    ])
+    ]),
   );
 
   const { projectId } = useParams<{ projectId: string }>();
@@ -65,7 +65,7 @@ const UpdateFlagModal = () => {
     isError,
   } = api.flag.bySlug.useQuery(
     { slug: modalPayload?.flag?.slug!, projectId: project?.id! },
-    { enabled: !!project?.id && !!modalPayload?.flag?.slug }
+    { enabled: !!project?.id && !!modalPayload?.flag?.slug },
   );
 
   const isSubmittingOrMutating = isSubmitting || updateFlag.isPending;
@@ -103,7 +103,7 @@ const UpdateFlagModal = () => {
           onError: (error) => {
             toast.error(error.message);
           },
-        }
+        },
       );
     }
   };

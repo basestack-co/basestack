@@ -3,46 +3,6 @@
 exports[`PopupActions tests should render PopupActions correctly 1`] = `
 <DocumentFragment>
   .c2 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: 'Roboto',sans-serif;
-  word-break: break-word;
-  color: #757575;
-  font-family: roboto;
-  font-weight: 500;
-}
-
-.c8 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: 'Roboto',sans-serif;
-  word-break: break-word;
-  color: #000000;
-  font-family: roboto;
-  margin-left: 0.5rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.c6 {
-  height: 1.75rem;
-  width: 1.75rem;
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
-  border-radius: 4px;
-}
-
-.c7 {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-
-.c9 {
   height: 2.25rem;
   padding: 0 0.75rem;
   font-size: 0.875rem;
@@ -64,21 +24,21 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
   width: 100%;
 }
 
-.c9:hover:not(:active, :disabled) {
+.c2:hover:not(:active, :disabled) {
   background-color: #E2E2E2;
 }
 
-.c9 .material-symbols-sharp,
-.c9 .material-symbols-rounded {
+.c2 .material-symbols-sharp,
+.c2 .material-symbols-rounded {
   color: inherit;
 }
 
-.c9 svg,
-.c9 svg g {
+.c2 svg,
+.c2 svg g {
   fill: #000000;
 }
 
-.c9:disabled {
+.c2:disabled {
   cursor: default;
   opacity: 0.6;
 }
@@ -97,129 +57,36 @@ exports[`PopupActions tests should render PopupActions correctly 1`] = `
 
 .c1 {
   display: flex;
-  align-items: center;
-  height: 2rem;
-  padding: 0 0.5rem;
-}
-
-.c3 {
-  display: flex;
   flex-direction: column;
   max-height: 264px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
-.c3::-webkit-scrollbar {
+.c1::-webkit-scrollbar {
   width: 4px;
 }
 
-.c3::-webkit-scrollbar-track {
+.c1::-webkit-scrollbar-track {
   background: #EEEEEE;
 }
 
-.c3::-webkit-scrollbar-thumb {
+.c1::-webkit-scrollbar-thumb {
   background: #CBCBCB;
 }
 
-.c3::-webkit-scrollbar-thumb:hover {
+.c1::-webkit-scrollbar-thumb:hover {
   background: #AFAFAF;
-}
-
-.c4 {
-  display: flex;
-  flex-direction: column;
-}
-
-.c5 {
-  display: flex;
-  align-items: center;
-  background-color: transparent;
-  border: none;
-  padding: 0.5rem;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.c5:hover {
-  background-color: #EEEEEE;
-}
-
-.c5:active {
-  background-color: #E2E2E2;
 }
 
 <div
     class="c0"
+    title="Projects"
   >
     <div
       class="c1"
-    >
-      <p
-        class="c2"
-        font-family="roboto"
-        font-weight="500"
-      >
-        Projects
-      </p>
-    </div>
-    <ul
-      class="c3"
-    >
-      <li
-        class="c4"
-      >
-        <button
-          class="c5"
-        >
-          <div
-            class="c6"
-            data-testid="avatar"
-            size="28"
-          >
-            <img
-              alt="Select Moon flags from the list"
-              class="c7"
-              src="https://api.dicebear.com/8.x/initials/svg?seed=Moon flags&size=28&fontSize=40"
-            />
-          </div>
-          <p
-            class="c8"
-            font-family="roboto"
-            ml="0.5rem"
-          >
-            Moon flags
-          </p>
-        </button>
-      </li>
-      <li
-        class="c4"
-      >
-        <button
-          class="c5"
-        >
-          <div
-            class="c6"
-            data-testid="avatar"
-            size="28"
-          >
-            <img
-              alt="Select Teams kids from the list"
-              class="c7"
-              src="https://api.dicebear.com/8.x/initials/svg?seed=Teams kids&size=28&fontSize=40"
-            />
-          </div>
-          <p
-            class="c8"
-            font-family="roboto"
-            ml="0.5rem"
-          >
-            Teams kids
-          </p>
-        </button>
-      </li>
-    </ul>
+    />
     <button
-      class="c9"
+      class="c2"
       data-testid="button"
       mt="0.25rem"
       variant="tertiary"

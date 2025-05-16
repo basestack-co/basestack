@@ -20,7 +20,7 @@ const FormSubmissionsPage = () => {
     { formId },
     {
       enabled: !!formId,
-    }
+    },
   );
 
   useEffect(() => {

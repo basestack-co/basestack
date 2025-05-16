@@ -104,7 +104,7 @@ const Toolbar = ({
                 label={t(
                   isSelectAllEnabled
                     ? "toolbar.action.un-select-all"
-                    : "toolbar.action.select-all"
+                    : "toolbar.action.select-all",
                 )}
                 variant="button"
                 disabled={isDisabled}

@@ -40,7 +40,7 @@ const CreateProjectModal = () => {
         state.isCreateProjectModalOpen,
         state.setCreateProjectModalOpen,
         state.closeModalsOnClickOutside,
-      ])
+      ]),
     );
 
   const createProject = api.project.create.useMutation();

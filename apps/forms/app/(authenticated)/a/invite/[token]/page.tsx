@@ -36,7 +36,7 @@ const InvitePage = () => {
       {
         enabled: !!token,
         retry: 1,
-      }
+      },
     );
 
   const acceptInvitation = api.team.acceptInvitation.useMutation();
@@ -76,7 +76,7 @@ const InvitePage = () => {
         onError: (error) => {
           toast.error(error.message);
         },
-      }
+      },
     );
   }, [acceptInvitation, router, t, token, trpcUtils.team.all]);
 
@@ -96,7 +96,7 @@ const InvitePage = () => {
           onError: (error) => {
             toast.error(error.message);
           },
-        }
+        },
       );
     }
   }, [data?.invitationId, removeInvite, router, t, trpcUtils.team.all]);
