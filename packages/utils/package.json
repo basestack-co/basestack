@@ -21,10 +21,10 @@
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "ts-jest": "^29.3.2",
-    "tsup": "^8.4.0",
-    "typescript": "^5.8.3",
-    "@types/uuid": "^10.0.0"
+    "@types/uuid": "^10.0.0",
+    "ts-jest": "^29.3.3",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "request-ip": "^3.3.0",
