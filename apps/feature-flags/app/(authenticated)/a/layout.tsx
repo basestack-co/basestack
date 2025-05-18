@@ -32,6 +32,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           text: item.name,
           isAdmin: item.isAdmin,
           role: item.role,
+          isActive: false,
         })),
     }),
     t.subscription.usage(undefined, {

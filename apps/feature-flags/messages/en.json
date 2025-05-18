@@ -408,8 +408,8 @@
       "project": "Create Project"
     },
     "projects": {
-      "title": "Projects",
-      "external": "External",
+      "title": "My Projects",
+      "external": "External Projects",
       "select": "Select Project"
     },
     "dropdown": {

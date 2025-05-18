@@ -470,8 +470,8 @@
       "form": "Create Form"
     },
     "forms": {
-      "title": "Forms",
-      "external": "External",
+      "title": "My Forms",
+      "external": "External Forms",
       "select": "Select form"
     },
     "dropdown": {

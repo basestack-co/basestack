@@ -12,8 +12,7 @@ import { useMedia } from "react-use";
 // Locales
 import { useTranslations } from "next-intl";
 // Components
-import { PopupActionProps } from "@basestack/design-system";
-import { Navigation as NavigationUI } from "@basestack/ui";
+import { Navigation as NavigationUI, PopupActionProps } from "@basestack/ui";
 // Types
 import { Role } from ".prisma/client";
 // Utils
@@ -63,35 +62,42 @@ const Navigation = ({ data }: NavigationProps) => {
   }> => {
     if (!data?.length) return [];
 
-    const internal: PopupActionProps[] = [];
-    const external: PopupActionProps[] = [];
+    const { internal, external } = data.reduce(
+      (acc, project) => {
+        const target = (project as unknown as { isAdmin: boolean }).isAdmin
+          ? acc.internal
+          : acc.external;
 
-    for (const project of data) {
-      const target = (project as unknown as { isAdmin: boolean }).isAdmin
-        ? internal
-        : external;
+        target.push(project as unknown as PopupActionProps);
+        return acc;
+      },
+      { internal: [], external: [] } as {
+        internal: PopupActionProps[];
+        external: PopupActionProps[];
+      },
+    );
 
-      target.push(project as unknown as PopupActionProps);
-    }
+    const mapProjectsToSection = (
+      items: PopupActionProps[],
+      title: string,
+    ) => ({
+      title,
+      items: items.map((item) => ({
+        ...item,
+        isActive: item.id === formId,
+      })),
+    });
 
-    const result = [];
-
-    if (internal.length > 0) {
-      result.push({
-        title: t("navigation.forms.title"),
-        items: internal,
-      });
-    }
-
-    if (external.length > 0) {
-      result.push({
-        title: t("navigation.forms.external"),
-        items: external,
-      });
-    }
-
-    return result;
-  }, [data, t]);
+    return [
+      internal.length > 0 &&
+        mapProjectsToSection(internal, t("navigation.forms.title")),
+      external.length > 0 &&
+        mapProjectsToSection(external, t("navigation.forms.external")),
+    ].filter(Boolean) as Array<{
+      title: string;
+      items: PopupActionProps[];
+    }>;
+  }, [data, t, formId]);
 
   const onSelectApp = useCallback((app: Product) => {
     window.location.href = config.urls.getAppWithEnv(app, AppMode as AppEnv);

@@ -65,35 +65,42 @@ const Navigation = ({ data }: NavigationProps) => {
   }> => {
     if (!data?.length) return [];
 
-    const internal: PopupActionProps[] = [];
-    const external: PopupActionProps[] = [];
+    const { internal, external } = data.reduce(
+      (acc, project) => {
+        const target = (project as unknown as { isAdmin: boolean }).isAdmin
+          ? acc.internal
+          : acc.external;
 
-    for (const project of data) {
-      const target = (project as unknown as { isAdmin: boolean }).isAdmin
-        ? internal
-        : external;
+        target.push(project as unknown as PopupActionProps);
+        return acc;
+      },
+      { internal: [], external: [] } as {
+        internal: PopupActionProps[];
+        external: PopupActionProps[];
+      },
+    );
 
-      target.push(project as unknown as PopupActionProps);
-    }
+    const mapProjectsToSection = (
+      items: PopupActionProps[],
+      title: string,
+    ) => ({
+      title,
+      items: items.map((item) => ({
+        ...item,
+        isActive: item.id === projectId,
+      })),
+    });
 
-    const result = [];
-
-    if (internal.length > 0) {
-      result.push({
-        title: t("navigation.projects.title"),
-        items: internal,
-      });
-    }
-
-    if (external.length > 0) {
-      result.push({
-        title: t("navigation.projects.external"),
-        items: external,
-      });
-    }
-
-    return result;
-  }, [data, t]);
+    return [
+      internal.length > 0 &&
+        mapProjectsToSection(internal, t("navigation.projects.title")),
+      external.length > 0 &&
+        mapProjectsToSection(external, t("navigation.projects.external")),
+    ].filter(Boolean) as Array<{
+      title: string;
+      items: PopupActionProps[];
+    }>;
+  }, [data, t, projectId]);
 
   const onSelectApp = useCallback((app: Product) => {
     window.location.href = config.urls.getAppWithEnv(app, AppMode as AppEnv);
