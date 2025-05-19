@@ -2,6 +2,7 @@ import {
   protectedProcedure,
   createTRPCRouter,
   withFormRestrictions,
+  withUsageLimits,
 } from "server/api/trpc";
 import { TRPCError } from "@trpc/server";
 // Types
@@ -221,6 +222,7 @@ export const formRouter = createTRPCRouter({
     .meta({
       usageLimitKey: "forms",
     })
+    .use(withUsageLimits)
     .input(
       z
         .object({
