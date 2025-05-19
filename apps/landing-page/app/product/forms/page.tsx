@@ -163,6 +163,34 @@ const ProductFormsPage = () => {
             icon: "inbox",
           },
           {
+            title: t("page.product.forms.more-features.card.sharing.title"),
+            description: t(
+              "page.product.forms.more-features.card.sharing.description",
+            ),
+            icon: "groups",
+          },
+          {
+            title: t("page.product.forms.more-features.card.export.title"),
+            description: t(
+              "page.product.forms.more-features.card.export.description",
+            ),
+            icon: "download",
+          },
+          {
+            title: t("page.product.forms.more-features.card.spam.title"),
+            description: t(
+              "page.product.forms.more-features.card.spam.description",
+            ),
+            icon: "block",
+          },
+          {
+            title: t("page.product.forms.more-features.card.redirects.title"),
+            description: t(
+              "page.product.forms.more-features.card.redirects.description",
+            ),
+            icon: "link",
+          },
+          {
             title: t("page.product.forms.more-features.card.uploads.title"),
             description: t(
               "page.product.forms.more-features.card.uploads.description",
@@ -175,20 +203,6 @@ const ProductFormsPage = () => {
               "page.product.forms.more-features.card.responses.description",
             ),
             icon: "send",
-          },
-          {
-            title: t("page.product.forms.more-features.card.redirects.title"),
-            description: t(
-              "page.product.forms.more-features.card.redirects.description",
-            ),
-            icon: "link",
-          },
-          {
-            title: t("page.product.forms.more-features.card.sharing.title"),
-            description: t(
-              "page.product.forms.more-features.card.sharing.description",
-            ),
-            icon: "share",
           },
           {
             title: t("page.product.forms.more-features.card.templates.title"),
@@ -205,25 +219,11 @@ const ProductFormsPage = () => {
             icon: "bar_chart",
           },
           {
-            title: t("page.product.forms.more-features.card.export.title"),
-            description: t(
-              "page.product.forms.more-features.card.export.description",
-            ),
-            icon: "download",
-          },
-          {
             title: t("page.product.forms.more-features.card.builder.title"),
             description: t(
               "page.product.forms.more-features.card.builder.description",
             ),
             icon: "build",
-          },
-          {
-            title: t("page.product.forms.more-features.card.spam.title"),
-            description: t(
-              "page.product.forms.more-features.card.spam.description",
-            ),
-            icon: "history",
           },
         ]}
       />

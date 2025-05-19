@@ -193,7 +193,14 @@ const ProductFeatureFlagsPage = () => {
             description: t(
               "page.product.flags.more-features.card.rollbacks.description",
             ),
-            icon: "undo",
+            icon: "toggle_off",
+          },
+          {
+            title: t("page.product.flags.more-features.card.sharing.title"),
+            description: t(
+              "page.product.flags.more-features.card.sharing.description",
+            ),
+            icon: "groups",
           },
           {
             title: t(
@@ -202,7 +209,7 @@ const ProductFeatureFlagsPage = () => {
             description: t(
               "page.product.flags.more-features.card.bootstrapping.description",
             ),
-            icon: "task",
+            icon: "toggle_on",
           },
           {
             title: t("page.product.flags.more-features.card.sdks.title"),

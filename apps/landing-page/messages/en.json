@@ -340,6 +340,10 @@
             "security": {
               "title": "Secure Access Control",
               "description": "Block unwanted sources and ensure secure flag management."
+            },
+            "sharing": {
+              "title": "Team Access",
+              "description": "Collaborate easily by sharing forms and submissions with team members or clients."
             }
           }
         },
@@ -463,7 +467,7 @@
               "description": "Guide users to custom success or error pages after they submit a form."
             },
             "sharing": {
-              "title": "Team Access (Coming Soon)",
+              "title": "Team Access",
               "description": "Collaborate easily by sharing forms and submissions with team members or clients."
             },
             "templates": {
