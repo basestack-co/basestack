@@ -165,6 +165,14 @@ export const formRouter = createTRPCRouter({
         },
       });
 
+      if (!data) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Form not found",
+          cause: "FormNotFound",
+        });
+      }
+
       return {
         id: data?.form.id,
         name: data?.form.name,

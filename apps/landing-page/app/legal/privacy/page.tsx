@@ -103,8 +103,8 @@ const PrivacyPolicyPage = () => {
           </p>
           <h4>Personal Information</h4>
           <p>
-            We may ask for personal information — for example, when you
-            subscribe to our newsletter or when you contact us — which may
+            We may ask for personal information - for example, when you
+            subscribe to our newsletter or when you contact us - which may
             include one or more of the following:
           </p>
           <ul>

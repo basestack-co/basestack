@@ -131,10 +131,14 @@ const FlagCards = ({
         iconName="flag"
         title={t("list.empty.title")}
         description={t("list.empty.description")}
-        button={{
-          text: t("list.empty.action"),
-          onClick: () => setCreateFlagModalOpen({ isOpen: true }),
-        }}
+        {...(hasFlagsPermission(projectRole, "add_project_flags")
+          ? {
+              button: {
+                text: t("list.empty.action"),
+                onClick: () => setCreateFlagModalOpen({ isOpen: true }),
+              },
+            }
+          : {})}
       />
     );
 

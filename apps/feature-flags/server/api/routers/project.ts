@@ -182,6 +182,14 @@ export const projectRouter = createTRPCRouter({
         },
       });
 
+      if (!data) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Project not found",
+          cause: "ProjectNotFound",
+        });
+      }
+
       return {
         id: data?.project.id,
         name: data?.project.name,

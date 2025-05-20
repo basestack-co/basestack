@@ -185,10 +185,8 @@ export const teamRouter = createTRPCRouter({
   delete: protectedProcedure
     .meta({
       roles: [Role.ADMIN],
-      usageLimitKey: "teams",
     })
     .use(withTeamRestrictions)
-    .use(withUsageLimits)
     .input(z.object({ teamId: z.string() }).required())
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.session?.user.id!;

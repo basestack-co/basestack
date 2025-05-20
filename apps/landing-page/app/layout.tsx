@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     url: "https://basestack.co",
     title: "Basestack: Your Growth Toolkit Starts Here",
     description:
-      "Discover Basestack—open-source tools like Forms and Feature Flags for solo devs, teams, and startups. Self-host for free or choose our hosted plans.",
+      "Discover Basestack - open-source tools like Forms and Feature Flags for solo devs, teams, and startups. Self-host for free or choose our hosted plans.",
     siteName: "Basestack",
     images: [{ url: "https://basestack.co/images/og-image.jpeg" }],
   },
