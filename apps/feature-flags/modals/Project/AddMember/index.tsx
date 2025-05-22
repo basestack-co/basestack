@@ -13,7 +13,7 @@ import { z } from "zod";
 // Libs
 import { api } from "utils/trpc/react";
 // Auth
-import { useSession } from "next-auth/react";
+import { authClient } from "utils/auth/client";
 // Toast
 import { toast } from "sonner";
 // Locales
@@ -30,7 +30,7 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const AddProjectMemberModal = () => {
   const t = useTranslations("modal");
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
   const { projectId } = useParams<{ projectId: string }>();
   const trpcUtils = api.useUtils();
   const [isModalOpen, setAddProjectMemberModalOpen, closeModalsOnClickOutside] =

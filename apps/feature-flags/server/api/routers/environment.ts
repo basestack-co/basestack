@@ -24,7 +24,7 @@ export const environmentRouter = createTRPCRouter({
         .required(),
     )
     .query(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id;
+      const userId = ctx?.auth?.user.id;
 
       return ctx.prisma.project.findFirst({
         where: {

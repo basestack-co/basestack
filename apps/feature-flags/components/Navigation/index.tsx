@@ -7,7 +7,7 @@ import { flushSync } from "react-dom";
 import { useStore } from "store";
 // Hooks
 import { useRouter, useParams, usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { authClient } from "utils/auth/client";
 import { useMedia } from "react-use";
 // Locales
 import { useTranslations } from "next-intl";
@@ -34,7 +34,7 @@ const Navigation = ({ data }: NavigationProps) => {
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
   const isMobile = useMedia(theme.device.max.lg, false);
 
   const { projectId } = useParams<{ projectId: string }>();

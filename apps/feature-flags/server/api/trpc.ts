@@ -1,5 +1,6 @@
 // Server
 import { initTRPC, TRPCError } from "@trpc/server";
+import { headers } from "next/headers";
 // Utils
 import superjson from "superjson";
 import { ZodError } from "zod";
@@ -17,11 +18,13 @@ import { Role } from ".prisma/client";
 // CONTEXT
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
-  const session = await auth();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   return {
     prisma,
-    session,
+    auth: session,
     project: {
       role: "VIEWER", // default as fallback
       adminUserId: "",
@@ -63,7 +66,7 @@ export const withHistoryActivity = t.middleware(
       const rawInput = await getRawInput();
       await createHistory(
         ctx.prisma,
-        ctx.session!,
+        ctx.auth?.user!,
         path,
         result.data!,
         rawInput,
@@ -76,7 +79,7 @@ export const withHistoryActivity = t.middleware(
 
 export const isAuthenticated = middleware(async ({ next, ctx }) => {
   // Check if the user is logged in
-  if (!ctx.session) {
+  if (!ctx.auth?.session) {
     throw new TRPCError({
       code: "UNAUTHORIZED",
       message: "Not authenticated",
@@ -87,7 +90,7 @@ export const isAuthenticated = middleware(async ({ next, ctx }) => {
   return next({
     ctx: {
       ...ctx,
-      session: ctx.session,
+      auth: ctx.auth,
     },
   });
 });
@@ -95,7 +98,7 @@ export const isAuthenticated = middleware(async ({ next, ctx }) => {
 export const withSubscriptionUsage = middleware(async ({ next, ctx, meta }) => {
   const usage = await getSubscriptionUsage(
     ctx.prisma,
-    ctx?.session?.user.id ?? "",
+    ctx?.auth?.user.id ?? "",
   );
 
   const planId = usage.planId as PlanTypeId;
@@ -139,7 +142,7 @@ export const withProjectRestrictions = middleware(
     // checks if the user is in the project
     const project = await getUserInProject(
       ctx.prisma,
-      ctx?.session?.user.id!,
+      ctx?.auth?.user.id!,
       projectId!,
     );
 
@@ -195,7 +198,7 @@ export const withTeamRestrictions = middleware(
 
     const userInTeam = await getUserInTeam(
       ctx.prisma,
-      ctx?.session?.user.id!,
+      ctx?.auth?.user.id!,
       teamId!,
     );
 

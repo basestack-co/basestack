@@ -19,7 +19,7 @@ import { qstash } from "@basestack/vendors";
 
 export const projectRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx?.session?.user.id;
+    const userId = ctx?.auth?.user.id;
 
     const all = await ctx.prisma.project.findMany({
       where: {
@@ -59,7 +59,7 @@ export const projectRouter = createTRPCRouter({
     return { projects };
   }),
   recent: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx?.session?.user.id;
+    const userId = ctx?.auth?.user.id;
 
     return ctx.prisma.$transaction(async (tx) => {
       const projects = await tx.project.findMany({
@@ -144,7 +144,7 @@ export const projectRouter = createTRPCRouter({
         .required(),
     )
     .query(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id;
+      const userId = ctx?.auth?.user.id;
 
       const data = await ctx.prisma.projectsOnUsers.findFirst({
         where: {
@@ -276,7 +276,7 @@ export const projectRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id!;
+      const userId = ctx?.auth?.user.id!;
       const planId = ctx.usage.planId as PlanTypeId;
       const hasOnlyOneEnv = planId === PlanTypeId.FREE;
 
@@ -457,7 +457,7 @@ export const projectRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const user = ctx.session?.user;
+      const user = ctx.auth?.user;
 
       const connection = await ctx.prisma.projectsOnUsers.create({
         data: {

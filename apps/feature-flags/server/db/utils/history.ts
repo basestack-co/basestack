@@ -1,6 +1,6 @@
 import { PrismaClient } from ".prisma/client";
 // Auth
-import { Session } from "next-auth";
+import {  User } from "better-auth";
 // Types
 import { HistoryAction, Environment } from "types";
 import { HistoryType } from "@basestack/ui";
@@ -133,12 +133,14 @@ export const createPayload = (path: string, data: any, input: any) => {
 
 export const createHistory = async (
   prisma: PrismaClient,
-  session: Session,
+  user: User,
   path: string,
   data: any,
   input: any,
 ) => {
   const action = pathActionMap[path];
+
+
 
   if (!action) return;
 
@@ -154,9 +156,9 @@ export const createHistory = async (
       action,
       payload: {
         user: {
-          id: session.user.id,
-          name: session.user.name,
-          avatar: session.user.image ?? "",
+          id: user.id,
+          name: user.name,
+          avatar: user.image ?? "",
         },
         ...payload,
       },

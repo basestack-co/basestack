@@ -23,9 +23,12 @@ export interface Provider {
     id: string;
     name: string;
     type: "oauth" | "email" | "credentials";
-    options?: Record<string, unknown>;
   };
 }
+
+
+type SignInProviders = "github" | "apple" | "discord" | "facebook" | "microsoft" | "google" | "spotify" | "twitch" | "twitter" | "dropbox" | "kick" | "linkedin" | "gitlab" | "tiktok" | "reddit" | "roblox" | "vk" | "zoom";
+
 
 export interface SignInProps {
   providers: Provider;
@@ -36,20 +39,51 @@ export interface SignInProps {
   description: string;
   contentTitle: string;
   contentDescription: string | React.ReactNode;
-  onClickProvider: (id: string) => void;
+  onClickProvider: (provider: SignInProviders) => void;
   errors?: Array<BannersItem>;
 }
 
-type providers = "github" | "auth0" | "google" | "okta" | "microsoft";
+export const getProvidersList: Provider = {
+  github: {
+    id: "github",
+    name: "GitHub",
+    type: "oauth",
+  },
+  google: {
+    id: "google",
+    name: "Google",
+    type: "oauth",
+  },
+}
 
-const getProviderLogo = (provider: providers) => {
+const NoImage = () => {
+  return <div>No Image</div>;
+};
+
+const getProviderLogo = (provider: SignInProviders) => {
   const logo = {
     github: <Github />,
     auth0: <Auth0 />,
     google: <Google />,
     okta: <Okta />,
     microsoft: <Microsoft />,
+    apple: <NoImage />,
+    discord: <NoImage />,
+    facebook: <NoImage />,
+    spotify: <NoImage />,
+    twitch: <NoImage />,
+    twitter: <NoImage />,
+    dropbox: <NoImage />,
+    kick: <NoImage />,
+    linkedin: <NoImage />,
+    gitlab: <NoImage />,
+    tiktok: <NoImage />,
+    reddit: <NoImage />,
+    roblox: <NoImage />,
+    vk: <NoImage />,
+    zoom: <NoImage />,
   };
+
 
   return logo[provider];
 };
@@ -130,12 +164,12 @@ const SignIn = ({
                 <ProviderCard
                   onClick={() => {
                     setIsProcessing(true);
-                    onClickProvider(provider.id);
+                    onClickProvider(provider.id as SignInProviders);
                   }}
                   title={provider.name}
                   text={action(provider.name)}
                   providerLogo={getProviderLogo(
-                    provider.name.toLowerCase() as providers,
+                    provider.name.toLowerCase() as SignInProviders,
                   )}
                 />
               </CardsItem>

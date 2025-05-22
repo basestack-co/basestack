@@ -19,7 +19,7 @@ import dayjs from "dayjs";
 
 export const teamRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx?.session?.user.id!;
+    const userId = ctx?.auth?.user.id!;
 
     return ctx.prisma.team.findMany({
       where: {
@@ -137,7 +137,7 @@ export const teamRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id!;
+      const userId = ctx?.auth?.user.id!;
 
       return await ctx.prisma.$transaction(async (tx) => {
         const team = await tx.team.create({
@@ -189,7 +189,7 @@ export const teamRouter = createTRPCRouter({
     .use(withTeamRestrictions)
     .input(z.object({ teamId: z.string() }).required())
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id!;
+      const userId = ctx?.auth?.user.id!;
 
       return await ctx.prisma.$transaction(async (tx) => {
         const members = await tx.teamMembers.findMany({
@@ -271,7 +271,7 @@ export const teamRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id!;
+      const userId = ctx?.auth?.user.id!;
 
       return await ctx.prisma.$transaction(async (tx) => {
         const projects = await tx.projectsOnUsers.findMany({
@@ -451,7 +451,7 @@ export const teamRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const user = ctx.session?.user;
+      const user = ctx.auth?.user;
       const token = generateSecureToken();
       const expiresAt = dayjs().add(7, "day").toDate();
 

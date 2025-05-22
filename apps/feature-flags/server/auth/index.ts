@@ -1,44 +1,58 @@
 // Auth
-import NextAuth from "next-auth";
-// Utils
-import React, { cache } from "react";
-// DB
-import { prisma } from "server/db";
+import { betterAuth } from "better-auth";
+// Adapters
+import { prismaAdapter } from "better-auth/adapters/prisma";
+// Plugins
+import { multiSession } from "better-auth/plugins";
 // Vendors
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { auth as authVendor } from "@basestack/vendors";
+import { qstash } from "@basestack/vendors";
+// DB
+import { prisma } from "../db";
 
-const authConfig = authVendor.createAuthConfig({
-  product: "Feature Flags",
-  adapter: PrismaAdapter(prisma),
-  getUser: async (email) => {
-    const user = await prisma.user.findUnique({
-      where: { email },
-      select: {
-        name: true,
-        createdAt: true,
-      },
-    });
-
-    return {
-      name: user?.name ?? "User",
-      createdAt: user?.createdAt ?? new Date(),
-    };
+export const auth = betterAuth({
+  database: prismaAdapter(prisma, {
+    provider: "postgresql",
+  }),
+  disabledPaths: ["/sign-up/email", "/sign-in/email"],
+  account: {
+    accountLinking: {
+      enabled: true,
+      trustedProviders: ["google", "github"],
+      allowDifferentEmails: false,
+    },
   },
-  content: {
-    emails: {
-      welcome: {
-        title: "Welcome to Basestack Feature Flags",
-        description:
-          "Welcome to BaseStack Feature Flags, the ultimate solution for seamlessly managing feature rollouts. Effortlessly toggle features, run A/B tests, and deploy updates with confidence—all without redeploying your code. 🚀",
-        link: "https://flags.basestack.co",
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          if (user) {
+            await qstash.events.sendEmailEvent({
+              template: "welcome",
+              to: [user.email],
+              subject: `Welcome to Basestack Feature Flags`,
+              props: {
+                name: user.name,
+                title: "Welcome to Basestack Feature Flags",
+                description:
+                  "Welcome to BaseStack Feature Flags, the ultimate solution for seamlessly managing feature rollouts. Effortlessly toggle features, run A/B tests, and deploy updates with confidence—all without redeploying your code. 🚀",
+                link: "https://flags.basestack.co",
+              },
+            });
+          }
+        },
       },
     },
   },
+  socialProviders: {
+    github: {
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+    },
+    google: {
+      prompt: "select_account",
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    },
+  },
+  plugins: [multiSession()],
 });
-
-const { auth: uncachedAuth, handlers, signIn, signOut } = NextAuth(authConfig);
-
-const auth = cache(uncachedAuth);
-
-export { auth, handlers, signIn, signOut };
