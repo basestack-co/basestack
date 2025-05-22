@@ -11,7 +11,7 @@ import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
 // Auth
-import { useSession } from "next-auth/react";
+import { authClient } from "utils/auth/client";
 // Styles
 import { Container, MembersList } from "./styles";
 // types
@@ -23,7 +23,7 @@ export interface Props {
 
 const Members = ({ teamId }: Props) => {
   const t = useTranslations("modal");
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
   const trpcUtils = api.useUtils();
 
   const { data, isLoading } = api.team.byId.useQuery(

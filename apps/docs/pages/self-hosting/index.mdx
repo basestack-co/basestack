@@ -69,12 +69,12 @@ The platform has a straightforward configuration process, requiring a set of ess
 
 #### General
 
-For the `AUTH_SECRET` variable you can use `openssl rand -base64 32` or generate a [random value](https://generate-secret.vercel.app/32).
+For the `BETTER_AUTH_SECRET` variable you can use `openssl rand -base64 32` or generate a [random value](https://generate-secret.vercel.app/32).
 
 | Property      | Description                                                                 | Required | Example                                                            |
 | ------------- | --------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------ |
-| `AUTH_SECRET` | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. | true     | [generate](https://generate-secret.vercel.app/32?ref=basestack.co) |
-| `AUTH_URL`    | Set to the canonical URL of your site                                       | true     | https://your-basestack-instance.com                                |
+| `BETTER_AUTH_SECRET` | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. | true     | [generate](https://generate-secret.vercel.app/32?ref=basestack.co) |
+| `BETTER_AUTH_URL`    | Set to the canonical URL of your site                                       | true     | https://your-basestack-instance.com                                |
 
 #### Providers
 

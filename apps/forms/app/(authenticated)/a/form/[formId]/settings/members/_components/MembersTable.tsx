@@ -16,7 +16,7 @@ import { useStore } from "store";
 import { createTable, config } from "@basestack/utils";
 import dayjs from "dayjs";
 // Auth
-import { useSession } from "next-auth/react";
+import { authClient } from "utils/auth/client";
 // Router
 import { useParams, useRouter } from "next/navigation";
 // Toast
@@ -34,7 +34,7 @@ export interface Props {
 
 const MembersTableCard = ({ role }: Props) => {
   const t = useTranslations();
-  const session = useSession();
+  const { data: session } = authClient.useSession();
   const router = useRouter();
   const trpcUtils = api.useUtils();
   const { formId } = useParams<{ formId: string }>();
@@ -63,7 +63,7 @@ const MembersTableCard = ({ role }: Props) => {
           { formId, userId },
           {
             onSuccess: async (result) => {
-              if (session?.data?.user.id === userId) {
+              if (session?.user.id === userId) {
                 // the user removed himself from the project, so we redirect him to the dashboard
                 router.push("/a");
               } else {
@@ -98,7 +98,7 @@ const MembersTableCard = ({ role }: Props) => {
         );
       }
     },
-    [formId, removeUserFromForm, session?.data?.user.id, router, trpcUtils, t],
+    [formId, removeUserFromForm, session?.user.id, router, trpcUtils, t],
   );
 
   const onHandleUpdateRole = useCallback(
@@ -184,7 +184,7 @@ const MembersTableCard = ({ role }: Props) => {
           {
             title: roleList[item.role],
             ...(isCurrentUserAdmin &&
-              item.userId !== session?.data?.user.id && {
+              item.userId !== session?.user.id && {
                 children: (
                   <PopupMenu
                     button={{
@@ -222,7 +222,7 @@ const MembersTableCard = ({ role }: Props) => {
     t,
     isLoading,
     isCurrentUserAdmin,
-    session?.data?.user.id,
+    session?.user.id,
     onHandleUpdateRole,
     onHandleDelete,
     removeUserFromForm.isPending,

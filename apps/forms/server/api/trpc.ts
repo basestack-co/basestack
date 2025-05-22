@@ -1,5 +1,6 @@
 // Server
 import { initTRPC, TRPCError } from "@trpc/server";
+import { headers } from "next/headers";
 // Utils
 import superjson from "superjson";
 import { ZodError } from "zod";
@@ -16,11 +17,13 @@ import { Role } from ".prisma/client";
 // CONTEXT
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
-  const session = await auth();
+  const data = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   return {
     prisma,
-    session,
+    auth: data,
     form: {
       role: "VIEWER", // default as fallback
       adminUserId: "",
@@ -56,7 +59,7 @@ export const middleware = t.middleware;
 
 export const isAuthenticated = middleware(async ({ next, ctx }) => {
   // Check if the user is logged in
-  if (!ctx.session) {
+  if (!ctx.auth?.session) {
     throw new TRPCError({
       code: "UNAUTHORIZED",
       message: "Not authenticated",
@@ -67,7 +70,7 @@ export const isAuthenticated = middleware(async ({ next, ctx }) => {
   return next({
     ctx: {
       ...ctx,
-      session: ctx.session,
+      auth: ctx.auth,
     },
   });
 });
@@ -75,7 +78,7 @@ export const isAuthenticated = middleware(async ({ next, ctx }) => {
 export const withSubscriptionUsage = middleware(async ({ next, ctx, meta }) => {
   const usage = await getSubscriptionUsage(
     ctx.prisma,
-    ctx?.session?.user.id ?? "",
+    ctx?.auth?.user.id ?? "",
   );
 
   const planId = usage.planId as PlanTypeId;
@@ -117,11 +120,7 @@ export const withFormRestrictions = middleware(
     }
 
     // checks if the user is in the form
-    const form = await getUserInForm(
-      ctx.prisma,
-      ctx?.session?.user.id!,
-      formId,
-    );
+    const form = await getUserInForm(ctx.prisma, ctx?.auth?.user.id!, formId);
 
     // If the user does not exist in the form, return an error
     if (!form) {
@@ -175,7 +174,7 @@ export const withTeamRestrictions = middleware(
 
     const userInTeam = await getUserInTeam(
       ctx.prisma,
-      ctx?.session?.user.id!,
+      ctx?.auth?.user.id!,
       teamId!,
     );
 

@@ -118,15 +118,15 @@ To ensure a successful deployment on Netlify, the platform requires a minimum se
 | ---------------------- | ------------------------------------------------------------------------------------------- | ------- |
 | `DATABASE_URL`         | Connection URL to your database using PgBouncer.                                            |         |
 | `DIRECT_DATABASE_URL`  | Direct connection URL to the database used for migrations                                   |         |
-| `AUTH_SECRET`      | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens.                 |         |
-| `AUTH_URL`         | Set to the canonical URL of your site                                                       |         |
+| `BETTER_AUTH_SECRET`      | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens.                 |         |
+| `BETTER_AUTH_URL`         | Set to the canonical URL of your site                                                       |         |
 | `GITHUB_CLIENT_ID`     | Client Id generated in the [OAuth App](https://github.com/settings/developers?ref=basestack.co) creation     |         |
 | `GITHUB_CLIENT_SECRET` | Client Secret generated in the [OAuth App](https://github.com/settings/developers?ref=basestack.co) creation |         |
 | `NODE_VERSION`         | Node version to use for the build process.                                                  | 18.12.0 |
 | `SKIP_INSTALL_DEPS`    | Disables npm install to use yarn                                                            | true    |
 
 <Callout type="info" emoji="ℹ️">
-  For the `AUTH_SECRET` variable you can use `openssl rand -base64 32` or
+  For the `BETTER_AUTH_SECRET` variable you can use `openssl rand -base64 32` or
   generate a [random value](https://generate-secret.vercel.app/32?ref=basestack.co).
 </Callout>
 
@@ -173,7 +173,7 @@ Lastly, stay tuned about updates, including new features and bug fixes. To ensur
 
 ## Troubleshooting
 
-### How to Retrieve the Project URL for `AUTH_URL` and Github OAuth App?
+### How to Retrieve the Project URL for `BETTER_AUTH_URL` and Github OAuth App?
 
 If you don't have a domain yet, feel free to leave the fields below empty or use dummy information. Proceed with the deployment as usual. Once the deployment is complete, Netlify will generate a URL for your project.
 
@@ -181,7 +181,7 @@ Copy this URL and update the information in your [OAuth App](https://github.com/
 
 **Environment Variables:**
 
-- `AUTH_URL`
+- `BETTER_AUTH_URL`
 
 **Github [OAuth App](https://github.com/settings/developers?ref=basestack.co) Fields:**
 

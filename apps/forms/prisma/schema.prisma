@@ -27,47 +27,47 @@ enum FormType {
 }
 
 model Account {
-  id                 String   @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-  oauth_token_secret String?
-  oauth_token        String?
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  id                    String    @id @default(cuid())
+  userId                String
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  idToken               String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([provider, providerAccountId])
   @@index([userId])
 }
 
 model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  userId    String
+  token     String
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
   @@index([userId])
 }
 
 model User {
   id            String        @id @default(cuid())
   name          String?
-  gh_username   String?
   email         String?       @unique
-  emailVerified DateTime?
+  emailVerified Boolean?      @default(false)
   image         String?
-  password      String?
   accounts      Account[]
   sessions      Session[]
   forms         FormOnUsers[]
@@ -80,12 +80,13 @@ model User {
   @@index([email, name])
 }
 
-model VerificationToken {
+model Verification {
+  id         String    @id
   identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
 }
 
 model Subscription {

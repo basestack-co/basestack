@@ -4,6 +4,9 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 // Plugins
 import { multiSession } from "better-auth/plugins";
+// Utils
+import { AppMode } from "utils/helpers/general";
+import { config, Product, AppEnv } from "@basestack/utils";
 // Vendors
 import { qstash } from "@basestack/vendors";
 // DB
@@ -35,7 +38,10 @@ export const auth = betterAuth({
                 title: "Welcome to Basestack Feature Flags",
                 description:
                   "Welcome to BaseStack Feature Flags, the ultimate solution for seamlessly managing feature rollouts. Effortlessly toggle features, run A/B tests, and deploy updates with confidence—all without redeploying your code. 🚀",
-                link: "https://flags.basestack.co",
+                link: config.urls.getAppWithEnv(
+                  Product.FLAGS,
+                  AppMode as AppEnv,
+                ),
               },
             });
           }

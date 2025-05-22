@@ -18,13 +18,13 @@ import { Role } from ".prisma/client";
 // CONTEXT
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
-  const session = await auth.api.getSession({
+  const data = await auth.api.getSession({
     headers: await headers(),
   });
 
   return {
     prisma,
-    auth: session,
+    auth: data,
     project: {
       role: "VIEWER", // default as fallback
       adminUserId: "",

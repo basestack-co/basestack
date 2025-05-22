@@ -2,7 +2,7 @@
 
 import React from "react";
 // Auth
-import { useSession } from "next-auth/react";
+import { authClient } from "utils/auth/client";
 // Store
 import { useStore } from "store";
 // Locales
@@ -14,7 +14,7 @@ import { CardList, ProfileCardContainer, CardListItem } from "../styles";
 
 const UserProfileSettingsPage = () => {
   const t = useTranslations("profile");
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
 
   const closeModalsOnClickOutside = useStore(
     (state) => state.closeModalsOnClickOutside,

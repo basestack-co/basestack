@@ -17,7 +17,7 @@ import { qstash } from "@basestack/vendors";
 
 export const formRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx?.session?.user.id!;
+    const userId = ctx?.auth?.user.id!;
 
     const all = await ctx.prisma.form.findMany({
       where: {
@@ -56,7 +56,7 @@ export const formRouter = createTRPCRouter({
     return { forms };
   }),
   recent: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx?.session?.user.id!;
+    const userId = ctx?.auth?.user.id!;
 
     // TODO: Find a way to do this with Prisma Models and not raw SQL
     // This solves the N+1 problem we had before with the previous query
@@ -118,7 +118,7 @@ export const formRouter = createTRPCRouter({
         .required(),
     )
     .query(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id!;
+      const userId = ctx?.auth?.user.id!;
 
       const data = await ctx.prisma.formOnUsers.findFirst({
         where: {
@@ -239,7 +239,7 @@ export const formRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id!;
+      const userId = ctx?.auth?.user.id!;
 
       return await ctx.prisma.$transaction(async (tx) => {
         const form = await tx.form.create({
@@ -360,7 +360,7 @@ export const formRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id!;
+      const userId = ctx?.auth?.user.id!;
 
       const form = await ctx.prisma.$transaction(async (tx) => {
         const response = await tx.form.delete({
@@ -391,7 +391,7 @@ export const formRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const user = ctx.session?.user;
+      const user = ctx.auth?.user;
 
       const connection = await ctx.prisma.formOnUsers.create({
         data: {

@@ -116,8 +116,8 @@ envVarGroups:
         value: "postgres://USER:PASSWORD@PGBOUNCER_HOST:PORT/DATABASE" # Navigate to the pgbouncer service to find the URL that your applications should connect to
         # AUTHENTICATION
         # use openssl rand -base64 32 or generate a random value at https://generate-secret.vercel.app/32
-      - key: AUTH_SECRET
-      - key: AUTH_URL
+      - key: BETTER_AUTH_SECRET
+      - key: BETTER_AUTH_URL
         value: "https://your-app.onrender.com" # replace with your app's URL
         # AUTHENTICATION - GITHUB
       - key: GITHUB_CLIENT_ID

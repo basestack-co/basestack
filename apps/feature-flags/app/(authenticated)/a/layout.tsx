@@ -8,6 +8,8 @@ import { authClient } from "utils/auth/client";
 // Components
 import { Splash, Loader } from "@basestack/design-system";
 import Navigation from "components/Navigation";
+// Modals
+import Modals from "modals";
 // Server
 import { api } from "utils/trpc/react";
 
@@ -47,6 +49,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     <Fragment>
       <Navigation data={projects.data} />
       {children}
+      <Modals />
     </Fragment>
   );
 };

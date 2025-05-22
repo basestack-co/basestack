@@ -27,7 +27,7 @@ export const submissionRouter = createTRPCRouter({
       }),
     )
     .query(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id!;
+      const userId = ctx?.auth?.user.id!;
       const limit = input.limit ?? 50;
 
       const search = input.search
@@ -107,7 +107,7 @@ export const submissionRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id!;
+      const userId = ctx?.auth?.user.id!;
 
       const submissions = await ctx.prisma.submission.findMany({
         where: {
@@ -185,7 +185,7 @@ export const submissionRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id!;
+      const userId = ctx?.auth?.user.id!;
       const { formId, ids, ...props } = input;
       const data = Object.fromEntries(
         Object.entries(props).filter(([_, value]) => value !== null),
@@ -228,7 +228,7 @@ export const submissionRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id!;
+      const userId = ctx?.auth?.user.id!;
 
       const submissions = await ctx.prisma.submission.deleteMany({
         where: {
