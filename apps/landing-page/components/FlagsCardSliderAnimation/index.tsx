@@ -1,54 +1,14 @@
 import React, { useRef, useEffect } from "react";
-import { useTheme } from "styled-components";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
-import {
-  Avatar,
-  Card,
-  HorizontalRule,
-  Icon,
-  Text,
-} from "@basestack/design-system";
+import { ProjectCard } from "@basestack/ui";
 import {
   Container,
   Embla,
   EmblaContainer,
   EmblaSlide,
   EmblaViewport,
-  Box,
-  Row,
-  ProjectCardContainer,
 } from "./styles";
-
-const ProjectCard = ({ text, flags = 0 }: { text: string; flags: number }) => {
-  const theme = useTheme();
-  return (
-    <ProjectCardContainer>
-      <Card height="100%" width="100%">
-        <Box mb="auto" p={theme.spacing.s5}>
-          <Avatar
-            size="xSmall"
-            userName={text}
-            alt={`${text} project`}
-            round={false}
-          />
-          <Text size="small" textAlign="left" mt={theme.spacing.s3}>
-            {text}
-          </Text>
-        </Box>
-        <HorizontalRule />
-        <Box p={`${theme.spacing.s3} ${theme.spacing.s5}`}>
-          <Row>
-            <Icon icon="flag" size="small" />
-            <Text size="small" textAlign="left" ml={theme.spacing.s1}>
-              {flags}
-            </Text>
-          </Row>
-        </Box>
-      </Card>
-    </ProjectCardContainer>
-  );
-};
 
 const data = [
   { title: "Mobile App", flags: 12 },
@@ -92,6 +52,7 @@ const FlagsCardSliderAnimation = () => {
           <EmblaContainer>
             {data.map((item, index) => (
               <EmblaSlide key={index}>
+                {/*@ts-ignore*/}
                 <ProjectCard text={item.title} flags={item.flags} />
               </EmblaSlide>
             ))}

@@ -76,6 +76,14 @@
     "projects": {
       "title": "Recent projects",
       "action": "Create Project",
+      "tag": {
+        "text": "External",
+        "tooltip": "You are a member of this project, not the owner."
+      },
+      "menu": {
+        "features": "Feature Flags",
+        "settings": "Settings"
+      },
       "empty": {
         "title": "Create your first project",
         "description": "Create your first project to start creating flags!",
@@ -85,7 +93,8 @@
     "usage": {
       "title": "Account Usage",
       "link": {
-        "upgrade": "Upgrade"
+        "upgrade": "Upgrade",
+        "manage": "Manage"
       },
       "date": "Renews at {date}",
       "resource": {
@@ -94,6 +103,34 @@
         "environments": "Environments",
         "members": "Members",
         "api-requests": "API Requests"
+      }
+    },
+    "teams": {
+      "title": "Teams",
+      "name": "{name} Team",
+      "action": "Create Team",
+      "tag": {
+        "text": "External",
+        "tooltip": "This team was created by someone else. You have limited permissions."
+      },
+      "menu": {
+        "manage": "Manage",
+        "delete": "Delete"
+      },
+      "empty": {
+        "title": "Create your first team",
+        "description": "Create your first team to start collaborating.",
+        "action": "Create Team"
+      },
+      "confirm": {
+        "delete": {
+          "title": "Are you sure about this action?",
+          "description": "Warning: This action cannot be undone. It will permanently delete the {name} team, including all members associations.",
+          "action": "Delete Team",
+          "status": {
+            "success": "You’ve successfully deleted the team and all its members."
+          }
+        }
       }
     },
     "links": {
@@ -125,6 +162,69 @@
         }
       }
     },
+    "team": {
+      "create": {
+        "title": "Create Team",
+        "button": {
+          "cancel": "Close",
+          "submit": "Create"
+        },
+        "input": {
+          "team-name": {
+            "title": "Team name",
+            "error": {
+              "max": "Must be 30 characters or less",
+              "min": "Required field"
+            }
+          }
+        }
+      },
+      "manage": {
+        "title": "{name} Team",
+        "button": {
+          "cancel": "Close"
+        },
+        "tab": {
+          "members": {
+            "title": "Members",
+            "list": {
+              "avatar": {
+                "alt": "user avatar"
+              },
+              "option": {
+                "admin": "Admin",
+                "developer": "Developer",
+                "tester": "Tester",
+                "viewer": "Viewer",
+                "remove": "Remove"
+              },
+              "status": {
+                "pending": "Pending",
+                "remove": {
+                  "success": "The member was successfully removed from the team"
+                },
+                "update": {
+                  "success": "The member has been successfully updated"
+                },
+                "invite": {
+                  "success": "The invitation was successfully canceled"
+                }
+              }
+            }
+          },
+          "invites": {
+            "title": "Invite Member",
+            "form": {
+              "email": {
+                "title": "Email",
+                "placeholder": "Enter email address"
+              },
+              "submit": "Send Invite"
+            }
+          }
+        }
+      }
+    },
     "project": {
       "create": {
         "title": "Create Project",
@@ -151,15 +251,15 @@
       }
     },
     "member": {
-      "invite": {
-        "title": "Add Team Member",
+      "add": {
+        "title": "Add Member to Project",
         "button": {
           "cancel": "Close",
-          "submit": "Add member"
+          "submit": "Save"
         },
         "input": {
-          "member-id": {
-            "empty": "No members",
+          "select": {
+            "empty": "All your team members are already part of this project.",
             "default": "Select member",
             "error": {
               "min": "Required field"
@@ -308,7 +408,8 @@
       "project": "Create Project"
     },
     "projects": {
-      "title": "Projects",
+      "title": "My Projects",
+      "external": "External Projects",
       "select": "Select Project"
     },
     "dropdown": {
@@ -505,6 +606,10 @@
           }
         }
       },
+      "owner": {
+        "title": "Project Owner",
+        "description": "The owner of the project. Contact the owner for support."
+      },
       "endpoints": {
         "title": "Endpoints",
         "description": "Endpoints are essential for the SDKs to access and interact with features.",
@@ -577,17 +682,17 @@
       }
     },
     "members": {
-      "invite": {
+      "add": {
         "title": "Team Members",
-        "description": "Add members of your organization to manage this project. Developers can also be invited to access API keys for code integration.",
-        "placeholder": "Note: Users must already have an account to appear in the list (Email Invites Coming Soon).",
+        "description": "Add members to manage this project.",
+        "placeholder": "A team is required to add members.",
         "action": "Add Member",
         "table": {
           "headers": {
             "name": "Name",
             "email": "Email",
             "role": "Role",
-            "invited-at": "Invited At"
+            "added-at": "Added At"
           }
         }
       }
@@ -617,6 +722,34 @@
         "actions": {
           "edit": "Edit",
           "delete": "Delete"
+        }
+      }
+    }
+  },
+  "invite": {
+    "team": {
+      "title": "Pending Invite",
+      "description": "You have being invited to join",
+      "name": "{name} Team",
+      "count": "{count, plural, one {# member of your team has already accepted} other {# members of your team have already accepted}}",
+      "created-at": {
+        "not-available": "Date not available"
+      },
+      "expires-at": {
+        "not-available": "Expiration date not available",
+        "expired": "Invitation has expired",
+        "message": "Your invitation expires {date}"
+      },
+      "action": {
+        "decline": "Decline",
+        "accept": "Accept Invitation"
+      },
+      "toast": {
+        "join": {
+          "success": "Successfully joined team, redirecting..."
+        },
+        "decline": {
+          "success": "You’ve declined the invitation. Redirecting..."
         }
       }
     }

@@ -502,6 +502,7 @@ const popup = {
 
 const popupActions = {
   backgroundColor: colors.gray800,
+  selected: colors.primary,
   button: {
     backgroundColor: "transparent",
     hover: {
@@ -509,6 +510,9 @@ const popupActions = {
     },
     active: {
       backgroundColor: colors.gray600,
+    },
+    selected: {
+      border: colors.primary,
     },
   },
 };

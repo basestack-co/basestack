@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useRef, useState } from "react";
 import { useTheme } from "styled-components";
 import { useClickAway } from "react-use";
+import { rem } from "polished";
 import { animated, config, useTransition } from "react-spring";
 // Components
 import { autoUpdate, offset, useFloating } from "@floating-ui/react";
@@ -8,22 +9,20 @@ import {
   Avatar,
   Button,
   ButtonVariant,
-  PopupActions,
-  PopupActionProps,
   slideBottom,
 } from "@basestack/design-system";
+import PopupActions, { PopupActionProps } from "../PopupActions";
 // Types
 import { ListItem } from "./styles";
 
 export interface ProjectsMenuProps {
   current: string;
-  data: Array<PopupActionProps>;
+  data: Array<{ title: string; items: PopupActionProps[] }>;
   onCreate: () => void;
   select: {
     title: string;
     create: string;
   };
-  title: string;
 }
 
 const AnimatedProjectsPopup: any = animated(PopupActions);
@@ -33,7 +32,6 @@ const ProjectsMenu = ({
   current,
   onCreate,
   select,
-  title,
 }: ProjectsMenuProps) => {
   const theme = useTheme();
   const menuWrapperRef = useRef(null);
@@ -74,6 +72,8 @@ const ProjectsMenu = ({
         icon={isProjectsPopupOpen ? "arrow_drop_up" : "arrow_drop_down"}
         variant={ButtonVariant.PrimaryNeutral}
         onClick={onClickProjects}
+        isDisabled={!data?.length}
+        pr={rem("8px")}
         leftElement={
           !!current ? (
             <Avatar
@@ -97,8 +97,7 @@ const ProjectsMenu = ({
               position={strategy}
               top={y}
               left={x}
-              title={title}
-              items={data}
+              data={data}
               onCallback={onClickProjects}
               button={{
                 text: select.create,

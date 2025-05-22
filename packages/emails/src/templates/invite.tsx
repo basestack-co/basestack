@@ -11,25 +11,26 @@ import {
   Preview,
   Text,
 } from "@react-email/components";
-import * as React from "react";
 import * as Styles from "./styles";
 
-interface ContentType {
-  [key: string]: string | undefined | null;
-}
-
 interface InviteEmailTemplateProps {
-  userName: string;
-  content: ContentType;
-  formId: string;
+  product: string;
+  fromUserName: string;
+  toUserName: string;
+  team: string;
+  linkText: string;
+  linkUrl: string;
 }
 
 export const InviteEmailTemplate = ({
-  userName,
-  content,
-  formId,
+  product,
+  fromUserName,
+  toUserName,
+  team,
+  linkText,
+  linkUrl,
 }: InviteEmailTemplateProps) => {
-  const title = `New Invite from @${userName}`;
+  const title = `New Invite from @${fromUserName}`;
 
   return (
     <Html>
@@ -75,39 +76,28 @@ export const InviteEmailTemplate = ({
             alt="basestack"
             style={{ marginBottom: "20px" }}
           />
-          <Text
-            style={{ ...Styles.Heading, marginBottom: "20px", fontWeight: 400 }}
-          >
-            Join <b style={{ fontWeight: 700 }}>{content.project}</b> on{" "}
-            <b style={{ fontWeight: 700 }}>Basestack</b>
-          </Text>
-
-          <Text style={{ ...Styles.Paragraph, marginBottom: "10px" }}>
-            Hello {userName},
+          <Text style={{ ...Styles.Paragraph, marginBottom: "20px" }}>
+            Hello {toUserName},
           </Text>
           <Text style={Styles.ParagraphSecondary}>
-            <b style={Styles.ParagraphMedium}>{content.name}</b> has invited you
-            to the <b style={Styles.ParagraphMedium}>{content.project}</b> team
-            on <b style={Styles.ParagraphMedium}>Basestack</b>.
+            <b style={Styles.ParagraphMedium}>{fromUserName}</b> has invited you
+            to the <b style={Styles.ParagraphMedium}>{team}</b> team on{" "}
+            <b style={Styles.ParagraphMedium}>{product}</b>.
           </Text>
           <Button
             style={{ ...Styles.PrimaryButton, margin: "20px 0" }}
-            href={`https://forms.basestack.co/form/${formId}/submissions`}
+            href={linkUrl}
           >
-            {content.button}
+            {linkText}
           </Button>
           <div style={Styles.Card}>
             <Text style={{ ...Styles.Paragraph, marginBottom: "2px" }}>
               or copy and paste this URL into your browser:
             </Text>
-            <Link href="https://github.com/basestack-co" style={Styles.Link}>
-              https://github.com/basestack-co
+            <Link href={linkUrl} style={Styles.Link}>
+              {linkUrl}
             </Link>
           </div>
-
-          <Text style={{ ...Styles.Paragraph, marginTop: "20px" }}>
-            Basestack Team
-          </Text>
           <Hr style={{ ...Styles.Hr, margin: "20px 0" }} />
           <Link
             href="https://github.com/basestack-co/basestack/discussions"
@@ -125,14 +115,12 @@ export const InviteEmailTemplate = ({
 };
 
 InviteEmailTemplate.PreviewProps = {
-  userName: "Ellen",
-  content: {
-    name: "Dexter",
-    email: "dexter@example.com",
-    project: "Evermore",
-    button: "Join The Team",
-  },
-  formId: "",
+  product: "Basestack",
+  fromUserName: "Ellen",
+  toUserName: "Ellen",
+  team: "Evermore",
+  linkText: "Join The Team",
+  linkUrl: "https://github.com/basestack-co",
 } as InviteEmailTemplateProps;
 
 export default InviteEmailTemplate;

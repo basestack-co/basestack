@@ -11,9 +11,10 @@ import { useSession } from "next-auth/react";
 import { useMedia } from "react-use";
 // Locales
 import { useTranslations } from "next-intl";
+// Types
+import { Role } from ".prisma/client";
 // Components
-import { PopupActionProps } from "@basestack/design-system";
-import { Navigation as NavigationUI } from "@basestack/ui";
+import { Navigation as NavigationUI, PopupActionProps } from "@basestack/ui";
 // Utils
 import { config, Product, AppEnv } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
@@ -49,11 +50,57 @@ const Navigation = ({ data }: NavigationProps) => {
     (state) => state.setCreateFlagModalOpen,
   );
 
-  const currentProject = useMemo(() => {
-    const project = data?.find(({ id }) => id === projectId);
+  const [projectName, projectRole] = useMemo(() => {
+    const project = data?.find(({ id }) => id === projectId) as unknown as {
+      text: string;
+      role: Role;
+    };
 
-    return project?.text ?? "";
+    return [project?.text ?? "", project?.role ?? Role.VIEWER];
   }, [projectId, data]);
+
+  const projectsList = useMemo((): Array<{
+    title: string;
+    items: PopupActionProps[];
+  }> => {
+    if (!data?.length) return [];
+
+    const { internal, external } = data.reduce(
+      (acc, project) => {
+        const target = (project as unknown as { isAdmin: boolean }).isAdmin
+          ? acc.internal
+          : acc.external;
+
+        target.push(project as unknown as PopupActionProps);
+        return acc;
+      },
+      { internal: [], external: [] } as {
+        internal: PopupActionProps[];
+        external: PopupActionProps[];
+      },
+    );
+
+    const mapProjectsToSection = (
+      items: PopupActionProps[],
+      title: string,
+    ) => ({
+      title,
+      items: items.map((item) => ({
+        ...item,
+        isActive: item.id === projectId,
+      })),
+    });
+
+    return [
+      internal.length > 0 &&
+        mapProjectsToSection(internal, t("navigation.projects.title")),
+      external.length > 0 &&
+        mapProjectsToSection(external, t("navigation.projects.external")),
+    ].filter(Boolean) as Array<{
+      title: string;
+      items: PopupActionProps[];
+    }>;
+  }, [data, t, projectId]);
 
   const onSelectApp = useCallback((app: Product) => {
     window.location.href = config.urls.getAppWithEnv(app, AppMode as AppEnv);
@@ -106,28 +153,24 @@ const Navigation = ({ data }: NavigationProps) => {
       product={Product.FLAGS}
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
-      leftLinks={
-        !!projectId
-          ? getLeftLinks(
-              router,
-              pathname,
-              projectId,
-              () => setCreateFlagModalOpen({ isOpen: true }),
-              {
-                createFlag: t("navigation.create.flag"),
-                settings: t("navigation.internal.settings"),
-                flags: t("navigation.internal.features"),
-              },
-            )
-          : []
-      }
+      leftLinks={getLeftLinks(
+        router,
+        pathname,
+        projectId,
+        projectRole,
+        () => setCreateFlagModalOpen({ isOpen: true }),
+        {
+          createFlag: t("navigation.create.flag"),
+          settings: t("navigation.internal.settings"),
+          flags: t("navigation.internal.features"),
+        },
+      )}
       rightLinks={getRightLinks({ docs: t("navigation.external.docs") })}
       rightLinksTitle={t("navigation.external.resources")}
       projects={{
         onCreate: () => setCreateProjectModalOpen({ isOpen: true }),
-        current: currentProject,
-        data: data ?? [],
-        title: t("navigation.projects.title"),
+        current: projectName,
+        data: projectsList,
         select: {
           title: t("navigation.projects.select"),
           create: t("navigation.create.project"),

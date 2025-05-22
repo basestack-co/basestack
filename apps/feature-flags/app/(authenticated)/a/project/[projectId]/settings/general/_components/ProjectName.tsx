@@ -13,6 +13,8 @@ import { InputGroup } from "@basestack/design-system";
 import { SettingCard } from "@basestack/ui";
 // Utils
 import { isEmptyObject } from "@basestack/utils";
+// Toast
+import { toast } from "sonner";
 // Types
 import { Role } from ".prisma/client";
 // Locales
@@ -89,6 +91,9 @@ const ProjectNameCard = ({ role, name }: Props) => {
               },
             );
           }
+        },
+        onError: (error) => {
+          toast.error(error.message);
         },
       },
     );

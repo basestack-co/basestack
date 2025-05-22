@@ -1,9 +1,5 @@
 // Types
-import { PlanTypeId, FormPlan } from "../../types";
-// Utils
-import { getAppMode } from "./utils";
-
-// Forms Plan configuration
+import { PlanTypeId, FormPlan, FormsPermission } from "../../types";
 
 const forms: FormPlan[] = [
   {
@@ -35,6 +31,7 @@ const forms: FormPlan[] = [
     limits: {
       forms: 1,
       submissions: 50,
+      teams: 0,
       members: 0,
       spams: 0,
       fileUploadLimit: 0, // GB
@@ -85,6 +82,7 @@ const forms: FormPlan[] = [
     limits: {
       forms: 5,
       submissions: 1000,
+      teams: 1,
       members: 3,
       spams: 1000,
       fileUploadLimit: 1, // GB
@@ -135,6 +133,7 @@ const forms: FormPlan[] = [
     limits: {
       forms: Infinity,
       submissions: 10000,
+      teams: 2,
       members: 10,
       spams: 10000,
       fileUploadLimit: 3, // GB
@@ -185,6 +184,7 @@ const forms: FormPlan[] = [
     limits: {
       forms: Infinity,
       submissions: Infinity,
+      teams: 4,
       members: 20,
       spams: 100000,
       fileUploadLimit: 10, // GB
@@ -236,6 +236,7 @@ const forms: FormPlan[] = [
     limits: {
       forms: Infinity,
       submissions: Infinity,
+      teams: Infinity,
       members: Infinity,
       spams: Infinity,
       fileUploadLimit: Infinity,
@@ -259,94 +260,91 @@ const forms: FormPlan[] = [
   },
 ];
 
+const formsPermissions: Record<string, FormsPermission[]> = {
+  ADMIN: [
+    "view_form_submissions",
+    "view_form_security_settings",
+    "view_form_customization_settings",
+    "view_form_notifications_settings",
+    "view_form_endpoint",
+    "view_form_id",
+    "view_form_setup_page",
+    "view_form_submissions_actions",
+    "add_form_submissions",
+    "add_form_member",
+    "edit_form_submissions",
+    "edit_form_name",
+    "edit_form_security_websites",
+    "edit_form_security_ip_rules",
+    "edit_form_security_honey_pot",
+    "edit_form_customization_data_query_string",
+    "edit_form_customization_redirect_url",
+    "edit_form_customization_success_url",
+    "edit_form_customization_error_url",
+    "edit_form_notifications_emails",
+    "enable_form",
+    "enable_form_data_retention",
+    "enable_form_spam_protection",
+    "enable_form_webhook",
+    "delete_form_submissions",
+    "delete_form",
+  ],
+  DEVELOPER: [
+    "view_form_submissions",
+    "view_form_security_settings",
+    "view_form_customization_settings",
+    "view_form_notifications_settings",
+    "view_form_endpoint",
+    "view_form_id",
+    "view_form_setup_page",
+    "view_form_submissions_actions",
+    "enable_form",
+    "enable_form_data_retention",
+    "enable_form_spam_protection",
+    "enable_form_webhook",
+    "add_form_submissions",
+    "edit_form_submissions",
+    "edit_form_security_websites",
+    "edit_form_security_ip_rules",
+    "edit_form_security_honey_pot",
+    "edit_form_customization_data_query_string",
+    "edit_form_customization_redirect_url",
+    "edit_form_customization_success_url",
+    "edit_form_customization_error_url",
+    "edit_form_notifications_emails",
+  ],
+  TESTER: [
+    "view_form_submissions",
+    "view_form_endpoint",
+    "view_form_id",
+    "view_form_setup_page",
+    "view_form_submissions_actions",
+    "add_form_submissions",
+    "edit_form_submissions",
+  ],
+  VIEWER: ["view_form_submissions"],
+};
+
+const hasFormsPermission = (
+  role: string | undefined,
+  permission: FormsPermission,
+): boolean => {
+  return formsPermissions[role ?? "VIEWER"]?.includes(permission) ?? false;
+};
+
 const getFormPlanLimitsDefaults = () => ({
+  forms: 0,
   submissions: 0,
+  teams: 0,
+  members: 0,
   spams: 0,
   fileUploadLimit: 0,
   integrationsCalls: 0,
 });
 
-const isValidFormPlan = (id: PlanTypeId) => {
-  return forms.some((plan) => plan.id === id);
-};
-
-const getFormPlan = (id: PlanTypeId): FormPlan => {
-  const plan = forms.find((plan: FormPlan) => plan.id === id);
-  if (!plan) {
-    // Fallback to free plan if plan is not found
-    return forms.find((plan: FormPlan) => plan.id === PlanTypeId.FREE)!;
-  }
-  return plan;
-};
-
-const getFormPlanLimits = (id: PlanTypeId) => {
-  const plan = getFormPlan(id);
-  return plan.limits;
-};
-
-const getFormPlanFeatures = (id: PlanTypeId) => {
-  const plan = getFormPlan(id);
-  return plan.features;
-};
-
-const hasFormPlanFeature = (
-  id: PlanTypeId,
-  feature: keyof FormPlan["features"],
-) => {
-  const plan = getFormPlan(id);
-  return plan.features[feature];
-};
-
-const getFormLimitByKey = (id: PlanTypeId, limit: keyof FormPlan["limits"]) => {
-  const plan = getFormPlan(id);
-  return plan?.limits[limit];
-};
-
-const isUnderFormPlanLimit = (
-  id: PlanTypeId,
-  limit: keyof FormPlan["limits"],
-  value: number,
-) => {
-  const plan = getFormPlan(id);
-  return plan?.limits[limit] >= value;
-};
-
-const getFormPlanVariantId = (
-  id: PlanTypeId,
-  interval: "monthly" | "yearly",
-  mode: string = "production",
-) => {
-  const stage = getAppMode(mode);
-
-  const plan = getFormPlan(id);
-  return plan.price[interval].variantIds[stage];
-};
-
-const getFormPlanByVariantId = (
-  variantId: number,
-  isBilledMonthly: boolean = false,
-  mode: string = "production",
-) => {
-  const stage = getAppMode(mode);
-
-  return forms.find((plan) => {
-    return (
-      plan.price[isBilledMonthly ? "monthly" : "yearly"].variantIds[stage] ===
-      variantId
-    );
-  });
-};
-
 export const config = {
   forms,
-  getFormPlan,
-  getFormPlanLimits,
-  getFormPlanFeatures,
-  hasFormPlanFeature,
-  getFormLimitByKey,
-  isUnderFormPlanLimit,
+  formsPermissions,
   getFormPlanLimitsDefaults,
-  getFormPlanVariantId,
-  getFormPlanByVariantId,
-  isValidFormPlan,
+  hasFormsPermission,
 };

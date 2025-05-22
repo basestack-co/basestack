@@ -11,7 +11,16 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
     }
 
+    html {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+    }
+    
     body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
         font-family: ${({ theme }) => theme.typography.roboto};
         ${({ theme }) =>
           `background-color: ${

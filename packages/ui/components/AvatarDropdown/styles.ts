@@ -13,8 +13,10 @@ export const Container = styled.div<SpaceProps>`
   ${space};
 `;
 
-export const ListItem = styled.li<SpaceProps>`
-  ${space};
+export const ListItem = styled.li`
+  &:not(:last-child):not(:first-child) {
+    margin-bottom: ${({ theme }) => theme.spacing.s1};
+  }
 `;
 
 export const AvatarButton = styled.button`

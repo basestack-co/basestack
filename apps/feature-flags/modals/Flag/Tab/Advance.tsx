@@ -82,12 +82,14 @@ const AdvanceTab = ({ setValue, environments }: Props) => {
 
   return (
     <>
-      <Tabs
-        sliderPosition={activeTabIndex}
-        onSelect={(_, index) => setActiveTabIndex(index)}
-        items={tabs}
-        type="buttons"
-      />
+      {tabs.length > 1 && (
+        <Tabs
+          sliderPosition={activeTabIndex}
+          onSelect={(_, index) => setActiveTabIndex(index)}
+          items={tabs}
+          type="buttons"
+        />
+      )}
       <CalendarInput
         isCalenderOpen={isCalenderOpen}
         onClickAway={() => setIsCalendarOpen(false)}
@@ -108,7 +110,7 @@ const AdvanceTab = ({ setValue, environments }: Props) => {
           locale: "en-US",
           minDate: new Date(),
         }}
-        mt={theme.spacing.s6}
+        mt={tabs.length > 1 ? theme.spacing.s6 : 0}
       />
       <Text
         fontWeight={500}
@@ -120,7 +122,6 @@ const AdvanceTab = ({ setValue, environments }: Props) => {
       </Text>
       <EditorContainer>
         <Editor
-          height="150px"
           theme="vs-dark"
           onChange={(value) => onChangeJson(value)}
           language="json"
@@ -131,6 +132,7 @@ const AdvanceTab = ({ setValue, environments }: Props) => {
             inlineSuggest: false,
             formatOnType: true,
             autoClosingBrackets: true,
+            stickyScroll: { enabled: false },
             minimap: {
               enabled: false,
             },

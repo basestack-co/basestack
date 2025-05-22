@@ -1,50 +1,82 @@
 import React from "react";
 import { useTheme } from "styled-components";
-import { animated } from "react-spring";
-import { useFloatingPopup } from "@basestack/hooks";
-// Components
 import Text from "../Text";
-import IconButton from "../IconButton";
 import Avatar from "../Avatar";
-import Popup from "../Popup";
+import PopupMenu from "../PopupMenu";
 import TextVisibility from "./TextVisibility";
 import {
   Col,
   Container,
   ContentRow,
-  PopupWrapper,
+  MobileLabel,
   StyledLink,
   StyledRow,
 } from "./styles";
 import { TableProps, RowProps, TableRowProps, TableColProps } from "./types";
 import CopyClipboard from "./CopyClipboard";
 
-const AnimatedPopup = animated(Popup);
-
-const Row = ({ cols = [], more, numberOfCols, tooltip }: RowProps) => {
+const Row = ({
+  headers = [],
+  cols = [],
+  more,
+  numberOfCols = 3,
+  tooltip,
+  isResponsive,
+  breakpoint,
+}: RowProps) => {
   const theme = useTheme();
 
-  const {
-    popupWrapperRef,
-    x,
-    y,
-    refs,
-    strategy,
-    transition,
-    getReferenceProps,
-    getFloatingProps,
-    onClickMore,
-    onCloseMenu,
-  } = useFloatingPopup({});
-
   return (
-    <StyledRow numberOfColumns={numberOfCols} data-testid="row">
+    <StyledRow
+      numberOfColumns={numberOfCols}
+      hasSmallCol={!!tooltip || more.length > 0}
+      isResponsive={isResponsive}
+      breakpoint={breakpoint}
+      data-testid="row"
+    >
       {cols &&
         cols.map((col, index) => {
           const imageSrc = col.image?.src ?? "";
           const imageUsername = col.image?.userName ?? "";
+
+          if (col.children) {
+            return (
+              <Col
+                key={`${index.toString()}-col`}
+                isResponsive={isResponsive}
+                breakpoint={breakpoint}
+              >
+                {isResponsive && (
+                  <MobileLabel
+                    muted
+                    size="xSmall"
+                    mb={theme.spacing.s1}
+                    breakpoint={breakpoint}
+                  >
+                    {headers[index].toUpperCase()}
+                  </MobileLabel>
+                )}
+                {col.children}
+              </Col>
+            );
+          }
+
           return (
-            <Col key={`${index.toString()}-col`}>
+            <Col
+              key={`${index.toString()}-col`}
+              isResponsive={isResponsive}
+              breakpoint={breakpoint}
+            >
+              {isResponsive && (
+                <MobileLabel
+                  muted
+                  size="xSmall"
+                  mb={theme.spacing.s1}
+                  breakpoint={breakpoint}
+                >
+                  {headers[index].toUpperCase()}
+                </MobileLabel>
+              )}
               {!!col.link ? (
                 <StyledLink>
                   <Text
@@ -79,34 +111,12 @@ const Row = ({ cols = [], more, numberOfCols, tooltip }: RowProps) => {
           );
         })}
       {!tooltip && more.length > 0 && (
-        <Col>
-          <PopupWrapper ref={popupWrapperRef}>
-            <IconButton
-              {...getReferenceProps}
-              ref={refs.setReference}
-              icon="more_horiz"
-              onClick={onClickMore}
-            />
-            {transition(
-              (styles, item) =>
-                item && (
-                  <AnimatedPopup
-                    {...getFloatingProps}
-                    ref={refs.setFloating}
-                    style={styles}
-                    position={strategy}
-                    top={y}
-                    left={x}
-                    items={more}
-                    onClickList={onCloseMenu}
-                  />
-                ),
-            )}
-          </PopupWrapper>
+        <Col isSmallCol isResponsive={isResponsive} breakpoint={breakpoint}>
+          <PopupMenu items={more} />
         </Col>
       )}
       {tooltip && (
-        <Col>
+        <Col isSmallCol isResponsive={isResponsive} breakpoint={breakpoint}>
           <CopyClipboard tooltip={tooltip} />
         </Col>
       )}
@@ -114,15 +124,34 @@ const Row = ({ cols = [], more, numberOfCols, tooltip }: RowProps) => {
   );
 };
 
-const Table = ({ data, ...props }: TableProps) => {
+const Table = ({
+  isResponsive = true,
+  breakpoint = "md",
+  data,
+  ...props
+}: TableProps) => {
   const numberOfCols = data.headers.length;
+  const hasTooltip = data.rows.some((row) => !!row.tooltip);
+  const hasMoreMenu = data.rows.some((row) => row.more.length > 0);
+
   return (
     <Container data-testid="table" {...props}>
-      <StyledRow numberOfColumns={numberOfCols} data-testid="header">
+      <StyledRow
+        hasSmallCol={hasTooltip || hasMoreMenu}
+        numberOfColumns={numberOfCols}
+        isResponsive={isResponsive}
+        breakpoint={breakpoint}
+        data-testid="header"
+        isHeader
+      >
         {data.headers &&
           data.headers.map((header, index) => {
             return (
-              <Col key={`${index.toString()}-header`}>
+              <Col
+                key={`${index.toString()}-header`}
+                isResponsive={isResponsive}
+                breakpoint={breakpoint}
+              >
                 <Text muted size="small">
                   {header}
                 </Text>
@@ -135,10 +164,13 @@ const Table = ({ data, ...props }: TableProps) => {
           return (
             <Row
               key={`${index.toString()}-row`}
+              headers={data.headers}
               cols={row.cols}
-              more={data.rows.length > 1 ? row.more : []}
+              more={row.more}
               numberOfCols={numberOfCols}
               tooltip={row.tooltip}
+              isResponsive={isResponsive}
+              breakpoint={breakpoint}
             />
           );
         })}

@@ -61,41 +61,12 @@ const CreateFormModal = () => {
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     createForm.mutate(data, {
       onSuccess: async (result) => {
-        // Get all the projects on the cache
-        const prevAllForms = trpcUtils.form.all.getData();
-
-        if (prevAllForms && prevAllForms.forms) {
-          // Add the new form with the others
-          const forms = [result.form, ...prevAllForms.forms];
-
-          // Update the cache with the new data
-          trpcUtils.form.all.setData(undefined, { forms });
-        }
-
-        // Get all the recent forms on the cache
-        const prevRecentForms = trpcUtils.form.recent.getData();
-
-        if (prevRecentForms) {
-          // Find the form and remove from the list
-          const forms = [
-            {
-              id: result.form.id,
-              name: result.form.name,
-              isEnabled: true,
-              _count: {
-                spam: 0,
-                unread: 0,
-                read: 0,
-              },
-            },
-            ...prevRecentForms,
-          ];
-
-          // Update the cache with the new data
-          trpcUtils.form.recent.setData(undefined, forms);
-          // Reset the usage cache
-          await trpcUtils.subscription.usage.invalidate();
-        }
+        // Invalidate the form list cache
+        await trpcUtils.form.all.invalidate();
+        // Reset the recent form cache
+        await trpcUtils.form.recent.invalidate();
+        // Reset the usage cache
+        await trpcUtils.subscription.usage.invalidate();
 
         onClose();
 

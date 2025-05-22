@@ -162,7 +162,7 @@ const AvatarDropdown = ({
                 {list?.map((item, index) => {
                   return (
                     <Fragment key={`list-item-${index}`}>
-                      <ListItem mb={theme.spacing.s1}>
+                      <ListItem>
                         <Button
                           icon={item.icon}
                           iconPlacement="left"

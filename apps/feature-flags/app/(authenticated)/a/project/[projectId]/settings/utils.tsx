@@ -1,5 +1,5 @@
 // Utils
-import { config, PlanTypeId, FlagsPlan } from "@basestack/utils";
+import { config, PlanTypeId, FlagsPlan, Product } from "@basestack/utils";
 // Types
 import { useRouter } from "next/navigation";
 // Design System
@@ -32,7 +32,11 @@ export const getWithPlanCardProps = ({
   router,
   labels,
 }: WithPlanCardProps) => {
-  const hasFeature = config.plans.hasFlagsPlanFeature(planId, feature);
+  const hasFeature = config.plans.hasPlanFeature(
+    Product.FLAGS,
+    planId,
+    feature,
+  );
 
   return !hasFeature
     ? {

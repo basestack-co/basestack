@@ -5,6 +5,7 @@ import {
   config as utilsConfig,
   RequestError,
   getMetadata,
+  Product,
 } from "@basestack/utils";
 import { withUsageUpdate } from "server/db/utils/subscription";
 // Prisma
@@ -14,7 +15,7 @@ import { qstash } from "@basestack/vendors";
 // Utils
 import { FormMode, formatFormData, verifyForm } from "./utils";
 
-const { hasFormPlanFeature } = utilsConfig.plans;
+const { hasPlanFeature } = utilsConfig.plans;
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
@@ -72,7 +73,7 @@ export async function POST(
 
           if (
             form.hasSpamProtection &&
-            hasFormPlanFeature(planId, "hasSpamProtection")
+            hasPlanFeature(Product.FORMS, planId, "hasSpamProtection")
           ) {
             await qstash.events.checkDataForSpamEvent({
               userId: form.userId,
@@ -82,7 +83,10 @@ export async function POST(
           }
         }
 
-        if (!!form.webhookUrl && hasFormPlanFeature(planId, "hasWebhooks")) {
+        if (
+          !!form.webhookUrl &&
+          hasPlanFeature(Product.FORMS, planId, "hasWebhooks")
+        ) {
           await qstash.events.sendDataToExternalWebhookEvent({
             url: form.webhookUrl,
             body: {
@@ -95,7 +99,7 @@ export async function POST(
 
         if (
           !!form.emails &&
-          hasFormPlanFeature(planId, "hasEmailNotifications")
+          hasPlanFeature(Product.FORMS, planId, "hasEmailNotifications")
         ) {
           await qstash.events.sendEmailEvent({
             template: "new-submission",
@@ -111,7 +115,7 @@ export async function POST(
 
         const queryString =
           form.hasDataQueryString &&
-          hasFormPlanFeature(planId, "hasDataQueryString")
+          hasPlanFeature(Product.FORMS, planId, "hasDataQueryString")
             ? `&data=${encodeURI(JSON.stringify(data))}`
             : "";
 

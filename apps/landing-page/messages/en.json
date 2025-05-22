@@ -90,7 +90,7 @@
   "page": {
     "main": {
       "hero": {
-        "title": "Your Complete Toolkit for Growth, Powered by Basestack",
+        "title": "Build Faster. Launch Smarter. All with Basestack.",
         "description": "Basestack offers open-source tools you can self-host for free or use our hassle-free hosted service.",
         "action": {
           "learn-more": "Discover More",
@@ -154,7 +154,7 @@
           },
           "learning": {
             "title": "Simple Setup",
-            "description": "Start quickly with tools that fit seamlessly into your workflow—no complicated setup or learning curve."
+            "description": "Start quickly with tools that fit seamlessly into your workflow no complicated setup or learning curve."
           }
         }
       },
@@ -184,7 +184,7 @@
       "how-it-works": {
         "caption": "Start in Minutes",
         "title": "How It Works",
-        "description": "Start with Basestack in minutes. Pick your tools, set up quickly, and build right away—no hassle. The process is simple and adapts to your needs, whether you're working solo or with a team.",
+        "description": "Start with Basestack in minutes. Pick your tools, set up quickly, and build right away no hassle. The process is simple and adapts to your needs, whether you're working solo or with a team.",
         "step": {
           "one": {
             "title": "Choose Your Tools",
@@ -252,7 +252,7 @@
         "features": {
           "caption": "Confident Control",
           "title": "Feature Flags That Power Your Workflow",
-          "description": "Simplify deployments and manage feature releases with complete control. Feature Flags let you roll out features safely, track changes, and roll back instantly—without disrupting user experience.",
+          "description": "Simplify deployments and manage feature releases with complete control. Feature Flags let you roll out features safely, track changes, and roll back instantly without disrupting user experience.",
           "slide": {
             "one": {
               "title": "Manage Multiple Projects",
@@ -340,6 +340,10 @@
             "security": {
               "title": "Secure Access Control",
               "description": "Block unwanted sources and ensure secure flag management."
+            },
+            "sharing": {
+              "title": "Team Access",
+              "description": "Collaborate easily by sharing forms and submissions with team members or clients."
             }
           }
         },
@@ -422,7 +426,7 @@
         "features": {
           "caption": "Simplify",
           "title": "Explore Our Top Forms Features",
-          "description": "Basestack Forms is easy to set up, customize, and secure—perfect for developers who want simple form management.",
+          "description": "Basestack Forms is easy to set up, customize, and secure perfect for developers who want simple form management.",
           "slide": {
             "one": {
               "title": "Centralized Form Management",
@@ -431,7 +435,7 @@
             },
             "two": {
               "title": "Fast Setup Process",
-              "description": "Link to our endpoint for quick and simple form setup—no complex code needed.",
+              "description": "Link to our endpoint for quick and simple form setup no complex code needed.",
               "alt": "Illustration demonstrating the quick setup of Basestack Forms."
             },
             "three": {
@@ -463,7 +467,7 @@
               "description": "Guide users to custom success or error pages after they submit a form."
             },
             "sharing": {
-              "title": "Team Access (Coming Soon)",
+              "title": "Team Access",
               "description": "Collaborate easily by sharing forms and submissions with team members or clients."
             },
             "templates": {
@@ -499,7 +503,7 @@
           },
           "js": {
             "title": "JavaScript Integration",
-            "description": "Add custom form logic using JavaScript with minimal setup—perfect for dynamic features."
+            "description": "Add custom form logic using JavaScript with minimal setup perfect for dynamic features."
           },
           "next": {
             "title": "Next.js Ready",
@@ -574,7 +578,7 @@
     "pricing": {
       "caption": "Plans",
       "title": "Flexible Pricing for Developers & Teams",
-      "description": "Choose a plan that fits your needs—whether you're an individual developer or part of a growing team. {product} offers transparent, affordable pricing to support your projects at every stage.",
+      "description": "Choose a plan that fits your needs whether you're an individual developer or part of a growing team. {product} offers transparent, affordable pricing to support your projects at every stage.",
       "segment": {
         "monthly": "Monthly",
         "yearly": "Yearly",
@@ -653,11 +657,11 @@
       },
       "12": {
         "title": "What kind of support do I get with Basestack?",
-        "description": "Self-hosted users can access our community and documentation. Hosted plan users get priority support directly from our team—reach out anytime at support@basestack.com."
+        "description": "Self-hosted users can access our community and documentation. Hosted plan users get priority support directly from our team reach out anytime at support@basestack.com."
       },
       "13": {
         "title": "How does Basestack compare to competitors?",
-        "description": "Basestack is open-source with flexible pricing. Use our tools separately or together, self-hosted or with our hosting—whatever works for you."
+        "description": "Basestack is open-source with flexible pricing. Use our tools separately or together, self-hosted or with our hosting whatever works for you."
       },
       "14": {
         "title": "How often are Basestack tools updated?",

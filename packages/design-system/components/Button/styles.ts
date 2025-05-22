@@ -180,6 +180,7 @@ const handleButtonSize = (size?: ButtonSize) => {
 export const StyledButton = styled.button.withConfig({
   shouldForwardProp: (prop) =>
     ![
+      "ref",
       "isLoading",
       "justifyContent",
       "fullWidth",

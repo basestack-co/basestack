@@ -21,31 +21,48 @@ import {
 import { useMedia } from "react-use";
 // Locales
 import { useTranslations, NamespaceKeys } from "next-intl";
+// Utils
+import { config } from "@basestack/utils";
+// types
+import { Role } from ".prisma/client";
 
-const getLinks = (formId: string) => [
+const { hasFormsPermission } = config.plans;
+
+const getLinks = (formId: string, role: Role | undefined) => [
   {
     id: "1",
     i18nKey: "navigation.setting.general",
     tab: "general",
     href: `/a/form/${formId}/settings/general`,
+    isVisible: true,
   },
   {
     id: "2",
-    i18nKey: "navigation.setting.security",
-    tab: "security",
-    href: `/a/form/${formId}/settings/security`,
+    i18nKey: "navigation.setting.members",
+    tab: "members",
+    href: `/a/form/${formId}/settings/members`,
+    isVisible: true,
   },
   {
     id: "3",
-    i18nKey: "navigation.setting.customization",
-    tab: "customization",
-    href: `/a/form/${formId}/settings/customization`,
+    i18nKey: "navigation.setting.security",
+    tab: "security",
+    href: `/a/form/${formId}/settings/security`,
+    isVisible: hasFormsPermission(role, "view_form_security_settings"),
   },
   {
     id: "4",
+    i18nKey: "navigation.setting.customization",
+    tab: "customization",
+    href: `/a/form/${formId}/settings/customization`,
+    isVisible: hasFormsPermission(role, "view_form_customization_settings"),
+  },
+  {
+    id: "5",
     i18nKey: "navigation.setting.notifications",
     tab: "notifications",
     href: `/a/form/${formId}/settings/notifications`,
+    isVisible: hasFormsPermission(role, "view_form_notifications_settings"),
   },
 ];
 
@@ -65,31 +82,38 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   );
 
   const renderLink = useMemo(() => {
-    return getLinks(formId).map(({ id, i18nKey, href }) => (
-      <ListItem key={`settings-button-list-${id}`}>
-        <StyledLink href={href} passHref>
-          <StyledButton isActive={pathname === href}>
-            {t(i18nKey as NamespaceKeys<string, "navigation">)}
-          </StyledButton>
-        </StyledLink>
-      </ListItem>
-    ));
-  }, [pathname, formId, t]);
+    return getLinks(formId, data?.role)
+      .filter((link) => link.isVisible)
+      .map(({ id, i18nKey, href }) => (
+        <ListItem key={`settings-button-list-${id}`}>
+          <StyledLink href={href} passHref>
+            <StyledButton isActive={pathname === href}>
+              {t(i18nKey as NamespaceKeys<string, "navigation">)}
+            </StyledButton>
+          </StyledLink>
+        </ListItem>
+      ));
+  }, [pathname, formId, t, data?.role]);
 
   const activeLinkIndex = useMemo(
-    () => getLinks(formId).findIndex((button) => button.href === pathname),
-    [pathname, formId],
+    () =>
+      getLinks(formId, data?.role).findIndex(
+        (button) => button.href === pathname,
+      ),
+    [pathname, formId, data?.role],
   );
 
   const items = useMemo(
     () =>
-      getLinks(formId).map(({ i18nKey, tab }) => {
-        return {
-          id: tab.toLowerCase(),
-          text: t(i18nKey as NamespaceKeys<string, "navigation">),
-        };
-      }),
-    [t, formId],
+      getLinks(formId, data?.role)
+        .filter((link) => link.isVisible)
+        .map(({ i18nKey, tab }) => {
+          return {
+            id: tab.toLowerCase(),
+            text: t(i18nKey as NamespaceKeys<string, "navigation">),
+          };
+        }),
+    [t, formId, data?.role],
   );
 
   useEffect(() => {
@@ -100,6 +124,16 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
       >,
     )}`;
   }, [activeLinkIndex, data?.name, t]);
+
+  useEffect(() => {
+    const link = getLinks(formId, data?.role).find(
+      (link) => link.href === pathname,
+    );
+
+    if (!link?.isVisible) {
+      router.push(`/a/form/${formId}/settings/general`);
+    }
+  }, [pathname, activeLinkIndex, formId, data?.role, router]);
 
   return (
     <Container>

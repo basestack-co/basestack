@@ -1,6 +1,8 @@
-import { PrismaClient } from ".prisma/client";
+import { PrismaClient, Role } from ".prisma/client";
 // tRPC
 import { TRPCError } from "@trpc/server";
+// Utils
+import { PlanTypeId } from "@basestack/utils";
 
 export const getUserInProject = async (
   prisma: PrismaClient,
@@ -8,9 +10,60 @@ export const getUserInProject = async (
   projectId: string,
 ) => {
   try {
-    const data = await prisma.projectsOnUsers.findFirst({
+    const [user, admin] = await prisma.$transaction([
+      prisma.projectsOnUsers.findFirst({
+        where: {
+          projectId,
+          userId,
+        },
+        select: {
+          role: true,
+        },
+      }),
+      prisma.projectsOnUsers.findFirst({
+        where: {
+          projectId,
+          role: Role.ADMIN,
+        },
+        select: {
+          userId: true,
+          user: {
+            select: {
+              subscription: {
+                select: {
+                  planId: true,
+                },
+              },
+            },
+          },
+        },
+      }),
+    ]);
+
+    return {
+      role: user?.role ?? Role.VIEWER,
+      adminUserId: admin?.userId ?? "",
+      adminSubscriptionPlanId: (admin?.user.subscription?.planId ??
+        PlanTypeId.FREE) as PlanTypeId,
+    };
+  } catch {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "User not found or project not found",
+      cause: "UserNotFoundInProject",
+    });
+  }
+};
+
+export const getUserInTeam = async (
+  prisma: PrismaClient,
+  userId: string,
+  teamId: string,
+) => {
+  try {
+    const user = await prisma.teamMembers.findFirst({
       where: {
-        projectId,
+        teamId,
         userId,
       },
       select: {
@@ -18,12 +71,14 @@ export const getUserInProject = async (
       },
     });
 
-    if (!data) return null;
-
     return {
-      role: data.role ?? "USER",
+      role: user?.role ?? Role.VIEWER,
     };
   } catch {
-    throw new TRPCError({ code: "FORBIDDEN" });
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "User not found or team not found",
+      cause: "UserNotFoundInTeam",
+    });
   }
 };

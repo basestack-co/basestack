@@ -3,23 +3,35 @@
 import React, { Fragment, useEffect } from "react";
 // Router
 import { useParams, useRouter } from "next/navigation";
+// Toast
+import { toast } from "sonner";
 // Server
 import { api } from "utils/trpc/react";
 
 const FormLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const { formId } = useParams<{ formId: string }>();
-  const trpcUtils = api.useUtils();
+
+  const { data, isLoading, isError, error } = api.form.byId.useQuery(
+    { formId },
+    {
+      enabled: !!formId,
+    },
+  );
 
   useEffect(() => {
-    const data = trpcUtils.form.all.getData();
+    if (isError) {
+      toast.error(error?.message);
 
-    const form = data?.forms?.find((project) => project.id === formId);
-
-    if (!form) {
-      router.replace("/not-found");
+      setTimeout(() => {
+        router.replace("/a");
+      }, 0);
     }
-  }, [formId, router, trpcUtils.form.all]);
+  }, [router, isError, error?.message]);
+
+  if (!data || isLoading || isError) {
+    return null;
+  }
 
   return <Fragment>{children}</Fragment>;
 };

@@ -17,16 +17,16 @@
     "@basestack/tsconfig": "*",
     "@basestack/utils": "*",
     "@testing-library/jest-dom": "^6.6.3",
-    "@types/react": "19.1.2",
-    "@types/react-dom": "^19.1.2",
+    "@types/react": "19.1.4",
+    "@types/react-dom": "^19.1.5",
     "jest-styled-components": "^7.2.0",
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@auth/prisma-adapter": "^2.8.0",
+    "@auth/prisma-adapter": "^2.9.1",
     "@lemonsqueezy/lemonsqueezy.js": "^4.0.0",
-    "@upstash/qstash": "^2.7.23",
-    "@upstash/workflow": "^0.2.12",
+    "@upstash/qstash": "^2.8.1",
+    "@upstash/workflow": "^0.2.13",
     "next-auth": "5.0.0-beta.25"
   }
 }

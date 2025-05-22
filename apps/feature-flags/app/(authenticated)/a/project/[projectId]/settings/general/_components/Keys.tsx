@@ -1,23 +1,13 @@
 import React, { useMemo } from "react";
-import { useTheme } from "styled-components";
-import { useMedia } from "react-use";
-// Router
 import { useParams } from "next/navigation";
-// Components
 import { Loader, Skeleton, Table } from "@basestack/design-system";
-// UI
-import { SettingCard, MobileSettingCardView } from "@basestack/ui";
-// Server
+import { SettingCard } from "@basestack/ui";
 import { api } from "utils/trpc/react";
-// Locales
 import { useTranslations } from "next-intl";
-// Utils
 import { createTable } from "@basestack/utils";
 
 const KeysCard = () => {
   const t = useTranslations("setting");
-  const theme = useTheme();
-  const isMobile = useMedia(theme.device.max.md, false);
   const { projectId } = useParams<{ projectId: string }>();
 
   const { data, isLoading } = api.project.allKeys.useQuery(
@@ -47,23 +37,6 @@ const KeysCard = () => {
     );
   }, [environments, t]);
 
-  const getContent = () => {
-    if (isMobile) {
-      return environments?.map(({ key, name, id }) => (
-        <MobileSettingCardView
-          key={id}
-          title={name}
-          data={[
-            { icon: "badge", text: id },
-            { icon: "key", text: key || "" },
-          ]}
-        />
-      ));
-    }
-
-    return <Table data={getTable} />;
-  };
-
   return (
     <SettingCard
       title={t("general.keys.title")}
@@ -84,7 +57,7 @@ const KeysCard = () => {
           />
         </Loader>
       ) : (
-        <>{getContent()}</>
+        <Table data={getTable} />
       )}
     </SettingCard>
   );

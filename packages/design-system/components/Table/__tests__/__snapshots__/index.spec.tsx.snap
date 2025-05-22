@@ -2,7 +2,19 @@
 
 exports[`Table tests should render Table correctly 1`] = `
 <DocumentFragment>
-  .c3 {
+  .c5 {
+  display: flex;
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #757575;
+  font-family: roboto;
+  margin-bottom: 0.25rem;
+}
+
+.c3 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
@@ -12,7 +24,7 @@ exports[`Table tests should render Table correctly 1`] = `
   font-family: roboto;
 }
 
-.c5 {
+.c8 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
@@ -23,18 +35,18 @@ exports[`Table tests should render Table correctly 1`] = `
   font-weight: 400;
 }
 
-.c8 {
+.c12 {
   height: 1.5rem;
   width: 1.5rem;
   flex-shrink: 0;
 }
 
-.c9 {
+.c13 {
   color: #000000;
   font-size: 1.5rem;
 }
 
-.c7 {
+.c11 {
   border: none;
   display: flex;
   align-items: center;
@@ -48,55 +60,116 @@ exports[`Table tests should render Table correctly 1`] = `
   width: 2rem;
 }
 
-.c7 .material-symbols-sharp,
-.c7 .material-symbols-rounded {
+.c11 .material-symbols-sharp,
+.c11 .material-symbols-rounded {
   color: inherit;
 }
 
-.c7:hover:not(:disabled) {
+.c11:hover:not(:disabled) {
   background-color: #EEEEEE;
 }
 
-.c7:active:not(:disabled) {
+.c11:active:not(:disabled) {
   background-color: #E2E2E2;
 }
 
-.c7:disabled {
+.c11:disabled {
   opacity: 0.5;
   cursor: initial;
+}
+
+.c10 {
+  display: inline-flex;
 }
 
 .c0 {
   background-color: #F6F6F6;
   padding: 1.25rem;
   border-radius: 4px;
+  position: relative;
 }
 
 .c1 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr) 36px;
   grid-gap: 1.25rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) 2rem;
 }
 
 .c1:not(:last-child) {
   border-bottom: 1px solid #E2E2E2;
 }
 
+.c4 {
+  display: grid;
+  grid-gap: 1.25rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) 2rem;
+}
+
+.c4:not(:last-child) {
+  border-bottom: 1px solid #E2E2E2;
+}
+
 .c2 {
-  height: 2.8125rem;
+  height: 2.875rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.c4 {
+.c9 {
+  height: 2.875rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.c7 {
   display: flex;
   align-items: center;
 }
 
-.c6 {
-  height: 2rem;
-  width: 2rem;
+@media screen and (max-width: 767.98px) {
+  .c1 {
+    display: flex;
+    flex-direction: column;
+    display: none;
+  }
+
+  .c1:not(:last-child) {
+    border-bottom: none;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  .c4 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .c4:not(:last-child) {
+    border-bottom: none;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  .c2 {
+    height: initial;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  .c9 {
+    height: initial;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.75rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .c6 {
+    display: none;
+  }
 }
 
 <div
@@ -139,17 +212,24 @@ exports[`Table tests should render Table correctly 1`] = `
       </div>
     </div>
     <div
-      class="c1"
+      class="c4"
       data-testid="row"
     >
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          KEY
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c5"
+            class="c8"
             font-family="roboto"
             font-weight="400"
           >
@@ -160,11 +240,18 @@ exports[`Table tests should render Table correctly 1`] = `
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          ENVIRONMENT
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c5"
+            class="c8"
             font-family="roboto"
             font-weight="400"
           >
@@ -175,11 +262,18 @@ exports[`Table tests should render Table correctly 1`] = `
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          DESCRIPTION
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c5"
+            class="c8"
             font-family="roboto"
             font-weight="400"
           >
@@ -188,21 +282,21 @@ exports[`Table tests should render Table correctly 1`] = `
         </div>
       </div>
       <div
-        class="c2"
+        class="c9"
       >
         <div
-          class="c6"
+          class="c10"
         >
           <button
-            class="c7"
+            class="c11"
             variant="neutral"
           >
             <div
-              class="c8"
+              class="c12"
               data-testid="icon-container"
             >
               <span
-                class="c9 material-symbols-rounded"
+                class="c13 material-symbols-rounded"
                 data-testid="icon"
               >
                 more_horiz
@@ -213,17 +307,24 @@ exports[`Table tests should render Table correctly 1`] = `
       </div>
     </div>
     <div
-      class="c1"
+      class="c4"
       data-testid="row"
     >
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          KEY
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c5"
+            class="c8"
             font-family="roboto"
             font-weight="400"
           >
@@ -234,11 +335,18 @@ exports[`Table tests should render Table correctly 1`] = `
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          ENVIRONMENT
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c5"
+            class="c8"
             font-family="roboto"
             font-weight="400"
           >
@@ -249,11 +357,18 @@ exports[`Table tests should render Table correctly 1`] = `
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          DESCRIPTION
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c5"
+            class="c8"
             font-family="roboto"
             font-weight="400"
           >
@@ -262,21 +377,21 @@ exports[`Table tests should render Table correctly 1`] = `
         </div>
       </div>
       <div
-        class="c2"
+        class="c9"
       >
         <div
-          class="c6"
+          class="c10"
         >
           <button
-            class="c7"
+            class="c11"
             variant="neutral"
           >
             <div
-              class="c8"
+              class="c12"
               data-testid="icon-container"
             >
               <span
-                class="c9 material-symbols-rounded"
+                class="c13 material-symbols-rounded"
                 data-testid="icon"
               >
                 more_horiz
@@ -292,7 +407,19 @@ exports[`Table tests should render Table correctly 1`] = `
 
 exports[`Table tests should render Table with images 1`] = `
 <DocumentFragment>
-  .c3 {
+  .c5 {
+  display: flex;
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #757575;
+  font-family: roboto;
+  margin-bottom: 0.25rem;
+}
+
+.c3 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
@@ -302,7 +429,7 @@ exports[`Table tests should render Table with images 1`] = `
   font-family: roboto;
 }
 
-.c7 {
+.c10 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
@@ -313,18 +440,34 @@ exports[`Table tests should render Table with images 1`] = `
   font-weight: 400;
 }
 
-.c10 {
+.c8 {
+  height: 2.25rem;
+  width: 2.25rem;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-right: 0.75rem;
+  border-radius: 50%;
+}
+
+.c9 {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.c14 {
   height: 1.5rem;
   width: 1.5rem;
   flex-shrink: 0;
 }
 
-.c11 {
+.c15 {
   color: #000000;
   font-size: 1.5rem;
 }
 
-.c9 {
+.c13 {
   border: none;
   display: flex;
   align-items: center;
@@ -338,71 +481,116 @@ exports[`Table tests should render Table with images 1`] = `
   width: 2rem;
 }
 
-.c9 .material-symbols-sharp,
-.c9 .material-symbols-rounded {
+.c13 .material-symbols-sharp,
+.c13 .material-symbols-rounded {
   color: inherit;
 }
 
-.c9:hover:not(:disabled) {
+.c13:hover:not(:disabled) {
   background-color: #EEEEEE;
 }
 
-.c9:active:not(:disabled) {
+.c13:active:not(:disabled) {
   background-color: #E2E2E2;
 }
 
-.c9:disabled {
+.c13:disabled {
   opacity: 0.5;
   cursor: initial;
 }
 
-.c5 {
-  height: 2.25rem;
-  width: 2.25rem;
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
-  margin-right: 0.75rem;
-  border-radius: 50%;
-}
-
-.c6 {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
+.c12 {
+  display: inline-flex;
 }
 
 .c0 {
   background-color: #F6F6F6;
   padding: 1.25rem;
   border-radius: 4px;
+  position: relative;
 }
 
 .c1 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr) 36px;
   grid-gap: 1.25rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) 2rem;
 }
 
 .c1:not(:last-child) {
   border-bottom: 1px solid #E2E2E2;
 }
 
+.c4 {
+  display: grid;
+  grid-gap: 1.25rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) 2rem;
+}
+
+.c4:not(:last-child) {
+  border-bottom: 1px solid #E2E2E2;
+}
+
 .c2 {
-  height: 2.8125rem;
+  height: 2.875rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.c4 {
+.c11 {
+  height: 2.875rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.c7 {
   display: flex;
   align-items: center;
 }
 
-.c8 {
-  height: 2rem;
-  width: 2rem;
+@media screen and (max-width: 767.98px) {
+  .c1 {
+    display: flex;
+    flex-direction: column;
+    display: none;
+  }
+
+  .c1:not(:last-child) {
+    border-bottom: none;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  .c4 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .c4:not(:last-child) {
+    border-bottom: none;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  .c2 {
+    height: initial;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  .c11 {
+    height: initial;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.75rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .c6 {
+    display: none;
+  }
 }
 
 <div
@@ -445,29 +633,36 @@ exports[`Table tests should render Table with images 1`] = `
       </div>
     </div>
     <div
-      class="c1"
+      class="c4"
       data-testid="row"
     >
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          NAME
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <div
-            class="c5"
+            class="c8"
             data-testid="avatar"
             mr="0.75rem"
             size="36"
           >
             <img
               alt="Jack profile image"
-              class="c6"
+              class="c9"
               src="https://api.dicebear.com/8.x/initials/svg?seed=Jack&size=36&fontSize=40"
             />
           </div>
           <p
-            class="c7"
+            class="c10"
             font-family="roboto"
             font-weight="400"
           >
@@ -478,11 +673,18 @@ exports[`Table tests should render Table with images 1`] = `
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          EMAIL
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c7"
+            class="c10"
             font-family="roboto"
             font-weight="400"
           >
@@ -493,11 +695,18 @@ exports[`Table tests should render Table with images 1`] = `
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          ROLE
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c7"
+            class="c10"
             font-family="roboto"
             font-weight="400"
           >
@@ -506,21 +715,21 @@ exports[`Table tests should render Table with images 1`] = `
         </div>
       </div>
       <div
-        class="c2"
+        class="c11"
       >
         <div
-          class="c8"
+          class="c12"
         >
           <button
-            class="c9"
+            class="c13"
             variant="neutral"
           >
             <div
-              class="c10"
+              class="c14"
               data-testid="icon-container"
             >
               <span
-                class="c11 material-symbols-rounded"
+                class="c15 material-symbols-rounded"
                 data-testid="icon"
               >
                 more_horiz
@@ -531,29 +740,36 @@ exports[`Table tests should render Table with images 1`] = `
       </div>
     </div>
     <div
-      class="c1"
+      class="c4"
       data-testid="row"
     >
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          NAME
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <div
-            class="c5"
+            class="c8"
             data-testid="avatar"
             mr="0.75rem"
             size="36"
           >
             <img
               alt="Pedro profile image"
-              class="c6"
+              class="c9"
               src="https://api.dicebear.com/8.x/initials/svg?seed=Pedro&size=36&fontSize=40"
             />
           </div>
           <p
-            class="c7"
+            class="c10"
             font-family="roboto"
             font-weight="400"
           >
@@ -564,11 +780,18 @@ exports[`Table tests should render Table with images 1`] = `
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          EMAIL
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c7"
+            class="c10"
             font-family="roboto"
             font-weight="400"
           >
@@ -579,11 +802,18 @@ exports[`Table tests should render Table with images 1`] = `
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          ROLE
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c7"
+            class="c10"
             font-family="roboto"
             font-weight="400"
           >
@@ -592,21 +822,21 @@ exports[`Table tests should render Table with images 1`] = `
         </div>
       </div>
       <div
-        class="c2"
+        class="c11"
       >
         <div
-          class="c8"
+          class="c12"
         >
           <button
-            class="c9"
+            class="c13"
             variant="neutral"
           >
             <div
-              class="c10"
+              class="c14"
               data-testid="icon-container"
             >
               <span
-                class="c11 material-symbols-rounded"
+                class="c15 material-symbols-rounded"
                 data-testid="icon"
               >
                 more_horiz
@@ -617,29 +847,36 @@ exports[`Table tests should render Table with images 1`] = `
       </div>
     </div>
     <div
-      class="c1"
+      class="c4"
       data-testid="row"
     >
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          NAME
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <div
-            class="c5"
+            class="c8"
             data-testid="avatar"
             mr="0.75rem"
             size="36"
           >
             <img
               alt="Daniel profile image"
-              class="c6"
+              class="c9"
               src="https://api.dicebear.com/8.x/initials/svg?seed=Daniel&size=36&fontSize=40"
             />
           </div>
           <p
-            class="c7"
+            class="c10"
             font-family="roboto"
             font-weight="400"
           >
@@ -650,11 +887,18 @@ exports[`Table tests should render Table with images 1`] = `
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          EMAIL
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c7"
+            class="c10"
             font-family="roboto"
             font-weight="400"
           >
@@ -665,11 +909,18 @@ exports[`Table tests should render Table with images 1`] = `
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          ROLE
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c7"
+            class="c10"
             font-family="roboto"
             font-weight="400"
           >
@@ -678,21 +929,21 @@ exports[`Table tests should render Table with images 1`] = `
         </div>
       </div>
       <div
-        class="c2"
+        class="c11"
       >
         <div
-          class="c8"
+          class="c12"
         >
           <button
-            class="c9"
+            class="c13"
             variant="neutral"
           >
             <div
-              class="c10"
+              class="c14"
               data-testid="icon-container"
             >
               <span
-                class="c11 material-symbols-rounded"
+                class="c15 material-symbols-rounded"
                 data-testid="icon"
               >
                 more_horiz
@@ -703,29 +954,36 @@ exports[`Table tests should render Table with images 1`] = `
       </div>
     </div>
     <div
-      class="c1"
+      class="c4"
       data-testid="row"
     >
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          NAME
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <div
-            class="c5"
+            class="c8"
             data-testid="avatar"
             mr="0.75rem"
             size="36"
           >
             <img
               alt="Joana profile image"
-              class="c6"
+              class="c9"
               src="https://api.dicebear.com/8.x/initials/svg?seed=Joana&size=36&fontSize=40"
             />
           </div>
           <p
-            class="c7"
+            class="c10"
             font-family="roboto"
             font-weight="400"
           >
@@ -736,11 +994,18 @@ exports[`Table tests should render Table with images 1`] = `
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          EMAIL
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c7"
+            class="c10"
             font-family="roboto"
             font-weight="400"
           >
@@ -751,11 +1016,18 @@ exports[`Table tests should render Table with images 1`] = `
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          ROLE
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c7"
+            class="c10"
             font-family="roboto"
             font-weight="400"
           >
@@ -764,21 +1036,21 @@ exports[`Table tests should render Table with images 1`] = `
         </div>
       </div>
       <div
-        class="c2"
+        class="c11"
       >
         <div
-          class="c8"
+          class="c12"
         >
           <button
-            class="c9"
+            class="c13"
             variant="neutral"
           >
             <div
-              class="c10"
+              class="c14"
               data-testid="icon-container"
             >
               <span
-                class="c11 material-symbols-rounded"
+                class="c15 material-symbols-rounded"
                 data-testid="icon"
               >
                 more_horiz
@@ -794,7 +1066,19 @@ exports[`Table tests should render Table with images 1`] = `
 
 exports[`Table tests should render Table with space utils 1`] = `
 <DocumentFragment>
-  .c3 {
+  .c5 {
+  display: flex;
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #757575;
+  font-family: roboto;
+  margin-bottom: 0.25rem;
+}
+
+.c3 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
@@ -804,7 +1088,7 @@ exports[`Table tests should render Table with space utils 1`] = `
   font-family: roboto;
 }
 
-.c5 {
+.c8 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
@@ -815,18 +1099,18 @@ exports[`Table tests should render Table with space utils 1`] = `
   font-weight: 400;
 }
 
-.c8 {
+.c12 {
   height: 1.5rem;
   width: 1.5rem;
   flex-shrink: 0;
 }
 
-.c9 {
+.c13 {
   color: #000000;
   font-size: 1.5rem;
 }
 
-.c7 {
+.c11 {
   border: none;
   display: flex;
   align-items: center;
@@ -840,22 +1124,26 @@ exports[`Table tests should render Table with space utils 1`] = `
   width: 2rem;
 }
 
-.c7 .material-symbols-sharp,
-.c7 .material-symbols-rounded {
+.c11 .material-symbols-sharp,
+.c11 .material-symbols-rounded {
   color: inherit;
 }
 
-.c7:hover:not(:disabled) {
+.c11:hover:not(:disabled) {
   background-color: #EEEEEE;
 }
 
-.c7:active:not(:disabled) {
+.c11:active:not(:disabled) {
   background-color: #E2E2E2;
 }
 
-.c7:disabled {
+.c11:disabled {
   opacity: 0.5;
   cursor: initial;
+}
+
+.c10 {
+  display: inline-flex;
 }
 
 .c0 {
@@ -863,33 +1151,90 @@ exports[`Table tests should render Table with space utils 1`] = `
   background-color: #F6F6F6;
   padding: 1.25rem;
   border-radius: 4px;
+  position: relative;
 }
 
 .c1 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr) 36px;
   grid-gap: 1.25rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) 2rem;
 }
 
 .c1:not(:last-child) {
   border-bottom: 1px solid #E2E2E2;
 }
 
+.c4 {
+  display: grid;
+  grid-gap: 1.25rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) 2rem;
+}
+
+.c4:not(:last-child) {
+  border-bottom: 1px solid #E2E2E2;
+}
+
 .c2 {
-  height: 2.8125rem;
+  height: 2.875rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.c4 {
+.c9 {
+  height: 2.875rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.c7 {
   display: flex;
   align-items: center;
 }
 
-.c6 {
-  height: 2rem;
-  width: 2rem;
+@media screen and (max-width: 767.98px) {
+  .c1 {
+    display: flex;
+    flex-direction: column;
+    display: none;
+  }
+
+  .c1:not(:last-child) {
+    border-bottom: none;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  .c4 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .c4:not(:last-child) {
+    border-bottom: none;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  .c2 {
+    height: initial;
+  }
+}
+
+@media screen and (max-width: 767.98px) {
+  .c9 {
+    height: initial;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.75rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .c6 {
+    display: none;
+  }
 }
 
 <div
@@ -932,17 +1277,24 @@ exports[`Table tests should render Table with space utils 1`] = `
       </div>
     </div>
     <div
-      class="c1"
+      class="c4"
       data-testid="row"
     >
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          KEY
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c5"
+            class="c8"
             font-family="roboto"
             font-weight="400"
           >
@@ -953,11 +1305,18 @@ exports[`Table tests should render Table with space utils 1`] = `
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          ENVIRONMENT
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c5"
+            class="c8"
             font-family="roboto"
             font-weight="400"
           >
@@ -968,11 +1327,18 @@ exports[`Table tests should render Table with space utils 1`] = `
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          DESCRIPTION
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c5"
+            class="c8"
             font-family="roboto"
             font-weight="400"
           >
@@ -981,21 +1347,21 @@ exports[`Table tests should render Table with space utils 1`] = `
         </div>
       </div>
       <div
-        class="c2"
+        class="c9"
       >
         <div
-          class="c6"
+          class="c10"
         >
           <button
-            class="c7"
+            class="c11"
             variant="neutral"
           >
             <div
-              class="c8"
+              class="c12"
               data-testid="icon-container"
             >
               <span
-                class="c9 material-symbols-rounded"
+                class="c13 material-symbols-rounded"
                 data-testid="icon"
               >
                 more_horiz
@@ -1006,17 +1372,24 @@ exports[`Table tests should render Table with space utils 1`] = `
       </div>
     </div>
     <div
-      class="c1"
+      class="c4"
       data-testid="row"
     >
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          KEY
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c5"
+            class="c8"
             font-family="roboto"
             font-weight="400"
           >
@@ -1027,11 +1400,18 @@ exports[`Table tests should render Table with space utils 1`] = `
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          ENVIRONMENT
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c5"
+            class="c8"
             font-family="roboto"
             font-weight="400"
           >
@@ -1042,11 +1422,18 @@ exports[`Table tests should render Table with space utils 1`] = `
       <div
         class="c2"
       >
+        <span
+          class="c5 c6"
+          font-family="roboto"
+          mb="0.25rem"
+        >
+          DESCRIPTION
+        </span>
         <div
-          class="c4"
+          class="c7"
         >
           <p
-            class="c5"
+            class="c8"
             font-family="roboto"
             font-weight="400"
           >
@@ -1055,21 +1442,21 @@ exports[`Table tests should render Table with space utils 1`] = `
         </div>
       </div>
       <div
-        class="c2"
+        class="c9"
       >
         <div
-          class="c6"
+          class="c10"
         >
           <button
-            class="c7"
+            class="c11"
             variant="neutral"
           >
             <div
-              class="c8"
+              class="c12"
               data-testid="icon-container"
             >
               <span
-                class="c9 material-symbols-rounded"
+                class="c13 material-symbols-rounded"
                 data-testid="icon"
               >
                 more_horiz

@@ -72,7 +72,7 @@ const Activity = () => {
       />
       <ActivityList
         data={data as unknown as ActivityListData}
-        projectSlug={project?.slug!}
+        projectSlug={project?.name ?? ""}
         isLoading={isLoading}
       />
     </Container>

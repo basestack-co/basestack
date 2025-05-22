@@ -11,7 +11,7 @@ import {
 import dayjs from "dayjs";
 import { getSubscriptionUsage } from "server/db/utils/subscription";
 import { z } from "zod";
-import { PlanTypeId, config } from "@basestack/utils";
+import { PlanTypeId, config, Product } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 
 lemonSqueezySetup({
@@ -23,7 +23,7 @@ lemonSqueezySetup({
 
 export const subscriptionRouter = createTRPCRouter({
   usage: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx.session.user.id;
+    const userId = ctx?.session?.user.id!;
     return await getSubscriptionUsage(ctx.prisma, userId);
   }),
   invoices: protectedProcedure.query(async ({ ctx }) => {
@@ -111,11 +111,12 @@ export const subscriptionRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
-      const email = ctx.session.user.email;
-      const name = ctx.session.user.name;
+      const userId = ctx?.session?.user.id!;
+      const email = ctx?.session?.user.email!;
+      const name = ctx?.session?.user.name!;
       const storeId = +process.env.LEMONSQUEEZY_STORE_ID!;
-      const variantId = config.plans.getFlagsPlanVariantId(
+      const variantId = config.plans.getPlanVariantId(
+        Product.FLAGS,
         input.planId,
         input.interval,
         AppMode,

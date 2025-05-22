@@ -21,12 +21,15 @@ import { Container, List, ListItem, PaginationContainer } from "./styles";
 import Toolbar from "../Toolbar";
 import FormSubmission from "../FormSubmission";
 // Utils
-import { downloadCSV } from "@basestack/utils";
+import { downloadCSV, config } from "@basestack/utils";
 import dayjs from "dayjs";
 import { formatFormSubmissions, getSearchFilterKeys } from "./utils";
 // Types
 import { Metadata } from "../FormSubmission/types";
 import { SelectedFilter, SelectedSort } from "../Toolbar/types";
+import { Role } from ".prisma/client";
+
+const { hasFormsPermission } = config.plans;
 
 const limit = 10;
 
@@ -34,6 +37,7 @@ export interface Props {
   name: string;
   hasRetention: boolean;
   isEnabled: boolean;
+  formRole: Role;
   blockIpAddresses?: string;
 }
 
@@ -42,6 +46,7 @@ const FormSubmissions = ({
   hasRetention,
   isEnabled,
   blockIpAddresses,
+  formRole,
 }: Props) => {
   const theme = useTheme();
   const trpcUtils = api.useUtils();
@@ -166,6 +171,9 @@ const FormSubmissions = ({
 
   const onUpdate = useCallback(
     (ids: string[], payload: { isSpam?: boolean; viewed?: boolean }) => {
+      if (!hasFormsPermission(formRole, "view_form_submissions_actions"))
+        return null;
+
       const loadingToastId = toast.loading(
         t("submission.event.update.loading"),
       );
@@ -191,7 +199,7 @@ const FormSubmissions = ({
         },
       );
     },
-    [updateSubmissions, formId, trpcUtils, t],
+    [updateSubmissions, formId, trpcUtils, t, formRole],
   );
 
   const onExport = useCallback(() => {
@@ -281,6 +289,7 @@ const FormSubmissions = ({
 
         <Toolbar
           formId={formId}
+          formRole={formRole}
           onUnReadSubmissions={() => onUpdate(selectIds, { viewed: false })}
           onReadSubmissions={() => onUpdate(selectIds, { viewed: true })}
           onUnMarkSpamAll={() => onUpdate(selectIds, { isSpam: false })}
@@ -373,6 +382,12 @@ const FormSubmissions = ({
                               id,
                               "viewed",
                             )}
+                            isActionsDisabled={
+                              !hasFormsPermission(
+                                formRole,
+                                "view_form_submissions_actions",
+                              )
+                            }
                           />
                         </ListItem>
                       );

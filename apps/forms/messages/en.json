@@ -59,6 +59,10 @@
     "forms": {
       "title": "Recent forms",
       "action": "Create Form",
+      "tag": {
+        "text": "External",
+        "tooltip": "You are a member of this form, not the owner."
+      },
       "empty": {
         "title": "Create your first form",
         "description": "Create your first form to start receiving submissions!",
@@ -78,7 +82,8 @@
     "usage": {
       "title": "Account Usage",
       "link": {
-        "upgrade": "Upgrade"
+        "upgrade": "Upgrade",
+        "manage": "Manage"
       },
       "date": "Renews at {date}",
       "resource": {
@@ -88,6 +93,34 @@
         "file-upload-limit": "File Upload",
         "integrations-calls": "Integrations Calls",
         "spams": "Spam AI ✨"
+      }
+    },
+    "teams": {
+      "title": "Teams",
+      "name": "{name} Team",
+      "action": "Create Team",
+      "tag": {
+        "text": "External",
+        "tooltip": "This team was created by someone else. You have limited permissions."
+      },
+      "menu": {
+        "manage": "Manage",
+        "delete": "Delete"
+      },
+      "empty": {
+        "title": "Create your first team",
+        "description": "Create your first team to start collaborating.",
+        "action": "Create Team"
+      },
+      "confirm": {
+        "delete": {
+          "title": "Are you sure about this action?",
+          "description": "Warning: This action cannot be undone. It will permanently delete the {name} team, including all members associations.",
+          "action": "Delete Team",
+          "status": {
+            "success": "You’ve successfully deleted the team and all its members."
+          }
+        }
       }
     },
     "links": {
@@ -327,16 +360,79 @@
         }
       }
     },
-    "member": {
-      "invite": {
-        "title": "Add Team Member",
+    "team": {
+      "create": {
+        "title": "Create Team",
         "button": {
           "cancel": "Close",
-          "submit": "Add member"
+          "submit": "Create"
         },
         "input": {
-          "member-id": {
-            "empty": "No members",
+          "team-name": {
+            "title": "Team name",
+            "error": {
+              "max": "Must be 30 characters or less",
+              "min": "Required field"
+            }
+          }
+        }
+      },
+      "manage": {
+        "title": "{name} Team",
+        "button": {
+          "cancel": "Close"
+        },
+        "tab": {
+          "members": {
+            "title": "Members",
+            "list": {
+              "avatar": {
+                "alt": "user avatar"
+              },
+              "option": {
+                "admin": "Admin",
+                "developer": "Developer",
+                "tester": "Tester",
+                "viewer": "Viewer",
+                "remove": "Remove"
+              },
+              "status": {
+                "pending": "Pending",
+                "remove": {
+                  "success": "The member was successfully removed from the team"
+                },
+                "update": {
+                  "success": "The member has been successfully updated"
+                },
+                "invite": {
+                  "success": "The invitation was successfully canceled"
+                }
+              }
+            }
+          },
+          "invites": {
+            "title": "Invite Member",
+            "form": {
+              "email": {
+                "title": "Email",
+                "placeholder": "Enter email address"
+              },
+              "submit": "Send Invite"
+            }
+          }
+        }
+      }
+    },
+    "member": {
+      "add": {
+        "title": "Add Member to Form",
+        "button": {
+          "cancel": "Close",
+          "submit": "Save"
+        },
+        "input": {
+          "select": {
+            "empty": "All your team members are already part of this form.",
             "default": "Select member",
             "error": {
               "min": "Required field"
@@ -374,7 +470,8 @@
       "form": "Create Form"
     },
     "forms": {
-      "title": "Forms",
+      "title": "My Forms",
+      "external": "External Forms",
       "select": "Select form"
     },
     "dropdown": {
@@ -592,6 +689,10 @@
           "success": "Form name updated successfully"
         }
       },
+      "owner": {
+        "title": "Form Owner",
+        "description": "The owner of the form, contact them if you need to update the form."
+      },
       "enable-form": {
         "title": "Enable Form",
         "description": "Activate/Deactivate the form to control submission collection.",
@@ -758,18 +859,46 @@
       }
     },
     "members": {
-      "invite": {
+      "add": {
         "title": "Team Members",
-        "description": "Add members of your organization to manage this project. Developers can also be invited to access API keys for code integration.",
-        "placeholder": "Note: Users must already have an account to appear in the list (Email Invites Coming Soon).",
+        "description": "Add members to manage this form.",
+        "placeholder": "A team is required to add members.",
         "action": "Add Member",
         "table": {
           "headers": {
             "name": "Name",
             "email": "Email",
             "role": "Role",
-            "invited-at": "Invited At"
+            "added-at": "Added At"
           }
+        }
+      }
+    }
+  },
+  "invite": {
+    "team": {
+      "title": "Pending Invite",
+      "description": "You have being invited to join",
+      "name": "{name} Team",
+      "count": "{count, plural, one {# member of your team has already accepted} other {# members of your team have already accepted}}",
+      "created-at": {
+        "not-available": "Date not available"
+      },
+      "expires-at": {
+        "not-available": "Expiration date not available",
+        "expired": "Invitation has expired",
+        "message": "Your invitation expires {date}"
+      },
+      "action": {
+        "decline": "Decline",
+        "accept": "Accept Invitation"
+      },
+      "toast": {
+        "join": {
+          "success": "Successfully joined team, redirecting..."
+        },
+        "decline": {
+          "success": "You’ve declined the invitation. Redirecting..."
         }
       }
     }

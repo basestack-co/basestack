@@ -1,22 +1,27 @@
-import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
+import {
+  protectedProcedure,
+  createTRPCRouter,
+  withProjectRestrictions,
+  withUsageLimits,
+  withHistoryActivity,
+} from "server/api/trpc";
 // Utils
 import { generateSlug } from "random-word-slugs";
-import { PlanTypeId, withRoles } from "@basestack/utils";
+import { PlanTypeId, Product, AppEnv, config } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
 import { z } from "zod";
-import {
-  withFeatures,
-  withLimits,
-  withUsageUpdate,
-} from "server/db/utils/subscription";
+import { withFeatures, withUsageUpdate } from "server/db/utils/subscription";
 // Types
 import { Role } from ".prisma/client";
 import { TRPCError } from "@trpc/server";
+// Vendors
+import { qstash } from "@basestack/vendors";
 
 export const projectRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx.session.user.id;
+    const userId = ctx?.session?.user.id;
 
-    const projects = await ctx.prisma.project.findMany({
+    const all = await ctx.prisma.project.findMany({
       where: {
         users: {
           some: {
@@ -29,12 +34,32 @@ export const projectRouter = createTRPCRouter({
       orderBy: {
         createdAt: "desc",
       },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        users: {
+          where: {
+            userId,
+          },
+          select: {
+            role: true,
+          },
+          take: 1,
+        },
+      },
     });
+
+    const projects = all.map((project) => ({
+      ...project,
+      isAdmin: project.users[0]?.role === Role.ADMIN,
+      role: project.users[0]?.role ?? Role.VIEWER,
+    }));
 
     return { projects };
   }),
   recent: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx.session.user.id;
+    const userId = ctx?.session?.user.id;
 
     return ctx.prisma.$transaction(async (tx) => {
       const projects = await tx.project.findMany({
@@ -63,7 +88,6 @@ export const projectRouter = createTRPCRouter({
             },
           },
         },
-
         orderBy: {
           createdAt: "desc",
         },
@@ -71,7 +95,7 @@ export const projectRouter = createTRPCRouter({
 
       return await Promise.all(
         projects.map(async (project) => {
-          const count = await tx.flag.count({
+          const flagsCount = await tx.flag.count({
             where: {
               environment: {
                 isDefault: true,
@@ -82,10 +106,28 @@ export const projectRouter = createTRPCRouter({
             },
           });
 
+          const userProject = await tx.projectsOnUsers.findFirst({
+            where: {
+              projectId: project.id,
+              userId,
+            },
+            select: {
+              role: true,
+            },
+          });
+
+          const membersCount = await tx.projectsOnUsers.count({
+            where: {
+              projectId: project.id,
+            },
+          });
+
           return {
             ...project,
-            flags: {
-              count,
+            isAdmin: userProject?.role === Role.ADMIN,
+            count: {
+              flags: flagsCount,
+              members: membersCount,
             },
           };
         }),
@@ -93,9 +135,7 @@ export const projectRouter = createTRPCRouter({
     });
   }),
   byId: protectedProcedure
-    .meta({
-      restricted: true,
-    })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -104,7 +144,7 @@ export const projectRouter = createTRPCRouter({
         .required(),
     )
     .query(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const userId = ctx?.session?.user.id;
 
       const data = await ctx.prisma.projectsOnUsers.findFirst({
         where: {
@@ -113,16 +153,55 @@ export const projectRouter = createTRPCRouter({
         },
         select: {
           role: true,
-          project: true,
+          project: {
+            select: {
+              id: true,
+              name: true,
+              key: true,
+              websites: true,
+              blockIpAddresses: true,
+              users: {
+                where: { role: Role.ADMIN },
+                select: {
+                  user: {
+                    select: {
+                      name: true,
+                      email: true,
+                      image: true,
+                      subscription: {
+                        select: {
+                          planId: true,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
       });
 
+      if (!data) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Project not found",
+          cause: "ProjectNotFound",
+        });
+      }
+
       return {
-        ...data?.project,
+        id: data?.project.id,
+        name: data?.project.name,
+        key: data?.project.key,
+        websites: data?.project.websites,
+        blockIpAddresses: data?.project.blockIpAddresses,
         role: data?.role,
+        owner: data?.project.users[0]?.user,
       };
     }),
   allKeys: protectedProcedure
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -150,9 +229,7 @@ export const projectRouter = createTRPCRouter({
       return { keys };
     }),
   members: protectedProcedure
-    .meta({
-      restricted: true,
-    })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -186,6 +263,11 @@ export const projectRouter = createTRPCRouter({
       return { users };
     }),
   create: protectedProcedure
+    .meta({
+      usageLimitKey: "projects",
+    })
+    .use(withHistoryActivity)
+    .use(withUsageLimits)
     .input(
       z
         .object({
@@ -194,74 +276,67 @@ export const projectRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const userId = ctx?.session?.user.id!;
       const planId = ctx.usage.planId as PlanTypeId;
       const hasOnlyOneEnv = planId === PlanTypeId.FREE;
 
-      const authorized = withLimits(
-        planId,
-        "projects",
-        ctx.usage.projects,
-      )(() =>
-        ctx.prisma.$transaction(async (tx) => {
-          const project = await tx.project.create({
-            data: {
-              ...input,
-              slug: `${generateSlug()}`,
-              environments: {
-                create: [
-                  {
-                    name: "develop",
-                    slug: `${generateSlug()}`,
-                    description: "The default develop environment",
-                    isDefault: true,
-                  },
-                  ...(!hasOnlyOneEnv
-                    ? [
-                        {
-                          name: "staging",
-                          slug: `${generateSlug()}`,
-                          description: "The default staging environment",
-                        },
-                        {
-                          name: "production",
-                          slug: `${generateSlug()}`,
-                          description: "The default production environment",
-                        },
-                      ]
-                    : []),
-                ],
+      return await ctx.prisma.$transaction(async (tx) => {
+        const project = await tx.project.create({
+          data: {
+            ...input,
+            slug: `${generateSlug()}`,
+            environments: {
+              create: [
+                {
+                  name: "develop",
+                  slug: `${generateSlug()}`,
+                  description: "The default develop environment",
+                  isDefault: true,
+                },
+                ...(!hasOnlyOneEnv
+                  ? [
+                      {
+                        name: "staging",
+                        slug: `${generateSlug()}`,
+                        description: "The default staging environment",
+                      },
+                      {
+                        name: "production",
+                        slug: `${generateSlug()}`,
+                        description: "The default production environment",
+                      },
+                    ]
+                  : []),
+              ],
+            },
+          },
+        });
+
+        const connection = await tx.projectsOnUsers.create({
+          data: {
+            project: {
+              connect: {
+                id: project.id,
               },
             },
-          });
-
-          const connection = await tx.projectsOnUsers.create({
-            data: {
-              project: {
-                connect: {
-                  id: project.id,
-                },
-              },
-              user: {
-                connect: {
-                  id: userId,
-                },
+            user: {
+              connect: {
+                id: userId,
               },
             },
-          });
+          },
+        });
 
-          await withUsageUpdate(tx, userId, "projects", "increment");
+        await withUsageUpdate(tx, userId, "projects", "increment");
 
-          return { project, connection };
-        }),
-      );
-
-      return authorized();
+        return { project, connection };
+      });
     }),
   update: protectedProcedure
     .meta({
-      restricted: true,
+      roles: [Role.ADMIN, Role.DEVELOPER],
     })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -286,7 +361,7 @@ export const projectRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const planId = ctx.usage.planId as PlanTypeId;
+      const planId = ctx.project.adminSubscriptionPlanId;
       const { projectId, feature, ...props } = input;
 
       const data = Object.fromEntries(
@@ -294,21 +369,23 @@ export const projectRouter = createTRPCRouter({
       );
 
       if (Object.keys(data).length === 0) {
-        throw new TRPCError({ code: "BAD_REQUEST" });
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "No valid properties to update",
+          cause: "InvalidInputProperties",
+        });
       }
 
-      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(
-        withFeatures(
-          planId,
-          feature,
-        )(() =>
-          ctx.prisma.project.update({
-            where: {
-              id: input.projectId,
-            },
-            data,
-          }),
-        ),
+      const authorized = withFeatures(
+        planId,
+        feature,
+      )(() =>
+        ctx.prisma.project.update({
+          where: {
+            id: input.projectId,
+          },
+          data,
+        }),
       );
 
       const project = await authorized();
@@ -316,8 +393,9 @@ export const projectRouter = createTRPCRouter({
       return { project };
     }),
   delete: protectedProcedure
+    .use(withProjectRestrictions)
     .meta({
-      restricted: true,
+      roles: [Role.ADMIN],
     })
     .input(
       z
@@ -327,135 +405,145 @@ export const projectRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const projectAdminUserId = ctx.project.adminUserId;
 
-      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
-        ctx.prisma.$transaction(async (tx) => {
-          const environmentWithFlagCount = await tx.environment.findFirst({
-            where: {
-              projectId: input.projectId,
-              isDefault: true,
-            },
-            select: {
-              id: true,
-              _count: {
-                select: {
-                  flags: true,
-                },
+      const project = await ctx.prisma.$transaction(async (tx) => {
+        const environmentWithFlagCount = await tx.environment.findFirst({
+          where: {
+            projectId: input.projectId,
+            isDefault: true,
+          },
+          select: {
+            id: true,
+            _count: {
+              select: {
+                flags: true,
               },
             },
-          });
+          },
+        });
 
-          const response = await tx.project.delete({
-            where: { id: input.projectId },
-            select: { id: true },
-          });
+        const response = await tx.project.delete({
+          where: { id: input.projectId },
+          select: { id: true },
+        });
 
-          await withUsageUpdate(tx, userId, "projects", "decrement");
-          await withUsageUpdate(
-            tx,
-            userId,
-            "flags",
-            "decrement",
-            environmentWithFlagCount?._count.flags ?? 0,
-          );
+        await withUsageUpdate(tx, projectAdminUserId, "projects", "decrement");
+        await withUsageUpdate(
+          tx,
+          projectAdminUserId,
+          "flags",
+          "decrement",
+          environmentWithFlagCount?._count.flags ?? 0,
+        );
 
-          return response;
-        }),
-      );
-
-      const project = await authorized();
+        return response;
+      });
 
       return { project };
     }),
   addMember: protectedProcedure
+    .use(withProjectRestrictions)
     .meta({
-      restricted: true,
+      roles: [Role.ADMIN, Role.DEVELOPER],
     })
     .input(
       z
         .object({
           projectId: z.string(),
           userId: z.string(),
+          role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const planId = ctx.usage.planId as PlanTypeId;
-      const userId = ctx.session.user.id;
+      const user = ctx.session?.user;
 
-      const authorized = withLimits(
-        planId,
-        "members",
-        ctx.usage.members,
-      )(() =>
-        ctx.prisma.$transaction(async (tx) => {
-          const response = await tx.projectsOnUsers.create({
-            data: {
-              project: {
-                connect: {
-                  id: input.projectId,
-                },
-              },
-              user: {
-                connect: {
-                  id: input.userId,
-                },
-              },
-              role: "USER",
+      const connection = await ctx.prisma.projectsOnUsers.create({
+        data: {
+          project: {
+            connect: {
+              id: input.projectId,
             },
-          });
+          },
+          user: {
+            connect: {
+              id: input.userId,
+            },
+          },
+          role: input.role,
+        },
+        select: {
+          user: {
+            select: {
+              name: true,
+              email: true,
+            },
+          },
+          project: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
 
-          await withUsageUpdate(tx, userId, "members", "increment");
-
-          return response;
-        }),
-      );
-
-      const connection = await authorized();
+      if (!!connection.user.email) {
+        await qstash.events.sendEmailEvent({
+          template: "addProjectMember",
+          to: [connection.user.email],
+          subject: `You have been added to ${connection.project.name} project on Basestack Feature Flags`,
+          props: {
+            product: "Basestack Feature Flags",
+            fromUserName: user?.name ?? "",
+            toUserName: connection.user.name,
+            project: connection.project.name,
+            linkText: "Open Project",
+            linkUrl: `${config.urls.getAppWithEnv(Product.FLAGS, AppMode as AppEnv)}/a/project/${input.projectId}/flags`,
+          },
+        });
+      }
 
       return { connection };
     }),
   updateMember: protectedProcedure
     .meta({
-      restricted: true,
+      roles: [Role.ADMIN],
     })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
           projectId: z.string(),
           userId: z.string(),
-          role: z.enum(["USER", "ADMIN"]),
+          role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
-        ctx.prisma.projectsOnUsers.update({
-          where: {
-            projectId_userId: {
-              projectId: input.projectId,
-              userId: input.userId,
-            },
+      const connection = await ctx.prisma.projectsOnUsers.update({
+        where: {
+          projectId_userId: {
+            projectId: input.projectId,
+            userId: input.userId,
           },
-          data: {
-            role: input.role,
-          },
-          select: {
-            userId: true,
-            role: true,
-          },
-        }),
-      );
-
-      const connection = await authorized();
+        },
+        data: {
+          role: input.role,
+        },
+        select: {
+          userId: true,
+          role: true,
+        },
+      });
 
       return { connection };
     }),
   removeMember: protectedProcedure
     .meta({
-      restricted: true,
+      roles: [Role.ADMIN],
     })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -465,26 +553,14 @@ export const projectRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
-
-      const authorized = withRoles(ctx.project.role, [Role.ADMIN])(() =>
-        ctx.prisma.$transaction(async (tx) => {
-          const response = await tx.projectsOnUsers.delete({
-            where: {
-              projectId_userId: {
-                projectId: input.projectId,
-                userId: input.userId,
-              },
-            },
-          });
-
-          await withUsageUpdate(tx, userId, "members", "decrement");
-
-          return response;
-        }),
-      );
-
-      const connection = await authorized();
+      const connection = await ctx.prisma.projectsOnUsers.delete({
+        where: {
+          projectId_userId: {
+            projectId: input.projectId,
+            userId: input.userId,
+          },
+        },
+      });
 
       return { connection };
     }),

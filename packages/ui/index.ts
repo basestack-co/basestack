@@ -13,10 +13,6 @@ export {
   type SettingCardProps,
 } from "./components/SettingCard";
 export {
-  default as MobileSettingCardView,
-  type MobileSettingCardViewProps,
-} from "./components/MobileSettingCardView";
-export {
   default as ProfileAvatarCard,
   type ProfileAvatarCardProps,
 } from "./components/ProfileAvatarCard";
@@ -47,7 +43,10 @@ export {
   type HistoryType,
   type HistoryCardProps,
 } from "./components/HistoryCard/types";
-export { default as ProjectCard } from "./components/ProjectCard";
+export {
+  default as ProjectCard,
+  ProjectCardLoading,
+} from "./components/ProjectCard";
 export {
   default as UsageCard,
   type UsageCardProps,
@@ -56,3 +55,12 @@ export {
   default as UsageSection,
   type UsageSectionProps,
 } from "./components/UsageSection";
+export {
+  default as TooltipIcon,
+  type TooltipIconProps,
+} from "./components/TooltipIcon";
+export {
+  default as PopupActions,
+  type PopupActionProps,
+  type PopupActionsProps,
+} from "./components/PopupActions";

@@ -1,3 +1,4 @@
+import { Ref } from "react";
 import styled, { css } from "styled-components";
 import { flexbox, space, position, compose } from "styled-system";
 import { rem } from "polished";
@@ -114,10 +115,11 @@ const handleButtonVariant = (variant?: Variant) => {
 
 export const StyledButton = styled.button.withConfig({
   shouldForwardProp: (prop) =>
-    !["iconSize", "zIndex", "flexShrink"].includes(prop),
+    !["iconSize", "zIndex", "flexShrink", "ref"].includes(prop),
 })<{
   variant: Variant;
   iconSize: string;
+  ref?: Ref<HTMLDivElement>;
 }>`
   ${({ variant }) => handleButtonVariant(variant)};
   height: ${({ iconSize }) => rem(iconSize)};

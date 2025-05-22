@@ -1,17 +1,16 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 // Router
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 // Modules
-import Invite from "./_components/Invite";
+import MembersTableCard from "./_components/MembersTable";
 // Server
 import { api } from "utils/trpc/react";
 // Styles
 import { CardList, CardListItem, SettingCardContainer } from "../styles";
 
 const MembersPage = () => {
-  const router = useRouter();
   const { projectId } = useParams<{ projectId: string }>();
   const { data: project } = api.project.byId.useQuery(
     { projectId },
@@ -20,15 +19,11 @@ const MembersPage = () => {
     },
   );
 
-  useEffect(() => {
-    router.back();
-  }, [router]);
-
   return (
     <CardList>
       <CardListItem>
         <SettingCardContainer>
-          <Invite role={project?.role} />
+          <MembersTableCard role={project?.role} />
         </SettingCardContainer>
       </CardListItem>
     </CardList>

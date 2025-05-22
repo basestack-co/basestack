@@ -14,11 +14,15 @@ import FlagRow from "./FlagRow";
 import { useStore } from "store";
 // Types
 import { SelectedView, TabType } from "types";
+import { Role } from ".prisma/client";
 // Utils
-import { config, PlanTypeId } from "@basestack/utils";
 import dayjs from "dayjs";
+// Utils
+import { config } from "@basestack/utils";
 // Locales
 import { useTranslations } from "next-intl";
+// Toast
+import { toast } from "sonner";
 // Styles
 import {
   FlagsCardGrid,
@@ -28,16 +32,20 @@ import {
 } from "./styles";
 import Loading from "./Loading";
 
+const { hasFlagsPermission } = config.plans;
+
 interface FlagCardsProps {
   selectedView: SelectedView;
   projectId: string;
   searchValue: string;
+  projectRole?: Role;
 }
 
 const FlagCards = ({
   selectedView,
   projectId,
   searchValue,
+  projectRole,
 }: FlagCardsProps) => {
   const trpcUtils = api.useUtils();
   const t = useTranslations("flag");
@@ -100,6 +108,9 @@ const FlagCards = ({
             // Reset the usage cache
             await trpcUtils.subscription.usage.invalidate();
           },
+          onError: (error) => {
+            toast.error(error.message);
+          },
         },
       );
     },
@@ -120,10 +131,14 @@ const FlagCards = ({
         iconName="flag"
         title={t("list.empty.title")}
         description={t("list.empty.description")}
-        button={{
-          text: t("list.empty.action"),
-          onClick: () => setCreateFlagModalOpen({ isOpen: true }),
-        }}
+        {...(hasFlagsPermission(projectRole, "add_project_flags")
+          ? {
+              button: {
+                text: t("list.empty.action"),
+                onClick: () => setCreateFlagModalOpen({ isOpen: true }),
+              },
+            }
+          : {})}
       />
     );
 
@@ -155,53 +170,60 @@ const FlagCards = ({
                     date={t("list.card.date", {
                       date: dayjs(flag.createdAt).fromNow(),
                     })}
-                    popupItems={[
-                      {
-                        icon: "edit",
-                        text: t("list.card.actions.edit"),
-                        onClick: () =>
-                          onUpdateOrHistory(
-                            flag.id,
-                            flag.slug,
-                            "",
-                            TabType.CORE,
-                          ),
-                      },
-                      {
-                        icon: "history",
-                        text: t("list.card.actions.activity"),
-                        onClick: () =>
-                          onUpdateOrHistory(
-                            flag.id,
-                            flag.slug,
-                            "",
-                            TabType.HISTORY,
-                          ),
-                      },
-                      {
-                        icon: "delete",
-                        text: t("list.card.actions.delete"),
-                        variant: ButtonVariant.Danger,
-                        onClick: () =>
-                          setConfirmModalOpen({
-                            isOpen: true,
-                            data: {
-                              title: t("list.card.delete.title"),
-                              description: t("list.card.delete.description", {
-                                slug: `<b>${flag.slug}</b>`,
-                              }),
-                              type: "delete",
-                              buttonText: t("list.card.delete.action"),
-                              onClick: () => {
-                                onDelete(flag.slug);
-                                setConfirmModalOpen({
-                                  isOpen: false,
-                                });
-                              },
+                    {...(hasFlagsPermission(projectRole, "edit_project_flags")
+                      ? {
+                          popupItems: [
+                            {
+                              icon: "edit",
+                              text: t("list.card.actions.edit"),
+                              onClick: () =>
+                                onUpdateOrHistory(
+                                  flag.id,
+                                  flag.slug,
+                                  "",
+                                  TabType.CORE,
+                                ),
                             },
-                          }),
-                      },
-                    ]}
+                            {
+                              icon: "history",
+                              text: t("list.card.actions.activity"),
+                              onClick: () =>
+                                onUpdateOrHistory(
+                                  flag.id,
+                                  flag.slug,
+                                  "",
+                                  TabType.HISTORY,
+                                ),
+                            },
+                            {
+                              icon: "delete",
+                              text: t("list.card.actions.delete"),
+                              variant: ButtonVariant.Danger,
+                              onClick: () =>
+                                setConfirmModalOpen({
+                                  isOpen: true,
+                                  data: {
+                                    title: t("list.card.delete.title"),
+                                    description: t(
+                                      "list.card.delete.description",
+                                      {
+                                        slug: `<b>${flag.slug}</b>`,
+                                      },
+                                    ),
+                                    type: "delete",
+                                    buttonText: t("list.card.delete.action"),
+                                    onClick: () => {
+                                      onDelete(flag.slug);
+                                      setConfirmModalOpen({
+                                        isOpen: false,
+                                      });
+                                    },
+                                  },
+                                }),
+                            },
+                          ],
+                        }
+                      : {})}
                   />
                 );
               })}

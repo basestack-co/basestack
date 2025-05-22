@@ -74,6 +74,7 @@ const FlagsPage = () => {
           projectId={projectId}
           selectedView={selectedView}
           searchValue={searchValue}
+          projectRole={project?.role}
         />
       </FlagsListContainer>
     </>

@@ -7,9 +7,9 @@ import {
 import { environmentRouter } from "server/api/routers/environment";
 import { projectRouter } from "server/api/routers/project";
 import { flagRouter } from "server/api/routers/flag";
-import { userRouter } from "server/api/routers/user";
 import { historyRouter } from "server/api/routers/history";
 import { subscriptionRouter } from "server/api/routers/subscription";
+import { teamRouter } from "server/api/routers/team";
 
 export const appRouter = createTRPCRouter({
   healthcheck: publicProcedure.query(
@@ -18,8 +18,8 @@ export const appRouter = createTRPCRouter({
   project: projectRouter,
   environment: environmentRouter,
   flag: flagRouter,
-  user: userRouter,
   history: historyRouter,
+  team: teamRouter,
   subscription: subscriptionRouter,
 });
 

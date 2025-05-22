@@ -9,11 +9,12 @@ import {
   getValidWebsite,
   isValidIpAddress,
   isRefererValid,
+  Product,
 } from "@basestack/utils";
 // Prisma
 import { getFormOnUser, defaultErrorUrl } from "server/db/utils/form";
 
-const { hasFormPlanFeature, getFormLimitByKey } = utilsConfig.plans;
+const { hasPlanFeature, getPlanLimitByKey } = utilsConfig.plans;
 
 export enum FormMode {
   REST = "rest",
@@ -122,7 +123,10 @@ export const verifyForm = async (
     if (form?.isEnabled) {
       const planId = form.usage.planId as PlanTypeId;
 
-      if (form.usage.submissions >= getFormLimitByKey(planId, "submissions")) {
+      if (
+        form.usage.submissions >=
+        getPlanLimitByKey(Product.FORMS, planId, "submissions")
+      ) {
         throw new RequestError({
           code: 403,
           url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
@@ -133,7 +137,7 @@ export const verifyForm = async (
 
       if (
         !!form.websites &&
-        hasFormPlanFeature(planId, "hasWebsites") &&
+        hasPlanFeature(Product.FORMS, planId, "hasWebsites") &&
         isRefererValid(referer)
       ) {
         const isValid = getValidWebsite(referer, form.websites);
@@ -150,7 +154,7 @@ export const verifyForm = async (
       if (
         !!form.blockIpAddresses &&
         metadata?.ip &&
-        hasFormPlanFeature(planId, "hasBlockIPs")
+        hasPlanFeature(Product.FORMS, planId, "hasBlockIPs")
       ) {
         const blockIpAddresses = form.blockIpAddresses
           .split(",")

@@ -1,12 +1,20 @@
-import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
+import {
+  protectedProcedure,
+  createTRPCRouter,
+  withProjectRestrictions,
+  withUsageLimits,
+  withHistoryActivity,
+} from "server/api/trpc";
 import { TRPCError } from "@trpc/server";
 // Utils
-import { withLimits, withUsageUpdate } from "server/db/utils/subscription";
+import { withUsageUpdate } from "server/db/utils/subscription";
 import { z } from "zod";
-import { PlanTypeId } from "@basestack/utils";
+// Types
+import { Role } from ".prisma/client";
 
 export const flagRouter = createTRPCRouter({
   all: protectedProcedure
+    .use(withProjectRestrictions)
     .input(
       z.object({
         projectId: z.string(),
@@ -84,9 +92,7 @@ export const flagRouter = createTRPCRouter({
       });
     }),
   total: protectedProcedure
-    .meta({
-      restricted: true,
-    })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -125,9 +131,7 @@ export const flagRouter = createTRPCRouter({
       });
     }),
   environments: protectedProcedure
-    .meta({
-      restricted: true,
-    })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -161,9 +165,7 @@ export const flagRouter = createTRPCRouter({
       };
     }),
   bySlug: protectedProcedure
-    .meta({
-      restricted: true,
-    })
+    .use(withProjectRestrictions)
     .input(
       z
         .object({
@@ -218,8 +220,12 @@ export const flagRouter = createTRPCRouter({
     }),
   create: protectedProcedure
     .meta({
-      restricted: true,
+      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
+      usageLimitKey: "flags",
     })
+    .use(withProjectRestrictions)
+    .use(withUsageLimits)
+    .use(withHistoryActivity)
     .input(
       z
         .object({
@@ -245,46 +251,28 @@ export const flagRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const planId = ctx.usage.planId as PlanTypeId;
-      const userId = ctx.session.user.id;
+      const projectAdminUserId = ctx.project.adminUserId;
 
-      const authorized = withLimits(
-        planId,
-        "flags",
-        ctx.usage.flags,
-      )(() =>
-        ctx.prisma.$transaction(async (tx) => {
-          const response = await Promise.all(
-            input.data.map(async (flagCreateData) =>
-              tx.flag.create({ data: flagCreateData }),
-            ),
-          );
-
-          await withUsageUpdate(tx, userId, "flags", "increment");
-
-          return response;
-        }),
-      );
-
-      const flags = await authorized();
-
-      return { flags };
-
-      // TODO: this is workaround for prisma bug on createMany not returning the created data
-      /* const flags = await ctx.prisma.$transaction(async (tx) => {
-        return await Promise.all(
+      const flags = await ctx.prisma.$transaction(async (tx) => {
+        const response = await Promise.all(
           input.data.map(async (flagCreateData) =>
             tx.flag.create({ data: flagCreateData }),
           ),
         );
+
+        await withUsageUpdate(tx, projectAdminUserId, "flags", "increment");
+
+        return response;
       });
 
-      return { flags }; */
+      return { flags };
     }),
   update: protectedProcedure
     .meta({
-      restricted: true,
+      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
     })
+    .use(withProjectRestrictions)
+    .use(withHistoryActivity)
     .input(
       z
         .object({
@@ -331,8 +319,10 @@ export const flagRouter = createTRPCRouter({
     }),
   delete: protectedProcedure
     .meta({
-      restricted: true,
+      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
     })
+    .use(withProjectRestrictions)
+    .use(withHistoryActivity)
     .input(
       z
         .object({
@@ -342,7 +332,7 @@ export const flagRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const projectAdminUserId = ctx.project.adminUserId;
 
       const flags = await ctx.prisma.flag.deleteMany({
         where: {
@@ -350,7 +340,12 @@ export const flagRouter = createTRPCRouter({
         },
       });
 
-      await withUsageUpdate(ctx.prisma, userId, "flags", "decrement");
+      await withUsageUpdate(
+        ctx.prisma,
+        projectAdminUserId,
+        "flags",
+        "decrement",
+      );
 
       return { flags };
     }),

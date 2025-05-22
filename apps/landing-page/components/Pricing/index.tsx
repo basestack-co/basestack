@@ -88,13 +88,13 @@ const CardComp = ({
   const valueAnimation = useSpring({
     from: { x: 0 },
     to: { x: valueNumber },
-    config: { ...config.stiff, duration: 1000 },
+    config: { ...config.gentle, duration: 1000 },
   });
 
   const [colorAnimation, setColorAnimation] = useSpring(() => ({
     from: { color: textColor },
     to: { color: textColor },
-    config: { ...config.stiff, duration: 1000 },
+    config: { ...config.gentle, duration: 1000 },
   }));
 
   useEffect(() => {

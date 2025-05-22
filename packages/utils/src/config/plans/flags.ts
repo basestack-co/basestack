@@ -1,9 +1,5 @@
 // Types
-import { PlanTypeId, FlagsPlan } from "../../types";
-// Utils
-import { getAppMode } from "./utils";
-
-// Flags Plan configuration
+import { PlanTypeId, FlagsPlan, FlagsPermission } from "../../types";
 
 const flags: FlagsPlan[] = [
   {
@@ -34,10 +30,11 @@ const flags: FlagsPlan[] = [
     },
     limits: {
       projects: 1,
-      environments: 0,
+      environments: 1,
       flags: 10,
       segments: 0,
       rollouts: 0,
+      teams: 0,
       members: 0,
       apiRequests: 50000,
     },
@@ -84,6 +81,7 @@ const flags: FlagsPlan[] = [
       flags: 500,
       segments: 0,
       rollouts: 0,
+      teams: 0,
       members: 0,
       apiRequests: 500000,
     },
@@ -130,6 +128,7 @@ const flags: FlagsPlan[] = [
       flags: Infinity,
       segments: 5,
       rollouts: 10,
+      teams: 1,
       members: 5,
       apiRequests: 5000000,
     },
@@ -176,6 +175,7 @@ const flags: FlagsPlan[] = [
       flags: Infinity,
       segments: Infinity,
       rollouts: Infinity,
+      teams: 5,
       members: 25,
       apiRequests: Infinity,
     },
@@ -223,6 +223,7 @@ const flags: FlagsPlan[] = [
       flags: Infinity,
       segments: Infinity,
       rollouts: Infinity,
+      teams: Infinity,
       members: Infinity,
       apiRequests: Infinity,
     },
@@ -239,100 +240,63 @@ const flags: FlagsPlan[] = [
   },
 ];
 
+const flagsPermissions: Record<string, FlagsPermission[]> = {
+  ADMIN: [
+    "view_project_flags",
+    "view_project_keys",
+    "view_project_environments",
+    "view_project_security",
+    "add_project_flags",
+    "add_project_member",
+    "add_project_environment",
+    "edit_project_flags",
+    "edit_project_name",
+    "edit_project_environment",
+    "delete_project_flags",
+    "delete_project",
+    "delete_project_environment",
+  ],
+  DEVELOPER: [
+    "view_project_flags",
+    "view_project_keys",
+    "view_project_security",
+    "view_project_environments",
+    "add_project_flags",
+    "add_project_environment",
+    "edit_project_flags",
+    "edit_project_environment",
+    "delete_project_environment",
+  ],
+  TESTER: [
+    "view_project_flags",
+    "view_project_keys",
+    "add_project_flags",
+    "edit_project_flags",
+  ],
+  VIEWER: ["view_project_flags"],
+};
+
+const hasFlagsPermission = (
+  role: string | undefined,
+  permission: FlagsPermission,
+): boolean => {
+  return flagsPermissions[role ?? "VIEWER"]?.includes(permission) ?? false;
+};
+
 const getFlagsPlanLimitsDefaults = () => ({
   projects: 0,
   environments: 0,
   flags: 0,
   segments: 0,
   rollouts: 0,
+  teams: 0,
   members: 0,
   apiRequests: 0,
 });
 
-const isValidFlagsPlan = (id: PlanTypeId) => {
-  return flags.some((plan) => plan.id === id);
-};
-
-const getFlagsPlan = (id: PlanTypeId): FlagsPlan => {
-  const plan = flags.find((plan: FlagsPlan) => plan.id === id);
-  if (!plan) {
-    // Fallback to free plan if plan is not found
-    return flags.find((plan: FlagsPlan) => plan.id === PlanTypeId.FREE)!;
-  }
-  return plan;
-};
-
-const getFlagsPlanLimits = (id: PlanTypeId) => {
-  const plan = getFlagsPlan(id);
-  return plan.limits;
-};
-
-const getFlagsPlanFeatures = (id: PlanTypeId) => {
-  const plan = getFlagsPlan(id);
-  return plan.features;
-};
-
-const hasFlagsPlanFeature = (
-  id: PlanTypeId,
-  feature: keyof FlagsPlan["features"],
-) => {
-  const plan = getFlagsPlan(id);
-  return plan.features[feature];
-};
-
-const getFlagsLimitByKey = (
-  id: PlanTypeId,
-  limit: keyof FlagsPlan["limits"],
-) => {
-  const plan = getFlagsPlan(id);
-  return plan?.limits[limit];
-};
-
-const isUnderFlagsPlanLimit = (
-  id: PlanTypeId,
-  limit: keyof FlagsPlan["limits"],
-  value: number,
-) => {
-  const plan = getFlagsPlan(id);
-  return plan?.limits[limit] >= value;
-};
-
-const getFlagsPlanVariantId = (
-  id: PlanTypeId,
-  interval: "monthly" | "yearly",
-  mode: string = "production",
-) => {
-  const stage = getAppMode(mode);
-
-  const plan = getFlagsPlan(id);
-  return plan.price[interval].variantIds[stage];
-};
-
-const getFlagsPlanByVariantId = (
-  variantId: number,
-  isBilledMonthly: boolean = false,
-  mode: string = "production",
-) => {
-  const stage = getAppMode(mode);
-
-  return flags.find((plan) => {
-    return (
-      plan.price[isBilledMonthly ? "monthly" : "yearly"].variantIds[stage] ===
-      variantId
-    );
-  });
-};
-
 export const config = {
   flags,
+  flagsPermissions,
   getFlagsPlanLimitsDefaults,
-  getFlagsPlan,
-  getFlagsPlanLimits,
-  getFlagsPlanFeatures,
-  hasFlagsPlanFeature,
-  getFlagsLimitByKey,
-  isUnderFlagsPlanLimit,
-  getFlagsPlanVariantId,
-  getFlagsPlanByVariantId,
-  isValidFlagsPlan,
+  hasFlagsPermission,
 };

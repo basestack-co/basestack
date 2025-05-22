@@ -1,34 +1,24 @@
 import React, { memo, forwardRef } from "react";
 import { useTheme } from "styled-components";
-import { animated } from "react-spring";
-// Hooks
-import { useFloatingPopup } from "@basestack/hooks";
-// Server
 import { api } from "utils/trpc/react";
-// Components
 import {
   Text,
-  IconButton,
   Card,
-  Popup,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
   Skeleton,
+  PopupMenu,
 } from "@basestack/design-system";
 import TooltipIcon from "components/TooltipIcon";
-// Styles
 import {
   Labels,
   Label,
   CardWrapper,
-  PopupWrapper,
   TooltipContainer,
   IconsContainer,
 } from "./styles";
 import { FlagRowProps } from "./types";
-
-const AnimatedPopup = animated(Popup);
 
 const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
   (
@@ -46,19 +36,6 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
     ref,
   ) => {
     const theme = useTheme();
-
-    const {
-      popupWrapperRef,
-      x,
-      y,
-      refs,
-      strategy,
-      transition,
-      getReferenceProps,
-      getFloatingProps,
-      onClickMore,
-      onCloseMenu,
-    } = useFloatingPopup({});
 
     const { data } = api.flag.environments.useQuery(
       {
@@ -129,31 +106,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
               />
             )}
           </IconsContainer>
-          <PopupWrapper ref={popupWrapperRef}>
-            <IconButton
-              {...getReferenceProps}
-              size="medium"
-              ref={refs.setReference}
-              icon="more_horiz"
-              onClick={onClickMore}
-            />
-            {transition(
-              (styles, item) =>
-                item &&
-                popupItems.length > 0 && (
-                  <AnimatedPopup
-                    {...getFloatingProps}
-                    ref={refs.setFloating}
-                    style={styles}
-                    position={strategy}
-                    top={y}
-                    left={x}
-                    items={popupItems}
-                    onClickList={onCloseMenu}
-                  />
-                ),
-            )}
-          </PopupWrapper>
+          {popupItems && <PopupMenu items={popupItems} />}
         </CardWrapper>
       </Card>
     );

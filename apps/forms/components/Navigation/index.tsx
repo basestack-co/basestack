@@ -12,8 +12,9 @@ import { useMedia } from "react-use";
 // Locales
 import { useTranslations } from "next-intl";
 // Components
-import { PopupActionProps } from "@basestack/design-system";
-import { Navigation as NavigationUI } from "@basestack/ui";
+import { Navigation as NavigationUI, PopupActionProps } from "@basestack/ui";
+// Types
+import { Role } from ".prisma/client";
 // Utils
 import { AppEnv, config, Product } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
@@ -46,11 +47,57 @@ const Navigation = ({ data }: NavigationProps) => {
     (state) => state.setCreateFormModalOpen,
   );
 
-  const currentForm = useMemo(() => {
-    const form = data?.find(({ slug }) => slug === formId);
+  const [formName, formRole] = useMemo(() => {
+    const form = data?.find(({ id }) => id === formId) as unknown as {
+      text: string;
+      role: Role;
+    };
 
-    return form?.text ?? "";
+    return [form?.text ?? "", form?.role ?? Role.VIEWER];
   }, [formId, data]);
+
+  const formsList = useMemo((): Array<{
+    title: string;
+    items: PopupActionProps[];
+  }> => {
+    if (!data?.length) return [];
+
+    const { internal, external } = data.reduce(
+      (acc, project) => {
+        const target = (project as unknown as { isAdmin: boolean }).isAdmin
+          ? acc.internal
+          : acc.external;
+
+        target.push(project as unknown as PopupActionProps);
+        return acc;
+      },
+      { internal: [], external: [] } as {
+        internal: PopupActionProps[];
+        external: PopupActionProps[];
+      },
+    );
+
+    const mapProjectsToSection = (
+      items: PopupActionProps[],
+      title: string,
+    ) => ({
+      title,
+      items: items.map((item) => ({
+        ...item,
+        isActive: item.id === formId,
+      })),
+    });
+
+    return [
+      internal.length > 0 &&
+        mapProjectsToSection(internal, t("navigation.forms.title")),
+      external.length > 0 &&
+        mapProjectsToSection(external, t("navigation.forms.external")),
+    ].filter(Boolean) as Array<{
+      title: string;
+      items: PopupActionProps[];
+    }>;
+  }, [data, t, formId]);
 
   const onSelectApp = useCallback((app: Product) => {
     window.location.href = config.urls.getAppWithEnv(app, AppMode as AppEnv);
@@ -67,22 +114,17 @@ const Navigation = ({ data }: NavigationProps) => {
       product={Product.FORMS}
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
-      leftLinks={
-        !!formId
-          ? getLeftLinks(router, pathname, formId, {
-              submissions: t("navigation.internal.submissions"),
-              setup: t("navigation.internal.setup"),
-              settings: t("navigation.internal.settings"),
-            })
-          : []
-      }
+      leftLinks={getLeftLinks(router, pathname, formId, formRole, {
+        submissions: t("navigation.internal.submissions"),
+        setup: t("navigation.internal.setup"),
+        settings: t("navigation.internal.settings"),
+      })}
       rightLinks={getRightLinks({ docs: t("navigation.external.docs") })}
       rightLinksTitle={t("navigation.external.resources")}
       projects={{
         onCreate: () => setCreateFormModalOpen({ isOpen: true }),
-        current: currentForm,
-        data: data ?? [],
-        title: t("navigation.forms.title"),
+        current: formName,
+        data: formsList,
         select: {
           title: t("navigation.forms.select"),
           create: t("navigation.create.form"),

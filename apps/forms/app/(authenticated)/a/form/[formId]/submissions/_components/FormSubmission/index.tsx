@@ -45,6 +45,7 @@ const FormSubmission = ({
             setChecked((prevState) => !prevState);
             onSelect(!checked);
           },
+          disabled: isActionsDisabled,
         }}
         data={data}
         date={date}

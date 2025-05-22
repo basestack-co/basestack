@@ -1,17 +1,14 @@
 import React, { useMemo, useCallback } from "react";
-import { useTheme } from "styled-components";
-import { useMedia } from "react-use";
 // Router
 import { useParams } from "next/navigation";
-// Components
+// UI
 import {
   ButtonVariant,
   Loader,
   Skeleton,
   Table,
 } from "@basestack/design-system";
-// UI
-import { SettingCard, MobileSettingCardView } from "@basestack/ui";
+import { SettingCard } from "@basestack/ui";
 // Server
 import { api } from "utils/trpc/react";
 // Store
@@ -24,10 +21,12 @@ import { Role } from ".prisma/client";
 // Locales
 import { useTranslations } from "next-intl";
 
-const EnvironmentsCard = () => {
+export interface Props {
+  role?: Role;
+}
+
+const EnvironmentsCard = ({ role }: Props) => {
   const t = useTranslations("setting");
-  const theme = useTheme();
-  const isMobile = useMedia(theme.device.max.md, false);
   const trpcUtils = api.useUtils();
 
   const { projectId } = useParams<{ projectId: string }>();
@@ -40,19 +39,18 @@ const EnvironmentsCard = () => {
   );
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
 
-  const [project, environment] = api.useQueries((t) => [
-    t.project.byId({ projectId }, { enabled: !!projectId }),
-    t.environment.all({ projectId }, { enabled: !!projectId }),
-  ]);
+  const { data, isLoading } = api.environment.all.useQuery(
+    { projectId },
+    {
+      enabled: !!projectId,
+    },
+  );
 
   const deleteEnvironment = api.environment.delete.useMutation();
-  const isCurrentUserAdmin = project?.data?.role === Role.ADMIN;
+  const isCurrentUserAdmin = role === Role.ADMIN;
   const environments = useMemo(
-    () =>
-      !environment.isLoading && !!environment.data
-        ? environment.data.environments
-        : [],
-    [environment.isLoading, environment.data],
+    () => (!isLoading && !!data ? data.environments : []),
+    [isLoading, data],
   );
 
   const onHandleEdit = useCallback(
@@ -77,8 +75,7 @@ const EnvironmentsCard = () => {
 
   const onHandleDelete = useCallback(
     async (environmentId: string) => {
-      if (project?.data?.id) {
-        const projectId = project?.data?.id;
+      if (projectId) {
         deleteEnvironment.mutate(
           {
             environmentId,
@@ -96,7 +93,7 @@ const EnvironmentsCard = () => {
         );
       }
     },
-    [project, deleteEnvironment, trpcUtils],
+    [deleteEnvironment, projectId, trpcUtils],
   );
 
   const onClickDeleteEnvironment = useCallback(
@@ -157,24 +154,6 @@ const EnvironmentsCard = () => {
     [onHandleEdit, environments, onClickDeleteEnvironment, t],
   );
 
-  const getContent = () => {
-    if (isMobile) {
-      return environments?.map(({ id, slug, name, description, createdAt }) => (
-        <MobileSettingCardView
-          key={id}
-          title={name}
-          data={[
-            { icon: "tag", text: slug },
-            { icon: "description", text: description || "" },
-            { icon: "calendar_month", text: dayjs(createdAt).fromNow() },
-          ]}
-        />
-      ));
-    }
-
-    return <Table data={getTable} />;
-  };
-
   return (
     <SettingCard
       title={t("others.environments.title")}
@@ -185,7 +164,7 @@ const EnvironmentsCard = () => {
       onClick={onHandleCreate}
       hasFooter={isCurrentUserAdmin}
     >
-      {environment.isLoading || !environment ? (
+      {isLoading || !data ? (
         <Loader hasDelay={false}>
           <Skeleton
             items={[
@@ -199,7 +178,7 @@ const EnvironmentsCard = () => {
           />
         </Loader>
       ) : (
-        <>{getContent()}</>
+        <Table data={getTable} />
       )}
     </SettingCard>
   );

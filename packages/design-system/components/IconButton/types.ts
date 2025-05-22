@@ -15,6 +15,10 @@ export interface IconButtonProps
     FlexboxProps,
     PositionProps {
   /**
+   * Pass ref to element
+   */
+  ref?: React.Ref<HTMLDivElement>;
+  /**
    * Change button variant
    */
   variant?: Variant;

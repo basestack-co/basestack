@@ -34,12 +34,14 @@ export const ListItem = styled.li`
 
 export const StyledButton = styled.button<{ isActive: boolean }>`
   ${neutralButtonStyles};
-  padding: ${({ theme }) => theme.spacing.s2} ${({ theme }) => theme.spacing.s3};
+  padding: ${({ theme }) => theme.spacing.s2} ${({ theme }) => theme.spacing.s2};
 
   ${({ isActive, theme }) =>
     isActive &&
     css`
       background-color: ${theme.button.neutral.hover.backgroundColor};
+      cursor: initial;
+      pointer-events: none;
     `};
 `;
 
@@ -47,5 +49,5 @@ export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: ${({ theme }) => theme.spacing.s4};
+  margin-left: ${({ theme }) => theme.spacing.s3};
 `;

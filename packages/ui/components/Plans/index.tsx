@@ -7,6 +7,9 @@ import {
   formatNumber,
   getBrowserUrl,
   PlanTypeId,
+  Product,
+  FlagsPlan,
+  FormPlan,
 } from "@basestack/utils";
 import dayjs from "dayjs";
 // Types
@@ -20,13 +23,25 @@ import ActivePlan, { CurrentPlan } from "./ActivePlan";
 import { useTheme } from "styled-components";
 import { Container, List, ListItem } from "./styles";
 
-const flagsFreePlanLimits = config.plans.getFlagsPlanLimits(PlanTypeId.FREE);
-const flagsFreePlanFeatures = config.plans.getFlagsPlanFeatures(
+const flagsFreePlanLimits = config.plans.getPlanLimits(
+  Product.FLAGS,
   PlanTypeId.FREE,
-);
+) as FlagsPlan["limits"];
 
-const formsFreePlanLimits = config.plans.getFormPlanLimits(PlanTypeId.FREE);
-const formsFreePlanFeatures = config.plans.getFormPlanFeatures(PlanTypeId.FREE);
+const flagsFreePlanFeatures = config.plans.getPlanFeatures(
+  Product.FLAGS,
+  PlanTypeId.FREE,
+) as FlagsPlan["features"];
+
+const formsFreePlanLimits = config.plans.getPlanLimits(
+  Product.FORMS,
+  PlanTypeId.FREE,
+) as FormPlan["limits"];
+
+const formsFreePlanFeatures = config.plans.getPlanFeatures(
+  Product.FORMS,
+  PlanTypeId.FREE,
+) as FormPlan["features"];
 
 export interface PlansProps {
   product: "forms" | "feature-flags";

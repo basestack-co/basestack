@@ -15,7 +15,10 @@ generator client {
 
 enum Role {
   USER
-  ADMIN
+  ADMIN // Full access to create, modify, delete, and view all forms and settings
+  DEVELOPER // Can create and modify forms, but might have limitations on the settings
+  VIEWER // Read-only access to see forms and their states but cannot modify them
+  TESTER // Can view forms and their states but cannot modify them
 }
 
 enum FormType {
@@ -68,6 +71,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   forms         FormOnUsers[]
+  teams         TeamMembers[]
   subscription  Subscription?
   role          Role          @default(ADMIN)
   createdAt     DateTime      @default(now())
@@ -101,6 +105,7 @@ model Subscription {
   forms             Int       @default(0)
   submissions       Int       @default(0)
   members           Int       @default(0)
+  teams             Int       @default(0)
   spams             Int       @default(0)
   fileUploadLimit   Int       @default(0)
   integrationsCalls Int       @default(0)
@@ -168,4 +173,44 @@ model Submission {
   form Form @relation(fields: [formId], references: [id], onDelete: Cascade)
 
   @@index([formId])
+}
+
+model Team {
+  id          String   @id @default(cuid())
+  name        String   @db.VarChar(50)
+  description String?  @db.VarChar(250)
+  slug        String   @unique @db.VarChar(150)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  members     TeamMembers[]
+  invitations TeamInvitation[]
+
+  @@index([slug])
+}
+
+model TeamMembers {
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([teamId, userId])
+}
+
+model TeamInvitation {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  role      Role     @default(VIEWER)
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email, teamId])
 }

@@ -5,11 +5,18 @@ import { Receiver } from "@upstash/qstash";
 import React, { ElementType } from "react";
 import type { SendEmailPayload } from "@basestack/vendors";
 // Email
-import { sendEmail, WelcomeEmailTemplate } from "@basestack/emails";
+import {
+  sendEmail,
+  WelcomeEmailTemplate,
+  InviteEmailTemplate,
+  AddProjectMemberEmailTemplate,
+} from "@basestack/emails";
 import { render } from "@react-email/render";
 
 const templateList: { [key: string]: ElementType } = {
   welcome: WelcomeEmailTemplate,
+  invite: InviteEmailTemplate,
+  addProjectMember: AddProjectMemberEmailTemplate,
 };
 
 export const { POST } = serve<SendEmailPayload>(

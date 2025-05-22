@@ -1,45 +1,53 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 // Router
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 // Components
 import { CardList, CardListItem, SettingCardContainer } from "../styles";
 import FlagsIpRules from "./_components/FlagsIpRules";
 import FlagsWebsites from "./_components/FlagsWebsites";
 // Utils
-import { PlanTypeId } from "@basestack/utils";
+import { PlanTypeId, config } from "@basestack/utils";
 // Server
 import { api } from "utils/trpc/react";
 
+const { hasFlagsPermission } = config.plans;
+
 const SecuritySettingsPage = () => {
+  const router = useRouter();
   const { projectId } = useParams<{ projectId: string }>();
 
-  const [project, usage] = api.useQueries((t) => [
-    t.project.byId({ projectId }, { enabled: !!projectId }),
-    t.subscription.usage(undefined, { enabled: !!projectId }),
-  ]);
+  const { data } = api.project.byId.useQuery(
+    { projectId },
+    {
+      enabled: !!projectId,
+    },
+  );
 
-  const planId = (usage.data?.planId ?? PlanTypeId.FREE) as PlanTypeId;
+  const planId = useMemo(() => {
+    return (data?.owner?.subscription?.planId ?? PlanTypeId.FREE) as PlanTypeId;
+  }, [data]);
 
   return (
     <CardList>
-      <CardListItem>
-        <SettingCardContainer>
-          <FlagsWebsites
-            websites={project.data?.websites ?? ""}
-            planId={planId}
-          />
-        </SettingCardContainer>
-      </CardListItem>
-      <CardListItem>
-        <SettingCardContainer>
-          <FlagsIpRules
-            blockIpAddresses={project.data?.blockIpAddresses ?? ""}
-            planId={planId}
-          />
-        </SettingCardContainer>
-      </CardListItem>
+      {hasFlagsPermission(data?.role, "view_project_security") && (
+        <>
+          <CardListItem>
+            <SettingCardContainer>
+              <FlagsWebsites websites={data?.websites ?? ""} planId={planId} />
+            </SettingCardContainer>
+          </CardListItem>
+          <CardListItem>
+            <SettingCardContainer>
+              <FlagsIpRules
+                blockIpAddresses={data?.blockIpAddresses ?? ""}
+                planId={planId}
+              />
+            </SettingCardContainer>
+          </CardListItem>
+        </>
+      )}
     </CardList>
   );
 };

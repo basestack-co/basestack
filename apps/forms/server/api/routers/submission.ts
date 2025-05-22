@@ -1,13 +1,20 @@
-import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
+import {
+  protectedProcedure,
+  createTRPCRouter,
+  withFormRestrictions,
+} from "server/api/trpc";
 // Utils
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
+// Types
+import { Role } from ".prisma/client";
 
 export const submissionRouter = createTRPCRouter({
   all: protectedProcedure
     .meta({
-      restricted: true,
+      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER, Role.VIEWER],
     })
+    .use(withFormRestrictions)
     .input(
       z.object({
         formId: z.string(),
@@ -20,7 +27,7 @@ export const submissionRouter = createTRPCRouter({
       }),
     )
     .query(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const userId = ctx?.session?.user.id!;
       const limit = input.limit ?? 50;
 
       const search = input.search
@@ -91,15 +98,16 @@ export const submissionRouter = createTRPCRouter({
     }),
   export: protectedProcedure
     .meta({
-      restricted: true,
+      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
     })
+    .use(withFormRestrictions)
     .input(
       z.object({
         formId: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const userId = ctx?.session?.user.id!;
 
       const submissions = await ctx.prisma.submission.findMany({
         where: {
@@ -163,8 +171,9 @@ export const submissionRouter = createTRPCRouter({
     }),
   update: protectedProcedure
     .meta({
-      restricted: true,
+      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
     })
+    .use(withFormRestrictions)
     .input(
       z
         .object({
@@ -176,7 +185,7 @@ export const submissionRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const userId = ctx?.session?.user.id!;
       const { formId, ids, ...props } = input;
       const data = Object.fromEntries(
         Object.entries(props).filter(([_, value]) => value !== null),
@@ -209,8 +218,9 @@ export const submissionRouter = createTRPCRouter({
     }),
   delete: protectedProcedure
     .meta({
-      restricted: true,
+      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
     })
+    .use(withFormRestrictions)
     .input(
       z.object({
         formId: z.string(),
@@ -218,7 +228,7 @@ export const submissionRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const userId = ctx?.session?.user.id!;
 
       const submissions = await ctx.prisma.submission.deleteMany({
         where: {

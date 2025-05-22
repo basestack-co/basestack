@@ -10,13 +10,15 @@ export const createModalsSlice: StateCreator<
 > = (set) => ({
   isCreateEnvironmentModalOpen: false,
   isUpdateEnvironmentModalOpen: false,
-  isInviteMemberModalOpen: false,
+  isAddProjectMemberModalOpen: false,
   isCreateProjectModalOpen: false,
+  isCreateTeamModalOpen: false,
+  isManageTeamModalOpen: false,
   isCreateFlagModalOpen: false,
   isUpdateFlagModalOpen: false,
   environmentModalPayload: null,
   flagModalPayload: null,
-  inviteMemberModalPayload: null,
+  teamModalPayload: null,
   isConfirmModalOpen: false,
   confirmModalPayload: null,
   isIntegrationModalOpen: false,
@@ -31,14 +33,22 @@ export const createModalsSlice: StateCreator<
       isUpdateEnvironmentModalOpen: isOpen,
       environmentModalPayload: data,
     })),
-  setInviteMemberModalOpen: ({ isOpen, data }) =>
+  setAddProjectMemberModalOpen: ({ isOpen }) =>
     set(() => ({
-      isInviteMemberModalOpen: isOpen,
-      inviteMemberModalPayload: data,
+      isAddProjectMemberModalOpen: isOpen,
     })),
   setCreateProjectModalOpen: ({ isOpen }) =>
     set(() => ({
       isCreateProjectModalOpen: isOpen,
+    })),
+  setCreateTeamModalOpen: ({ isOpen }) =>
+    set(() => ({
+      isCreateTeamModalOpen: isOpen,
+    })),
+  setManageTeamModalOpen: ({ isOpen, data }) =>
+    set(() => ({
+      isManageTeamModalOpen: isOpen,
+      teamModalPayload: data,
     })),
   setCreateFlagModalOpen: ({ isOpen }) =>
     set(() => ({
