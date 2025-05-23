@@ -25,7 +25,7 @@
     "db:push": "prisma db push --schema=./prisma/schema.prisma",
     "db:seed": "npx prisma db seed",
     "db:studio": "prisma studio --schema=./prisma/schema.prisma",
-    "auth:generate": "npx @better-auth/cli generate --config=./server/auth/index.ts",
+    "auth:generate": "npx @better-auth/cli generate --config=./server/auth/index.ts --output=./server/auth/",
     "jobs:dev": "npx @upstash/qstash-cli dev -port=8081",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
   },

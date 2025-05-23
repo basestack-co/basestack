@@ -34,14 +34,16 @@ export const auth = betterAuth({
               to: [user.email],
               subject: `Welcome to Basestack Forms`,
               props: {
-                name: user.name,
-                title: "Welcome to Basestack Forms",
-                description:
-                  "Welcome to Basestack Forms, the platform that elevates your website with powerful, customizable forms.",
-                link: config.urls.getAppWithEnv(
-                  Product.FORMS,
-                  AppMode as AppEnv,
-                ),
+                content: {
+                  name: user.name,
+                  title: "Welcome to Basestack Forms",
+                  description:
+                    "Welcome to Basestack Forms, the platform that elevates your website with powerful, customizable forms.",
+                  link: config.urls.getAppWithEnv(
+                    Product.FORMS,
+                    AppMode as AppEnv,
+                  ),
+                },
               },
             });
           }
