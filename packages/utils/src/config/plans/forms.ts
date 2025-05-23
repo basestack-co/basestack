@@ -12,20 +12,10 @@ const forms: FormPlan[] = [
       monthly: {
         amount: 0,
         currency: "USD",
-        variantIds: {
-          local: 0,
-          development: 0,
-          production: 0,
-        },
       },
       yearly: {
         amount: 0,
         currency: "USD",
-        variantIds: {
-          local: 0,
-          development: 0,
-          production: 0,
-        },
       },
     },
     products: {
@@ -67,28 +57,21 @@ const forms: FormPlan[] = [
       monthly: {
         amount: 9,
         currency: "USD",
-        variantIds: {
-          local: 368586,
-          development: 368586,
-          production: 716252,
-        },
       },
       yearly: {
         amount: 7.67, // 15% off
         currency: "USD",
-        variantIds: {
-          local: 368587,
-          development: 368587,
-          production: 716253,
-        },
       },
     },
     products: {
       sandbox: [
-        "b148cb4c-9684-4d6c-8a39-6b14ecf436a1",
-        "0b93ba2a-ea8b-4a93-a818-22699784c0cd",
+        "af73c4e6-2b64-4561-a70c-d0ad9f8f5cb8",
+        "cc079a74-ba26-4d89-819f-0808562d8fdd",
       ],
-      production: [],
+      production: [
+        "4027ff22-39e2-4f95-8115-4e3eecae4abd",
+        "3e88c6c4-e916-4228-a151-0991633edf06",
+      ],
     },
     limits: {
       forms: 5,
@@ -125,28 +108,21 @@ const forms: FormPlan[] = [
       monthly: {
         amount: 39,
         currency: "USD",
-        variantIds: {
-          local: 368595,
-          development: 368595,
-          production: 716255,
-        },
       },
       yearly: {
         amount: 33.17, // 15% off
         currency: "USD",
-        variantIds: {
-          local: 368596,
-          development: 368596,
-          production: 716256,
-        },
       },
     },
     products: {
       sandbox: [
-        "b2f4feed-7d99-45fd-ac6e-475f5ed42200",
-        "e0a313c5-99ab-41b3-8c1e-78bd74ac3aaf",
+        "c3ca97ab-96f2-443e-81ec-0ae526869960",
+        "479514c8-bcb1-437e-834b-200df16f770d",
       ],
-      production: [],
+      production: [
+        "658ac683-402f-4b07-a2e0-284648c4ffbe",
+        "137c8ded-d8fe-4740-a46f-18d201d51777",
+      ],
     },
     limits: {
       forms: Infinity,
@@ -183,28 +159,21 @@ const forms: FormPlan[] = [
       monthly: {
         amount: 99,
         currency: "USD",
-        variantIds: {
-          local: 368599,
-          development: 368599,
-          production: 716258,
-        },
       },
       yearly: {
         amount: 84.08, // 15% off
         currency: "USD",
-        variantIds: {
-          local: 368600,
-          development: 368600,
-          production: 716259,
-        },
       },
     },
     products: {
       sandbox: [
-        "2451191a-ab7e-44c5-aae5-540d6b2141b7",
-        "e67045f6-0870-4f2b-91a1-42180db5a885",
+        "6098f8e0-2cdb-4c2f-b709-2d28b1fd8505",
+        "7f6da0cf-a693-4ea4-8f44-3373f13e881d",
       ],
-      production: [],
+      production: [
+        "eef911d7-8dd0-4ad3-aa52-c4827d734a46",
+        "78074ddc-86c4-4d7c-b467-38f064d890cd",
+      ],
     },
     limits: {
       forms: Infinity,
@@ -242,20 +211,10 @@ const forms: FormPlan[] = [
       monthly: {
         amount: Infinity,
         currency: "USD",
-        variantIds: {
-          local: 0,
-          development: 0,
-          production: 0,
-        },
       },
       yearly: {
         amount: Infinity,
         currency: "USD",
-        variantIds: {
-          local: 0,
-          development: 0,
-          production: 0,
-        },
       },
     },
     products: {

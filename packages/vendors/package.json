@@ -23,7 +23,6 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@lemonsqueezy/lemonsqueezy.js": "^4.0.0",
     "@upstash/qstash": "^2.8.1",
     "@upstash/workflow": "^0.2.13"
   }

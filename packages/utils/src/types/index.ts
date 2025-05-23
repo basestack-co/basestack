@@ -52,7 +52,6 @@ export interface PlanVariantIds {
 export interface PlanPriceInterval {
   amount: number;
   currency: string;
-  variantIds: PlanVariantIds;
 }
 
 export interface PlanPrice {

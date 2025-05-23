@@ -144,13 +144,11 @@ Because the Basestack Platform uses background jobs to handle tasks such as send
 
 ### Payments Configuration
 
-The Basestack Platform uses [LemonSqueezy ↗](https://www.lemonsqueezy.com/) for payments. To configure [LemonSqueezy ↗](https://www.lemonsqueezy.com/), set the following environment variables:
+The Basestack Platform uses [Polar ↗](https://www.polar.sh/) for payments. To configure [Polar ↗](https://www.polar.sh/), set the following environment variables:
 
 | Property                        | Description                                                                                           | Required |
 | ------------------------------- | ----------------------------------------------------------------------------------------------------- | -------- |
-| `LEMONSQUEEZY_STORE_ID`         | Store identifier for LemonSqueezy, identifying the specific store or account within the system.       | false    |
-| `LEMONSQUEEZY_SIGNATURE_SECRET` | Secret key used for request signature validation in LemonSqueezy, ensuring secure API communications. | false    |
-| `LEMONSQUEEZY_API_KEY`          | API key for accessing LemonSqueezy services, facilitating authorized interaction with the platform.   | false    |
+| `POLAR_ACCESS_TOKEN`            | Access token for accessing Polar services, facilitating authorized interaction with the platform.   | true     |
 
 ### Additional Configurations
 

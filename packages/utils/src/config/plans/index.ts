@@ -97,32 +97,6 @@ const isUnderPlanLimit = (
   return plan.limits[limit as keyof typeof plan.limits] >= value;
 };
 
-const getPlanVariantId = (
-  product: Product,
-  id: PlanTypeId,
-  interval: "monthly" | "yearly",
-  mode: string = "production",
-) => {
-  const stage = getAppMode(mode);
-  const plan = getPlan(product, id);
-  return plan.price[interval].variantIds[stage];
-};
-
-const getPlanByVariantId = (
-  product: Product,
-  variantId: number,
-  isBilledMonthly: boolean = false,
-  mode: string = "production",
-) => {
-  const stage = getAppMode(mode);
-
-  return currentPlans[product].find(
-    (plan) =>
-      plan.price[isBilledMonthly ? "monthly" : "yearly"].variantIds[stage] ===
-      variantId,
-  );
-};
-
 const getLimitByKey = (
   product: Product,
   id: PlanTypeId,
@@ -148,8 +122,6 @@ export const plans = {
   hasPlanFeature,
   getPlanLimitByKey,
   isUnderPlanLimit,
-  getPlanVariantId,
-  getPlanByVariantId,
   getLimitByKey,
   getPlanProducts,
 };

@@ -12,20 +12,10 @@ const flags: FlagsPlan[] = [
       monthly: {
         amount: 0,
         currency: "USD",
-        variantIds: {
-          local: 0,
-          development: 0,
-          production: 0,
-        },
       },
       yearly: {
         amount: 0,
         currency: "USD",
-        variantIds: {
-          local: 0,
-          development: 0,
-          production: 0,
-        },
       },
     },
     products: {
@@ -63,20 +53,10 @@ const flags: FlagsPlan[] = [
       monthly: {
         amount: 9,
         currency: "USD",
-        variantIds: {
-          local: 695368,
-          development: 695368,
-          production: 716243,
-        },
       },
       yearly: {
         amount: 7.65, // 15% off
         currency: "USD",
-        variantIds: {
-          local: 695369,
-          development: 695369,
-          production: 716244,
-        },
       },
     },
     products: {
@@ -84,7 +64,10 @@ const flags: FlagsPlan[] = [
         "ac95ab7b-3893-45d9-81f0-f822498e357d",
         "20b26612-99f3-40b1-9fc7-0e0ec4173d1c",
       ],
-      production: [],
+      production: [
+        "15ae622a-8d1f-47ce-a6cc-29d63b78afb3",
+        "89c0b073-62fe-4786-915e-628d233d09fe",
+      ],
     },
     limits: {
       projects: 5,
@@ -117,20 +100,10 @@ const flags: FlagsPlan[] = [
       monthly: {
         amount: 49,
         currency: "USD",
-        variantIds: {
-          local: 695372,
-          development: 695372,
-          production: 716246,
-        },
       },
       yearly: {
         amount: 41.65, // 15% off
         currency: "USD",
-        variantIds: {
-          local: 695373,
-          development: 695373,
-          production: 716247,
-        },
       },
     },
     products: {
@@ -138,7 +111,10 @@ const flags: FlagsPlan[] = [
         "05a87ce5-aa33-4fd0-abdb-8e0fc46a7265",
         "d234244b-7536-48ba-9cad-d5f89094795a",
       ],
-      production: [],
+      production: [
+        "b662e75c-125c-4826-82d5-2d5567022dda",
+        "9cd0d171-bfbf-4b62-a0fd-566a452dbe82",
+      ],
     },
     limits: {
       projects: Infinity,
@@ -171,20 +147,10 @@ const flags: FlagsPlan[] = [
       monthly: {
         amount: 119,
         currency: "USD",
-        variantIds: {
-          local: 695376,
-          development: 695376,
-          production: 716249,
-        },
       },
       yearly: {
         amount: 101.15, // 15% off
         currency: "USD",
-        variantIds: {
-          local: 695377,
-          development: 695377,
-          production: 716250,
-        },
       },
     },
     products: {
@@ -192,7 +158,10 @@ const flags: FlagsPlan[] = [
         "6a633d5b-797b-4523-a961-9bc864483de8",
         "3afe0a64-2153-4231-a691-1dfbe5f9d828",
       ],
-      production: [],
+      production: [
+        "474eccb5-5cb5-4c1b-a5bf-81a4e2a85265",
+        "6c4838c8-2f6e-43ca-a84a-fb17e30d3de0",
+      ],
     },
     limits: {
       projects: Infinity,
@@ -226,20 +195,10 @@ const flags: FlagsPlan[] = [
       monthly: {
         amount: Infinity,
         currency: "USD",
-        variantIds: {
-          local: 0,
-          development: 0,
-          production: 0,
-        },
       },
       yearly: {
         amount: Infinity,
         currency: "USD",
-        variantIds: {
-          local: 0,
-          development: 0,
-          production: 0,
-        },
       },
     },
     products: {

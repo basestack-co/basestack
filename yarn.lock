@@ -1246,11 +1246,6 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@lemonsqueezy/lemonsqueezy.js@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@lemonsqueezy/lemonsqueezy.js/-/lemonsqueezy.js-4.0.0.tgz#69b01731e4fed70a2a838e683e35f79655cadded"
-  integrity sha512-xcY1/lDrY7CpIF98WKiL1ElsfoVhddP7FT0fw7ssOzrFqQsr44HgolKrQZxd9SywsCPn12OTOUieqDIokI3mFg==
-
 "@levischuck/tiny-cbor@^0.2.2":
   version "0.2.11"
   resolved "https://registry.yarnpkg.com/@levischuck/tiny-cbor/-/tiny-cbor-0.2.11.tgz#833ddf7f3627dcb62d855d9c184061b4a1a875b3"
