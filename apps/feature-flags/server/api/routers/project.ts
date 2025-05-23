@@ -10,7 +10,7 @@ import { generateSlug } from "random-word-slugs";
 import { PlanTypeId, Product, AppEnv, config } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 import { z } from "zod";
-import { withFeatures, withUsageUpdate } from "server/db/utils/subscription";
+import { withFeatures, withUsageUpdate } from "server/db/utils/usage";
 // Types
 import { Role } from ".prisma/client";
 import { TRPCError } from "@trpc/server";
@@ -165,14 +165,10 @@ export const projectRouter = createTRPCRouter({
                 select: {
                   user: {
                     select: {
+                      id: true,
                       name: true,
                       email: true,
                       image: true,
-                      subscription: {
-                        select: {
-                          planId: true,
-                        },
-                      },
                     },
                   },
                 },
@@ -197,7 +193,10 @@ export const projectRouter = createTRPCRouter({
         websites: data?.project.websites,
         blockIpAddresses: data?.project.blockIpAddresses,
         role: data?.role,
-        owner: data?.project.users[0]?.user,
+        owner: {
+          ...data?.project.users[0]?.user,
+          planId: ctx.project.adminSubscriptionPlanId,
+        },
       };
     }),
   allKeys: protectedProcedure
@@ -277,7 +276,7 @@ export const projectRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;
-      const planId = ctx.usage.planId as PlanTypeId;
+      const planId = ctx.subscription.planId;
       const hasOnlyOneEnv = planId === PlanTypeId.FREE;
 
       return await ctx.prisma.$transaction(async (tx) => {

@@ -106,7 +106,7 @@ const FlagCards = ({
             await trpcUtils.flag.all.invalidate({ projectId });
             await trpcUtils.project.recent.invalidate();
             // Reset the usage cache
-            await trpcUtils.subscription.usage.invalidate();
+            await trpcUtils.usage.current.invalidate();
           },
           onError: (error) => {
             toast.error(error.message);

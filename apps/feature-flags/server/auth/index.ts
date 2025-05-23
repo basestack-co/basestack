@@ -12,13 +12,7 @@ import { config, Product, AppEnv } from "@basestack/utils";
 // Vendors
 import { qstash } from "@basestack/vendors";
 // Payments
-import {
-  polar,
-  checkout,
-  portal,
-  usage,
-  webhooks,
-} from "@polar-sh/better-auth";
+import { polar, checkout, portal, usage } from "@polar-sh/better-auth";
 import { polarClient } from "../../libs/polar/client";
 
 export const auth: ReturnType<typeof betterAuth> = betterAuth({
@@ -83,60 +77,6 @@ export const auth: ReturnType<typeof betterAuth> = betterAuth({
         }),
         portal(),
         usage(),
-        /* webhooks({
-          secret: process.env.POLAR_WEBHOOK_SECRET!,
-          onSubscriptionCreated: async (payload) => {
-            console.log("onSubscriptionCreated ", payload.customer.id);
-
-            await createOrUpdateSubscription({
-              prisma,
-              event: payload.type,
-              userId: payload.metadata.userId,
-              planId: payload.metadata.planId,
-              subscriptionId: payload.id,
-              customerId: payload.customer.id,
-              productId: payload.product.id,
-              status: payload.status,
-              renewsAt: payload.started_at,
-              endsAt: payload.ended_at,
-              cancelled: false,
-            });
-          },
-          onSubscriptionUpdated: async (payload) => {
-            console.log("onSubscriptionUpdated ", payload);
-
-            await createOrUpdateSubscription({
-              prisma,
-              event: payload.type,
-              userId: payload.metadata.userId,
-              planId: payload.metadata.planId,
-              subscriptionId: payload.id,
-              customerId: payload.customer.id,
-              productId: payload.product.id,
-              status: payload.status,
-              renewsAt: payload.started_at,
-              endsAt: payload.ended_at,
-              cancelled: false,
-            });
-          },
-          onSubscriptionCanceled: async (payload) => {
-            console.log("onSubscriptionCanceled ", payload);
-
-            await createOrUpdateSubscription({
-              prisma,
-              event: payload.type,
-              userId: payload.metadata.userId,
-              planId: payload.metadata.planId,
-              subscriptionId: payload.id,
-              customerId: payload.customer.id,
-              productId: payload.product.id,
-              status: payload.status,
-              renewsAt: payload.started_at,
-              endsAt: payload.ended_at,
-              cancelled: true,
-            });
-          },
-        }), */
       ],
     }),
   ],

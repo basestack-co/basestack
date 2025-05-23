@@ -5,8 +5,6 @@ import React, { useCallback, useMemo } from "react";
 import { Plans } from "@basestack/ui";
 // Toast
 import { toast } from "sonner";
-// Server
-import { api } from "utils/trpc/react";
 // Locales
 import { useTranslations } from "next-intl";
 // Libs
@@ -50,36 +48,36 @@ const UserProfileBillingPage = () => {
     },
   });
 
-  const currentSubscription = useMemo(() => {
+  const sub = useMemo(() => {
     if (!data) return null;
 
-    const sub = data.activeSubscriptions.find(
+    const subscription = data.activeSubscriptions.find(
       ({ metadata }: { metadata: { product: string } }) =>
         metadata.product === Product.FLAGS,
     );
 
-    if (!sub) return null;
+    if (!subscription) return null;
 
     return {
-      id: sub?.id ?? "",
-      planId: sub?.metadata.planId ?? "",
-      status: sub?.status ?? "",
-      amount: sub?.amount ?? 0,
-      currency: sub?.currency ?? "",
-      recurringInterval: sub?.recurringInterval ?? "month",
-      currentPeriodStart: sub?.currentPeriodStart ?? "",
-      currentPeriodEnd: sub?.currentPeriodEnd ?? "",
+      id: subscription?.id ?? "",
+      planId: subscription?.metadata.planId ?? "",
+      status: subscription?.status ?? "",
+      amount: subscription?.amount ?? 0,
+      currency: subscription?.currency ?? "",
+      recurringInterval: subscription?.recurringInterval ?? "month",
+      currentPeriodStart: subscription?.currentPeriodStart ?? "",
+      currentPeriodEnd: subscription?.currentPeriodEnd ?? "",
     };
   }, [data]);
 
   const currentPlan = useMemo(() => {
     const plan = config.plans.getPlan(
       Product.FLAGS,
-      currentSubscription?.planId ?? PlanTypeId.FREE,
+      sub?.planId ?? PlanTypeId.FREE,
     );
 
     const amount =
-      currentSubscription?.recurringInterval === "month"
+      sub?.recurringInterval === "month"
         ? plan.price.monthly.amount
         : plan.price.yearly.amount;
 
@@ -88,7 +86,7 @@ const UserProfileBillingPage = () => {
       amount: amount,
       country: data?.billingAddress?.country ?? "",
     };
-  }, [currentSubscription, data]);
+  }, [sub, data]);
 
   const onCreateFlagsCheckout = useCallback(
     async (
@@ -182,10 +180,10 @@ const UserProfileBillingPage = () => {
             onCreateCheckoutCallback={onCreateFlagsCheckout}
             onCreatePortalCallback={onCreateFlagsPortal}
             currentPlan={currentPlan}
-            recurringInterval={currentSubscription?.recurringInterval ?? ""}
-            subStatus={currentSubscription?.status ?? ""}
-            subRenewsAt={currentSubscription?.currentPeriodEnd ?? ""}
-            hasActivePlan={!!currentSubscription}
+            recurringInterval={sub?.recurringInterval ?? ""}
+            subStatus={sub?.status ?? ""}
+            subRenewsAt={sub?.currentPeriodEnd ?? ""}
+            hasActivePlan={!!sub}
           />
         </ProfileCardContainer>
       </CardListItem>

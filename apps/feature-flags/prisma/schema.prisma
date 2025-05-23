@@ -67,7 +67,7 @@ model User {
   sessions      Session[]
   projects      ProjectsOnUsers[]
   teams         TeamMembers[]
-  subscription  Subscription?
+  usage         Usage[]
   role          Role              @default(ADMIN)
   createdAt     DateTime          @default(now())
   updatedAt     DateTime          @updatedAt
@@ -86,34 +86,21 @@ model Verification {
   @@index([identifier])
 }
 
-model Subscription {
-  id                String    @id @default(cuid())
-  userId            String    @unique
-  subscriptionId    String
-  customerId        String?
-  productId         String?
-  status            String?
-  scheduleId        String?   @unique
-  planId            String
-  event             String?
-  billingCycleStart DateTime
-  cancelled         Boolean?  @default(false)
-  projects          Int       @default(0)
-  environments      Int       @default(0)
-  flags             Int       @default(0)
-  segments          Int       @default(0)
-  rollouts          Int       @default(0)
-  members           Int       @default(0)
-  teams             Int       @default(0)
-  apiRequests       Int       @default(0)
-  renewsAt          DateTime?
-  endsAt            DateTime?
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+model Usage {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  projects     Int      @default(0)
+  environments Int      @default(0)
+  flags        Int      @default(0)
+  segments     Int      @default(0)
+  rollouts     Int      @default(0)
+  members      Int      @default(0)
+  teams        Int      @default(0)
+  apiRequests  Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId, subscriptionId])
 }
 
 model Project {

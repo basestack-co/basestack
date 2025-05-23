@@ -1,12 +1,7 @@
 // Prisma
 import { prisma } from "server/db";
 // Utils
-import {
-  AppEnv,
-  config as utilsConfig,
-  PlanTypeId,
-  Product,
-} from "@basestack/utils";
+import { AppEnv, config as utilsConfig, Product } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 
 const { urls } = utilsConfig;
@@ -31,12 +26,7 @@ export const getProjectOnUser = async (projectKey: string) => {
       user: {
         select: {
           id: true,
-          subscription: {
-            select: {
-              planId: true,
-              apiRequests: true,
-            },
-          },
+          usage: true,
         },
       },
     },
@@ -49,8 +39,7 @@ export const getProjectOnUser = async (projectKey: string) => {
   return {
     ...current?.project,
     userId: current?.user.id,
-    usage: current?.user.subscription || {
-      planId: PlanTypeId.FREE,
+    usage: current?.user.usage || {
       apiRequests: 0,
     },
   };

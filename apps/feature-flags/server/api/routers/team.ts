@@ -13,7 +13,7 @@ import { qstash } from "@basestack/vendors";
 import { AppMode } from "utils/helpers/general";
 import { config, Product, AppEnv, generateSecureToken } from "@basestack/utils";
 import { z } from "zod";
-import { withUsageUpdate } from "server/db/utils/subscription";
+import { withUsageUpdate } from "server/db/utils/usage";
 import { generateSlug } from "random-word-slugs";
 import dayjs from "dayjs";
 

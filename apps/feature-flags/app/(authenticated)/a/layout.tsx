@@ -32,7 +32,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           isActive: false,
         })),
     }),
-    t.subscription.usage(undefined, {
+    t.usage.current(undefined, {
       enabled: !isSessionLoading,
     }),
   ]);

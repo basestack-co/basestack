@@ -9,7 +9,7 @@ import { TRPCError } from "@trpc/server";
 import { generateSlug } from "random-word-slugs";
 import { z } from "zod";
 // DB
-import { withUsageUpdate } from "server/db/utils/subscription";
+import { withUsageUpdate } from "server/db/utils/usage";
 // Types
 import { Role } from ".prisma/client";
 

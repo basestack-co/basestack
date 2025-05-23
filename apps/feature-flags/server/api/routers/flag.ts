@@ -7,7 +7,7 @@ import {
 } from "server/api/trpc";
 import { TRPCError } from "@trpc/server";
 // Utils
-import { withUsageUpdate } from "server/db/utils/subscription";
+import { withUsageUpdate } from "server/db/utils/usage";
 import { z } from "zod";
 // Types
 import { Role } from ".prisma/client";
