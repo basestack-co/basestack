@@ -90,15 +90,13 @@ model Subscription {
   id                String    @id @default(cuid())
   userId            String    @unique
   subscriptionId    String
-  customerId        Int?
-  productId         Int?
-  variantId         Int?
+  customerId        String?
+  productId         String?
   status            String?
   scheduleId        String?   @unique
   planId            String
   event             String?
   billingCycleStart DateTime
-  paused            Boolean?  @default(false)
   cancelled         Boolean?  @default(false)
   projects          Int       @default(0)
   environments      Int       @default(0)

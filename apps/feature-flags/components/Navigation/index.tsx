@@ -7,8 +7,9 @@ import { flushSync } from "react-dom";
 import { useStore } from "store";
 // Hooks
 import { useRouter, useParams, usePathname } from "next/navigation";
-import { authClient } from "utils/auth/client";
 import { useMedia } from "react-use";
+// Libs
+import { authClient } from "libs/auth/client";
 // Locales
 import { useTranslations } from "next-intl";
 // Types

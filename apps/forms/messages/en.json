@@ -557,6 +557,11 @@
           "redirect": {
             "loading": "Redirecting to checkout..."
           }
+        },
+        "portal": {
+          "redirect": {
+            "loading": "Redirecting to portal..."
+          }
         }
       },
       "feature": {

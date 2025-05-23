@@ -2,7 +2,13 @@
 import { config as formsConfig } from "./forms";
 import { config as flagsConfig } from "./flags";
 // Types
-import { Product, PlanTypeId, FormPlan, FlagsPlan } from "../../types";
+import {
+  Product,
+  PlanTypeId,
+  FormPlan,
+  FlagsPlan,
+  PlanProduct,
+} from "../../types";
 
 const getSubscriptionEvents = [
   "subscription_created",
@@ -126,6 +132,11 @@ const getLimitByKey = (
   return plan?.limits[limit as keyof typeof plan.limits] || 0;
 };
 
+const getPlanProducts = (product: Product, id: PlanTypeId): PlanProduct => {
+  const plan = getPlan(product, id);
+  return plan.products;
+};
+
 export const plans = {
   getSubscriptionEvents,
   ...formsConfig,
@@ -140,4 +151,5 @@ export const plans = {
   getPlanVariantId,
   getPlanByVariantId,
   getLimitByKey,
+  getPlanProducts,
 };

@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-// Auth
-import { authClient } from "utils/auth/client";
+// Libs
+import { authClient } from "libs/auth/client";
 // Store
 import { useStore } from "store";
 // Locales

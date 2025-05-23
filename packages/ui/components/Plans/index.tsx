@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import {
   config,
   formatNumber,
-  getBrowserUrl,
   PlanTypeId,
   Product,
   FlagsPlan,
@@ -49,33 +48,27 @@ export interface PlansProps {
   onCreateCheckoutCallback: (
     planId: PlanTypeId,
     interval: "monthly" | "yearly",
-    redirectUrl: string,
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-    onHandleExternalUrl: (url?: string) => void,
+  ) => void;
+  onCreatePortalCallback: (
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
   ) => void;
   currentPlan?: CurrentPlan;
-  productVariant: string;
-  cardBrand: string;
-  cardLastFour: string;
+  recurringInterval: string;
   subStatus: string;
   subRenewsAt: string;
-  customerPortalUrl: string;
-  updatePaymentMethodUrl: string;
   hasActivePlan: boolean;
 }
 
 const Plans = ({
   product,
   onCreateCheckoutCallback,
+  onCreatePortalCallback,
   isLoadingSubscription,
   currentPlan,
-  productVariant,
-  cardBrand,
-  cardLastFour,
+  recurringInterval,
   subStatus,
   subRenewsAt,
-  customerPortalUrl,
-  updatePaymentMethodUrl,
   hasActivePlan,
 }: PlansProps) => {
   const t = useTranslations("profile");
@@ -95,6 +88,18 @@ const Plans = ({
     }, 10000);
   }, []);
 
+
+  const onCreatePortal = useCallback(
+    () => {
+      setIsLoadingExternalUrl(true);
+
+      onCreatePortalCallback(
+        setIsLoadingExternalUrl,
+      );
+    },
+    [onCreatePortalCallback],
+  );
+
   const onCreateCheckout = useCallback(
     (planId: PlanTypeId) => {
       setIsLoading(true);
@@ -102,12 +107,10 @@ const Plans = ({
       onCreateCheckoutCallback(
         planId,
         interval,
-        `${getBrowserUrl()}/a/user/tab/billing`,
         setIsLoading,
-        onHandleExternalUrl,
       );
     },
-    [interval, onCreateCheckoutCallback, onHandleExternalUrl],
+    [interval, onCreateCheckoutCallback],
   );
 
   const getFreeFeatures = useCallback(() => {
@@ -308,12 +311,9 @@ const Plans = ({
     <Container>
       <ActivePlan
         isActive={subStatus === "active"}
-        isBilledMonthly={productVariant === "Monthly"}
+        isBilledMonthly={recurringInterval === "month"}
         renewsAt={dayjs(subRenewsAt).format("MMMM D, YYYY") ?? ""}
-        cardBrand={cardBrand ?? ""}
-        cardLastFour={cardLastFour ?? ""}
-        onManage={() => onHandleExternalUrl(customerPortalUrl)}
-        onUpdate={() => onHandleExternalUrl(updatePaymentMethodUrl)}
+        onManage={onCreatePortal}
         currentPlan={currentPlan}
         isLoadingExternalUrl={isLoadingExternalUrl}
       />
@@ -322,3 +322,5 @@ const Plans = ({
 };
 
 export default Plans;
+
+

@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-// Auth
-import { authClient } from "utils/auth/client";
+// Libs
+import { authClient } from "libs/auth/client";
 // Locales
 import { useTranslations } from "next-intl";
 // Router

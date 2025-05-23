@@ -12,8 +12,6 @@ import {
   Label,
   Text,
 } from "@basestack/design-system";
-// Utils
-import { config } from "@basestack/utils";
 // Styles
 import {
   Column,
@@ -25,23 +23,14 @@ import {
 
 export interface CurrentPlan {
   name: string;
-  price: {
-    monthly: {
-      amount: number;
-    };
-    yearly: {
-      amount: number;
-    };
-  };
+  amount: number;
+  country: string;
 }
 
 export interface ActivePlanProps {
   isActive: boolean;
   isBilledMonthly: boolean;
-  cardBrand: string;
-  cardLastFour: string;
   onManage: () => void;
-  onUpdate: () => void;
   renewsAt: string;
   currentPlan?: CurrentPlan;
   isLoadingExternalUrl: boolean;
@@ -50,20 +39,13 @@ export interface ActivePlanProps {
 const ActivePlan = ({
   isActive,
   onManage,
-  onUpdate,
-  cardLastFour,
   isBilledMonthly,
   renewsAt,
-  cardBrand,
   currentPlan,
   isLoadingExternalUrl,
 }: ActivePlanProps) => {
   const t = useTranslations("profile");
   const { spacing } = useTheme();
-
-  const price = isBilledMonthly
-    ? currentPlan?.price.monthly.amount
-    : currentPlan?.price.yearly.amount;
 
   const Header = () => {
     return (
@@ -93,7 +75,7 @@ const ActivePlan = ({
         <IconBox icon="calendar_month" />
         <Column ml={spacing.s4}>
           <Text fontWeight={500} mb="2px">
-            {`${t("billing.price.symbol")}${price} ${t("billing.price.abbr")}`}{" "}
+            {`${t("billing.price.symbol")}${currentPlan?.amount} ${t("billing.price.abbr")}`}{" "}
             <Text as="span" muted fontWeight={400}>
               /{" "}
               {isBilledMonthly
@@ -115,16 +97,10 @@ const ActivePlan = ({
   const BillingDetails = () => {
     return (
       <Row alignItems="center">
-        <IconBox icon="credit_card" />
+        <IconBox icon="globe_uk" />
         <Column ml={spacing.s4}>
           <Text muted fontWeight={500} mb="2px">
-            {cardBrand.toUpperCase()}
-          </Text>
-          <Text muted fontWeight={500}>
-            {t("billing.plan.details.lastFour")}{" "}
-            <Text as="span" fontWeight={500}>
-              {cardLastFour}
-            </Text>
+            {currentPlan?.country}
           </Text>
         </Column>
       </Row>
@@ -143,13 +119,6 @@ const ActivePlan = ({
       </Column>
       <HorizontalRule mt="auto" />
       <FooterContainer>
-        <Button
-          onClick={onUpdate}
-          variant={ButtonVariant.Outlined}
-          isDisabled={isLoadingExternalUrl}
-        >
-          {t("billing.plan.details.button")}
-        </Button>
         <Button
           onClick={onManage}
           variant={ButtonVariant.Secondary}

@@ -3,8 +3,8 @@
 import React, { Fragment } from "react";
 // Router
 import { useRouter } from "next/navigation";
-// Auth
-import { authClient } from "utils/auth/client";
+// Libs
+import { authClient } from "libs/auth/client";
 // Modals
 import Modals from "modals";
 // Components

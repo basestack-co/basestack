@@ -8,8 +8,8 @@ import { useShallow } from "zustand/react/shallow";
 import { useStore } from "store";
 // Server
 import { api } from "utils/trpc/react";
-// Auth
-import { authClient } from "utils/auth/client";
+// Libs
+import { authClient } from "libs/auth/client";
 // Toast
 import { toast } from "sonner";
 // Components

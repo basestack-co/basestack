@@ -15,8 +15,8 @@ import { useStore } from "store";
 // Utils
 import { createTable, config } from "@basestack/utils";
 import dayjs from "dayjs";
-// Auth
-import { authClient } from "utils/auth/client";
+// Libs
+import { authClient } from "libs/auth/client";
 // Router
 import { useParams, useRouter } from "next/navigation";
 // Toast

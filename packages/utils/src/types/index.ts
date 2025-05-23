@@ -60,12 +60,18 @@ export interface PlanPrice {
   yearly: PlanPriceInterval;
 }
 
+export interface PlanProduct {
+  sandbox: Array<string>;
+  production: Array<string>;
+}
+
 export interface Plan {
   id: PlanTypeId;
   name: string;
   slogan: string;
   description: string;
   price: PlanPrice;
+  products: PlanProduct;
 }
 
 export interface FormPlan extends Plan {

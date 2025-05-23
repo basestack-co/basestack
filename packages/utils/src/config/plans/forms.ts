@@ -28,6 +28,10 @@ const forms: FormPlan[] = [
         },
       },
     },
+    products: {
+      sandbox: [],
+      production: [],
+    },
     limits: {
       forms: 1,
       submissions: 50,
@@ -78,6 +82,13 @@ const forms: FormPlan[] = [
           production: 716253,
         },
       },
+    },
+    products: {
+      sandbox: [
+        "b148cb4c-9684-4d6c-8a39-6b14ecf436a1",
+        "0b93ba2a-ea8b-4a93-a818-22699784c0cd",
+      ],
+      production: [],
     },
     limits: {
       forms: 5,
@@ -130,6 +141,13 @@ const forms: FormPlan[] = [
         },
       },
     },
+    products: {
+      sandbox: [
+        "b2f4feed-7d99-45fd-ac6e-475f5ed42200",
+        "e0a313c5-99ab-41b3-8c1e-78bd74ac3aaf",
+      ],
+      production: [],
+    },
     limits: {
       forms: Infinity,
       submissions: 10000,
@@ -180,6 +198,13 @@ const forms: FormPlan[] = [
           production: 716259,
         },
       },
+    },
+    products: {
+      sandbox: [
+        "2451191a-ab7e-44c5-aae5-540d6b2141b7",
+        "e67045f6-0870-4f2b-91a1-42180db5a885",
+      ],
+      production: [],
     },
     limits: {
       forms: Infinity,
@@ -232,6 +257,10 @@ const forms: FormPlan[] = [
           production: 0,
         },
       },
+    },
+    products: {
+      sandbox: [],
+      production: [],
     },
     limits: {
       forms: Infinity,

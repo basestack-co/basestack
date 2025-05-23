@@ -7,52 +7,109 @@ import { Plans } from "@basestack/ui";
 import { toast } from "sonner";
 // Server
 import { api } from "utils/trpc/react";
-// Store
-import { useStore } from "store";
 // Locales
 import { useTranslations } from "next-intl";
+// Libs
+import { authClient } from "libs/auth/client";
 // Utils
 import { config, PlanTypeId, Product } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 // Styles
 import { CardListItem, CardList, ProfileCardContainer } from "../styles";
+// Tanstack
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const UserProfileBillingPage = () => {
   const t = useTranslations("profile");
-  const isDarkMode = useStore((state) => state.isDarkMode);
 
-  const { data, isLoading: isLoadingSubscription } =
-    api.subscription.current.useQuery(undefined, {
-      enabled: true,
-    });
+  const { data: session } = authClient.useSession();
 
-  const createCheckout = api.subscription.checkout.useMutation();
+  const { data, isLoading: isLoadingSubscription } = useQuery({
+    queryKey: ["polar-customer-state"],
+    queryFn: async () => {
+      const { data } = await authClient.customer.state();
+      return data;
+    },
+  });
 
-  const currentPlan = useMemo(
-    () =>
-      config.plans.getPlanByVariantId(
-        Product.FLAGS,
-        data?.product?.variantId ?? 0,
-        data?.product.variant === "Monthly",
-        AppMode,
-      ),
-    [data],
-  );
+  const createCheckout = useMutation({
+    mutationFn: (payload: {
+      products: string[];
+      metadata: Record<string, string>;
+    }) => {
+      return authClient.checkout({
+        products: payload.products,
+        metadata: payload.metadata,
+      });
+    },
+  });
+
+  const createPortal = useMutation({
+    mutationFn: () => {
+      return authClient.customer.portal();
+    },
+  });
+
+  const currentSubscription = useMemo(() => {
+    if (!data) return null;
+
+    const sub = data.activeSubscriptions.find(
+      ({ metadata }: { metadata: { product: string } }) =>
+        metadata.product === Product.FLAGS,
+    );
+
+    if (!sub) return null;
+
+    return {
+      id: sub?.id ?? "",
+      planId: sub?.metadata.planId ?? "",
+      status: sub?.status ?? "",
+      amount: sub?.amount ?? 0,
+      currency: sub?.currency ?? "",
+      recurringInterval: sub?.recurringInterval ?? "month",
+      currentPeriodStart: sub?.currentPeriodStart ?? "",
+      currentPeriodEnd: sub?.currentPeriodEnd ?? "",
+    };
+  }, [data]);
+
+  const currentPlan = useMemo(() => {
+    const plan = config.plans.getPlan(
+      Product.FLAGS,
+      currentSubscription?.planId ?? PlanTypeId.FREE,
+    );
+
+    const amount =
+      currentSubscription?.recurringInterval === "month"
+        ? plan.price.monthly.amount
+        : plan.price.yearly.amount;
+
+    return {
+      name: plan.name,
+      amount: amount,
+      country: data?.billingAddress?.country ?? "",
+    };
+  }, [currentSubscription, data]);
 
   const onCreateFlagsCheckout = useCallback(
-    (
+    async (
       planId: PlanTypeId,
       interval: "monthly" | "yearly",
-      redirectUrl: string,
       setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-      onHandleExternalUrl: (url?: string) => void,
     ) => {
+      const productsEnv = config.plans.getPlanProducts(Product.FLAGS, planId)[
+        AppMode === "production" ? "production" : "sandbox"
+      ];
+      const products =
+        interval === "yearly" ? productsEnv.slice().reverse() : productsEnv;
+
       createCheckout.mutate(
         {
-          planId,
-          interval,
-          isDarkMode,
-          redirectUrl,
+          products,
+          metadata: {
+            userId: session?.user.id!,
+            product: Product.FLAGS,
+            planId,
+          },
         },
         {
           onSuccess: (result) => {
@@ -63,12 +120,10 @@ const UserProfileBillingPage = () => {
               toast.error(result.error.message);
             }
 
-            if (result.statusCode === 201 && result.url) {
+            if (!!result.data) {
               toastId = toast.loading(
                 t("billing.status.checkout.redirect.loading"),
               );
-
-              onHandleExternalUrl(result.url);
 
               setTimeout(() => {
                 setIsLoading(false);
@@ -83,7 +138,38 @@ const UserProfileBillingPage = () => {
         },
       );
     },
-    [createCheckout, isDarkMode, t],
+    [createCheckout, session?.user.id, t],
+  );
+
+  const onCreateFlagsPortal = useCallback(
+    async (setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
+      createPortal.mutate(undefined, {
+        onSuccess: (result) => {
+          let toastId: string | number = "";
+
+          if (result.error) {
+            setIsLoading(false);
+            toast.error(result.error.message);
+          }
+
+          if (!!result.data) {
+            toastId = toast.loading(
+              t("billing.status.portal.redirect.loading"),
+            );
+
+            setTimeout(() => {
+              setIsLoading(false);
+              toast.dismiss(toastId);
+            }, 10000);
+          }
+        },
+        onError: (error) => {
+          setIsLoading(false);
+          toast.error(error.message);
+        },
+      });
+    },
+    [createPortal, t],
   );
 
   return (
@@ -94,15 +180,12 @@ const UserProfileBillingPage = () => {
             product="feature-flags"
             isLoadingSubscription={isLoadingSubscription}
             onCreateCheckoutCallback={onCreateFlagsCheckout}
+            onCreatePortalCallback={onCreateFlagsPortal}
             currentPlan={currentPlan}
-            productVariant={data?.product.variant ?? ""}
-            cardBrand={data?.card.brand ?? ""}
-            cardLastFour={data?.card.lastFour ?? ""}
-            subStatus={data?.status ?? ""}
-            subRenewsAt={data?.renewsAt ?? ""}
-            customerPortalUrl={data?.urls.customerPortal ?? ""}
-            updatePaymentMethodUrl={data?.urls.updatePaymentMethod ?? ""}
-            hasActivePlan={!!data}
+            recurringInterval={currentSubscription?.recurringInterval ?? ""}
+            subStatus={currentSubscription?.status ?? ""}
+            subRenewsAt={currentSubscription?.currentPeriodEnd ?? ""}
+            hasActivePlan={!!currentSubscription}
           />
         </ProfileCardContainer>
       </CardListItem>

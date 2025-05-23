@@ -12,8 +12,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // Libs
 import { api } from "utils/trpc/react";
-// Auth
-import { authClient } from "utils/auth/client";
+// Libs
+import { authClient } from "libs/auth/client";
 // Toast
 import { toast } from "sonner";
 // Locales

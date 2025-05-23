@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import { Role } from ".prisma/client";
 // Utils
 import { config, Product } from "@basestack/utils";
-import { authClient } from "utils/auth/client";
+// Libs
+import { authClient } from "libs/auth/client";
 
 const { hasFormsPermission } = config.plans;
 

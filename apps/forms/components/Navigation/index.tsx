@@ -7,8 +7,9 @@ import { useStore } from "store";
 // Hooks
 import { useDarkModeToggle } from "@basestack/hooks";
 import { useRouter, useParams, usePathname } from "next/navigation";
-import { authClient } from "utils/auth/client";
 import { useMedia } from "react-use";
+// Libs
+import { authClient } from "libs/auth/client";
 // Locales
 import { useTranslations } from "next-intl";
 // Components

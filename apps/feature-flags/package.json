@@ -25,7 +25,7 @@
     "db:push": "prisma db push --schema=./prisma/schema.prisma",
     "db:seed": "npx prisma db seed",
     "db:studio": "prisma studio --schema=./prisma/schema.prisma",
-    "auth:generate": "npx @better-auth/cli generate --config=./server/auth/index.ts --output=./server/auth/",
+    "auth:generate": "npx @better-auth/cli generate --config=./server/auth/index.ts",
     "jobs:dev": "npx @upstash/qstash-cli dev -port=8081",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next && rm -rf .swc"
   },
@@ -40,6 +40,8 @@
     "@hookform/resolvers": "^5.0.1",
     "@lemonsqueezy/lemonsqueezy.js": "^4.0.0",
     "@monaco-editor/react": "^4.7.0",
+    "@polar-sh/better-auth": "^1.0.1",
+    "@polar-sh/sdk": "^0.32.16",
     "@prisma/client": "^6.8.2",
     "@tanstack/react-query": "^5.76.1",
     "@trpc/client": "^11.1.2",

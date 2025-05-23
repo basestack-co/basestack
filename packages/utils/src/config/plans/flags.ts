@@ -28,6 +28,10 @@ const flags: FlagsPlan[] = [
         },
       },
     },
+    products: {
+      sandbox: [],
+      production: [],
+    },
     limits: {
       projects: 1,
       environments: 1,
@@ -74,6 +78,13 @@ const flags: FlagsPlan[] = [
           production: 716244,
         },
       },
+    },
+    products: {
+      sandbox: [
+        "ac95ab7b-3893-45d9-81f0-f822498e357d",
+        "20b26612-99f3-40b1-9fc7-0e0ec4173d1c",
+      ],
+      production: [],
     },
     limits: {
       projects: 5,
@@ -122,6 +133,13 @@ const flags: FlagsPlan[] = [
         },
       },
     },
+    products: {
+      sandbox: [
+        "05a87ce5-aa33-4fd0-abdb-8e0fc46a7265",
+        "d234244b-7536-48ba-9cad-d5f89094795a",
+      ],
+      production: [],
+    },
     limits: {
       projects: Infinity,
       environments: Infinity,
@@ -168,6 +186,13 @@ const flags: FlagsPlan[] = [
           production: 716250,
         },
       },
+    },
+    products: {
+      sandbox: [
+        "6a633d5b-797b-4523-a961-9bc864483de8",
+        "3afe0a64-2153-4231-a691-1dfbe5f9d828",
+      ],
+      production: [],
     },
     limits: {
       projects: Infinity,
@@ -216,6 +241,10 @@ const flags: FlagsPlan[] = [
           production: 0,
         },
       },
+    },
+    products: {
+      sandbox: [],
+      production: [],
     },
     limits: {
       projects: Infinity,

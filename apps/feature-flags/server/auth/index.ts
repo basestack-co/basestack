@@ -1,18 +1,27 @@
 // Auth
 import { betterAuth } from "better-auth";
+// DB
+import { prisma } from "../db";
 // Adapters
 import { prismaAdapter } from "better-auth/adapters/prisma";
 // Plugins
 import { multiSession } from "better-auth/plugins";
 // Utils
-import { AppMode } from "utils/helpers/general";
+import { AppMode } from "../../utils/helpers/general";
 import { config, Product, AppEnv } from "@basestack/utils";
 // Vendors
 import { qstash } from "@basestack/vendors";
-// DB
-import { prisma } from "../db";
+// Payments
+import {
+  polar,
+  checkout,
+  portal,
+  usage,
+  webhooks,
+} from "@polar-sh/better-auth";
+import { polarClient } from "../../libs/polar/client";
 
-export const auth = betterAuth({
+export const auth: ReturnType<typeof betterAuth> = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
@@ -62,5 +71,73 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
-  plugins: [multiSession()],
+  plugins: [
+    multiSession(),
+    polar({
+      client: polarClient,
+      createCustomerOnSignUp: true,
+      use: [
+        checkout({
+          successUrl: "/a/user/tab/billing?checkout_id={CHECKOUT_ID}",
+          authenticatedUsersOnly: true,
+        }),
+        portal(),
+        usage(),
+        /* webhooks({
+          secret: process.env.POLAR_WEBHOOK_SECRET!,
+          onSubscriptionCreated: async (payload) => {
+            console.log("onSubscriptionCreated ", payload.customer.id);
+
+            await createOrUpdateSubscription({
+              prisma,
+              event: payload.type,
+              userId: payload.metadata.userId,
+              planId: payload.metadata.planId,
+              subscriptionId: payload.id,
+              customerId: payload.customer.id,
+              productId: payload.product.id,
+              status: payload.status,
+              renewsAt: payload.started_at,
+              endsAt: payload.ended_at,
+              cancelled: false,
+            });
+          },
+          onSubscriptionUpdated: async (payload) => {
+            console.log("onSubscriptionUpdated ", payload);
+
+            await createOrUpdateSubscription({
+              prisma,
+              event: payload.type,
+              userId: payload.metadata.userId,
+              planId: payload.metadata.planId,
+              subscriptionId: payload.id,
+              customerId: payload.customer.id,
+              productId: payload.product.id,
+              status: payload.status,
+              renewsAt: payload.started_at,
+              endsAt: payload.ended_at,
+              cancelled: false,
+            });
+          },
+          onSubscriptionCanceled: async (payload) => {
+            console.log("onSubscriptionCanceled ", payload);
+
+            await createOrUpdateSubscription({
+              prisma,
+              event: payload.type,
+              userId: payload.metadata.userId,
+              planId: payload.metadata.planId,
+              subscriptionId: payload.id,
+              customerId: payload.customer.id,
+              productId: payload.product.id,
+              status: payload.status,
+              renewsAt: payload.started_at,
+              endsAt: payload.ended_at,
+              cancelled: true,
+            });
+          },
+        }), */
+      ],
+    }),
+  ],
 });

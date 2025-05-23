@@ -10,8 +10,8 @@ import { keepPreviousData } from "@tanstack/react-query";
 import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
-// Auth
-import { authClient } from "utils/auth/client";
+// Libs
+import { authClient } from "libs/auth/client";
 // Styles
 import { Container, MembersList } from "./styles";
 // types
