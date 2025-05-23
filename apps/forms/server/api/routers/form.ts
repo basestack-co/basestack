@@ -9,7 +9,7 @@ import { TRPCError } from "@trpc/server";
 import { Role } from ".prisma/client";
 // Utils
 import { z } from "zod";
-import { PlanTypeId, Product, AppEnv, config } from "@basestack/utils";
+import { Product, AppEnv, config, PlanTypeId } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 import { withUsageUpdate, withFeatures } from "server/db/utils/subscription";
 // Vendors
@@ -151,11 +151,6 @@ export const formRouter = createTRPCRouter({
                       name: true,
                       email: true,
                       image: true,
-                      subscription: {
-                        select: {
-                          planId: true,
-                        },
-                      },
                     },
                   },
                 },
@@ -189,7 +184,10 @@ export const formRouter = createTRPCRouter({
         honeypot: data?.form.honeypot,
         blockIpAddresses: data?.form.blockIpAddresses,
         role: data?.role,
-        owner: data?.form.users[0]?.user,
+        owner: {
+          ...data?.form.users[0]?.user,
+          planId: ctx.form.adminSubscriptionPlanId ?? PlanTypeId.FREE,
+        },
       };
     }),
   members: protectedProcedure

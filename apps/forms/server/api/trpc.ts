@@ -9,8 +9,10 @@ import { auth } from "server/auth";
 // Database
 import { prisma } from "server/db";
 import { getUserInForm, getUserInTeam } from "server/db/utils/user";
-import { getSubscriptionUsage } from "server/db/utils/subscription";
+import { getUsage } from "server/db/utils/subscription";
 import { config, FormPlan, PlanTypeId, Product } from "@basestack/utils";
+// Polar
+import { polarClient } from "libs/polar/client";
 // types
 import { Role } from ".prisma/client";
 
@@ -24,6 +26,9 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
   return {
     prisma,
     auth: data,
+    subscription: {
+      planId: PlanTypeId.FREE,
+    },
     form: {
       role: "VIEWER", // default as fallback
       adminUserId: "",
@@ -75,29 +80,46 @@ export const isAuthenticated = middleware(async ({ next, ctx }) => {
   });
 });
 
-export const withSubscriptionUsage = middleware(async ({ next, ctx, meta }) => {
-  const usage = await getSubscriptionUsage(
-    ctx.prisma,
-    ctx?.auth?.user.id ?? "",
-  );
+export const withSubscription = middleware(async ({ next, ctx }) => {
+  try {
+    const customer = await polarClient.customers.getStateExternal({
+      externalId: ctx.auth?.session?.userId!,
+    });
 
-  const planId = usage.planId as PlanTypeId;
+    const subscription = customer?.activeSubscriptions.find(
+      ({ metadata }) => metadata.product === Product.FORMS,
+    );
 
-  if (!config.plans.isValidPlan(Product.FORMS, planId)) {
-    throw new TRPCError({
-      code: "PRECONDITION_FAILED",
-      message:
-        "Your current plan is not supported. Please upgrade to continue.",
-      cause: "InvalidPlan",
+    const planId = (subscription?.metadata.planId ??
+      PlanTypeId.FREE) as PlanTypeId;
+
+    if (!config.plans.isValidPlan(Product.FORMS, planId)) {
+      throw new TRPCError({
+        code: "PRECONDITION_FAILED",
+        message:
+          "Your current plan is not supported. Please upgrade to continue.",
+        cause: "InvalidPlan",
+      });
+    }
+
+    return next({
+      ctx: {
+        ...ctx,
+        subscription: {
+          planId,
+        },
+      },
+    });
+  } catch (error) {
+    return next({
+      ctx: {
+        ...ctx,
+        subscription: {
+          planId: PlanTypeId.FREE,
+        },
+      },
     });
   }
-
-  return next({
-    ctx: {
-      ...ctx,
-      usage,
-    },
-  });
 });
 
 export const withFormRestrictions = middleware(
@@ -207,11 +229,8 @@ export const withUsageLimits = middleware(async ({ next, ctx, meta }) => {
     usageLimitKey: keyof FormPlan["limits"];
   };
 
-  const { usage } = ctx as unknown as {
-    usage: Awaited<ReturnType<typeof getSubscriptionUsage>>;
-  };
-
-  const planId = usage.planId as PlanTypeId;
+  const usage = await getUsage(ctx.prisma, ctx.auth?.user.id!);
+  const planId = ctx.subscription.planId;
 
   const limit = config.plans.getPlanLimitByKey(
     Product.FORMS,
@@ -241,4 +260,4 @@ export const publicProcedure = t.procedure;
 
 export const protectedProcedure = t.procedure
   .use(isAuthenticated)
-  .use(withSubscriptionUsage);
+  .use(withSubscription);

@@ -81,7 +81,7 @@ const Form = ({ formId, isFormDisabled }: Props) => {
 
         await trpcUtils.submission.all.invalidate();
         // Reset the usage cache
-        await trpcUtils.subscription.usage.invalidate();
+        await trpcUtils.usage.current.invalidate();
       }
 
       if (data.error) {

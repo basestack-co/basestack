@@ -100,35 +100,46 @@ export const isAuthenticated = middleware(async ({ next, ctx }) => {
   });
 });
 
-export const withSubscription = middleware(async ({ next, ctx, meta }) => {
-  const data = await polarClient.customers.getStateExternal({
-    externalId: ctx.auth?.session?.userId!,
-  });
+export const withSubscription = middleware(async ({ next, ctx }) => {
+  try {
+    const customer = await polarClient.customers.getStateExternal({
+      externalId: ctx.auth?.session?.userId!,
+    });
 
-  const subscription = data?.activeSubscriptions.find(
-    ({ metadata }) => metadata.product === Product.FLAGS,
-  );
+    const subscription = customer?.activeSubscriptions.find(
+      ({ metadata }) => metadata.product === Product.FLAGS,
+    );
 
-  const planId = (subscription?.metadata.planId ??
-    PlanTypeId.FREE) as PlanTypeId;
+    const planId = (subscription?.metadata.planId ??
+      PlanTypeId.FREE) as PlanTypeId;
 
-  if (!config.plans.isValidPlan(Product.FLAGS, planId)) {
-    throw new TRPCError({
-      code: "PRECONDITION_FAILED",
-      message:
-        "Your current plan is not supported. Please upgrade to continue.",
-      cause: "InvalidPlan",
+    if (!config.plans.isValidPlan(Product.FLAGS, planId)) {
+      throw new TRPCError({
+        code: "PRECONDITION_FAILED",
+        message:
+          "Your current plan is not supported. Please upgrade to continue.",
+        cause: "InvalidPlan",
+      });
+    }
+
+    return next({
+      ctx: {
+        ...ctx,
+        subscription: {
+          planId,
+        },
+      },
+    });
+  } catch (error) {
+    return next({
+      ctx: {
+        ...ctx,
+        subscription: {
+          planId: PlanTypeId.FREE,
+        },
+      },
     });
   }
-
-  return next({
-    ctx: {
-      ...ctx,
-      subscription: {
-        planId,
-      },
-    },
-  });
 });
 
 export const withProjectRestrictions = middleware(

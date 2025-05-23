@@ -33,9 +33,8 @@ export const getFormOnUser = async (formId: string, referer: string) => {
       user: {
         select: {
           id: true,
-          subscription: {
+          usage: {
             select: {
-              planId: true,
               submissions: true,
             },
           },
@@ -47,6 +46,7 @@ export const getFormOnUser = async (formId: string, referer: string) => {
   if (!current) {
     return null;
   }
+  
 
   return {
     ...current?.form,
@@ -54,7 +54,7 @@ export const getFormOnUser = async (formId: string, referer: string) => {
     successUrl: current?.form.successUrl || defaultSuccessUrl,
     errorUrl: current?.form.errorUrl || defaultErrorUrl,
     userId: current?.user.id,
-    usage: current?.user.subscription || {
+    usage: current?.user.usage || {
       planId: PlanTypeId.FREE,
       submissions: 0,
     },

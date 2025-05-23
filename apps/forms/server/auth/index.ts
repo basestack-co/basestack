@@ -11,8 +11,11 @@ import { AppMode } from "utils/helpers/general";
 import { config, Product, AppEnv } from "@basestack/utils";
 // DB
 import { prisma } from "../db";
+// Payments
+import { polar, checkout, portal, usage } from "@polar-sh/better-auth";
+import { polarClient } from "../../libs/polar/client";
 
-export const auth = betterAuth({
+export const auth: ReturnType<typeof betterAuth> = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
@@ -62,5 +65,19 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
-  plugins: [multiSession()],
+  plugins: [
+    multiSession(),
+    polar({
+      client: polarClient,
+      createCustomerOnSignUp: true,
+      use: [
+        checkout({
+          successUrl: "/a/user/tab/billing?checkout_id={CHECKOUT_ID}",
+          authenticatedUsersOnly: true,
+        }),
+        portal(),
+        usage(),
+      ],
+    }),
+  ],
 });

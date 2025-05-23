@@ -72,7 +72,7 @@ model User {
   sessions      Session[]
   forms         FormOnUsers[]
   teams         TeamMembers[]
-  subscription  Subscription?
+  usage         Usage[]
   role          Role          @default(ADMIN)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
@@ -91,33 +91,20 @@ model Verification {
   @@index([identifier])
 }
 
-model Subscription {
-  id                String    @id @default(cuid())
-  userId            String    @unique
-  subscriptionId    String
-  customerId        String?
-  productId         String?
-  status            String?
-  scheduleId        String?   @unique
-  planId            String
-  event             String?
-  billingCycleStart DateTime
-  cancelled         Boolean?  @default(false)
-  forms             Int       @default(0)
-  submissions       Int       @default(0)
-  members           Int       @default(0)
-  teams             Int       @default(0)
-  spams             Int       @default(0)
-  fileUploadLimit   Int       @default(0)
-  integrationsCalls Int       @default(0)
-  renewsAt          DateTime?
-  endsAt            DateTime?
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+model Usage {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  forms             Int      @default(0)
+  submissions       Int      @default(0)
+  members           Int      @default(0)
+  teams             Int      @default(0)
+  spams             Int      @default(0)
+  fileUploadLimit   Int      @default(0)
+  integrationsCalls Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId, subscriptionId])
 }
 
 model Form {
