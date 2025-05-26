@@ -27,6 +27,12 @@ export const auth: ReturnType<typeof betterAuth> = betterAuth({
       allowDifferentEmails: false,
     },
   },
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 2 * 60 * 60, // 2 hours
+    },
+  },
   databaseHooks: {
     user: {
       create: {

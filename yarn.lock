@@ -3078,6 +3078,13 @@
     jose "^5.2.3"
     neverthrow "^7.0.1"
 
+"@upstash/redis@^1.34.9":
+  version "1.34.9"
+  resolved "https://registry.yarnpkg.com/@upstash/redis/-/redis-1.34.9.tgz#e958d79ef1fcbdc71f830d61304088fd91e3ea43"
+  integrity sha512-7qzzF2FQP5VxR2YUNjemWs+hl/8VzJJ6fOkT7O7kt9Ct8olEVzb1g6/ik6B8Pb8W7ZmYv81SdlVV9F6O8bh/gw==
+  dependencies:
+    crypto-js "^4.2.0"
+
 "@upstash/workflow@^0.2.13":
   version "0.2.13"
   resolved "https://registry.yarnpkg.com/@upstash/workflow/-/workflow-0.2.13.tgz#badc50bbe8dc60c48ef142af02a8b25909cdf838"
@@ -4155,7 +4162,7 @@ cross-spawn@^7.0.2, cross-spawn@^7.0.3, cross-spawn@^7.0.6:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-crypto-js@>=4.2.0:
+crypto-js@>=4.2.0, crypto-js@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.2.0.tgz#4d931639ecdfd12ff80e8186dba6af2c2e856631"
   integrity sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==

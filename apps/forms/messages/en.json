@@ -583,7 +583,8 @@
         "has-integrations": "{value} Integrations",
         "has-custom-email-templates": "{value} Custom Email Templates",
         "has-spam-protection": "{value} Spam AI",
-        "has-security": "{value} Security Rules"
+        "has-security": "{value} Security Rules",
+        "summary": "Unlimited Features (Forms, Notifications, Members, etc.)| $0.010 / Submission| $0.035 / Spam AI| Includes $5 of Usage for Submissions"
       },
       "segment": {
         "monthly": "Monthly",
@@ -615,6 +616,11 @@
           },
           "button": "Manage Subscription"
         },
+        "usage": {
+          "title": "Usage Based Billing",
+          "additional": " + Additional Usage",
+          "no-subscription": "No active subscription found. Please add your billing details to continue using the product."
+        },
         "details": {
           "lastFour": "Ending in",
           "expDate": "Exp date",
@@ -623,6 +629,10 @@
         "upgrade": {
           "title": "Upgrade Plan",
           "description": "Select billing cycle"
+        },
+        "select": {
+          "title": "Select Plan",
+          "description": "Select a plan"
         }
       }
     }

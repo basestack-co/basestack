@@ -2,12 +2,11 @@ import {
   protectedProcedure,
   createTRPCRouter,
   withProjectRestrictions,
-  withUsageLimits,
   withHistoryActivity,
 } from "server/api/trpc";
 // Utils
 import { generateSlug } from "random-word-slugs";
-import { PlanTypeId, Product, AppEnv, config } from "@basestack/utils";
+import { Product, AppEnv, config } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 import { z } from "zod";
 import { withFeatures, withUsageUpdate } from "server/db/utils/usage";
@@ -135,7 +134,7 @@ export const projectRouter = createTRPCRouter({
     });
   }),
   byId: protectedProcedure
-    .use(withProjectRestrictions)
+    .use(withProjectRestrictions({ roles: [] }))
     .input(
       z
         .object({
@@ -200,7 +199,7 @@ export const projectRouter = createTRPCRouter({
       };
     }),
   allKeys: protectedProcedure
-    .use(withProjectRestrictions)
+    .use(withProjectRestrictions({ roles: [] }))
     .input(
       z
         .object({
@@ -228,7 +227,7 @@ export const projectRouter = createTRPCRouter({
       return { keys };
     }),
   members: protectedProcedure
-    .use(withProjectRestrictions)
+    .use(withProjectRestrictions({ roles: [] }))
     .input(
       z
         .object({
@@ -266,7 +265,6 @@ export const projectRouter = createTRPCRouter({
       usageLimitKey: "projects",
     })
     .use(withHistoryActivity)
-    .use(withUsageLimits)
     .input(
       z
         .object({
@@ -276,8 +274,6 @@ export const projectRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;
-      const planId = ctx.subscription.planId;
-      const hasOnlyOneEnv = planId === PlanTypeId.FREE;
 
       return await ctx.prisma.$transaction(async (tx) => {
         const project = await tx.project.create({
@@ -292,20 +288,16 @@ export const projectRouter = createTRPCRouter({
                   description: "The default develop environment",
                   isDefault: true,
                 },
-                ...(!hasOnlyOneEnv
-                  ? [
-                      {
-                        name: "staging",
-                        slug: `${generateSlug()}`,
-                        description: "The default staging environment",
-                      },
-                      {
-                        name: "production",
-                        slug: `${generateSlug()}`,
-                        description: "The default production environment",
-                      },
-                    ]
-                  : []),
+                {
+                  name: "staging",
+                  slug: `${generateSlug()}`,
+                  description: "The default staging environment",
+                },
+                {
+                  name: "production",
+                  slug: `${generateSlug()}`,
+                  description: "The default production environment",
+                },
               ],
             },
           },
@@ -332,10 +324,7 @@ export const projectRouter = createTRPCRouter({
       });
     }),
   update: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN, Role.DEVELOPER],
-    })
-    .use(withProjectRestrictions)
+    .use(withProjectRestrictions({ roles: [Role.ADMIN, Role.DEVELOPER] }))
     .input(
       z
         .object({
@@ -392,10 +381,7 @@ export const projectRouter = createTRPCRouter({
       return { project };
     }),
   delete: protectedProcedure
-    .use(withProjectRestrictions)
-    .meta({
-      roles: [Role.ADMIN],
-    })
+    .use(withProjectRestrictions({ roles: [Role.ADMIN] }))
     .input(
       z
         .object({
@@ -442,10 +428,7 @@ export const projectRouter = createTRPCRouter({
       return { project };
     }),
   addMember: protectedProcedure
-    .use(withProjectRestrictions)
-    .meta({
-      roles: [Role.ADMIN, Role.DEVELOPER],
-    })
+    .use(withProjectRestrictions({ roles: [Role.ADMIN, Role.DEVELOPER] }))
     .input(
       z
         .object({
@@ -506,10 +489,7 @@ export const projectRouter = createTRPCRouter({
       return { connection };
     }),
   updateMember: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN],
-    })
-    .use(withProjectRestrictions)
+    .use(withProjectRestrictions({ roles: [Role.ADMIN] }))
     .input(
       z
         .object({
@@ -539,10 +519,7 @@ export const projectRouter = createTRPCRouter({
       return { connection };
     }),
   removeMember: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN],
-    })
-    .use(withProjectRestrictions)
+    .use(withProjectRestrictions({ roles: [Role.ADMIN] }))
     .input(
       z
         .object({

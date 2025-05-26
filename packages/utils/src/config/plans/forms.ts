@@ -3,6 +3,51 @@ import { PlanTypeId, FormPlan, FormsPermission } from "../../types";
 
 const forms: FormPlan[] = [
   {
+    id: PlanTypeId.USAGE,
+    name: "Usage",
+    slogan: "Pay as you go",
+    description:
+      "Collect form submissions easily with our no-code solution. Basestack Forms handles the data securely so you can focus on what matters.",
+    price: {
+      monthly: {
+        amount: 5,
+        currency: "USD",
+      },
+      yearly: {
+        amount: 0,
+        currency: "USD",
+      },
+    },
+    products: {
+      sandbox: [],
+      production: [],
+    },
+    limits: {
+      forms: Infinity,
+      submissions: Infinity,
+      teams: Infinity,
+      members: Infinity,
+      spams: Infinity,
+      fileUploadLimit: Infinity,
+      integrationsCalls: Infinity,
+    },
+    features: {
+      hasFileUploads: true,
+      hasDataQueryString: true,
+      hasCustomUrls: true,
+      hasRules: true,
+      hasEmailNotifications: true,
+      hasBlockIPs: true,
+      hasWebhooks: true,
+      hasWebsites: true,
+      hasCustomExport: true,
+      hasAutoResponses: true,
+      hasIntegrations: true,
+      hasCustomEmailTemplates: true,
+      hasSpamProtection: true,
+    },
+  },
+  {
     id: PlanTypeId.FREE,
     name: "Free",
     slogan: "Perfect for testing out our platform.",

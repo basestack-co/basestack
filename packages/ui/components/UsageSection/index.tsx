@@ -40,6 +40,7 @@ const UsageSection = ({
         <Text size="xLarge" mr={theme.spacing.s5}>
           {title}
         </Text>
+        {!isLoading && 
         <LinkContainer>
           {!!date && (
             <>
@@ -56,7 +57,7 @@ const UsageSection = ({
               {link}
             </Text>
           </StyledLink>
-        </LinkContainer>
+        </LinkContainer>}
       </Header>
       <Container>
         {isLoading ? (

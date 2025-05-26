@@ -10,10 +10,9 @@ import { auth } from "server/auth";
 import { prisma } from "server/db";
 import { getUserInProject, getUserInTeam } from "server/db/utils/user";
 import { createHistory } from "server/db/utils/history";
-import { getUsage } from "server/db/utils/usage";
-import { config, FlagsPlan, PlanTypeId, Product } from "@basestack/utils";
+import { PlanTypeId } from "@basestack/utils";
 // Polar
-import { polarClient } from "libs/polar/client";
+import { getCustomerSubscription } from "libs/polar/utils";
 // types
 import { Role } from ".prisma/client";
 
@@ -27,9 +26,6 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
   return {
     prisma,
     auth: data,
-    subscription: {
-      planId: PlanTypeId.FREE,
-    },
     project: {
       role: "VIEWER", // default as fallback
       adminUserId: "",
@@ -100,54 +96,29 @@ export const isAuthenticated = middleware(async ({ next, ctx }) => {
   });
 });
 
-export const withSubscription = middleware(async ({ next, ctx }) => {
-  try {
-    const customer = await polarClient.customers.getStateExternal({
-      externalId: ctx.auth?.session?.userId!,
-    });
+export const withSubscription = middleware(async ({ next, ctx, type }) => {
+  if (type === "mutation") {
+    console.log("PASSOU PIOR AQIO");
 
-    const subscription = customer?.activeSubscriptions.find(
-      ({ metadata }) => metadata.product === Product.FLAGS,
-    );
+    const sub = await getCustomerSubscription(ctx.auth?.session?.userId!);
 
-    const planId = (subscription?.metadata.planId ??
-      PlanTypeId.FREE) as PlanTypeId;
-
-    if (!config.plans.isValidPlan(Product.FLAGS, planId)) {
+    if (sub?.status !== "active") {
       throw new TRPCError({
         code: "PRECONDITION_FAILED",
         message:
-          "Your current plan is not supported. Please upgrade to continue.",
+          "No active subscription found. Please add your billing details to continue using the product.",
         cause: "InvalidPlan",
       });
     }
 
-    return next({
-      ctx: {
-        ...ctx,
-        subscription: {
-          planId,
-        },
-      },
-    });
-  } catch (error) {
-    return next({
-      ctx: {
-        ...ctx,
-        subscription: {
-          planId: PlanTypeId.FREE,
-        },
-      },
-    });
+    return next({ ctx });
   }
+
+  return next({ ctx });
 });
 
-export const withProjectRestrictions = middleware(
-  async ({ next, ctx, meta, getRawInput }) => {
-    const { roles = [] } = (meta ?? {}) as {
-      roles: Role[];
-    };
-
+export const withProjectRestrictions = ({ roles }: { roles: Role[] }) =>
+  middleware(async ({ next, ctx, getRawInput }) => {
     // This is for routes that need to verify any action if the user allowed in that project
     const { projectId = "" } = (await getRawInput()) as {
       projectId: string;
@@ -197,15 +168,10 @@ export const withProjectRestrictions = middleware(
         ...ctx,
       },
     });
-  },
-);
+  });
 
-export const withTeamRestrictions = middleware(
-  async ({ next, ctx, meta, getRawInput }) => {
-    const { roles = [] } = (meta ?? {}) as {
-      roles: Role[];
-    };
-
+export const withTeamRestrictions = ({ roles }: { roles: Role[] }) =>
+  middleware(async ({ next, ctx, getRawInput }) => {
     const { teamId = "" } = (await getRawInput()) as {
       teamId: string;
     };
@@ -245,38 +211,7 @@ export const withTeamRestrictions = middleware(
         ...ctx,
       },
     });
-  },
-);
-
-export const withUsageLimits = middleware(async ({ next, ctx, meta }) => {
-  const { usageLimitKey } = (meta ?? {}) as {
-    usageLimitKey: keyof FlagsPlan["limits"];
-  };
-
-  const usage = await getUsage(ctx.prisma, ctx.auth?.user.id!);
-  const planId = ctx.subscription.planId;
-
-  const limit = config.plans.getPlanLimitByKey(
-    Product.FLAGS,
-    planId,
-    usageLimitKey,
-  );
-
-  if (usage[usageLimitKey] < limit) {
-    return next({
-      ctx: {
-        ...ctx,
-        usage,
-      },
-    });
-  } else {
-    throw new TRPCError({
-      code: "PRECONDITION_FAILED",
-      message: "Plan limit exceeded. Please consider upgrading.",
-      cause: "LimitExceeded",
-    });
-  }
-});
+  });
 
 // PROCEDURES
 

@@ -2,33 +2,30 @@
 
 import React, { useCallback, useMemo } from "react";
 // UI
-import { Plans } from "@basestack/ui";
+import { UsagePlan } from "@basestack/ui";
 // Toast
 import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
 // Libs
 import { authClient } from "libs/auth/client";
+// Cache
+import { redis } from "libs/redis/client";
 // Utils
 import { config, PlanTypeId, Product } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 // Styles
 import { CardListItem, CardList, ProfileCardContainer } from "../styles";
 // Tanstack
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+// API
+import { api } from "utils/trpc/react";
 
 const UserProfileBillingPage = () => {
   const t = useTranslations("profile");
-
   const { data: session } = authClient.useSession();
 
-  const { data, isLoading: isLoadingSubscription } = useQuery({
-    queryKey: ["polar-customer-state"],
-    queryFn: async () => {
-      const { data } = await authClient.customer.state();
-      return data;
-    },
-  });
+  const { data, isLoading } = api.usage.subscription.useQuery();
 
   const createCheckout = useMutation({
     mutationFn: (payload: {
@@ -48,57 +45,31 @@ const UserProfileBillingPage = () => {
     },
   });
 
-  const sub = useMemo(() => {
-    if (!data) return null;
-
-    const subscription = data.activeSubscriptions.find(
-      ({ metadata }: { metadata: { product: string } }) =>
-        metadata.product === Product.FLAGS,
-    );
-
-    if (!subscription) return null;
-
-    return {
-      id: subscription?.id ?? "",
-      planId: subscription?.metadata.planId ?? "",
-      status: subscription?.status ?? "",
-      amount: subscription?.amount ?? 0,
-      currency: subscription?.currency ?? "",
-      recurringInterval: subscription?.recurringInterval ?? "month",
-      currentPeriodStart: subscription?.currentPeriodStart ?? "",
-      currentPeriodEnd: subscription?.currentPeriodEnd ?? "",
-    };
-  }, [data]);
-
   const currentPlan = useMemo(() => {
-    const plan = config.plans.getPlan(
-      Product.FLAGS,
-      sub?.planId ?? PlanTypeId.FREE,
-    );
+    const plan = config.plans.getPlan(Product.FLAGS, PlanTypeId.USAGE);
 
     const amount =
-      sub?.recurringInterval === "month"
+      data?.recurringInterval === "month"
         ? plan.price.monthly.amount
         : plan.price.yearly.amount;
 
     return {
       name: plan.name,
       amount: amount,
-      country: data?.billingAddress?.country ?? "",
+      country: data?.country ?? "",
     };
-  }, [sub, data]);
+  }, [data]);
 
   const onCreateFlagsCheckout = useCallback(
     async (
       planId: PlanTypeId,
-      interval: "monthly" | "yearly",
       setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
     ) => {
-      const productsEnv = config.plans.getPlanProducts(Product.FLAGS, planId)[
+      const products = config.plans.getPlanProducts(Product.FLAGS, planId)[
         AppMode === "production" ? "production" : "sandbox"
       ];
-      const products =
-        interval === "yearly" ? productsEnv.slice().reverse() : productsEnv;
+
+      await redis.del(`subscription:${session?.user.id}`);
 
       createCheckout.mutate(
         {
@@ -141,6 +112,8 @@ const UserProfileBillingPage = () => {
 
   const onCreateFlagsPortal = useCallback(
     async (setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
+      await redis.del(`subscription:${session?.user.id}`);
+
       createPortal.mutate(undefined, {
         onSuccess: (result) => {
           let toastId: string | number = "";
@@ -174,16 +147,16 @@ const UserProfileBillingPage = () => {
     <CardList>
       <CardListItem>
         <ProfileCardContainer>
-          <Plans
-            product="feature-flags"
-            isLoadingSubscription={isLoadingSubscription}
+          <UsagePlan
+            product={Product.FLAGS}
+            isLoadingSubscription={isLoading}
             onCreateCheckoutCallback={onCreateFlagsCheckout}
             onCreatePortalCallback={onCreateFlagsPortal}
             currentPlan={currentPlan}
-            recurringInterval={sub?.recurringInterval ?? ""}
-            subStatus={sub?.status ?? ""}
-            subRenewsAt={sub?.currentPeriodEnd ?? ""}
-            hasActivePlan={!!sub}
+            recurringInterval={data?.recurringInterval ?? ""}
+            subStatus={data?.status ?? ""}
+            subRenewsAt={data?.currentPeriodEnd ?? ""}
+            hasActivePlan={data?.status === "active"}
           />
         </ProfileCardContainer>
       </CardListItem>

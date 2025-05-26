@@ -3,6 +3,47 @@ import { PlanTypeId, FlagsPlan, FlagsPermission } from "../../types";
 
 const flags: FlagsPlan[] = [
   {
+    id: PlanTypeId.USAGE,
+    name: "Usage",
+    slogan: "Pay as you go",
+    description:
+      "Speed up your development with Feature Flags. Deploy faster, test smarter, and roll out safely. Control features in real time and reduce risks without disrupting users.",
+    price: {
+      monthly: {
+        amount: 5,
+        currency: "USD",
+      },
+      yearly: {
+        amount: 0,
+        currency: "USD",
+      },
+    },
+    products: {
+      sandbox: ["dee76104-d9d0-4270-9077-b93802d37386"],
+      production: [],
+    },
+    limits: {
+      projects: Infinity,
+      environments: Infinity,
+      flags: Infinity,
+      segments: Infinity,
+      rollouts: Infinity,
+      teams: Infinity,
+      members: Infinity,
+      apiRequests: Infinity,
+    },
+    features: {
+      hasHistory: true,
+      hasBlockIPs: true,
+      hasRollouts: true,
+      hasSegments: true,
+      hasWebsites: true,
+      hasTags: true,
+      hasRemoteConfig: true,
+      hasPreviewFeatures: true,
+    },
+  },
+  {
     id: PlanTypeId.FREE,
     name: "Free",
     slogan: "Get started with feature flags at no cost.",

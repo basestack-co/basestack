@@ -1,20 +1,17 @@
 // Utils
 import {
-  PlanTypeId,
-  config as utilsConfig,
-  config,
   isRefererValid,
   getValidWebsite,
   isValidIpAddress,
   RequestError,
-  Product,
 } from "@basestack/utils";
 // DB
 import { prisma } from "server/db";
 import { getProjectOnUser, productUrl } from "server/db/utils/project";
-import { withUsageUpdate } from "server/db/utils/subscription";
-
-const { hasPlanFeature } = utilsConfig.plans;
+import { withUsageUpdate } from "server/db/utils/usage";
+// Polar
+import { polarClient } from "libs/polar/client";
+import { getCustomerSubscription } from "libs/polar/utils";
 
 export const verifyRequest = async (
   key: string,
@@ -39,13 +36,17 @@ export const verifyRequest = async (
       });
     }
 
-    const planId = project.usage.planId as PlanTypeId;
+    const sub = await getCustomerSubscription(project.adminUserId);
 
-    if (
-      !!project.websites &&
-      hasPlanFeature(Product.FLAGS, planId, "hasWebsites") &&
-      isRefererValid(referer)
-    ) {
+    if (sub?.status !== "active") {
+      throw new RequestError({
+        code: 403,
+        url: productUrl,
+        message: "No active subscription found. ",
+      });
+    }
+
+    if (!!project.websites && isRefererValid(referer)) {
       const isValid = getValidWebsite(referer, project.websites);
 
       if (!isValid) {
@@ -65,11 +66,7 @@ export const verifyRequest = async (
       }
     }
 
-    if (
-      !!project.blockIpAddresses &&
-      metadata?.ip &&
-      hasPlanFeature(Product.FLAGS, planId, "hasBlockIPs")
-    ) {
+    if (!!project.blockIpAddresses && metadata?.ip) {
       const blockIpAddresses = project.blockIpAddresses
         .split(",")
         .map((ip) => ip.trim())
@@ -99,29 +96,20 @@ export const verifyRequest = async (
       }
     }
 
-    const limit = config.plans.getPlanLimitByKey(
-      Product.FLAGS,
-      planId,
+    await withUsageUpdate(
+      prisma,
+      project.adminUserId,
       "apiRequests",
+      "increment",
     );
-
-    if (project.usage.apiRequests >= limit) {
-      console.info(
-        `Error: Plan limit exceeded for API requests. Please consider upgrading.`,
+    await polarClient.events.ingest({
+      events: [
         {
-          product: "Feature Flags",
-          referer,
+          name: "api-requests-usage",
+          externalCustomerId: project.adminUserId,
         },
-      );
-
-      throw new RequestError({
-        code: 429,
-        url: productUrl,
-        message: "Rate limit exceeded",
-      });
-    }
-
-    await withUsageUpdate(prisma, project.userId, "apiRequests", "increment");
+      ],
+    });
 
     return true;
   } catch (error) {

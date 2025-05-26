@@ -77,18 +77,6 @@ const Plans = ({
   const [isLoadingExternalUrl, setIsLoadingExternalUrl] = useState(false);
   const [interval, setInterval] = useState<BillingInterval>("monthly");
 
-  const onHandleExternalUrl = useCallback((url?: string) => {
-    if (url) {
-      setIsLoadingExternalUrl(true);
-      window.location.href = `${url}`;
-    }
-
-    setTimeout(() => {
-      setIsLoadingExternalUrl(false);
-    }, 10000);
-  }, []);
-
-
   const onCreatePortal = useCallback(
     () => {
       setIsLoadingExternalUrl(true);

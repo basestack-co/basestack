@@ -144,8 +144,6 @@ envVarGroups:
       - key: API_ACCESS_CONTROL_ALLOW_ORIGIN
         value: "http://localhost:3003"
         # PAYMENTS - CONFIGURATION
-      - key: LEMONSQUEEZY_SIGNATURE_SECRET
-      - key: LEMONSQUEEZY_API_KEY
       - key: POLAR_ACCESS_TOKEN
         # CLOUDFLARE API - CONFIGURATION
         # Used for services like Cloudflare AI

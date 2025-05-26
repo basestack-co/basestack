@@ -530,7 +530,8 @@
         "has-block-ips": "{value} Block IPS",
         "has-rollouts": "{value} Rollouts",
         "has-segments": "{value} Segments",
-        "has-security": "{value} Security Rules"
+        "has-security": "{value} Security Rules",
+        "summary": "Unlimited Features (Projects, Flags, Members, etc.)| $0.000025 / API Request| Includes $5 of Usage"
       },
       "segment": {
         "monthly": "Monthly",
@@ -562,6 +563,11 @@
           },
           "button": "Manage Subscription"
         },
+        "usage": {
+          "title": "Usage Based Billing",
+          "additional": " + Additional Usage",
+          "no-subscription": "No active subscription found. Please add your billing details to continue using the product."
+        },
         "details": {
           "lastFour": "Ending in",
           "expDate": "Exp date",
@@ -570,6 +576,10 @@
         "upgrade": {
           "title": "Upgrade Plan",
           "description": "Select billing cycle"
+        },
+        "select": {
+          "title": "Select Plan",
+          "description": "Select a plan"
         }
       }
     }

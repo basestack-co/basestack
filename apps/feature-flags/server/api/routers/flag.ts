@@ -2,7 +2,6 @@ import {
   protectedProcedure,
   createTRPCRouter,
   withProjectRestrictions,
-  withUsageLimits,
   withHistoryActivity,
 } from "server/api/trpc";
 import { TRPCError } from "@trpc/server";
@@ -14,7 +13,7 @@ import { Role } from ".prisma/client";
 
 export const flagRouter = createTRPCRouter({
   all: protectedProcedure
-    .use(withProjectRestrictions)
+    .use(withProjectRestrictions({ roles: [] }))
     .input(
       z.object({
         projectId: z.string(),
@@ -92,7 +91,7 @@ export const flagRouter = createTRPCRouter({
       });
     }),
   total: protectedProcedure
-    .use(withProjectRestrictions)
+    .use(withProjectRestrictions({ roles: [] }))
     .input(
       z
         .object({
@@ -131,7 +130,7 @@ export const flagRouter = createTRPCRouter({
       });
     }),
   environments: protectedProcedure
-    .use(withProjectRestrictions)
+    .use(withProjectRestrictions({ roles: [] }))
     .input(
       z
         .object({
@@ -165,7 +164,7 @@ export const flagRouter = createTRPCRouter({
       };
     }),
   bySlug: protectedProcedure
-    .use(withProjectRestrictions)
+    .use(withProjectRestrictions({ roles: [] }))
     .input(
       z
         .object({
@@ -219,12 +218,11 @@ export const flagRouter = createTRPCRouter({
       };
     }),
   create: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
-      usageLimitKey: "flags",
-    })
-    .use(withProjectRestrictions)
-    .use(withUsageLimits)
+    .use(
+      withProjectRestrictions({
+        roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
+      }),
+    )
     .use(withHistoryActivity)
     .input(
       z
@@ -268,10 +266,11 @@ export const flagRouter = createTRPCRouter({
       return { flags };
     }),
   update: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
-    })
-    .use(withProjectRestrictions)
+    .use(
+      withProjectRestrictions({
+        roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
+      }),
+    )
     .use(withHistoryActivity)
     .input(
       z
@@ -318,10 +317,11 @@ export const flagRouter = createTRPCRouter({
       return { flags };
     }),
   delete: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
-    })
-    .use(withProjectRestrictions)
+    .use(
+      withProjectRestrictions({
+        roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
+      }),
+    )
     .use(withHistoryActivity)
     .input(
       z
