@@ -9,8 +9,8 @@ import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 // Libs
 import { authClient } from "libs/auth/client";
-// Cache
-import { redis } from "libs/redis/client";
+// Vendors
+// import { redis } from "@basestack/vendors";
 // Utils
 import { config, PlanTypeId, Product } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
@@ -69,7 +69,12 @@ const UserProfileBillingPage = () => {
         AppMode === "production" ? "production" : "sandbox"
       ];
 
-      await redis.del(`subscription:${session?.user.id}`);
+      console.log(
+        "`subscription:${session?.user.id}`",
+        `subscription:${session?.user.id}`,
+      );
+
+      //  await redis.client.del(`subscription:${session?.user.id}`);
 
       createCheckout.mutate(
         {
@@ -112,7 +117,7 @@ const UserProfileBillingPage = () => {
 
   const onCreateFlagsPortal = useCallback(
     async (setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
-      await redis.del(`subscription:${session?.user.id}`);
+      // await redis.client.del(`subscription:${session?.user.id}`);
 
       createPortal.mutate(undefined, {
         onSuccess: (result) => {

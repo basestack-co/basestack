@@ -10,8 +10,7 @@ import { prisma } from "server/db";
 import { getProjectOnUser, productUrl } from "server/db/utils/project";
 import { withUsageUpdate } from "server/db/utils/usage";
 // Polar
-import { polarClient } from "libs/polar/client";
-import { getCustomerSubscription } from "libs/polar/utils";
+import { polar } from "@basestack/vendors";
 
 export const verifyRequest = async (
   key: string,
@@ -36,7 +35,7 @@ export const verifyRequest = async (
       });
     }
 
-    const sub = await getCustomerSubscription(project.adminUserId);
+    const sub = await polar.getCustomerSubscription(project.adminUserId);
 
     if (sub?.status !== "active") {
       throw new RequestError({
@@ -102,7 +101,7 @@ export const verifyRequest = async (
       "apiRequests",
       "increment",
     );
-    await polarClient.events.ingest({
+    await polar.client.events.ingest({
       events: [
         {
           name: "api-requests-usage",

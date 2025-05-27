@@ -10,10 +10,14 @@ import { multiSession } from "better-auth/plugins";
 import { AppMode } from "../../utils/helpers/general";
 import { config, Product, AppEnv } from "@basestack/utils";
 // Vendors
-import { qstash } from "@basestack/vendors";
+import { qstash, polar } from "@basestack/vendors";
 // Payments
-import { polar, checkout, portal, usage } from "@polar-sh/better-auth";
-import { polarClient } from "../../libs/polar/client";
+import {
+  polar as polarPlugin,
+  checkout,
+  portal,
+  usage,
+} from "@polar-sh/better-auth";
 
 export const auth: ReturnType<typeof betterAuth> = betterAuth({
   database: prismaAdapter(prisma, {
@@ -73,8 +77,8 @@ export const auth: ReturnType<typeof betterAuth> = betterAuth({
   },
   plugins: [
     multiSession(),
-    polar({
-      client: polarClient,
+    polarPlugin({
+      client: polar.client,
       createCustomerOnSignUp: true,
       use: [
         checkout({

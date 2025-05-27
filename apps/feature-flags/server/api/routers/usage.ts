@@ -2,7 +2,7 @@ import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
 // Utils
 import { config } from "@basestack/utils";
 // Polar
-import { getCustomerSubscription } from "libs/polar/utils";
+import { polar } from "@basestack/vendors";
 
 export const usageRouter = createTRPCRouter({
   current: protectedProcedure.query(async ({ ctx }) => {
@@ -28,7 +28,7 @@ export const usageRouter = createTRPCRouter({
   subscription: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx?.auth?.user.id!;
 
-    const subscription = await getCustomerSubscription(userId);
+    const subscription = await polar.getCustomerSubscription(userId);
 
     return subscription;
   }),

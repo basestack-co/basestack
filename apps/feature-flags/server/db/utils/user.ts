@@ -3,8 +3,8 @@ import { PrismaClient, Role } from ".prisma/client";
 import { TRPCError } from "@trpc/server";
 // Utils
 import { PlanTypeId, Product } from "@basestack/utils";
-// Polar
-import { polarClient } from "libs/polar/client";
+// Vendors
+import { polar } from "@basestack/vendors";
 
 export const getUserInProject = async (
   prisma: PrismaClient,
@@ -33,7 +33,7 @@ export const getUserInProject = async (
       }),
     ]);
 
-    const customer = await polarClient.customers.getStateExternal({
+    const customer = await polar.client.customers.getStateExternal({
       externalId: admin?.userId!,
     });
 

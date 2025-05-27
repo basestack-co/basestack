@@ -11,8 +11,8 @@ import { prisma } from "server/db";
 import { getUserInProject, getUserInTeam } from "server/db/utils/user";
 import { createHistory } from "server/db/utils/history";
 import { PlanTypeId } from "@basestack/utils";
-// Polar
-import { getCustomerSubscription } from "libs/polar/utils";
+// Vendors
+import { polar } from "@basestack/vendors";
 // types
 import { Role } from ".prisma/client";
 
@@ -98,9 +98,7 @@ export const isAuthenticated = middleware(async ({ next, ctx }) => {
 
 export const withSubscription = middleware(async ({ next, ctx, type }) => {
   if (type === "mutation") {
-    console.log("PASSOU PIOR AQIO");
-
-    const sub = await getCustomerSubscription(ctx.auth?.session?.userId!);
+    const sub = await polar.getCustomerSubscription(ctx.auth?.session?.userId!);
 
     if (sub?.status !== "active") {
       throw new TRPCError({

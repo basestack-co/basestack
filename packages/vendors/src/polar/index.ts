@@ -1,24 +1,31 @@
+// Polar
+import { Polar } from "@polar-sh/sdk";
 // Cache
-import { redis } from "libs/redis/client";
-// Polar Client
-import { polarClient } from "libs/polar/client";
+import { client as redis } from "../redis";
 
-export const getCustomerSubscription = async (userId: string) => {
-  if (!userId) return null;
+export const client = new Polar({
+  accessToken: process.env.POLAR_ACCESS_TOKEN,
+  server:
+    process.env.NEXT_PUBLIC_APP_MODE === "production"
+      ? "production"
+      : "sandbox",
+});
 
-  const cacheKey = `subscription:${userId}`;
+export const getCustomerSubscription = async (externalId: string) => {
+  if (!externalId) return null;
+
+  const cacheKey = `subscription:${externalId}`;
 
   try {
     let customerRaw = await redis.get(cacheKey);
     let customer: any = null;
 
     if (customerRaw) {
-      console.log("FROM CACHE");
       customer =
         typeof customerRaw === "string" ? JSON.parse(customerRaw) : customerRaw;
     } else {
-      customer = await polarClient.customers.getStateExternal({
-        externalId: userId,
+      customer = await client.customers.getStateExternal({
+        externalId,
       });
       if (customer) {
         await redis.set(cacheKey, JSON.stringify(customer), { ex: 120 });
