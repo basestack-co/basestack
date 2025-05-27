@@ -16,7 +16,7 @@ import { useStore } from "store";
 import { createTable, config } from "@basestack/utils";
 import dayjs from "dayjs";
 // Libs
-import { authClient } from "libs/auth/client";
+import { auth } from "@basestack/vendors";
 // Router
 import { useParams, useRouter } from "next/navigation";
 // Toast
@@ -34,7 +34,7 @@ export interface Props {
 
 const MembersTableCard = ({ role }: Props) => {
   const t = useTranslations();
-  const { data: session } = authClient.useSession();
+  const { data: session } = auth.client.useSession();
   const router = useRouter();
   const trpcUtils = api.useUtils();
   const { formId } = useParams<{ formId: string }>();

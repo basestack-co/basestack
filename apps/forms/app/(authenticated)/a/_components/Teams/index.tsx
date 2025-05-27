@@ -9,7 +9,7 @@ import { useStore } from "store";
 // Server
 import { api } from "utils/trpc/react";
 // Libs
-import { authClient } from "libs/auth/client";
+import { auth } from "@basestack/vendors";
 // Toast
 import { toast } from "sonner";
 // Components
@@ -25,7 +25,7 @@ import { Section, Header, TeamsList, ListItem } from "./styles";
 import { Role } from ".prisma/client";
 
 const Teams = () => {
-  const { data: session } = authClient.useSession();
+  const { data: session } = auth.client.useSession();
   const trpcUtils = api.useUtils();
   const t = useTranslations("home");
   const theme = useTheme();
@@ -88,7 +88,7 @@ const Teams = () => {
                   setConfirmModalOpen({
                     isOpen: false,
                   });
-                  await trpcUtils.usage.current.invalidate();
+                  await trpcUtils.subscription.usage.invalidate(); 
                   await trpcUtils.team.all.invalidate();
                   toast.success(t("teams.confirm.delete.status.success"));
                 },

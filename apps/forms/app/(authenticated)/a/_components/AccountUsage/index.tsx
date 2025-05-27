@@ -7,49 +7,17 @@ import { UsageSection } from "@basestack/ui";
 import { useTheme } from "styled-components";
 // Locales
 import { useTranslations } from "next-intl";
-// Libs
-import { authClient } from "libs/auth/client";
 // Utils
-import { config, PlanTypeId, Product } from "@basestack/utils";
 import dayjs from "dayjs";
-// Tanstack
-import { useQuery } from "@tanstack/react-query";
 
 const AccountUsage = () => {
   const t = useTranslations("home");
   const theme = useTheme();
 
-  const { data: usage, isLoading } = api.usage.current.useQuery();
-
-  const { data, isLoading: isLoadingSubscription } = useQuery({
-    queryKey: ["polar-customer-state"],
-    queryFn: async () => {
-      const { data } = await authClient.customer.state();
-      return data;
-    },
-  });
-
-  const sub = useMemo(() => {
-    if (!data) return null;
-
-    const subscription = data.activeSubscriptions.find(
-      ({ metadata }: { metadata: { product: string } }) =>
-        metadata.product === Product.FORMS,
-    );
-
-    if (!subscription) return null;
-
-    return {
-      planId: subscription?.metadata.planId ?? "",
-      currentPeriodEnd: subscription?.currentPeriodEnd ?? "",
-    };
-  }, [data]);
-
-  const limits = useMemo(() => {
-    const planId = (sub?.planId ?? PlanTypeId.FREE) as PlanTypeId;
-
-    return config.plans.getPlanLimits(Product.FORMS, planId);
-  }, [sub]);
+  const [sub, usage] = api.useQueries((t) => [
+    t.subscription.current(),
+    t.subscription.usage(),
+  ]);
 
   const currentUsage = useMemo(() => {
     const resourceMap = [
@@ -61,30 +29,30 @@ const AccountUsage = () => {
 
     return resourceMap.map(({ key, title }) => ({
       title,
-      used: Number(usage?.[key as keyof typeof usage] ?? 0),
-      total: Number(limits[key as keyof typeof limits] ?? 0),
+      used: Number(usage.data?.[key as keyof typeof usage.data] ?? 0),
+      total: Infinity,
     }));
-  }, [limits, usage, t]);
+  }, [usage, t]);
 
   return (
     <UsageSection
       mb={theme.spacing.s7}
       title={t("usage.title")}
       date={
-        sub?.currentPeriodEnd
+        sub?.data?.currentPeriodEnd
           ? t("usage.date", {
-              date: dayjs(sub?.currentPeriodEnd).format("MMMM D, YYYY"),
+              date: dayjs(sub?.data?.currentPeriodEnd).format("MMMM D, YYYY"),
             })
           : ""
       }
       link={
-        sub?.planId === PlanTypeId.SCALE
+        sub.data?.status === "active"
           ? t("usage.link.manage")
           : t("usage.link.upgrade")
       }
       href="/a/user/tab/billing"
       data={currentUsage}
-      isLoading={isLoading || isLoadingSubscription}
+      isLoading={sub.isLoading || usage.isLoading}
     />
   );
 };

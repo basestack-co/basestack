@@ -3,18 +3,17 @@ import formidable from "formidable";
 import { Readable } from "stream";
 import { IncomingMessage } from "http";
 import {
-  PlanTypeId,
-  config as utilsConfig,
   RequestError,
   getValidWebsite,
   isValidIpAddress,
   isRefererValid,
+  emailToId,
   Product,
 } from "@basestack/utils";
 // Prisma
 import { getFormOnUser, defaultErrorUrl } from "server/db/utils/form";
-
-const { hasPlanFeature, getPlanLimitByKey } = utilsConfig.plans;
+// Vendors
+import { polar } from "@basestack/vendors";
 
 export enum FormMode {
   REST = "rest",
@@ -120,26 +119,21 @@ export const verifyForm = async (
       });
     }
 
+    const sub = await polar.getCustomerSubscription(
+      emailToId(form.adminUserEmail),
+      Product.FORMS,
+    );
+
+    if (sub?.status !== "active") {
+      throw new RequestError({
+        code: 403,
+        url: `${defaultErrorUrl}?goBackUrl=${referer}`,
+        message: "No active subscription found.",
+      });
+    }
+
     if (form?.isEnabled) {
-      const planId = form.usage.planId as PlanTypeId;
-
-      if (
-        form.usage.submissions >=
-        getPlanLimitByKey(Product.FORMS, planId, "submissions")
-      ) {
-        throw new RequestError({
-          code: 403,
-          url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
-          message:
-            "Error: Form submission limit exceeded. Please consider upgrading.",
-        });
-      }
-
-      if (
-        !!form.websites &&
-        hasPlanFeature(Product.FORMS, planId, "hasWebsites") &&
-        isRefererValid(referer)
-      ) {
+      if (!!form.websites && isRefererValid(referer)) {
         const isValid = getValidWebsite(referer, form.websites);
 
         if (!isValid) {
@@ -151,11 +145,7 @@ export const verifyForm = async (
         }
       }
 
-      if (
-        !!form.blockIpAddresses &&
-        metadata?.ip &&
-        hasPlanFeature(Product.FORMS, planId, "hasBlockIPs")
-      ) {
+      if (!!form.blockIpAddresses && metadata?.ip) {
         const blockIpAddresses = form.blockIpAddresses
           .split(",")
           .map((ip) => ip.trim())

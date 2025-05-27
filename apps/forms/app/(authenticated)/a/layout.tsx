@@ -4,7 +4,7 @@ import React, { Fragment } from "react";
 // Router
 import { useRouter } from "next/navigation";
 // Libs
-import { authClient } from "libs/auth/client";
+import { auth } from "@basestack/vendors";
 // Modals
 import Modals from "modals";
 // Components
@@ -16,7 +16,7 @@ import { api } from "utils/trpc/react";
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
-  const { isPending: isSessionLoading } = authClient.useSession();
+  const { isPending: isSessionLoading } = auth.client.useSession();
 
   const [forms, usage] = api.useQueries((t) => [
     t.form.all(undefined, {
@@ -32,7 +32,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           isActive: false,
         })),
     }),
-    t.usage.current(undefined, {
+    t.subscription.usage(undefined, {
       enabled: !isSessionLoading,
     }),
   ]);

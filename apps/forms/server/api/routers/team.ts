@@ -1,7 +1,6 @@
 import {
   createTRPCRouter,
   protectedProcedure,
-  withUsageLimits,
   withTeamRestrictions,
 } from "server/api/trpc";
 import { TRPCError } from "@trpc/server";
@@ -125,10 +124,6 @@ export const teamRouter = createTRPCRouter({
       });
     }),
   create: protectedProcedure
-    .meta({
-      usageLimitKey: "teams",
-    })
-    .use(withUsageLimits)
     .input(
       z
         .object({
@@ -160,10 +155,7 @@ export const teamRouter = createTRPCRouter({
       });
     }),
   update: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN],
-    })
-    .use(withTeamRestrictions)
+    .use(withTeamRestrictions({ roles: [Role.ADMIN] }))
     .input(
       z
         .object({
@@ -183,10 +175,7 @@ export const teamRouter = createTRPCRouter({
       });
     }),
   delete: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN],
-    })
-    .use(withTeamRestrictions)
+    .use(withTeamRestrictions({ roles: [Role.ADMIN] }))
     .input(z.object({ teamId: z.string() }).required())
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;
@@ -256,12 +245,7 @@ export const teamRouter = createTRPCRouter({
       });
     }),
   removeMember: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN],
-      usageLimitKey: "members",
-    })
-    .use(withTeamRestrictions)
-    .use(withUsageLimits)
+    .use(withTeamRestrictions({ roles: [Role.ADMIN] }))
     .input(
       z
         .object({
@@ -336,10 +320,7 @@ export const teamRouter = createTRPCRouter({
       });
     }),
   updateMember: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN],
-    })
-    .use(withTeamRestrictions)
+    .use(withTeamRestrictions({ roles: [Role.ADMIN] }))
     .input(
       z
         .object({
@@ -437,10 +418,7 @@ export const teamRouter = createTRPCRouter({
       };
     }),
   invite: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN],
-    })
-    .use(withTeamRestrictions)
+    .use(withTeamRestrictions({ roles: [Role.ADMIN] }))
     .input(
       z
         .object({

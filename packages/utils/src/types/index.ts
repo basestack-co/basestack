@@ -44,6 +44,15 @@ export enum PlanTypeId {
   ENTERPRISE = "enterprise",
 }
 
+export enum UsageEvent {
+  API_REQUESTS = "api-requests-usage",
+  FORM_SUBMISSION = "form-submission-usage",
+  EMAIL_SENT = "email-sent-usage",
+  WEBHOOK_TRIGGERED = "webhook-triggered-usage",
+  SPAM_CHECK = "spam-check-usage",
+  INTEGRATION_CALL = "integration-call-usage",
+}
+
 export interface PlanVariantIds {
   local: number;
   development: number;

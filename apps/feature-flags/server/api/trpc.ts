@@ -10,7 +10,7 @@ import { auth } from "server/auth";
 import { prisma } from "server/db";
 import { getUserInProject, getUserInTeam } from "server/db/utils/user";
 import { createHistory } from "server/db/utils/history";
-import { emailToId, PlanTypeId } from "@basestack/utils";
+import { emailToId, PlanTypeId, Product } from "@basestack/utils";
 // Vendors
 import { polar } from "@basestack/vendors";
 // types
@@ -106,7 +106,7 @@ export const withSubscription = middleware(
       const userEmail = ctx.auth?.user.email!;
       const customerExternalId = emailToId(userEmail);
 
-      const sub = await polar.getCustomerSubscription(customerExternalId);
+      const sub = await polar.getCustomerSubscription(customerExternalId, Product.FLAGS);
 
       if (sub?.status !== "active") {
         throw new TRPCError({

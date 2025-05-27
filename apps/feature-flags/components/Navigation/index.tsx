@@ -8,8 +8,8 @@ import { useStore } from "store";
 // Hooks
 import { useRouter, useParams, usePathname } from "next/navigation";
 import { useMedia } from "react-use";
-// Libs
-import { authClient } from "libs/auth/client";
+// Vendors
+import { auth } from "@basestack/vendors";
 // Locales
 import { useTranslations } from "next-intl";
 // Types
@@ -35,7 +35,7 @@ const Navigation = ({ data }: NavigationProps) => {
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
-  const { data: session } = authClient.useSession();
+  const { data: session } = auth.client.useSession();
   const isMobile = useMedia(theme.device.max.lg, false);
 
   const { projectId } = useParams<{ projectId: string }>();

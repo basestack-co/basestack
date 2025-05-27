@@ -5,12 +5,14 @@ import {
   isValidIpAddress,
   RequestError,
   emailToId,
+  Product,
+  UsageEvent,
 } from "@basestack/utils";
 // DB
 import { prisma } from "server/db";
 import { getProjectOnUser, productUrl } from "server/db/utils/project";
 import { withUsageUpdate } from "server/db/utils/usage";
-// Polar
+// Vendors
 import { polar } from "@basestack/vendors";
 
 export const verifyRequest = async (
@@ -38,13 +40,14 @@ export const verifyRequest = async (
 
     const sub = await polar.getCustomerSubscription(
       emailToId(project.adminUserEmail),
+      Product.FLAGS,
     );
 
     if (sub?.status !== "active") {
       throw new RequestError({
         code: 403,
         url: productUrl,
-        message: "No active subscription found. ",
+        message: "No active subscription found.",
       });
     }
 
@@ -104,10 +107,11 @@ export const verifyRequest = async (
       "apiRequests",
       "increment",
     );
+
     await polar.client.events.ingest({
       events: [
         {
-          name: "api-requests-usage",
+          name: UsageEvent.API_REQUESTS,
           externalCustomerId: project.adminUserId,
         },
       ],

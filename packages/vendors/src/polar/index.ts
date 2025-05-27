@@ -2,6 +2,8 @@
 import { Polar } from "@polar-sh/sdk";
 // Cache
 import { client as redis } from "../redis";
+// Utils
+import { Product } from "@basestack/utils";
 
 export const client = new Polar({
   accessToken: process.env.POLAR_ACCESS_TOKEN,
@@ -11,7 +13,7 @@ export const client = new Polar({
       : "sandbox",
 });
 
-export const getCustomerSubscription = async (externalId: string) => {
+export const getCustomerSubscription = async (externalId: string, product: Product) => {
   if (!externalId) return null;
 
   const cacheKey = `subscription:${externalId}`;
@@ -32,9 +34,12 @@ export const getCustomerSubscription = async (externalId: string) => {
       }
     }
 
-    if (!customer) return null;
+    if ((customer?.activeSubscriptions ?? []).length <= 0) return null;
 
-    const sub = customer.activeSubscriptions?.[0];
+    const sub = (customer?.activeSubscriptions ?? []).find(
+      ({ metadata }: { metadata: { product: Product } }) =>
+        metadata.product === product,
+    );
 
     return {
       id: sub?.id ?? "",

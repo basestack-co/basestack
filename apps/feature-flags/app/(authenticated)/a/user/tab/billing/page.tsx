@@ -7,8 +7,8 @@ import { UsagePlan } from "@basestack/ui";
 import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
-// Libs
-import { authClient } from "libs/auth/client";
+// Vendors
+import { auth } from "@basestack/vendors";
 // Utils
 import { config, PlanTypeId, Product } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
@@ -19,11 +19,9 @@ import { api } from "utils/trpc/react";
 
 const UserProfileBillingPage = () => {
   const t = useTranslations("profile");
-  const { data: session } = authClient.useSession();
+  const { data: session } = auth.client.useSession();
 
   const { data, isLoading } = api.subscription.current.useQuery();
-
-  console.log("data =", data);
 
   const createCheckout = api.subscription.checkout.useMutation();
   const createPortal = api.subscription.portal.useMutation();

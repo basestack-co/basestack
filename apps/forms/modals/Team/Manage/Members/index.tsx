@@ -11,7 +11,7 @@ import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
 // Libs
-import { authClient } from "libs/auth/client";
+import { auth } from "@basestack/vendors";
 // Styles
 import { Container, MembersList } from "./styles";
 // types
@@ -23,7 +23,7 @@ export interface Props {
 
 const Members = ({ teamId }: Props) => {
   const t = useTranslations("modal");
-  const { data: session } = authClient.useSession();
+  const { data: session } = auth.client.useSession();
   const trpcUtils = api.useUtils();
 
   const { data, isLoading } = api.team.byId.useQuery(
@@ -101,7 +101,7 @@ const Members = ({ teamId }: Props) => {
         },
         {
           onSuccess: async () => {
-            await trpcUtils.usage.current.invalidate();
+            await trpcUtils.subscription.usage.invalidate(); 
             await trpcUtils.team.all.invalidate();
             await trpcUtils.team.byId.invalidate({ teamId });
             toast.success(

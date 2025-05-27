@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-// Libs
-import { authClient } from "libs/auth/client";
+// Vendors
+import { auth } from "@basestack/vendors";
 // Locales
 import { useTranslations } from "next-intl";
 // Components
@@ -17,7 +17,7 @@ import { useStore } from "store";
 
 const UserProfileSettingsPage = () => {
   const t = useTranslations("profile");
-  const { data: session } = authClient.useSession();
+  const { data: session } = auth.client.useSession();
 
   const closeModalsOnClickOutside = useStore(
     (state) => state.closeModalsOnClickOutside,

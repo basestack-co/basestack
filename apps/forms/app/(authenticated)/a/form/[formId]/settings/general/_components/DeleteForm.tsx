@@ -55,7 +55,7 @@ const DeleteFormCard = ({ name }: Props) => {
             // Update the cache with the new data
             trpcUtils.form.recent.setData(undefined, forms);
             // Reset the usage cache
-            await trpcUtils.usage.current.invalidate();
+            await trpcUtils.subscription.usage.invalidate(); 
           }
 
           router.replace("/");

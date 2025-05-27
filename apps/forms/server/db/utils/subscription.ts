@@ -5,29 +5,6 @@ import { TRPCError } from "@trpc/server";
 // Utils
 import { config, FormPlan, PlanTypeId, Product } from "@basestack/utils";
 
-export const getUsage = async (prisma: PrismaClient, userId: string) => {
-  try {
-    const usage = await prisma.usage.findFirst({
-      where: {
-        userId,
-      },
-      omit: {
-        userId: true,
-        updatedAt: true,
-        createdAt: true,
-      },
-    });
-
-    if (!usage) {
-      return config.plans.getFormPlanLimitsDefaults();
-    }
-
-    return usage;
-  } catch {
-    throw new TRPCError({ code: "BAD_REQUEST" });
-  }
-};
-
 export const withUsageUpdate = async (
   prisma:
     | PrismaClient

@@ -11,10 +11,11 @@ import { Role } from ".prisma/client";
 
 export const submissionRouter = createTRPCRouter({
   all: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER, Role.VIEWER],
-    })
-    .use(withFormRestrictions)
+    .use(
+      withFormRestrictions({
+        roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER, Role.VIEWER],
+      }),
+    )
     .input(
       z.object({
         formId: z.string(),
@@ -97,10 +98,11 @@ export const submissionRouter = createTRPCRouter({
       });
     }),
   export: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
-    })
-    .use(withFormRestrictions)
+    .use(
+      withFormRestrictions({
+        roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
+      }),
+    )
     .input(
       z.object({
         formId: z.string(),
@@ -170,10 +172,11 @@ export const submissionRouter = createTRPCRouter({
       return { data };
     }),
   update: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
-    })
-    .use(withFormRestrictions)
+    .use(
+      withFormRestrictions({
+        roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
+      }),
+    )
     .input(
       z
         .object({
@@ -217,10 +220,11 @@ export const submissionRouter = createTRPCRouter({
       return { submissions };
     }),
   delete: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
-    })
-    .use(withFormRestrictions)
+    .use(
+      withFormRestrictions({
+        roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER],
+      }),
+    )
     .input(
       z.object({
         formId: z.string(),

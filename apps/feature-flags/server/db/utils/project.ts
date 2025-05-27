@@ -1,5 +1,6 @@
 // Prisma
 import { prisma } from "server/db";
+// Types
 import { Role } from ".prisma/client";
 // Utils
 import { AppEnv, config as utilsConfig, Product } from "@basestack/utils";

@@ -2,7 +2,6 @@ import {
   protectedProcedure,
   createTRPCRouter,
   withFormRestrictions,
-  withUsageLimits,
 } from "server/api/trpc";
 import { TRPCError } from "@trpc/server";
 // Types
@@ -106,10 +105,11 @@ export const formRouter = createTRPCRouter({
     });
   }),
   byId: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER, Role.VIEWER],
-    })
-    .use(withFormRestrictions)
+    .use(
+      withFormRestrictions({
+        roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER, Role.VIEWER],
+      }),
+    )
     .input(
       z
         .object({
@@ -191,7 +191,7 @@ export const formRouter = createTRPCRouter({
       };
     }),
   members: protectedProcedure
-    .use(withFormRestrictions)
+    .use(withFormRestrictions({ roles: [] }))
     .input(
       z
         .object({
@@ -225,10 +225,7 @@ export const formRouter = createTRPCRouter({
       return { users };
     }),
   create: protectedProcedure
-    .meta({
-      usageLimitKey: "forms",
-    })
-    .use(withUsageLimits)
+
     .input(
       z
         .object({
@@ -271,10 +268,7 @@ export const formRouter = createTRPCRouter({
       });
     }),
   update: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN, Role.DEVELOPER],
-    })
-    .use(withFormRestrictions)
+    .use(withFormRestrictions({ roles: [Role.ADMIN, Role.DEVELOPER] }))
     .input(
       z
         .object({
@@ -346,10 +340,7 @@ export const formRouter = createTRPCRouter({
       return { form };
     }),
   delete: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN],
-    })
-    .use(withFormRestrictions)
+    .use(withFormRestrictions({ roles: [Role.ADMIN] }))
     .input(
       z
         .object({
@@ -375,10 +366,7 @@ export const formRouter = createTRPCRouter({
       return { form };
     }),
   addMember: protectedProcedure
-    .use(withFormRestrictions)
-    .meta({
-      roles: [Role.ADMIN, Role.DEVELOPER],
-    })
+    .use(withFormRestrictions({ roles: [] }))
     .input(
       z
         .object({
@@ -439,10 +427,7 @@ export const formRouter = createTRPCRouter({
       return { connection };
     }),
   updateMember: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN],
-    })
-    .use(withFormRestrictions)
+    .use(withFormRestrictions({ roles: [Role.ADMIN] }))
     .input(
       z
         .object({
@@ -472,10 +457,7 @@ export const formRouter = createTRPCRouter({
       return { connection };
     }),
   removeMember: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN],
-    })
-    .use(withFormRestrictions)
+    .use(withFormRestrictions({ roles: [Role.ADMIN] }))
     .input(
       z
         .object({

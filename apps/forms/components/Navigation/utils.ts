@@ -5,7 +5,7 @@ import { Role } from ".prisma/client";
 // Utils
 import { config, Product } from "@basestack/utils";
 // Libs
-import { authClient } from "libs/auth/client";
+import { auth } from "@basestack/vendors";
 
 const { hasFormsPermission } = config.plans;
 
@@ -100,7 +100,7 @@ export const getAvatarDropdownList = (
       icon: "logout",
       text: labels.logout,
       onClick: async () =>
-        await authClient.signOut({
+        await auth.client.signOut({
           fetchOptions: {
             onSuccess: () => {
               router.push("/auth/sign-in");

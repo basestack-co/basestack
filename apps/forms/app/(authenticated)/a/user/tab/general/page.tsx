@@ -2,7 +2,7 @@
 
 import React from "react";
 // Libs
-import { authClient } from "libs/auth/client";
+import { auth } from "@basestack/vendors";
 // Store
 import { useStore } from "store";
 // Locales
@@ -14,7 +14,7 @@ import { CardList, ProfileCardContainer, CardListItem } from "../styles";
 
 const UserProfileSettingsPage = () => {
   const t = useTranslations("profile");
-  const { data: session } = authClient.useSession();
+  const { data: session } = auth.client.useSession();
 
   const closeModalsOnClickOutside = useStore(
     (state) => state.closeModalsOnClickOutside,

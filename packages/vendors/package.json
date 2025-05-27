@@ -26,6 +26,7 @@
     "@upstash/qstash": "^2.8.1",
     "@upstash/workflow": "^0.2.13",
     "@upstash/redis": "^1.34.9",
-    "@polar-sh/sdk": "^0.32.16"
+    "@polar-sh/sdk": "^0.32.16",
+    "better-auth": "^1.2.8"
   }
 }

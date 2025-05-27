@@ -66,7 +66,7 @@ const CreateFormModal = () => {
         // Reset the recent form cache
         await trpcUtils.form.recent.invalidate();
         // Reset the usage cache
-        await trpcUtils.usage.current.invalidate();
+        await trpcUtils.subscription.usage.invalidate(); 
 
         onClose();
 

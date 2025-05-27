@@ -3,8 +3,8 @@
 import React, { Fragment } from "react";
 // Router
 import { useRouter } from "next/navigation";
-// Libs
-import { authClient } from "libs/auth/client";
+// Vendors
+import { auth } from "@basestack/vendors";
 // Components
 import { Splash, Loader } from "@basestack/design-system";
 import Navigation from "components/Navigation";
@@ -16,7 +16,7 @@ import { api } from "utils/trpc/react";
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
-  const { isPending: isSessionLoading } = authClient.useSession();
+  const { isPending: isSessionLoading } = auth.client.useSession();
 
   const [projects, usage] = api.useQueries((t) => [
     t.project.all(undefined, {
