@@ -88,7 +88,7 @@ const Teams = () => {
                   setConfirmModalOpen({
                     isOpen: false,
                   });
-                  await trpcUtils.usage.current.invalidate();
+                  await trpcUtils.subscription.usage.invalidate();
                   await trpcUtils.team.all.invalidate();
                   toast.success(t("teams.confirm.delete.status.success"));
                 },

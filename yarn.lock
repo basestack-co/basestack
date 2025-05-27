@@ -1561,13 +1561,6 @@
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
 
-"@polar-sh/better-auth@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@polar-sh/better-auth/-/better-auth-1.0.1.tgz#410b23fc537a27e178d7c276710e8c076367baed"
-  integrity sha512-2wT/zaBqy6LsCkEEBLDzKF4QT8kE5iwFqZAo4RSkB+AtUn4VEZwUwfjQdxUvEfJ535yIIg8eFEWhG8DvdZZVOQ==
-  dependencies:
-    zod "^3.24.2"
-
 "@polar-sh/sdk@^0.32.16":
   version "0.32.16"
   resolved "https://registry.yarnpkg.com/@polar-sh/sdk/-/sdk-0.32.16.tgz#fa580e523e6c2f67458016009ef19d996ff50030"
@@ -12046,11 +12039,6 @@ zod@^3.22.3, zod@^3.24.1, zod@^3.24.4:
   version "3.24.4"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.24.4.tgz#e2e2cca5faaa012d76e527d0d36622e0a90c315f"
   integrity sha512-OdqJE9UDRPwWsrHjLN2F8bPxvwJBK22EHLWtanu0LSYr5YqzsaaW3RMgmjwr8Rypg5k+meEJdSPXJZXE/yqOMg==
-
-zod@^3.24.2:
-  version "3.25.23"
-  resolved "https://registry.yarnpkg.com/zod/-/zod-3.25.23.tgz#128fb02f3619a8bca6bbbf6b07b457236cf33391"
-  integrity sha512-Od2bdMosahjSrSgJtakrwjMDb1zM1A3VIHCPGveZt/3/wlrTWBya2lmEh2OYe4OIu8mPTmmr0gnLHIWQXdtWBg==
 
 zustand@^5.0.4:
   version "5.0.4"

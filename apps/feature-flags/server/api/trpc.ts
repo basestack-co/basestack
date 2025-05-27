@@ -10,7 +10,7 @@ import { auth } from "server/auth";
 import { prisma } from "server/db";
 import { getUserInProject, getUserInTeam } from "server/db/utils/user";
 import { createHistory } from "server/db/utils/history";
-import { PlanTypeId } from "@basestack/utils";
+import { emailToId, PlanTypeId } from "@basestack/utils";
 // Vendors
 import { polar } from "@basestack/vendors";
 // types
@@ -29,7 +29,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
     project: {
       role: "VIEWER", // default as fallback
       adminUserId: "",
-      adminSubscriptionPlanId: PlanTypeId.FREE,
+      adminSubscriptionPlanId: PlanTypeId.USAGE,
     },
     ...opts,
   };
@@ -96,24 +96,33 @@ export const isAuthenticated = middleware(async ({ next, ctx }) => {
   });
 });
 
-export const withSubscription = middleware(async ({ next, ctx, type }) => {
-  if (type === "mutation") {
-    const sub = await polar.getCustomerSubscription(ctx.auth?.session?.userId!);
+export const withSubscription = middleware(
+  async ({ next, ctx, type, meta }) => {
+    const { skipSubscriptionCheck = false } = (meta ?? {}) as {
+      skipSubscriptionCheck?: boolean;
+    };
 
-    if (sub?.status !== "active") {
-      throw new TRPCError({
-        code: "PRECONDITION_FAILED",
-        message:
-          "No active subscription found. Please add your billing details to continue using the product.",
-        cause: "InvalidPlan",
-      });
+    if (type === "mutation" && !skipSubscriptionCheck) {
+      const userEmail = ctx.auth?.user.email!;
+      const customerExternalId = emailToId(userEmail);
+
+      const sub = await polar.getCustomerSubscription(customerExternalId);
+
+      if (sub?.status !== "active") {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message:
+            "No active subscription found. Please add your billing details to continue using the product.",
+          cause: "InvalidPlan",
+        });
+      }
+
+      return next({ ctx });
     }
 
     return next({ ctx });
-  }
-
-  return next({ ctx });
-});
+  },
+);
 
 export const withProjectRestrictions = ({ roles }: { roles: Role[] }) =>
   middleware(async ({ next, ctx, getRawInput }) => {
@@ -158,7 +167,7 @@ export const withProjectRestrictions = ({ roles }: { roles: Role[] }) =>
     ctx.project = {
       role: project.role,
       adminUserId: project.adminUserId,
-      adminSubscriptionPlanId: project.adminSubscriptionPlanId,
+      adminSubscriptionPlanId: PlanTypeId.USAGE,
     };
 
     return next({

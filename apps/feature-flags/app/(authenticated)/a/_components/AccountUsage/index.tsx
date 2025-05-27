@@ -15,8 +15,8 @@ const AccountUsage = () => {
   const theme = useTheme();
 
   const [sub, usage] = api.useQueries((t) => [
-    t.usage.subscription(),
-    t.usage.current(),
+    t.subscription.current(),
+    t.subscription.usage(),
   ]);
 
   const currentUsage = useMemo(() => {
@@ -50,7 +50,11 @@ const AccountUsage = () => {
             })
           : ""
       }
-      link={!!sub ? t("usage.link.manage") : t("usage.link.upgrade")}
+      link={
+        sub.data?.status === "active"
+          ? t("usage.link.manage")
+          : t("usage.link.upgrade")
+      }
       href="/a/user/tab/billing"
       data={currentUsage}
       isLoading={sub.isLoading || usage.isLoading}

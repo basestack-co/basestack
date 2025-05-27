@@ -101,7 +101,7 @@ const Members = ({ teamId }: Props) => {
         },
         {
           onSuccess: async () => {
-            await trpcUtils.usage.current.invalidate();
+            await trpcUtils.subscription.usage.invalidate();
             await trpcUtils.team.all.invalidate();
             await trpcUtils.team.byId.invalidate({ teamId });
             toast.success(

@@ -41,6 +41,11 @@ export const getProjectOnUser = async (projectKey: string) => {
       },
       select: {
         userId: true,
+        user: {
+          select: {
+            email: true,
+          },
+        },
       },
     }),
   ]);
@@ -53,5 +58,6 @@ export const getProjectOnUser = async (projectKey: string) => {
     ...current?.project,
     userId: current?.user.id,
     adminUserId: admin?.userId ?? "",
+    adminUserEmail: admin?.user.email ?? "",
   };
 };

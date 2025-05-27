@@ -4,6 +4,7 @@ import {
   getValidWebsite,
   isValidIpAddress,
   RequestError,
+  emailToId,
 } from "@basestack/utils";
 // DB
 import { prisma } from "server/db";
@@ -35,7 +36,9 @@ export const verifyRequest = async (
       });
     }
 
-    const sub = await polar.getCustomerSubscription(project.adminUserId);
+    const sub = await polar.getCustomerSubscription(
+      emailToId(project.adminUserEmail),
+    );
 
     if (sub?.status !== "active") {
       throw new RequestError({

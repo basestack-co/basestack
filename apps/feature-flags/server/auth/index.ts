@@ -8,16 +8,9 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { multiSession } from "better-auth/plugins";
 // Utils
 import { AppMode } from "../../utils/helpers/general";
-import { config, Product, AppEnv } from "@basestack/utils";
+import { config, Product, AppEnv, emailToId } from "@basestack/utils";
 // Vendors
 import { qstash, polar } from "@basestack/vendors";
-// Payments
-import {
-  polar as polarPlugin,
-  checkout,
-  portal,
-  usage,
-} from "@polar-sh/better-auth";
 
 export const auth: ReturnType<typeof betterAuth> = betterAuth({
   database: prismaAdapter(prisma, {
@@ -42,6 +35,16 @@ export const auth: ReturnType<typeof betterAuth> = betterAuth({
       create: {
         after: async (user) => {
           if (user) {
+            const customerExternalId = emailToId(user.email);
+
+            // Create customer in Polar
+            await polar.client.customers.create({
+              email: user.email,
+              name: user.name,
+              externalId: customerExternalId,
+            });
+
+            // Send welcome email
             await qstash.events.sendEmailEvent({
               template: "welcome",
               to: [user.email],
@@ -75,19 +78,5 @@ export const auth: ReturnType<typeof betterAuth> = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
-  plugins: [
-    multiSession(),
-    polarPlugin({
-      client: polar.client,
-      createCustomerOnSignUp: true,
-      use: [
-        checkout({
-          successUrl: "/a/user/tab/billing?checkout_id={CHECKOUT_ID}",
-          authenticatedUsersOnly: true,
-        }),
-        portal(),
-        usage(),
-      ],
-    }),
-  ],
+  plugins: [multiSession()],
 });

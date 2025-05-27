@@ -9,15 +9,11 @@ import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 // Libs
 import { authClient } from "libs/auth/client";
-// Vendors
-// import { redis } from "@basestack/vendors";
 // Utils
 import { config, PlanTypeId, Product } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 // Styles
 import { CardListItem, CardList, ProfileCardContainer } from "../styles";
-// Tanstack
-import { useMutation } from "@tanstack/react-query";
 // API
 import { api } from "utils/trpc/react";
 
@@ -25,25 +21,12 @@ const UserProfileBillingPage = () => {
   const t = useTranslations("profile");
   const { data: session } = authClient.useSession();
 
-  const { data, isLoading } = api.usage.subscription.useQuery();
+  const { data, isLoading } = api.subscription.current.useQuery();
 
-  const createCheckout = useMutation({
-    mutationFn: (payload: {
-      products: string[];
-      metadata: Record<string, string>;
-    }) => {
-      return authClient.checkout({
-        products: payload.products,
-        metadata: payload.metadata,
-      });
-    },
-  });
+  console.log("data =", data);
 
-  const createPortal = useMutation({
-    mutationFn: () => {
-      return authClient.customer.portal();
-    },
-  });
+  const createCheckout = api.subscription.checkout.useMutation();
+  const createPortal = api.subscription.portal.useMutation();
 
   const currentPlan = useMemo(() => {
     const plan = config.plans.getPlan(Product.FLAGS, PlanTypeId.USAGE);
@@ -69,13 +52,6 @@ const UserProfileBillingPage = () => {
         AppMode === "production" ? "production" : "sandbox"
       ];
 
-      console.log(
-        "`subscription:${session?.user.id}`",
-        `subscription:${session?.user.id}`,
-      );
-
-      //  await redis.client.del(`subscription:${session?.user.id}`);
-
       createCheckout.mutate(
         {
           products,
@@ -89,15 +65,12 @@ const UserProfileBillingPage = () => {
           onSuccess: (result) => {
             let toastId: string | number = "";
 
-            if (result.error) {
-              setIsLoading(false);
-              toast.error(result.error.message);
-            }
-
-            if (!!result.data) {
+            if (!!result.checkout.url) {
               toastId = toast.loading(
                 t("billing.status.checkout.redirect.loading"),
               );
+
+              window.location.href = result.checkout.url;
 
               setTimeout(() => {
                 setIsLoading(false);
@@ -117,21 +90,16 @@ const UserProfileBillingPage = () => {
 
   const onCreateFlagsPortal = useCallback(
     async (setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
-      // await redis.client.del(`subscription:${session?.user.id}`);
-
       createPortal.mutate(undefined, {
         onSuccess: (result) => {
           let toastId: string | number = "";
 
-          if (result.error) {
-            setIsLoading(false);
-            toast.error(result.error.message);
-          }
-
-          if (!!result.data) {
+          if (!!result.portal.url) {
             toastId = toast.loading(
               t("billing.status.portal.redirect.loading"),
             );
+
+            window.location.href = result.portal.url;
 
             setTimeout(() => {
               setIsLoading(false);

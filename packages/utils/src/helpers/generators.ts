@@ -14,3 +14,12 @@ export const generateSecureToken = () => {
   const combinedString = `${randomUuid}-${timestamp}-${randomString}`;
   return createHash("sha256").update(combinedString).digest("hex");
 };
+
+/**
+ * Generates a unique ID from an email address using MD5 hashing
+ * @param {string} email - The email address to generate an ID from
+ * @returns {string} The generated unique ID
+ */
+export const emailToId = (email: string): string => {
+  return createHash("md5").update(email.trim().toLowerCase()).digest("hex");
+};

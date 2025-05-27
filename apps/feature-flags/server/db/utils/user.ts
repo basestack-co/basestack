@@ -1,10 +1,6 @@
 import { PrismaClient, Role } from ".prisma/client";
 // tRPC
 import { TRPCError } from "@trpc/server";
-// Utils
-import { PlanTypeId, Product } from "@basestack/utils";
-// Vendors
-import { polar } from "@basestack/vendors";
 
 export const getUserInProject = async (
   prisma: PrismaClient,
@@ -33,19 +29,9 @@ export const getUserInProject = async (
       }),
     ]);
 
-    const customer = await polar.client.customers.getStateExternal({
-      externalId: admin?.userId!,
-    });
-
-    const subscription = customer?.activeSubscriptions.find(
-      ({ metadata }) => metadata.product === Product.FLAGS,
-    );
-
     return {
       role: user?.role ?? Role.VIEWER,
       adminUserId: admin?.userId ?? "",
-      adminSubscriptionPlanId: (subscription?.metadata.planId ??
-        PlanTypeId.FREE) as PlanTypeId,
     };
   } catch {
     throw new TRPCError({

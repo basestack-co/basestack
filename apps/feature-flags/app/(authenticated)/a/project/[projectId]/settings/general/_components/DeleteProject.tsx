@@ -47,7 +47,7 @@ const DeleteProjectCard = ({ name }: Props) => {
             // Reset the recent projects cache
             await trpcUtils.project.recent.invalidate();
             // Reset the usage cache
-            await trpcUtils.usage.current.invalidate();
+            await trpcUtils.subscription.usage.invalidate();
           }
 
           router.replace("/");
