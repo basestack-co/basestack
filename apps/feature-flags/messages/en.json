@@ -110,7 +110,8 @@
         "unlimited": "Unlimited",
         "credited": "Credited Units",
         "resource": {
-          "api_requests": "API Requests"
+          "api_requests": "API Requests",
+          "email_notification": "Email Notifications"
         }
       }
     },

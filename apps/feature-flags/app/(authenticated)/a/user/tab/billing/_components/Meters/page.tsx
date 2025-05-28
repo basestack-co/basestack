@@ -24,8 +24,6 @@ const Meters = ({ isLoadingSubscription }: MetersProps) => {
     enabled: !isLoadingSubscription,
   });
 
-  console.log("data", data);
-
   const minimumSpend = useMemo(() => {
     const plan = config.plans.getPlan(Product.FLAGS, PlanTypeId.USAGE);
     return plan.price.monthly.amount;
@@ -79,22 +77,32 @@ const Meters = ({ isLoadingSubscription }: MetersProps) => {
         key: "api_requests",
         title: t("usage.meters.resource.api_requests"),
       },
+      {
+        key: "email_notification",
+        title: t("usage.meters.resource.email_notification"),
+      },
     ];
 
-    return resourceMap.map((resource) => {
-      const meter = data?.meters?.find((m) => m.nameKey === resource.key);
+    return resourceMap
+      .map((resource) => {
+        const meter = data?.meters?.find((m) => m.nameKey === resource.key);
 
-      return {
-        title: resource.title,
-        used: meter?.consumedUnits ?? 0,
-        total:
-          meter?.creditedUnits === 0 ? Infinity : (meter?.creditedUnits ?? 0),
-        description:
-          meter?.creditedUnits === 0
-            ? t("usage.meters.unlimited")
-            : t("usage.meters.credited"),
-      };
-    });
+        if (!meter) {
+          return undefined;
+        }
+
+        return {
+          title: resource.title,
+          used: meter?.consumedUnits ?? 0,
+          total:
+            meter?.creditedUnits === 0 ? Infinity : (meter?.creditedUnits ?? 0),
+          description:
+            meter?.creditedUnits === 0
+              ? t("usage.meters.unlimited")
+              : t("usage.meters.credited"),
+        };
+      })
+      .filter((m) => m !== undefined);
   }, [data, t]);
 
   return (

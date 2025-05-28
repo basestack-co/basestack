@@ -28,6 +28,11 @@ const flags: FlagsPlan[] = [
         costUnit: 0.00001,
         currency: "USD",
       },
+      {
+        key: "email_notification",
+        costUnit: 0.002,
+        currency: "USD",
+      },
     ],
     limits: {
       projects: Infinity,
