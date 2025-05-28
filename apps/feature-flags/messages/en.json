@@ -103,6 +103,15 @@
         "environments": "Environments",
         "members": "Members",
         "api-requests": "API Requests"
+      },
+      "meters": {
+        "title": "Estimated Cost: {cost}",
+        "description": "Estimated cost reflects your usage and the {minimumSpend} minimum spend.",
+        "unlimited": "Unlimited",
+        "credited": "Credited Units",
+        "resource": {
+          "api_requests": "API Requests"
+        }
       }
     },
     "teams": {

@@ -111,6 +111,20 @@ const getPlanProducts = (product: Product, id: PlanTypeId): PlanProduct => {
   return plan.products;
 };
 
+const getMetersEstimatedCost = (
+  product: Product,
+  id: PlanTypeId,
+  usage: Record<string, number>,
+) => {
+  const plan = getPlan(product, id);
+
+  return Object.entries(usage).reduce((total, [key, units]) => {
+    const meter = plan.meters.find((m) => m.key === key);
+    const cost = units * (meter?.costUnit ?? 0);
+    return total + cost;
+  }, 0);
+};
+
 export const plans = {
   getSubscriptionEvents,
   ...formsConfig,
@@ -124,4 +138,5 @@ export const plans = {
   isUnderPlanLimit,
   getLimitByKey,
   getPlanProducts,
+  getMetersEstimatedCost,
 };

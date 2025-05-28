@@ -93,6 +93,18 @@
         "file-upload-limit": "File Upload",
         "integrations-calls": "Integrations Calls",
         "spams": "Spam AI ✨"
+      },
+      "meters": {
+        "title": "Estimated Cost: {cost}",
+        "description": "Estimated cost reflects your usage and the {minimumSpend} minimum spend.",
+        "unlimited": "Unlimited",
+        "credited": "Credited Units",
+        "resource": {
+          "form_submission": "Form Submissions",
+          "email_notification": "Email Notifications",
+          "spam_check": "Spam Checks",
+          "webhook_trigger": "Webhook Triggers"
+        }
       }
     },
     "teams": {

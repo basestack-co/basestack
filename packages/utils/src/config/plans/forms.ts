@@ -22,6 +22,33 @@ const forms: FormPlan[] = [
       sandbox: ["1341e824-dad2-4169-a170-39932d90ffb0"],
       production: [],
     },
+    meters: [
+      {
+        key: "form_submission",
+        costUnit: 0.01,
+        currency: "USD",
+      },
+      {
+        key: "email_notification",
+        costUnit: 0.002,
+        currency: "USD",
+      },
+      {
+        key: "spam_check",
+        costUnit: 0.002,
+        currency: "USD",
+      },
+      {
+        key: "webhook_trigger",
+        costUnit: 0.002,
+        currency: "USD",
+      },
+      {
+        key: "integration_call",
+        costUnit: 0.005,
+        currency: "USD",
+      },
+    ],
     limits: {
       forms: Infinity,
       submissions: Infinity,
@@ -67,6 +94,7 @@ const forms: FormPlan[] = [
       sandbox: [],
       production: [],
     },
+    meters: [],
     limits: {
       forms: 1,
       submissions: 50,
@@ -118,6 +146,7 @@ const forms: FormPlan[] = [
         "3e88c6c4-e916-4228-a151-0991633edf06",
       ],
     },
+    meters: [],
     limits: {
       forms: 5,
       submissions: 1000,
@@ -169,6 +198,7 @@ const forms: FormPlan[] = [
         "137c8ded-d8fe-4740-a46f-18d201d51777",
       ],
     },
+    meters: [],
     limits: {
       forms: Infinity,
       submissions: 10000,
@@ -220,6 +250,7 @@ const forms: FormPlan[] = [
         "78074ddc-86c4-4d7c-b467-38f064d890cd",
       ],
     },
+    meters: [],
     limits: {
       forms: Infinity,
       submissions: Infinity,
@@ -266,6 +297,7 @@ const forms: FormPlan[] = [
       sandbox: [],
       production: [],
     },
+    meters: [],
     limits: {
       forms: Infinity,
       submissions: Infinity,

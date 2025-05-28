@@ -27,17 +27,59 @@ export const subscriptionRouter = createTRPCRouter({
 
     return usage;
   }),
-  current: protectedProcedure.query(async ({ ctx }) => {
-    const userEmail = ctx.auth?.user.email!;
-    const customerExternalId = emailToId(userEmail);
+  current: protectedProcedure
+    .meta({ skipSubscriptionCheck: true })
+    .query(async ({ ctx }) => {
+      const userEmail = ctx.auth?.user.email!;
+      const customerExternalId = emailToId(userEmail);
 
-    const subscription = await polar.getCustomerSubscription(
-      customerExternalId,
-      Product.FORMS,
-    );
+      const subscription = await polar.getCustomerSubscription(
+        customerExternalId,
+        Product.FORMS,
+      );
 
-    return subscription;
-  }),
+      return subscription;
+    }),
+  meters: protectedProcedure
+    .meta({ skipSubscriptionCheck: true })
+    .query(async ({ ctx }) => {
+      const userEmail = ctx.auth?.user.email!;
+      const customerExternalId = emailToId(userEmail);
+
+      const session = await polar.client.customerSessions.create({
+        customerExternalId,
+      });
+
+      const subscription = await polar.getCustomerSubscription(
+        customerExternalId,
+        Product.FORMS,
+      );
+
+      const result = await polar.client.customerPortal.subscriptions.get(
+        {
+          customerSession: session.token ?? "",
+        },
+        {
+          id: subscription?.id ?? "",
+        },
+      );
+
+      const meters =
+        result?.meters?.map((meter) => ({
+          id: meter.id,
+          meterId: meter.meterId,
+          name: meter.meter.name,
+          nameKey: meter?.meter?.name.toLowerCase().replace(" ", "_") ?? "",
+          consumedUnits: meter.consumedUnits,
+          creditedUnits: meter.creditedUnits,
+          amount: meter.amount,
+        })) ?? [];
+
+      return {
+        meters,
+        benefits: result?.product.benefits ?? [],
+      };
+    }),
   portal: protectedProcedure
     .meta({ skipSubscriptionCheck: true })
     .mutation(async ({ ctx }) => {

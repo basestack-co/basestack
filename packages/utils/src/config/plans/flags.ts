@@ -22,6 +22,13 @@ const flags: FlagsPlan[] = [
       sandbox: ["dee76104-d9d0-4270-9077-b93802d37386"],
       production: [],
     },
+    meters: [
+      {
+        key: "api_requests",
+        costUnit: 0.00001,
+        currency: "USD",
+      },
+    ],
     limits: {
       projects: Infinity,
       environments: Infinity,
@@ -63,6 +70,7 @@ const flags: FlagsPlan[] = [
       sandbox: [],
       production: [],
     },
+    meters: [],
     limits: {
       projects: 1,
       environments: 1,
@@ -110,6 +118,7 @@ const flags: FlagsPlan[] = [
         "89c0b073-62fe-4786-915e-628d233d09fe",
       ],
     },
+    meters: [],
     limits: {
       projects: 5,
       environments: Infinity,
@@ -157,6 +166,7 @@ const flags: FlagsPlan[] = [
         "9cd0d171-bfbf-4b62-a0fd-566a452dbe82",
       ],
     },
+    meters: [],
     limits: {
       projects: Infinity,
       environments: Infinity,
@@ -204,6 +214,7 @@ const flags: FlagsPlan[] = [
         "6c4838c8-2f6e-43ca-a84a-fb17e30d3de0",
       ],
     },
+    meters: [],
     limits: {
       projects: Infinity,
       environments: Infinity,
@@ -246,6 +257,7 @@ const flags: FlagsPlan[] = [
       sandbox: [],
       production: [],
     },
+    meters: [],
     limits: {
       projects: Infinity,
       environments: Infinity,

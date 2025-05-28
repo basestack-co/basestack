@@ -74,6 +74,12 @@ export interface PlanProduct {
   production: Array<string>;
 }
 
+export interface PlanMeter {
+  key: string;
+  costUnit: number;
+  currency: string;
+}
+
 export interface Plan {
   id: PlanTypeId;
   name: string;
@@ -81,6 +87,7 @@ export interface Plan {
   description: string;
   price: PlanPrice;
   products: PlanProduct;
+  meters: PlanMeter[];
 }
 
 export interface FormPlan extends Plan {
