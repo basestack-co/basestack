@@ -225,6 +225,4 @@ export const withTeamRestrictions = ({ roles }: { roles: Role[] }) =>
 
 export const publicProcedure = t.procedure;
 
-export const protectedProcedure = t.procedure
-  .use(isAuthenticated)
-  .use(withSubscription);
+export const protectedProcedure = t.procedure.use(isAuthenticated);

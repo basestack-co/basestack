@@ -91,10 +91,10 @@
       }
     },
     "usage": {
-      "title": "Account Usage",
+      "title": "Account Insights",
       "link": {
-        "upgrade": "Upgrade",
-        "manage": "Manage"
+        "upgrade": "Enable Subscription",
+        "manage": "Usage & Billing"
       },
       "date": "Renews at {date}",
       "resource": {
@@ -113,6 +113,9 @@
           "api_requests": "API Requests",
           "email_notification": "Email Notifications"
         }
+      },
+      "alert": {
+        "no-subscription": "You don’t have an active subscription. You can still use features like Projects, Feature Flags and Teams, but endpoints are disabled until you add your billing details in your profile."
       }
     },
     "teams": {

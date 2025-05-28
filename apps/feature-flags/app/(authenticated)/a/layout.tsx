@@ -18,7 +18,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   const { isPending: isSessionLoading } = auth.client.useSession();
 
-  const [projects, usage] = api.useQueries((t) => [
+  const [projects, usage, subscription] = api.useQueries((t) => [
     t.project.all(undefined, {
       enabled: !isSessionLoading,
       select: (data) =>
@@ -35,9 +35,17 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     t.subscription.usage(undefined, {
       enabled: !isSessionLoading,
     }),
+    t.subscription.current(undefined, {
+      enabled: !isSessionLoading,
+    }),
   ]);
 
-  if (isSessionLoading || projects.isLoading || usage.isLoading) {
+  if (
+    isSessionLoading ||
+    projects.isLoading ||
+    usage.isLoading ||
+    subscription.isLoading
+  ) {
     return (
       <Loader hasDelay={false}>
         <Splash product="flags" />

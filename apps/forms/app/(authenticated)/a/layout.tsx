@@ -18,7 +18,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   const { isPending: isSessionLoading } = auth.client.useSession();
 
-  const [forms, usage] = api.useQueries((t) => [
+  const [forms, usage, subscription] = api.useQueries((t) => [
     t.form.all(undefined, {
       enabled: !isSessionLoading,
       select: (data) =>
@@ -35,9 +35,17 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     t.subscription.usage(undefined, {
       enabled: !isSessionLoading,
     }),
+    t.subscription.current(undefined, {
+      enabled: !isSessionLoading,
+    }),
   ]);
 
-  if (isSessionLoading || forms.isLoading || usage.isLoading) {
+  if (
+    isSessionLoading ||
+    forms.isLoading ||
+    usage.isLoading ||
+    subscription.isLoading
+  ) {
     return (
       <Loader hasDelay={false}>
         <Splash product="forms" />
