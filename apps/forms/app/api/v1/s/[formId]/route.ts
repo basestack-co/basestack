@@ -1,11 +1,16 @@
 import { NextResponse } from "next/server";
 // Utils
-import { RequestError, getMetadata } from "@basestack/utils";
+import {
+  RequestError,
+  emailToId,
+  getMetadata,
+  UsageEvent,
+} from "@basestack/utils";
 import { withUsageUpdate } from "server/db/utils/subscription";
 // Prisma
 import { prisma } from "server/db";
 // Vendors
-import { qstash } from "@basestack/vendors";
+import { qstash, polar } from "@basestack/vendors";
 // Utils
 import { FormMode, formatFormData, verifyForm } from "./utils";
 
@@ -35,6 +40,8 @@ export async function POST(
     const form = await verifyForm(formId, referer, metadata);
 
     if (form?.isEnabled) {
+      const externalCustomerId = emailToId(form.adminUserEmail);
+
       const data = await formatFormData(
         req,
         form.errorUrl,
@@ -43,6 +50,11 @@ export async function POST(
       );
 
       if (data) {
+        await polar.createUsageEvent(
+          UsageEvent.FORM_SUBMISSION,
+          externalCustomerId,
+        );
+
         if (form?.hasRetention) {
           const submission = await prisma.$transaction(async (tx) => {
             const response = await tx.submission.create({
@@ -62,6 +74,10 @@ export async function POST(
           });
 
           if (form.hasSpamProtection) {
+            await polar.createUsageEvent(
+              UsageEvent.SPAM_CHECK,
+              externalCustomerId,
+            );
             await qstash.events.checkDataForSpamEvent({
               userId: form.userId,
               submissionId: submission.id,
@@ -71,6 +87,10 @@ export async function POST(
         }
 
         if (!!form.webhookUrl) {
+          await polar.createUsageEvent(
+            UsageEvent.WEBHOOK_TRIGGERED,
+            externalCustomerId,
+          );
           await qstash.events.sendDataToExternalWebhookEvent({
             url: form.webhookUrl,
             body: {
@@ -82,6 +102,10 @@ export async function POST(
         }
 
         if (!!form.emails) {
+          await polar.createUsageEvent(
+            UsageEvent.EMAIL_SENT,
+            externalCustomerId,
+          );
           await qstash.events.sendEmailEvent({
             template: "new-submission",
             to: form.emails.split(",").map((email) => email.trim()),

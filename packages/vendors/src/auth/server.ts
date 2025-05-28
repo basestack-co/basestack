@@ -1,13 +1,12 @@
 // Auth
 import { Adapter, betterAuth, BetterAuthOptions, User } from "better-auth";
-// Adapters
-import { prismaAdapter } from "better-auth/adapters/prisma";
+import { createAuthMiddleware } from "better-auth/api";
 // Plugins
 import { multiSession } from "better-auth/plugins";
-import { emailToId } from "@basestack/utils";
 // Vendors
-import { client as polarClient } from "../polar";
+import { createCustomerIfNotExists } from "../polar";
 import { events as qstashEvents } from "../qstash";
+import { client as redis } from "../redis";
 
 export interface CreateAuthServerProps {
   database: (options: BetterAuthOptions) => Adapter;
@@ -20,26 +19,6 @@ export interface CreateAuthServerProps {
     };
   };
 }
-
-const createCustomerIfNotExists = async (user: User) => {
-  try {
-    const customerExternalId = emailToId(user.email);
-
-    const customer = await polarClient.customerSessions.create({
-      customerExternalId,
-    });
-
-    if (!customer?.customerId) {
-      await polarClient.customers.create({
-        email: user.email,
-        name: user.name,
-        externalId: customerExternalId,
-      });
-    }
-  } catch (error) {
-    console.error("Error creating customer in Polar", error, user);
-  }
-};
 
 export const createAuthServer = ({
   database,
@@ -61,29 +40,45 @@ export const createAuthServer = ({
         maxAge: 2 * 60 * 60, // 2 hours
       },
     },
-    databaseHooks: {
-      user: {
-        create: {
-          after: async (user) => {
-            if (user) {
-              await createCustomerIfNotExists(user);
+    secondaryStorage: {
+      get: async (key) => {
+        const value = await redis.get(key);
+        return value === null ? null : String(value);
+      },
+      set: async (key, value) => {
+        await redis.set(key, value);
+      },
+      delete: async (key) => {
+        await redis.del(key);
+      },
+    },
+    hooks: {
+      after: createAuthMiddleware(async (ctx) => {
+        if (ctx.path.startsWith("/sign-up")) {
+          const newSession = ctx.context.newSession;
+          if (newSession) {
+            if (newSession.user) {
+              await createCustomerIfNotExists(
+                newSession.user.name,
+                newSession.user.email,
+              );
 
               // Send welcome email
               await qstashEvents.sendEmailEvent({
                 template: "welcome",
-                to: [user.email],
+                to: [newSession.user.email],
                 subject: welcomeEmail.subject,
                 props: {
                   content: {
                     ...welcomeEmail.content,
-                    name: user.name,
+                    name: newSession.user.name,
                   },
                 },
               });
             }
-          },
-        },
-      },
+          }
+        }
+      }),
     },
     socialProviders: {
       github: {

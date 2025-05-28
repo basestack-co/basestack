@@ -9,6 +9,7 @@ import {
   isRefererValid,
   emailToId,
   Product,
+  UsageEvent,
 } from "@basestack/utils";
 // Prisma
 import { getFormOnUser, defaultErrorUrl } from "server/db/utils/form";
@@ -119,8 +120,10 @@ export const verifyForm = async (
       });
     }
 
+    const externalCustomerId = emailToId(form.adminUserEmail);
+
     const sub = await polar.getCustomerSubscription(
-      emailToId(form.adminUserEmail),
+      externalCustomerId,
       Product.FORMS,
     );
 

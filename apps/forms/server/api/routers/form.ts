@@ -184,10 +184,7 @@ export const formRouter = createTRPCRouter({
         honeypot: data?.form.honeypot,
         blockIpAddresses: data?.form.blockIpAddresses,
         role: data?.role,
-        owner: {
-          ...data?.form.users[0]?.user,
-          planId: ctx.form.adminSubscriptionPlanId ?? PlanTypeId.FREE,
-        },
+        owner: data?.form.users[0]?.user,
       };
     }),
   members: protectedProcedure
@@ -308,8 +305,6 @@ export const formRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const planId = ctx.form.adminSubscriptionPlanId;
-
       const { formId, feature, ...props } = input;
       const data = Object.fromEntries(
         Object.entries(props).filter(([_, value]) => value !== null),
@@ -324,7 +319,7 @@ export const formRouter = createTRPCRouter({
       }
 
       const authorized = withFeatures(
-        planId,
+        PlanTypeId.USAGE,
         feature,
       )(() =>
         ctx.prisma.form.update({

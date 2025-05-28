@@ -3,7 +3,7 @@ import { Polar } from "@polar-sh/sdk";
 // Cache
 import { client as redis } from "../redis";
 // Utils
-import { Product } from "@basestack/utils";
+import { emailToId, Product, UsageEvent } from "@basestack/utils";
 
 export const client = new Polar({
   accessToken: process.env.POLAR_ACCESS_TOKEN,
@@ -13,7 +13,10 @@ export const client = new Polar({
       : "sandbox",
 });
 
-export const getCustomerSubscription = async (externalId: string, product: Product) => {
+export const getCustomerSubscription = async (
+  externalId: string,
+  product: Product,
+) => {
   if (!externalId) return null;
 
   const cacheKey = `subscription:${externalId}`;
@@ -52,5 +55,51 @@ export const getCustomerSubscription = async (externalId: string, product: Produ
     };
   } catch (err) {
     return null;
+  }
+};
+
+export const createCustomerIfNotExists = async (
+  name: string,
+  email: string,
+) => {
+  try {
+    const customerExternalId = emailToId(email);
+
+    const customer = await client.customerSessions.create({
+      customerExternalId,
+    });
+
+    if (!customer?.customerId) {
+      await client.customers.create({
+        email,
+        name,
+        externalId: customerExternalId,
+      });
+    }
+  } catch (error) {
+    console.error("Error creating customer in Polar", error, name, email);
+  }
+};
+
+export const createUsageEvent = async (
+  name: UsageEvent,
+  externalCustomerId: string,
+) => {
+  try {
+    await client.events.ingest({
+      events: [
+        {
+          name,
+          externalCustomerId,
+        },
+      ],
+    });
+  } catch (error) {
+    console.error(
+      "Error creating usage event in Polar",
+      error,
+      name,
+      externalCustomerId,
+    );
   }
 };

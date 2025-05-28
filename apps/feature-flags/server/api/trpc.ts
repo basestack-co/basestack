@@ -29,7 +29,6 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
     project: {
       role: "VIEWER", // default as fallback
       adminUserId: "",
-      adminSubscriptionPlanId: PlanTypeId.USAGE,
     },
     ...opts,
   };
@@ -106,7 +105,10 @@ export const withSubscription = middleware(
       const userEmail = ctx.auth?.user.email!;
       const customerExternalId = emailToId(userEmail);
 
-      const sub = await polar.getCustomerSubscription(customerExternalId, Product.FLAGS);
+      const sub = await polar.getCustomerSubscription(
+        customerExternalId,
+        Product.FLAGS,
+      );
 
       if (sub?.status !== "active") {
         throw new TRPCError({
@@ -167,7 +169,6 @@ export const withProjectRestrictions = ({ roles }: { roles: Role[] }) =>
     ctx.project = {
       role: project.role,
       adminUserId: project.adminUserId,
-      adminSubscriptionPlanId: PlanTypeId.USAGE,
     };
 
     return next({

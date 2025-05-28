@@ -6,7 +6,7 @@ import {
 } from "server/api/trpc";
 // Utils
 import { generateSlug } from "random-word-slugs";
-import { Product, AppEnv, config } from "@basestack/utils";
+import { Product, AppEnv, config, PlanTypeId } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 import { z } from "zod";
 import { withFeatures, withUsageUpdate } from "server/db/utils/usage";
@@ -192,10 +192,7 @@ export const projectRouter = createTRPCRouter({
         websites: data?.project.websites,
         blockIpAddresses: data?.project.blockIpAddresses,
         role: data?.role,
-        owner: {
-          ...data?.project.users[0]?.user,
-          planId: ctx.project.adminSubscriptionPlanId,
-        },
+        owner: data?.project.users[0]?.user,
       };
     }),
   allKeys: protectedProcedure
@@ -349,7 +346,6 @@ export const projectRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const planId = ctx.project.adminSubscriptionPlanId;
       const { projectId, feature, ...props } = input;
 
       const data = Object.fromEntries(
@@ -365,7 +361,7 @@ export const projectRouter = createTRPCRouter({
       }
 
       const authorized = withFeatures(
-        planId,
+        PlanTypeId.USAGE,
         feature,
       )(() =>
         ctx.prisma.project.update({

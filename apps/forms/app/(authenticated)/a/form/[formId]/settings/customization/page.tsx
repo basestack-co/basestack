@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 // Router
 import { useParams } from "next/navigation";
 // Components
@@ -26,10 +26,6 @@ const CustomizationSettingsPage = () => {
     },
   );
 
-  const planId = useMemo(() => {
-    return (data?.owner?.subscription?.planId ?? PlanTypeId.FREE) as PlanTypeId;
-  }, [data]);
-
   return (
     <CardList>
       {hasFormsPermission(
@@ -40,7 +36,7 @@ const CustomizationSettingsPage = () => {
           <SettingCardContainer>
             <FormSendQueryString
               hasDataQueryString={data?.hasDataQueryString}
-              planId={planId}
+              planId={PlanTypeId.USAGE}
             />
           </SettingCardContainer>
         </CardListItem>
@@ -53,7 +49,7 @@ const CustomizationSettingsPage = () => {
           <SettingCardContainer>
             <FormRedirectUrl
               redirectUrl={data?.redirectUrl ?? ""}
-              planId={planId}
+              planId={PlanTypeId.USAGE}
             />
           </SettingCardContainer>
         </CardListItem>
@@ -66,7 +62,7 @@ const CustomizationSettingsPage = () => {
           <SettingCardContainer>
             <FormSuccessUrl
               successUrl={data?.successUrl ?? ""}
-              planId={planId}
+              planId={PlanTypeId.USAGE}
             />
           </SettingCardContainer>
         </CardListItem>
@@ -74,7 +70,10 @@ const CustomizationSettingsPage = () => {
       {hasFormsPermission(data?.role, "edit_form_customization_error_url") && (
         <CardListItem>
           <SettingCardContainer>
-            <FormFailedUrl errorUrl={data?.errorUrl ?? ""} planId={planId} />
+            <FormFailedUrl
+              errorUrl={data?.errorUrl ?? ""}
+              planId={PlanTypeId.USAGE}
+            />
           </SettingCardContainer>
         </CardListItem>
       )}

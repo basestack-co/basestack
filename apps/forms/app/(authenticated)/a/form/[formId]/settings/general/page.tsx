@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 // Router
 import { useParams } from "next/navigation";
 // Components
@@ -18,8 +18,6 @@ import FormSpamProtection from "./_components/FormSpamProtection";
 import { PlanTypeId, config } from "@basestack/utils";
 // Server
 import { api } from "utils/trpc/react";
-// Types
-import { Role } from ".prisma/client";
 
 const { hasFormsPermission } = config.plans;
 
@@ -32,10 +30,6 @@ const GeneralSettingsPage = () => {
       enabled: !!formId,
     },
   );
-
-  const planId = useMemo(() => {
-    return (data?.owner?.subscription?.planId ?? PlanTypeId.FREE) as PlanTypeId;
-  }, [data]);
 
   return (
     <CardList>
@@ -89,7 +83,7 @@ const GeneralSettingsPage = () => {
             <FormSpamProtection
               hasSpamProtection={data?.hasSpamProtection}
               isDisabled={!data?.hasRetention}
-              planId={planId}
+              planId={PlanTypeId.USAGE}
             />
           </SettingCardContainer>
         </CardListItem>
@@ -99,7 +93,7 @@ const GeneralSettingsPage = () => {
           <SettingCardContainer>
             <FormWebHookUrl
               webhookUrl={data?.webhookUrl ?? ""}
-              planId={planId}
+              planId={PlanTypeId.USAGE}
             />
           </SettingCardContainer>
         </CardListItem>

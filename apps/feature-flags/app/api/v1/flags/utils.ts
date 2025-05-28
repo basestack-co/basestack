@@ -38,8 +38,10 @@ export const verifyRequest = async (
       });
     }
 
+    const externalCustomerId = emailToId(project.adminUserEmail);
+
     const sub = await polar.getCustomerSubscription(
-      emailToId(project.adminUserEmail),
+      externalCustomerId,
       Product.FLAGS,
     );
 
@@ -108,14 +110,7 @@ export const verifyRequest = async (
       "increment",
     );
 
-    await polar.client.events.ingest({
-      events: [
-        {
-          name: UsageEvent.API_REQUESTS,
-          externalCustomerId: project.adminUserId,
-        },
-      ],
-    });
+    await polar.createUsageEvent(UsageEvent.API_REQUESTS, externalCustomerId);
 
     return true;
   } catch (error) {
