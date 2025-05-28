@@ -20,7 +20,7 @@ const forms: FormPlan[] = [
     },
     products: {
       sandbox: ["1341e824-dad2-4169-a170-39932d90ffb0"],
-      production: [],
+      production: ["96852088-287e-4142-ad7d-d0c5cfed3c0a"],
     },
     meters: [
       {

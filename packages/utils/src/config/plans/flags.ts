@@ -20,7 +20,7 @@ const flags: FlagsPlan[] = [
     },
     products: {
       sandbox: ["dee76104-d9d0-4270-9077-b93802d37386"],
-      production: [],
+      production: ["a5c5fb57-240c-4e76-aed7-ea08594f371a"],
     },
     meters: [
       {
