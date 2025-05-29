@@ -38,7 +38,6 @@ export const getCustomerSubscription = async (
       }
     }
 
-
     if ((customer?.activeSubscriptions ?? []).length <= 0) return null;
 
     const sub = (customer?.activeSubscriptions ?? []).find(
@@ -94,7 +93,7 @@ export const createUsageEvent = async (
         {
           name,
           externalCustomerId,
-          metadata
+          metadata,
         },
       ],
     });

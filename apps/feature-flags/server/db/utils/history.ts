@@ -1,6 +1,6 @@
 import { PrismaClient } from ".prisma/client";
 // Auth
-import {  User } from "better-auth";
+import { User } from "better-auth";
 // Types
 import { HistoryAction, Environment } from "types";
 import { HistoryType } from "@basestack/ui";
@@ -139,8 +139,6 @@ export const createHistory = async (
   input: any,
 ) => {
   const action = pathActionMap[path];
-
-
 
   if (!action) return;
 

@@ -77,26 +77,17 @@ const Plans = ({
   const [isLoadingExternalUrl, setIsLoadingExternalUrl] = useState(false);
   const [interval, setInterval] = useState<BillingInterval>("monthly");
 
-  const onCreatePortal = useCallback(
-    () => {
-      setIsLoadingExternalUrl(true);
+  const onCreatePortal = useCallback(() => {
+    setIsLoadingExternalUrl(true);
 
-      onCreatePortalCallback(
-        setIsLoadingExternalUrl,
-      );
-    },
-    [onCreatePortalCallback],
-  );
+    onCreatePortalCallback(setIsLoadingExternalUrl);
+  }, [onCreatePortalCallback]);
 
   const onCreateCheckout = useCallback(
     (planId: PlanTypeId) => {
       setIsLoading(true);
 
-      onCreateCheckoutCallback(
-        planId,
-        interval,
-        setIsLoading,
-      );
+      onCreateCheckoutCallback(planId, interval, setIsLoading);
     },
     [interval, onCreateCheckoutCallback],
   );
@@ -310,5 +301,3 @@ const Plans = ({
 };
 
 export default Plans;
-
-

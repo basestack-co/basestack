@@ -34,34 +34,36 @@ const UsageSection = ({
 }: UsageSectionProps) => {
   const theme = useTheme();
 
-  return (  
+  return (
     <Section {...props}>
       {!!title && (
-      <Header>
+        <Header>
           <Text size="xLarge" mr={theme.spacing.s5}>
             {title}
           </Text>
-        {!isLoading && 
-        <LinkContainer>
-          {!!date && (
-              <Text size="small" muted>
-                {date}
-              </Text>
+          {!isLoading && (
+            <LinkContainer>
+              {!!date && (
+                <Text size="small" muted>
+                  {date}
+                </Text>
+              )}
+              {!!date && !!link && (
+                <Text size="small" muted mx={theme.spacing.s2}>
+                  •
+                </Text>
+              )}
+              {!!link && (
+                <StyledLink href={href ?? ""}>
+                  <Text color="inherit" size="small" fontWeight={500}>
+                    {link}
+                  </Text>
+                </StyledLink>
+              )}
+            </LinkContainer>
           )}
-          {!!date && !!link && (
-            <Text size="small" muted mx={theme.spacing.s2}>
-              •
-            </Text>
-          )}
-          {!!link && (
-            <StyledLink href={href ?? ""}>
-              <Text color="inherit" size="small" fontWeight={500}>
-                {link}
-              </Text>
-            </StyledLink>
-          )}
-        </LinkContainer>}
-      </Header>)}
+        </Header>
+      )}
       <Container>
         {isLoading ? (
           <Skeleton

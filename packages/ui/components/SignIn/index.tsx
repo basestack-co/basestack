@@ -26,9 +26,25 @@ export interface Provider {
   };
 }
 
-
-type SignInProviders = "github" | "apple" | "discord" | "facebook" | "microsoft" | "google" | "spotify" | "twitch" | "twitter" | "dropbox" | "kick" | "linkedin" | "gitlab" | "tiktok" | "reddit" | "roblox" | "vk" | "zoom";
-
+type SignInProviders =
+  | "github"
+  | "apple"
+  | "discord"
+  | "facebook"
+  | "microsoft"
+  | "google"
+  | "spotify"
+  | "twitch"
+  | "twitter"
+  | "dropbox"
+  | "kick"
+  | "linkedin"
+  | "gitlab"
+  | "tiktok"
+  | "reddit"
+  | "roblox"
+  | "vk"
+  | "zoom";
 
 export interface SignInProps {
   providers: Provider;
@@ -54,7 +70,7 @@ export const getProvidersList: Provider = {
     name: "Google",
     type: "oauth",
   },
-}
+};
 
 const NoImage = () => {
   return <div>No Image</div>;
@@ -83,7 +99,6 @@ const getProviderLogo = (provider: SignInProviders) => {
     vk: <NoImage />,
     zoom: <NoImage />,
   };
-
 
   return logo[provider];
 };

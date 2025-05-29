@@ -45,7 +45,6 @@ const UsagePlan = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingExternalUrl, setIsLoadingExternalUrl] = useState(false);
 
-
   const features = useMemo(() => {
     const resourceConfigs = {
       [Product.FORMS]: [
@@ -57,9 +56,9 @@ const UsagePlan = ({
           key: "email_notification",
           title: t("home.usage.meters.resource.email_notification"),
         },
-        { 
-          key: "spam_check", 
-          title: t("home.usage.meters.resource.spam_check") 
+        {
+          key: "spam_check",
+          title: t("home.usage.meters.resource.spam_check"),
         },
         {
           key: "webhook_trigger",
@@ -89,7 +88,6 @@ const UsagePlan = ({
       return `${resource.title}: $${costUnit}/${unit}`;
     });
   }, [product, t]);
-
 
   const onCreatePortal = useCallback(() => {
     setIsLoadingExternalUrl(true);
@@ -142,7 +140,6 @@ const UsagePlan = ({
           onClick={() => onCreateCheckout(PlanTypeId.USAGE)}
           isDisabled={isLoading}
         />
-        
       </Container>
     );
   }
