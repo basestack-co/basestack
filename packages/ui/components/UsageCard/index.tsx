@@ -24,11 +24,17 @@ const UsageCard = ({ title, description, used, total }: UsageCardProps) => {
             {title}
           </Text>
           <Text size="xLarge" fontWeight={500}>
-            {used.toLocaleString("en-US")}&nbsp;
+            {used.toLocaleString('en-US', {
+                  notation: 'compact',
+                  maximumFractionDigits: 1
+                })}&nbsp;
             {total !== Infinity && (
               <Text as="span" size="small" muted fontWeight={400}>
                 /&nbsp;
-                {total.toLocaleString("en-US")}
+                {total.toLocaleString('en-US', {
+                  notation: 'compact',
+                  maximumFractionDigits: 1
+                })}
                 &nbsp;
               </Text>
             )}

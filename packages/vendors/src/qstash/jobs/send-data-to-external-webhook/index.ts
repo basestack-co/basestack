@@ -4,10 +4,16 @@ import { Receiver } from "@upstash/qstash";
 // Types
 import type { SendDataToExternalWebhookPayload } from "../../types";
 
-export const SendDataToExternalWebHookJob = () =>
+export interface SendDataToExternalWebHookJobArgs {
+  onSuccess: (externalCustomerId?: string) => Promise<void>;
+}
+
+export const SendDataToExternalWebHookJob = ({
+  onSuccess,
+}: SendDataToExternalWebHookJobArgs) =>
   serve<SendDataToExternalWebhookPayload>(
     async (context) => {
-      const { url, body } = context.requestPayload;
+      const { url, body, externalCustomerId } = context.requestPayload;
 
       console.info(
         `Job: External Webhook - Preparing to send data to external webhook: ${url}`,
@@ -21,6 +27,8 @@ export const SendDataToExternalWebHookJob = () =>
           },
           body: JSON.stringify(body),
         });
+
+        await onSuccess(externalCustomerId);
 
         console.info(
           `Job: External Webhook - Data sent to the external webhook with status: ${res.status}`,

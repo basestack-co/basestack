@@ -8,12 +8,14 @@ import { TextGenerationModel, cfAiClient, instructions } from "../../../cf/ai";
 
 export interface CheckSpamJobArgs {
   onSuccess: (submissionId: string, userId: string) => Promise<void>;
+  onRun: (externalCustomerId?: string) => Promise<void>;
 }
 
-export const CheckSpamJob = ({ onSuccess }: CheckSpamJobArgs) =>
+export const CheckSpamJob = ({ onSuccess, onRun }: CheckSpamJobArgs) =>
   serve<CheckDataForSpamPayload>(
     async (context) => {
-      const { submissionId, data, userId } = context.requestPayload;
+      const { submissionId, data, userId, externalCustomerId } =
+        context.requestPayload;
 
       console.info(
         `Job: Check Spam - Preparing to check data for spam: ${JSON.stringify(data)} with submission ID: ${submissionId}`,
@@ -24,6 +26,8 @@ export const CheckSpamJob = ({ onSuccess }: CheckSpamJobArgs) =>
           model: TextGenerationModel.LLAMA_3_8B_INSTRUCT,
           messages: instructions.checkSpam(JSON.stringify(data)),
         });
+
+        await onRun(externalCustomerId);
 
         if (res.success) {
           console.info(

@@ -29,6 +29,10 @@ const Meters = ({ isLoadingSubscription }: MetersProps) => {
     return plan.price.monthly.amount;
   }, []);
 
+  const planMeters = useMemo(() => {
+    return config.plans.getPlanMeters(Product.FLAGS, PlanTypeId.USAGE);
+  }, []);
+
   const estimatedCost = useMemo(() => {
     const usage = data?.meters?.reduce(
       (acc, meter) => {
@@ -86,24 +90,28 @@ const Meters = ({ isLoadingSubscription }: MetersProps) => {
     return resourceMap
       .map((resource) => {
         const meter = data?.meters?.find((m) => m.nameKey === resource.key);
+        const planMeter = planMeters.find((m) => m.key === resource.key);
 
-        if (!meter) {
-          return undefined;
-        }
+        if (!meter) return undefined;
+
+        const costPerUnit = planMeter?.costUnit ?? 0;
+        const description = `$${costPerUnit}/${t("usage.meters.unit")}`;
+        const isCredited = meter.creditedUnits !== 0;
+        const totalUnits = isCredited ? (meter.creditedUnits ?? 0) : Infinity;
 
         return {
           title: resource.title,
-          used: meter?.consumedUnits ?? 0,
-          total:
-            meter?.creditedUnits === 0 ? Infinity : (meter?.creditedUnits ?? 0),
-          description:
-            meter?.creditedUnits === 0
-              ? t("usage.meters.unlimited")
-              : t("usage.meters.credited"),
+          used: meter.consumedUnits ?? 0,
+          total: totalUnits,
+          description: isCredited
+            ? `${t("usage.meters.credited")} ${description}`
+            : description,
         };
       })
-      .filter((m) => m !== undefined);
-  }, [data, t]);
+      .filter(
+        (meter): meter is NonNullable<typeof meter> => meter !== undefined,
+      );
+  }, [data?.meters, planMeters, t]);
 
   return (
     <UsageSection

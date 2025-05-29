@@ -74,25 +74,19 @@ export async function POST(
           });
 
           if (form.hasSpamProtection) {
-            await polar.createUsageEvent(
-              UsageEvent.SPAM_CHECK,
-              externalCustomerId,
-            );
             await qstash.events.checkDataForSpamEvent({
               userId: form.userId,
               submissionId: submission.id,
+              externalCustomerId,
               data,
             });
           }
         }
 
         if (!!form.webhookUrl) {
-          await polar.createUsageEvent(
-            UsageEvent.WEBHOOK_TRIGGERED,
-            externalCustomerId,
-          );
           await qstash.events.sendDataToExternalWebhookEvent({
             url: form.webhookUrl,
+            externalCustomerId,
             body: {
               formId,
               name: form.name,
@@ -102,14 +96,11 @@ export async function POST(
         }
 
         if (!!form.emails) {
-          await polar.createUsageEvent(
-            UsageEvent.EMAIL_SENT,
-            externalCustomerId,
-          );
           await qstash.events.sendEmailEvent({
             template: "new-submission",
             to: form.emails.split(",").map((email) => email.trim()),
             subject: `New form submission received for ${form.name}`,
+            externalCustomerId,
             props: {
               formName: form.name,
               content: data,

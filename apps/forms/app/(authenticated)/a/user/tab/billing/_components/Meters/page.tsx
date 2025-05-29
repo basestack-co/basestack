@@ -24,6 +24,10 @@ const Meters = ({ isLoadingSubscription }: MetersProps) => {
     enabled: !isLoadingSubscription,
   });
 
+  const planMeters = useMemo(() => {
+    return config.plans.getPlanMeters(Product.FORMS, PlanTypeId.USAGE);
+  }, []);
+
   const minimumSpend = useMemo(() => {
     const plan = config.plans.getPlan(Product.FORMS, PlanTypeId.USAGE);
     return plan.price.monthly.amount;
@@ -91,10 +95,13 @@ const Meters = ({ isLoadingSubscription }: MetersProps) => {
     return resourceMap
       .map((resource) => {
         const meter = data?.meters?.find((m) => m.nameKey === resource.key);
+        const planMeter = planMeters.find((m) => m.key === resource.key);
 
         if (!meter) {
           return undefined;
         }
+
+        const description = `$${planMeter?.costUnit ?? 0}/${t("usage.meters.unit")}`;
 
         return {
           title: resource.title,
@@ -103,8 +110,8 @@ const Meters = ({ isLoadingSubscription }: MetersProps) => {
             meter?.creditedUnits === 0 ? Infinity : (meter?.creditedUnits ?? 0),
           description:
             meter?.creditedUnits === 0
-              ? t("usage.meters.unlimited")
-              : t("usage.meters.credited"),
+              ? description
+              : `${t("usage.meters.credited")} ${description}`,
         };
       })
       .filter((m) => m !== undefined);

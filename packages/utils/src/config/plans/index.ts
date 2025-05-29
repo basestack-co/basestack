@@ -125,6 +125,11 @@ const getMetersEstimatedCost = (
   }, 0);
 };
 
+const getPlanMeters = (product: Product, id: PlanTypeId) => {
+  const plan = getPlan(product, id);
+  return plan.meters;
+};
+
 export const plans = {
   getSubscriptionEvents,
   ...formsConfig,
@@ -139,4 +144,5 @@ export const plans = {
   getLimitByKey,
   getPlanProducts,
   getMetersEstimatedCost,
+  getPlanMeters,
 };

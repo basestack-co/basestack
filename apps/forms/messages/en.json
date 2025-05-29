@@ -98,7 +98,8 @@
         "title": "Estimated Cost: {cost}",
         "description": "Estimated cost reflects your usage and the {minimumSpend} minimum spend.",
         "unlimited": "Unlimited",
-        "credited": "Credited Units",
+        "credited": "CU",
+        "unit": "Unit",
         "resource": {
           "form_submission": "Form Submissions",
           "email_notification": "Email Notifications",
