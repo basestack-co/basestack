@@ -6,6 +6,9 @@ import AccountUsage from "./_components/AccountUsage";
 import RecentForms from "./_components/RecentForms";
 import QuickLinks from "./_components/QuickLinks";
 import Teams from "./_components/Teams";
+import Meters from "./user/tab/billing/_components/Meters/page";
+// Utils
+import dayjs from "dayjs";
 // UI
 import { Banners } from "@basestack/ui";
 // Styles
@@ -17,7 +20,7 @@ import { useTranslations } from "next-intl";
 
 const MainPage = () => {
   const t = useTranslations("home");
-  const { data } = api.subscription.current.useQuery();
+  const { data, isLoading } = api.subscription.current.useQuery();
 
   return (
     <Fragment>
@@ -30,7 +33,24 @@ const MainPage = () => {
         ]}
       />
       <Container>
-        <AccountUsage />
+        <Meters
+          isLoadingSubscription={isLoading}
+          numberOfMeters={4}
+          title={t("usage.title")}
+          date={
+            data?.currentPeriodEnd
+              ? t("usage.date", {
+                  date: dayjs(data?.currentPeriodEnd).format("MMMM D, YYYY"),
+                })
+              : ""
+          }
+          link={
+            data?.status === "active"
+              ? t("usage.link.manage")
+              : t("usage.link.upgrade")
+          }
+          href="/a/user/tab/billing"
+        />
         <RecentForms />
         <Teams />
         <QuickLinks />

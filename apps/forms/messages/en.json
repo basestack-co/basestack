@@ -89,6 +89,7 @@
       "resource": {
         "forms": "Forms",
         "submissions": "Submissions",
+        "teams": "Teams",
         "members": "Members",
         "file-upload-limit": "File Upload",
         "integrations-calls": "Integrations Calls",
@@ -600,7 +601,7 @@
         "has-custom-email-templates": "{value} Custom Email Templates",
         "has-spam-protection": "{value} Spam AI",
         "has-security": "{value} Security Rules",
-        "summary": "Unlimited Features (Forms, Notifications, Members, etc.)| $0.010 / Submission| $0.035 / Spam AI| Includes $5 of Usage for Submissions"
+        "summary": "Unlimited Features (Forms, Notifications, Members, etc.) Includes $5 of Usage for Submissions"
       },
       "segment": {
         "monthly": "Monthly",
@@ -633,7 +634,7 @@
           "button": "Manage Subscription"
         },
         "usage": {
-          "title": "Usage Based Billing",
+          "title": "Usage-Based Plan",
           "additional": " + Additional Usage",
           "no-subscription": "No active subscription found. Please add your billing details to continue using the product."
         },

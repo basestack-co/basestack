@@ -48,17 +48,17 @@ const UsageSection = ({
                 {date}
               </Text>
           )}
-          {!!link && (
-            <>
+          {!!date && !!link && (
             <Text size="small" muted mx={theme.spacing.s2}>
-                •
-              </Text>
+              •
+            </Text>
+          )}
+          {!!link && (
             <StyledLink href={href ?? ""}>
               <Text color="inherit" size="small" fontWeight={500}>
                 {link}
               </Text>
             </StyledLink>
-            </>
           )}
         </LinkContainer>}
       </Header>)}

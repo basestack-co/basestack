@@ -33,9 +33,11 @@ export const getCustomerSubscription = async (
         externalId,
       });
       if (customer) {
+        // 2 minutes cache
         await redis.set(cacheKey, JSON.stringify(customer), { ex: 120 });
       }
     }
+
 
     if ((customer?.activeSubscriptions ?? []).length <= 0) return null;
 

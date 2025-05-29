@@ -86,6 +86,8 @@ export const subscriptionRouter = createTRPCRouter({
       const userEmail = ctx.auth?.user.email!;
       const customerExternalId = emailToId(userEmail);
 
+      await redis.client.del(`subscription:${customerExternalId}`);
+
       const result = await polar.client.customerSessions.create({
         customerExternalId,
       });
@@ -113,7 +115,7 @@ export const subscriptionRouter = createTRPCRouter({
 
       const customerExternalId = emailToId(userEmail);
 
-      await redis.client.del(`subscription:${userId}`);
+      await redis.client.del(`subscription:${customerExternalId}`);
 
       const checkout = await polar.client.checkouts.create({
         products: input.products,

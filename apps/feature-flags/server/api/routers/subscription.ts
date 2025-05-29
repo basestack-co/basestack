@@ -107,13 +107,12 @@ export const subscriptionRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx?.auth?.user.id!;
       const userEmail = ctx.auth?.user.email!;
       const userName = ctx.auth?.user.name!;
 
       const customerExternalId = emailToId(userEmail);
 
-      await redis.client.del(`subscription:${userId}`);
+      await redis.client.del(`subscription:${customerExternalId}`);
 
       const checkout = await polar.client.checkouts.create({
         products: input.products,

@@ -100,6 +100,7 @@
       "resource": {
         "projects": "Projects",
         "flags": "Flags",
+        "teams": "Teams",
         "environments": "Environments",
         "members": "Members",
         "api-requests": "API Requests"
@@ -545,7 +546,7 @@
         "has-rollouts": "{value} Rollouts",
         "has-segments": "{value} Segments",
         "has-security": "{value} Security Rules",
-        "summary": "Unlimited Features (Projects, Flags, Members, etc.)| $0.000025 / API Request| Includes $5 of Usage"
+        "summary": "Unlimited Features (Projects, Flags, Members, etc.) Includes $5 of Usage"
       },
       "segment": {
         "monthly": "Monthly",
@@ -578,7 +579,7 @@
           "button": "Manage Subscription"
         },
         "usage": {
-          "title": "Usage Based Billing",
+          "title": "Usage-Based Plan",
           "additional": " + Additional Usage",
           "no-subscription": "No active subscription found. Please add your billing details to continue using the product."
         },
