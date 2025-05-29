@@ -8,7 +8,7 @@ import { TextGenerationModel, cfAiClient, instructions } from "../../../cf/ai";
 
 export interface CheckSpamJobArgs {
   onSuccess: (submissionId: string, userId: string) => Promise<void>;
-  onRun: (externalCustomerId?: string) => Promise<void>;
+  onRun: (submissionId: string, userId: string, externalCustomerId?: string) => Promise<void>;
 }
 
 export const CheckSpamJob = ({ onSuccess, onRun }: CheckSpamJobArgs) =>
@@ -27,7 +27,7 @@ export const CheckSpamJob = ({ onSuccess, onRun }: CheckSpamJobArgs) =>
           messages: instructions.checkSpam(JSON.stringify(data)),
         });
 
-        await onRun(externalCustomerId);
+        await onRun(submissionId, userId, externalCustomerId);
 
         if (res.success) {
           console.info(

@@ -110,7 +110,11 @@ export const verifyRequest = async (
       "increment",
     );
 
-    await polar.createUsageEvent(UsageEvent.API_REQUESTS, externalCustomerId);
+    await polar.createUsageEvent(UsageEvent.API_REQUESTS, externalCustomerId, {
+      product: Product.FLAGS,
+      projectName: project.name,
+      adminUserEmail: project.adminUserEmail,
+    });
 
     return true;
   } catch (error) {

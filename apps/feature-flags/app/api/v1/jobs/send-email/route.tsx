@@ -3,7 +3,7 @@ import { serve } from "@upstash/workflow/nextjs";
 import { Receiver } from "@upstash/qstash";
 // Types
 import React, { ElementType } from "react";
-import { UsageEvent } from "@basestack/utils";
+import { Product, UsageEvent } from "@basestack/utils";
 // Email
 import {
   sendEmail,
@@ -53,6 +53,10 @@ export const { POST } = serve<SendEmailPayload>(
             await polar.createUsageEvent(
               UsageEvent.EMAIL_SENT,
               externalCustomerId,
+              {
+                product: Product.FLAGS,
+                template,
+              },
             );
           }
         }),

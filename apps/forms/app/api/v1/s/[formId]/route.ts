@@ -5,6 +5,7 @@ import {
   emailToId,
   getMetadata,
   UsageEvent,
+  Product,
 } from "@basestack/utils";
 import { withUsageUpdate } from "server/db/utils/subscription";
 // Prisma
@@ -53,6 +54,11 @@ export async function POST(
         await polar.createUsageEvent(
           UsageEvent.FORM_SUBMISSION,
           externalCustomerId,
+          {
+            product: Product.FORMS,
+            formId,
+            adminUserEmail: form.adminUserEmail,
+          },
         );
 
         if (form?.hasRetention) {

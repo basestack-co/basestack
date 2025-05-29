@@ -5,12 +5,16 @@ import { qstash, polar } from "@basestack/vendors";
 // Utils
 import { withUsageUpdate } from "server/db/utils/subscription";
 // Utils
-import { UsageEvent } from "@basestack/utils";
+import { Product, UsageEvent } from "@basestack/utils";
 
 export const { POST } = qstash.jobs.CheckSpamJob({
-  onRun: async (externalCustomerId) => {
+  onRun: async (submissionId, userId, externalCustomerId) => {
     if (externalCustomerId) {
-      await polar.createUsageEvent(UsageEvent.SPAM_CHECK, externalCustomerId);
+      await polar.createUsageEvent(UsageEvent.SPAM_CHECK, externalCustomerId, {
+        product: Product.FORMS,
+        submissionId,
+        userId,
+      });
     }
   },
   onSuccess: async (submissionId, userId) => {

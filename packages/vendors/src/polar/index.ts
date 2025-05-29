@@ -86,6 +86,7 @@ export const createCustomerIfNotExists = async (
 export const createUsageEvent = async (
   name: UsageEvent,
   externalCustomerId: string,
+  metadata?: Record<string, string>,
 ) => {
   try {
     await client.events.ingest({
@@ -93,6 +94,7 @@ export const createUsageEvent = async (
         {
           name,
           externalCustomerId,
+          metadata
         },
       ],
     });

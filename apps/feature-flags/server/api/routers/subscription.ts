@@ -53,6 +53,13 @@ export const subscriptionRouter = createTRPCRouter({
         Product.FLAGS,
       );
 
+      if (!subscription?.id) {
+        return {
+          meters: [],
+          benefits: [],
+        };
+      }
+
       const result = await polar.client.customerPortal.subscriptions.get(
         {
           customerSession: session.token ?? "",
