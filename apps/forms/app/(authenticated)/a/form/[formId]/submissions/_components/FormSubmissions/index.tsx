@@ -170,13 +170,19 @@ const FormSubmissions = ({
   );
 
   const onUpdate = useCallback(
-    (ids: string[], payload: { isSpam?: boolean; viewed?: boolean }) => {
+    (
+      ids: string[],
+      payload: { isSpam?: boolean; viewed?: boolean; showToast?: boolean },
+      showToast: boolean = true,
+    ) => {
       if (!hasFormsPermission(formRole, "view_form_submissions_actions"))
         return null;
 
-      const loadingToastId = toast.loading(
-        t("submission.event.update.loading"),
-      );
+      let loadingToastId: string | number = "";
+
+      if (showToast) {
+        loadingToastId = toast.loading(t("submission.event.update.loading"));
+      }
 
       updateSubmissions.mutate(
         { ids, formId, ...payload },
@@ -187,10 +193,12 @@ const FormSubmissions = ({
             await trpcUtils.submission.all.invalidate({ formId });
             await trpcUtils.form.recent.invalidate();
 
-            toast.dismiss(loadingToastId);
-            toast.success(
-              t("submission.event.update.success", { count: ids.length }),
-            );
+            if (showToast) {
+              toast.dismiss(loadingToastId);
+              toast.success(
+                t("submission.event.update.success", { count: ids.length }),
+              );
+            }
           },
           onError: (error) => {
             toast.dismiss(loadingToastId);
@@ -357,7 +365,13 @@ const FormSubmissions = ({
                             onDelete={() => onDelete([id])}
                             onOpenCallback={(isOpen) => {
                               if (isOpen && !viewed) {
-                                  onUpdate([id], { viewed: true });
+                                onUpdate(
+                                  [id],
+                                  {
+                                    viewed: true,
+                                  },
+                                  false,
+                                );
                               }
                             }}
                             onMarkSpam={() =>
