@@ -42,11 +42,8 @@ export const createAuthServer = ({
     },
     secondaryStorage: {
       get: async (key) => {
-        console.log("secondaryStorage get", key);
-
         const value = await redis.get(key);
 
-        console.log("secondaryStorage get value", value);
         return value === null
           ? null
           : typeof value === "string"
@@ -62,27 +59,39 @@ export const createAuthServer = ({
     },
     hooks: {
       after: createAuthMiddleware(async (ctx) => {
-        if (ctx.path.startsWith("/sign-up")) {
-          const newSession = ctx.context.newSession;
-          if (newSession) {
-            if (newSession.user) {
-              await createCustomerIfNotExists(
-                newSession.user.name,
-                newSession.user.email,
-              );
+        console.log("AUTH CONTEXT NEW SESSION", ctx?.context?.newSession);
+        console.log("--------------------------------");
 
-              // Send welcome email
+        if (ctx?.context?.newSession) {
+          const { user } = ctx.context.newSession;
+          const createdAt = user?.createdAt;
+
+          // Check if user was created in the last 10 seconds
+          const isNewUserRecently =
+            createdAt && new Date(createdAt).getTime() > Date.now() - 10000;
+
+          if (isNewUserRecently && user?.email && user?.name) {
+            const { email, name } = user;
+
+            try {
               await qstashEvents.sendEmailEvent({
                 template: "welcome",
-                to: [newSession.user.email],
+                to: [email],
                 subject: welcomeEmail.subject,
                 props: {
                   content: {
                     ...welcomeEmail.content,
-                    name: newSession.user.name,
+                    name,
                   },
                 },
               });
+
+              await createCustomerIfNotExists(name, email);
+            } catch (error) {
+              console.error(
+                "Error creating customer in Polar or sending welcome email",
+                error,
+              );
             }
           }
         }

@@ -13,7 +13,7 @@ import { BannerVariant } from "@basestack/design-system";
 // Types
 import { getProvidersList } from "@basestack/ui/components/SignIn";
 // Utils
-import { config } from "@basestack/utils";
+import { clearAllBrowserStorage, config } from "@basestack/utils";
 // Styles
 import styled from "styled-components";
 
@@ -36,10 +36,15 @@ const SignInPage = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (isSessionLoading) return;
+
     if (session) {
       router.push("/");
+      return;
     }
-  }, [session, router]);
+
+    clearAllBrowserStorage();
+  }, [session, router, isSessionLoading]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);

@@ -50,3 +50,17 @@ export const getCookieValueAsBoolean = (name: string): boolean => {
   }
   return false;
 };
+
+export const clearAllBrowserStorage = () => {
+  // Clear localStorage
+  localStorage.clear();
+
+  // Clear sessionStorage
+  sessionStorage.clear();
+
+  // Clear all cookies
+  document.cookie.split(";").forEach((cookie) => {
+    const name = cookie.split("=")[0].trim();
+    document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=${window.location.hostname}`;
+  });
+};

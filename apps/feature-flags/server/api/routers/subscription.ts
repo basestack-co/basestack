@@ -4,7 +4,7 @@ import { AppEnv, config, Product, emailToId } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 import { z } from "zod";
 // Vendors
-import { polar, redis } from "@basestack/vendors";
+import { polar } from "@basestack/vendors";
 
 export const subscriptionRouter = createTRPCRouter({
   usage: protectedProcedure.query(async ({ ctx }) => {
@@ -45,9 +45,13 @@ export const subscriptionRouter = createTRPCRouter({
       const userEmail = ctx.auth?.user.email!;
       const customerExternalId = emailToId(userEmail);
 
-      const session = await polar.client.customerSessions.create({
-        customerExternalId,
-      });
+      const session = await polar.client.customerSessions
+        .create({ customerExternalId })
+        .catch(() => null);
+
+      if (!session?.token) {
+        return { meters: [], benefits: [] };
+      }
 
       const subscription = await polar.getCustomerSubscription(
         customerExternalId,
@@ -56,19 +60,12 @@ export const subscriptionRouter = createTRPCRouter({
       );
 
       if (!subscription?.id) {
-        return {
-          meters: [],
-          benefits: [],
-        };
+        return { meters: [], benefits: [] };
       }
 
       const result = await polar.client.customerPortal.subscriptions.get(
-        {
-          customerSession: session.token ?? "",
-        },
-        {
-          id: subscription?.id ?? "",
-        },
+        { customerSession: session.token },
+        { id: subscription.id },
       );
 
       const meters =
@@ -76,7 +73,7 @@ export const subscriptionRouter = createTRPCRouter({
           id: meter.id,
           meterId: meter.meterId,
           name: meter.meter.name,
-          nameKey: meter?.meter?.name.toLowerCase().replace(" ", "_") ?? "",
+          nameKey: meter.meter?.name.toLowerCase().replace(/\s+/g, "_") ?? "",
           consumedUnits: meter.consumedUnits,
           creditedUnits: meter.creditedUnits,
           amount: meter.amount,
@@ -93,7 +90,11 @@ export const subscriptionRouter = createTRPCRouter({
       const userEmail = ctx.auth?.user.email!;
       const customerExternalId = emailToId(userEmail);
 
-      await redis.client.del(`subscription:${customerExternalId}`);
+      await polar.deleteCustomerSubscriptionCache(
+        customerExternalId,
+        Product.FLAGS,
+        AppMode,
+      );
 
       const result = await polar.client.customerSessions.create({
         customerExternalId,
@@ -121,7 +122,11 @@ export const subscriptionRouter = createTRPCRouter({
 
       const customerExternalId = emailToId(userEmail);
 
-      await redis.client.del(`subscription:${customerExternalId}`);
+      await polar.deleteCustomerSubscriptionCache(
+        customerExternalId,
+        Product.FLAGS,
+        AppMode,
+      );
 
       const checkout = await polar.client.checkouts.create({
         products: input.products,

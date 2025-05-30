@@ -13,7 +13,7 @@ import { BannerVariant } from "@basestack/design-system";
 // Types
 import { getProvidersList } from "@basestack/ui/components/SignIn";
 // Utils
-import { config } from "@basestack/utils";
+import { clearAllBrowserStorage, config } from "@basestack/utils";
 // Styles
 import styled from "styled-components";
 
@@ -30,15 +30,21 @@ const Link = styled.a`
 
 const SignInPage = () => {
   const t = useTranslations("auth");
-  const { isPending: isSessionLoading } = auth.client.useSession();
+  const { data: session, isPending: isSessionLoading } =
+    auth.client.useSession();
   const router = useRouter();
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!isSessionLoading) {
+    if (isSessionLoading) return;
+
+    if (session) {
       router.push("/");
+      return;
     }
-  }, [isSessionLoading, router]);
+
+    clearAllBrowserStorage();
+  }, [session, router, isSessionLoading]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);

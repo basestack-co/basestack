@@ -60,26 +60,43 @@ export const getCustomerSubscription = async (
   }
 };
 
+export const deleteCustomerSubscriptionCache = async (
+  externalId: string,
+  product: Product,
+  env: string,
+) => {
+  try {
+    const cacheKey = `${env}:${product}:subscription:${externalId}`;
+    await redis.del(cacheKey);
+  } catch (err) {
+    console.error(
+      "Error deleting customer subscription cache",
+      err,
+      externalId,
+      product,
+      env,
+    );
+  }
+};
+
 export const createCustomerIfNotExists = async (
   name: string,
   email: string,
-) => {
+): Promise<void> => {
   try {
     const customerExternalId = emailToId(email);
 
-    const customer = await client.customerSessions.create({
-      customerExternalId,
+    await client.customers.create({
+      email,
+      name,
+      externalId: customerExternalId,
     });
-
-    if (!customer?.customerId) {
-      await client.customers.create({
-        email,
-        name,
-        externalId: customerExternalId,
-      });
-    }
   } catch (error) {
-    console.error("Error creating customer in Polar", error, name, email);
+    console.error("Error creating customer in Polar, skipping", {
+      error,
+      name,
+      email,
+    });
   }
 };
 
