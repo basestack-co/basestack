@@ -134,7 +134,7 @@ const Meters = ({
         };
       })
       .filter((m) => m !== undefined);
-  }, [meters.data?.meters, t]);
+  }, [meters.data?.meters, t, planMeters]);
 
   const currentUsage = useMemo(() => {
     const resources = [

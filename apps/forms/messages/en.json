@@ -102,6 +102,7 @@
         "credited": "CU",
         "unit": "Unit",
         "resource": {
+          "api_requests": "API Requests",
           "form_submission": "Form Submissions",
           "email_notification": "Email Notifications",
           "spam_check": "Spam Checks",

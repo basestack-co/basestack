@@ -26,9 +26,9 @@
     "babel-plugin-react-compiler": "^19.1.0-rc.2",
     "embla-carousel-auto-scroll": "8.6.0",
     "embla-carousel-react": "^8.6.0",
-    "eslint-config-next": "^15.3.2",
+    "eslint-config-next": "^15.3.3",
     "material-symbols": "^0.31.4",
-    "next": "^15.3.2",
+    "next": "^15.3.3",
     "next-intl": "^4.1.0",
     "polished": "^4.3.1",
     "react": "^19.1.0",
@@ -41,7 +41,7 @@
     "styled-components": "^6.1.18",
     "styled-system": "^5.1.5",
     "stylis": "^4.3.6",
-    "zod": "^3.25.32"
+    "zod": "^3.25.42"
   },
   "devDependencies": {
     "@basestack/config": "*",
@@ -51,7 +51,7 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.15.23",
+    "@types/node": "^22.15.29",
     "@types/react": "19.1.6",
     "@types/react-dom": "^19.1.5",
     "@types/react-syntax-highlighter": "^15.5.13",
@@ -64,7 +64,7 @@
     "jest-styled-components": "^7.2.0",
     "lint-staged": "^16.1.0",
     "node-mocks-http": "^1.17.2",
-    "turbo": "2.5.3",
+    "turbo": "2.5.4",
     "typescript": "^5.8.3"
   }
 }

@@ -817,6 +817,11 @@
           },
           "button": "Manage Subscription"
         },
+        "usage": {
+          "title": "Usage-Based Plan",
+          "additional": " + Additional Usage",
+          "no-subscription": "No active subscription found. Please add your billing details to continue using the product."
+        },
         "details": {
           "lastFour": "Ending in",
           "expDate": "Exp date",
@@ -825,7 +830,51 @@
         "upgrade": {
           "title": "Upgrade Plan",
           "description": "Select billing cycle"
+        },
+        "select": {
+          "title": "Select Plan",
+          "description": "Select a plan"
         }
+      }
+    }
+  },
+  "home": {
+    "usage": {
+      "title": "Account Insights",
+      "link": {
+        "upgrade": "Enable Subscription",
+        "manage": "Usage & Billing"
+      },
+      "date": "Renews at {date}",
+      "resource": {
+        "forms": "Forms",
+        "submissions": "Submissions",
+        "teams": "Teams",
+        "members": "Members",
+        "file-upload-limit": "File Upload",
+        "integrations-calls": "Integrations Calls",
+        "spams": "Spam AI ✨",
+        "projects": "Projects",
+        "flags": "Flags",
+        "environments": "Environments",
+        "api-requests": "API Requests"
+      },
+      "meters": {
+        "title": "Estimated Cost: {cost}",
+        "description": "Estimated cost reflects your usage and the {minimumSpend} minimum spend.",
+        "unlimited": "Unlimited",
+        "credited": "CU",
+        "unit": "Unit",
+        "resource": {
+          "form_submission": "Form Submissions",
+          "email_notification": "Email Notifications",
+          "spam_check": "Spam Checks",
+          "webhook_trigger": "Webhook Triggers",
+          "api_requests": "API Requests"
+        }
+      },
+      "alert": {
+        "no-subscription": "You don’t have an active subscription. You can still use features like Forms and Teams, but endpoints are disabled until you add your billing details in your profile."
       }
     }
   }

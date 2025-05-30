@@ -59,9 +59,6 @@ export const createAuthServer = ({
     },
     hooks: {
       after: createAuthMiddleware(async (ctx) => {
-        console.log("AUTH CONTEXT NEW SESSION", ctx?.context?.newSession);
-        console.log("--------------------------------");
-
         if (ctx?.context?.newSession) {
           const { user } = ctx.context.newSession;
           const createdAt = user?.createdAt;

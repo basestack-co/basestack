@@ -113,7 +113,10 @@
         "unit": "Unit",
         "resource": {
           "api_requests": "API Requests",
-          "email_notification": "Email Notifications"
+          "email_notification": "Email Notifications",
+          "form_submission": "Form Submissions",
+          "spam_check": "Spam Checks",
+          "webhook_trigger": "Webhook Triggers"
         }
       },
       "alert": {
