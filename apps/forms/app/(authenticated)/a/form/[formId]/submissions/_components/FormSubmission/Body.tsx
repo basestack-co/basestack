@@ -100,7 +100,7 @@ const Body = ({
       height: isOpen ? (contentRef?.current?.offsetHeight ?? 0) + 20 : 0,
       opacity: isOpen ? 1 : 0,
     });
-  }, [isOpen, contentRef, showMetadata, data]);
+  }, [isOpen, contentRef, showMetadata, data, animate]);
 
   const onBlockIp = useCallback(
     (ip: string) => {

@@ -149,7 +149,8 @@ const Meters = ({
       used: Number(usage.data?.[key as keyof typeof usage.data] ?? 0),
       total: Infinity,
     }));
-  }, [usage.data, t]);
+  }, [usage, t]);
+
   return (
     <UsageSection
       mb={theme.spacing.s7}
