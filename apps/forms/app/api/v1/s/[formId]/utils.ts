@@ -11,6 +11,7 @@ import {
   Product,
   UsageEvent,
 } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
 // Prisma
 import { getFormOnUser, defaultErrorUrl } from "server/db/utils/form";
 // Vendors
@@ -125,6 +126,7 @@ export const verifyForm = async (
     const sub = await polar.getCustomerSubscription(
       externalCustomerId,
       Product.FORMS,
+      AppMode,
     );
 
     if (sub?.status !== "active") {

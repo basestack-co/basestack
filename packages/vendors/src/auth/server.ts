@@ -42,7 +42,11 @@ export const createAuthServer = ({
     },
     secondaryStorage: {
       get: async (key) => {
+        console.log("secondaryStorage get", key);
+
         const value = await redis.get(key);
+
+        console.log("secondaryStorage get value", value);
         return value === null
           ? null
           : typeof value === "string"

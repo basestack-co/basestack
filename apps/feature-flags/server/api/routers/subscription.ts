@@ -34,6 +34,7 @@ export const subscriptionRouter = createTRPCRouter({
     const subscription = await polar.getCustomerSubscription(
       customerExternalId,
       Product.FLAGS,
+      AppMode,
     );
 
     return subscription;
@@ -51,6 +52,7 @@ export const subscriptionRouter = createTRPCRouter({
       const subscription = await polar.getCustomerSubscription(
         customerExternalId,
         Product.FLAGS,
+        AppMode,
       );
 
       if (!subscription?.id) {

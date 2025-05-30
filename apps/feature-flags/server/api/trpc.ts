@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 // Utils
 import superjson from "superjson";
 import { ZodError } from "zod";
+import { AppMode } from "utils/helpers/general";
 // Auth
 import { auth } from "server/auth";
 // Database
@@ -108,6 +109,7 @@ export const withSubscription = middleware(
       const sub = await polar.getCustomerSubscription(
         customerExternalId,
         Product.FLAGS,
+        AppMode,
       );
 
       if (sub?.status !== "active") {

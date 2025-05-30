@@ -16,10 +16,11 @@ export const client = new Polar({
 export const getCustomerSubscription = async (
   externalId: string,
   product: Product,
+  env: string,
 ) => {
   if (!externalId) return null;
 
-  const cacheKey = `subscription:${externalId}`;
+  const cacheKey = `${env}:${product}:subscription:${externalId}`;
 
   try {
     let customerRaw = await redis.get(cacheKey);

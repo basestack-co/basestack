@@ -8,6 +8,7 @@ import {
   Product,
   UsageEvent,
 } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
 // DB
 import { prisma } from "server/db";
 import { getProjectOnUser, productUrl } from "server/db/utils/project";
@@ -43,6 +44,7 @@ export const verifyRequest = async (
     const sub = await polar.getCustomerSubscription(
       externalCustomerId,
       Product.FLAGS,
+      AppMode,
     );
 
     if (sub?.status !== "active") {

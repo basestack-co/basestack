@@ -357,7 +357,7 @@ const FormSubmissions = ({
                             onDelete={() => onDelete([id])}
                             onOpenCallback={(isOpen) => {
                               if (isOpen && !viewed) {
-                                onUpdate([id], { viewed: true });
+                                  onUpdate([id], { viewed: true });
                               }
                             }}
                             onMarkSpam={() =>
