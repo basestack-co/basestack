@@ -49,15 +49,20 @@ export const createAuthServer = ({
     secondaryStorage: {
       get: async (id) => {
         const key = `${env}:${product}:auth:${id}`;
-
         const value = await redis.get<string>(key);
-        return value ? value : null;
+        if (!value) return null;
+        try {
+          return JSON.parse(value);
+        } catch {
+          return value;
+        }
       },
       set: async (id, value, ttl) => {
         const key = `${env}:${product}:auth:${id}`;
-
-        if (ttl) await redis.set(key, value, { ex: ttl });
-        else await redis.set(key, value);
+        const stringValue =
+          typeof value === "string" ? value : JSON.stringify(value);
+        if (ttl) await redis.set(key, stringValue, { ex: ttl });
+        else await redis.set(key, stringValue);
       },
       delete: async (id) => {
         const key = `${env}:${product}:auth:${id}`;
