@@ -26,9 +26,9 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.27.9",
+    "@floating-ui/react": "^0.27.11",
     "polished": "^4.2.2",
-    "react-calendar": "^5.1.0",
+    "react-calendar": "^6.0.0",
     "react-select": "^5.10.1",
     "react-spring": "^10.0.1",
     "styled-components": "^6.1.18",

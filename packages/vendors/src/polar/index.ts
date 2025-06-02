@@ -23,7 +23,7 @@ export const getCustomerSubscription = async (
   const cacheKey = `${env}:${product}:subscription:${externalId}`;
 
   try {
-    let customerRaw = await redis.get(cacheKey);
+    const customerRaw = await redis.get(cacheKey);
     let customer: any = null;
 
     if (customerRaw) {

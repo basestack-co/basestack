@@ -23,9 +23,9 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@polar-sh/sdk": "^0.32.16",
+    "@polar-sh/sdk": "^0.33.0",
     "@upstash/qstash": "^2.8.1",
-    "@upstash/redis": "^1.34.9",
+    "@upstash/redis": "^1.35.0",
     "@upstash/workflow": "^0.2.13",
     "better-auth": "^1.2.8"
   }
