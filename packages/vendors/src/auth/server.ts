@@ -46,7 +46,7 @@ export const createAuthServer = ({
         maxAge: 2 * 60 * 60, // 2 hours
       },
     },
-    secondaryStorage: {
+    /* secondaryStorage: {
       get: async (id) => {
         const key = `${env}:${product}:auth:${id}`;
         const value = await redis.get<string>(key);
@@ -69,7 +69,7 @@ export const createAuthServer = ({
 
         await redis.del(key);
       },
-    },
+    }, */
     hooks: {
       after: createAuthMiddleware(async (ctx) => {
         if (ctx?.context?.newSession) {
