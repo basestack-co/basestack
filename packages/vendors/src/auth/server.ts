@@ -7,8 +7,12 @@ import { multiSession } from "better-auth/plugins";
 import { createCustomerIfNotExists } from "../polar";
 import { events as qstashEvents } from "../qstash";
 import { client as redis } from "../redis";
+// Utils
+import { AppEnv, Product } from "@basestack/utils";
 
 export interface CreateAuthServerProps {
+  product: Product;
+  env: AppEnv;
   database: (options: BetterAuthOptions) => Adapter;
   welcomeEmail: {
     subject: string;
@@ -21,6 +25,8 @@ export interface CreateAuthServerProps {
 }
 
 export const createAuthServer = ({
+  product,
+  env,
   database,
   welcomeEmail,
 }: CreateAuthServerProps): ReturnType<typeof betterAuth> => {
@@ -41,19 +47,21 @@ export const createAuthServer = ({
       },
     },
     secondaryStorage: {
-      get: async (key) => {
-        const value = await redis.get(key);
+      get: async (id) => {
+        const key = `${env}:${product}:auth:${id}`;
 
-        return value === null
-          ? null
-          : typeof value === "string"
-            ? value
-            : JSON.stringify(value);
+        const value = await redis.get<string>(key);
+        return value ? value : null;
       },
-      set: async (key, value) => {
-        await redis.set(key, value);
+      set: async (id, value, ttl) => {
+        const key = `${env}:${product}:auth:${id}`;
+
+        if (ttl) await redis.set(key, value, { ex: ttl });
+        else await redis.set(key, value);
       },
-      delete: async (key) => {
+      delete: async (id) => {
+        const key = `${env}:${product}:auth:${id}`;
+
         await redis.del(key);
       },
     },

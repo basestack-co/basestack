@@ -11,6 +11,8 @@ import { config, Product, AppEnv } from "@basestack/utils";
 import { auth as authVendor } from "@basestack/vendors";
 
 export const auth: ReturnType<typeof betterAuth> = authVendor.createAuthServer({
+  product: Product.FLAGS,
+  env: AppMode as AppEnv,
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
