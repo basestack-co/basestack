@@ -48,7 +48,7 @@
         "title": "Product Roadmap"
       },
       "get-started": {
-        "title": "Get Started for Free"
+        "title": "Get Started"
       },
       "self-hosting": {
         "title": "Guide for Self Hosting"
@@ -91,7 +91,7 @@
     "main": {
       "hero": {
         "title": "Build Faster. Launch Smarter. All with Basestack.",
-        "description": "Basestack offers open-source tools you can self-host for free or use our hassle-free hosted service.",
+        "description": "Basestack offers open-source tools you can self-host for free or use our hosted service.",
         "action": {
           "learn-more": "Discover More",
           "request-demo": "Request a Demo",
@@ -245,7 +245,7 @@
           "title": "Unlock Precision Control with Feature Flags",
           "description": "Speed up your development with Feature Flags. Deploy faster, test smarter, and roll out safely. Control features in real time and reduce risks without disrupting users.",
           "action": {
-            "get-free": "Get Feature Flags - Free",
+            "get-free": "Get Feature Flags",
             "request-demo": "Request a Demo"
           }
         },
@@ -389,7 +389,7 @@
           "title": "Ready to Ship Your Code?",
           "description": "Basestack Feature Flags makes deploying and managing features simple, so you can ship your code safely and with confidence.",
           "action": {
-            "get-free": "Get Feature Flags - Free",
+            "get-free": "Get Feature Flags",
             "star-github": "Star Us on GitHub"
           }
         },
@@ -419,7 +419,7 @@
           "title": "Simplify Forms, Amplify Results",
           "description": "Collect form submissions easily with our no-code solution. Basestack Forms handles the data securely so you can focus on what matters.",
           "action": {
-            "get-free": "Get Free Forms",
+            "get-free": "Get Forms",
             "request-demo": "Request a Demo"
           }
         },
@@ -512,9 +512,9 @@
         },
         "banner": {
           "title": "Ready to Simplify Your Forms?",
-          "description": "Start using Basestack Forms today and build smarter, faster forms with ease. Create your free account now and take control of your form management.",
+          "description": "Start using Basestack Forms today and build smarter, faster forms with ease. Create your account now and take control of your form management.",
           "action": {
-            "get-free": "Get Forms - Free",
+            "get-free": "Get Forms",
             "star-github": "Star Us on GitHub"
           }
         },
@@ -590,7 +590,7 @@
         "preview-features": "Includes access to preview and beta features."
       },
       "action": {
-        "get-started-free": "Get Started Free",
+        "get-started-free": "Get Started",
         "get-started": "Get Started",
         "contact-us": "Contact Us"
       },
@@ -617,11 +617,11 @@
       },
       "2": {
         "title": "Is there a discount for annual plans?",
-        "description": "Yes! We offer annual discounts on all plans. Contact us for more details."
+        "description": "We don’t offer standard annual discounts, but feel free to reach out we’re happy to discuss custom options."
       },
       "3": {
         "title": "Is {product} available for free?",
-        "description": "{product} has a free plan for solo developers and beginners. Try it out before upgrading to a paid plan."
+        "description": "{product} includes a $5 minimum spend, which is applied to your usage. You’ll have access to all product features, but you’ll need to add your billing details to continue using features like endpoints."
       },
       "4": {
         "title": "Can I use Basestack's tools separately, and how is pricing structured?",
@@ -629,11 +629,11 @@
       },
       "5": {
         "title": "What’s your refund policy?",
-        "description": "We offer a 15-day refund policy if you're not fully satisfied. After that, refunds may be considered under special circumstances. Our free tier lets you test everything before committing, and you can cancel anytime."
+        "description": "We offer a 15-day refund policy if you're not fully satisfied. After that, refunds may be considered under special circumstances. You can cancel anytime."
       },
       "6": {
         "title": "Which payment provider does Basestack use?",
-        "description": "We use Lemon Squeezy to process payments securely. They handle transactions, tax compliance, and global payment methods, so you can focus on building with our tools."
+        "description": "We use Polar to process payments securely. They handle transactions, tax compliance, and global payment methods, so you can focus on building with our tools."
       },
       "7": {
         "title": "What is Basestack, and who is it for?",
@@ -673,7 +673,7 @@
       },
       "16": {
         "title": "Is there a trial for hosted plans?",
-        "description": "Try our free tier first. If you upgrade to a paid plan, you can cancel within 15 days for a full refund if it doesn't work for you."
+        "description": "No, you can cancel within 15 days for a full refund if it doesn't work for you."
       },
       "17": {
         "title": "Why offer both open-source and hosted options?",

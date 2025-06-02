@@ -38,7 +38,7 @@ const ProductFeatureFlagsPage = () => {
             href: "#platform",
             icon: "flare",
           },
-          {
+          /* {
             text: t("navigation.product.pricing.title"),
             href: "#pricing",
             icon: "credit_card",
@@ -275,6 +275,7 @@ const ProductFeatureFlagsPage = () => {
           },
         ]}
       />
+      {/*
       <Pricing
         id="pricing"
         product="flags"
@@ -395,7 +396,7 @@ const ProductFeatureFlagsPage = () => {
               };
             },
           )}
-      />
+      /> */}
       <Questions
         id="questions"
         title={t("common.questions.title")}
