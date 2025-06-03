@@ -16,18 +16,30 @@ import { Container } from "./_components/styles";
 import { api } from "utils/trpc/react";
 // Locales
 import { useTranslations } from "next-intl";
+// Store
+import { useStore } from "store";
 
 const MainPage = () => {
   const t = useTranslations("home");
   const { data, isLoading } = api.subscription.current.useQuery();
 
+  const closeNoActiveSubscriptionBanner = useStore(
+    (state) => state.closeNoActiveSubscriptionBanner,
+  );
+
+  const setCloseNoActiveSubscriptionBanner = useStore(
+    (state) => state.setCloseNoActiveSubscriptionBanner,
+  );
+
   return (
     <Fragment>
       <Banners
+        onDismiss={() => setCloseNoActiveSubscriptionBanner(true)}
         data={[
           {
             title: t("usage.alert.no-subscription"),
-            isVisible: data?.status !== "active",
+            isVisible:
+              data?.status !== "active" && !closeNoActiveSubscriptionBanner,
           },
         ]}
       />

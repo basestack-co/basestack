@@ -8,9 +8,10 @@ export interface BannersItem extends BannerProps {
 
 export interface BannersProps {
   data: Array<BannersItem>;
+  onDismiss?: () => void;
 }
 
-const Banners = ({ data }: BannersProps) => {
+const Banners = ({ data, onDismiss }: BannersProps) => {
   const theme = useTheme();
 
   return data.map((item, index, { length }) =>
@@ -23,6 +24,7 @@ const Banners = ({ data }: BannersProps) => {
         borderRadius={item.borderRadius || 0}
         isTranslucent={item.isTranslucent || true}
         mb={index + 1 === length ? 0 : theme.spacing.s1}
+        onDismiss={onDismiss}
       />
     ) : null,
   );

@@ -92,7 +92,7 @@ export const createCustomerIfNotExists = async (
       externalId: customerExternalId,
     });
   } catch (error) {
-    console.error("Error creating customer in Polar, skipping", {
+    console.info("Error creating customer in Polar, skipping", {
       error,
       name,
       email,

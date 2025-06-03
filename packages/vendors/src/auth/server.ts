@@ -6,7 +6,7 @@ import { multiSession } from "better-auth/plugins";
 // Vendors
 import { createCustomerIfNotExists } from "../polar";
 import { events as qstashEvents } from "../qstash";
-import { client as redis } from "../redis";
+// import { client as redis } from "../redis";
 // Utils
 import { AppEnv, Product } from "@basestack/utils";
 
