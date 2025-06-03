@@ -12,8 +12,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 // Libs
 import { api } from "utils/trpc/react";
-// Auth
-import { useSession } from "next-auth/react";
+// Libs
+import { auth } from "@basestack/vendors";
 // Toast
 import { toast } from "sonner";
 // Locales
@@ -30,7 +30,7 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const AddFormMemberModal = () => {
   const t = useTranslations("modal");
-  const { data: session } = useSession();
+  const { data: session } = auth.client.useSession();
   const { formId } = useParams<{ formId: string }>();
   const trpcUtils = api.useUtils();
   const [isModalOpen, setAddFormMemberModalOpen, closeModalsOnClickOutside] =

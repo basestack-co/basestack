@@ -1,3 +1,6 @@
-import { providerMap, createAuthConfig } from "./config";
+// Server
+import { createAuthServer } from "./server";
+// Client
+import { client } from "./client";
 
-export { providerMap, createAuthConfig };
+export { createAuthServer, client };

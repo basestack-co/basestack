@@ -1,44 +1,28 @@
 // Auth
-import NextAuth from "next-auth";
+import { betterAuth } from "better-auth";
+// Adapters
+import { prismaAdapter } from "better-auth/adapters/prisma";
 // Utils
-import { cache } from "react";
+import { AppMode } from "utils/helpers/general";
+import { config, Product, AppEnv } from "@basestack/utils";
 // DB
-import { prisma } from "server/db";
+import { prisma } from "../db";
 // Vendors
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import { auth as authVendor } from "@basestack/vendors";
 
-const authConfig = authVendor.createAuthConfig({
-  product: "Forms",
-  adapter: PrismaAdapter(prisma),
-  getUser: async (email) => {
-    const user = await prisma.user.findUnique({
-      where: { email },
-      select: {
-        name: true,
-        createdAt: true,
-      },
-    });
-
-    return {
-      name: user?.name ?? "User",
-      createdAt: user?.createdAt ?? new Date(),
-    };
-  },
-  content: {
-    emails: {
-      welcome: {
-        title: "Welcome to Basestack Forms",
-        description:
-          "Welcome to Basestack Forms, the platform that elevates your website with powerful, customizable forms.",
-        link: "https://forms.basestack.co",
-      },
+export const auth: ReturnType<typeof betterAuth> = authVendor.createAuthServer({
+  product: Product.FORMS,
+  env: AppMode as AppEnv,
+  database: prismaAdapter(prisma, {
+    provider: "postgresql",
+  }),
+  welcomeEmail: {
+    subject: `Welcome to Basestack Forms`,
+    content: {
+      title: "Welcome to Basestack Forms",
+      description:
+        "Welcome to Basestack Forms, the platform that elevates your website with powerful, customizable forms.",
+      link: config.urls.getAppWithEnv(Product.FORMS, AppMode as AppEnv),
     },
   },
 });
-
-const { auth: uncachedAuth, handlers, signIn, signOut } = NextAuth(authConfig);
-
-const auth = cache(uncachedAuth);
-
-export { auth, handlers, signIn, signOut };

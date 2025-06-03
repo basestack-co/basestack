@@ -15,11 +15,11 @@ import {
 import { useTheme } from "styled-components";
 
 export interface UsageSectionProps extends SpaceProps {
-  title: string;
-  date: string;
-  link: string;
+  title?: string;
+  date?: string;
+  link?: string;
   data: UsageCardProps[];
-  href: string;
+  href?: string;
   isLoading?: boolean;
 }
 
@@ -36,28 +36,34 @@ const UsageSection = ({
 
   return (
     <Section {...props}>
-      <Header>
-        <Text size="xLarge" mr={theme.spacing.s5}>
-          {title}
-        </Text>
-        <LinkContainer>
-          {!!date && (
-            <>
-              <Text size="small" muted>
-                {date}
-              </Text>
-              <Text size="small" muted mx={theme.spacing.s2}>
-                •
-              </Text>
-            </>
+      {!!title && (
+        <Header>
+          <Text size="xLarge" mr={theme.spacing.s5}>
+            {title}
+          </Text>
+          {!isLoading && (
+            <LinkContainer>
+              {!!date && (
+                <Text size="small" muted>
+                  {date}
+                </Text>
+              )}
+              {!!date && !!link && (
+                <Text size="small" muted mx={theme.spacing.s2}>
+                  •
+                </Text>
+              )}
+              {!!link && (
+                <StyledLink href={href ?? ""}>
+                  <Text color="inherit" size="small" fontWeight={500}>
+                    {link}
+                  </Text>
+                </StyledLink>
+              )}
+            </LinkContainer>
           )}
-          <StyledLink href={href}>
-            <Text color="inherit" size="small" fontWeight={500}>
-              {link}
-            </Text>
-          </StyledLink>
-        </LinkContainer>
-      </Header>
+        </Header>
+      )}
       <Container>
         {isLoading ? (
           <Skeleton

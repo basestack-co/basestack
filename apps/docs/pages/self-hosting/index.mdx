@@ -69,12 +69,12 @@ The platform has a straightforward configuration process, requiring a set of ess
 
 #### General
 
-For the `AUTH_SECRET` variable you can use `openssl rand -base64 32` or generate a [random value](https://generate-secret.vercel.app/32).
+For the `BETTER_AUTH_SECRET` variable you can use `openssl rand -base64 32` or generate a [random value](https://generate-secret.vercel.app/32).
 
 | Property      | Description                                                                 | Required | Example                                                            |
 | ------------- | --------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------ |
-| `AUTH_SECRET` | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. | true     | [generate](https://generate-secret.vercel.app/32?ref=basestack.co) |
-| `AUTH_URL`    | Set to the canonical URL of your site                                       | true     | https://your-basestack-instance.com                                |
+| `BETTER_AUTH_SECRET` | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. | true     | [generate](https://generate-secret.vercel.app/32?ref=basestack.co) |
+| `BETTER_AUTH_URL`    | Set to the canonical URL of your site                                       | true     | https://your-basestack-instance.com                                |
 
 #### Providers
 
@@ -123,7 +123,7 @@ The Basestack Platform uses SMTP for sending emails. To configure SMTP, set the 
 
 ### Background Jobs Configuration
 
-Because the Basestack Platform uses background jobs to handle tasks such as sending emails, you need to configure the following environment variables:
+Basestack Platform uses background jobs to handle tasks such as sending emails, you need to configure the following environment variables:
 
 <Callout type="info" emoji="ℹ️">
   Why [UpStash ↗](https://upstash.com/?ref=basestack.co)? Since the Basestack
@@ -142,15 +142,24 @@ Because the Basestack Platform uses background jobs to handle tasks such as send
 | `QSTASH_CURRENT_SIGNING_KEY` | The current key used to sign requests to ensure secure communication.     | true     |
 | `QSTASH_NEXT_SIGNING_KEY`    | The upcoming signing key used to rotate keys for security purposes.       | true     |
 
+
+### Redis Configuration
+
+Basestack Platform uses Redis to store session and other data, you need to configure the following environment variables:
+
+
+| Environment Variable | Description                                                                         | Required | Example                         |
+| -------------------- | ----------------------------------------------------------------------------------- | -------- | ------------------------------- |
+| `UPSTASH_REDIS_REST_URL` | The base URL for UpStash Redis API requests.                                     | true     | https://us1-your-project.upstash.io |
+| `UPSTASH_REDIS_REST_TOKEN` | The authentication token required for accessing UpStash Redis services.          | true     | [Get Token ↗](https://upstash.com/docs/redis/overall/getstarted?ref=basestack.co) |
+
 ### Payments Configuration
 
-The Basestack Platform uses [LemonSqueezy ↗](https://www.lemonsqueezy.com/) for payments. To configure [LemonSqueezy ↗](https://www.lemonsqueezy.com/), set the following environment variables:
+The Basestack Platform uses [Polar ↗](https://www.polar.sh/?ref=basestack.co) for payments. To configure [Polar ↗](https://www.polar.sh/?ref=basestack.co), set the following environment variables:
 
 | Property                        | Description                                                                                           | Required |
 | ------------------------------- | ----------------------------------------------------------------------------------------------------- | -------- |
-| `LEMONSQUEEZY_STORE_ID`         | Store identifier for LemonSqueezy, identifying the specific store or account within the system.       | false    |
-| `LEMONSQUEEZY_SIGNATURE_SECRET` | Secret key used for request signature validation in LemonSqueezy, ensuring secure API communications. | false    |
-| `LEMONSQUEEZY_API_KEY`          | API key for accessing LemonSqueezy services, facilitating authorized interaction with the platform.   | false    |
+| `POLAR_ACCESS_TOKEN`            | Access token for accessing Polar services, facilitating authorized interaction with the platform.   | true     |
 
 ### Additional Configurations
 

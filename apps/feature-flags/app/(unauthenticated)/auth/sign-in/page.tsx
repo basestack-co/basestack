@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-// Auth
-import { useSession, signIn } from "next-auth/react";
 // Vendors
 import { auth } from "@basestack/vendors";
 // Locales
@@ -13,9 +11,9 @@ import { useRouter } from "next/navigation";
 import { SignIn as SignInComponent } from "@basestack/ui";
 import { BannerVariant } from "@basestack/design-system";
 // Types
-import { Provider } from "@basestack/ui/components/SignIn";
+import { getProvidersList } from "@basestack/ui/components/SignIn";
 // Utils
-import { config } from "@basestack/utils";
+import { clearAllBrowserStorage, config } from "@basestack/utils";
 // Styles
 import styled from "styled-components";
 
@@ -32,15 +30,21 @@ const Link = styled.a`
 
 const SignInPage = () => {
   const t = useTranslations("auth");
-  const { status } = useSession();
+  const { data: session, isPending: isSessionLoading } =
+    auth.client.useSession();
   const router = useRouter();
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (status === "authenticated") {
+    if (isSessionLoading) return;
+
+    if (session) {
       router.push("/");
+      return;
     }
-  }, [status, router]);
+
+    clearAllBrowserStorage();
+  }, [session, router, isSessionLoading]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -53,8 +57,8 @@ const SignInPage = () => {
 
   return (
     <SignInComponent
-      providers={auth.providerMap as unknown as Provider}
-      isLoading={status === "loading"}
+      providers={getProvidersList}
+      isLoading={isSessionLoading}
       title={t("sign-in.panel.title")}
       description={t("sign-in.panel.description")}
       slogan={t("sign-in.panel.slogan")}
@@ -76,7 +80,7 @@ const SignInPage = () => {
         </>
       }
       action={(name) => t("sign-in.content.action", { name })}
-      onClickProvider={(id) => signIn(id, { redirectTo: "/" })}
+      onClickProvider={(provider) => auth.client.signIn.social({ provider })}
       errors={[
         ...(error === "OAuthAccountNotLinked"
           ? [

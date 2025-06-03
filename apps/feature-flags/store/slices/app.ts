@@ -9,6 +9,7 @@ export const createAppSlice: StateCreator<Store, [], [], AppSliceState> = (
   closeModalsOnClickOutside: true,
   isDarkMode: false,
   selectedView: "cards",
+  closeNoActiveSubscriptionBanner: false,
   setDarkMode: (payload) =>
     set(() => ({
       isDarkMode: payload,
@@ -24,5 +25,9 @@ export const createAppSlice: StateCreator<Store, [], [], AppSliceState> = (
   setNumberOfFlagsPerPage: (payload) =>
     set(() => ({
       numberOfFlagsPerPage: payload,
+    })),
+  setCloseNoActiveSubscriptionBanner: (payload) =>
+    set(() => ({
+      closeNoActiveSubscriptionBanner: payload,
     })),
 });

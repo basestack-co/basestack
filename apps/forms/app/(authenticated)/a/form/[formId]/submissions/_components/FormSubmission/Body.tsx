@@ -1,9 +1,9 @@
 import React, {
-  useEffect,
   useRef,
   useState,
   useMemo,
   useCallback,
+  useLayoutEffect,
 } from "react";
 import { rem } from "polished";
 import { animated, useSpring } from "react-spring";
@@ -95,14 +95,12 @@ const Body = ({
       .sort((a, b) => (order[a.id] || Infinity) - (order[b.id] || Infinity));
   }, [metadata]);
 
-  useEffect(() => {
-    if (contentRef.current) {
-      animate.start({
-        height: isOpen ? contentRef.current.offsetHeight + 20 : 0,
-        opacity: isOpen ? 1 : 0,
-      });
-    }
-  }, [animate, isOpen, showMetadata]);
+  useLayoutEffect(() => {
+    animate.start({
+      height: isOpen ? (contentRef?.current?.offsetHeight ?? 0) + 20 : 0,
+      opacity: isOpen ? 1 : 0,
+    });
+  }, [isOpen, contentRef, showMetadata, data, animate]);
 
   const onBlockIp = useCallback(
     (ip: string) => {

@@ -1,21 +1,19 @@
 import { NextResponse } from "next/server";
 // Utils
 import {
-  PlanTypeId,
-  config as utilsConfig,
   RequestError,
+  emailToId,
   getMetadata,
+  UsageEvent,
   Product,
 } from "@basestack/utils";
 import { withUsageUpdate } from "server/db/utils/subscription";
 // Prisma
 import { prisma } from "server/db";
 // Vendors
-import { qstash } from "@basestack/vendors";
+import { qstash, polar } from "@basestack/vendors";
 // Utils
 import { FormMode, formatFormData, verifyForm } from "./utils";
-
-const { hasPlanFeature } = utilsConfig.plans;
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
@@ -43,7 +41,7 @@ export async function POST(
     const form = await verifyForm(formId, referer, metadata);
 
     if (form?.isEnabled) {
-      const planId = form.usage.planId as PlanTypeId;
+      const externalCustomerId = emailToId(form.adminUserEmail);
 
       const data = await formatFormData(
         req,
@@ -53,6 +51,16 @@ export async function POST(
       );
 
       if (data) {
+        await polar.createUsageEvent(
+          UsageEvent.FORM_SUBMISSION,
+          externalCustomerId,
+          {
+            product: Product.FORMS,
+            formId,
+            adminUserEmail: form.adminUserEmail,
+          },
+        );
+
         if (form?.hasRetention) {
           const submission = await prisma.$transaction(async (tx) => {
             const response = await tx.submission.create({
@@ -71,24 +79,20 @@ export async function POST(
             return response;
           });
 
-          if (
-            form.hasSpamProtection &&
-            hasPlanFeature(Product.FORMS, planId, "hasSpamProtection")
-          ) {
+          if (form.hasSpamProtection) {
             await qstash.events.checkDataForSpamEvent({
               userId: form.userId,
               submissionId: submission.id,
+              externalCustomerId,
               data,
             });
           }
         }
 
-        if (
-          !!form.webhookUrl &&
-          hasPlanFeature(Product.FORMS, planId, "hasWebhooks")
-        ) {
+        if (!!form.webhookUrl) {
           await qstash.events.sendDataToExternalWebhookEvent({
             url: form.webhookUrl,
+            externalCustomerId,
             body: {
               formId,
               name: form.name,
@@ -97,14 +101,12 @@ export async function POST(
           });
         }
 
-        if (
-          !!form.emails &&
-          hasPlanFeature(Product.FORMS, planId, "hasEmailNotifications")
-        ) {
+        if (!!form.emails) {
           await qstash.events.sendEmailEvent({
             template: "new-submission",
             to: form.emails.split(",").map((email) => email.trim()),
             subject: `New form submission received for ${form.name}`,
+            externalCustomerId,
             props: {
               formName: form.name,
               content: data,
@@ -113,11 +115,9 @@ export async function POST(
           });
         }
 
-        const queryString =
-          form.hasDataQueryString &&
-          hasPlanFeature(Product.FORMS, planId, "hasDataQueryString")
-            ? `&data=${encodeURI(JSON.stringify(data))}`
-            : "";
+        const queryString = form.hasDataQueryString
+          ? `&data=${encodeURI(JSON.stringify(data))}`
+          : "";
 
         const successUrl = `${form?.successUrl}?goBackUrl=${form?.redirectUrl}${queryString}`;
 

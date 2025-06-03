@@ -1,7 +1,6 @@
 import {
   createTRPCRouter,
   protectedProcedure,
-  withUsageLimits,
   withTeamRestrictions,
 } from "server/api/trpc";
 import { TRPCError } from "@trpc/server";
@@ -13,13 +12,13 @@ import { qstash } from "@basestack/vendors";
 import { AppMode } from "utils/helpers/general";
 import { config, Product, AppEnv, generateSecureToken } from "@basestack/utils";
 import { z } from "zod";
-import { withUsageUpdate } from "server/db/utils/subscription";
+import { withUsageUpdate } from "server/db/utils/usage";
 import { generateSlug } from "random-word-slugs";
 import dayjs from "dayjs";
 
 export const teamRouter = createTRPCRouter({
   all: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx?.session?.user.id!;
+    const userId = ctx?.auth?.user.id!;
 
     return ctx.prisma.team.findMany({
       where: {
@@ -125,10 +124,6 @@ export const teamRouter = createTRPCRouter({
       });
     }),
   create: protectedProcedure
-    .meta({
-      usageLimitKey: "teams",
-    })
-    .use(withUsageLimits)
     .input(
       z
         .object({
@@ -137,7 +132,7 @@ export const teamRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id!;
+      const userId = ctx?.auth?.user.id!;
 
       return await ctx.prisma.$transaction(async (tx) => {
         const team = await tx.team.create({
@@ -160,10 +155,7 @@ export const teamRouter = createTRPCRouter({
       });
     }),
   update: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN],
-    })
-    .use(withTeamRestrictions)
+    .use(withTeamRestrictions({ roles: [Role.ADMIN] }))
     .input(
       z
         .object({
@@ -183,13 +175,10 @@ export const teamRouter = createTRPCRouter({
       });
     }),
   delete: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN],
-    })
-    .use(withTeamRestrictions)
+    .use(withTeamRestrictions({ roles: [Role.ADMIN] }))
     .input(z.object({ teamId: z.string() }).required())
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id!;
+      const userId = ctx?.auth?.user.id!;
 
       return await ctx.prisma.$transaction(async (tx) => {
         const members = await tx.teamMembers.findMany({
@@ -256,12 +245,7 @@ export const teamRouter = createTRPCRouter({
       });
     }),
   removeMember: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN],
-      usageLimitKey: "members",
-    })
-    .use(withTeamRestrictions)
-    .use(withUsageLimits)
+    .use(withTeamRestrictions({ roles: [Role.ADMIN] }))
     .input(
       z
         .object({
@@ -271,7 +255,7 @@ export const teamRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id!;
+      const userId = ctx?.auth?.user.id!;
 
       return await ctx.prisma.$transaction(async (tx) => {
         const projects = await tx.projectsOnUsers.findMany({
@@ -336,10 +320,7 @@ export const teamRouter = createTRPCRouter({
       });
     }),
   updateMember: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN],
-    })
-    .use(withTeamRestrictions)
+    .use(withTeamRestrictions({ roles: [Role.ADMIN] }))
     .input(
       z
         .object({
@@ -437,10 +418,7 @@ export const teamRouter = createTRPCRouter({
       };
     }),
   invite: protectedProcedure
-    .meta({
-      roles: [Role.ADMIN],
-    })
-    .use(withTeamRestrictions)
+    .use(withTeamRestrictions({ roles: [Role.ADMIN] }))
     .input(
       z
         .object({
@@ -451,7 +429,7 @@ export const teamRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const user = ctx.session?.user;
+      const user = ctx.auth?.user;
       const token = generateSecureToken();
       const expiresAt = dayjs().add(7, "day").toDate();
 

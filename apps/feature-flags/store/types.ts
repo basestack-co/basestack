@@ -96,6 +96,7 @@ export interface AppSliceActions {
   setCloseModalsOnClickOutside: (value: boolean) => void;
   setDarkMode: (value: boolean) => void;
   setSelectedView: (payload: { view: SelectedView }) => void;
+  setCloseNoActiveSubscriptionBanner: (value: boolean) => void;
 }
 
 export interface AppSliceState extends AppSliceActions {
@@ -103,6 +104,7 @@ export interface AppSliceState extends AppSliceActions {
   closeModalsOnClickOutside: boolean;
   isDarkMode: boolean;
   selectedView: SelectedView;
+  closeNoActiveSubscriptionBanner: boolean;
 }
 
 export type Store = ModalsSliceState & AppSliceState;

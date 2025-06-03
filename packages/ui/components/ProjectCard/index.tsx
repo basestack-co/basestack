@@ -138,8 +138,8 @@ const ProjectCard = ({
             )}
 
             {count &&
-              count.map((item) => (
-                <Detail icon={item.icon} value={item.value} />
+              count.map((item, index) => (
+                <Detail key={index} icon={item.icon} value={item.value} />
               ))}
 
             {label && (

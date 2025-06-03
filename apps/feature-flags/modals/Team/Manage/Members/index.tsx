@@ -10,8 +10,8 @@ import { keepPreviousData } from "@tanstack/react-query";
 import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
-// Auth
-import { useSession } from "next-auth/react";
+// Vendors
+import { auth } from "@basestack/vendors";
 // Styles
 import { Container, MembersList } from "./styles";
 // types
@@ -23,7 +23,7 @@ export interface Props {
 
 const Members = ({ teamId }: Props) => {
   const t = useTranslations("modal");
-  const { data: session } = useSession();
+  const { data: session } = auth.client.useSession();
   const trpcUtils = api.useUtils();
 
   const { data, isLoading } = api.team.byId.useQuery(

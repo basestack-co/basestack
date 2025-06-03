@@ -7,8 +7,9 @@ import { flushSync } from "react-dom";
 import { useStore } from "store";
 // Hooks
 import { useRouter, useParams, usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { useMedia } from "react-use";
+// Vendors
+import { auth } from "@basestack/vendors";
 // Locales
 import { useTranslations } from "next-intl";
 // Types
@@ -34,7 +35,7 @@ const Navigation = ({ data }: NavigationProps) => {
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
-  const { data: session } = useSession();
+  const { data: session } = auth.client.useSession();
   const isMobile = useMedia(theme.device.max.lg, false);
 
   const { projectId } = useParams<{ projectId: string }>();

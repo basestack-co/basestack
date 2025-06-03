@@ -10,10 +10,10 @@ import { useShallow } from "zustand/react/shallow";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+// Vendors
+import { auth } from "@basestack/vendors";
 // Libs
 import { api } from "utils/trpc/react";
-// Auth
-import { useSession } from "next-auth/react";
 // Toast
 import { toast } from "sonner";
 // Locales
@@ -30,7 +30,7 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const AddProjectMemberModal = () => {
   const t = useTranslations("modal");
-  const { data: session } = useSession();
+  const { data: session } = auth.client.useSession();
   const { projectId } = useParams<{ projectId: string }>();
   const trpcUtils = api.useUtils();
   const [isModalOpen, setAddProjectMemberModalOpen, closeModalsOnClickOutside] =

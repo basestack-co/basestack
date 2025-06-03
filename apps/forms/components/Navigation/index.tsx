@@ -7,8 +7,9 @@ import { useStore } from "store";
 // Hooks
 import { useDarkModeToggle } from "@basestack/hooks";
 import { useRouter, useParams, usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { useMedia } from "react-use";
+// Libs
+import { auth } from "@basestack/vendors";
 // Locales
 import { useTranslations } from "next-intl";
 // Components
@@ -35,7 +36,7 @@ const Navigation = ({ data }: NavigationProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const { toggleDarkMode } = useDarkModeToggle();
-  const { data: session } = useSession();
+  const { data: session } = auth.client.useSession();
   const isMobile = useMedia(theme.device.max.lg, false);
 
   const { formId } = useParams<{ formId: string }>();

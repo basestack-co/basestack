@@ -1,17 +1,21 @@
-export interface CheckDataForSpamPayload {
+export interface UsagePayload {
+  externalCustomerId?: string;
+}
+
+export interface CheckDataForSpamPayload extends UsagePayload {
   userId: string;
   submissionId: string;
   data: any;
 }
 
-export interface SendEmailPayload {
+export interface SendEmailPayload extends UsagePayload {
   to: string[];
   subject: string;
   template: string;
   props?: any;
 }
 
-export interface SendDataToExternalWebhookPayload {
+export interface SendDataToExternalWebhookPayload extends UsagePayload {
   url: string;
   body: any;
 }

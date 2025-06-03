@@ -1,31 +1,35 @@
 // Server
 import { initTRPC, TRPCError } from "@trpc/server";
+import { headers } from "next/headers";
 // Utils
 import superjson from "superjson";
 import { ZodError } from "zod";
+import { AppMode } from "utils/helpers/general";
 // Auth
 import { auth } from "server/auth";
 // Database
 import { prisma } from "server/db";
 import { getUserInProject, getUserInTeam } from "server/db/utils/user";
 import { createHistory } from "server/db/utils/history";
-import { getSubscriptionUsage } from "server/db/utils/subscription";
-import { config, FlagsPlan, PlanTypeId, Product } from "@basestack/utils";
+import { emailToId, PlanTypeId, Product } from "@basestack/utils";
+// Vendors
+import { polar } from "@basestack/vendors";
 // types
 import { Role } from ".prisma/client";
 
 // CONTEXT
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
-  const session = await auth();
+  const data = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   return {
     prisma,
-    session,
+    auth: data,
     project: {
       role: "VIEWER", // default as fallback
       adminUserId: "",
-      adminSubscriptionPlanId: PlanTypeId.FREE,
     },
     ...opts,
   };
@@ -63,7 +67,7 @@ export const withHistoryActivity = t.middleware(
       const rawInput = await getRawInput();
       await createHistory(
         ctx.prisma,
-        ctx.session!,
+        ctx.auth?.user!,
         path,
         result.data!,
         rawInput,
@@ -76,7 +80,7 @@ export const withHistoryActivity = t.middleware(
 
 export const isAuthenticated = middleware(async ({ next, ctx }) => {
   // Check if the user is logged in
-  if (!ctx.session) {
+  if (!ctx.auth?.session) {
     throw new TRPCError({
       code: "UNAUTHORIZED",
       message: "Not authenticated",
@@ -87,42 +91,45 @@ export const isAuthenticated = middleware(async ({ next, ctx }) => {
   return next({
     ctx: {
       ...ctx,
-      session: ctx.session,
+      auth: ctx.auth,
     },
   });
 });
 
-export const withSubscriptionUsage = middleware(async ({ next, ctx, meta }) => {
-  const usage = await getSubscriptionUsage(
-    ctx.prisma,
-    ctx?.session?.user.id ?? "",
-  );
-
-  const planId = usage.planId as PlanTypeId;
-
-  if (!config.plans.isValidPlan(Product.FLAGS, planId)) {
-    throw new TRPCError({
-      code: "PRECONDITION_FAILED",
-      message:
-        "Your current plan is not supported. Please upgrade to continue.",
-      cause: "InvalidPlan",
-    });
-  }
-
-  return next({
-    ctx: {
-      ...ctx,
-      usage,
-    },
-  });
-});
-
-export const withProjectRestrictions = middleware(
-  async ({ next, ctx, meta, getRawInput }) => {
-    const { roles = [] } = (meta ?? {}) as {
-      roles: Role[];
+export const withSubscription = middleware(
+  async ({ next, ctx, type, meta }) => {
+    const { skipSubscriptionCheck = false } = (meta ?? {}) as {
+      skipSubscriptionCheck?: boolean;
     };
 
+    if (type === "mutation" && !skipSubscriptionCheck) {
+      const userEmail = ctx.auth?.user.email!;
+      const customerExternalId = emailToId(userEmail);
+
+      const sub = await polar.getCustomerSubscription(
+        customerExternalId,
+        Product.FLAGS,
+        AppMode,
+      );
+
+      if (sub?.status !== "active") {
+        throw new TRPCError({
+          code: "PRECONDITION_FAILED",
+          message:
+            "No active subscription found. Please add your billing details to continue using the product.",
+          cause: "InvalidPlan",
+        });
+      }
+
+      return next({ ctx });
+    }
+
+    return next({ ctx });
+  },
+);
+
+export const withProjectRestrictions = ({ roles }: { roles: Role[] }) =>
+  middleware(async ({ next, ctx, getRawInput }) => {
     // This is for routes that need to verify any action if the user allowed in that project
     const { projectId = "" } = (await getRawInput()) as {
       projectId: string;
@@ -139,7 +146,7 @@ export const withProjectRestrictions = middleware(
     // checks if the user is in the project
     const project = await getUserInProject(
       ctx.prisma,
-      ctx?.session?.user.id!,
+      ctx?.auth?.user.id!,
       projectId!,
     );
 
@@ -164,7 +171,6 @@ export const withProjectRestrictions = middleware(
     ctx.project = {
       role: project.role,
       adminUserId: project.adminUserId,
-      adminSubscriptionPlanId: project.adminSubscriptionPlanId,
     };
 
     return next({
@@ -172,15 +178,10 @@ export const withProjectRestrictions = middleware(
         ...ctx,
       },
     });
-  },
-);
+  });
 
-export const withTeamRestrictions = middleware(
-  async ({ next, ctx, meta, getRawInput }) => {
-    const { roles = [] } = (meta ?? {}) as {
-      roles: Role[];
-    };
-
+export const withTeamRestrictions = ({ roles }: { roles: Role[] }) =>
+  middleware(async ({ next, ctx, getRawInput }) => {
     const { teamId = "" } = (await getRawInput()) as {
       teamId: string;
     };
@@ -195,7 +196,7 @@ export const withTeamRestrictions = middleware(
 
     const userInTeam = await getUserInTeam(
       ctx.prisma,
-      ctx?.session?.user.id!,
+      ctx?.auth?.user.id!,
       teamId!,
     );
 
@@ -220,46 +221,10 @@ export const withTeamRestrictions = middleware(
         ...ctx,
       },
     });
-  },
-);
-
-export const withUsageLimits = middleware(async ({ next, ctx, meta }) => {
-  const { usageLimitKey } = (meta ?? {}) as {
-    usageLimitKey: keyof FlagsPlan["limits"];
-  };
-
-  const { usage } = ctx as unknown as {
-    usage: Awaited<ReturnType<typeof getSubscriptionUsage>>;
-  };
-
-  const planId = usage.planId as PlanTypeId;
-
-  const limit = config.plans.getPlanLimitByKey(
-    Product.FLAGS,
-    planId,
-    usageLimitKey,
-  );
-
-  if (usage[usageLimitKey] < limit) {
-    return next({
-      ctx: {
-        ...ctx,
-        usage,
-      },
-    });
-  } else {
-    throw new TRPCError({
-      code: "PRECONDITION_FAILED",
-      message: "Plan limit exceeded. Please consider upgrading.",
-      cause: "LimitExceeded",
-    });
-  }
-});
+  });
 
 // PROCEDURES
 
 export const publicProcedure = t.procedure;
 
-export const protectedProcedure = t.procedure
-  .use(isAuthenticated)
-  .use(withSubscriptionUsage);
+export const protectedProcedure = t.procedure.use(isAuthenticated);

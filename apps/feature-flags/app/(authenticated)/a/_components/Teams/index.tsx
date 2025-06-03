@@ -8,8 +8,8 @@ import { useShallow } from "zustand/react/shallow";
 import { useStore } from "store";
 // Server
 import { api } from "utils/trpc/react";
-// Auth
-import { useSession } from "next-auth/react";
+// Vendors
+import { auth } from "@basestack/vendors";
 // Toast
 import { toast } from "sonner";
 // Components
@@ -25,7 +25,7 @@ import { Section, Header, TeamsList, ListItem } from "./styles";
 import { Role } from ".prisma/client";
 
 const Teams = () => {
-  const { data: session } = useSession();
+  const { data: session } = auth.client.useSession();
   const trpcUtils = api.useUtils();
   const t = useTranslations("home");
   const theme = useTheme();

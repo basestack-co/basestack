@@ -2,7 +2,13 @@
 import { config as formsConfig } from "./forms";
 import { config as flagsConfig } from "./flags";
 // Types
-import { Product, PlanTypeId, FormPlan, FlagsPlan } from "../../types";
+import {
+  Product,
+  PlanTypeId,
+  FormPlan,
+  FlagsPlan,
+  PlanProduct,
+} from "../../types";
 
 const getSubscriptionEvents = [
   "subscription_created",
@@ -91,32 +97,6 @@ const isUnderPlanLimit = (
   return plan.limits[limit as keyof typeof plan.limits] >= value;
 };
 
-const getPlanVariantId = (
-  product: Product,
-  id: PlanTypeId,
-  interval: "monthly" | "yearly",
-  mode: string = "production",
-) => {
-  const stage = getAppMode(mode);
-  const plan = getPlan(product, id);
-  return plan.price[interval].variantIds[stage];
-};
-
-const getPlanByVariantId = (
-  product: Product,
-  variantId: number,
-  isBilledMonthly: boolean = false,
-  mode: string = "production",
-) => {
-  const stage = getAppMode(mode);
-
-  return currentPlans[product].find(
-    (plan) =>
-      plan.price[isBilledMonthly ? "monthly" : "yearly"].variantIds[stage] ===
-      variantId,
-  );
-};
-
 const getLimitByKey = (
   product: Product,
   id: PlanTypeId,
@@ -124,6 +104,30 @@ const getLimitByKey = (
 ): number => {
   const plan = getPlan(product, id);
   return plan?.limits[limit as keyof typeof plan.limits] || 0;
+};
+
+const getPlanProducts = (product: Product, id: PlanTypeId): PlanProduct => {
+  const plan = getPlan(product, id);
+  return plan.products;
+};
+
+const getMetersEstimatedCost = (
+  product: Product,
+  id: PlanTypeId,
+  usage: Record<string, number>,
+) => {
+  const plan = getPlan(product, id);
+
+  return Object.entries(usage).reduce((total, [key, units]) => {
+    const meter = plan.meters.find((m) => m.key === key);
+    const cost = units * (meter?.costUnit ?? 0);
+    return total + cost;
+  }, 0);
+};
+
+const getPlanMeters = (product: Product, id: PlanTypeId) => {
+  const plan = getPlan(product, id);
+  return plan.meters;
 };
 
 export const plans = {
@@ -137,7 +141,8 @@ export const plans = {
   hasPlanFeature,
   getPlanLimitByKey,
   isUnderPlanLimit,
-  getPlanVariantId,
-  getPlanByVariantId,
   getLimitByKey,
+  getPlanProducts,
+  getMetersEstimatedCost,
+  getPlanMeters,
 };

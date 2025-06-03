@@ -1,158 +1,145 @@
 import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
-// Payments
-import {
-  type NewCheckout,
-  lemonSqueezySetup,
-  createCheckout,
-  getSubscription,
-  listSubscriptionInvoices,
-} from "@lemonsqueezy/lemonsqueezy.js";
 // Utils
-import dayjs from "dayjs";
-import { getSubscriptionUsage } from "server/db/utils/subscription";
-import { z } from "zod";
-import { PlanTypeId, config, Product } from "@basestack/utils";
+import { AppEnv, config, Product, emailToId } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
-
-lemonSqueezySetup({
-  apiKey: process.env.LEMONSQUEEZY_API_KEY,
-  onError(error) {
-    console.error("lemon Squeezy Setup error = ", error);
-  },
-});
+import { z } from "zod";
+// Vendors
+import { polar } from "@basestack/vendors";
 
 export const subscriptionRouter = createTRPCRouter({
   usage: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx?.session?.user.id!;
-    return await getSubscriptionUsage(ctx.prisma, userId);
-  }),
-  invoices: protectedProcedure.query(async ({ ctx }) => {
-    const subscriptionId = ctx.usage.subscriptionId;
+    const userId = ctx?.auth?.user.id!;
 
-    const { statusCode, error, data } = await listSubscriptionInvoices({
-      filter: { subscriptionId },
+    const usage = await ctx.prisma.usage.findFirst({
+      where: {
+        userId,
+      },
+      omit: {
+        userId: true,
+        updatedAt: true,
+        createdAt: true,
+      },
     });
 
-    if (error || statusCode !== 200) return null;
+    if (!usage) {
+      return config.plans.getFlagsPlanLimitsDefaults();
+    }
 
-    const list = data?.data.map((item) => ({
-      id: item.id,
-      url: item.attributes.urls.invoice_url,
-      status: item.attributes.status,
-      currency: item.attributes.currency,
-      customerId: item.attributes.customer_id,
-      refunded: item.attributes.refunded,
-      refundedAt: item.attributes.refunded_at,
-      values: {
-        subtotal: item.attributes.subtotal,
-        discountTotal: item.attributes.discount_total,
-        tax: item.attributes.tax,
-        total: item.attributes.total,
-        subtotalUsd: item.attributes.subtotal_usd,
-        discountTotalUsd: item.attributes.discount_total_usd,
-        taxUsd: item.attributes.tax_usd,
-        totalUsd: item.attributes.total_usd,
-      },
-      formatted: {
-        subtotal: item.attributes.subtotal_formatted,
-        discountTotal: item.attributes.discount_total_formatted,
-        tax: item.attributes.tax_formatted,
-        total: item.attributes.total_formatted,
-        status: item.attributes.status_formatted,
-      },
-    }));
-
-    return { list };
+    return usage;
   }),
   current: protectedProcedure.query(async ({ ctx }) => {
-    const subscriptionId = ctx.usage.subscriptionId;
+    const userEmail = ctx.auth?.user.email!;
+    const customerExternalId = emailToId(userEmail);
 
-    if (!subscriptionId) return null;
+    const subscription = await polar.getCustomerSubscription(
+      customerExternalId,
+      Product.FLAGS,
+      AppMode,
+    );
 
-    const { statusCode, error, data } = await getSubscription(subscriptionId);
-
-    if (error || statusCode !== 200) return null;
-
-    return {
-      customerId: data?.data.attributes.customer_id,
-      product: {
-        id: data?.data.attributes.product_id,
-        name: data?.data.attributes.product_name,
-        variant: data?.data.attributes.variant_name,
-        variantId: data?.data.attributes.variant_id,
-      },
-      status: data?.data.attributes.status,
-      pause: data?.data.attributes.pause,
-      cancelled: data?.data.attributes.cancelled,
-      renewsAt: data?.data.attributes.renews_at,
-      endsAt: data?.data.attributes.ends_at,
-      testMode: data?.data.attributes.test_mode,
-      card: {
-        brand: data?.data.attributes.card_brand,
-        lastFour: data?.data.attributes.card_last_four,
-      },
-      urls: {
-        customerPortal: data?.data.attributes.urls.customer_portal,
-        updatePaymentMethod: data?.data.attributes.urls.update_payment_method,
-        customerPortalUpdateSubscription:
-          data?.data.attributes.urls.customer_portal_update_subscription,
-      },
-    };
+    return subscription;
   }),
+  meters: protectedProcedure
+    .meta({ skipSubscriptionCheck: true })
+    .query(async ({ ctx }) => {
+      const userEmail = ctx.auth?.user.email!;
+      const customerExternalId = emailToId(userEmail);
+
+      const session = await polar.client.customerSessions
+        .create({ customerExternalId })
+        .catch(() => null);
+
+      if (!session?.token) {
+        return { meters: [], benefits: [] };
+      }
+
+      const subscription = await polar.getCustomerSubscription(
+        customerExternalId,
+        Product.FLAGS,
+        AppMode,
+      );
+
+      if (!subscription?.id) {
+        return { meters: [], benefits: [] };
+      }
+
+      const result = await polar.client.customerPortal.subscriptions.get(
+        { customerSession: session.token },
+        { id: subscription.id },
+      );
+
+      const meters =
+        result?.meters?.map((meter) => ({
+          id: meter.id,
+          meterId: meter.meterId,
+          name: meter.meter.name,
+          nameKey: meter.meter?.name.toLowerCase().replace(/\s+/g, "_") ?? "",
+          consumedUnits: meter.consumedUnits,
+          creditedUnits: meter.creditedUnits,
+          amount: meter.amount,
+        })) ?? [];
+
+      return {
+        meters,
+        benefits: result?.product.benefits ?? [],
+      };
+    }),
+  portal: protectedProcedure
+    .meta({ skipSubscriptionCheck: true })
+    .mutation(async ({ ctx }) => {
+      const userEmail = ctx.auth?.user.email!;
+      const customerExternalId = emailToId(userEmail);
+
+      await polar.deleteCustomerSubscriptionCache(
+        customerExternalId,
+        Product.FLAGS,
+        AppMode,
+      );
+
+      const result = await polar.client.customerSessions.create({
+        customerExternalId,
+      });
+
+      return {
+        portal: {
+          url: result?.customerPortalUrl ?? "",
+        },
+      };
+    }),
   checkout: protectedProcedure
+    .meta({ skipSubscriptionCheck: true })
     .input(
       z
         .object({
-          planId: z.nativeEnum(PlanTypeId),
-          interval: z.enum(["monthly", "yearly"]),
-          isDarkMode: z.boolean().optional(),
-          redirectUrl: z.string().url(),
+          products: z.array(z.string()),
+          metadata: z.record(z.string(), z.string()),
         })
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx?.session?.user.id!;
-      const email = ctx?.session?.user.email!;
-      const name = ctx?.session?.user.name!;
-      const storeId = +process.env.LEMONSQUEEZY_STORE_ID!;
-      const variantId = config.plans.getPlanVariantId(
+      const userEmail = ctx.auth?.user.email!;
+      const userName = ctx.auth?.user.name!;
+
+      const customerExternalId = emailToId(userEmail);
+
+      await polar.deleteCustomerSubscriptionCache(
+        customerExternalId,
         Product.FLAGS,
-        input.planId,
-        input.interval,
         AppMode,
       );
 
-      const configuration: NewCheckout = {
-        productOptions: {
-          redirectUrl: input.redirectUrl,
-        },
-        checkoutOptions: {
-          dark: input.isDarkMode,
-        },
-        checkoutData: {
-          email,
-          name,
-          custom: {
-            userId,
-            planId: input.planId,
-            appMode: AppMode,
-            product: "flags",
-          },
-        },
-        expiresAt: dayjs().add(1, "hour").format(),
-        preview: AppMode !== "production",
-      };
+      const checkout = await polar.client.checkouts.create({
+        products: input.products,
+        metadata: input.metadata,
+        customerExternalId,
+        customerEmail: userEmail,
+        customerName: userName,
+        successUrl: `${config.urls.getAppWithEnv(
+          Product.FLAGS,
+          AppMode as AppEnv,
+        )}/a/user/tab/billing?checkout_id={CHECKOUT_ID}`,
+      });
 
-      const { statusCode, error, data } = await createCheckout(
-        storeId,
-        variantId,
-        configuration,
-      );
-
-      return {
-        statusCode,
-        error,
-        url: data?.data.attributes.url,
-      };
+      return { checkout };
     }),
 });

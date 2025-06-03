@@ -15,8 +15,8 @@ import { useStore } from "store";
 // Utils
 import { createTable, config } from "@basestack/utils";
 import dayjs from "dayjs";
-// Auth
-import { useSession } from "next-auth/react";
+// Vendors
+import { auth } from "@basestack/vendors";
 // Router
 import { useParams, useRouter } from "next/navigation";
 // Toast
@@ -34,7 +34,7 @@ export interface Props {
 
 const MembersTableCard = ({ role }: Props) => {
   const t = useTranslations();
-  const session = useSession();
+  const { data: session } = auth.client.useSession();
   const router = useRouter();
   const trpcUtils = api.useUtils();
   const { projectId } = useParams<{ projectId: string }>();
@@ -63,7 +63,7 @@ const MembersTableCard = ({ role }: Props) => {
           { projectId, userId },
           {
             onSuccess: async (result) => {
-              if (session?.data?.user.id === userId) {
+              if (session?.user.id === userId) {
                 // the user removed himself from the project, so we redirect him to the dashboard
                 router.push("/a");
               } else {
@@ -98,14 +98,7 @@ const MembersTableCard = ({ role }: Props) => {
         );
       }
     },
-    [
-      projectId,
-      removeUserFromProject,
-      session?.data?.user.id,
-      router,
-      trpcUtils,
-      t,
-    ],
+    [projectId, removeUserFromProject, session?.user.id, router, trpcUtils, t],
   );
 
   const onHandleUpdateRole = useCallback(
@@ -191,7 +184,7 @@ const MembersTableCard = ({ role }: Props) => {
           {
             title: roleList[item.role],
             ...(isCurrentUserAdmin &&
-              item.userId !== session?.data?.user.id && {
+              item.userId !== session?.user.id && {
                 children: (
                   <PopupMenu
                     button={{
@@ -229,7 +222,7 @@ const MembersTableCard = ({ role }: Props) => {
     t,
     isLoading,
     isCurrentUserAdmin,
-    session?.data?.user.id,
+    session?.user.id,
     onHandleUpdateRole,
     onHandleDelete,
     removeUserFromProject.isPending,

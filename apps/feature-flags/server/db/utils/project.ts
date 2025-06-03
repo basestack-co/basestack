@@ -1,12 +1,9 @@
 // Prisma
 import { prisma } from "server/db";
+// Types
+import { Role } from ".prisma/client";
 // Utils
-import {
-  AppEnv,
-  config as utilsConfig,
-  PlanTypeId,
-  Product,
-} from "@basestack/utils";
+import { AppEnv, config as utilsConfig, Product } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 
 const { urls } = utilsConfig;
@@ -14,33 +11,45 @@ const { urls } = utilsConfig;
 export const productUrl = urls.getAppWithEnv(Product.FLAGS, AppMode as AppEnv);
 
 export const getProjectOnUser = async (projectKey: string) => {
-  const current = await prisma.projectsOnUsers.findFirst({
-    where: {
-      project: {
-        key: projectKey,
-      },
-    },
-    select: {
-      project: {
-        omit: {
-          createdAt: true,
-          updatedAt: true,
-          id: true,
+  const [current, admin] = await prisma.$transaction([
+    prisma.projectsOnUsers.findFirst({
+      where: {
+        project: {
+          key: projectKey,
         },
       },
-      user: {
-        select: {
-          id: true,
-          subscription: {
-            select: {
-              planId: true,
-              apiRequests: true,
-            },
+      select: {
+        project: {
+          omit: {
+            createdAt: true,
+            updatedAt: true,
+            id: true,
+          },
+        },
+        user: {
+          select: {
+            id: true,
           },
         },
       },
-    },
-  });
+    }),
+    prisma.projectsOnUsers.findFirst({
+      where: {
+        role: Role.ADMIN,
+        project: {
+          key: projectKey,
+        },
+      },
+      select: {
+        userId: true,
+        user: {
+          select: {
+            email: true,
+          },
+        },
+      },
+    }),
+  ]);
 
   if (!current) {
     return null;
@@ -49,9 +58,7 @@ export const getProjectOnUser = async (projectKey: string) => {
   return {
     ...current?.project,
     userId: current?.user.id,
-    usage: current?.user.subscription || {
-      planId: PlanTypeId.FREE,
-      apiRequests: 0,
-    },
+    adminUserId: admin?.userId ?? "",
+    adminUserEmail: admin?.user.email ?? "",
   };
 };

@@ -35,12 +35,22 @@ export enum SubscriptionEvent {
 }
 
 export enum PlanTypeId {
+  USAGE = "usage",
   PREVIEW = "preview",
   FREE = "free",
   HOBBY = "hobby",
   LAUNCH = "launch",
   SCALE = "scale",
   ENTERPRISE = "enterprise",
+}
+
+export enum UsageEvent {
+  API_REQUESTS = "api-requests-usage",
+  FORM_SUBMISSION = "form-submission-usage",
+  EMAIL_SENT = "email-sent-usage",
+  WEBHOOK_TRIGGERED = "webhook-triggered-usage",
+  SPAM_CHECK = "spam-check-usage",
+  INTEGRATION_CALL = "integration-call-usage",
 }
 
 export interface PlanVariantIds {
@@ -52,12 +62,22 @@ export interface PlanVariantIds {
 export interface PlanPriceInterval {
   amount: number;
   currency: string;
-  variantIds: PlanVariantIds;
 }
 
 export interface PlanPrice {
   monthly: PlanPriceInterval;
   yearly: PlanPriceInterval;
+}
+
+export interface PlanProduct {
+  sandbox: Array<string>;
+  production: Array<string>;
+}
+
+export interface PlanMeter {
+  key: string;
+  costUnit: number;
+  currency: string;
 }
 
 export interface Plan {
@@ -66,6 +86,8 @@ export interface Plan {
   slogan: string;
   description: string;
   price: PlanPrice;
+  products: PlanProduct;
+  meters: PlanMeter[];
 }
 
 export interface FormPlan extends Plan {

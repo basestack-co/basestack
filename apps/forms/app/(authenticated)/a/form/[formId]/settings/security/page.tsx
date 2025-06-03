@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 // Router
 import { useParams } from "next/navigation";
 // Components
@@ -25,16 +25,15 @@ const SecuritySettingsPage = () => {
     },
   );
 
-  const planId = useMemo(() => {
-    return (data?.owner?.subscription?.planId ?? PlanTypeId.FREE) as PlanTypeId;
-  }, [data]);
-
   return (
     <CardList>
       {hasFormsPermission(data?.role, "edit_form_security_websites") && (
         <CardListItem>
           <SettingCardContainer>
-            <FormWebsites websites={data?.websites ?? ""} planId={planId} />
+            <FormWebsites
+              websites={data?.websites ?? ""}
+              planId={PlanTypeId.USAGE}
+            />
           </SettingCardContainer>
         </CardListItem>
       )}
@@ -43,7 +42,7 @@ const SecuritySettingsPage = () => {
           <SettingCardContainer>
             <FormIpRules
               blockIpAddresses={data?.blockIpAddresses ?? ""}
-              planId={planId}
+              planId={PlanTypeId.USAGE}
             />
           </SettingCardContainer>
         </CardListItem>

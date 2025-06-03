@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 // Router
 import { useParams } from "next/navigation";
 // Components
@@ -23,16 +23,12 @@ const NotificationsSettingsPage = () => {
     },
   );
 
-  const planId = useMemo(() => {
-    return (data?.owner?.subscription?.planId ?? PlanTypeId.FREE) as PlanTypeId;
-  }, [data]);
-
   return (
     <CardList>
       {hasFormsPermission(data?.role, "edit_form_notifications_emails") && (
         <CardListItem>
           <SettingCardContainer>
-            <FormEmails emails={data?.emails ?? ""} planId={planId} />
+            <FormEmails emails={data?.emails ?? ""} planId={PlanTypeId.USAGE} />
           </SettingCardContainer>
         </CardListItem>
       )}

@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import { Role } from ".prisma/client";
 // Utils
 import { config, Product } from "@basestack/utils";
-import { signOut } from "next-auth/react";
+// Libs
+import { auth } from "@basestack/vendors";
 
 const { hasFormsPermission } = config.plans;
 
@@ -98,7 +99,14 @@ export const getAvatarDropdownList = (
       id: "4",
       icon: "logout",
       text: labels.logout,
-      onClick: signOut,
+      onClick: async () =>
+        await auth.client.signOut({
+          fetchOptions: {
+            onSuccess: () => {
+              router.push("/auth/sign-in");
+            },
+          },
+        }),
     },
   ];
 };

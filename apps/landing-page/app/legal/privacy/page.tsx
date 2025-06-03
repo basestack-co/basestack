@@ -45,7 +45,7 @@ const PrivacyPolicyPage = () => {
             site.
           </p>
           <p>This policy is effective as of 23 February 2023. </p>
-          <p>Last updated: 19 March 2025 </p>
+          <p>Last updated: 23 May 2025 </p>
           <h3>Information We Collect</h3>
           <p>
             Information we collect falls into one of two categories:
@@ -245,11 +245,8 @@ const PrivacyPolicyPage = () => {
               </a>
             </li>
             <li>
-              <a
-                href="https://www.lemonsqueezy.com/?ref=basestack.co"
-                target="_blank"
-              >
-                Lemon Squeezy
+              <a href="https://www.polar.sh/?ref=basestack.co" target="_blank">
+                Polar
               </a>
             </li>
             <li>

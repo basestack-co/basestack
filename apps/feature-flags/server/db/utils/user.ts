@@ -1,8 +1,6 @@
 import { PrismaClient, Role } from ".prisma/client";
 // tRPC
 import { TRPCError } from "@trpc/server";
-// Utils
-import { PlanTypeId } from "@basestack/utils";
 
 export const getUserInProject = async (
   prisma: PrismaClient,
@@ -27,15 +25,6 @@ export const getUserInProject = async (
         },
         select: {
           userId: true,
-          user: {
-            select: {
-              subscription: {
-                select: {
-                  planId: true,
-                },
-              },
-            },
-          },
         },
       }),
     ]);
@@ -43,8 +32,6 @@ export const getUserInProject = async (
     return {
       role: user?.role ?? Role.VIEWER,
       adminUserId: admin?.userId ?? "",
-      adminSubscriptionPlanId: (admin?.user.subscription?.planId ??
-        PlanTypeId.FREE) as PlanTypeId,
     };
   } catch {
     throw new TRPCError({

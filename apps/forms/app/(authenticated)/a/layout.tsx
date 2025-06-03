@@ -3,8 +3,10 @@
 import React, { Fragment } from "react";
 // Router
 import { useRouter } from "next/navigation";
-// Auth
-import { useSession } from "next-auth/react";
+// Libs
+import { auth } from "@basestack/vendors";
+// Modals
+import Modals from "modals";
 // Components
 import { Splash, Loader } from "@basestack/design-system";
 import Navigation from "components/Navigation";
@@ -14,16 +16,11 @@ import { api } from "utils/trpc/react";
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
-  const { status } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/auth/sign-in");
-    },
-  });
+  const { isPending: isSessionLoading } = auth.client.useSession();
 
-  const [forms, usage] = api.useQueries((t) => [
+  const [forms, usage, subscription] = api.useQueries((t) => [
     t.form.all(undefined, {
-      enabled: status === "authenticated",
+      enabled: !isSessionLoading,
       select: (data) =>
         data?.forms.map((item) => ({
           id: item.id,
@@ -36,11 +33,19 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         })),
     }),
     t.subscription.usage(undefined, {
-      enabled: status === "authenticated",
+      enabled: !isSessionLoading,
+    }),
+    t.subscription.current(undefined, {
+      enabled: !isSessionLoading,
     }),
   ]);
 
-  if (status === "loading" || forms.isLoading || usage.isLoading) {
+  if (
+    isSessionLoading ||
+    forms.isLoading ||
+    usage.isLoading ||
+    subscription.isLoading
+  ) {
     return (
       <Loader hasDelay={false}>
         <Splash product="forms" />
@@ -52,6 +57,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     <Fragment>
       <Navigation data={forms.data} />
       {children}
+      <Modals />
     </Fragment>
   );
 };

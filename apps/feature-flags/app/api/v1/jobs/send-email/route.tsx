@@ -3,7 +3,7 @@ import { serve } from "@upstash/workflow/nextjs";
 import { Receiver } from "@upstash/qstash";
 // Types
 import React, { ElementType } from "react";
-import type { SendEmailPayload } from "@basestack/vendors";
+import { Product, UsageEvent } from "@basestack/utils";
 // Email
 import {
   sendEmail,
@@ -12,6 +12,8 @@ import {
   AddProjectMemberEmailTemplate,
 } from "@basestack/emails";
 import { render } from "@react-email/render";
+// Vendors
+import { polar, SendEmailPayload } from "@basestack/vendors";
 
 const templateList: { [key: string]: ElementType } = {
   welcome: WelcomeEmailTemplate,
@@ -21,7 +23,8 @@ const templateList: { [key: string]: ElementType } = {
 
 export const { POST } = serve<SendEmailPayload>(
   async (context) => {
-    const { to, subject, template, props } = context.requestPayload;
+    const { to, subject, template, externalCustomerId, props } =
+      context.requestPayload;
 
     console.info(
       `Job: Basestack Feature Flags - Send Email - Preparing to send email to ${to} with subject: ${subject}`,
@@ -45,6 +48,17 @@ export const { POST } = serve<SendEmailPayload>(
               to: email,
             },
           });
+
+          if (externalCustomerId) {
+            await polar.createUsageEvent(
+              UsageEvent.EMAIL_SENT,
+              externalCustomerId,
+              {
+                product: Product.FLAGS,
+                template,
+              },
+            );
+          }
         }),
       );
 

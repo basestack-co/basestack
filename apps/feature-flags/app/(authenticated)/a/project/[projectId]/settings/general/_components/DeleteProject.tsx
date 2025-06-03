@@ -10,6 +10,8 @@ import { api } from "utils/trpc/react";
 import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
+// Toast
+import { toast } from "sonner";
 
 export interface Props {
   name?: string;
@@ -49,6 +51,9 @@ const DeleteProjectCard = ({ name }: Props) => {
           }
 
           router.replace("/");
+        },
+        onError: (error) => {
+          toast.error(error.message);
         },
       },
     );

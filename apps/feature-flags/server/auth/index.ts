@@ -1,44 +1,28 @@
 // Auth
-import NextAuth from "next-auth";
-// Utils
-import React, { cache } from "react";
+import { betterAuth } from "better-auth";
 // DB
-import { prisma } from "server/db";
+import { prisma } from "../db";
+// Adapters
+import { prismaAdapter } from "better-auth/adapters/prisma";
+// Utils
+import { AppMode } from "../../utils/helpers/general";
+import { config, Product, AppEnv } from "@basestack/utils";
 // Vendors
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import { auth as authVendor } from "@basestack/vendors";
 
-const authConfig = authVendor.createAuthConfig({
-  product: "Feature Flags",
-  adapter: PrismaAdapter(prisma),
-  getUser: async (email) => {
-    const user = await prisma.user.findUnique({
-      where: { email },
-      select: {
-        name: true,
-        createdAt: true,
-      },
-    });
-
-    return {
-      name: user?.name ?? "User",
-      createdAt: user?.createdAt ?? new Date(),
-    };
-  },
-  content: {
-    emails: {
-      welcome: {
-        title: "Welcome to Basestack Feature Flags",
-        description:
-          "Welcome to BaseStack Feature Flags, the ultimate solution for seamlessly managing feature rollouts. Effortlessly toggle features, run A/B tests, and deploy updates with confidence—all without redeploying your code. 🚀",
-        link: "https://flags.basestack.co",
-      },
+export const auth: ReturnType<typeof betterAuth> = authVendor.createAuthServer({
+  product: Product.FLAGS,
+  env: AppMode as AppEnv,
+  database: prismaAdapter(prisma, {
+    provider: "postgresql",
+  }),
+  welcomeEmail: {
+    subject: `Welcome to Basestack Feature Flags`,
+    content: {
+      title: "Welcome to Basestack Feature Flags",
+      description:
+        "Welcome to BaseStack Feature Flags, the ultimate solution for seamlessly managing feature rollouts. Effortlessly toggle features, run A/B tests, and deploy updates with confidence—all without redeploying your code. 🚀",
+      link: config.urls.getAppWithEnv(Product.FLAGS, AppMode as AppEnv),
     },
   },
 });
-
-const { auth: uncachedAuth, handlers, signIn, signOut } = NextAuth(authConfig);
-
-const auth = cache(uncachedAuth);
-
-export { auth, handlers, signIn, signOut };

@@ -37,11 +37,11 @@ const ProductFormsPage = () => {
             href: "#platform",
             icon: "flare",
           },
-          {
+          /* {
             text: t("navigation.product.pricing.title"),
             href: "#pricing",
             icon: "credit_card",
-          },
+          }, */
           /*  {
                 text: t("navigation.product.self-hosting.title"),
                 href: "#sdks",
@@ -262,6 +262,7 @@ const ProductFormsPage = () => {
           },
         ]}
       />
+      {/*
       <Pricing
         id="pricing"
         product="forms"
@@ -381,7 +382,7 @@ const ProductFormsPage = () => {
               };
             },
           )}
-      />
+      /> */}
       <Questions
         id="questions"
         title={t("common.questions.title")}

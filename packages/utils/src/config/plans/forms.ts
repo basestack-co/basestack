@@ -3,6 +3,78 @@ import { PlanTypeId, FormPlan, FormsPermission } from "../../types";
 
 const forms: FormPlan[] = [
   {
+    id: PlanTypeId.USAGE,
+    name: "Usage",
+    slogan: "Pay as you go",
+    description:
+      "Collect form submissions easily with our no-code solution. Basestack Forms handles the data securely so you can focus on what matters.",
+    price: {
+      monthly: {
+        amount: 5,
+        currency: "USD",
+      },
+      yearly: {
+        amount: 0,
+        currency: "USD",
+      },
+    },
+    products: {
+      sandbox: ["1341e824-dad2-4169-a170-39932d90ffb0"],
+      production: ["96852088-287e-4142-ad7d-d0c5cfed3c0a"],
+    },
+    meters: [
+      {
+        key: "form_submission",
+        costUnit: 0.01,
+        currency: "USD",
+      },
+      {
+        key: "email_notification",
+        costUnit: 0.002,
+        currency: "USD",
+      },
+      {
+        key: "spam_check",
+        costUnit: 0.002,
+        currency: "USD",
+      },
+      {
+        key: "webhook_trigger",
+        costUnit: 0.002,
+        currency: "USD",
+      },
+      {
+        key: "integration_call",
+        costUnit: 0.005,
+        currency: "USD",
+      },
+    ],
+    limits: {
+      forms: Infinity,
+      submissions: Infinity,
+      teams: Infinity,
+      members: Infinity,
+      spams: Infinity,
+      fileUploadLimit: Infinity,
+      integrationsCalls: Infinity,
+    },
+    features: {
+      hasFileUploads: true,
+      hasDataQueryString: true,
+      hasCustomUrls: true,
+      hasRules: true,
+      hasEmailNotifications: true,
+      hasBlockIPs: true,
+      hasWebhooks: true,
+      hasWebsites: true,
+      hasCustomExport: true,
+      hasAutoResponses: true,
+      hasIntegrations: true,
+      hasCustomEmailTemplates: true,
+      hasSpamProtection: true,
+    },
+  },
+  {
     id: PlanTypeId.FREE,
     name: "Free",
     slogan: "Perfect for testing out our platform.",
@@ -12,22 +84,17 @@ const forms: FormPlan[] = [
       monthly: {
         amount: 0,
         currency: "USD",
-        variantIds: {
-          local: 0,
-          development: 0,
-          production: 0,
-        },
       },
       yearly: {
         amount: 0,
         currency: "USD",
-        variantIds: {
-          local: 0,
-          development: 0,
-          production: 0,
-        },
       },
     },
+    products: {
+      sandbox: [],
+      production: [],
+    },
+    meters: [],
     limits: {
       forms: 1,
       submissions: 50,
@@ -63,22 +130,23 @@ const forms: FormPlan[] = [
       monthly: {
         amount: 9,
         currency: "USD",
-        variantIds: {
-          local: 368586,
-          development: 368586,
-          production: 716252,
-        },
       },
       yearly: {
         amount: 7.67, // 15% off
         currency: "USD",
-        variantIds: {
-          local: 368587,
-          development: 368587,
-          production: 716253,
-        },
       },
     },
+    products: {
+      sandbox: [
+        "af73c4e6-2b64-4561-a70c-d0ad9f8f5cb8",
+        "cc079a74-ba26-4d89-819f-0808562d8fdd",
+      ],
+      production: [
+        "4027ff22-39e2-4f95-8115-4e3eecae4abd",
+        "3e88c6c4-e916-4228-a151-0991633edf06",
+      ],
+    },
+    meters: [],
     limits: {
       forms: 5,
       submissions: 1000,
@@ -114,22 +182,23 @@ const forms: FormPlan[] = [
       monthly: {
         amount: 39,
         currency: "USD",
-        variantIds: {
-          local: 368595,
-          development: 368595,
-          production: 716255,
-        },
       },
       yearly: {
         amount: 33.17, // 15% off
         currency: "USD",
-        variantIds: {
-          local: 368596,
-          development: 368596,
-          production: 716256,
-        },
       },
     },
+    products: {
+      sandbox: [
+        "c3ca97ab-96f2-443e-81ec-0ae526869960",
+        "479514c8-bcb1-437e-834b-200df16f770d",
+      ],
+      production: [
+        "658ac683-402f-4b07-a2e0-284648c4ffbe",
+        "137c8ded-d8fe-4740-a46f-18d201d51777",
+      ],
+    },
+    meters: [],
     limits: {
       forms: Infinity,
       submissions: 10000,
@@ -165,22 +234,23 @@ const forms: FormPlan[] = [
       monthly: {
         amount: 99,
         currency: "USD",
-        variantIds: {
-          local: 368599,
-          development: 368599,
-          production: 716258,
-        },
       },
       yearly: {
         amount: 84.08, // 15% off
         currency: "USD",
-        variantIds: {
-          local: 368600,
-          development: 368600,
-          production: 716259,
-        },
       },
     },
+    products: {
+      sandbox: [
+        "6098f8e0-2cdb-4c2f-b709-2d28b1fd8505",
+        "7f6da0cf-a693-4ea4-8f44-3373f13e881d",
+      ],
+      production: [
+        "eef911d7-8dd0-4ad3-aa52-c4827d734a46",
+        "78074ddc-86c4-4d7c-b467-38f064d890cd",
+      ],
+    },
+    meters: [],
     limits: {
       forms: Infinity,
       submissions: Infinity,
@@ -217,22 +287,17 @@ const forms: FormPlan[] = [
       monthly: {
         amount: Infinity,
         currency: "USD",
-        variantIds: {
-          local: 0,
-          development: 0,
-          production: 0,
-        },
       },
       yearly: {
         amount: Infinity,
         currency: "USD",
-        variantIds: {
-          local: 0,
-          development: 0,
-          production: 0,
-        },
       },
     },
+    products: {
+      sandbox: [],
+      production: [],
+    },
+    meters: [],
     limits: {
       forms: Infinity,
       submissions: Infinity,

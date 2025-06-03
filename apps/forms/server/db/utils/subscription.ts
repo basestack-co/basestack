@@ -5,37 +5,6 @@ import { TRPCError } from "@trpc/server";
 // Utils
 import { config, FormPlan, PlanTypeId, Product } from "@basestack/utils";
 
-export const getSubscriptionUsage = async (
-  prisma: PrismaClient,
-  userId: string,
-) => {
-  try {
-    const usage = await prisma.subscription.findFirst({
-      where: {
-        userId,
-      },
-      omit: {
-        userId: true,
-        updatedAt: true,
-        createdAt: true,
-        scheduleId: true,
-        event: true,
-      },
-    });
-
-    return !!usage
-      ? { ...usage }
-      : {
-          planId: PlanTypeId.FREE,
-          subscriptionId: "",
-          billingCycleStart: null,
-          ...config.plans.getFormPlanLimitsDefaults(),
-        };
-  } catch {
-    throw new TRPCError({ code: "BAD_REQUEST" });
-  }
-};
-
 export const withUsageUpdate = async (
   prisma:
     | PrismaClient
@@ -54,13 +23,10 @@ export const withUsageUpdate = async (
   value: number = 1,
 ) => {
   try {
-    return await prisma.subscription.upsert({
+    return await prisma.usage.upsert({
       // Create a new subscription if it doesn't exist with the free plan
       create: {
         userId,
-        planId: PlanTypeId.FREE,
-        subscriptionId: "",
-        billingCycleStart: new Date(),
         [limit]: 1,
       },
       // Increment or decrement the limit

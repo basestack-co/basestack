@@ -27,52 +27,52 @@ enum FormType {
 }
 
 model Account {
-  id                 String   @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-  oauth_token_secret String?
-  oauth_token        String?
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  id                    String    @id @default(cuid())
+  userId                String
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  idToken               String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([provider, providerAccountId])
   @@index([userId])
 }
 
 model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  userId    String
+  token     String
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@index([userId])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId, token])
 }
 
 model User {
   id            String        @id @default(cuid())
   name          String?
-  gh_username   String?
   email         String?       @unique
-  emailVerified DateTime?
+  emailVerified Boolean?      @default(false)
   image         String?
-  password      String?
   accounts      Account[]
   sessions      Session[]
   forms         FormOnUsers[]
   teams         TeamMembers[]
-  subscription  Subscription?
+  usage         Usage[]
   role          Role          @default(ADMIN)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
@@ -80,43 +80,31 @@ model User {
   @@index([email, name])
 }
 
-model VerificationToken {
+model Verification {
+  id         String    @id
   identifier String
-  token      String   @unique
-  expires    DateTime
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
 
-  @@unique([identifier, token])
+  @@index([identifier])
 }
 
-model Subscription {
-  id                String    @id @default(cuid())
-  userId            String    @unique
-  subscriptionId    String
-  customerId        Int?
-  productId         Int?
-  variantId         Int?
-  status            String?
-  scheduleId        String?   @unique
-  planId            String
-  event             String?
-  billingCycleStart DateTime
-  paused            Boolean?  @default(false)
-  cancelled         Boolean?  @default(false)
-  forms             Int       @default(0)
-  submissions       Int       @default(0)
-  members           Int       @default(0)
-  teams             Int       @default(0)
-  spams             Int       @default(0)
-  fileUploadLimit   Int       @default(0)
-  integrationsCalls Int       @default(0)
-  renewsAt          DateTime?
-  endsAt            DateTime?
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+model Usage {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  forms             Int      @default(0)
+  submissions       Int      @default(0)
+  members           Int      @default(0)
+  teams             Int      @default(0)
+  spams             Int      @default(0)
+  fileUploadLimit   Int      @default(0)
+  integrationsCalls Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId, subscriptionId])
 }
 
 model Form {

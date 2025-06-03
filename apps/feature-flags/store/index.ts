@@ -22,6 +22,7 @@ export const useStore = create<Store>()(
         selectedView: state.selectedView,
         numberOfFlagsPerPage: state.numberOfFlagsPerPage,
         closeModalsOnClickOutside: state.closeModalsOnClickOutside,
+        closeNoActiveSubscriptionBanner: state.closeNoActiveSubscriptionBanner,
       }),
     },
   ),

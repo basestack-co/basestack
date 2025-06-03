@@ -67,7 +67,7 @@ Once you've successfully created a new [OAuth App](https://github.com/settings/d
     <Tabs.Tab>
       Quick deploy to [Vercel ↗](https://vercel.com/?ref=basestack.co) with a simple click on the deploy button below:
 
-      [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbasestack-co%2Fbasestack&env=DATABASE_URL,DIRECT_DATABASE_URL,AUTH_SECRET,AUTH_URL,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET&envDescription=See%20the%20full%20Environment%20Variables%20List%20Configuration&envLink=https%3A%2F%2Fdocs.basestack.co%2Ffeature-flags%2Fdeployment)
+      [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbasestack-co%2Fbasestack&env=DATABASE_URL,DIRECT_DATABASE_URL,BETTER_AUTH_SECRET,BETTER_AUTH_URL,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET&envDescription=See%20the%20full%20Environment%20Variables%20List%20Configuration&envLink=https%3A%2F%2Fdocs.basestack.co%2Ffeature-flags%2Fdeployment)
 
       By clicking on the button above, a new repository will be created in your GitHub account from the [Basestack Platform](https://github.com/basestack-co/basestack) repository, and the platform will be deployed for you. This will be an independent copy with no connection to the main project.
     </Tabs.Tab>
@@ -89,13 +89,13 @@ To ensure a successful deployment on Vercel, the platform requires a minimum set
 | ---------------------- | ------------------------------------------------------------------------------------------- |
 | `DATABASE_URL`         | Connection URL to your database using PgBouncer.                                            |
 | `DIRECT_DATABASE_URL`  | Direct connection URL to the database used for migrations                                   |
-| `AUTH_SECRET`      | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens.                 |
-| `AUTH_URL`         | Set to the canonical URL of your site                                                       |
+| `BETTER_AUTH_SECRET`      | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens.                 |
+| `BETTER_AUTH_URL`         | Set to the canonical URL of your site                                                       |
 | `GITHUB_CLIENT_ID`     | Client Id generated in the [OAuth App](https://github.com/settings/developers?ref=basestack.co) creation     |
 | `GITHUB_CLIENT_SECRET` | Client Secret generated in the [OAuth App](https://github.com/settings/developers?ref=basestack.co) creation |
 
 <Callout type="info" emoji="ℹ️">
-  For the `AUTH_SECRET` variable you can use `openssl rand -base64 32` or
+  For the `BETTER_AUTH_SECRET` variable you can use `openssl rand -base64 32` or
   generate a [random value](https://generate-secret.vercel.app/32?ref=basestack.co).
 </Callout>
 
@@ -179,7 +179,7 @@ Copy this URL and update the information in your [OAuth App](https://github.com/
 
 **Environment Variables:**
 
-- `AUTH_URL`
+- `BETTER_AUTH_URL`
 
 **Github [OAuth App](https://github.com/settings/developers?ref=basestack.co) Fields:**
 

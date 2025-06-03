@@ -63,10 +63,12 @@ export interface ModalsSliceState extends ModalsSliceActions {
 export interface AppSliceActions {
   setCloseModalsOnClickOutside: (value: boolean) => void;
   setDarkMode: (value: boolean) => void;
+  setCloseNoActiveSubscriptionBanner: (value: boolean) => void;
 }
 
 export interface AppSliceState extends AppSliceActions {
   closeModalsOnClickOutside: boolean;
+  closeNoActiveSubscriptionBanner: boolean;
   isDarkMode: boolean;
 }
 

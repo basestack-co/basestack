@@ -20,6 +20,7 @@ export const useStore = create<Store>()(
       partialize: (state) => ({
         isDarkMode: state.isDarkMode,
         closeModalsOnClickOutside: state.closeModalsOnClickOutside,
+        closeNoActiveSubscriptionBanner: state.closeNoActiveSubscriptionBanner,
       }),
     },
   ),
