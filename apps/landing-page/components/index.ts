@@ -21,3 +21,4 @@ export { default as OrderedCards } from "./OrderedCards";
 export { default as VerticalCards } from "./VerticalCards";
 export { default as AutoSlidingCards } from "./AutoSlidingCards";
 export { default as Form } from "./Form";
+export { default as PricingUsage } from "./PricingUsage";

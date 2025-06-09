@@ -14,6 +14,7 @@ import {
   ProductNavigation,
   MiniCards,
   BentoCards,
+  PricingUsage,
 } from "components";
 // Icons
 import { JavascriptIcon, JsonIcon, ReactIcon } from "components/Code/icons";
@@ -274,6 +275,41 @@ const ProductFeatureFlagsPage = () => {
               ),
           },
         ]}
+      />
+      <PricingUsage
+        id="pricing"
+        caption="Easy Pricing"
+        title="Simple, Fair Pricing"
+        text="Try Basestack feature flags on your website 15 days, free of charge and no credit card required."
+        card={{
+          title: "All-inclusive",
+          label: "per-month, billed annually",
+          items: [
+            t("page.product.flags.pricing.feature.projects", {
+              value: formatNumber(10),
+            }),
+            t("page.product.flags.pricing.feature.environments", {
+              value: formatNumber(10),
+            }),
+            t("page.product.flags.pricing.feature.flags", {
+              value: formatNumber(10),
+            }),
+            t("page.product.flags.pricing.feature.api-requests", {
+              value: formatNumber(10),
+            }),
+            t("page.product.flags.pricing.feature.members", {
+              value: formatNumber(10),
+            }),
+            t("page.product.flags.pricing.feature.has-security"),
+            t("page.product.flags.pricing.feature.has-history"),
+            t("page.product.flags.pricing.feature.has-remote-config"),
+          ],
+          button: {
+            onClick: () => undefined,
+            text: "Start 15-day free trial",
+          },
+          footer: "No credit card required.",
+        }}
       />
       {/*
       <Pricing
