@@ -61,7 +61,7 @@ const PricingUsage = ({
           <LeftContent>
             <Flex flexDirection="column" gap={spacing.s8}>
               <Box>
-                <Text size="xLarge" fontWeight={500} mb={spacing.s4}>
+                <Text size="large" fontWeight={500} mb={spacing.s3}>
                   How many monthly page views do you have?
                 </Text>
 
@@ -70,12 +70,12 @@ const PricingUsage = ({
                   name="requests"
                   min="10000"
                   max="30000"
-                  initialValue="10000"
+                  initialValue={10000}
                 />
               </Box>
 
               <Box>
-                <Text size="xLarge" fontWeight={500} mb={spacing.s4}>
+                <Text size="large" fontWeight={500} mb={spacing.s3}>
                   How many money do you have?
                 </Text>
 
@@ -84,7 +84,7 @@ const PricingUsage = ({
                   name="requests"
                   min="10000"
                   max="30000"
-                  initialValue="10000"
+                  initialValue={10000}
                 />
               </Box>
             </Flex>
@@ -105,7 +105,7 @@ const PricingUsage = ({
               </Text>
               <Text muted>{card.label}</Text>
             </Flex>
-            <Box mt={spacing.s4}>
+            <Box mt={spacing.s4} mb={spacing.s6}>
               <Flex flexDirection="column" as="ul" gap={spacing.s4}>
                 {card.items?.map((item, index) => (
                   <Flex
@@ -126,7 +126,7 @@ const PricingUsage = ({
                 ))}
               </Flex>
             </Box>
-            <Box mt={spacing.s6}>
+            <Box mt="auto">
               <Flex flexDirection="column" alignItems="center" gap={spacing.s2}>
                 <Button
                   onClick={card.button.onClick}

@@ -12,8 +12,8 @@ export const StyledRange = styled.input.attrs({
 })<StyledRangeProps>`
   -webkit-appearance: none;
   width: 100%;
-  height: 8px;
-  border-radius: 4px;
+  height: 6px;
+  border-radius: 3px;
   background: ${({ percentage, fillColor, trackColor }) =>
     `linear-gradient(to right, ${fillColor} ${percentage}%, ${trackColor} ${percentage}%)`};
   outline: none;
@@ -21,8 +21,8 @@ export const StyledRange = styled.input.attrs({
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: ${rem("28px")};
-    height: ${rem("28px")};
+    width: ${rem("24px")};
+    height: ${rem("24px")};
     border-radius: 50%;
     background: ${({ fillColor }) => fillColor};
     cursor: pointer;
@@ -30,8 +30,8 @@ export const StyledRange = styled.input.attrs({
   }
 
   &::-moz-range-thumb {
-    width: ${rem("28px")};
-    height: ${rem("28px")};
+    width: ${rem("24px")};
+    height: ${rem("24px")};
     border: none;
     border-radius: 50%;
     background: ${({ fillColor }) => fillColor};

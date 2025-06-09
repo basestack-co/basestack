@@ -11,8 +11,8 @@ export interface RangeSelectorProps {
   name?: string;
   initialValue?: number;
   decimalPlaces?: number;
-  min?: number;
-  max?: number;
+  min?: string;
+  max?: string;
   step?: number;
   displayValue?: string;
   onChange?: (value: number) => void;
@@ -48,10 +48,10 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({
     <Flex flexDirection="column">
       {displayValue && (
         <Text
-          size="xxLarge"
+          size="xLarge"
           fontWeight={500}
           color={isDarkMode ? colors.blue300 : colors.primary}
-          mb={spacing.s3}
+          mb={spacing.s2}
         >
           {new Intl.NumberFormat("en-US", {
             minimumFractionDigits: decimalPlaces,
@@ -59,7 +59,7 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({
           }).format(value)}
         </Text>
       )}
-      <Box display="flex" alignItems="center" height={rem("28px")}>
+      <Box display="flex" alignItems="center" height={rem("24px")}>
         <StyledRange
           id={id}
           name={name}
