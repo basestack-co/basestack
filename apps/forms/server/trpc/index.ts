@@ -29,6 +29,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
     form: {
       role: "VIEWER", // default as fallback
       adminUserId: "",
+      adminUserEmail: "",
     },
     ...opts,
   };
@@ -147,6 +148,7 @@ export const withFormRestrictions = ({ roles }: { roles: Role[] }) =>
     ctx.form = {
       role: form.role,
       adminUserId: form.adminUserId,
+      adminUserEmail: form.adminUserEmail,
     };
 
     return next({

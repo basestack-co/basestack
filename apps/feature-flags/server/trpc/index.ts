@@ -30,6 +30,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
     project: {
       role: "VIEWER", // default as fallback
       adminUserId: "",
+      adminUserEmail: "",
     },
     ...opts,
   };
@@ -171,6 +172,7 @@ export const withProjectRestrictions = ({ roles }: { roles: Role[] }) =>
     ctx.project = {
       role: project.role,
       adminUserId: project.adminUserId,
+      adminUserEmail: project.adminUserEmail,
     };
 
     return next({

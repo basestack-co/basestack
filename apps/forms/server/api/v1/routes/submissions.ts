@@ -8,18 +8,25 @@ import {
   getMetadata,
   UsageEvent,
   Product,
+  AppEnv,
+  config as utilsConfig,
 } from "@basestack/utils";
 import { withUsageUpdate } from "server/db/utils/subscription";
+import { AppMode } from "utils/helpers/general";
 // Prisma
 import { prisma } from "server/db";
 // Vendors
 import { qstash, polar } from "@basestack/vendors";
 // Utils
-import { FormMode, formatFormData, verifyForm } from "../utils";
+import { FormMode, formatFormData, verifyForm } from "../utils/form";
+
+const { urls } = utilsConfig;
+
+const productUrl = urls.getAppWithEnv(Product.FORMS, AppMode as AppEnv);
 
 const submissionsRoutes = new Hono<Env>().post("/:formId", async (c) => {
   const formId = c.req.param("formId");
-  const referer = c.req.header("referer");
+  const referer = c.req.header("referer") || productUrl;
 
   const { searchParams } = new URL(c.req.url);
   const mode = searchParams.get("mode") || "";

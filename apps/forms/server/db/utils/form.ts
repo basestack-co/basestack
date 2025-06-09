@@ -55,6 +55,8 @@ export const getFormOnUser = async (formId: string, referer: string) => {
     return null;
   }
 
+  console.log("defaultSuccessUrl = ", defaultSuccessUrl);
+
   return {
     ...current?.form,
     redirectUrl: current?.form.redirectUrl || referer,

@@ -8,7 +8,13 @@ import { TRPCError } from "@trpc/server";
 import { Role } from ".prisma/client";
 // Utils
 import { z } from "zod";
-import { Product, AppEnv, config, PlanTypeId } from "@basestack/utils";
+import {
+  Product,
+  AppEnv,
+  config,
+  PlanTypeId,
+  emailToId,
+} from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 import { withUsageUpdate, withFeatures } from "server/db/utils/subscription";
 // Vendors
@@ -373,6 +379,7 @@ export const formRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const user = ctx.auth?.user;
+      const externalCustomerId = emailToId(ctx.form.adminUserEmail);
 
       const connection = await ctx.prisma.formOnUsers.create({
         data: {
@@ -408,6 +415,7 @@ export const formRouter = createTRPCRouter({
           template: "addFormMember",
           to: [connection.user.email],
           subject: `You have been added to ${connection.form.name} form on Basestack Forms`,
+          externalCustomerId,
           props: {
             product: "Basestack Forms",
             fromUserName: user?.name ?? "",

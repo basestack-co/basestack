@@ -25,6 +25,11 @@ export const getUserInProject = async (
         },
         select: {
           userId: true,
+          user: {
+            select: {
+              email: true,
+            },
+          },
         },
       }),
     ]);
@@ -32,6 +37,7 @@ export const getUserInProject = async (
     return {
       role: user?.role ?? Role.VIEWER,
       adminUserId: admin?.userId ?? "",
+      adminUserEmail: admin?.user?.email ?? "",
     };
   } catch {
     throw new TRPCError({

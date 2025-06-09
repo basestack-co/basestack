@@ -6,7 +6,13 @@ import {
 } from "server/trpc";
 // Utils
 import { generateSlug } from "random-word-slugs";
-import { Product, AppEnv, config, PlanTypeId } from "@basestack/utils";
+import {
+  Product,
+  AppEnv,
+  config,
+  PlanTypeId,
+  emailToId,
+} from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 import { z } from "zod";
 import { withFeatures, withUsageUpdate } from "server/db/utils/usage";
@@ -436,6 +442,7 @@ export const projectRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const user = ctx.auth?.user;
+      const externalCustomerId = emailToId(ctx.project.adminUserEmail);
 
       const connection = await ctx.prisma.projectsOnUsers.create({
         data: {
@@ -471,6 +478,7 @@ export const projectRouter = createTRPCRouter({
           template: "addProjectMember",
           to: [connection.user.email],
           subject: `You have been added to ${connection.project.name} project on Basestack Feature Flags`,
+          externalCustomerId,
           props: {
             product: "Basestack Feature Flags",
             fromUserName: user?.name ?? "",

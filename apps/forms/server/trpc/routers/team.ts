@@ -10,7 +10,13 @@ import { Role } from ".prisma/client";
 import { qstash } from "@basestack/vendors";
 // Utils
 import { AppMode } from "utils/helpers/general";
-import { config, Product, AppEnv, generateSecureToken } from "@basestack/utils";
+import {
+  config,
+  Product,
+  AppEnv,
+  generateSecureToken,
+  emailToId,
+} from "@basestack/utils";
 import { z } from "zod";
 import { withUsageUpdate } from "server/db/utils/subscription";
 import { generateSlug } from "random-word-slugs";
@@ -430,6 +436,7 @@ export const teamRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const user = ctx.auth?.user;
+      const externalCustomerId = emailToId(user?.email!);
       const token = generateSecureToken();
       const expiresAt = dayjs().add(7, "day").toDate();
 
@@ -505,6 +512,7 @@ export const teamRouter = createTRPCRouter({
         template: "invite",
         to: [input.email],
         subject: `You have been invited to join ${invitation.team.name} team on Basestack Forms`,
+        externalCustomerId,
         props: {
           product: "Basestack Forms",
           fromUserName: user?.name ?? "",
