@@ -2,7 +2,7 @@ import {
   protectedProcedure,
   createTRPCRouter,
   withProjectRestrictions,
-} from "server/api/trpc";
+} from "server/trpc";
 import { TRPCError } from "@trpc/server";
 // Utils
 import { generateSlug } from "random-word-slugs";

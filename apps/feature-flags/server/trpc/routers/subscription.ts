@@ -1,4 +1,4 @@
-import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
+import { protectedProcedure, createTRPCRouter } from "server/trpc";
 // Utils
 import { AppEnv, config, Product, emailToId } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";

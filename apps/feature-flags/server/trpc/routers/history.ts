@@ -1,4 +1,4 @@
-import { protectedProcedure, createTRPCRouter } from "server/api/trpc";
+import { protectedProcedure, createTRPCRouter } from "server/trpc";
 // Utils
 import { z } from "zod";
 

@@ -2,14 +2,14 @@ import {
   createCallerFactory,
   createTRPCRouter,
   publicProcedure,
-} from "server/api/trpc";
+} from "server/trpc";
 // Routers
-import { environmentRouter } from "server/api/routers/environment";
-import { projectRouter } from "server/api/routers/project";
-import { flagRouter } from "server/api/routers/flag";
-import { historyRouter } from "server/api/routers/history";
-import { teamRouter } from "server/api/routers/team";
-import { subscriptionRouter } from "server/api/routers/subscription";
+import { environmentRouter } from "server/trpc/routers/environment";
+import { projectRouter } from "server/trpc/routers/project";
+import { flagRouter } from "server/trpc/routers/flag";
+import { historyRouter } from "server/trpc/routers/history";
+import { teamRouter } from "server/trpc/routers/team";
+import { subscriptionRouter } from "server/trpc/routers/subscription";
 
 export const appRouter = createTRPCRouter({
   healthcheck: publicProcedure.query(

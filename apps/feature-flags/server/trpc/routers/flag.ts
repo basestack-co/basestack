@@ -3,7 +3,7 @@ import {
   createTRPCRouter,
   withProjectRestrictions,
   withHistoryActivity,
-} from "server/api/trpc";
+} from "server/trpc";
 import { TRPCError } from "@trpc/server";
 // Utils
 import { withUsageUpdate } from "server/db/utils/usage";

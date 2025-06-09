@@ -3,7 +3,7 @@ import {
   createTRPCRouter,
   withProjectRestrictions,
   withHistoryActivity,
-} from "server/api/trpc";
+} from "server/trpc";
 // Utils
 import { generateSlug } from "random-word-slugs";
 import { Product, AppEnv, config, PlanTypeId } from "@basestack/utils";

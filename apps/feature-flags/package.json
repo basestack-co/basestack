@@ -37,6 +37,7 @@
     "@basestack/utils": "*",
     "@basestack/vendors": "*",
     "@floating-ui/react": "^0.27.11",
+    "@hono/zod-validator": "^0.7.0",
     "@hookform/resolvers": "^5.0.1",
     "@monaco-editor/react": "^4.7.0",
     "@polar-sh/sdk": "^0.33.0",
@@ -54,6 +55,7 @@
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
     "eslint-config-next": "^15.3.3",
+    "hono": "^4.7.11",
     "material-symbols": "^0.31.4",
     "next": "^15.3.3",
     "next-intl": "^4.1.0",
@@ -101,6 +103,7 @@
     "node-mocks-http": "^1.17.2",
     "prisma": "^6.8.2",
     "turbo": "2.5.4",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vercel": "^42.3.0"
   }
 }

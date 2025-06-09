@@ -16,7 +16,7 @@ import { withUsageUpdate } from "server/db/utils/usage";
 // Vendors
 import { polar } from "@basestack/vendors";
 
-export const verifyRequest = async (
+export const verifyProjectRequest = async (
   key: string,
   referer: string,
   metadata: { ip: string | null },
