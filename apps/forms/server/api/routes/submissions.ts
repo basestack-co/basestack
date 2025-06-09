@@ -1,4 +1,6 @@
-import { NextResponse } from "next/server";
+import { Hono } from "hono";
+// Types
+import { Env } from "../types";
 // Utils
 import {
   RequestError,
@@ -13,38 +15,24 @@ import { prisma } from "server/db";
 // Vendors
 import { qstash, polar } from "@basestack/vendors";
 // Utils
-import { FormMode, formatFormData, verifyForm } from "./utils";
+import { FormMode, formatFormData, verifyForm } from "../utils";
 
-const headers = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Origin, Accept",
-};
+const submissionsRoutes = new Hono<Env>().post("/:formId", async (c) => {
+  const formId = c.req.param("formId");
+  const referer = c.req.header("referer");
 
-export async function OPTIONS() {
-  return NextResponse.json({}, { status: 200, headers });
-}
-
-export async function POST(
-  req: Request,
-  { params }: { params: Promise<{ formId: string }> },
-) {
-  const referer = req.headers.get("referer") || "http://localhost:3003";
-  const { formId } = await params;
-
-  const { searchParams } = new URL(req.url);
+  const { searchParams } = new URL(c.req.url);
   const mode = searchParams.get("mode") || "";
 
-  const metadata = getMetadata(req);
-
+  const metadata = getMetadata(c.req.raw);
   try {
-    const form = await verifyForm(formId, referer, metadata);
+    const form = await verifyForm(formId, referer!, metadata);
 
     if (form?.isEnabled) {
       const externalCustomerId = emailToId(form.adminUserEmail);
 
       const data = await formatFormData(
-        req,
+        c.req.raw,
         form.errorUrl,
         form.redirectUrl,
         form.honeypot ?? "",
@@ -122,18 +110,18 @@ export async function POST(
         const successUrl = `${form?.successUrl}?goBackUrl=${form?.redirectUrl}${queryString}`;
 
         if (mode === FormMode.REST) {
-          return NextResponse.json(
+          return c.json(
             {
               code: 200,
               success: true,
               message: "Your form has been submitted successfully!",
               url: successUrl,
             },
-            { status: 200, headers },
+            { status: 200 },
           );
         }
 
-        return NextResponse.redirect(successUrl, 303);
+        return c.redirect(successUrl, 303);
       }
     } else {
       throw new RequestError({
@@ -146,26 +134,25 @@ export async function POST(
   } catch (error) {
     if (error instanceof RequestError) {
       if (mode === FormMode.REST) {
-        return NextResponse.json(
+        return c.json(
           {
             error: true,
             code: error.code,
             message: error.message,
             url: error.url,
           },
-          { status: error.code, headers },
+          { status: error.code as any },
         );
       } else {
-        return NextResponse.redirect(
-          `${error.url}&message=${error.message}`,
-          303,
-        );
+        return c.redirect(`${error.url}&message=${error.message}`, 303);
       }
     } else {
-      return NextResponse.json(
+      return c.json(
         { error: true, message: "An unexpected error occurred." },
-        { status: 500, headers },
+        { status: 500 },
       );
     }
   }
-}
+});
+
+export default submissionsRoutes;

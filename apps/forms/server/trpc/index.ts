@@ -10,7 +10,7 @@ import { auth } from "server/auth";
 // Database
 import { prisma } from "server/db";
 import { getUserInForm, getUserInTeam } from "server/db/utils/user";
-import { PlanTypeId, Product, emailToId } from "@basestack/utils";
+import { Product, emailToId } from "@basestack/utils";
 // Vendors
 import { polar } from "@basestack/vendors";
 // types

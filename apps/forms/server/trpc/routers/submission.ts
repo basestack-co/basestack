@@ -2,7 +2,7 @@ import {
   protectedProcedure,
   createTRPCRouter,
   withFormRestrictions,
-} from "server/api/trpc";
+} from "server/trpc";
 // Utils
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";

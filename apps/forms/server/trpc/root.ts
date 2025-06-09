@@ -2,12 +2,12 @@ import {
   createCallerFactory,
   createTRPCRouter,
   publicProcedure,
-} from "server/api/trpc";
+} from "server/trpc";
 // Routers
-import { formRouter } from "server/api/routers/form";
-import { submissionRouter } from "server/api/routers/submission";
-import { subscriptionRouter } from "server/api/routers/subscription";
-import { teamRouter } from "server/api/routers/team";
+import { formRouter } from "server/trpc/routers/form";
+import { submissionRouter } from "server/trpc/routers/submission";
+import { subscriptionRouter } from "server/trpc/routers/subscription";
+import { teamRouter } from "server/trpc/routers/team";
 
 export const appRouter = createTRPCRouter({
   healthcheck: publicProcedure.query(() => "Basestack Forms API is running!"),

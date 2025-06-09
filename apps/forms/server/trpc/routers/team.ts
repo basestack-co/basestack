@@ -2,7 +2,7 @@ import {
   createTRPCRouter,
   protectedProcedure,
   withTeamRestrictions,
-} from "server/api/trpc";
+} from "server/trpc";
 import { TRPCError } from "@trpc/server";
 // Types
 import { Role } from ".prisma/client";
