@@ -5,11 +5,15 @@ interface StyledRangeProps {
   percentage: number;
   fillColor: string;
   trackColor: string;
+  inputSize: number;
 }
 
-export const StyledRange = styled.input.attrs({
-  type: "range",
-})<StyledRangeProps>`
+const shouldForwardProp = (prop: string) =>
+  !["percentage", "fillColor", "trackColor", "inputSize"].includes(prop);
+
+export const StyledRange = styled.input
+  .attrs({ type: "range" })
+  .withConfig({ shouldForwardProp })<StyledRangeProps>`
   -webkit-appearance: none;
   width: 100%;
   height: 6px;
@@ -21,8 +25,8 @@ export const StyledRange = styled.input.attrs({
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: ${rem("24px")};
-    height: ${rem("24px")};
+    width: ${({ inputSize }) => rem(`${inputSize}px`)};
+    height: ${({ inputSize }) => rem(`${inputSize}px`)};
     border-radius: 50%;
     background: ${({ fillColor }) => fillColor};
     cursor: pointer;
@@ -30,8 +34,8 @@ export const StyledRange = styled.input.attrs({
   }
 
   &::-moz-range-thumb {
-    width: ${rem("24px")};
-    height: ${rem("24px")};
+    width: ${({ inputSize }) => rem(`${inputSize}px`)};
+    height: ${({ inputSize }) => rem(`${inputSize}px`)};
     border: none;
     border-radius: 50%;
     background: ${({ fillColor }) => fillColor};

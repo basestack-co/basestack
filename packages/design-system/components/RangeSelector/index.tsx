@@ -16,6 +16,7 @@ export interface RangeSelectorProps {
   step?: number;
   displayValue?: string;
   onChange?: (value: number) => void;
+  inputSize?: number;
 }
 
 const RangeSelector: React.FC<RangeSelectorProps> = ({
@@ -28,6 +29,7 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({
   step = "1",
   displayValue = true,
   onChange,
+  inputSize = 24,
 }) => {
   const { isDarkMode, spacing, colors } = useTheme();
   const [value, setValue] = useState<number>(initialValue);
@@ -59,7 +61,7 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({
           }).format(value)}
         </Text>
       )}
-      <Box display="flex" alignItems="center" height={rem("24px")}>
+      <Box display="flex" alignItems="center" height={rem(`${inputSize}px`)}>
         <StyledRange
           id={id}
           name={name}
@@ -71,6 +73,7 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({
           percentage={percentage}
           fillColor={colors.primary}
           trackColor={isDarkMode ? colors.gray600 : colors.gray200}
+          inputSize={inputSize}
         />
       </Box>
     </Flex>
