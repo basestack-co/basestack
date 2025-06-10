@@ -22,6 +22,7 @@ export interface Props {
   label?: SectionHeaderProps["label"];
   buttons: Array<{ text: string; onClick: () => void }>;
   stars?: number;
+  showStars?: boolean;
 }
 
 const BannerComp = ({
@@ -34,6 +35,7 @@ const BannerComp = ({
   label,
   caption,
   stars,
+  showStars = false,
 }: Props) => {
   const { device } = useTheme();
   const isMobile = useMedia(device.max.sm, false);
@@ -71,7 +73,7 @@ const BannerComp = ({
               ))}
             </ButtonsContainer>
           </BannerContent>
-          {!!stars && <StarsPattern count={stars} />}
+          {!!stars && showStars && <StarsPattern count={stars} />}
         </StyledCard>
       </ContentContainer>
     </Container>

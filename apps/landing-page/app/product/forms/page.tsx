@@ -5,6 +5,7 @@ import { config as defaults, formatNumber } from "@basestack/utils";
 // Icons
 import { HtmlIcon, JavascriptIcon, NextJsIcon } from "components/Code/icons";
 // Components
+import { ButtonVariant } from "@basestack/design-system";
 import {
   Hero,
   Banner,
@@ -60,7 +61,8 @@ const ProductFormsPage = () => {
           },
         ]}
         button={{
-          text: t("navigation.product.get-started.title"),
+          //text: t("navigation.product.get-started.title"),
+          text: "Sign in with Google",
           href: urls.app.production.forms,
         }}
       />
@@ -74,16 +76,21 @@ const ProductFormsPage = () => {
         actions={[
           {
             id: "1",
-            text: t("page.product.forms.hero.action.get-free"),
+            //text: t("page.product.forms.hero.action.get-free"),
+            text: "Sign in with Google",
             href: urls.app.production.forms,
             isExternal: true,
+            icon: "google",
+            variant: ButtonVariant.Primary,
           },
           {
             id: "2",
-            text: t("page.product.forms.hero.action.request-demo"),
+            //text: t("page.product.forms.hero.action.request-demo"),
+            text: "Sign in with Github",
             href: "/contact",
-            isTertiary: true,
             isExternal: false,
+            icon: "github",
+            variant: ButtonVariant.Secondary,
           },
         ]}
         image={{
