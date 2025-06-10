@@ -142,9 +142,8 @@ const ProductFormsPage = () => {
           },
         ]}
         button={{
-          //text: t("navigation.product.get-started.title"),
-          text: "Sign in with Google",
-          href: urls.app.production.forms,
+          text: t("navigation.auth.sign-in.google"),
+          href: `${urls.app.production.forms}/auth/sign-in?provider=google`,
         }}
       />
       <Hero
@@ -157,18 +156,16 @@ const ProductFormsPage = () => {
         actions={[
           {
             id: "1",
-            //text: t("page.product.forms.hero.action.get-free"),
-            text: "Sign in with Google",
-            href: urls.app.production.forms,
+            text: t("navigation.auth.sign-in.google"),
+            href: `${urls.app.production.forms}/auth/sign-in?provider=google`,
             isExternal: true,
             icon: "google",
             variant: ButtonVariant.Primary,
           },
           {
             id: "2",
-            //text: t("page.product.forms.hero.action.request-demo"),
-            text: "Sign in with Github",
-            href: "/contact",
+            text: t("navigation.auth.sign-in.github"),
+            href: `${urls.app.production.forms}/auth/sign-in?provider=github`,
             isExternal: false,
             icon: "github",
             variant: ButtonVariant.Secondary,

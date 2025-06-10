@@ -126,9 +126,8 @@ const ProductFeatureFlagsPage = () => {
           },
         ]}
         button={{
-          //text: t("navigation.product.get-started.title"),
-          text: "Sign in with Google",
-          href: urls.app.production.flags,
+          text: t("navigation.auth.sign-in.google"),
+          href: `${urls.app.production.flags}/auth/sign-in?provider=google`,
         }}
       />
       <Hero
@@ -142,18 +141,17 @@ const ProductFeatureFlagsPage = () => {
         actions={[
           {
             id: "1",
-            // text: t("page.product.flags.hero.action.get-free"),
-            text: "Sign in with Google",
-            href: urls.app.production.flags,
-            isExternal: true,
+            text: t("navigation.auth.sign-in.google"),
+            href: `${urls.app.production.flags}/auth/sign-in?provider=google`,
+            // /api/auth/callback/github
+            isExternal: false,
             icon: "google",
             variant: ButtonVariant.Primary,
           },
           {
             id: "2",
-            // text: t("page.product.flags.hero.action.request-demo"),
-            text: "Sign in with Github",
-            href: "/contact",
+            text: t("navigation.auth.sign-in.github"),
+            href: `${urls.app.production.flags}/auth/sign-in?provider=github`,
             isExternal: false,
             icon: "github",
             variant: ButtonVariant.Secondary,

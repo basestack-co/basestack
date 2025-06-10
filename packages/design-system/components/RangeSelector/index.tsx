@@ -40,7 +40,6 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({
     if (onChange) onChange(id!, newValue);
   };
 
-
   const percentage = ((value - +min) / (+max - +min)) * 100;
 
   return (
