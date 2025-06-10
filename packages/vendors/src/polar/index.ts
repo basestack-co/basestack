@@ -23,7 +23,7 @@ export const getCustomerSubscription = async (
   const cacheKey = `${env}:${product}:subscription:${externalId}`;
 
   try {
-    const customerRaw = await redis.get(cacheKey);
+    const customerRaw = await redis?.get(cacheKey);
     let customer: any = null;
 
     if (customerRaw) {
@@ -35,7 +35,7 @@ export const getCustomerSubscription = async (
       });
       if (customer) {
         // 2 minutes cache
-        await redis.set(cacheKey, JSON.stringify(customer), { ex: 120 });
+        await redis?.set(cacheKey, JSON.stringify(customer), { ex: 120 });
       }
     }
 
@@ -67,7 +67,7 @@ export const deleteCustomerSubscriptionCache = async (
 ) => {
   try {
     const cacheKey = `${env}:${product}:subscription:${externalId}`;
-    await redis.del(cacheKey);
+    await redis?.del(cacheKey);
   } catch (err) {
     console.error(
       "Error deleting customer subscription cache",
