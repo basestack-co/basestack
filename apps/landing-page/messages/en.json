@@ -576,9 +576,23 @@
       }
     },
     "pricing": {
-      "caption": "Plans",
+      "caption": "Simple & Fair",
       "title": "Flexible Pricing for Developers & Teams",
-      "description": "Choose a plan that fits your needs whether you're an individual developer or part of a growing team. {product} offers transparent, affordable pricing to support your projects at every stage.",
+      "description": "{product} offers transparent, affordable pricing to support your projects at every stage.",
+      "usage": {
+        "title": "Usage-Based Pricing",
+        "label": "/month + Additional Usage",
+        "unit": "${value}/Unit",
+        "footer": "Prices exclude applicable sales taxes (e.g., VAT). A $5 minimum spend applies and is fully credited toward your usage.",
+        "count": {
+          "api_requests": "How many API requests do you expect per month?",
+          "email_notification": "How many emails will you send each month?",
+          "form_submission": "How many form submissions do you expect monthly?",
+          "spam_check": "How many spam checks will you need per month?",
+          "webhook_trigger": "How many webhook triggers will run each month?",
+          "integration_call": "How many integration calls will your workflows make monthly?"
+        }
+      },
       "segment": {
         "monthly": "Monthly",
         "yearly": "Yearly",

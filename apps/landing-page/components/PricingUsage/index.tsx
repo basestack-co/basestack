@@ -20,21 +20,36 @@ import {
 } from "./styles";
 import { Card } from "../styles";
 
+interface Slider {
+  id: string;
+  title: string;
+  description: string;
+  min: string;
+  max: string;
+  initialValue: number;
+  costUnit: string;
+  onChange: (id: string, value: number) => void;
+}
+
+interface Card {
+  title: string;
+  label: string;
+  amount: string;
+  items: Array<string>;
+  button: {
+    onClick: () => void;
+    text: string;
+  };
+  footer: string;
+}
+
 interface PricingUsageProps {
   id?: string;
   title: string;
   caption?: string;
   text: string;
-  card: {
-    title: string;
-    label: string;
-    items: Array<string>;
-    button: {
-      onClick: () => void;
-      text: string;
-    };
-    footer: string;
-  };
+  card: Card;
+  sliders: Slider[];
 }
 
 const PricingUsage = ({
@@ -43,6 +58,7 @@ const PricingUsage = ({
   text,
   id,
   card,
+  sliders,
 }: PricingUsageProps) => {
   const { isDarkMode, spacing, colors } = useTheme();
 
@@ -60,33 +76,26 @@ const PricingUsage = ({
         <Grid>
           <LeftContent>
             <Flex flexDirection="column" gap={spacing.s8}>
-              <Box>
-                <Text size="large" fontWeight={500} mb={spacing.s3}>
-                  How many monthly page views do you have?
-                </Text>
+              {sliders.map((slider) => (
+                <Box key={slider.id}>
+                  <Text size="large" fontWeight={500} mb={spacing.s3}>
+                    {slider.title}
+                  </Text>
 
-                <RangeSelector
-                  id="requests"
-                  name="requests"
-                  min="10000"
-                  max="30000"
-                  initialValue={10000}
-                />
-              </Box>
+                  <Text size="small" fontWeight={500} mb={spacing.s3}>
+                    {slider.costUnit}
+                  </Text>
 
-              <Box>
-                <Text size="large" fontWeight={500} mb={spacing.s3}>
-                  How many money do you have?
-                </Text>
-
-                <RangeSelector
-                  id="requests"
-                  name="requests"
-                  min="10000"
-                  max="30000"
-                  initialValue={10000}
-                />
-              </Box>
+                  <RangeSelector
+                    id={slider.id}
+                    name={slider.id}
+                    min={slider.min}
+                    max={slider.max}
+                    initialValue={slider.initialValue}
+                    onChange={slider.onChange}
+                  />
+                </Box>
+              ))}
             </Flex>
           </LeftContent>
 
@@ -101,7 +110,7 @@ const PricingUsage = ({
                 fontWeight={500}
                 flexShrink={0}
               >
-                $5
+                {card.amount}
               </Text>
               <Text muted>{card.label}</Text>
             </Flex>

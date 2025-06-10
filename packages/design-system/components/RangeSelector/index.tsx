@@ -15,7 +15,7 @@ export interface RangeSelectorProps {
   max?: string;
   step?: number;
   displayValue?: string;
-  onChange?: (value: number) => void;
+  onChange?: (id: string, value: number) => void;
   inputSize?: number;
 }
 
@@ -37,12 +37,9 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(e.target.value);
     setValue(newValue);
-    if (onChange) onChange(newValue);
+    if (onChange) onChange(id!, newValue);
   };
 
-  useEffect(() => {
-    if (onChange) onChange(value);
-  }, []);
 
   const percentage = ((value - +min) / (+max - +min)) * 100;
 
@@ -56,8 +53,9 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({
           mb={spacing.s2}
         >
           {new Intl.NumberFormat("en-US", {
-            minimumFractionDigits: decimalPlaces,
-            maximumFractionDigits: decimalPlaces,
+            notation: "compact",
+            maximumFractionDigits: 1,
+            minimumFractionDigits: 0,
           }).format(value)}
         </Text>
       )}
