@@ -15,7 +15,7 @@ interface Props {
 }
 
 const HistoryTab = ({ projectId, flagId }: Props) => {
-  const { data, isLoading } = api.history.all.useQuery(
+  const { data, isLoading } = api.projectHistory.list.useQuery(
     {
       flagId,
       projectId,

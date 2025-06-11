@@ -42,7 +42,7 @@ const CreateFormModal = () => {
     (state) => state.closeModalsOnClickOutside,
   );
 
-  const createForm = api.form.create.useMutation();
+  const createForm = api.forms.create.useMutation();
 
   const {
     control,
@@ -62,9 +62,9 @@ const CreateFormModal = () => {
     createForm.mutate(data, {
       onSuccess: async (result) => {
         // Invalidate the form list cache
-        await trpcUtils.form.all.invalidate();
+        await trpcUtils.forms.list.invalidate();
         // Reset the recent form cache
-        await trpcUtils.form.recent.invalidate();
+        await trpcUtils.forms.recent.invalidate();
         // Reset the usage cache
         await trpcUtils.subscription.usage.invalidate();
 

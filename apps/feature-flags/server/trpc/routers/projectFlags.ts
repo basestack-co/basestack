@@ -11,8 +11,8 @@ import { z } from "zod";
 // Types
 import { Role } from ".prisma/client";
 
-export const flagRouter = createTRPCRouter({
-  all: protectedProcedure
+export const projectFlagsRouter = createTRPCRouter({
+  list: protectedProcedure
     .use(withProjectRestrictions({ roles: [] }))
     .input(
       z.object({

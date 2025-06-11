@@ -19,7 +19,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { isPending: isSessionLoading } = auth.client.useSession();
 
   const [projects, usage, subscription] = api.useQueries((t) => [
-    t.project.all(undefined, {
+    t.projects.list(undefined, {
       enabled: !isSessionLoading,
       select: (data) =>
         data?.projects.map((item) => ({

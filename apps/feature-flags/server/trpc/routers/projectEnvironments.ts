@@ -12,8 +12,8 @@ import { withUsageUpdate } from "server/db/utils/usage";
 // Types
 import { Role } from ".prisma/client";
 
-export const environmentRouter = createTRPCRouter({
-  all: protectedProcedure
+export const projectEnvironmentsRouter = createTRPCRouter({
+  list: protectedProcedure
     .use(withProjectRestrictions({ roles: [] }))
     .input(
       z

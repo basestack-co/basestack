@@ -22,8 +22,8 @@ import { withUsageUpdate } from "server/db/utils/subscription";
 import { generateSlug } from "random-word-slugs";
 import dayjs from "dayjs";
 
-export const teamRouter = createTRPCRouter({
-  all: protectedProcedure.query(async ({ ctx }) => {
+export const teamsRouter = createTRPCRouter({
+  list: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx?.auth?.user.id!;
 
     return ctx.prisma.team.findMany({

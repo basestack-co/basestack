@@ -39,7 +39,7 @@ const EditEnvironmentModal = () => {
     ]),
   );
 
-  const updateEnvironment = api.environment.update.useMutation();
+  const updateEnvironment = api.projectEnvironments.update.useMutation();
 
   const { handleSubmit, onRenderForm, reset, isSubmitting, setValue } =
     useEnvironmentForm();
@@ -60,7 +60,7 @@ const EditEnvironmentModal = () => {
           onSuccess: async (result) => {
             if (data) {
               // Get all the environments by project on the cache
-              const prev = trpcUtils.environment.all.getData({
+              const prev = trpcUtils.projectEnvironments.list.getData({
                 projectId,
               });
 
@@ -80,15 +80,15 @@ const EditEnvironmentModal = () => {
                   );
 
                 // Update the cache with the new data
-                trpcUtils.environment.all.setData(
+                trpcUtils.projectEnvironments.list.setData(
                   { projectId },
                   {
                     environments,
                   },
                 );
 
-                await trpcUtils.project.allKeys.invalidate({ projectId });
-                await trpcUtils.flag.environments.invalidate();
+                await trpcUtils.projectKeys.list.invalidate({ projectId });
+                await trpcUtils.projectFlags.list.invalidate();
               }
 
               onClose();
@@ -105,7 +105,7 @@ const EditEnvironmentModal = () => {
   useEffect(() => {
     if (data && projectId && isModalOpen && data.environment) {
       // Get all the environments by project on the cache
-      const cache = trpcUtils.environment.all.getData({
+      const cache = trpcUtils.projectEnvironments.list.getData({
         projectId,
       });
 

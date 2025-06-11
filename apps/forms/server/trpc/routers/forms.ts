@@ -8,20 +8,12 @@ import { TRPCError } from "@trpc/server";
 import { Role } from ".prisma/client";
 // Utils
 import { z } from "zod";
-import {
-  Product,
-  AppEnv,
-  config,
-  PlanTypeId,
-  emailToId,
-} from "@basestack/utils";
+import { PlanTypeId } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 import { withUsageUpdate, withFeatures } from "server/db/utils/subscription";
-// Vendors
-import { qstash } from "@basestack/vendors";
 
-export const formRouter = createTRPCRouter({
-  all: protectedProcedure.query(async ({ ctx }) => {
+export const formsRouter = createTRPCRouter({
+  list: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx?.auth?.user.id!;
 
     const all = await ctx.prisma.form.findMany({
@@ -193,42 +185,7 @@ export const formRouter = createTRPCRouter({
         owner: data?.form.users[0]?.user,
       };
     }),
-  members: protectedProcedure
-    .use(withFormRestrictions({ roles: [] }))
-    .input(
-      z
-        .object({
-          formId: z.string(),
-        })
-        .required(),
-    )
-    .query(async ({ ctx, input }) => {
-      const users = await ctx.prisma.formOnUsers.findMany({
-        where: {
-          formId: input.formId,
-        },
-        select: {
-          userId: true,
-          formId: true,
-          role: true,
-          user: {
-            select: {
-              name: true,
-              email: true,
-              image: true,
-            },
-          },
-          createdAt: true,
-        },
-        orderBy: {
-          createdAt: "desc",
-        },
-      });
-
-      return { users };
-    }),
   create: protectedProcedure
-
     .input(
       z
         .object({
@@ -365,120 +322,5 @@ export const formRouter = createTRPCRouter({
       });
 
       return { form };
-    }),
-  addMember: protectedProcedure
-    .use(withFormRestrictions({ roles: [] }))
-    .input(
-      z
-        .object({
-          formId: z.string(),
-          userId: z.string(),
-          role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
-        })
-        .required(),
-    )
-    .mutation(async ({ ctx, input }) => {
-      const user = ctx.auth?.user;
-      const externalCustomerId = emailToId(ctx.form.adminUserEmail);
-
-      const connection = await ctx.prisma.formOnUsers.create({
-        data: {
-          form: {
-            connect: {
-              id: input.formId,
-            },
-          },
-          user: {
-            connect: {
-              id: input.userId,
-            },
-          },
-          role: input.role,
-        },
-        select: {
-          user: {
-            select: {
-              name: true,
-              email: true,
-            },
-          },
-          form: {
-            select: {
-              name: true,
-            },
-          },
-        },
-      });
-
-      if (!!connection.user.email) {
-        await qstash.events.sendEmailEvent({
-          template: "addFormMember",
-          to: [connection.user.email],
-          subject: `You have been added to ${connection.form.name} form on Basestack Forms`,
-          externalCustomerId,
-          props: {
-            product: "Basestack Forms",
-            fromUserName: user?.name ?? "",
-            toUserName: connection.user.name,
-            form: connection.form.name,
-            linkText: "Open Form",
-            linkUrl: `${config.urls.getAppWithEnv(Product.FORMS, AppMode as AppEnv)}/a/form/${input.formId}`,
-          },
-        });
-      }
-
-      return { connection };
-    }),
-  updateMember: protectedProcedure
-    .use(withFormRestrictions({ roles: [Role.ADMIN] }))
-    .input(
-      z
-        .object({
-          formId: z.string(),
-          userId: z.string(),
-          role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
-        })
-        .required(),
-    )
-    .mutation(async ({ ctx, input }) => {
-      const connection = await ctx.prisma.formOnUsers.update({
-        where: {
-          formId_userId: {
-            formId: input.formId,
-            userId: input.userId,
-          },
-        },
-        data: {
-          role: input.role,
-        },
-        select: {
-          userId: true,
-          role: true,
-        },
-      });
-
-      return { connection };
-    }),
-  removeMember: protectedProcedure
-    .use(withFormRestrictions({ roles: [Role.ADMIN] }))
-    .input(
-      z
-        .object({
-          formId: z.string(),
-          userId: z.string(),
-        })
-        .required(),
-    )
-    .mutation(async ({ ctx, input }) => {
-      const connection = await ctx.prisma.formOnUsers.delete({
-        where: {
-          formId_userId: {
-            formId: input.formId,
-            userId: input.userId,
-          },
-        },
-      });
-
-      return { connection };
     }),
 });

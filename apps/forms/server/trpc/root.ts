@@ -4,17 +4,23 @@ import {
   publicProcedure,
 } from "server/trpc";
 // Routers
-import { formRouter } from "server/trpc/routers/form";
-import { submissionRouter } from "server/trpc/routers/submission";
+import { formsRouter } from "server/trpc/routers/forms";
+import { formMembersRouter } from "server/trpc/routers/formMembers";
+import { formSubmissionsRouter } from "server/trpc/routers/formSubmissions";
+import { teamsRouter } from "server/trpc/routers/teams";
+import { teamMembersRouter } from "server/trpc/routers/teamMembers";
+import { teamInvitesRouter } from "server/trpc/routers/teamInvites";
 import { subscriptionRouter } from "server/trpc/routers/subscription";
-import { teamRouter } from "server/trpc/routers/team";
 
 export const appRouter = createTRPCRouter({
   healthcheck: publicProcedure.query(() => "Basestack Forms API is running!"),
-  form: formRouter,
-  submission: submissionRouter,
+  forms: formsRouter,
+  formMembers: formMembersRouter,
+  formSubmissions: formSubmissionsRouter,
+  teams: teamsRouter,
+  teamMembers: teamMembersRouter,
+  teamInvites: teamInvitesRouter,
   subscription: subscriptionRouter,
-  team: teamRouter,
 });
 
 export type AppRouter = typeof appRouter;

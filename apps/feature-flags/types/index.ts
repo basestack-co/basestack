@@ -7,7 +7,7 @@ import type { RemoveNullAndUndefined } from "@basestack/utils";
  *
  * */
 
-export type ProjectOutput = RouterOutputs["project"]["byId"];
+export type ProjectOutput = RouterOutputs["projects"]["byId"];
 export type Project = RemoveNullAndUndefined<ProjectOutput>;
 
 export interface ProjectSettings {

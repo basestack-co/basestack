@@ -37,7 +37,7 @@ const CreateTeamModal = () => {
       ]),
     );
 
-  const createTeam = api.team.create.useMutation();
+  const createTeam = api.teams.create.useMutation();
 
   const {
     control,
@@ -56,7 +56,7 @@ const CreateTeamModal = () => {
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     createTeam.mutate(data, {
       onSuccess: async () => {
-        await trpcUtils.team.all.invalidate();
+        await trpcUtils.teams.list.invalidate();
 
         onClose();
       },

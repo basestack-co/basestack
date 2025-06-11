@@ -2,8 +2,8 @@ import { protectedProcedure, createTRPCRouter } from "server/trpc";
 // Utils
 import { z } from "zod";
 
-export const historyRouter = createTRPCRouter({
-  all: protectedProcedure
+export const projectHistoryRouter = createTRPCRouter({
+  list: protectedProcedure
     .input(
       z
         .object({

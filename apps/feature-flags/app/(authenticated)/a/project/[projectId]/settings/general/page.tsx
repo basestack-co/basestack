@@ -22,7 +22,7 @@ const { hasFlagsPermission } = config.plans;
 const GeneralPage = () => {
   const { projectId } = useParams<{ projectId: string }>();
 
-  const { data: project } = api.project.byId.useQuery(
+  const { data: project } = api.projects.byId.useQuery(
     { projectId },
     {
       enabled: !!projectId,

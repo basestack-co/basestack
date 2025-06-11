@@ -17,7 +17,7 @@ const { hasFlagsPermission } = config.plans;
 const SecuritySettingsPage = () => {
   const { projectId } = useParams<{ projectId: string }>();
 
-  const { data } = api.project.byId.useQuery(
+  const { data } = api.projects.byId.useQuery(
     { projectId },
     {
       enabled: !!projectId,

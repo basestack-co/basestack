@@ -33,7 +33,7 @@ const FormHoneyPotCard = ({ honeypot }: Props) => {
   const { formId } = useParams<{ formId: string }>();
   const t = useTranslations("setting");
   const trpcUtils = api.useUtils();
-  const updateForm = api.form.update.useMutation();
+  const updateForm = api.forms.update.useMutation();
 
   const {
     control,
@@ -62,12 +62,12 @@ const FormHoneyPotCard = ({ honeypot }: Props) => {
       },
       {
         onSuccess: (result) => {
-          const cache = trpcUtils.form.byId.getData({
+          const cache = trpcUtils.forms.byId.getData({
             formId: result.form.id,
           });
 
           if (cache) {
-            trpcUtils.form.byId.setData(
+            trpcUtils.forms.byId.setData(
               { formId: result.form.id },
               {
                 ...cache,

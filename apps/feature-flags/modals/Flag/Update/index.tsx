@@ -42,7 +42,7 @@ const UpdateFlagModal = () => {
   );
 
   const { projectId } = useParams<{ projectId: string }>();
-  const updateFlag = api.flag.update.useMutation();
+  const updateFlag = api.projectFlags.update.useMutation();
 
   const {
     selectedTab,
@@ -59,7 +59,7 @@ const UpdateFlagModal = () => {
     flagId: modalPayload?.flag?.id,
   });
 
-  const { isLoading, data: bySlugData } = api.flag.bySlug.useQuery(
+  const { isLoading, data: bySlugData } = api.projectFlags.bySlug.useQuery(
     { slug: modalPayload?.flag?.slug!, projectId: project?.id! },
     { enabled: !!project?.id && !!modalPayload?.flag?.slug },
   );
@@ -87,16 +87,18 @@ const UpdateFlagModal = () => {
         },
         {
           onSuccess: async () => {
-            await trpcUtils.flag.bySlug.invalidate({
+            await trpcUtils.projectFlags.bySlug.invalidate({
               slug: modalPayload?.flag.slug,
               projectId: project.id,
             });
-            await trpcUtils.flag.all.invalidate({ projectId: project.id });
-            await trpcUtils.flag.environments.invalidate({
+            await trpcUtils.projectFlags.list.invalidate({
+              projectId: project.id,
+            });
+            await trpcUtils.projectFlags.environments.invalidate({
               projectId: project.id,
               slug: modalPayload?.flag.slug,
             });
-            await trpcUtils.history.all.invalidate();
+            await trpcUtils.projectHistory.list.invalidate();
 
             onClose();
           },

@@ -43,7 +43,7 @@ const CreateProjectModal = () => {
       ]),
     );
 
-  const createProject = api.project.create.useMutation();
+  const createProject = api.projects.create.useMutation();
 
   const {
     control,
@@ -63,9 +63,9 @@ const CreateProjectModal = () => {
     createProject.mutate(data, {
       onSuccess: async (result) => {
         // Invalidate the project list cache
-        await trpcUtils.project.all.invalidate();
+        await trpcUtils.projects.list.invalidate();
         // Reset the recent projects cache
-        await trpcUtils.project.recent.invalidate();
+        await trpcUtils.projects.recent.invalidate();
         // Reset the usage cache
         await trpcUtils.subscription.usage.invalidate();
         onClose();

@@ -10,7 +10,7 @@ const KeysCard = () => {
   const t = useTranslations("setting");
   const { projectId } = useParams<{ projectId: string }>();
 
-  const { data, isLoading } = api.project.allKeys.useQuery(
+  const { data, isLoading } = api.projectKeys.list.useQuery(
     { projectId },
     { enabled: !!projectId },
   );

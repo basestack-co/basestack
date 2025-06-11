@@ -42,13 +42,13 @@ const MembersTableCard = ({ role }: Props) => {
     (state) => state.setAddProjectMemberModalOpen,
   );
 
-  const { data, isLoading } = api.project.members.useQuery(
+  const { data, isLoading } = api.projectMembers.list.useQuery(
     { projectId },
     { enabled: !!projectId },
   );
 
-  const removeUserFromProject = api.project.removeMember.useMutation();
-  const updateUserRole = api.project.updateMember.useMutation();
+  const removeUserFromProject = api.projectMembers.delete.useMutation();
+  const updateUserRole = api.projectMembers.update.useMutation();
 
   const isCurrentUserAdmin = role === Role.ADMIN;
 
@@ -67,9 +67,9 @@ const MembersTableCard = ({ role }: Props) => {
                 // the user removed himself from the project, so we redirect him to the dashboard
                 router.push("/a");
               } else {
-                await trpcUtils.project.recent.invalidate();
+                await trpcUtils.projects.recent.invalidate();
 
-                const prev = trpcUtils.project.members.getData({
+                const prev = trpcUtils.projectMembers.list.getData({
                   projectId,
                 });
 
@@ -78,7 +78,7 @@ const MembersTableCard = ({ role }: Props) => {
                     (item) => item.userId !== result.connection.userId,
                   );
 
-                  trpcUtils.project.members.setData(
+                  trpcUtils.projectMembers.list.setData(
                     {
                       projectId,
                     },
@@ -112,7 +112,7 @@ const MembersTableCard = ({ role }: Props) => {
           },
           {
             onSuccess: async (result) => {
-              const prev = trpcUtils.project.members.getData({
+              const prev = trpcUtils.projectMembers.list.getData({
                 projectId,
               });
 
@@ -128,7 +128,7 @@ const MembersTableCard = ({ role }: Props) => {
                   return item;
                 });
 
-                trpcUtils.project.members.setData(
+                trpcUtils.projectMembers.list.setData(
                   {
                     projectId,
                   },
@@ -147,7 +147,7 @@ const MembersTableCard = ({ role }: Props) => {
         );
       }
     },
-    [projectId, updateUserRole, trpcUtils.project.members, t],
+    [projectId, updateUserRole, trpcUtils.projectMembers.list, t],
   );
 
   const getTable = useMemo(() => {

@@ -30,7 +30,7 @@ export interface Props {
 const InviteForm = ({ teamId }: Props) => {
   const t = useTranslations("modal");
   const trpcUtils = api.useUtils();
-  const invite = api.team.invite.useMutation();
+  const invite = api.teamInvites.create.useMutation();
 
   const {
     control,
@@ -55,7 +55,7 @@ const InviteForm = ({ teamId }: Props) => {
         { teamId, email: input.email, role: Role.VIEWER },
         {
           onSuccess: async () => {
-            await trpcUtils.team.byId.invalidate({ teamId });
+            await trpcUtils.teams.byId.invalidate({ teamId });
             toast.success("Invitation sent successfully");
             reset();
           },

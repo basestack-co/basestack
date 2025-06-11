@@ -9,8 +9,8 @@ import { TRPCError } from "@trpc/server";
 // Types
 import { Role } from ".prisma/client";
 
-export const submissionRouter = createTRPCRouter({
-  all: protectedProcedure
+export const formSubmissionsRouter = createTRPCRouter({
+  list: protectedProcedure
     .use(
       withFormRestrictions({
         roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER, Role.VIEWER],

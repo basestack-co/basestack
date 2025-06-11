@@ -19,7 +19,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { isPending: isSessionLoading } = auth.client.useSession();
 
   const [forms, usage, subscription] = api.useQueries((t) => [
-    t.form.all(undefined, {
+    t.forms.list(undefined, {
       enabled: !isSessionLoading,
       select: (data) =>
         data?.forms.map((item) => ({

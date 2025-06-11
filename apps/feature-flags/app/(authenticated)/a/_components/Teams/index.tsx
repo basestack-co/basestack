@@ -39,7 +39,7 @@ const Teams = () => {
       ]),
     );
 
-  const { data, isLoading } = api.team.all.useQuery(undefined, {
+  const { data, isLoading } = api.teams.list.useQuery(undefined, {
     select: (teams) =>
       teams?.map((item) => ({
         id: item.id,
@@ -65,7 +65,7 @@ const Teams = () => {
       })),
   });
 
-  const deleteTeam = api.team.delete.useMutation();
+  const deleteTeam = api.teams.delete.useMutation();
 
   const onDeleteTeam = useCallback(
     (teamId: string, teamName: string) => {
@@ -89,7 +89,7 @@ const Teams = () => {
                     isOpen: false,
                   });
                   await trpcUtils.subscription.usage.invalidate();
-                  await trpcUtils.team.all.invalidate();
+                  await trpcUtils.teams.list.invalidate();
                   toast.success(t("teams.confirm.delete.status.success"));
                 },
                 onError: (error) => {

@@ -16,7 +16,7 @@ const { hasFormsPermission } = config.plans;
 const NotificationsSettingsPage = () => {
   const { formId } = useParams<{ formId: string }>();
 
-  const { data } = api.form.byId.useQuery(
+  const { data } = api.forms.byId.useQuery(
     { formId },
     {
       enabled: !!formId,

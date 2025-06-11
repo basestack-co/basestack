@@ -12,7 +12,7 @@ const ProjectLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const { projectId } = useParams<{ projectId: string }>();
 
-  const { data, isLoading, isError, error } = api.project.byId.useQuery(
+  const { data, isLoading, isError, error } = api.projects.byId.useQuery(
     { projectId },
     {
       enabled: !!projectId,

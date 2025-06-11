@@ -42,13 +42,13 @@ const MembersTableCard = ({ role }: Props) => {
     (state) => state.setAddFormMemberModalOpen,
   );
 
-  const { data, isLoading } = api.form.members.useQuery(
+  const { data, isLoading } = api.formMembers.list.useQuery(
     { formId },
     { enabled: !!formId },
   );
 
-  const removeUserFromForm = api.form.removeMember.useMutation();
-  const updateUserRole = api.form.updateMember.useMutation();
+  const removeUserFromForm = api.formMembers.delete.useMutation();
+  const updateUserRole = api.formMembers.update.useMutation();
 
   const isCurrentUserAdmin = role === Role.ADMIN;
 
@@ -67,9 +67,9 @@ const MembersTableCard = ({ role }: Props) => {
                 // the user removed himself from the project, so we redirect him to the dashboard
                 router.push("/a");
               } else {
-                await trpcUtils.form.recent.invalidate();
+                await trpcUtils.forms.recent.invalidate();
 
-                const prev = trpcUtils.form.members.getData({
+                const prev = trpcUtils.formMembers.list.getData({
                   formId,
                 });
 
@@ -78,7 +78,7 @@ const MembersTableCard = ({ role }: Props) => {
                     (item) => item.userId !== result.connection.userId,
                   );
 
-                  trpcUtils.form.members.setData(
+                  trpcUtils.formMembers.list.setData(
                     {
                       formId,
                     },
@@ -112,7 +112,7 @@ const MembersTableCard = ({ role }: Props) => {
           },
           {
             onSuccess: async (result) => {
-              const prev = trpcUtils.form.members.getData({
+              const prev = trpcUtils.formMembers.list.getData({
                 formId,
               });
 
@@ -128,7 +128,7 @@ const MembersTableCard = ({ role }: Props) => {
                   return item;
                 });
 
-                trpcUtils.form.members.setData(
+                trpcUtils.formMembers.list.setData(
                   {
                     formId,
                   },
@@ -147,7 +147,7 @@ const MembersTableCard = ({ role }: Props) => {
         );
       }
     },
-    [formId, updateUserRole, trpcUtils.form.members, t],
+    [formId, updateUserRole, trpcUtils.formMembers.list, t],
   );
 
   const getTable = useMemo(() => {
