@@ -1,16 +1,5 @@
 import { ReactElement } from "react";
-import { StateCreator } from "zustand";
-import { PersistOptions } from "zustand/middleware";
 import { TabType, SelectedView } from "types";
-
-/**
- * Middleware
- */
-
-export type Persist = (
-  config: StateCreator<Store>,
-  options: PersistOptions<Store>,
-) => StateCreator<Store>;
 
 /**
  * Modals

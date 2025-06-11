@@ -25,6 +25,3 @@ export const useStore = create<Store>()(
     },
   ),
 );
-
-// @ts-ignore
-export const clearLocalStorage = () => useStore.persist.clearStorage();

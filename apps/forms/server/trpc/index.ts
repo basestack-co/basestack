@@ -4,15 +4,11 @@ import { headers } from "next/headers";
 // Utils
 import superjson from "superjson";
 import { ZodError } from "zod";
-import { AppMode } from "utils/helpers/general";
 // Auth
 import { auth } from "server/auth";
 // Database
 import { prisma } from "server/db";
 import { getUserInForm, getUserInTeam } from "server/db/utils/user";
-import { Product, emailToId } from "@basestack/utils";
-// Vendors
-import { polar } from "@basestack/vendors";
 // types
 import { Role } from ".prisma/client";
 
@@ -76,38 +72,6 @@ export const isAuthenticated = middleware(async ({ next, ctx }) => {
     },
   });
 });
-
-export const withSubscription = middleware(
-  async ({ next, ctx, type, meta }) => {
-    const { skipSubscriptionCheck = false } = (meta ?? {}) as {
-      skipSubscriptionCheck?: boolean;
-    };
-
-    if (type === "mutation" && !skipSubscriptionCheck) {
-      const userEmail = ctx.auth?.user.email!;
-      const customerExternalId = emailToId(userEmail);
-
-      const sub = await polar.getCustomerSubscription(
-        customerExternalId,
-        Product.FORMS,
-        AppMode,
-      );
-
-      if (sub?.status !== "active") {
-        throw new TRPCError({
-          code: "PRECONDITION_FAILED",
-          message:
-            "No active subscription found. Please add your billing details to continue using the product.",
-          cause: "InvalidPlan",
-        });
-      }
-
-      return next({ ctx });
-    }
-
-    return next({ ctx });
-  },
-);
 
 export const withFormRestrictions = ({ roles }: { roles: Role[] }) =>
   middleware(async ({ next, ctx, getRawInput }) => {

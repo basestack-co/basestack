@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 // Router
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 // Components
 import { CardList, CardListItem, SettingCardContainer } from "../styles";
 import FlagsIpRules from "./_components/FlagsIpRules";

@@ -9,7 +9,6 @@ import {
   isRefererValid,
   emailToId,
   Product,
-  UsageEvent,
 } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 // Prisma

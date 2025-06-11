@@ -9,7 +9,6 @@ import { Role } from ".prisma/client";
 // Utils
 import { z } from "zod";
 import { PlanTypeId } from "@basestack/utils";
-import { AppMode } from "utils/helpers/general";
 import { withUsageUpdate, withFeatures } from "server/db/utils/subscription";
 
 export const formsRouter = createTRPCRouter({

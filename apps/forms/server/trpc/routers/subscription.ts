@@ -1,6 +1,6 @@
-import { protectedProcedure, createTRPCRouter } from "server/trpc";
+import { createTRPCRouter, protectedProcedure } from "server/trpc";
 // Utils
-import { AppEnv, config, Product, emailToId } from "@basestack/utils";
+import { AppEnv, config, emailToId, Product } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 import { z } from "zod";
 // Vendors
@@ -27,20 +27,16 @@ export const subscriptionRouter = createTRPCRouter({
 
     return usage;
   }),
-  current: protectedProcedure
-    .meta({ skipSubscriptionCheck: true })
-    .query(async ({ ctx }) => {
-      const userEmail = ctx.auth?.user.email!;
-      const customerExternalId = emailToId(userEmail);
+  current: protectedProcedure.query(async ({ ctx }) => {
+    const userEmail = ctx.auth?.user.email!;
+    const customerExternalId = emailToId(userEmail);
 
-      const subscription = await polar.getCustomerSubscription(
-        customerExternalId,
-        Product.FORMS,
-        AppMode,
-      );
-
-      return subscription;
-    }),
+    return await polar.getCustomerSubscription(
+      customerExternalId,
+      Product.FORMS,
+      AppMode,
+    );
+  }),
   meters: protectedProcedure
     .meta({ skipSubscriptionCheck: true })
     .query(async ({ ctx }) => {

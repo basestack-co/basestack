@@ -5,8 +5,6 @@ import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-// Theme
-import { useTheme } from "styled-components";
 // Components
 import Portal from "@basestack/design-system/global/Portal";
 import { Modal, InputGroup } from "@basestack/design-system";
@@ -31,7 +29,6 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 const CreateProjectModal = () => {
   const t = useTranslations("modal");
-  const theme = useTheme();
   const router = useRouter();
   const trpcUtils = api.useUtils();
   const [isModalOpen, setCreateProjectModalOpen, closeModalsOnClickOutside] =

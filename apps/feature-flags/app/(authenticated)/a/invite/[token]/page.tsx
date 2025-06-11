@@ -30,14 +30,13 @@ const InvitePage = () => {
   const { token } = useParams<{ token: string }>();
   const trpcUtils = api.useUtils();
 
-  const { data, isLoading, isError, error, ...rest } =
-    api.teamInvites.byToken.useQuery(
-      { token },
-      {
-        enabled: !!token,
-        retry: 1,
-      },
-    );
+  const { data, isLoading, isError, error } = api.teamInvites.byToken.useQuery(
+    { token },
+    {
+      enabled: !!token,
+      retry: 1,
+    },
+  );
 
   const acceptInvitation = api.teamMembers.create.useMutation();
   const removeInvite = api.teamInvites.delete.useMutation();

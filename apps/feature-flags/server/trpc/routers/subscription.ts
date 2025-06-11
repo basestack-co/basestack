@@ -1,6 +1,6 @@
-import { protectedProcedure, createTRPCRouter } from "server/trpc";
+import { createTRPCRouter, protectedProcedure } from "server/trpc";
 // Utils
-import { AppEnv, config, Product, emailToId } from "@basestack/utils";
+import { AppEnv, config, emailToId, Product } from "@basestack/utils";
 import { AppMode } from "utils/helpers/general";
 import { z } from "zod";
 // Vendors
@@ -31,59 +31,55 @@ export const subscriptionRouter = createTRPCRouter({
     const userEmail = ctx.auth?.user.email!;
     const customerExternalId = emailToId(userEmail);
 
+    return await polar.getCustomerSubscription(
+      customerExternalId,
+      Product.FLAGS,
+      AppMode,
+    );
+  }),
+  meters: protectedProcedure.query(async ({ ctx }) => {
+    const userEmail = ctx.auth?.user.email!;
+    const customerExternalId = emailToId(userEmail);
+
+    const session = await polar.client.customerSessions
+      .create({ customerExternalId })
+      .catch(() => null);
+
+    if (!session?.token) {
+      return { meters: [], benefits: [] };
+    }
+
     const subscription = await polar.getCustomerSubscription(
       customerExternalId,
       Product.FLAGS,
       AppMode,
     );
 
-    return subscription;
+    if (!subscription?.id) {
+      return { meters: [], benefits: [] };
+    }
+
+    const result = await polar.client.customerPortal.subscriptions.get(
+      { customerSession: session.token },
+      { id: subscription.id },
+    );
+
+    const meters =
+      result?.meters?.map((meter) => ({
+        id: meter.id,
+        meterId: meter.meterId,
+        name: meter.meter.name,
+        nameKey: meter.meter?.name.toLowerCase().replace(/\s+/g, "_") ?? "",
+        consumedUnits: meter.consumedUnits,
+        creditedUnits: meter.creditedUnits,
+        amount: meter.amount,
+      })) ?? [];
+
+    return {
+      meters,
+      benefits: result?.product.benefits ?? [],
+    };
   }),
-  meters: protectedProcedure
-    .meta({ skipSubscriptionCheck: true })
-    .query(async ({ ctx }) => {
-      const userEmail = ctx.auth?.user.email!;
-      const customerExternalId = emailToId(userEmail);
-
-      const session = await polar.client.customerSessions
-        .create({ customerExternalId })
-        .catch(() => null);
-
-      if (!session?.token) {
-        return { meters: [], benefits: [] };
-      }
-
-      const subscription = await polar.getCustomerSubscription(
-        customerExternalId,
-        Product.FLAGS,
-        AppMode,
-      );
-
-      if (!subscription?.id) {
-        return { meters: [], benefits: [] };
-      }
-
-      const result = await polar.client.customerPortal.subscriptions.get(
-        { customerSession: session.token },
-        { id: subscription.id },
-      );
-
-      const meters =
-        result?.meters?.map((meter) => ({
-          id: meter.id,
-          meterId: meter.meterId,
-          name: meter.meter.name,
-          nameKey: meter.meter?.name.toLowerCase().replace(/\s+/g, "_") ?? "",
-          consumedUnits: meter.consumedUnits,
-          creditedUnits: meter.creditedUnits,
-          amount: meter.amount,
-        })) ?? [];
-
-      return {
-        meters,
-        benefits: result?.product.benefits ?? [],
-      };
-    }),
   portal: protectedProcedure
     .meta({ skipSubscriptionCheck: true })
     .mutation(async ({ ctx }) => {
