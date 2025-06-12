@@ -11,7 +11,7 @@ import jobs from "./routes/jobs";
 const app = new Hono<Env>().basePath("/api/v1");
 
 app.use(
-  "/api/v1/s/*",
+  "/s/*",
   cors({
     origin: "*",
     allowMethods: ["POST"],
