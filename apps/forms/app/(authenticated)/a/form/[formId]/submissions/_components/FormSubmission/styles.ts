@@ -34,7 +34,7 @@ export const HeaderGrid = styled.div<{ columns: number }>`
   padding: 0 ${({ theme }) => theme.spacing.s5};
 `;
 
-export const HeaderButton = styled.button`
+export const HeaderButton = styled.div`
   ${flexCenter};
   min-height: 68px;
   overflow: hidden;

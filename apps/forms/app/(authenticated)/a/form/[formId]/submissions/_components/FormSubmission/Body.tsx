@@ -117,7 +117,7 @@ const Body = ({
             feature: "hasBlockIPs",
           },
           {
-            onSuccess: (result) => {
+            onSuccess: async (result) => {
               const cache = trpcUtils.forms.byId.getData({
                 formId: result.form.id,
               });
