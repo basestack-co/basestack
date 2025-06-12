@@ -8,10 +8,12 @@ import {
   Icon,
   Text,
   RangeSelector,
+  HorizontalRule,
 } from "@basestack/design-system";
 import { useTheme } from "styled-components";
 import SectionHeader from "../SectionHeader";
 import {
+  Amount,
   Container,
   ContentContainer,
   Grid,
@@ -81,11 +83,6 @@ const PricingUsage = ({
                   <Text size="large" fontWeight={500} mb={spacing.s3}>
                     {slider.title}
                   </Text>
-
-                  <Text size="small" fontWeight={500} mb={spacing.s3}>
-                    {slider.costUnit}
-                  </Text>
-
                   <RangeSelector
                     id={slider.id}
                     name={slider.id}
@@ -93,6 +90,7 @@ const PricingUsage = ({
                     max={slider.max}
                     initialValue={slider.initialValue}
                     onChange={slider.onChange}
+                    label={slider.costUnit}
                   />
                 </Box>
               ))}
@@ -100,21 +98,19 @@ const PricingUsage = ({
           </LeftContent>
 
           <Card>
-            <Text size="large" mb={spacing.s4}>
-              {card.title}
-            </Text>
-            <Flex alignItems="center" gap={spacing.s2}>
-              <Text
-                fontSize={rem("32px")}
-                lineHeight="1.2"
-                fontWeight={500}
-                flexShrink={0}
-              >
+            <Text size="large">{card.title}</Text>
+
+            <Box mt={spacing.s6}>
+              <Amount fontSize={rem("38px")} lineHeight="1.2" fontWeight={500}>
                 {card.amount}
+              </Amount>
+              <Text muted mt={spacing.s1}>
+                {card.label}
               </Text>
-              <Text muted>{card.label}</Text>
-            </Flex>
-            <Box mt={spacing.s4} mb={spacing.s6}>
+            </Box>
+
+            <HorizontalRule my={spacing.s6} />
+            <Box mb={spacing.s6}>
               <Flex flexDirection="column" as="ul" gap={spacing.s4}>
                 {card.items?.map((item, index) => (
                   <Flex
@@ -135,8 +131,9 @@ const PricingUsage = ({
                 ))}
               </Flex>
             </Box>
+
             <Box mt="auto">
-              <Flex flexDirection="column" alignItems="center" gap={spacing.s2}>
+              <Flex flexDirection="column" alignItems="center" gap={spacing.s3}>
                 <Button
                   onClick={card.button.onClick}
                   fullWidth
@@ -145,7 +142,9 @@ const PricingUsage = ({
                 >
                   {card.button.text}
                 </Button>
-                <Text muted>{card.footer}</Text>
+                <Text size="xSmall" lineHeight={rem("16px")} muted>
+                  {card.footer}
+                </Text>
               </Flex>
             </Box>
           </Card>

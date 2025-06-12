@@ -10,26 +10,26 @@ export interface RangeSelectorProps {
   id?: string;
   name?: string;
   initialValue?: number;
-  decimalPlaces?: number;
   min?: string;
   max?: string;
   step?: number;
   displayValue?: string;
   onChange?: (id: string, value: number) => void;
   inputSize?: number;
+  label?: string;
 }
 
 const RangeSelector: React.FC<RangeSelectorProps> = ({
   id,
   name,
   initialValue = 0,
-  decimalPlaces = 0,
   min = "0",
   max = "100",
   step = "1",
   displayValue = true,
   onChange,
   inputSize = 24,
+  label,
 }) => {
   const { isDarkMode, spacing, colors } = useTheme();
   const [value, setValue] = useState<number>(initialValue);
@@ -45,18 +45,26 @@ const RangeSelector: React.FC<RangeSelectorProps> = ({
   return (
     <Flex flexDirection="column">
       {displayValue && (
-        <Text
-          size="xLarge"
-          fontWeight={500}
-          color={isDarkMode ? colors.blue300 : colors.primary}
-          mb={spacing.s2}
-        >
-          {new Intl.NumberFormat("en-US", {
-            notation: "compact",
-            maximumFractionDigits: 1,
-            minimumFractionDigits: 0,
-          }).format(value)}
-        </Text>
+        <Box mb={spacing.s2}>
+          <Flex
+            gap={spacing.s2}
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Text
+              size="xLarge"
+              fontWeight={500}
+              color={isDarkMode ? colors.blue300 : colors.primary}
+            >
+              {new Intl.NumberFormat("en-US", {
+                notation: "compact",
+                maximumFractionDigits: 1,
+                minimumFractionDigits: 0,
+              }).format(value)}
+            </Text>
+            {label && <Text muted>{label}</Text>}
+          </Flex>
+        </Box>
       )}
       <Box display="flex" alignItems="center" height={rem(`${inputSize}px`)}>
         <StyledRange

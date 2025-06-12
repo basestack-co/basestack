@@ -166,7 +166,7 @@ const ProductFormsPage = () => {
             id: "2",
             text: t("navigation.auth.sign-in.github"),
             href: `${urls.app.production.forms}/auth/sign-in?provider=github`,
-            isExternal: false,
+            isExternal: true,
             icon: "github",
             variant: ButtonVariant.Secondary,
           },

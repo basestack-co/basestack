@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { flexbox, FlexboxProps, ResponsiveValue } from "styled-system";
 
 export interface FlexProps extends FlexboxProps {
@@ -37,13 +37,22 @@ const Flex = styled.div.withConfig({
   ${flexbox};
 
   ${({ gap }) =>
-    gap !== null && `gap: ${typeof gap === "number" ? `${gap}px` : gap};`}
+    gap &&
+    css`
+      gap: ${typeof gap === "number" ? `${gap}px` : gap};
+    `}
   ${({ rowGap }) =>
-    rowGap !== null &&
-    `row-gap: ${typeof rowGap === "number" ? `${rowGap}px` : rowGap};`}
+    rowGap &&
+    css`
+      row-gap: ${typeof rowGap === "number" ? `${rowGap}px` : rowGap};
+    `}
   ${({ columnGap }) =>
-    columnGap !== null &&
-    `column-gap: ${typeof columnGap === "number" ? `${columnGap}px` : columnGap};`}
+    columnGap &&
+    css`
+      column-gap: ${typeof columnGap === "number"
+        ? `${columnGap}px`
+        : columnGap};
+    `}
 `;
 
 export default Flex;

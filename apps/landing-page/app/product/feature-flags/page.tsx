@@ -143,8 +143,7 @@ const ProductFeatureFlagsPage = () => {
             id: "1",
             text: t("navigation.auth.sign-in.google"),
             href: `${urls.app.production.flags}/auth/sign-in?provider=google`,
-            // /api/auth/callback/github
-            isExternal: false,
+            isExternal: true,
             icon: "google",
             variant: ButtonVariant.Primary,
           },
@@ -152,7 +151,7 @@ const ProductFeatureFlagsPage = () => {
             id: "2",
             text: t("navigation.auth.sign-in.github"),
             href: `${urls.app.production.flags}/auth/sign-in?provider=github`,
-            isExternal: false,
+            isExternal: true,
             icon: "github",
             variant: ButtonVariant.Secondary,
           },

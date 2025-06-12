@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { rem } from "polished";
+import { Text } from "@basestack/design-system";
 
 export const Container = styled.section`
   display: flex;
@@ -41,5 +42,13 @@ export const Grid = styled.div`
 
   @media screen and ${({ theme }) => theme.device.max.sm} {
     grid-template-columns: 1fr;
+  }
+`;
+
+export const Amount = styled(Text)`
+  font-size: ${rem("38px")};
+
+  @media screen and ${({ theme }) => theme.device.max.sm} {
+    font-size: ${rem("32px")};
   }
 `;
