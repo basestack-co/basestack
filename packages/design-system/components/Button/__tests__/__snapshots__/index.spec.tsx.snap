@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Button tests should render Button correctly 1`] = `
 <DocumentFragment>
@@ -29,11 +29,6 @@ exports[`Button tests should render Button correctly 1`] = `
 .c0 .material-symbols-sharp,
 .c0 .material-symbols-rounded {
   color: inherit;
-}
-
-.c0 svg,
-.c0 svg g {
-  fill: #FFFFFF;
 }
 
 .c0:disabled {
@@ -86,11 +81,6 @@ exports[`Button tests should render Button link 1`] = `
   color: inherit;
 }
 
-.c0 svg,
-.c0 svg g {
-  fill: #FFFFFF;
-}
-
 .c0:disabled {
   cursor: default;
   opacity: 0.6;
@@ -120,7 +110,7 @@ exports[`Button tests should render Button with icon 1`] = `
 }
 
 .c2 {
-  color: #000000;
+  color: #FFFFFF;
   font-size: 1.5rem;
 }
 
@@ -151,11 +141,6 @@ exports[`Button tests should render Button with icon 1`] = `
 .c0 .material-symbols-sharp,
 .c0 .material-symbols-rounded {
   color: inherit;
-}
-
-.c0 svg,
-.c0 svg g {
-  fill: #FFFFFF;
 }
 
 .c0:disabled {
@@ -222,11 +207,6 @@ exports[`Button tests should render Button with styled system utilities 1`] = `
   color: inherit;
 }
 
-.c0 svg,
-.c0 svg g {
-  fill: #FFFFFF;
-}
-
 .c0:disabled {
   cursor: default;
   opacity: 0.6;
@@ -283,11 +263,6 @@ exports[`Button tests should render Danger Button 1`] = `
   color: inherit;
 }
 
-.c0 svg,
-.c0 svg g {
-  fill: #E11900;
-}
-
 .c0:disabled {
   cursor: default;
   opacity: 0.6;
@@ -342,11 +317,6 @@ exports[`Button tests should render DangerFilled Button 1`] = `
   color: inherit;
 }
 
-.c0 svg,
-.c0 svg g {
-  fill: #FFFFFF;
-}
-
 .c0:disabled {
   cursor: default;
   opacity: 0.6;
@@ -399,11 +369,6 @@ exports[`Button tests should render Neutral Button 1`] = `
 .c0 .material-symbols-sharp,
 .c0 .material-symbols-rounded {
   color: inherit;
-}
-
-.c0 svg,
-.c0 svg g {
-  fill: #000000;
 }
 
 .c0:disabled {
@@ -463,11 +428,6 @@ exports[`Button tests should render Outlined Button 1`] = `
   color: inherit;
 }
 
-.c0 svg,
-.c0 svg g {
-  fill: #000000;
-}
-
 .c0:disabled {
   cursor: default;
   opacity: 0.6;
@@ -523,11 +483,6 @@ exports[`Button tests should render PrimaryNeutral Button 1`] = `
   color: inherit;
 }
 
-.c0 svg,
-.c0 svg g {
-  fill: #000000;
-}
-
 .c0:disabled {
   cursor: default;
   opacity: 0.6;
@@ -578,11 +533,6 @@ exports[`Button tests should render Secondary Button 1`] = `
   color: inherit;
 }
 
-.c0 svg,
-.c0 svg g {
-  fill: #FFFFFF;
-}
-
 .c0:disabled {
   cursor: default;
   opacity: 0.6;
@@ -631,11 +581,6 @@ exports[`Button tests should render Tertiary Button 1`] = `
 .c0 .material-symbols-sharp,
 .c0 .material-symbols-rounded {
   color: inherit;
-}
-
-.c0 svg,
-.c0 svg g {
-  fill: #000000;
 }
 
 .c0:disabled {

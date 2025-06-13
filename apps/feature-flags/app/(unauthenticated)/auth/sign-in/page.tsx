@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 // Vendors
 import { auth } from "@basestack/vendors";
 // Locales
@@ -31,7 +31,7 @@ const Link = styled.a`
   }
 `;
 
-const SignInPage = () => {
+const SignIn = () => {
   const t = useTranslations("auth");
   const { data: session, isPending: isSessionLoading } =
     auth.client.useSession();
@@ -104,6 +104,14 @@ const SignInPage = () => {
           : []),
       ]}
     />
+  );
+};
+
+const SignInPage = () => {
+  return (
+    <Suspense>
+      <SignIn />
+    </Suspense>
   );
 };
 

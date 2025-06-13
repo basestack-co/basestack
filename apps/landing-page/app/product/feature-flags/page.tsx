@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Fragment, useCallback, useMemo, useState } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 import {
   config,
   config as defaults,
@@ -17,7 +17,6 @@ import {
   Questions,
   Slider,
   Code,
-  Pricing,
   ProductNavigation,
   MiniCards,
   BentoCards,
@@ -35,7 +34,7 @@ const { urls } = defaults;
 const currencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
-  notation: "compact",
+  maximumFractionDigits: 0,
 });
 
 const ProductFeatureFlagsPage = () => {
