@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Fragment, useEffect, useMemo } from "react";
+import React, { Fragment, useEffect } from "react";
 // Router
 import { useParams, useRouter } from "next/navigation";
 // Toast
@@ -12,7 +12,7 @@ const ProjectLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const { projectId } = useParams<{ projectId: string }>();
 
-  const { data, isLoading, isError, error } = api.project.byId.useQuery(
+  const { data, isLoading, isError, error } = api.projects.byId.useQuery(
     { projectId },
     {
       enabled: !!projectId,

@@ -1,15 +1,4 @@
 import { ReactElement } from "react";
-import { StateCreator } from "zustand";
-import { PersistOptions } from "zustand/middleware";
-
-/**
- * Middleware
- */
-
-export type Persist = (
-  config: StateCreator<Store>,
-  options: PersistOptions<Store>,
-) => StateCreator<Store>;
 
 /**
  * Modals

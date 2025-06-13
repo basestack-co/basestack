@@ -31,7 +31,7 @@ const FlagsPage = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const { projectId } = useParams<{ projectId: string }>();
 
-  const { data: project } = api.project.byId.useQuery(
+  const { data: project } = api.projects.byId.useQuery(
     { projectId },
     {
       enabled: !!projectId,

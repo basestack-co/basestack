@@ -29,7 +29,7 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
   ) => {
     const theme = useTheme();
 
-    const { data } = api.flag.environments.useQuery(
+    const { data } = api.projectFlags.environments.useQuery(
       {
         projectId,
         slug,

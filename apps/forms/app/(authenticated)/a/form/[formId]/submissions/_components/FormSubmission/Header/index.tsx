@@ -43,7 +43,11 @@ const Header = ({
         <HeaderCell hasBorder>
           <Checkbox {...checkbox} />
         </HeaderCell>
-        <HeaderButton onClick={onClick}>
+        <HeaderButton
+          onClick={onClick}
+          aria-label="Open submission"
+          role="button"
+        >
           <Grid
             data={data}
             isVisible={!isOpen && isGridVisible}

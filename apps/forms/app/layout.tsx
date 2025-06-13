@@ -1,5 +1,4 @@
 import React from "react";
-import Script from "next/script";
 // Registries
 import Registry from "utils/registry";
 // Types

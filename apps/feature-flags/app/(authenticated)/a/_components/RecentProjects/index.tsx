@@ -24,7 +24,7 @@ const RecentProjects = () => {
     (state) => state.setCreateProjectModalOpen,
   );
 
-  const { data, isLoading } = api.project.recent.useQuery(undefined, {
+  const { data, isLoading } = api.projects.recent.useQuery(undefined, {
     select: (projects) =>
       projects?.map((item) => ({
         id: item.id,

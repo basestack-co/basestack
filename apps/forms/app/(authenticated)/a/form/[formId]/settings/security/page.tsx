@@ -18,7 +18,7 @@ const { hasFormsPermission } = config.plans;
 const SecuritySettingsPage = () => {
   const { formId } = useParams<{ formId: string }>();
 
-  const { data } = api.form.byId.useQuery(
+  const { data } = api.forms.byId.useQuery(
     { formId },
     {
       enabled: !!formId,

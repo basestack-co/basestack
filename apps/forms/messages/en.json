@@ -660,9 +660,10 @@
       "setting": {
         "title": "Settings",
         "0": "General",
-        "1": "Security",
-        "2": "Customization",
-        "3": "Notifications"
+        "1": "Members",
+        "2": "Security",
+        "3": "Customization",
+        "4": "Notifications"
       }
     },
     "common": {

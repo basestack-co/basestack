@@ -43,13 +43,13 @@ const AddFormMemberModal = () => {
     );
 
   const [team, members] = api.useQueries((t) => [
-    t.team.all(undefined, {
+    t.teams.list(undefined, {
       enabled: isModalOpen && !!formId,
     }),
-    t.form.members({ formId }, { enabled: isModalOpen && !!formId }),
+    t.formMembers.list({ formId }, { enabled: isModalOpen && !!formId }),
   ]);
 
-  const addUserToForm = api.form.addMember.useMutation();
+  const addUserToForm = api.formMembers.create.useMutation();
 
   const {
     control,
@@ -113,11 +113,11 @@ const AddFormMemberModal = () => {
           { formId, userId: input.member.userId, role: input.member.role },
           {
             onSuccess: async () => {
-              await trpcUtils.form.recent.invalidate();
-              await trpcUtils.form.members.invalidate();
+              await trpcUtils.forms.recent.invalidate();
+              await trpcUtils.formMembers.list.invalidate({ formId });
               onClose();
             },
-            onError: (error) => {
+            onError: (error: any) => {
               toast.error(error.message);
             },
           },

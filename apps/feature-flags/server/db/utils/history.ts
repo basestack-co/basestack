@@ -7,14 +7,14 @@ import { HistoryType } from "@basestack/ui";
 import { RouterOutputs } from "utils/trpc/react";
 
 export const pathActionMap: { [id: string]: string } = {
-  "project.create": HistoryAction.createProject,
-  "project.update": HistoryAction.updateProject,
-  "environment.create": HistoryAction.createEnvironment,
-  "environment.update": HistoryAction.updateEnvironment,
-  "environment.delete": HistoryAction.deleteEnvironment,
-  "flag.create": HistoryAction.createFlag,
-  "flag.update": HistoryAction.updateFlag,
-  "flag.delete": HistoryAction.deleteFlag,
+  "projects.create": HistoryAction.createProject,
+  "projects.update": HistoryAction.updateProject,
+  "projectEnvironments.create": HistoryAction.createEnvironment,
+  "projectEnvironments.update": HistoryAction.updateEnvironment,
+  "projectEnvironments.delete": HistoryAction.deleteEnvironment,
+  "projectFlags.create": HistoryAction.createFlag,
+  "projectFlags.update": HistoryAction.updateFlag,
+  "projectFlags.delete": HistoryAction.deleteFlag,
 };
 
 export const typeMap: { [id: string]: HistoryType } = {
@@ -77,7 +77,7 @@ const createFlagPayload = (
   input: FlagInput,
   path: string,
 ): FlagPayload => {
-  const isDelete = path === "flag.delete";
+  const isDelete = path === "projectFlags.delete";
   const { flags } = data;
   const { environments, flagSlug } = input;
 
@@ -85,7 +85,7 @@ const createFlagPayload = (
     ? { slug: "", description: "" }
     : flags[0] || { slug: "", description: "" };
 
-  const ids = !isDelete ? flags.map(({ id }) => id) : [];
+  const ids = !isDelete ? flags?.map(({ id }) => id) : [];
 
   return {
     flag: {
@@ -111,19 +111,19 @@ export const createProjectPayload = (data: any) => {
 
 export const createPayload = (path: string, data: any, input: any) => {
   switch (path) {
-    case "project.create":
-    case "project.update":
-    case "project.delete":
+    case "projects.create":
+    case "projects.update":
+    case "projects.delete":
       return createProjectPayload(data);
 
-    case "environment.create":
-    case "environment.update":
-    case "environment.delete":
+    case "projectEnvironments.create":
+    case "projectEnvironments.update":
+    case "projectEnvironments.delete":
       return createEnvironmentPayload(data);
 
-    case "flag.create":
-    case "flag.update":
-    case "flag.delete":
+    case "projectFlags.create":
+    case "projectFlags.update":
+    case "projectFlags.delete":
       return createFlagPayload(data, input, path);
 
     default:
@@ -143,7 +143,7 @@ export const createHistory = async (
   if (!action) return;
 
   const projectId =
-    path === "project.create" ? data.project.id : (input.projectId ?? "");
+    path === "projects.create" ? data.project.id : (input.projectId ?? "");
 
   if (!projectId) return;
 
@@ -170,7 +170,7 @@ export const createHistory = async (
 };
 
 export const getHistoryItemDetails = (
-  item: RouterOutputs["history"]["all"]["history"][0],
+  item: RouterOutputs["projectHistory"]["list"]["history"][0],
 ): HistoryItemDetails => {
   const { payload, action, createdAt } = item;
   const { user, flag } = payload as any;

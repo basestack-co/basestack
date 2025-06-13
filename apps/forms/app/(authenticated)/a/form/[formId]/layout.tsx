@@ -12,7 +12,7 @@ const FormLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const { formId } = useParams<{ formId: string }>();
 
-  const { data, isLoading, isError, error } = api.form.byId.useQuery(
+  const { data, isLoading, isError, error } = api.forms.byId.useQuery(
     { formId },
     {
       enabled: !!formId,

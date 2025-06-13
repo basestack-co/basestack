@@ -39,14 +39,14 @@ const EnvironmentsCard = ({ role }: Props) => {
   );
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
 
-  const { data, isLoading } = api.environment.all.useQuery(
+  const { data, isLoading } = api.projectEnvironments.list.useQuery(
     { projectId },
     {
       enabled: !!projectId,
     },
   );
 
-  const deleteEnvironment = api.environment.delete.useMutation();
+  const deleteEnvironment = api.projectEnvironments.delete.useMutation();
   const isCurrentUserAdmin = role === Role.ADMIN;
   const environments = useMemo(
     () => (!isLoading && !!data ? data.environments : []),
@@ -84,9 +84,9 @@ const EnvironmentsCard = ({ role }: Props) => {
           {
             onSuccess: async (result) => {
               if (result) {
-                await trpcUtils.environment.all.invalidate();
-                await trpcUtils.project.allKeys.invalidate({ projectId });
-                await trpcUtils.flag.environments.invalidate();
+                await trpcUtils.projectEnvironments.list.invalidate();
+                await trpcUtils.projectKeys.list.invalidate({ projectId });
+                await trpcUtils.projectFlags.list.invalidate();
               }
             },
           },

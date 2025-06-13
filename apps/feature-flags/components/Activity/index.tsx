@@ -20,7 +20,7 @@ const Activity = () => {
 
   const project = useMemo(() => {
     if (projectId) {
-      const cache = trpcUtils.project.all.getData();
+      const cache = trpcUtils.projects.list.getData();
 
       return ((cache && cache.projects) || []).find(
         (project) => project.id === projectId,
@@ -30,7 +30,7 @@ const Activity = () => {
     return null;
   }, [projectId, trpcUtils]);
 
-  const { data, isLoading } = api.history.all.useQuery(
+  const { data, isLoading } = api.projectHistory.list.useQuery(
     {
       flagId: null,
       range,

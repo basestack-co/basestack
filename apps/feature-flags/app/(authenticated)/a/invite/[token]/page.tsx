@@ -30,17 +30,16 @@ const InvitePage = () => {
   const { token } = useParams<{ token: string }>();
   const trpcUtils = api.useUtils();
 
-  const { data, isLoading, isError, error, ...rest } =
-    api.team.inviteDetails.useQuery(
-      { token },
-      {
-        enabled: !!token,
-        retry: 1,
-      },
-    );
+  const { data, isLoading, isError, error } = api.teamInvites.byToken.useQuery(
+    { token },
+    {
+      enabled: !!token,
+      retry: 1,
+    },
+  );
 
-  const acceptInvitation = api.team.acceptInvitation.useMutation();
-  const removeInvite = api.team.removeInvite.useMutation();
+  const acceptInvitation = api.teamMembers.create.useMutation();
+  const removeInvite = api.teamInvites.delete.useMutation();
 
   const calculateExpiration = useCallback(() => {
     let expirationMessage = t("team.expires-at.not-available");
@@ -67,7 +66,7 @@ const InvitePage = () => {
       { token },
       {
         onSuccess: async () => {
-          await trpcUtils.team.all.invalidate();
+          await trpcUtils.teams.list.invalidate();
 
           toast.success(t("team.toast.join.success"));
 
@@ -78,7 +77,7 @@ const InvitePage = () => {
         },
       },
     );
-  }, [acceptInvitation, router, t, token, trpcUtils.team.all]);
+  }, [acceptInvitation, router, t, token, trpcUtils.teams.list]);
 
   const onDecline = useCallback(() => {
     if (data?.invitationId) {
@@ -88,8 +87,8 @@ const InvitePage = () => {
         },
         {
           onSuccess: async () => {
-            await trpcUtils.team.all.invalidate();
-            toast.success(t("team.toast.join.success"));
+            await trpcUtils.teams.list.invalidate();
+            toast.success(t("team.toast.decline.success"));
 
             router.push("/a");
           },
@@ -99,7 +98,7 @@ const InvitePage = () => {
         },
       );
     }
-  }, [data?.invitationId, removeInvite, router, t, trpcUtils.team.all]);
+  }, [data?.invitationId, removeInvite, router, t, trpcUtils.teams.list]);
 
   useEffect(() => {
     if (!isLoading && isError) {

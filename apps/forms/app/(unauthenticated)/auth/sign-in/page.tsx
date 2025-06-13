@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Provider, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 // Libs
 import { auth } from "@basestack/vendors";
 // Locales

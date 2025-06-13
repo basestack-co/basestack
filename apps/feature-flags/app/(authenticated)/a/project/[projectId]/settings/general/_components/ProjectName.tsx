@@ -37,7 +37,7 @@ export interface Props {
 const ProjectNameCard = ({ role, name }: Props) => {
   const t = useTranslations("setting");
   const trpcUtils = api.useUtils();
-  const updateProject = api.project.update.useMutation();
+  const updateProject = api.projects.update.useMutation();
   const { projectId } = useParams<{ projectId: string }>();
   const isAdmin = role === Role.ADMIN;
 
@@ -63,12 +63,12 @@ const ProjectNameCard = ({ role, name }: Props) => {
       {
         onSuccess: (result) => {
           // Get all the projects on the cache
-          const cacheAllProjects = trpcUtils.project.all.getData();
+          const cacheAllProjects = trpcUtils.projects.list.getData();
 
           if (cacheAllProjects && cacheAllProjects.projects) {
             // Update the cache with the new data
             // This updates in the navigation list
-            trpcUtils.project.all.setData(undefined, {
+            trpcUtils.projects.list.setData(undefined, {
               projects: cacheAllProjects.projects.map((project) =>
                 project.id === result.project.id
                   ? { ...project, name: result.project.name }
@@ -77,13 +77,13 @@ const ProjectNameCard = ({ role, name }: Props) => {
             });
           }
 
-          const cacheProject = trpcUtils.project.byId.getData({
+          const cacheProject = trpcUtils.projects.byId.getData({
             projectId: result.project.id,
           });
 
           if (cacheProject) {
             // Updates the current active project in the cache
-            trpcUtils.project.byId.setData(
+            trpcUtils.projects.byId.setData(
               { projectId: result.project.id },
               {
                 ...cacheProject,

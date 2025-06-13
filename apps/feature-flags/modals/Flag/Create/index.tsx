@@ -47,9 +47,9 @@ const CreateFlagModal = () => {
     setValue,
   } = useFlagForm({ isModalOpen, projectId });
 
-  const createFlag = api.flag.create.useMutation();
+  const createFlag = api.projectFlags.create.useMutation();
 
-  const { data, isLoading } = api.environment.all.useQuery(
+  const { data, isLoading } = api.projectEnvironments.list.useQuery(
     { projectId },
     {
       enabled: !!projectId,
@@ -75,8 +75,10 @@ const CreateFlagModal = () => {
         {
           onSuccess: async () => {
             // Refresh the flag list and close the modal
-            await trpcUtils.flag.all.invalidate({ projectId: project.id });
-            await trpcUtils.project.recent.invalidate();
+            await trpcUtils.projectFlags.list.invalidate({
+              projectId: project.id,
+            });
+            await trpcUtils.projects.recent.invalidate();
             // Reset the usage cache
             await trpcUtils.subscription.usage.invalidate();
             onClose();

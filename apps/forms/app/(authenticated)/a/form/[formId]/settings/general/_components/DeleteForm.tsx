@@ -20,7 +20,7 @@ const DeleteFormCard = ({ name }: Props) => {
   const router = useRouter();
   const { formId } = useParams<{ formId: string }>();
   const trpcUtils = api.useUtils();
-  const deleteProject = api.form.delete.useMutation();
+  const deleteProject = api.forms.delete.useMutation();
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
 
   const onDeleteForm = () => {
@@ -31,7 +31,7 @@ const DeleteFormCard = ({ name }: Props) => {
       {
         onSuccess: async (result) => {
           // Get all the forms on the cache
-          const prevAllForms = trpcUtils.form.all.getData();
+          const prevAllForms = trpcUtils.forms.list.getData();
 
           if (prevAllForms?.forms) {
             // Find the form and remove from the list
@@ -40,11 +40,11 @@ const DeleteFormCard = ({ name }: Props) => {
             );
 
             // Update the cache with the new data
-            trpcUtils.form.all.setData(undefined, { forms });
+            trpcUtils.forms.list.setData(undefined, { forms });
           }
 
           // Get all the recent forms on the cache
-          const prevRecentForms = trpcUtils.form.recent.getData();
+          const prevRecentForms = trpcUtils.forms.recent.getData();
 
           if (prevRecentForms) {
             // Find the form and remove from the list
@@ -53,7 +53,7 @@ const DeleteFormCard = ({ name }: Props) => {
             );
 
             // Update the cache with the new data
-            trpcUtils.form.recent.setData(undefined, forms);
+            trpcUtils.forms.recent.setData(undefined, forms);
             // Reset the usage cache
             await trpcUtils.subscription.usage.invalidate();
           }

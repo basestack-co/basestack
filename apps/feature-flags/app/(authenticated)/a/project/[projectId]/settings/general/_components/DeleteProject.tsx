@@ -21,7 +21,7 @@ const DeleteProjectCard = ({ name }: Props) => {
   const t = useTranslations("setting");
   const router = useRouter();
   const trpcUtils = api.useUtils();
-  const deleteProject = api.project.delete.useMutation();
+  const deleteProject = api.projects.delete.useMutation();
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
   const { projectId } = useParams<{ projectId: string }>();
 
@@ -33,7 +33,7 @@ const DeleteProjectCard = ({ name }: Props) => {
       {
         onSuccess: async (result) => {
           // Get all the projects on the cache
-          const prev = trpcUtils.project.all.getData();
+          const prev = trpcUtils.projects.list.getData();
 
           if (prev && prev.projects) {
             // Find the project and remove from the list
@@ -42,10 +42,10 @@ const DeleteProjectCard = ({ name }: Props) => {
             );
 
             // Update the cache with the new data
-            trpcUtils.project.all.setData(undefined, { projects });
+            trpcUtils.projects.list.setData(undefined, { projects });
 
             // Reset the recent projects cache
-            await trpcUtils.project.recent.invalidate();
+            await trpcUtils.projects.recent.invalidate();
             // Reset the usage cache
             await trpcUtils.subscription.usage.invalidate();
           }

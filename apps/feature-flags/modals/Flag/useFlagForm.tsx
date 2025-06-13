@@ -47,7 +47,7 @@ const useFlagForm = ({
 
   const project = useMemo(() => {
     if (isModalOpen && projectId) {
-      const cache = trpcUtils.project.all.getData();
+      const cache = trpcUtils.projects.list.getData();
 
       return ((cache && cache.projects) || []).find(
         (project) => project.id === projectId,
