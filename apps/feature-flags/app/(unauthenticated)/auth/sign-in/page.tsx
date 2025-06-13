@@ -1,17 +1,20 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 // Vendors
 import { auth } from "@basestack/vendors";
 // Locales
 import { useTranslations } from "next-intl";
 // Router
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 // UI
 import { SignIn as SignInComponent } from "@basestack/ui";
 import { BannerVariant } from "@basestack/design-system";
 // Types
-import { getProvidersList } from "@basestack/ui/components/SignIn";
+import {
+  getProvidersList,
+  SignInProviders,
+} from "@basestack/ui/components/SignIn";
 // Utils
 import { clearAllBrowserStorage, config } from "@basestack/utils";
 // Styles
@@ -28,12 +31,14 @@ const Link = styled.a`
   }
 `;
 
-const SignInPage = () => {
+const SignIn = () => {
   const t = useTranslations("auth");
   const { data: session, isPending: isSessionLoading } =
     auth.client.useSession();
   const router = useRouter();
   const [error, setError] = useState("");
+  const searchParams = useSearchParams();
+  const provider = searchParams.get("provider") as SignInProviders;
 
   useEffect(() => {
     if (isSessionLoading) return;
@@ -54,6 +59,12 @@ const SignInPage = () => {
       setError(errorParam);
     }
   }, []);
+
+  useEffect(() => {
+    if (provider) {
+      auth.client.signIn.social({ provider });
+    }
+  }, [provider]);
 
   return (
     <SignInComponent
@@ -93,6 +104,14 @@ const SignInPage = () => {
           : []),
       ]}
     />
+  );
+};
+
+const SignInPage = () => {
+  return (
+    <Suspense>
+      <SignIn />
+    </Suspense>
   );
 };
 

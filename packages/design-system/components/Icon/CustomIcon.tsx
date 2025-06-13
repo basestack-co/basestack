@@ -1,10 +1,12 @@
 import React from "react";
 import { useTheme } from "styled-components";
 import { CustomIconCompProps, CustomIconProps, CustomIconNames } from "./types";
-import GithubIcon from "./icons/GithubIcon";
+import { GoogleIcon, GoogleColorsIcon, GithubIcon } from "./icons";
 
 const iconMap: Record<CustomIconNames, React.ComponentType<CustomIconProps>> = {
   github: GithubIcon,
+  google: GoogleIcon,
+  google_colors: GoogleColorsIcon,
 };
 
 // Convert the keys of the iconMap into an array

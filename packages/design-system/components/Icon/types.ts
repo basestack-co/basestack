@@ -21,7 +21,7 @@ export interface IconProps extends SpaceProps {
   muted?: boolean;
 }
 
-export type CustomIconNames = "github";
+export type CustomIconNames = "github" | "google" | "google_colors";
 
 export interface CustomIconProps {
   size: number;

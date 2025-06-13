@@ -53,6 +53,12 @@
       "self-hosting": {
         "title": "Guide for Self Hosting"
       }
+    },
+    "auth": {
+      "sign-in": {
+        "google": "Sign in with Google",
+        "github": "Sign in with Github"
+      }
     }
   },
   "footer": {
@@ -576,9 +582,23 @@
       }
     },
     "pricing": {
-      "caption": "Plans",
+      "caption": "Simple & Fair",
       "title": "Flexible Pricing for Developers & Teams",
-      "description": "Choose a plan that fits your needs whether you're an individual developer or part of a growing team. {product} offers transparent, affordable pricing to support your projects at every stage.",
+      "description": "{product} offers transparent, affordable pricing to support your projects at every stage.",
+      "usage": {
+        "title": "Estimate Your Monthly Cost",
+        "label": "Per month + Additional Usage",
+        "unit": "${value}/Unit",
+        "footer": "Prices exclude applicable sales taxes (e.g., VAT). A $5 minimum spend applies and is fully credited toward your usage.",
+        "count": {
+          "api_requests": "API Requests",
+          "email_notification": "Email Notifications",
+          "form_submission": "Form Submissions",
+          "spam_check": "Spam Checks",
+          "webhook_trigger": "Webhook Triggers",
+          "integration_call": "Integration Calls"
+        }
+      },
       "segment": {
         "monthly": "Monthly",
         "yearly": "Yearly",

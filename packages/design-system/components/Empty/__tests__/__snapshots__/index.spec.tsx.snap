@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Empty tests should render Empty correctly 1`] = `
 <DocumentFragment>
@@ -64,11 +64,6 @@ exports[`Empty tests should render Empty correctly 1`] = `
 .c7 .material-symbols-sharp,
 .c7 .material-symbols-rounded {
   color: inherit;
-}
-
-.c7 svg,
-.c7 svg g {
-  fill: #FFFFFF;
 }
 
 .c7:disabled {

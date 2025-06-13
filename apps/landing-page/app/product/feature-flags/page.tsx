@@ -1,8 +1,15 @@
 "use client";
 
-import React, { Fragment } from "react";
-import { config as defaults, formatNumber } from "@basestack/utils";
+import React, { Fragment, useMemo, useState } from "react";
+import {
+  config,
+  config as defaults,
+  formatNumber,
+  PlanTypeId,
+  Product,
+} from "@basestack/utils";
 // Components
+import { ButtonVariant } from "@basestack/design-system";
 import {
   Hero,
   Banner,
@@ -10,10 +17,10 @@ import {
   Questions,
   Slider,
   Code,
-  Pricing,
   ProductNavigation,
   MiniCards,
   BentoCards,
+  PricingUsage,
 } from "components";
 // Icons
 import { JavascriptIcon, JsonIcon, ReactIcon } from "components/Code/icons";
@@ -22,11 +29,68 @@ import { useTheme } from "styled-components";
 // Locales
 import { useTranslations } from "next-intl";
 
-const { plans, urls } = defaults;
+const { urls } = defaults;
+
+const currencyFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+});
 
 const ProductFeatureFlagsPage = () => {
   const t = useTranslations();
   const { isDarkMode } = useTheme();
+  const [usage, setUsage] = useState<Record<string, number>>({});
+
+  const minimumSpend = useMemo(() => {
+    const plan = config.plans.getPlan(Product.FLAGS, PlanTypeId.USAGE);
+    return plan.price.monthly.amount;
+  }, []);
+
+  const estimatedCost = useMemo(() => {
+    const cost = config.plans.getMetersEstimatedCost(
+      Product.FLAGS,
+      PlanTypeId.USAGE,
+      usage,
+    );
+
+    const valueToFormat = cost !== 0 ? cost : minimumSpend;
+
+    return currencyFormatter.format(valueToFormat);
+  }, [usage, minimumSpend]);
+
+  const getPricingSliders = useMemo(() => {
+    const meters = config.plans.getPlanMeters(Product.FLAGS, PlanTypeId.USAGE);
+
+    const values: Record<
+      string,
+      { min: string; max: string; initialValue: number }
+    > = {
+      api_requests: {
+        min: "500000",
+        max: "1000000000",
+        initialValue: 500000,
+      },
+      email_notification: {
+        min: "0",
+        max: "100000",
+        initialValue: 0,
+      },
+    };
+
+    return meters.map((meter) => ({
+      id: meter.key,
+      title: t(`common.pricing.usage.count.${meter.key}` as any),
+      description: t(`common.pricing.usage.count.${meter.key}` as any),
+      costUnit: t("common.pricing.usage.unit", {
+        value: meter.costUnit,
+      }),
+      onChange: (id: string, value: number) => {
+        setUsage((prev) => ({ ...prev, [id]: value }));
+      },
+      ...values[meter.key],
+    }));
+  }, [t, setUsage]);
 
   return (
     <Fragment>
@@ -38,7 +102,7 @@ const ProductFeatureFlagsPage = () => {
             href: "#platform",
             icon: "flare",
           },
-          /* {
+          {
             text: t("navigation.product.pricing.title"),
             href: "#pricing",
             icon: "credit_card",
@@ -61,8 +125,8 @@ const ProductFeatureFlagsPage = () => {
           },
         ]}
         button={{
-          text: t("navigation.product.get-started.title"),
-          href: urls.app.production.flags,
+          text: t("navigation.auth.sign-in.google"),
+          href: `${urls.app.production.flags}/auth/sign-in?provider=google`,
         }}
       />
       <Hero
@@ -76,16 +140,19 @@ const ProductFeatureFlagsPage = () => {
         actions={[
           {
             id: "1",
-            text: t("page.product.flags.hero.action.get-free"),
-            href: urls.app.production.flags,
+            text: t("navigation.auth.sign-in.google"),
+            href: `${urls.app.production.flags}/auth/sign-in?provider=google`,
             isExternal: true,
+            icon: "google",
+            variant: ButtonVariant.Primary,
           },
           {
             id: "2",
-            text: t("page.product.flags.hero.action.request-demo"),
-            href: "/contact",
-            isTertiary: true,
-            isExternal: false,
+            text: t("navigation.auth.sign-in.github"),
+            href: `${urls.app.production.flags}/auth/sign-in?provider=github`,
+            isExternal: true,
+            icon: "github",
+            variant: ButtonVariant.Secondary,
           },
         ]}
         image={{
@@ -275,128 +342,47 @@ const ProductFeatureFlagsPage = () => {
           },
         ]}
       />
-      {/*
-      <Pricing
+      <PricingUsage
         id="pricing"
-        product="flags"
+        caption={t("common.pricing.caption")}
         title={t("common.pricing.title")}
         text={t("common.pricing.description", {
           product: "Basestack Feature Flags",
         })}
-        segment={[
-          {
-            id: "monthly",
-            text: t("common.pricing.segment.monthly"),
-          },
-          {
-            id: "yearly",
-            text: t("common.pricing.segment.yearly"),
-            label: t("common.pricing.segment.discount"),
-          },
-        ]}
-        items={plans.flags
-          .filter(({ id }) => id !== "free")
-          .map(
-            ({ id, name, slogan, description, features, limits, ...plan }) => {
-              const isEnterprise = id === "enterprise";
-
-              const price = isEnterprise
-                ? "Custom"
-                : {
-                    monthly: `$${formatNumber(plan.price.monthly.amount, "en-US", 0, 0)}`,
-                    yearly: `$${formatNumber(plan.price.yearly.amount, "en-US", 2, 2)}`,
-                  };
-
-              return {
-                isCustom: isEnterprise,
-                title: name,
-                price,
-                button: isEnterprise
-                  ? "Contact Us"
-                  : t("common.pricing.action.get-started"),
-
-                isPopular: id === "launch",
-                ...(isEnterprise
-                  ? {
-                      list: [],
-                      description: slogan,
-                      listDescription: description,
-                    }
-                  : {
-                      listDescription: t(
-                        "common.pricing.info.preview-features",
-                      ),
-                      description: slogan,
-                      list: [
-                        {
-                          text: t(
-                            "page.product.flags.pricing.feature.projects",
-                            {
-                              value: formatNumber(limits.projects),
-                            },
-                          ),
-                          icon: "check",
-                        },
-                        {
-                          text: t(
-                            "page.product.flags.pricing.feature.environments",
-                            {
-                              value: formatNumber(limits.environments),
-                            },
-                          ),
-                          icon: "check",
-                        },
-                        {
-                          text: t("page.product.flags.pricing.feature.flags", {
-                            value: formatNumber(limits.flags),
-                          }),
-                          icon: "check",
-                        },
-                        {
-                          text: t(
-                            "page.product.flags.pricing.feature.api-requests",
-                            {
-                              value: formatNumber(limits.apiRequests),
-                            },
-                          ),
-                          icon: "check",
-                        },
-                        {
-                          text: t(
-                            "page.product.flags.pricing.feature.members",
-                            {
-                              value: formatNumber(limits.members),
-                            },
-                          ),
-                          icon: limits.members > 0 ? "check" : "close",
-                        },
-                        {
-                          text: t(
-                            "page.product.flags.pricing.feature.has-security",
-                          ),
-                          icon:
-                            features.hasWebsites || features.hasBlockIPs
-                              ? "check"
-                              : "close",
-                        },
-                        {
-                          text: t(
-                            "page.product.flags.pricing.feature.has-history",
-                          ),
-                          icon: features.hasHistory ? "check" : "close",
-                        },
-                        {
-                          text: t(
-                            "page.product.flags.pricing.feature.has-remote-config",
-                          ),
-                          icon: features.hasRemoteConfig ? "check" : "close",
-                        },
-                      ],
-                    }),
-              };
+        sliders={getPricingSliders}
+        card={{
+          title: t("common.pricing.usage.title"),
+          label: t("common.pricing.usage.label"),
+          amount: estimatedCost,
+          items: [
+            t("page.product.flags.pricing.feature.projects", {
+              value: formatNumber(Infinity),
+            }),
+            t("page.product.flags.pricing.feature.environments", {
+              value: formatNumber(Infinity),
+            }),
+            t("page.product.flags.pricing.feature.flags", {
+              value: formatNumber(Infinity),
+            }),
+            t("page.product.flags.pricing.feature.api-requests", {
+              value: formatNumber(Infinity),
+            }),
+            t("page.product.flags.pricing.feature.members", {
+              value: formatNumber(Infinity),
+            }),
+            t("page.product.flags.pricing.feature.has-security"),
+            t("page.product.flags.pricing.feature.has-history"),
+            t("page.product.flags.pricing.feature.has-remote-config"),
+          ],
+          button: {
+            onClick: () => {
+              window.open(urls.app.production.flags, "_self");
             },
-          )}
-      /> */}
+            text: t("navigation.product.get-started.title"),
+          },
+          footer: t("common.pricing.usage.footer"),
+        }}
+      />
       <Questions
         id="questions"
         title={t("common.questions.title")}

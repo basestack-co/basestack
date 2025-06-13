@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Popup tests should render Popup correctly 1`] = `
 <DocumentFragment>
@@ -34,11 +34,6 @@ exports[`Popup tests should render Popup correctly 1`] = `
 .c3 .material-symbols-sharp,
 .c3 .material-symbols-rounded {
   color: inherit;
-}
-
-.c3 svg,
-.c3 svg g {
-  fill: #000000;
 }
 
 .c3:disabled {
@@ -173,11 +168,6 @@ exports[`Popup tests should render Popup with icons 1`] = `
 .c3 .material-symbols-sharp,
 .c3 .material-symbols-rounded {
   color: inherit;
-}
-
-.c3 svg,
-.c3 svg g {
-  fill: #000000;
 }
 
 .c3:disabled {

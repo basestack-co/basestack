@@ -1,10 +1,17 @@
 "use client";
 
-import React, { Fragment } from "react";
-import { config as defaults, formatNumber } from "@basestack/utils";
+import React, { Fragment, useMemo, useState } from "react";
+import {
+  config,
+  config as defaults,
+  formatNumber,
+  PlanTypeId,
+  Product,
+} from "@basestack/utils";
 // Icons
 import { HtmlIcon, JavascriptIcon, NextJsIcon } from "components/Code/icons";
 // Components
+import { ButtonVariant } from "@basestack/design-system";
 import {
   Hero,
   Banner,
@@ -15,17 +22,92 @@ import {
   ProductNavigation,
   MiniCards,
   Code,
+  PricingUsage,
 } from "components";
 // Styles
 import { useTheme } from "styled-components";
 // Locales
 import { useTranslations } from "next-intl";
 
-const { plans, urls } = defaults;
+const { urls } = defaults;
+
+const currencyFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+});
 
 const ProductFormsPage = () => {
   const t = useTranslations();
   const { isDarkMode } = useTheme();
+  const [usage, setUsage] = useState<Record<string, number>>({});
+
+  const minimumSpend = useMemo(() => {
+    const plan = config.plans.getPlan(Product.FORMS, PlanTypeId.USAGE);
+    return plan.price.monthly.amount;
+  }, []);
+
+  const estimatedCost = useMemo(() => {
+    const cost = config.plans.getMetersEstimatedCost(
+      Product.FORMS,
+      PlanTypeId.USAGE,
+      usage,
+    );
+
+    const valueToFormat = cost !== 0 ? cost : minimumSpend;
+
+    return currencyFormatter.format(valueToFormat);
+  }, [usage, minimumSpend]);
+
+  const getPricingSliders = useMemo(() => {
+    const meters = config.plans.getPlanMeters(Product.FORMS, PlanTypeId.USAGE);
+
+    const values: Record<
+      string,
+      { min: string; max: string; initialValue: number }
+    > = {
+      form_submission: {
+        min: "500",
+        max: "100000",
+        initialValue: 500,
+      },
+      email_notification: {
+        min: "0",
+        max: "100000",
+        initialValue: 0,
+      },
+      spam_check: {
+        min: "0",
+        max: "100000",
+        initialValue: 0,
+      },
+      webhook_trigger: {
+        min: "0",
+        max: "100000",
+        initialValue: 0,
+      },
+      integration_call: {
+        min: "0",
+        max: "100000",
+        initialValue: 0,
+      },
+    };
+
+    return meters
+      .filter((meter) => meter.key !== "integration_call")
+      .map((meter) => ({
+        id: meter.key,
+        title: t(`common.pricing.usage.count.${meter.key}` as any),
+        description: t(`common.pricing.usage.count.${meter.key}` as any),
+        costUnit: t("common.pricing.usage.unit", {
+          value: meter.costUnit,
+        }),
+        onChange: (id: string, value: number) => {
+          setUsage((prev) => ({ ...prev, [id]: value }));
+        },
+        ...values[meter.key],
+      }));
+  }, [t, setUsage]);
 
   return (
     <Fragment>
@@ -37,11 +119,11 @@ const ProductFormsPage = () => {
             href: "#platform",
             icon: "flare",
           },
-          /* {
+          {
             text: t("navigation.product.pricing.title"),
             href: "#pricing",
             icon: "credit_card",
-          }, */
+          },
           /*  {
                 text: t("navigation.product.self-hosting.title"),
                 href: "#sdks",
@@ -60,8 +142,8 @@ const ProductFormsPage = () => {
           },
         ]}
         button={{
-          text: t("navigation.product.get-started.title"),
-          href: urls.app.production.forms,
+          text: t("navigation.auth.sign-in.google"),
+          href: `${urls.app.production.forms}/auth/sign-in?provider=google`,
         }}
       />
       <Hero
@@ -74,16 +156,19 @@ const ProductFormsPage = () => {
         actions={[
           {
             id: "1",
-            text: t("page.product.forms.hero.action.get-free"),
-            href: urls.app.production.forms,
+            text: t("navigation.auth.sign-in.google"),
+            href: `${urls.app.production.forms}/auth/sign-in?provider=google`,
             isExternal: true,
+            icon: "google",
+            variant: ButtonVariant.Primary,
           },
           {
             id: "2",
-            text: t("page.product.forms.hero.action.request-demo"),
-            href: "/contact",
-            isTertiary: true,
-            isExternal: false,
+            text: t("navigation.auth.sign-in.github"),
+            href: `${urls.app.production.forms}/auth/sign-in?provider=github`,
+            isExternal: true,
+            icon: "github",
+            variant: ButtonVariant.Secondary,
           },
         ]}
         image={{
@@ -262,127 +347,47 @@ const ProductFormsPage = () => {
           },
         ]}
       />
-      {/*
-      <Pricing
+      <PricingUsage
         id="pricing"
-        product="forms"
+        caption={t("common.pricing.caption")}
         title={t("common.pricing.title")}
-        text={t("common.pricing.description", { product: "Basestack Forms" })}
-        segment={[
-          {
-            id: "monthly",
-            text: t("common.pricing.segment.monthly"),
-          },
-          {
-            id: "yearly",
-            text: t("common.pricing.segment.yearly"),
-            label: t("common.pricing.segment.discount"),
-          },
-        ]}
-        items={plans.forms
-          .filter(({ id }) => id !== "free")
-          .map(
-            ({ id, name, slogan, description, features, limits, ...plan }) => {
-              const isEnterprise = id === "enterprise";
-
-              const price = isEnterprise
-                ? "Custom"
-                : {
-                    monthly: `$${formatNumber(plan.price.monthly.amount, "en-US", 0, 0)}`,
-                    yearly: `$${formatNumber(plan.price.yearly.amount, "en-US", 2, 2)}`,
-                  };
-
-              return {
-                isCustom: isEnterprise,
-                title: name,
-                price,
-                button: isEnterprise
-                  ? "Contact Us"
-                  : t("common.pricing.action.get-started"),
-                isPopular: id === "launch",
-                ...(isEnterprise
-                  ? {
-                      list: [],
-                      description: slogan,
-                      listDescription: description,
-                    }
-                  : {
-                      listDescription: t(
-                        "common.pricing.info.preview-features",
-                      ),
-                      description: slogan,
-                      list: [
-                        {
-                          text: t("page.product.forms.pricing.feature.forms", {
-                            value: formatNumber(limits.forms),
-                          }),
-                          icon: "check",
-                        },
-                        {
-                          text: t(
-                            "page.product.forms.pricing.feature.submissions",
-                            {
-                              value: formatNumber(limits.submissions),
-                            },
-                          ),
-                          icon: "check",
-                        },
-                        {
-                          text: t("page.product.forms.pricing.feature.spams", {
-                            value: formatNumber(limits.spams),
-                          }),
-                          icon: "check",
-                        },
-                        {
-                          text: t(
-                            "page.product.forms.pricing.feature.members",
-                            {
-                              value: formatNumber(limits.members),
-                            },
-                          ),
-                          icon: limits.members > 0 ? "check" : "close",
-                        },
-                        {
-                          text: t(
-                            "page.product.forms.pricing.feature.has-email-notifications",
-                          ),
-                          icon: features.hasEmailNotifications
-                            ? "check"
-                            : "close",
-                        },
-                        {
-                          text: t(
-                            "page.product.forms.pricing.feature.has-webhooks",
-                          ),
-                          icon: features.hasWebhooks ? "check" : "close",
-                        },
-                        {
-                          text: t(
-                            "page.product.forms.pricing.feature.has-custom-export",
-                          ),
-                          icon: features.hasCustomExport ? "check" : "close",
-                        },
-                        {
-                          text: t(
-                            "page.product.forms.pricing.feature.has-custom-urls",
-                          ),
-                          icon: features.hasCustomUrls ? "check" : "close",
-                        },
-                        {
-                          text: t(
-                            "page.product.forms.pricing.feature.has-security",
-                          ),
-                          icon:
-                            features.hasWebsites || features.hasBlockIPs
-                              ? "check"
-                              : "close",
-                        },
-                      ],
-                    }),
-              };
+        text={t("common.pricing.description", {
+          product: "Basestack Feature Flags",
+        })}
+        sliders={getPricingSliders}
+        card={{
+          title: t("common.pricing.usage.title"),
+          label: t("common.pricing.usage.label"),
+          amount: estimatedCost,
+          items: [
+            t("page.product.forms.pricing.feature.forms", {
+              value: formatNumber(Infinity),
+            }),
+            t("page.product.forms.pricing.feature.submissions", {
+              value: formatNumber(Infinity),
+            }),
+            t("page.product.forms.pricing.feature.spams", {
+              value: formatNumber(Infinity),
+            }),
+            t("page.product.forms.pricing.feature.members", {
+              value: formatNumber(Infinity),
+            }),
+            t("page.product.forms.pricing.feature.has-email-notifications"),
+            t("page.product.forms.pricing.feature.has-webhooks"),
+            t("page.product.forms.pricing.feature.has-custom-export"),
+            t("page.product.forms.pricing.feature.has-custom-urls"),
+            t("page.product.forms.pricing.feature.has-security"),
+          ],
+          button: {
+            onClick: () => {
+              window.open(urls.app.production.forms, "_self");
             },
-          )}
-      /> */}
+            text: t("navigation.product.get-started.title"),
+          },
+          footer: t("common.pricing.usage.footer"),
+        }}
+      />
+
       <Questions
         id="questions"
         title={t("common.questions.title")}

@@ -31,6 +31,7 @@ interface ProductNavigationProps {
   button: {
     text: string;
     href: string;
+    icon?: string;
   };
   product: LogoProps["product"];
 }
@@ -118,6 +119,8 @@ const ProductNavigation = ({
             onClick={() => window.open(button.href, "_blank")}
             size={ButtonSize.Normal}
             variant={ButtonVariant.Primary}
+            icon={button.icon}
+            iconPlacement="left"
           >
             {button.text}
           </Button>

@@ -61,6 +61,12 @@ const Button = ({
     [ButtonVariant.DangerFilled]: theme.button.dangerFilled.spinner.color,
   };
 
+  const iconProps = {
+    icon: icon as string,
+    size: iconSize,
+    color: theme.button[variant].color,
+  };
+
   return (
     <StyledButton
       data-testid="button"
@@ -79,13 +85,9 @@ const Button = ({
     >
       <>
         {leftElement && <Fragment>{leftElement}</Fragment>}
-        {hasLeftIcon && (
-          <Icon icon={icon} size={iconSize} mr={theme.spacing.s2} />
-        )}
+        {hasLeftIcon && <Icon mr={theme.spacing.s2} {...iconProps} />}
         <TextContainer isLoading={isLoading}>{children}</TextContainer>
-        {hasRightIcon && (
-          <Icon icon={icon} size={iconSize} ml={theme.spacing.s2} />
-        )}
+        {hasRightIcon && <Icon ml={theme.spacing.s2} {...iconProps} />}
         {isLoading && (
           <SpinnerContainer>
             <Spinner

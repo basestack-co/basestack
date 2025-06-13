@@ -2,7 +2,6 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import Image, { ImageProps } from "../Image";
 import { Button, ButtonVariant, ButtonSize } from "@basestack/design-system";
-import { useTheme } from "styled-components";
 import {
   ButtonsContainer,
   Container,
@@ -18,42 +17,37 @@ interface HeroProps {
     id: string;
     text: string;
     href: string;
-    isTertiary?: boolean;
+    variant?: ButtonVariant;
     isExternal?: boolean;
+    icon?: string;
   }>;
 }
 
 const Hero = ({ header, image = { alt: "", src: "" }, actions }: HeroProps) => {
   const router = useRouter();
-  const { isDarkMode, device } = useTheme();
-
   return (
     <Container>
       <ContentContainer>
         <SectionHeader {...header} hasMarginBottom={false} />
         <ButtonsContainer>
-          {actions?.map(({ id, text, href, isTertiary, isExternal }) => {
+          {actions?.map((item) => {
             return (
               <Button
-                key={id}
+                key={item.id}
                 justifyContent="center"
                 onClick={() => {
-                  if (isExternal) {
-                    window?.open(href, "_blank");
+                  if (item.isExternal) {
+                    window?.open(item.href, "_blank");
                   } else {
-                    router.push(href);
+                    router.push(item.href);
                   }
                 }}
                 size={ButtonSize.Medium}
-                {...(isTertiary
-                  ? {
-                      variant: isDarkMode
-                        ? ButtonVariant.Tertiary
-                        : ButtonVariant.Secondary,
-                    }
-                  : {})}
+                variant={item.variant || ButtonVariant.Primary}
+                icon={item.icon}
+                iconPlacement="left"
               >
-                {text}
+                {item.text}
               </Button>
             );
           })}

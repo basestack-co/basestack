@@ -26,7 +26,7 @@ export interface Provider {
   };
 }
 
-type SignInProviders =
+export type SignInProviders =
   | "github"
   | "apple"
   | "discord"
