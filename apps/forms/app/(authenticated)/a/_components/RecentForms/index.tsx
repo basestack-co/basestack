@@ -28,7 +28,7 @@ const RecentForms = () => {
   const theme = useTheme();
   const router = useRouter();
 
-  const { data, isLoading } = api.form.recent.useQuery(undefined, {
+  const { data, isLoading } = api.forms.recent.useQuery(undefined, {
     select: (res) => {
       return res.map(({ id, name, _count, isEnabled, isAdmin }) => ({
         formId: id,

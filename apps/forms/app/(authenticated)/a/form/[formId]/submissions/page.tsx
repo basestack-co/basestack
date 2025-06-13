@@ -16,7 +16,7 @@ const FormSubmissionsPage = () => {
   const t = useTranslations("form");
   const { formId } = useParams<{ formId: string }>();
 
-  const { data: form } = api.form.byId.useQuery(
+  const { data: form } = api.forms.byId.useQuery(
     { formId },
     {
       enabled: !!formId,

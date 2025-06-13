@@ -38,7 +38,7 @@ const FormNameCard = ({ role, name }: Props) => {
   const { formId } = useParams<{ formId: string }>();
   const t = useTranslations("setting");
   const trpcUtils = api.useUtils();
-  const updateForm = api.form.update.useMutation();
+  const updateForm = api.forms.update.useMutation();
   const isAdmin = role === Role.ADMIN;
 
   const {
@@ -63,12 +63,12 @@ const FormNameCard = ({ role, name }: Props) => {
       {
         onSuccess: (result) => {
           // Get all the forms on the cache
-          const cache = trpcUtils.form.all.getData();
+          const cache = trpcUtils.forms.list.getData();
 
           if (cache && cache.forms) {
             // Update the cache with the new data
             // This updates in the navigation list
-            trpcUtils.form.all.setData(undefined, {
+            trpcUtils.forms.list.setData(undefined, {
               forms: cache.forms.map((form) =>
                 form.id === result.form.id
                   ? { ...form, name: result.form.name }
@@ -77,13 +77,13 @@ const FormNameCard = ({ role, name }: Props) => {
             });
           }
 
-          const cacheForm = trpcUtils.form.byId.getData({
+          const cacheForm = trpcUtils.forms.byId.getData({
             formId: result.form.id,
           });
 
           if (cacheForm) {
             // Updates the current active form in the cache
-            trpcUtils.form.byId.setData(
+            trpcUtils.forms.byId.setData(
               { formId: result.form.id },
               {
                 ...cacheForm,
@@ -93,7 +93,7 @@ const FormNameCard = ({ role, name }: Props) => {
           }
 
           // Get all the recent forms from the cache
-          const prevRecentForms = trpcUtils.form.recent.getData();
+          const prevRecentForms = trpcUtils.forms.recent.getData();
 
           if (prevRecentForms) {
             // Update the name of the form with the matching id
@@ -104,7 +104,7 @@ const FormNameCard = ({ role, name }: Props) => {
             );
 
             // Update the cache with the modified data
-            trpcUtils.form.recent.setData(undefined, updatedForms);
+            trpcUtils.forms.recent.setData(undefined, updatedForms);
           }
 
           toast.success(t("general.form.toast.success"));

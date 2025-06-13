@@ -38,7 +38,7 @@ const FlagsWebsitesCard = ({ websites = "", planId }: Props) => {
   const { projectId } = useParams<{ projectId: string }>();
   const t = useTranslations();
   const trpcUtils = api.useUtils();
-  const updateProject = api.project.update.useMutation();
+  const updateProject = api.projects.update.useMutation();
 
   const {
     control,
@@ -74,12 +74,12 @@ const FlagsWebsitesCard = ({ websites = "", planId }: Props) => {
       },
       {
         onSuccess: (result) => {
-          const cache = trpcUtils.project.byId.getData({
+          const cache = trpcUtils.projects.byId.getData({
             projectId: result.project.id,
           });
 
           if (cache) {
-            trpcUtils.project.byId.setData(
+            trpcUtils.projects.byId.setData(
               { projectId: result.project.id },
               {
                 ...cache,

@@ -26,7 +26,7 @@ const Members = ({ teamId }: Props) => {
   const { data: session } = auth.client.useSession();
   const trpcUtils = api.useUtils();
 
-  const { data, isLoading } = api.team.byId.useQuery(
+  const { data, isLoading } = api.teams.byId.useQuery(
     { teamId },
     {
       select: (data) => {
@@ -63,9 +63,9 @@ const Members = ({ teamId }: Props) => {
     return user?.role === Role.ADMIN;
   }, [data, session?.user?.id]);
 
-  const removeMember = api.team.removeMember.useMutation();
-  const updateMember = api.team.updateMember.useMutation();
-  const removeInvite = api.team.removeInvite.useMutation();
+  const removeMember = api.teamMembers.delete.useMutation();
+  const updateMember = api.teamMembers.update.useMutation();
+  const removeInvite = api.teamInvites.delete.useMutation();
 
   const onSelectRole = useCallback(
     (userId: string, role: Role) => {
@@ -77,8 +77,8 @@ const Members = ({ teamId }: Props) => {
         },
         {
           onSuccess: async () => {
-            await trpcUtils.team.all.invalidate();
-            await trpcUtils.team.byId.invalidate({ teamId });
+            await trpcUtils.teams.list.invalidate();
+            await trpcUtils.teams.byId.invalidate({ teamId });
             toast.success(
               t("team.manage.tab.members.list.status.update.success"),
             );
@@ -102,8 +102,8 @@ const Members = ({ teamId }: Props) => {
         {
           onSuccess: async () => {
             await trpcUtils.subscription.usage.invalidate();
-            await trpcUtils.team.all.invalidate();
-            await trpcUtils.team.byId.invalidate({ teamId });
+            await trpcUtils.teams.list.invalidate();
+            await trpcUtils.teams.byId.invalidate({ teamId });
             toast.success(
               t("team.manage.tab.members.list.status.remove.success"),
             );
@@ -126,8 +126,8 @@ const Members = ({ teamId }: Props) => {
           },
           {
             onSuccess: async () => {
-              await trpcUtils.team.all.invalidate();
-              await trpcUtils.team.byId.invalidate({ teamId });
+              await trpcUtils.teams.list.invalidate();
+              await trpcUtils.teams.byId.invalidate({ teamId });
               toast.success(
                 t("team.manage.tab.members.list.status.invite.success"),
               );

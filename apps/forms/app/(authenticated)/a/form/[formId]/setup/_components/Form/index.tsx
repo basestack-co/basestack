@@ -79,7 +79,7 @@ const Form = ({ formId, isFormDisabled }: Props) => {
         toast.success(t("setup.card.form.toast.success"));
         reset();
 
-        await trpcUtils.submission.all.invalidate();
+        await trpcUtils.formSubmissions.list.invalidate({ formId });
         // Reset the usage cache
         await trpcUtils.subscription.usage.invalidate();
       }

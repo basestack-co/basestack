@@ -43,13 +43,16 @@ const AddProjectMemberModal = () => {
     );
 
   const [team, members] = api.useQueries((t) => [
-    t.team.all(undefined, {
+    t.teams.list(undefined, {
       enabled: isModalOpen && !!projectId,
     }),
-    t.project.members({ projectId }, { enabled: isModalOpen && !!projectId }),
+    t.projectMembers.list(
+      { projectId },
+      { enabled: isModalOpen && !!projectId },
+    ),
   ]);
 
-  const addUserToProject = api.project.addMember.useMutation();
+  const addUserToProject = api.projectMembers.create.useMutation();
 
   const {
     control,
@@ -113,8 +116,8 @@ const AddProjectMemberModal = () => {
           { projectId, userId: input.member.userId, role: input.member.role },
           {
             onSuccess: async () => {
-              await trpcUtils.project.recent.invalidate();
-              await trpcUtils.project.members.invalidate();
+              await trpcUtils.projects.recent.invalidate();
+              await trpcUtils.projectMembers.list.invalidate();
               onClose();
             },
             onError: (error) => {

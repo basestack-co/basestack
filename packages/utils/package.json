@@ -22,7 +22,7 @@
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
     "@types/uuid": "^10.0.0",
-    "ts-jest": "^29.3.4",
+    "ts-jest": "^29.4.0",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3"
   },

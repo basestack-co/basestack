@@ -68,7 +68,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   const { projectId } = useParams<{ projectId: string }>();
 
   const { data: project, isLoading: isLoadingProject } =
-    api.project.byId.useQuery(
+    api.projects.byId.useQuery(
       { projectId },
       {
         enabled: !!projectId,

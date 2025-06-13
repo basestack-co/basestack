@@ -28,7 +28,7 @@ const SetupPage = () => {
   const { formId } = useParams<{ formId: string }>();
   const router = useRouter();
 
-  const { data: form } = api.form.byId.useQuery(
+  const { data: form } = api.forms.byId.useQuery(
     { formId },
     {
       enabled: !!formId,

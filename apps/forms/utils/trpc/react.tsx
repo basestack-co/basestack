@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 // Types
 import { QueryClientProvider, type QueryClient } from "@tanstack/react-query";
-import { type AppRouter } from "server/api/root";
+import { type AppRouter } from "server/trpc/root";
 // Server
 import { loggerLink, httpBatchStreamLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";

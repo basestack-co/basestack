@@ -74,7 +74,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   const pathname = usePathname();
   const { formId } = useParams<{ formId: string }>();
 
-  const { data, isLoading: isLoadingForm } = api.form.byId.useQuery(
+  const { data, isLoading: isLoadingForm } = api.forms.byId.useQuery(
     { formId },
     {
       enabled: !!formId,

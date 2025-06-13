@@ -61,12 +61,12 @@ const FormSubmissions = ({
   const [filters, setFilters] = useState({});
   const [orderBy, setOrderBy] = useState("desc");
 
-  const exportSubmissions = api.submission.export.useMutation();
-  const deleteSubmissions = api.submission.delete.useMutation();
-  const updateSubmissions = api.submission.update.useMutation();
+  const exportSubmissions = api.formSubmissions.export.useMutation();
+  const deleteSubmissions = api.formSubmissions.delete.useMutation();
+  const updateSubmissions = api.formSubmissions.update.useMutation();
 
   const { data, isLoading, fetchNextPage } =
-    api.submission.all.useInfiniteQuery(
+    api.formSubmissions.list.useInfiniteQuery(
       {
         formId,
         limit,
@@ -151,8 +151,8 @@ const FormSubmissions = ({
           onSuccess: async () => {
             setSelectIds([]);
 
-            await trpcUtils.submission.all.invalidate({ formId });
-            await trpcUtils.form.recent.invalidate();
+            await trpcUtils.formSubmissions.list.invalidate({ formId });
+            await trpcUtils.forms.recent.invalidate();
 
             toast.dismiss(loadingToastId);
             toast.success(
@@ -190,8 +190,8 @@ const FormSubmissions = ({
           onSuccess: async () => {
             setSelectIds([]);
 
-            await trpcUtils.submission.all.invalidate({ formId });
-            await trpcUtils.form.recent.invalidate();
+            await trpcUtils.formSubmissions.list.invalidate({ formId });
+            await trpcUtils.forms.recent.invalidate();
 
             if (showToast) {
               toast.dismiss(loadingToastId);

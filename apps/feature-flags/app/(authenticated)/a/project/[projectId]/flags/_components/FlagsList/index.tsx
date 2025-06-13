@@ -57,19 +57,20 @@ const FlagCards = ({
     (state) => state.setUpdateFlagModalOpen,
   );
   const numberOfFlagsPerPage = useStore((state) => state.numberOfFlagsPerPage);
-  const deleteFlag = api.flag.delete.useMutation();
+  const deleteFlag = api.projectFlags.delete.useMutation();
 
-  const { data, isLoading, fetchNextPage } = api.flag.all.useInfiniteQuery(
-    {
-      projectId,
-      limit: numberOfFlagsPerPage,
-      search: searchValue,
-    },
-    {
-      enabled: !!projectId,
-      getNextPageParam: (lastPage) => lastPage.nextCursor,
-    },
-  );
+  const { data, isLoading, fetchNextPage } =
+    api.projectFlags.list.useInfiniteQuery(
+      {
+        projectId,
+        limit: numberOfFlagsPerPage,
+        search: searchValue,
+      },
+      {
+        enabled: !!projectId,
+        getNextPageParam: (lastPage) => lastPage.nextCursor,
+      },
+    );
 
   const [currentPage, totalPages] = useMemo(() => {
     return [
@@ -103,8 +104,8 @@ const FlagCards = ({
         { projectId, flagSlug },
         {
           onSuccess: async () => {
-            await trpcUtils.flag.all.invalidate({ projectId });
-            await trpcUtils.project.recent.invalidate();
+            await trpcUtils.projectFlags.list.invalidate({ projectId });
+            await trpcUtils.projects.recent.invalidate();
             // Reset the usage cache
             await trpcUtils.subscription.usage.invalidate();
           },

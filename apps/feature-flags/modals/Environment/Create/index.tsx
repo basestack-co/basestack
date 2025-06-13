@@ -36,7 +36,7 @@ const CreateEnvironmentModal = () => {
     ]),
   );
 
-  const createEnvironment = api.environment.create.useMutation();
+  const createEnvironment = api.projectEnvironments.create.useMutation();
 
   const { handleSubmit, onRenderForm, reset, isSubmitting } =
     useEnvironmentForm(true);
@@ -56,9 +56,9 @@ const CreateEnvironmentModal = () => {
         {
           onSuccess: async (result) => {
             if (result) {
-              await trpcUtils.environment.all.invalidate();
-              await trpcUtils.project.allKeys.invalidate({ projectId });
-              await trpcUtils.flag.environments.invalidate();
+              await trpcUtils.projectEnvironments.list.invalidate();
+              await trpcUtils.projectKeys.list.invalidate({ projectId });
+              await trpcUtils.projectFlags.list.invalidate();
 
               onClose();
             }
