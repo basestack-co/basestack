@@ -1,0 +1,27 @@
+---
+title: Frequently Asked Questions
+tags: FAQs, Basestack, Platform, Questions, Answers, Help, Support, Discussion
+---
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+
+Explore our collection of useful questions and answers about the Basestack Platform. If you don't find the answer to your question here, feel free to [open a discussion](https://github.com/basestack-co/basestack/discussions). We're here to help!
+
+
+<Accordions>
+  <Accordion title="What are the requirements for self-hosting">  
+  Any service that can host a [NextJS ↗](https://nextjs.org/?ref=basestack.co) applications with
+  serverless function support and provide a Postgres database compatible with
+  serverless environments will work seamlessly. Consider services such as [Neon
+  ↗](https://neon.tech), [Supabase ↗](https://supabase.com/?ref=basestack.co), or traditional
+  Postgres with connection pooling like [PgBouncer
+  ↗](https://www.pgbouncer.org/?ref=basestack.co).
+  </Accordion>
+  <Accordion title="What are the supported databases?">  
+  The platform uses PostgreSQL as the database. The crucial aspect here is to ensure that the PostgreSQL service or instance supports serverless environments. To facilitate the hosting of the Feature Flags Platform, we have some suggestions that can simplify the deployment process.
+   If you prefer not to use a third-party service, keep in mind that any traditional instance of PostgreSQL with connection pooling, such as [PgBouncer ↗](https://www.pgbouncer.org/?ref=basestack.co), will work effectively.
+
+- [Neon - Serverless Postgres](/docs/self-hosting/database/neon)
+- Stay tuned for more upcoming guides!
+</Accordion>
+</Accordions>

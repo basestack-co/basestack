@@ -1,0 +1,6 @@
+{
+  "title": "SDKs",
+  "icon": "MyIcon",
+  "pages": ["javascript", "react", "rest-api"],
+  "defaultOpen": false
+}

@@ -1,0 +1,86 @@
+---
+title: Getting Started
+tags: Basestack Forms, HTML Forms, Form Integration, No Backend, Form Submissions, Developer tools, "2025", Web development
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+[Basestack Forms](https://forms.basestack.co) enables you to effortlessly collect submissions from your HTML forms without the need for backend code. It offers features such as email notifications for submissions and spam protection.
+
+To get started, you’ll need the following:
+
+- A [Basestack Forms](https://forms.basestack.co) Account
+- An HTML Form
+
+<Steps>
+
+<Step>
+    ### Create an HTML Form
+
+    If you don't have an HTML form yet, you can use the example below or choose from the examples available on the Setup
+    tab in the [Basestack Forms](https://forms.basestack.co) Dashboard.
+
+    ```html copy
+    <!-- modify this form HTML as you wish -->
+    <form action="#" method="POST" enctype="multipart/form-data">
+        <div>
+            <label for="name">Name:</label>
+            <!-- name each of your inputs as you wish -->
+            <input type="text" id="name" name="name" placeholder="Enter your name">
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email">
+        </div>
+
+        <!-- your other form fields go here -->
+        <button type="submit">Submit</button>
+    </form>
+    ```
+
+    </Step>
+    <Step>
+
+    ### Create a Form in [Basestack Forms](https://forms.basestack.co)
+
+    - Go to your dashboard and click the **"Create Form"** button.
+    - Fill in the form with the desired name and content.
+    - After creating your form, click the **"Setup"** or **"Settings"** tab to view your Form URL (Copy the URL)
+
+    </Step>
+    <Step>
+
+    ### Integrate your HTML Form with Basestack Forms
+
+    Paste the form URL you copied in step 2 into the** `action` **attribute of your form. That's it! You're now ready
+    to start collecting submissions.
+
+    ```html copy
+    <!-- modify this form HTML as you wish -->
+    <form action="[https://forms.basestack.co/api/v1/s/[KEY]?mode=rest" method="POST" enctype="multipart/form-data">
+        <div>
+            <label for="name">Name:</label>
+            <!-- name each of your inputs as you wish -->
+            <input type="text" id="name" name="name" placeholder="Enter your name">
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email">
+        </div>
+
+        <!-- your other form fields go here -->
+        <button type="submit">Submit</button>
+    </form>
+    ```
+
+    <Callout type="info" emoji="ℹ️">
+        All input fields (e.g., input, textarea, etc) must have a **name** attribute, or Basestack Forms won’t be able
+        to collect.
+    </Callout>
+</Step>
+</Steps>
+
+That's it! 🎉 Simple and fast. Now you can collect data from your website forms without the need for a backend. Try out your new form and view the submissions in [Basestack Forms](https://forms.basestack.co).
+

@@ -1,0 +1,13 @@
+{
+  "title": "Basestack Feature Flags",
+  "description": "Deploy, test, and roll out safely",
+  "pages": [
+    "---Introduction---",
+    "index",
+    "---SDKs---",
+    "sdks/javascript.mdx",
+    "sdks/react.mdx",
+    "sdks/rest.mdx"
+  ],
+  "root": true
+}

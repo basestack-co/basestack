@@ -1,0 +1,6 @@
+{
+  "title": "Database",
+  "icon": "MyIcon",
+  "pages": ["neon", "supabase"],
+  "defaultOpen": false
+}

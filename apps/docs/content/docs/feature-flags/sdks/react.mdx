@@ -1,0 +1,536 @@
+---
+title: React & NextJS
+tags: Basestack, Feature Flags, React, SDK, Hooks, Components, State, Async, Flags, Flag, Initialize, Methods, Reference, Examples
+---
+
+import { File, Folder, Files } from 'fumadocs-ui/components/files';
+
+
+Integration with [React ↗](https://react.dev/?ref=basestack.co) or [NextJS ↗](https://nextjs.org/?ref=basestack.co) helps and facilitates the process of testing and developing features in production and other environments.
+
+## Getting started
+
+For [React ↗](https://react.dev/?ref=basestack.co) and [NextJS ↗](https://nextjs.org/?ref=basestack.co), we chose not to create a separate SDK, as it would
+essentially act as a wrapper for our [JavaScript SDK](/feature-flags/sdks/javascript). Instead, we’ll show you
+how to fully use the JavaScript SDK within a React or Next.js project.
+This approach ensures you can access all the features of a React SDK without
+needing to install additional packages. One key advantage is that you retain
+complete control over the code, allowing you to extend its functionality with
+custom implementations.
+
+#### Examples
+
+- [React (Vite + TypeScript)](https://github.com/basestack-co/examples/tree/main/feature-flags/react-ts)
+- [Next,js (Pages Router)](https://github.com/basestack-co/examples/tree/main/feature-flags/nextjs-pages-router)
+- [Next,js (App Router)](https://github.com/basestack-co/examples/tree/main/feature-flags/nextjs-app-router)
+
+### Install
+
+First, let's install some packages!
+
+```sh copy npm2yarn
+npm install @basestack/flags-js
+```
+
+### Environment Variables
+
+Here are the example environment variables needed for this guide. Feel free to rename them according to your project's requirements:
+
+<Callout type="info" emoji="ℹ️">
+  When it comes to environment variables, pay attention to the framework you're
+  using. For example, `NEXT_PUBLIC_` is specific to Next.js, while in
+  [Vite.js](https://vite.dev/?ref=basestack.co), it would be `VITE_`. Example
+  `VITE_FEATURE_FLAGS_BASE_URL=` or Node.js `FEATURE_FLAGS_BASE_URL=`
+</Callout>
+
+```bash copy title=".env"
+# BASESTACK FEATURE FLAGS
+NEXT_PUBLIC_FEATURE_FLAGS_BASE_URL="https://flags.basestack.co/api/v1" # or your own URL
+NEXT_PUBLIC_FEATURE_FLAGS_PROJECT_KEY=""
+NEXT_PUBLIC_FEATURE_FLAGS_ENVIRONMENT_KEY=""
+```
+
+### Create a new folder called `feature-flags` in the `src/libs` directory
+
+Inside the `feature-flags` folder, create the following files and folders:
+
+<Files>
+  <Folder name="src" defaultOpen>
+    <Folder name="libs" defaultOpen>
+      <Folder name="feature-flags" defaultOpen>
+        <Folder name="hooks" defaultOpen>
+          <File name="useFlag.tsx" />
+          <File name="useFlags.tsx" />
+          <File name="index.ts" />
+        </Folder>
+        <File name="index.tsx" />
+        <File name="server.ts" />
+      </Folder>
+    </Folder>
+  </Folder>
+  <File name=".env" />
+</Files>
+
+Let's start by creating a Provider. In React, a Provider is a component that allows you to pass down data or state to all components within its tree without having to manually pass props at every level. This will enable you to use the hooks created below anywhere in your components.
+
+In summary, this Provider initializes the `FlagsSDK, collects all the Feature Flags for a given environment to make them available in the context, and helps determine whether the Feature Flags have been initialized.
+
+<Callout type="info" emoji="ℹ️">
+  If you are only using React or Next.js in the Pages Router, you can remove the
+  `“use client”` directive from the page.
+</Callout>
+
+```tsx copy title="src/libs/feature-flags/index.tsx"
+"use client";
+
+import React, { createContext, useEffect, useMemo, useState } from "react";
+import { FlagsSDK, Flag, SDKConfig } from "@basestack/flags-js";
+
+interface ContextState {
+  client: FlagsSDK;
+  isInitialized: boolean;
+  flags: Flag[];
+  error?: Error;
+}
+
+interface ProviderProps {
+  children: React.ReactNode;
+  config: SDKConfig;
+  onSuccessfulInit?: (success: boolean) => void;
+}
+
+export const createFlagsClient = (config: SDKConfig) => {
+  return new FlagsSDK({
+    baseURL: config.baseURL,
+    projectKey: config.projectKey,
+    environmentKey: config.environmentKey,
+  });
+};
+
+export const FeatureFlagsContext = createContext<ContextState | undefined>(
+  undefined,
+);
+
+const FeatureFlagsProvider: React.FC<ProviderProps> = ({
+  children,
+  config,
+  onSuccessfulInit,
+}) => {
+  const [state, setState] = useState<Omit<ContextState, "client">>({
+    isInitialized: false,
+    flags: [],
+  });
+  const client = useMemo(() => createFlagsClient(config), [config]);
+  const value = useMemo(() => ({ ...state, client }), [state, client]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const initializeFlags = async () => {
+      try {
+        const response = await client.getAllFlags();
+
+        if (isMounted) {
+          setState((prev) => ({
+            ...prev,
+            flags: response.flags ?? [],
+            isInitialized: true,
+          }));
+          onSuccessfulInit?.(true);
+        }
+      } catch (error) {
+        if (isMounted) {
+          setState((prev) => ({
+            ...prev,
+            error: error as Error,
+            isInitialized: true,
+          }));
+          onSuccessfulInit?.(false);
+        }
+      }
+    };
+
+    initializeFlags();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [client, onSuccessfulInit]);
+
+  return (
+    <FeatureFlagsContext.Provider value={value}>
+      {children}
+    </FeatureFlagsContext.Provider>
+  );
+};
+
+export default FeatureFlagsProvider;
+```
+
+The `FlagsSDK` is versatile and can be used in various environments, including Node, Serverless environments, API Routes, Server Components, and API Endpoints. To avoid repeatedly initializing the client with environment variables, you can use the file below to simplify the process. Simply call this file as shown in the `usage` example below.
+
+```ts copy title="src/libs/feature-flags/server.ts"
+import { FlagsSDK, SDKConfig } from "@basestack/flags-js";
+
+export class ServerFlagsSDK {
+  private static instance: FlagsSDK;
+  private static config: SDKConfig = {
+    baseURL: process.env.NEXT_PUBLIC_FEATURE_FLAGS_BASE_URL,
+    projectKey: process.env.NEXT_PUBLIC_FEATURE_FLAGS_PROJECT_KEY!,
+    environmentKey: process.env.NEXT_PUBLIC_FEATURE_FLAGS_ENVIRONMENT_KEY!,
+    // This is an example of how to use environment variables in Vite.js
+    // environmentKey: import.meta.env.VITE_FEATURE_FLAGS_ENVIRONMENT_KEY!,
+  };
+
+  public static getInstance(): FlagsSDK {
+    if (!ServerFlagsSDK.instance) {
+      ServerFlagsSDK.instance = new FlagsSDK(ServerFlagsSDK.config);
+    }
+    return ServerFlagsSDK.instance;
+  }
+}
+```
+
+This hook, `useFlag`, is used to validate a Feature Flag by searching for a specific flag. It returns the necessary information for the specified flag. See the usage example below. You can customize or modify this hook to fit your requirements.
+
+```tsx copy title="src/libs/feature-flags/hooks/useFlag.tsx"
+"use client";
+
+import { useContext, useEffect, useState, useMemo } from "react";
+// Feature Flags Context
+import { FeatureFlagsContext } from "@/libs/feature-flags";
+import { Flag } from "@basestack/flags-js";
+
+export const useFlag = <P = Record<string, unknown>,>(slug: string) => {
+  const context = useContext(FeatureFlagsContext);
+  const [flag, setFlag] = useState<Flag | null>(null);
+  const [error, setError] = useState<Error | null>(null);
+
+  if (!context) {
+    throw new Error("useFlag must be used within a FeatureFlagsContext");
+  }
+
+  useEffect(() => {
+    const fetchFlag = async () => {
+      if (!context.isInitialized || !context.client) return;
+
+      try {
+        if (context.flags.length > 0) {
+          const foundFlag = context.flags.find((f) => f.slug === slug);
+          if (foundFlag) {
+            setFlag(foundFlag);
+          } else {
+            setError(new Error(`Flag "${slug}" not found`));
+          }
+        } else {
+          const fetchedFlag = await context.client.getFlag(slug);
+          setFlag(fetchedFlag);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error(String(err)));
+      }
+    };
+
+    void fetchFlag();
+
+    return () => {};
+  }, [context.isInitialized, context.client, context.flags, slug]);
+
+  return useMemo(
+    () => ({
+      ...flag,
+      error,
+      isInitialized: context.isInitialized,
+      payload: (flag?.payload as P) ?? null,
+    }),
+    [error, context.isInitialized, flag],
+  );
+};
+```
+
+This hook, as the name suggests, is used to retrieve all the Feature Flags for a given environment. It can be used to display a list, perform new searches, or apply filtering.
+
+```tsx copy title="src/libs/feature-flags/hooks/useFlags.tsx"
+"use client";
+
+import { useContext, useEffect, useState, useMemo } from "react";
+// Feature Flags Context
+import { FeatureFlagsContext } from "@/libs/feature-flags";
+import { Flag } from "@basestack/flags-js";
+
+interface FlagsState {
+  flags: Flag[];
+}
+
+interface UseFlagsResult extends FlagsState {
+  error: Error | null;
+  isInitialized: boolean;
+}
+
+export const useFlags = (): UseFlagsResult => {
+  const context = useContext(FeatureFlagsContext);
+  const [{ flags }, setFlags] = useState<FlagsState>({ flags: [] });
+  const [error, setError] = useState<Error | null>(null);
+
+  if (!context) {
+    throw new Error("useFlags must be used within a FeatureFlagsContext");
+  }
+
+  useEffect(() => {
+    if (!context.isInitialized || !context.client) return;
+
+    if (context.flags.length > 0) {
+      setFlags({ flags: context.flags });
+      return;
+    }
+
+    context.client
+      .getAllFlags()
+      .then((result) => setFlags(result))
+      .catch((err) =>
+        setError(err instanceof Error ? err : new Error(String(err))),
+      );
+
+    return () => {};
+  }, [
+    context.isInitialized,
+    context.client,
+    context.flags.length,
+    context.flags,
+  ]);
+
+  return useMemo(
+    () => ({
+      error,
+      isInitialized: context.isInitialized,
+      flags,
+    }),
+    [flags, context.isInitialized, error],
+  );
+};
+```
+
+Finally, export all the created hooks to make them easy to import. For example: `import { useFlag, useFlags } from "@/libs/feature-flags/hooks";`
+
+```ts copy title="src/libs/feature-flags/hooks/index.ts"
+export * from "./useFlag";
+export * from "./useFlags";
+```
+
+### Add the `FeatureFlagsProvider` to your App
+
+The example below demonstrates how to add the `FeatureFlagsProvider` to your Next.js app using the App Router. It can also be used in the `_app.tsx` file or a React SPA app.
+
+```tsx copy title="src/app/layout.tsx"
+import React from "react";
+import "./globals.css";
+// Feature Flags
+import FeatureFlagsProvider from "@/libs/feature-flags";
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body>
+        <FeatureFlagsProvider
+          config={{
+            baseURL: process.env.NEXT_PUBLIC_FEATURE_FLAGS_BASE_URL,
+            projectKey: process.env.NEXT_PUBLIC_FEATURE_FLAGS_PROJECT_KEY!,
+            environmentKey:
+              process.env.NEXT_PUBLIC_FEATURE_FLAGS_ENVIRONMENT_KEY!,
+          }}
+        >
+          {children}
+        </FeatureFlagsProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+Your app is now fully equipped to take advantage of feature flags and other powerful functionalities offered by Basestack. To maximize the potential of Basestack, refer to the instructions provided in the supported hooks and components documentation.
+
+### Usage
+
+The examples demonstrate how to integrate the provided code into your project. If you find that an important example is missing, please open an issue at the following [link](https://github.com/basestack-co/basestack/issues).
+
+#### React Component
+
+Use hooks in React components to fetch a single Feature Flag or all Feature Flags.
+
+To support types in the payload defined in the Dashboard within the _useFlag hook_, use the following syntax: `useFlag<YourPayloadType>`.
+
+```tsx copy title="src/app/page.tsx"
+"use client";
+
+// Feature Flags Hooks
+import { useFlag, useFlags } from "@/libs/feature-flags/hooks";
+
+export default function Home() {
+  const count = useFlag<{ text: string }>("count");
+  const data = useFlags();
+
+  return (
+    <div>
+      <main>
+        {count.enabled && (
+          <div>
+            <a>
+              {!count.enabled
+                ? "Count is not enabled"
+                : `${count?.payload?.text} 0`}
+            </a>
+          </div>
+        )}
+
+        <h3>All the available flags</h3>
+        <ul>
+          {data.flags.map((flag, index) => {
+            return (
+              <li
+                key={index}
+              >{`Slug: ${flag.slug} Enabled: ${flag.enabled}`}</li>
+            );
+          })}
+        </ul>
+      </main>
+    </div>
+  );
+}
+```
+
+#### API Route Handler (App Router)
+
+On the server side, use the _server file_ that already has the `FlagsSDK` initialized. Use this file wherever the server is needed, such as in API Routes, Server Components, API Endpoints, etc.
+
+```ts copy title="src/app/api/count/route.ts"
+import { ServerFlagsSDK } from "@/libs/feature-flags/server";
+
+export async function GET() {
+  const flagsClient = ServerFlagsSDK.getInstance();
+
+  const flag = await flagsClient.getFlag("count");
+  const data = await flagsClient.getAllFlags();
+
+  return Response.json({ data, flag });
+}
+```
+
+#### API Endpoint (Pages Router)
+
+Here's an example of using the server instance in a Next.js Pages Router API endpoint:
+
+```ts copy title="src/pages/api/hello.ts"
+import type { NextApiRequest, NextApiResponse } from "next";
+import { ServerFlagsSDK } from "@/libs/feature-flags/server";
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
+  const flagsClient = ServerFlagsSDK.getInstance();
+
+  const flag = await flagsClient.getFlag("count");
+  const data = await flagsClient.getAllFlags();
+
+  res.status(200).json({ data, flag });
+}
+```
+
+#### Server Component
+
+You can use the server instance in any server-side context, including `Server Components` in Next.js.
+
+```tsx copy title="src/app/count/page.tsx"
+import { ServerFlagsSDK } from "@/libs/feature-flags/server";
+
+export default async function Page() {
+  const flagsClient = ServerFlagsSDK.getInstance();
+  const data = await flagsClient.getAllFlags();
+
+  return (
+    <div>
+      <h3>All the available flags in server component</h3>
+      <ul>
+        {data.flags.map((flag, index) => {
+          return (
+            <li key={index}>{`Slug: ${flag.slug} Enabled: ${flag.enabled}`}</li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+```
+
+#### Direct Call with Context
+
+You can access the client directly through the context, providing more control when working with useEffect, onClick handlers, or other scenarios where direct access is needed.
+
+```tsx copy title="src/app/posts/page.tsx"
+"use client";
+
+import { useState, useEffect, useContext } from "react";
+// Feature Flags Context
+import { FeatureFlagsContext } from "@/libs/feature-flags";
+import { Flag } from "@basestack/flags-js";
+
+export default function Posts() {
+  const [flags, setFlags] = useState<Flag[]>([]);
+  const context = useContext(FeatureFlagsContext);
+
+  useEffect(() => {
+    async function fetchAllFlags() {
+      const data = await context?.client.getAllFlags();
+      setFlags(data?.flags ?? []);
+    }
+    fetchAllFlags();
+  }, []);
+
+  if (!flags) return <div>Loading...</div>;
+
+  return (
+    <ul>
+      {flags.map((flag, index) => {
+        return (
+          <li key={index}>{`Slug: ${flag.slug} Enabled: ${flag.enabled}`}</li>
+        );
+      })}
+    </ul>
+  );
+}
+```
+
+## Initialisation options
+
+For details regarding the initialization options of @basestack/flags-js, please refer to the documentation related to the [Javascript SDK](/feature-flags/sdks/javascript#initialisation-options).
+
+## Troubleshooting
+
+### Why are my components rendering twice?
+
+It's normal. Check if your App/Component is wrapped inside [React.StrictMode ↗](https://react.dev/reference/react/StrictMode?ref=basestack.co). The purpose of `React.StrictMode` is to help identify potential problems in your application by highlighting some unsafe practices or potential bugs during development.
+
+When you wrap a component in `React.StrictMode`, it can cause some components to be rendered twice. This is expected behavior and is not specific to your code. Rendering twice is intentional and done by React on purpose.
+
+```js copy title="main.ts"
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(
+  <React.StrictMode>
+    <FeatureFlagsProvider
+      config={{
+        baseURL: process.env.NEXT_PUBLIC_FEATURE_FLAGS_BASE_URL,
+        projectKey: process.env.NEXT_PUBLIC_FEATURE_FLAGS_PROJECT_KEY!,
+        environmentKey:
+          process.env.NEXT_PUBLIC_FEATURE_FLAGS_ENVIRONMENT_KEY!,
+      }}
+    >
+        <App />
+    </FeatureFlagsProvider>
+  </React.StrictMode>,
+);
+```

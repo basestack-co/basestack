@@ -1,0 +1,175 @@
+---
+title: Overview
+tags: self-hosting, platform, basestack, deployment, vercel, netlify, hosting, serverless, postgresql, database, nextjs, vercel, neon, supabase, pgbouncer
+---
+
+
+<Callout type="info" emoji="ℹ️">
+  Each service from Basestack is designed to be self-hosted and run
+  independently. This page provides the necessary information to deploy and
+  configure each service. While most configurations are common across all
+  services, specific configurations unique to each service can be found at the
+  end of this page.
+</Callout>
+
+Getting up and running is an easy with various options available. Simply ensure you have a Postgres database and a server that can run Node.js. Customize all the settings of the Basestack Platform by referring to the detailed configuration provided below.
+
+## App hosting
+
+You have the flexibility to host the platform on any service capable of hosting [NextJS ↗](https://nextjs.org/?ref=basestack.co) applications with serverless function support. Additionally, you'll need a separate database running elsewhere that the app can connect to. Some app hosting providers that support include Vercel, more coming, all of which offer a free tier option.
+
+<Cards>
+  <Card title="Vercel" href="/self-hosting/providers/deploy-vercel" />
+  <Card title="Netlify" href="/self-hosting/providers/deploy-netlify" />
+  <Card title="Render" href="/self-hosting/providers/deploy-render" />
+</Cards>
+
+## Managed databases
+
+Ensure that the PostgreSQL service or instance supports serverless environments. Any traditional instance of PostgreSQL with connection pooling, such as [PgBouncer ↗](https://www.pgbouncer.org/?ref=basestack.co), will work effectively.
+
+<Cards>
+  <Card
+    title="Neon - Serverless Postgres"
+    href="/self-hosting/database/neon"
+  />
+  <Card
+    title="Supabase Postgres"
+    href="/self-hosting/database/supabase"
+  />
+</Cards>
+
+## Environment Variables
+
+The platform has a straightforward configuration process, requiring a set of essential environment variables to configure the services and run the platform smoothly.
+
+### Database Configuration
+
+| Property              | Description                                               | Required |
+| --------------------- | --------------------------------------------------------- | -------- |
+| `DATABASE_URL`        | Connection URL to your database using PgBouncer.          | true     |
+| `DIRECT_DATABASE_URL` | Direct connection URL to the database used for migrations | true     |
+
+### Authentication Configuration
+
+#### General
+
+For the `BETTER_AUTH_SECRET` variable you can use `openssl rand -base64 32` or generate a [random value](https://generate-secret.vercel.app/32).
+
+| Property      | Description                                                                 | Required | Example                                                            |
+| ------------- | --------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------ |
+| `BETTER_AUTH_SECRET` | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. | true     | [generate](https://generate-secret.vercel.app/32?ref=basestack.co) |
+| `BETTER_AUTH_URL`    | Set to the canonical URL of your site                                       | true     | https://your-basestack-instance.com                                |
+
+#### Providers
+
+Authentication Providers in the Platform are services that you and your team can use for signing in. To find the list of supported providers, check below:
+
+<Callout type="info" emoji="ℹ️">
+  You can have multiple Auth providers on the platform, providing you with more
+  options. However, it is essential to configure at least one Auth provider for
+  the platform to function properly.
+</Callout>
+
+- [Github Configuration](/self-hosting/authentication/github-config)
+- [Google Configuration](/self-hosting/authentication/google-config)
+
+### API Configuration
+
+The configurations relevant to the API are associated with the endpoint from the `REST API`, which enables tasks like fetching the Flags. On the other hand, services concerning the dashboard, members, and permissions are safeguarded by Authentication and can only be accessed from the same origin (CORS).
+
+#### CORS Configuration
+
+We highly recommend securing the `REST API` requests to ensure they originate from the same domain as your services. You can modify the variables below to align with your product domains.
+
+| Property                          | Description                                                                             | Required | Example |
+| --------------------------------- | --------------------------------------------------------------------------------------- | -------- | ------- |
+| `API_ACCESS_CONTROL_ALLOW_ORIGIN` | Indicates whether the response can be shared with requesting code from the given origin | false    | \*      |
+
+### Email Configuration
+
+The Basestack Platform uses SMTP for sending emails. To configure SMTP, set the following environment variables:
+
+<Callout type="info" emoji="ℹ️">
+  You can use any transactional email service, such as [SendGrid
+  ↗](https://sendgrid.com/en-us?ref=basestack.co), [Mailgun
+  ↗](https://www.mailgun.com/?ref=basestack.co), or [Resend
+  ↗](https://resend.com?ref=basestack.co) to send emails.
+</Callout>
+
+| Property                   | Description                                                                         | Required | Example                         |
+| -------------------------- | ----------------------------------------------------------------------------------- | -------- | ------------------------------- |
+| `EMAIL_FROM`               | Sender email address used in outgoing emails.                                       | true     | `Hello. <hello@yourdomain.com>` |
+| `EMAIL_SMTP_HOST`          | SMTP server hostname or IP address for sending emails.                              | true     |                                 |
+| `EMAIL_SMTP_PORT`          | SMTP port number used for email transmission.                                       | true     | 465                             |
+| `EMAIL_SMTP_SECURE`        | Boolean indicating whether SMTP connection should be secured (e.g., true or false). | true     | false                           |
+| `EMAIL_SMTP_AUTH_USER`     | SMTP authentication username for authenticating to the SMTP server.                 | true     |                                 |
+| `EMAIL_SMTP_AUTH_PASSWORD` | SMTP authentication password for authenticating to the SMTP server.                 | true     |                                 |
+
+### Background Jobs Configuration
+
+Basestack Platform uses background jobs to handle tasks such as sending emails, you need to configure the following environment variables:
+
+<Callout type="info" emoji="ℹ️">
+  Why [UpStash ↗](https://upstash.com/?ref=basestack.co)? Since the Basestack
+  Platform can run in serverless environments, using a service like UpStash
+  QStash to handle background jobs is essential. QStash is a service designed to
+  handle task scheduling and message queuing in a serverless environment. It’s
+  particularly useful for serverless or edge applications that need to offload
+  tasks asynchronously or schedule them for future execution.
+</Callout>
+
+| Environment Variable         | Description                                                               | Required |
+| ---------------------------- | ------------------------------------------------------------------------- | -------- |
+| `UPSTASH_WORKFLOW_URL`       | Set a tunnel URL when working locally to route requests through a tunnel. | true     |
+| `QSTASH_TOKEN`               | The authentication token required for accessing QStash services.          | true     |
+| `QSTASH_URL`                 | The base URL for QStash API requests.                                     | true     |
+| `QSTASH_CURRENT_SIGNING_KEY` | The current key used to sign requests to ensure secure communication.     | true     |
+| `QSTASH_NEXT_SIGNING_KEY`    | The upcoming signing key used to rotate keys for security purposes.       | true     |
+
+
+### Redis Configuration
+
+Basestack Platform uses Redis to store session and other data, you need to configure the following environment variables:
+
+
+| Environment Variable | Description                                                                         | Required | Example                         |
+| -------------------- | ----------------------------------------------------------------------------------- | -------- | ------------------------------- |
+| `UPSTASH_REDIS_REST_URL` | The base URL for UpStash Redis API requests.                                     | true     | https://us1-your-project.upstash.io |
+| `UPSTASH_REDIS_REST_TOKEN` | The authentication token required for accessing UpStash Redis services.          | true     | [Get Token ↗](https://upstash.com/docs/redis/overall/getstarted?ref=basestack.co) |
+
+### Payments Configuration
+
+The Basestack Platform uses [Polar ↗](https://www.polar.sh/?ref=basestack.co) for payments. To configure [Polar ↗](https://www.polar.sh/?ref=basestack.co), set the following environment variables:
+
+| Property                        | Description                                                                                           | Required |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------- | -------- |
+| `POLAR_ACCESS_TOKEN`            | Access token for accessing Polar services, facilitating authorized interaction with the platform.   | true     |
+
+### Additional Configurations
+
+| Property               | Description                                                                                                                                                                 | Required |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `NEXT_PUBLIC_APP_MODE` | APP_MODE can be set to `development` or `production`. The `development` mode is used for local development, while the `production` mode is used for production deployments. | true     |
+
+### Platform-Specific Configuration
+
+The above environment variables are common across all platforms. However, there are specific configurations unique to each platform. Below are the configurations for each platform:
+
+<Tabs items={["Feature Flags", "Forms"]}>
+  <Tab>
+    No specific configurations are required for Feature Flags.
+  </Tab>
+  <Tab>
+
+    #### Cloudflare API Configuration
+
+    The Forms Platform uses Cloudflare services, including Cloudflare AI for spam detection. To configure the Cloudflare API, set the following environment variables:
+
+    | Property                | Description                                                | Required | Example                                                                                                                |
+    | ----------------------- | ---------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
+    | `CLOUDFLARE_ACCOUNT_ID` | You can find your account ID on your Cloudflare dashboard. | true     | [Get Account ID ↗](https://developers.cloudflare.com/workers-ai/get-started/rest-api/#1-get-api-token-and-account-id?ref=basestack.co) |
+    | `CLOUDFLARE_API_TOKEN`  | Obtain or create an API token.                             | true     | [Create an API token ↗](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/?ref=basestack.co)                 |
+
+  </Tab>
+</Tabs>

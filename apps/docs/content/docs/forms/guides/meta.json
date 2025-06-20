@@ -1,0 +1,6 @@
+{
+  "title": "Guides",
+  "icon": "MyIcon",
+  "pages": ["html", "javascript", "react", "vue", "rest"],
+  "defaultOpen": false
+}

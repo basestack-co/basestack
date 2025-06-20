@@ -1,0 +1,6 @@
+{
+  "title": "Authentication",
+  "icon": "MyIcon",
+  "pages": ["github-config", "google-config"],
+  "defaultOpen": false
+}

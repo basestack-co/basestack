@@ -1,0 +1,194 @@
+---
+title: Netlify
+tags: Netlify, Deployment, Hosting, Serverless, Cloud, Web Development, Web Hosting, Automation, CI/CD, Environment Variables, Self-Hosting, Free Plan, Database, Neon, Github, OAuth, Authentication, Environment Variables, Troubleshooting
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Code } from 'lucide-react';
+
+[Netlify ↗](https://www.netlify.com/?ref=basestack.co) is a cloud-based platform and service that offers web hosting, serverless computing, and automation tools for web developers. It is designed to simplify the process of deploying and managing web applications and websites.
+
+In this quick start guide, we demonstrate just how effortless it is to host the platform on [Netlify ↗](https://www.netlify.com/?ref=basestack.co), complemented by a Database hosted at [Neon ↗](https://neon.tech/?ref=basestack.co). Best of all, both services offer perfect free plans, allowing you to explore the platform and scale up as you progress.
+
+## Getting started
+
+<Steps>
+
+<Step>
+  ### To begin, create a database.
+
+Ensure that you have an operational PostgreSQL database server capable of accepting remote connections.
+
+<Callout type="info" emoji="ℹ️">
+  Any traditional instance of PostgreSQL with connection pooling, such as
+  [PgBouncer ↗](https://www.pgbouncer.org/?ref=basestack.co), will work effectively.
+</Callout>
+
+If you do not already have a database, consider selecting one from the recommended list below:
+
+- [Neon - Serverless Postgres](/self-hosting/database/neon)
+
+  During the deployment step, you will be prompted to provide two environment variables for the database. The first is `DATABASE_URL`, which is the Connection URL to your database using PgBouncer. The second is `DIRECT_DATABASE_URL`, which serves as the direct connection URL to the database, used for migrations.
+
+</Step>
+
+<Step>
+### Next, set up authentication.
+
+To simplify this guide, we will use [Github ↗](https://github.com/?ref=basestack.co) as the authentication provider, allowing you to create an account and log in to the Platform. Additionally, this setup will allow other members of your organization to log in as well.
+
+**Create a new [OAuth App](https://github.com/settings/developers?ref=basestack.co) by filling out the form with the following settings:**
+
+<Callout type="info" emoji="ℹ️">
+  If you don't have a Project URL yet, you can leave it blank for now. Check out
+  the [Troubleshooting
+  section](/self-hosting/providers/deploy-netlify#troubleshooting) for further
+  assistance.
+</Callout>
+
+```bash
+"Application name": "Forms by Basestack" // or any name you prefer like
+"Homepage URL": "https://your-basestack-forms-instance.com"
+"Authorization callback URL": "https://your-basestack-instance.com/api/auth/callback/github"
+```
+
+Once you've successfully created a new [OAuth App](https://github.com/settings/developers?ref=basestack.co), it will generate two important keys: `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET`. Be sure to save these keys for later use during the deployment step, as they will be needed as environment variables.
+
+</Step>
+
+<Step>
+### Finally, proceed with the deployment.
+
+#### Option 1: Quick Deploy (Skip this if you want to receive updates)
+
+  <Tabs items={['Feature Flags', 'Forms']}>
+    <Tab>
+      By clicking on the button below, a new repository will be created in your GitHub account from the [Basestack Platform](https://github.com/basestack-co/basestack?ref=basestack.co) repository, and the platform will be deployed for you. This will be an independent copy with no connection to the main project.
+
+      [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/basestack-co/basestack)
+    </Tab>
+    <Tab>
+      Coming soon...
+    </Tab>
+
+  </Tabs>
+
+#### Option 2: Fork the Platform
+
+To receive updates from the main repository, you will need to [manually fork](https://github.com/basestack-co/basestack)
+the project to your GitHub account and import it manually into your Netlify
+account dashboard. The rest of the process remains the same in terms of
+configuration, such as Environment Variables and Project Settings. For more
+details, refer to the [Getting Updates
+Page](/docs/self-hosting/updates).
+
+##### Import to Netlify
+
+1. Log in to [Netlify ↗](https://www.netlify.com/?ref=basestack.co).
+2. Click the `Add new site` dropdown button, then select `Import an existing project` from the menu.
+3. Click the `Deploy with Github` button.
+4. Connect your GitHub account and choose the forked platform repository.
+5. Follow the on-screen instructions to set up the necessary Environment Variables and click "Deploy"
+
+  <Tabs items={["Feature Flags", "Forms"]}>
+    <Tab>
+
+      ```bash
+      "Base directory": "/"
+      "Site to deploy": "apps/feature-flags"
+      "Build command": "yarn deploy:feature-flags"
+      "Publish directory": "apps/forms/.next"
+      ```
+    </Tab>
+    <Tab>
+
+      ```bash
+      "Base directory": "/"
+      "Site to deploy": "apps/forms"
+      "Build command": "yarn deploy:forms"
+      "Publish directory": "apps/forms/.next"
+      ```
+    </Tab>
+  </Tabs>
+
+6. Your deploy will be automatically built. Each git push will trigger a new deployment.
+
+##### Environment Variables
+
+To ensure a successful deployment on Netlify, the platform requires a minimum set of environment variables. Below is the list of environment variables that you must fill in. For the complete list of Environment Variables, please refer to the [Configuration Page](/self-hosting#environment-variables).
+
+| Property               | Description                                                                                 | Value   |
+| ---------------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `DATABASE_URL`         | Connection URL to your database using PgBouncer.                                            |         |
+| `DIRECT_DATABASE_URL`  | Direct connection URL to the database used for migrations                                   |         |
+| `BETTER_AUTH_SECRET`      | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens.                 |         |
+| `BETTER_AUTH_URL`         | Set to the canonical URL of your site                                                       |         |
+| `GITHUB_CLIENT_ID`     | Client Id generated in the [OAuth App](https://github.com/settings/developers?ref=basestack.co) creation     |         |
+| `GITHUB_CLIENT_SECRET` | Client Secret generated in the [OAuth App](https://github.com/settings/developers?ref=basestack.co) creation |         |
+| `NODE_VERSION`         | Node version to use for the build process.                                                  | 18.12.0 |
+| `SKIP_INSTALL_DEPS`    | Disables npm install to use yarn                                                            | true    |
+
+<Callout type="info" emoji="ℹ️">
+  For the `BETTER_AUTH_SECRET` variable you can use `openssl rand -base64 32` or
+  generate a [random value](https://generate-secret.vercel.app/32?ref=basestack.co).
+</Callout>
+
+</Step>
+
+</Steps>
+
+## What's next?
+
+Begin by familiarizing yourself with the platform.
+
+<Tabs items={["Feature Flags"]}>
+  <Tab>
+
+    Create projects, add new feature flags, invite members, and implement the feature flags in your product using our official SDKs.
+
+    <Cards>
+      <Card
+        icon={<Code />}
+        title="Rest API"
+        href="/docs/feature-flags/sdks/rest-api"
+      />
+      <Card
+        icon={<Code />}
+        title="Javascript & Node"
+        href="/docs/feature-flags/sdks/javascript"
+      />
+      <Card
+        icon={<Code />}
+        title="React"
+        href="/docs/feature-flags/sdks/react"
+      />
+    </Cards>
+
+  </Tab>
+
+</Tabs>
+
+Lastly, stay tuned about updates, including new features and bug fixes. To ensure your platform is always up-to-date with the latest improvements, refer to our guide on updating the platform by visiting the [Updates Page](/updates).
+
+<Callout type="info" emoji="ℹ️">
+  For more comprehensive information about the deployment process, please check
+  out the [Configuration Page](/docs/self-hosting). This page provides detailed
+  guidance to ensure a successful and seamless deployment of the Forms Platform.
+</Callout>
+
+## Troubleshooting
+
+### How to Retrieve the Project URL for `BETTER_AUTH_URL` and Github OAuth App?
+
+If you don't have a domain yet, feel free to leave the fields below empty or use dummy information. Proceed with the deployment as usual. Once the deployment is complete, Netlify will generate a URL for your project.
+
+Copy this URL and update the information in your [OAuth App](https://github.com/settings/developers?ref=basestack.co). Next, modify the environment variables in the project settings on Netlify and initiate a new deployment on Netlify once again.
+
+**Environment Variables:**
+
+- `BETTER_AUTH_URL`
+
+**Github [OAuth App](https://github.com/settings/developers?ref=basestack.co) Fields:**
+
+- `Homepage URL`
+- `Authorization callback URL`

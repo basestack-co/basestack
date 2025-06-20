@@ -1,0 +1,6 @@
+{
+  "title": "Features",
+  "icon": "MyIcon",
+  "pages": ["spam-protection"],
+  "defaultOpen": false
+}
