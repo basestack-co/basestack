@@ -5,9 +5,9 @@
     "---Introduction---",
     "index",
     "---SDKs---",
-    "sdks/javascript.mdx",
-    "sdks/react.mdx",
-    "sdks/rest.mdx"
+    "sdks/javascript",
+    "sdks/react",
+    "sdks/rest-api"
   ],
   "root": true
 }

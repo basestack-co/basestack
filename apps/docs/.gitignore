@@ -42,3 +42,8 @@ dist
 .tool-versions
 
 .env
+
+# generated content
+.contentlayer
+.content-collections
+.source

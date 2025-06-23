@@ -26,7 +26,7 @@ You can find these parameter values in your project's settings
 
 ##### Success:
 
-```json copy
+```json copy title="response.json"
 {
   "slug": "header",
   "enabled": true,
@@ -40,7 +40,7 @@ You can find these parameter values in your project's settings
 
 ##### Error:
 
-```json copy
+```json copy title="response.json"
 {
   "enabled": false,
   "error": true,
@@ -52,7 +52,7 @@ You can find these parameter values in your project's settings
 
 Retrieve all feature flags associated with a particular project and a specific environment (e.g., Develop, Staging, etc)
 
-```sh copy
+```sh copy title="curl"
 ## Get All Flags
 curl "https://your-basestack-hosted-app-domain.com/api/v1/flags" \
      -H 'x-project-key: xxxx-xxxx-xxxx' \
@@ -65,7 +65,7 @@ You can find these parameter values in your project's settings
 
 ##### Success:
 
-```json copy
+```json copy title="response.json"
 {
   "flags": [
     {
@@ -92,7 +92,7 @@ You can find these parameter values in your project's settings
 
 ##### Error:
 
-```json copy
+```json copy title="response.json"
 {
   "flags": []
 }
@@ -102,7 +102,7 @@ You can find these parameter values in your project's settings
 
 #### Missing Project Key or Environment Key in headers
 
-```sh copy
+```json copy title="response.json"
 {
   "error": "Missing Project Key or Environment Key in headers"
 }
@@ -110,7 +110,7 @@ You can find these parameter values in your project's settings
 
 #### Missing Flag Slug in query params
 
-```sh copy
+```json copy title="response.json"
 {
   "error": "Missing flag slug in query params"
 }
@@ -118,11 +118,11 @@ You can find these parameter values in your project's settings
 
 ### Environment Variables
 
-As you set up the REST API, you'll come across various Environment Variables that are crucial for its proper configuration. To access and understand all these related Environment Variables, navigate to the [deployment configuration](/docs/feature-flags/deployment#api-configuration). This section will provide you with the necessary context and information to effectively configure the REST API for your project.
+As you set up the REST API, you'll come across various Environment Variables that are crucial for its proper configuration. To access and understand all these related Environment Variables, navigate to the [deployment configuration](/content/self-hosting). This section will provide you with the necessary context and information to effectively configure the REST API for your project.
 
 ### Typescript Type Definition
 
-```sh copy
+```typescript copy title="flag.ts"
 export interface Flag {
   slug: string;
   enabled: boolean;
