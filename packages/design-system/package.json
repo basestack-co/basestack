@@ -31,7 +31,7 @@
     "react-calendar": "^6.0.0",
     "react-select": "^5.10.1",
     "react-spring": "^10.0.1",
-    "styled-components": "^6.1.18",
+    "styled-components": "^6.1.19",
     "styled-system": "^5.1.5"
   }
 }

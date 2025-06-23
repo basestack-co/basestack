@@ -23,10 +23,10 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@polar-sh/sdk": "^0.33.1",
+    "@polar-sh/sdk": "^0.34.2",
     "@upstash/qstash": "^2.8.1",
     "@upstash/redis": "^1.35.0",
-    "@upstash/workflow": "^0.2.13",
-    "better-auth": "^1.2.9"
+    "@upstash/workflow": "^0.2.14",
+    "better-auth": "^1.2.10"
   }
 }

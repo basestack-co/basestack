@@ -17,7 +17,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@react-email/components": "0.0.42",
+    "@react-email/components": "0.1.0",
     "@react-email/render": "1.1.2",
     "nodemailer": "^7.0.3",
     "react-email": "4.0.16"

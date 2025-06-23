@@ -74,7 +74,7 @@ const CoreTab = ({
             inputProps={{
               type: "text",
               name: field.name,
-              value: field.value.replace(/ /g, "_"),
+              value: field.value.toLowerCase().replace(/ /g, "_"),
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t("modal.flag.tab.core.input.name.placeholder"),

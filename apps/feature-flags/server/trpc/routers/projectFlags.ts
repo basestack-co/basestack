@@ -157,10 +157,17 @@ export const projectFlagsRouter = createTRPCRouter({
       });
 
       return {
-        environments: allEnvironments.map((item) => ({
-          ...item.environment,
-          enabled: item.enabled,
-        })),
+        environments: allEnvironments
+          .filter(
+            (item, index, arr) =>
+              arr.findIndex(
+                (env) => env.environment.id === item.environment.id,
+              ) === index,
+          )
+          .map((item) => ({
+            ...item.environment,
+            enabled: item.enabled,
+          })),
       };
     }),
   bySlug: protectedProcedure

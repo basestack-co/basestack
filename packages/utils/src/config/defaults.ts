@@ -12,7 +12,7 @@ const commons = {
   twitter: "https://twitter.com/basestack_co",
   blog: "https://blog.basestack.co/",
   status: "https://status.basestack.co/",
-  support: "https://docs.basestack.co/help",
+  support: "https://docs.basestack.co/docs/help",
   product: {
     flags: `${baseLandingUrl}/product/feature-flags`,
     forms: `${baseLandingUrl}/product/forms`,
@@ -42,18 +42,18 @@ const commons = {
   },
   docs: {
     base: docsUrl,
-    contribute: `${docsUrl}/contributing`,
+    contribute: `${docsUrl}/docs/self-hosting/contributing`,
     flags: {
-      base: `${docsUrl}/feature-flags`,
+      base: `${docsUrl}/docs/feature-flags`,
       sdk: {
-        base: `${docsUrl}/feature-flags/sdks/javascript`,
-        javascript: `${docsUrl}/feature-flags/sdks/javascript`,
-        react: `${docsUrl}/feature-flags/sdks/react`,
-        rest: `${docsUrl}/feature-flags/sdks/rest-api`,
+        base: `${docsUrl}/docs/feature-flags/sdks/javascript`,
+        javascript: `${docsUrl}/docs/feature-flags/sdks/javascript`,
+        react: `${docsUrl}/docs/feature-flags/sdks/react`,
+        rest: `${docsUrl}/docs/feature-flags/sdks/rest-api`,
       },
     },
     forms: {
-      base: `${docsUrl}/forms`,
+      base: `${docsUrl}/docs/forms`,
     },
   },
 };
