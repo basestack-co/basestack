@@ -6,6 +6,7 @@
     "build": "next build",
     "dev": "next dev --port 3001",
     "start": "next start",
+    "deploy": "yarn build",
     "postinstall": "fumadocs-mdx",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
   },
