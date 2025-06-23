@@ -4,12 +4,12 @@ const withMDX = createMDX();
 
 /** @type {import('next').NextConfig} */
 const config = {
-  // output: "export",
+  output: "export",
   reactStrictMode: true,
   images: {
     unoptimized: true,
   },
-  redirects: async () => {
+  /* redirects: async () => {
     return [
       {
         source: "/",
@@ -22,7 +22,7 @@ const config = {
         permanent: false,
       },
     ];
-  },
+  }, */
 };
 
 export default withMDX(config);
