@@ -1,30 +1,31 @@
 {
-  "name": "basestack-docs-v2",
+  "name": "@basestack/docs",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev --turbo",
+    "dev": "next dev --port 3001",
     "start": "next start",
-    "postinstall": "fumadocs-mdx"
+    "postinstall": "fumadocs-mdx",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
   },
   "dependencies": {
-    "fumadocs-core": "15.5.3",
+    "fumadocs-core": "15.5.4",
     "fumadocs-mdx": "11.6.9",
-    "fumadocs-ui": "15.5.3",
-    "lucide-react": "^0.518.0",
+    "fumadocs-ui": "15.5.4",
+    "lucide-react": "^0.522.0",
     "next": "15.3.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@basestack/config": "*",
+    "@basestack/tsconfig": "*",
     "@tailwindcss/postcss": "^4.1.10",
     "@types/mdx": "^2.0.13",
     "@types/node": "24.0.1",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
-    "eslint": "^8",
-    "eslint-config-next": "15.3.3",
     "postcss": "^8.5.5",
     "tailwindcss": "^4.1.10",
     "typescript": "^5.8.3"

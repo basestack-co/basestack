@@ -1,28 +1,44 @@
-# deps
-/node_modules
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# generated content
-.contentlayer
-.content-collections
-.source
+# dependencies
+node_modules
+.pnp
+.pnp.js
 
-# test & build
-/coverage
-/.next/
-/out/
-/build
-*.tsbuildinfo
+# testing
+coverage
+
+# next.js
+.next/
+out/
+build
 
 # misc
 .DS_Store
 *.pem
-/.pnp
-.pnp.js
+
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 
-# others
-.env*.local
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# turbo
+.turbo
+
+# Jetbrains
+.idea
+
+#dists
+dist
+.vscode/settings.json
 .vercel
-next-env.d.ts
+.tool-versions
+
+.env

@@ -10,7 +10,7 @@ import { Code } from 'lucide-react';
 
 In this quick start guide, we demonstrate just how effortless it is to host the platform on [Vercel ↗](https://vercel.com/?ref=basestack.co), complemented by a Database hosted at [Neon ↗](https://neon.tech/?ref=basestack.co). Best of all, both services offer perfect free plans, allowing you to explore the platform and scale up as you progress.
 
-<Callout type="warning" emoji="⚠️">
+<Callout type="warning">
   To receive updates from the main repository, you will need to manually fork
   the project to your GitHub account and import it manually into your Vercel
   account dashboard. The rest of the process remains the same in terms of
@@ -26,7 +26,7 @@ In this quick start guide, we demonstrate just how effortless it is to host the 
 
 Ensure that you have an operational PostgreSQL database server capable of accepting remote connections.
 
-<Callout type="info" emoji="ℹ️">
+<Callout type="info">
   Any traditional instance of PostgreSQL with connection pooling, such as
   [PgBouncer ↗](https://www.pgbouncer.org/?ref=basestack.co), will work effectively.
 </Callout>
@@ -46,7 +46,7 @@ To simplify this guide, we will use [Github ↗](https://github.com/?ref=basesta
 
 **Create a new [OAuth App](https://github.com/settings/developers) by filling out the form with the following settings:**
 
-<Callout type="info" emoji="ℹ️">
+<Callout type="info">
   If you don't have a Project URL yet, you can leave it blank for now. Check out
   the [Troubleshooting
   section](/docs/self-hosting/providers/deploy-vercel#troubleshooting) for further
@@ -84,11 +84,11 @@ Once you've successfully created a new [OAuth App](https://github.com/settings/d
 
 #### Option 2: Fork the Platform
 
-Alternatively, you have the option to manually fork the [Basestack Platform repository](https://github.com/basestack-co/basestack). This provides greater control over [updates](/updates) and even allows you to [contribute](/contributing) to the project if desired.
+Alternatively, you have the option to manually fork the [Basestack Platform repository](https://github.com/basestack-co/basestack). This provides greater control over [updates](/docs/self-hosting/updates) and even allows you to [contribute](/docs/self-hosting/contributing) to the project if desired.
 
 ##### Environment Variables
 
-To ensure a successful deployment on Vercel, the platform requires a minimum set of environment variables. Below is the list of environment variables that you must fill in. For the complete list of Environment Variables, please refer to the [Configuration Page](/self-hosting#environment-variables).
+To ensure a successful deployment on Vercel, the platform requires a minimum set of environment variables. Below is the list of environment variables that you must fill in. For the complete list of Environment Variables, please refer to the [Configuration Page](/docs/self-hosting#environment-variables).
 
 | Property               | Description                                                                                 |
 | ---------------------- | ------------------------------------------------------------------------------------------- |
@@ -99,7 +99,7 @@ To ensure a successful deployment on Vercel, the platform requires a minimum set
 | `GITHUB_CLIENT_ID`     | Client Id generated in the [OAuth App](https://github.com/settings/developers?ref=basestack.co) creation     |
 | `GITHUB_CLIENT_SECRET` | Client Secret generated in the [OAuth App](https://github.com/settings/developers?ref=basestack.co) creation |
 
-<Callout type="info" emoji="ℹ️">
+<Callout type="info">
   For the `BETTER_AUTH_SECRET` variable you can use `openssl rand -base64 32` or
   generate a [random value](https://generate-secret.vercel.app/32?ref=basestack.co).
 </Callout>
@@ -143,34 +143,36 @@ Begin by familiarizing yourself with the platform.
 
 <Tabs items={["Feature Flags"]}>
   <Tab>
-
     Create projects, add new feature flags, invite members, and implement the feature flags in your product using our official SDKs.
-
     <Cards>
       <Card
         icon={<Code />}
-        title="Rest API"
-        href="/docs/feature-flags/sdks/rest-api"
-      />
-      <Card
-        icon={<Code />}
-        title="Javascript & Node"
+        title="JavaScript & NodeJS"
         href="/docs/feature-flags/sdks/javascript"
-      />
+      >
+        Integrate feature flagging into your JavaScript or NodeJS applications with our easy-to-use SDK.
+      </Card>
       <Card
         icon={<Code />}
-        title="React"
+        title="React & NextJS"
         href="/docs/feature-flags/sdks/react"
-      />
+      >
+        Integrate feature flagging into your React or NextJS applications with our easy-to-use SDK.
+      </Card>
+        <Card
+            icon={<Code />}
+            title="REST API"
+            href="/docs/feature-flags/sdks/rest-api"
+        >
+          Use our REST API to integrate feature flagging into your applications.
+        </Card>
     </Cards>
-
   </Tab>
-
 </Tabs>
 
 Lastly, stay tuned about updates, including new features and bug fixes. To ensure your platform is always up-to-date with the latest improvements, refer to our guide on updating the platform by visiting the [Updates Page](/docs/self-hosting/updates).
 
-<Callout type="info" emoji="ℹ️">
+<Callout type="info">
   For more comprehensive information about the deployment process, please check
   out the [Configuration Page](/docs/self-hosting). This page provides detailed
   guidance to ensure a successful and seamless deployment of the Forms Platform.

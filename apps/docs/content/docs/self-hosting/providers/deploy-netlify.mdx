@@ -19,14 +19,14 @@ In this quick start guide, we demonstrate just how effortless it is to host the 
 
 Ensure that you have an operational PostgreSQL database server capable of accepting remote connections.
 
-<Callout type="info" emoji="ℹ️">
+<Callout type="info">
   Any traditional instance of PostgreSQL with connection pooling, such as
   [PgBouncer ↗](https://www.pgbouncer.org/?ref=basestack.co), will work effectively.
 </Callout>
 
 If you do not already have a database, consider selecting one from the recommended list below:
 
-- [Neon - Serverless Postgres](/self-hosting/database/neon)
+- [Neon - Serverless Postgres](/docs/self-hosting/database/neon)
 
   During the deployment step, you will be prompted to provide two environment variables for the database. The first is `DATABASE_URL`, which is the Connection URL to your database using PgBouncer. The second is `DIRECT_DATABASE_URL`, which serves as the direct connection URL to the database, used for migrations.
 
@@ -39,10 +39,10 @@ To simplify this guide, we will use [Github ↗](https://github.com/?ref=basesta
 
 **Create a new [OAuth App](https://github.com/settings/developers?ref=basestack.co) by filling out the form with the following settings:**
 
-<Callout type="info" emoji="ℹ️">
+<Callout type="info">
   If you don't have a Project URL yet, you can leave it blank for now. Check out
   the [Troubleshooting
-  section](/self-hosting/providers/deploy-netlify#troubleshooting) for further
+  section](/docs/self-hosting/providers/deploy-netlify#troubleshooting) for further
   assistance.
 </Callout>
 
@@ -115,7 +115,7 @@ Page](/docs/self-hosting/updates).
 
 ##### Environment Variables
 
-To ensure a successful deployment on Netlify, the platform requires a minimum set of environment variables. Below is the list of environment variables that you must fill in. For the complete list of Environment Variables, please refer to the [Configuration Page](/self-hosting#environment-variables).
+To ensure a successful deployment on Netlify, the platform requires a minimum set of environment variables. Below is the list of environment variables that you must fill in. For the complete list of Environment Variables, please refer to the [Configuration Page](/docs/self-hosting#environment-variables).
 
 | Property               | Description                                                                                 | Value   |
 | ---------------------- | ------------------------------------------------------------------------------------------- | ------- |
@@ -128,7 +128,7 @@ To ensure a successful deployment on Netlify, the platform requires a minimum se
 | `NODE_VERSION`         | Node version to use for the build process.                                                  | 18.12.0 |
 | `SKIP_INSTALL_DEPS`    | Disables npm install to use yarn                                                            | true    |
 
-<Callout type="info" emoji="ℹ️">
+<Callout type="info">
   For the `BETTER_AUTH_SECRET` variable you can use `openssl rand -base64 32` or
   generate a [random value](https://generate-secret.vercel.app/32?ref=basestack.co).
 </Callout>
@@ -143,34 +143,36 @@ Begin by familiarizing yourself with the platform.
 
 <Tabs items={["Feature Flags"]}>
   <Tab>
-
     Create projects, add new feature flags, invite members, and implement the feature flags in your product using our official SDKs.
-
     <Cards>
       <Card
         icon={<Code />}
-        title="Rest API"
-        href="/docs/feature-flags/sdks/rest-api"
-      />
-      <Card
-        icon={<Code />}
-        title="Javascript & Node"
+        title="JavaScript & NodeJS"
         href="/docs/feature-flags/sdks/javascript"
-      />
+      >
+        Integrate feature flagging into your JavaScript or NodeJS applications with our easy-to-use SDK.
+      </Card>
       <Card
         icon={<Code />}
-        title="React"
+        title="React & NextJS"
         href="/docs/feature-flags/sdks/react"
-      />
+      >
+        Integrate feature flagging into your React or NextJS applications with our easy-to-use SDK.
+      </Card>
+        <Card
+            icon={<Code />}
+            title="REST API"
+            href="/docs/feature-flags/sdks/rest-api"
+        >
+          Use our REST API to integrate feature flagging into your applications.
+        </Card>
     </Cards>
-
   </Tab>
-
 </Tabs>
 
-Lastly, stay tuned about updates, including new features and bug fixes. To ensure your platform is always up-to-date with the latest improvements, refer to our guide on updating the platform by visiting the [Updates Page](/updates).
+Lastly, stay tuned about updates, including new features and bug fixes. To ensure your platform is always up-to-date with the latest improvements, refer to our guide on updating the platform by visiting the [Updates Page](/docs/self-hosting/updates).
 
-<Callout type="info" emoji="ℹ️">
+<Callout type="info">
   For more comprehensive information about the deployment process, please check
   out the [Configuration Page](/docs/self-hosting). This page provides detailed
   guidance to ensure a successful and seamless deployment of the Forms Platform.

@@ -1,10 +1,5 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
-import {
-  CreativeCommons,
-  Twitter,
-  LifeBuoy,
-  BadgeQuestionMark,
-} from "lucide-react";
+import { Twitter, LifeBuoy } from "lucide-react";
 
 /**
  * Shared layout configurations
@@ -36,18 +31,6 @@ export const baseOptions: BaseLayoutProps = {
       icon: <LifeBuoy />,
       text: "Help & Support",
       url: "/docs/help",
-      secondary: false,
-    },
-    {
-      icon: <BadgeQuestionMark />,
-      text: "FAQs",
-      url: "/docs/faqs",
-      secondary: false,
-    },
-    {
-      icon: <CreativeCommons />,
-      text: "License",
-      url: "/docs/license",
       secondary: false,
     },
     {

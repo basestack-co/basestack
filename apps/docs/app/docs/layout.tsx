@@ -4,6 +4,12 @@ import { baseOptions } from "@/app/layout.config";
 import { source } from "@/lib/source";
 import { Flag, Server, File } from "lucide-react";
 
+const iconProps = {
+  size: 16,
+  strokeWidth: 1.5,
+  style: { marginTop: 2, marginLeft: 2 },
+};
+
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <DocsLayout
@@ -12,15 +18,17 @@ export default function Layout({ children }: { children: ReactNode }) {
         tabs: {
           transform: (option, node) => {
             const icons: Record<string, ReactNode> = {
-              "feature-flags": <Flag size={16} />,
-              "self-hosting": <Server size={16} />,
-              forms: <File size={16} />,
-              platform: <Server size={16} />,
+              "feature-flags": <Flag {...iconProps} />,
+              "self-hosting": <Server {...iconProps} />,
+              forms: <File {...iconProps} />,
+              platform: <Server {...iconProps} />,
             };
 
             return {
               ...option,
-              icon: icons[node.$id as keyof typeof icons] ?? <File size={16} />,
+              icon: icons[node.$id as keyof typeof icons] ?? (
+                <File {...iconProps} />
+              ),
             };
           },
         },

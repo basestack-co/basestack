@@ -9,7 +9,7 @@ Seamless integration with JavaScript/NodeJS streamlines the testing and developm
 
 ## Getting started
 
-<Callout type="info" emoji="ℹ️">
+<Callout type="info">
   We only support ESM (ECMAScript Modules) in the browser or server environment.
   If you are using CommonJS, you will need to use a bundler like
   [Webpack](https://webpack.js.org/?ref=basestack.co) or
@@ -28,9 +28,25 @@ Seamless integration with JavaScript/NodeJS streamlines the testing and developm
 
 First, let's install some packages!
 
-```sh copy npm2yarn
-npm install @basestack/flags-js
+<Tabs groupId='package-manager' persist items={['npm', 'pnpm', 'yarn', 'bun']} label='Install the SDK'>
+
+```bash tab="npm"
+npm create @basestack/flags-js
 ```
+
+```bash tab="pnpm"
+pnpm create @basestack/flags-js
+```
+
+```bash tab="yarn"
+yarn create @basestack/flags-js
+```
+
+```bash tab="bun"
+bun create @basestack/flags-js
+```
+
+</Tabs>
 
 or with Script Tag
 
@@ -44,7 +60,7 @@ or with Script Tag
 
 Here are the example environment variables needed for this guide. Feel free to rename them according to your project's requirements:
 
-<Callout type="info" emoji="ℹ️">
+<Callout type="info">
   When it comes to environment variables, pay attention to the framework you're
   using. For example, `NEXT_PUBLIC_` is specific to Next.js, while in
   [Vite.js](https://vite.dev/?ref=basestack.co), it would be `VITE_`. Example
@@ -87,9 +103,10 @@ const advancedClient = new FlagsSDK({
 ```
 </Step>
 <Step>
+### Usage
+
 That's it! Your app is now fully equipped to leverage feature flags and other powerful functionalities. To make the most of Basestack's capabilities, simply follow the instructions provided in the supported methods documentation.
 
-### Usage
 
 ```jsx copy title="main.js"
 import { FlagsSDK } from "@basestack/flags-js";
@@ -173,7 +190,7 @@ async function renderFeature() {
 
 In a server environment like Node or Serverless, you can use the SDK as usual because it uses the Fetch API, which is supported in Node.js.
 
-<Callout type="warning" emoji="⚠️">
+<Callout type="warning">
   The Fetch API is available in Node.js starting from version 18.0.0.
 </Callout>
 

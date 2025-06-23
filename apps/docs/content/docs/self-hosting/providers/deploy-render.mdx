@@ -7,7 +7,7 @@ tags: Basestack, Render, Deployment, Cloud Platform, Web Applications, Databases
 
 The project includes a `render.yaml` configuration file that outlines all the essential services required to operate the platform. This encompasses the database service, the pgbouncer service, and, lastly, the dashboard for each service. This configuration has been meticulously designed to streamline the deployment process on Render, ensuring a seamless setup.
 
-<Callout type="info" emoji="ℹ️">
+<Callout type="info">
   Within the configuration, we recommend the starter plans, which are paid
   options. However, if you'd like to explore the platform on the free plan or
   switch to another plan, you can easily adjust these settings in the
@@ -29,7 +29,7 @@ Here are the steps to deploy the platform on Render.com:
 
 #### Environment Variables
 
-To ensure a successful deployment on Render, the platform requires a minimum set of environment variables. Below is the list of environment variables that you must fill in. For the complete list of Environment Variables, please refer to the [Configuration Page](/self-hosting#environment-variables).
+To ensure a successful deployment on Render, the platform requires a minimum set of environment variables. Below is the list of environment variables that you must fill in. For the complete list of Environment Variables, please refer to the [Configuration Page](/docs/self-hosting#environment-variables).
 
 | Property               | Description                                                                                                               |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------- |
@@ -40,14 +40,14 @@ To ensure a successful deployment on Render, the platform requires a minimum set
 | `GITHUB_CLIENT_ID`     | Client Id generated in the [OAuth App](https://github.com/settings/developers?ref=basestack.co) creation                  |
 | `GITHUB_CLIENT_SECRET` | Client Secret generated in the [OAuth App](https://github.com/settings/developers?ref=basestack.co) creation              |
 
-<Callout type="info" emoji="ℹ️">
+<Callout type="info">
   For the `BETTER_AUTH_SECRET` variable you can use `openssl rand -base64 32` or
   generate a [random value](https://generate-secret.vercel.app/32).
 </Callout>
 
 ## What's next?
 
-Begin by familiarizing yourself with the platform. Lastly, stay tuned about updates, including new features and bug fixes. To ensure your platform is always up-to-date with the latest improvements, refer to our guide on updating the platform by visiting the [Updates Page](/updates).
+Begin by familiarizing yourself with the platform. Lastly, stay tuned about updates, including new features and bug fixes. To ensure your platform is always up-to-date with the latest improvements, refer to our guide on updating the platform by visiting the [Updates Page](/docs/self-hosting/updates).
 
 ## Troubleshooting
 
@@ -89,7 +89,7 @@ After obtaining the address, you'll need to include the `USER` and `PASSWORD` fi
 
 After collecting all the required information, you'll have the necessary fields to construct the connection string, which should look something like this:
 
-<Callout type="info" emoji="ℹ️">
+<Callout type="info">
   The provided connection string is just an example. Please ensure you use the
   one you generated with your specific details.
 </Callout>

@@ -4,12 +4,10 @@ const withMDX = createMDX();
 
 /** @type {import('next').NextConfig} */
 const config = {
+  // output: "export",
   reactStrictMode: true,
   images: {
-    remotePatterns: [
-      new URL("https://i.imgur.com/**"),
-      new URL("https://vercel.com/**"),
-    ],
+    unoptimized: true,
   },
   redirects: async () => {
     return [

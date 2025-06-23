@@ -11,7 +11,7 @@ Integration with [React ↗](https://react.dev/?ref=basestack.co) or [NextJS ↗
 ## Getting started
 
 For [React ↗](https://react.dev/?ref=basestack.co) and [NextJS ↗](https://nextjs.org/?ref=basestack.co), we chose not to create a separate SDK, as it would
-essentially act as a wrapper for our [JavaScript SDK](/feature-flags/sdks/javascript). Instead, we’ll show you
+essentially act as a wrapper for our [JavaScript SDK](/docs/feature-flags/sdks/javascript). Instead, we’ll show you
 how to fully use the JavaScript SDK within a React or Next.js project.
 This approach ensures you can access all the features of a React SDK without
 needing to install additional packages. One key advantage is that you retain
@@ -28,15 +28,31 @@ custom implementations.
 
 First, let's install some packages!
 
-```sh copy npm2yarn
-npm install @basestack/flags-js
+<Tabs groupId='package-manager' persist items={['npm', 'pnpm', 'yarn', 'bun']} label='Install the SDK'>
+
+```bash tab="npm"
+npm create @basestack/flags-js
 ```
+
+```bash tab="pnpm"
+pnpm create @basestack/flags-js
+```
+
+```bash tab="yarn"
+yarn create @basestack/flags-js
+```
+
+```bash tab="bun"
+bun create @basestack/flags-js
+```
+
+</Tabs>
 
 ### Environment Variables
 
 Here are the example environment variables needed for this guide. Feel free to rename them according to your project's requirements:
 
-<Callout type="info" emoji="ℹ️">
+<Callout type="info">
   When it comes to environment variables, pay attention to the framework you're
   using. For example, `NEXT_PUBLIC_` is specific to Next.js, while in
   [Vite.js](https://vite.dev/?ref=basestack.co), it would be `VITE_`. Example
@@ -75,7 +91,7 @@ Let's start by creating a Provider. In React, a Provider is a component that all
 
 In summary, this Provider initializes the `FlagsSDK, collects all the Feature Flags for a given environment to make them available in the context, and helps determine whether the Feature Flags have been initialized.
 
-<Callout type="info" emoji="ℹ️">
+<Callout type="info">
   If you are only using React or Next.js in the Pages Router, you can remove the
   `“use client”` directive from the page.
 </Callout>
@@ -506,7 +522,7 @@ export default function Posts() {
 
 ## Initialisation options
 
-For details regarding the initialization options of @basestack/flags-js, please refer to the documentation related to the [Javascript SDK](/feature-flags/sdks/javascript#initialisation-options).
+For details regarding the initialization options of @basestack/flags-js, please refer to the documentation related to the [Javascript SDK](/docs/feature-flags/sdks/javascript#initialisation-options).
 
 ## Troubleshooting
 

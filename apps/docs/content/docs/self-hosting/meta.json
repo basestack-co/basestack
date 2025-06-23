@@ -6,6 +6,8 @@
     "index",
     "updates",
     "contributing",
+    "license",
+    "faqs",
     "---Authentication---",
     "authentication/github-config",
     "authentication/google-config",

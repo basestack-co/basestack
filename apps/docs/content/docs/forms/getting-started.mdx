@@ -20,7 +20,7 @@ To get started, you’ll need the following:
     If you don't have an HTML form yet, you can use the example below or choose from the examples available on the Setup
     tab in the [Basestack Forms](https://forms.basestack.co) Dashboard.
 
-    ```html copy
+    ```html copy title="form.html"
     <!-- modify this form HTML as you wish -->
     <form action="#" method="POST" enctype="multipart/form-data">
         <div>
@@ -56,7 +56,7 @@ To get started, you’ll need the following:
     Paste the form URL you copied in step 2 into the** `action` **attribute of your form. That's it! You're now ready
     to start collecting submissions.
 
-    ```html copy
+    ```html copy title="form.html"
     <!-- modify this form HTML as you wish -->
     <form action="[https://forms.basestack.co/api/v1/s/[KEY]?mode=rest" method="POST" enctype="multipart/form-data">
         <div>
@@ -72,10 +72,10 @@ To get started, you’ll need the following:
 
         <!-- your other form fields go here -->
         <button type="submit">Submit</button>
-    </form>
+    </form> 
     ```
 
-    <Callout type="info" emoji="ℹ️">
+    <Callout type="info">
         All input fields (e.g., input, textarea, etc) must have a **name** attribute, or Basestack Forms won’t be able
         to collect.
     </Callout>
