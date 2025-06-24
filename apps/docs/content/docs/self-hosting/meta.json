@@ -1,0 +1,24 @@
+{
+  "title": "Basestack Self-Hosting",
+  "description": "Run on your own infrastructure",
+  "icon": "Server",
+  "pages": [
+    "---Introduction---",
+    "index",
+    "updates",
+    "contributing",
+    "license",
+    "faqs",
+    "---Authentication---",
+    "authentication/github-config",
+    "authentication/google-config",
+    "---Database---",
+    "database/neon",
+    "database/supabase",
+    "---Deploying---",
+    "providers/deploy-vercel",
+    "providers/deploy-netlify",
+    "providers/deploy-render"
+  ],
+  "root": true
+}

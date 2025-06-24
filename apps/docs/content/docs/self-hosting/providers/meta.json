@@ -1,0 +1,6 @@
+{
+  "title": "Providers",
+  "icon": "MyIcon",
+  "pages": ["deploy-vercel", "deploy-netlify", "deploy-render"],
+  "defaultOpen": false
+}

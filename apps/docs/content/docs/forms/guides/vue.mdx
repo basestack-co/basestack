@@ -1,0 +1,120 @@
+---
+title: Vue
+icon: Code
+tags: Basestack Forms, Vue Integration, Vue.js, Form submission, Fetch API, Axios, HTTP client, JSON response, Web development, Developer tools, "2025"
+---
+
+import { Step, Steps } from "fumadocs-ui/components/steps";
+
+[Vue.js](https://vuejs.org/?ref=basestack.co) is a progressive JavaScript framework for building user interfaces, designed to be approachable, versatile, and easy to integrate, with a focus on declarative rendering and component-based architecture.
+
+To get started, you’ll need the following:
+
+- A [Basestack Forms](https://forms.basestack.co) Account
+- A VueJS project with a Form component
+
+<Steps>
+<Step>
+### Use this on your Vue Project to send form data to your endpoint.
+
+Send data using the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API?ref=basestack.co), [Axios](https://axios-http.com/?ref=basestack.co) or Any [HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP?ref=basestack.co) Client and ensure the mode on the query string is set to `mode=rest` for retrieving the response in JSON format.
+
+</Step>
+<Step>
+### Copy and paste this into your Vue component.
+
+Feel free to use the code below to send a test submission.
+
+```vue copy title="form.vue"
+<template>
+  <form @submit.prevent="onHandleSubmit">
+    <div>
+      <label for="name">Name</label>
+      <input
+        type="text"
+        v-model="form.name"
+        id="name"
+        placeholder="Enter your name"
+        name="name"
+        required
+        autocomplete="name"
+        aria-label="Name"
+      />
+    </div>
+
+    <div>
+      <label for="email">Email</label>
+      <input
+        type="email"
+        v-model="form.email"
+        id="email"
+        name="email"
+        required
+        autocomplete="email"
+        aria-label="Email"
+        placeholder="Enter your email"
+      />
+    </div>
+
+    <div>
+      <label for="message">Message</label>
+      <textarea
+        v-model="form.message"
+        id="message"
+        name="message"
+        required
+        aria-label="Message"
+        placeholder="Enter your message"
+      ></textarea>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+</template>
+
+<script>
+import { reactive, toRefs } from "vue";
+
+export default {
+  setup() {
+    const form = reactive({
+      name: "",
+      email: "",
+      message: "",
+    });
+
+    const onHandleSubmit = async () => {
+      try {
+        const res = await fetch(
+          "https://forms.basestack.co/api/v1/s/[KEY]?mode=rest",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(form),
+          },
+        );
+
+        const data = await res.json();
+
+        if (data.code === 200) {
+          console.log("Form submitted successfully");
+        }
+      } catch (error) {
+        console.log("Error submitting form", error);
+      }
+    };
+
+    return {
+      ...toRefs(form),
+      onHandleSubmit,
+    };
+  },
+};
+</script>
+```
+
+</Step>
+</Steps>

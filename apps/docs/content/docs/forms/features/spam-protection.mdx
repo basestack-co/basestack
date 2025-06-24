@@ -1,0 +1,70 @@
+---
+title: Spam Protection
+icon: ShieldCheck
+tags: Basestack Forms, Spam Protection, Honeypot, AI models, Bots, Security, Form submission, IP blocking, Form Security, "2025", Developer tools
+---
+
+[Basestack Forms](https://forms.basestack.co) uses various methods to detect spam submissions and automatically labels them as spam when identified.
+
+<Callout type="info">
+  Rather than deleting spam submissions, we simply mark them as spam. The focus
+  of our spam protection is not to decrease the number of spam submissions, but
+  to streamline your review of submissions on the dashboard.
+</Callout>
+
+## Methods to Protect Against Spam
+
+We use AI models to identify spam to the best of our ability, but there may still be instances where some submissions slip through. You may also want to block specific types of [bots](https://en.wikipedia.org/wiki/Internet_bot?ref=basestack.co) from submitting any data.
+
+### The Honeypot Technique
+
+The Honeypot technique is a security method used to detect and deflect malicious activities by setting up decoy systems, services, or traps that appear vulnerable but are isolated and monitored. The goal is to lure attackers into interacting with these decoys, revealing their methods and intentions, without compromising actual systems. This technique is commonly used in cybersecurity to gather intelligence and prevent real system breaches.
+
+The `<input type="hidden" name="_trap" />` is a honeypot field used in forms to detect and prevent spam or bot submissions. Here's how and why you might use it:
+
+#### How
+
+1. **Hidden Field**: The field is set to `type="hidden"`, meaning it won't be visible to the user on the form.
+2. **Trap for Bots**: Legitimate users won't fill out this field, as they can't see it. However, automated bots that submit forms may fill in all fields, including hidden ones, as part of their submission process.
+3. **Validation**: On the server side, you check if this field is filled out. If it is, you can assume the submission was made by a bot and reject it.
+
+#### Why
+
+1. **Spam Prevention**: Bots often try to fill out every field in a form, including hidden ones. By adding an invisible honeypot field, you can catch these bots.
+2. **Minimal User Disruption**: Unlike CAPTCHA or other anti-bot measures, a honeypot does not require any action from the user, making the experience seamless and unobtrusive for legitimate users.
+3. **Simple and Effective**: It’s a lightweight, easy-to-implement technique for identifying spam or bot-generated form submissions.
+
+#### Example
+
+```html copy title="form.html"
+<form
+  action="https://forms.basestack.co/api/v1/s/[KEY]?mode=rest"
+  method="POST"
+  enctype="multipart/form-data"
+>
+  <!-- Legitimate form fields -->
+  <input type="text" name="email" required />
+  <input type="text" name="name" required />
+
+  <!-- Honeypot field -->
+  <input type="hidden" name="_trap" />
+
+  <button type="submit">Submit</button>
+</form>
+```
+
+On the server, we will check if `_trap` is filled out. This technique helps to filter out automated submissions without disrupting your experience.
+
+<Callout type="info">
+  You can change the name of the field under `Your Form -> Settings -> Security
+  -> Honeypot Input.
+</Callout>
+
+### The IP Blocking Method
+
+With every submission, we automatically capture metadata, including the recipient's IP address. When you view a submission, you'll see this metadata along with the option to add the IP to the IP Block list. This is an excellent option if a specific IP is sending a high volume of spam submissions.
+
+<Callout type="info">
+  You can add more IPs under `Your Form -> Settings -> Security -> IP Block
+  Rules`.
+</Callout>

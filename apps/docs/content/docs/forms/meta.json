@@ -1,0 +1,19 @@
+{
+  "title": "Basestack Forms",
+  "description": "Collect form submissions easily",
+  "icon": "File",
+  "pages": [
+    "---Introduction---",
+    "index",
+    "getting-started",
+    "---Features---",
+    "features/spam-protection.mdx",
+    "---Guides---",
+    "guides/html",
+    "guides/javascript",
+    "guides/react",
+    "guides/rest",
+    "guides/vue"
+  ],
+  "root": true
+}

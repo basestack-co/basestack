@@ -29,10 +29,10 @@ export const subscriptionRouter = createTRPCRouter({
   }),
   current: protectedProcedure.query(async ({ ctx }) => {
     const userEmail = ctx.auth?.user.email!;
-    const customerExternalId = emailToId(userEmail);
+    const externalCustomerId = emailToId(userEmail);
 
     return await polar.getCustomerSubscription(
-      customerExternalId,
+      externalCustomerId,
       Product.FORMS,
       AppMode,
     );
@@ -41,10 +41,10 @@ export const subscriptionRouter = createTRPCRouter({
     .meta({ skipSubscriptionCheck: true })
     .query(async ({ ctx }) => {
       const userEmail = ctx.auth?.user.email!;
-      const customerExternalId = emailToId(userEmail);
+      const externalCustomerId = emailToId(userEmail);
 
       const session = await polar.client.customerSessions
-        .create({ customerExternalId })
+        .create({ externalCustomerId })
         .catch(() => null);
 
       if (!session?.token) {
@@ -52,7 +52,7 @@ export const subscriptionRouter = createTRPCRouter({
       }
 
       const subscription = await polar.getCustomerSubscription(
-        customerExternalId,
+        externalCustomerId,
         Product.FORMS,
         AppMode,
       );
@@ -86,16 +86,16 @@ export const subscriptionRouter = createTRPCRouter({
     .meta({ skipSubscriptionCheck: true })
     .mutation(async ({ ctx }) => {
       const userEmail = ctx.auth?.user.email!;
-      const customerExternalId = emailToId(userEmail);
+      const externalCustomerId = emailToId(userEmail);
 
       await polar.deleteCustomerSubscriptionCache(
-        customerExternalId,
+        externalCustomerId,
         Product.FORMS,
         AppMode,
       );
 
       const result = await polar.client.customerSessions.create({
-        customerExternalId,
+        externalCustomerId,
       });
 
       return {
@@ -118,10 +118,10 @@ export const subscriptionRouter = createTRPCRouter({
       const userEmail = ctx.auth?.user.email!;
       const userName = ctx.auth?.user.name!;
 
-      const customerExternalId = emailToId(userEmail);
+      const externalCustomerId = emailToId(userEmail);
 
       await polar.deleteCustomerSubscriptionCache(
-        customerExternalId,
+        externalCustomerId,
         Product.FORMS,
         AppMode,
       );
@@ -129,7 +129,7 @@ export const subscriptionRouter = createTRPCRouter({
       const checkout = await polar.client.checkouts.create({
         products: input.products,
         metadata: input.metadata,
-        customerExternalId,
+        externalCustomerId,
         customerEmail: userEmail,
         customerName: userName,
         successUrl: `${config.urls.getAppWithEnv(

@@ -1,0 +1,14 @@
+{
+  "title": "Basestack Feature Flags",
+  "description": "Deploy, test, and roll out safely",
+  "icon": "Flag",
+  "pages": [
+    "---Introduction---",
+    "index",
+    "---SDKs---",
+    "sdks/javascript",
+    "sdks/react",
+    "sdks/rest-api"
+  ],
+  "root": true
+}

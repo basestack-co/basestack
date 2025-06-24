@@ -1,0 +1,35 @@
+---
+title: Github
+icon: Lock
+tags: Basestack, Github, Configuration Guide, Authentication, OAuth, Github Application Settings, Self-Hosting Environment Variables
+---
+
+Authentication through [Github ↗](https://github.com/?ref=basestack.co) enables you to sign in to the platform using your Github account. For detailed guidance on how to implement this, please follow the official links from the provider..
+
+- [Documentation](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps?ref=basestack.co)
+- [Configuration](https://github.com/settings/apps?ref=basestack.co)
+- [OAuth App](https://github.com/settings/developers?ref=basestack.co)
+
+#### Github OAuth App Settings
+
+Create a new [OAuth App](https://github.com/settings/developers) by filling out the form with the following settings:
+
+```bash
+"Application name": "Feature Forms by Basestack"
+"Homepage URL": "https://your-basestack-instance.com"
+"Authorization callback URL": "https://your-basestack-instance.com/api/auth/callback/github"
+```
+
+#### Self-Hosting Environment Variables
+
+For more comprehensive information about the deployment process, please check
+out the [Configuration Page](/content/self-hosting#environment-variables).
+
+<Callout type="warning">
+  Only one callback URL per Client ID / Client Secret.
+</Callout>
+
+| Property               | Required |
+| ---------------------- | -------- |
+| `GITHUB_CLIENT_ID`     | true     |
+| `GITHUB_CLIENT_SECRET` | true     |

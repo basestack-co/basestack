@@ -1,28 +1,34 @@
 {
   "name": "@basestack/docs",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3001",
     "build": "next build",
+    "dev": "next dev --port 3001",
     "start": "next start",
     "deploy": "yarn build",
+    "postinstall": "fumadocs-mdx",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
   },
-  "license": "AGPL-3.0",
   "dependencies": {
-    "@basestack/utils": "*",
-    "material-symbols": "^0.31.7",
-    "next": "^15.3.3",
-    "nextra": "3.3.1",
-    "nextra-theme-docs": "3.3.1",
+    "fumadocs-core": "15.5.4",
+    "fumadocs-mdx": "11.6.9",
+    "fumadocs-ui": "15.5.4",
+    "lucide-react": "^0.522.0",
+    "next": "15.3.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@basestack/config": "*",
     "@basestack/tsconfig": "*",
-    "@types/node": "24.0.1",
+    "@tailwindcss/postcss": "^4.1.10",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "24.0.3",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "postcss": "^8.5.5",
+    "tailwindcss": "^4.1.10",
     "typescript": "^5.8.3"
   }
 }

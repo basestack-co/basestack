@@ -84,12 +84,12 @@ export const createCustomerIfNotExists = async (
   email: string,
 ): Promise<void> => {
   try {
-    const customerExternalId = emailToId(email);
+    const externalCustomerId = emailToId(email);
 
     await client.customers.create({
       email,
       name,
-      externalId: customerExternalId,
+      externalId: externalCustomerId,
     });
   } catch (error) {
     console.info("Error creating customer in Polar, skipping", {
