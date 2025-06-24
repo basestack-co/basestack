@@ -4,8 +4,7 @@ icon: FileCode
 tags: Basestack Forms, HTML Integration, Form setup, Form fields, API integration, Web development, Form submission, "2025", Developer tools, Nextra
 ---
 
-import { Step, Steps } from 'fumadocs-ui/components/steps';
-
+import { Step, Steps } from "fumadocs-ui/components/steps";
 
 [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML?ref=basestack.co) (HyperText Markup Language) is the standard markup language used to structure content on the web. It defines the elements and layout of a webpage, such as headings, paragraphs, images, links, and more, providing the foundation for web development.
 
@@ -20,11 +19,13 @@ To get started, you’ll need the following:
 ### Update your form's action attribute to point to your endpoint.
 
 Configure your form action to `https://forms.basestack.co/api/v1/s/[KEY]..` and method to `POST`.
+
 </Step>
 <Step>
 ### Assign a name attribute to each form field.
 
 All form inputs, including textareas, checkboxes, and radios, should have a 'name' attribute specified, such as `name="example"`.
+
 </Step>
 <Step>
 ### Your form is now set up.
@@ -33,28 +34,53 @@ Feel free to use the code below to send a test submission.
 
 ```html copy title="form.html"
 <!-- modify this form HTML as you wish -->
-<form action="https://forms.basestack.co/api/v1/s/[KEY]?mode=rest" method="POST" enctype="multipart/form-data">
+<form
+  action="https://forms.basestack.co/api/v1/s/[KEY]?mode=rest"
+  method="POST"
+  enctype="multipart/form-data"
+>
   <div>
     <label for="name">Name:</label>
     <!-- name each of your inputs as you wish -->
-    <input type="text" id="name" name="name" required autocomplete="name" aria-label="Name"
-      placeholder="Enter your name">
+    <input
+      type="text"
+      id="name"
+      name="name"
+      required
+      autocomplete="name"
+      aria-label="Name"
+      placeholder="Enter your name"
+    />
   </div>
 
   <div>
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required autocomplete="email" aria-label="Email"
-      placeholder="Enter your email">
+    <input
+      type="email"
+      id="email"
+      name="email"
+      required
+      autocomplete="email"
+      aria-label="Email"
+      placeholder="Enter your email"
+    />
   </div>
 
   <div>
     <label for="message">Message:</label>
-    <textarea id="message" name="message" required aria-label="Message" placeholder="Enter your message"></textarea>
+    <textarea
+      id="message"
+      name="message"
+      required
+      aria-label="Message"
+      placeholder="Enter your message"
+    ></textarea>
   </div>
 
   <!-- your other form fields go here -->
   <button type="submit">Submit</button>
 </form>
 ```
+
 </Step>
 </Steps>

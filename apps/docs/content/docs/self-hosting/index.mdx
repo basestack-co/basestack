@@ -19,14 +19,17 @@ Getting up and running is an easy with various options available. Simply ensure 
 You have the flexibility to host the platform on any service capable of hosting [NextJS ↗](https://nextjs.org/?ref=basestack.co) applications with serverless function support. Additionally, you'll need a separate database running elsewhere that the app can connect to. Some app hosting providers that support include Vercel, more coming, all of which offer a free tier option.
 
 <Cards>
-  <Card title="Vercel" href="/content/self-hosting/providers/deploy-vercel" >
-      Vercel is a cloud platform for static and serverless applications that allows you to deploy your applications to a global edge network.
+  <Card title="Vercel" href="/content/self-hosting/providers/deploy-vercel">
+    Vercel is a cloud platform for static and serverless applications that
+    allows you to deploy your applications to a global edge network.
   </Card>
-  <Card title="Netlify" href="/content/self-hosting/providers/deploy-netlify" >
-      Netlify lets you easily deploy Next.js apps with serverless functions and continuous deployment from Git.
+  <Card title="Netlify" href="/content/self-hosting/providers/deploy-netlify">
+    Netlify lets you easily deploy Next.js apps with serverless functions and
+    continuous deployment from Git.
   </Card>
-  <Card title="Render" href="/content/self-hosting/providers/deploy-render" >
-  Render is a unified cloud platform that makes it easy to deploy web apps, APIs, and static sites. 
+  <Card title="Render" href="/content/self-hosting/providers/deploy-render">
+    Render is a unified cloud platform that makes it easy to deploy web apps,
+    APIs, and static sites.
   </Card>
 </Cards>
 
@@ -39,13 +42,15 @@ Ensure that the PostgreSQL service or instance supports serverless environments.
     title="Neon - Serverless Postgres"
     href="/content/self-hosting/database/neon"
   >
-  Neon is a serverless Postgres database that is designed to be used with serverless functions.
+    Neon is a serverless Postgres database that is designed to be used with
+    serverless functions.
   </Card>
   <Card
     title="Supabase Postgres"
     href="/content/self-hosting/database/supabase"
   >
-    Supabase provides a hosted Postgres database with a suite of developer tools, real-time capabilities, and built-in authentication.
+    Supabase provides a hosted Postgres database with a suite of developer
+    tools, real-time capabilities, and built-in authentication.
   </Card>
 </Cards>
 
@@ -66,8 +71,8 @@ The platform has a straightforward configuration process, requiring a set of ess
 
 For the `BETTER_AUTH_SECRET` variable you can use `openssl rand -base64 32` or generate a [random value](https://generate-secret.vercel.app/32).
 
-| Property      | Description                                                                 | Required | Example                                                            |
-| ------------- | --------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------ |
+| Property             | Description                                                                 | Required | Example                                                            |
+| -------------------- | --------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------ |
 | `BETTER_AUTH_SECRET` | Used to encrypt the NextAuth.js JWT, and to hash email verification tokens. | true     | [generate](https://generate-secret.vercel.app/32?ref=basestack.co) |
 | `BETTER_AUTH_URL`    | Set to the canonical URL of your site                                       | true     | https://your-basestack-instance.com                                |
 
@@ -137,24 +142,22 @@ Basestack Platform uses background jobs to handle tasks such as sending emails, 
 | `QSTASH_CURRENT_SIGNING_KEY` | The current key used to sign requests to ensure secure communication.     | true     |
 | `QSTASH_NEXT_SIGNING_KEY`    | The upcoming signing key used to rotate keys for security purposes.       | true     |
 
-
 ### Redis Configuration
 
 Basestack Platform uses Redis to store session and other data, you need to configure the following environment variables:
 
-
-| Environment Variable | Description                                                                         | Required | Example                         |
-| -------------------- | ----------------------------------------------------------------------------------- | -------- | ------------------------------- |
-| `UPSTASH_REDIS_REST_URL` | The base URL for UpStash Redis API requests.                                     | true     | https://us1-your-project.upstash.io |
-| `UPSTASH_REDIS_REST_TOKEN` | The authentication token required for accessing UpStash Redis services.          | true     | [Get Token ↗](https://upstash.com/docs/redis/overall/getstarted?ref=basestack.co) |
+| Environment Variable       | Description                                                             | Required | Example                                                                            |
+| -------------------------- | ----------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------- |
+| `UPSTASH_REDIS_REST_URL`   | The base URL for UpStash Redis API requests.                            | true     | https://us1-your-project.upstash.io                                                |
+| `UPSTASH_REDIS_REST_TOKEN` | The authentication token required for accessing UpStash Redis services. | true     | [Get Token ↗](https://upstash.com/docs/redis/overall/getstarted?ref=basestack.co) |
 
 ### Payments Configuration
 
 The Basestack Platform uses [Polar ↗](https://www.polar.sh/?ref=basestack.co) for payments. To configure [Polar ↗](https://www.polar.sh/?ref=basestack.co), set the following environment variables:
 
-| Property                        | Description                                                                                           | Required |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------- | -------- |
-| `POLAR_ACCESS_TOKEN`            | Access token for accessing Polar services, facilitating authorized interaction with the platform.   | true     |
+| Property             | Description                                                                                       | Required |
+| -------------------- | ------------------------------------------------------------------------------------------------- | -------- |
+| `POLAR_ACCESS_TOKEN` | Access token for accessing Polar services, facilitating authorized interaction with the platform. | true     |
 
 ### Additional Configurations
 

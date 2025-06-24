@@ -11,7 +11,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --write \"**/*.{ts,tsx,md,mdx}\"",
     "test": "turbo run test",
     "test:update": "turbo run test:update",
     "clean": "turbo run clean && rm -rf node_modules && rm -rf .turbo",

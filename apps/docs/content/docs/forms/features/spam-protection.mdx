@@ -7,10 +7,10 @@ tags: Basestack Forms, Spam Protection, Honeypot, AI models, Bots, Security, For
 [Basestack Forms](https://forms.basestack.co) uses various methods to detect spam submissions and automatically labels them as spam when identified.
 
 <Callout type="info">
-    Rather than deleting spam submissions, we simply mark them as spam. The focus of our spam protection is not to
-    decrease the number of spam submissions, but to streamline your review of submissions on the dashboard.
+  Rather than deleting spam submissions, we simply mark them as spam. The focus
+  of our spam protection is not to decrease the number of spam submissions, but
+  to streamline your review of submissions on the dashboard.
 </Callout>
-
 
 ## Methods to Protect Against Spam
 
@@ -37,7 +37,11 @@ The `<input type="hidden" name="_trap" />` is a honeypot field used in forms to 
 #### Example
 
 ```html copy title="form.html"
-<form action="https://forms.basestack.co/api/v1/s/[KEY]?mode=rest" method="POST" enctype="multipart/form-data">
+<form
+  action="https://forms.basestack.co/api/v1/s/[KEY]?mode=rest"
+  method="POST"
+  enctype="multipart/form-data"
+>
   <!-- Legitimate form fields -->
   <input type="text" name="email" required />
   <input type="text" name="name" required />
@@ -52,14 +56,15 @@ The `<input type="hidden" name="_trap" />` is a honeypot field used in forms to 
 On the server, we will check if `_trap` is filled out. This technique helps to filter out automated submissions without disrupting your experience.
 
 <Callout type="info">
-    You can change the name of the field under `Your Form -> Settings -> Security -> Honeypot Input.
+  You can change the name of the field under `Your Form -> Settings -> Security
+  -> Honeypot Input.
 </Callout>
-
 
 ### The IP Blocking Method
 
 With every submission, we automatically capture metadata, including the recipient's IP address. When you view a submission, you'll see this metadata along with the option to add the IP to the IP Block list. This is an excellent option if a specific IP is sending a high volume of spam submissions.
 
 <Callout type="info">
-    You can add more IPs under `Your Form -> Settings -> Security -> IP Block Rules`.
+  You can add more IPs under `Your Form -> Settings -> Security -> IP Block
+  Rules`.
 </Callout>

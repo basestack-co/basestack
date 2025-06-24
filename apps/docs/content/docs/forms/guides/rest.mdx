@@ -4,20 +4,19 @@ icon: Braces
 tags: Basestack Forms, REST API, CURL, API integration, HTTP, Form submission, JSON response, Backend integration, Web development, Developer tools, "2025"
 ---
 
-import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Step, Steps } from "fumadocs-ui/components/steps";
 
 A REST API (Representational State Transfer Application Programming Interface) is a standardized interface that allows systems to communicate over HTTP by adhering to REST principles. It uses stateless operations and standard HTTP methods like GET, POST, PUT, and DELETE to perform CRUD (Create, Read, Update, Delete) operations on resources, typically represented in JSON or XML formats.
 
 <Callout type="info">
-    You can use the REST API with any backend, framework, or library for which we don’t provide an example. Simply use
-    your favorite tools.
+  You can use the REST API with any backend, framework, or library for which we
+  don’t provide an example. Simply use your favorite tools.
 </Callout>
 
 To get started, you’ll need the following:
 
 - A [Basestack Forms](https://forms.basestack.co) Account
 - Any library, framework, or language that supports HTTP calls
-
 
 <Steps>
 
@@ -40,5 +39,6 @@ To get started, you’ll need the following:
     -d '{"name": "John Doe", "message": "Hello World"}' \
     "https://forms.basestack.co/api/v1/s/[KEY]?mode=rest"
     ```
+
 </Step>
 </Steps>
