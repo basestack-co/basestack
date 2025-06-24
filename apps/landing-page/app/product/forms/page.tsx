@@ -324,7 +324,10 @@ const ProductFormsPage = () => {
             description: t("page.product.forms.guide.html.description"),
             button: t("page.product.forms.guide.action"),
             onClick: () =>
-              window.open(`${urls.docs.base}/forms/guides/html`, "_blank"),
+              window.open(
+                `${urls.docs.base}/content/forms/guides/html`,
+                "_blank",
+              ),
           },
           {
             icon: <JavascriptIcon />,
@@ -333,7 +336,7 @@ const ProductFormsPage = () => {
             button: t("page.product.forms.guide.action"),
             onClick: () =>
               window.open(
-                `${urls.docs.base}/forms/guides/javascript`,
+                `${urls.docs.base}/content/forms/guides/javascript`,
                 "_blank",
               ),
           },
@@ -343,7 +346,10 @@ const ProductFormsPage = () => {
             description: t("page.product.forms.guide.next.description"),
             button: t("page.product.forms.guide.action"),
             onClick: () =>
-              window.open(`${urls.docs.base}/forms/guides/react`, "_blank"),
+              window.open(
+                `${urls.docs.base}/content/forms/guides/react`,
+                "_blank",
+              ),
           },
         ]}
       />

@@ -1,0 +1,84 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Testing Conventions and Patterns
+
+## Jest Configuration
+Follow the established Jest configurations:
+- Base config: [packages/config/jest.base.config.js](mdc:packages/config/jest.base.config.js)
+- Next.js config: [packages/config/jest.next.config.js](mdc:packages/config/jest.next.config.js)
+- App-specific configs like [apps/feature-flags/jest.config.js](mdc:apps/feature-flags/jest.config.js)
+
+## Test Setup
+- Use setup files like [apps/feature-flags/jest.setup.js](mdc:apps/feature-flags/jest.setup.js) for test environment configuration
+- Include necessary polyfills and global test utilities
+- Configure styled-components testing support
+- Set up React Testing Library helpers
+
+## Testing Patterns
+
+### Component Testing
+- Place tests in `__tests__` directories next to components
+- Test component rendering and prop variations
+- Test user interactions using React Testing Library
+- Use data-testid attributes for reliable element selection
+- Test accessibility features and keyboard navigation
+
+### Styled Components Testing
+- Use jest-styled-components for style testing
+- Test theme integration and responsive styles
+- Verify proper CSS-in-JS output
+- Test style variants and conditional styling
+
+### API Route Testing
+- Test API endpoints with proper mocking
+- Use node-mocks-http for request/response mocking
+- Test authentication and authorization
+- Verify proper error handling and status codes
+- Test input validation and sanitization
+
+### Integration Testing
+- Test component integration with external libraries
+- Test database operations with proper mocking
+- Test tRPC procedures and client integration
+- Test authentication flows end-to-end
+
+## Test Utilities
+
+### Custom Test Utilities
+- Use [packages/design-system/global/testUtils.tsx](mdc:packages/design-system/global/testUtils.tsx) for shared test helpers
+- Create app-specific test utilities when needed
+- Mock external dependencies consistently
+- Provide theme and context providers for component tests
+
+### Mocking Strategies
+- Mock external APIs and services
+- Mock database operations appropriately
+- Use jest.mock for module mocking
+- Mock styled-components theme provider when needed
+
+## Test Coverage
+- Maintain high test coverage for critical paths
+- Focus on testing business logic and user interactions
+- Include edge cases and error scenarios
+- Test both happy path and error conditions
+
+## Test Organization
+- Group related tests using describe blocks
+- Use descriptive test names that explain the scenario
+- Follow the "Arrange, Act, Assert" pattern
+- Keep tests focused and independent
+
+## Continuous Integration
+- Ensure tests run in CI/CD pipelines
+- Use proper test scripts in package.json files
+- Configure test timeouts appropriately
+- Generate coverage reports for analysis
+
+## Debugging Tests
+- Use test:watch scripts for development
+- Configure proper debugging setup for VS Code
+- Use test:log scripts for output analysis
+- Leverage Jest's built-in debugging features

@@ -1,0 +1,122 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Database and API Development Rules
+
+## Prisma Database Patterns
+
+### Schema Design
+- Follow the schema patterns in [apps/feature-flags/prisma/schema.prisma](mdc:apps/feature-flags/prisma/schema.prisma)
+- Use proper field types and constraints
+- Implement appropriate relationships between models
+- Include proper indexes for query performance
+- Use meaningful model and field names
+
+### Migration Management
+- Use the established migration patterns in directories like [apps/feature-flags/prisma/migrations/](mdc:apps/feature-flags/prisma/migrations)
+- Create descriptive migration names
+- Test migrations in development before production
+- Use proper rollback strategies when needed
+- Document complex migrations
+
+### Database Operations
+- Use Prisma Client for all database operations
+- Follow the database utility patterns in [apps/feature-flags/server/db/](mdc:apps/feature-flags/server/db)
+- Implement proper error handling for database operations
+- Use transactions for complex multi-table operations
+- Optimize queries for performance
+
+## tRPC API Development
+
+### Router Structure
+- Follow the established router patterns in [apps/feature-flags/server/trpc/](mdc:apps/feature-flags/server/trpc)
+- Organize procedures logically by domain
+- Use proper input validation with Zod schemas
+- Implement consistent error handling patterns
+- Document API procedures with JSDoc
+
+### Input Validation
+- Use Zod for all input validation
+- Create reusable validation schemas
+- Validate both input and output types
+- Handle validation errors gracefully
+- Provide meaningful error messages
+
+### Error Handling
+- Use tRPC error codes appropriately
+- Implement consistent error response format
+- Log errors for debugging and monitoring
+- Provide user-friendly error messages
+- Handle authentication and authorization errors
+
+### Middleware
+- Use middleware for common concerns (auth, logging, etc.)
+- Keep middleware focused and reusable
+- Document middleware behavior
+- Test middleware independently
+
+## API Route Patterns
+
+### Next.js API Routes
+- Follow the API route structure in app/api/ directories
+- Use proper HTTP methods and status codes
+- Implement request validation and sanitization
+- Handle CORS appropriately
+- Use proper authentication and authorization
+
+### Request/Response Handling
+- Validate request bodies and parameters
+- Use appropriate HTTP status codes
+- Implement proper error responses
+- Handle file uploads securely
+- Use request rate limiting when appropriate
+
+## Authentication & Authorization
+
+### Better Auth Integration
+- Follow auth patterns in [apps/feature-flags/server/auth/](mdc:apps/feature-flags/server/auth)
+- Implement proper session management
+- Use secure authentication flows
+- Handle token refresh appropriately
+- Implement role-based access control
+
+### Security Best Practices
+- Validate all user inputs
+- Use parameterized queries to prevent SQL injection
+- Implement proper CORS policies
+- Use HTTPS in production
+- Handle sensitive data appropriately
+
+## Data Access Patterns
+
+### Repository Pattern
+- Create focused data access functions
+- Use proper TypeScript typing for database operations
+- Implement caching strategies where appropriate
+- Use connection pooling efficiently
+- Handle database connection errors gracefully
+
+### Query Optimization
+- Use appropriate Prisma query options
+- Implement pagination for large datasets
+- Use select to limit returned fields
+- Leverage database indexes effectively
+- Monitor query performance
+
+## Testing Database Code
+
+### Database Testing
+- Use test databases for testing
+- Mock database operations in unit tests
+- Test migration scripts thoroughly
+- Use transaction rollbacks for test isolation
+- Test error scenarios and edge cases
+
+### API Testing
+- Test API endpoints with various inputs
+- Test authentication and authorization
+- Verify proper error handling
+- Test rate limiting and security measures
+- Use proper test data setup and teardown

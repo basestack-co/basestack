@@ -63,7 +63,7 @@ export const getRightLinks = (labels: {
       type: "link",
       icon: "flag",
       isActive: false,
-      href: config.urls.docs.forms.base,
+      href: config.urls.docs.flags.base,
       text: labels.docs,
     },
   ];

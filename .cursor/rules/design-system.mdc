@@ -1,0 +1,72 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Design System Component Development
+
+## Component Structure
+Follow the established pattern in [packages/design-system/components/Button/](mdc:packages/design-system/components/Button):
+
+```
+ComponentName/
+├── index.tsx          # Main component export
+├── styles.ts          # Styled components and styles
+├── types.ts           # TypeScript interfaces and types
+└── __tests__/         # Test files
+    ├── index.test.tsx
+    └── styles.test.ts
+```
+
+## Component Implementation Guidelines
+
+### Main Component File (index.tsx)
+- Use functional components with proper TypeScript typing
+- Include displayName for debugging
+- Use forwardRef when the component needs ref forwarding
+- Follow the prop destructuring pattern with default values
+- Export the component and its related types/variants
+
+### Styling (styles.ts)
+- Use styled-components with styled-system props
+- Export individual style variants for reusability
+- Leverage the theme system for consistent colors, spacing, and typography
+- Use polished utilities for color manipulations
+- Follow the variant pattern established in [packages/design-system/components/Button/styles.ts](mdc:packages/design-system/components/Button/styles.ts)
+
+### Types (types.ts)
+- Define clear interfaces for component props
+- Use enums for variants, sizes, and other constants
+- Export all types and enums that might be used by consumers
+- Follow the pattern in [packages/design-system/components/Button/types.ts](mdc:packages/design-system/components/Button/types.ts)
+
+### Testing
+- Test component rendering and prop variations
+- Test styled-component styles with jest-styled-components
+- Use React Testing Library for user interaction testing
+- Mock external dependencies appropriately
+
+## Theme Integration
+- Use the theme context via useTheme hook
+- Follow the theme structure defined in [packages/design-system/theme/](mdc:packages/design-system/theme)
+- Ensure dark/light theme compatibility
+- Use semantic color tokens from the theme
+
+## Accessibility
+- Include proper ARIA attributes
+- Support keyboard navigation
+- Ensure proper color contrast
+- Use semantic HTML elements
+- Include data-testid attributes for testing
+
+## Documentation
+- Document component props with JSDoc comments
+- Include usage examples in comments
+- Document any complex styling logic
+- Maintain consistency with existing component documentation
+
+## Dependencies
+- Only add dependencies that are essential for the component
+- Prefer using existing dependencies from [packages/design-system/package.json](mdc:packages/design-system/package.json)
+- Consider the bundle size impact of new dependencies
+- Ensure compatibility with styled-components and styled-system

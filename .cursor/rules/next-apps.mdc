@@ -1,0 +1,90 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Next.js App Development Rules
+
+## App Router Structure
+Follow the App Router patterns established in apps like [apps/feature-flags/app/](mdc:apps/feature-flags/app):
+
+```
+app/
+├── (authenticated)/    # Route groups for layout organization
+├── (unauthenticated)/
+├── api/               # API routes
+├── layout.tsx         # Root layout
+└── not-found.tsx      # 404 page
+```
+
+## Layout Patterns
+- Use [apps/feature-flags/app/layout.tsx](mdc:apps/feature-flags/app/layout.tsx) as reference for root layouts
+- Implement proper metadata configuration
+- Include proper font loading and global styles
+- Set up internationalization with next-intl
+
+## API Routes
+- Follow the established patterns in api/ directories
+- Use proper HTTP status codes and error handling
+- Implement proper CORS configuration when needed
+- Follow the API structure in [apps/feature-flags/app/api/](mdc:apps/feature-flags/app/api)
+
+## Component Organization
+- Keep app-specific components in the components/ directory
+- Use the Navigation component pattern from [apps/feature-flags/components/Navigation/](mdc:apps/feature-flags/components/Navigation)
+- Import shared components from @basestack packages
+- Organize modals in a dedicated modals/ directory like [apps/feature-flags/modals/](mdc:apps/feature-flags/modals)
+
+## Authentication & Authorization
+- Use Better Auth for authentication
+- Follow the auth patterns in [apps/feature-flags/server/auth/](mdc:apps/feature-flags/server/auth)
+- Implement proper route protection
+- Use middleware for authentication checks
+
+## State Management
+- Use Zustand for global state following [apps/feature-flags/store/](mdc:apps/feature-flags/store)
+- Keep store slices organized in slices/ subdirectory
+- Use proper TypeScript typing for stores
+- Follow the patterns in [apps/feature-flags/store/slices/](mdc:apps/feature-flags/store/slices)
+
+## Database Integration
+- Use Prisma for database operations
+- Follow the schema patterns in [apps/feature-flags/prisma/schema.prisma](mdc:apps/feature-flags/prisma/schema.prisma)
+- Use the database utilities from [apps/feature-flags/server/db/](mdc:apps/feature-flags/server/db)
+- Implement proper migration strategies
+
+## tRPC Integration
+- Follow the tRPC patterns in [apps/feature-flags/server/trpc/](mdc:apps/feature-flags/server/trpc)
+- Use proper input validation with Zod
+- Implement proper error handling
+- Use React Query for client-side data fetching
+
+## Internationalization
+- Use next-intl for i18n following [apps/feature-flags/i18n/](mdc:apps/feature-flags/i18n)
+- Keep translations in messages/ directory like [apps/feature-flags/messages/](mdc:apps/feature-flags/messages)
+- Use proper locale configuration
+- Follow the request configuration pattern
+
+## Testing
+- Follow Jest configuration patterns like [apps/feature-flags/jest.config.js](mdc:apps/feature-flags/jest.config.js)
+- Use [apps/feature-flags/jest.setup.js](mdc:apps/feature-flags/jest.setup.js) as setup reference
+- Test components, API routes, and utilities
+- Mock external dependencies appropriately
+
+## Environment Configuration
+- Use proper environment variable configuration
+- Follow the Dockerfile patterns like [apps/feature-flags/Dockerfile](mdc:apps/feature-flags/Dockerfile)
+- Implement proper build and deployment scripts
+- Use the package.json scripts as reference
+
+## Performance Optimization
+- Use Next.js Image component for optimized images
+- Implement proper loading states
+- Use dynamic imports for code splitting
+- Optimize bundle size and runtime performance
+
+## Error Handling
+- Implement proper error boundaries
+- Use not-found.tsx for 404 handling
+- Provide meaningful error messages
+- Log errors appropriately for debugging
