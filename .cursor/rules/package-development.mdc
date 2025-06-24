@@ -1,0 +1,137 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Package Development Rules
+
+## Package Structure
+Follow the established patterns for shared packages:
+
+```
+packages/
+├── design-system/     # UI components and theme
+├── hooks/            # Shared React hooks
+├── ui/              # Additional UI components
+├── utils/           # Utility functions
+├── vendors/         # Third-party integrations
+├── config/          # Shared configurations
+├── tsconfig/        # TypeScript configurations
+└── emails/          # Email templates
+```
+
+## Package Configuration
+
+### Package.json Setup
+- Follow the package.json patterns like [packages/design-system/package.json](mdc:packages/design-system/package.json)
+- Use proper main and types fields
+- Include appropriate scripts (test, build, clean)
+- Declare dependencies vs devDependencies correctly
+- Use workspace dependencies with "*" for internal packages
+
+### TypeScript Configuration
+- Extend from [packages/tsconfig/](mdc:packages/tsconfig) configurations
+- Use proper TypeScript project references
+- Export types alongside implementations
+- Maintain strict TypeScript settings
+
+## Package Development Patterns
+
+### Design System ([packages/design-system/](mdc:packages/design-system))
+- Follow component structure: index.tsx, styles.ts, types.ts, __tests__/
+- Use styled-components with styled-system
+- Export components through [packages/design-system/index.ts](mdc:packages/design-system/index.ts)
+- Maintain theme consistency
+- Include comprehensive component tests
+
+### Hooks Package ([packages/hooks/](mdc:packages/hooks))
+- Create reusable React hooks
+- Include proper TypeScript typing
+- Write comprehensive tests for hook behavior
+- Document hook usage with JSDoc
+- Export hooks through barrel exports
+
+### Utils Package ([packages/utils/](mdc:packages/utils))
+- Create pure utility functions
+- Include comprehensive unit tests
+- Use proper TypeScript typing
+- Document function behavior
+- Organize by functionality
+
+### Vendors Package ([packages/vendors/](mdc:packages/vendors))
+- Abstract third-party integrations
+- Provide consistent interfaces
+- Handle errors gracefully
+- Include proper configuration options
+- Test integrations thoroughly
+
+## Testing Packages
+
+### Test Configuration
+- Use shared Jest configurations from [packages/config/](mdc:packages/config)
+- Include jest.setup.js files for test environment setup
+- Use appropriate test utilities
+- Mock external dependencies
+
+### Testing Strategies
+- Write unit tests for all public APIs
+- Test edge cases and error conditions
+- Use snapshot testing judiciously
+- Test TypeScript types when appropriate
+- Maintain high test coverage
+
+## Package Documentation
+
+### Code Documentation
+- Use JSDoc for all public APIs
+- Include usage examples in comments
+- Document complex logic and algorithms
+- Maintain clear README files for each package
+
+### API Documentation
+- Document all exported functions and components
+- Include parameter and return type information
+- Provide usage examples
+- Document breaking changes in changelogs
+
+## Versioning and Dependencies
+
+### Dependency Management
+- Keep dependencies minimal and focused
+- Use peerDependencies for packages that consumers should provide
+- Regular update dependencies with security considerations
+- Avoid duplicate dependencies across packages
+
+### Version Management
+- Use semantic versioning for package releases
+- Coordinate version bumps across related packages
+- Document breaking changes thoroughly
+- Test package consumption before releases
+
+## Build and Distribution
+
+### Build Process
+- Use appropriate build tools for package type
+- Generate TypeScript declaration files
+- Optimize bundle size for npm packages
+- Test built packages before publishing
+
+### Package Exports
+- Use proper index.ts files for clean exports
+- Export types alongside implementations
+- Provide both named and default exports where appropriate
+- Maintain backward compatibility when possible
+
+## Integration Testing
+
+### Cross-Package Testing
+- Test package integration with consuming apps
+- Verify workspace dependency resolution
+- Test package builds in isolation
+- Validate TypeScript compilation across packages
+
+### Consumer Testing
+- Test packages as they would be consumed
+- Verify proper tree-shaking behavior
+- Test in various environments (Node.js, browsers)
+- Validate package.json exports configuration

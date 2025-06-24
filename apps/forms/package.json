@@ -58,9 +58,9 @@
     "eslint-config-next": "^15.3.4",
     "formidable": "^3.5.4",
     "hono": "^4.8.2",
-    "material-symbols": "^0.31.8",
+    "material-symbols": "^0.31.9",
     "next": "^15.3.4",
-    "next-intl": "^4.3.0",
+    "next-intl": "^4.3.1",
     "polished": "^4.3.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -103,6 +103,6 @@
     "prisma": "^6.10.1",
     "turbo": "2.5.4",
     "typescript": "^5.8.3",
-    "vercel": "^43.3.0"
+    "vercel": "^44.2.0"
   }
 }

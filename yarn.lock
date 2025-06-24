@@ -3505,10 +3505,10 @@
     "@vercel/static-config" "3.1.1"
     ts-morph "12.0.0"
 
-"@vercel/next@4.9.0":
-  version "4.9.0"
-  resolved "https://registry.yarnpkg.com/@vercel/next/-/next-4.9.0.tgz#0407b2aa9be22ae509f89a13f2c7c665a80caa42"
-  integrity sha512-bX1/4ymvd7VaXpbNsM0nhjLLvlMXjAiK5EklnMp22wnE7GVey+gCPXAx6JmAM2pqxdl6HkTeppC4WstiktOkfA==
+"@vercel/next@4.9.1":
+  version "4.9.1"
+  resolved "https://registry.yarnpkg.com/@vercel/next/-/next-4.9.1.tgz#c79e219f54980e52bfc60ae5f5d38175809b2a23"
+  integrity sha512-mQ+N5Srm79nSO6roV9Wr0rX91nqV84zbXZeTQf7lJKZtVCzZaj2vvAP55smDgpkUy8KNDizMz6nDaPAyN+jzEw==
   dependencies:
     "@vercel/nft" "0.29.2"
 
@@ -8135,10 +8135,10 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-lucide-react@^0.522.0:
-  version "0.522.0"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.522.0.tgz#c0951dd32936b6a7bcc474a829a251fede0bdfbd"
-  integrity sha512-jnJbw974yZ7rQHHEFKJOlWAefG3ATSCZHANZxIdx8Rk/16siuwjgA4fBULpXEAWx/RlTs3FzmKW/udWUuO0aRw==
+lucide-react@^0.523.0:
+  version "0.523.0"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.523.0.tgz#a855a3b5b6fdcdee597ecbbd3c16141711a1d974"
+  integrity sha512-rUjQoy7egZT9XYVXBK1je9ckBnNp7qzRZOhLQx5RcEp2dCGlXo+mv6vf7Am4LimEcFBJIIZzSGfgTqc9QCrPSw==
 
 lz-string@^1.5.0:
   version "1.5.0"
@@ -8186,10 +8186,10 @@ marked@7.0.4:
   resolved "https://registry.yarnpkg.com/marked/-/marked-7.0.4.tgz#e2558ee2d535b9df6a27c6e282dc603a18388a6d"
   integrity sha512-t8eP0dXRJMtMvBojtkcsA7n48BkauktUKzfkPSCq85ZMTJ0v76Rke4DYz01omYpPTUh4p/f7HePgRo3ebG8+QQ==
 
-material-symbols@^0.31.8:
-  version "0.31.8"
-  resolved "https://registry.yarnpkg.com/material-symbols/-/material-symbols-0.31.8.tgz#8886b9b9651cbdae16654f5a41a018e9521a4f74"
-  integrity sha512-DBKs9hsCwLcQRLeOrjukbI0bzkOAj0+7ZPFuoq/My11EVAjJ/YQIY1GoaU6bAOvaOUYbu8gHCkFc7jTilBjoUg==
+material-symbols@^0.31.9:
+  version "0.31.9"
+  resolved "https://registry.yarnpkg.com/material-symbols/-/material-symbols-0.31.9.tgz#1359e9f9b9429db9f7f0c43003d933f218e4e560"
+  integrity sha512-WCuJh+pgPtOq3scouRkztK+RBRj4XGHe2Jy2F8xD5T/dyLn09nP1fCJib0sf92jD/OaTE4C8/dzgIc54FkDDqA==
 
 math-intrinsics@^1.1.0:
   version "1.1.0"
@@ -9047,14 +9047,14 @@ neverthrow@^7.0.1:
   resolved "https://registry.yarnpkg.com/neverthrow/-/neverthrow-7.2.0.tgz#76fa0a6cf1f6d59f0770df461c92b8b270910694"
   integrity sha512-iGBUfFB7yPczHHtA8dksKTJ9E8TESNTAx1UQWW6TzMF280vo9jdPYpLUXrMN1BCkPdHFdNG3fxOt2CUad8KhAw==
 
-next-intl@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/next-intl/-/next-intl-4.3.0.tgz#ec761c23fbee26cb4a8c86cdd18462699c6e1e19"
-  integrity sha512-OmjBrEw/JJVWhqTwrARaHly2mqUf5kfKyeGmlMqgPxJK6WwUoesnIPtXSv7Epr1W9hQCgXgYvXFQQn/FkGVLeA==
+next-intl@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/next-intl/-/next-intl-4.3.1.tgz#6bbafec13fcb3de1771bd1718d51b7ca473859c3"
+  integrity sha512-FylHpOoQw5MpOyJt4cw8pNEGba7r3jKDSqt112fmBqXVceGR5YncmqpxS5MvSHsWRwbjqpOV8OsZCIY/4f4HWg==
   dependencies:
     "@formatjs/intl-localematcher" "^0.5.4"
     negotiator "^1.0.0"
-    use-intl "^4.3.0"
+    use-intl "^4.3.1"
 
 next-themes@^0.4.6:
   version "0.4.6"
@@ -11810,10 +11810,10 @@ use-composed-ref@^1.3.0:
   resolved "https://registry.yarnpkg.com/use-composed-ref/-/use-composed-ref-1.4.0.tgz#09e023bf798d005286ad85cd20674bdf5770653b"
   integrity sha512-djviaxuOOh7wkj0paeO1Q/4wMZ8Zrnag5H6yBvzN7AKKe8beOaED9SF5/ByLqsku8NP4zQqsvM2u3ew/tJK8/w==
 
-use-intl@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/use-intl/-/use-intl-4.3.0.tgz#ab8748fec0cf9b30cdc3eb0f728335d74fef450e"
-  integrity sha512-mkKqCiuT6+dA6zPlZn+KsNFHjcU94jTeSO5aUKmx+qhqYk3Vfcs4nHFMy+I/Crsm5VpJ495Phu6acX/o4qI5kg==
+use-intl@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/use-intl/-/use-intl-4.3.1.tgz#a538e38de893a5c22fe207b389a4a157535f7b10"
+  integrity sha512-8Xn5RXzeHZhWqqZimi1wi2pKFqm0NxRUOB41k1QdjbPX+ysoeLW3Ey+fi603D/e5EGb0fYw8WzjgtUagJdlIvg==
   dependencies:
     "@formatjs/fast-memoize" "^2.2.0"
     "@schummar/icu-type-parser" "1.21.5"
@@ -11873,17 +11873,17 @@ vary@^1:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
 
-vercel@^43.3.0:
-  version "43.3.0"
-  resolved "https://registry.yarnpkg.com/vercel/-/vercel-43.3.0.tgz#e55c7ada41ee0f80a9cb00e25240e990a6f3e01f"
-  integrity sha512-EID1ooEAp8F6JxR9WEckDX91qBuLhNvEltHbdKVmYwAbaPyB8q/G/51DJgDoT4ZALdbDujsVxGXDUp0nU26ouQ==
+vercel@^44.2.0:
+  version "44.2.0"
+  resolved "https://registry.yarnpkg.com/vercel/-/vercel-44.2.0.tgz#c9948e365fe130002b19020c41cf9a6522886605"
+  integrity sha512-UeFP1IxT/ex1HddBgjcf8Ez/WTB1e/n+W5smttDQRhkNt2idUaOL9fzSW4lHJpCRhW3zAg1CDbMQjM0Lavbgdg==
   dependencies:
     "@vercel/blob" "1.0.2"
     "@vercel/build-utils" "10.6.1"
     "@vercel/fun" "1.1.6"
     "@vercel/go" "3.2.1"
     "@vercel/hydrogen" "1.2.2"
-    "@vercel/next" "4.9.0"
+    "@vercel/next" "4.9.1"
     "@vercel/node" "5.3.0"
     "@vercel/python" "4.7.2"
     "@vercel/redwood" "2.3.3"
