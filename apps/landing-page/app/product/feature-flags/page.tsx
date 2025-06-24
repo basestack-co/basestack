@@ -314,7 +314,7 @@ const ProductFeatureFlagsPage = () => {
             button: t("page.product.flags.sdks.action"),
             onClick: () =>
               window.open(
-                `${urls.docs.base}/feature-flags/sdks/react`,
+                `${urls.docs.base}/content/feature-flags/sdks/react`,
                 "_blank",
               ),
           },
@@ -325,7 +325,7 @@ const ProductFeatureFlagsPage = () => {
             button: t("page.product.flags.sdks.action"),
             onClick: () =>
               window.open(
-                `${urls.docs.base}/feature-flags/sdks/javascript`,
+                `${urls.docs.base}/content/feature-flags/sdks/javascript`,
                 "_blank",
               ),
           },
@@ -336,7 +336,7 @@ const ProductFeatureFlagsPage = () => {
             button: t("page.product.flags.sdks.action"),
             onClick: () =>
               window.open(
-                `${urls.docs.base}/feature-flags/sdks/rest-api`,
+                `${urls.docs.base}/content/feature-flags/sdks/rest-api`,
                 "_blank",
               ),
           },

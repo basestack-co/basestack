@@ -152,7 +152,7 @@ const FooterLinks: React.FC = () => {
         },
         {
           text: t("footer.section.developers.contributing"),
-          href: `${urls.docs.base}/contributing`,
+          href: `${urls.docs.base}/content/self-hosting/contributing`,
           isExternal: true,
         },
         {
@@ -162,7 +162,7 @@ const FooterLinks: React.FC = () => {
         },
         {
           text: t("footer.section.developers.self-hosting"),
-          href: `${urls.docs.base}/self-hosting`,
+          href: `${urls.docs.base}/content/self-hosting`,
           isExternal: true,
         },
       ],
@@ -245,9 +245,7 @@ const Footer = () => {
     <Container>
       <ContentWrapper>
         <FooterLinks />
-
         <HorizontalRule isDarker={!isDarkMode} />
-
         <NewsletterContainer>
           <NewsletterContent>
             <Text size="xLarge" mb={spacing.s1}>
@@ -257,7 +255,6 @@ const Footer = () => {
               {t("footer.newsletter.text")}
             </Text>
           </NewsletterContent>
-
           <InputContainer>
             <Controller
               name="email"
@@ -290,9 +287,7 @@ const Footer = () => {
             </Button>
           </InputContainer>
         </NewsletterContainer>
-
         <HorizontalRule isDarker={!isDarkMode} />
-
         <BottomContainer>
           <CompanyContainer>
             <LogoContainer>

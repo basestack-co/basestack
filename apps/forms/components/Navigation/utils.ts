@@ -126,18 +126,18 @@ export const getAppsList = (
 ) => {
   return [
     {
-      onClick: () => null,
-      product: Product.FORMS,
-      title: labels.forms.title,
-      description: labels.forms.description,
-      isActive: true,
-    },
-    {
       onClick: () => onSelectApp(Product.FLAGS),
       product: Product.FLAGS,
       title: labels.flags.title,
       description: labels.flags.description,
       isActive: false,
+    },
+    {
+      onClick: () => null,
+      product: Product.FORMS,
+      title: labels.forms.title,
+      description: labels.forms.description,
+      isActive: true,
     },
   ];
 };

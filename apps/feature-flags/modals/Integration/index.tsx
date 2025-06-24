@@ -55,13 +55,6 @@ const IntegrationModal = () => {
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
-        buttons={[
-          {
-            children: t("integration.button.cancel"),
-            onClick: onClose,
-            variant: ButtonVariant.Neutral,
-          },
-        ]}
         closeOnClickOutside={closeModalsOnClickOutside}
       >
         <Container>
