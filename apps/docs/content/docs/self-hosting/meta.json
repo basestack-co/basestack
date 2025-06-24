@@ -1,6 +1,7 @@
 {
   "title": "Basestack Self-Hosting",
   "description": "Run on your own infrastructure",
+  "icon": "Server",
   "pages": [
     "---Introduction---",
     "index",

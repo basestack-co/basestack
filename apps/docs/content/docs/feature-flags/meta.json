@@ -1,6 +1,7 @@
 {
   "title": "Basestack Feature Flags",
   "description": "Deploy, test, and roll out safely",
+  "icon": "Flag",
   "pages": [
     "---Introduction---",
     "index",

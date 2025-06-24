@@ -1,6 +1,7 @@
 {
   "title": "Basestack Forms",
   "description": "Collect form submissions easily",
+  "icon": "File",
   "pages": [
     "---Introduction---",
     "index",

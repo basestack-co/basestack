@@ -47,6 +47,17 @@ export async function generateMetadata(props: {
 
   return {
     title: page.data.title,
-    description: page.data.description,
+    description:
+      "Comprehensive documentation for Basestack - an open-source platform providing self-hosted Feature Flags and Forms solutions. Learn how to deploy, configure, and integrate Basestack tools into your applications with our step-by-step guides, SDKs, and APIs.",
+    // description: page.data.description,
+    openGraph: {
+      images: "https://i.imgur.com/Cund9sW.jpeg",
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: "https://i.imgur.com/Cund9sW.jpeg",
+    },
+    // @ts-expect-error - tags is not defined in the page data
+    keywords: (page.data.tags ?? "").split(", "),
   };
 }

@@ -30,7 +30,7 @@ export const baseOptions: BaseLayoutProps = {
     {
       icon: <LifeBuoy />,
       text: "Help & Support",
-      url: "/docs/help",
+      url: "/content/help",
       secondary: false,
     },
     {
