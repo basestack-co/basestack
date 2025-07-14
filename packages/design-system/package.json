@@ -26,10 +26,10 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.27.12",
+    "@floating-ui/react": "^0.27.13",
     "polished": "^4.2.2",
     "react-calendar": "^6.0.0",
-    "react-select": "^5.10.1",
+    "react-select": "^5.10.2",
     "react-spring": "^10.0.1",
     "styled-components": "^6.1.19",
     "styled-system": "^5.1.5"

@@ -131,13 +131,21 @@ export const createPayload = (path: string, data: any, input: any) => {
   }
 };
 
-export const createHistory = async (
-  prisma: PrismaClient,
-  user: User,
-  path: string,
-  data: any,
-  input: any,
-) => {
+export interface HistoryEventData {
+  prisma: PrismaClient;
+  user: User;
+  path: string;
+  data: any;
+  input: any;
+}
+
+export const createHistory = async ({
+  prisma,
+  user,
+  path,
+  data,
+  input,
+}: HistoryEventData) => {
   const action = pathActionMap[path];
 
   if (!action) return;

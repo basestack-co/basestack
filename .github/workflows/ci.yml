@@ -16,12 +16,12 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 2
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: 22.6.0
           cache: "yarn"
@@ -35,5 +35,5 @@ jobs:
       - name: Lint
         run: yarn lint
 
-    #  - name: Test
-    #    run: yarn test
+      - name: Test
+        run: yarn test
