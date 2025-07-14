@@ -38,12 +38,6 @@ const FlagsPage = () => {
     },
   );
 
-  useEffect(() => {
-    if (!isDesktop) {
-      setSelectedView({ view: "cards" });
-    }
-  }, [isDesktop, setSelectedView]);
-
   const onChangeView = useCallback(
     (selected: string) => {
       setSelectedView({ view: selected as SelectedView });
@@ -67,7 +61,7 @@ const FlagsPage = () => {
           onChangeView={onChangeView}
           onSearchCallback={(value) => setSearchValue(value)}
           isDesktop={isDesktop}
-          selectedView={selectedView}
+          selectedView={isDesktop ? selectedView : "cards"}
           onClickActivity={onClickActivity}
         />
         <FlagsList
