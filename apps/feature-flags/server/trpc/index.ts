@@ -62,13 +62,16 @@ export const withHistoryActivity = t.middleware(
 
     if (type === "mutation" && result.ok) {
       const rawInput = await getRawInput();
-      await createHistory(
-        ctx.prisma,
-        ctx.auth?.user!,
+
+      createHistory({
+        prisma: ctx.prisma,
+        user: ctx.auth?.user!,
         path,
-        result.data!,
-        rawInput,
-      );
+        data: result.data!,
+        input: rawInput,
+      }).catch((error) => {
+        console.error("Failed to create history entry:", error);
+      });
     }
 
     return result;
