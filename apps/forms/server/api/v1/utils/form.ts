@@ -144,7 +144,7 @@ export const verifyForm = async (
           throw new RequestError({
             code: 403,
             url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
-            message: "Error: The website is not allowed to submit the form",
+            message: "Error: The website is not allowed.",
           });
         }
       }
@@ -165,8 +165,7 @@ export const verifyForm = async (
             throw new RequestError({
               code: 403,
               url: `${form.errorUrl}?goBackUrl=${form.redirectUrl}`,
-              message:
-                "Error: Your IP address is blocked from submitting the form",
+              message: "Error: Your IP address is blocked.",
             });
           }
         }

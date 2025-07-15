@@ -25,4 +25,6 @@ app.use(logger());
 
 export const routes = app.route("/s", submissions).route("/jobs", jobs);
 
+export type AppType = typeof routes;
+
 export default app;
