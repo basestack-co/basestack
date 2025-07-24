@@ -11,6 +11,8 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
   },
   "dependencies": {
+    "@next/eslint-plugin-next": "^15.4.3",
+    "eslint-config-next": "^15.4.3",
     "fumadocs-core": "15.6.5",
     "fumadocs-mdx": "11.7.0",
     "fumadocs-ui": "15.6.5",

@@ -12,10 +12,11 @@ interface AllProvidersProps extends WithChildrenProps {
   initialState?: {};
 }
 
-const AllProviders = ({ children, initialState: _initialState = {} }: AllProvidersProps) => {
-  return (
-    <ThemeProvider theme={theme}>{children}</ThemeProvider>
-  );
+const AllProviders = ({
+  children,
+  initialState: _initialState = {},
+}: AllProvidersProps) => {
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 
 const renderWithAllProviders = (

@@ -2,7 +2,19 @@ import js from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 import prettierConfig from "eslint-config-prettier";
-import reactHooks from "eslint-plugin-react-hooks";
+import { FlatCompat } from "@eslint/eslintrc";
+import { fixupConfigRules } from "@eslint/compat";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+  allConfig: js.configs.all,
+});
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -49,21 +61,24 @@ export default [
       "@typescript-eslint/no-empty-object-type": "off",
     },
   },
-  {
+  ...fixupConfigRules([
+    ...compat.extends("next/core-web-vitals"),
+  ]).map(config => ({
+    ...config,
     files: [
       "apps/*/app/**/*.{js,jsx,ts,tsx}",
       "apps/*/pages/**/*.{js,jsx,ts,tsx}",
       "apps/*/components/**/*.{js,jsx,ts,tsx}",
+      "apps/*/modals/**/*.{js,jsx,ts,tsx}",
+      "apps/*/utils/**/*.{js,jsx,ts,tsx}",
+      "apps/*/store/**/*.{js,jsx,ts,tsx}",
     ],
-    plugins: {
-      "react-hooks": reactHooks,
+    settings: {
+      next: {
+        rootDir: ["apps/*/"],
+      },
     },
-    rules: {
-      "react/no-unescaped-entities": "off",
-      "react/prop-types": "off",
-      ...reactHooks.configs.recommended.rules,
-    },
-  },
+  })),
   {
     ignores: [
       "**/node_modules/**",

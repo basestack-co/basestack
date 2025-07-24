@@ -205,9 +205,7 @@ const WaitingList = ({ data }: WaitingListProps) => {
                   <ErrorText
                     size="small"
                     color={
-                      errors.email
-                        ? theme.colors.red400
-                        : theme.colors.gray500
+                      errors.email ? theme.colors.red400 : theme.colors.gray500
                     }
                   >
                     {errors.email?.message}

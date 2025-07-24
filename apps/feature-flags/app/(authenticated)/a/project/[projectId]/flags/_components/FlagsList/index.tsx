@@ -115,7 +115,7 @@ const FlagCards = ({
         },
       );
     },
-     
+
     [projectId, deleteFlag],
   );
 

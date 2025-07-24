@@ -23,10 +23,10 @@ export default [
     files: ["**/*.{js,jsx,ts,tsx}"],
     rules: {
       "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
-      "@typescript-eslint/ban-ts-comment": "off",
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
   {
-    ignores: [".next/**", "out/**", "public/**", "*.config.{js,mjs,ts}"],
+    ignores: [".next/**", "out/**", "*.config.{js,mjs,ts}", ".turbo/**"],
   },
-];
+]; 
