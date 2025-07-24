@@ -89,12 +89,13 @@ const Body = ({
       .sort((a, b) => (order[a.id] || Infinity) - (order[b.id] || Infinity));
   }, [metadata]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: N/A
   useLayoutEffect(() => {
     animate.start({
       height: isOpen ? (contentRef?.current?.offsetHeight ?? 0) + 20 : 0,
       opacity: isOpen ? 1 : 0,
     });
-  }, [isOpen, animate]);
+  }, [isOpen, contentRef, showMetadata, data, animate]);
 
   const onBlockIp = useCallback(
     (ip: string) => {
