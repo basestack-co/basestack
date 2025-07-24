@@ -1,6 +1,5 @@
 // Components
 import { Avatar, IconButton, Logo, Text } from "@basestack/design-system";
-import React from "react";
 import { useTheme } from "styled-components";
 import AppsDropdown from "../../AppsDropdown";
 // UI
@@ -25,7 +24,7 @@ const DesktopNavigation = ({
   const theme = useTheme();
   const currentProject = projects.current;
   const truncateProjectName = (str: string) => {
-    return str.length <= 18 ? str : str.slice(0, 18) + "...";
+    return str.length <= 18 ? str : `${str.slice(0, 18)}...`;
   };
 
   return (

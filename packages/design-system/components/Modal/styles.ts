@@ -44,13 +44,12 @@ export const Container = styled.div.withConfig({
 
 const handleSheetSize = (size: Size) => {
   switch (size) {
-    default:
-    case "small":
-      return "576px";
     case "medium":
       return "768px";
     case "large":
       return "992px";
+    default:
+      return "576px";
   }
 };
 

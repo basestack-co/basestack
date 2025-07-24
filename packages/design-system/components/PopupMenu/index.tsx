@@ -1,6 +1,5 @@
 import { useFloatingPopup } from "@basestack/hooks";
 import { rem } from "polished";
-import React from "react";
 import { animated } from "react-spring";
 import { Button, ButtonVariant } from "../Button";
 import IconButton from "../IconButton";

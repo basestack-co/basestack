@@ -11,7 +11,7 @@ import {
 } from "@basestack/design-system";
 // Components
 import { autoUpdate, offset, useFloating } from "@floating-ui/react";
-import React, { Fragment, memo, useCallback, useRef, useState } from "react";
+import { Fragment, memo, useCallback, useRef, useState } from "react";
 import { animated, config, useTransition } from "react-spring";
 import { useClickAway } from "react-use";
 // Styles
@@ -31,7 +31,7 @@ import {
 
 const AnimatedAvatarDropdown: any = animated(Dropdown);
 
-export interface ListItem {
+export interface AvatarDropdownListItem {
   text: string;
   icon: string;
   onClick?: () => void;
@@ -48,7 +48,7 @@ export interface AvatarDropdownProps {
   isDarkMode: boolean;
   darkModeText: string;
   onSetDarkMode: (isDarkMode: boolean) => void;
-  list: ListItem[];
+  list: AvatarDropdownListItem[];
 }
 
 const AvatarDropdown = ({

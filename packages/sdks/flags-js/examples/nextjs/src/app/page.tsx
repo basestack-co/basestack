@@ -33,7 +33,7 @@ export default function Home() {
 
         <h3>All the available flags</h3>
         <ul>
-          {data.flags.map((flag, index) => {
+          {data?.flags?.map((flag, index) => {
             return (
               <li
                 key={index}

@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import type { SpaceProps } from "styled-system";
 import { StyledSpinner } from "./styles";
 

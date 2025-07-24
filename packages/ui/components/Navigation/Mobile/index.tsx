@@ -8,7 +8,7 @@ import {
   slideInLeft,
   Text,
 } from "@basestack/design-system";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { animated, config, useTransition } from "react-spring";
 // Styles
 import { useTheme } from "styled-components";

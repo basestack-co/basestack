@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DesktopNavigation from "./Desktop";
 // Components
 import MobileNavigation from "./Mobile";

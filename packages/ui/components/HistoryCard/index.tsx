@@ -1,5 +1,5 @@
 import { Avatar, Icon, Label, Text } from "@basestack/design-system";
-import React, { memo } from "react";
+import { memo } from "react";
 import { useTheme } from "styled-components";
 import {
   BottomContentContainer,

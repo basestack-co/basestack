@@ -147,36 +147,34 @@ const Table = ({
         data-testid="header"
         isHeader
       >
-        {data.headers &&
-          data.headers.map((header, index) => {
-            return (
-              <Col
-                key={`${index.toString()}-header`}
-                isResponsive={isResponsive}
-                breakpoint={breakpoint}
-              >
-                <Text muted size="small">
-                  {header}
-                </Text>
-              </Col>
-            );
-          })}
-      </StyledRow>
-      {data.rows &&
-        data.rows.map((row, index) => {
+        {data?.headers?.map((header, index) => {
           return (
-            <Row
-              key={`${index.toString()}-row`}
-              headers={data.headers}
-              cols={row.cols}
-              more={row.more}
-              numberOfCols={numberOfCols}
-              tooltip={row.tooltip}
+            <Col
+              key={`${index.toString()}-header`}
               isResponsive={isResponsive}
               breakpoint={breakpoint}
-            />
+            >
+              <Text muted size="small">
+                {header}
+              </Text>
+            </Col>
           );
         })}
+      </StyledRow>
+      {data?.rows?.map((row, index) => {
+        return (
+          <Row
+            key={`${index.toString()}-row`}
+            headers={data.headers}
+            cols={row.cols}
+            more={row.more}
+            numberOfCols={numberOfCols}
+            tooltip={row.tooltip}
+            isResponsive={isResponsive}
+            breakpoint={breakpoint}
+          />
+        );
+      })}
     </Container>
   );
 };

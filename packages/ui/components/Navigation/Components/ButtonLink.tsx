@@ -2,7 +2,7 @@
 import { Button, ButtonVariant } from "@basestack/design-system";
 // Utils
 import { rem } from "polished";
-import React, { memo, type ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 import styled, { css } from "styled-components";
 // Types
 import type { SpaceProps } from "styled-system";

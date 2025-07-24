@@ -49,30 +49,29 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>(
   ({ items, width, onClickList, ...props }, ref) => (
     <Container width={width} ref={ref} {...props}>
       <List onClick={onClickList}>
-        {items &&
-          items.map(({ isVisible = true, ...item }, index) => {
-            const iconProps = item.icon
-              ? {
-                  icon: item.icon,
-                  iconPlacement: "left",
-                  iconSize: "small",
-                }
-              : {};
-            return isVisible ? (
-              <ListItem key={index.toString()}>
-                <Button
-                  {...(iconProps as ButtonProps)}
-                  onClick={item.onClick}
-                  fontWeight={400}
-                  variant={item.variant || ButtonVariant.Neutral}
-                  isDisabled={item.isDisabled}
-                  fullWidth
-                >
-                  {item.text}
-                </Button>
-              </ListItem>
-            ) : null;
-          })}
+        {items?.map(({ isVisible = true, ...item }, index) => {
+          const iconProps = item.icon
+            ? {
+                icon: item.icon,
+                iconPlacement: "left",
+                iconSize: "small",
+              }
+            : {};
+          return isVisible ? (
+            <ListItem key={index.toString()}>
+              <Button
+                {...(iconProps as ButtonProps)}
+                onClick={item.onClick}
+                fontWeight={400}
+                variant={item.variant || ButtonVariant.Neutral}
+                isDisabled={item.isDisabled}
+                fullWidth
+              >
+                {item.text}
+              </Button>
+            </ListItem>
+          ) : null;
+        })}
       </List>
     </Container>
   ),
