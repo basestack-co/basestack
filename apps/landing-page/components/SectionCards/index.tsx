@@ -1,5 +1,7 @@
-import React from "react";
 import { rem } from "polished";
+import React from "react";
+import SectionHeader from "../SectionHeader";
+import { Card } from "../styles";
 // Components
 import {
   CardContainer,
@@ -12,8 +14,6 @@ import {
   TextContainer,
   TextWrapper,
 } from "./styles";
-import SectionHeader from "../SectionHeader";
-import { Card } from "../styles";
 
 export interface CardsProps {
   id?: string;

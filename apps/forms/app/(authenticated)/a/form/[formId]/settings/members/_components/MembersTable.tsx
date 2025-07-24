@@ -1,4 +1,5 @@
-import React, { useCallback, useMemo } from "react";
+// Types
+import { Role } from ".prisma/client";
 // UI
 import {
   ButtonVariant,
@@ -8,23 +9,22 @@ import {
   Table,
 } from "@basestack/design-system";
 import { SettingCard } from "@basestack/ui";
-// Server
-import { api } from "utils/trpc/react";
-// Store
-import { useStore } from "store";
 // Utils
-import { createTable, config } from "@basestack/utils";
-import dayjs from "dayjs";
+import { config, createTable } from "@basestack/utils";
 // Libs
 import { auth } from "@basestack/vendors";
+import dayjs from "dayjs";
 // Router
 import { useParams, useRouter } from "next/navigation";
-// Toast
-import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
-// Types
-import { Role } from ".prisma/client";
+import React, { useCallback, useMemo } from "react";
+// Toast
+import { toast } from "sonner";
+// Store
+import { useStore } from "store";
+// Server
+import { api } from "utils/trpc/react";
 
 const { hasFormsPermission } = config.plans;
 

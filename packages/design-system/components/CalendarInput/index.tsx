@@ -1,17 +1,22 @@
-import React, { memo, useRef } from "react";
-import { SpaceProps, LayoutProps } from "styled-system";
-import { rem } from "polished";
-import { useClickAway } from "react-use";
 import {
   autoUpdate,
-  offset,
-  useFloating,
   FloatingPortal,
-  shift,
   flip,
+  offset,
+  shift,
+  useFloating,
 } from "@floating-ui/react";
+import { rem } from "polished";
+import React, { memo, useRef } from "react";
 // Calendar
 import { CalendarProps } from "react-calendar";
+import { useClickAway } from "react-use";
+import { LayoutProps, SpaceProps } from "styled-system";
+import Calendar from "../Calendar";
+import Icon from "../Icon";
+import IconButton from "../IconButton";
+import { InputProps } from "../Input";
+import InputGroup from "../InputGroup";
 // Components
 import {
   CalendarReference,
@@ -19,11 +24,6 @@ import {
   Container,
   InputContainer,
 } from "./styles";
-import IconButton from "../IconButton";
-import Icon from "../Icon";
-import { InputProps } from "../Input";
-import InputGroup from "../InputGroup";
-import Calendar from "../Calendar";
 
 export interface CalendarInputProps extends SpaceProps, LayoutProps {
   isCalenderOpen: boolean;

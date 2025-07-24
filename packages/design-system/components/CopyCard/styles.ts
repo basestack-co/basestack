@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components";
-import { compose, space, layout } from "styled-system";
 import { rem } from "polished";
+import styled, { css } from "styled-components";
+import { compose, layout, space } from "styled-system";
 
 export const Container = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== "maxWidth",

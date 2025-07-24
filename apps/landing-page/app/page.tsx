@@ -1,21 +1,21 @@
 "use client";
 
-import React, { Fragment } from "react";
-import { useRouter } from "next/navigation";
-import {
-  OrderedCards,
-  Cards,
-  VerticalCards,
-  Banner,
-  MiniCards,
-  AutoSlidingCards,
-  Questions,
-} from "components";
-import { useStore } from "store";
-// Locales
-import { useTranslations } from "next-intl";
 // Utils
 import { config as defaults } from "@basestack/utils";
+import {
+  AutoSlidingCards,
+  Banner,
+  Cards,
+  MiniCards,
+  OrderedCards,
+  Questions,
+  VerticalCards,
+} from "components";
+import { useRouter } from "next/navigation";
+// Locales
+import { useTranslations } from "next-intl";
+import React, { Fragment } from "react";
+import { useStore } from "store";
 
 const { urls } = defaults;
 

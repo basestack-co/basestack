@@ -1,7 +1,7 @@
+import { rem } from "polished";
 import { Ref } from "react";
 import styled, { css } from "styled-components";
-import { flexbox, space, position, compose } from "styled-system";
-import { rem } from "polished";
+import { compose, flexbox, position, space } from "styled-system";
 import { Variant } from "./types";
 
 const sharedStyles = css`

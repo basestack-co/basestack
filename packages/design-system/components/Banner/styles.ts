@@ -1,6 +1,6 @@
+import { rem, transparentize } from "polished";
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
-import { rem, transparentize } from "polished";
 
 export type BannerVariant = "success" | "info" | "warning" | "danger";
 

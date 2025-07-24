@@ -1,29 +1,30 @@
-import React, { useState, useCallback } from "react";
+import { Card, Spinner, Text } from "@basestack/design-system";
+// Components
+import { CodeLanguageCard } from "@basestack/ui";
+// Utils
+import { getBrowserUrl } from "@basestack/utils";
 import dynamic from "next/dynamic";
 // Locales
 import { NamespaceKeys, useTranslations } from "next-intl";
-// Theme
-import { useTheme } from "styled-components";
-// Utils
-import { getBrowserUrl } from "@basestack/utils";
+import React, { useCallback, useState } from "react";
 // Code
 import {
-  a11yLight,
   a11yDark,
+  a11yLight,
 } from "react-syntax-highlighter/dist/cjs/styles/hljs";
-// Components
-import { CodeLanguageCard } from "@basestack/ui";
-import { Text, Card, Spinner } from "@basestack/design-system";
-// Styles
-import { List, ListItem } from "./styles";
-// Utils
-import { data, getSyntax } from "./utils";
+// Theme
+import { useTheme } from "styled-components";
 // Steps
 import DefaultStep from "./DefaultStep";
 import JavascriptStep from "./JavascriptStep";
 import ReactStep from "./ReactStep";
-import VueStep from "./VueStep";
 import RestStep from "./RestStep";
+// Styles
+import { List, ListItem } from "./styles";
+// Utils
+import { data, getSyntax } from "./utils";
+import VueStep from "./VueStep";
+
 // Dynamic imports
 // @ts-ignore
 const SyntaxHighlighter = dynamic(() => import("react-syntax-highlighter"), {

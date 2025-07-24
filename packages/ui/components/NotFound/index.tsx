@@ -1,8 +1,8 @@
-import React from "react";
-import { rem } from "polished";
-import { useTheme } from "styled-components";
 // UI
-import { Text, Label, Button, ButtonVariant } from "@basestack/design-system";
+import { Button, ButtonVariant, Label, Text } from "@basestack/design-system";
+import { rem } from "polished";
+import React from "react";
+import { useTheme } from "styled-components";
 // Components
 import { Container, ContentContainer } from "./styles";
 

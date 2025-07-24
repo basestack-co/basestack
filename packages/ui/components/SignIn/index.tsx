@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { useTheme } from "styled-components";
-import { rem } from "polished";
-import { useMedia } from "react-use";
 // UI
-import { Text, Spinner } from "@basestack/design-system";
+import { Spinner, Text } from "@basestack/design-system";
+import { rem } from "polished";
+import React, { useState } from "react";
+import { useMedia } from "react-use";
+import { useTheme } from "styled-components";
 import Banners, { BannersItem } from "../Banners";
+import { Auth0, Github, Google, Microsoft, Okta } from "./icons";
 // Components
 import ProviderCard from "./ProviderCard";
-import { Github, Auth0, Google, Okta, Microsoft } from "./icons";
 import {
   CardsItem,
   CardsList,

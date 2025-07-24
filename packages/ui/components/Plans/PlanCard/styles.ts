@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
 import { rem } from "polished";
+import styled, { css } from "styled-components";
 
 export const Button = styled.button.withConfig({
   shouldForwardProp: (prop) => prop !== "isButton",

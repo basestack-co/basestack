@@ -1,19 +1,19 @@
-import React, { useCallback, useState } from "react";
-// Components
-import { useTheme } from "styled-components";
-import { InputGroup, Text, Switch, Skeleton } from "@basestack/design-system";
-// Form
-import {
-  UseFormSetValue,
-  FieldErrors,
-  Control,
-  Controller,
-} from "react-hook-form";
-import { FlagFormInputs, EnvironmentInput } from "../types";
-// Styles
-import { Environments } from "../styles";
+import { InputGroup, Skeleton, Switch, Text } from "@basestack/design-system";
 // Locales
 import { NamespaceKeys, useTranslations } from "next-intl";
+import React, { useCallback, useState } from "react";
+// Form
+import {
+  Control,
+  Controller,
+  FieldErrors,
+  UseFormSetValue,
+} from "react-hook-form";
+// Components
+import { useTheme } from "styled-components";
+// Styles
+import { Environments } from "../styles";
+import { EnvironmentInput, FlagFormInputs } from "../types";
 
 export interface Props {
   environments: EnvironmentInput[];

@@ -1,5 +1,6 @@
 import React from "react";
 import SectionHeader from "../SectionHeader";
+import CardComp from "./Card";
 import {
   Container,
   ContentContainer,
@@ -7,7 +8,6 @@ import {
   List,
   ListItem,
 } from "./styles";
-import CardComp from "./Card";
 
 export interface OrderedCardsProps {
   id?: string;

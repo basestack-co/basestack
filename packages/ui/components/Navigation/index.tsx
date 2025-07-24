@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import DesktopNavigation from "./Desktop";
 // Components
 import MobileNavigation from "./Mobile";
-import DesktopNavigation from "./Desktop";
 // Types"
 import { NavigationProps } from "./types";
 

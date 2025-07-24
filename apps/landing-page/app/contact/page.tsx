@@ -1,13 +1,13 @@
 "use client";
 
-import React, { Fragment } from "react";
 // Components
 import Form, { FormInputs } from "components/Form";
-import { toast } from "sonner";
 // Locales
 import { useTranslations } from "next-intl";
+import React, { Fragment } from "react";
 // Form
 import { UseFormReset } from "react-hook-form";
+import { toast } from "sonner";
 
 const RequestDemoPage = () => {
   const t = useTranslations();

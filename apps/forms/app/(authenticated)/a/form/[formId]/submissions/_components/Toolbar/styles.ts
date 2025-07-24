@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import {
   compose,
-  flexbox,
   FlexboxProps,
-  layout,
+  flexbox,
   LayoutProps,
-  space,
+  layout,
   SpaceProps,
+  space,
 } from "styled-system";
 
 type BoxProps = LayoutProps & SpaceProps & FlexboxProps;

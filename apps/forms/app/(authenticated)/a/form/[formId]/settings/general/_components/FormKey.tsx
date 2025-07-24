@@ -1,10 +1,10 @@
-import React from "react";
-// UI
-import { SettingCard } from "@basestack/ui";
 // Components
 import { CopyCard } from "@basestack/design-system";
+// UI
+import { SettingCard } from "@basestack/ui";
 // Locales
 import { useTranslations } from "next-intl";
+import React from "react";
 
 export interface Props {
   formId: string;

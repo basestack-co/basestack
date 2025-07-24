@@ -1,20 +1,20 @@
 "use client";
 
-import React from "react";
-// Locales
-import { useTranslations } from "next-intl";
-// Router
-import { useRouter } from "next/navigation";
-// Store
-import { useStore } from "store";
-// Server
-import { api } from "utils/trpc/react";
+import { Button, ButtonVariant, Empty, Text } from "@basestack/design-system";
 // Components
 import { ProjectCard, ProjectCardLoading } from "@basestack/ui";
-import { Button, ButtonVariant, Text, Empty } from "@basestack/design-system";
+// Router
+import { useRouter } from "next/navigation";
+// Locales
+import { useTranslations } from "next-intl";
+import React from "react";
+// Store
+import { useStore } from "store";
 // Styles
 import { useTheme } from "styled-components";
-import { ProjectsListItem, ProjectsList, Section, Header } from "./styles";
+// Server
+import { api } from "utils/trpc/react";
+import { Header, ProjectsList, ProjectsListItem, Section } from "./styles";
 
 const RecentProjects = () => {
   const t = useTranslations("home");

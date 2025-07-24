@@ -1,19 +1,19 @@
-import React, { memo, useCallback, useRef, useState } from "react";
-// Components
-import { autoUpdate, offset, useFloating } from "@floating-ui/react";
-import { animated, config, useTransition } from "react-spring";
-import { useClickAway } from "react-use";
 import {
+  IconButton,
   Logo,
   LogoProps,
-  IconButton,
   slideBottom,
   Text,
 } from "@basestack/design-system";
+// Components
+import { autoUpdate, offset, useFloating } from "@floating-ui/react";
+import React, { memo, useCallback, useRef, useState } from "react";
+import { animated, config, useTransition } from "react-spring";
+import { useClickAway } from "react-use";
 // Styles
 import {
-  Dropdown,
   Container,
+  Dropdown,
   List,
   ListItem,
   StyledButton,

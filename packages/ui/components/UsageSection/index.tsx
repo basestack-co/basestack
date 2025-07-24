@@ -1,18 +1,18 @@
-import React from "react";
 // Components
 import { Skeleton, Text } from "@basestack/design-system";
+import React from "react";
+import { useTheme } from "styled-components";
 import { SpaceProps } from "styled-system";
 // UI
 import UsageCard, { UsageCardProps } from "../UsageCard";
 // Styles
 import {
+  Container,
   Header,
+  LinkContainer,
   Section,
   StyledLink,
-  Container,
-  LinkContainer,
 } from "./styles";
-import { useTheme } from "styled-components";
 
 export interface UsageSectionProps extends SpaceProps {
   title?: string;

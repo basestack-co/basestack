@@ -1,20 +1,20 @@
-import React, { useState, memo } from "react";
-// Components
-import { SpaceProps } from "styled-system";
-import { useTheme } from "styled-components";
 import {
-  Segment,
-  Input,
   Button,
   ButtonVariant,
+  Input,
+  Segment,
 } from "@basestack/design-system";
-import { RightContent, Container, SegmentContainer } from "./styles";
-// Hooks
-import { useDebounce } from "react-use";
-// Types
-import { SelectedView } from "types";
 // Locales
 import { useTranslations } from "next-intl";
+import React, { memo, useState } from "react";
+// Hooks
+import { useDebounce } from "react-use";
+import { useTheme } from "styled-components";
+// Components
+import { SpaceProps } from "styled-system";
+// Types
+import { SelectedView } from "types";
+import { Container, RightContent, SegmentContainer } from "./styles";
 
 export interface ToolbarProps extends SpaceProps {
   onSearchCallback: (value: string) => void;

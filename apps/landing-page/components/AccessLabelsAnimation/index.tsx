@@ -1,7 +1,7 @@
+import { IconButton, Label } from "@basestack/design-system";
+import { animated, useTransition } from "@react-spring/web";
 import React, { useEffect, useState } from "react";
 import { useTheme } from "styled-components";
-import { Label, IconButton } from "@basestack/design-system";
-import { useTransition, animated } from "@react-spring/web";
 import {
   ButtonContainer,
   Container,

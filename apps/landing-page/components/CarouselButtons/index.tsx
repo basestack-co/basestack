@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useEffect } from "react";
 import { IconButton } from "@basestack/design-system";
 import { EmblaCarouselType } from "embla-carousel";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ButtonsContainer,
   Container,

@@ -1,9 +1,9 @@
-import { useReducer, useRef, useEffect, memo } from "react";
-import { SpaceProps } from "styled-system";
+import { memo, useEffect, useReducer, useRef } from "react";
 import { useTheme } from "styled-components";
-import Text from "../Text";
+import { SpaceProps } from "styled-system";
 import Icon from "../Icon";
-import { Container, Button, Slider, Wrapper } from "./styles";
+import Text from "../Text";
+import { Button, Container, Slider, Wrapper } from "./styles";
 
 type Item = {
   label?: string;

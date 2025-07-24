@@ -1,21 +1,21 @@
-import React, { memo, useCallback, useRef, useState } from "react";
+import {
+  Button,
+  ButtonSize,
+  ButtonVariant,
+  slideBottom,
+} from "@basestack/design-system";
 import { autoUpdate, offset, useFloating } from "@floating-ui/react";
+import { useRouter } from "next/navigation";
+import React, { memo, useCallback, useRef, useState } from "react";
 import { animated, config, useTransition } from "react-spring";
 import { useClickAway, useMedia } from "react-use";
+import { useTheme } from "styled-components";
 import {
-  slideBottom,
-  Button,
-  ButtonVariant,
-  ButtonSize,
-} from "@basestack/design-system";
-import {
-  Dropdown as StyledDropdown,
   Container,
   List,
   ListItem,
+  Dropdown as StyledDropdown,
 } from "./styles";
-import { useTheme } from "styled-components";
-import { useRouter } from "next/navigation";
 
 const AnimatedDropdown: any = animated(StyledDropdown);
 

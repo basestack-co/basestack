@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
+import React from "react";
+import styled from "styled-components";
 // Styles
 import LegalGlobalStyle from "styles/legalGlobalStyles";
-import styled from "styled-components";
 
 const Container = styled.section`
   padding: ${({ theme }) => theme.spacing.s8} ${({ theme }) => theme.spacing.s5};

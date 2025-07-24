@@ -1,9 +1,10 @@
+// Components
+import { Checkbox, Icon } from "@basestack/design-system";
 import React, { useState } from "react";
 // Hooks
 import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
-// Components
-import { Icon, Checkbox } from "@basestack/design-system";
+import Labels from "../Labels";
 import {
   Box,
   HeaderButton,
@@ -11,10 +12,9 @@ import {
   HeaderRight,
   MobileLabels,
 } from "../styles";
-import Grid from "./Grid";
-import Actions from "./Actions";
 import { FormSubmissionHeaderProps } from "../types";
-import Labels from "../Labels";
+import Actions from "./Actions";
+import Grid from "./Grid";
 
 const Header = ({
   isOpen,

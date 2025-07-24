@@ -1,9 +1,9 @@
-import React from "react";
 import { transparentize } from "polished";
+import React from "react";
 import { useTheme } from "styled-components";
 import Icon from "../Icon";
 import { ContentContainer, IconContainer } from "./styles";
-import { IconBoxProps, IconBoxColor, IconBoxVariant } from "./types";
+import { IconBoxColor, IconBoxProps, IconBoxVariant } from "./types";
 
 const IconBox = ({
   icon,

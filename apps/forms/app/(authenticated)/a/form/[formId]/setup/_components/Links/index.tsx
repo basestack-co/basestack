@@ -1,10 +1,10 @@
-import React from "react";
-import { useTheme } from "styled-components";
+// Components
+import { Card, HorizontalRule, Text } from "@basestack/design-system";
 // Locales
 import { NamespaceKeys, useTranslations } from "next-intl";
-// Components
-import { Text, Card, HorizontalRule } from "@basestack/design-system";
 import { rem } from "polished";
+import React from "react";
+import { useTheme } from "styled-components";
 import { Link, List, ListItem } from "./styles";
 // Utils
 import { links } from "./utils";

@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components";
-import { rem } from "polished";
 import { Text } from "@basestack/design-system";
+import { rem } from "polished";
+import styled, { css } from "styled-components";
 import { gradientBorderStyles } from "../styles";
 
 const backgroundBlur = css`

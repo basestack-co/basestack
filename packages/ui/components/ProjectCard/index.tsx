@@ -1,29 +1,29 @@
+import {
+  Avatar,
+  Card,
+  HorizontalRule,
+  Icon,
+  Label,
+  PopupMenu,
+  PopupMenuProps,
+  Skeleton,
+  Text,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@basestack/design-system";
 import React, { memo } from "react";
 import { useTheme } from "styled-components";
 import {
-  Text,
-  Card,
-  Avatar,
-  HorizontalRule,
-  Icon,
-  Skeleton,
-  PopupMenu,
-  PopupMenuProps,
-  Label,
-  TooltipTrigger,
-  TooltipContent,
-  Tooltip,
-} from "@basestack/design-system";
-import {
-  Button,
-  Body,
-  Footer,
-  Avatars,
   AvatarListItem,
-  PopupMenuWrapper,
+  Avatars,
+  Body,
+  Button,
   Container,
-  TooltipContainer,
   DetailContainer,
+  Footer,
+  PopupMenuWrapper,
+  TooltipContainer,
 } from "./styles";
 
 interface ProjectCardProps {

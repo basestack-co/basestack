@@ -1,18 +1,18 @@
-import React, { useMemo, useState } from "react";
-import dynamic from "next/dynamic";
-// Components
-import { useTheme } from "styled-components";
-import { Text, CalendarInput, Tabs } from "@basestack/design-system";
-// Types
-import { EnvironmentInput, FlagFormInputs } from "../types";
-import { UseFormSetValue } from "react-hook-form";
-import type { Value } from "react-calendar/src/shared/types";
+import { CalendarInput, Tabs, Text } from "@basestack/design-system";
 // Utils
 import dayjs from "dayjs";
+import dynamic from "next/dynamic";
 // Locales
 import { useTranslations } from "next-intl";
+import React, { useMemo, useState } from "react";
+import type { Value } from "react-calendar/src/shared/types";
+import { UseFormSetValue } from "react-hook-form";
+// Components
+import { useTheme } from "styled-components";
 // Styles
 import { EditorContainer } from "../styles";
+// Types
+import { EnvironmentInput, FlagFormInputs } from "../types";
 
 const Editor = dynamic(() => import("@monaco-editor/react"), {
   ssr: false,

@@ -1,5 +1,5 @@
 import { transparentize } from "polished";
-import { typography, colors, spacing, zIndex, device } from "./common";
+import { colors, device, spacing, typography, zIndex } from "./common";
 
 const shadow = {
   elevation1:

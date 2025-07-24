@@ -1,12 +1,12 @@
 "use client";
 
-import React from "react";
-// Router
-import { useRouter } from "next/navigation";
 // UI
 import { NotFound } from "@basestack/ui";
+// Router
+import { useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
+import React from "react";
 
 const PageNotFound = () => {
   const t = useTranslations("common");

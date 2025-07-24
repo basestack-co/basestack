@@ -1,19 +1,19 @@
-import * as React from "react";
 import {
-  useFloating,
   autoUpdate,
-  offset,
+  FloatingPortal,
   flip,
+  offset,
+  Placement,
   shift,
-  useHover,
-  useFocus,
   useDismiss,
-  useRole,
+  useFloating,
+  useFocus,
+  useHover,
   useInteractions,
   useMergeRefs,
-  FloatingPortal,
-  Placement,
+  useRole,
 } from "@floating-ui/react";
+import * as React from "react";
 import { StyledContent, StyledTrigger } from "./styles";
 
 export interface TooltipProps {

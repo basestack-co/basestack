@@ -1,16 +1,16 @@
-import React, { memo, useCallback, useRef, useState } from "react";
-import { useTheme } from "styled-components";
-import { useClickAway } from "react-use";
-import { rem } from "polished";
-import { animated, config, useTransition } from "react-spring";
-// Components
-import { autoUpdate, offset, useFloating } from "@floating-ui/react";
 import {
   Avatar,
   Button,
   ButtonVariant,
   slideBottom,
 } from "@basestack/design-system";
+// Components
+import { autoUpdate, offset, useFloating } from "@floating-ui/react";
+import { rem } from "polished";
+import React, { memo, useCallback, useRef, useState } from "react";
+import { animated, config, useTransition } from "react-spring";
+import { useClickAway } from "react-use";
+import { useTheme } from "styled-components";
 import PopupActions, { PopupActionProps } from "../PopupActions";
 // Types
 import { ListItem } from "./styles";

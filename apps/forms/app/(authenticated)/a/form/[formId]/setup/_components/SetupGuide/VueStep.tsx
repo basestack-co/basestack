@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
 // Locales
 import { useTranslations } from "next-intl";
+import React, { Fragment } from "react";
 // Code
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import js from "react-syntax-highlighter/dist/cjs/languages/hljs/javascript";
 import {
-  a11yLight,
   a11yDark,
+  a11yLight,
 } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 // Theme
 import { useTheme } from "styled-components";
@@ -15,7 +15,7 @@ import Step from "./Step";
 // Styles
 import { CodeContainer } from "./styles";
 // Utils
-import { parseDescription, getVueDemoCode } from "./utils";
+import { getVueDemoCode, parseDescription } from "./utils";
 
 export interface Props {
   endpoint: string;

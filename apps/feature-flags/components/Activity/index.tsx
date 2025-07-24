@@ -1,15 +1,15 @@
-import React, { useState, useCallback, useMemo } from "react";
-// Server
-import { api } from "utils/trpc/react";
 // Router
 import { useParams } from "next/navigation";
+import React, { useCallback, useMemo, useState } from "react";
 // Hooks
 import { useDebounce } from "react-use";
+// Server
+import { api } from "utils/trpc/react";
 // Components
 import ActivityList, { ActivityListData } from "./ActivityList";
-import Toolbar from "./Toolbar";
 // Styles
 import { Container } from "./styles";
+import Toolbar from "./Toolbar";
 
 const Activity = () => {
   const trpcUtils = api.useUtils();

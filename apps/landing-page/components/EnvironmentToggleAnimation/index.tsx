@@ -1,5 +1,5 @@
-import React from "react";
 import { Switch, Text } from "@basestack/design-system";
+import React from "react";
 import { Container, ContentContainer, Item } from "./styles";
 
 type Environment = { name: string; enabled: boolean };

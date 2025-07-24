@@ -1,26 +1,27 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
-import { useSpring, animated } from "react-spring";
-import { useStore } from "store";
-// Router
-import { useRouter, usePathname } from "next/navigation";
-// Utils
-import { useMedia } from "react-use";
-import { config as defaults } from "@basestack/utils";
-// Theme
-import { useTheme } from "styled-components";
-// Locales
-import { useTranslations } from "next-intl";
 // Components
 import {
   Button,
-  ButtonVariant,
   ButtonSize,
-  Logo,
+  ButtonVariant,
   IconButton,
+  Logo,
 } from "@basestack/design-system";
+import { config as defaults } from "@basestack/utils";
+// Router
+import { usePathname, useRouter } from "next/navigation";
+// Locales
+import { useTranslations } from "next-intl";
+import React, { useEffect, useMemo, useState } from "react";
+import { animated, useSpring } from "react-spring";
+// Utils
+import { useMedia } from "react-use";
+import { useStore } from "store";
+// Theme
+import { useTheme } from "styled-components";
 import Dropdown from "./Dropdown";
+import MobileMenu from "./MobileMenu";
 import {
   Container,
   ContentContainer,
@@ -32,7 +33,6 @@ import {
   Span,
   StyledButton,
 } from "./styles";
-import MobileMenu from "./MobileMenu";
 
 const { urls } = defaults;
 

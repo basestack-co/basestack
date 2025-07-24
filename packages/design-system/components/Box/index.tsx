@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import {
-  compose,
-  flexbox,
-  FlexboxProps,
-  layout,
-  LayoutProps,
-  space,
-  SpaceProps,
-  color,
   ColorProps,
+  color,
+  compose,
+  FlexboxProps,
+  flexbox,
+  LayoutProps,
+  layout,
+  SpaceProps,
+  space,
 } from "styled-system";
 
 // List of props to exclude from being passed to the DOM

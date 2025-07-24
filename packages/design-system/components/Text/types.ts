@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
 import {
-  SpaceProps,
-  TypographyProps,
   FlexboxProps,
   LayoutProps,
+  SpaceProps,
+  TypographyProps,
 } from "styled-system";
 
 export type Size =

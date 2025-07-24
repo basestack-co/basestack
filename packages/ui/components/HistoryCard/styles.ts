@@ -34,9 +34,9 @@ export const Wrapper = styled.div.withConfig({
         left: 19px;
         bottom: -19px;
         width: 2px;
-        background-color: ${theme.colors[
-          theme.isDarkMode ? "gray700" : "gray100"
-        ]};
+        background-color: ${
+          theme.colors[theme.isDarkMode ? "gray700" : "gray100"]
+        };
       }
     `}
 `;

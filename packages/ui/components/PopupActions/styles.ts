@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components";
-import { rem } from "polished";
 import { scrollbar } from "@basestack/design-system/styles";
+import { rem } from "polished";
+import styled, { css } from "styled-components";
 import { position } from "styled-system";
 
 export const Container = styled.div`

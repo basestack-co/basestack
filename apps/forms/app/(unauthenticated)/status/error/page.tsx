@@ -1,14 +1,14 @@
 "use client";
 
-import { Suspense } from "react";
 // UI
 import { StatusPage } from "@basestack/ui";
-// Navigation
-import { useSearchParams } from "next/navigation";
 // Utils
 import { config } from "@basestack/utils";
+// Navigation
+import { useSearchParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
+import { Suspense } from "react";
 
 const ErrorStatus = () => {
   const t = useTranslations("common");

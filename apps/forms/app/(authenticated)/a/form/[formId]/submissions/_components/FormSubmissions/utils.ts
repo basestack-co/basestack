@@ -1,6 +1,7 @@
 // Types
-import { Data } from "../FormSubmission/types";
+
 import { Prisma } from ".prisma/client";
+import { Data } from "../FormSubmission/types";
 
 export const formatFormSubmissions = (data: Prisma.JsonValue): Data => {
   if (!data || Object.keys(data).length === 0) {

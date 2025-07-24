@@ -1,14 +1,14 @@
+import { rem } from "polished";
 import styled, { css } from "styled-components";
 import {
   compose,
-  flexbox,
   FlexboxProps,
-  layout,
+  flexbox,
   LayoutProps,
-  space,
+  layout,
   SpaceProps,
+  space,
 } from "styled-system";
-import { rem } from "polished";
 
 const flexCenter = css`
   display: flex;

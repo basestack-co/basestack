@@ -1,6 +1,6 @@
+import { rem } from "polished";
 import styled from "styled-components";
 import { space } from "styled-system";
-import { rem } from "polished";
 
 export const Container = styled.button<{ isSelected: boolean }>`
   border: none;

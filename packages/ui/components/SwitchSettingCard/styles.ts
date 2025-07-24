@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
 import { transparentize } from "polished";
+import styled, { css } from "styled-components";
 
 export const ContentContainer = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== "hasLabel",

@@ -1,25 +1,25 @@
 "use client";
 
+// Components
+import { Text } from "@basestack/design-system";
+// Router
+import { useParams } from "next/navigation";
+// Locales
+import { useTranslations } from "next-intl";
 import React, { useCallback, useEffect, useState } from "react";
 // Hooks
 import { useMedia } from "react-use";
 // Store
 import { useStore } from "store";
-// Components
-import { Text } from "@basestack/design-system";
-import FlagsList from "./_components/FlagsList";
-import Toolbar from "./_components/Toolbar";
-// Router
-import { useParams } from "next/navigation";
-// Locales
-import { useTranslations } from "next-intl";
 // Styles
 import { useTheme } from "styled-components";
-import { FlagsListContainer } from "./_components/FlagsList/styles";
 // Types
 import { SelectedView } from "types";
 // Server
 import { api } from "utils/trpc/react";
+import FlagsList from "./_components/FlagsList";
+import { FlagsListContainer } from "./_components/FlagsList/styles";
+import Toolbar from "./_components/Toolbar";
 
 const FlagsPage = () => {
   const t = useTranslations("flag");

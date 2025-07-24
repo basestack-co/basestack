@@ -1,6 +1,4 @@
-import React, { useCallback, Fragment, useMemo } from "react";
-// Server
-import { api } from "utils/trpc/react";
+import { Role } from ".prisma/client";
 // Components
 import {
   ButtonVariant,
@@ -8,29 +6,31 @@ import {
   Loader,
   Pagination,
 } from "@basestack/design-system";
-import FlagCard from "./FlagCard";
-import FlagRow from "./FlagRow";
+// Utils
+import { config } from "@basestack/utils";
+// Utils
+import dayjs from "dayjs";
+// Locales
+import { useTranslations } from "next-intl";
+import React, { Fragment, useCallback, useMemo } from "react";
+// Toast
+import { toast } from "sonner";
 // Store
 import { useStore } from "store";
 // Types
 import { SelectedView, TabType } from "types";
-import { Role } from ".prisma/client";
-// Utils
-import dayjs from "dayjs";
-// Utils
-import { config } from "@basestack/utils";
-// Locales
-import { useTranslations } from "next-intl";
-// Toast
-import { toast } from "sonner";
+// Server
+import { api } from "utils/trpc/react";
+import FlagCard from "./FlagCard";
+import FlagRow from "./FlagRow";
+import Loading from "./Loading";
 // Styles
 import {
+  Container,
   FlagsCardGrid,
   FlagsTableGrid,
-  Container,
   LoadMoreContainer,
 } from "./styles";
-import Loading from "./Loading";
 
 const { hasFlagsPermission } = config.plans;
 

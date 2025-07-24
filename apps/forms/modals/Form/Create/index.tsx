@@ -1,23 +1,23 @@
-import React from "react";
-// Router
-import { useRouter } from "next/navigation";
-// Form
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-// Theme
-import { useTheme } from "styled-components";
+import { InputGroup, Modal } from "@basestack/design-system";
 // Components
 import Portal from "@basestack/design-system/global/Portal";
-import { Modal, InputGroup } from "@basestack/design-system";
-// Store
-import { useStore } from "store";
-// Toast
-import { toast } from "sonner";
-// Server
-import { api } from "utils/trpc/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+// Router
+import { useRouter } from "next/navigation";
 // Locales
 import { NamespaceKeys, useTranslations } from "next-intl";
+import React from "react";
+// Form
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+// Toast
+import { toast } from "sonner";
+// Store
+import { useStore } from "store";
+// Theme
+import { useTheme } from "styled-components";
+// Server
+import { api } from "utils/trpc/react";
+import { z } from "zod";
 
 export const FormSchema = z.object({
   name: z

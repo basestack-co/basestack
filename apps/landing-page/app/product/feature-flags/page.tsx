@@ -1,6 +1,7 @@
 "use client";
 
-import React, { Fragment, useMemo, useState } from "react";
+// Components
+import { ButtonVariant } from "@basestack/design-system";
 import {
   config,
   config as defaults,
@@ -8,26 +9,25 @@ import {
   PlanTypeId,
   Product,
 } from "@basestack/utils";
-// Components
-import { ButtonVariant } from "@basestack/design-system";
 import {
-  Hero,
   Banner,
+  BentoCards,
   Cards,
+  Code,
+  Hero,
+  MiniCards,
+  PricingUsage,
+  ProductNavigation,
   Questions,
   Slider,
-  Code,
-  ProductNavigation,
-  MiniCards,
-  BentoCards,
-  PricingUsage,
 } from "components";
 // Icons
 import { JavascriptIcon, JsonIcon, ReactIcon } from "components/Code/icons";
-// Styles
-import { useTheme } from "styled-components";
 // Locales
 import { useTranslations } from "next-intl";
+import React, { Fragment, useMemo, useState } from "react";
+// Styles
+import { useTheme } from "styled-components";
 
 const { urls } = defaults;
 

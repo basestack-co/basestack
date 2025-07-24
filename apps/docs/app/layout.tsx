@@ -1,9 +1,9 @@
 import "./global.css";
 import { RootProvider } from "fumadocs-ui/provider";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import type { ReactNode } from "react";
 import SearchDialog from "@/components/search";
-import type { Metadata } from "next";
 
 const inter = Inter({
   subsets: ["latin"],

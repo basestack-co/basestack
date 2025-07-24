@@ -1,35 +1,35 @@
-import React, { useEffect, useState, useRef } from "react";
+import { Button, ButtonSize, Text } from "@basestack/design-system";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 // Styles
 import { rem } from "polished";
-import { useTheme } from "styled-components";
+import React, { useEffect, useRef, useState } from "react";
 // Form
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { useMedia } from "react-use";
+import { useTheme } from "styled-components";
 // Utils
 import { z } from "zod";
-import { useMedia } from "react-use";
 // Components
 import Image from "../Image";
-import { Button, ButtonSize, Text } from "@basestack/design-system";
+import SlideCard from "../SlideCard";
 import {
+  CardsContainer,
+  CardWrapper,
   Container,
   ContentContainer,
-  ImageContainer,
-  TextContainer,
-  Input,
-  InputContainer,
-  Header,
-  Grid,
-  Footer,
-  InputWrapper,
-  LeftCol,
-  CardsContainer,
   ErrorContainer,
   ErrorText,
-  CardWrapper,
+  Footer,
+  Grid,
+  Header,
+  ImageContainer,
+  Input,
+  InputContainer,
+  InputWrapper,
+  LeftCol,
+  TextContainer,
 } from "./styles";
-import SlideCard from "../SlideCard";
 
 interface WaitingListProps {
   data: Array<{

@@ -1,15 +1,15 @@
-import React from "react";
-// Store
-import { useStore } from "store";
+import { CardVariant } from "@basestack/design-system";
 // UI
 import { SettingCard } from "@basestack/ui";
-import { CardVariant } from "@basestack/design-system";
-// Server
-import { api } from "utils/trpc/react";
 // Router
 import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
+import React from "react";
+// Store
+import { useStore } from "store";
+// Server
+import { api } from "utils/trpc/react";
 
 export interface Props {
   name?: string;

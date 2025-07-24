@@ -1,45 +1,45 @@
+import {
+  Button,
+  ButtonSize,
+  ButtonVariant,
+  HorizontalRule,
+  InputGroup,
+  Text,
+} from "@basestack/design-system";
+import { zodResolver } from "@hookform/resolvers/zod";
+// Locales
+import { useTranslations } from "next-intl";
+import { rem } from "polished";
 import React, { useMemo } from "react";
 // Form
 import {
-  useForm,
-  SubmitHandler,
   Controller,
+  SubmitHandler,
   UseFormReset,
+  useForm,
 } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-// Locales
-import { useTranslations } from "next-intl";
 // Hooks
 import { useMedia } from "react-use";
 // Components
 import { useTheme } from "styled-components";
-import { rem } from "polished";
-import {
-  InputGroup,
-  HorizontalRule,
-  Button,
-  ButtonVariant,
-  ButtonSize,
-  Text,
-} from "@basestack/design-system";
+import { z } from "zod";
 import SectionHeader, {
-  TextAlign,
   AlignItems,
   SectionHeaderProps,
+  TextAlign,
 } from "../SectionHeader";
+import { Card } from "../styles";
 // Styles
 import {
-  StyledForm,
   Col,
   Container,
   ContentContainer,
   ContentWrapper,
   FormWrapper,
   Row,
+  StyledForm,
   StyledLink,
 } from "./styles";
-import { Card } from "../styles";
 
 export const FormSchema = z.object({
   firstName: z

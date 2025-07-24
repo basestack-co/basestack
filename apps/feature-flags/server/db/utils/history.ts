@@ -1,9 +1,9 @@
 import { PrismaClient } from ".prisma/client";
+import { HistoryType } from "@basestack/ui";
 // Auth
 import { User } from "better-auth";
 // Types
-import { HistoryAction, Environment } from "types";
-import { HistoryType } from "@basestack/ui";
+import { Environment, HistoryAction } from "types";
 import { RouterOutputs } from "utils/trpc/react";
 
 export const pathActionMap: { [id: string]: string } = {

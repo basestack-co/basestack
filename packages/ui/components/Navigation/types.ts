@@ -1,4 +1,4 @@
-import { LogoProps, ButtonVariant } from "@basestack/design-system";
+import { ButtonVariant, LogoProps } from "@basestack/design-system";
 import { SpaceProps } from "styled-system";
 import { AppsDropdownProps } from "../AppsDropdown";
 import { AvatarDropdownProps } from "../AvatarDropdown";

@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import styles from "./page.module.css";
 // Feature Flags Hooks
 import { useFlag, useFlags } from "@/libs/feature-flags/hooks";
+import styles from "./page.module.css";
 
 export default function Home() {
   const count = useFlag<{ text: string }>("count");

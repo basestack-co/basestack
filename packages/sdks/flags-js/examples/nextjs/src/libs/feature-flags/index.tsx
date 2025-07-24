@@ -2,7 +2,7 @@
 
 import React, { createContext, useEffect, useMemo, useState } from "react";
 // Note: Change to the correct dependency path
-import { FlagsSDK, Flag, SDKConfig } from "../../../../../dist";
+import { Flag, FlagsSDK, SDKConfig } from "../../../../../dist";
 
 interface ContextState {
   client: FlagsSDK;

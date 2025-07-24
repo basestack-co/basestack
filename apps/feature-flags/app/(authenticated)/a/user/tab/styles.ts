@@ -1,7 +1,7 @@
-import styled, { css } from "styled-components";
-import { rem } from "polished";
-import Link from "next/link";
 import { neutralButtonStyles } from "@basestack/design-system";
+import Link from "next/link";
+import { rem } from "polished";
+import styled, { css } from "styled-components";
 
 const flexColumn = css`
   display: flex;
@@ -71,9 +71,9 @@ export const StyledButton = styled.div.withConfig({
   ${({ isActive, theme }) =>
     isActive &&
     css`
-      background-color: ${theme.colors[
-        theme.isDarkMode ? "gray800" : "gray100"
-      ]};
+      background-color: ${
+        theme.colors[theme.isDarkMode ? "gray800" : "gray100"]
+      };
     `};
 `;
 

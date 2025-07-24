@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "styled-components";
 import Text from "../Text";
-import { CircleWrapper, Svg, CircleProgress, TextContainer } from "./styles";
+import { CircleProgress, CircleWrapper, Svg, TextContainer } from "./styles";
 
 export interface CircularProgressProps {
   usage: number;

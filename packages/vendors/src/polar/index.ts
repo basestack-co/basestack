@@ -1,9 +1,10 @@
 // Polar
+
+// Utils
+import { emailToId, Product, UsageEvent } from "@basestack/utils";
 import { Polar } from "@polar-sh/sdk";
 // Cache
 import { client as redis } from "../redis";
-// Utils
-import { emailToId, Product, UsageEvent } from "@basestack/utils";
 
 export const client = new Polar({
   accessToken: process.env.POLAR_ACCESS_TOKEN,

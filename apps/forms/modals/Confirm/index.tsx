@@ -1,13 +1,13 @@
-import React, { useCallback } from "react";
-import { useTheme } from "styled-components";
+import { ButtonVariant, Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
-import { Modal, ButtonVariant } from "@basestack/design-system";
-// Store
-import { useStore } from "store";
-import { useShallow } from "zustand/react/shallow";
-import { ConfirmModalType } from "store/types";
 // Locales
 import { useTranslations } from "next-intl";
+import React, { useCallback } from "react";
+// Store
+import { useStore } from "store";
+import { ConfirmModalType } from "store/types";
+import { useTheme } from "styled-components";
+import { useShallow } from "zustand/react/shallow";
 // Styles
 import { Content } from "./styles";
 

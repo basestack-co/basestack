@@ -1,5 +1,5 @@
-import styled, { css, keyframes } from "styled-components";
 import { rem } from "polished";
+import styled, { css, keyframes } from "styled-components";
 
 const flexColumn = css`
   display: flex;

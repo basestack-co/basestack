@@ -1,8 +1,8 @@
-import React from "react";
 // Components
 import { Accordion } from "@basestack/design-system";
-import { AccordionsContainer, Container, ContentContainer } from "./styles";
+import React from "react";
 import SectionHeader from "../SectionHeader";
+import { AccordionsContainer, Container, ContentContainer } from "./styles";
 
 export interface QuestionsProps {
   id?: string;

@@ -1,9 +1,9 @@
-import { PrismaClient, Prisma } from ".prisma/client";
+import { Prisma, PrismaClient } from ".prisma/client";
 import { DefaultArgs } from ".prisma/client/runtime/library";
-// tRPC
-import { TRPCError } from "@trpc/server";
 // Utils
 import { config, FlagsPlan, PlanTypeId, Product } from "@basestack/utils";
+// tRPC
+import { TRPCError } from "@trpc/server";
 
 export const withUsageUpdate = async (
   prisma:

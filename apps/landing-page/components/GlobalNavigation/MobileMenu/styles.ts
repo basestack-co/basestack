@@ -1,5 +1,5 @@
-import styled, { createGlobalStyle, css } from "styled-components";
 import { rem } from "polished";
+import styled, { createGlobalStyle, css } from "styled-components";
 
 export const GlobalStyle: any = createGlobalStyle`
     body {

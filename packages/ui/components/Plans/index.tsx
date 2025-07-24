@@ -1,26 +1,26 @@
-import React, { useCallback, useState } from "react";
-// Locales
-import { useTranslations } from "next-intl";
+// Components
+import { Skeleton, Text } from "@basestack/design-system";
 // Utils
 import {
   config,
+  FlagsPlan,
+  FormPlan,
   formatNumber,
   PlanTypeId,
   Product,
-  FlagsPlan,
-  FormPlan,
 } from "@basestack/utils";
 import dayjs from "dayjs";
-// Types
-import { BillingInterval } from "./types";
-// Components
-import { Skeleton, Text } from "@basestack/design-system";
-import PlanCard from "./PlanCard";
-import UpgradePlanHeader from "./UpgradePlanHeader";
-import ActivePlan, { CurrentPlan } from "./ActivePlan";
+// Locales
+import { useTranslations } from "next-intl";
+import React, { useCallback, useState } from "react";
 // Styles
 import { useTheme } from "styled-components";
+import ActivePlan, { CurrentPlan } from "./ActivePlan";
+import PlanCard from "./PlanCard";
 import { Container, List, ListItem } from "./styles";
+// Types
+import { BillingInterval } from "./types";
+import UpgradePlanHeader from "./UpgradePlanHeader";
 
 const flagsFreePlanLimits = config.plans.getPlanLimits(
   Product.FLAGS,

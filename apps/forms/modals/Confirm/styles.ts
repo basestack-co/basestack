@@ -1,6 +1,6 @@
-import styled from "styled-components";
 import { rem } from "polished";
-import { space, SpaceProps } from "styled-system";
+import styled from "styled-components";
+import { SpaceProps, space } from "styled-system";
 
 export const Container = styled.main`
   padding: ${({ theme }) => theme.spacing.s5};

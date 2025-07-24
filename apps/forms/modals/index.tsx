@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
+import ConfirmModal from "./Confirm";
+import AddFormMemberModal from "./Form/AddMember"; // Generic
 // Forms
 import CreateFormModal from "./Form/Create";
-import AddFormMemberModal from "./Form/AddMember"; // Generic
-import ConfirmModal from "./Confirm";
 // Teams
 import CreateTeamModal from "./Team/Create";
 import ManageTeamModal from "./Team/Manage";

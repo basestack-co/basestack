@@ -1,17 +1,17 @@
-import React from "react";
-import { useTheme } from "styled-components";
-// Store
-import { useStore } from "store";
-// Form
-import { z } from "zod";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-// Locales
-import { NamespaceKeys, useTranslations } from "next-intl";
 // Components
 import { Input, Text } from "@basestack/design-system";
 // UI
 import { SettingCard } from "@basestack/ui";
+import { zodResolver } from "@hookform/resolvers/zod";
+// Locales
+import { NamespaceKeys, useTranslations } from "next-intl";
+import React from "react";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+// Store
+import { useStore } from "store";
+import { useTheme } from "styled-components";
+// Form
+import { z } from "zod";
 
 export const FormSchema = z.object({
   numberOfFlags: z

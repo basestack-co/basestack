@@ -1,9 +1,9 @@
-import React from "react";
-import { render, RenderOptions } from "@testing-library/react";
+import theme from "@basestack/design-system/theme/lightTheme";
 // Styles
 import isPropValid from "@emotion/is-prop-valid";
-import { ThemeProvider, StyleSheetManager } from "styled-components";
-import theme from "@basestack/design-system/theme/lightTheme";
+import { RenderOptions, render } from "@testing-library/react";
+import React from "react";
+import { StyleSheetManager, ThemeProvider } from "styled-components";
 
 interface WithChildrenProps {
   children: React.ReactNode;

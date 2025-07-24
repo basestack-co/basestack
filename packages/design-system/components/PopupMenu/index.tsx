@@ -1,10 +1,10 @@
+import { useFloatingPopup } from "@basestack/hooks";
+import { rem } from "polished";
 import React from "react";
 import { animated } from "react-spring";
-import { rem } from "polished";
-import { useFloatingPopup } from "@basestack/hooks";
 import { Button, ButtonVariant } from "../Button";
-import Popup, { PopupProps } from "../Popup";
 import IconButton from "../IconButton";
+import Popup, { PopupProps } from "../Popup";
 import { Container } from "./styles";
 
 const AnimatedPopup = animated(Popup);

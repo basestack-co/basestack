@@ -1,9 +1,9 @@
 import React from "react";
 import { useTheme } from "styled-components";
-import Text from "../Text";
 import Avatar from "../Avatar";
 import PopupMenu from "../PopupMenu";
-import TextVisibility from "./TextVisibility";
+import Text from "../Text";
+import CopyClipboard from "./CopyClipboard";
 import {
   Col,
   Container,
@@ -12,8 +12,8 @@ import {
   StyledLink,
   StyledRow,
 } from "./styles";
-import { TableProps, RowProps, TableRowProps, TableColProps } from "./types";
-import CopyClipboard from "./CopyClipboard";
+import TextVisibility from "./TextVisibility";
+import { RowProps, TableColProps, TableProps, TableRowProps } from "./types";
 
 const Row = ({
   headers = [],

@@ -1,13 +1,13 @@
-import React from "react";
 // Types
 import type { Metadata } from "next";
-// Registries
-import Registry from "utils/registry";
+// Fonts
+import { Roboto, Roboto_Flex } from "next/font/google";
 // Locales
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
-// Fonts
-import { Roboto_Flex, Roboto } from "next/font/google";
+import React from "react";
+// Registries
+import Registry from "utils/registry";
 
 export const metadata: Metadata = {
   title: "Basestack Feature Flags",

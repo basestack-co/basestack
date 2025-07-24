@@ -1,13 +1,13 @@
 import { memo } from "react";
-import { TextProps } from "./types";
 import {
-  XSmallText,
-  SmallText,
-  MediumText,
   LargeText,
+  MediumText,
+  SmallText,
   XLargeText,
+  XSmallText,
   XXLargeText,
 } from "./styles";
+import { TextProps } from "./types";
 
 const Text = ({
   size = "small",

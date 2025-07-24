@@ -1,7 +1,7 @@
-import styled, { css, createGlobalStyle } from "styled-components";
-import { space, SpaceProps } from "styled-system";
-import { rem } from "polished";
 import { scrollbar } from "@basestack/design-system/styles";
+import { rem } from "polished";
+import styled, { createGlobalStyle, css } from "styled-components";
+import { SpaceProps, space } from "styled-system";
 import { Size } from "./types";
 
 export const GlobalStyle = createGlobalStyle`

@@ -1,21 +1,21 @@
-import React, { useCallback, useMemo } from "react";
-// Components
-import { Text } from "@basestack/design-system";
-import MemberCard from "./MemberCard";
-import InviteForm from "./InviteForm";
-// Server
-import { api } from "utils/trpc/react";
-import { keepPreviousData } from "@tanstack/react-query";
-// Toast
-import { toast } from "sonner";
-// Locales
-import { useTranslations } from "next-intl";
-// Libs
-import { auth } from "@basestack/vendors";
-// Styles
-import { Container, MembersList } from "./styles";
 // types
 import { Role } from ".prisma/client";
+// Components
+import { Text } from "@basestack/design-system";
+// Libs
+import { auth } from "@basestack/vendors";
+import { keepPreviousData } from "@tanstack/react-query";
+// Locales
+import { useTranslations } from "next-intl";
+import React, { useCallback, useMemo } from "react";
+// Toast
+import { toast } from "sonner";
+// Server
+import { api } from "utils/trpc/react";
+import InviteForm from "./InviteForm";
+import MemberCard from "./MemberCard";
+// Styles
+import { Container, MembersList } from "./styles";
 
 export interface Props {
   teamId: string;

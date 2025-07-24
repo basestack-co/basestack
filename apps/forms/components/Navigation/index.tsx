@@ -1,23 +1,23 @@
 "use client";
 
-import React, { useCallback, useMemo } from "react";
-import { useTheme } from "styled-components";
-// Store
-import { useStore } from "store";
-// Hooks
-import { useDarkModeToggle } from "@basestack/hooks";
-import { useRouter, useParams, usePathname } from "next/navigation";
-import { useMedia } from "react-use";
-// Libs
-import { auth } from "@basestack/vendors";
-// Locales
-import { useTranslations } from "next-intl";
-// Components
-import { Navigation as NavigationUI, PopupActionProps } from "@basestack/ui";
 // Types
 import { Role } from ".prisma/client";
+// Hooks
+import { useDarkModeToggle } from "@basestack/hooks";
+// Components
+import { Navigation as NavigationUI, PopupActionProps } from "@basestack/ui";
 // Utils
 import { AppEnv, config, Product } from "@basestack/utils";
+// Libs
+import { auth } from "@basestack/vendors";
+import { useParams, usePathname, useRouter } from "next/navigation";
+// Locales
+import { useTranslations } from "next-intl";
+import React, { useCallback, useMemo } from "react";
+import { useMedia } from "react-use";
+// Store
+import { useStore } from "store";
+import { useTheme } from "styled-components";
 import { AppMode } from "utils/helpers/general";
 import {
   getAppsList,

@@ -1,16 +1,16 @@
-import React, { useState, useMemo } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import React, { useMemo, useState } from "react";
 // Form
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FlagFormInputs, FlagFormSchema } from "./types";
 // Types
 import { TabType } from "types";
 // Server
 import { api } from "utils/trpc/react";
+import Advance from "./Tab/Advance";
 // Tabs
 import Core from "./Tab/Core";
-import Advance from "./Tab/Advance";
 import History from "./Tab/History";
+import { FlagFormInputs, FlagFormSchema } from "./types";
 
 export interface UseFlagFormProps {
   isModalOpen: boolean;

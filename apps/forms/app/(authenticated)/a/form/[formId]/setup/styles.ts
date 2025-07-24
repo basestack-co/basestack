@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import {
-  space,
   compose,
-  layout,
-  flexbox,
-  SpaceProps,
   FlexboxProps,
+  flexbox,
   LayoutProps,
+  layout,
+  SpaceProps,
+  space,
 } from "styled-system";
 
 export const Container = styled.main`

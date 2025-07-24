@@ -1,5 +1,5 @@
-import styled, { css, keyframes } from "styled-components";
 import { rem } from "polished";
+import styled, { css, keyframes } from "styled-components";
 
 const indicatorAnimation = keyframes`
     0% {
@@ -34,14 +34,14 @@ export const CardContainer = styled.button.withConfig({
   ${({ theme, isActive }) =>
     theme.isDarkMode
       ? css`
-          background-color: ${isActive
-            ? theme.colors.gray800
-            : theme.colors.gray900};
+          background-color: ${
+            isActive ? theme.colors.gray800 : theme.colors.gray900
+          };
         `
       : css`
-          background-color: ${isActive
-            ? theme.colors.white
-            : theme.colors.gray50};
+          background-color: ${
+            isActive ? theme.colors.white : theme.colors.gray50
+          };
         `};
 
   ${({ isActive, theme, animationTime }) =>
@@ -54,9 +54,9 @@ export const CardContainer = styled.button.withConfig({
         left: 0;
         animation: ${indicatorAnimation} ${`${animationTime}ms`} linear;
         height: 5px;
-        background-color: ${theme.isDarkMode
-          ? theme.colors.blue300
-          : theme.colors.primary};
+        background-color: ${
+          theme.isDarkMode ? theme.colors.blue300 : theme.colors.primary
+        };
       }
     `}
 `;

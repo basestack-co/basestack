@@ -1,5 +1,8 @@
-import React, { memo } from "react";
 import { rem } from "polished";
+import React, { memo } from "react";
+import { animated, config, useTransition } from "react-spring";
+import { useTheme } from "styled-components";
+import { fadeIn } from "../../animations/springs";
 import { Button, ButtonVariant } from "../Button";
 import IconButton from "../IconButton";
 import Text from "../Text";
@@ -13,10 +16,7 @@ import {
   Overlay,
   Sheet,
 } from "./styles";
-import { useTheme } from "styled-components";
-import { animated, config, useTransition } from "react-spring";
 import { ModalProps } from "./types";
-import { fadeIn } from "../../animations/springs";
 
 const AnimatedModal = animated(Container);
 const AnimatedSheet = animated(Sheet);

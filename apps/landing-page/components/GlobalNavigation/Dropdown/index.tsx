@@ -1,24 +1,24 @@
-import React, { memo, useCallback, useRef, useState } from "react";
-import { autoUpdate, offset, useFloating } from "@floating-ui/react";
-import { animated, config, useTransition } from "react-spring";
-import { useClickAway } from "react-use";
-import { rem } from "polished";
-import { useTheme } from "styled-components";
 import {
+  Button,
+  ButtonSize,
+  ButtonVariant,
+  Icon,
+  IconBox,
   slideBottom,
   Text,
-  Button,
-  ButtonVariant,
-  ButtonSize,
-  IconBox,
-  Icon,
 } from "@basestack/design-system";
+import { autoUpdate, offset, useFloating } from "@floating-ui/react";
+import { rem } from "polished";
+import React, { memo, useCallback, useRef, useState } from "react";
+import { animated, config, useTransition } from "react-spring";
+import { useClickAway } from "react-use";
+import { useTheme } from "styled-components";
 import {
-  Dropdown as StyledDropdown,
   Container,
   List,
   ListItem,
   StyledButton,
+  Dropdown as StyledDropdown,
   TextContainer,
 } from "./styles";
 

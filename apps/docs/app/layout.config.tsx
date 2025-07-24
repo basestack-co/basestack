@@ -1,5 +1,5 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
-import { Twitter, LifeBuoy } from "lucide-react";
+import { LifeBuoy, Twitter } from "lucide-react";
 
 /**
  * Shared layout configurations

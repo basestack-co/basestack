@@ -1,6 +1,6 @@
-import React from "react";
 // Components
-import { Text, Icon } from "@basestack/design-system";
+import { Icon, Text } from "@basestack/design-system";
+import React from "react";
 import { useTheme } from "styled-components";
 // Styles
 import { CardButton } from "./styles";

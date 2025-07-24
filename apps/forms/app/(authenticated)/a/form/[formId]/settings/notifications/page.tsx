@@ -1,15 +1,15 @@
 "use client";
 
-import React from "react";
+// Utils
+import { config, PlanTypeId } from "@basestack/utils";
 // Router
 import { useParams } from "next/navigation";
+import React from "react";
+// Server
+import { api } from "utils/trpc/react";
 // Components
 import { CardList, CardListItem, SettingCardContainer } from "../styles";
 import FormEmails from "./_components/FormEmails";
-// Utils
-import { PlanTypeId, config } from "@basestack/utils";
-// Server
-import { api } from "utils/trpc/react";
 
 const { hasFormsPermission } = config.plans;
 

@@ -1,29 +1,27 @@
-import React, {
-  useRef,
-  useState,
-  useMemo,
-  useCallback,
-  useLayoutEffect,
-} from "react";
-import { rem } from "polished";
-import { animated, useSpring } from "react-spring";
-// Locales
-import { useTranslations } from "next-intl";
 // Components
 import {
-  Text,
-  Label,
   IconButton,
-  TooltipTrigger,
-  TooltipContent,
+  Label,
+  Text,
   Tooltip,
+  TooltipContent,
+  TooltipTrigger,
 } from "@basestack/design-system";
-// Server
-import { api } from "utils/trpc/react";
+// Locales
+import { useTranslations } from "next-intl";
+import { rem } from "polished";
+import React, {
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { animated, useSpring } from "react-spring";
 // Toast
 import { toast } from "sonner";
-// Types
-import { FormSubmissionBodyProps } from "./types";
+// Server
+import { api } from "utils/trpc/react";
 // styles
 import {
   BodyContainer,
@@ -33,6 +31,8 @@ import {
   MetadataContainer,
   MetadataTags,
 } from "./styles";
+// Types
+import { FormSubmissionBodyProps } from "./types";
 
 const AnimatedBody = animated(BodyContainer);
 

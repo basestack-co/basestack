@@ -1,19 +1,19 @@
 "use client";
 
+// Themes
+import darkTheme from "@basestack/design-system/theme/darkTheme";
+import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
+import lightTheme from "@basestack/design-system/theme/lightTheme";
+// Styles Utils
+import { useServerInsertedHTML } from "next/navigation";
 import React, { useState } from "react";
 // Store
 import { useStore } from "store";
-// Styles Utils
-import { useServerInsertedHTML } from "next/navigation";
 import {
   ServerStyleSheet,
   StyleSheetManager,
   ThemeProvider,
 } from "styled-components";
-// Themes
-import darkTheme from "@basestack/design-system/theme/darkTheme";
-import lightTheme from "@basestack/design-system/theme/lightTheme";
-import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
 
 const StyledComponentsRegistry = ({
   children,

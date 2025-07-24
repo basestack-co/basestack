@@ -1,16 +1,17 @@
 // Server
+
+// types
+import { Role } from ".prisma/client";
 import { initTRPC, TRPCError } from "@trpc/server";
 import { headers } from "next/headers";
-// Utils
-import superjson from "superjson";
-import { ZodError } from "zod";
 // Auth
 import { auth } from "server/auth";
 // Database
 import { prisma } from "server/db";
 import { getUserInForm, getUserInTeam } from "server/db/utils/user";
-// types
-import { Role } from ".prisma/client";
+// Utils
+import superjson from "superjson";
+import { ZodError } from "zod";
 
 // CONTEXT
 

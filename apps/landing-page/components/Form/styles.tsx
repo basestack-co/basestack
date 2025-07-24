@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { rem } from "polished";
 import Link from "next/link";
+import { rem } from "polished";
+import styled from "styled-components";
 
 export const Container = styled.section`
   display: flex;

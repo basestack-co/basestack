@@ -1,9 +1,9 @@
 import React, { forwardRef } from "react";
 import ReactSelect, {
-  Props,
+  ClearIndicatorProps,
   components,
   DropdownIndicatorProps,
-  ClearIndicatorProps,
+  Props,
 } from "react-select";
 import { useTheme } from "styled-components";
 import Icon from "../Icon";

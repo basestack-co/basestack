@@ -8,6 +8,7 @@
     "start": "next start",
     "deploy": "yarn build",
     "postinstall": "fumadocs-mdx",
+    "lint": "biome check . --write",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
   },
   "dependencies": {
@@ -20,7 +21,6 @@
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "@basestack/config": "*",
     "@basestack/tsconfig": "*",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/mdx": "^2.0.13",

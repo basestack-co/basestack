@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { rem } from "polished";
+import styled from "styled-components";
 
 export const CardButton = styled.button.withConfig({
   shouldForwardProp: (prop) => prop !== "isSelected",

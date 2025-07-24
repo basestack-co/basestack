@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { rem } from "polished";
+import styled from "styled-components";
 import { Card } from "../styles";
 
 export const Container = styled.section`

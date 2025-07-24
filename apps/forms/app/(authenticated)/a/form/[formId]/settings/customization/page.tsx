@@ -1,18 +1,18 @@
 "use client";
 
-import React from "react";
+// Utils
+import { config, PlanTypeId } from "@basestack/utils";
 // Router
 import { useParams } from "next/navigation";
-// Components
-import { CardList, CardListItem, SettingCardContainer } from "../styles";
-import FormSuccessUrl from "./_components/FormSuccessUrl";
-import FormFailedUrl from "./_components/FormFailedUrl";
-import FormSendQueryString from "./_components/FormSendQueryString";
-import FormRedirectUrl from "./_components/FormRedirectUrl";
-// Utils
-import { PlanTypeId, config } from "@basestack/utils";
+import React from "react";
 // Server
 import { api } from "utils/trpc/react";
+// Components
+import { CardList, CardListItem, SettingCardContainer } from "../styles";
+import FormFailedUrl from "./_components/FormFailedUrl";
+import FormRedirectUrl from "./_components/FormRedirectUrl";
+import FormSendQueryString from "./_components/FormSendQueryString";
+import FormSuccessUrl from "./_components/FormSuccessUrl";
 
 const { hasFormsPermission } = config.plans;
 

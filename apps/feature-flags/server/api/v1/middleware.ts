@@ -1,9 +1,10 @@
 // Hono
+
+// Utils
+import { getMetadata } from "@basestack/utils";
 import { createMiddleware } from "hono/factory";
 // Types
 import { Env } from "./types";
-// Utils
-import { getMetadata } from "@basestack/utils";
 import { verifyProjectRequest } from "./utils/project";
 
 export const ProjectPermissionMiddleware = createMiddleware<Env>(

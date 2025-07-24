@@ -1,20 +1,20 @@
 import { Fragment } from "react";
 import { useTheme } from "styled-components";
-import { ButtonProps, ButtonVariant, ButtonSize } from "./types";
-import Spinner from "../Spinner";
 import Icon from "../Icon";
+import Spinner from "../Spinner";
 import {
+  dangerButtonStyles,
+  neutralButtonStyles,
+  outlinedButtonStyles,
+  primaryButtonStyles,
+  primaryNeutralButtonStyles,
   SpinnerContainer,
   StyledButton,
-  outlinedButtonStyles,
-  neutralButtonStyles,
-  primaryNeutralButtonStyles,
-  dangerButtonStyles,
-  primaryButtonStyles,
   secondaryButtonStyles,
-  tertiaryButtonStyles,
   TextContainer,
+  tertiaryButtonStyles,
 } from "./styles";
+import { ButtonProps, ButtonSize, ButtonVariant } from "./types";
 
 const Button = ({
   ref,

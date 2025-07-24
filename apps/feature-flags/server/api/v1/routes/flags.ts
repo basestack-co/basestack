@@ -1,10 +1,10 @@
 import { Hono } from "hono";
-// Types
-import { Env } from "../types";
 // Prisma
 import { prisma } from "server/db";
 // Middleware
 import { ProjectPermissionMiddleware } from "../middleware";
+// Types
+import { Env } from "../types";
 
 const flagsRoutes = new Hono<Env>()
   .use(ProjectPermissionMiddleware)

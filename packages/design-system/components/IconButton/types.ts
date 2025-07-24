@@ -1,5 +1,5 @@
 import React from "react";
-import { SpaceProps, FlexboxProps, PositionProps } from "styled-system";
+import { FlexboxProps, PositionProps, SpaceProps } from "styled-system";
 
 export type Size = "xLarge" | "large" | "mediumLarge" | "medium" | "small";
 

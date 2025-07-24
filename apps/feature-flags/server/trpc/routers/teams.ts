@@ -1,15 +1,15 @@
+// Types
+import { Role } from ".prisma/client";
+import { TRPCError } from "@trpc/server";
+import { generateSlug } from "random-word-slugs";
+import { withUsageUpdate } from "server/db/utils/usage";
 import {
   createTRPCRouter,
   protectedProcedure,
   withTeamRestrictions,
 } from "server/trpc";
-import { TRPCError } from "@trpc/server";
-// Types
-import { Role } from ".prisma/client";
 // Utils
 import { z } from "zod";
-import { withUsageUpdate } from "server/db/utils/usage";
-import { generateSlug } from "random-word-slugs";
 
 export const teamsRouter = createTRPCRouter({
   list: protectedProcedure.query(async ({ ctx }) => {

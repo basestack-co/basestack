@@ -1,24 +1,24 @@
-import React, { useEffect } from "react";
-// Router
-import { useParams } from "next/navigation";
-// Form
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-// Server
-import { api } from "utils/trpc/react";
-// UI
-import { SettingCard } from "@basestack/ui";
-// Components
-import { InputGroup } from "@basestack/design-system";
 // Types
 import { Role } from ".prisma/client";
-// Toast
-import { toast } from "sonner";
+// Components
+import { InputGroup } from "@basestack/design-system";
+// UI
+import { SettingCard } from "@basestack/ui";
 // Utils
 import { isEmptyObject } from "@basestack/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+// Router
+import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
+import React, { useEffect } from "react";
+// Form
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+// Toast
+import { toast } from "sonner";
+// Server
+import { api } from "utils/trpc/react";
+import { z } from "zod";
 
 export const FormSchema = z.object({
   name: z

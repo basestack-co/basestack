@@ -1,19 +1,19 @@
+import { IconBox, Text } from "@basestack/design-system";
+import AutoScroll from "embla-carousel-auto-scroll";
+import useEmblaCarousel from "embla-carousel-react";
 import React, { useEffect, useRef } from "react";
 import { useTheme } from "styled-components";
-import useEmblaCarousel from "embla-carousel-react";
-import AutoScroll from "embla-carousel-auto-scroll";
-import { IconBox, Text } from "@basestack/design-system";
+import SectionHeader from "../SectionHeader";
+import { Card } from "../styles";
 import {
   Container,
   ContentContainer,
   Embla,
-  EmblaViewport,
-  EmblaSlide,
   EmblaContainer,
+  EmblaSlide,
+  EmblaViewport,
   HeaderContainer,
 } from "./styles";
-import { Card } from "../styles";
-import SectionHeader from "../SectionHeader";
 
 export interface AutoSlidingCardsProps {
   id?: string;

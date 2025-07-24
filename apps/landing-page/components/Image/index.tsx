@@ -1,7 +1,7 @@
 import React from "react";
+import { SpaceProps } from "styled-system";
 // Components
 import { Container, Image } from "./styles";
-import { SpaceProps } from "styled-system";
 
 export interface ImageProps extends SpaceProps {
   src: string;

@@ -1,22 +1,22 @@
-import React, { memo, forwardRef } from "react";
-import { useTheme } from "styled-components";
-import { api } from "utils/trpc/react";
 import {
-  Text,
   Card,
+  PopupMenu,
+  Skeleton,
+  Text,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  Skeleton,
-  PopupMenu,
 } from "@basestack/design-system";
 import TooltipIcon from "components/TooltipIcon";
+import React, { forwardRef, memo } from "react";
+import { useTheme } from "styled-components";
+import { api } from "utils/trpc/react";
 import {
-  Labels,
-  Label,
   CardWrapper,
-  TooltipContainer,
   IconsContainer,
+  Label,
+  Labels,
+  TooltipContainer,
 } from "./styles";
 import { FlagRowProps } from "./types";
 

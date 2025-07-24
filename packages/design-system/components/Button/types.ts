@@ -1,10 +1,10 @@
-import React, { ReactNode, ButtonHTMLAttributes } from "react";
+import React, { ButtonHTMLAttributes, ReactNode } from "react";
 import {
-  SpaceProps,
+  ColorProps,
   FlexboxProps,
   LayoutProps,
+  SpaceProps,
   TypographyProps,
-  ColorProps,
 } from "styled-system";
 import { Size as IconSize } from "../Icon";
 

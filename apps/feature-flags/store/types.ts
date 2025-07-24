@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { TabType, SelectedView } from "types";
+import { SelectedView, TabType } from "types";
 
 /**
  * Modals

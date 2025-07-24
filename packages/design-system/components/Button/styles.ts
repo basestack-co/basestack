@@ -1,3 +1,4 @@
+import { rem } from "polished";
 import styled, { css } from "styled-components";
 import {
   color,
@@ -7,7 +8,6 @@ import {
   space,
   typography,
 } from "styled-system";
-import { rem } from "polished";
 import { ButtonSize, ButtonVariant, StyledButtonProps } from "./types";
 
 const sharedButtonStyles = css`

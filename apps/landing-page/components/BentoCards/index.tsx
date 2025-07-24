@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useMemo, useCallback } from "react";
-import Card from "./Card";
 import { HistoryCardProps } from "@basestack/ui";
-import { Container, ContentContainer, Grid, HeaderContainer } from "./styles";
-import SectionHeader from "../SectionHeader";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import AccessLabelsAnimation from "../AccessLabelsAnimation";
 import ActivityCardsAnimation from "../ActivityCardsAnimation";
 import CodeAnimation from "../CodeAnimation";
 import EnvironmentToggleAnimation from "../EnvironmentToggleAnimation";
 import FlagsCardSliderAnimation from "../FlagsCardSliderAnimation";
+import SectionHeader from "../SectionHeader";
+import Card from "./Card";
+import { Container, ContentContainer, Grid, HeaderContainer } from "./styles";
 
 type Component =
   | "flagsCardSliderAnimation"

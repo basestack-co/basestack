@@ -1,15 +1,8 @@
 "use client";
 
-import React, { useEffect, useState, Suspense } from "react";
-// Libs
-import { auth } from "@basestack/vendors";
-// Locales
-import { useTranslations } from "next-intl";
-// Router
-import { useRouter, useSearchParams } from "next/navigation";
+import { BannerVariant } from "@basestack/design-system";
 // UI
 import { SignIn as SignInComponent } from "@basestack/ui";
-import { BannerVariant } from "@basestack/design-system";
 // Types
 import {
   getProvidersList,
@@ -17,6 +10,13 @@ import {
 } from "@basestack/ui/components/SignIn";
 // Utils
 import { clearAllBrowserStorage, config } from "@basestack/utils";
+// Libs
+import { auth } from "@basestack/vendors";
+// Router
+import { useRouter, useSearchParams } from "next/navigation";
+// Locales
+import { useTranslations } from "next-intl";
+import React, { Suspense, useEffect, useState } from "react";
 // Styles
 import styled from "styled-components";
 

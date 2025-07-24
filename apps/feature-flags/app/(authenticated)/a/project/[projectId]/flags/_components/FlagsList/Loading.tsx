@@ -1,5 +1,5 @@
-import React from "react";
 import { Skeleton } from "@basestack/design-system";
+import React from "react";
 import { SelectedView } from "types";
 import { FlagsCardGrid, FlagsTableGrid } from "./styles";
 

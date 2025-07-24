@@ -1,15 +1,15 @@
-import React, { memo, forwardRef } from "react";
-import { useTheme } from "styled-components";
-import { api } from "utils/trpc/react";
 import {
-  Text,
-  Label,
   Card,
-  Skeleton,
+  Label,
   PopupMenu,
+  Skeleton,
+  Text,
 } from "@basestack/design-system";
 import { TooltipIcon } from "@basestack/ui";
-import { Labels, Footer, LoadingContainer, DropdownWrapper } from "./styles";
+import React, { forwardRef, memo } from "react";
+import { useTheme } from "styled-components";
+import { api } from "utils/trpc/react";
+import { DropdownWrapper, Footer, Labels, LoadingContainer } from "./styles";
 import { FlagCardProps } from "./types";
 
 const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(

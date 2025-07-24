@@ -1,8 +1,8 @@
 import { memo } from "react";
+import { useTheme } from "styled-components";
 import { SpaceProps } from "styled-system";
 import Text from "../Text";
 import { Container } from "./styles";
-import { useTheme } from "styled-components";
 
 export interface PillProps extends SpaceProps {
   /**

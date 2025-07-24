@@ -1,17 +1,17 @@
-import React from "react";
-// Locales
-import { useTranslations } from "next-intl";
+// Components
+import { Empty, Skeleton } from "@basestack/design-system";
+import { HistoryCard } from "@basestack/ui";
 // Utils
 import dayjs from "dayjs";
-// Components
-import { Skeleton, Empty } from "@basestack/design-system";
-import { HistoryCard } from "@basestack/ui";
-// Types
-import { Environment, HistoryAction } from "types";
+// Locales
+import { useTranslations } from "next-intl";
+import React from "react";
 // Server
 import { HistoryItemDetails, typeMap } from "server/db/utils/history";
 // Styles
 import { useTheme } from "styled-components";
+// Types
+import { Environment, HistoryAction } from "types";
 import { List, ListItem } from "./styles";
 
 export interface History extends HistoryItemDetails {

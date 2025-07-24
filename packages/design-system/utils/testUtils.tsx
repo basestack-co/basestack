@@ -1,8 +1,8 @@
-import React from "react";
-import isPropValid from "@emotion/is-prop-valid";
-import { ThemeProvider, StyleSheetManager } from "styled-components";
 import defaultTheme from "@basestack/design-system/theme/lightTheme";
-import { render, RenderResult } from "@testing-library/react";
+import isPropValid from "@emotion/is-prop-valid";
+import { RenderResult, render } from "@testing-library/react";
+import React from "react";
+import { StyleSheetManager, ThemeProvider } from "styled-components";
 
 const Provider = ({
   children,

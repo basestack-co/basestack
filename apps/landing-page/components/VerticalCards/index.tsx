@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useTheme } from "styled-components";
-import useEmblaCarousel from "embla-carousel-react";
 import { Button, ButtonSize, ButtonVariant } from "@basestack/design-system";
+import useEmblaCarousel from "embla-carousel-react";
+import React, { useEffect, useState } from "react";
 import { useMedia } from "react-use";
+import { useTheme } from "styled-components";
+import CarouselButtons from "../CarouselButtons";
+import SectionHeader, { SectionHeaderProps } from "../SectionHeader";
 import Card, { CardProps } from "./Card";
 import {
+  ButtonsContainer,
   Container,
   ContentContainer,
   Embla,
-  EmblaViewport,
-  EmblaSlide,
   EmblaContainer,
+  EmblaSlide,
+  EmblaViewport,
   HeaderContainer,
-  ButtonsContainer,
   Indicator,
   Indicators,
 } from "./styles";
-import SectionHeader, { SectionHeaderProps } from "../SectionHeader";
-import CarouselButtons from "../CarouselButtons";
 
 export interface VerticalCardsProps {
   id?: string;

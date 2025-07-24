@@ -1,6 +1,6 @@
+import { rem } from "polished";
 import React, { Fragment, useState } from "react";
 import { useTheme } from "styled-components";
-import { rem } from "polished";
 import IconButton from "../IconButton";
 import Text from "../Text";
 

@@ -1,12 +1,12 @@
-import React from "react";
 // Components
 import {
   Card,
-  Switch,
-  Text,
   CardVariant,
   Label,
+  Switch,
+  Text,
 } from "@basestack/design-system";
+import React from "react";
 // Styles
 import { useTheme } from "styled-components";
 import {

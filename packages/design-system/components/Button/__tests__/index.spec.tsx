@@ -1,7 +1,7 @@
 import { cleanup, fireEvent } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
-import { ButtonSize, ButtonVariant } from "../types";
 import { Button } from "..";
+import { ButtonSize, ButtonVariant } from "../types";
 
 describe("Button tests", () => {
   afterEach(cleanup);

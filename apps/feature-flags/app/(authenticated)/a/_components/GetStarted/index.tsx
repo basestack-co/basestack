@@ -1,10 +1,5 @@
 "use client";
 
-import React from "react";
-// Locales
-import { useTranslations } from "next-intl";
-// Store
-import { useStore } from "store";
 // Components
 import {
   Button,
@@ -13,12 +8,17 @@ import {
   IconBox,
   Text,
 } from "@basestack/design-system";
-import TextLink from "./TextLink";
+// Utils
+import { config } from "@basestack/utils";
+// Locales
+import { useTranslations } from "next-intl";
+import React from "react";
+// Store
+import { useStore } from "store";
 // Styles
 import { useTheme } from "styled-components";
 import { ContentContainer, Header, Section } from "./styles";
-// Utils
-import { config } from "@basestack/utils";
+import TextLink from "./TextLink";
 
 const GetStarted = () => {
   const t = useTranslations("home");

@@ -1,14 +1,14 @@
-import React, { memo } from "react";
-import { useTheme } from "styled-components";
 import {
   Button,
   ButtonVariant,
-  HorizontalRule,
-  Text,
-  Label,
   Card,
   CardVariant,
+  HorizontalRule,
+  Label,
+  Text,
 } from "@basestack/design-system";
+import React, { memo } from "react";
+import { useTheme } from "styled-components";
 import {
   Container,
   Footer,

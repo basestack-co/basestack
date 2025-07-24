@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
 import { rem } from "polished";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   display: flex;
@@ -19,8 +19,9 @@ export const ContentContainer = styled.div<{ order: string }>`
 `;
 
 const lineStyles = (isFirst = false, isLast = false) => css`
-  ${isLast || isFirst
-    ? css`
+  ${
+    isLast || isFirst
+      ? css`
         background: linear-gradient(
           to ${isLast ? "bottom" : "top"},
           ${({ theme }) =>
@@ -28,10 +29,11 @@ const lineStyles = (isFirst = false, isLast = false) => css`
           transparent
         );
       `
-    : css`
+      : css`
         background-color: ${({ theme }) =>
           theme.colors[theme.isDarkMode ? "gray600" : "gray300"]};
-      `};
+      `
+  };
 `;
 
 export const NumberContainer = styled.div.withConfig({

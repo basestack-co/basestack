@@ -1,20 +1,20 @@
-import React from "react";
-// Form
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { InputGroup, Modal } from "@basestack/design-system";
 // Components
 import Portal from "@basestack/design-system/global/Portal";
-import { Modal, InputGroup } from "@basestack/design-system";
+import { zodResolver } from "@hookform/resolvers/zod";
+// Locales
+import { NamespaceKeys, useTranslations } from "next-intl";
+import React from "react";
+// Form
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 // Toast
 import { toast } from "sonner";
 // Store
 import { useStore } from "store";
-import { useShallow } from "zustand/react/shallow";
 // Server
 import { api } from "utils/trpc/react";
-// Locales
-import { NamespaceKeys, useTranslations } from "next-intl";
+import { z } from "zod";
+import { useShallow } from "zustand/react/shallow";
 
 export const FormSchema = z.object({
   name: z

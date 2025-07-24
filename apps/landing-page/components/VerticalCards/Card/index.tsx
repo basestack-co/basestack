@@ -1,15 +1,15 @@
+import { Icon, Label, Text } from "@basestack/design-system";
 import React, { useState } from "react";
+import { animated, useSpring } from "react-spring";
 import { useTheme } from "styled-components";
-import { Text, Icon, Label } from "@basestack/design-system";
-import { useSpring, animated } from "react-spring";
 import {
+  ContentContainer,
+  HeaderContainer,
   HeaderContent,
   IconContainer,
   List,
   ListItem,
-  HeaderContainer,
   StyledButton,
-  ContentContainer,
 } from "./styles";
 
 export interface CardProps {

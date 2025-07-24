@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useEffect } from "react";
-// Router
-import { useParams, useRouter } from "next/navigation";
-// Components
-import Environments from "./_components/Environments";
 // Utils
 import { config } from "@basestack/utils";
+// Router
+import { useParams, useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 // Server
 import { api } from "utils/trpc/react";
 // Styles
 import { CardList, CardListItem, SettingCardContainer } from "../styles";
+// Components
+import Environments from "./_components/Environments";
 
 const { hasFlagsPermission } = config.plans;
 

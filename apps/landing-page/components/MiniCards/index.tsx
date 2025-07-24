@@ -1,7 +1,7 @@
 import React from "react";
+import SectionHeader from "../SectionHeader";
 import Card from "./Card";
 import { Container, ContentContainer, Grid, HeaderContainer } from "./styles";
-import SectionHeader from "../SectionHeader";
 
 export interface CardsProps {
   id?: string;

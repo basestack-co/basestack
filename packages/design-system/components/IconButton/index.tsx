@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { useTheme } from "styled-components";
-import { IconButtonProps, Variant as IconButtonVariant } from "./types";
 import Icon, { Size as IconSize } from "../Icon";
 import { StyledButton } from "./styles";
+import { IconButtonProps, Variant as IconButtonVariant } from "./types";
 
 const IconButton = ({
   ref,

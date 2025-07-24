@@ -2,11 +2,11 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 // Utils
 import { logger } from "hono/logger";
-// Types
-import { Env } from "./types";
+import jobs from "./routes/jobs";
 //  Routes
 import submissions from "./routes/submissions";
-import jobs from "./routes/jobs";
+// Types
+import { Env } from "./types";
 
 const app = new Hono<Env>().basePath("/api/v1");
 

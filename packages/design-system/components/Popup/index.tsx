@@ -1,6 +1,6 @@
 import { forwardRef, memo } from "react";
 import { PositionProps } from "styled-system";
-import { Button, ButtonVariant, ButtonProps } from "../Button";
+import { Button, ButtonProps, ButtonVariant } from "../Button";
 import { Container, List, ListItem } from "./styles";
 
 export interface PopupItemsProps {

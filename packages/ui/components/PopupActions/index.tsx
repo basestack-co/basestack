@@ -1,6 +1,7 @@
+import { Avatar, Button, ButtonVariant, Text } from "@basestack/design-system";
 import { forwardRef, memo, useCallback } from "react";
+import { useTheme } from "styled-components";
 import { PositionProps } from "styled-system";
-import { Text, Avatar, Button, ButtonVariant } from "@basestack/design-system";
 import {
   Col,
   Container,
@@ -10,7 +11,6 @@ import {
   PopUpButton,
   Wrapper,
 } from "./styles";
-import { useTheme } from "styled-components";
 
 export interface PopupActionProps {
   id: string;

@@ -1,9 +1,9 @@
 import React, { memo, useState } from "react";
 import { LayoutProps, SpaceProps } from "styled-system";
+import IconButton from "../IconButton";
 // Components
 import Text from "../Text";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../Tooltip";
-import IconButton from "../IconButton";
 import {
   Container,
   DescriptionContainer,

@@ -1,16 +1,16 @@
-import {
-  protectedProcedure,
-  createTRPCRouter,
-  withProjectRestrictions,
-} from "server/trpc";
+// Types
+import { Role } from ".prisma/client";
 import { TRPCError } from "@trpc/server";
 // Utils
 import { generateSlug } from "random-word-slugs";
-import { z } from "zod";
 // DB
 import { withUsageUpdate } from "server/db/utils/usage";
-// Types
-import { Role } from ".prisma/client";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  withProjectRestrictions,
+} from "server/trpc";
+import { z } from "zod";
 
 export const projectEnvironmentsRouter = createTRPCRouter({
   list: protectedProcedure

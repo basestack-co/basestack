@@ -1,9 +1,10 @@
 // DB
-import { prisma } from "server/db";
+
 // Types
 import { Role } from ".prisma/client";
 // Utils
-import { AppEnv, config as utilsConfig, Product } from "@basestack/utils";
+import { AppEnv, Product, config as utilsConfig } from "@basestack/utils";
+import { prisma } from "server/db";
 import { AppMode } from "utils/helpers/general";
 
 const { urls } = utilsConfig;
