@@ -77,7 +77,7 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
       },
       {
         text: t("main.support.title"),
-        href: `${urls.docs.base}/help`,
+        href: `${urls.docs.base}/content/help`,
         isExternal: true,
       },
       {

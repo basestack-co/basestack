@@ -17,7 +17,7 @@ export interface CardProps {
 }
 
 const CardComp = ({ title, description, icon = "help" }: CardProps) => {
-  const { colors, spacing, isDarkMode, device: _device } = useTheme();
+  const { colors, spacing, isDarkMode } = useTheme();
   const isTouchDevice = useMedia("(hover: none)", false);
   const [showContent, setShowContent] = useState<boolean>(false);
 

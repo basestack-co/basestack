@@ -24,7 +24,7 @@ const characters = textParts.flatMap((part) =>
   part.content.split("").map((char) => ({ char, type: part.type })),
 );
 
-const getTypingDelay = (char: string, _index: number) => {
+const getTypingDelay = (char: string) => {
   if (char === " ") return 100;
   if (char === "," || char === ":") return 250;
   const baseDelay = 60;
@@ -64,6 +64,7 @@ const CodeAnimation: React.FC = () => {
         () => {
           setVisibleCount((prev) => prev + 1);
         },
+        // @ts-expect-error - getTypingDelay is not typed
         getTypingDelay(char, visibleCount),
       );
 

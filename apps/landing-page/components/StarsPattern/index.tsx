@@ -25,7 +25,7 @@ const StarPattern = ({ count }: { count: number }) => {
   }));
 
   useEffect(() => {
-    api.start((_index) => ({
+    api.start(() => ({
       opacity: 1,
     }));
   }, [api]);

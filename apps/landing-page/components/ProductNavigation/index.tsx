@@ -45,7 +45,7 @@ const ProductNavigation = ({
   button,
   product,
 }: ProductNavigationProps) => {
-  const { isDarkMode, colors, spacing, typography: _typography } = useTheme();
+  const { isDarkMode, colors, spacing } = useTheme();
   const router = useRouter();
   const [maxWidth, setMaxWidth] = useState(1100);
 

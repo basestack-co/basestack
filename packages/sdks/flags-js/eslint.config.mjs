@@ -7,7 +7,6 @@ export default [
     files: ["src/**/*.{js,ts}"],
     languageOptions: {
       globals: {
-        // Add browser globals for SDK
         window: "readonly",
         document: "readonly",
         fetch: "readonly",
