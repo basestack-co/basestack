@@ -1,7 +1,7 @@
 import { Avatar, Button, ButtonVariant, Text } from "@basestack/design-system";
 import { forwardRef, memo, useCallback } from "react";
 import { useTheme } from "styled-components";
-import { PositionProps } from "styled-system";
+import type { PositionProps } from "styled-system";
 import {
   Col,
   Container,

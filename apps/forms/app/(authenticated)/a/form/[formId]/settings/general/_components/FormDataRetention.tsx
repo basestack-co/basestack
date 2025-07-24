@@ -4,7 +4,8 @@ import { SwitchSettingCard } from "@basestack/ui";
 import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useCallback } from "react";
+import type React from "react";
+import { useCallback } from "react";
 // Toast
 import { toast } from "sonner";
 // Server

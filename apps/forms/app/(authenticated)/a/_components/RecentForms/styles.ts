@@ -1,6 +1,6 @@
 import { rem } from "polished";
 import styled, { css } from "styled-components";
-import { SpaceProps, space } from "styled-system";
+import { type SpaceProps, space } from "styled-system";
 
 const flexCenter = css`
   display: flex;

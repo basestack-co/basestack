@@ -1,7 +1,11 @@
-import React from "react";
+import type React from "react";
 import { useTheme } from "styled-components";
 import { GithubIcon, GoogleColorsIcon, GoogleIcon } from "./icons";
-import { CustomIconCompProps, CustomIconNames, CustomIconProps } from "./types";
+import type {
+  CustomIconCompProps,
+  CustomIconNames,
+  CustomIconProps,
+} from "./types";
 
 const iconMap: Record<CustomIconNames, React.ComponentType<CustomIconProps>> = {
   github: GithubIcon,

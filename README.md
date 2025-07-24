@@ -10,8 +10,8 @@ you in building great products.
 
 #### Products
 
-- ⛳ Feature Flags (In Progress) [Docs](https://docs.basestack.co/feature-flags) | [Website](https://basestack.co/product/feature-flags)
-- 📄 Forms (In Progress) [Docs](https://docs.basestack.co/forms) | [Website](https://basestack.co/product/forms)
+- ⛳ Feature Flags (In Progress) [Docs](https://docs.basestack.co/content/feature-flags) | [Website](https://basestack.co/product/feature-flags)
+- 📄 Forms (In Progress) [Docs](https://docs.basestack.co/content/forms) | [Website](https://basestack.co/product/forms)
 - 💬 Feedback (Planned)
 - ⏳ UpTime (Planned)
 
@@ -23,16 +23,16 @@ feedback, don't hesitate to [open a discussion](https://github.com/basestack-co/
 ## Deployment & Self-hosting
 
 Want to self-host Basestack Tools on your server? Explore
-the [self-hosting installation instructions](https://docs.basestack.co/self-hosting) for detailed guidance.
+the [self-hosting installation instructions](https://docs.basestack.co/content/self-hosting) for detailed guidance.
 
 ## How to Contribute
 
 First and foremost, thank you for dedicating your time to enhance the platform. We warmly welcome all contributions. To
-get started, please review the [Contribute guidelines](https://docs.basestack.co/contributing). We appreciate your
+get started, please review the [Contribute guidelines](https://docs.basestack.co/content/self-hosting/contributing). We appreciate your
 support in making our platform even better!
 
 ## License
 
 Basestack is an open-source project licensed under the GNU Affero General Public License Version 3 (AGPLv3). For more
 information about the license and how to comply with its requirements, please refer
-to [here](https://docs.basestack.co/license).
+to [here](https://docs.basestack.co/content/self-hosting/license).

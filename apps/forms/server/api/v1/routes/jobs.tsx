@@ -10,22 +10,22 @@ import { Product, UsageEvent } from "@basestack/utils";
 // Vendors
 import {
   ai,
-  CheckDataForSpamPayload,
+  type CheckDataForSpamPayload,
   polar,
-  SendDataToExternalWebhookPayload,
-  SendEmailPayload,
+  type SendDataToExternalWebhookPayload,
+  type SendEmailPayload,
 } from "@basestack/vendors";
 import { render } from "@react-email/render";
 // UpStash Workflow
 import { Receiver } from "@upstash/qstash";
 import { serve } from "@upstash/workflow/hono";
 import { Hono } from "hono";
-import React, { ElementType } from "react";
+import React, { type ElementType } from "react";
 // Prisma
 import { prisma } from "server/db";
 import { withUsageUpdate } from "server/db/utils/subscription";
 // Types
-import { Env } from "../types";
+import type { Env } from "../types";
 
 const templateList: { [key: string]: ElementType } = {
   "new-submission": NewSubmissionEmailTemplate,

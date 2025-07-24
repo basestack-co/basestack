@@ -1,7 +1,7 @@
 // Types
 import { Role } from ".prisma/client";
 import {
-  AppEnv,
+  type AppEnv,
   config,
   emailToId,
   generateSecureToken,

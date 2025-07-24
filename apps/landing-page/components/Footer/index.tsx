@@ -19,9 +19,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React from "react";
+import type React from "react";
 // Form
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 // Toast
 import { toast } from "sonner";
 import { useStore } from "store";

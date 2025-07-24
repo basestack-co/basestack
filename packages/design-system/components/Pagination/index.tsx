@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { useTheme } from "styled-components";
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "styled-system";
 import { Button, ButtonVariant } from "../Button";
 import { Container, Number, StyledText } from "./styles";
 

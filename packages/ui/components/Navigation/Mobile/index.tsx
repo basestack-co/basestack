@@ -15,7 +15,7 @@ import { useTheme } from "styled-components";
 // Components
 import AvatarDropdown from "../../AvatarDropdown";
 // Types
-import { MobileNavigationUIProps } from "../types";
+import type { MobileNavigationUIProps } from "../types";
 import {
   AppsLogo,
   BackDropCover,

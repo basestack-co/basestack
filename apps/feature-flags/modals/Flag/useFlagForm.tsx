@@ -10,7 +10,7 @@ import Advance from "./Tab/Advance";
 // Tabs
 import Core from "./Tab/Core";
 import History from "./Tab/History";
-import { FlagFormInputs, FlagFormSchema } from "./types";
+import { type FlagFormInputs, FlagFormSchema } from "./types";
 
 export interface UseFlagFormProps {
   isModalOpen: boolean;

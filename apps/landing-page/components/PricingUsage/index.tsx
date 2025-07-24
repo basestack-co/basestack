@@ -9,7 +9,6 @@ import {
   Text,
 } from "@basestack/design-system";
 import { rem } from "polished";
-import React from "react";
 import { useTheme } from "styled-components";
 import SectionHeader from "../SectionHeader";
 import { Card } from "../styles";
@@ -33,7 +32,7 @@ interface Slider {
   onChange: (id: string, value: number) => void;
 }
 
-interface Card {
+interface CardProps {
   title: string;
   label: string;
   amount: string;
@@ -50,7 +49,7 @@ interface PricingUsageProps {
   title: string;
   caption?: string;
   text: string;
-  card: Card;
+  card: CardProps;
   sliders: Slider[];
 }
 

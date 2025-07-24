@@ -7,11 +7,11 @@ import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import React from "react";
 // Server
-import { HistoryItemDetails, typeMap } from "server/db/utils/history";
+import { type HistoryItemDetails, typeMap } from "server/db/utils/history";
 // Styles
 import { useTheme } from "styled-components";
 // Types
-import { Environment, HistoryAction } from "types";
+import { type Environment, HistoryAction } from "types";
 import { List, ListItem } from "./styles";
 
 export interface History extends HistoryItemDetails {
@@ -90,7 +90,7 @@ const ActivityList = ({ data, isLoading, projectSlug }: ActivityListProps) => {
                 }
                 flagName={isCreatedProject ? projectSlug : flag?.slug}
                 date={dayjs(item.createdAt).fromNow()}
-                environments={!!envs ? envs : []}
+                environments={envs ? envs : []}
                 type={type}
                 hasPaddingBottom={index + 1 !== length}
                 hasPaddingTop={index > 0}

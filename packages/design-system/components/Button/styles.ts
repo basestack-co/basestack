@@ -8,7 +8,7 @@ import {
   space,
   typography,
 } from "styled-system";
-import { ButtonSize, ButtonVariant, StyledButtonProps } from "./types";
+import { ButtonSize, ButtonVariant, type StyledButtonProps } from "./types";
 
 const sharedButtonStyles = css`
   position: relative;

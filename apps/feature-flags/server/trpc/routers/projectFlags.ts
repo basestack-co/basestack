@@ -70,7 +70,7 @@ export const projectFlagsRouter = createTRPCRouter({
             },
           });
 
-          let nextCursor: typeof input.cursor | undefined = undefined;
+          let nextCursor: typeof input.cursor | undefined;
 
           if (flags.length > limit) {
             const nextItem = flags.pop();

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { rem } from "polished";
 import styled, { css } from "styled-components";
 

@@ -1,7 +1,7 @@
 import { rem } from "polished";
 import styled, { css } from "styled-components";
 import { compose, flexbox, layout, space, typography } from "styled-system";
-import { FontFamily, TextProps } from "./types";
+import type { FontFamily, TextProps } from "./types";
 
 interface sharedStylesProps {
   color?: string;

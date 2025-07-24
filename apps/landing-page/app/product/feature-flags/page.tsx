@@ -25,7 +25,7 @@ import {
 import { JavascriptIcon, JsonIcon, ReactIcon } from "components/Code/icons";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { Fragment, useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 // Styles
 import { useTheme } from "styled-components";
 
@@ -90,7 +90,7 @@ const ProductFeatureFlagsPage = () => {
       },
       ...values[meter.key],
     }));
-  }, [t, setUsage]);
+  }, [t]);
 
   return (
     <Fragment>

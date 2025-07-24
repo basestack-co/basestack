@@ -1,7 +1,7 @@
 import { rem } from "polished";
 import styled, { css } from "styled-components";
 import { compose, flexbox, layout, space } from "styled-system";
-import { LabelSize, LabelVariant } from "./types";
+import type { LabelSize, LabelVariant } from "./types";
 
 const getGap = (size: LabelSize) => {
   const styles = {

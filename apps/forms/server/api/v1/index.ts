@@ -6,7 +6,7 @@ import jobs from "./routes/jobs";
 //  Routes
 import submissions from "./routes/submissions";
 // Types
-import { Env } from "./types";
+import type { Env } from "./types";
 
 const app = new Hono<Env>().basePath("/api/v1");
 

@@ -5,8 +5,9 @@ import { CodeLanguageCard } from "@basestack/ui";
 import { getBrowserUrl } from "@basestack/utils";
 import dynamic from "next/dynamic";
 // Locales
-import { NamespaceKeys, useTranslations } from "next-intl";
-import React, { useCallback, useState } from "react";
+import { type NamespaceKeys, useTranslations } from "next-intl";
+import type React from "react";
+import { useCallback, useState } from "react";
 // Code
 import {
   a11yDark,

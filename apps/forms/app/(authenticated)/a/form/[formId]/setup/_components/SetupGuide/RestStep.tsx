@@ -1,6 +1,7 @@
 // Locales
 import { useTranslations } from "next-intl";
-import React, { Fragment } from "react";
+import type React from "react";
+import { Fragment } from "react";
 // Components
 import Step from "./Step";
 // Styles

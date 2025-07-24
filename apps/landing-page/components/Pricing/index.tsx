@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
 import { rem } from "polished";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { animated, config, useSpring } from "react-spring";
 // Hooks
 import { useMedia } from "react-use";

@@ -1,12 +1,13 @@
 // Router
 import { useParams } from "next/navigation";
-import React, { useCallback, useMemo, useState } from "react";
+import type React from "react";
+import { useCallback, useMemo, useState } from "react";
 // Hooks
 import { useDebounce } from "react-use";
 // Server
 import { api } from "utils/trpc/react";
 // Components
-import ActivityList, { ActivityListData } from "./ActivityList";
+import ActivityList, { type ActivityListData } from "./ActivityList";
 // Styles
 import { Container } from "./styles";
 import Toolbar from "./Toolbar";

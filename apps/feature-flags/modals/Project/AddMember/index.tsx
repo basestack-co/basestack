@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import React, { useCallback, useMemo } from "react";
 // Form
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 // Toast
 import { toast } from "sonner";
 // Store

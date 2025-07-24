@@ -8,18 +8,22 @@ import {
   IconButton,
   Logo,
 } from "@basestack/design-system";
+// Utils
 import { config as defaults } from "@basestack/utils";
 // Router
 import { usePathname, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useEffect, useMemo, useState } from "react";
+// React
+import { useEffect, useMemo, useState } from "react";
+// Animations
 import { animated, useSpring } from "react-spring";
-// Utils
 import { useMedia } from "react-use";
+// Store
 import { useStore } from "store";
 // Theme
 import { useTheme } from "styled-components";
+// Components
 import Dropdown from "./Dropdown";
 import MobileMenu from "./MobileMenu";
 import {
@@ -77,7 +81,7 @@ const GlobalNavigation = ({ isSticky = true }: NavigationProps) => {
       },
       {
         text: t("main.support.title"),
-        href: `${urls.docs.base}/help`,
+        href: `${urls.docs.base}/content/help`,
         isExternal: true,
       },
       {

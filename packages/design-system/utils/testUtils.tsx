@@ -1,7 +1,7 @@
 import defaultTheme from "@basestack/design-system/theme/lightTheme";
 import isPropValid from "@emotion/is-prop-valid";
-import { RenderResult, render } from "@testing-library/react";
-import React from "react";
+import { type RenderResult, render } from "@testing-library/react";
+import type React from "react";
 import { StyleSheetManager, ThemeProvider } from "styled-components";
 
 const Provider = ({

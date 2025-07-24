@@ -1,8 +1,9 @@
 "use client";
 
-import React, { createContext, useEffect, useMemo, useState } from "react";
+import type React from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 // Note: Change to the correct dependency path
-import { Flag, FlagsSDK, SDKConfig } from "../../../../../dist";
+import { type Flag, FlagsSDK, type SDKConfig } from "../../../../../dist";
 
 interface ContextState {
   client: FlagsSDK;

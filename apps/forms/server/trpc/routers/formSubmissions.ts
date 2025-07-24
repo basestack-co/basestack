@@ -83,7 +83,7 @@ export const formSubmissionsRouter = createTRPCRouter({
           orderBy,
         });
 
-        let nextCursor: typeof input.cursor | undefined = undefined;
+        let nextCursor: typeof input.cursor | undefined;
 
         if (submissions.length > limit) {
           const nextItem = submissions.pop();

@@ -6,7 +6,7 @@ import {
   Switch,
   Text,
 } from "@basestack/design-system";
-import React from "react";
+import type React from "react";
 // Styles
 import { useTheme } from "styled-components";
 import {

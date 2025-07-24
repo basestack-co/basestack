@@ -4,7 +4,7 @@ import { useContext, useEffect, useMemo, useState } from "react";
 // Feature Flags Context
 import { FeatureFlagsContext } from "@/libs/feature-flags";
 // Note: Change to the correct dependency path
-import { Flag } from "../../../../../../dist";
+import type { Flag } from "../../../../../../dist";
 
 export const useFlag = <P = Record<string, unknown>>(slug: string) => {
   const context = useContext(FeatureFlagsContext);

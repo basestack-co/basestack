@@ -1,5 +1,4 @@
 import { Text } from "@basestack/design-system";
-import React from "react";
 import { useTheme } from "styled-components";
 import { Label } from "../styles";
 import { Container, StyledCaption, Title } from "./styles";

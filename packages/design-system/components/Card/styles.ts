@@ -1,5 +1,5 @@
 import { rem } from "polished";
-import styled, { css, DefaultTheme } from "styled-components";
+import styled, { css, type DefaultTheme } from "styled-components";
 import { color, compose, layout, position, space } from "styled-system";
 import { Variant } from "./types";
 

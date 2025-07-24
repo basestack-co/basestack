@@ -1,8 +1,8 @@
 import { rem } from "polished";
-import { Ref } from "react";
+import type { Ref } from "react";
 import styled, { css } from "styled-components";
 import { compose, flexbox, position, space } from "styled-system";
-import { Variant } from "./types";
+import type { Variant } from "./types";
 
 const sharedStyles = css`
   ${compose(flexbox, space, position)};

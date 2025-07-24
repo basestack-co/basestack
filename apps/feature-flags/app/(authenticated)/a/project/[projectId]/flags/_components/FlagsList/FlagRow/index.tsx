@@ -18,7 +18,7 @@ import {
   Labels,
   TooltipContainer,
 } from "./styles";
-import { FlagRowProps } from "./types";
+import type { FlagRowProps } from "./types";
 
 const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
   (
@@ -91,7 +91,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
             {title}
           </Text>
           <Text data-testid="flag-description" size="small" lineTruncate>
-            {!!description ? description : "-"}
+            {description ? description : "-"}
           </Text>
           <Text data-testid="flag-date" size="small" muted lineTruncate>
             {date}

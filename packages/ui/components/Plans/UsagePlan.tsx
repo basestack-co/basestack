@@ -5,10 +5,11 @@ import { config, PlanTypeId, Product } from "@basestack/utils";
 import dayjs from "dayjs";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useCallback, useMemo, useState } from "react";
+import type React from "react";
+import { useCallback, useMemo, useState } from "react";
 // Styles
 import { useTheme } from "styled-components";
-import ActivePlan, { CurrentPlan } from "./ActivePlan";
+import ActivePlan, { type CurrentPlan } from "./ActivePlan";
 import PlanCard from "./PlanCard";
 import { Container } from "./styles";
 

@@ -1,9 +1,9 @@
 import { memo, useEffect, useRef, useState } from "react";
 import { useTheme } from "styled-components";
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "styled-system";
 import IconButton from "../IconButton";
 import Text from "../Text";
-import { Size } from "../Text/types";
+import type { Size } from "../Text/types";
 import {
   Button,
   Container,

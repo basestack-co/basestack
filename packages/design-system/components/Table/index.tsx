@@ -13,7 +13,12 @@ import {
   StyledRow,
 } from "./styles";
 import TextVisibility from "./TextVisibility";
-import { RowProps, TableColProps, TableProps, TableRowProps } from "./types";
+import type {
+  RowProps,
+  TableColProps,
+  TableProps,
+  TableRowProps,
+} from "./types";
 
 const Row = ({
   headers = [],
@@ -77,7 +82,7 @@ const Row = ({
                   {headers[index].toUpperCase()}
                 </MobileLabel>
               )}
-              {!!col.link ? (
+              {col.link ? (
                 <StyledLink>
                   <Text
                     color={theme.colors.primary}
@@ -178,6 +183,6 @@ const Table = ({
   );
 };
 
-export { type TableProps, type TableRowProps, type TableColProps };
+export type { TableProps, TableRowProps, TableColProps };
 
 export default Table;

@@ -4,7 +4,7 @@ import React from "react";
 import { animated } from "react-spring";
 import { Button, ButtonVariant } from "../Button";
 import IconButton from "../IconButton";
-import Popup, { PopupProps } from "../Popup";
+import Popup, { type PopupProps } from "../Popup";
 import { Container } from "./styles";
 
 const AnimatedPopup = animated(Popup);
@@ -79,6 +79,6 @@ const PopupMenu = ({ button, items }: PopupMenuProps) => {
   );
 };
 
-export { type PopupMenuProps };
+export type { PopupMenuProps };
 
 export default PopupMenu;

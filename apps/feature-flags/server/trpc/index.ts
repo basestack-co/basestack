@@ -1,7 +1,7 @@
 // Server
 
 // types
-import { Role } from ".prisma/client";
+import type { Role } from ".prisma/client";
 import { initTRPC, TRPCError } from "@trpc/server";
 import { headers } from "next/headers";
 // Auth

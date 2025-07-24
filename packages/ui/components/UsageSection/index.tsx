@@ -2,9 +2,9 @@
 import { Skeleton, Text } from "@basestack/design-system";
 import React from "react";
 import { useTheme } from "styled-components";
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "styled-system";
 // UI
-import UsageCard, { UsageCardProps } from "../UsageCard";
+import UsageCard, { type UsageCardProps } from "../UsageCard";
 // Styles
 import {
   Container,

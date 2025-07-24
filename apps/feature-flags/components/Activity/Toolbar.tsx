@@ -4,7 +4,8 @@ import { CalendarInput, Input } from "@basestack/design-system";
 import dayjs from "dayjs";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useMemo, useState } from "react";
+import type React from "react";
+import { useMemo, useState } from "react";
 // Styles
 import { InputContainer, ToolBar } from "./styles";
 

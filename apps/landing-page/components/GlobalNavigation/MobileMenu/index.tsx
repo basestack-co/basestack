@@ -1,6 +1,5 @@
 import { Button, ButtonVariant, Text } from "@basestack/design-system";
 import { useRouter } from "next/navigation";
-import React from "react";
 import {
   animated,
   config,

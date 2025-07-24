@@ -1,12 +1,12 @@
 "use client";
 
-import { BannerVariant } from "@basestack/design-system";
+import type { BannerVariant } from "@basestack/design-system";
 // UI
 import { SignIn as SignInComponent } from "@basestack/ui";
 // Types
 import {
   getProvidersList,
-  SignInProviders,
+  type SignInProviders,
 } from "@basestack/ui/components/SignIn";
 // Utils
 import { clearAllBrowserStorage, config } from "@basestack/utils";

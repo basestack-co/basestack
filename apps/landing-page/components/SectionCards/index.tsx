@@ -1,5 +1,4 @@
 import { rem } from "polished";
-import React from "react";
 import SectionHeader from "../SectionHeader";
 import { Card } from "../styles";
 // Components

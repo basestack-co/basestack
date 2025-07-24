@@ -1,5 +1,5 @@
-import { RenderOptions, render } from "@testing-library/react";
-import React from "react";
+import { type RenderOptions, render } from "@testing-library/react";
+import type React from "react";
 // Styles
 import { ThemeProvider } from "styled-components";
 import theme from "../theme/lightTheme";

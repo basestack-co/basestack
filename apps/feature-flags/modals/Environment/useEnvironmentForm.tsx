@@ -1,13 +1,14 @@
 import { InputGroup } from "@basestack/design-system";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Locales
-import { NamespaceKeys, useTranslations } from "next-intl";
-import React, { useCallback, useState } from "react";
+import { type NamespaceKeys, useTranslations } from "next-intl";
+import type React from "react";
+import { useCallback, useState } from "react";
 // Form
 import { Controller, useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
 // Types
-import { FormInputs, FormSchema } from "./types";
+import { type FormInputs, FormSchema } from "./types";
 
 const useEnvironmentForm = (isCreate: boolean = false) => {
   const t = useTranslations();

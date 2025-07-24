@@ -14,7 +14,7 @@ import {
   TextContainer,
   tertiaryButtonStyles,
 } from "./styles";
-import { ButtonProps, ButtonSize, ButtonVariant } from "./types";
+import { type ButtonProps, ButtonSize, ButtonVariant } from "./types";
 
 const Button = ({
   ref,

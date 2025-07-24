@@ -1,8 +1,8 @@
 import theme from "@basestack/design-system/theme/lightTheme";
 // Styles
 import isPropValid from "@emotion/is-prop-valid";
-import { RenderOptions, render } from "@testing-library/react";
-import React from "react";
+import { type RenderOptions, render } from "@testing-library/react";
+import type React from "react";
 import { StyleSheetManager, ThemeProvider } from "styled-components";
 
 interface WithChildrenProps {
@@ -10,16 +10,16 @@ interface WithChildrenProps {
 }
 
 interface AllProvidersProps extends WithChildrenProps {
-  initialState?: {};
+  initialState?: Record<string, unknown>;
 }
 
-const AllProviders = ({ children, initialState = {} }: AllProvidersProps) => {
+const AllProviders = ({ children }: AllProvidersProps) => {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 
 const renderWithAllProviders = (
   ui: React.ReactElement,
-  initialState?: {},
+  initialState?: Record<string, unknown>,
   options?: Omit<RenderOptions, "wrapper">,
 ) =>
   render(ui, {

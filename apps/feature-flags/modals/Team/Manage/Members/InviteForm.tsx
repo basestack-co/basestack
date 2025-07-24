@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import React from "react";
 // Form
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 // Server
 import { api } from "utils/trpc/react";
@@ -50,7 +50,7 @@ const InviteForm = ({ teamId }: Props) => {
   const email = watch("email");
 
   const onSendInvite: SubmitHandler<FormInputs> = async (input) => {
-    if (!!input.email) {
+    if (input.email) {
       invite.mutate(
         { teamId, email: input.email, role: Role.VIEWER },
         {

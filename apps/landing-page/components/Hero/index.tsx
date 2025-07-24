@@ -1,8 +1,7 @@
 import { Button, ButtonSize, ButtonVariant } from "@basestack/design-system";
 import { useRouter } from "next/navigation";
-import React from "react";
-import Image, { ImageProps } from "../Image";
-import SectionHeader, { SectionHeaderProps } from "../SectionHeader";
+import Image, { type ImageProps } from "../Image";
+import SectionHeader, { type SectionHeaderProps } from "../SectionHeader";
 import {
   ButtonsContainer,
   Container,

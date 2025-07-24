@@ -3,8 +3,8 @@ import { Skeleton, Text } from "@basestack/design-system";
 // Utils
 import {
   config,
-  FlagsPlan,
-  FormPlan,
+  type FlagsPlan,
+  type FormPlan,
   formatNumber,
   PlanTypeId,
   Product,
@@ -12,14 +12,15 @@ import {
 import dayjs from "dayjs";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useCallback, useState } from "react";
+import type React from "react";
+import { useCallback, useState } from "react";
 // Styles
 import { useTheme } from "styled-components";
-import ActivePlan, { CurrentPlan } from "./ActivePlan";
+import ActivePlan, { type CurrentPlan } from "./ActivePlan";
 import PlanCard from "./PlanCard";
 import { Container, List, ListItem } from "./styles";
 // Types
-import { BillingInterval } from "./types";
+import type { BillingInterval } from "./types";
 import UpgradePlanHeader from "./UpgradePlanHeader";
 
 const flagsFreePlanLimits = config.plans.getPlanLimits(

@@ -1,6 +1,5 @@
 // Components
 import { IconBox, Text } from "@basestack/design-system";
-import React from "react";
 import { useTheme } from "styled-components";
 import { Card } from "../styles";
 

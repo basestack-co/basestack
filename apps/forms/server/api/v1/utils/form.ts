@@ -11,7 +11,7 @@ import {
 // Vendors
 import { polar } from "@basestack/vendors";
 import formidable from "formidable";
-import { IncomingMessage } from "http";
+import type { IncomingMessage } from "http";
 // Prisma
 import { defaultErrorUrl, getFormOnUser } from "server/db/utils/form";
 import { Readable } from "stream";

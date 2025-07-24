@@ -14,7 +14,7 @@ import {
 import { useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { useStore } from "store";
 
 const { urls } = defaults;

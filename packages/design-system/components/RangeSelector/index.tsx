@@ -1,5 +1,6 @@
 import { rem } from "polished";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import type React from "react";
+import { type ChangeEvent, useEffect, useState } from "react";
 import { useTheme } from "styled-components";
 import Box from "../Box";
 import Flex from "../Flex";

@@ -1,12 +1,13 @@
 // UI
 import { SwitchSettingCard } from "@basestack/ui";
 // Utils
-import { PlanTypeId } from "@basestack/utils";
+import type { PlanTypeId } from "@basestack/utils";
 // Router
 import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useCallback } from "react";
+import type React from "react";
+import { useCallback } from "react";
 // Toast
 import { toast } from "sonner";
 // Server

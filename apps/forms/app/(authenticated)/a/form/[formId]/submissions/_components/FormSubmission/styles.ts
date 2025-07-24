@@ -3,11 +3,11 @@ import { rem } from "polished";
 import styled, { css } from "styled-components";
 import {
   compose,
-  FlexboxProps,
+  type FlexboxProps,
   flexbox,
-  LayoutProps,
+  type LayoutProps,
   layout,
-  SpaceProps,
+  type SpaceProps,
   space,
 } from "styled-system";
 

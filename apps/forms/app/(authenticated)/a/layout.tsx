@@ -9,7 +9,8 @@ import Navigation from "components/Navigation";
 import Modals from "modals";
 // Router
 import { useRouter } from "next/navigation";
-import React, { Fragment } from "react";
+import type React from "react";
+import { Fragment } from "react";
 // Server
 import { api } from "utils/trpc/react";
 

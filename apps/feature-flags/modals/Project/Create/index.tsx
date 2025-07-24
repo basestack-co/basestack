@@ -5,10 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // Router
 import { useRouter } from "next/navigation";
 // Locales
-import { NamespaceKeys, useTranslations } from "next-intl";
+import { type NamespaceKeys, useTranslations } from "next-intl";
 import React from "react";
 // Form
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 // Toast
 import { toast } from "sonner";
 // Store

@@ -32,7 +32,7 @@ import {
   MetadataTags,
 } from "./styles";
 // Types
-import { FormSubmissionBodyProps } from "./types";
+import type { FormSubmissionBodyProps } from "./types";
 
 const AnimatedBody = animated(BodyContainer);
 

@@ -1,7 +1,7 @@
 // Types
 import { Role } from ".prisma/client";
 // Utils
-import { AppEnv, config, emailToId, Product } from "@basestack/utils";
+import { type AppEnv, config, emailToId, Product } from "@basestack/utils";
 // Vendors
 import { qstash } from "@basestack/vendors";
 import {
@@ -91,7 +91,7 @@ export const projectMembersRouter = createTRPCRouter({
         },
       });
 
-      if (!!connection.user.email) {
+      if (connection.user.email) {
         await qstash.events.sendEmailEvent({
           template: "addProjectMember",
           to: [connection.user.email],

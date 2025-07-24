@@ -1,5 +1,5 @@
 import useEmblaCarousel from "embla-carousel-react";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
 import Image from "../Image";

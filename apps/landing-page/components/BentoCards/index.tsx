@@ -1,5 +1,5 @@
-import { HistoryCardProps } from "@basestack/ui";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import type { HistoryCardProps } from "@basestack/ui";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import AccessLabelsAnimation from "../AccessLabelsAnimation";
 import ActivityCardsAnimation from "../ActivityCardsAnimation";
 import CodeAnimation from "../CodeAnimation";

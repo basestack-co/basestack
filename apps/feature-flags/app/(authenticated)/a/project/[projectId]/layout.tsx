@@ -2,7 +2,8 @@
 
 // Router
 import { useParams, useRouter } from "next/navigation";
-import React, { Fragment, useEffect } from "react";
+import type React from "react";
+import { Fragment, useEffect } from "react";
 // Toast
 import { toast } from "sonner";
 // Server

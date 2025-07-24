@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { rem } from "polished";
 import styled from "styled-components";
-import { SpaceProps, space } from "styled-system";
+import { type SpaceProps, space } from "styled-system";
 
 export const Section = styled.section.withConfig({
   shouldForwardProp: (prop) => !["mb"].includes(prop),

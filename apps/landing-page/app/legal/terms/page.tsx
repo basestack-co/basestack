@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
 import styled from "styled-components";
 // Styles
 import LegalGlobalStyle from "styles/legalGlobalStyles";

@@ -3,9 +3,12 @@
 // Types
 import { Role } from ".prisma/client";
 // Components
-import { Navigation as NavigationUI, PopupActionProps } from "@basestack/ui";
+import {
+  Navigation as NavigationUI,
+  type PopupActionProps,
+} from "@basestack/ui";
 // Utils
-import { AppEnv, config, Product } from "@basestack/utils";
+import { type AppEnv, config, Product } from "@basestack/utils";
 // Vendors
 import { auth } from "@basestack/vendors";
 // Hooks

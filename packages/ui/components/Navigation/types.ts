@@ -1,8 +1,8 @@
-import { ButtonVariant, LogoProps } from "@basestack/design-system";
-import { SpaceProps } from "styled-system";
-import { AppsDropdownProps } from "../AppsDropdown";
-import { AvatarDropdownProps } from "../AvatarDropdown";
-import { ProjectsMenuProps } from "../ProjectsMenu";
+import type { ButtonVariant, LogoProps } from "@basestack/design-system";
+import type { SpaceProps } from "styled-system";
+import type { AppsDropdownProps } from "../AppsDropdown";
+import type { AvatarDropdownProps } from "../AvatarDropdown";
+import type { ProjectsMenuProps } from "../ProjectsMenu";
 
 export type ButtonType = "button" | "link";
 

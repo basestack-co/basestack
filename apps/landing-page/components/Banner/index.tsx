@@ -1,8 +1,7 @@
 import { Button, ButtonSize, ButtonVariant } from "@basestack/design-system";
-import React from "react";
 import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
-import SectionHeader, { SectionHeaderProps } from "../SectionHeader";
+import SectionHeader, { type SectionHeaderProps } from "../SectionHeader";
 import StarsPattern from "../StarsPattern";
 import {
   BannerContent,

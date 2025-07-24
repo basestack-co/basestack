@@ -8,7 +8,7 @@ export {
 } from "./components/Accordion";
 export { type AvatarProps, default as Avatar } from "./components/Avatar";
 export { type BannerProps, default as Banner } from "./components/Banner";
-export { type BannerVariant } from "./components/Banner/styles";
+export type { BannerVariant } from "./components/Banner/styles";
 export { type BoxProps, default as Box } from "./components/Box";
 export * from "./components/Button";
 export { default as Calendar } from "./components/Calendar";
@@ -22,7 +22,7 @@ export {
   default as Card,
 } from "./components/Card";
 export { default as Checkbox } from "./components/Checkbox";
-export { type CheckboxProps } from "./components/Checkbox/types";
+export type { CheckboxProps } from "./components/Checkbox/types";
 export {
   type CircularProgressProps,
   default as CircularProgress,

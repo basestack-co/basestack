@@ -1,4 +1,4 @@
-import { Role } from ".prisma/client";
+import type { Role } from ".prisma/client";
 // Components
 import {
   ButtonVariant,
@@ -18,7 +18,7 @@ import { toast } from "sonner";
 // Store
 import { useStore } from "store";
 // Types
-import { SelectedView, TabType } from "types";
+import { type SelectedView, TabType } from "types";
 // Server
 import { api } from "utils/trpc/react";
 import FlagCard from "./FlagCard";

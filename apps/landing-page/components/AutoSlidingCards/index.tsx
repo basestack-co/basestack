@@ -1,7 +1,7 @@
 import { IconBox, Text } from "@basestack/design-system";
 import AutoScroll from "embla-carousel-auto-scroll";
 import useEmblaCarousel from "embla-carousel-react";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useTheme } from "styled-components";
 import SectionHeader from "../SectionHeader";
 import { Card } from "../styles";

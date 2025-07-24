@@ -1,10 +1,11 @@
 // UI
 import { Spinner, Text } from "@basestack/design-system";
 import { rem } from "polished";
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
-import Banners, { BannersItem } from "../Banners";
+import Banners, { type BannersItem } from "../Banners";
 import { Auth0, Github, Google, Microsoft, Okta } from "./icons";
 // Components
 import ProviderCard from "./ProviderCard";

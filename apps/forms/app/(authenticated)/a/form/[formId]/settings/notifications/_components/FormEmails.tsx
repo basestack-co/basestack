@@ -3,13 +3,14 @@ import { IconButton, InputGroup, Label } from "@basestack/design-system";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Utils
-import { PlanTypeId } from "@basestack/utils";
+import type { PlanTypeId } from "@basestack/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Router
 import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useCallback, useEffect } from "react";
+import type React from "react";
+import { useCallback, useEffect } from "react";
 // Form
 import { Controller, useForm } from "react-hook-form";
 // Toast

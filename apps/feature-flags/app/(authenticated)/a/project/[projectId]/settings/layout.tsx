@@ -1,7 +1,7 @@
 "use client";
 
 // types
-import { Role } from ".prisma/client";
+import type { Role } from ".prisma/client";
 // Components
 import { Loader, Skeleton, Tabs, Text } from "@basestack/design-system";
 // Utils
@@ -9,8 +9,9 @@ import { config } from "@basestack/utils";
 // Router
 import { useParams, usePathname, useRouter } from "next/navigation";
 // Locales
-import { NamespaceKeys, useTranslations } from "next-intl";
-import React, { useEffect, useMemo } from "react";
+import { type NamespaceKeys, useTranslations } from "next-intl";
+import type React from "react";
+import { useEffect, useMemo } from "react";
 // Hooks
 import { useMedia } from "react-use";
 // Theme

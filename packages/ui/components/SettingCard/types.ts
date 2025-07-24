@@ -1,5 +1,5 @@
-import { CardVariant } from "@basestack/design-system";
-import React from "react";
+import type { CardVariant } from "@basestack/design-system";
+import type React from "react";
 
 export interface Props<T> {
   /**

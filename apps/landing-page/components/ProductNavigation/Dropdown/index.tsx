@@ -6,7 +6,7 @@ import {
 } from "@basestack/design-system";
 import { autoUpdate, offset, useFloating } from "@floating-ui/react";
 import { useRouter } from "next/navigation";
-import React, { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 import { animated, config, useTransition } from "react-spring";
 import { useClickAway, useMedia } from "react-use";
 import { useTheme } from "styled-components";

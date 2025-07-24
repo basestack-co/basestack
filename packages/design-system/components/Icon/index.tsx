@@ -1,7 +1,7 @@
 import { memo } from "react";
 import CustomIcon, { iconNamesArray } from "./CustomIcon";
 import { Container, Icon } from "./styles";
-import { CustomIconNames, IconProps, Size } from "./types";
+import type { CustomIconNames, IconProps, Size } from "./types";
 
 const handleSize = (size: Size) => {
   switch (size) {

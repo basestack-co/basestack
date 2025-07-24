@@ -3,7 +3,7 @@ import React from "react";
 import { useTheme } from "styled-components";
 import Icon from "../Icon";
 import { ContentContainer, IconContainer } from "./styles";
-import { IconBoxColor, IconBoxProps, IconBoxVariant } from "./types";
+import type { IconBoxColor, IconBoxProps, IconBoxVariant } from "./types";
 
 const IconBox = ({
   icon,

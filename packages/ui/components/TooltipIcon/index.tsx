@@ -6,7 +6,7 @@ import {
 } from "@basestack/design-system";
 import React from "react";
 import { useTheme } from "styled-components";
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "styled-system";
 import { TooltipContainer } from "./styles";
 
 interface TooltipIconProps extends SpaceProps {
@@ -33,6 +33,6 @@ const TooltipIcon = ({ icon, text, ...props }: TooltipIconProps) => {
   );
 };
 
-export { type TooltipIconProps };
+export type { TooltipIconProps };
 
 export default TooltipIcon;

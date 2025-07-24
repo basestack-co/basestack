@@ -2,7 +2,7 @@ import { rem } from "polished";
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
 import Text from "../Text";
-import { Breakpoint } from "./types";
+import type { Breakpoint } from "./types";
 
 export const Container = styled.div`
   ${space};

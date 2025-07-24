@@ -55,7 +55,7 @@ const EnvironmentsCard = ({ role }: Props) => {
 
   const onHandleEdit = useCallback(
     (environmentId: string) => {
-      if (!!projectId) {
+      if (projectId) {
         setUpdateEnvironmentModalOpen({
           isOpen: true,
           data: {
@@ -68,7 +68,7 @@ const EnvironmentsCard = ({ role }: Props) => {
   );
 
   const onHandleCreate = useCallback(() => {
-    if (!!projectId) {
+    if (projectId) {
       setCreateEnvironmentModalOpen({ isOpen: true });
     }
   }, [projectId, setCreateEnvironmentModalOpen]);

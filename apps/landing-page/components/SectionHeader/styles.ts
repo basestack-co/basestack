@@ -2,11 +2,11 @@ import { Text } from "@basestack/design-system";
 import { rem } from "polished";
 import styled, { css, keyframes } from "styled-components";
 import {
-  ColorProps,
+  type ColorProps,
   color,
-  SpaceProps,
+  type SpaceProps,
   space,
-  TypographyProps,
+  type TypographyProps,
   typography,
 } from "styled-system";
 

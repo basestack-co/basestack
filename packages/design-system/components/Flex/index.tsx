@@ -1,5 +1,9 @@
 import styled, { css } from "styled-components";
-import { FlexboxProps, flexbox, ResponsiveValue } from "styled-system";
+import {
+  type FlexboxProps,
+  flexbox,
+  type ResponsiveValue,
+} from "styled-system";
 
 export interface FlexProps extends FlexboxProps {
   gap?: ResponsiveValue<string | number>;

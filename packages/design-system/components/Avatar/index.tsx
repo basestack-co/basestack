@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "styled-system";
 import { Container, Image } from "./styles";
 
 export type Size = "large" | "medium" | "small" | "xSmall";

@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "styled-system";
 import { StyledSpinner } from "./styles";
 
 export interface SpinnerProps extends SpaceProps {

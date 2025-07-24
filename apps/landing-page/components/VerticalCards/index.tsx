@@ -1,11 +1,11 @@
 import { Button, ButtonSize, ButtonVariant } from "@basestack/design-system";
 import useEmblaCarousel from "embla-carousel-react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
 import CarouselButtons from "../CarouselButtons";
-import SectionHeader, { SectionHeaderProps } from "../SectionHeader";
-import Card, { CardProps } from "./Card";
+import SectionHeader, { type SectionHeaderProps } from "../SectionHeader";
+import Card, { type CardProps } from "./Card";
 import {
   ButtonsContainer,
   Container,

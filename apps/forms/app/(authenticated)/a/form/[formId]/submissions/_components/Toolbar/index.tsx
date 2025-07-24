@@ -9,7 +9,8 @@ import {
 import { config } from "@basestack/utils";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useEffect, useState } from "react";
+import type React from "react";
+import { useEffect, useState } from "react";
 // Hooks
 import { useDebounce } from "react-use";
 import PopupMenu from "./PopupMenu";
@@ -17,10 +18,10 @@ import PopupMenu from "./PopupMenu";
 import { Container, LeftContent, ListItem, RightList, Wrapper } from "./styles";
 // Types
 import {
-  ButtonSharedProps,
+  type ButtonSharedProps,
   SelectedFilter,
   SelectedSort,
-  ToolbarProps,
+  type ToolbarProps,
 } from "./types";
 
 const buttonProps = {

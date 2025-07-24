@@ -1,6 +1,6 @@
 import { memo, useEffect, useReducer, useRef } from "react";
 import { useTheme } from "styled-components";
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "styled-system";
 import Icon from "../Icon";
 import Text from "../Text";
 import { Button, Container, Slider, Wrapper } from "./styles";
@@ -92,7 +92,7 @@ const Segment = ({
               {!!item.text && (
                 <Text
                   size="small"
-                  ml={!!item.icon ? theme.spacing.s1 : 0}
+                  ml={item.icon ? theme.spacing.s1 : 0}
                   flexShrink={0}
                 >
                   {item.text}

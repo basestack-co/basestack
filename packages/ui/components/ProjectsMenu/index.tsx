@@ -11,7 +11,7 @@ import React, { memo, useCallback, useRef, useState } from "react";
 import { animated, config, useTransition } from "react-spring";
 import { useClickAway } from "react-use";
 import { useTheme } from "styled-components";
-import PopupActions, { PopupActionProps } from "../PopupActions";
+import PopupActions, { type PopupActionProps } from "../PopupActions";
 // Types
 import { ListItem } from "./styles";
 
@@ -75,7 +75,7 @@ const ProjectsMenu = ({
         isDisabled={!data?.length}
         pr={rem("8px")}
         leftElement={
-          !!current ? (
+          current ? (
             <Avatar
               userName={current}
               size="xSmall"
@@ -86,7 +86,7 @@ const ProjectsMenu = ({
           ) : null
         }
       >
-        {!!current ? truncateText(current) : select.title}
+        {current ? truncateText(current) : select.title}
       </Button>
       {transitionProjectsPopup(
         (styles, item) =>

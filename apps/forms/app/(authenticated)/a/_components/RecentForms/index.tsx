@@ -90,7 +90,7 @@ const RecentForms = () => {
         </List>
       ) : (
         <Fragment>
-          {!!data?.length ? (
+          {data?.length ? (
             <List>
               {data.map((form, index) => (
                 <FormCard

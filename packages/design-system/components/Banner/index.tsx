@@ -1,11 +1,11 @@
-import { memo, ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 import { useTheme } from "styled-components";
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "styled-system";
 import Icon from "../Icon";
 // Components
 import Text from "../Text";
 import {
-  BannerVariant,
+  type BannerVariant,
   Button,
   Container,
   RightContentWrapper,
@@ -139,7 +139,7 @@ const Banner = ({
           />
         )}
         <TextContainer>
-          <Text size={!!description ? "medium" : "small"} color={textColor}>
+          <Text size={description ? "medium" : "small"} color={textColor}>
             {title}
           </Text>
           {!!description && <Text color={textColor}>{description}</Text>}

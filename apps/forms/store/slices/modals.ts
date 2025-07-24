@@ -1,6 +1,6 @@
-import { StateCreator } from "zustand";
+import type { StateCreator } from "zustand";
 // Types
-import { ModalsSliceState, Store } from "../types";
+import type { ModalsSliceState, Store } from "../types";
 
 export const createModalsSlice: StateCreator<
   Store,

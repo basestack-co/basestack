@@ -1,6 +1,6 @@
 import {
   autoUpdate,
-  Placement,
+  type Placement,
   useClick,
   useDismiss,
   useFloating,

@@ -1,10 +1,15 @@
 // Design System
 import { CardVariant } from "@basestack/design-system";
 // Utils
-import { config, FormPlan, PlanTypeId, Product } from "@basestack/utils";
+import {
+  config,
+  type FormPlan,
+  type PlanTypeId,
+  Product,
+} from "@basestack/utils";
 // Types
-import { useRouter } from "next/navigation";
-import React from "react";
+import type { useRouter } from "next/navigation";
+import type React from "react";
 
 export interface WithPlanCardProps {
   planId: PlanTypeId;

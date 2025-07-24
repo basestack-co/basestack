@@ -1,9 +1,9 @@
 import { memo } from "react";
 import { useTheme } from "styled-components";
-import { SpaceProps } from "styled-system";
-import Input, { InputProps } from "../Input";
+import type { SpaceProps } from "styled-system";
+import Input, { type InputProps } from "../Input";
 import Text from "../Text";
-import Textarea, { TextareaProps } from "../Textarea";
+import Textarea, { type TextareaProps } from "../Textarea";
 import { Container, Header } from "./styles";
 
 export interface InputGroupProps extends SpaceProps {

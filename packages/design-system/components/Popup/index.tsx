@@ -1,6 +1,6 @@
 import { forwardRef, memo } from "react";
-import { PositionProps } from "styled-system";
-import { Button, ButtonProps, ButtonVariant } from "../Button";
+import type { PositionProps } from "styled-system";
+import { Button, type ButtonProps, ButtonVariant } from "../Button";
 import { Container, List, ListItem } from "./styles";
 
 export interface PopupItemsProps {
@@ -51,7 +51,7 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>(
       <List onClick={onClickList}>
         {items &&
           items.map(({ isVisible = true, ...item }, index) => {
-            const iconProps = !!item.icon
+            const iconProps = item.icon
               ? {
                   icon: item.icon,
                   iconPlacement: "left",

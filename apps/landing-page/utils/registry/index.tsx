@@ -3,7 +3,7 @@
 import Footer from "components/Footer";
 import GlobalNavigation from "components/GlobalNavigation";
 import { usePathname } from "next/navigation";
-import React, { Fragment, useMemo } from "react";
+import { useMemo } from "react";
 // Components
 import { Toaster } from "sonner";
 // Registries
@@ -26,11 +26,9 @@ const Registry = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <StyledComponentsRegistry>
-      <Fragment>
-        {hasGlobalNavigation && <GlobalNavigation isSticky={!isProductPage} />}
-        {children}
-        <Footer />
-      </Fragment>
+      {hasGlobalNavigation && <GlobalNavigation isSticky={!isProductPage} />}
+      {children}
+      <Footer />
       <Toaster visibleToasts={9} closeButton={false} />
     </StyledComponentsRegistry>
   );

@@ -1,6 +1,7 @@
-import React, { memo } from "react";
+import type React from "react";
+import { memo } from "react";
 import { useTheme } from "styled-components";
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "styled-system";
 import Text from "../Text";
 import { Container, Input, Label, Slider } from "./styles";
 

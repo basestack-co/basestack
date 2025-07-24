@@ -5,9 +5,12 @@ import { Role } from ".prisma/client";
 // Hooks
 import { useDarkModeToggle } from "@basestack/hooks";
 // Components
-import { Navigation as NavigationUI, PopupActionProps } from "@basestack/ui";
+import {
+  Navigation as NavigationUI,
+  type PopupActionProps,
+} from "@basestack/ui";
 // Utils
-import { AppEnv, config, Product } from "@basestack/utils";
+import { type AppEnv, config, Product } from "@basestack/utils";
 // Libs
 import { auth } from "@basestack/vendors";
 import { useParams, usePathname, useRouter } from "next/navigation";

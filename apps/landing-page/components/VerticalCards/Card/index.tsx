@@ -1,5 +1,5 @@
 import { Icon, Label, Text } from "@basestack/design-system";
-import React, { useState } from "react";
+import { useState } from "react";
 import { animated, useSpring } from "react-spring";
 import { useTheme } from "styled-components";
 import {

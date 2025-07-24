@@ -5,7 +5,7 @@ import {
   Icon,
   Label,
   PopupMenu,
-  PopupMenuProps,
+  type PopupMenuProps,
   Skeleton,
   Text,
   Tooltip,
@@ -144,7 +144,7 @@ const ProjectCard = ({
 
             {label && (
               <>
-                {!!label?.tooltip ? (
+                {label?.tooltip ? (
                   <TooltipContainer>
                     <Tooltip placement="top">
                       <TooltipTrigger>

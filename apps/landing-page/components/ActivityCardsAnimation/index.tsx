@@ -1,5 +1,4 @@
-import { HistoryCard, HistoryCardProps } from "@basestack/ui";
-import React from "react";
+import { HistoryCard, type HistoryCardProps } from "@basestack/ui";
 import { Container, List, ListItem } from "./styles";
 
 const activityData = [

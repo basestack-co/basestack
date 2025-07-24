@@ -7,15 +7,15 @@ import {
 } from "@basestack/emails";
 import { Product, UsageEvent } from "@basestack/utils";
 // Vendors
-import { polar, SendEmailPayload } from "@basestack/vendors";
+import { polar, type SendEmailPayload } from "@basestack/vendors";
 import { render } from "@react-email/render";
 // UpStash Workflow
 import { Receiver } from "@upstash/qstash";
 import { serve } from "@upstash/workflow/hono";
 import { Hono } from "hono";
-import React, { ElementType } from "react";
+import React, { type ElementType } from "react";
 // Types
-import { Env } from "../types";
+import type { Env } from "../types";
 
 const templateList: { [key: string]: ElementType } = {
   welcome: WelcomeEmailTemplate,

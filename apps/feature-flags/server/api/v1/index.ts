@@ -6,7 +6,7 @@ import { logger } from "hono/logger";
 import flags from "./routes/flags";
 import jobs from "./routes/jobs";
 // Types
-import { Env } from "./types";
+import type { Env } from "./types";
 
 const app = new Hono<Env>().basePath("/api/v1");
 

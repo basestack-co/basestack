@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { useTheme } from "styled-components";
-import Icon, { Size as IconSize } from "../Icon";
+import Icon, { type Size as IconSize } from "../Icon";
 import { StyledButton } from "./styles";
-import { IconButtonProps, Variant as IconButtonVariant } from "./types";
+import type { IconButtonProps, Variant as IconButtonVariant } from "./types";
 
 const IconButton = ({
   ref,
@@ -81,6 +81,6 @@ const IconButton = ({
 
 IconButton.displayName = "IconButton";
 
-export { type IconButtonProps, type IconButtonVariant };
+export type { IconButtonProps, IconButtonVariant };
 
 export default memo(IconButton);

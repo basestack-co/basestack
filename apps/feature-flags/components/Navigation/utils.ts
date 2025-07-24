@@ -1,12 +1,12 @@
-import { Role } from ".prisma/client";
+import type { Role } from ".prisma/client";
 import { ButtonVariant } from "@basestack/design-system";
-import { NavigationProps } from "@basestack/ui";
+import type { NavigationProps } from "@basestack/ui";
 // Utils
 import { config, Product } from "@basestack/utils";
 // Vendors
 import { auth } from "@basestack/vendors";
 // Types
-import { useRouter } from "next/navigation";
+import type { useRouter } from "next/navigation";
 
 const { hasFlagsPermission } = config.plans;
 

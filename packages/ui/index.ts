@@ -12,9 +12,9 @@ export {
   type LanguageCardProps,
 } from "./components/CodeLanguageCard";
 export { default as HistoryCard } from "./components/HistoryCard";
-export {
-  type HistoryCardProps,
-  type HistoryType,
+export type {
+  HistoryCardProps,
+  HistoryType,
 } from "./components/HistoryCard/types";
 export {
   default as Navigation,

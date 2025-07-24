@@ -1,9 +1,9 @@
 // Auth
 
-import { AppEnv, config, Product } from "@basestack/utils";
+import { type AppEnv, config, Product } from "@basestack/utils";
 // Vendors
 import { auth as authVendor } from "@basestack/vendors";
-import { betterAuth } from "better-auth";
+import type { betterAuth } from "better-auth";
 // Adapters
 import { prismaAdapter } from "better-auth/adapters/prisma";
 // Utils

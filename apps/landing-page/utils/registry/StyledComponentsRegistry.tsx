@@ -6,7 +6,8 @@ import GlobalStyle from "@basestack/design-system/theme/GlobalStyle";
 import lightTheme from "@basestack/design-system/theme/lightTheme";
 // Styles Utils
 import { useServerInsertedHTML } from "next/navigation";
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import { useStore } from "store";
 import {
   ServerStyleSheet,

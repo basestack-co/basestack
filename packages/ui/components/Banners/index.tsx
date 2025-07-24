@@ -1,4 +1,4 @@
-import { Banner, BannerProps } from "@basestack/design-system";
+import { Banner, type BannerProps } from "@basestack/design-system";
 import React from "react";
 import { useTheme } from "styled-components";
 

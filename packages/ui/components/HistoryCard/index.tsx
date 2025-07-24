@@ -10,7 +10,7 @@ import {
   TitleContainer,
   Wrapper,
 } from "./styles";
-import { HistoryCardProps } from "./types";
+import type { HistoryCardProps } from "./types";
 
 const HistoryCard = ({
   userName,

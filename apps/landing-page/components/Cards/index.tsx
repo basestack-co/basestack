@@ -1,5 +1,4 @@
 import useEmblaCarousel from "embla-carousel-react";
-import React from "react";
 import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
 import Card from "../Card";

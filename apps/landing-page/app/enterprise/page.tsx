@@ -1,12 +1,11 @@
 "use client";
 
 // Components
-import Form, { FormInputs } from "components/Form";
+import Form, { type FormInputs } from "components/Form";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { Fragment } from "react";
 // Form
-import { UseFormReset } from "react-hook-form";
+import type { UseFormReset } from "react-hook-form";
 import { toast } from "sonner";
 
 const ContactEnterprisePage = () => {
@@ -45,17 +44,15 @@ const ContactEnterprisePage = () => {
   };
 
   return (
-    <Fragment>
-      <Form
-        header={{
-          caption: t("page.enterprise.caption"),
-          title: t("page.enterprise.title"),
-          text: t("page.enterprise.description"),
-          titleTag: "h1",
-        }}
-        onSave={onSubmit}
-      />
-    </Fragment>
+    <Form
+      header={{
+        caption: t("page.enterprise.caption"),
+        title: t("page.enterprise.title"),
+        text: t("page.enterprise.description"),
+        titleTag: "h1",
+      }}
+      onSave={onSubmit}
+    />
   );
 };
 

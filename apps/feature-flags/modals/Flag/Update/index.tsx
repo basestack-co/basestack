@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import React, { useEffect } from "react";
 // Form
-import { SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 // Toast
 import { toast } from "sonner";
 // Store
@@ -18,7 +18,7 @@ import { TabType } from "types";
 // Server
 import { api } from "utils/trpc/react";
 import { useShallow } from "zustand/react/shallow";
-import { FlagFormInputs } from "../types";
+import type { FlagFormInputs } from "../types";
 // Hooks
 import useFlagForm, { tabPosition } from "../useFlagForm";
 

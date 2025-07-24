@@ -4,9 +4,9 @@ import { Input, Text } from "@basestack/design-system";
 import { SettingCard } from "@basestack/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Locales
-import { NamespaceKeys, useTranslations } from "next-intl";
+import { type NamespaceKeys, useTranslations } from "next-intl";
 import React from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 // Store
 import { useStore } from "store";
 import { useTheme } from "styled-components";

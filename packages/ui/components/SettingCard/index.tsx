@@ -17,7 +17,7 @@ import {
   TagContainer,
   TextContainer,
 } from "./styles";
-import { SettingCardProps } from "./types";
+import type { SettingCardProps } from "./types";
 
 const SettingCard = ({
   title,
@@ -94,6 +94,6 @@ const SettingCard = ({
   );
 };
 
-export { type SettingCardProps };
+export type { SettingCardProps };
 
 export default memo(SettingCard);

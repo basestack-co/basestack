@@ -12,7 +12,7 @@ import {
   HeaderRight,
   MobileLabels,
 } from "../styles";
-import { FormSubmissionHeaderProps } from "../types";
+import type { FormSubmissionHeaderProps } from "../types";
 import Actions from "./Actions";
 import Grid from "./Grid";
 

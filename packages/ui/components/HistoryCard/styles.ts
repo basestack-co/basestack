@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
-import { HistoryType } from "./types";
+import type { HistoryType } from "./types";
 
 export const Container = styled.div.withConfig({
   shouldForwardProp: (prop) =>

@@ -1,6 +1,6 @@
 import { forwardRef, memo } from "react";
 import { Container } from "./styles";
-import { CardProps, Variant } from "./types";
+import { type CardProps, Variant } from "./types";
 
 const Card = forwardRef<HTMLDivElement, CardProps>(
   (

@@ -2,11 +2,11 @@
 
 // Types
 import {
-  FlagsPlan,
-  FormPlan,
-  PlanProduct,
+  type FlagsPlan,
+  type FormPlan,
+  type PlanProduct,
   PlanTypeId,
-  Product,
+  type Product,
 } from "../../types";
 import { config as flagsConfig } from "./flags";
 import { config as formsConfig } from "./forms";

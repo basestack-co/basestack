@@ -1,4 +1,4 @@
-import { CheckboxProps } from "@basestack/design-system";
+import type { CheckboxProps } from "@basestack/design-system";
 
 export type Data = Array<{
   title: string;

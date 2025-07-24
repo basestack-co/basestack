@@ -1,5 +1,5 @@
 // Utils
-import { AppEnv, config, emailToId, Product } from "@basestack/utils";
+import { type AppEnv, config, emailToId, Product } from "@basestack/utils";
 // Vendors
 import { polar } from "@basestack/vendors";
 import { createTRPCRouter, protectedProcedure } from "server/trpc";

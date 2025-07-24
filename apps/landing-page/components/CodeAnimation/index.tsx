@@ -1,5 +1,6 @@
 import { animated, useSpring } from "@react-spring/web";
-import React, { useEffect, useState } from "react";
+import type React from "react";
+import { useEffect, useState } from "react";
 import { useTheme } from "styled-components";
 import { Container, Text, TextWrapper } from "./styles";
 
@@ -24,7 +25,7 @@ const characters = textParts.flatMap((part) =>
   part.content.split("").map((char) => ({ char, type: part.type })),
 );
 
-const getTypingDelay = (char: string, index: number) => {
+const getTypingDelay = (char: string) => {
   if (char === " ") return 100;
   if (char === "," || char === ":") return 250;
   const baseDelay = 60;
@@ -64,6 +65,8 @@ const CodeAnimation: React.FC = () => {
         () => {
           setVisibleCount((prev) => prev + 1);
         },
+
+        // @ts-ignore
         getTypingDelay(char, visibleCount),
       );
 

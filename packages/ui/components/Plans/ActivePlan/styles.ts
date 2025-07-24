@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import {
   compose,
-  FlexboxProps,
+  type FlexboxProps,
   flexbox,
-  SpaceProps,
+  type SpaceProps,
   space,
 } from "styled-system";
 

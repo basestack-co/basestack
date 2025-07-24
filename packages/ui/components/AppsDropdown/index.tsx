@@ -1,7 +1,7 @@
 import {
   IconButton,
   Logo,
-  LogoProps,
+  type LogoProps,
   slideBottom,
   Text,
 } from "@basestack/design-system";

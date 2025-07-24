@@ -1,5 +1,6 @@
 import { rem } from "polished";
-import React, { memo } from "react";
+import type React from "react";
+import { memo } from "react";
 import { animated, config, useTransition } from "react-spring";
 import { useTheme } from "styled-components";
 import { fadeIn } from "../../animations/springs";
@@ -16,7 +17,7 @@ import {
   Overlay,
   Sheet,
 } from "./styles";
-import { ModalProps } from "./types";
+import type { ModalProps } from "./types";
 
 const AnimatedModal = animated(Container);
 const AnimatedSheet = animated(Sheet);
@@ -116,6 +117,6 @@ const Modal: React.FC<ModalProps> = ({
   );
 };
 
-export { type ModalProps };
+export type { ModalProps };
 
 export default memo(Modal);

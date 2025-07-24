@@ -2,8 +2,13 @@
 
 // import { client as redis } from "../redis";
 // Utils
-import { AppEnv, Product } from "@basestack/utils";
-import { Adapter, BetterAuthOptions, betterAuth, User } from "better-auth";
+import type { AppEnv, Product } from "@basestack/utils";
+import {
+  type Adapter,
+  type BetterAuthOptions,
+  betterAuth,
+  User,
+} from "better-auth";
 import { createAuthMiddleware } from "better-auth/api";
 // Plugins
 import { multiSession } from "better-auth/plugins";

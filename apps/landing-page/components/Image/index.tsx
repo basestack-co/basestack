@@ -1,5 +1,4 @@
-import React from "react";
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "styled-system";
 // Components
 import { Container, Image } from "./styles";
 

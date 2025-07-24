@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import React, { useCallback } from "react";
 // Store
 import { useStore } from "store";
-import { ConfirmModalType } from "store/types";
+import type { ConfirmModalType } from "store/types";
 import { useTheme } from "styled-components";
 import { useShallow } from "zustand/react/shallow";
 // Styles

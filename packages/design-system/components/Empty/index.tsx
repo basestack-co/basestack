@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { useTheme } from "styled-components";
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "styled-system";
 import { Button } from "../Button";
 import IconBox from "../IconBox";
 // Components

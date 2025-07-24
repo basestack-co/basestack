@@ -14,7 +14,7 @@ import { useStore } from "store";
 // Styles
 import { useTheme } from "styled-components";
 // Types
-import { SelectedView } from "types";
+import type { SelectedView } from "types";
 // Server
 import { api } from "utils/trpc/react";
 import FlagsList from "./_components/FlagsList";

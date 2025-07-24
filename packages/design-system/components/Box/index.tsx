@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import {
-  ColorProps,
+  type ColorProps,
   color,
   compose,
-  FlexboxProps,
+  type FlexboxProps,
   flexbox,
-  LayoutProps,
+  type LayoutProps,
   layout,
-  SpaceProps,
+  type SpaceProps,
   space,
 } from "styled-system";
 

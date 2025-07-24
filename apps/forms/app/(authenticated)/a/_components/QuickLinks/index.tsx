@@ -26,7 +26,7 @@ const TextLink = ({ data }: TextLinkProps) => {
         const props = target ? { target: target } : {};
         return (
           <Text key={index} muted size="small">
-            {!!href ? (
+            {href ? (
               <StyledLink href={href} {...props}>
                 {text}
               </StyledLink>

@@ -6,14 +6,15 @@ import {
 } from "@basestack/design-system";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { memo, useState } from "react";
+import type React from "react";
+import { memo, useState } from "react";
 // Hooks
 import { useDebounce } from "react-use";
 import { useTheme } from "styled-components";
 // Components
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "styled-system";
 // Types
-import { SelectedView } from "types";
+import type { SelectedView } from "types";
 import { Container, RightContent, SegmentContainer } from "./styles";
 
 export interface ToolbarProps extends SpaceProps {

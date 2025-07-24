@@ -5,8 +5,9 @@ import { Tabs, Text } from "@basestack/design-system";
 // Router
 import { usePathname, useRouter } from "next/navigation";
 // Locales
-import { NamespaceKeys, useTranslations } from "next-intl";
-import React, { useEffect, useMemo } from "react";
+import { type NamespaceKeys, useTranslations } from "next-intl";
+import type React from "react";
+import { useEffect, useMemo } from "react";
 // Hooks
 import { useMedia } from "react-use";
 // Theme

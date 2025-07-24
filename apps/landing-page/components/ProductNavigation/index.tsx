@@ -3,10 +3,10 @@ import {
   ButtonSize,
   ButtonVariant,
   IconBox,
-  LogoProps,
+  type LogoProps,
 } from "@basestack/design-system";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { animated, config, useSpring } from "react-spring";
 import { useTheme } from "styled-components";
 import Dropdown from "./Dropdown";
@@ -45,7 +45,7 @@ const ProductNavigation = ({
   button,
   product,
 }: ProductNavigationProps) => {
-  const { isDarkMode, colors, spacing, typography } = useTheme();
+  const { isDarkMode, colors, spacing } = useTheme();
   const router = useRouter();
   const [maxWidth, setMaxWidth] = useState(1100);
 

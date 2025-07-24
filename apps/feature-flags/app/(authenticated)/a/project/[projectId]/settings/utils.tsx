@@ -2,9 +2,14 @@
 
 // Design System
 import { CardVariant } from "@basestack/design-system";
-import { config, FlagsPlan, PlanTypeId, Product } from "@basestack/utils";
+import {
+  config,
+  type FlagsPlan,
+  type PlanTypeId,
+  Product,
+} from "@basestack/utils";
 // Types
-import { useRouter } from "next/navigation";
+import type { useRouter } from "next/navigation";
 
 export interface WithPlanCardProps {
   planId: PlanTypeId;

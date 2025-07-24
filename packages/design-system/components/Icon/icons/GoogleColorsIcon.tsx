@@ -1,5 +1,5 @@
 import React from "react";
-import { CustomIconProps } from "../types";
+import type { CustomIconProps } from "../types";
 
 const GoogleColorsIcon = ({ size }: CustomIconProps) => (
   <svg width={size} height={size} viewBox="0 0 128 128">

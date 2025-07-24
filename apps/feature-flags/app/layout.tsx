@@ -5,7 +5,7 @@ import { Roboto, Roboto_Flex } from "next/font/google";
 // Locales
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
-import React from "react";
+import type React from "react";
 // Registries
 import Registry from "utils/registry";
 

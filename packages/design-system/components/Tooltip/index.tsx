@@ -3,7 +3,7 @@ import {
   FloatingPortal,
   flip,
   offset,
-  Placement,
+  type Placement,
   shift,
   useDismiss,
   useFloating,

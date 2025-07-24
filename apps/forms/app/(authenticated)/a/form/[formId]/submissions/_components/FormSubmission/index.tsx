@@ -5,7 +5,7 @@ import { useTheme } from "styled-components";
 import Body from "./Body";
 import Header from "./Header";
 // Types
-import { FormSubmissionProps } from "./types";
+import type { FormSubmissionProps } from "./types";
 
 const FormSubmission = ({
   data,

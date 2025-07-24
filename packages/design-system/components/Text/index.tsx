@@ -7,7 +7,7 @@ import {
   XSmallText,
   XXLargeText,
 } from "./styles";
-import { TextProps } from "./types";
+import type { TextProps } from "./types";
 
 const Text = ({
   size = "small",
@@ -66,6 +66,6 @@ const Text = ({
   }
 };
 
-export { type TextProps };
+export type { TextProps };
 
 export default memo(Text);

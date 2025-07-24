@@ -3,7 +3,7 @@
 // Dates
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import React from "react";
+import type React from "react";
 // Components
 import { Toaster } from "sonner";
 // TRPC

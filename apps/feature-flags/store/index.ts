@@ -4,7 +4,7 @@ import { createAppSlice } from "./slices/app";
 // Slices
 import { createModalsSlice } from "./slices/modals";
 // Types
-import { Store } from "./types";
+import type { Store } from "./types";
 
 export const useStore = create<Store>()(
   persist(

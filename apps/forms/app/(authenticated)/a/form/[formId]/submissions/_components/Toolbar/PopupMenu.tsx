@@ -9,7 +9,7 @@ import { rem } from "polished";
 import React from "react";
 import { animated } from "react-spring";
 import { ListItem, PopupButtonWrapper, PopupIconWrapper } from "./styles";
-import { PopupMenuProps } from "./types";
+import type { PopupMenuProps } from "./types";
 
 const AnimatedPopup = animated(Popup);
 

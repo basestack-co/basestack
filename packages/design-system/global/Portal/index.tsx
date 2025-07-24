@@ -1,4 +1,5 @@
-import React, { JSX, useEffect, useRef, useState } from "react";
+import type React from "react";
+import { type JSX, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 interface PortalProps {

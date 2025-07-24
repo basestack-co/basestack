@@ -1,6 +1,5 @@
 // Components
 import { Accordion } from "@basestack/design-system";
-import React from "react";
 import SectionHeader from "../SectionHeader";
 import { AccordionsContainer, Container, ContentContainer } from "./styles";
 

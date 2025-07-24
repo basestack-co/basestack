@@ -20,7 +20,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": false,
+      "recommended": true,
       "style": { "useBlockStatements": "off", "useConst": "warn" },
       "suspicious": {
         "noConsole": {
@@ -28,7 +28,12 @@
           "options": { "allow": ["error", "info"] }
         },
         "noDoubleEquals": "error",
-        "noEmptyBlockStatements": "off"
+        "noEmptyBlockStatements": "off",
+        "noArrayIndexKey": "off",
+        "noExplicitAny": "off"
+      },
+      "a11y": {
+        "noSvgWithoutTitle": "off"
       }
     }
   },

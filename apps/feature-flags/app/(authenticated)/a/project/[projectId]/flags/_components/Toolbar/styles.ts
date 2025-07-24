@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SpaceProps, space } from "styled-system";
+import { type SpaceProps, space } from "styled-system";
 
 export const Container = styled.header<SpaceProps>`
   ${space};

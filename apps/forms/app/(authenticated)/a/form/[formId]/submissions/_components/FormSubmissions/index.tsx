@@ -1,4 +1,4 @@
-import { Role } from ".prisma/client";
+import type { Role } from ".prisma/client";
 import { Empty, Pagination, Skeleton, Text } from "@basestack/design-system";
 // Components
 import { Banners } from "@basestack/ui";
@@ -23,7 +23,7 @@ import { useTheme } from "styled-components";
 import { api } from "utils/trpc/react";
 import FormSubmission from "../FormSubmission";
 // Types
-import { Metadata } from "../FormSubmission/types";
+import type { Metadata } from "../FormSubmission/types";
 import Toolbar from "../Toolbar";
 import { SelectedFilter, SelectedSort } from "../Toolbar/types";
 import { Container, List, ListItem, PaginationContainer } from "./styles";

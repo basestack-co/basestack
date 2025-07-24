@@ -10,7 +10,7 @@ import React, { forwardRef, memo } from "react";
 import { useTheme } from "styled-components";
 import { api } from "utils/trpc/react";
 import { DropdownWrapper, Footer, Labels, LoadingContainer } from "./styles";
-import { FlagCardProps } from "./types";
+import type { FlagCardProps } from "./types";
 
 const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
   (

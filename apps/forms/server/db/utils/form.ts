@@ -3,7 +3,7 @@
 // Types
 import { Role } from ".prisma/client";
 // Utils
-import { AppEnv, Product, config as utilsConfig } from "@basestack/utils";
+import { type AppEnv, Product, config as utilsConfig } from "@basestack/utils";
 import { prisma } from "server/db";
 import { AppMode } from "utils/helpers/general";
 

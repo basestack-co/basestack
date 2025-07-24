@@ -10,12 +10,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // Locales
 import { useTranslations } from "next-intl";
 import { rem } from "polished";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 // Form
 import {
   Controller,
-  SubmitHandler,
-  UseFormReset,
+  type SubmitHandler,
+  type UseFormReset,
   useForm,
 } from "react-hook-form";
 // Hooks
@@ -24,9 +24,9 @@ import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
 import { z } from "zod";
 import SectionHeader, {
-  AlignItems,
-  SectionHeaderProps,
-  TextAlign,
+  type AlignItems,
+  type SectionHeaderProps,
+  type TextAlign,
 } from "../SectionHeader";
 import { Card } from "../styles";
 // Styles

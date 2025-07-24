@@ -9,13 +9,13 @@ import {
 import { rem } from "polished";
 import React, { memo, useRef } from "react";
 // Calendar
-import { CalendarProps } from "react-calendar";
+import type { CalendarProps } from "react-calendar";
 import { useClickAway } from "react-use";
-import { LayoutProps, SpaceProps } from "styled-system";
+import type { LayoutProps, SpaceProps } from "styled-system";
 import Calendar from "../Calendar";
 import Icon from "../Icon";
 import IconButton from "../IconButton";
-import { InputProps } from "../Input";
+import type { InputProps } from "../Input";
 import InputGroup from "../InputGroup";
 // Components
 import {

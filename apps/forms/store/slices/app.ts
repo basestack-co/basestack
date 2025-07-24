@@ -1,6 +1,6 @@
-import { StateCreator } from "zustand";
+import type { StateCreator } from "zustand";
 // Types
-import { AppSliceState, Store } from "../types";
+import type { AppSliceState, Store } from "../types";
 
 export const createAppSlice: StateCreator<Store, [], [], AppSliceState> = (
   set,

@@ -1,5 +1,5 @@
 import type { RemoveNullAndUndefined } from "@basestack/utils";
-import { RouterOutputs } from "utils/trpc/react";
+import type { RouterOutputs } from "utils/trpc/react";
 
 /*
  *

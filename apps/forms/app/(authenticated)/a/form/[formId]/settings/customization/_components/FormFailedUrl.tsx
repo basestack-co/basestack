@@ -3,7 +3,7 @@ import { InputGroup } from "@basestack/design-system";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Utils
-import { PlanTypeId } from "@basestack/utils";
+import type { PlanTypeId } from "@basestack/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Router
 import { useParams, useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import React, { useEffect } from "react";
 // Form
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 // Toast
 import { toast } from "sonner";
 // Server

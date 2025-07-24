@@ -15,7 +15,6 @@ import {
   Code,
   Hero,
   MiniCards,
-  Pricing,
   PricingUsage,
   ProductNavigation,
   Questions,
@@ -25,7 +24,8 @@ import {
 import { HtmlIcon, JavascriptIcon, NextJsIcon } from "components/Code/icons";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { Fragment, useMemo, useState } from "react";
+// React
+import { Fragment, useMemo, useState } from "react";
 // Styles
 import { useTheme } from "styled-components";
 
@@ -107,7 +107,7 @@ const ProductFormsPage = () => {
         },
         ...values[meter.key],
       }));
-  }, [t, setUsage]);
+  }, [t]);
 
   return (
     <Fragment>

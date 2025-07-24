@@ -6,7 +6,7 @@ import {
   Text,
 } from "@basestack/design-system";
 import useEmblaCarousel from "embla-carousel-react";
-import React from "react";
+import type React from "react";
 import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
 import CarouselButtons from "../CarouselButtons";

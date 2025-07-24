@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import React from "react";
 // Form
-import { SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 // Toast
 import { toast } from "sonner";
 // Store
@@ -15,7 +15,7 @@ import { useStore } from "store";
 import { api } from "utils/trpc/react";
 import { useShallow } from "zustand/react/shallow";
 // Types
-import { FormInputs } from "../types";
+import type { FormInputs } from "../types";
 // Form
 import useEnvironmentForm from "../useEnvironmentForm";
 

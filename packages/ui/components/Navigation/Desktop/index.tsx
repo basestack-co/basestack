@@ -8,7 +8,7 @@ import AvatarDropdown from "../../AvatarDropdown";
 import ProjectsMenu from "../../ProjectsMenu";
 import ButtonLink from "../Components/ButtonLink";
 // Types
-import { DesktopNavigationUIProps } from "../types";
+import type { DesktopNavigationUIProps } from "../types";
 import { Container, List, ListItem, LogoContainer } from "./styles";
 
 const DesktopNavigation = ({

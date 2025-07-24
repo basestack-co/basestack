@@ -1,7 +1,7 @@
 // Polar
 
 // Utils
-import { emailToId, Product, UsageEvent } from "@basestack/utils";
+import { emailToId, type Product, type UsageEvent } from "@basestack/utils";
 import { Polar } from "@polar-sh/sdk";
 // Cache
 import { client as redis } from "../redis";

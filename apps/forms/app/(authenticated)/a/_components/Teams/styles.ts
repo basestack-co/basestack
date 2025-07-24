@@ -1,6 +1,6 @@
 import { rem } from "polished";
 import styled from "styled-components";
-import { SpaceProps, space } from "styled-system";
+import { type SpaceProps, space } from "styled-system";
 
 export const Section = styled.section<SpaceProps>`
   display: flex;

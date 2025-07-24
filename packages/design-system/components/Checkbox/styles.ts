@@ -1,7 +1,7 @@
 import { rem } from "polished";
 import styled, { css } from "styled-components";
 import { tertiaryButtonStyles } from "../Button";
-import { Variant } from "./types";
+import type { Variant } from "./types";
 
 export const Container = styled.label<{ variant: Variant; disabled: boolean }>`
   ${({ variant }) =>

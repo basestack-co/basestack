@@ -1,6 +1,6 @@
 import React, { forwardRef, memo } from "react";
 // Calendar
-import Calendar, { CalendarProps } from "react-calendar";
+import Calendar, { type CalendarProps } from "react-calendar";
 import Icon from "../Icon";
 // Components
 import { Container } from "./styles";
