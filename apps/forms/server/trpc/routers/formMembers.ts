@@ -91,7 +91,7 @@ export const formMembersRouter = createTRPCRouter({
         },
       });
 
-      if (!!connection.user.email) {
+      if (connection.user.email) {
         await qstash.events.sendEmailEvent({
           template: "addFormMember",
           to: [connection.user.email],

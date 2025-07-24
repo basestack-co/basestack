@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { rem } from "polished";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import Link from "next/link";
 
 const backgroundBlur = css`

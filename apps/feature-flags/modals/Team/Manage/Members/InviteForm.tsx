@@ -50,7 +50,7 @@ const InviteForm = ({ teamId }: Props) => {
   const email = watch("email");
 
   const onSendInvite: SubmitHandler<FormInputs> = async (input) => {
-    if (!!input.email) {
+    if (input.email) {
       invite.mutate(
         { teamId, email: input.email, role: Role.VIEWER },
         {

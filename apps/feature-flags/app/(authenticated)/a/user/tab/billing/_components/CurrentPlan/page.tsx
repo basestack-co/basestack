@@ -73,7 +73,7 @@ const CurrentPlan = ({
           onSuccess: (result) => {
             let toastId: string | number = "";
 
-            if (!!result.checkout.url) {
+            if (result.checkout.url) {
               toastId = toast.loading(
                 t("billing.status.checkout.redirect.loading"),
               );
@@ -102,7 +102,7 @@ const CurrentPlan = ({
         onSuccess: (result) => {
           let toastId: string | number = "";
 
-          if (!!result.portal.url) {
+          if (result.portal.url) {
             toastId = toast.loading(
               t("billing.status.portal.redirect.loading"),
             );

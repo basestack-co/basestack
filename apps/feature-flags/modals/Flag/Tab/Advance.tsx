@@ -99,7 +99,7 @@ const AdvanceTab = ({ setValue, environments }: Props) => {
           onChange: () => null,
           placeholder: t("modal.flag.tab.advanced.input.calendar.placeholder"),
           name: "date",
-          value: !!activeTabData?.expiredAt
+          value: activeTabData?.expiredAt
             ? dayjs(activeTabData.expiredAt).format("DD/MM/YYYY")
             : "",
           autoComplete: "off",

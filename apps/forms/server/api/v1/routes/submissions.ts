@@ -84,7 +84,7 @@ const submissionsRoutes = new Hono<Env>().post("/:formId", async (c) => {
           }
         }
 
-        if (!!form.webhookUrl) {
+        if (form.webhookUrl) {
           await qstash.events.sendDataToExternalWebhookEvent({
             url: form.webhookUrl,
             externalCustomerId,
@@ -96,7 +96,7 @@ const submissionsRoutes = new Hono<Env>().post("/:formId", async (c) => {
           });
         }
 
-        if (!!form.emails) {
+        if (form.emails) {
           await qstash.events.sendEmailEvent({
             template: "new-submission",
             to: form.emails.split(",").map((email) => email.trim()),

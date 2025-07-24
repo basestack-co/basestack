@@ -281,7 +281,7 @@ export const projectsRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const { projectId, feature, ...props } = input;
+      const { projectId: _projectId, feature, ...props } = input;
 
       const data = Object.fromEntries(
         Object.entries(props).filter(([_, value]) => value !== null),

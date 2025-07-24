@@ -90,7 +90,7 @@ const ActivityList = ({ data, isLoading, projectSlug }: ActivityListProps) => {
                 }
                 flagName={isCreatedProject ? projectSlug : flag?.slug}
                 date={dayjs(item.createdAt).fromNow()}
-                environments={!!envs ? envs : []}
+                environments={envs ? envs : []}
                 type={type}
                 hasPaddingBottom={index + 1 !== length}
                 hasPaddingTop={index > 0}

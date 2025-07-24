@@ -115,7 +115,7 @@ const FlagCards = ({
         },
       );
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
     [projectId, deleteFlag],
   );
 

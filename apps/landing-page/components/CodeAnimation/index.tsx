@@ -24,7 +24,7 @@ const characters = textParts.flatMap((part) =>
   part.content.split("").map((char) => ({ char, type: part.type })),
 );
 
-const getTypingDelay = (char: string, index: number) => {
+const getTypingDelay = (char: string, _index: number) => {
   if (char === " ") return 100;
   if (char === "," || char === ":") return 250;
   const baseDelay = 60;

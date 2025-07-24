@@ -18,7 +18,7 @@ import {
   Cards,
   Questions,
   Slider,
-  Pricing,
+  Pricing as _Pricing,
   ProductNavigation,
   MiniCards,
   Code,

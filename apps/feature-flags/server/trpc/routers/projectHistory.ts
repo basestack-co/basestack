@@ -18,7 +18,7 @@ export const projectHistoryRouter = createTRPCRouter({
       const getId = !input.flagId
         ? {
             projectId: input.projectId,
-            ...(!!input.search
+            ...(input.search
               ? {
                   payload: {
                     path: ["flag", "slug"],
@@ -26,7 +26,7 @@ export const projectHistoryRouter = createTRPCRouter({
                   },
                 }
               : {}),
-            ...(!!input.range?.length
+            ...(input.range?.length
               ? {
                   createdAt: {
                     lte: input.range[1],

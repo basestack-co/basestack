@@ -13,7 +13,7 @@ export interface SendEmail {
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_SMTP_HOST,
-  port: Number(process.env.EMAIL_SMTP_PORT) ?? 465,
+  port: process.env.EMAIL_SMTP_PORT ? Number(process.env.EMAIL_SMTP_PORT) : 465,
   secure: !!process.env.EMAIL_SMTP_SECURE,
   auth: {
     user: process.env.EMAIL_SMTP_AUTH_USER,

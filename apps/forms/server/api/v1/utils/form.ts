@@ -58,10 +58,10 @@ export const formatFormData = async (
       },
     );
 
-  let fields: formidable.Fields, files: formidable.Files;
+  let fields: formidable.Fields, _files: formidable.Files;
 
   try {
-    ({ fields, files } = await parseFormData());
+    ({ fields, files: _files } = await parseFormData());
   } catch (error: any) {
     throw new RequestError({
       code: 400,

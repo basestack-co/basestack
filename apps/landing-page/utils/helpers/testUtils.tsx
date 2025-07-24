@@ -13,7 +13,7 @@ interface AllProvidersProps extends WithChildrenProps {
   initialState?: {};
 }
 
-const AllProviders = ({ children, initialState = {} }: AllProvidersProps) => {
+const AllProviders = ({ children, initialState: _initialState = {} }: AllProvidersProps) => {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 

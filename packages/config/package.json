@@ -5,6 +5,7 @@
   "license": "AGPL-3.0",
   "files": [
     "eslint-preset.js",
+    "eslint.config.mjs",
     "jest.config.js",
     "jest.setup.js"
   ],
@@ -12,7 +13,10 @@
     "clean": "rm -rf .turbo && rm -rf node_modules"
   },
   "dependencies": {
-    "eslint-config-next": "^15.4.3",
-    "eslint-config-prettier": "^10.1.8"
+    "@eslint/js": "^9.31.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^15.12.0",
+    "typescript-eslint": "^8.18.3"
   }
 }
