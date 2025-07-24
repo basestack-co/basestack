@@ -1,28 +1,33 @@
 ---
-description: 
-globs: 
+description:
+globs:
 alwaysApply: true
 ---
+
 # Project Structure Rules
 
 ## Project Overview
-This is a monorepo using Yarn workspaces with TypeScript, Next.js, React, tRPC, Prisma, and Styled Components. The main [package.json](mdc:package.json) defines workspaces for apps/* and packages/*. The project consists of multiple apps (docs, feature-flags, forms, landing-page) and shared packages (design-system, ui, utils, hooks, etc.).
+
+This is a monorepo using Yarn workspaces with TypeScript, Next.js, React, tRPC, Prisma, and Styled Components. The main [package.json](mdc:package.json) defines workspaces for apps/_ and packages/_. The project consists of multiple apps (docs, feature-flags, forms, landing-page) and shared packages (design-system, ui, utils, hooks, etc.).
 
 ## Architecture & Structure
 
 ### Monorepo Configuration
+
 - Root configuration: [package.json](mdc:package.json)
 - Turborepo for build orchestration
 - Yarn workspaces for dependency management
 - Shared configurations in [packages/config/](mdc:packages/config)
 
 ### Apps Structure
+
 - **Feature Flags**: [apps/feature-flags/](mdc:apps/feature-flags) - Main feature flagging application
-- **Forms**: [apps/forms/](mdc:apps/forms) - Form management application  
+- **Forms**: [apps/forms/](mdc:apps/forms) - Form management application
 - **Landing Page**: [apps/landing-page/](mdc:apps/landing-page) - Marketing site
 - **Docs**: [apps/docs/](mdc:apps/docs) - Documentation site
 
 ### Packages Structure
+
 - **Design System**: [packages/design-system/](mdc:packages/design-system) - Core UI components
 - **Hooks**: [packages/hooks/](mdc:packages/hooks) - Shared React hooks
 - **Utils**: [packages/utils/](mdc:packages/utils) - Utility functions
@@ -32,6 +37,7 @@ This is a monorepo using Yarn workspaces with TypeScript, Next.js, React, tRPC, 
 ## Code Style & Conventions
 
 ### TypeScript
+
 - Use strict TypeScript with explicit types
 - Prefer interfaces over types for object shapes
 - Use enums for constants that will be used across components
@@ -39,7 +45,8 @@ This is a monorepo using Yarn workspaces with TypeScript, Next.js, React, tRPC, 
 - Follow the TypeScript config in [packages/tsconfig/](mdc:packages/tsconfig)
 
 ### React Components
-- Follow the existing component structure in [packages/design-system/components/Button/](mdc:packages/design-system/components/Button): index.tsx, styles.ts, types.ts, __tests__/
+
+- Follow the existing component structure in [packages/design-system/components/Button/](mdc:packages/design-system/components/Button): index.tsx, styles.ts, types.ts, **tests**/
 - Use functional components with hooks
 - Use forwardRef for components that need ref forwarding
 - Prefer named exports over default exports for consistency
@@ -47,6 +54,7 @@ This is a monorepo using Yarn workspaces with TypeScript, Next.js, React, tRPC, 
 - Include displayName for debugging purposes
 
 ### Styled Components
+
 - Separate styles into styles.ts files like [packages/design-system/components/Button/styles.ts](mdc:packages/design-system/components/Button/styles.ts)
 - Use styled-system for consistent spacing and theming
 - Leverage the existing theme structure with proper typing
@@ -54,24 +62,28 @@ This is a monorepo using Yarn workspaces with TypeScript, Next.js, React, tRPC, 
 - Follow the variant pattern established in the design system
 
 ### File Organization
+
 - Components should follow the structure: ComponentName/index.tsx, styles.ts, types.ts
 - Use barrel exports (index.ts) for clean imports like [packages/design-system/index.ts](mdc:packages/design-system/index.ts)
 - Keep related files together in component directories
 - Use descriptive directory names that match component names
 
 ### Imports
+
 - Use absolute imports from packages (e.g., '@basestack/design-system')
 - Group imports: React/Next.js first, then external libraries, then internal packages
 - Use named imports where possible
 - Import types separately from values when needed
 
 ### State Management
+
 - Use Zustand for global state as established in store directories like [apps/feature-flags/store/](mdc:apps/feature-flags/store)
 - Use React hooks for local component state
 - Prefer useQuery/useMutation from @tanstack/react-query for server state
 - Follow the existing store slice patterns
 
 ## tRPC & API
+
 - Use tRPC for type-safe API calls
 - Define proper input/output schemas with Zod
 - Follow the established router structure in server/api/ directories
@@ -80,6 +92,7 @@ This is a monorepo using Yarn workspaces with TypeScript, Next.js, React, tRPC, 
 - Reference existing API patterns in [apps/feature-flags/server/](mdc:apps/feature-flags/server)
 
 ## Database & Prisma
+
 - Use Prisma for database operations
 - Follow the existing schema patterns in [apps/feature-flags/prisma/schema.prisma](mdc:apps/feature-flags/prisma/schema.prisma)
 - Use proper relations and constraints
@@ -87,38 +100,44 @@ This is a monorepo using Yarn workspaces with TypeScript, Next.js, React, tRPC, 
 - Generate types after schema changes
 
 ## Testing
+
 - Use Jest with React Testing Library
 - Follow Jest configurations like [packages/config/jest.base.config.js](mdc:packages/config/jest.base.config.js)
-- Follow the existing test patterns in __tests__ directories
+- Follow the existing test patterns in **tests** directories
 - Use jest-styled-components for styled component testing
 - Write unit tests for components and utility functions
 - Use proper mocking for external dependencies
 
 ## Internationalization
+
 - Use next-intl for internationalization
 - Keep translations in messages/ directories like [apps/feature-flags/messages/](mdc:apps/feature-flags/messages)
 - Use proper key naming conventions
 - Support multiple languages as established
 
 ## Configuration Files
-- ESLint: Follow [packages/config/eslint-preset.js](mdc:packages/config/eslint-preset.js)
+
+- Biome v2
 - Prettier: Use root configuration for formatting
 - Docker: Reference [apps/feature-flags/Dockerfile](mdc:apps/feature-flags/Dockerfile) for containerization patterns
 - Docker Compose: See [docker-compose.yml](mdc:docker-compose.yml) for local development
 
 ## Performance
+
 - Use Next.js dynamic imports for code splitting
 - Optimize images using Next.js Image component
 - Use proper caching strategies
 - Avoid unnecessary re-renders with proper memoization
 
 ## Security
+
 - Use proper authentication with Better Auth
 - Validate all inputs with Zod schemas
 - Use environment variables for sensitive data
 - Follow secure coding practices for API routes
 
 ## Monorepo Practices
+
 - Use Turbo for build orchestration
 - Maintain proper package dependencies
 - Use workspace references for internal packages
@@ -126,19 +145,22 @@ This is a monorepo using Yarn workspaces with TypeScript, Next.js, React, tRPC, 
 - Use consistent versioning across packages
 
 ## Code Quality
-- Follow the ESLint configuration in [packages/config/eslint-preset.js](mdc:packages/config/eslint-preset.js)
+
+- Follow the Biome configuration
 - Use Prettier for consistent formatting
 - Write meaningful commit messages following conventional commits
 - Use TypeScript strict mode
 - Maintain proper error boundaries
 
 ## Documentation
+
 - Use JSDoc for complex functions
 - Keep README files updated for each package
 - Use MDX for documentation in the docs app
 - Document component props and usage examples
 
 ## Git & Deployment
+
 - Use conventional commits for versioning
 - Follow [CONTRIBUTING.md](mdc:CONTRIBUTING.md) guidelines
 - Use lint-staged for staged file linting
@@ -146,6 +168,7 @@ This is a monorepo using Yarn workspaces with TypeScript, Next.js, React, tRPC, 
 - Use proper environment management for deployments
 
 ## Performance Monitoring
+
 - Use proper logging for debugging
 - Monitor bundle sizes
 - Use React DevTools for component debugging

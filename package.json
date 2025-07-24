@@ -9,7 +9,7 @@
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "biome format --write .",
-    "check": "biome check --write .",
+    "biome:check": "biome check --write .",
     "test": "turbo run test",
     "test:update": "turbo run test:update",
     "clean": "turbo run clean && rm -rf node_modules && rm -rf .turbo",
@@ -39,7 +39,7 @@
     "lint-staged": "^16.1.2",
     "turbo": "^2.5.5"
   },
-  "packageManager": "yarn@1.22.18",
+  "packageManager": "yarn@1.22.22",
   "engines": {
     "node": ">=22.6.0"
   },
