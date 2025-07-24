@@ -14,7 +14,6 @@ export const useStore = create<Store>()(
       version: 1,
       name: "landing-page",
       storage: createJSONStorage(() => localStorage),
-      // @ts-ignore
       partialize: (state) => ({
         isDarkMode: state.isDarkMode,
       }),
@@ -22,5 +21,4 @@ export const useStore = create<Store>()(
   ),
 );
 
-// @ts-ignore
 export const clearLocalStorage = () => useStore.persist.clearStorage();

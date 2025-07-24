@@ -9,7 +9,11 @@ import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
 // Components
 import Portal from "@basestack/design-system/global/Portal";
 import { CodeLanguageCard } from "@basestack/ui";
-import { ButtonVariant as _ButtonVariant, Modal, Text } from "@basestack/design-system";
+import {
+  ButtonVariant as _ButtonVariant,
+  Modal,
+  Text,
+} from "@basestack/design-system";
 import CopyButton from "components/CopyButton";
 // Locales
 import { useTranslations } from "next-intl";
@@ -85,7 +89,6 @@ const IntegrationModal = () => {
               <CopyButtonContainer>
                 <CopyButton text={tab.code} />
               </CopyButtonContainer>
-              {/* @ts-ignore */}
               <SyntaxHighlighter
                 language="typescript"
                 style={a11yDark}

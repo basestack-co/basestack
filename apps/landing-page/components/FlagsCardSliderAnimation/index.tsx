@@ -52,7 +52,7 @@ const FlagsCardSliderAnimation = () => {
           <EmblaContainer>
             {data.map((item, index) => (
               <EmblaSlide key={index}>
-                {/*@ts-ignore*/}
+                {/* @ts-expect-error */}
                 <ProjectCard text={item.title} flags={item.flags} />
               </EmblaSlide>
             ))}

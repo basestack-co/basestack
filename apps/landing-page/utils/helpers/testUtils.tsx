@@ -13,7 +13,10 @@ interface AllProvidersProps extends WithChildrenProps {
   initialState?: {};
 }
 
-const AllProviders = ({ children, initialState: _initialState = {} }: AllProvidersProps) => {
+const AllProviders = ({
+  children,
+  initialState: _initialState = {},
+}: AllProvidersProps) => {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 
@@ -23,7 +26,6 @@ const renderWithAllProviders = (
   options?: Omit<RenderOptions, "wrapper">,
 ) =>
   render(ui, {
-    // @ts-ignore
     wrapper: (props) => <AllProviders initialState={initialState} {...props} />,
     ...options,
   });
@@ -39,7 +41,6 @@ const WithThemeProvider = ({ children }: WithChildrenProps) => (
 const renderWithTheme = (
   ui: React.ReactElement,
   options?: Omit<RenderOptions, "wrapper">,
-  // @ts-ignore
 ) => render(ui, { wrapper: WithThemeProvider, ...options });
 
 export { renderWithAllProviders, renderWithTheme };

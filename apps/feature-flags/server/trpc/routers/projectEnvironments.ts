@@ -93,7 +93,7 @@ export const projectEnvironmentsRouter = createTRPCRouter({
               },
             },
             flags: {
-              // @ts-ignore
+              // @ts-expect-error
               create: flags,
             },
           },

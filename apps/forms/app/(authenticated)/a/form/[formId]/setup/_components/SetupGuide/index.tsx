@@ -25,7 +25,7 @@ import ReactStep from "./ReactStep";
 import VueStep from "./VueStep";
 import RestStep from "./RestStep";
 // Dynamic imports
-// @ts-ignore
+// @ts-expect-error
 const SyntaxHighlighter = dynamic(() => import("react-syntax-highlighter"), {
   loading: () => <Spinner size="small" />,
 });

@@ -74,9 +74,9 @@ const Toolbar = ({
             autoComplete: "off",
           }}
           calendarProps={{
-            //@ts-ignore
+            // @ts-expect-error
             onChange: onChangeDate,
-            //@ts-ignore
+            // @ts-expect-error
             value: selectedDate,
             locale: "en-US",
             selectRange: true,

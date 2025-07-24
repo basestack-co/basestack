@@ -2,10 +2,7 @@ import baseConfig from "@basestack/config/eslint.config.mjs";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  // Include the base configuration
   ...baseConfig,
-  
-  // SDK-specific configuration
   {
     files: ["src/**/*.{js,ts}"],
     languageOptions: {
@@ -16,17 +13,9 @@ export default [
         fetch: "readonly",
       },
     },
-    rules: {
-      // SDK-specific rule overrides can go here
-    },
+    rules: {},
   },
-  
-  // Specific ignores for this package
   {
-    ignores: [
-      "dist/**",
-      "examples/**",
-      "*.config.{js,mjs,ts}",
-    ],
+    ignores: ["dist/**", "examples/**", "*.config.{js,mjs,ts}"],
   },
-]; 
+];

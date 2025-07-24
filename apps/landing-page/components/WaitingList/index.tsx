@@ -138,7 +138,6 @@ const WaitingList = ({ data }: WaitingListProps) => {
             fontSize={rem("60px")}
             lineHeight="1.2"
             fontFamily="robotoFlex"
-            // @ts-ignore
             as="h1"
             color={theme.colors.black}
             mb={theme.spacing.s5}
@@ -150,7 +149,6 @@ const WaitingList = ({ data }: WaitingListProps) => {
             size="xxLarge"
             fontWeight={400}
             lineHeight="1.6"
-            // @ts-ignore
             as="p"
             color={theme.colors.gray500}
           >

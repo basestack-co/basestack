@@ -10,7 +10,6 @@ describe("Portal Component", () => {
         <Portal selector="#portal">Portal Content</Portal>
       </div>,
     );
-    // @ts-ignore
     expect(container.firstChild).toMatchSnapshot();
   });
 });

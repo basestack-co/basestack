@@ -46,7 +46,6 @@ const VueStep = ({ endpoint }: Props) => {
         )}
       >
         <CodeContainer>
-          {/* @ts-ignore */}
           <SyntaxHighlighter
             language="javascript"
             style={theme.isDarkMode ? a11yDark : a11yLight}

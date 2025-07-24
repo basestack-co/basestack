@@ -37,7 +37,7 @@ export const formatFormData = async (
     });
   }
 
-  // @ts-ignore
+  // @ts-expect-error
   const nodeStream = Readable.from(body) as unknown as IncomingMessage;
 
   nodeStream.headers = Object.fromEntries(req.headers.entries());

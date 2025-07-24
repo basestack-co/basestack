@@ -2,24 +2,16 @@ import baseConfig from "@basestack/config/eslint.config.mjs";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  // Include the base configuration
   ...baseConfig,
-  
-  // App-specific configuration
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
     rules: {
-      // App-specific rule overrides can go here
       "@next/next/no-html-link-for-pages": "off",
+      "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
-  
-  // Specific ignores for this app
   {
-    ignores: [
-      ".next/**",
-      "prisma/migrations/**",
-      "*.config.{js,mjs,ts}",
-    ],
+    ignores: [".next/**", "prisma/migrations/**", "*.config.{js,mjs,ts}"],
   },
-]; 
+];

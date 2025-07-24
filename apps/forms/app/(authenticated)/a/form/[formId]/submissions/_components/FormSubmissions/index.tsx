@@ -253,7 +253,7 @@ const FormSubmissions = ({
       return (
         updateSubmissions.isPending &&
         (updateSubmissions.variables?.ids ?? []).includes(id) &&
-        updateSubmissions.variables?.hasOwnProperty(key)
+        Object.hasOwn(updateSubmissions.variables ?? {}, key)
       );
     },
     [updateSubmissions],

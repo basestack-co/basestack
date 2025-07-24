@@ -47,7 +47,7 @@ const SectionHeader = ({
           fontWeight={400}
           mb={spacing.s3}
           color={colors.blue400}
-          // @ts-ignore
+          // @ts-expect-error
           fontFamily={typography.robotoMono}
         >
           {caption.toUpperCase()}
