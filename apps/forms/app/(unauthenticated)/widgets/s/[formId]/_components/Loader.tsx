@@ -20,7 +20,6 @@ export interface CardsProps {
 }
 
 const Loader = ({ data, layout, theme }: CardsProps) => {
-  console.log("the data", data.submissions);
   console.log("the layout", layout);
   console.log("the theme", theme);
 
