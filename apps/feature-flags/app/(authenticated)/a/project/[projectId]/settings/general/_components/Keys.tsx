@@ -3,7 +3,7 @@ import { SettingCard } from "@basestack/ui";
 import { createTable } from "@basestack/utils";
 import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { api } from "utils/trpc/react";
 
 const KeysCard = () => {

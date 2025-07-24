@@ -4,7 +4,7 @@ import Portal from "@basestack/design-system/global/Portal";
 import Activity from "components/Activity";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 // Store
 import { useStore } from "store";
 import { useShallow } from "zustand/react/shallow";

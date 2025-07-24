@@ -18,7 +18,7 @@ import dayjs from "dayjs";
 import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 // Toast
 import { toast } from "sonner";
 // Store

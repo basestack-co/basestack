@@ -9,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import type React from "react";
 import { useCallback, useEffect } from "react";
 // Form
 import { Controller, useForm } from "react-hook-form";
@@ -144,45 +143,43 @@ const FormEmailsCard = ({ emails = "", planId }: Props) => {
         },
       })}
     >
-      <>
-        <Controller
-          name="email"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <InputGroup
-              hint={errors.email?.message}
-              inputProps={{
-                type: "email",
-                name: field.name,
-                value: field.value as string,
-                onChange: field.onChange,
-                onBlur: field.onBlur,
-                placeholder: t(
-                  "setting.notifications.emails.inputs.name.placeholder",
-                ),
-                hasError: !!errors.email,
-                onKeyDown: onHandleKeyDown,
-                maxWidth: 400,
-              }}
-            />
-          )}
-        />
-        {!!emailsValues?.length && (
-          <TagsContainer>
-            {emailsValues.map((item, index) => (
-              <Label key={index} text={item} size="normal" isTranslucent>
-                <IconButton
-                  icon="close"
-                  size="small"
-                  variant="secondaryDark"
-                  onClick={() => onDeleteEmail(item)}
-                />
-              </Label>
-            ))}
-          </TagsContainer>
+      <Controller
+        name="email"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <InputGroup
+            hint={errors.email?.message}
+            inputProps={{
+              type: "email",
+              name: field.name,
+              value: field.value as string,
+              onChange: field.onChange,
+              onBlur: field.onBlur,
+              placeholder: t(
+                "setting.notifications.emails.inputs.name.placeholder",
+              ),
+              hasError: !!errors.email,
+              onKeyDown: onHandleKeyDown,
+              maxWidth: 400,
+            }}
+          />
         )}
-      </>
+      />
+      {!!emailsValues?.length && (
+        <TagsContainer>
+          {emailsValues.map((item, index) => (
+            <Label key={index} text={item} size="normal" isTranslucent>
+              <IconButton
+                icon="close"
+                size="small"
+                variant="secondaryDark"
+                onClick={() => onDeleteEmail(item)}
+              />
+            </Label>
+          ))}
+        </TagsContainer>
+      )}
     </SettingCard>
   );
 };

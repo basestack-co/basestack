@@ -7,7 +7,7 @@ import { auth } from "@basestack/vendors";
 import { keepPreviousData } from "@tanstack/react-query";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 // Toast
 import { toast } from "sonner";
 // Server

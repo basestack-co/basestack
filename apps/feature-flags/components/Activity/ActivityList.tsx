@@ -5,7 +5,6 @@ import { HistoryCard } from "@basestack/ui";
 import dayjs from "dayjs";
 // Locales
 import { useTranslations } from "next-intl";
-import React from "react";
 // Server
 import { type HistoryItemDetails, typeMap } from "server/db/utils/history";
 // Styles

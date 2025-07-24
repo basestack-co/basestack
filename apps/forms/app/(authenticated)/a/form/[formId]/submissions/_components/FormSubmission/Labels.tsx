@@ -1,7 +1,6 @@
 import { Label, Text } from "@basestack/design-system";
 // Locales
 import { useTranslations } from "next-intl";
-import React from "react";
 // Components
 import { useTheme } from "styled-components";
 import { Box } from "./styles";

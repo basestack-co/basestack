@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import dynamic from "next/dynamic";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { Value } from "react-calendar/src/shared/types";
 import type { UseFormSetValue } from "react-hook-form";
 // Components

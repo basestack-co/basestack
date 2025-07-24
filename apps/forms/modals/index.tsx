@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import ConfirmModal from "./Confirm";
 import AddFormMemberModal from "./Form/AddMember"; // Generic
 // Forms

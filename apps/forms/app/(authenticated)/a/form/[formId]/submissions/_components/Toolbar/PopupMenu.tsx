@@ -6,7 +6,6 @@ import {
 } from "@basestack/design-system";
 import { useFloatingPopup } from "@basestack/hooks";
 import { rem } from "polished";
-import React from "react";
 import { animated } from "react-spring";
 import { ListItem, PopupButtonWrapper, PopupIconWrapper } from "./styles";
 import type { PopupMenuProps } from "./types";

@@ -1,6 +1,6 @@
 // Locales
 import { useTranslations } from "next-intl";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 // Code
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import js from "react-syntax-highlighter/dist/cjs/languages/hljs/javascript";

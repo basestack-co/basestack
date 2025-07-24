@@ -6,7 +6,7 @@ import { Banners } from "@basestack/ui";
 import dayjs from "dayjs";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 // Store
 import { useStore } from "store";
 // Server

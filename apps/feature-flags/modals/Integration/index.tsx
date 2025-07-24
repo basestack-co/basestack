@@ -1,11 +1,11 @@
-import { ButtonVariant, Modal, Text } from "@basestack/design-system";
+import { Modal, Text } from "@basestack/design-system";
 // Components
 import Portal from "@basestack/design-system/global/Portal";
 import { CodeLanguageCard } from "@basestack/ui";
 import CopyButton from "components/CopyButton";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 // Code
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";

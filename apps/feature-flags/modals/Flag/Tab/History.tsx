@@ -4,7 +4,7 @@ import { HistoryCard } from "@basestack/ui";
 import { keepPreviousData } from "@tanstack/react-query";
 // Utils
 import dayjs from "dayjs";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { getHistoryItemDetails } from "server/db/utils/history";
 // Server
 import { api } from "utils/trpc/react";

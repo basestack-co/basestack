@@ -13,9 +13,7 @@ import { render } from "@react-email/render";
 import { Receiver } from "@upstash/qstash";
 import { serve } from "@upstash/workflow/hono";
 import { Hono } from "hono";
-import React, { type ElementType } from "react";
-// Types
-import type { Env } from "../types";
+import type { ElementType } from "react";
 
 const templateList: { [key: string]: ElementType } = {
   welcome: WelcomeEmailTemplate,
@@ -23,7 +21,7 @@ const templateList: { [key: string]: ElementType } = {
   addProjectMember: AddProjectMemberEmailTemplate,
 };
 
-const jobsRoutes = new Hono<Env>().post(
+const jobsRoutes = new Hono().post(
   "/send-email",
   serve<SendEmailPayload>(
     async (context) => {

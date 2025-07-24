@@ -41,7 +41,7 @@ const Toolbar = ({
     }
 
     return "";
-  }, [selectedDate, setIsCalenderOpen]);
+  }, [selectedDate]);
 
   return (
     <ToolBar>

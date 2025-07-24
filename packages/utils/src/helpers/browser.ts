@@ -18,7 +18,7 @@ export const urlQueryBuilder = (urlParams: any) => {
   const esc = encodeURIComponent;
   return Object.keys(urlParams)
     .filter((x) => !urlParams[x])
-    .map((k) => esc(k) + "=" + esc(urlParams[k]))
+    .map((k) => `${esc(k)}=${esc(urlParams[k])}`)
     .join("&");
 };
 

@@ -3,7 +3,6 @@ import { Card, HorizontalRule, Text } from "@basestack/design-system";
 // Locales
 import { type NamespaceKeys, useTranslations } from "next-intl";
 import { rem } from "polished";
-import React from "react";
 import { useTheme } from "styled-components";
 import { Link, List, ListItem } from "./styles";
 // Utils

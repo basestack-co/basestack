@@ -5,10 +5,8 @@ import { logger } from "hono/logger";
 import jobs from "./routes/jobs";
 //  Routes
 import submissions from "./routes/submissions";
-// Types
-import type { Env } from "./types";
 
-const app = new Hono<Env>().basePath("/api/v1");
+const app = new Hono().basePath("/api/v1");
 
 app.use(
   "/s/*",

@@ -1,1 +1,3 @@
-export type Env = {};
+export type Env = {
+  EXAMPLE: string;
+};

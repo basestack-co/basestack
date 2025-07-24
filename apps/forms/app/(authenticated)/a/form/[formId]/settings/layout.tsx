@@ -134,7 +134,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
     if (!link?.isVisible) {
       router.push(`/a/form/${formId}/settings/general`);
     }
-  }, [pathname, activeLinkIndex, formId, data?.role, router]);
+  }, [pathname, formId, data?.role, router]);
 
   return (
     <Container>

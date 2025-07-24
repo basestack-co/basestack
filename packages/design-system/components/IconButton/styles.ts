@@ -108,7 +108,6 @@ const handleButtonVariant = (variant?: Variant) => {
     case "secondaryDark":
       return secondaryDarkStyles;
     default:
-    case "neutral":
       return neutralStyles;
   }
 };

@@ -6,7 +6,6 @@ import { NotFound } from "@basestack/ui";
 import { useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React from "react";
 
 const PageNotFound = () => {
   const t = useTranslations("common");

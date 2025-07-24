@@ -1,6 +1,6 @@
 // Components
 import { Checkbox, Icon } from "@basestack/design-system";
-import React, { useState } from "react";
+import { useState } from "react";
 // Hooks
 import { useMedia } from "react-use";
 import { useTheme } from "styled-components";

@@ -144,45 +144,43 @@ const FormIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
         },
       })}
     >
-      <>
-        <Controller
-          name="ip"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <InputGroup
-              hint={errors.ip?.message}
-              inputProps={{
-                type: "text",
-                name: field.name,
-                value: field.value as string,
-                onChange: field.onChange,
-                onBlur: field.onBlur,
-                placeholder: t(
-                  "setting.security.ip-block-rules.inputs.name.placeholder",
-                ),
-                hasError: !!errors.ip,
-                onKeyDown: onHandleKeyDown,
-                maxWidth: 400,
-              }}
-            />
-          )}
-        />
-        {!!ipsValues?.length && (
-          <TagsContainer>
-            {ipsValues.map((item, index) => (
-              <Label key={index} text={item} size="normal" isTranslucent>
-                <IconButton
-                  icon="close"
-                  size="small"
-                  variant="secondaryDark"
-                  onClick={() => onDeleteIp(item)}
-                />
-              </Label>
-            ))}
-          </TagsContainer>
+      <Controller
+        name="ip"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <InputGroup
+            hint={errors.ip?.message}
+            inputProps={{
+              type: "text",
+              name: field.name,
+              value: field.value as string,
+              onChange: field.onChange,
+              onBlur: field.onBlur,
+              placeholder: t(
+                "setting.security.ip-block-rules.inputs.name.placeholder",
+              ),
+              hasError: !!errors.ip,
+              onKeyDown: onHandleKeyDown,
+              maxWidth: 400,
+            }}
+          />
         )}
-      </>
+      />
+      {!!ipsValues?.length && (
+        <TagsContainer>
+          {ipsValues.map((item, index) => (
+            <Label key={index} text={item} size="normal" isTranslucent>
+              <IconButton
+                icon="close"
+                size="small"
+                variant="secondaryDark"
+                onClick={() => onDeleteIp(item)}
+              />
+            </Label>
+          ))}
+        </TagsContainer>
+      )}
     </SettingCard>
   );
 };

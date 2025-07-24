@@ -21,7 +21,11 @@
     "enabled": true,
     "rules": {
       "recommended": true,
-      "style": { "useBlockStatements": "off", "useConst": "warn" },
+      "style": {
+        "useBlockStatements": "off",
+        "useConst": "warn",
+        "noNonNullAssertion": "off"
+      },
       "suspicious": {
         "noConsole": {
           "level": "warn",
@@ -30,10 +34,16 @@
         "noDoubleEquals": "error",
         "noEmptyBlockStatements": "off",
         "noArrayIndexKey": "off",
-        "noExplicitAny": "off"
+        "noExplicitAny": "off",
+        "noAssignInExpressions": "off",
+        "noImplicitAnyLet": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "warn"
       },
       "a11y": {
-        "noSvgWithoutTitle": "off"
+        "noSvgWithoutTitle": "off",
+        "useSemanticElements": "off"
       }
     }
   },

@@ -1,4 +1,3 @@
-import React from "react";
 import { useTheme } from "styled-components";
 import Text from "../Text";
 import { CircleProgress, CircleWrapper, Svg, TextContainer } from "./styles";

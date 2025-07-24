@@ -15,7 +15,7 @@ import { auth } from "@basestack/vendors";
 import { useParams, usePathname, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { flushSync } from "react-dom";
 import { useMedia } from "react-use";
 // Store

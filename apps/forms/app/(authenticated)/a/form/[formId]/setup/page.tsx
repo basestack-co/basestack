@@ -9,7 +9,7 @@ import { config } from "@basestack/utils";
 import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { Fragment, useEffect } from "react";
+import { Fragment, useEffect } from "react";
 // Styles
 import { useTheme } from "styled-components";
 // Server

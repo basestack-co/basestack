@@ -8,7 +8,7 @@ import {
   TooltipTrigger,
 } from "@basestack/design-system";
 import TooltipIcon from "components/TooltipIcon";
-import React, { forwardRef, memo } from "react";
+import { forwardRef, memo } from "react";
 import { useTheme } from "styled-components";
 import { api } from "utils/trpc/react";
 import {

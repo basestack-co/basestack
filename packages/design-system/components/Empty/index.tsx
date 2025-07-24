@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import { useTheme } from "styled-components";
 import type { SpaceProps } from "styled-system";
 import { Button } from "../Button";

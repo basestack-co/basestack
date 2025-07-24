@@ -1,7 +1,6 @@
 // Components
 import { Icon, Segment, Text } from "@basestack/design-system";
 import { useTranslations } from "next-intl";
-import React from "react";
 import { useTheme } from "styled-components";
 import type { SpaceProps } from "styled-system";
 // Types

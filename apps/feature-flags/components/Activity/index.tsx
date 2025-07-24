@@ -23,7 +23,7 @@ const Activity = () => {
     if (projectId) {
       const cache = trpcUtils.projects.list.getData();
 
-      return ((cache && cache.projects) || []).find(
+      return (cache?.projects || []).find(
         (project) => project.id === projectId,
       );
     }

@@ -26,7 +26,6 @@ const IconButton = ({
       case "secondaryDark":
         return theme.iconButton.secondary.color;
       default:
-      case "neutral":
         return theme.iconButton.neutral.color;
     }
   };
@@ -48,16 +47,15 @@ const IconButton = ({
           bg: "36px",
           icon: "medium", // icon 24
         };
-      default:
-      case "medium":
-        return {
-          bg: "32px",
-          icon: "medium", // icon 24
-        };
       case "small":
         return {
           bg: "24px",
           icon: "small", // icon 18
+        };
+      default:
+        return {
+          bg: "32px",
+          icon: "medium", // icon 24
         };
     }
   };

@@ -1,7 +1,6 @@
 import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
 import { useTranslations } from "next-intl";
-import React from "react";
 import { useStore } from "store";
 import { useShallow } from "zustand/react/shallow";
 import Members from "./Members";

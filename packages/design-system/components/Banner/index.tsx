@@ -68,19 +68,6 @@ const Banner = ({
 
   const getVariant = () => {
     switch (variant) {
-      default:
-      case "info":
-        return {
-          icon: "info",
-          solid: {
-            color: theme.banner.solid.info.color,
-            bg: theme.banner.solid.info.backgroundColor,
-          },
-          translucent: {
-            color: theme.banner.translucent.info.color,
-            bg: theme.banner.translucent.info.backgroundColor,
-          },
-        };
       case "warning":
         return {
           icon: "warning",
@@ -115,6 +102,18 @@ const Banner = ({
           translucent: {
             color: theme.banner.translucent.danger.color,
             bg: theme.banner.translucent.danger.backgroundColor,
+          },
+        };
+      default:
+        return {
+          icon: "info",
+          solid: {
+            color: theme.banner.solid.info.color,
+            bg: theme.banner.solid.info.backgroundColor,
+          },
+          translucent: {
+            color: theme.banner.translucent.info.color,
+            bg: theme.banner.translucent.info.backgroundColor,
           },
         };
     }

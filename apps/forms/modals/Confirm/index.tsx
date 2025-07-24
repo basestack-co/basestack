@@ -2,7 +2,7 @@ import { ButtonVariant, Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 // Store
 import { useStore } from "store";
 import type { ConfirmModalType } from "store/types";

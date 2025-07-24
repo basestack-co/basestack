@@ -6,7 +6,7 @@ import { Text } from "@basestack/design-system";
 import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 // Hooks
 import { useMedia } from "react-use";
 // Store
@@ -54,24 +54,22 @@ const FlagsPage = () => {
   }, [project?.name, t]);
 
   return (
-    <>
-      <FlagsListContainer>
-        <Text size="xLarge">{t("page.title")}</Text>
-        <Toolbar
-          onChangeView={onChangeView}
-          onSearchCallback={(value) => setSearchValue(value)}
-          isDesktop={isDesktop}
-          selectedView={isDesktop ? selectedView : "cards"}
-          onClickActivity={onClickActivity}
-        />
-        <FlagsList
-          projectId={projectId}
-          selectedView={selectedView}
-          searchValue={searchValue}
-          projectRole={project?.role}
-        />
-      </FlagsListContainer>
-    </>
+    <FlagsListContainer>
+      <Text size="xLarge">{t("page.title")}</Text>
+      <Toolbar
+        onChangeView={onChangeView}
+        onSearchCallback={(value) => setSearchValue(value)}
+        isDesktop={isDesktop}
+        selectedView={isDesktop ? selectedView : "cards"}
+        onClickActivity={onClickActivity}
+      />
+      <FlagsList
+        projectId={projectId}
+        selectedView={selectedView}
+        searchValue={searchValue}
+        projectRole={project?.role}
+      />
+    </FlagsListContainer>
   );
 };
 

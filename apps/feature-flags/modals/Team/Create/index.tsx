@@ -4,7 +4,6 @@ import Portal from "@basestack/design-system/global/Portal";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Locales
 import { type NamespaceKeys, useTranslations } from "next-intl";
-import React from "react";
 // Form
 import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 // Toast

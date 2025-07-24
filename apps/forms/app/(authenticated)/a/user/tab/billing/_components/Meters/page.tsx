@@ -6,7 +6,7 @@ import { UsageSection } from "@basestack/ui";
 import { config, PlanTypeId, Product } from "@basestack/utils";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 // Styles
 import { useTheme } from "styled-components";
 // Server

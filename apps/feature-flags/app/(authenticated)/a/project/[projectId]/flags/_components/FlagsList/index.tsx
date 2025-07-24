@@ -12,7 +12,7 @@ import { config } from "@basestack/utils";
 import dayjs from "dayjs";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { Fragment, useCallback, useMemo } from "react";
+import { Fragment, useCallback, useMemo } from "react";
 // Toast
 import { toast } from "sonner";
 // Store
@@ -115,7 +115,7 @@ const FlagCards = ({
         },
       );
     },
-    [projectId, deleteFlag],
+    [projectId, deleteFlag, trpcUtils],
   );
 
   if (isLoading)

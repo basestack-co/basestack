@@ -20,12 +20,10 @@ import { render } from "@react-email/render";
 import { Receiver } from "@upstash/qstash";
 import { serve } from "@upstash/workflow/hono";
 import { Hono } from "hono";
-import React, { type ElementType } from "react";
+import type { ElementType } from "react";
 // Prisma
 import { prisma } from "server/db";
 import { withUsageUpdate } from "server/db/utils/subscription";
-// Types
-import type { Env } from "../types";
 
 const templateList: { [key: string]: ElementType } = {
   "new-submission": NewSubmissionEmailTemplate,
@@ -34,7 +32,7 @@ const templateList: { [key: string]: ElementType } = {
   addFormMember: AddProjectMemberEmailTemplate,
 };
 
-const jobsRoutes = new Hono<Env>()
+const jobsRoutes = new Hono()
   .post(
     "/send-email",
     serve<SendEmailPayload>(

@@ -161,18 +161,17 @@ const handleButtonVariant = (
 
 const handleButtonSize = (size?: ButtonSize) => {
   switch (size) {
-    default:
-    case ButtonSize.Normal:
-      return {
-        height: rem("36px"),
-        padding: `0 ${rem("12px")}`,
-        fontSize: rem("14px"),
-      };
     case ButtonSize.Medium:
       return {
         height: rem("42px"),
         padding: `0 ${rem("16px")}`,
         fontSize: rem("16px"),
+      };
+    default:
+      return {
+        height: rem("36px"),
+        padding: `0 ${rem("12px")}`,
+        fontSize: rem("14px"),
       };
   }
 };

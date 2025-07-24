@@ -13,7 +13,7 @@ import {
   useMergeRefs,
   useRole,
 } from "@floating-ui/react";
-import * as React from "react";
+import React from "react";
 import { StyledContent, StyledTrigger } from "./styles";
 
 export interface TooltipProps {

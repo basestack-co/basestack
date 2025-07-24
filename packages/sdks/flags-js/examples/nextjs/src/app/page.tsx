@@ -23,7 +23,7 @@ export default function Home() {
 
         {count.enabled && (
           <div className={styles.ctas}>
-            <a className={styles.secondary}>
+            <a className={styles.secondary} href="/">
               {!count.enabled
                 ? "Count is not enabled"
                 : `${count?.payload?.text} 0`}

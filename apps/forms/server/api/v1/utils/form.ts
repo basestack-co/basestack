@@ -1,5 +1,7 @@
 // Utils
 
+import type { IncomingMessage } from "node:http";
+import { Readable } from "node:stream";
 import {
   emailToId,
   getValidWebsite,
@@ -11,10 +13,8 @@ import {
 // Vendors
 import { polar } from "@basestack/vendors";
 import formidable from "formidable";
-import type { IncomingMessage } from "http";
 // Prisma
 import { defaultErrorUrl, getFormOnUser } from "server/db/utils/form";
-import { Readable } from "stream";
 import { AppMode } from "utils/helpers/general";
 
 export enum FormMode {
@@ -59,10 +59,12 @@ export const formatFormData = async (
       },
     );
 
-  let fields: formidable.Fields, files: formidable.Files;
+  let fields: formidable.Fields;
+  //let files: formidable.Files;
 
   try {
-    ({ fields, files } = await parseFormData());
+    //({ fields, files } = await parseFormData());
+    ({ fields } = await parseFormData());
   } catch (error: any) {
     throw new RequestError({
       code: 400,

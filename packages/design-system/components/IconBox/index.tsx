@@ -1,5 +1,4 @@
 import { transparentize } from "polished";
-import React from "react";
 import { useTheme } from "styled-components";
 import Icon from "../Icon";
 import { ContentContainer, IconContainer } from "./styles";

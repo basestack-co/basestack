@@ -3,10 +3,8 @@ import { Hono } from "hono";
 import { prisma } from "server/db";
 // Middleware
 import { ProjectPermissionMiddleware } from "../middleware";
-// Types
-import type { Env } from "../types";
 
-const flagsRoutes = new Hono<Env>()
+const flagsRoutes = new Hono()
   .use(ProjectPermissionMiddleware)
   .get("/", async (c) => {
     try {

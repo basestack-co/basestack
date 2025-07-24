@@ -17,7 +17,7 @@ export interface Props<T> {
   /**
    * Card body content, input, table or other elements
    */
-  children?: React.ReactElement;
+  children?: React.ReactNode;
   /**
    * Card button disable state
    */

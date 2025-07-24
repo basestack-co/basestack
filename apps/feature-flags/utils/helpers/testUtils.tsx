@@ -9,10 +9,10 @@ interface WithChildrenProps {
 }
 
 interface AllProvidersProps extends WithChildrenProps {
-  initialState?: {};
+  initialState?: Record<string, unknown>;
 }
 
-const AllProviders = ({ children, initialState = {} }: AllProvidersProps) => {
+const AllProviders = ({ children }: AllProvidersProps) => {
   return (
     // @ts-ignore
     <ThemeProvider theme={theme}>{children}</ThemeProvider>
@@ -21,7 +21,7 @@ const AllProviders = ({ children, initialState = {} }: AllProvidersProps) => {
 
 const renderWithAllProviders = (
   ui: React.ReactElement,
-  initialState?: {},
+  initialState?: Record<string, unknown>,
   options?: Omit<RenderOptions, "wrapper">,
 ) =>
   render(ui, {

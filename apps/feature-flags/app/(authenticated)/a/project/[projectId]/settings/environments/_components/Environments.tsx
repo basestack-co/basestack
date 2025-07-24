@@ -15,7 +15,7 @@ import dayjs from "dayjs";
 import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 // Store
 import { useStore } from "store";
 // Server

@@ -7,7 +7,7 @@ import {
 } from "@basestack/design-system";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export interface Props {
   text: string;

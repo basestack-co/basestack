@@ -4,7 +4,6 @@ import Portal from "@basestack/design-system/global/Portal";
 import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React from "react";
 // Form
 import type { SubmitHandler } from "react-hook-form";
 // Toast

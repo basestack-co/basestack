@@ -6,7 +6,6 @@ import {
 } from "@basestack/design-system";
 // Locales
 import { useTranslations } from "next-intl";
-import React from "react";
 // Components
 import { animated, config, useTransition } from "react-spring";
 import { useMedia } from "react-use";

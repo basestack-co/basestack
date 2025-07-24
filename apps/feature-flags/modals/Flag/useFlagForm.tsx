@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 // Form
 import { useForm } from "react-hook-form";
 // Types
@@ -49,7 +49,7 @@ const useFlagForm = ({
     if (isModalOpen && projectId) {
       const cache = trpcUtils.projects.list.getData();
 
-      return ((cache && cache.projects) || []).find(
+      return (cache?.projects || []).find(
         (project) => project.id === projectId,
       );
     }
@@ -59,7 +59,12 @@ const useFlagForm = ({
 
   const onRenderTab = (isLoading: boolean = false) => {
     switch (selectedTab) {
-      case TabType.CORE:
+      case TabType.ADVANCED:
+        return (
+          <Advance setValue={setValue} environments={watch("environments")} />
+        );
+      case TabType.HISTORY:
+        return <History flagId={flagId} projectId={project?.id!} />;
       default:
         return (
           <Core
@@ -70,12 +75,6 @@ const useFlagForm = ({
             isSubmitting={isSubmitting || isLoading}
           />
         );
-      case TabType.ADVANCED:
-        return (
-          <Advance setValue={setValue} environments={watch("environments")} />
-        );
-      case TabType.HISTORY:
-        return <History flagId={flagId} projectId={project?.id!} />;
     }
   };
 

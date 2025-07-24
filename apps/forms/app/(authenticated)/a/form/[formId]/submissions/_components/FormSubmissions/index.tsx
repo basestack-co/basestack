@@ -9,13 +9,7 @@ import dayjs from "dayjs";
 import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, {
-  Fragment,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 // Toast
 import { toast } from "sonner";
 import { useTheme } from "styled-components";
@@ -253,7 +247,7 @@ const FormSubmissions = ({
       return (
         updateSubmissions.isPending &&
         (updateSubmissions.variables?.ids ?? []).includes(id) &&
-        updateSubmissions.variables?.hasOwnProperty(key)
+        Object.hasOwn(updateSubmissions.variables ?? {}, key)
       );
     },
     [updateSubmissions],

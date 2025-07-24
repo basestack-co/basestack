@@ -15,8 +15,6 @@ import { Hono } from "hono";
 import { prisma } from "server/db";
 import { withUsageUpdate } from "server/db/utils/subscription";
 import { AppMode } from "utils/helpers/general";
-// Types
-import type { Env } from "../types";
 // Utils
 import { FormMode, formatFormData, verifyForm } from "../utils/form";
 
@@ -24,7 +22,7 @@ const { urls } = utilsConfig;
 
 const productUrl = urls.getAppWithEnv(Product.FORMS, AppMode as AppEnv);
 
-const submissionsRoutes = new Hono<Env>().post("/:formId", async (c) => {
+const submissionsRoutes = new Hono().post("/:formId", async (c) => {
   const formId = c.req.param("formId");
   const referer = c.req.header("referer") || productUrl;
 

@@ -144,45 +144,43 @@ const FlagsWebsitesCard = ({ websites = "", planId }: Props) => {
         },
       })}
     >
-      <>
-        <Controller
-          name="website"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <InputGroup
-              hint={errors.website?.message}
-              inputProps={{
-                type: "text",
-                name: field.name,
-                value: field.value as string,
-                onChange: field.onChange,
-                onBlur: field.onBlur,
-                placeholder: t(
-                  "setting.security.websites.inputs.name.placeholder",
-                ),
-                hasError: !!errors.website,
-                onKeyDown: onHandleKeyDown,
-                maxWidth: 400,
-              }}
-            />
-          )}
-        />
-        {!!websitesValues?.length && (
-          <TagsContainer>
-            {websitesValues.map((item, index) => (
-              <Label key={index} text={item} size="normal" isTranslucent>
-                <IconButton
-                  icon="close"
-                  size="small"
-                  variant="secondaryDark"
-                  onClick={() => onDeleteWebsite(item)}
-                />
-              </Label>
-            ))}
-          </TagsContainer>
+      <Controller
+        name="website"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <InputGroup
+            hint={errors.website?.message}
+            inputProps={{
+              type: "text",
+              name: field.name,
+              value: field.value as string,
+              onChange: field.onChange,
+              onBlur: field.onBlur,
+              placeholder: t(
+                "setting.security.websites.inputs.name.placeholder",
+              ),
+              hasError: !!errors.website,
+              onKeyDown: onHandleKeyDown,
+              maxWidth: 400,
+            }}
+          />
         )}
-      </>
+      />
+      {!!websitesValues?.length && (
+        <TagsContainer>
+          {websitesValues.map((item, index) => (
+            <Label key={index} text={item} size="normal" isTranslucent>
+              <IconButton
+                icon="close"
+                size="small"
+                variant="secondaryDark"
+                onClick={() => onDeleteWebsite(item)}
+              />
+            </Label>
+          ))}
+        </TagsContainer>
+      )}
     </SettingCard>
   );
 };

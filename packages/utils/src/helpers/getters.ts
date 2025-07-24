@@ -1,4 +1,3 @@
-import { getFormOnUser } from "@basestack/forms/server/db/utils/form";
 import { NextResponse } from "next/server";
 import requestIp from "request-ip";
 
@@ -22,7 +21,6 @@ export const getOriginOptions = async (
   req: Request,
   headers: Record<string, string>,
   formId: string,
-  planId: string,
   hasWebsitesFeature: boolean,
   websites: string,
   isRefererValid: boolean,
@@ -69,7 +67,7 @@ export const getOriginOptions = async (
         },
       },
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500, headers },

@@ -11,7 +11,7 @@ import {
 } from "@basestack/design-system";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 
 import { MemberInfo, MembersListItem } from "./styles";
 

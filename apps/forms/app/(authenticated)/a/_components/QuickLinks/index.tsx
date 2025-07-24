@@ -4,7 +4,6 @@ import { Card, IconBox, Text } from "@basestack/design-system";
 import { config } from "@basestack/utils";
 // Locales
 import { useTranslations } from "next-intl";
-import React from "react";
 // Styles
 import { useTheme } from "styled-components";
 import { BottomContainer, Box, Header, Section, StyledLink } from "./styles";

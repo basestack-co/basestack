@@ -50,18 +50,17 @@ const Text = ({
           {children}
         </MediumText>
       );
-    default:
-    case "small":
-      return (
-        <SmallText {...sharedProps} {...props}>
-          {children}
-        </SmallText>
-      );
     case "xSmall":
       return (
         <XSmallText {...sharedProps} {...props}>
           {children}
         </XSmallText>
+      );
+    default:
+      return (
+        <SmallText {...sharedProps} {...props}>
+          {children}
+        </SmallText>
       );
   }
 };

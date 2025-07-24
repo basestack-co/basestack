@@ -5,7 +5,7 @@ import Portal from "@basestack/design-system/global/Portal";
 import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 // Form
 import type { SubmitHandler } from "react-hook-form";
 // Toast
@@ -64,7 +64,7 @@ const EditEnvironmentModal = () => {
                 projectId,
               });
 
-              if (prev && prev.environments) {
+              if (prev?.environments) {
                 const environments = prev.environments
                   .map((environment) =>
                     environment.id === result.environment.id
@@ -109,7 +109,7 @@ const EditEnvironmentModal = () => {
         projectId,
       });
 
-      if (cache && cache.environments) {
+      if (cache?.environments) {
         const environment = cache.environments.find(
           ({ id }) => id === data?.environment?.id,
         );

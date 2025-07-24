@@ -1,5 +1,5 @@
 import { Card } from "@basestack/design-system";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // Components
 import { useTheme } from "styled-components";
 import Body from "./Body";

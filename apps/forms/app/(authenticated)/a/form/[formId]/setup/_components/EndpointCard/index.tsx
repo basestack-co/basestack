@@ -11,7 +11,7 @@ import {
 import { getBrowserUrl } from "@basestack/utils";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTheme } from "styled-components";
 // Styles
 import {

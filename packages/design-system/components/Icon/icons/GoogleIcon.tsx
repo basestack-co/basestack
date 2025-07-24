@@ -1,4 +1,3 @@
-import React from "react";
 import type { CustomIconProps } from "../types";
 
 const GoogleIcon = ({ size, color }: CustomIconProps) => (

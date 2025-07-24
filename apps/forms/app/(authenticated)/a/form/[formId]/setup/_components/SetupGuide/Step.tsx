@@ -1,6 +1,6 @@
 // Components
 import { Icon, Text } from "@basestack/design-system";
-import React, { Fragment, type ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 // Styles
 import { useTheme } from "styled-components";
 import { Box } from "../../styles";

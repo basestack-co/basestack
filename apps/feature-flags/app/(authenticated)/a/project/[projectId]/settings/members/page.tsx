@@ -2,7 +2,6 @@
 
 // Router
 import { useParams } from "next/navigation";
-import React from "react";
 // Server
 import { api } from "utils/trpc/react";
 // Styles

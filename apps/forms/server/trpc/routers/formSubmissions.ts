@@ -141,15 +141,14 @@ export const formSubmissionsRouter = createTRPCRouter({
 
       const dataHeaders: string[] = Array.from(headersSet).sort();
 
-      let data: string = dataHeaders.join(",") + ",";
+      let data: string = `${dataHeaders.join(",")},`;
 
       const commonHeaders: string[] = ["isSpam", "viewed", "createdAt"];
-      data += commonHeaders.join(",") + "\n";
+      data += `${commonHeaders.join(",")}\n`;
 
       submissions.forEach((item) => {
         const dataRow: string[] = dataHeaders.map(
-          (header) =>
-            (item.data && item.data[header as keyof typeof item.data]) || "",
+          (header) => item.data?.[header as keyof typeof item.data] || "",
         );
 
         const commonRow: (string | boolean | undefined | null)[] =
@@ -166,7 +165,7 @@ export const formSubmissionsRouter = createTRPCRouter({
           ...commonRow,
         ];
 
-        data += rowData.join(",") + "\n";
+        data += `${rowData.join(",")}\n`;
       });
 
       return { data };

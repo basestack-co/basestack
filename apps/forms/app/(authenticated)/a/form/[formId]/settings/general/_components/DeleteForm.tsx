@@ -5,7 +5,6 @@ import { SettingCard } from "@basestack/ui";
 import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React from "react";
 // Store
 import { useStore } from "store";
 // Server

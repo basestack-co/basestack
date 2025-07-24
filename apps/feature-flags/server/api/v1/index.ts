@@ -5,10 +5,8 @@ import { logger } from "hono/logger";
 //  Routes
 import flags from "./routes/flags";
 import jobs from "./routes/jobs";
-// Types
-import type { Env } from "./types";
 
-const app = new Hono<Env>().basePath("/api/v1");
+const app = new Hono().basePath("/api/v1");
 
 app.use(
   "/flags/*",

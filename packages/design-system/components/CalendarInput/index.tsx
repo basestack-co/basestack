@@ -7,7 +7,7 @@ import {
   useFloating,
 } from "@floating-ui/react";
 import { rem } from "polished";
-import React, { memo, useRef } from "react";
+import { memo, useRef } from "react";
 // Calendar
 import type { CalendarProps } from "react-calendar";
 import { useClickAway } from "react-use";

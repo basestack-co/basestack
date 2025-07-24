@@ -7,7 +7,7 @@ import {
 // Components
 import { autoUpdate, offset, useFloating } from "@floating-ui/react";
 import { rem } from "polished";
-import React, { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 import { animated, config, useTransition } from "react-spring";
 import { useClickAway } from "react-use";
 import { useTheme } from "styled-components";
@@ -61,7 +61,7 @@ const ProjectsMenu = ({
   }, [onCreate]);
 
   const truncateText = (str: string) => {
-    return str.length <= 18 ? str : str.slice(0, 18) + "...";
+    return str.length <= 18 ? str : `${str.slice(0, 18)}...`;
   };
 
   return (

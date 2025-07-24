@@ -12,7 +12,7 @@ import {
 import { auth } from "@basestack/vendors";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 // Toast
 import { toast } from "sonner";
 import { useStore } from "store";

@@ -56,7 +56,7 @@ export const getCustomerSubscription = async (
       currentPeriodEnd: sub?.currentPeriodEnd ?? "",
       country: customer?.billingAddress?.country ?? "",
     };
-  } catch (err) {
+  } catch {
     return null;
   }
 };

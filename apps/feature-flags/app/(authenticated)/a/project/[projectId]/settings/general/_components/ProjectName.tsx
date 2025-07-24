@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 // Form
 import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 // Toast
@@ -65,7 +65,7 @@ const ProjectNameCard = ({ role, name }: Props) => {
           // Get all the projects on the cache
           const cacheAllProjects = trpcUtils.projects.list.getData();
 
-          if (cacheAllProjects && cacheAllProjects.projects) {
+          if (cacheAllProjects?.projects) {
             // Update the cache with the new data
             // This updates in the navigation list
             trpcUtils.projects.list.setData(undefined, {

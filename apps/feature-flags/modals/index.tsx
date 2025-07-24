@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 // Activity
 import ActivityModal from "./Activity";
 // Confirm

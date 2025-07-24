@@ -4,7 +4,7 @@ import Portal from "@basestack/design-system/global/Portal";
 import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 // Form
 import type { SubmitHandler } from "react-hook-form";
 // Toast
@@ -93,15 +93,13 @@ const CreateFlagModal = () => {
 
   useEffect(() => {
     if (isModalOpen && !isLoading) {
-      const environments = ((data && data.environments) || []).map(
-        ({ id, name }) => ({
-          id,
-          name,
-          enabled: false,
-          payload: JSON.stringify({}),
-          expiredAt: null,
-        }),
-      );
+      const environments = (data?.environments || []).map(({ id, name }) => ({
+        id,
+        name,
+        enabled: false,
+        payload: JSON.stringify({}),
+        expiredAt: null,
+      }));
       setValue("environments", environments);
     }
   }, [isModalOpen, data, isLoading, setValue]);

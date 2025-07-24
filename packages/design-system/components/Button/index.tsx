@@ -83,21 +83,19 @@ const Button = ({
       {...props}
       {...(!!as && { as })}
     >
-      <>
-        {leftElement && <Fragment>{leftElement}</Fragment>}
-        {hasLeftIcon && <Icon mr={theme.spacing.s2} {...iconProps} />}
-        <TextContainer isLoading={isLoading}>{children}</TextContainer>
-        {hasRightIcon && <Icon ml={theme.spacing.s2} {...iconProps} />}
-        {isLoading && (
-          <SpinnerContainer>
-            <Spinner
-              size="small"
-              bg={spinnerBg[variant]}
-              color={spinnerColor[variant]}
-            />
-          </SpinnerContainer>
-        )}
-      </>
+      {leftElement && <Fragment>{leftElement}</Fragment>}
+      {hasLeftIcon && <Icon mr={theme.spacing.s2} {...iconProps} />}
+      <TextContainer isLoading={isLoading}>{children}</TextContainer>
+      {hasRightIcon && <Icon ml={theme.spacing.s2} {...iconProps} />}
+      {isLoading && (
+        <SpinnerContainer>
+          <Spinner
+            size="small"
+            bg={spinnerBg[variant]}
+            color={spinnerColor[variant]}
+          />
+        </SpinnerContainer>
+      )}
     </StyledButton>
   );
 };

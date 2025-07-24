@@ -1,4 +1,3 @@
-import React from "react";
 import type { CustomIconProps } from "../types";
 
 const GithubIcon = ({ size, color }: CustomIconProps) => (

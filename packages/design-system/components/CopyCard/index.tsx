@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import { memo, useState } from "react";
 import type { LayoutProps, SpaceProps } from "styled-system";
 import IconButton from "../IconButton";
 // Components

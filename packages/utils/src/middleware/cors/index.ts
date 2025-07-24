@@ -4,7 +4,11 @@ import type { NextApiRequest, NextApiResponse } from "next";
 export const checkCors = (
   req: NextApiRequest,
   res: NextApiResponse,
-  fn: Function,
+  fn: (
+    req: NextApiRequest,
+    res: NextApiResponse,
+    next: (result?: any) => void,
+  ) => void,
 ) => {
   return new Promise((resolve, reject) => {
     fn(req, res, (result: any) => {
@@ -18,7 +22,11 @@ export const checkCors = (
 };
 
 export const withCors = (
-  cors: Function,
+  cors: (
+    req: NextApiRequest,
+    res: NextApiResponse,
+    next: (result?: any) => void,
+  ) => void,
   handler: (req: NextApiRequest, res: NextApiResponse) => void,
 ) => {
   return async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {

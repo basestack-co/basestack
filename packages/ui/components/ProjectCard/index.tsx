@@ -12,7 +12,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@basestack/design-system";
-import React, { memo } from "react";
+import { memo } from "react";
 import { useTheme } from "styled-components";
 import {
   AvatarListItem,
@@ -137,32 +137,28 @@ const ProjectCard = ({
               </Avatars>
             )}
 
-            {count &&
-              count.map((item, index) => (
-                <Detail key={index} icon={item.icon} value={item.value} />
-              ))}
+            {count?.map((item, index) => (
+              <Detail key={index} icon={item.icon} value={item.value} />
+            ))}
 
-            {label && (
-              <>
-                {label?.tooltip ? (
-                  <TooltipContainer>
-                    <Tooltip placement="top">
-                      <TooltipTrigger>
-                        <Label text="External" size="small" variant="light" />
-                      </TooltipTrigger>
-                      <TooltipContent>{label.tooltip}</TooltipContent>
-                    </Tooltip>
-                  </TooltipContainer>
-                ) : (
-                  <Label
-                    text={label.text}
-                    size="small"
-                    variant="light"
-                    ml="auto"
-                  />
-                )}
-              </>
-            )}
+            {label &&
+              (label?.tooltip ? (
+                <TooltipContainer>
+                  <Tooltip placement="top">
+                    <TooltipTrigger>
+                      <Label text="External" size="small" variant="light" />
+                    </TooltipTrigger>
+                    <TooltipContent>{label.tooltip}</TooltipContent>
+                  </Tooltip>
+                </TooltipContainer>
+              ) : (
+                <Label
+                  text={label.text}
+                  size="small"
+                  variant="light"
+                  ml="auto"
+                />
+              ))}
           </Footer>
         </Card>
       </Button>

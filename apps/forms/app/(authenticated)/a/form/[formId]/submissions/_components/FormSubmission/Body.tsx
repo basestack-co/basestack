@@ -10,13 +10,7 @@ import {
 // Locales
 import { useTranslations } from "next-intl";
 import { rem } from "polished";
-import React, {
-  useCallback,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { animated, useSpring } from "react-spring";
 // Toast
 import { toast } from "sonner";
@@ -100,7 +94,7 @@ const Body = ({
       height: isOpen ? (contentRef?.current?.offsetHeight ?? 0) + 20 : 0,
       opacity: isOpen ? 1 : 0,
     });
-  }, [isOpen, contentRef, showMetadata, data, animate]);
+  }, [isOpen, animate]);
 
   const onBlockIp = useCallback(
     (ip: string) => {

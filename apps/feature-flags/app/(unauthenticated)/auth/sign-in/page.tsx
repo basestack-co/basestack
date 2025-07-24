@@ -16,7 +16,7 @@ import { auth } from "@basestack/vendors";
 import { useRouter, useSearchParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 // Styles
 import styled from "styled-components";
 
@@ -74,22 +74,18 @@ const SignIn = () => {
       description={t("sign-in.panel.description")}
       slogan={t("sign-in.panel.slogan")}
       contentTitle={t("sign-in.content.title")}
-      contentDescription={
-        <>
-          {t.rich("sign-in.content.description", {
-            terms: (chunks) => (
-              <Link href={config.urls.legal.terms} target="_blank">
-                {chunks}
-              </Link>
-            ),
-            privacy: (chunks) => (
-              <Link href={config.urls.legal.privacy} target="_blank">
-                {chunks}
-              </Link>
-            ),
-          })}
-        </>
-      }
+      contentDescription={t.rich("sign-in.content.description", {
+        terms: (chunks) => (
+          <Link href={config.urls.legal.terms} target="_blank">
+            {chunks}
+          </Link>
+        ),
+        privacy: (chunks) => (
+          <Link href={config.urls.legal.privacy} target="_blank">
+            {chunks}
+          </Link>
+        ),
+      })}
       action={(name) => t("sign-in.content.action", { name })}
       onClickProvider={(provider) => auth.client.signIn.social({ provider })}
       errors={[

@@ -14,7 +14,7 @@ export const StyledText = styled(Text)`
   font-weight: 500;
 `;
 
-export const Number = styled.div<{ highlight?: boolean }>`
+export const NumberContainer = styled.div<{ highlight?: boolean }>`
   background-color: ${({ theme }) => theme.pagination.number.backgroundColor};
   height: 32px;
   min-width: 32px;

@@ -157,54 +157,53 @@ const Tabs = ({
           data-testid="tabs-component"
           {...props}
         >
-          {items &&
-            items.map((item: Item, index) => {
-              const isActive = index === sliderPosition;
+          {items?.map((item: Item, index) => {
+            const isActive = index === sliderPosition;
 
-              return type === "tabs" ? (
-                <Tab
-                  key={`tab-${item.id}`}
-                  data-testid="tab-button"
-                  onClick={() => onSelect(item.id, index)}
-                  borderColor={borderColor}
-                  hoverBgColor={hoverBgColor}
-                >
-                  {!!item.text && (
-                    <Text
-                      fontWeight="500"
-                      size={textSize}
-                      color={textColor || theme.tabs.color}
-                      flexShrink={0}
-                      lineTruncate
-                    >
-                      {item.text}
-                    </Text>
-                  )}
-                </Tab>
-              ) : (
-                <Button
-                  key={`tab-${item.id}`}
-                  onClick={() => onSelect(item.id, index)}
-                  isActive={isActive}
-                >
-                  {!!item.text && (
-                    <Text
-                      fontWeight="500"
-                      size={textSize}
-                      color={
-                        isActive
-                          ? theme.tabs.button.active.text.color
-                          : theme.tabs.color
-                      }
-                      flexShrink={0}
-                      lineTruncate
-                    >
-                      {item.text}
-                    </Text>
-                  )}
-                </Button>
-              );
-            })}
+            return type === "tabs" ? (
+              <Tab
+                key={`tab-${item.id}`}
+                data-testid="tab-button"
+                onClick={() => onSelect(item.id, index)}
+                borderColor={borderColor}
+                hoverBgColor={hoverBgColor}
+              >
+                {!!item.text && (
+                  <Text
+                    fontWeight="500"
+                    size={textSize}
+                    color={textColor || theme.tabs.color}
+                    flexShrink={0}
+                    lineTruncate
+                  >
+                    {item.text}
+                  </Text>
+                )}
+              </Tab>
+            ) : (
+              <Button
+                key={`tab-${item.id}`}
+                onClick={() => onSelect(item.id, index)}
+                isActive={isActive}
+              >
+                {!!item.text && (
+                  <Text
+                    fontWeight="500"
+                    size={textSize}
+                    color={
+                      isActive
+                        ? theme.tabs.button.active.text.color
+                        : theme.tabs.color
+                    }
+                    flexShrink={0}
+                    lineTruncate
+                  >
+                    {item.text}
+                  </Text>
+                )}
+              </Button>
+            );
+          })}
           {type === "tabs" && (
             <Slider
               activeBorderColor={activeBorderColor}

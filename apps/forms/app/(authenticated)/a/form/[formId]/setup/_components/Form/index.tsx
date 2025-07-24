@@ -11,7 +11,6 @@ import { getBrowserUrl } from "@basestack/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Locales
 import { useTranslations } from "next-intl";
-import React from "react";
 // Form
 import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 // Toast

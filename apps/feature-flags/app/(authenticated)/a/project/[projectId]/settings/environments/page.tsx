@@ -4,7 +4,7 @@
 import { config } from "@basestack/utils";
 // Router
 import { useParams, useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 // Server
 import { api } from "utils/trpc/react";
 // Styles

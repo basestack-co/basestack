@@ -11,7 +11,7 @@ import { ProjectCard as FormCard } from "@basestack/ui";
 import { useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { Fragment, useCallback } from "react";
+import { useCallback } from "react";
 // Store
 import { useStore } from "store";
 // Styles
@@ -88,58 +88,51 @@ const RecentForms = () => {
             padding="20px 20px 12px 20px"
           />
         </List>
-      ) : (
-        <Fragment>
-          {data?.length ? (
-            <List>
-              {data.map((form, index) => (
-                <FormCard
-                  key={index}
-                  text={form.title}
-                  onClick={() =>
-                    router.push(`/a/form/${form.formId}/submissions`)
-                  }
-                  count={form.count}
-                  menuItems={[
-                    {
-                      icon: "view_agenda",
-                      text: t("forms.card.menu.submissions"),
-                      onClick: () =>
-                        onClickMenuItem("submissions", form.formId),
-                    },
-                    {
-                      icon: "integration_instructions",
-                      text: t("forms.card.menu.setup"),
-                      onClick: () => onClickMenuItem("setup", form.formId),
-                    },
-                    {
-                      icon: "settings",
-                      text: t("forms.card.menu.settings"),
-                      onClick: () =>
-                        onClickMenuItem("settings/general", form.formId),
-                    },
-                  ]}
-                  {...(!form.isAdmin && {
-                    label: {
-                      text: t("forms.tag.text"),
-                      tooltip: t("forms.tag.tooltip"),
-                    },
-                  })}
-                />
-              ))}
-            </List>
-          ) : (
-            <Empty
-              iconName="text_snippet"
-              title={t("forms.empty.title")}
-              description={t("forms.empty.description")}
-              button={{
-                text: t("forms.empty.action"),
-                onClick: () => setCreateFormModalOpen({ isOpen: true }),
-              }}
+      ) : data?.length ? (
+        <List>
+          {data.map((form, index) => (
+            <FormCard
+              key={index}
+              text={form.title}
+              onClick={() => router.push(`/a/form/${form.formId}/submissions`)}
+              count={form.count}
+              menuItems={[
+                {
+                  icon: "view_agenda",
+                  text: t("forms.card.menu.submissions"),
+                  onClick: () => onClickMenuItem("submissions", form.formId),
+                },
+                {
+                  icon: "integration_instructions",
+                  text: t("forms.card.menu.setup"),
+                  onClick: () => onClickMenuItem("setup", form.formId),
+                },
+                {
+                  icon: "settings",
+                  text: t("forms.card.menu.settings"),
+                  onClick: () =>
+                    onClickMenuItem("settings/general", form.formId),
+                },
+              ]}
+              {...(!form.isAdmin && {
+                label: {
+                  text: t("forms.tag.text"),
+                  tooltip: t("forms.tag.tooltip"),
+                },
+              })}
             />
-          )}
-        </Fragment>
+          ))}
+        </List>
+      ) : (
+        <Empty
+          iconName="text_snippet"
+          title={t("forms.empty.title")}
+          description={t("forms.empty.description")}
+          button={{
+            text: t("forms.empty.action"),
+            onClick: () => setCreateFormModalOpen({ isOpen: true }),
+          }}
+        />
       )}
     </Section>
   );

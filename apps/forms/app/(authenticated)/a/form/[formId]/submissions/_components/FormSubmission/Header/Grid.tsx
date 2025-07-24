@@ -1,5 +1,5 @@
 import { Avatar, slideBottom, Text } from "@basestack/design-system";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { animated, config, useTransition } from "react-spring";
 import { useMedia } from "react-use";
 import { useTheme } from "styled-components";

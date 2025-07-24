@@ -10,7 +10,6 @@ import {
 import { useFloatingPopup } from "@basestack/hooks";
 // Locales
 import { useTranslations } from "next-intl";
-import React from "react";
 import { animated } from "react-spring";
 // Store
 import { useStore } from "store";

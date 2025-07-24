@@ -5,7 +5,6 @@ import { SettingCard } from "@basestack/ui";
 import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React from "react";
 // Toast
 import { toast } from "sonner";
 // Store
@@ -35,7 +34,7 @@ const DeleteProjectCard = ({ name }: Props) => {
           // Get all the projects on the cache
           const prev = trpcUtils.projects.list.getData();
 
-          if (prev && prev.projects) {
+          if (prev?.projects) {
             // Find the project and remove from the list
             const projects = prev.projects.filter(
               (project) => project.id !== result.project.id,

@@ -31,13 +31,12 @@ const handleSize = (size: Size) => {
   switch (size) {
     case "large":
       return 56;
-    default:
-    case "medium":
-      return 40;
     case "small":
       return 36;
     case "xSmall":
       return 28;
+    default:
+      return 40;
   }
 };
 

@@ -6,7 +6,7 @@ import { Role } from ".prisma/client";
 import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import React, { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 // Server
 import { api } from "utils/trpc/react";
 // Components
@@ -28,15 +28,13 @@ const FormSubmissionsPage = () => {
   }, [form?.name, t]);
 
   return (
-    <Fragment>
-      <FormSubmissions
-        isEnabled={form?.isEnabled ?? true}
-        hasRetention={form?.hasRetention ?? true}
-        name={form?.name ?? ""}
-        blockIpAddresses={form?.blockIpAddresses ?? ""}
-        formRole={form?.role ?? Role.VIEWER}
-      />
-    </Fragment>
+    <FormSubmissions
+      isEnabled={form?.isEnabled ?? true}
+      hasRetention={form?.hasRetention ?? true}
+      name={form?.name ?? ""}
+      blockIpAddresses={form?.blockIpAddresses ?? ""}
+      formRole={form?.role ?? Role.VIEWER}
+    />
   );
 };
 

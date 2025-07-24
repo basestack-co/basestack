@@ -6,7 +6,6 @@ import { ProfileAvatarCard, SwitchSettingCard } from "@basestack/ui";
 import { auth } from "@basestack/vendors";
 // Locales
 import { useTranslations } from "next-intl";
-import React from "react";
 // Store
 import { useStore } from "store";
 // Styles

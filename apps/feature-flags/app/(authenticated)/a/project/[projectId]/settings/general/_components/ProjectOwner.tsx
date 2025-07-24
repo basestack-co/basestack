@@ -3,7 +3,6 @@ import { Avatar, Text } from "@basestack/design-system";
 import { SettingCard } from "@basestack/ui";
 // Locales
 import { useTranslations } from "next-intl";
-import React from "react";
 import styled, { useTheme } from "styled-components";
 
 export interface Props {

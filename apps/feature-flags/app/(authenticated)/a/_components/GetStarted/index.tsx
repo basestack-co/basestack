@@ -12,7 +12,6 @@ import {
 import { config } from "@basestack/utils";
 // Locales
 import { useTranslations } from "next-intl";
-import React from "react";
 // Store
 import { useStore } from "store";
 // Styles
