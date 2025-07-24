@@ -42,6 +42,9 @@
       "persistent": true
     },
     "test": {
+      "inputs": ["src/**", "**/*.{js,ts,tsx,jsx}", "*.{js,ts,tsx,jsx}", "**/*.test.*", "**/*.spec.*"]
+    },
+    "test:coverage": {
       "inputs": ["src/**", "**/*.{js,ts,tsx,jsx}", "*.{js,ts,tsx,jsx}", "**/*.test.*", "**/*.spec.*"],
       "outputs": ["coverage/**"]
     },
