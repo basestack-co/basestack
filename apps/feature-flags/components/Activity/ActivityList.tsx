@@ -1,17 +1,16 @@
-import React from "react";
-// Locales
-import { useTranslations } from "next-intl";
+// Components
+import { Empty, Skeleton } from "@basestack/design-system";
+import { HistoryCard } from "@basestack/ui";
 // Utils
 import dayjs from "dayjs";
-// Components
-import { Skeleton, Empty } from "@basestack/design-system";
-import { HistoryCard } from "@basestack/ui";
-// Types
-import { Environment, HistoryAction } from "types";
+// Locales
+import { useTranslations } from "next-intl";
 // Server
-import { HistoryItemDetails, typeMap } from "server/db/utils/history";
+import { type HistoryItemDetails, typeMap } from "server/db/utils/history";
 // Styles
 import { useTheme } from "styled-components";
+// Types
+import { type Environment, HistoryAction } from "types";
 import { List, ListItem } from "./styles";
 
 export interface History extends HistoryItemDetails {
@@ -90,7 +89,7 @@ const ActivityList = ({ data, isLoading, projectSlug }: ActivityListProps) => {
                 }
                 flagName={isCreatedProject ? projectSlug : flag?.slug}
                 date={dayjs(item.createdAt).fromNow()}
-                environments={!!envs ? envs : []}
+                environments={envs ? envs : []}
                 type={type}
                 hasPaddingBottom={index + 1 !== length}
                 hasPaddingTop={index > 0}

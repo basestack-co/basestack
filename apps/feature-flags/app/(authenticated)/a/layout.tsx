@@ -1,15 +1,16 @@
 "use client";
 
-import React, { Fragment } from "react";
-// Router
-import { useRouter } from "next/navigation";
+// Components
+import { Loader, Splash } from "@basestack/design-system";
 // Vendors
 import { auth } from "@basestack/vendors";
-// Components
-import { Splash, Loader } from "@basestack/design-system";
 import Navigation from "components/Navigation";
 // Modals
 import Modals from "modals";
+// Router
+import { useRouter } from "next/navigation";
+import type React from "react";
+import { Fragment } from "react";
 // Server
 import { api } from "utils/trpc/react";
 

@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { rem } from "polished";
 import { Text } from "@basestack/design-system";
+import { rem } from "polished";
+import styled from "styled-components";
 
 export const Container = styled.section`
   display: flex;

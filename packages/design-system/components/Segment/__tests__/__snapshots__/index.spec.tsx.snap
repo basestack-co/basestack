@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Segment tests should render Segment correctly 1`] = `
 <DocumentFragment>
@@ -117,7 +117,18 @@ exports[`Segment tests should render Segment correctly 1`] = `
 
 exports[`Segment tests should render Segment with icons and test 1`] = `
 <DocumentFragment>
-  .c5 {
+  .c3 {
+  height: 1.5rem;
+  width: 1.5rem;
+  flex-shrink: 0;
+}
+
+.c4 {
+  color: #000000;
+  font-size: 1.5rem;
+}
+
+.c5 {
   font-size: 0.875rem;
   line-height: 1.375rem;
   font-weight: 400;
@@ -127,17 +138,6 @@ exports[`Segment tests should render Segment with icons and test 1`] = `
   font-family: roboto;
   margin-left: 0.25rem;
   flex-shrink: 0;
-}
-
-.c3 {
-  height: 1.5rem;
-  width: 1.5rem;
-  flex-shrink: 0;
-}
-
-.c4 {
-  color: #000000;
-  font-size: 1.5rem;
 }
 
 .c0 {

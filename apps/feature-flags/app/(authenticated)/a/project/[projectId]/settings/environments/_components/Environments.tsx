@@ -1,6 +1,5 @@
-import React, { useMemo, useCallback } from "react";
-// Router
-import { useParams } from "next/navigation";
+// Types
+import { Role } from ".prisma/client";
 // UI
 import {
   ButtonVariant,
@@ -9,17 +8,18 @@ import {
   Table,
 } from "@basestack/design-system";
 import { SettingCard } from "@basestack/ui";
-// Server
-import { api } from "utils/trpc/react";
-// Store
-import { useStore } from "store";
+import { createTable } from "@basestack/utils";
 // Utils
 import dayjs from "dayjs";
-import { createTable } from "@basestack/utils";
-// Types
-import { Role } from ".prisma/client";
+// Router
+import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
+import { useCallback, useMemo } from "react";
+// Store
+import { useStore } from "store";
+// Server
+import { api } from "utils/trpc/react";
 
 export interface Props {
   role?: Role;
@@ -55,7 +55,7 @@ const EnvironmentsCard = ({ role }: Props) => {
 
   const onHandleEdit = useCallback(
     (environmentId: string) => {
-      if (!!projectId) {
+      if (projectId) {
         setUpdateEnvironmentModalOpen({
           isOpen: true,
           data: {
@@ -68,7 +68,7 @@ const EnvironmentsCard = ({ role }: Props) => {
   );
 
   const onHandleCreate = useCallback(() => {
-    if (!!projectId) {
+    if (projectId) {
       setCreateEnvironmentModalOpen({ isOpen: true });
     }
   }, [projectId, setCreateEnvironmentModalOpen]);

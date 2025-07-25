@@ -1,16 +1,16 @@
-import {
-  protectedProcedure,
-  createTRPCRouter,
-  withFormRestrictions,
-} from "server/trpc";
 // Types
 import { Role } from ".prisma/client";
-// Utils
-import { z } from "zod";
-import { Product, AppEnv, config, emailToId } from "@basestack/utils";
-import { AppMode } from "utils/helpers/general";
+import { type AppEnv, config, emailToId, Product } from "@basestack/utils";
 // Vendors
 import { qstash } from "@basestack/vendors";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  withFormRestrictions,
+} from "server/trpc";
+import { AppMode } from "utils/helpers/general";
+// Utils
+import { z } from "zod";
 
 export const formMembersRouter = createTRPCRouter({
   list: protectedProcedure
@@ -91,7 +91,7 @@ export const formMembersRouter = createTRPCRouter({
         },
       });
 
-      if (!!connection.user.email) {
+      if (connection.user.email) {
         await qstash.events.sendEmailEvent({
           template: "addFormMember",
           to: [connection.user.email],

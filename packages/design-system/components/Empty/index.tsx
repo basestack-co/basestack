@@ -1,10 +1,10 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import { useTheme } from "styled-components";
-import { SpaceProps } from "styled-system";
-// Components
-import Text from "../Text";
+import type { SpaceProps } from "styled-system";
 import { Button } from "../Button";
 import IconBox from "../IconBox";
+// Components
+import Text from "../Text";
 import { Container } from "./styles";
 
 export interface EmptyProps extends SpaceProps {

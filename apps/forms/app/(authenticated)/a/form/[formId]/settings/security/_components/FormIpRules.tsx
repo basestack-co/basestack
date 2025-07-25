@@ -1,25 +1,26 @@
-import React, { useEffect, useCallback } from "react";
-// Router
-import { useParams, useRouter } from "next/navigation";
-// Form
-import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-// Server
-import { api } from "utils/trpc/react";
-// UI
-import { SettingCard } from "@basestack/ui";
 // Components
 import { IconButton, InputGroup, Label } from "@basestack/design-system";
-// Toast
-import { toast } from "sonner";
+// UI
+import { SettingCard } from "@basestack/ui";
+// Utils
+import type { PlanTypeId } from "@basestack/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+// Router
+import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-// Utils
-import { PlanTypeId } from "@basestack/utils";
-import { getWithPlanCardProps } from "../../utils";
+import type React from "react";
+import { useCallback, useEffect } from "react";
+// Form
+import { Controller, useForm } from "react-hook-form";
+// Toast
+import { toast } from "sonner";
+// Server
+import { api } from "utils/trpc/react";
+import { z } from "zod";
 // Styles
 import { TagsContainer } from "../../styles";
+import { getWithPlanCardProps } from "../../utils";
 
 export const FormSchema = z.object({
   ip: z.string().ip().optional().or(z.literal("")),
@@ -143,45 +144,43 @@ const FormIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
         },
       })}
     >
-      <>
-        <Controller
-          name="ip"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <InputGroup
-              hint={errors.ip?.message}
-              inputProps={{
-                type: "text",
-                name: field.name,
-                value: field.value as string,
-                onChange: field.onChange,
-                onBlur: field.onBlur,
-                placeholder: t(
-                  "setting.security.ip-block-rules.inputs.name.placeholder",
-                ),
-                hasError: !!errors.ip,
-                onKeyDown: onHandleKeyDown,
-                maxWidth: 400,
-              }}
-            />
-          )}
-        />
-        {!!ipsValues?.length && (
-          <TagsContainer>
-            {ipsValues.map((item, index) => (
-              <Label key={index} text={item} size="normal" isTranslucent>
-                <IconButton
-                  icon="close"
-                  size="small"
-                  variant="secondaryDark"
-                  onClick={() => onDeleteIp(item)}
-                />
-              </Label>
-            ))}
-          </TagsContainer>
+      <Controller
+        name="ip"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <InputGroup
+            hint={errors.ip?.message}
+            inputProps={{
+              type: "text",
+              name: field.name,
+              value: field.value as string,
+              onChange: field.onChange,
+              onBlur: field.onBlur,
+              placeholder: t(
+                "setting.security.ip-block-rules.inputs.name.placeholder",
+              ),
+              hasError: !!errors.ip,
+              onKeyDown: onHandleKeyDown,
+              maxWidth: 400,
+            }}
+          />
         )}
-      </>
+      />
+      {!!ipsValues?.length && (
+        <TagsContainer>
+          {ipsValues.map((item, index) => (
+            <Label key={index} text={item} size="normal" isTranslucent>
+              <IconButton
+                icon="close"
+                size="small"
+                variant="secondaryDark"
+                onClick={() => onDeleteIp(item)}
+              />
+            </Label>
+          ))}
+        </TagsContainer>
+      )}
     </SettingCard>
   );
 };

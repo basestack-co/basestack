@@ -1,5 +1,5 @@
 // Types
-import { AppEnv, Product } from "../types";
+import type { AppEnv, Product } from "../types";
 
 const protocol = "https:";
 const domainUrl = "basestack.co";

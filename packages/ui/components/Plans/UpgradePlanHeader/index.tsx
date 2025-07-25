@@ -1,12 +1,11 @@
-import React from "react";
-import { useTheme } from "styled-components";
-import { useTranslations } from "next-intl";
-import { SpaceProps } from "styled-system";
 // Components
 import { Icon, Segment, Text } from "@basestack/design-system";
-import { Container, Content, LeftContent, StyledLink } from "./styles";
+import { useTranslations } from "next-intl";
+import { useTheme } from "styled-components";
+import type { SpaceProps } from "styled-system";
 // Types
-import { BillingInterval } from "../types";
+import type { BillingInterval } from "../types";
+import { Container, Content, LeftContent, StyledLink } from "./styles";
 
 interface UpgradePlanHeaderProps extends SpaceProps {
   onSelectCycle: (value: BillingInterval) => void;

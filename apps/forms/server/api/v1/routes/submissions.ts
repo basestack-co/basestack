@@ -1,22 +1,20 @@
-import { Hono } from "hono";
-// Types
-import { Env } from "../types";
 // Utils
 import {
-  RequestError,
+  type AppEnv,
   emailToId,
   getMetadata,
-  UsageEvent,
   Product,
-  AppEnv,
+  RequestError,
+  UsageEvent,
   config as utilsConfig,
 } from "@basestack/utils";
-import { withUsageUpdate } from "server/db/utils/subscription";
-import { AppMode } from "utils/helpers/general";
+// Vendors
+import { polar, qstash } from "@basestack/vendors";
+import { Hono } from "hono";
 // Prisma
 import { prisma } from "server/db";
-// Vendors
-import { qstash, polar } from "@basestack/vendors";
+import { withUsageUpdate } from "server/db/utils/subscription";
+import { AppMode } from "utils/helpers/general";
 // Utils
 import { FormMode, formatFormData, verifyForm } from "../utils/form";
 
@@ -24,7 +22,7 @@ const { urls } = utilsConfig;
 
 const productUrl = urls.getAppWithEnv(Product.FORMS, AppMode as AppEnv);
 
-const submissionsRoutes = new Hono<Env>().post("/:formId", async (c) => {
+const submissionsRoutes = new Hono().post("/:formId", async (c) => {
   const formId = c.req.param("formId");
   const referer = c.req.header("referer") || productUrl;
 
@@ -84,7 +82,7 @@ const submissionsRoutes = new Hono<Env>().post("/:formId", async (c) => {
           }
         }
 
-        if (!!form.webhookUrl) {
+        if (form.webhookUrl) {
           await qstash.events.sendDataToExternalWebhookEvent({
             url: form.webhookUrl,
             externalCustomerId,
@@ -96,7 +94,7 @@ const submissionsRoutes = new Hono<Env>().post("/:formId", async (c) => {
           });
         }
 
-        if (!!form.emails) {
+        if (form.emails) {
           await qstash.events.sendEmailEvent({
             template: "new-submission",
             to: form.emails.split(",").map((email) => email.trim()),

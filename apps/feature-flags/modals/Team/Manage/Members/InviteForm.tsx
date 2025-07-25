@@ -1,21 +1,20 @@
-import React from "react";
+// types
+import { Role } from ".prisma/client";
 // Components
-import { Button, Text, InputGroup } from "@basestack/design-system";
+import { Button, InputGroup, Text } from "@basestack/design-system";
+// Utils
+import { isEmptyObject } from "@basestack/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+// Locales
+import { useTranslations } from "next-intl";
+// Form
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 // Server
 import { api } from "utils/trpc/react";
-// Form
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-// Locales
-import { useTranslations } from "next-intl";
 // Styles
 import { InputGroupContainer, InputGroupWrapper } from "./styles";
-// Utils
-import { isEmptyObject } from "@basestack/utils";
-// types
-import { Role } from ".prisma/client";
 
 export const FormSchema = z.object({
   email: z.string().email().optional().or(z.literal("")),
@@ -50,7 +49,7 @@ const InviteForm = ({ teamId }: Props) => {
   const email = watch("email");
 
   const onSendInvite: SubmitHandler<FormInputs> = async (input) => {
-    if (!!input.email) {
+    if (input.email) {
       invite.mutate(
         { teamId, email: input.email, role: Role.VIEWER },
         {

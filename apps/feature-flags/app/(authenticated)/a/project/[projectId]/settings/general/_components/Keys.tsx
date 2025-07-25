@@ -1,10 +1,10 @@
-import React, { useMemo } from "react";
-import { useParams } from "next/navigation";
 import { Loader, Skeleton, Table } from "@basestack/design-system";
 import { SettingCard } from "@basestack/ui";
-import { api } from "utils/trpc/react";
-import { useTranslations } from "next-intl";
 import { createTable } from "@basestack/utils";
+import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useMemo } from "react";
+import { api } from "utils/trpc/react";
 
 const KeysCard = () => {
   const t = useTranslations("setting");

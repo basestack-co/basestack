@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 // Components
 import IconButton from "../IconButton";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../Tooltip";
-import { tooltip } from "./types";
+import type { tooltip } from "./types";
 
 export interface CopyClipboardProps {
   tooltip: tooltip;

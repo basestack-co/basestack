@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { useTheme } from "styled-components";
-// Locales
-import { useTranslations } from "next-intl";
 // Components
 import {
-  Text,
-  Input,
   IconButton,
+  Input,
+  Text,
   Tooltip,
-  TooltipTrigger,
   TooltipContent,
+  TooltipTrigger,
 } from "@basestack/design-system";
 // Utils
 import { getBrowserUrl } from "@basestack/utils";
+// Locales
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { useTheme } from "styled-components";
 // Styles
 import {
   Container,

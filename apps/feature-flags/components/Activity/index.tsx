@@ -1,15 +1,16 @@
-import React, { useState, useCallback, useMemo } from "react";
-// Server
-import { api } from "utils/trpc/react";
 // Router
 import { useParams } from "next/navigation";
+import type React from "react";
+import { useCallback, useMemo, useState } from "react";
 // Hooks
 import { useDebounce } from "react-use";
+// Server
+import { api } from "utils/trpc/react";
 // Components
-import ActivityList, { ActivityListData } from "./ActivityList";
-import Toolbar from "./Toolbar";
+import ActivityList, { type ActivityListData } from "./ActivityList";
 // Styles
 import { Container } from "./styles";
+import Toolbar from "./Toolbar";
 
 const Activity = () => {
   const trpcUtils = api.useUtils();
@@ -22,7 +23,7 @@ const Activity = () => {
     if (projectId) {
       const cache = trpcUtils.projects.list.getData();
 
-      return ((cache && cache.projects) || []).find(
+      return (cache?.projects || []).find(
         (project) => project.id === projectId,
       );
     }

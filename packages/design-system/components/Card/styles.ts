@@ -1,6 +1,6 @@
-import styled, { css, DefaultTheme } from "styled-components";
-import { space, position, layout, compose, color } from "styled-system";
 import { rem } from "polished";
+import styled, { css, type DefaultTheme } from "styled-components";
+import { color, compose, layout, position, space } from "styled-system";
 import { Variant } from "./types";
 
 const getOutlineColor = (theme: DefaultTheme, variant: Variant) => {

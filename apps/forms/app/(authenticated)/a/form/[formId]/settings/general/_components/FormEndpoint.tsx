@@ -1,12 +1,11 @@
-import React from "react";
-// UI
-import { SettingCard } from "@basestack/ui";
 // Components
 import { CopyCard } from "@basestack/design-system";
-// Locales
-import { useTranslations } from "next-intl";
+// UI
+import { SettingCard } from "@basestack/ui";
 // Utils
 import { getBrowserUrl } from "@basestack/utils";
+// Locales
+import { useTranslations } from "next-intl";
 
 export interface Props {
   formId: string;

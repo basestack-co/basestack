@@ -1,18 +1,18 @@
-import React from "react";
-import { render, RenderOptions } from "@testing-library/react";
+import theme from "@basestack/design-system/theme/lightTheme";
+import { type RenderOptions, render } from "@testing-library/react";
+import type React from "react";
 // Styles
 import { ThemeProvider } from "styled-components";
-import theme from "@basestack/design-system/theme/lightTheme";
 
 interface WithChildrenProps {
   children: React.ReactNode;
 }
 
 interface AllProvidersProps extends WithChildrenProps {
-  initialState?: {};
+  initialState?: Record<string, unknown>;
 }
 
-const AllProviders = ({ children, initialState = {} }: AllProvidersProps) => {
+const AllProviders = ({ children }: AllProvidersProps) => {
   return (
     // @ts-ignore
     <ThemeProvider theme={theme}>{children}</ThemeProvider>
@@ -21,7 +21,7 @@ const AllProviders = ({ children, initialState = {} }: AllProvidersProps) => {
 
 const renderWithAllProviders = (
   ui: React.ReactElement,
-  initialState?: {},
+  initialState?: Record<string, unknown>,
   options?: Omit<RenderOptions, "wrapper">,
 ) =>
   render(ui, {

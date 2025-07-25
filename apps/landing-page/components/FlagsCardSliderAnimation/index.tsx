@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from "react";
-import useEmblaCarousel from "embla-carousel-react";
-import AutoScroll from "embla-carousel-auto-scroll";
 import { ProjectCard } from "@basestack/ui";
+import AutoScroll from "embla-carousel-auto-scroll";
+import useEmblaCarousel from "embla-carousel-react";
+import { useEffect, useRef } from "react";
 import {
   Container,
   Embla,

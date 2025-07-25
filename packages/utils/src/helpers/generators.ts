@@ -1,5 +1,5 @@
 // Utils
-import { randomBytes, createHash } from "crypto";
+import { createHash, randomBytes } from "node:crypto";
 import { v4 as uuidv4 } from "uuid";
 
 /**

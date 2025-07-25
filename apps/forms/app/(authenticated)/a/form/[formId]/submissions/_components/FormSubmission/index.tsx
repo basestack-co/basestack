@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { Card } from "@basestack/design-system";
+import { useEffect, useState } from "react";
 // Components
 import { useTheme } from "styled-components";
-import { Card } from "@basestack/design-system";
-import Header from "./Header";
 import Body from "./Body";
+import Header from "./Header";
 // Types
-import { FormSubmissionProps } from "./types";
+import type { FormSubmissionProps } from "./types";
 
 const FormSubmission = ({
   data,

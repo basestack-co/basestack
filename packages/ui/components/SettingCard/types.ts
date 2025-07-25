@@ -1,5 +1,5 @@
-import React from "react";
-import { CardVariant } from "@basestack/design-system";
+import type { CardVariant } from "@basestack/design-system";
+import type React from "react";
 
 export interface Props<T> {
   /**
@@ -17,7 +17,7 @@ export interface Props<T> {
   /**
    * Card body content, input, table or other elements
    */
-  children?: React.ReactElement;
+  children?: React.ReactNode;
   /**
    * Card button disable state
    */

@@ -1,20 +1,20 @@
 // Utils
 import {
-  isRefererValid,
-  getValidWebsite,
-  isValidIpAddress,
-  RequestError,
   emailToId,
+  getValidWebsite,
+  isRefererValid,
+  isValidIpAddress,
   Product,
+  RequestError,
   UsageEvent,
 } from "@basestack/utils";
-import { AppMode } from "utils/helpers/general";
+// Vendors
+import { polar } from "@basestack/vendors";
 // DB
 import { prisma } from "server/db";
 import { getProjectOnUser, productUrl } from "server/db/utils/project";
 import { withUsageUpdate } from "server/db/utils/usage";
-// Vendors
-import { polar } from "@basestack/vendors";
+import { AppMode } from "utils/helpers/general";
 
 export const verifyProjectRequest = async (
   key: string,

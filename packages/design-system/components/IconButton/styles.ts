@@ -1,8 +1,8 @@
-import { Ref } from "react";
-import styled, { css } from "styled-components";
-import { flexbox, space, position, compose } from "styled-system";
 import { rem } from "polished";
-import { Variant } from "./types";
+import type { Ref } from "react";
+import styled, { css } from "styled-components";
+import { compose, flexbox, position, space } from "styled-system";
+import type { Variant } from "./types";
 
 const sharedStyles = css`
   ${compose(flexbox, space, position)};
@@ -108,7 +108,6 @@ const handleButtonVariant = (variant?: Variant) => {
     case "secondaryDark":
       return secondaryDarkStyles;
     default:
-    case "neutral":
       return neutralStyles;
   }
 };

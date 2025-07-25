@@ -1,10 +1,9 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
+import styled from "styled-components";
 // Styles
 import LegalGlobalStyle from "styles/legalGlobalStyles";
-import styled from "styled-components";
 
 const Container = styled.section`
   padding: ${({ theme }) => theme.spacing.s8} ${({ theme }) => theme.spacing.s5};
@@ -240,12 +239,20 @@ const PrivacyPolicyPage = () => {
           <p>Third parties we currently use include: </p>
           <ul>
             <li>
-              <a href="https://upstash.com/?ref=basestack.co" target="_blank">
+              <a
+                href="https://upstash.com/?ref=basestack.co"
+                target="_blank"
+                rel="noopener"
+              >
                 Upstash
               </a>
             </li>
             <li>
-              <a href="https://www.polar.sh/?ref=basestack.co" target="_blank">
+              <a
+                href="https://www.polar.sh/?ref=basestack.co"
+                target="_blank"
+                rel="noopener"
+              >
                 Polar
               </a>
             </li>
@@ -253,22 +260,35 @@ const PrivacyPolicyPage = () => {
               <a
                 href="https://www.cloudflare.com/?ref=basestack.co"
                 target="_blank"
+                rel="noopener"
               >
                 Cloudflare
               </a>
             </li>
             <li>
-              <a href="https://railway.com/?ref=basestack.co" target="_blank">
+              <a
+                href="https://railway.com/?ref=basestack.co"
+                target="_blank"
+                rel="noopener"
+              >
                 Railway
               </a>
             </li>
             <li>
-              <a href="https://neon.tech/?ref=basestack.co" target="_blank">
+              <a
+                href="https://neon.tech/?ref=basestack.co"
+                target="_blank"
+                rel="noopener"
+              >
                 Neon
               </a>
             </li>
             <li>
-              <a href="https://resend.com/?ref=basestack.co" target="_blank">
+              <a
+                href="https://resend.com/?ref=basestack.co"
+                target="_blank"
+                rel="noopener"
+              >
                 Resend
               </a>
             </li>

@@ -1,9 +1,9 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
-// Types
-import { Store } from "./types";
+import { createJSONStorage, persist } from "zustand/middleware";
 // Slices
 import { createAppSlice } from "./slices/app";
+// Types
+import type { Store } from "./types";
 
 export const useStore = create<Store>()(
   persist(

@@ -1,6 +1,6 @@
-import styled from "styled-components";
 import Link from "next/link";
 import { rem } from "polished";
+import styled from "styled-components";
 import { gradientBorderStyles } from "../styles";
 
 export const Container = styled.footer`

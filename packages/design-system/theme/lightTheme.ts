@@ -1,5 +1,5 @@
 import { darken, lighten, transparentize } from "polished";
-import { typography, colors, spacing, zIndex, device } from "./common";
+import { colors, device, spacing, typography, zIndex } from "./common";
 
 const shadow = {
   elevation1: "rgba(0, 0, 0, 0.05) 0px 1px 2px 0px",

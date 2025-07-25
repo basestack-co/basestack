@@ -1,13 +1,17 @@
-import React, { useCallback } from "react";
-import { useTheme } from "styled-components";
+// Components
+import { ButtonVariant, Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
-import { Modal, ButtonVariant } from "@basestack/design-system";
-// Store
-import { useStore } from "store";
-import { useShallow } from "zustand/react/shallow";
-import { ConfirmModalType } from "store/types";
+// Utils
+import parse from "html-react-parser";
 // Locales
 import { useTranslations } from "next-intl";
+// React
+import { useCallback } from "react";
+// Store
+import { useStore } from "store";
+import type { ConfirmModalType } from "store/types";
+import { useTheme } from "styled-components";
+import { useShallow } from "zustand/react/shallow";
 // Styles
 import { Content } from "./styles";
 
@@ -23,19 +27,15 @@ const getButtonVariant = (type: ConfirmModalType) => {
 const ConfirmModal = () => {
   const t = useTranslations("modal");
   const theme = useTheme();
-  const [
-    isModalOpen,
-    confirmModal,
-    setConfirmModalOpen,
-    closeModalsOnClickOutside,
-  ] = useStore(
-    useShallow((state) => [
-      state.isConfirmModalOpen,
-      state.confirmModalPayload,
-      state.setConfirmModalOpen,
-      state.closeModalsOnClickOutside,
-    ]),
-  );
+  const [isModalOpen, payload, setConfirmModalOpen, closeModalsOnClickOutside] =
+    useStore(
+      useShallow((state) => [
+        state.isConfirmModalOpen,
+        state.confirmModalPayload,
+        state.setConfirmModalOpen,
+        state.closeModalsOnClickOutside,
+      ]),
+    );
 
   const onClose = useCallback(() => {
     setConfirmModalOpen({ isOpen: false });
@@ -44,24 +44,23 @@ const ConfirmModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title={confirmModal?.title!}
+        title={payload?.title!}
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
           { children: t("confirm.button.cancel"), onClick: onClose },
           {
-            children: confirmModal?.buttonText,
-            onClick: confirmModal?.onClick,
-            variant: getButtonVariant(confirmModal?.type || "info"),
+            children: payload?.buttonText,
+            onClick: payload?.onClick,
+            variant: getButtonVariant(payload?.type || "info"),
           },
         ]}
         closeOnClickOutside={closeModalsOnClickOutside}
       >
-        <Content
-          dangerouslySetInnerHTML={{ __html: confirmModal?.description! }}
-          mb={confirmModal?.children ? theme.spacing.s5 : 0}
-        />
-        {confirmModal?.children}
+        <Content mb={payload?.children ? theme.spacing.s5 : 0}>
+          {parse(payload?.description ?? "")}
+        </Content>
+        {payload?.children}
       </Modal>
     </Portal>
   );

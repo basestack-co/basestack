@@ -1,7 +1,7 @@
+import { rem } from "polished";
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
-import { rem } from "polished";
-import { Gradient, IconBoxVariant, Size } from "./types";
+import type { Gradient, IconBoxVariant, Size } from "./types";
 
 const getSize = {
   small: "34px",
@@ -38,10 +38,10 @@ export const IconContainer = styled.div.withConfig({
     css`
       background: ${({ theme: { iconBox } }) =>
         `linear-gradient(220deg, 
-        ${(gradient && gradient[0]) || iconBox.outlined.gradient[0]} 0%, 
-        ${(gradient && gradient[1]) || iconBox.outlined.gradient[1]} 30%, 
-        ${(gradient && gradient[2]) || iconBox.outlined.gradient[2]} 70%, 
-        ${(gradient && gradient[3]) || iconBox.outlined.gradient[3]} 100%)`};
+        ${gradient?.[0] || iconBox.outlined.gradient[0]} 0%, 
+        ${gradient?.[1] || iconBox.outlined.gradient[1]} 30%, 
+        ${gradient?.[2] || iconBox.outlined.gradient[2]} 70%, 
+        ${gradient?.[3] || iconBox.outlined.gradient[3]} 100%)`};
 
       &::before {
         content: "";

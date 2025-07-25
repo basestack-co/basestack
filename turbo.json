@@ -31,18 +31,41 @@
     },
     "build": {
       "dependsOn": ["^build", "lint"],
-      "outputs": ["dist/**", ".next/**"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "lint": {
-      "outputs": []
+      "outputs": [],
+      "inputs": ["src/**", "**/*.{js,ts,tsx,jsx}", "*.{js,ts,tsx,jsx}"]
     },
     "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "test": {
+      "inputs": [
+        "src/**",
+        "**/*.{js,ts,tsx,jsx}",
+        "*.{js,ts,tsx,jsx}",
+        "**/*.test.*",
+        "**/*.spec.*"
+      ]
+    },
+    "test:coverage": {
+      "inputs": [
+        "src/**",
+        "**/*.{js,ts,tsx,jsx}",
+        "*.{js,ts,tsx,jsx}",
+        "**/*.test.*",
+        "**/*.spec.*"
+      ],
+      "outputs": ["coverage/**"]
+    },
+    "test:update": {
       "cache": false
     },
-    "test": {},
-    "test:update": {},
     "test:watch": {
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "deploy": {
       "dependsOn": ["build", "test", "lint"],

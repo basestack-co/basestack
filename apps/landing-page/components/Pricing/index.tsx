@@ -1,25 +1,29 @@
-import React, { useCallback, useState, useEffect, useMemo } from "react";
-import { useRouter } from "next/navigation";
-// Components
-import useEmblaCarousel from "embla-carousel-react";
-import { animated, useSpring, config } from "react-spring";
 import {
-  Text,
   Button,
-  Icon,
   ButtonSize,
   ButtonVariant,
   HorizontalRule,
+  Icon,
   Segment,
+  Text,
 } from "@basestack/design-system";
-// Hooks
-import { useMedia } from "react-use";
+// Utils
+import { config as defaults } from "@basestack/utils";
+// Components
+import useEmblaCarousel from "embla-carousel-react";
+import { useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
+import { rem } from "polished";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { animated, config, useSpring } from "react-spring";
+// Hooks
+import { useMedia } from "react-use";
 // Styles
 import { useTheme } from "styled-components";
-import { rem } from "polished";
+import CarouselButtons from "../CarouselButtons";
 import SectionHeader from "../SectionHeader";
+import { Card } from "../styles";
 import {
   Container,
   ContentContainer,
@@ -28,16 +32,12 @@ import {
   EmblaSlide,
   EmblaViewport,
   FloatingLabel,
+  HeaderContainer,
   List,
   ListItem,
   PriceContainer,
-  HeaderContainer,
   Span,
 } from "./styles";
-import { Card } from "../styles";
-// Utils
-import { config as defaults } from "@basestack/utils";
-import CarouselButtons from "../CarouselButtons";
 
 const { urls } = defaults;
 

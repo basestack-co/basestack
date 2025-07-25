@@ -1,21 +1,20 @@
 "use client";
 
-import React from "react";
+// Utils
+import { config } from "@basestack/utils";
 // Router
 import { useParams } from "next/navigation";
-// Components
-import ProjectName from "./_components/ProjectName";
-import ProjectOwner from "./_components/ProjectOwner";
+// Server
+import { api } from "utils/trpc/react";
+// Styles
+import { CardList, CardListItem, SettingCardContainer } from "../styles";
 import DeleteProject from "./_components/DeleteProject";
 import Endpoints from "./_components/Endpoints";
 import Keys from "./_components/Keys";
 import ProjectKey from "./_components/ProjectKey";
-// Server
-import { api } from "utils/trpc/react";
-// Utils
-import { config } from "@basestack/utils";
-// Styles
-import { CardList, CardListItem, SettingCardContainer } from "../styles";
+// Components
+import ProjectName from "./_components/ProjectName";
+import ProjectOwner from "./_components/ProjectOwner";
 
 const { hasFlagsPermission } = config.plans;
 

@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useSpring, animated, config } from "react-spring";
-import { useTheme } from "styled-components";
 import {
   Button,
-  ButtonVariant,
   ButtonSize,
+  ButtonVariant,
   IconBox,
-  LogoProps,
+  type LogoProps,
 } from "@basestack/design-system";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { animated, config, useSpring } from "react-spring";
+import { useTheme } from "styled-components";
+import Dropdown from "./Dropdown";
 import {
   Container,
   ContentContainer,
@@ -19,7 +20,6 @@ import {
   StyledButton,
   Title,
 } from "./styles";
-import Dropdown from "./Dropdown";
 
 interface ProductNavigationProps {
   items: Array<{
@@ -45,7 +45,7 @@ const ProductNavigation = ({
   button,
   product,
 }: ProductNavigationProps) => {
-  const { isDarkMode, colors, spacing, typography } = useTheme();
+  const { isDarkMode, colors, spacing } = useTheme();
   const router = useRouter();
   const [maxWidth, setMaxWidth] = useState(1100);
 

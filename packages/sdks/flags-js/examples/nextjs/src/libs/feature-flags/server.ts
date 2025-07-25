@@ -1,5 +1,5 @@
 // Note: Change to the correct dependency path
-import { FlagsSDK, SDKConfig } from "../../../../../dist";
+import { FlagsSDK, type SDKConfig } from "../../../../../dist";
 
 export class ServerFlagsSDK {
   private static instance: FlagsSDK;

@@ -1,10 +1,11 @@
-import React, { useMemo, useState } from "react";
-// Locales
-import { useTranslations } from "next-intl";
 // Components
 import { CalendarInput, Input } from "@basestack/design-system";
 // Utils
 import dayjs from "dayjs";
+// Locales
+import { useTranslations } from "next-intl";
+import type React from "react";
+import { useMemo, useState } from "react";
 // Styles
 import { InputContainer, ToolBar } from "./styles";
 
@@ -40,7 +41,7 @@ const Toolbar = ({
     }
 
     return "";
-  }, [selectedDate, setIsCalenderOpen]);
+  }, [selectedDate]);
 
   return (
     <ToolBar>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { space, compose, layout } from "styled-system";
+import { compose, layout, space } from "styled-system";
 
 export const Container = styled.div`
   ${compose(space, layout)};

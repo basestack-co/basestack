@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { IconButton, Label } from "@basestack/design-system";
+import { animated, useTransition } from "@react-spring/web";
+import { useCallback, useEffect, useState } from "react";
 import { useTheme } from "styled-components";
-import { Label, IconButton } from "@basestack/design-system";
-import { useTransition, animated } from "@react-spring/web";
 import {
   ButtonContainer,
   Container,
@@ -41,10 +41,10 @@ const AccessLabelsAnimation = () => {
     text: string;
   } | null>(null);
 
-  const generateRandomIP = () => {
+  const generateRandomIP = useCallback(() => {
     const base = "192.168.1.";
     return `${base}${Math.floor(Math.random() * 10) + 1}`;
-  };
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -62,7 +62,7 @@ const AccessLabelsAnimation = () => {
     }, 5000); // Every 5 seconds, a new random IP label
 
     return () => clearInterval(interval);
-  }, []);
+  }, [generateRandomIP]);
 
   const removeLabel = (id: number) => {
     setLabels((prev) => prev.filter((label) => label.id !== id));

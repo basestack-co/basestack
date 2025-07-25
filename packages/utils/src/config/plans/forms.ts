@@ -1,5 +1,5 @@
 // Types
-import { PlanTypeId, FormPlan, FormsPermission } from "../../types";
+import { type FormPlan, type FormsPermission, PlanTypeId } from "../../types";
 
 const forms: FormPlan[] = [
   {

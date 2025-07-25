@@ -1,27 +1,27 @@
-import React from "react";
-import { useTheme } from "styled-components";
-import { useMedia } from "react-use";
-import useEmblaCarousel from "embla-carousel-react";
 // Components
 import {
-  Text,
-  ButtonVariant,
   Button,
   ButtonSize,
+  ButtonVariant,
+  Text,
 } from "@basestack/design-system";
+import useEmblaCarousel from "embla-carousel-react";
+import type React from "react";
+import { useMedia } from "react-use";
+import { useTheme } from "styled-components";
+import CarouselButtons from "../CarouselButtons";
 import SectionHeader from "../SectionHeader";
+import { Card } from "../styles";
 import {
+  CardContent,
   Container,
   ContentContainer,
   Embla,
   EmblaContainer,
-  EmblaViewport,
   EmblaSlide,
+  EmblaViewport,
   HeaderContainer,
-  CardContent,
 } from "./styles";
-import { Card } from "../styles";
-import CarouselButtons from "../CarouselButtons";
 
 export interface CardProps {
   icon?: React.ReactNode;

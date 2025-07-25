@@ -1,20 +1,19 @@
-import React from "react";
-import { useTheme } from "styled-components";
-import { animated } from "react-spring";
-// Store
-import { useStore } from "store";
+// Components
+import {
+  Button,
+  ButtonVariant,
+  Card,
+  Popup,
+  Text,
+} from "@basestack/design-system";
 // Hooks
 import { useFloatingPopup } from "@basestack/hooks";
 // Locales
 import { useTranslations } from "next-intl";
-// Components
-import {
-  Card,
-  Text,
-  Popup,
-  Button,
-  ButtonVariant,
-} from "@basestack/design-system";
+import { animated } from "react-spring";
+// Store
+import { useStore } from "store";
+import { useTheme } from "styled-components";
 // Styles
 import {
   ContentContainer,

@@ -1,51 +1,35 @@
 {
   "name": "@basestack/flags-js",
-  "description": "Easily integrate with Vanilla JavaScript to streamline feature testing and development across various environments, including production.",
-  "version": "1.0.3",
-  "author": "Basestack",
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
-    }
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "sideEffects": false,
-  "files": [
-    "dist/**",
-    "src"
-  ],
-  "license": "AGPL-3.0",
+  "version": "1.1.1",
+  "description": "",
+  "main": "dist/index.js",
   "scripts": {
-    "dev": "tsc --watch",
-    "build": "tsc && terser ./dist/index.js -o ./dist/index.min.js",
-    "test:blocked": "jest",
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react --minify",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "test": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
     "test:log": "jest --no-coverage >& ./logs/jest.log",
-    "lint": "TIMING=1 eslint src --fix",
+    "lint": "biome check src --write",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "prepublishOnly": "yarn build"
+    "bundlesize": "bundlesize"
   },
-  "publishConfig": {
-    "access": "public"
-  },
-  "homepage": "https://github.com/basestack-co/basestack",
-  "bugs": {
-    "url": "https://github.com/basestack-co/basestack/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/basestack-co/basestack.git"
-  },
+  "bundlesize": [
+    {
+      "path": "./dist/index.js",
+      "maxSize": "20 kB"
+    }
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "AGPL-3.0",
   "devDependencies": {
-    "terser": "^5.37.0",
-    "typescript": "^5.7.2"
+    "@basestack/tsconfig": "*",
+    "@types/jest": "^30.0.0",
+    "bundlesize": "^1.1.0",
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
   }
 }

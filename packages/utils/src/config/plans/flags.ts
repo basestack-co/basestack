@@ -1,5 +1,5 @@
 // Types
-import { PlanTypeId, FlagsPlan, FlagsPermission } from "../../types";
+import { type FlagsPermission, type FlagsPlan, PlanTypeId } from "../../types";
 
 const flags: FlagsPlan[] = [
   {

@@ -1,4 +1,3 @@
-import React from "react";
 // Components
 import { CopyCard } from "@basestack/design-system";
 // UI

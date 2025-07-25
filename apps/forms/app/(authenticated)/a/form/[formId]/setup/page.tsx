@@ -1,23 +1,23 @@
 "use client";
 
-import React, { Fragment, useEffect } from "react";
-// Router
-import { useParams, useRouter } from "next/navigation";
-// Server
-import { api } from "utils/trpc/react";
-// Locales
-import { useTranslations } from "next-intl";
-// Utils
-import { config } from "@basestack/utils";
+import { HorizontalRule } from "@basestack/design-system";
 // Components
 import { Banners } from "@basestack/ui";
-import EndpointCard from "./_components/EndpointCard";
-import { HorizontalRule } from "@basestack/design-system";
-import SetupGuide from "./_components/SetupGuide";
-import Form from "./_components/Form";
-import Links from "./_components/Links";
+// Utils
+import { config } from "@basestack/utils";
+// Router
+import { useParams, useRouter } from "next/navigation";
+// Locales
+import { useTranslations } from "next-intl";
+import { Fragment, useEffect } from "react";
 // Styles
 import { useTheme } from "styled-components";
+// Server
+import { api } from "utils/trpc/react";
+import EndpointCard from "./_components/EndpointCard";
+import Form from "./_components/Form";
+import Links from "./_components/Links";
+import SetupGuide from "./_components/SetupGuide";
 import { Column, Container, Row } from "./styles";
 
 const { hasFormsPermission } = config.plans;

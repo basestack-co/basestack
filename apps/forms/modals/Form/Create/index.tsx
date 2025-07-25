@@ -1,23 +1,22 @@
-import React from "react";
-// Router
-import { useRouter } from "next/navigation";
-// Form
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-// Theme
-import { useTheme } from "styled-components";
+import { InputGroup, Modal } from "@basestack/design-system";
 // Components
 import Portal from "@basestack/design-system/global/Portal";
-import { Modal, InputGroup } from "@basestack/design-system";
-// Store
-import { useStore } from "store";
+import { zodResolver } from "@hookform/resolvers/zod";
+// Router
+import { useRouter } from "next/navigation";
+// Locales
+import { type NamespaceKeys, useTranslations } from "next-intl";
+// Form
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 // Toast
 import { toast } from "sonner";
+// Store
+import { useStore } from "store";
+// Theme
+import { useTheme } from "styled-components";
 // Server
 import { api } from "utils/trpc/react";
-// Locales
-import { NamespaceKeys, useTranslations } from "next-intl";
+import { z } from "zod";
 
 export const FormSchema = z.object({
   name: z

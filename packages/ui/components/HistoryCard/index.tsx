@@ -1,6 +1,6 @@
-import React, { memo } from "react";
+import { Avatar, Icon, Label, Text } from "@basestack/design-system";
+import { memo } from "react";
 import { useTheme } from "styled-components";
-import { Text, Avatar, Icon, Label } from "@basestack/design-system";
 import {
   BottomContentContainer,
   Container,
@@ -10,7 +10,7 @@ import {
   TitleContainer,
   Wrapper,
 } from "./styles";
-import { HistoryCardProps } from "./types";
+import type { HistoryCardProps } from "./types";
 
 const HistoryCard = ({
   userName,

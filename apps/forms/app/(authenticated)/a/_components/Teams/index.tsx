@@ -1,28 +1,28 @@
 "use client";
 
-import React, { useCallback } from "react";
-// Locales
-import { useTranslations } from "next-intl";
-// Store
-import { useShallow } from "zustand/react/shallow";
-import { useStore } from "store";
-// Server
-import { api } from "utils/trpc/react";
-// Libs
-import { auth } from "@basestack/vendors";
-// Toast
-import { toast } from "sonner";
+// types
+import { Role } from ".prisma/client";
 // Components
-import { Button, ButtonVariant, Text, Empty } from "@basestack/design-system";
+import { Button, ButtonVariant, Empty, Text } from "@basestack/design-system";
 import {
   ProjectCard as TeamCard,
   ProjectCardLoading as TeamCardLoading,
 } from "@basestack/ui";
+// Libs
+import { auth } from "@basestack/vendors";
+// Locales
+import { useTranslations } from "next-intl";
+import { useCallback } from "react";
+// Toast
+import { toast } from "sonner";
+import { useStore } from "store";
 // Styles
 import { useTheme } from "styled-components";
-import { Section, Header, TeamsList, ListItem } from "./styles";
-// types
-import { Role } from ".prisma/client";
+// Server
+import { api } from "utils/trpc/react";
+// Store
+import { useShallow } from "zustand/react/shallow";
+import { Header, ListItem, Section, TeamsList } from "./styles";
 
 const Teams = () => {
   const { data: session } = auth.client.useSession();

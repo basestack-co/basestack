@@ -1,24 +1,24 @@
-import React, { memo, forwardRef } from "react";
-import { useTheme } from "styled-components";
-import { api } from "utils/trpc/react";
 import {
-  Text,
   Card,
+  PopupMenu,
+  Skeleton,
+  Text,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  Skeleton,
-  PopupMenu,
 } from "@basestack/design-system";
 import TooltipIcon from "components/TooltipIcon";
+import { forwardRef, memo } from "react";
+import { useTheme } from "styled-components";
+import { api } from "utils/trpc/react";
 import {
-  Labels,
-  Label,
   CardWrapper,
-  TooltipContainer,
   IconsContainer,
+  Label,
+  Labels,
+  TooltipContainer,
 } from "./styles";
-import { FlagRowProps } from "./types";
+import type { FlagRowProps } from "./types";
 
 const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
   (
@@ -91,7 +91,7 @@ const FlagRow = forwardRef<HTMLDivElement, FlagRowProps>(
             {title}
           </Text>
           <Text data-testid="flag-description" size="small" lineTruncate>
-            {!!description ? description : "-"}
+            {description ? description : "-"}
           </Text>
           <Text data-testid="flag-date" size="small" muted lineTruncate>
             {date}

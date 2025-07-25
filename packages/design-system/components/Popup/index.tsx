@@ -1,6 +1,6 @@
 import { forwardRef, memo } from "react";
-import { PositionProps } from "styled-system";
-import { Button, ButtonVariant, ButtonProps } from "../Button";
+import type { PositionProps } from "styled-system";
+import { Button, type ButtonProps, ButtonVariant } from "../Button";
 import { Container, List, ListItem } from "./styles";
 
 export interface PopupItemsProps {
@@ -49,30 +49,29 @@ const Popup = forwardRef<HTMLDivElement, PopupProps>(
   ({ items, width, onClickList, ...props }, ref) => (
     <Container width={width} ref={ref} {...props}>
       <List onClick={onClickList}>
-        {items &&
-          items.map(({ isVisible = true, ...item }, index) => {
-            const iconProps = !!item.icon
-              ? {
-                  icon: item.icon,
-                  iconPlacement: "left",
-                  iconSize: "small",
-                }
-              : {};
-            return isVisible ? (
-              <ListItem key={index.toString()}>
-                <Button
-                  {...(iconProps as ButtonProps)}
-                  onClick={item.onClick}
-                  fontWeight={400}
-                  variant={item.variant || ButtonVariant.Neutral}
-                  isDisabled={item.isDisabled}
-                  fullWidth
-                >
-                  {item.text}
-                </Button>
-              </ListItem>
-            ) : null;
-          })}
+        {items?.map(({ isVisible = true, ...item }, index) => {
+          const iconProps = item.icon
+            ? {
+                icon: item.icon,
+                iconPlacement: "left",
+                iconSize: "small",
+              }
+            : {};
+          return isVisible ? (
+            <ListItem key={index.toString()}>
+              <Button
+                {...(iconProps as ButtonProps)}
+                onClick={item.onClick}
+                fontWeight={400}
+                variant={item.variant || ButtonVariant.Neutral}
+                isDisabled={item.isDisabled}
+                fullWidth
+              >
+                {item.text}
+              </Button>
+            </ListItem>
+          ) : null;
+        })}
       </List>
     </Container>
   ),

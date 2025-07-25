@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useMemo } from "react";
-// Server
-import { api } from "utils/trpc/react";
 // UI
 import { UsageSection } from "@basestack/ui";
-// Styles
-import { useTheme } from "styled-components";
+// Utils
+import { config, PlanTypeId, Product } from "@basestack/utils";
 // Locales
 import { useTranslations } from "next-intl";
-// Utils
-import { Product, PlanTypeId, config } from "@basestack/utils";
+import { useMemo } from "react";
+// Styles
+import { useTheme } from "styled-components";
+// Server
+import { api } from "utils/trpc/react";
 
 interface MetersProps {
   isLoadingSubscription: boolean;

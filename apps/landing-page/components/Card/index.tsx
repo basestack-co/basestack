@@ -1,7 +1,6 @@
-import React from "react";
-import { useTheme } from "styled-components";
 // Components
-import { Text, IconBox } from "@basestack/design-system";
+import { IconBox, Text } from "@basestack/design-system";
+import { useTheme } from "styled-components";
 import { Card } from "../styles";
 
 export interface CardProps {

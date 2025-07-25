@@ -2,16 +2,15 @@ import {
   Body,
   Button,
   Container,
+  Font,
   Head,
   Hr,
   Html,
+  Img,
+  Link,
   Preview,
   Text,
-  Font,
-  Link,
-  Img,
 } from "@react-email/components";
-import * as React from "react";
 import * as Styles from "./styles";
 
 interface ContentType {

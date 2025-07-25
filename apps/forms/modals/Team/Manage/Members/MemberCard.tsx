@@ -1,17 +1,17 @@
-import React, { useCallback } from "react";
-// Locales
-import { useTranslations } from "next-intl";
+// types
+import { Role } from ".prisma/client";
 // Components
 import {
   Avatar,
   ButtonVariant,
   IconButton,
   Label,
-  Text,
   PopupMenu,
+  Text,
 } from "@basestack/design-system";
-// types
-import { Role } from ".prisma/client";
+// Locales
+import { useTranslations } from "next-intl";
+import { useCallback } from "react";
 
 import { MemberInfo, MembersListItem } from "./styles";
 

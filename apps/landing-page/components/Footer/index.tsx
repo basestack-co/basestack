@@ -1,49 +1,49 @@
 "use client";
 
-import React from "react";
-import { useStore } from "store";
-// Router
-import { useRouter } from "next/navigation";
+// Components
+import {
+  Button,
+  ButtonSize,
+  ButtonVariant,
+  HorizontalRule,
+  IconButton,
+  Input,
+  Logo,
+  Text,
+} from "@basestack/design-system";
 // Utils
 import { useDarkModeToggle } from "@basestack/hooks";
 import { config as defaults } from "@basestack/utils";
-// Form
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-// Theme
-import { useTheme } from "styled-components";
-// Components
-import {
-  Text,
-  Button,
-  ButtonSize,
-  HorizontalRule,
-  Logo,
-  IconButton,
-  Input,
-  ButtonVariant,
-} from "@basestack/design-system";
-import {
-  Container,
-  InputContainer,
-  List,
-  ListItem,
-  ListContainer,
-  CompanyContainer,
-  ContentWrapper,
-  BottomContainer,
-  StyledLink,
-  LinksContainer,
-  NewsletterContainer,
-  NewsletterContent,
-  LogoContainer,
-} from "./styles";
-// Utils
-import { z } from "zod";
+// Router
+import { useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
+import type React from "react";
+// Form
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 // Toast
 import { toast } from "sonner";
+import { useStore } from "store";
+// Theme
+import { useTheme } from "styled-components";
+// Utils
+import { z } from "zod";
+import {
+  BottomContainer,
+  CompanyContainer,
+  Container,
+  ContentWrapper,
+  InputContainer,
+  LinksContainer,
+  List,
+  ListContainer,
+  ListItem,
+  LogoContainer,
+  NewsletterContainer,
+  NewsletterContent,
+  StyledLink,
+} from "./styles";
 
 const { urls } = defaults;
 

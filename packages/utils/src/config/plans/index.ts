@@ -1,14 +1,15 @@
 // Plans Configs
-import { config as formsConfig } from "./forms";
-import { config as flagsConfig } from "./flags";
+
 // Types
 import {
-  Product,
+  type FlagsPlan,
+  type FormPlan,
+  type PlanProduct,
   PlanTypeId,
-  FormPlan,
-  FlagsPlan,
-  PlanProduct,
+  type Product,
 } from "../../types";
+import { config as flagsConfig } from "./flags";
+import { config as formsConfig } from "./forms";
 
 const getSubscriptionEvents = [
   "subscription_created",

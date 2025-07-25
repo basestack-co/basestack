@@ -1,12 +1,13 @@
-import React, { ReactNode, ButtonHTMLAttributes } from "react";
-import {
-  SpaceProps,
+import type React from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type {
+  ColorProps,
   FlexboxProps,
   LayoutProps,
+  SpaceProps,
   TypographyProps,
-  ColorProps,
 } from "styled-system";
-import { Size as IconSize } from "../Icon";
+import type { Size as IconSize } from "../Icon";
 
 export enum ButtonVariant {
   Primary = "primary",

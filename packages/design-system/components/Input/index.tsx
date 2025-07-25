@@ -1,8 +1,9 @@
-import React, { memo } from "react";
+import type React from "react";
+import { memo } from "react";
 import { useTheme } from "styled-components";
-import { SpaceProps, LayoutProps } from "styled-system";
+import type { LayoutProps, SpaceProps } from "styled-system";
 import Icon from "../Icon";
-import { Container, StyledInput, IconContainer } from "./styles";
+import { Container, IconContainer, StyledInput } from "./styles";
 
 export interface InputProps extends SpaceProps, LayoutProps {
   /**

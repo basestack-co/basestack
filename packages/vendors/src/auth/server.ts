@@ -1,14 +1,15 @@
 // Auth
-import { Adapter, betterAuth, BetterAuthOptions, User } from "better-auth";
+
+// import { client as redis } from "../redis";
+// Utils
+import type { AppEnv, Product } from "@basestack/utils";
+import { type Adapter, type BetterAuthOptions, betterAuth } from "better-auth";
 import { createAuthMiddleware } from "better-auth/api";
 // Plugins
 import { multiSession } from "better-auth/plugins";
 // Vendors
 import { createCustomerIfNotExists } from "../polar";
 import { events as qstashEvents } from "../qstash";
-// import { client as redis } from "../redis";
-// Utils
-import { AppEnv, Product } from "@basestack/utils";
 
 export interface CreateAuthServerProps {
   product: Product;
@@ -25,8 +26,8 @@ export interface CreateAuthServerProps {
 }
 
 export const createAuthServer = ({
-  product,
-  env,
+  // product,
+  // env,
   database,
   welcomeEmail,
 }: CreateAuthServerProps): ReturnType<typeof betterAuth> => {

@@ -1,23 +1,23 @@
 "use client";
 
-import React, { Fragment } from "react";
-// Components
-import RecentForms from "./_components/RecentForms";
-import QuickLinks from "./_components/QuickLinks";
-import Teams from "./_components/Teams";
-import Meters from "./user/tab/billing/_components/Meters/page";
-// Utils
-import dayjs from "dayjs";
 // UI
 import { Banners } from "@basestack/ui";
-// Styles
-import { Container } from "./styles";
-// Server
-import { api } from "utils/trpc/react";
+// Utils
+import dayjs from "dayjs";
 // Locales
 import { useTranslations } from "next-intl";
+import { Fragment } from "react";
 // Store
 import { useStore } from "store";
+// Server
+import { api } from "utils/trpc/react";
+import QuickLinks from "./_components/QuickLinks";
+// Components
+import RecentForms from "./_components/RecentForms";
+import Teams from "./_components/Teams";
+// Styles
+import { Container } from "./styles";
+import Meters from "./user/tab/billing/_components/Meters/page";
 
 const MainPage = () => {
   const t = useTranslations("home");

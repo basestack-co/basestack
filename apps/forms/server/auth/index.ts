@@ -1,14 +1,15 @@
 // Auth
-import { betterAuth } from "better-auth";
+
+import { type AppEnv, config, Product } from "@basestack/utils";
+// Vendors
+import { auth as authVendor } from "@basestack/vendors";
+import type { betterAuth } from "better-auth";
 // Adapters
 import { prismaAdapter } from "better-auth/adapters/prisma";
 // Utils
 import { AppMode } from "utils/helpers/general";
-import { config, Product, AppEnv } from "@basestack/utils";
 // DB
 import { prisma } from "../db";
-// Vendors
-import { auth as authVendor } from "@basestack/vendors";
 
 export const auth: ReturnType<typeof betterAuth> = authVendor.createAuthServer({
   product: Product.FORMS,

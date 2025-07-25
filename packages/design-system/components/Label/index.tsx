@@ -1,7 +1,7 @@
-import { memo, ReactNode } from "react";
-import { SpaceProps, FlexboxProps, LayoutProps } from "styled-system";
+import { memo, type ReactNode } from "react";
+import type { FlexboxProps, LayoutProps, SpaceProps } from "styled-system";
 import { LabelDot, LabelDotContainer, StyledLabel } from "./styles";
-import { LabelVariant, LabelSize } from "./types";
+import type { LabelSize, LabelVariant } from "./types";
 
 export interface LabelProps extends SpaceProps, FlexboxProps, LayoutProps {
   /**

@@ -1,7 +1,7 @@
 import { memo } from "react";
-import { IconProps, Size, CustomIconNames } from "./types";
 import CustomIcon, { iconNamesArray } from "./CustomIcon";
 import { Container, Icon } from "./styles";
+import type { CustomIconNames, IconProps, Size } from "./types";
 
 const handleSize = (size: Size) => {
   switch (size) {
@@ -11,11 +11,10 @@ const handleSize = (size: Size) => {
       return 48;
     case "large":
       return 32;
-    default:
-    case "medium":
-      return 24;
     case "small":
       return 18;
+    default:
+      return 24;
   }
 };
 

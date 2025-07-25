@@ -2,30 +2,7 @@
 
 exports[`Empty tests should render Empty correctly 1`] = `
 <DocumentFragment>
-  .c6 {
-  font-size: 0.875rem;
-  line-height: 1.375rem;
-  font-weight: 400;
-  font-family: 'Roboto',sans-serif;
-  word-break: break-word;
-  color: #757575;
-  font-family: roboto;
-  text-align: center;
-}
-
-.c5 {
-  font-size: 1.125rem;
-  line-height: 1.625rem;
-  font-weight: 500;
-  font-family: 'Roboto',sans-serif;
-  word-break: break-word;
-  color: #000000;
-  font-family: roboto;
-  text-align: center;
-  margin-bottom: 0.25rem;
-}
-
-.c3 {
+  .c3 {
   height: 1.5rem;
   width: 1.5rem;
   flex-shrink: 0;
@@ -96,6 +73,29 @@ exports[`Empty tests should render Empty correctly 1`] = `
   position: relative;
   display: inline-flex;
   z-index: 1;
+}
+
+.c6 {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #757575;
+  font-family: roboto;
+  text-align: center;
+}
+
+.c5 {
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  font-weight: 500;
+  font-family: 'Roboto',sans-serif;
+  word-break: break-word;
+  color: #000000;
+  font-family: roboto;
+  text-align: center;
+  margin-bottom: 0.25rem;
 }
 
 .c0 {

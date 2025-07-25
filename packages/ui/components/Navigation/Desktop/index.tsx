@@ -1,15 +1,14 @@
-import React from "react";
+// Components
+import { Avatar, IconButton, Logo, Text } from "@basestack/design-system";
 import { useTheme } from "styled-components";
+import AppsDropdown from "../../AppsDropdown";
 // UI
 import AvatarDropdown from "../../AvatarDropdown";
 import ProjectsMenu from "../../ProjectsMenu";
-import AppsDropdown from "../../AppsDropdown";
-// Components
-import { Logo, IconButton, Text, Avatar } from "@basestack/design-system";
-import { Container, List, ListItem, LogoContainer } from "./styles";
 import ButtonLink from "../Components/ButtonLink";
 // Types
-import { DesktopNavigationUIProps } from "../types";
+import type { DesktopNavigationUIProps } from "../types";
+import { Container, List, ListItem, LogoContainer } from "./styles";
 
 const DesktopNavigation = ({
   apps,
@@ -25,7 +24,7 @@ const DesktopNavigation = ({
   const theme = useTheme();
   const currentProject = projects.current;
   const truncateProjectName = (str: string) => {
-    return str.length <= 18 ? str : str.slice(0, 18) + "...";
+    return str.length <= 18 ? str : `${str.slice(0, 18)}...`;
   };
 
   return (

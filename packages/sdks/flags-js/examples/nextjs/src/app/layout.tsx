@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 import "./globals.css";
 // Feature Flags
 import FeatureFlagsProvider from "@/libs/feature-flags";

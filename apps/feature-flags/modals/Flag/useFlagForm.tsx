@@ -1,16 +1,16 @@
-import React, { useState, useMemo } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMemo, useState } from "react";
 // Form
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FlagFormInputs, FlagFormSchema } from "./types";
 // Types
 import { TabType } from "types";
 // Server
 import { api } from "utils/trpc/react";
+import Advance from "./Tab/Advance";
 // Tabs
 import Core from "./Tab/Core";
-import Advance from "./Tab/Advance";
 import History from "./Tab/History";
+import { type FlagFormInputs, FlagFormSchema } from "./types";
 
 export interface UseFlagFormProps {
   isModalOpen: boolean;
@@ -49,7 +49,7 @@ const useFlagForm = ({
     if (isModalOpen && projectId) {
       const cache = trpcUtils.projects.list.getData();
 
-      return ((cache && cache.projects) || []).find(
+      return (cache?.projects || []).find(
         (project) => project.id === projectId,
       );
     }
@@ -59,7 +59,12 @@ const useFlagForm = ({
 
   const onRenderTab = (isLoading: boolean = false) => {
     switch (selectedTab) {
-      case TabType.CORE:
+      case TabType.ADVANCED:
+        return (
+          <Advance setValue={setValue} environments={watch("environments")} />
+        );
+      case TabType.HISTORY:
+        return <History flagId={flagId} projectId={project?.id!} />;
       default:
         return (
           <Core
@@ -70,12 +75,6 @@ const useFlagForm = ({
             isSubmitting={isSubmitting || isLoading}
           />
         );
-      case TabType.ADVANCED:
-        return (
-          <Advance setValue={setValue} environments={watch("environments")} />
-        );
-      case TabType.HISTORY:
-        return <History flagId={flagId} projectId={project?.id!} />;
     }
   };
 

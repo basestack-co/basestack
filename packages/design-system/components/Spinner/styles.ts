@@ -1,5 +1,5 @@
-import styled, { keyframes } from "styled-components";
 import { rem } from "polished";
+import styled, { keyframes } from "styled-components";
 import { space } from "styled-system";
 
 const rotate = keyframes`

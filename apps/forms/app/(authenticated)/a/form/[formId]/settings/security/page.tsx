@@ -1,17 +1,16 @@
 "use client";
 
-import React from "react";
+// Utils
+import { config, PlanTypeId } from "@basestack/utils";
 // Router
 import { useParams } from "next/navigation";
-// Components
-import { CardList, CardListItem, SettingCardContainer } from "../styles";
-import FormIpRules from "./_components/FormIpRules";
-import FormHoneyPot from "./_components/FormHoneyPot";
-import FormWebsites from "./_components/FormWebsites";
-// Utils
-import { PlanTypeId, config } from "@basestack/utils";
 // Server
 import { api } from "utils/trpc/react";
+// Components
+import { CardList, CardListItem, SettingCardContainer } from "../styles";
+import FormHoneyPot from "./_components/FormHoneyPot";
+import FormIpRules from "./_components/FormIpRules";
+import FormWebsites from "./_components/FormWebsites";
 
 const { hasFormsPermission } = config.plans;
 

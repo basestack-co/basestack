@@ -1,30 +1,31 @@
 "use client";
 
-import React, { useEffect, useMemo } from "react";
-// Router
-import { useParams, useRouter, usePathname } from "next/navigation";
-// Server
-import { api } from "utils/trpc/react";
-// Theme
-import { useTheme } from "styled-components";
+// types
+import type { Role } from ".prisma/client";
 // Components
 import { Loader, Skeleton, Tabs, Text } from "@basestack/design-system";
+// Utils
+import { config } from "@basestack/utils";
+// Router
+import { useParams, usePathname, useRouter } from "next/navigation";
+// Locales
+import { type NamespaceKeys, useTranslations } from "next-intl";
+import type React from "react";
+import { useEffect, useMemo } from "react";
+// Hooks
+import { useMedia } from "react-use";
+// Theme
+import { useTheme } from "styled-components";
+// Server
+import { api } from "utils/trpc/react";
 import {
-  StyledLink,
   Container,
   List,
   ListItem,
   SettingsContainer,
   StyledButton,
+  StyledLink,
 } from "./styles";
-// Hooks
-import { useMedia } from "react-use";
-// Locales
-import { useTranslations, NamespaceKeys } from "next-intl";
-// Utils
-import { config } from "@basestack/utils";
-// types
-import { Role } from ".prisma/client";
 
 const { hasFormsPermission } = config.plans;
 
@@ -133,7 +134,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
     if (!link?.isVisible) {
       router.push(`/a/form/${formId}/settings/general`);
     }
-  }, [pathname, activeLinkIndex, formId, data?.role, router]);
+  }, [pathname, formId, data?.role, router]);
 
   return (
     <Container>

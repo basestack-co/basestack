@@ -1,6 +1,6 @@
-import React from "react";
-import { SpaceProps } from "styled-system";
-import { PopupItemsProps } from "../Popup";
+import type React from "react";
+import type { SpaceProps } from "styled-system";
+import type { PopupItemsProps } from "../Popup";
 
 export type Breakpoint = "sm" | "md" | "lg" | "xl" | "xxl";
 

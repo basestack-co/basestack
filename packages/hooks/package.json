@@ -4,9 +4,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "source": "./src/index.ts",
-  "files": [
-    "dist/**"
-  ],
+  "files": ["dist/**"],
   "license": "AGPL-3.0",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react --minify",
@@ -15,7 +13,7 @@
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
     "test:log": "jest --no-coverage >& ./logs/jest.log",
-    "lint": "TIMING=1 eslint src --fix",
+    "lint": "biome check src --write",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {

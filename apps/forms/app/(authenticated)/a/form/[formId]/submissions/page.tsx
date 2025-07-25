@@ -1,16 +1,16 @@
 "use client";
 
-import React, { Fragment, useEffect } from "react";
-// Router
-import { useParams } from "next/navigation";
-// Server
-import { api } from "utils/trpc/react";
-// Locales
-import { useTranslations } from "next-intl";
-// Components
-import FormSubmissions from "./_components/FormSubmissions";
 // Types
 import { Role } from ".prisma/client";
+// Router
+import { useParams } from "next/navigation";
+// Locales
+import { useTranslations } from "next-intl";
+import { useEffect } from "react";
+// Server
+import { api } from "utils/trpc/react";
+// Components
+import FormSubmissions from "./_components/FormSubmissions";
 
 const FormSubmissionsPage = () => {
   const t = useTranslations("form");
@@ -28,15 +28,13 @@ const FormSubmissionsPage = () => {
   }, [form?.name, t]);
 
   return (
-    <Fragment>
-      <FormSubmissions
-        isEnabled={form?.isEnabled ?? true}
-        hasRetention={form?.hasRetention ?? true}
-        name={form?.name ?? ""}
-        blockIpAddresses={form?.blockIpAddresses ?? ""}
-        formRole={form?.role ?? Role.VIEWER}
-      />
-    </Fragment>
+    <FormSubmissions
+      isEnabled={form?.isEnabled ?? true}
+      hasRetention={form?.hasRetention ?? true}
+      name={form?.name ?? ""}
+      blockIpAddresses={form?.blockIpAddresses ?? ""}
+      formRole={form?.role ?? Role.VIEWER}
+    />
   );
 };
 

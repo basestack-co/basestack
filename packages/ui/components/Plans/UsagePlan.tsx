@@ -1,15 +1,16 @@
-import React, { useCallback, useMemo, useState } from "react";
-// Locales
-import { useTranslations } from "next-intl";
+// Components
+import { Skeleton, Text } from "@basestack/design-system";
 // Utils
 import { config, PlanTypeId, Product } from "@basestack/utils";
 import dayjs from "dayjs";
-// Components
-import { Skeleton, Text } from "@basestack/design-system";
-import PlanCard from "./PlanCard";
-import ActivePlan, { CurrentPlan } from "./ActivePlan";
+// Locales
+import { useTranslations } from "next-intl";
+import type React from "react";
+import { useCallback, useMemo, useState } from "react";
 // Styles
 import { useTheme } from "styled-components";
+import ActivePlan, { type CurrentPlan } from "./ActivePlan";
+import PlanCard from "./PlanCard";
 import { Container } from "./styles";
 
 export interface UsagePlanProps {

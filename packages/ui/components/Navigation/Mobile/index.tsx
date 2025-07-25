@@ -1,37 +1,37 @@
-import React, { Fragment } from "react";
-// Components
-import AvatarDropdown from "../../AvatarDropdown";
 import {
-  fadeIn,
-  slideInLeft,
-  IconButton,
-  Text,
   Button,
   ButtonVariant,
+  fadeIn,
   HorizontalRule,
+  IconButton,
   Logo,
+  slideInLeft,
+  Text,
 } from "@basestack/design-system";
+import { Fragment } from "react";
 import { animated, config, useTransition } from "react-spring";
 // Styles
 import { useTheme } from "styled-components";
+// Components
+import AvatarDropdown from "../../AvatarDropdown";
+// Types
+import type { MobileNavigationUIProps } from "../types";
 import {
+  AppsLogo,
   BackDropCover,
+  ButtonContainer,
   Container,
+  ContentContainer,
   Footer,
+  GlobalStyle,
   Header,
   List,
   ListItem,
-  TitleContainer,
-  ContentContainer,
-  GlobalStyle,
+  LogoButton,
   ScrollableContent,
   StyledLink,
-  LogoButton,
-  ButtonContainer,
-  AppsLogo,
+  TitleContainer,
 } from "./styles";
-// Types
-import { MobileNavigationUIProps } from "../types";
 
 const AnimatedBackDropCover: any = animated(BackDropCover);
 const AnimatedNavigation: any = animated(Container);

@@ -1,14 +1,14 @@
-import React, { memo } from "react";
-import { useTheme } from "styled-components";
 import {
   Button,
   ButtonVariant,
-  HorizontalRule,
-  Text,
-  Label,
   Card,
   CardVariant,
+  HorizontalRule,
+  Label,
+  Text,
 } from "@basestack/design-system";
+import { memo } from "react";
+import { useTheme } from "styled-components";
 import {
   Container,
   Footer,
@@ -17,7 +17,7 @@ import {
   TagContainer,
   TextContainer,
 } from "./styles";
-import { SettingCardProps } from "./types";
+import type { SettingCardProps } from "./types";
 
 const SettingCard = ({
   title,
@@ -94,6 +94,6 @@ const SettingCard = ({
   );
 };
 
-export { type SettingCardProps };
+export type { SettingCardProps };
 
 export default memo(SettingCard);

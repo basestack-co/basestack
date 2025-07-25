@@ -1,10 +1,9 @@
-import React from "react";
-// Locales
-import { useTranslations } from "next-intl";
 // Components
 import { CopyCard } from "@basestack/design-system";
 // UI
 import { SettingCard } from "@basestack/ui";
+// Locales
+import { useTranslations } from "next-intl";
 
 interface ProjectKeyProps {
   projectKey: string;

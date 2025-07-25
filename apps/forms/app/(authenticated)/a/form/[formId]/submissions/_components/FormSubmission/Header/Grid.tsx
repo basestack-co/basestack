@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useMedia } from "react-use";
-import { animated, config, useTransition } from "react-spring";
-import { useTheme } from "styled-components";
 import { Avatar, slideBottom, Text } from "@basestack/design-system";
+import { useEffect, useMemo, useState } from "react";
+import { animated, config, useTransition } from "react-spring";
+import { useMedia } from "react-use";
+import { useTheme } from "styled-components";
 import { Box, HeaderCell, HeaderGrid } from "../styles";
-import { Data } from "../types";
+import type { Data } from "../types";
 
 const AnimatedBGrid = animated(HeaderGrid);
 

@@ -1,4 +1,4 @@
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "styled-system";
 
 export type HistoryType =
   | "deleted"

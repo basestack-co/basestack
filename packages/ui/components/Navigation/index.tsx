@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import DesktopNavigation from "./Desktop";
 // Components
 import MobileNavigation from "./Mobile";
-import DesktopNavigation from "./Desktop";
 // Types"
-import { NavigationProps } from "./types";
+import type { NavigationProps } from "./types";
 
 const Navigation = ({
   projects,
@@ -53,5 +53,5 @@ const Navigation = ({
   );
 };
 
-export { type NavigationProps };
+export type { NavigationProps };
 export default Navigation;

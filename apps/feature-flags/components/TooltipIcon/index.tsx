@@ -1,12 +1,11 @@
-import React from "react";
-import { SpaceProps } from "styled-system";
-import { useTheme } from "styled-components";
 import {
   Icon,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@basestack/design-system";
+import { useTheme } from "styled-components";
+import type { SpaceProps } from "styled-system";
 import { TooltipContainer } from "./styles";
 
 interface TooltipIconProps extends SpaceProps {

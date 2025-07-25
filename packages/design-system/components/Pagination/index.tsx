@@ -1,8 +1,8 @@
 import { memo } from "react";
-import { SpaceProps } from "styled-system";
 import { useTheme } from "styled-components";
+import type { SpaceProps } from "styled-system";
 import { Button, ButtonVariant } from "../Button";
-import { Container, Number, StyledText } from "./styles";
+import { Container, NumberContainer, StyledText } from "./styles";
 
 export interface PaginationProps extends SpaceProps {
   /**
@@ -42,11 +42,11 @@ const Pagination = ({
       >
         Showing
       </StyledText>
-      <Number>
+      <NumberContainer>
         <StyledText data-testid="pagination-current-page" size="small">
           {currentPage}
         </StyledText>
-      </Number>
+      </NumberContainer>
       <StyledText
         data-testid="pagination-total-pages"
         ml={theme.spacing.s1}

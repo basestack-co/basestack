@@ -1,17 +1,18 @@
-import React, { useCallback } from "react";
-// Router
-import { useParams } from "next/navigation";
-// Server
-import { api } from "utils/trpc/react";
 // UI
 import { SwitchSettingCard } from "@basestack/ui";
-// Toast
-import { toast } from "sonner";
 // Utils
-import { PlanTypeId } from "@basestack/utils";
-import { getWithPlanSwitchProps } from "../../utils";
+import type { PlanTypeId } from "@basestack/utils";
+// Router
+import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
+import type React from "react";
+import { useCallback } from "react";
+// Toast
+import { toast } from "sonner";
+// Server
+import { api } from "utils/trpc/react";
+import { getWithPlanSwitchProps } from "../../utils";
 
 export interface Props {
   hasSpamProtection?: boolean;

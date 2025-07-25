@@ -1,13 +1,13 @@
 import { memo } from "react";
-import { TextProps } from "./types";
 import {
-  XSmallText,
-  SmallText,
-  MediumText,
   LargeText,
+  MediumText,
+  SmallText,
   XLargeText,
+  XSmallText,
   XXLargeText,
 } from "./styles";
+import type { TextProps } from "./types";
 
 const Text = ({
   size = "small",
@@ -50,22 +50,21 @@ const Text = ({
           {children}
         </MediumText>
       );
-    default:
-    case "small":
-      return (
-        <SmallText {...sharedProps} {...props}>
-          {children}
-        </SmallText>
-      );
     case "xSmall":
       return (
         <XSmallText {...sharedProps} {...props}>
           {children}
         </XSmallText>
       );
+    default:
+      return (
+        <SmallText {...sharedProps} {...props}>
+          {children}
+        </SmallText>
+      );
   }
 };
 
-export { type TextProps };
+export type { TextProps };
 
 export default memo(Text);

@@ -1,13 +1,13 @@
 "use client";
 
-import React, { Fragment, useMemo } from "react";
+import Footer from "components/Footer";
+import GlobalNavigation from "components/GlobalNavigation";
 import { usePathname } from "next/navigation";
-// Registries
-import StyledComponentsRegistry from "./StyledComponentsRegistry";
+import { useMemo } from "react";
 // Components
 import { Toaster } from "sonner";
-import GlobalNavigation from "components/GlobalNavigation";
-import Footer from "components/Footer";
+// Registries
+import StyledComponentsRegistry from "./StyledComponentsRegistry";
 // Fonts
 import "material-symbols/rounded.css";
 
@@ -26,11 +26,9 @@ const Registry = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <StyledComponentsRegistry>
-      <Fragment>
-        {hasGlobalNavigation && <GlobalNavigation isSticky={!isProductPage} />}
-        {children}
-        <Footer />
-      </Fragment>
+      {hasGlobalNavigation && <GlobalNavigation isSticky={!isProductPage} />}
+      {children}
+      <Footer />
       <Toaster visibleToasts={9} closeButton={false} />
     </StyledComponentsRegistry>
   );

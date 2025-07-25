@@ -1,15 +1,15 @@
 "use client";
 
-import React from "react";
-// Registries
-import StyledComponentsRegistry from "./StyledComponentsRegistry";
 // Dates
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import type React from "react";
 // Components
 import { Toaster } from "sonner";
 // TRPC
 import { TRPCReactProvider } from "utils/trpc/react";
+// Registries
+import StyledComponentsRegistry from "./StyledComponentsRegistry";
 
 // Fonts
 import "material-symbols/rounded.css";

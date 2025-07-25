@@ -1,31 +1,31 @@
-import React, { useState, useMemo } from "react";
-// Store
-import { useStore } from "store";
-import { useShallow } from "zustand/react/shallow";
-// Code
-import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
-import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
+import { Modal, Text } from "@basestack/design-system";
 // Components
 import Portal from "@basestack/design-system/global/Portal";
 import { CodeLanguageCard } from "@basestack/ui";
-import { ButtonVariant, Modal, Text } from "@basestack/design-system";
 import CopyButton from "components/CopyButton";
 // Locales
 import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
+// Code
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import ts from "react-syntax-highlighter/dist/cjs/languages/hljs/typescript";
+import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+// Store
+import { useStore } from "store";
 // Styles
 import { useTheme } from "styled-components";
+import { useShallow } from "zustand/react/shallow";
+// Data
+import data from "./data";
 import {
   CardsList,
   CodeContainer,
   Container,
   ContentContainer,
+  CopyButtonContainer,
   ListItem,
   StyledLink,
-  CopyButtonContainer,
 } from "./styles";
-// Data
-import data from "./data";
 
 SyntaxHighlighter.registerLanguage("typescript", ts);
 

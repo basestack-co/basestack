@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { grid, GridProps as SSGridProps } from "styled-system";
+import { grid, type GridProps as SSGridProps } from "styled-system";
 
 // Define only the props that grid uses, to filter from DOM
 const styledSystemProps = new Set([

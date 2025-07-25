@@ -1,19 +1,17 @@
 "use client";
 
-import React from "react";
+// Components
+import { ProfileAvatarCard, SwitchSettingCard } from "@basestack/ui";
 // Vendors
 import { auth } from "@basestack/vendors";
 // Locales
 import { useTranslations } from "next-intl";
-// Components
-import { ProfileAvatarCard, SwitchSettingCard } from "@basestack/ui";
-import ThemeCard from "./_components/ThemeCard";
-import FlagsCard from "./_components/FlagsCard";
-// Styles
-import { CardList, ProfileCardContainer, CardListItem } from "../styles";
-
 // Store
 import { useStore } from "store";
+// Styles
+import { CardList, CardListItem, ProfileCardContainer } from "../styles";
+import FlagsCard from "./_components/FlagsCard";
+import ThemeCard from "./_components/ThemeCard";
 
 const UserProfileSettingsPage = () => {
   const t = useTranslations("profile");

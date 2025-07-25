@@ -1,9 +1,14 @@
-import { PrismaClient, Prisma } from ".prisma/client";
-import { DefaultArgs } from ".prisma/client/runtime/library";
+import type { Prisma, PrismaClient } from ".prisma/client";
+import type { DefaultArgs } from ".prisma/client/runtime/library";
+// Utils
+import {
+  config,
+  type FormPlan,
+  type PlanTypeId,
+  Product,
+} from "@basestack/utils";
 // tRPC
 import { TRPCError } from "@trpc/server";
-// Utils
-import { config, FormPlan, PlanTypeId, Product } from "@basestack/utils";
 
 export const withUsageUpdate = async (
   prisma:
@@ -49,8 +54,8 @@ export function withLimits(
   limitKey: keyof FormPlan["limits"],
   count: number,
 ) {
-  return function <T extends (...args: any[]) => Promise<any>>(promise: T): T {
-    return async function (
+  return <T extends (...args: any[]) => Promise<any>>(promise: T): T =>
+    async function (
       this: unknown,
       ...args: Parameters<T>
     ): Promise<ReturnType<T>> {
@@ -75,15 +80,14 @@ export function withLimits(
         });
       }
     } as T;
-  };
 }
 
 export function withFeatures(
   planId: PlanTypeId,
   feature: keyof FormPlan["features"] | null,
 ) {
-  return function <T extends (...args: any[]) => Promise<any>>(promise: T): T {
-    return async function (
+  return <T extends (...args: any[]) => Promise<any>>(promise: T): T =>
+    async function (
       this: unknown,
       ...args: Parameters<T>
     ): Promise<ReturnType<T>> {
@@ -111,5 +115,4 @@ export function withFeatures(
         });
       }
     } as T;
-  };
 }

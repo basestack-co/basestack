@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactNode } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 
 export interface LoaderProps {
   hasDelay?: boolean;

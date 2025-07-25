@@ -1,10 +1,14 @@
-import React, { useEffect, useRef } from "react";
-import { useTheme } from "styled-components";
-import { rem } from "polished";
-import { useSpring, animated } from "@react-spring/web";
 // Components
 import { Card, Icon, Text } from "@basestack/design-system";
+// Utils
+import { formatNumber } from "@basestack/utils";
+import { animated, useSpring } from "@react-spring/web";
+import { rem } from "polished";
+import { useEffect, useRef } from "react";
+import { useTheme } from "styled-components";
 import {
+  AmountContainer,
+  ArrowContainer,
   Button,
   LeftContainer,
   List,
@@ -12,11 +16,7 @@ import {
   Row,
   TitleContainer,
   ValueContainer,
-  AmountContainer,
-  ArrowContainer,
 } from "./styles";
-// Utils
-import { formatNumber } from "@basestack/utils";
 
 interface PlanCardProps {
   title: string;

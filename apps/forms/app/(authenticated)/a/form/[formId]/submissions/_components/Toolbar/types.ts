@@ -1,5 +1,5 @@
-import { ButtonProps, PopupProps } from "@basestack/design-system";
-import { Role } from ".prisma/client";
+import type { Role } from ".prisma/client";
+import type { ButtonProps, PopupProps } from "@basestack/design-system";
 
 export enum SelectedFilter {
   IS_SPAM = "is_spam",

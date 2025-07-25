@@ -1,23 +1,23 @@
-import React, { useEffect } from "react";
-// Router
-import { useParams, useRouter } from "next/navigation";
-// Form
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-// Server
-import { api } from "utils/trpc/react";
-// UI
-import { SettingCard } from "@basestack/ui";
 // Components
 import { InputGroup } from "@basestack/design-system";
+// UI
+import { SettingCard } from "@basestack/ui";
 // Utils
-import { PlanTypeId } from "@basestack/utils";
-import { getWithPlanCardProps } from "../../utils";
-// Toast
-import { toast } from "sonner";
+import type { PlanTypeId } from "@basestack/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+// Router
+import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
+// Form
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
+// Toast
+import { toast } from "sonner";
+// Server
+import { api } from "utils/trpc/react";
+import { z } from "zod";
+import { getWithPlanCardProps } from "../../utils";
 
 export const FormSchema = z.object({
   url: z.string().url().optional().or(z.literal("")),

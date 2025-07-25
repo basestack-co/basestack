@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useTheme } from "styled-components";
-import { Text, IconBox } from "@basestack/design-system";
+import { IconBox, Text } from "@basestack/design-system";
+import { useEffect, useState } from "react";
 import { useMedia } from "react-use";
+import { useTheme } from "styled-components";
 import {
-  ContentContainer,
-  TextContainer,
-  InnerContentContainer,
   CardContainer,
+  ContentContainer,
+  InnerContentContainer,
   StyledCard,
+  TextContainer,
 } from "./styles";
 
 export interface CardProps {
@@ -17,7 +17,7 @@ export interface CardProps {
 }
 
 const CardComp = ({ title, description, icon = "help" }: CardProps) => {
-  const { colors, spacing, isDarkMode, device } = useTheme();
+  const { colors, spacing, isDarkMode } = useTheme();
   const isTouchDevice = useMedia("(hover: none)", false);
   const [showContent, setShowContent] = useState<boolean>(false);
 

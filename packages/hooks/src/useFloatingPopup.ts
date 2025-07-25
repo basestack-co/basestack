@@ -1,14 +1,14 @@
-import { useState, useRef, useCallback } from "react";
-import { useTransition, config } from "react-spring";
 import {
-  useFloating,
   autoUpdate,
+  type Placement,
   useClick,
   useDismiss,
-  useRole,
+  useFloating,
   useInteractions,
-  Placement,
+  useRole,
 } from "@floating-ui/react";
+import { useCallback, useRef, useState } from "react";
+import { config, useTransition } from "react-spring";
 
 export interface AnimationConfig {
   [key: string]: {

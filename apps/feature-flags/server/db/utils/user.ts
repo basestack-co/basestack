@@ -1,4 +1,4 @@
-import { PrismaClient, Role } from ".prisma/client";
+import { type PrismaClient, Role } from ".prisma/client";
 // tRPC
 import { TRPCError } from "@trpc/server";
 

@@ -1,8 +1,8 @@
 import { cleanup } from "@testing-library/react";
 import { renderWithTheme } from "../../../utils/testUtils";
-import Table from "../index";
 import { mockTableData } from "../__mocks__/mockData";
 import { mockMembersTable } from "../__mocks__/mockMembersTable";
+import Table from "../index";
 
 describe("Table tests", () => {
   afterEach(cleanup);

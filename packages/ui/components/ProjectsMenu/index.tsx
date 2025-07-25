@@ -1,17 +1,17 @@
-import React, { memo, useCallback, useRef, useState } from "react";
-import { useTheme } from "styled-components";
-import { useClickAway } from "react-use";
-import { rem } from "polished";
-import { animated, config, useTransition } from "react-spring";
-// Components
-import { autoUpdate, offset, useFloating } from "@floating-ui/react";
 import {
   Avatar,
   Button,
   ButtonVariant,
   slideBottom,
 } from "@basestack/design-system";
-import PopupActions, { PopupActionProps } from "../PopupActions";
+// Components
+import { autoUpdate, offset, useFloating } from "@floating-ui/react";
+import { rem } from "polished";
+import { memo, useCallback, useRef, useState } from "react";
+import { animated, config, useTransition } from "react-spring";
+import { useClickAway } from "react-use";
+import { useTheme } from "styled-components";
+import PopupActions, { type PopupActionProps } from "../PopupActions";
 // Types
 import { ListItem } from "./styles";
 
@@ -61,7 +61,7 @@ const ProjectsMenu = ({
   }, [onCreate]);
 
   const truncateText = (str: string) => {
-    return str.length <= 18 ? str : str.slice(0, 18) + "...";
+    return str.length <= 18 ? str : `${str.slice(0, 18)}...`;
   };
 
   return (
@@ -75,7 +75,7 @@ const ProjectsMenu = ({
         isDisabled={!data?.length}
         pr={rem("8px")}
         leftElement={
-          !!current ? (
+          current ? (
             <Avatar
               userName={current}
               size="xSmall"
@@ -86,7 +86,7 @@ const ProjectsMenu = ({
           ) : null
         }
       >
-        {!!current ? truncateText(current) : select.title}
+        {current ? truncateText(current) : select.title}
       </Button>
       {transitionProjectsPopup(
         (styles, item) =>

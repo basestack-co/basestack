@@ -1,5 +1,6 @@
-import React, { memo } from "react";
-import { SpaceProps } from "styled-system";
+import type React from "react";
+import { memo } from "react";
+import type { SpaceProps } from "styled-system";
 import { StyledTextarea } from "./styles";
 
 export interface TextareaProps extends SpaceProps {

@@ -1,7 +1,3 @@
-import React from "react";
-import { useTheme } from "styled-components";
-// Locales
-import { useTranslations } from "next-intl";
 // Components
 import {
   Button,
@@ -12,6 +8,9 @@ import {
   Label,
   Text,
 } from "@basestack/design-system";
+// Locales
+import { useTranslations } from "next-intl";
+import { useTheme } from "styled-components";
 // Styles
 import {
   Column,

@@ -1,6 +1,3 @@
-import React, { useState } from "react";
-// Locales
-import { useTranslations } from "next-intl";
 // Components
 import {
   IconButton,
@@ -8,6 +5,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@basestack/design-system";
+// Locales
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 export interface Props {
   text: string;

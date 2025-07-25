@@ -1,6 +1,5 @@
-import React from "react";
 // Components
-import { Card, Avatar, Text, HorizontalRule } from "@basestack/design-system";
+import { Avatar, Card, HorizontalRule, Text } from "@basestack/design-system";
 // Styles
 import {
   Container,

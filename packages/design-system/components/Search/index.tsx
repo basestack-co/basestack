@@ -1,14 +1,14 @@
-import React from "react";
-import { rem } from "polished";
-import { animated } from "react-spring";
-import { LayoutProps, SpaceProps } from "styled-system";
 import { useFloatingPopup } from "@basestack/hooks";
+import { rem } from "polished";
+import type React from "react";
+import { animated } from "react-spring";
 import { useTheme } from "styled-components";
-// Components
-import Popup, { PopupProps } from "../Popup";
-import IconButton from "../IconButton";
+import type { LayoutProps, SpaceProps } from "styled-system";
 import { Button, ButtonVariant } from "../Button";
+import IconButton from "../IconButton";
 import Input from "../Input";
+// Components
+import Popup, { type PopupProps } from "../Popup";
 import { ButtonContainer, Container, InputContainer } from "./styles";
 
 export interface SearchProps extends SpaceProps, LayoutProps {

@@ -1,8 +1,9 @@
-import React, { memo } from "react";
-import { SpaceProps } from "styled-system";
+import type React from "react";
+import { memo } from "react";
 import { useTheme } from "styled-components";
+import type { SpaceProps } from "styled-system";
 import Text from "../Text";
-import { Label, Input, Slider, Container } from "./styles";
+import { Container, Input, Label, Slider } from "./styles";
 
 export interface SwitchProps extends SpaceProps {
   /**

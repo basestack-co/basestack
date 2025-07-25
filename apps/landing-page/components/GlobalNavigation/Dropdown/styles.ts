@@ -1,7 +1,12 @@
-import styled from "styled-components";
-import { position, space, SpaceProps, PositionProps } from "styled-system";
 import { neutralButtonStyles } from "@basestack/design-system";
 import { rem } from "polished";
+import styled from "styled-components";
+import {
+  type PositionProps,
+  position,
+  type SpaceProps,
+  space,
+} from "styled-system";
 
 export const Container = styled.div<SpaceProps>`
   display: flex;

@@ -1,7 +1,7 @@
-import styled, { css } from "styled-components";
-import { space, typography, flexbox, compose, layout } from "styled-system";
 import { rem } from "polished";
-import { TextProps, FontFamily } from "./types";
+import styled, { css } from "styled-components";
+import { compose, flexbox, layout, space, typography } from "styled-system";
+import type { FontFamily, TextProps } from "./types";
 
 interface sharedStylesProps {
   color?: string;
@@ -34,12 +34,14 @@ const sharedStyles = ({
     color || (muted ? theme.text.muted : theme.text.color)};
   ${compose(space, typography, flexbox, layout)};
 
-  ${lineTruncate &&
-  css`
+  ${
+    lineTruncate &&
+    css`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  `}
+  `
+  }
 `;
 
 export const XSmallText = styled.span.withConfig({

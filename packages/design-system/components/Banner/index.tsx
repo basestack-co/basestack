@@ -1,16 +1,16 @@
-import { memo, ReactNode } from "react";
-import { SpaceProps } from "styled-system";
+import { memo, type ReactNode } from "react";
 import { useTheme } from "styled-components";
+import type { SpaceProps } from "styled-system";
+import Icon from "../Icon";
 // Components
 import Text from "../Text";
-import Icon from "../Icon";
 import {
+  type BannerVariant,
   Button,
-  RightContentWrapper,
   Container,
+  RightContentWrapper,
   TextContainer,
   Wrapper,
-  BannerVariant,
 } from "./styles";
 
 export interface BannerProps extends SpaceProps {
@@ -68,19 +68,6 @@ const Banner = ({
 
   const getVariant = () => {
     switch (variant) {
-      default:
-      case "info":
-        return {
-          icon: "info",
-          solid: {
-            color: theme.banner.solid.info.color,
-            bg: theme.banner.solid.info.backgroundColor,
-          },
-          translucent: {
-            color: theme.banner.translucent.info.color,
-            bg: theme.banner.translucent.info.backgroundColor,
-          },
-        };
       case "warning":
         return {
           icon: "warning",
@@ -117,6 +104,18 @@ const Banner = ({
             bg: theme.banner.translucent.danger.backgroundColor,
           },
         };
+      default:
+        return {
+          icon: "info",
+          solid: {
+            color: theme.banner.solid.info.color,
+            bg: theme.banner.solid.info.backgroundColor,
+          },
+          translucent: {
+            color: theme.banner.translucent.info.color,
+            bg: theme.banner.translucent.info.backgroundColor,
+          },
+        };
     }
   };
 
@@ -139,7 +138,7 @@ const Banner = ({
           />
         )}
         <TextContainer>
-          <Text size={!!description ? "medium" : "small"} color={textColor}>
+          <Text size={description ? "medium" : "small"} color={textColor}>
             {title}
           </Text>
           {!!description && <Text color={textColor}>{description}</Text>}

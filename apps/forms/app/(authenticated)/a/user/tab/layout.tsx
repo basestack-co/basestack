@@ -1,24 +1,25 @@
 "use client";
 
-import React, { useEffect, useMemo } from "react";
-// Router
-import { useRouter, usePathname } from "next/navigation";
-// Theme
-import { useTheme } from "styled-components";
 // Components
 import { Tabs, Text } from "@basestack/design-system";
+// Router
+import { usePathname, useRouter } from "next/navigation";
+// Locales
+import { type NamespaceKeys, useTranslations } from "next-intl";
+import type React from "react";
+import { useEffect, useMemo } from "react";
+// Hooks
+import { useMedia } from "react-use";
+// Theme
+import { useTheme } from "styled-components";
 import {
-  StyledLink,
   Container,
   List,
   ListItem,
   SettingsContainer,
   StyledButton,
+  StyledLink,
 } from "./styles";
-// Hooks
-import { useMedia } from "react-use";
-// Locales
-import { useTranslations, NamespaceKeys } from "next-intl";
 
 const links = [
   {

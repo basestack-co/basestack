@@ -1,5 +1,5 @@
-import { PositionProps, SpaceProps } from "styled-system";
-import { PopupItemsProps } from "@basestack/design-system";
+import type { PopupItemsProps } from "@basestack/design-system";
+import type { PositionProps, SpaceProps } from "styled-system";
 
 export interface FlagCardProps extends SpaceProps, PositionProps {
   /**

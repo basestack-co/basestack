@@ -1,9 +1,10 @@
 // Polar
+
+// Utils
+import { emailToId, type Product, type UsageEvent } from "@basestack/utils";
 import { Polar } from "@polar-sh/sdk";
 // Cache
 import { client as redis } from "../redis";
-// Utils
-import { emailToId, Product, UsageEvent } from "@basestack/utils";
 
 export const client = new Polar({
   accessToken: process.env.POLAR_ACCESS_TOKEN,
@@ -55,7 +56,7 @@ export const getCustomerSubscription = async (
       currentPeriodEnd: sub?.currentPeriodEnd ?? "",
       country: customer?.billingAddress?.country ?? "",
     };
-  } catch (err) {
+  } catch {
     return null;
   }
 };

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
-import { HistoryType } from "./types";
+import type { HistoryType } from "./types";
 
 export const Container = styled.div.withConfig({
   shouldForwardProp: (prop) =>
@@ -34,9 +34,9 @@ export const Wrapper = styled.div.withConfig({
         left: 19px;
         bottom: -19px;
         width: 2px;
-        background-color: ${theme.colors[
-          theme.isDarkMode ? "gray700" : "gray100"
-        ]};
+        background-color: ${
+          theme.colors[theme.isDarkMode ? "gray700" : "gray100"]
+        };
       }
     `}
 `;

@@ -51,7 +51,7 @@ export const cfAiClient = async ({
     });
 
     return response.json();
-  } catch (error) {
-    throw error;
+  } catch {
+    throw new Error("Error calling Cloudflare AI");
   }
 };

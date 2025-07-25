@@ -1,8 +1,8 @@
+import { rem } from "polished";
 import styled, { css } from "styled-components";
 import { space } from "styled-system";
-import { rem } from "polished";
 import Text from "../Text";
-import { Breakpoint } from "./types";
+import type { Breakpoint } from "./types";
 
 export const Container = styled.div`
   ${space};
@@ -55,10 +55,12 @@ export const StyledRow = styled.div.withConfig({
           border-bottom: none;
         }
 
-        ${isHeader &&
-        css`
+        ${
+          isHeader &&
+          css`
           display: none;
-        `}
+        `
+        }
       }
     `}
 `;
@@ -82,12 +84,14 @@ export const Col = styled.div.withConfig({
       @media screen and ${theme.device.max[breakpoint]} {
         height: initial;
 
-        ${isSmallCol &&
-        css`
+        ${
+          isSmallCol &&
+          css`
           position: absolute;
           right: ${theme.spacing.s3};
           top: ${theme.spacing.s3};
-        `}
+        `
+        }
       }
     `}
 `;

@@ -1,10 +1,10 @@
-import { PrismaClient } from ".prisma/client";
+import type { PrismaClient } from ".prisma/client";
+import type { HistoryType } from "@basestack/ui";
 // Auth
-import { User } from "better-auth";
+import type { User } from "better-auth";
 // Types
-import { HistoryAction, Environment } from "types";
-import { HistoryType } from "@basestack/ui";
-import { RouterOutputs } from "utils/trpc/react";
+import { type Environment, HistoryAction } from "types";
+import type { RouterOutputs } from "utils/trpc/react";
 
 export const pathActionMap: { [id: string]: string } = {
   "projects.create": HistoryAction.createProject,

@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { animated, useSpring } from "react-spring";
+import Icon from "../Icon";
 // Components
 import Text from "../Text";
-import Icon from "../Icon";
-import { Container, Header, ContentContainer, ContentWrapper } from "./styles";
+import { Container, ContentContainer, ContentWrapper, Header } from "./styles";
 
 export interface AccordionProps {
   title: string;

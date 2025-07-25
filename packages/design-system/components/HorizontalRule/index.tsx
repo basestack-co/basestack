@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "styled-system";
 import { Hr } from "./styles";
 
 interface HorizontalRuleProps extends SpaceProps {

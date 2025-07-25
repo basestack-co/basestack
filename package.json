@@ -2,21 +2,19 @@
   "name": "basestack-monorepo",
   "version": "0.0.0",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "workspaces": ["apps/*", "packages/*"],
   "scripts": {
     "bootstrap": "yarn install && yarn build",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md,mdx}\"",
+    "format": "biome format --write .",
+    "biome:check": "biome check --write .",
     "test": "turbo run test",
     "test:update": "turbo run test:update",
     "clean": "turbo run clean && rm -rf node_modules && rm -rf .turbo",
     "prepare": "husky",
-    "precommit": "yarn format && yarn lint && lint-staged",
+    "precommit": "yarn lint && lint-staged",
     "commit": "git-cz",
     "changelog:denerate": "npx changelogen@latest",
     "update:packages": "yarn upgrade-interactive --latest",
@@ -33,15 +31,15 @@
     "start:forms": "turbo run @basestack/forms#start"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.1.2",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
     "lint-staged": "^16.1.2",
-    "prettier": "^3.6.2",
     "turbo": "^2.5.5"
   },
-  "packageManager": "yarn@1.22.18",
+  "packageManager": "yarn@1.22.22",
   "engines": {
     "node": ">=22.6.0"
   },
@@ -52,7 +50,7 @@
   },
   "lint-staged": {
     "*.{js,ts,tsx,json,css,md}": [
-      "prettier --write"
+      "biome check --write --no-errors-on-unmatched"
     ]
   },
   "config": {

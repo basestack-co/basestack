@@ -1,19 +1,19 @@
-import React, { Fragment } from "react";
-// Project
-import CreateProjectModal from "./Project/Create";
-import AddProjectMemberModal from "./Project/AddMember";
-// Flag
-import CreateFlagModal from "./Flag/Create";
-import UpdateFlagModal from "./Flag/Update";
+import { Fragment } from "react";
+// Activity
+import ActivityModal from "./Activity";
+// Confirm
+import ConfirmModal from "./Confirm";
 // Environment
 import CreateEnvironmentModal from "./Environment/Create";
 import UpdateEnvironmentModal from "./Environment/Update";
-// Confirm
-import ConfirmModal from "./Confirm";
+// Flag
+import CreateFlagModal from "./Flag/Create";
+import UpdateFlagModal from "./Flag/Update";
 // SDK Integration
 import IntegrationModal from "./Integration";
-// Activity
-import ActivityModal from "./Activity";
+import AddProjectMemberModal from "./Project/AddMember";
+// Project
+import CreateProjectModal from "./Project/Create";
 // Teams
 import CreateTeamModal from "./Team/Create";
 import ManageTeamModal from "./Team/Manage";

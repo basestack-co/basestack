@@ -1,22 +1,22 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
-// Vendors
-import { auth } from "@basestack/vendors";
-// Locales
-import { useTranslations } from "next-intl";
-// Router
-import { useRouter, useSearchParams } from "next/navigation";
+import type { BannerVariant } from "@basestack/design-system";
 // UI
 import { SignIn as SignInComponent } from "@basestack/ui";
-import { BannerVariant } from "@basestack/design-system";
 // Types
 import {
   getProvidersList,
-  SignInProviders,
+  type SignInProviders,
 } from "@basestack/ui/components/SignIn";
 // Utils
 import { clearAllBrowserStorage, config } from "@basestack/utils";
+// Vendors
+import { auth } from "@basestack/vendors";
+// Router
+import { useRouter, useSearchParams } from "next/navigation";
+// Locales
+import { useTranslations } from "next-intl";
+import { Suspense, useEffect, useState } from "react";
 // Styles
 import styled from "styled-components";
 
@@ -74,22 +74,18 @@ const SignIn = () => {
       description={t("sign-in.panel.description")}
       slogan={t("sign-in.panel.slogan")}
       contentTitle={t("sign-in.content.title")}
-      contentDescription={
-        <>
-          {t.rich("sign-in.content.description", {
-            terms: (chunks) => (
-              <Link href={config.urls.legal.terms} target="_blank">
-                {chunks}
-              </Link>
-            ),
-            privacy: (chunks) => (
-              <Link href={config.urls.legal.privacy} target="_blank">
-                {chunks}
-              </Link>
-            ),
-          })}
-        </>
-      }
+      contentDescription={t.rich("sign-in.content.description", {
+        terms: (chunks) => (
+          <Link href={config.urls.legal.terms} target="_blank">
+            {chunks}
+          </Link>
+        ),
+        privacy: (chunks) => (
+          <Link href={config.urls.legal.privacy} target="_blank">
+            {chunks}
+          </Link>
+        ),
+      })}
       action={(name) => t("sign-in.content.action", { name })}
       onClickProvider={(provider) => auth.client.signIn.social({ provider })}
       errors={[

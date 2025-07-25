@@ -1,27 +1,28 @@
-import React, { useState, useEffect } from "react";
-// Locales
-import { useTranslations } from "next-intl";
-// Hooks
-import { useDebounce } from "react-use";
 // Components
 import {
   Button,
   ButtonVariant,
-  Search,
   Checkbox,
+  Search,
 } from "@basestack/design-system";
-import PopupMenu from "./PopupMenu";
-// Styles
-import { LeftContent, Container, Wrapper, RightList, ListItem } from "./styles";
-// Types
-import {
-  ButtonSharedProps,
-  ToolbarProps,
-  SelectedFilter,
-  SelectedSort,
-} from "./types";
 // Utils
 import { config } from "@basestack/utils";
+// Locales
+import { useTranslations } from "next-intl";
+import type React from "react";
+import { useEffect, useState } from "react";
+// Hooks
+import { useDebounce } from "react-use";
+import PopupMenu from "./PopupMenu";
+// Styles
+import { Container, LeftContent, ListItem, RightList, Wrapper } from "./styles";
+// Types
+import {
+  type ButtonSharedProps,
+  SelectedFilter,
+  SelectedSort,
+  type ToolbarProps,
+} from "./types";
 
 const buttonProps = {
   variant: ButtonVariant.Tertiary,

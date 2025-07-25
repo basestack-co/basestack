@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo } from "react";
 // Components
 import { Container, Item, Wrapper } from "./styles";
 

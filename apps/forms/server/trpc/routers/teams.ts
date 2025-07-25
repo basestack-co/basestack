@@ -1,26 +1,26 @@
+// Types
+import { Role } from ".prisma/client";
+import {
+  type AppEnv,
+  config,
+  emailToId,
+  generateSecureToken,
+  Product,
+} from "@basestack/utils";
+// Vendors
+import { qstash } from "@basestack/vendors";
+import { TRPCError } from "@trpc/server";
+import dayjs from "dayjs";
+import { generateSlug } from "random-word-slugs";
+import { withUsageUpdate } from "server/db/utils/subscription";
 import {
   createTRPCRouter,
   protectedProcedure,
   withTeamRestrictions,
 } from "server/trpc";
-import { TRPCError } from "@trpc/server";
-// Types
-import { Role } from ".prisma/client";
-// Vendors
-import { qstash } from "@basestack/vendors";
 // Utils
 import { AppMode } from "utils/helpers/general";
-import {
-  config,
-  Product,
-  AppEnv,
-  generateSecureToken,
-  emailToId,
-} from "@basestack/utils";
 import { z } from "zod";
-import { withUsageUpdate } from "server/db/utils/subscription";
-import { generateSlug } from "random-word-slugs";
-import dayjs from "dayjs";
 
 export const teamsRouter = createTRPCRouter({
   list: protectedProcedure.query(async ({ ctx }) => {

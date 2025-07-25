@@ -1,17 +1,17 @@
-import {
-  protectedProcedure,
-  createTRPCRouter,
-  withProjectRestrictions,
-  withHistoryActivity,
-} from "server/trpc";
-// Utils
-import { generateSlug } from "random-word-slugs";
-import { PlanTypeId } from "@basestack/utils";
-import { z } from "zod";
-import { withFeatures, withUsageUpdate } from "server/db/utils/usage";
 // Types
 import { Role } from ".prisma/client";
+import { PlanTypeId } from "@basestack/utils";
 import { TRPCError } from "@trpc/server";
+// Utils
+import { generateSlug } from "random-word-slugs";
+import { withFeatures, withUsageUpdate } from "server/db/utils/usage";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  withHistoryActivity,
+  withProjectRestrictions,
+} from "server/trpc";
+import { z } from "zod";
 
 export const projectsRouter = createTRPCRouter({
   list: protectedProcedure.query(async ({ ctx }) => {
@@ -281,7 +281,7 @@ export const projectsRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const { projectId, feature, ...props } = input;
+      const { feature, ...props } = input;
 
       const data = Object.fromEntries(
         Object.entries(props).filter(([_, value]) => value !== null),

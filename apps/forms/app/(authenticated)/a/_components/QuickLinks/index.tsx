@@ -1,13 +1,12 @@
-import React from "react";
-// Locales
-import { useTranslations } from "next-intl";
 // Components
-import { Text, Card, IconBox } from "@basestack/design-system";
+import { Card, IconBox, Text } from "@basestack/design-system";
 // Utils
 import { config } from "@basestack/utils";
+// Locales
+import { useTranslations } from "next-intl";
 // Styles
 import { useTheme } from "styled-components";
-import { Header, Section, BottomContainer, Box, StyledLink } from "./styles";
+import { BottomContainer, Box, Header, Section, StyledLink } from "./styles";
 
 interface TextLinkProps {
   data: Array<{
@@ -26,7 +25,7 @@ const TextLink = ({ data }: TextLinkProps) => {
         const props = target ? { target: target } : {};
         return (
           <Text key={index} muted size="small">
-            {!!href ? (
+            {href ? (
               <StyledLink href={href} {...props}>
                 {text}
               </StyledLink>

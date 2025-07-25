@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { position, PositionProps } from "styled-system";
 import { rem } from "polished";
+import styled from "styled-components";
+import { type PositionProps, position } from "styled-system";
 
 export const Container = styled.div`
   display: none;

@@ -1,13 +1,13 @@
-import React, { useCallback } from "react";
-import Portal from "@basestack/design-system/global/Portal";
 import { Modal } from "@basestack/design-system";
+import Portal from "@basestack/design-system/global/Portal";
+// Components
+import Activity from "components/Activity";
+// Locales
+import { useTranslations } from "next-intl";
+import { useCallback } from "react";
 // Store
 import { useStore } from "store";
 import { useShallow } from "zustand/react/shallow";
-// Locales
-import { useTranslations } from "next-intl";
-// Components
-import Activity from "components/Activity";
 
 const ActivityModal = () => {
   const t = useTranslations("modal");

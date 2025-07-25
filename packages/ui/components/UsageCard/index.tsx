@@ -1,6 +1,6 @@
+import { Card, CircularProgress, Text } from "@basestack/design-system";
 import { memo } from "react";
 import { useTheme } from "styled-components";
-import { Text, CircularProgress, Card } from "@basestack/design-system";
 import { Container, ContentContainer } from "./styles";
 
 interface UsageCardProps {

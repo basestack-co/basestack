@@ -1,20 +1,20 @@
 import { Fragment } from "react";
 import { useTheme } from "styled-components";
-import { ButtonProps, ButtonVariant, ButtonSize } from "./types";
-import Spinner from "../Spinner";
 import Icon from "../Icon";
+import Spinner from "../Spinner";
 import {
+  dangerButtonStyles,
+  neutralButtonStyles,
+  outlinedButtonStyles,
+  primaryButtonStyles,
+  primaryNeutralButtonStyles,
   SpinnerContainer,
   StyledButton,
-  outlinedButtonStyles,
-  neutralButtonStyles,
-  primaryNeutralButtonStyles,
-  dangerButtonStyles,
-  primaryButtonStyles,
   secondaryButtonStyles,
-  tertiaryButtonStyles,
   TextContainer,
+  tertiaryButtonStyles,
 } from "./styles";
+import { type ButtonProps, ButtonSize, ButtonVariant } from "./types";
 
 const Button = ({
   ref,
@@ -83,21 +83,19 @@ const Button = ({
       {...props}
       {...(!!as && { as })}
     >
-      <>
-        {leftElement && <Fragment>{leftElement}</Fragment>}
-        {hasLeftIcon && <Icon mr={theme.spacing.s2} {...iconProps} />}
-        <TextContainer isLoading={isLoading}>{children}</TextContainer>
-        {hasRightIcon && <Icon ml={theme.spacing.s2} {...iconProps} />}
-        {isLoading && (
-          <SpinnerContainer>
-            <Spinner
-              size="small"
-              bg={spinnerBg[variant]}
-              color={spinnerColor[variant]}
-            />
-          </SpinnerContainer>
-        )}
-      </>
+      {leftElement && <Fragment>{leftElement}</Fragment>}
+      {hasLeftIcon && <Icon mr={theme.spacing.s2} {...iconProps} />}
+      <TextContainer isLoading={isLoading}>{children}</TextContainer>
+      {hasRightIcon && <Icon ml={theme.spacing.s2} {...iconProps} />}
+      {isLoading && (
+        <SpinnerContainer>
+          <Spinner
+            size="small"
+            bg={spinnerBg[variant]}
+            color={spinnerColor[variant]}
+          />
+        </SpinnerContainer>
+      )}
     </StyledButton>
   );
 };

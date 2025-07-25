@@ -1,9 +1,8 @@
-import React from "react";
+import { Label, Text } from "@basestack/design-system";
 // Locales
 import { useTranslations } from "next-intl";
 // Components
 import { useTheme } from "styled-components";
-import { Label, Text } from "@basestack/design-system";
 import { Box } from "./styles";
 
 interface LabelsProps {

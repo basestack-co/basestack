@@ -1,3 +1,6 @@
+// Utils
+import Cookies from "js-cookie";
+
 export const isBrowser = typeof window !== "undefined";
 export const isNavigator = typeof navigator !== "undefined";
 
@@ -18,7 +21,7 @@ export const urlQueryBuilder = (urlParams: any) => {
   const esc = encodeURIComponent;
   return Object.keys(urlParams)
     .filter((x) => !urlParams[x])
-    .map((k) => esc(k) + "=" + esc(urlParams[k]))
+    .map((k) => `${esc(k)}=${esc(urlParams[k])}`)
     .join("&");
 };
 
@@ -52,15 +55,16 @@ export const getCookieValueAsBoolean = (name: string): boolean => {
 };
 
 export const clearAllBrowserStorage = () => {
-  // Clear localStorage
   localStorage.clear();
-
-  // Clear sessionStorage
   sessionStorage.clear();
 
-  // Clear all cookies
-  document.cookie.split(";").forEach((cookie) => {
-    const name = cookie.split("=")[0].trim();
-    document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=${window.location.hostname}`;
-  });
+  const allCookies = document.cookie.split(";");
+
+  for (const cookie of allCookies) {
+    const eqPos = cookie.indexOf("=");
+    const name = eqPos > -1 ? cookie.slice(0, eqPos).trim() : cookie.trim();
+
+    Cookies.remove(name, { path: "/" });
+    Cookies.remove(name, { path: window.location.pathname });
+  }
 };

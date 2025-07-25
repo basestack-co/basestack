@@ -1,25 +1,24 @@
-import React from "react";
-import { useTheme } from "styled-components";
-// Locales
-import { useTranslations } from "next-intl";
-// Server
-import { api } from "utils/trpc/react";
-// Form
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 // Components
 import {
-  Text,
-  Card,
-  InputGroup,
   Button,
   ButtonVariant,
+  Card,
+  InputGroup,
+  Text,
 } from "@basestack/design-system";
 // Utils
 import { getBrowserUrl } from "@basestack/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+// Locales
+import { useTranslations } from "next-intl";
+// Form
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 // Toast
 import { toast } from "sonner";
+import { useTheme } from "styled-components";
+// Server
+import { api } from "utils/trpc/react";
+import { z } from "zod";
 
 export const FormSchema = z.object({
   name: z.string().min(1, "Name is required").max(255, "Name is too long"),

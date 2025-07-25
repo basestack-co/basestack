@@ -1,7 +1,5 @@
-import React from "react";
 import { Button, ButtonVariant, Text } from "@basestack/design-system";
 import { useRouter } from "next/navigation";
-import { useTheme } from "styled-components";
 import {
   animated,
   config,
@@ -9,13 +7,14 @@ import {
   useSpring,
   useSpringRef,
 } from "react-spring";
+import { useTheme } from "styled-components";
 import {
-  List,
-  PopupContainer,
-  ListItem,
-  ContentWrapper,
   ContentContainer,
+  ContentWrapper,
   GlobalStyle,
+  List,
+  ListItem,
+  PopupContainer,
 } from "./styles";
 
 interface MobileNavigationProps {

@@ -1,12 +1,13 @@
-import React, { Fragment } from "react";
+// Utils
+import { truncateString } from "@basestack/utils";
 // Locales
 import { useTranslations } from "next-intl";
+import type React from "react";
+import { Fragment } from "react";
 // Components
 import Step from "./Step";
 // Styles
 import { CodeContainer } from "./styles";
-// Utils
-import { truncateString } from "@basestack/utils";
 import { parseDescription } from "./utils";
 
 export interface Props {

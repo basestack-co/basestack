@@ -1,6 +1,11 @@
-import styled, { css } from "styled-components";
-import { position, space, SpaceProps, PositionProps } from "styled-system";
 import { rem } from "polished";
+import styled, { css } from "styled-components";
+import {
+  type PositionProps,
+  position,
+  type SpaceProps,
+  space,
+} from "styled-system";
 
 export const List = styled.ul<SpaceProps>`
   ${space};

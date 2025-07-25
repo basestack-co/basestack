@@ -1,23 +1,26 @@
 "use client";
 
-import React, { useCallback, useMemo } from "react";
-import { useTheme } from "styled-components";
-import { flushSync } from "react-dom";
-// Store
-import { useStore } from "store";
-// Hooks
-import { useRouter, useParams, usePathname } from "next/navigation";
-import { useMedia } from "react-use";
-// Vendors
-import { auth } from "@basestack/vendors";
-// Locales
-import { useTranslations } from "next-intl";
 // Types
 import { Role } from ".prisma/client";
 // Components
-import { Navigation as NavigationUI, PopupActionProps } from "@basestack/ui";
+import {
+  Navigation as NavigationUI,
+  type PopupActionProps,
+} from "@basestack/ui";
 // Utils
-import { config, Product, AppEnv } from "@basestack/utils";
+import { type AppEnv, config, Product } from "@basestack/utils";
+// Vendors
+import { auth } from "@basestack/vendors";
+// Hooks
+import { useParams, usePathname, useRouter } from "next/navigation";
+// Locales
+import { useTranslations } from "next-intl";
+import { useCallback, useMemo } from "react";
+import { flushSync } from "react-dom";
+import { useMedia } from "react-use";
+// Store
+import { useStore } from "store";
+import { useTheme } from "styled-components";
 import { AppMode } from "utils/helpers/general";
 import {
   getAppsList,

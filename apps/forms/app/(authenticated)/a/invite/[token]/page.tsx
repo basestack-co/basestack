@@ -1,26 +1,26 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
-// Server
-import { api } from "utils/trpc/react";
-// Toast
-import { toast } from "sonner";
-// Locales
-import { useTranslations } from "next-intl";
-// Utils
-import dayjs from "dayjs";
 // Components
 import {
-  Card,
+  Avatar,
   Button,
   ButtonVariant,
-  Text,
-  Avatar,
+  Card,
   IconBox,
+  Text,
 } from "@basestack/design-system";
+// Utils
+import dayjs from "dayjs";
+import { useParams, useRouter } from "next/navigation";
+// Locales
+import { useTranslations } from "next-intl";
+import { useCallback, useEffect } from "react";
+// Toast
+import { toast } from "sonner";
 // Styles
 import { useTheme } from "styled-components";
+// Server
+import { api } from "utils/trpc/react";
 import { Body, Buttons, Container, Footer, Header, Wrapper } from "./styles";
 
 const InvitePage = () => {

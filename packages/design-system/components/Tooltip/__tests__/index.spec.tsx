@@ -1,6 +1,6 @@
 import { cleanup } from "@testing-library/react";
-import Icon from "../../Icon";
 import { renderWithTheme } from "../../../utils/testUtils";
+import Icon from "../../Icon";
 import { Tooltip, TooltipContent, TooltipTrigger } from "..";
 
 describe("Tooltip tests", () => {

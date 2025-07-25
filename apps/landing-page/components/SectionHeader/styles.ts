@@ -1,13 +1,13 @@
-import styled, { css, keyframes } from "styled-components";
-import { rem } from "polished";
 import { Text } from "@basestack/design-system";
+import { rem } from "polished";
+import styled, { css, keyframes } from "styled-components";
 import {
-  space,
-  typography,
+  type ColorProps,
   color,
-  SpaceProps,
-  ColorProps,
-  TypographyProps,
+  type SpaceProps,
+  space,
+  type TypographyProps,
+  typography,
 } from "styled-system";
 
 export const Container = styled.div.withConfig({
@@ -100,7 +100,7 @@ export const Title = styled.h2.withConfig({
         ${({ theme }) => theme.colors[theme.isDarkMode ? "blue200" : "blue300"]}
           70%,
         ${({ theme }) =>
-            theme.colors[theme.isDarkMode ? "purple300" : "purple500"]}
+          theme.colors[theme.isDarkMode ? "purple300" : "purple500"]}
           80%
       );
       -webkit-background-clip: text;

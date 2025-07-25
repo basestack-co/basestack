@@ -1,13 +1,12 @@
 "use client";
 
-import React from "react";
-// Components
-import CurrentPlan from "./_components/CurrentPlan/page";
-import Meters from "./_components/Meters/page";
 // Server
 import { api } from "utils/trpc/react";
 // Styles
 import { CardList, CardListItem, ProfileCardContainer } from "../styles";
+// Components
+import CurrentPlan from "./_components/CurrentPlan/page";
+import Meters from "./_components/Meters/page";
 
 const UserProfileBillingPage = () => {
   const { data, isLoading } = api.subscription.current.useQuery();

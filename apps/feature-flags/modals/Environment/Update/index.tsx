@@ -1,22 +1,22 @@
-import React, { useEffect } from "react";
-// Router
-import { useParams } from "next/navigation";
 // Components
 import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
-// Form
-import { SubmitHandler } from "react-hook-form";
-// Store
-import { useStore } from "store";
-import { useShallow } from "zustand/react/shallow";
-// Server
-import { api } from "utils/trpc/react";
+// Router
+import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
+// Form
+import type { SubmitHandler } from "react-hook-form";
 // Toast
 import { toast } from "sonner";
+// Store
+import { useStore } from "store";
+// Server
+import { api } from "utils/trpc/react";
+import { useShallow } from "zustand/react/shallow";
 // Types
-import { FormInputs } from "../types";
+import type { FormInputs } from "../types";
 // Form
 import useEnvironmentForm from "../useEnvironmentForm";
 
@@ -64,7 +64,7 @@ const EditEnvironmentModal = () => {
                 projectId,
               });
 
-              if (prev && prev.environments) {
+              if (prev?.environments) {
                 const environments = prev.environments
                   .map((environment) =>
                     environment.id === result.environment.id
@@ -109,7 +109,7 @@ const EditEnvironmentModal = () => {
         projectId,
       });
 
-      if (cache && cache.environments) {
+      if (cache?.environments) {
         const environment = cache.environments.find(
           ({ id }) => id === data?.environment?.id,
         );

@@ -1,3 +1,4 @@
+import { rem } from "polished";
 import styled, { css } from "styled-components";
 import {
   color,
@@ -7,8 +8,7 @@ import {
   space,
   typography,
 } from "styled-system";
-import { rem } from "polished";
-import { ButtonSize, ButtonVariant, StyledButtonProps } from "./types";
+import { ButtonSize, ButtonVariant, type StyledButtonProps } from "./types";
 
 const sharedButtonStyles = css`
   position: relative;
@@ -161,18 +161,17 @@ const handleButtonVariant = (
 
 const handleButtonSize = (size?: ButtonSize) => {
   switch (size) {
-    default:
-    case ButtonSize.Normal:
-      return {
-        height: rem("36px"),
-        padding: `0 ${rem("12px")}`,
-        fontSize: rem("14px"),
-      };
     case ButtonSize.Medium:
       return {
         height: rem("42px"),
         padding: `0 ${rem("16px")}`,
         fontSize: rem("16px"),
+      };
+    default:
+      return {
+        height: rem("36px"),
+        padding: `0 ${rem("12px")}`,
+        fontSize: rem("14px"),
       };
   }
 };

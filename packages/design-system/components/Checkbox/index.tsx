@@ -1,9 +1,10 @@
-import React, { memo } from "react";
+import type React from "react";
+import { memo } from "react";
 import { useTheme } from "styled-components";
 import Icon from "../Icon";
 import Text from "../Text";
 import { Container, HiddenCheckbox, StyledCheckbox } from "./styles";
-import { CheckboxProps } from "./types";
+import type { CheckboxProps } from "./types";
 
 const Checkbox: React.FC<CheckboxProps> = ({
   checked = false,

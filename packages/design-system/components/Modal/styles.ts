@@ -1,8 +1,8 @@
-import styled, { css, createGlobalStyle } from "styled-components";
-import { space, SpaceProps } from "styled-system";
-import { rem } from "polished";
 import { scrollbar } from "@basestack/design-system/styles";
-import { Size } from "./types";
+import { rem } from "polished";
+import styled, { createGlobalStyle, css } from "styled-components";
+import { type SpaceProps, space } from "styled-system";
+import type { Size } from "./types";
 
 export const GlobalStyle = createGlobalStyle`
     body {
@@ -44,13 +44,12 @@ export const Container = styled.div.withConfig({
 
 const handleSheetSize = (size: Size) => {
   switch (size) {
-    default:
-    case "small":
-      return "576px";
     case "medium":
       return "768px";
     case "large":
       return "992px";
+    default:
+      return "576px";
   }
 };
 

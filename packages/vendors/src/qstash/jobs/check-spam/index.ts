@@ -1,10 +1,11 @@
 // UpStash
-import { serve } from "@upstash/workflow/nextjs";
+
 import { Receiver } from "@upstash/qstash";
+import { serve } from "@upstash/workflow/nextjs";
+// AI
+import { cfAiClient, instructions, TextGenerationModel } from "../../../cf/ai";
 // Types
 import type { CheckDataForSpamPayload } from "../../types";
-// AI
-import { TextGenerationModel, cfAiClient, instructions } from "../../../cf/ai";
 
 export interface CheckSpamJobArgs {
   onSuccess: (submissionId: string, userId: string) => Promise<void>;

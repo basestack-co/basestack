@@ -1,10 +1,10 @@
 "use client";
 
-import { useContext, useEffect, useState, useMemo } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 // Feature Flags Context
 import { FeatureFlagsContext } from "@/libs/feature-flags";
 // Note: Change to the correct dependency path
-import { Flag } from "../../../../../../dist";
+import type { Flag } from "../../../../../../dist";
 
 interface FlagsState {
   flags: Flag[];

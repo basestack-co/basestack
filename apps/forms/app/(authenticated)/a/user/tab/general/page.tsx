@@ -1,16 +1,15 @@
 "use client";
 
-import React from "react";
-// Libs
-import { auth } from "@basestack/vendors";
-// Store
-import { useStore } from "store";
-// Locales
-import { useTranslations } from "next-intl";
 // UI
 import { ProfileAvatarCard, SwitchSettingCard } from "@basestack/ui";
+// Libs
+import { auth } from "@basestack/vendors";
+// Locales
+import { useTranslations } from "next-intl";
+// Store
+import { useStore } from "store";
 // Styles
-import { CardList, ProfileCardContainer, CardListItem } from "../styles";
+import { CardList, CardListItem, ProfileCardContainer } from "../styles";
 
 const UserProfileSettingsPage = () => {
   const t = useTranslations("profile");

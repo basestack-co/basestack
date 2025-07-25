@@ -1,10 +1,9 @@
-import React from "react";
-import { animated } from "react-spring";
-import { rem } from "polished";
 import { useFloatingPopup } from "@basestack/hooks";
+import { rem } from "polished";
+import { animated } from "react-spring";
 import { Button, ButtonVariant } from "../Button";
-import Popup, { PopupProps } from "../Popup";
 import IconButton from "../IconButton";
+import Popup, { type PopupProps } from "../Popup";
 import { Container } from "./styles";
 
 const AnimatedPopup = animated(Popup);
@@ -79,6 +78,6 @@ const PopupMenu = ({ button, items }: PopupMenuProps) => {
   );
 };
 
-export { type PopupMenuProps };
+export type { PopupMenuProps };
 
 export default PopupMenu;

@@ -1,13 +1,12 @@
 "use client";
 
-import React, { Fragment } from "react";
 // Components
-import Form, { FormInputs } from "components/Form";
-import { toast } from "sonner";
+import Form, { type FormInputs } from "components/Form";
 // Locales
 import { useTranslations } from "next-intl";
 // Form
-import { UseFormReset } from "react-hook-form";
+import type { UseFormReset } from "react-hook-form";
+import { toast } from "sonner";
 
 const RequestDemoPage = () => {
   const t = useTranslations();
@@ -48,17 +47,15 @@ const RequestDemoPage = () => {
   };
 
   return (
-    <Fragment>
-      <Form
-        header={{
-          caption: t("page.contact.caption"),
-          title: t("page.contact.title"),
-          text: t("page.contact.description"),
-          titleTag: "h1",
-        }}
-        onSave={onSubmit}
-      />
-    </Fragment>
+    <Form
+      header={{
+        caption: t("page.contact.caption"),
+        title: t("page.contact.title"),
+        text: t("page.contact.description"),
+        titleTag: "h1",
+      }}
+      onSave={onSubmit}
+    />
   );
 };
 

@@ -1,8 +1,8 @@
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
+import { File, Flag, Server } from "lucide-react";
 import type { ReactNode } from "react";
 import { baseOptions } from "@/app/layout.config";
 import { source } from "@/lib/source";
-import { Flag, Server, File } from "lucide-react";
 
 const iconProps = {
   size: 16,

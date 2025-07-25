@@ -3,16 +3,8 @@
   "version": "0.0.0",
   "main": "index.js",
   "license": "AGPL-3.0",
-  "files": [
-    "eslint-preset.js",
-    "jest.config.js",
-    "jest.setup.js"
-  ],
+  "files": ["jest.config.js", "jest.setup.js"],
   "scripts": {
     "clean": "rm -rf .turbo && rm -rf node_modules"
-  },
-  "dependencies": {
-    "eslint-config-next": "^15.4.3",
-    "eslint-config-prettier": "^10.1.8"
   }
 }

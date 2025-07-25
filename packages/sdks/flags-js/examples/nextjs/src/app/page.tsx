@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import styles from "./page.module.css";
 // Feature Flags Hooks
 import { useFlag, useFlags } from "@/libs/feature-flags/hooks";
+import styles from "./page.module.css";
 
 export default function Home() {
   const count = useFlag<{ text: string }>("count");
@@ -23,7 +23,7 @@ export default function Home() {
 
         {count.enabled && (
           <div className={styles.ctas}>
-            <a className={styles.secondary}>
+            <a className={styles.secondary} href="/">
               {!count.enabled
                 ? "Count is not enabled"
                 : `${count?.payload?.text} 0`}
@@ -33,7 +33,7 @@ export default function Home() {
 
         <h3>All the available flags</h3>
         <ul>
-          {data.flags.map((flag, index) => {
+          {data?.flags?.map((flag, index) => {
             return (
               <li
                 key={index}

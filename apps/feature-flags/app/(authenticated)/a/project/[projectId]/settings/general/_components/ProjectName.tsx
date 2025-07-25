@@ -1,24 +1,24 @@
-import React, { useEffect } from "react";
-// Router
-import { useParams } from "next/navigation";
-// Form
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-// Server
-import { api } from "utils/trpc/react";
+// Types
+import { Role } from ".prisma/client";
 // Components
 import { InputGroup } from "@basestack/design-system";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Utils
 import { isEmptyObject } from "@basestack/utils";
-// Toast
-import { toast } from "sonner";
-// Types
-import { Role } from ".prisma/client";
+import { zodResolver } from "@hookform/resolvers/zod";
+// Router
+import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
+// Form
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
+// Toast
+import { toast } from "sonner";
+// Server
+import { api } from "utils/trpc/react";
+import { z } from "zod";
 
 export const FormSchema = z.object({
   name: z
@@ -65,7 +65,7 @@ const ProjectNameCard = ({ role, name }: Props) => {
           // Get all the projects on the cache
           const cacheAllProjects = trpcUtils.projects.list.getData();
 
-          if (cacheAllProjects && cacheAllProjects.projects) {
+          if (cacheAllProjects?.projects) {
             // Update the cache with the new data
             // This updates in the navigation list
             trpcUtils.projects.list.setData(undefined, {

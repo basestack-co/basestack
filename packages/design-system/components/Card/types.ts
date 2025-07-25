@@ -1,9 +1,9 @@
-import { ReactNode } from "react";
-import {
+import type { ReactNode } from "react";
+import type {
+  ColorProps,
   LayoutProps,
   PositionProps,
   SpaceProps,
-  ColorProps,
 } from "styled-system";
 
 export enum Variant {

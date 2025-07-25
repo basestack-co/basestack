@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components";
 import { Text } from "@basestack/design-system";
 import { rem } from "polished";
+import styled, { css } from "styled-components";
 
 const flexColumn = css`
   display: flex;

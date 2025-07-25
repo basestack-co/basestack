@@ -1,15 +1,14 @@
-import React from "react";
+import { Icon, Text } from "@basestack/design-system";
 import { useTheme } from "styled-components";
-import { Text, Icon } from "@basestack/design-system";
 import {
   Container,
   ContentContainer,
+  IconContainer,
   NumberContainer,
+  NumberWrapper,
+  Placeholder,
   TextContainer,
   TextContentContainer,
-  NumberWrapper,
-  IconContainer,
-  Placeholder,
 } from "./styles";
 
 export interface CardProps {

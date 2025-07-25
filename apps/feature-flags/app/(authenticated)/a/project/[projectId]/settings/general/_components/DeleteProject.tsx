@@ -1,17 +1,16 @@
-import React from "react";
-// Store
-import { useStore } from "store";
+import { CardVariant } from "@basestack/design-system";
 // UI
 import { SettingCard } from "@basestack/ui";
-import { CardVariant } from "@basestack/design-system";
-// Server
-import { api } from "utils/trpc/react";
 // Router
 import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
 // Toast
 import { toast } from "sonner";
+// Store
+import { useStore } from "store";
+// Server
+import { api } from "utils/trpc/react";
 
 export interface Props {
   name?: string;
@@ -35,7 +34,7 @@ const DeleteProjectCard = ({ name }: Props) => {
           // Get all the projects on the cache
           const prev = trpcUtils.projects.list.getData();
 
-          if (prev && prev.projects) {
+          if (prev?.projects) {
             // Find the project and remove from the list
             const projects = prev.projects.filter(
               (project) => project.id !== result.project.id,

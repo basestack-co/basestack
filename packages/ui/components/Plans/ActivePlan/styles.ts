@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import {
-  SpaceProps,
-  space,
-  flexbox,
-  FlexboxProps,
   compose,
+  type FlexboxProps,
+  flexbox,
+  type SpaceProps,
+  space,
 } from "styled-system";
 
 export const ContentContainer = styled.div`

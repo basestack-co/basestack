@@ -1,24 +1,24 @@
-import React, { useEffect } from "react";
+import { Modal, Tabs } from "@basestack/design-system";
+import Portal from "@basestack/design-system/global/Portal";
 // Router
 import { useParams } from "next/navigation";
-// Components
-import { useTheme } from "styled-components";
-import Portal from "@basestack/design-system/global/Portal";
-import { Modal, Tabs } from "@basestack/design-system";
+// Locales
+import { useTranslations } from "next-intl";
+import { useEffect } from "react";
 // Form
-import { SubmitHandler } from "react-hook-form";
-import { FlagFormInputs } from "../types";
+import type { SubmitHandler } from "react-hook-form";
+// Toast
+import { toast } from "sonner";
 // Store
 import { useStore } from "store";
-import { useShallow } from "zustand/react/shallow";
+// Components
+import { useTheme } from "styled-components";
 // Types
 import { TabType } from "types";
 // Server
 import { api } from "utils/trpc/react";
-// Toast
-import { toast } from "sonner";
-// Locales
-import { useTranslations } from "next-intl";
+import { useShallow } from "zustand/react/shallow";
+import type { FlagFormInputs } from "../types";
 // Hooks
 import useFlagForm, { tabPosition } from "../useFlagForm";
 

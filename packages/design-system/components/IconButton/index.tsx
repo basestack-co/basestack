@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { useTheme } from "styled-components";
-import { IconButtonProps, Variant as IconButtonVariant } from "./types";
-import Icon, { Size as IconSize } from "../Icon";
+import Icon, { type Size as IconSize } from "../Icon";
 import { StyledButton } from "./styles";
+import type { IconButtonProps, Variant as IconButtonVariant } from "./types";
 
 const IconButton = ({
   ref,
@@ -26,7 +26,6 @@ const IconButton = ({
       case "secondaryDark":
         return theme.iconButton.secondary.color;
       default:
-      case "neutral":
         return theme.iconButton.neutral.color;
     }
   };
@@ -48,16 +47,15 @@ const IconButton = ({
           bg: "36px",
           icon: "medium", // icon 24
         };
-      default:
-      case "medium":
-        return {
-          bg: "32px",
-          icon: "medium", // icon 24
-        };
       case "small":
         return {
           bg: "24px",
           icon: "small", // icon 18
+        };
+      default:
+        return {
+          bg: "32px",
+          icon: "medium", // icon 24
         };
     }
   };
@@ -81,6 +79,6 @@ const IconButton = ({
 
 IconButton.displayName = "IconButton";
 
-export { type IconButtonProps, type IconButtonVariant };
+export type { IconButtonProps, IconButtonVariant };
 
 export default memo(IconButton);

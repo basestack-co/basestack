@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from "react";
 import { Icon } from "@basestack/design-system";
+import { useEffect, useMemo, useState } from "react";
 import { animated, useSprings } from "react-spring";
 import { useTheme } from "styled-components";
-import { Stars, Star } from "./styles";
+import { Star, Stars } from "./styles";
 
 const AnimatedStar = animated(Star);
 
@@ -25,7 +25,7 @@ const StarPattern = ({ count }: { count: number }) => {
   }));
 
   useEffect(() => {
-    api.start((index) => ({
+    api.start(() => ({
       opacity: 1,
     }));
   }, [api]);

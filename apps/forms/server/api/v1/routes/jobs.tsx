@@ -1,31 +1,29 @@
-import { Hono } from "hono";
-// Types
-import { Env } from "../types";
-import React, { ElementType } from "react";
+// Email
+import {
+  AddProjectMemberEmailTemplate,
+  InviteEmailTemplate,
+  NewSubmissionEmailTemplate,
+  sendEmail,
+  WelcomeEmailTemplate,
+} from "@basestack/emails";
 import { Product, UsageEvent } from "@basestack/utils";
+// Vendors
+import {
+  ai,
+  type CheckDataForSpamPayload,
+  polar,
+  type SendDataToExternalWebhookPayload,
+  type SendEmailPayload,
+} from "@basestack/vendors";
+import { render } from "@react-email/render";
 // UpStash Workflow
 import { Receiver } from "@upstash/qstash";
 import { serve } from "@upstash/workflow/hono";
+import { Hono } from "hono";
+import type { ElementType } from "react";
 // Prisma
 import { prisma } from "server/db";
 import { withUsageUpdate } from "server/db/utils/subscription";
-// Vendors
-import {
-  CheckDataForSpamPayload,
-  polar,
-  SendDataToExternalWebhookPayload,
-  SendEmailPayload,
-  ai,
-} from "@basestack/vendors";
-// Email
-import {
-  sendEmail,
-  WelcomeEmailTemplate,
-  InviteEmailTemplate,
-  AddProjectMemberEmailTemplate,
-  NewSubmissionEmailTemplate,
-} from "@basestack/emails";
-import { render } from "@react-email/render";
 
 const templateList: { [key: string]: ElementType } = {
   "new-submission": NewSubmissionEmailTemplate,
@@ -34,7 +32,7 @@ const templateList: { [key: string]: ElementType } = {
   addFormMember: AddProjectMemberEmailTemplate,
 };
 
-const jobsRoutes = new Hono<Env>()
+const jobsRoutes = new Hono()
   .post(
     "/send-email",
     serve<SendEmailPayload>(

@@ -1,25 +1,26 @@
-import React, { useEffect, useCallback } from "react";
-// Router
-import { useParams, useRouter } from "next/navigation";
-// Form
-import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-// Server
-import { api } from "utils/trpc/react";
-// UI
-import { SettingCard } from "@basestack/ui";
 // Components
 import { IconButton, InputGroup, Label } from "@basestack/design-system";
-// Toast
-import { toast } from "sonner";
+// UI
+import { SettingCard } from "@basestack/ui";
+// Utils
+import type { PlanTypeId } from "@basestack/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+// Router
+import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-// Utils
-import { PlanTypeId } from "@basestack/utils";
-import { getWithPlanCardProps } from "../../utils";
+import type React from "react";
+import { useCallback, useEffect } from "react";
+// Form
+import { Controller, useForm } from "react-hook-form";
+// Toast
+import { toast } from "sonner";
+// Server
+import { api } from "utils/trpc/react";
+import { z } from "zod";
 // Styles
 import { TagsContainer } from "../../styles";
+import { getWithPlanCardProps } from "../../utils";
 
 export const FormSchema = z.object({
   website: z.string().url().optional().or(z.literal("")),
@@ -143,45 +144,43 @@ const FlagsWebsitesCard = ({ websites = "", planId }: Props) => {
         },
       })}
     >
-      <>
-        <Controller
-          name="website"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <InputGroup
-              hint={errors.website?.message}
-              inputProps={{
-                type: "text",
-                name: field.name,
-                value: field.value as string,
-                onChange: field.onChange,
-                onBlur: field.onBlur,
-                placeholder: t(
-                  "setting.security.websites.inputs.name.placeholder",
-                ),
-                hasError: !!errors.website,
-                onKeyDown: onHandleKeyDown,
-                maxWidth: 400,
-              }}
-            />
-          )}
-        />
-        {!!websitesValues?.length && (
-          <TagsContainer>
-            {websitesValues.map((item, index) => (
-              <Label key={index} text={item} size="normal" isTranslucent>
-                <IconButton
-                  icon="close"
-                  size="small"
-                  variant="secondaryDark"
-                  onClick={() => onDeleteWebsite(item)}
-                />
-              </Label>
-            ))}
-          </TagsContainer>
+      <Controller
+        name="website"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <InputGroup
+            hint={errors.website?.message}
+            inputProps={{
+              type: "text",
+              name: field.name,
+              value: field.value as string,
+              onChange: field.onChange,
+              onBlur: field.onBlur,
+              placeholder: t(
+                "setting.security.websites.inputs.name.placeholder",
+              ),
+              hasError: !!errors.website,
+              onKeyDown: onHandleKeyDown,
+              maxWidth: 400,
+            }}
+          />
         )}
-      </>
+      />
+      {!!websitesValues?.length && (
+        <TagsContainer>
+          {websitesValues.map((item, index) => (
+            <Label key={index} text={item} size="normal" isTranslucent>
+              <IconButton
+                icon="close"
+                size="small"
+                variant="secondaryDark"
+                onClick={() => onDeleteWebsite(item)}
+              />
+            </Label>
+          ))}
+        </TagsContainer>
+      )}
     </SettingCard>
   );
 };

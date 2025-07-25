@@ -1,14 +1,14 @@
-import styled, { css } from "styled-components";
 import { scrollbar } from "@basestack/design-system/styles";
 import { rem } from "polished";
+import styled, { css } from "styled-components";
 import {
   compose,
-  layout,
-  space,
+  type FlexboxProps,
   flexbox,
-  LayoutProps,
-  SpaceProps,
-  FlexboxProps,
+  type LayoutProps,
+  layout,
+  type SpaceProps,
+  space,
 } from "styled-system";
 
 const flexCenter = css`

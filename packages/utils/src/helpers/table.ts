@@ -9,7 +9,7 @@ export function createTable<TData, TCols, TMore>(
     successText: string;
   },
 ) {
-  if (!!data) {
+  if (data) {
     const rows = data.map((item, index, { length }) => {
       const row: {
         more: Array<TMore>;

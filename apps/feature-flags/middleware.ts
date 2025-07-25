@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
 // Auth
 import { createAuthClient } from "better-auth/client";
+import { type NextRequest, NextResponse } from "next/server";
 
 const client = createAuthClient();
 

@@ -1,10 +1,9 @@
-import React from "react";
-import styled, { useTheme } from "styled-components";
+import { Avatar, Text } from "@basestack/design-system";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Locales
 import { useTranslations } from "next-intl";
-import { Avatar, Text } from "@basestack/design-system";
+import styled, { useTheme } from "styled-components";
 
 export interface Props {
   name: string;

@@ -1,5 +1,9 @@
 import styled, { css } from "styled-components";
-import { flexbox, FlexboxProps, ResponsiveValue } from "styled-system";
+import {
+  type FlexboxProps,
+  flexbox,
+  type ResponsiveValue,
+} from "styled-system";
 
 export interface FlexProps extends FlexboxProps {
   gap?: ResponsiveValue<string | number>;
@@ -49,9 +53,9 @@ const Flex = styled.div.withConfig({
   ${({ columnGap }) =>
     columnGap &&
     css`
-      column-gap: ${typeof columnGap === "number"
-        ? `${columnGap}px`
-        : columnGap};
+      column-gap: ${
+        typeof columnGap === "number" ? `${columnGap}px` : columnGap
+      };
     `}
 `;
 

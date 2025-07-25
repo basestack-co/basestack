@@ -1,20 +1,20 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
-import { useTheme } from "styled-components";
 import useEmblaCarousel from "embla-carousel-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useMedia } from "react-use";
+import { useTheme } from "styled-components";
+import Image from "../Image";
+import SectionHeader from "../SectionHeader";
+import SlideCard from "../SlideCard";
 // Components
 import {
   Container,
   ContentContainer,
-  HeaderContainer,
   Embla,
-  EmblaViewport,
   EmblaContainer,
   EmblaSlide,
+  EmblaViewport,
+  HeaderContainer,
 } from "./styles";
-import SlideCard from "../SlideCard";
-import Image from "../Image";
-import SectionHeader from "../SectionHeader";
 
 export interface SliderProps {
   id?: string;

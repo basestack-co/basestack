@@ -1,14 +1,13 @@
-import React from "react";
+import { Button, ButtonSize, ButtonVariant } from "@basestack/design-system";
 import { useRouter } from "next/navigation";
-import Image, { ImageProps } from "../Image";
-import { Button, ButtonVariant, ButtonSize } from "@basestack/design-system";
+import Image, { type ImageProps } from "../Image";
+import SectionHeader, { type SectionHeaderProps } from "../SectionHeader";
 import {
   ButtonsContainer,
   Container,
   ContentContainer,
   StyledImageContainer,
 } from "./styles";
-import SectionHeader, { SectionHeaderProps } from "../SectionHeader";
 
 interface HeroProps {
   header: Omit<SectionHeaderProps, "hasMarginBottom">;

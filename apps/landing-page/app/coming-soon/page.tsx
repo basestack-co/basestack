@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
-import Head from "next/head";
 // Components
 import { WaitingList } from "components";
+import Head from "next/head";
 
 const MainPage = () => {
   return (

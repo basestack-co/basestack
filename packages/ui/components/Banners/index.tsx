@@ -1,5 +1,4 @@
-import React from "react";
-import { Banner, BannerProps } from "@basestack/design-system";
+import { Banner, type BannerProps } from "@basestack/design-system";
 import { useTheme } from "styled-components";
 
 export interface BannersItem extends BannerProps {

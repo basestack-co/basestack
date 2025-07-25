@@ -1,16 +1,16 @@
-import { memo, useEffect, useState, useRef } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { useTheme } from "styled-components";
-import { SpaceProps } from "styled-system";
+import type { SpaceProps } from "styled-system";
 import IconButton from "../IconButton";
 import Text from "../Text";
-import { Size } from "../Text/types";
+import type { Size } from "../Text/types";
 import {
-  Container,
   Button,
-  Slider,
-  Wrapper,
+  Container,
   ContentContainer,
+  Slider,
   Tab,
+  Wrapper,
 } from "./styles";
 
 type Item = {
@@ -157,54 +157,53 @@ const Tabs = ({
           data-testid="tabs-component"
           {...props}
         >
-          {items &&
-            items.map((item: Item, index) => {
-              const isActive = index === sliderPosition;
+          {items?.map((item: Item, index) => {
+            const isActive = index === sliderPosition;
 
-              return type === "tabs" ? (
-                <Tab
-                  key={`tab-${item.id}`}
-                  data-testid="tab-button"
-                  onClick={() => onSelect(item.id, index)}
-                  borderColor={borderColor}
-                  hoverBgColor={hoverBgColor}
-                >
-                  {!!item.text && (
-                    <Text
-                      fontWeight="500"
-                      size={textSize}
-                      color={textColor || theme.tabs.color}
-                      flexShrink={0}
-                      lineTruncate
-                    >
-                      {item.text}
-                    </Text>
-                  )}
-                </Tab>
-              ) : (
-                <Button
-                  key={`tab-${item.id}`}
-                  onClick={() => onSelect(item.id, index)}
-                  isActive={isActive}
-                >
-                  {!!item.text && (
-                    <Text
-                      fontWeight="500"
-                      size={textSize}
-                      color={
-                        isActive
-                          ? theme.tabs.button.active.text.color
-                          : theme.tabs.color
-                      }
-                      flexShrink={0}
-                      lineTruncate
-                    >
-                      {item.text}
-                    </Text>
-                  )}
-                </Button>
-              );
-            })}
+            return type === "tabs" ? (
+              <Tab
+                key={`tab-${item.id}`}
+                data-testid="tab-button"
+                onClick={() => onSelect(item.id, index)}
+                borderColor={borderColor}
+                hoverBgColor={hoverBgColor}
+              >
+                {!!item.text && (
+                  <Text
+                    fontWeight="500"
+                    size={textSize}
+                    color={textColor || theme.tabs.color}
+                    flexShrink={0}
+                    lineTruncate
+                  >
+                    {item.text}
+                  </Text>
+                )}
+              </Tab>
+            ) : (
+              <Button
+                key={`tab-${item.id}`}
+                onClick={() => onSelect(item.id, index)}
+                isActive={isActive}
+              >
+                {!!item.text && (
+                  <Text
+                    fontWeight="500"
+                    size={textSize}
+                    color={
+                      isActive
+                        ? theme.tabs.button.active.text.color
+                        : theme.tabs.color
+                    }
+                    flexShrink={0}
+                    lineTruncate
+                  >
+                    {item.text}
+                  </Text>
+                )}
+              </Button>
+            );
+          })}
           {type === "tabs" && (
             <Slider
               activeBorderColor={activeBorderColor}

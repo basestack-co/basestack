@@ -1,16 +1,15 @@
-import React from "react";
+import {
+  Button,
+  ButtonVariant,
+  IconButton,
+  slideBottom,
+} from "@basestack/design-system";
 // Locales
 import { useTranslations } from "next-intl";
 // Components
 import { animated, config, useTransition } from "react-spring";
 import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
-import {
-  Button,
-  ButtonVariant,
-  slideBottom,
-  IconButton,
-} from "@basestack/design-system";
 import { ActionsList, ActionsListItem } from "../styles";
 
 interface ActionsProps {

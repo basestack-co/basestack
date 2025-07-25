@@ -1,10 +1,10 @@
 // Client
-import { client, baseUrl } from "../client";
+import { baseUrl, client } from "../client";
 // Types
 import type {
   CheckDataForSpamPayload,
-  SendEmailPayload,
   SendDataToExternalWebhookPayload,
+  SendEmailPayload,
 } from "../types";
 
 // AI JOBS

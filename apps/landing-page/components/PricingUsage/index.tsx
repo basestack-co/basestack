@@ -1,17 +1,17 @@
-import React from "react";
-import { rem } from "polished";
 import {
   Box,
   Button,
   ButtonSize,
   Flex,
-  Icon,
-  Text,
-  RangeSelector,
   HorizontalRule,
+  Icon,
+  RangeSelector,
+  Text,
 } from "@basestack/design-system";
+import { rem } from "polished";
 import { useTheme } from "styled-components";
 import SectionHeader from "../SectionHeader";
+import { Card } from "../styles";
 import {
   Amount,
   Container,
@@ -20,7 +20,6 @@ import {
   HeaderContainer,
   LeftContent,
 } from "./styles";
-import { Card } from "../styles";
 
 interface Slider {
   id: string;
@@ -33,7 +32,7 @@ interface Slider {
   onChange: (id: string, value: number) => void;
 }
 
-interface Card {
+interface CardProps {
   title: string;
   label: string;
   amount: string;
@@ -50,7 +49,7 @@ interface PricingUsageProps {
   title: string;
   caption?: string;
   text: string;
-  card: Card;
+  card: CardProps;
   sliders: Slider[];
 }
 

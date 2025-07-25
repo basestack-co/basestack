@@ -1,12 +1,12 @@
-import React, { memo, ReactNode } from "react";
-import styled, { css } from "styled-components";
-// Utils
-import { rem } from "polished";
 // Components
 import { Button, ButtonVariant } from "@basestack/design-system";
+// Utils
+import { rem } from "polished";
+import { memo, type ReactNode } from "react";
+import styled, { css } from "styled-components";
 // Types
-import { SpaceProps } from "styled-system";
-import { ButtonType } from "../types";
+import type { SpaceProps } from "styled-system";
+import type { ButtonType } from "../types";
 
 interface ButtonLinkProps {
   isActive: boolean;

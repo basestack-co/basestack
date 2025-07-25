@@ -1,19 +1,18 @@
-import React from "react";
-import { useTheme } from "styled-components";
 import useEmblaCarousel from "embla-carousel-react";
 import { useMedia } from "react-use";
+import { useTheme } from "styled-components";
 import Card from "../Card";
+import CarouselButtons from "../CarouselButtons";
+import SectionHeader from "../SectionHeader";
 import {
   Container,
   ContentContainer,
   Embla,
-  EmblaViewport,
-  EmblaSlide,
   EmblaContainer,
+  EmblaSlide,
+  EmblaViewport,
   HeaderContainer,
 } from "./styles";
-import SectionHeader from "../SectionHeader";
-import CarouselButtons from "../CarouselButtons";
 
 export interface CardsProps {
   id?: string;

@@ -1,14 +1,14 @@
+import { rem } from "polished";
 import styled, { css } from "styled-components";
 import {
-  space,
-  SpaceProps,
-  flexbox,
-  FlexboxProps,
   compose,
+  type FlexboxProps,
+  flexbox,
+  type LayoutProps,
   layout,
-  LayoutProps,
+  type SpaceProps,
+  space,
 } from "styled-system";
-import { rem } from "polished";
 
 export const Container = styled.nav`
   position: sticky;

@@ -1,14 +1,13 @@
-import React from "react";
+import { Button, ButtonSize, ButtonVariant } from "@basestack/design-system";
 import { useMedia } from "react-use";
 import { useTheme } from "styled-components";
-import { Button, ButtonSize, ButtonVariant } from "@basestack/design-system";
-import SectionHeader, { SectionHeaderProps } from "../SectionHeader";
+import SectionHeader, { type SectionHeaderProps } from "../SectionHeader";
 import StarsPattern from "../StarsPattern";
 import {
-  Container,
-  ContentContainer,
   BannerContent,
   ButtonsContainer,
+  Container,
+  ContentContainer,
   StyledCard,
 } from "./styles";
 

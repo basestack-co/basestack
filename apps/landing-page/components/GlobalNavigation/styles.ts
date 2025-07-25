@@ -1,6 +1,5 @@
-import styled, { css } from "styled-components";
 import { rem } from "polished";
-import Link from "next/link";
+import styled, { css } from "styled-components";
 
 const backgroundBlur = css`
   background: ${({ theme }) =>

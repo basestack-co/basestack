@@ -1,4 +1,3 @@
-import React from "react";
 import { Switch, Text } from "@basestack/design-system";
 import { Container, ContentContainer, Item } from "./styles";
 
