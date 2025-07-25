@@ -24,6 +24,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "js-cookie": "^3.0.5",
     "request-ip": "^3.3.0",
     "uuid": "^11.1.0"
   }

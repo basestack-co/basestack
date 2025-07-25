@@ -57,8 +57,9 @@
     "dayjs": "^1.11.13",
     "formidable": "^3.5.4",
     "hono": "^4.8.5",
+    "html-react-parser": "^5.2.6",
     "material-symbols": "^0.33.0",
-    "next": "^15.4.3",
+    "next": "^15.4.4",
     "next-intl": "^4.3.4",
     "polished": "^4.3.1",
     "react": "^19.1.0",
@@ -91,7 +92,6 @@
     "@types/request-ip": "^0.0.41",
     "@types/styled-system": "^5.1.23",
     "@types/uuid": "^10.0.0",
-
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",
     "jest-fetch-mock": "^3.0.3",
