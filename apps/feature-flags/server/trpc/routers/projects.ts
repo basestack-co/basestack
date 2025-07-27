@@ -281,7 +281,7 @@ export const projectsRouter = createTRPCRouter({
         .required(),
     )
     .mutation(async ({ ctx, input }) => {
-      const { feature, ...props } = input;
+      const { projectId, feature, ...props } = input;
 
       const data = Object.fromEntries(
         Object.entries(props).filter(([_, value]) => value !== null),
@@ -301,7 +301,7 @@ export const projectsRouter = createTRPCRouter({
       )(() =>
         ctx.prisma.project.update({
           where: {
-            id: input.projectId,
+            id: projectId,
           },
           data,
         }),
