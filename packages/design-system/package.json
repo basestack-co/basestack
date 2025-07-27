@@ -17,8 +17,8 @@
     "@basestack/hooks": "*",
     "@basestack/tsconfig": "*",
     "@basestack/utils": "*",
-    "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.6.4",
     "@types/react": "19.1.8",
     "@types/react-calendar": "^4.1.0",
     "@types/react-dom": "^19.1.6",
@@ -26,7 +26,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.27.13",
+    "@floating-ui/react": "^0.27.14",
     "polished": "^4.2.2",
     "react-calendar": "^6.0.0",
     "react-select": "^5.10.2",
