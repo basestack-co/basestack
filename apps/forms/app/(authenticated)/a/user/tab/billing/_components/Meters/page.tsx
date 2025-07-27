@@ -35,9 +35,11 @@ const Meters = ({
   const [meters, usage] = api.useQueries((t) => [
     t.subscription.meters(undefined, {
       enabled: !isLoadingSubscription,
+      refetchOnMount: "always",
     }),
     t.subscription.usage(undefined, {
       enabled: !isLoadingSubscription,
+      refetchOnMount: "always",
     }),
   ]);
 

@@ -116,7 +116,6 @@ const AddProjectMemberModal = () => {
           { projectId, userId: input.member.userId, role: input.member.role },
           {
             onSuccess: async () => {
-              await trpcUtils.projects.recent.invalidate();
               await trpcUtils.projectMembers.list.invalidate();
               onClose();
             },

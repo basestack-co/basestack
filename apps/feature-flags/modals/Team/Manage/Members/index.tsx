@@ -77,8 +77,8 @@ const Members = ({ teamId }: Props) => {
         },
         {
           onSuccess: async () => {
-            await trpcUtils.teams.list.invalidate();
-            await trpcUtils.teams.byId.invalidate({ teamId });
+            trpcUtils.teams.list.invalidate();
+            trpcUtils.teams.byId.invalidate({ teamId });
             toast.success(
               t("team.manage.tab.members.list.status.update.success"),
             );
@@ -101,9 +101,8 @@ const Members = ({ teamId }: Props) => {
         },
         {
           onSuccess: async () => {
-            await trpcUtils.subscription.usage.invalidate();
-            await trpcUtils.teams.list.invalidate();
-            await trpcUtils.teams.byId.invalidate({ teamId });
+            trpcUtils.teams.list.invalidate();
+            trpcUtils.teams.byId.invalidate({ teamId });
             toast.success(
               t("team.manage.tab.members.list.status.remove.success"),
             );
@@ -126,8 +125,8 @@ const Members = ({ teamId }: Props) => {
           },
           {
             onSuccess: async () => {
-              await trpcUtils.teams.list.invalidate();
-              await trpcUtils.teams.byId.invalidate({ teamId });
+              trpcUtils.teams.list.invalidate();
+              trpcUtils.teams.byId.invalidate({ teamId });
               toast.success(
                 t("team.manage.tab.members.list.status.invite.success"),
               );

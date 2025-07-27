@@ -84,9 +84,9 @@ const EnvironmentsCard = ({ role }: Props) => {
           {
             onSuccess: async (result) => {
               if (result) {
-                await trpcUtils.projectEnvironments.list.invalidate();
-                await trpcUtils.projectKeys.list.invalidate({ projectId });
-                await trpcUtils.projectFlags.list.invalidate();
+                trpcUtils.projectEnvironments.list.invalidate();
+                trpcUtils.projectKeys.list.invalidate({ projectId });
+                trpcUtils.projectFlags.invalidate();
               }
             },
           },

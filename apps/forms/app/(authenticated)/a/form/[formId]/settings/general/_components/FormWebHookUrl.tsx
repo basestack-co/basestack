@@ -28,9 +28,14 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 export interface Props {
   webhookUrl?: string;
   planId: PlanTypeId;
+  isDisabled?: boolean;
 }
 
-const FormWebHookUrlCard = ({ webhookUrl = "", planId }: Props) => {
+const FormWebHookUrlCard = ({
+  webhookUrl = "",
+  planId,
+  isDisabled = false,
+}: Props) => {
   const router = useRouter();
   const { formId } = useParams<{ formId: string }>();
   const t = useTranslations();
@@ -93,6 +98,7 @@ const FormWebHookUrlCard = ({ webhookUrl = "", planId }: Props) => {
     <SettingCard
       title={t("setting.general.webhook-url.title")}
       description={t("setting.general.webhook-url.description")}
+      hasOverlay={isDisabled}
       {...getWithPlanCardProps({
         router,
         planId,

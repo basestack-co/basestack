@@ -78,16 +78,14 @@ const FlagCard = forwardRef<HTMLDivElement, FlagCardProps>(
         )}
         {!!data?.environments && (
           <Labels data-testid="flag-labels">
-            {data?.environments
-              .filter((item) => !!item.name)
-              .map((environment) => (
-                <Label
-                  key={environment.id}
-                  testId={`${environment.name}-flag-label`}
-                  text={environment.name}
-                  variant={environment.enabled ? "success" : "default"}
-                />
-              ))}
+            {data?.environments.map((environment) => (
+              <Label
+                key={environment.id}
+                testId={`${environment.name}-flag-label`}
+                text={environment.name}
+                variant={environment.enabled ? "success" : "default"}
+              />
+            ))}
           </Labels>
         )}
         <Footer>
