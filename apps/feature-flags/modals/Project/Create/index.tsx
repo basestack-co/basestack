@@ -60,10 +60,6 @@ const CreateProjectModal = () => {
       onSuccess: async (result) => {
         // Invalidate the project list cache
         await trpcUtils.projects.list.invalidate();
-        // Reset the recent projects cache
-        await trpcUtils.projects.recent.invalidate();
-        // Reset the usage cache
-        await trpcUtils.subscription.usage.invalidate();
         onClose();
 
         router.push(`/a/project/${result.project.id}/flags`);

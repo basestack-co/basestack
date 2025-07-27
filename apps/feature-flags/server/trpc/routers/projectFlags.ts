@@ -148,6 +148,7 @@ export const projectFlagsRouter = createTRPCRouter({
             select: {
               id: true,
               name: true,
+              createdAt: true,
             },
           },
         },
@@ -167,7 +168,8 @@ export const projectFlagsRouter = createTRPCRouter({
           .map((item) => ({
             ...item.environment,
             enabled: item.enabled,
-          })),
+          }))
+          .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime()),
       };
     }),
   bySlug: protectedProcedure

@@ -72,7 +72,10 @@ const GeneralSettingsPage = () => {
       {hasFormsPermission(data?.role, "enable_form_data_retention") && (
         <CardListItem>
           <SettingCardContainer>
-            <FormDataRetention hasRetention={data?.hasRetention} />
+            <FormDataRetention
+              isDisabled={!data?.isEnabled}
+              hasRetention={data?.hasRetention}
+            />
           </SettingCardContainer>
         </CardListItem>
       )}
@@ -81,7 +84,7 @@ const GeneralSettingsPage = () => {
           <SettingCardContainer>
             <FormSpamProtection
               hasSpamProtection={data?.hasSpamProtection}
-              isDisabled={!data?.hasRetention}
+              isDisabled={!data?.hasRetention || !data?.isEnabled}
               planId={PlanTypeId.USAGE}
             />
           </SettingCardContainer>
@@ -91,6 +94,7 @@ const GeneralSettingsPage = () => {
         <CardListItem>
           <SettingCardContainer>
             <FormWebHookUrl
+              isDisabled={!data?.isEnabled}
               webhookUrl={data?.webhookUrl ?? ""}
               planId={PlanTypeId.USAGE}
             />

@@ -42,11 +42,6 @@ const DeleteProjectCard = ({ name }: Props) => {
 
             // Update the cache with the new data
             trpcUtils.projects.list.setData(undefined, { projects });
-
-            // Reset the recent projects cache
-            await trpcUtils.projects.recent.invalidate();
-            // Reset the usage cache
-            await trpcUtils.subscription.usage.invalidate();
           }
 
           router.replace("/");

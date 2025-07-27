@@ -113,7 +113,6 @@ const AddFormMemberModal = () => {
           { formId, userId: input.member.userId, role: input.member.role },
           {
             onSuccess: async () => {
-              await trpcUtils.forms.recent.invalidate();
               await trpcUtils.formMembers.list.invalidate({ formId });
               onClose();
             },

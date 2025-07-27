@@ -51,6 +51,7 @@ const RecentForms = () => {
         isEnabled: isEnabled,
       }));
     },
+    refetchOnMount: "always",
   });
 
   const onClickMenuItem = useCallback(

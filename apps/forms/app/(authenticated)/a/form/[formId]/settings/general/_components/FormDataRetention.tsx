@@ -12,10 +12,14 @@ import { toast } from "sonner";
 import { api } from "utils/trpc/react";
 
 export interface Props {
+  isDisabled?: boolean;
   hasRetention?: boolean;
 }
 
-const FormDataRetentionCard = ({ hasRetention = false }: Props) => {
+const FormDataRetentionCard = ({
+  isDisabled = false,
+  hasRetention = false,
+}: Props) => {
   const { formId } = useParams<{ formId: string }>();
   const t = useTranslations("setting");
   const trpcUtils = api.useUtils();
@@ -61,6 +65,7 @@ const FormDataRetentionCard = ({ hasRetention = false }: Props) => {
       description={t("general.data-retention.description")}
       checked={hasRetention}
       onChange={onChange}
+      hasOverlay={isDisabled}
     />
   );
 };

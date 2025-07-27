@@ -24,8 +24,8 @@ const RecentProjects = () => {
   );
 
   const { data, isLoading } = api.projects.recent.useQuery(undefined, {
-    select: (projects) =>
-      projects?.map((item) => ({
+    select: (projects) => {
+      return projects?.map((item) => ({
         id: item.id,
         slug: item.slug,
         onClick: () => router.push(`/a/project/${item.id}/flags`),
@@ -41,7 +41,9 @@ const RecentProjects = () => {
             value: item.count.members ?? 0,
           },
         ],
-      })),
+      }));
+    },
+    refetchOnMount: "always",
   });
 
   return (

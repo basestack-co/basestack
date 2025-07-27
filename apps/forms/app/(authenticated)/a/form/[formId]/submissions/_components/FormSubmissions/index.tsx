@@ -146,7 +146,6 @@ const FormSubmissions = ({
             setSelectIds([]);
 
             await trpcUtils.formSubmissions.list.invalidate({ formId });
-            await trpcUtils.forms.recent.invalidate();
 
             toast.dismiss(loadingToastId);
             toast.success(
@@ -185,7 +184,6 @@ const FormSubmissions = ({
             setSelectIds([]);
 
             await trpcUtils.formSubmissions.list.invalidate({ formId });
-            await trpcUtils.forms.recent.invalidate();
 
             if (showToast) {
               toast.dismiss(loadingToastId);

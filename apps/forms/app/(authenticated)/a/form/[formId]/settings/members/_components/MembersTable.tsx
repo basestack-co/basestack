@@ -67,8 +67,6 @@ const MembersTableCard = ({ role }: Props) => {
                 // the user removed himself from the project, so we redirect him to the dashboard
                 router.push("/a");
               } else {
-                await trpcUtils.forms.recent.invalidate();
-
                 const prev = trpcUtils.formMembers.list.getData({
                   formId,
                 });

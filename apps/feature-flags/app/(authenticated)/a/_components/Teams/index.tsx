@@ -40,8 +40,8 @@ const Teams = () => {
     );
 
   const { data, isLoading } = api.teams.list.useQuery(undefined, {
-    select: (teams) =>
-      teams?.map((item) => ({
+    select: (teams) => {
+      return teams?.map((item) => ({
         id: item.id,
         slug: item.slug,
         onClick: () =>
@@ -62,7 +62,9 @@ const Teams = () => {
         total: {
           members: item._count.members,
         },
-      })),
+      }));
+    },
+    refetchOnMount: "always",
   });
 
   const deleteTeam = api.teams.delete.useMutation();
@@ -88,7 +90,6 @@ const Teams = () => {
                   setConfirmModalOpen({
                     isOpen: false,
                   });
-                  await trpcUtils.subscription.usage.invalidate();
                   await trpcUtils.teams.list.invalidate();
                   toast.success(t("teams.confirm.delete.status.success"));
                 },
