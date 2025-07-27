@@ -87,8 +87,10 @@ const EditEnvironmentModal = () => {
                   },
                 );
 
-                trpcUtils.projectKeys.list.invalidate({ projectId });
-                trpcUtils.projectFlags.invalidate();
+                await Promise.all([
+                  trpcUtils.projectKeys.list.invalidate({ projectId }),
+                  trpcUtils.projectFlags.invalidate(),
+                ]);
               }
 
               onClose();

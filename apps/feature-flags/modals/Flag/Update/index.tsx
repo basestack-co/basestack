@@ -87,8 +87,10 @@ const UpdateFlagModal = () => {
         },
         {
           onSuccess: async () => {
-            trpcUtils.projectFlags.invalidate();
-            trpcUtils.projectHistory.list.invalidate();
+            await Promise.all([
+              trpcUtils.projectFlags.invalidate(),
+              trpcUtils.projectHistory.list.invalidate(),
+            ]);
 
             onClose();
           },

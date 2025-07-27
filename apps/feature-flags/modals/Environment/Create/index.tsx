@@ -55,9 +55,11 @@ const CreateEnvironmentModal = () => {
         {
           onSuccess: async (result) => {
             if (result) {
-              trpcUtils.projectEnvironments.list.invalidate();
-              trpcUtils.projectKeys.list.invalidate({ projectId });
-              trpcUtils.projectFlags.invalidate();
+              await Promise.all([
+                trpcUtils.projectEnvironments.list.invalidate(),
+                trpcUtils.projectKeys.list.invalidate({ projectId }),
+                trpcUtils.projectFlags.invalidate(),
+              ]);
 
               onClose();
             }
