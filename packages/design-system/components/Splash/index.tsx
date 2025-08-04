@@ -4,7 +4,7 @@ import Logo from "../Logo";
 import { Container, Content, Loader, LoaderContainer } from "./styles";
 
 interface SplashProps {
-  product?: "flags" | "forms";
+  product?: "flags" | "forms" | "uptime";
 }
 
 const Splash = ({ product = "flags" }: SplashProps) => (

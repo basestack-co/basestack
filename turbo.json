@@ -1,6 +1,8 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalEnv": [
+    "DATABASE_URL",
+    "DIRECT_DATABASE_URL",
     "EMAIL_FROM",
     "EMAIL_SMTP_HOST",
     "EMAIL_SMTP_PORT",
@@ -71,16 +73,6 @@
       "dependsOn": ["build", "test", "lint"],
       "outputs": []
     },
-    "@basestack/feature-flags#deploy": {
-      "dependsOn": ["^build", "lint"],
-      "outputs": ["dist/**", ".next/**"],
-      "env": ["DATABASE_URL", "DIRECT_DATABASE_URL"]
-    },
-    "@basestack/forms#deploy": {
-      "dependsOn": ["^build", "lint"],
-      "outputs": ["dist/**", ".next/**"],
-      "env": ["DATABASE_URL", "DIRECT_DATABASE_URL"]
-    },
     "@basestack/landing-page#deploy": {
       "dependsOn": [
         "lint",
@@ -99,9 +91,28 @@
       "dependsOn": [],
       "outputs": ["dist/**", ".next/**"]
     },
+    "@basestack/feature-flags#deploy": {
+      "dependsOn": ["^build", "lint"],
+      "outputs": ["dist/**", ".next/**"],
+      "env": []
+    },
     "@basestack/forms#start": {
       "dependsOn": [],
       "outputs": ["dist/**", ".next/**"]
+    },
+    "@basestack/forms#deploy": {
+      "dependsOn": ["^build", "lint"],
+      "outputs": ["dist/**", ".next/**"],
+      "env": []
+    },
+    "@basestack/uptime#start": {
+      "dependsOn": [],
+      "outputs": ["dist/**", ".next/**"]
+    },
+    "@basestack/uptime#deploy": {
+      "dependsOn": ["^build", "lint"],
+      "outputs": ["dist/**", ".next/**"],
+      "env": []
     }
   }
 }

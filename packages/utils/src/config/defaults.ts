@@ -16,6 +16,7 @@ const commons = {
   product: {
     flags: `${baseLandingUrl}/product/feature-flags`,
     forms: `${baseLandingUrl}/product/forms`,
+    uptime: `${baseLandingUrl}/product/uptime`,
   },
   legal: {
     privacy: `${baseLandingUrl}/legal/privacy`,
@@ -26,18 +27,22 @@ const commons = {
     local: {
       flags: "http://localhost:3000",
       forms: "http://localhost:3003",
+      uptime: "http://localhost:3004",
     },
     development: {
       flags: `${protocol}//flags-dev.${domainUrl}`,
       forms: `${protocol}//forms-dev.${domainUrl}`,
+      uptime: `${protocol}//uptime-dev.${domainUrl}`,
     },
     staging: {
       flags: `${protocol}//flags-staging.${domainUrl}`,
       forms: `${protocol}//forms-staging.${domainUrl}`,
+      uptime: `${protocol}//uptime-staging.${domainUrl}`,
     },
     production: {
       flags: `${protocol}//flags.${domainUrl}`,
       forms: `${protocol}//forms.${domainUrl}`,
+      uptime: `${protocol}//uptime.${domainUrl}`,
     },
   },
   docs: {

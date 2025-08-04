@@ -7,9 +7,11 @@ import {
   type PlanProduct,
   PlanTypeId,
   type Product,
+  type UptimePlan,
 } from "../../types";
 import { config as flagsConfig } from "./flags";
 import { config as formsConfig } from "./forms";
+import { config as uptimeConfig } from "./uptime";
 
 const getSubscriptionEvents = [
   "subscription_created",
@@ -29,6 +31,7 @@ const getSubscriptionEvents = [
 const currentPlans = {
   forms: formsConfig.forms,
   flags: flagsConfig.flags,
+  uptime: uptimeConfig.uptime,
 };
 
 export const getAppMode = (mode: string) => {
@@ -41,14 +44,17 @@ const isValidPlan = (product: Product, id: PlanTypeId) => {
   return currentPlans[product].some((plan) => plan.id === id);
 };
 
-const getPlan = (product: Product, id: PlanTypeId): FormPlan | FlagsPlan => {
+const getPlan = (
+  product: Product,
+  id: PlanTypeId,
+): FormPlan | FlagsPlan | UptimePlan => {
   const plan = currentPlans[product].find(
-    (plan: FormPlan | FlagsPlan) => plan.id === id,
+    (plan: FormPlan | FlagsPlan | UptimePlan) => plan.id === id,
   );
   if (!plan) {
     // Fallback to free plan if plan is not found
     return currentPlans[product].find(
-      (plan: FormPlan | FlagsPlan) => plan.id === PlanTypeId.FREE,
+      (plan: FormPlan | FlagsPlan | UptimePlan) => plan.id === PlanTypeId.FREE,
     )!;
   }
   return plan;
@@ -57,7 +63,7 @@ const getPlan = (product: Product, id: PlanTypeId): FormPlan | FlagsPlan => {
 const getPlanLimits = (
   product: Product,
   id: PlanTypeId,
-): FlagsPlan["limits"] | FormPlan["limits"] => {
+): FlagsPlan["limits"] | FormPlan["limits"] | UptimePlan["limits"] => {
   const plan = getPlan(product, id);
   return plan.limits;
 };
@@ -65,7 +71,7 @@ const getPlanLimits = (
 const getPlanFeatures = (
   product: Product,
   id: PlanTypeId,
-): FlagsPlan["features"] | FormPlan["features"] => {
+): FlagsPlan["features"] | FormPlan["features"] | UptimePlan["features"] => {
   const plan = getPlan(product, id);
   return plan.features;
 };
@@ -73,7 +79,10 @@ const getPlanFeatures = (
 const hasPlanFeature = (
   product: Product,
   id: PlanTypeId,
-  feature: keyof FormPlan["features"] | keyof FlagsPlan["features"],
+  feature:
+    | keyof FormPlan["features"]
+    | keyof FlagsPlan["features"]
+    | keyof UptimePlan["features"],
 ) => {
   const plan = getPlan(product, id);
   return plan.features[feature as keyof typeof plan.features];
@@ -82,7 +91,10 @@ const hasPlanFeature = (
 const getPlanLimitByKey = (
   product: Product,
   id: PlanTypeId,
-  limit: keyof FormPlan["limits"] | keyof FlagsPlan["limits"],
+  limit:
+    | keyof FormPlan["limits"]
+    | keyof FlagsPlan["limits"]
+    | keyof UptimePlan["limits"],
 ) => {
   const plan = getPlan(product, id);
   return plan.limits[limit as keyof typeof plan.limits];
@@ -91,7 +103,10 @@ const getPlanLimitByKey = (
 const isUnderPlanLimit = (
   product: Product,
   id: PlanTypeId,
-  limit: keyof FormPlan["limits"] | keyof FlagsPlan["limits"],
+  limit:
+    | keyof FormPlan["limits"]
+    | keyof FlagsPlan["limits"]
+    | keyof UptimePlan["limits"],
   value: number,
 ) => {
   const plan = getPlan(product, id);
@@ -101,7 +116,10 @@ const isUnderPlanLimit = (
 const getLimitByKey = (
   product: Product,
   id: PlanTypeId,
-  limit: keyof FormPlan["limits"] | keyof FlagsPlan["limits"],
+  limit:
+    | keyof FormPlan["limits"]
+    | keyof FlagsPlan["limits"]
+    | keyof UptimePlan["limits"],
 ): number => {
   const plan = getPlan(product, id);
   return plan?.limits[limit as keyof typeof plan.limits] || 0;
@@ -135,6 +153,7 @@ export const plans = {
   getSubscriptionEvents,
   ...formsConfig,
   ...flagsConfig,
+  ...uptimeConfig,
   isValidPlan,
   getPlan,
   getPlanLimits,

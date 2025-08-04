@@ -1,0 +1,437 @@
+{
+  "auth": {
+    "sign-in": {
+      "panel": {
+        "title": "Basestack",
+        "slogan": "The Open-Source Stack for Developers and Startups",
+        "description": "Transform Your Site Experience: Capture Form Submissions Easily, No Backend Required"
+      },
+      "content": {
+        "title": "Welcome to Basestack Uptime",
+        "description": "Please select your preferred login service below to access your uptime. By signing in, you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
+        "action": "Sign in with {name}"
+      }
+    },
+    "error": {
+      "oauth-account-not-linked": {
+        "title": "Account not linked",
+        "description": "You are already signed in with a different provider linked to the same email address."
+      }
+    }
+  },
+  "common": {
+    "not-found": {
+      "title": " This page could not be found",
+      "description": "Sorry, the page you are looking for doesn't exist or has been moved.",
+      "action": "Back to Homepage"
+    }
+  },
+  "home": {
+    "uptime": {
+      "title": "Recent uptime",
+      "action": "Create Uptime",
+      "tag": {
+        "text": "External",
+        "tooltip": "You are a member of this form, not the owner."
+      },
+      "empty": {
+        "title": "Create your first uptime",
+        "description": "Create your first uptime to start monitoring your website!",
+        "action": "Create Uptime"
+      },
+      "card": {
+        "menu": {
+          "uptime": "Uptime",
+          "settings": "Settings"
+        },
+        "label": {
+          "disabled": "Disabled"
+        }
+      }
+    },
+    "usage": {
+      "title": "Account Insights",
+      "link": {
+        "upgrade": "Enable Subscription",
+        "manage": "Usage & Billing"
+      },
+      "date": "Renews at {date}",
+      "resource": {
+        "teams": "Teams",
+        "members": "Members"
+      },
+      "meters": {
+        "title": "Estimated Cost: {cost}",
+        "description": "Estimated cost reflects your usage and the {minimumSpend} minimum spend.",
+        "unlimited": "Unlimited",
+        "credited": "CU",
+        "unit": "Unit",
+        "resource": {
+          "email_notification": "Email Notifications"
+        }
+      },
+      "alert": {
+        "no-subscription": "You don’t have an active subscription. You can still use features like Forms and Teams, but endpoints are disabled until you add your billing details in your profile."
+      }
+    },
+    "teams": {
+      "title": "Teams",
+      "name": "{name} Team",
+      "action": "Create Team",
+      "tag": {
+        "text": "External",
+        "tooltip": "This team was created by someone else. You have limited permissions."
+      },
+      "menu": {
+        "manage": "Manage",
+        "delete": "Delete"
+      },
+      "empty": {
+        "title": "Create your first team",
+        "description": "Create your first team to start collaborating.",
+        "action": "Create Team"
+      },
+      "confirm": {
+        "delete": {
+          "title": "Are you sure about this action?",
+          "description": "Warning: This action cannot be undone. It will permanently delete the {name} team, including all members associations.",
+          "action": "Delete Team",
+          "status": {
+            "success": "You’ve successfully deleted the team and all its members."
+          }
+        }
+      }
+    },
+    "links": {
+      "title": "Quick links",
+      "external": {
+        "title": "Documentation, Help and Support",
+        "read_the": "Read the",
+        "check_out_the": "Check out the",
+        "how_to": "How to",
+        "open_on": "Open an issue on",
+        "docs": "Documentation",
+        "contribute": "Contribute?",
+        "github": "Github"
+      }
+    }
+  },
+  "upt": {
+    "seo": {
+      "title": "Uptime"
+    },
+    "page": {
+      "title": "Uptime"
+    },
+    "toolbar": {
+      "search": {
+        "placeholder": "Search...",
+        "filter": {
+          "placeholder": "Search by"
+        }
+      },
+      "action": {
+        "export": "Export"
+      },
+      "filter": {
+        "placeholder": "Filters"
+      },
+      "sort": {
+        "placeholder": "Sort"
+      }
+    }
+  },
+  "modal": {
+    "common": {
+      "copy": {
+        "code": {
+          "default": "Copy Code",
+          "success": "Copied URL to Clipboard"
+        }
+      }
+    },
+    "team": {
+      "create": {
+        "title": "Create Team",
+        "button": {
+          "cancel": "Close",
+          "submit": "Create"
+        },
+        "input": {
+          "team-name": {
+            "title": "Team name",
+            "error": {
+              "max": "Must be 30 characters or less",
+              "min": "Required field"
+            }
+          }
+        }
+      },
+      "manage": {
+        "title": "{name} Team",
+        "button": {
+          "cancel": "Close"
+        },
+        "tab": {
+          "members": {
+            "title": "Members",
+            "list": {
+              "avatar": {
+                "alt": "user avatar"
+              },
+              "option": {
+                "admin": "Admin",
+                "developer": "Developer",
+                "tester": "Tester",
+                "viewer": "Viewer",
+                "remove": "Remove"
+              },
+              "status": {
+                "pending": "Pending",
+                "remove": {
+                  "success": "The member was successfully removed from the team"
+                },
+                "update": {
+                  "success": "The member has been successfully updated"
+                },
+                "invite": {
+                  "success": "The invitation was successfully canceled"
+                }
+              }
+            }
+          },
+          "invites": {
+            "title": "Invite Member",
+            "form": {
+              "email": {
+                "title": "Email",
+                "placeholder": "Enter email address"
+              },
+              "submit": "Send Invite"
+            }
+          }
+        }
+      }
+    },
+    "member": {
+      "add": {
+        "title": "Add Member to Form",
+        "button": {
+          "cancel": "Close",
+          "submit": "Save"
+        },
+        "input": {
+          "select": {
+            "empty": "All your team members are already part of this form.",
+            "default": "Select member",
+            "error": {
+              "min": "Required field"
+            }
+          }
+        }
+      }
+    },
+    "confirm": {
+      "button": {
+        "cancel": "Close"
+      }
+    }
+  },
+  "navigation": {
+    "create": {
+      "monitor": "Create Monitor"
+    },
+    "dropdown": {
+      "username": "User Name",
+      "settings": "Account Settings",
+      "logout": "Logout",
+      "dark-mode": "Dark Mode",
+      "billing": "Manage Subscription"
+    },
+    "external": {
+      "resources": "Resources",
+      "docs": "Documentation",
+      "github": "Github"
+    },
+    "internal": {
+      "features": "Features",
+      "settings": "Settings",
+      "profile": "Profile"
+    },
+    "setting": {
+      "general": "General",
+      "security": "Security",
+      "customization": "Customization",
+      "notifications": "Notifications",
+      "members": "Members"
+    },
+    "apps": {
+      "title": "Apps",
+      "forms": {
+        "title": "Forms",
+        "description": "Form creation and management"
+      },
+      "flags": {
+        "title": "Feature Flags",
+        "description": "Feature creation and control"
+      },
+      "uptime": {
+        "title": "Uptime",
+        "description": "Website uptime monitoring"
+      }
+    },
+    "profile": {
+      "general": "General",
+      "billing": "Billing"
+    }
+  },
+  "profile": {
+    "seo": {
+      "setting": {
+        "title": "Profile",
+        "0": "General",
+        "1": "Billing"
+      }
+    },
+    "general": {
+      "title": "General",
+      "card": {
+        "avatar": {
+          "title": "User Name",
+          "alt": "Profile picture of the user",
+          "description": "Update user details through your service provider."
+        },
+        "modals": {
+          "title": "Customize Modal Behavior",
+          "description": "Dismiss the modal automatically upon clicking outside the main content area."
+        },
+        "theme": {
+          "title": "Choose a Theme",
+          "description": "Toggle Between Light and Dark Modes for a Personalized Experience.",
+          "type": {
+            "light": "Light",
+            "dark": "Dark"
+          }
+        }
+      }
+    },
+    "billing": {
+      "price": {
+        "symbol": "$",
+        "abbr": "USD"
+      },
+      "status": {
+        "checkout": {
+          "redirect": {
+            "loading": "Redirecting to checkout..."
+          }
+        },
+        "portal": {
+          "redirect": {
+            "loading": "Redirecting to portal..."
+          }
+        }
+      },
+      "feature": {
+        "has-email-notifications": "{value} Email Notifications"
+      },
+      "segment": {
+        "monthly": "Monthly",
+        "yearly": "Yearly (Save 15%)"
+      },
+      "cycle": {
+        "monthly": "billed monthly",
+        "yearly": "billed yearly"
+      },
+      "cycle-abbr": {
+        "monthly": "mo",
+        "yearly": "yr"
+      },
+      "link": {
+        "compare": "Compare Plans"
+      },
+      "plan": {
+        "current": {
+          "title": "Current Plan",
+          "renewal": "Renewal date",
+          "ending": "Ending date",
+          "status": {
+            "active": "Active",
+            "inactive": "Inactive"
+          },
+          "button": "Manage Subscription"
+        },
+        "usage": {
+          "title": "Usage-Based Plan",
+          "additional": " + Additional Usage",
+          "no-subscription": "No active subscription found. Please add your billing details to continue using the product."
+        },
+        "details": {
+          "lastFour": "Ending in",
+          "expDate": "Exp date",
+          "button": "Update Payment Method"
+        },
+        "upgrade": {
+          "title": "Upgrade Plan",
+          "description": "Select billing cycle"
+        },
+        "select": {
+          "title": "Select Plan",
+          "description": "Select a plan"
+        }
+      }
+    }
+  },
+  "setting": {
+    "seo": {
+      "setting": {
+        "title": "Settings",
+        "0": "General",
+        "1": "Members",
+        "2": "Security",
+        "3": "Customization",
+        "4": "Notifications"
+      }
+    },
+    "common": {
+      "copy": {
+        "url": {
+          "default": "Copy URL",
+          "success": "Copied URL to Clipboard"
+        },
+        "key": {
+          "default": "Copy Key",
+          "success": "Copied Key to Clipboard"
+        }
+      }
+    }
+  },
+  "invite": {
+    "team": {
+      "title": "Pending Invite",
+      "description": "You have being invited to join",
+      "name": "{name} Team",
+      "count": "{count, plural, one {# member of your team has already accepted} other {# members of your team have already accepted}}",
+      "created-at": {
+        "not-available": "Date not available"
+      },
+      "expires-at": {
+        "not-available": "Expiration date not available",
+        "expired": "Invitation has expired",
+        "message": "Your invitation expires {date}"
+      },
+      "action": {
+        "decline": "Decline",
+        "accept": "Accept Invitation"
+      },
+      "toast": {
+        "join": {
+          "success": "Successfully joined team, redirecting..."
+        },
+        "decline": {
+          "success": "You’ve declined the invitation. Redirecting..."
+        }
+      }
+    }
+  }
+}

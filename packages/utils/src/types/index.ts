@@ -15,6 +15,7 @@ export type RemoveNullAndUndefined<T> = T extends null | undefined
 export enum Product {
   FORMS = "forms",
   FLAGS = "flags",
+  UPTIME = "uptime",
 }
 
 export type AppEnv = "development" | "production" | "staging" | "local";
@@ -137,6 +138,17 @@ export interface FlagsPlan extends Plan {
     hasSegments: boolean;
     hasBlockIPs: boolean;
     hasWebsites: boolean;
+  };
+}
+
+export interface UptimePlan extends Plan {
+  limits: {
+    teams: number;
+    members: number;
+    apiRequests: number;
+  };
+  features: {
+    hasBlockIPs: boolean;
   };
 }
 
