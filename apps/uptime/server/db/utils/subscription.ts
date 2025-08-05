@@ -18,7 +18,7 @@ export const withUsageUpdate = async (
   userId: string,
   limit: any,
   action: "increment" | "decrement",
-  value: number = 1
+  value: number = 1,
 ) => {
   try {
     return await prisma.usage.upsert({

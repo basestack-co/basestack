@@ -13,7 +13,6 @@ import { useStore } from "store";
 import { api } from "utils/trpc/react";
 import QuickLinks from "./_components/QuickLinks";
 // Components
-import RecentForms from "./_components/RecentForms";
 import Teams from "./_components/Teams";
 // Styles
 import { Container } from "./styles";
@@ -62,7 +61,6 @@ const MainPage = () => {
           }
           href="/a/user/tab/billing"
         />
-        <RecentForms />
         <Teams />
         <QuickLinks />
       </Container>

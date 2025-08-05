@@ -42,21 +42,21 @@ const Navigation = ({ data }: NavigationProps) => {
   const { data: session } = auth.client.useSession();
   const isMobile = useMedia(theme.device.max.lg, false);
 
-  const { formId } = useParams<{ formId: string }>();
+  const { serviceId } = useParams<{ serviceId: string }>();
 
   const setIsDarkMode = useStore((state) => state.setDarkMode);
   const isDarkMode = useStore((state) => state.isDarkMode);
 
-  const [formName, formRole] = useMemo(() => {
-    const form = data?.find(({ id }) => id === formId) as unknown as {
+  const [serviceName, serviceRole] = useMemo(() => {
+    const service = data?.find(({ id }) => id === serviceId) as unknown as {
       text: string;
       role: Role;
     };
 
-    return [form?.text ?? "", form?.role ?? Role.VIEWER];
-  }, [formId, data]);
+    return [service?.text ?? "", service?.role ?? Role.VIEWER];
+  }, [serviceId, data]);
 
-  const formsList = useMemo((): Array<{
+  const servicesList = useMemo((): Array<{
     title: string;
     items: PopupActionProps[];
   }> => {
@@ -74,91 +74,76 @@ const Navigation = ({ data }: NavigationProps) => {
       { internal: [], external: [] } as {
         internal: PopupActionProps[];
         external: PopupActionProps[];
-      }
+      },
     );
 
     const mapProjectsToSection = (
       items: PopupActionProps[],
-      title: string
+      title: string,
     ) => ({
       title,
       items: items.map((item) => ({
         ...item,
-        isActive: item.id === formId,
+        isActive: item.id === serviceId,
       })),
     });
 
     return [
       internal.length > 0 &&
-        mapProjectsToSection(internal, t("navigation.uptime.title")),
+        mapProjectsToSection(internal, t("navigation.services.title")),
       external.length > 0 &&
-        mapProjectsToSection(external, t("navigation.uptime.external")),
+        mapProjectsToSection(external, t("navigation.services.external")),
     ].filter(Boolean) as Array<{
       title: string;
       items: PopupActionProps[];
     }>;
-  }, [data, t, formId]);
+  }, [data, t, serviceId]);
+
+  const getProjectsProps = useMemo(() => {
+    return {
+      onCreate: () => console.log("create uptime"),
+      current: serviceName,
+      data: servicesList,
+      select: {
+        title: t("navigation.services.select"),
+        create: t("navigation.create.service"),
+      },
+    };
+  }, [serviceName, servicesList, t]);
+
+  const getAvatarProps = useMemo(() => {
+    return {
+      name: session?.user.name || t("navigation.dropdown.username"),
+      email: session?.user.email || "",
+      src: session?.user.image || "",
+      darkModeText: t("navigation.dropdown.dark-mode"),
+      isDarkMode: isDarkMode,
+      onSetDarkMode: () =>
+        toggleDarkMode(!isDarkMode).then(() => {
+          setIsDarkMode(!isDarkMode);
+        }),
+      list: getAvatarDropdownList(t, router, () =>
+        console.log("create uptime"),
+      ),
+    };
+  }, [isDarkMode, session, t, router, setIsDarkMode, toggleDarkMode]);
 
   const onSelectApp = useCallback((app: Product) => {
     window.location.href = config.urls.getAppWithEnv(app, AppMode as AppEnv);
   }, []);
-
-  const handleDarkModeToggle = () => {
-    toggleDarkMode(!isDarkMode).then(() => {
-      setIsDarkMode(!isDarkMode);
-    });
-  };
 
   return (
     <NavigationUI
       product={Product.UPTIME}
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
-      leftLinks={getLeftLinks(router, pathname, formId, formRole, {
-        submissions: t("navigation.internal.submissions"),
-        setup: t("navigation.internal.setup"),
-        settings: t("navigation.internal.settings"),
-      })}
+      leftLinks={getLeftLinks(t, router, pathname, serviceId, serviceRole)}
       rightLinks={getRightLinks({ docs: t("navigation.external.docs") })}
       rightLinksTitle={t("navigation.external.resources")}
-      projects={{
-        onCreate: () => setCreateFormModalOpen({ isOpen: true }),
-        current: formName,
-        data: formsList,
-        select: {
-          title: t("navigation.uptime.select"),
-          create: t("navigation.create.monitor"),
-        },
-      }}
+      projects={getProjectsProps}
       appsTitle={t("navigation.apps.title")}
-      apps={getAppsList(onSelectApp, {
-        flags: {
-          title: t("navigation.apps.flags.title"),
-          description: t("navigation.apps.flags.description"),
-        },
-        forms: {
-          title: t("navigation.apps.forms.title"),
-          description: t("navigation.apps.forms.description"),
-        },
-      })}
-      avatar={{
-        name: session?.user.name || t("navigation.dropdown.username"),
-        email: session?.user.email || "",
-        src: session?.user.image || "",
-        darkModeText: t("navigation.dropdown.dark-mode"),
-        isDarkMode: isDarkMode,
-        onSetDarkMode: handleDarkModeToggle,
-        list: getAvatarDropdownList(
-          router,
-          () => console.log("create uptime"),
-          {
-            createForm: t("navigation.create.monitor"),
-            settings: t("navigation.dropdown.settings"),
-            billing: t("navigation.dropdown.billing"),
-            logout: t("navigation.dropdown.logout"),
-          }
-        ),
-      }}
+      apps={getAppsList(t, onSelectApp)}
+      avatar={getAvatarProps}
     />
   );
 };

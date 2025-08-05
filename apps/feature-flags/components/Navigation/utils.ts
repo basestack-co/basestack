@@ -11,23 +11,19 @@ import type { useRouter } from "next/navigation";
 const { hasFlagsPermission } = config.plans;
 
 export const getLeftLinks = (
+  t: (key: any) => string,
   router: ReturnType<typeof useRouter>,
   pathname: string,
   projectId: string,
   projectRole: Role,
   onCreateFlag: () => void,
-  labels: {
-    flags: string;
-    settings: string;
-    createFlag: string;
-  },
 ): NavigationProps["leftLinks"] => {
   const links = [
     {
       type: "button",
       icon: "flag",
       onClick: () => router.push(`/a/project/${projectId}/flags`),
-      text: labels.flags,
+      text: t("navigation.internal.features"),
       isActive: pathname.includes("flags"),
       isVisible: !!projectId,
     },
@@ -35,7 +31,7 @@ export const getLeftLinks = (
       type: "button",
       icon: "settings",
       onClick: () => router.push(`/a/project/${projectId}/settings/general`),
-      text: labels.settings,
+      text: t("navigation.internal.settings"),
       isActive: pathname.includes("settings"),
       isVisible: !!projectId,
     },
@@ -43,7 +39,7 @@ export const getLeftLinks = (
       type: "button",
       icon: "add",
       onClick: onCreateFlag,
-      text: labels.createFlag,
+      text: t("navigation.create.flag"),
       isActive: pathname.includes("create"),
       buttonVariant: ButtonVariant.Primary,
       space: { ml: 2 },
@@ -70,39 +66,34 @@ export const getRightLinks = (labels: {
 };
 
 export const getAvatarDropdownList = (
+  t: (key: any) => string,
   router: ReturnType<typeof useRouter>,
   onCreateProject: () => void,
-  labels: {
-    project: string;
-    settings: string;
-    billing: string;
-    logout: string;
-  },
 ) => {
   return [
     {
       id: "1",
       icon: "add_circle",
-      text: labels.project,
+      text: t("navigation.create.project"),
       onClick: onCreateProject,
       separator: true,
     },
     {
       id: "2",
       icon: "settings",
-      text: labels.settings,
+      text: t("navigation.dropdown.settings"),
       onClick: () => router.push("/a/user/tab/general"),
     },
     {
       id: "3",
       icon: "credit_card",
-      text: labels.billing,
+      text: t("navigation.dropdown.billing"),
       onClick: () => router.push("/a/user/tab/billing"),
     },
     {
       id: "4",
       icon: "logout",
-      text: labels.logout,
+      text: t("navigation.dropdown.logout"),
       onClick: async () =>
         await auth.client.signOut({
           fetchOptions: {
@@ -116,31 +107,29 @@ export const getAvatarDropdownList = (
 };
 
 export const getAppsList = (
+  t: (key: any) => string,
   onSelectApp: (app: Product) => void,
-  labels: {
-    flags: {
-      title: string;
-      description: string;
-    };
-    forms: {
-      title: string;
-      description: string;
-    };
-  },
 ) => {
   return [
     {
       onClick: () => null,
       product: Product.FLAGS,
-      title: labels.flags.title,
-      description: labels.flags.description,
+      title: t("navigation.apps.flags.title"),
+      description: t("navigation.apps.flags.description"),
       isActive: true,
     },
     {
       onClick: () => onSelectApp(Product.FORMS),
       product: Product.FORMS,
-      title: labels.forms.title,
-      description: labels.forms.description,
+      title: t("navigation.apps.forms.title"),
+      description: t("navigation.apps.forms.description"),
+      isActive: false,
+    },
+    {
+      onClick: () => onSelectApp(Product.UPTIME),
+      product: Product.UPTIME,
+      title: t("navigation.apps.uptime.title"),
+      description: t("navigation.apps.uptime.description"),
       isActive: false,
     },
   ];

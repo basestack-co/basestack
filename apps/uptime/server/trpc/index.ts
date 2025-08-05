@@ -91,7 +91,7 @@ export const withTeamRestrictions = ({ roles }: { roles: Role[] }) =>
     const userInTeam = await getUserInTeam(
       ctx.prisma,
       ctx?.auth?.user.id!,
-      teamId!
+      teamId!,
     );
 
     if (!userInTeam) {

@@ -22,6 +22,6 @@ export const useStore = create<Store>()(
         closeModalsOnClickOutside: state.closeModalsOnClickOutside,
         closeNoActiveSubscriptionBanner: state.closeNoActiveSubscriptionBanner,
       }),
-    }
-  )
+    },
+  ),
 );

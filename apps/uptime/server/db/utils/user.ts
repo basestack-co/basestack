@@ -5,7 +5,7 @@ import { TRPCError } from "@trpc/server";
 export const getUserInTeam = async (
   prisma: PrismaClient,
   userId: string,
-  teamId: string
+  teamId: string,
 ) => {
   try {
     const user = await prisma.teamMembers.findFirstOrThrow({

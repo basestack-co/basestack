@@ -4,7 +4,7 @@
       "panel": {
         "title": "Basestack",
         "slogan": "The Open-Source Stack for Developers and Startups",
-        "description": "Transform Your Site Experience: Capture Form Submissions Easily, No Backend Required"
+        "description": "Continuously monitor your website’s availability and get alerted the moment downtime occurs."
       },
       "content": {
         "title": "Welcome to Basestack Uptime",
@@ -71,7 +71,7 @@
         }
       },
       "alert": {
-        "no-subscription": "You don’t have an active subscription. You can still use features like Forms and Teams, but endpoints are disabled until you add your billing details in your profile."
+        "no-subscription": "You don’t have an active subscription. You can still use features like Services and Teams, but scheduling is disabled until you add your billing details in your profile."
       }
     },
     "teams": {
@@ -116,7 +116,7 @@
       }
     }
   },
-  "upt": {
+  "uptime": {
     "seo": {
       "title": "Uptime"
     },
@@ -239,7 +239,13 @@
   },
   "navigation": {
     "create": {
-      "monitor": "Create Monitor"
+      "monitor": "Create Monitor",
+      "service": "Create Service"
+    },
+    "services": {
+      "title": "My Services",
+      "external": "External Services",
+      "select": "Select service"
     },
     "dropdown": {
       "username": "User Name",
@@ -254,6 +260,8 @@
       "github": "Github"
     },
     "internal": {
+      "monitors": "Monitors",
+      "incidents": "Incidents",
       "features": "Features",
       "settings": "Settings",
       "profile": "Profile"

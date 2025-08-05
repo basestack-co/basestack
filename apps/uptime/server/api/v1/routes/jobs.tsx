@@ -27,10 +27,10 @@ const jobsRoutes = new Hono().post(
         context.requestPayload;
 
       console.info(
-        `Job: Basestack Uptime - Send Email - Preparing to send email to ${to} with subject: ${subject}`
+        `Job: Basestack Uptime - Send Email - Preparing to send email to ${to} with subject: ${subject}`,
       );
       console.info(
-        `Job: Basestack Uptime - Send Email - Email with the template ${template} with props: ${JSON.stringify(props)}`
+        `Job: Basestack Uptime - Send Email - Email with the template ${template} with props: ${JSON.stringify(props)}`,
       );
 
       await context.run("send-email-step", async () => {
@@ -56,14 +56,14 @@ const jobsRoutes = new Hono().post(
                 {
                   product: Product.UPTIME,
                   template,
-                }
+                },
               );
             }
-          })
+          }),
         );
 
         console.info(
-          "Job: Basestack Uptime - Send Email - ✨ Email sent successfully! ✨"
+          "Job: Basestack Uptime - Send Email - ✨ Email sent successfully! ✨",
         );
       });
     },
@@ -79,11 +79,11 @@ const jobsRoutes = new Hono().post(
         failHeaders,
       }) => {
         console.error(
-          `Job: Basestack Uptime - Send Email - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `
+          `Job: Basestack Uptime - Send Email - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
         );
       },
-    }
-  )
+    },
+  ),
 );
 
 export default jobsRoutes;

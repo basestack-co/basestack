@@ -18,10 +18,15 @@ const uptime: UptimePlan[] = [
       },
     },
     products: {
-      sandbox: [],
+      sandbox: ["7b7cd734-dd98-4ca5-8845-a5ad867e2f0b"],
       production: [],
     },
     meters: [
+      {
+        key: "api_requests",
+        costUnit: 0.00007,
+        currency: "USD",
+      },
       {
         key: "email_notification",
         costUnit: 0.002,

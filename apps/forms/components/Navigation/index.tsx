@@ -107,62 +107,55 @@ const Navigation = ({ data }: NavigationProps) => {
     window.location.href = config.urls.getAppWithEnv(app, AppMode as AppEnv);
   }, []);
 
-  const handleDarkModeToggle = () => {
-    toggleDarkMode(!isDarkMode).then(() => {
-      setIsDarkMode(!isDarkMode);
-    });
-  };
+  const getProjectsProps = useMemo(() => {
+    return {
+      onCreate: () => setCreateFormModalOpen({ isOpen: true }),
+      current: formName,
+      data: formsList,
+      select: {
+        title: t("navigation.forms.select"),
+        create: t("navigation.create.form"),
+      },
+    };
+  }, [formName, formsList, setCreateFormModalOpen, t]);
+
+  const getAvatarProps = useMemo(() => {
+    return {
+      name: session?.user.name || t("navigation.dropdown.username"),
+      email: session?.user.email || "",
+      src: session?.user.image || "",
+      darkModeText: t("navigation.dropdown.dark-mode"),
+      isDarkMode: isDarkMode,
+      onSetDarkMode: () =>
+        toggleDarkMode(!isDarkMode).then(() => {
+          setIsDarkMode(!isDarkMode);
+        }),
+      list: getAvatarDropdownList(t, router, () =>
+        setCreateFormModalOpen({ isOpen: true }),
+      ),
+    };
+  }, [
+    session,
+    t,
+    isDarkMode,
+    router,
+    setCreateFormModalOpen,
+    setIsDarkMode,
+    toggleDarkMode,
+  ]);
 
   return (
     <NavigationUI
       product={Product.FORMS}
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
-      leftLinks={getLeftLinks(router, pathname, formId, formRole, {
-        submissions: t("navigation.internal.submissions"),
-        setup: t("navigation.internal.setup"),
-        settings: t("navigation.internal.settings"),
-      })}
+      leftLinks={getLeftLinks(t, router, pathname, formId, formRole)}
       rightLinks={getRightLinks({ docs: t("navigation.external.docs") })}
       rightLinksTitle={t("navigation.external.resources")}
-      projects={{
-        onCreate: () => setCreateFormModalOpen({ isOpen: true }),
-        current: formName,
-        data: formsList,
-        select: {
-          title: t("navigation.forms.select"),
-          create: t("navigation.create.form"),
-        },
-      }}
+      projects={getProjectsProps}
       appsTitle={t("navigation.apps.title")}
-      apps={getAppsList(onSelectApp, {
-        flags: {
-          title: t("navigation.apps.flags.title"),
-          description: t("navigation.apps.flags.description"),
-        },
-        forms: {
-          title: t("navigation.apps.forms.title"),
-          description: t("navigation.apps.forms.description"),
-        },
-      })}
-      avatar={{
-        name: session?.user.name || t("navigation.dropdown.username"),
-        email: session?.user.email || "",
-        src: session?.user.image || "",
-        darkModeText: t("navigation.dropdown.dark-mode"),
-        isDarkMode: isDarkMode,
-        onSetDarkMode: handleDarkModeToggle,
-        list: getAvatarDropdownList(
-          router,
-          () => setCreateFormModalOpen({ isOpen: true }),
-          {
-            createForm: t("navigation.create.form"),
-            settings: t("navigation.dropdown.settings"),
-            billing: t("navigation.dropdown.billing"),
-            logout: t("navigation.dropdown.logout"),
-          },
-        ),
-      }}
+      apps={getAppsList(t, onSelectApp)}
+      avatar={getAvatarProps}
     />
   );
 };

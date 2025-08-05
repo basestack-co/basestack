@@ -7,44 +7,37 @@ import { auth } from "@basestack/vendors";
 // Types
 import type { useRouter } from "next/navigation";
 
-const { hasFormsPermission } = config.plans;
-
 export const getLeftLinks = (
+  t: (key: any) => string,
   router: ReturnType<typeof useRouter>,
   pathname: string,
-  formId: string,
-  formRole: Role,
-  labels: {
-    submissions: string;
-    setup: string;
-    settings: string;
-  },
+  serviceId: string,
+  serviceRole: Role,
 ): NavigationProps["leftLinks"] => {
   const links = [
     {
       type: "button",
       icon: "mail",
-      onClick: () => router.push(`/a/form/${formId}/submissions`),
-      text: labels.submissions,
-      isActive: pathname.includes("submissions"),
-      isVisible: !!formId,
+      onClick: () => router.push(`/a/service/${serviceId}/monitors`),
+      text: t("navigation.internal.monitors"),
+      isActive: pathname.includes("monitors"),
+      isVisible: !!serviceId,
     },
     {
       type: "button",
       icon: "tune",
-      onClick: () => router.push(`/a/form/${formId}/setup`),
-      text: labels.setup,
-      isActive: pathname.includes("setup"),
-      isVisible:
-        !!formId && hasFormsPermission(formRole, "view_form_setup_page"),
+      onClick: () => router.push(`/a/service/${serviceId}/incidents`),
+      text: t("navigation.internal.incidents"),
+      isActive: pathname.includes("incidents"),
+      isVisible: !!serviceId,
     },
     {
       type: "button",
       icon: "settings",
-      onClick: () => router.push(`/a/form/${formId}/settings/general`),
-      text: labels.settings,
+      onClick: () => router.push(`/a/service/${serviceId}/settings/general`),
+      text: t("navigation.internal.settings"),
       isActive: pathname.includes("settings"),
-      isVisible: !!formId,
+      isVisible: !!serviceId,
     },
   ].filter((link) => link.isVisible);
 
@@ -66,39 +59,34 @@ export const getRightLinks = (labels: {
 };
 
 export const getAvatarDropdownList = (
+  t: (key: any) => string,
   router: ReturnType<typeof useRouter>,
   onCreateForm: () => void,
-  labels: {
-    createForm: string;
-    settings: string;
-    billing: string;
-    logout: string;
-  },
 ) => {
   return [
     {
       id: "1",
       icon: "add_circle",
-      text: labels.createForm,
+      text: t("navigation.create.service"),
       onClick: onCreateForm,
       separator: true,
     },
     {
       id: "2",
       icon: "settings",
-      text: labels.settings,
+      text: t("navigation.dropdown.settings"),
       onClick: () => router.push("/a/user/tab/general"),
     },
     {
       id: "3",
       icon: "credit_card",
-      text: labels.billing,
+      text: t("navigation.dropdown.billing"),
       onClick: () => router.push("/a/user/tab/billing"),
     },
     {
       id: "4",
       icon: "logout",
-      text: labels.logout,
+      text: t("navigation.dropdown.logout"),
       onClick: async () =>
         await auth.client.signOut({
           fetchOptions: {
@@ -112,38 +100,29 @@ export const getAvatarDropdownList = (
 };
 
 export const getAppsList = (
+  t: (key: any) => string,
   onSelectApp: (app: Product) => void,
-  labels: {
-    flags: {
-      title: string;
-      description: string;
-    };
-    forms: {
-      title: string;
-      description: string;
-    };
-  },
 ) => {
   return [
     {
       onClick: () => onSelectApp(Product.FLAGS),
       product: Product.FLAGS,
-      title: labels.flags.title,
-      description: labels.flags.description,
+      title: t("navigation.apps.flags.title"),
+      description: t("navigation.apps.flags.description"),
+      isActive: false,
+    },
+    {
+      onClick: () => onSelectApp(Product.FORMS),
+      product: Product.FORMS,
+      title: t("navigation.apps.forms.title"),
+      description: t("navigation.apps.forms.description"),
       isActive: false,
     },
     {
       onClick: () => null,
-      product: Product.FORMS,
-      title: labels.forms.title,
-      description: labels.forms.description,
-      isActive: true,
-    },
-    {
-      onClick: () => null,
       product: Product.UPTIME,
-      title: labels.uptime.title,
-      description: labels.uptime.description,
+      title: t("navigation.apps.uptime.title"),
+      description: t("navigation.apps.uptime.description"),
       isActive: true,
     },
   ];

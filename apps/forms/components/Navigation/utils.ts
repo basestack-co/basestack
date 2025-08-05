@@ -10,22 +10,18 @@ import type { useRouter } from "next/navigation";
 const { hasFormsPermission } = config.plans;
 
 export const getLeftLinks = (
+  t: (key: any) => string,
   router: ReturnType<typeof useRouter>,
   pathname: string,
   formId: string,
   formRole: Role,
-  labels: {
-    submissions: string;
-    setup: string;
-    settings: string;
-  },
 ): NavigationProps["leftLinks"] => {
   const links = [
     {
       type: "button",
       icon: "mail",
       onClick: () => router.push(`/a/form/${formId}/submissions`),
-      text: labels.submissions,
+      text: t("navigation.internal.submissions"),
       isActive: pathname.includes("submissions"),
       isVisible: !!formId,
     },
@@ -33,7 +29,7 @@ export const getLeftLinks = (
       type: "button",
       icon: "tune",
       onClick: () => router.push(`/a/form/${formId}/setup`),
-      text: labels.setup,
+      text: t("navigation.internal.setup"),
       isActive: pathname.includes("setup"),
       isVisible:
         !!formId && hasFormsPermission(formRole, "view_form_setup_page"),
@@ -42,7 +38,7 @@ export const getLeftLinks = (
       type: "button",
       icon: "settings",
       onClick: () => router.push(`/a/form/${formId}/settings/general`),
-      text: labels.settings,
+      text: t("navigation.internal.settings"),
       isActive: pathname.includes("settings"),
       isVisible: !!formId,
     },
@@ -66,39 +62,34 @@ export const getRightLinks = (labels: {
 };
 
 export const getAvatarDropdownList = (
+  t: (key: any) => string,
   router: ReturnType<typeof useRouter>,
   onCreateForm: () => void,
-  labels: {
-    createForm: string;
-    settings: string;
-    billing: string;
-    logout: string;
-  },
 ) => {
   return [
     {
       id: "1",
       icon: "add_circle",
-      text: labels.createForm,
+      text: t("navigation.create.form"),
       onClick: onCreateForm,
       separator: true,
     },
     {
       id: "2",
       icon: "settings",
-      text: labels.settings,
+      text: t("navigation.dropdown.settings"),
       onClick: () => router.push("/a/user/tab/general"),
     },
     {
       id: "3",
       icon: "credit_card",
-      text: labels.billing,
+      text: t("navigation.dropdown.billing"),
       onClick: () => router.push("/a/user/tab/billing"),
     },
     {
       id: "4",
       icon: "logout",
-      text: labels.logout,
+      text: t("navigation.dropdown.logout"),
       onClick: async () =>
         await auth.client.signOut({
           fetchOptions: {
@@ -112,32 +103,30 @@ export const getAvatarDropdownList = (
 };
 
 export const getAppsList = (
+  t: (key: any) => string,
   onSelectApp: (app: Product) => void,
-  labels: {
-    flags: {
-      title: string;
-      description: string;
-    };
-    forms: {
-      title: string;
-      description: string;
-    };
-  },
 ) => {
   return [
     {
       onClick: () => onSelectApp(Product.FLAGS),
       product: Product.FLAGS,
-      title: labels.flags.title,
-      description: labels.flags.description,
+      title: t("navigation.apps.flags.title"),
+      description: t("navigation.apps.flags.description"),
       isActive: false,
     },
     {
       onClick: () => null,
       product: Product.FORMS,
-      title: labels.forms.title,
-      description: labels.forms.description,
+      title: t("navigation.apps.forms.title"),
+      description: t("navigation.apps.forms.description"),
       isActive: true,
+    },
+    {
+      onClick: () => onSelectApp(Product.UPTIME),
+      product: Product.UPTIME,
+      title: t("navigation.apps.uptime.title"),
+      description: t("navigation.apps.uptime.description"),
+      isActive: false,
     },
   ];
 };
