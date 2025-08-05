@@ -26,6 +26,16 @@ const nextConfig: NextConfig = {
         destination: "/a",
         permanent: false,
       },
+      {
+        source: "/a/service/:serviceId",
+        destination: "/a/service/:serviceId/monitors",
+        permanent: false,
+      },
+      {
+        source: "/a/service/:serviceId/settings",
+        destination: "/a/service/:serviceId/settings/general",
+        permanent: false,
+      },
     ];
   },
 };

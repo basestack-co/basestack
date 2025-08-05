@@ -13,6 +13,10 @@ export const createModalsSlice: StateCreator<
   isCreateTeamModalOpen: false,
   isManageTeamModalOpen: false,
   teamModalPayload: null,
+  isCreateMonitorModalOpen: false,
+  isUpdateMonitorModalOpen: false,
+  isAddServiceMemberModalOpen: false,
+  isCreateServiceModalOpen: false,
   setConfirmModalOpen: ({ isOpen, data }) =>
     set(() => ({
       isConfirmModalOpen: isOpen,
@@ -26,5 +30,22 @@ export const createModalsSlice: StateCreator<
     set(() => ({
       isManageTeamModalOpen: isOpen,
       teamModalPayload: data,
+    })),
+  setAddServiceMemberModalOpen: ({ isOpen }) =>
+    set(() => ({
+      isAddServiceMemberModalOpen: isOpen,
+    })),
+  setCreateServiceModalOpen: ({ isOpen }) =>
+    set(() => ({
+      isCreateServiceModalOpen: isOpen,
+    })),
+  setCreateMonitorModalOpen: ({ isOpen }) =>
+    set(() => ({
+      isCreateMonitorModalOpen: isOpen,
+    })),
+  setUpdateMonitorModalOpen: ({ isOpen, data }) =>
+    set(() => ({
+      isUpdateMonitorModalOpen: isOpen,
+      monitorModalPayload: data,
     })),
 });

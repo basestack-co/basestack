@@ -1,5 +1,9 @@
 // Types
-import { type FormsPermission, PlanTypeId, type UptimePlan } from "../../types";
+import {
+  type UptimePermission,
+  PlanTypeId,
+  type UptimePlan,
+} from "../../types";
 
 const uptime: UptimePlan[] = [
   {
@@ -44,16 +48,37 @@ const uptime: UptimePlan[] = [
   },
 ];
 
-const uptimePermissions: Record<string, FormsPermission[]> = {
-  ADMIN: [],
-  DEVELOPER: [],
-  TESTER: [],
-  VIEWER: [],
+const uptimePermissions: Record<string, UptimePermission[]> = {
+  ADMIN: [
+    "view_service_monitors",
+    "view_service_members",
+    "add_service_monitors",
+    "add_service_members",
+    "edit_service_monitors",
+    "edit_service_members",
+    "edit_service_name",
+    "delete_service_monitors",
+    "delete_service_members",
+    "delete_service",
+  ],
+  DEVELOPER: [
+    "view_service_monitors",
+    "view_service_members",
+    "add_service_monitors",
+    "edit_service_monitors",
+    "delete_service_monitors",
+  ],
+  TESTER: [
+    "view_service_monitors",
+    "add_service_monitors",
+    "edit_service_monitors",
+  ],
+  VIEWER: ["view_service_monitors"],
 };
 
 const hasUptimePermission = (
   role: string | undefined,
-  permission: FormsPermission,
+  permission: UptimePermission
 ): boolean => {
   return uptimePermissions[role ?? "VIEWER"]?.includes(permission) ?? false;
 };

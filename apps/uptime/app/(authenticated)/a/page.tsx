@@ -11,9 +11,10 @@ import { Fragment } from "react";
 import { useStore } from "store";
 // Server
 import { api } from "utils/trpc/react";
-import QuickLinks from "./_components/QuickLinks";
 // Components
+import QuickLinks from "./_components/QuickLinks";
 import Teams from "./_components/Teams";
+import RecentServices from "./_components/RecentServices";
 // Styles
 import { Container } from "./styles";
 import Meters from "./user/tab/billing/_components/Meters/page";
@@ -23,11 +24,11 @@ const MainPage = () => {
   const { data, isLoading } = api.subscription.current.useQuery();
 
   const closeNoActiveSubscriptionBanner = useStore(
-    (state) => state.closeNoActiveSubscriptionBanner,
+    (state) => state.closeNoActiveSubscriptionBanner
   );
 
   const setCloseNoActiveSubscriptionBanner = useStore(
-    (state) => state.setCloseNoActiveSubscriptionBanner,
+    (state) => state.setCloseNoActiveSubscriptionBanner
   );
 
   return (
@@ -61,6 +62,7 @@ const MainPage = () => {
           }
           href="/a/user/tab/billing"
         />
+        <RecentServices />
         <Teams />
         <QuickLinks />
       </Container>

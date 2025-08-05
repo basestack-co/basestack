@@ -1,5 +1,6 @@
 import type { Role } from ".prisma/client";
 import type { NavigationProps } from "@basestack/ui";
+import { ButtonVariant } from "@basestack/design-system";
 // Utils
 import { config, Product } from "@basestack/utils";
 // Libs
@@ -13,6 +14,7 @@ export const getLeftLinks = (
   pathname: string,
   serviceId: string,
   serviceRole: Role,
+  onCreateMonitor: () => void
 ): NavigationProps["leftLinks"] => {
   const links = [
     {
@@ -39,6 +41,16 @@ export const getLeftLinks = (
       isActive: pathname.includes("settings"),
       isVisible: !!serviceId,
     },
+    {
+      type: "button",
+      icon: "add",
+      onClick: onCreateMonitor,
+      text: t("navigation.create.monitor"),
+      isActive: pathname.includes("create"),
+      buttonVariant: ButtonVariant.Primary,
+      space: { ml: 2 },
+      isVisible: !!serviceId,
+    },
   ].filter((link) => link.isVisible);
 
   return links as NavigationProps["leftLinks"];
@@ -61,7 +73,7 @@ export const getRightLinks = (labels: {
 export const getAvatarDropdownList = (
   t: (key: any) => string,
   router: ReturnType<typeof useRouter>,
-  onCreateForm: () => void,
+  onCreateForm: () => void
 ) => {
   return [
     {
@@ -101,7 +113,7 @@ export const getAvatarDropdownList = (
 
 export const getAppsList = (
   t: (key: any) => string,
-  onSelectApp: (app: Product) => void,
+  onSelectApp: (app: Product) => void
 ) => {
   return [
     {

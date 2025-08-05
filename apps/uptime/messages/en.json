@@ -27,21 +27,21 @@
     }
   },
   "home": {
-    "uptime": {
-      "title": "Recent uptime",
-      "action": "Create Uptime",
+    "services": {
+      "title": "Recent services",
+      "action": "Create Service",
       "tag": {
         "text": "External",
         "tooltip": "You are a member of this form, not the owner."
       },
       "empty": {
-        "title": "Create your first uptime",
-        "description": "Create your first uptime to start monitoring your website!",
-        "action": "Create Uptime"
+        "title": "Create your first service",
+        "description": "Create your first service to start monitoring your websites and APIs!",
+        "action": "Create Service"
       },
       "card": {
         "menu": {
-          "uptime": "Uptime",
+          "monitors": "Monitors",
           "settings": "Settings"
         },
         "label": {
@@ -67,7 +67,11 @@
         "credited": "CU",
         "unit": "Unit",
         "resource": {
-          "email_notification": "Email Notifications"
+          "api_requests": "API Requests",
+          "email_notification": "Email Notifications",
+          "form_submission": "Form Submissions",
+          "spam_check": "Spam Checks",
+          "webhook_trigger": "Webhook Triggers"
         }
       },
       "alert": {
@@ -147,6 +151,24 @@
         "code": {
           "default": "Copy Code",
           "success": "Copied URL to Clipboard"
+        }
+      }
+    },
+    "service": {
+      "create": {
+        "title": "Create Service",
+        "button": {
+          "cancel": "Close",
+          "submit": "Create"
+        },
+        "input": {
+          "service-name": {
+            "title": "Service name",
+            "error": {
+              "max": "Must be 30 characters or less",
+              "min": "Required field"
+            }
+          }
         }
       }
     },
@@ -399,6 +421,39 @@
         "2": "Security",
         "3": "Customization",
         "4": "Notifications"
+      }
+    },
+    "general": {
+      "service": {
+        "title": "Service Name",
+        "description": "A name used to identify your service on the dashboard.",
+        "action": "Update",
+        "inputs": {
+          "name": {
+            "placeholder": "Service Name",
+            "error": {
+              "max": "Must be 30 characters or less",
+              "min": "Required field"
+            }
+          }
+        }
+      },
+      "owner": {
+        "title": "Service Owner",
+        "description": "The owner of the service. Contact the owner for support."
+      },
+      "delete": {
+        "service": {
+          "title": "Delete Service",
+          "description": "Deleting the service will permanently remove all its monitors and members.",
+          "placeholder": "Warning: This action is irreversible. Proceed with caution.",
+          "action": "Delete",
+          "modal": {
+            "title": "Are you sure about this action?",
+            "description": "Warning: This action cannot be undone. It will permanently delete the {name} service, including monitors, members, and all collaborator associations.",
+            "action": "Delete Service"
+          }
+        }
       }
     },
     "common": {

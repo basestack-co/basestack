@@ -196,3 +196,16 @@ export type FormsPermission =
   | "enable_form_webhook"
   | "delete_form_submissions"
   | "delete_form";
+
+export type UptimePermission =
+  // Service Permissions
+  | "view_service_monitors"
+  | "view_service_members"
+  | "add_service_monitors"
+  | "add_service_members"
+  | "edit_service_monitors"
+  | "edit_service_members"
+  | "edit_service_name"
+  | "delete_service_monitors"
+  | "delete_service_members"
+  | "delete_service";

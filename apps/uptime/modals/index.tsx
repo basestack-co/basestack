@@ -3,6 +3,9 @@ import ConfirmModal from "./Confirm";
 // Teams
 import CreateTeamModal from "./Team/Create";
 import ManageTeamModal from "./Team/Manage";
+// Services
+import CreateServiceModal from "./Service/Create";
+import AddServiceMemberModal from "./Service/AddMember";
 
 const Modals = () => {
   return (
@@ -10,6 +13,8 @@ const Modals = () => {
       <ConfirmModal />
       <CreateTeamModal />
       <ManageTeamModal />
+      <CreateServiceModal />
+      <AddServiceMemberModal />
     </Fragment>
   );
 };

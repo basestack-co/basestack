@@ -47,6 +47,14 @@ const Navigation = ({ data }: NavigationProps) => {
   const setIsDarkMode = useStore((state) => state.setDarkMode);
   const isDarkMode = useStore((state) => state.isDarkMode);
 
+  const setCreateServiceModalOpen = useStore(
+    (state) => state.setCreateServiceModalOpen
+  );
+
+  const setCreateMonitorModalOpen = useStore(
+    (state) => state.setCreateMonitorModalOpen
+  );
+
   const [serviceName, serviceRole] = useMemo(() => {
     const service = data?.find(({ id }) => id === serviceId) as unknown as {
       text: string;
@@ -74,12 +82,12 @@ const Navigation = ({ data }: NavigationProps) => {
       { internal: [], external: [] } as {
         internal: PopupActionProps[];
         external: PopupActionProps[];
-      },
+      }
     );
 
     const mapProjectsToSection = (
       items: PopupActionProps[],
-      title: string,
+      title: string
     ) => ({
       title,
       items: items.map((item) => ({
@@ -101,7 +109,7 @@ const Navigation = ({ data }: NavigationProps) => {
 
   const getProjectsProps = useMemo(() => {
     return {
-      onCreate: () => console.log("create uptime"),
+      onCreate: () => setCreateServiceModalOpen({ isOpen: true }),
       current: serviceName,
       data: servicesList,
       select: {
@@ -109,7 +117,7 @@ const Navigation = ({ data }: NavigationProps) => {
         create: t("navigation.create.service"),
       },
     };
-  }, [serviceName, servicesList, t]);
+  }, [serviceName, servicesList, setCreateServiceModalOpen, t]);
 
   const getAvatarProps = useMemo(() => {
     return {
@@ -123,10 +131,18 @@ const Navigation = ({ data }: NavigationProps) => {
           setIsDarkMode(!isDarkMode);
         }),
       list: getAvatarDropdownList(t, router, () =>
-        console.log("create uptime"),
+        setCreateServiceModalOpen({ isOpen: true })
       ),
     };
-  }, [isDarkMode, session, t, router, setIsDarkMode, toggleDarkMode]);
+  }, [
+    isDarkMode,
+    session,
+    t,
+    router,
+    setCreateServiceModalOpen,
+    setIsDarkMode,
+    toggleDarkMode,
+  ]);
 
   const onSelectApp = useCallback((app: Product) => {
     window.location.href = config.urls.getAppWithEnv(app, AppMode as AppEnv);
@@ -137,7 +153,9 @@ const Navigation = ({ data }: NavigationProps) => {
       product={Product.UPTIME}
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
-      leftLinks={getLeftLinks(t, router, pathname, serviceId, serviceRole)}
+      leftLinks={getLeftLinks(t, router, pathname, serviceId, serviceRole, () =>
+        setCreateMonitorModalOpen({ isOpen: true })
+      )}
       rightLinks={getRightLinks({ docs: t("navigation.external.docs") })}
       rightLinksTitle={t("navigation.external.resources")}
       projects={getProjectsProps}
