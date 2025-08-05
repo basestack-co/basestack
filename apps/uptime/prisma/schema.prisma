@@ -110,7 +110,7 @@ model User {
   sessions        Session[]
   teams           TeamMembers[]
   usage           Usage[]
-  projects        ProjectOnUsers[]
+  projects        ProjectUsers[]
   incidents       Incident[]
   incidentUpdates IncidentUpdate[]
   role            Role             @default(ADMIN)
@@ -195,7 +195,7 @@ model Project {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  users       ProjectOnUsers[]
+  users       ProjectUsers[]
   monitors    Monitor[]
   statusPages StatusPage[]
   incidents   Incident[]
@@ -203,7 +203,7 @@ model Project {
   @@index([slug])
 }
 
-model ProjectOnUsers {
+model ProjectUsers {
   project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId String
   user      User     @relation(fields: [userId], references: [id])
@@ -216,60 +216,66 @@ model ProjectOnUsers {
   @@index([userId])
 }
 
-model Monitor {
-  id              String      @id @default(cuid())
-  name            String      @db.VarChar(100)
-  type            MonitorType
-  url             String?     @db.VarChar(2083)
-  method          String?     @default("GET") // HTTP method
-  headers         Json?       @default("{}") @db.JsonB
-  body            String?     @db.Text
-  timeout         Int         @default(30) // seconds
-  interval        Int         @default(300) // seconds (5 minutes)
-  retries         Int         @default(3)
-  isEnabled       Boolean     @default(true)
-  keyword         String?     @db.VarChar(500) // For keyword monitoring
-  port            Int? // For TCP/UDP monitoring
-  expectedStatus  Int?        @default(200) // Expected HTTP status
-  sslCheckDays    Int?        @default(30) // Days before SSL expiry to alert
-  followRedirects Boolean     @default(true)
-  verifySSL       Boolean     @default(true)
-  regions         String[]    @default(["us-east-1"]) // Monitoring regions
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+// {
+//   "url": "https://example.com",
+//   "method": "GET",
+//   "headers": {},
+//   "timeout": 30,
+//   "expectedStatus": 200,
+//   "keyword": "success",
+//   "port": 80,
+//   "sslCheckDays": 30,
+//   "followRedirects": true,
+//   "verifySSL": true,
+//   "regions": ["us-east-1"]
+// }
 
-  project              Project               @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  projectId            String
-  checks               MonitorCheck[]
-  incidents            IncidentOnMonitors[]
-  statusPageComponents StatusPageComponent[]
-  notifications        NotificationRule[]
+model Monitor {
+  id            String      @id @default(cuid())
+  name          String      @db.VarChar(100)
+  type          MonitorType
+  config        Json        @default("{}") @db.JsonB
+  notifications Json?       @default("{}") @db.JsonB // Structure: { "email": [...], "slack": [...], "webhooks": [...] }
+  interval      Int         @default(300)
+  isEnabled     Boolean     @default(true)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String
+
+  checks     MonitorCheck[]
+  incidents  IncidentMonitor[]
+  components StatusPageComponent[]
 
   @@index([projectId, isEnabled])
   @@index([type, isEnabled])
+  @@index([projectId, type, isEnabled])
 }
 
 model MonitorCheck {
-  id           BigInt        @id @default(autoincrement())
+  id           String        @id @default(cuid())
   monitorId    String
   status       MonitorStatus
-  responseTime Int? // milliseconds
-  statusCode   Int? // HTTP status code
-  errorMessage String?       @db.VarChar(1000)
-  region       String        @default("us-east-1")
+  responseTime Int?
+  statusCode   Int?
+  error        String?
+  region       String        @default("")
   checkedAt    DateTime      @default(now())
 
   monitor Monitor @relation(fields: [monitorId], references: [id], onDelete: Cascade)
 
   @@index([monitorId, checkedAt(sort: Desc)])
-  @@index([checkedAt(sort: Desc), status])
+  @@index([checkedAt(sort: Desc)])
+  @@index([monitorId, status, checkedAt(sort: Desc)])
 }
 
 model StatusPage {
   id            String   @id @default(cuid())
   name          String   @db.VarChar(100)
-  slug          String   @unique @db.VarChar(150)
-  domain        String?  @unique @db.VarChar(255) // Custom domain
+  slug          String   @unique @db.VarChar(100)
+  domain        String?  @unique @db.VarChar(255)
+  language      String   @default("en") @db.VarChar(5)
   isPublic      Boolean  @default(true)
   isEnabled     Boolean  @default(true)
   logoUrl       String?  @db.VarChar(2083)
@@ -277,7 +283,6 @@ model StatusPage {
   customCSS     String?  @db.Text
   customJS      String?  @db.Text
   theme         Json?    @default("{}") @db.JsonB
-  language      String   @default("en")
   timezone      String   @default("UTC")
   headerMessage String?  @db.Text
   footerMessage String?  @db.Text
@@ -291,28 +296,25 @@ model StatusPage {
 
   components  StatusPageComponent[]
   subscribers StatusPageSubscriber[]
-  incidents   StatusPageOnIncidents[]
+  incidents   StatusPageIncident[]
 
   @@index([slug, isPublic])
   @@index([projectId])
 }
 
 model StatusPageComponent {
-  id           String                @id @default(cuid())
-  name         String                @db.VarChar(100)
-  description  String?               @db.VarChar(500)
-  status       MonitorStatus         @default(UP)
-  isGroup      Boolean               @default(false)
-  parentId     String?
-  order        Int                   @default(0)
-  createdAt    DateTime              @default(now())
-  updatedAt    DateTime              @updatedAt
-  statusPage   StatusPage            @relation(fields: [statusPageId], references: [id], onDelete: Cascade)
+  id          String        @id @default(cuid())
+  name        String        @db.VarChar(100)
+  description String?       @db.VarChar(500)
+  status      MonitorStatus @default(UP)
+  order       Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  statusPage   StatusPage @relation(fields: [statusPageId], references: [id], onDelete: Cascade)
   statusPageId String
-  monitor      Monitor?              @relation(fields: [monitorId], references: [id])
+  monitor      Monitor?   @relation(fields: [monitorId], references: [id])
   monitorId    String?
-  parent       StatusPageComponent?  @relation("ComponentHierarchy", fields: [parentId], references: [id])
-  children     StatusPageComponent[] @relation("ComponentHierarchy")
 
   @@index([statusPageId, order])
 }
@@ -330,13 +332,13 @@ model Incident {
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
 
-  project     Project                 @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project     Project              @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId   String
-  createdBy   User?                   @relation(fields: [createdById], references: [id])
+  createdBy   User?                @relation(fields: [createdById], references: [id])
   createdById String?
   updates     IncidentUpdate[]
-  monitors    IncidentOnMonitors[]
-  statusPages StatusPageOnIncidents[]
+  monitors    IncidentMonitor[]
+  statusPages StatusPageIncident[]
 
   @@index([projectId, status])
   @@index([createdAt])
@@ -354,9 +356,10 @@ model IncidentUpdate {
   createdById String?
 
   @@index([incidentId, createdAt])
+  @@index([createdAt(sort: Desc)])
 }
 
-model IncidentOnMonitors {
+model IncidentMonitor {
   incident   Incident @relation(fields: [incidentId], references: [id], onDelete: Cascade)
   incidentId String
   monitor    Monitor  @relation(fields: [monitorId], references: [id], onDelete: Cascade)
@@ -365,7 +368,7 @@ model IncidentOnMonitors {
   @@id([incidentId, monitorId])
 }
 
-model StatusPageOnIncidents {
+model StatusPageIncident {
   statusPage   StatusPage @relation(fields: [statusPageId], references: [id], onDelete: Cascade)
   statusPageId String
   incident     Incident   @relation(fields: [incidentId], references: [id], onDelete: Cascade)
@@ -390,21 +393,4 @@ model StatusPageSubscriber {
 
   @@index([statusPageId, isVerified])
   @@index([email])
-}
-
-model NotificationRule {
-  id           String                @id @default(cuid())
-  name         String                @db.VarChar(100)
-  channels     NotificationChannel[]
-  conditions   Json                  @default("{}") @db.JsonB
-  webhookUrl   String?               @db.VarChar(2083)
-  slackWebhook String?               @db.VarChar(2083)
-  isEnabled    Boolean               @default(true)
-  createdAt    DateTime              @default(now())
-  updatedAt    DateTime              @updatedAt
-
-  monitor   Monitor @relation(fields: [monitorId], references: [id], onDelete: Cascade)
-  monitorId String
-
-  @@index([monitorId, isEnabled])
 }
