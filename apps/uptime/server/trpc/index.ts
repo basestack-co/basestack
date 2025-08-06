@@ -8,7 +8,7 @@ import { headers } from "next/headers";
 import { auth } from "server/auth";
 // Database
 import { prisma } from "server/db";
-import { getUserInTeam } from "server/db/utils/user";
+import { getUserInTeam, getUserInProject } from "server/db/utils/user";
 // Utils
 import superjson from "superjson";
 import { ZodError } from "zod";
@@ -23,7 +23,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
   return {
     prisma,
     auth: data,
-    form: {
+    project: {
       role: "VIEWER", // default as fallback
       adminUserId: "",
       adminUserEmail: "",
@@ -91,7 +91,7 @@ export const withTeamRestrictions = ({ roles }: { roles: Role[] }) =>
     const userInTeam = await getUserInTeam(
       ctx.prisma,
       ctx?.auth?.user.id!,
-      teamId!,
+      teamId!
     );
 
     if (!userInTeam) {
@@ -109,6 +109,59 @@ export const withTeamRestrictions = ({ roles }: { roles: Role[] }) =>
         cause: "UserDoesNotHaveRequiredRole",
       });
     }
+
+    return next({
+      ctx: {
+        ...ctx,
+      },
+    });
+  });
+
+export const withProjectRestrictions = ({ roles }: { roles: Role[] }) =>
+  middleware(async ({ next, ctx, getRawInput }) => {
+    // This is for routes that need to verify any action if the user allowed in that project
+    const { projectId = "" } = (await getRawInput()) as {
+      projectId: string;
+    };
+
+    if (!projectId) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "Project ID is missing",
+        cause: "ProjectIdMissing",
+      });
+    }
+
+    // checks if the user is in the project
+    const project = await getUserInProject(
+      ctx.prisma,
+      ctx?.auth?.user.id!,
+      projectId!
+    );
+
+    // If the user does not exist in the project, return an error
+    if (!project) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "User not found in project",
+        cause: "UserNotFoundInProject",
+      });
+    }
+
+    // checks if the user has the required role
+    if (roles.length > 0 && !roles.includes(project.role)) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "You do not have the permission to perform this action",
+        cause: "UserDoesNotHaveRequiredRole",
+      });
+    }
+
+    ctx.project = {
+      role: project.role,
+      adminUserId: project.adminUserId,
+      adminUserEmail: project.adminUserEmail,
+    };
 
     return next({
       ctx: {

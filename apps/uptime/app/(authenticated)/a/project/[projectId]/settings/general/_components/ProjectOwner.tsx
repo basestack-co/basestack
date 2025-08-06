@@ -16,7 +16,7 @@ export const AvatarWrapper = styled.div`
   align-items: center;
 `;
 
-const ServiceOwnerCard = ({ name, email, image }: Props) => {
+const ProjectOwnerCard = ({ name, email, image }: Props) => {
   const theme = useTheme();
   const t = useTranslations("setting");
 
@@ -48,4 +48,4 @@ const ServiceOwnerCard = ({ name, email, image }: Props) => {
   );
 };
 
-export default ServiceOwnerCard;
+export default ProjectOwnerCard;

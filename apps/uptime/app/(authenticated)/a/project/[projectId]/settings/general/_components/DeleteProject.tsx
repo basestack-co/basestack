@@ -16,32 +16,32 @@ export interface Props {
   name?: string;
 }
 
-const DeleteServiceCard = ({ name }: Props) => {
+const DeleteProjectCard = ({ name }: Props) => {
   const t = useTranslations("setting");
   const router = useRouter();
   const trpcUtils = api.useUtils();
-  const deleteService = api.services.delete.useMutation();
+  const deleteProject = api.projects.delete.useMutation();
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
-  const { serviceId } = useParams<{ serviceId: string }>();
+  const { projectId } = useParams<{ projectId: string }>();
 
-  const onDeleteService = () => {
-    deleteService.mutate(
+  const onDeleteProject = () => {
+    deleteProject.mutate(
       {
-        serviceId,
+        projectId,
       },
       {
         onSuccess: async (result) => {
           // Get all the projects on the cache
-          const prev = trpcUtils.services.list.getData();
+          const prev = trpcUtils.projects.list.getData();
 
-          if (prev?.services) {
+          if (prev?.projects) {
             // Find the project and remove from the list
-            const services = prev.services.filter(
-              (service) => service.id !== result.service.id,
+            const projects = prev.projects.filter(
+              (project) => project.id !== result.project.id
             );
 
             // Update the cache with the new data
-            trpcUtils.services.list.setData(undefined, { services });
+            trpcUtils.projects.list.setData(undefined, { projects });
           }
 
           router.replace("/");
@@ -49,7 +49,7 @@ const DeleteServiceCard = ({ name }: Props) => {
         onError: (error) => {
           toast.error(error.message);
         },
-      },
+      }
     );
   };
 
@@ -57,14 +57,14 @@ const DeleteServiceCard = ({ name }: Props) => {
     setConfirmModalOpen({
       isOpen: true,
       data: {
-        title: t("general.delete.service.modal.title"),
-        description: t("general.delete.service.modal.description", {
+        title: t("general.delete.project.modal.title"),
+        description: t("general.delete.project.modal.description", {
           name: `<b>${name}</b>`,
         }),
         type: "delete",
-        buttonText: t("general.delete.service.modal.action"),
+        buttonText: t("general.delete.project.modal.action"),
         onClick: () => {
-          onDeleteService();
+          onDeleteProject();
           setConfirmModalOpen({
             isOpen: false,
           });
@@ -75,16 +75,16 @@ const DeleteServiceCard = ({ name }: Props) => {
 
   return (
     <SettingCard
-      title={t("general.delete.service.title")}
-      description={t("general.delete.service.description")}
-      button={t("general.delete.service.action")}
+      title={t("general.delete.project.title")}
+      description={t("general.delete.project.description")}
+      button={t("general.delete.project.action")}
       onClick={onClickDeleteProject}
-      text={t("general.delete.service.placeholder")}
-      isDisabled={deleteService.isPending}
+      text={t("general.delete.project.placeholder")}
+      isDisabled={deleteProject.isPending}
       variant={CardVariant.DANGER}
-      isLoading={deleteService.isPending}
+      isLoading={deleteProject.isPending}
     />
   );
 };
 
-export default DeleteServiceCard;
+export default DeleteProjectCard;

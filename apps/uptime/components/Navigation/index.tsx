@@ -42,29 +42,29 @@ const Navigation = ({ data }: NavigationProps) => {
   const { data: session } = auth.client.useSession();
   const isMobile = useMedia(theme.device.max.lg, false);
 
-  const { serviceId } = useParams<{ serviceId: string }>();
+  const { projectId } = useParams<{ projectId: string }>();
 
   const setIsDarkMode = useStore((state) => state.setDarkMode);
   const isDarkMode = useStore((state) => state.isDarkMode);
 
-  const setCreateServiceModalOpen = useStore(
-    (state) => state.setCreateServiceModalOpen
+  const setCreateProjectModalOpen = useStore(
+    (state) => state.setCreateProjectModalOpen
   );
 
   const setCreateMonitorModalOpen = useStore(
     (state) => state.setCreateMonitorModalOpen
   );
 
-  const [serviceName, serviceRole] = useMemo(() => {
-    const service = data?.find(({ id }) => id === serviceId) as unknown as {
+  const [projectName, projectRole] = useMemo(() => {
+    const project = data?.find(({ id }) => id === projectId) as unknown as {
       text: string;
       role: Role;
     };
 
-    return [service?.text ?? "", service?.role ?? Role.VIEWER];
-  }, [serviceId, data]);
+    return [project?.text ?? "", project?.role ?? Role.VIEWER];
+  }, [projectId, data]);
 
-  const servicesList = useMemo((): Array<{
+  const projectsList = useMemo((): Array<{
     title: string;
     items: PopupActionProps[];
   }> => {
@@ -92,32 +92,32 @@ const Navigation = ({ data }: NavigationProps) => {
       title,
       items: items.map((item) => ({
         ...item,
-        isActive: item.id === serviceId,
+        isActive: item.id === projectId,
       })),
     });
 
     return [
       internal.length > 0 &&
-        mapProjectsToSection(internal, t("navigation.services.title")),
+        mapProjectsToSection(internal, t("navigation.projects.title")),
       external.length > 0 &&
-        mapProjectsToSection(external, t("navigation.services.external")),
+        mapProjectsToSection(external, t("navigation.projects.external")),
     ].filter(Boolean) as Array<{
       title: string;
       items: PopupActionProps[];
     }>;
-  }, [data, t, serviceId]);
+  }, [data, t, projectId]);
 
   const getProjectsProps = useMemo(() => {
     return {
-      onCreate: () => setCreateServiceModalOpen({ isOpen: true }),
-      current: serviceName,
-      data: servicesList,
+      onCreate: () => setCreateProjectModalOpen({ isOpen: true }),
+      current: projectName,
+      data: projectsList,
       select: {
-        title: t("navigation.services.select"),
-        create: t("navigation.create.service"),
+        title: t("navigation.projects.select"),
+        create: t("navigation.create.project"),
       },
     };
-  }, [serviceName, servicesList, setCreateServiceModalOpen, t]);
+  }, [projectName, projectsList, setCreateProjectModalOpen, t]);
 
   const getAvatarProps = useMemo(() => {
     return {
@@ -131,7 +131,7 @@ const Navigation = ({ data }: NavigationProps) => {
           setIsDarkMode(!isDarkMode);
         }),
       list: getAvatarDropdownList(t, router, () =>
-        setCreateServiceModalOpen({ isOpen: true })
+        setCreateProjectModalOpen({ isOpen: true })
       ),
     };
   }, [
@@ -139,7 +139,7 @@ const Navigation = ({ data }: NavigationProps) => {
     session,
     t,
     router,
-    setCreateServiceModalOpen,
+    setCreateProjectModalOpen,
     setIsDarkMode,
     toggleDarkMode,
   ]);
@@ -153,7 +153,7 @@ const Navigation = ({ data }: NavigationProps) => {
       product={Product.UPTIME}
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
-      leftLinks={getLeftLinks(t, router, pathname, serviceId, serviceRole, () =>
+      leftLinks={getLeftLinks(t, router, pathname, projectId, projectRole, () =>
         setCreateMonitorModalOpen({ isOpen: true })
       )}
       rightLinks={getRightLinks({ docs: t("navigation.external.docs") })}

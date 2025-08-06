@@ -27,17 +27,17 @@
     }
   },
   "home": {
-    "services": {
-      "title": "Recent services",
-      "action": "Create Service",
+    "projects": {
+      "title": "Recent projects",
+      "action": "Create Project",
       "tag": {
         "text": "External",
         "tooltip": "You are a member of this form, not the owner."
       },
       "empty": {
-        "title": "Create your first service",
-        "description": "Create your first service to start monitoring your websites and APIs!",
-        "action": "Create Service"
+        "title": "Create your first project",
+        "description": "Create your first project to start monitoring your websites and APIs!",
+        "action": "Create Project"
       },
       "card": {
         "menu": {
@@ -154,16 +154,16 @@
         }
       }
     },
-    "service": {
+    "project": {
       "create": {
-        "title": "Create Service",
+        "title": "Create Project",
         "button": {
           "cancel": "Close",
           "submit": "Create"
         },
         "input": {
-          "service-name": {
-            "title": "Service name",
+          "project-name": {
+            "title": "Project name",
             "error": {
               "max": "Must be 30 characters or less",
               "min": "Required field"
@@ -204,7 +204,7 @@
               "option": {
                 "admin": "Admin",
                 "developer": "Developer",
-                "tester": "Tester",
+                "operator": "Operator",
                 "viewer": "Viewer",
                 "remove": "Remove"
               },
@@ -262,12 +262,12 @@
   "navigation": {
     "create": {
       "monitor": "Create Monitor",
-      "service": "Create Service"
+      "project": "Create Project"
     },
-    "services": {
-      "title": "My Services",
-      "external": "External Services",
-      "select": "Select service"
+    "projects": {
+      "title": "My Projects",
+      "external": "External Projects",
+      "select": "Select project"
     },
     "dropdown": {
       "username": "User Name",
@@ -424,13 +424,13 @@
       }
     },
     "general": {
-      "service": {
-        "title": "Service Name",
-        "description": "A name used to identify your service on the dashboard.",
+      "project": {
+        "title": "Project Name",
+        "description": "A name used to identify your project on the dashboard.",
         "action": "Update",
         "inputs": {
           "name": {
-            "placeholder": "Service Name",
+            "placeholder": "Project Name",
             "error": {
               "max": "Must be 30 characters or less",
               "min": "Required field"
@@ -439,19 +439,35 @@
         }
       },
       "owner": {
-        "title": "Service Owner",
-        "description": "The owner of the service. Contact the owner for support."
+        "title": "Project Owner",
+        "description": "The owner of the project. Contact the owner for support."
       },
       "delete": {
-        "service": {
-          "title": "Delete Service",
-          "description": "Deleting the service will permanently remove all its monitors and members.",
+        "project": {
+          "title": "Delete Project",
+          "description": "Deleting the project will permanently remove all its monitors and members.",
           "placeholder": "Warning: This action is irreversible. Proceed with caution.",
           "action": "Delete",
           "modal": {
             "title": "Are you sure about this action?",
-            "description": "Warning: This action cannot be undone. It will permanently delete the {name} service, including monitors, members, and all collaborator associations.",
-            "action": "Delete Service"
+            "description": "Warning: This action cannot be undone. It will permanently delete the {name} project, including monitors, members, and all collaborator associations.",
+            "action": "Delete Project"
+          }
+        }
+      }
+    },
+    "members": {
+      "add": {
+        "title": "Team Members",
+        "description": "Add members to manage this project.",
+        "placeholder": "A team is required to add members.",
+        "action": "Add Member",
+        "table": {
+          "headers": {
+            "name": "Name",
+            "email": "Email",
+            "role": "Role",
+            "added-at": "Added At"
           }
         }
       }

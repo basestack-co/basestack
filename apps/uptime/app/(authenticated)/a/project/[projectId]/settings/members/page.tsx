@@ -9,13 +9,13 @@ import { CardList, CardListItem, SettingCardContainer } from "../styles";
 // Modules
 import MembersTableCard from "./_components/MembersTable";
 
-const MembersPage = () => {
+const ProjectMembersPage = () => {
   const { projectId } = useParams<{ projectId: string }>();
   const { data: project } = api.projects.byId.useQuery(
     { projectId },
     {
       enabled: !!projectId,
-    },
+    }
   );
 
   return (
@@ -29,4 +29,4 @@ const MembersPage = () => {
   );
 };
 
-export default MembersPage;
+export default ProjectMembersPage;

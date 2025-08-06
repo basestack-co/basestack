@@ -22,37 +22,37 @@ import { useShallow } from "zustand/react/shallow";
 export const FormSchema = z.object({
   member: z.object({
     userId: z.string().min(1, "member.add.input.select.error.min"),
-    role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
+    role: z.enum(["DEVELOPER", "VIEWER", "OPERATOR"]),
   }),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
-const AddServiceMemberModal = () => {
+const AddProjectMemberModal = () => {
   const t = useTranslations("modal");
   const { data: session } = auth.client.useSession();
-  const { serviceId } = useParams<{ serviceId: string }>();
+  const { projectId } = useParams<{ projectId: string }>();
   const trpcUtils = api.useUtils();
-  const [isModalOpen, setAddServiceMemberModalOpen, closeModalsOnClickOutside] =
+  const [isModalOpen, setAddProjectMemberModalOpen, closeModalsOnClickOutside] =
     useStore(
       useShallow((state) => [
-        state.isAddServiceMemberModalOpen,
-        state.setAddServiceMemberModalOpen,
+        state.isAddProjectMemberModalOpen,
+        state.setAddProjectMemberModalOpen,
         state.closeModalsOnClickOutside,
       ])
     );
 
   const [team, members] = api.useQueries((t) => [
     t.teams.list(undefined, {
-      enabled: isModalOpen && !!serviceId,
+      enabled: isModalOpen && !!projectId,
     }),
-    t.serviceMembers.list(
-      { serviceId },
-      { enabled: isModalOpen && !!serviceId }
+    t.projectMembers.list(
+      { projectId },
+      { enabled: isModalOpen && !!projectId }
     ),
   ]);
 
-  const addUserToService = api.serviceMembers.create.useMutation();
+  const addUserToProject = api.projectMembers.create.useMutation();
 
   const {
     control,
@@ -64,11 +64,11 @@ const AddServiceMemberModal = () => {
     mode: "onChange",
   });
 
-  const isSubmittingOrMutating = isSubmitting || addUserToService.isPending;
+  const isSubmittingOrMutating = isSubmitting || addUserToProject.isPending;
 
   const options = useMemo(() => {
     if (!team.isLoading && team.data && !members.isLoading && members.data) {
-      const serviceUserIds =
+      const projectUserIds =
         members.data?.users.map((user) => user.userId) ?? [];
 
       return team.data
@@ -84,7 +84,7 @@ const AddServiceMemberModal = () => {
             .filter(
               (member) =>
                 member.userId !== session?.user.id &&
-                !serviceUserIds.includes(member.userId)
+                !projectUserIds.includes(member.userId)
             )
             .map((member) => ({
               label: member.user.name,
@@ -105,18 +105,18 @@ const AddServiceMemberModal = () => {
   ]);
 
   const onClose = useCallback(() => {
-    setAddServiceMemberModalOpen({ isOpen: false });
+    setAddProjectMemberModalOpen({ isOpen: false });
     reset();
-  }, [setAddServiceMemberModalOpen, reset]);
+  }, [setAddProjectMemberModalOpen, reset]);
 
   const onSubmit: SubmitHandler<FormInputs> = useCallback(
     (input: FormInputs) => {
-      if (serviceId) {
-        addUserToService.mutate(
-          { serviceId, userId: input.member.userId, role: input.member.role },
+      if (projectId) {
+        addUserToProject.mutate(
+          { projectId, userId: input.member.userId, role: input.member.role },
           {
             onSuccess: async () => {
-              await trpcUtils.serviceMembers.list.invalidate();
+              await trpcUtils.projectMembers.list.invalidate();
               onClose();
             },
             onError: (error) => {
@@ -126,7 +126,7 @@ const AddServiceMemberModal = () => {
         );
       }
     },
-    [addUserToService, serviceId, onClose, trpcUtils]
+    [addUserToProject, projectId, onClose, trpcUtils]
   );
 
   const onChangeMember = useCallback((option: unknown, setField: any) => {
@@ -150,7 +150,7 @@ const AddServiceMemberModal = () => {
             children: t("member.add.button.submit"),
             onClick: handleSubmit(onSubmit),
             isDisabled:
-              !serviceId ||
+              !projectId ||
               !options.length ||
               isSubmittingOrMutating ||
               !isValid,
@@ -179,4 +179,4 @@ const AddServiceMemberModal = () => {
   );
 };
 
-export default AddServiceMemberModal;
+export default AddProjectMemberModal;

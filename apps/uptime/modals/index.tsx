@@ -1,11 +1,13 @@
+// React
 import { Fragment } from "react";
+// Globals
 import ConfirmModal from "./Confirm";
 // Teams
 import CreateTeamModal from "./Team/Create";
 import ManageTeamModal from "./Team/Manage";
 // Services
-import CreateServiceModal from "./Service/Create";
-import AddServiceMemberModal from "./Service/AddMember";
+import CreateProjectModal from "./Project/Create";
+import AddProjectMemberModal from "./Project/AddMember";
 
 const Modals = () => {
   return (
@@ -13,8 +15,8 @@ const Modals = () => {
       <ConfirmModal />
       <CreateTeamModal />
       <ManageTeamModal />
-      <CreateServiceModal />
-      <AddServiceMemberModal />
+      <CreateProjectModal />
+      <AddProjectMemberModal />
     </Fragment>
   );
 };

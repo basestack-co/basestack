@@ -34,11 +34,11 @@ export interface Props {
   name?: string;
 }
 
-const ServiceNameCard = ({ role, name }: Props) => {
+const ProjectNameCard = ({ role, name }: Props) => {
   const t = useTranslations("setting");
   const trpcUtils = api.useUtils();
-  const updateService = api.services.update.useMutation();
-  const { serviceId } = useParams<{ serviceId: string }>();
+  const updateProject = api.projects.update.useMutation();
+  const { projectId } = useParams<{ projectId: string }>();
   const isAdmin = role === Role.ADMIN;
 
   const {
@@ -54,40 +54,41 @@ const ServiceNameCard = ({ role, name }: Props) => {
 
   const inputName = watch("name");
 
-  const onSaveServiceName: SubmitHandler<FormInputs> = async (input) => {
-    updateService.mutate(
+  const onSaveProjectName: SubmitHandler<FormInputs> = async (input) => {
+    updateProject.mutate(
       {
-        serviceId,
+        projectId,
         name: input.name,
       },
       {
         onSuccess: (result) => {
-          // Get all the projects on the cache
-          const cacheAllServices = trpcUtils.services.list.getData();
 
-          if (cacheAllServices?.services) {
+          // Get all the projects on the cache
+          const cacheAllProjects = trpcUtils.projects.list.getData();
+
+          if (cacheAllProjects?.projects) {
             // Update the cache with the new data
             // This updates in the navigation list
-            trpcUtils.services.list.setData(undefined, {
-              services: cacheAllServices.services.map((service) =>
-                service.id === result.service.id
-                  ? { ...service, name: result.service.name }
-                  : service
+            trpcUtils.projects.list.setData(undefined, {
+              projects: cacheAllProjects.projects.map((project) =>
+                project.id === result.project.id
+                  ? { ...project, name: result.project.name }
+                  : project
               ),
             });
           }
 
-          const cacheService = trpcUtils.services.byId.getData({
-            serviceId: result.service.id,
+          const cacheProject = trpcUtils.projects.byId.getData({
+            projectId: result.project.id,
           });
 
-          if (cacheService) {
+          if (cacheProject) {
             // Updates the current active project in the cache
-            trpcUtils.services.byId.setData(
-              { serviceId: result.service.id },
+            trpcUtils.projects.byId.setData(
+              { projectId: result.project.id },
               {
-                ...cacheService,
-                name: result.service.name,
+                ...cacheProject,
+                name: result.project.name,
               }
             );
           }
@@ -107,18 +108,18 @@ const ServiceNameCard = ({ role, name }: Props) => {
 
   return (
     <SettingCard
-      title={t("general.service.title")}
-      description={t("general.service.description")}
-      button={t("general.service.action")!}
-      onClick={handleSubmit(onSaveServiceName)}
+      title={t("general.project.title")}
+      description={t("general.project.description")}
+      button={t("general.project.action")!}
+      onClick={handleSubmit(onSaveProjectName)}
       isDisabled={
         isSubmitting ||
         !name ||
-        updateService.isPending ||
+        updateProject.isPending ||
         name === inputName ||
         !isEmptyObject(errors)
       }
-      isLoading={isSubmitting || updateService.isPending}
+      isLoading={isSubmitting || updateProject.isPending}
       hasFooter={isAdmin}
     >
       <Controller
@@ -134,7 +135,7 @@ const ServiceNameCard = ({ role, name }: Props) => {
               value: field.value as string,
               onChange: field.onChange,
               onBlur: field.onBlur,
-              placeholder: t("general.service.inputs.name.placeholder"),
+              placeholder: t("general.project.inputs.name.placeholder"),
               hasError: !!errors.name,
               isDisabled: isSubmitting || !name || !isAdmin,
               maxWidth: 400,
@@ -146,4 +147,4 @@ const ServiceNameCard = ({ role, name }: Props) => {
   );
 };
 
-export default ServiceNameCard;
+export default ProjectNameCard;

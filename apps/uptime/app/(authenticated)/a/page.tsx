@@ -14,7 +14,7 @@ import { api } from "utils/trpc/react";
 // Components
 import QuickLinks from "./_components/QuickLinks";
 import Teams from "./_components/Teams";
-import RecentServices from "./_components/RecentServices";
+import RecentProjects from "./_components/RecentProjects";
 // Styles
 import { Container } from "./styles";
 import Meters from "./user/tab/billing/_components/Meters/page";
@@ -62,7 +62,7 @@ const MainPage = () => {
           }
           href="/a/user/tab/billing"
         />
-        <RecentServices />
+        <RecentProjects />
         <Teams />
         <QuickLinks />
       </Container>

@@ -20,26 +20,26 @@ import { useShallow } from "zustand/react/shallow";
 export const FormSchema = z.object({
   name: z
     .string()
-    .max(30, "service.create.input.service-name.error.max")
-    .min(1, "service.create.input.service-name.error.min"),
+    .max(30, "project.create.input.project-name.error.max")
+    .min(1, "project.create.input.project-name.error.min"),
 });
 
 export type FormInputs = z.TypeOf<typeof FormSchema>;
 
-const CreateServiceModal = () => {
+const CreateProjectModal = () => {
   const t = useTranslations("modal");
   const router = useRouter();
   const trpcUtils = api.useUtils();
-  const [isModalOpen, setCreateServiceModalOpen, closeModalsOnClickOutside] =
+  const [isModalOpen, setCreateProjectModalOpen, closeModalsOnClickOutside] =
     useStore(
       useShallow((state) => [
-        state.isCreateServiceModalOpen,
-        state.setCreateServiceModalOpen,
+        state.isCreateProjectModalOpen,
+        state.setCreateProjectModalOpen,
         state.closeModalsOnClickOutside,
-      ]),
+      ])
     );
 
-  const createService = api.services.create.useMutation();
+  const createProject = api.projects.create.useMutation();
 
   const {
     control,
@@ -51,18 +51,18 @@ const CreateServiceModal = () => {
     mode: "onChange",
   });
 
-  const isSubmittingOrMutating = isSubmitting || createService.isPending;
+  const isSubmittingOrMutating = isSubmitting || createProject.isPending;
 
-  const onClose = () => setCreateServiceModalOpen({ isOpen: false });
+  const onClose = () => setCreateProjectModalOpen({ isOpen: false });
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    createService.mutate(data, {
+    createProject.mutate(data, {
       onSuccess: async (result) => {
-        // Invalidate the service list cache
-        await trpcUtils.services.list.invalidate();
+        // Invalidate the project list cache
+        await trpcUtils.projects.list.invalidate();
         onClose();
 
-        router.push(`/a/service/${result.service.id}/monitors`);
+        router.push(`/a/project/${result.project.id}/monitors`);
       },
       onError: (error) => {
         toast.error(error.message);
@@ -73,14 +73,14 @@ const CreateServiceModal = () => {
   return (
     <Portal selector="#portal">
       <Modal
-        title={t("service.create.title")}
+        title={t("project.create.title")}
         expandMobile
         isOpen={isModalOpen}
         onClose={onClose}
         buttons={[
-          { children: t("service.create.button.cancel"), onClick: onClose },
+          { children: t("project.create.button.cancel"), onClick: onClose },
           {
-            children: t("service.create.button.submit"),
+            children: t("project.create.button.submit"),
             onClick: handleSubmit(onSubmit),
             isLoading: isSubmittingOrMutating,
             isDisabled: isSubmittingOrMutating,
@@ -95,7 +95,7 @@ const CreateServiceModal = () => {
           defaultValue=""
           render={({ field }) => (
             <InputGroup
-              title={t("service.create.input.service-name.title")}
+              title={t("project.create.input.project-name.title")}
               hint={
                 errors.name?.message
                   ? t(errors.name?.message as NamespaceKeys<string, "modal">)
@@ -107,7 +107,7 @@ const CreateServiceModal = () => {
                 value: field.value,
                 onChange: field.onChange,
                 onBlur: field.onBlur,
-                placeholder: "E.g. Chat",
+                placeholder: "E.g. My Project",
                 hasError: !!errors.name,
                 isDisabled: isSubmitting,
               }}
@@ -119,4 +119,4 @@ const CreateServiceModal = () => {
   );
 };
 
-export default CreateServiceModal;
+export default CreateProjectModal;

@@ -27,13 +27,13 @@ const nextConfig: NextConfig = {
         permanent: false,
       },
       {
-        source: "/a/service/:serviceId",
-        destination: "/a/service/:serviceId/monitors",
+        source: "/a/project/:projectId",
+        destination: "/a/project/:projectId/monitors",
         permanent: false,
       },
       {
-        source: "/a/service/:serviceId/settings",
-        destination: "/a/service/:serviceId/settings/general",
+        source: "/a/project/:projectId/settings",
+        destination: "/a/project/:projectId/settings/general",
         permanent: false,
       },
     ];

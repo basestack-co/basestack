@@ -9,14 +9,14 @@ import { toast } from "sonner";
 // Server
 import { api } from "utils/trpc/react";
 
-const ServiceLayout = ({ children }: { children: React.ReactNode }) => {
+const ProjectLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  const { serviceId } = useParams<{ serviceId: string }>();
+  const { projectId } = useParams<{ projectId: string }>();
 
-  const { data, isLoading, isError, error } = api.services.byId.useQuery(
-    { serviceId },
+  const { data, isLoading, isError, error } = api.projects.byId.useQuery(
+    { projectId },
     {
-      enabled: !!serviceId,
+      enabled: !!projectId,
       retry: 1,
     }
   );
@@ -38,4 +38,4 @@ const ServiceLayout = ({ children }: { children: React.ReactNode }) => {
   return <Fragment>{children}</Fragment>;
 };
 
-export default ServiceLayout;
+export default ProjectLayout;

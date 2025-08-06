@@ -12,34 +12,34 @@ export const getLeftLinks = (
   t: (key: any) => string,
   router: ReturnType<typeof useRouter>,
   pathname: string,
-  serviceId: string,
-  serviceRole: Role,
+  projectId: string,
+  projectRole: Role,
   onCreateMonitor: () => void
 ): NavigationProps["leftLinks"] => {
   const links = [
     {
       type: "button",
       icon: "mail",
-      onClick: () => router.push(`/a/service/${serviceId}/monitors`),
+      onClick: () => router.push(`/a/project/${projectId}/monitors`),
       text: t("navigation.internal.monitors"),
       isActive: pathname.includes("monitors"),
-      isVisible: !!serviceId,
+      isVisible: !!projectId,
     },
     {
       type: "button",
       icon: "tune",
-      onClick: () => router.push(`/a/service/${serviceId}/incidents`),
+      onClick: () => router.push(`/a/project/${projectId}/incidents`),
       text: t("navigation.internal.incidents"),
       isActive: pathname.includes("incidents"),
-      isVisible: !!serviceId,
+      isVisible: !!projectId,
     },
     {
       type: "button",
       icon: "settings",
-      onClick: () => router.push(`/a/service/${serviceId}/settings/general`),
+      onClick: () => router.push(`/a/project/${projectId}/settings/general`),
       text: t("navigation.internal.settings"),
       isActive: pathname.includes("settings"),
-      isVisible: !!serviceId,
+      isVisible: !!projectId,
     },
     {
       type: "button",
@@ -49,7 +49,7 @@ export const getLeftLinks = (
       isActive: pathname.includes("create"),
       buttonVariant: ButtonVariant.Primary,
       space: { ml: 2 },
-      isVisible: !!serviceId,
+      isVisible: !!projectId,
     },
   ].filter((link) => link.isVisible);
 
@@ -79,7 +79,7 @@ export const getAvatarDropdownList = (
     {
       id: "1",
       icon: "add_circle",
-      text: t("navigation.create.service"),
+      text: t("navigation.create.project"),
       onClick: onCreateForm,
       separator: true,
     },

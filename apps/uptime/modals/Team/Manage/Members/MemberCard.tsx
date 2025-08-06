@@ -51,13 +51,13 @@ const MemberCard = ({
       const list: { [role: string]: string } = {
         [Role.ADMIN]: t("team.manage.tab.members.list.option.admin"),
         [Role.DEVELOPER]: t("team.manage.tab.members.list.option.developer"),
-        [Role.TESTER]: t("team.manage.tab.members.list.option.tester"),
+        [Role.OPERATOR]: t("team.manage.tab.members.list.option.operator"),
         [Role.VIEWER]: t("team.manage.tab.members.list.option.viewer"),
       };
 
       return list[role];
     },
-    [t],
+    [t]
   );
 
   const onRenderOptions = useCallback(() => {
@@ -84,7 +84,7 @@ const MemberCard = ({
       );
     }
 
-    const assignableRoles = [Role.DEVELOPER, Role.TESTER, Role.VIEWER];
+    const assignableRoles = [Role.DEVELOPER, Role.OPERATOR, Role.VIEWER];
 
     const dropdownItems = [
       ...assignableRoles.map((assignableRole) => ({

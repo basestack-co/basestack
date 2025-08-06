@@ -5,17 +5,34 @@ import { Loader, Splash } from "@basestack/design-system";
 // Libs
 import { auth } from "@basestack/vendors";
 import Navigation from "components/Navigation";
+// Router
+import { useRouter } from "next/navigation";
 // Modals
 import Modals from "modals";
-import type React from "react";
-import { Fragment } from "react";
+// React
+import { Fragment, ReactNode } from "react";
 // Server
 import { api } from "utils/trpc/react";
 
-const MainLayout = ({ children }: { children: React.ReactNode }) => {
+const MainLayout = ({ children }: { children: ReactNode }) => {
+  const router = useRouter();
+
   const { isPending: isSessionLoading } = auth.client.useSession();
 
-  const [usage, subscription] = api.useQueries((t) => [
+  const [projects, usage, subscription] = api.useQueries((t) => [
+    t.projects.list(undefined, {
+      enabled: !isSessionLoading,
+      select: (data) =>
+        data?.projects.map((item) => ({
+          id: item.id,
+          slug: item.slug,
+          onClick: () => router.push(`/a/project/${item.id}/monitors`),
+          text: item.name,
+          isAdmin: item.isAdmin,
+          role: item.role,
+          isActive: false,
+        })),
+    }),
     t.subscription.usage(undefined, {
       enabled: !isSessionLoading,
     }),
@@ -24,7 +41,12 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     }),
   ]);
 
-  if (isSessionLoading || usage.isLoading || subscription.isLoading) {
+  if (
+    isSessionLoading ||
+    projects.isLoading ||
+    usage.isLoading ||
+    subscription.isLoading
+  ) {
     return (
       <Loader hasDelay={false}>
         <Splash product="uptime" />
@@ -34,7 +56,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Fragment>
-      <Navigation data={[]} />
+      <Navigation data={projects.data} />
       {children}
       <Modals />
     </Fragment>

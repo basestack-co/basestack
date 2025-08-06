@@ -29,41 +29,45 @@ import {
 
 const { hasUptimePermission } = config.plans;
 
-const getLinks = (serviceId: string, role: Role | undefined) => [
+const getLinks = (projectId: string, role: Role | undefined) => [
   {
     id: "1",
     i18nKey: "navigation.setting.general",
     tab: "general",
-    href: `/a/service/${serviceId}/settings/general`,
+    href: `/a/project/${projectId}/settings/general`,
     isVisible: true,
   },
   {
     id: "2",
     i18nKey: "navigation.setting.members",
     tab: "members",
-    href: `/a/service/${serviceId}/settings/members`,
+    href: `/a/project/${projectId}/settings/members`,
     isVisible: true,
   },
 ];
 
-const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
+const ProjectSettingsLayout = ({
+  children,
+}: {
+  children: React.ReactElement;
+}) => {
   const t = useTranslations();
   const theme = useTheme();
   const isDesktop = useMedia(theme.device.min.lg, false);
   const router = useRouter();
   const pathname = usePathname();
-  const { serviceId } = useParams<{ serviceId: string }>();
+  const { projectId } = useParams<{ projectId: string }>();
 
-  const { data: service, isLoading: isLoadingService } =
-    api.services.byId.useQuery(
-      { serviceId },
+  const { data: project, isLoading: isLoadingProject } =
+    api.projects.byId.useQuery(
+      { projectId },
       {
-        enabled: !!serviceId,
+        enabled: !!projectId,
       }
     );
 
   const renderLink = useMemo(() => {
-    return getLinks(serviceId, service?.role)
+    return getLinks(projectId, project?.role)
       .filter((link) => link.isVisible)
       .map(({ id, i18nKey, href }) => (
         <ListItem key={`settings-button-list-${id}`}>
@@ -74,19 +78,19 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
           </StyledLink>
         </ListItem>
       ));
-  }, [pathname, serviceId, t, service?.role]);
+  }, [pathname, projectId, t, project?.role]);
 
   const activeLinkIndex = useMemo(
     () =>
-      getLinks(serviceId, service?.role).findIndex(
+      getLinks(projectId, project?.role).findIndex(
         (button) => button.href === pathname
       ),
-    [pathname, serviceId, service?.role]
+    [pathname, projectId, project?.role]
   );
 
   const items = useMemo(
     () =>
-      getLinks(serviceId, service?.role)
+      getLinks(projectId, project?.role)
         .filter((link) => link.isVisible)
         .map(({ i18nKey, tab }) => {
           return {
@@ -94,22 +98,22 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
             text: t(i18nKey as NamespaceKeys<string, "navigation">),
           };
         }),
-    [t, serviceId, service?.role]
+    [t, projectId, project?.role]
   );
 
   useEffect(() => {
-    document.title = `${service?.name ?? "Service"} / Settings`;
-  }, [service?.name]);
+    document.title = `${project?.name ?? "Project"} / Settings`;
+  }, [project?.name]);
 
   useEffect(() => {
-    const link = getLinks(serviceId, service?.role).find(
+    const link = getLinks(projectId, project?.role).find(
       (link) => link.href === pathname
     );
 
     if (!link?.isVisible) {
-      router.push(`/a/service/${serviceId}/settings/general`);
+      router.push(`/a/project/${projectId}/settings/general`);
     }
-  }, [pathname, serviceId, service?.role, router]);
+  }, [pathname, projectId, project?.role, router]);
 
   return (
     <Container>
@@ -122,13 +126,13 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
           <Tabs
             items={items}
             onSelect={(tab) => {
-              router.push(`/a/service/${serviceId}/settings/${tab}`);
+              router.push(`/a/project/${projectId}/settings/${tab}`);
             }}
             sliderPosition={activeLinkIndex}
             backgroundColor="transparent"
           />
         )}
-        {isLoadingService || !service ? (
+        {isLoadingProject || !project ? (
           <Loader hasDelay={false}>
             <Skeleton
               items={[
@@ -149,4 +153,4 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   );
 };
 
-export default SettingsLayout;
+export default ProjectSettingsLayout;

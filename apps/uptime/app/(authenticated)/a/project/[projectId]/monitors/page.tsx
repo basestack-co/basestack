@@ -10,20 +10,20 @@ import { useTheme } from "styled-components";
 // Server
 import { api } from "utils/trpc/react";
 
-const MonitorsPage = () => {
+const ProjectMonitorsPage = () => {
   const t = useTranslations();
   const theme = useTheme();
 
-  const { serviceId } = useParams<{ serviceId: string }>();
+  const { projectId } = useParams<{ projectId: string }>();
 
-  const { data: service } = api.services.byId.useQuery(
-    { serviceId },
+  const { data: project } = api.projects.byId.useQuery(
+    { projectId },
     {
-      enabled: !!serviceId,
+      enabled: !!projectId,
     }
   );
 
-  return <div>the monitors page</div>;
+  return <div>the monitors page for {project?.name}</div>;
 };
 
-export default MonitorsPage;
+export default ProjectMonitorsPage;

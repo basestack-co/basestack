@@ -15,20 +15,20 @@ import { useTheme } from "styled-components";
 import { api } from "utils/trpc/react";
 import { Header, ProjectsList, ProjectsListItem, Section } from "./styles";
 
-const RecentServices = () => {
+const RecentProjects = () => {
   const t = useTranslations("home");
   const theme = useTheme();
   const router = useRouter();
-  const setCreateServiceModalOpen = useStore(
-    (state) => state.setCreateServiceModalOpen,
+  const setCreateProjectModalOpen = useStore(
+    (state) => state.setCreateProjectModalOpen
   );
 
-  const { data, isLoading } = api.services.recent.useQuery(undefined, {
-    select: (services) => {
-      return services?.map((item) => ({
+  const { data, isLoading } = api.projects.recent.useQuery(undefined, {
+    select: (projects) => {
+      return projects?.map((item) => ({
         id: item.id,
         slug: item.slug,
-        onClick: () => router.push(`/a/service/${item.id}/monitors`),
+        onClick: () => router.push(`/a/project/${item.id}/monitors`),
         text: item.name,
         isAdmin: item.isAdmin,
         count: [
@@ -50,15 +50,15 @@ const RecentServices = () => {
     <Section mb={theme.spacing.s7}>
       <Header>
         <Text size="xLarge" mr={theme.spacing.s5}>
-          {t("services.title")}
+          {t("projects.title")}
         </Text>
         {!!data?.length && (
           <Button
             flexShrink={0}
             variant={ButtonVariant.Outlined}
-            onClick={() => setCreateServiceModalOpen({ isOpen: true })}
+            onClick={() => setCreateProjectModalOpen({ isOpen: true })}
           >
-            {t("services.action")}
+            {t("projects.action")}
           </Button>
         )}
       </Header>
@@ -67,11 +67,11 @@ const RecentServices = () => {
         <Empty
           p={`${theme.spacing.s6} ${theme.spacing.s5}`}
           iconName="service_toolbox"
-          title={t("services.empty.title")}
-          description={t("services.empty.description")}
+          title={t("projects.empty.title")}
+          description={t("projects.empty.description")}
           button={{
-            text: t("services.empty.action"),
-            onClick: () => setCreateServiceModalOpen({ isOpen: true }),
+            text: t("projects.empty.action"),
+            onClick: () => setCreateProjectModalOpen({ isOpen: true }),
           }}
         />
       )}
@@ -82,30 +82,30 @@ const RecentServices = () => {
       )}
       {!isLoading && !!data?.length && (
         <ProjectsList>
-          {data.slice(0, 4).map((service) => (
-            <ProjectsListItem key={service.id}>
+          {data.slice(0, 4).map((project) => (
+            <ProjectsListItem key={project.id}>
               <ProjectCard
-                text={service.text}
-                onClick={service.onClick}
-                count={service.count}
+                text={project.text}
+                onClick={project.onClick}
+                count={project.count}
                 menuItems={[
                   {
                     icon: "flag",
-                    text: t("services.menu.monitors"),
+                    text: t("projects.card.menu.monitors"),
                     onClick: () =>
-                      router.push(`/a/service/${service.id}/monitors`),
+                      router.push(`/a/project/${project.id}/monitors`),
                   },
                   {
                     icon: "settings",
-                    text: t("services.menu.settings"),
+                    text: t("projects.card.menu.settings"),
                     onClick: () =>
-                      router.push(`/a/service/${service.id}/settings`),
+                      router.push(`/a/project/${project.id}/settings`),
                   },
                 ]}
-                {...(!service.isAdmin && {
+                {...(!project.isAdmin && {
                   label: {
-                    text: t("services.tag.text"),
-                    tooltip: t("services.tag.tooltip"),
+                    text: t("projects.tag.text"),
+                    tooltip: t("projects.tag.tooltip"),
                   },
                 })}
               />
@@ -117,4 +117,4 @@ const RecentServices = () => {
   );
 };
 
-export default RecentServices;
+export default RecentProjects;

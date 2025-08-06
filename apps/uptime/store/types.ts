@@ -28,8 +28,9 @@ export interface ModalPayload<T> {
 export type ModalAction<P, A> = (payload: P) => A;
 
 export interface ModalsSliceActions {
+  setAddProjectMemberModalOpen: ModalAction<ModalPayload<null>, void>;
   setAddServiceMemberModalOpen: ModalAction<ModalPayload<null>, void>;
-  setCreateServiceModalOpen: ModalAction<ModalPayload<null>, void>;
+  setCreateProjectModalOpen: ModalAction<ModalPayload<null>, void>;
   setConfirmModalOpen: ModalAction<ModalPayload<ConfirmModalPayload>, void>;
   setCreateTeamModalOpen: ModalAction<ModalPayload<null>, void>;
   setManageTeamModalOpen: ModalAction<ModalPayload<TeamModalPayload>, void>;
@@ -38,13 +39,14 @@ export interface ModalsSliceActions {
 }
 
 export interface ModalsSliceState extends ModalsSliceActions {
+  isAddProjectMemberModalOpen: boolean;
   isConfirmModalOpen: boolean;
   confirmModalPayload: ConfirmModalPayload | null;
   isCreateTeamModalOpen: boolean;
   isManageTeamModalOpen: boolean;
   teamModalPayload: TeamModalPayload | null;
   isAddServiceMemberModalOpen: boolean;
-  isCreateServiceModalOpen: boolean;
+  isCreateProjectModalOpen: boolean;
   isCreateMonitorModalOpen: boolean;
   isUpdateMonitorModalOpen: boolean;
 }

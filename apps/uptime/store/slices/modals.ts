@@ -16,11 +16,16 @@ export const createModalsSlice: StateCreator<
   isCreateMonitorModalOpen: false,
   isUpdateMonitorModalOpen: false,
   isAddServiceMemberModalOpen: false,
-  isCreateServiceModalOpen: false,
+  isCreateProjectModalOpen: false,
+  isAddProjectMemberModalOpen: false,
   setConfirmModalOpen: ({ isOpen, data }) =>
     set(() => ({
       isConfirmModalOpen: isOpen,
       ...(!isOpen ? {} : { confirmModalPayload: data }),
+    })),
+  setAddProjectMemberModalOpen: ({ isOpen }) =>
+    set(() => ({
+      isAddProjectMemberModalOpen: isOpen,
     })),
   setCreateTeamModalOpen: ({ isOpen }) =>
     set(() => ({
@@ -35,9 +40,9 @@ export const createModalsSlice: StateCreator<
     set(() => ({
       isAddServiceMemberModalOpen: isOpen,
     })),
-  setCreateServiceModalOpen: ({ isOpen }) =>
+  setCreateProjectModalOpen: ({ isOpen }) =>
     set(() => ({
-      isCreateServiceModalOpen: isOpen,
+      isCreateProjectModalOpen: isOpen,
     })),
   setCreateMonitorModalOpen: ({ isOpen }) =>
     set(() => ({

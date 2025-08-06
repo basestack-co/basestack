@@ -100,7 +100,7 @@ const MembersTableCard = ({ role }: Props) => {
   );
 
   const onHandleUpdateRole = useCallback(
-    async (userId: string, role: "DEVELOPER" | "VIEWER" | "TESTER") => {
+    async (userId: string, role: "DEVELOPER" | "VIEWER" | "OPERATOR") => {
       if (projectId) {
         updateUserRole.mutate(
           {
@@ -154,11 +154,11 @@ const MembersTableCard = ({ role }: Props) => {
       [Role.DEVELOPER]: t(
         "modal.team.manage.tab.members.list.option.developer",
       ),
-      [Role.TESTER]: t("modal.team.manage.tab.members.list.option.tester"),
+      [Role.OPERATOR]: t("modal.team.manage.tab.members.list.option.operator"),
       [Role.VIEWER]: t("modal.team.manage.tab.members.list.option.viewer"),
     };
 
-    const assignableRoles = [Role.DEVELOPER, Role.TESTER, Role.VIEWER];
+    const assignableRoles = [Role.DEVELOPER, Role.OPERATOR, Role.VIEWER];
 
     return createTable(
       !isLoading && !!data ? data.users : [],

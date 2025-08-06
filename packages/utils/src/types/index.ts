@@ -198,14 +198,14 @@ export type FormsPermission =
   | "delete_form";
 
 export type UptimePermission =
-  // Service Permissions
-  | "view_service_monitors"
-  | "view_service_members"
-  | "add_service_monitors"
-  | "add_service_members"
-  | "edit_service_monitors"
-  | "edit_service_members"
-  | "edit_service_name"
-  | "delete_service_monitors"
-  | "delete_service_members"
-  | "delete_service";
+  // Project Permissions
+  | "view_project_monitors"
+  | "view_project_members"
+  | "add_project_monitors"
+  | "add_project_members"
+  | "edit_project_monitors"
+  | "edit_project_members"
+  | "edit_project_name"
+  | "delete_project_monitors"
+  | "delete_project_members"
+  | "delete_project";
