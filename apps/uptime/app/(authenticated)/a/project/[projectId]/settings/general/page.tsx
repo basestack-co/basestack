@@ -1,5 +1,7 @@
 "use client";
 
+// React
+import { useMemo } from "react";
 // Utils
 import { config } from "@basestack/utils";
 // Router
@@ -13,7 +15,7 @@ import DeleteProject from "./_components/DeleteProject";
 import ProjectName from "./_components/ProjectName";
 import ProjectOwner from "./_components/ProjectOwner";
 
-const { hasUptimePermission } = config.plans;
+const { hasPermission, PERMISSIONS } = config;
 
 const GeneralPage = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -25,9 +27,23 @@ const GeneralPage = () => {
     }
   );
 
+  const permissions = useMemo(
+    () => ({
+      canUpdate: hasPermission(
+        project?.role,
+        PERMISSIONS.PROJECT.GENERAL.UPDATE
+      ),
+      canDelete: hasPermission(
+        project?.role,
+        PERMISSIONS.PROJECT.GENERAL.DELETE
+      ),
+    }),
+    [project?.role]
+  );
+
   return (
     <CardList>
-      {hasUptimePermission(project?.role, "edit_project_name") && (
+      {permissions.canUpdate && (
         <CardListItem>
           <SettingCardContainer>
             <ProjectName role={project?.role} name={project?.name} />
@@ -43,7 +59,7 @@ const GeneralPage = () => {
           />
         </SettingCardContainer>
       </CardListItem>
-      {hasUptimePermission(project?.role, "delete_project") && (
+      {permissions.canDelete && (
         <CardListItem>
           <SettingCardContainer>
             <DeleteProject name={project?.name} />

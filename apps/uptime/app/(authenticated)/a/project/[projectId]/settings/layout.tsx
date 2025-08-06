@@ -27,7 +27,7 @@ import {
   StyledLink,
 } from "./styles";
 
-const { hasUptimePermission } = config.plans;
+const { hasPermission, PERMISSIONS } = config;
 
 const getLinks = (projectId: string, role: Role | undefined) => [
   {
@@ -42,7 +42,7 @@ const getLinks = (projectId: string, role: Role | undefined) => [
     i18nKey: "navigation.setting.members",
     tab: "members",
     href: `/a/project/${projectId}/settings/members`,
-    isVisible: true,
+    isVisible: hasPermission(role, PERMISSIONS.PROJECT.MEMBERS.VIEW),
   },
 ];
 

@@ -1,7 +1,7 @@
 // Types
 import {
-  type UptimePermission,
   PlanTypeId,
+  type UptimePermission,
   type UptimePlan,
 } from "../../types";
 
@@ -48,41 +48,6 @@ const uptime: UptimePlan[] = [
   },
 ];
 
-const uptimePermissions: Record<string, UptimePermission[]> = {
-  ADMIN: [
-    "view_project_monitors",
-    "view_project_members",
-    "add_project_monitors",
-    "add_project_members",
-    "edit_project_monitors",
-    "edit_project_members",
-    "edit_project_name",
-    "delete_project_monitors",
-    "delete_project_members",
-    "delete_project",
-  ],
-  DEVELOPER: [
-    "view_project_monitors",
-    "view_project_members",
-    "add_project_monitors",
-    "edit_project_monitors",
-    "delete_project_monitors",
-  ],
-  TESTER: [
-    "view_project_monitors",
-    "add_project_monitors",
-    "edit_project_monitors",
-  ],
-  VIEWER: ["view_project_monitors"],
-};
-
-const hasUptimePermission = (
-  role: string | undefined,
-  permission: UptimePermission
-): boolean => {
-  return uptimePermissions[role ?? "VIEWER"]?.includes(permission) ?? false;
-};
-
 const getFormPlanLimitsDefaults = () => ({
   teams: 0,
   members: 0,
@@ -90,7 +55,5 @@ const getFormPlanLimitsDefaults = () => ({
 
 export const config = {
   uptime,
-  uptimePermissions,
   getFormPlanLimitsDefaults,
-  hasUptimePermission,
 };
