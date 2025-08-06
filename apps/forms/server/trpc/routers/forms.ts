@@ -231,24 +231,6 @@ export const formsRouter = createTRPCRouter({
       z
         .object({
           formId: z.string(),
-          feature: z
-            .enum([
-              "hasFileUploads",
-              "hasDataQueryString",
-              "hasCustomUrls",
-              "hasRules",
-              "hasEmailNotifications",
-              "hasBlockIPs",
-              "hasWebhooks",
-              "hasWebsites",
-              "hasCustomExport",
-              "hasAutoResponses",
-              "hasIntegrations",
-              "hasCustomEmailTemplates",
-              "hasSpamProtection",
-            ])
-            .nullable()
-            .default(null),
           name: z.string().nullable().default(null),
           isEnabled: z.boolean().nullable().default(null),
           hasRetention: z.boolean().nullable().default(null),

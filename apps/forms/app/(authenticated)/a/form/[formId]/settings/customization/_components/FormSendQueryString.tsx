@@ -28,7 +28,6 @@ const FormSendQueryStringCard = ({ hasDataQueryString = false }: Props) => {
         {
           formId,
           hasDataQueryString: event.target.checked,
-          feature: "hasDataQueryString",
         },
         {
           onSuccess: (result) => {

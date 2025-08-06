@@ -67,7 +67,6 @@ const FlagsIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
       {
         projectId,
         blockIpAddresses: ipsValues.join(","),
-        feature: "hasBlockIPs",
       },
       {
         onSuccess: (result) => {

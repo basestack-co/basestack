@@ -32,7 +32,6 @@ const FormSpamProtectionCard = ({
         {
           formId,
           hasSpamProtection: event.target.checked,
-          feature: "hasSpamProtection",
         },
         {
           onSuccess: (result) => {

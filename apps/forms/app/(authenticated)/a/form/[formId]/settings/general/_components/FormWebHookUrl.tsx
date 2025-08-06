@@ -59,7 +59,6 @@ const FormWebHookUrlCard = ({ webhookUrl = "", isDisabled = false }: Props) => {
       {
         formId,
         webhookUrl: input.url,
-        feature: "hasWebhooks",
       },
       {
         onSuccess: (result) => {

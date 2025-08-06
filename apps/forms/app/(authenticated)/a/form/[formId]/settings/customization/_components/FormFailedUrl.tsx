@@ -58,7 +58,6 @@ const FormFailedUrlCard = ({ errorUrl = "" }: Props) => {
       {
         formId,
         errorUrl: input.url,
-        feature: "hasCustomUrls",
       },
       {
         onSuccess: (result) => {

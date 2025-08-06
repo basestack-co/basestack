@@ -67,7 +67,6 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
       {
         formId,
         blockIpAddresses: ipsValues.join(","),
-        feature: "hasBlockIPs",
       },
       {
         onSuccess: (result) => {

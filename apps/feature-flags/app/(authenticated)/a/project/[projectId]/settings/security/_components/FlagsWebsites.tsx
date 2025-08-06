@@ -67,7 +67,6 @@ const FlagsWebsitesCard = ({ websites = "" }: Props) => {
       {
         projectId,
         websites: websitesValues.join(","),
-        feature: "hasWebsites",
       },
       {
         onSuccess: (result) => {

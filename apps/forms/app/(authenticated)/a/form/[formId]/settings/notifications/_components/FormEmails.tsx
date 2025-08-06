@@ -66,7 +66,6 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
       {
         formId,
         emails: emailsValues.join(","),
-        feature: "hasEmailNotifications",
       },
       {
         onSuccess: (result) => {

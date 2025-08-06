@@ -50,7 +50,7 @@ const Body = ({
       height: 0,
       config: { duration: 200 },
     }),
-    [],
+    []
   );
 
   const isIpBlocked = useMemo(() => {
@@ -109,7 +109,6 @@ const Body = ({
           {
             formId,
             blockIpAddresses,
-            feature: "hasBlockIPs",
           },
           {
             onSuccess: async (result) => {
@@ -123,24 +122,24 @@ const Body = ({
                   {
                     ...cache,
                     blockIpAddresses: result.form.blockIpAddresses,
-                  },
+                  }
                 );
               }
 
               toast.success(
                 t(
-                  `submission.metadata.ip.success.${isIpBlocked ? "unblock" : "block"}`,
-                ),
+                  `submission.metadata.ip.success.${isIpBlocked ? "unblock" : "block"}`
+                )
               );
             },
             onError: (error) => {
               toast.error(error.message);
             },
-          },
+          }
         );
       }
     },
-    [t, updateForm, formId, trpcUtils, isIpBlocked, ips],
+    [t, updateForm, formId, trpcUtils, isIpBlocked, ips]
   );
 
   return (

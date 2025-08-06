@@ -67,7 +67,6 @@ const FormWebsitesCard = ({ websites = "" }: Props) => {
       {
         formId,
         websites: websitesValues.join(","),
-        feature: "hasWebsites",
       },
       {
         onSuccess: (result) => {

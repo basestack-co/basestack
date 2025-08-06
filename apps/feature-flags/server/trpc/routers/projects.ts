@@ -263,19 +263,6 @@ export const projectsRouter = createTRPCRouter({
           name: z.string().nullable().default(null),
           blockIpAddresses: z.string().nullable().default(null),
           websites: z.string().nullable().default(null),
-          feature: z
-            .enum([
-              "hasHistory",
-              "hasBlockIPs",
-              "hasRollouts",
-              "hasSegments",
-              "hasWebsites",
-              "hasTags",
-              "hasRemoteConfig",
-              "hasPreviewFeatures",
-            ])
-            .nullable()
-            .default(null),
         })
         .required()
     )

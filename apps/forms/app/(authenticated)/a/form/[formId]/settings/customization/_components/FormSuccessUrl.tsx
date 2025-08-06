@@ -58,7 +58,6 @@ const FormSuccessUrlCard = ({ successUrl = "" }: Props) => {
       {
         formId,
         successUrl: input.url,
-        feature: "hasCustomUrls",
       },
       {
         onSuccess: (result) => {
