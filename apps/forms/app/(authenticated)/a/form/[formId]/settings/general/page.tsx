@@ -96,7 +96,6 @@ const GeneralSettingsPage = () => {
             <FormSpamProtection
               hasSpamProtection={data?.hasSpamProtection}
               isDisabled={!data?.hasRetention || !data?.isEnabled}
-              planId={PlanTypeId.USAGE}
             />
           </SettingCardContainer>
         </CardListItem>
@@ -107,7 +106,6 @@ const GeneralSettingsPage = () => {
             <FormWebHookUrl
               isDisabled={!data?.isEnabled}
               webhookUrl={data?.webhookUrl ?? ""}
-              planId={PlanTypeId.USAGE}
             />
           </SettingCardContainer>
         </CardListItem>

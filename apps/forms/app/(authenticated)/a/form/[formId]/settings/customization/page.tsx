@@ -1,7 +1,7 @@
 "use client";
 
 // Utils
-import { config, PlanTypeId } from "@basestack/utils";
+import { config } from "@basestack/utils";
 // Router
 import { useParams } from "next/navigation";
 // Server
@@ -34,48 +34,32 @@ const CustomizationSettingsPage = () => {
     [data?.role]
   );
 
+  if (!permissions.canUpdate) {
+    return null;
+  }
+
   return (
     <CardList>
-      {permissions.canUpdate && (
-        <CardListItem>
-          <SettingCardContainer>
-            <FormSendQueryString
-              hasDataQueryString={data?.hasDataQueryString}
-              planId={PlanTypeId.USAGE}
-            />
-          </SettingCardContainer>
-        </CardListItem>
-      )}
-      {permissions.canUpdate && (
-        <CardListItem>
-          <SettingCardContainer>
-            <FormRedirectUrl
-              redirectUrl={data?.redirectUrl ?? ""}
-              planId={PlanTypeId.USAGE}
-            />
-          </SettingCardContainer>
-        </CardListItem>
-      )}
-      {permissions.canUpdate && (
-        <CardListItem>
-          <SettingCardContainer>
-            <FormSuccessUrl
-              successUrl={data?.successUrl ?? ""}
-              planId={PlanTypeId.USAGE}
-            />
-          </SettingCardContainer>
-        </CardListItem>
-      )}
-      {permissions.canUpdate && (
-        <CardListItem>
-          <SettingCardContainer>
-            <FormFailedUrl
-              errorUrl={data?.errorUrl ?? ""}
-              planId={PlanTypeId.USAGE}
-            />
-          </SettingCardContainer>
-        </CardListItem>
-      )}
+      <CardListItem>
+        <SettingCardContainer>
+          <FormSendQueryString hasDataQueryString={data?.hasDataQueryString} />
+        </SettingCardContainer>
+      </CardListItem>
+      <CardListItem>
+        <SettingCardContainer>
+          <FormRedirectUrl redirectUrl={data?.redirectUrl ?? ""} />
+        </SettingCardContainer>
+      </CardListItem>
+      <CardListItem>
+        <SettingCardContainer>
+          <FormSuccessUrl successUrl={data?.successUrl ?? ""} />
+        </SettingCardContainer>
+      </CardListItem>
+      <CardListItem>
+        <SettingCardContainer>
+          <FormFailedUrl errorUrl={data?.errorUrl ?? ""} />
+        </SettingCardContainer>
+      </CardListItem>
     </CardList>
   );
 };

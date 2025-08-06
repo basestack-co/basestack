@@ -3,10 +3,9 @@ import { IconButton, InputGroup, Label } from "@basestack/design-system";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Utils
-import type { PlanTypeId } from "@basestack/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Router
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
 import type React from "react";
@@ -20,7 +19,6 @@ import { api } from "utils/trpc/react";
 import { z } from "zod";
 // Styles
 import { TagsContainer } from "../../styles";
-import { getWithPlanCardProps } from "../../utils";
 
 export const FormSchema = z.object({
   ip: z.string().ip().optional().or(z.literal("")),
@@ -31,11 +29,9 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
   blockIpAddresses?: string;
-  planId: PlanTypeId;
 }
 
-const FlagsIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
-  const router = useRouter();
+const FlagsIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
   const { projectId } = useParams<{ projectId: string }>();
   const t = useTranslations();
   const trpcUtils = api.useUtils();
@@ -85,7 +81,7 @@ const FlagsIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
               {
                 ...cache,
                 blockIpAddresses: result.project.blockIpAddresses,
-              },
+              }
             );
           }
 
@@ -94,7 +90,7 @@ const FlagsIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
         onError: (error) => {
           toast.error(error.message);
         },
-      },
+      }
     );
   }, [ipsValues, updateProject, projectId, trpcUtils, t]);
 
@@ -113,7 +109,7 @@ const FlagsIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
         }
       }
     },
-    [ipValue, setValue, ipsValues, errors, setError],
+    [ipValue, setValue, ipsValues, errors, setError]
   );
 
   const onDeleteIp = useCallback(
@@ -121,28 +117,18 @@ const FlagsIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
       const ips = ipsValues?.filter((item) => item !== value);
       setValue("ips", ips);
     },
-    [setValue, ipsValues],
+    [setValue, ipsValues]
   );
 
   return (
     <SettingCard
       title={t("setting.security.ip-block-rules.title")}
       description={t("setting.security.ip-block-rules.description")}
-      {...getWithPlanCardProps({
-        router,
-        planId,
-        feature: "hasBlockIPs",
-        onClick: onSave,
-        isLoading: isSubmitting,
-        isDisabled: blockIpAddresses === ipsValues.join(","),
-        labels: {
-          partial: t("common.plan.flags.upgrade.partial"),
-          all: t("common.plan.flags.upgrade.all"),
-          upgrade: t("common.plan.flags.upgrade.action"),
-          save: t("setting.security.ip-block-rules.action"),
-          text: t("setting.security.ip-block-rules.text"),
-        },
-      })}
+      text={t("setting.security.ip-block-rules.text")}
+      button={t("setting.security.ip-block-rules.action")}
+      onClick={onSave}
+      isLoading={isSubmitting}
+      isDisabled={blockIpAddresses === ipsValues.join(",")}
     >
       <Controller
         name="ip"
@@ -158,7 +144,7 @@ const FlagsIpRulesCard = ({ blockIpAddresses = "", planId }: Props) => {
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "setting.security.ip-block-rules.inputs.name.placeholder",
+                "setting.security.ip-block-rules.inputs.name.placeholder"
               ),
               hasError: !!errors.ip,
               onKeyDown: onHandleKeyDown,

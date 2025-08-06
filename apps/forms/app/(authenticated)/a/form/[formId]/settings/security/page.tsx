@@ -1,7 +1,7 @@
 "use client";
 
 // Utils
-import { config, PlanTypeId } from "@basestack/utils";
+import { config } from "@basestack/utils";
 // Router
 import { useParams } from "next/navigation";
 // Server
@@ -33,35 +33,27 @@ const SecuritySettingsPage = () => {
     [data?.role]
   );
 
+  if (!permissions.canView) {
+    return null;
+  }
+
   return (
     <CardList>
-      {permissions.canView && (
-        <CardListItem>
-          <SettingCardContainer>
-            <FormWebsites
-              websites={data?.websites ?? ""}
-              planId={PlanTypeId.USAGE}
-            />
-          </SettingCardContainer>
-        </CardListItem>
-      )}
-      {permissions.canView && (
-        <CardListItem>
-          <SettingCardContainer>
-            <FormIpRules
-              blockIpAddresses={data?.blockIpAddresses ?? ""}
-              planId={PlanTypeId.USAGE}
-            />
-          </SettingCardContainer>
-        </CardListItem>
-      )}
-      {permissions.canView && (
-        <CardListItem>
-          <SettingCardContainer>
-            <FormHoneyPot honeypot={data?.honeypot ?? ""} />
-          </SettingCardContainer>
-        </CardListItem>
-      )}
+      <CardListItem>
+        <SettingCardContainer>
+          <FormWebsites websites={data?.websites ?? ""} />
+        </SettingCardContainer>
+      </CardListItem>
+      <CardListItem>
+        <SettingCardContainer>
+          <FormIpRules blockIpAddresses={data?.blockIpAddresses ?? ""} />
+        </SettingCardContainer>
+      </CardListItem>
+      <CardListItem>
+        <SettingCardContainer>
+          <FormHoneyPot honeypot={data?.honeypot ?? ""} />
+        </SettingCardContainer>
+      </CardListItem>
     </CardList>
   );
 };

@@ -25,22 +25,22 @@ import UpgradePlanHeader from "./UpgradePlanHeader";
 
 const flagsFreePlanLimits = config.plans.getPlanLimits(
   Product.FLAGS,
-  PlanTypeId.FREE,
+  PlanTypeId.USAGE,
 ) as FlagsPlan["limits"];
 
 const flagsFreePlanFeatures = config.plans.getPlanFeatures(
   Product.FLAGS,
-  PlanTypeId.FREE,
+  PlanTypeId.USAGE,
 ) as FlagsPlan["features"];
 
 const formsFreePlanLimits = config.plans.getPlanLimits(
   Product.FORMS,
-  PlanTypeId.FREE,
+  PlanTypeId.USAGE,
 ) as FormPlan["limits"];
 
 const formsFreePlanFeatures = config.plans.getPlanFeatures(
   Product.FORMS,
-  PlanTypeId.FREE,
+  PlanTypeId.USAGE,
 ) as FormPlan["features"];
 
 export interface PlansProps {

@@ -32,14 +32,22 @@ const uptime: UptimePlan[] = [
         costUnit: 0.002,
         currency: "USD",
       },
+      {
+        key: "webhook_trigger",
+        costUnit: 0.002,
+        currency: "USD",
+      },
     ],
     limits: {
+      projects: Infinity,
+      monitors: Infinity,
+      subscribers: Infinity,
       teams: Infinity,
       members: Infinity,
       apiRequests: Infinity,
     },
     features: {
-      hasBlockIPs: true,
+      hasWebhooks: true,
     },
   },
 ];

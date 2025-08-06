@@ -133,12 +133,12 @@ const ROLE_PERMISSION_SETS = Object.fromEntries(
   Object.entries(ROLE_PERMISSIONS).map(([role, permissions]) => [
     role,
     new Set(permissions),
-  ])
+  ]),
 ) as Record<keyof typeof ROLE_PERMISSIONS, Set<string>>;
 
 export const hasPermission = (
   role: string | undefined,
-  permission: string
+  permission: string,
 ): boolean => {
   const normalizedRole = (role ??
     "VIEWER") as keyof typeof ROLE_PERMISSION_SETS;

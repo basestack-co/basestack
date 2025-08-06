@@ -1,7 +1,6 @@
 // UI
 import { SwitchSettingCard } from "@basestack/ui";
 // Utils
-import type { PlanTypeId } from "@basestack/utils";
 // Router
 import { useParams } from "next/navigation";
 // Locales
@@ -12,18 +11,15 @@ import { useCallback } from "react";
 import { toast } from "sonner";
 // Server
 import { api } from "utils/trpc/react";
-import { getWithPlanSwitchProps } from "../../utils";
 
 export interface Props {
   hasSpamProtection?: boolean;
   isDisabled?: boolean;
-  planId: PlanTypeId;
 }
 
 const FormSpamProtectionCard = ({
   hasSpamProtection = false,
   isDisabled = false,
-  planId,
 }: Props) => {
   const { formId } = useParams<{ formId: string }>();
   const t = useTranslations();
@@ -50,7 +46,7 @@ const FormSpamProtectionCard = ({
                 {
                   ...cache,
                   hasSpamProtection: result.form.hasSpamProtection,
-                },
+                }
               );
             }
 
@@ -59,24 +55,19 @@ const FormSpamProtectionCard = ({
           onError: (error) => {
             toast.error(error.message);
           },
-        },
+        }
       );
     },
-    [trpcUtils, formId, updateForm, t],
+    [trpcUtils, formId, updateForm, t]
   );
 
   return (
     <SwitchSettingCard
       title={t("setting.security.spam-protection.title")}
       description={t("setting.security.spam-protection.description")}
-      {...getWithPlanSwitchProps({
-        planId,
-        feature: "hasSpamProtection",
-        isDisabled,
-        onChange,
-        checked: hasSpamProtection,
-        label: t(`common.plan.forms.upgrade.all`),
-      })}
+      onChange={onChange}
+      checked={hasSpamProtection}
+      hasOverlay={isDisabled}
     />
   );
 };

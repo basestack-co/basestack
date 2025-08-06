@@ -143,69 +143,14 @@ export interface FlagsPlan extends Plan {
 
 export interface UptimePlan extends Plan {
   limits: {
+    projects: number;
+    monitors: number;
+    subscribers: number;
     teams: number;
     members: number;
     apiRequests: number;
   };
   features: {
-    hasBlockIPs: boolean;
+    hasWebhooks: boolean;
   };
 }
-
-export type FlagsPermission =
-  // Project Permissions
-  | "view_project_flags"
-  | "view_project_keys"
-  | "view_project_environments"
-  | "view_project_security"
-  | "add_project_flags"
-  | "add_project_member"
-  | "add_project_environment"
-  | "edit_project_flags"
-  | "edit_project_name"
-  | "edit_project_environment"
-  | "delete_project_flags"
-  | "delete_project_environment"
-  | "delete_project";
-
-export type FormsPermission =
-  // Form Permissions
-  | "view_form_submissions"
-  | "view_form_security_settings"
-  | "view_form_customization_settings"
-  | "view_form_notifications_settings"
-  | "view_form_setup_page"
-  | "view_form_endpoint"
-  | "view_form_id"
-  | "view_form_submissions_actions"
-  | "add_form_submissions"
-  | "add_form_member"
-  | "edit_form_submissions"
-  | "edit_form_name"
-  | "edit_form_security_websites"
-  | "edit_form_security_ip_rules"
-  | "edit_form_security_honey_pot"
-  | "edit_form_customization_data_query_string"
-  | "edit_form_customization_redirect_url"
-  | "edit_form_customization_success_url"
-  | "edit_form_customization_error_url"
-  | "edit_form_notifications_emails"
-  | "enable_form"
-  | "enable_form_data_retention"
-  | "enable_form_spam_protection"
-  | "enable_form_webhook"
-  | "delete_form_submissions"
-  | "delete_form";
-
-export type UptimePermission =
-  // Project Permissions
-  | "view_project_monitors"
-  | "view_project_members"
-  | "add_project_monitors"
-  | "add_project_members"
-  | "edit_project_monitors"
-  | "edit_project_members"
-  | "edit_project_name"
-  | "delete_project_monitors"
-  | "delete_project_members"
-  | "delete_project";

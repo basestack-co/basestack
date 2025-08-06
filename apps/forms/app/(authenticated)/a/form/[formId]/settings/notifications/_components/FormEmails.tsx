@@ -3,10 +3,9 @@ import { IconButton, InputGroup, Label } from "@basestack/design-system";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Utils
-import type { PlanTypeId } from "@basestack/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Router
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect } from "react";
@@ -19,7 +18,6 @@ import { api } from "utils/trpc/react";
 import { z } from "zod";
 // Styles
 import { TagsContainer } from "../../styles";
-import { getWithPlanCardProps } from "../../utils";
 
 export const FormSchema = z.object({
   email: z.string().email().optional().or(z.literal("")),
@@ -30,11 +28,9 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
   emails?: string;
-  planId: PlanTypeId;
 }
 
-const FormEmailsCard = ({ emails = "", planId }: Props) => {
-  const router = useRouter();
+const FormEmailsCard = ({ emails = "" }: Props) => {
   const { formId } = useParams<{ formId: string }>();
   const t = useTranslations();
   const trpcUtils = api.useUtils();
@@ -84,7 +80,7 @@ const FormEmailsCard = ({ emails = "", planId }: Props) => {
               {
                 ...cache,
                 emails: result.form.emails,
-              },
+              }
             );
           }
 
@@ -93,7 +89,7 @@ const FormEmailsCard = ({ emails = "", planId }: Props) => {
         onError: (error) => {
           toast.error(error.message);
         },
-      },
+      }
     );
   }, [emailsValues, updateForm, formId, trpcUtils, t]);
 
@@ -112,7 +108,7 @@ const FormEmailsCard = ({ emails = "", planId }: Props) => {
         }
       }
     },
-    [emailValue, setValue, emailsValues, errors, setError],
+    [emailValue, setValue, emailsValues, errors, setError]
   );
 
   const onDeleteEmail = useCallback(
@@ -120,28 +116,18 @@ const FormEmailsCard = ({ emails = "", planId }: Props) => {
       const emails = emailsValues?.filter((item) => item !== value);
       setValue("emails", emails);
     },
-    [setValue, emailsValues],
+    [setValue, emailsValues]
   );
 
   return (
     <SettingCard
       title={t("setting.notifications.emails.title")}
       description={t("setting.notifications.emails.description")}
-      {...getWithPlanCardProps({
-        router,
-        planId,
-        feature: "hasEmailNotifications",
-        onClick: onSave,
-        isLoading: isSubmitting,
-        isDisabled: emails === emailsValues.join(","),
-        labels: {
-          partial: t("common.plan.forms.upgrade.partial"),
-          all: t("common.plan.forms.upgrade.all"),
-          upgrade: t("common.plan.forms.upgrade.action"),
-          save: t("setting.notifications.emails.action"),
-          text: t("setting.notifications.emails.text"),
-        },
-      })}
+      text={t("setting.notifications.emails.text")}
+      button={t("setting.notifications.emails.action")}
+      onClick={onSave}
+      isLoading={isSubmitting}
+      isDisabled={emails === emailsValues.join(",")}
     >
       <Controller
         name="email"
@@ -157,7 +143,7 @@ const FormEmailsCard = ({ emails = "", planId }: Props) => {
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "setting.notifications.emails.inputs.name.placeholder",
+                "setting.notifications.emails.inputs.name.placeholder"
               ),
               hasError: !!errors.email,
               onKeyDown: onHandleKeyDown,

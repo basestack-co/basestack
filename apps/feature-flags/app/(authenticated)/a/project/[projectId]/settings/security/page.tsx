@@ -1,7 +1,7 @@
 "use client";
 
 // Utils
-import { config, PlanTypeId } from "@basestack/utils";
+import { config } from "@basestack/utils";
 // Router
 import { useParams } from "next/navigation";
 // Server
@@ -29,18 +29,12 @@ const SecuritySettingsPage = () => {
         <>
           <CardListItem>
             <SettingCardContainer>
-              <FlagsWebsites
-                websites={data?.websites ?? ""}
-                planId={PlanTypeId.USAGE}
-              />
+              <FlagsWebsites websites={data?.websites ?? ""} />
             </SettingCardContainer>
           </CardListItem>
           <CardListItem>
             <SettingCardContainer>
-              <FlagsIpRules
-                blockIpAddresses={data?.blockIpAddresses ?? ""}
-                planId={PlanTypeId.USAGE}
-              />
+              <FlagsIpRules blockIpAddresses={data?.blockIpAddresses ?? ""} />
             </SettingCardContainer>
           </CardListItem>
         </>

@@ -1,7 +1,7 @@
 "use client";
 
 // Utils
-import { config, PlanTypeId } from "@basestack/utils";
+import { config } from "@basestack/utils";
 // Router
 import { useParams } from "next/navigation";
 // React
@@ -36,7 +36,7 @@ const NotificationsSettingsPage = () => {
       {permissions.canView && (
         <CardListItem>
           <SettingCardContainer>
-            <FormEmails emails={data?.emails ?? ""} planId={PlanTypeId.USAGE} />
+            <FormEmails emails={data?.emails ?? ""} />
           </SettingCardContainer>
         </CardListItem>
       )}

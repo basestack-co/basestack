@@ -3,10 +3,9 @@ import { InputGroup } from "@basestack/design-system";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Utils
-import type { PlanTypeId } from "@basestack/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Router
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
@@ -17,7 +16,6 @@ import { toast } from "sonner";
 // Server
 import { api } from "utils/trpc/react";
 import { z } from "zod";
-import { getWithPlanCardProps } from "../../utils";
 
 export const FormSchema = z.object({
   url: z.string().url().optional().or(z.literal("")),
@@ -27,11 +25,9 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
   errorUrl?: string;
-  planId: PlanTypeId;
 }
 
-const FormFailedUrlCard = ({ errorUrl = "", planId }: Props) => {
-  const router = useRouter();
+const FormFailedUrlCard = ({ errorUrl = "" }: Props) => {
   const { formId } = useParams<{ formId: string }>();
   const t = useTranslations();
   const trpcUtils = api.useUtils();
@@ -76,7 +72,7 @@ const FormFailedUrlCard = ({ errorUrl = "", planId }: Props) => {
               {
                 ...cache,
                 errorUrl: result.form.errorUrl,
-              },
+              }
             );
           }
 
@@ -85,7 +81,7 @@ const FormFailedUrlCard = ({ errorUrl = "", planId }: Props) => {
         onError: (error) => {
           toast.error(error.message);
         },
-      },
+      }
     );
   };
 
@@ -93,22 +89,11 @@ const FormFailedUrlCard = ({ errorUrl = "", planId }: Props) => {
     <SettingCard
       title={t("setting.customization.failed-url.title")}
       description={t("setting.customization.failed-url.description")}
-      {...getWithPlanCardProps({
-        router,
-        planId,
-        feature: "hasCustomUrls",
-        onClick: handleSubmit(onSave),
-        isLoading: isSubmitting,
-        isDisabled: isSubmitting || watchUrl === errorUrl || !!errors.url,
-        partial: false,
-        labels: {
-          partial: t("common.plan.forms.upgrade.partial"),
-          all: t("common.plan.forms.upgrade.all"),
-          upgrade: t("common.plan.forms.upgrade.action"),
-          save: t("setting.customization.failed-url.action"),
-          text: "",
-        },
-      })}
+      text={""}
+      button={t("setting.customization.failed-url.action")}
+      onClick={handleSubmit(onSave)}
+      isLoading={isSubmitting}
+      isDisabled={isSubmitting || watchUrl === errorUrl || !!errors.url}
     >
       <Controller
         name="url"
@@ -124,7 +109,7 @@ const FormFailedUrlCard = ({ errorUrl = "", planId }: Props) => {
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "setting.customization.failed-url.inputs.name.placeholder",
+                "setting.customization.failed-url.inputs.name.placeholder"
               ),
               hasError: !!errors.url,
               maxWidth: 560,

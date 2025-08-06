@@ -3,10 +3,9 @@ import { IconButton, InputGroup, Label } from "@basestack/design-system";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Utils
-import type { PlanTypeId } from "@basestack/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Router
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
 import type React from "react";
@@ -20,7 +19,6 @@ import { api } from "utils/trpc/react";
 import { z } from "zod";
 // Styles
 import { TagsContainer } from "../../styles";
-import { getWithPlanCardProps } from "../../utils";
 
 export const FormSchema = z.object({
   website: z.string().url().optional().or(z.literal("")),
@@ -31,11 +29,9 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
   websites?: string;
-  planId: PlanTypeId;
 }
 
-const FlagsWebsitesCard = ({ websites = "", planId }: Props) => {
-  const router = useRouter();
+const FlagsWebsitesCard = ({ websites = "" }: Props) => {
   const { projectId } = useParams<{ projectId: string }>();
   const t = useTranslations();
   const trpcUtils = api.useUtils();
@@ -85,7 +81,7 @@ const FlagsWebsitesCard = ({ websites = "", planId }: Props) => {
               {
                 ...cache,
                 websites: result.project.websites,
-              },
+              }
             );
           }
 
@@ -94,7 +90,7 @@ const FlagsWebsitesCard = ({ websites = "", planId }: Props) => {
         onError: (error) => {
           toast.error(error.message);
         },
-      },
+      }
     );
   }, [websitesValues, updateProject, projectId, trpcUtils, t]);
 
@@ -113,7 +109,7 @@ const FlagsWebsitesCard = ({ websites = "", planId }: Props) => {
         }
       }
     },
-    [websiteValue, setValue, websitesValues, errors, setError],
+    [websiteValue, setValue, websitesValues, errors, setError]
   );
 
   const onDeleteWebsite = useCallback(
@@ -121,28 +117,18 @@ const FlagsWebsitesCard = ({ websites = "", planId }: Props) => {
       const ips = websitesValues?.filter((item) => item !== value);
       setValue("websites", ips);
     },
-    [setValue, websitesValues],
+    [setValue, websitesValues]
   );
 
   return (
     <SettingCard
       title={t("setting.security.websites.title")}
       description={t("setting.security.websites.description")}
-      {...getWithPlanCardProps({
-        router,
-        planId,
-        feature: "hasWebsites",
-        onClick: onSave,
-        isLoading: isSubmitting,
-        isDisabled: websites === websitesValues.join(","),
-        labels: {
-          partial: t("common.plan.flags.upgrade.partial"),
-          all: t("common.plan.flags.upgrade.all"),
-          upgrade: t("common.plan.flags.upgrade.action"),
-          save: t("setting.security.websites.action"),
-          text: t("setting.security.websites.text"),
-        },
-      })}
+      text={t("setting.security.websites.text")}
+      button={t("setting.security.websites.action")}
+      onClick={onSave}
+      isLoading={isSubmitting}
+      isDisabled={websites === websitesValues.join(",")}
     >
       <Controller
         name="website"
@@ -158,7 +144,7 @@ const FlagsWebsitesCard = ({ websites = "", planId }: Props) => {
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "setting.security.websites.inputs.name.placeholder",
+                "setting.security.websites.inputs.name.placeholder"
               ),
               hasError: !!errors.website,
               onKeyDown: onHandleKeyDown,

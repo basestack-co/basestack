@@ -1,5 +1,3 @@
-// Plans Configs
-
 // Types
 import {
   type FlagsPlan,
@@ -12,21 +10,6 @@ import {
 import { config as flagsConfig } from "./flags";
 import { config as formsConfig } from "./forms";
 import { config as uptimeConfig } from "./uptime";
-
-const getSubscriptionEvents = [
-  "subscription_created",
-  "subscription_updated",
-  "subscription_cancelled",
-  "subscription_resumed",
-  "subscription_expired",
-  "subscription_paused",
-  "subscription_unpaused",
-  "subscription_payment_failed",
-  "subscription_payment_success",
-  "subscription_payment_recovered",
-  "subscription_payment_refunded",
-  "subscription_plan_changed",
-];
 
 const currentPlans = {
   forms: formsConfig.forms,
@@ -76,55 +59,6 @@ const getPlanFeatures = (
   return plan.features;
 };
 
-const hasPlanFeature = (
-  product: Product,
-  id: PlanTypeId,
-  feature:
-    | keyof FormPlan["features"]
-    | keyof FlagsPlan["features"]
-    | keyof UptimePlan["features"],
-) => {
-  const plan = getPlan(product, id);
-  return plan.features[feature as keyof typeof plan.features];
-};
-
-const getPlanLimitByKey = (
-  product: Product,
-  id: PlanTypeId,
-  limit:
-    | keyof FormPlan["limits"]
-    | keyof FlagsPlan["limits"]
-    | keyof UptimePlan["limits"],
-) => {
-  const plan = getPlan(product, id);
-  return plan.limits[limit as keyof typeof plan.limits];
-};
-
-const isUnderPlanLimit = (
-  product: Product,
-  id: PlanTypeId,
-  limit:
-    | keyof FormPlan["limits"]
-    | keyof FlagsPlan["limits"]
-    | keyof UptimePlan["limits"],
-  value: number,
-) => {
-  const plan = getPlan(product, id);
-  return plan.limits[limit as keyof typeof plan.limits] >= value;
-};
-
-const getLimitByKey = (
-  product: Product,
-  id: PlanTypeId,
-  limit:
-    | keyof FormPlan["limits"]
-    | keyof FlagsPlan["limits"]
-    | keyof UptimePlan["limits"],
-): number => {
-  const plan = getPlan(product, id);
-  return plan?.limits[limit as keyof typeof plan.limits] || 0;
-};
-
 const getPlanProducts = (product: Product, id: PlanTypeId): PlanProduct => {
   const plan = getPlan(product, id);
   return plan.products;
@@ -150,7 +84,6 @@ const getPlanMeters = (product: Product, id: PlanTypeId) => {
 };
 
 export const plans = {
-  getSubscriptionEvents,
   ...formsConfig,
   ...flagsConfig,
   ...uptimeConfig,
@@ -158,10 +91,6 @@ export const plans = {
   getPlan,
   getPlanLimits,
   getPlanFeatures,
-  hasPlanFeature,
-  getPlanLimitByKey,
-  isUnderPlanLimit,
-  getLimitByKey,
   getPlanProducts,
   getMetersEstimatedCost,
   getPlanMeters,

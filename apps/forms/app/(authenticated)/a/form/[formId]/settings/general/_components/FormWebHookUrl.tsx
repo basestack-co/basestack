@@ -3,10 +3,9 @@ import { InputGroup } from "@basestack/design-system";
 // UI
 import { SettingCard } from "@basestack/ui";
 // Utils
-import type { PlanTypeId } from "@basestack/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 // Router
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
@@ -17,7 +16,6 @@ import { toast } from "sonner";
 // Server
 import { api } from "utils/trpc/react";
 import { z } from "zod";
-import { getWithPlanCardProps } from "../../utils";
 
 export const FormSchema = z.object({
   url: z.string().url().optional().or(z.literal("")),
@@ -27,16 +25,10 @@ export type FormInputs = z.TypeOf<typeof FormSchema>;
 
 export interface Props {
   webhookUrl?: string;
-  planId: PlanTypeId;
   isDisabled?: boolean;
 }
 
-const FormWebHookUrlCard = ({
-  webhookUrl = "",
-  planId,
-  isDisabled = false,
-}: Props) => {
-  const router = useRouter();
+const FormWebHookUrlCard = ({ webhookUrl = "", isDisabled = false }: Props) => {
   const { formId } = useParams<{ formId: string }>();
   const t = useTranslations();
   const trpcUtils = api.useUtils();
@@ -81,7 +73,7 @@ const FormWebHookUrlCard = ({
               {
                 ...cache,
                 webhookUrl: result.form.webhookUrl,
-              },
+              }
             );
           }
 
@@ -90,7 +82,7 @@ const FormWebHookUrlCard = ({
         onError: (error) => {
           toast.error(error.message);
         },
-      },
+      }
     );
   };
 
@@ -99,22 +91,11 @@ const FormWebHookUrlCard = ({
       title={t("setting.general.webhook-url.title")}
       description={t("setting.general.webhook-url.description")}
       hasOverlay={isDisabled}
-      {...getWithPlanCardProps({
-        router,
-        planId,
-        feature: "hasWebhooks",
-        onClick: handleSubmit(onSave),
-        isLoading: isSubmitting,
-        isDisabled: isSubmitting || watchUrl === webhookUrl || !!errors.url,
-        partial: false,
-        labels: {
-          partial: t("common.plan.forms.upgrade.partial"),
-          all: t("common.plan.forms.upgrade.all"),
-          upgrade: t("common.plan.forms.upgrade.action"),
-          save: t("setting.general.webhook-url.action"),
-          text: "",
-        },
-      })}
+      text={""}
+      button={t("setting.general.webhook-url.action")}
+      onClick={handleSubmit(onSave)}
+      isLoading={isSubmitting}
+      isDisabled={isSubmitting || watchUrl === webhookUrl || !!errors.url}
     >
       <Controller
         name="url"
@@ -130,7 +111,7 @@ const FormWebHookUrlCard = ({
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "setting.general.webhook-url.inputs.name.placeholder",
+                "setting.general.webhook-url.inputs.name.placeholder"
               ),
               hasError: !!errors.url,
               maxWidth: 560,
