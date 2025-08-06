@@ -32,7 +32,7 @@ import {
   LoadMoreContainer,
 } from "./styles";
 
-const { hasFlagsPermission } = config.plans;
+const { hasPermission, PERMISSIONS } = config;
 
 interface FlagCardsProps {
   selectedView: SelectedView;
@@ -51,10 +51,10 @@ const FlagCards = ({
   const t = useTranslations("flag");
   const setConfirmModalOpen = useStore((state) => state.setConfirmModalOpen);
   const setCreateFlagModalOpen = useStore(
-    (state) => state.setCreateFlagModalOpen,
+    (state) => state.setCreateFlagModalOpen
   );
   const setUpdateFlagModalOpen = useStore(
-    (state) => state.setUpdateFlagModalOpen,
+    (state) => state.setUpdateFlagModalOpen
   );
   const numberOfFlagsPerPage = useStore((state) => state.numberOfFlagsPerPage);
   const deleteFlag = api.projectFlags.delete.useMutation();
@@ -69,7 +69,7 @@ const FlagCards = ({
       {
         enabled: !!projectId,
         getNextPageParam: (lastPage) => lastPage.nextCursor,
-      },
+      }
     );
 
   const [currentPage, totalPages] = useMemo(() => {
@@ -84,7 +84,7 @@ const FlagCards = ({
       flagId: string,
       flagSlug: string,
       environmentId: string,
-      selectedTab: TabType,
+      selectedTab: TabType
     ) => {
       setUpdateFlagModalOpen({
         isOpen: true,
@@ -95,7 +95,7 @@ const FlagCards = ({
         },
       });
     },
-    [setUpdateFlagModalOpen],
+    [setUpdateFlagModalOpen]
   );
 
   const onDelete = useCallback(
@@ -109,10 +109,10 @@ const FlagCards = ({
           onError: (error) => {
             toast.error(error.message);
           },
-        },
+        }
       );
     },
-    [projectId, deleteFlag, trpcUtils],
+    [projectId, deleteFlag, trpcUtils]
   );
 
   if (isLoading)
@@ -128,7 +128,7 @@ const FlagCards = ({
         iconName="flag"
         title={t("list.empty.title")}
         description={t("list.empty.description")}
-        {...(hasFlagsPermission(projectRole, "add_project_flags")
+        {...(hasPermission(projectRole, PERMISSIONS.PROJECT.FLAGS.CREATE)
           ? {
               button: {
                 text: t("list.empty.action"),
@@ -167,7 +167,10 @@ const FlagCards = ({
                     date={t("list.card.date", {
                       date: dayjs(flag.createdAt).fromNow(),
                     })}
-                    {...(hasFlagsPermission(projectRole, "edit_project_flags")
+                    {...(hasPermission(
+                      projectRole,
+                      PERMISSIONS.PROJECT.FLAGS.UPDATE
+                    )
                       ? {
                           popupItems: [
                             {
@@ -178,7 +181,7 @@ const FlagCards = ({
                                   flag.id,
                                   flag.slug,
                                   "",
-                                  TabType.CORE,
+                                  TabType.CORE
                                 ),
                             },
                             {
@@ -189,7 +192,7 @@ const FlagCards = ({
                                   flag.id,
                                   flag.slug,
                                   "",
-                                  TabType.HISTORY,
+                                  TabType.HISTORY
                                 ),
                             },
                             {
@@ -205,7 +208,7 @@ const FlagCards = ({
                                       "list.card.delete.description",
                                       {
                                         slug: `<b>${flag.slug}</b>`,
-                                      },
+                                      }
                                     ),
                                     type: "delete",
                                     buttonText: t("list.card.delete.action"),

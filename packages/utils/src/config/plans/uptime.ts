@@ -1,9 +1,5 @@
 // Types
-import {
-  PlanTypeId,
-  type UptimePermission,
-  type UptimePlan,
-} from "../../types";
+import { PlanTypeId, type UptimePlan } from "../../types";
 
 const uptime: UptimePlan[] = [
   {

@@ -9,7 +9,8 @@ import { config } from "@basestack/utils";
 import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import { Fragment, useEffect } from "react";
+// React
+import { Fragment, useEffect, useMemo } from "react";
 // Styles
 import { useTheme } from "styled-components";
 // Server
@@ -20,7 +21,7 @@ import Links from "./_components/Links";
 import SetupGuide from "./_components/SetupGuide";
 import { Column, Container, Row } from "./styles";
 
-const { hasFormsPermission } = config.plans;
+const { hasPermission, PERMISSIONS } = config;
 
 const SetupPage = () => {
   const t = useTranslations("form");
@@ -32,23 +33,30 @@ const SetupPage = () => {
     { formId },
     {
       enabled: !!formId,
-    },
+    }
   );
 
   const isEnabled = form?.isEnabled ?? true;
   const hasRetention = form?.hasRetention ?? true;
+
+  const permissions = useMemo(
+    () => ({
+      canView: hasPermission(form?.role, PERMISSIONS.FORM.SETUP.VIEW),
+    }),
+    [form?.role]
+  );
 
   useEffect(() => {
     document.title = `${form?.name ?? "Form"} / ${t("seo.setup")}`;
   }, [form?.name, t]);
 
   useEffect(() => {
-    if (!hasFormsPermission(form?.role, "view_form_setup_page")) {
+    if (!permissions.canView) {
       router.push(`/a/form/${formId}/submissions`);
     }
-  }, [form?.role, formId, router]);
+  }, [formId, router, permissions.canView]);
 
-  if (!hasFormsPermission(form?.role, "view_form_setup_page")) {
+  if (!permissions.canView) {
     return null;
   }
 

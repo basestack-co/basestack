@@ -27,7 +27,7 @@ import {
   StyledLink,
 } from "./styles";
 
-const { hasFormsPermission } = config.plans;
+const { hasPermission, PERMISSIONS } = config;
 
 const getLinks = (formId: string, role: Role | undefined) => [
   {
@@ -49,21 +49,21 @@ const getLinks = (formId: string, role: Role | undefined) => [
     i18nKey: "navigation.setting.security",
     tab: "security",
     href: `/a/form/${formId}/settings/security`,
-    isVisible: hasFormsPermission(role, "view_form_security_settings"),
+    isVisible: hasPermission(role, PERMISSIONS.FORM.SETTINGS.VIEW),
   },
   {
     id: "4",
     i18nKey: "navigation.setting.customization",
     tab: "customization",
     href: `/a/form/${formId}/settings/customization`,
-    isVisible: hasFormsPermission(role, "view_form_customization_settings"),
+    isVisible: hasPermission(role, PERMISSIONS.FORM.SETTINGS.VIEW),
   },
   {
     id: "5",
     i18nKey: "navigation.setting.notifications",
     tab: "notifications",
     href: `/a/form/${formId}/settings/notifications`,
-    isVisible: hasFormsPermission(role, "view_form_notifications_settings"),
+    isVisible: hasPermission(role, PERMISSIONS.FORM.SETTINGS.VIEW),
   },
 ];
 
@@ -79,7 +79,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
     { formId },
     {
       enabled: !!formId,
-    },
+    }
   );
 
   const renderLink = useMemo(() => {
@@ -99,9 +99,9 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   const activeLinkIndex = useMemo(
     () =>
       getLinks(formId, data?.role).findIndex(
-        (button) => button.href === pathname,
+        (button) => button.href === pathname
       ),
-    [pathname, formId, data?.role],
+    [pathname, formId, data?.role]
   );
 
   const items = useMemo(
@@ -114,7 +114,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
             text: t(i18nKey as NamespaceKeys<string, "navigation">),
           };
         }),
-    [t, formId, data?.role],
+    [t, formId, data?.role]
   );
 
   useEffect(() => {
@@ -122,13 +122,13 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
       `setting.seo.setting.${activeLinkIndex}` as NamespaceKeys<
         string,
         "setting"
-      >,
+      >
     )}`;
   }, [activeLinkIndex, data?.name, t]);
 
   useEffect(() => {
     const link = getLinks(formId, data?.role).find(
-      (link) => link.href === pathname,
+      (link) => link.href === pathname
     );
 
     if (!link?.isVisible) {

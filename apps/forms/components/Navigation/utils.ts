@@ -7,7 +7,7 @@ import { auth } from "@basestack/vendors";
 // Types
 import type { useRouter } from "next/navigation";
 
-const { hasFormsPermission } = config.plans;
+const { hasPermission, PERMISSIONS } = config;
 
 export const getLeftLinks = (
   t: (key: any) => string,
@@ -32,7 +32,7 @@ export const getLeftLinks = (
       text: t("navigation.internal.setup"),
       isActive: pathname.includes("setup"),
       isVisible:
-        !!formId && hasFormsPermission(formRole, "view_form_setup_page"),
+        !!formId && hasPermission(formRole, PERMISSIONS.FORM.SETUP.VIEW),
     },
     {
       type: "button",

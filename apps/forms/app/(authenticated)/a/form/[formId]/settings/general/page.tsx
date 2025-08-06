@@ -17,8 +17,10 @@ import FormName from "./_components/FormName";
 import FormOwner from "./_components/FormOwner";
 import FormSpamProtection from "./_components/FormSpamProtection";
 import FormWebHookUrl from "./_components/FormWebHookUrl";
+// React
+import { useMemo } from "react";
 
-const { hasFormsPermission } = config.plans;
+const { hasPermission, PERMISSIONS } = config;
 
 const GeneralSettingsPage = () => {
   const { formId } = useParams<{ formId: string }>();
@@ -27,12 +29,21 @@ const GeneralSettingsPage = () => {
     { formId },
     {
       enabled: !!formId,
-    },
+    }
+  );
+
+  const permissions = useMemo(
+    () => ({
+      canUpdate: hasPermission(data?.role, PERMISSIONS.FORM.GENERAL.UPDATE),
+      canDelete: hasPermission(data?.role, PERMISSIONS.FORM.GENERAL.DELETE),
+      canView: hasPermission(data?.role, PERMISSIONS.FORM.GENERAL.VIEW),
+    }),
+    [data?.role]
   );
 
   return (
     <CardList>
-      {hasFormsPermission(data?.role, "edit_form_name") && (
+      {permissions.canUpdate && (
         <CardListItem>
           <SettingCardContainer>
             <FormName role={data?.role} name={data?.name} />
@@ -48,28 +59,28 @@ const GeneralSettingsPage = () => {
           />
         </SettingCardContainer>
       </CardListItem>
-      {hasFormsPermission(data?.role, "view_form_endpoint") && (
+      {permissions.canView && (
         <CardListItem>
           <SettingCardContainer>
             <FormEndpoint formId={data?.id ?? ""} />
           </SettingCardContainer>
         </CardListItem>
       )}
-      {hasFormsPermission(data?.role, "view_form_id") && (
+      {permissions.canView && (
         <CardListItem>
           <SettingCardContainer>
             <FormKey formId={data?.id ?? ""} />
           </SettingCardContainer>
         </CardListItem>
       )}
-      {hasFormsPermission(data?.role, "enable_form") && (
+      {permissions.canUpdate && (
         <CardListItem>
           <SettingCardContainer>
             <EnableForm isEnabled={data?.isEnabled} />
           </SettingCardContainer>
         </CardListItem>
       )}
-      {hasFormsPermission(data?.role, "enable_form_data_retention") && (
+      {permissions.canUpdate && (
         <CardListItem>
           <SettingCardContainer>
             <FormDataRetention
@@ -79,7 +90,7 @@ const GeneralSettingsPage = () => {
           </SettingCardContainer>
         </CardListItem>
       )}
-      {hasFormsPermission(data?.role, "enable_form_spam_protection") && (
+      {permissions.canUpdate && (
         <CardListItem>
           <SettingCardContainer>
             <FormSpamProtection
@@ -90,7 +101,7 @@ const GeneralSettingsPage = () => {
           </SettingCardContainer>
         </CardListItem>
       )}
-      {hasFormsPermission(data?.role, "enable_form_webhook") && (
+      {permissions.canUpdate && (
         <CardListItem>
           <SettingCardContainer>
             <FormWebHookUrl
@@ -101,7 +112,7 @@ const GeneralSettingsPage = () => {
           </SettingCardContainer>
         </CardListItem>
       )}
-      {hasFormsPermission(data?.role, "delete_form") && (
+      {permissions.canDelete && (
         <CardListItem>
           <SettingCardContainer>
             <DeleteForm name={data?.name} />

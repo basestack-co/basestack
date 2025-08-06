@@ -11,7 +11,7 @@ import { CardList, CardListItem, SettingCardContainer } from "../styles";
 import FlagsIpRules from "./_components/FlagsIpRules";
 import FlagsWebsites from "./_components/FlagsWebsites";
 
-const { hasFlagsPermission } = config.plans;
+const { hasPermission, PERMISSIONS } = config;
 
 const SecuritySettingsPage = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -20,12 +20,12 @@ const SecuritySettingsPage = () => {
     { projectId },
     {
       enabled: !!projectId,
-    },
+    }
   );
 
   return (
     <CardList>
-      {hasFlagsPermission(data?.role, "view_project_security") && (
+      {hasPermission(data?.role, PERMISSIONS.PROJECT.SETTINGS.VIEW) && (
         <>
           <CardListItem>
             <SettingCardContainer>

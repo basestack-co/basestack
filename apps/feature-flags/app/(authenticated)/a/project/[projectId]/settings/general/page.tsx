@@ -15,8 +15,10 @@ import ProjectKey from "./_components/ProjectKey";
 // Components
 import ProjectName from "./_components/ProjectName";
 import ProjectOwner from "./_components/ProjectOwner";
+// React
+import { useMemo } from "react";
 
-const { hasFlagsPermission } = config.plans;
+const { hasPermission, PERMISSIONS } = config;
 
 const GeneralPage = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -25,12 +27,27 @@ const GeneralPage = () => {
     { projectId },
     {
       enabled: !!projectId,
-    },
+    }
+  );
+
+  const permissions = useMemo(
+    () => ({
+      canUpdate: hasPermission(
+        project?.role,
+        PERMISSIONS.PROJECT.GENERAL.UPDATE
+      ),
+      canDelete: hasPermission(
+        project?.role,
+        PERMISSIONS.PROJECT.GENERAL.DELETE
+      ),
+      canViewKeys: hasPermission(project?.role, PERMISSIONS.PROJECT.KEYS.VIEW),
+    }),
+    [project?.role]
   );
 
   return (
     <CardList>
-      {hasFlagsPermission(project?.role, "edit_project_name") && (
+      {permissions.canUpdate && (
         <CardListItem>
           <SettingCardContainer>
             <ProjectName role={project?.role} name={project?.name} />
@@ -46,7 +63,7 @@ const GeneralPage = () => {
           />
         </SettingCardContainer>
       </CardListItem>
-      {hasFlagsPermission(project?.role, "view_project_keys") && (
+      {permissions.canViewKeys && (
         <>
           <CardListItem>
             <SettingCardContainer>
@@ -65,7 +82,7 @@ const GeneralPage = () => {
           </CardListItem>
         </>
       )}
-      {hasFlagsPermission(project?.role, "delete_project") && (
+      {permissions.canDelete && (
         <CardListItem>
           <SettingCardContainer>
             <DeleteProject name={project?.name} />

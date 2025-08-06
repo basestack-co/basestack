@@ -71,6 +71,10 @@ export const PERMISSIONS = {
       CREATE: "form:submissions:create",
       UPDATE: "form:submissions:update",
       DELETE: "form:submissions:delete",
+      ACTIONS: "form:submissions:actions",
+    },
+    SETUP: {
+      VIEW: "form:setup:view",
     },
     SETTINGS: {
       VIEW: "form:settings:view",
@@ -102,11 +106,14 @@ const ROLE_PERMISSIONS = {
     ...FLATTENED_PERMISSIONS.FORM_SUBMISSIONS,
     PERMISSIONS.PROJECT.SETTINGS.VIEW,
     PERMISSIONS.FORM.SETTINGS.VIEW,
+    PERMISSIONS.FORM.SETUP.VIEW,
   ],
   TESTER: [
     PERMISSIONS.PROJECT.FLAGS.VIEW,
     PERMISSIONS.FORM.SUBMISSIONS.VIEW,
+    PERMISSIONS.FORM.SUBMISSIONS.ACTIONS,
     PERMISSIONS.FORM.SETTINGS.VIEW,
+    PERMISSIONS.FORM.SETUP.VIEW,
   ],
   VIEWER: [
     PERMISSIONS.FORM.SUBMISSIONS.VIEW,

@@ -27,7 +27,7 @@ import {
   StyledLink,
 } from "./styles";
 
-const { hasFlagsPermission } = config.plans;
+const { hasPermission, PERMISSIONS } = config;
 
 const getLinks = (projectId: string, role: Role | undefined) => [
   {
@@ -49,14 +49,14 @@ const getLinks = (projectId: string, role: Role | undefined) => [
     i18nKey: "navigation.setting.environments",
     tab: "environments",
     href: `/a/project/${projectId}/settings/environments`,
-    isVisible: hasFlagsPermission(role, "view_project_environments"),
+    isVisible: hasPermission(role, PERMISSIONS.PROJECT.ENVIRONMENTS.VIEW),
   },
   {
     id: "4",
     i18nKey: "navigation.setting.security",
     tab: "security",
     href: `/a/project/${projectId}/settings/security`,
-    isVisible: hasFlagsPermission(role, "view_project_security"),
+    isVisible: hasPermission(role, PERMISSIONS.PROJECT.SETTINGS.VIEW),
   },
 ];
 
@@ -73,7 +73,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
       { projectId },
       {
         enabled: !!projectId,
-      },
+      }
     );
 
   const renderLink = useMemo(() => {
@@ -93,9 +93,9 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
   const activeLinkIndex = useMemo(
     () =>
       getLinks(projectId, project?.role).findIndex(
-        (button) => button.href === pathname,
+        (button) => button.href === pathname
       ),
-    [pathname, projectId, project?.role],
+    [pathname, projectId, project?.role]
   );
 
   const items = useMemo(
@@ -108,7 +108,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
             text: t(i18nKey as NamespaceKeys<string, "navigation">),
           };
         }),
-    [t, projectId, project?.role],
+    [t, projectId, project?.role]
   );
 
   useEffect(() => {
@@ -117,7 +117,7 @@ const SettingsLayout = ({ children }: { children: React.ReactElement }) => {
 
   useEffect(() => {
     const link = getLinks(projectId, project?.role).find(
-      (link) => link.href === pathname,
+      (link) => link.href === pathname
     );
 
     if (!link?.isVisible) {

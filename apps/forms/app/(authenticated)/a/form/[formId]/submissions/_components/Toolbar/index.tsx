@@ -9,8 +9,8 @@ import {
 import { config } from "@basestack/utils";
 // Locales
 import { useTranslations } from "next-intl";
-import type React from "react";
-import { useEffect, useState } from "react";
+// React
+import { useEffect, useMemo, useState, ChangeEvent } from "react";
 // Hooks
 import { useDebounce } from "react-use";
 import PopupMenu from "./PopupMenu";
@@ -29,7 +29,7 @@ const buttonProps = {
   iconPlacement: "left",
 } as ButtonSharedProps;
 
-const { hasFormsPermission } = config.plans;
+const { hasPermission, PERMISSIONS } = config;
 
 const Toolbar = ({
   onSelectAll,
@@ -62,6 +62,13 @@ const Toolbar = ({
     searchValue,
   ]);
 
+  const permissions = useMemo(
+    () => ({
+      canActions: hasPermission(formRole, PERMISSIONS.FORM.SUBMISSIONS.ACTIONS),
+    }),
+    [formRole]
+  );
+
   useEffect(() => {
     if (formId) {
       setSelectedFilter(null);
@@ -82,7 +89,7 @@ const Toolbar = ({
             placeholder={t("toolbar.search.placeholder")}
             isDisabled={isDisabled}
             value={searchValue}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
               setSearchValue(event.target.value)
             }
             onClear={() => setSearchValue("")}
@@ -97,7 +104,7 @@ const Toolbar = ({
           />
         </LeftContent>
         <RightList>
-          {hasFormsPermission(formRole, "view_form_submissions_actions") && (
+          {permissions.canActions && (
             <ListItem>
               <Checkbox
                 onChange={onSelectAll}
@@ -105,14 +112,14 @@ const Toolbar = ({
                 label={t(
                   isSelectAllEnabled
                     ? "toolbar.action.un-select-all"
-                    : "toolbar.action.select-all",
+                    : "toolbar.action.select-all"
                 )}
                 variant="button"
                 disabled={isDisabled}
               />
             </ListItem>
           )}
-          {hasFormsPermission(formRole, "view_form_submissions_actions") && (
+          {permissions.canActions && (
             <PopupMenu
               width={200}
               icon="arrow_drop_down"
@@ -216,7 +223,7 @@ const Toolbar = ({
                 }
               : {})}
           />
-          {hasFormsPermission(formRole, "view_form_submissions_actions") && (
+          {permissions.canActions && (
             <ListItem>
               <Button
                 {...buttonProps}

@@ -26,7 +26,7 @@ import { useStore } from "store";
 // Server
 import { api } from "utils/trpc/react";
 
-const { hasFlagsPermission } = config.plans;
+const { hasPermission, PERMISSIONS } = config;
 
 export interface Props {
   role?: Role;
@@ -39,12 +39,12 @@ const MembersTableCard = ({ role }: Props) => {
   const trpcUtils = api.useUtils();
   const { projectId } = useParams<{ projectId: string }>();
   const setAddProjectMemberModalOpen = useStore(
-    (state) => state.setAddProjectMemberModalOpen,
+    (state) => state.setAddProjectMemberModalOpen
   );
 
   const { data, isLoading } = api.projectMembers.list.useQuery(
     { projectId },
-    { enabled: !!projectId },
+    { enabled: !!projectId }
   );
 
   const removeUserFromProject = api.projectMembers.delete.useMutation();
@@ -73,30 +73,30 @@ const MembersTableCard = ({ role }: Props) => {
 
                 if (prev?.users) {
                   const users = prev.users.filter(
-                    (item) => item.userId !== result.connection.userId,
+                    (item) => item.userId !== result.connection.userId
                   );
 
                   trpcUtils.projectMembers.list.setData(
                     {
                       projectId,
                     },
-                    { users },
+                    { users }
                   );
                 }
 
                 toast.success(
-                  t("modal.team.manage.tab.members.list.status.remove.success"),
+                  t("modal.team.manage.tab.members.list.status.remove.success")
                 );
               }
             },
             onError: (error) => {
               toast.error(error.message);
             },
-          },
+          }
         );
       }
     },
-    [projectId, removeUserFromProject, session?.user.id, router, trpcUtils, t],
+    [projectId, removeUserFromProject, session?.user.id, router, trpcUtils, t]
   );
 
   const onHandleUpdateRole = useCallback(
@@ -130,29 +130,29 @@ const MembersTableCard = ({ role }: Props) => {
                   {
                     projectId,
                   },
-                  { users },
+                  { users }
                 );
 
                 toast.success(
-                  t("modal.team.manage.tab.members.list.status.update.success"),
+                  t("modal.team.manage.tab.members.list.status.update.success")
                 );
               }
             },
             onError: (error) => {
               toast.error(error.message);
             },
-          },
+          }
         );
       }
     },
-    [projectId, updateUserRole, trpcUtils.projectMembers.list, t],
+    [projectId, updateUserRole, trpcUtils.projectMembers.list, t]
   );
 
   const getTable = useMemo(() => {
     const roleList: { [role: string]: string } = {
       [Role.ADMIN]: t("modal.team.manage.tab.members.list.option.admin"),
       [Role.DEVELOPER]: t(
-        "modal.team.manage.tab.members.list.option.developer",
+        "modal.team.manage.tab.members.list.option.developer"
       ),
       [Role.OPERATOR]: t("modal.team.manage.tab.members.list.option.operator"),
       [Role.VIEWER]: t("modal.team.manage.tab.members.list.option.viewer"),
@@ -200,7 +200,7 @@ const MembersTableCard = ({ role }: Props) => {
                       })),
                       {
                         text: t(
-                          "modal.team.manage.tab.members.list.option.remove",
+                          "modal.team.manage.tab.members.list.option.remove"
                         ),
                         onClick: () => onHandleDelete(item.userId),
                         variant: ButtonVariant.Danger,
@@ -213,7 +213,7 @@ const MembersTableCard = ({ role }: Props) => {
         ];
       },
       // Disable actions
-      () => [],
+      () => []
     );
   }, [
     data,
@@ -234,7 +234,7 @@ const MembersTableCard = ({ role }: Props) => {
       button={t("setting.members.add.action")!}
       text={t("setting.members.add.placeholder")}
       onClick={onAddMemberModal}
-      hasFooter={hasFlagsPermission(role, "add_project_member")}
+      hasFooter={hasPermission(role, PERMISSIONS.PROJECT.MEMBERS.CREATE)}
     >
       {isLoading || !data ? (
         <Loader hasDelay={false}>

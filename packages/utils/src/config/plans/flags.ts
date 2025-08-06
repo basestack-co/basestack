@@ -1,5 +1,5 @@
 // Types
-import { type FlagsPermission, type FlagsPlan, PlanTypeId } from "../../types";
+import { type FlagsPlan, PlanTypeId } from "../../types";
 
 const flags: FlagsPlan[] = [
   {
@@ -286,49 +286,6 @@ const flags: FlagsPlan[] = [
   },
 ];
 
-const flagsPermissions: Record<string, FlagsPermission[]> = {
-  ADMIN: [
-    "view_project_flags",
-    "view_project_keys",
-    "view_project_environments",
-    "view_project_security",
-    "add_project_flags",
-    "add_project_member",
-    "add_project_environment",
-    "edit_project_flags",
-    "edit_project_name",
-    "edit_project_environment",
-    "delete_project_flags",
-    "delete_project",
-    "delete_project_environment",
-  ],
-  DEVELOPER: [
-    "view_project_flags",
-    "view_project_keys",
-    "view_project_security",
-    "view_project_environments",
-    "add_project_flags",
-    "add_project_environment",
-    "edit_project_flags",
-    "edit_project_environment",
-    "delete_project_environment",
-  ],
-  TESTER: [
-    "view_project_flags",
-    "view_project_keys",
-    "add_project_flags",
-    "edit_project_flags",
-  ],
-  VIEWER: ["view_project_flags"],
-};
-
-const hasFlagsPermission = (
-  role: string | undefined,
-  permission: FlagsPermission,
-): boolean => {
-  return flagsPermissions[role ?? "VIEWER"]?.includes(permission) ?? false;
-};
-
 const getFlagsPlanLimitsDefaults = () => ({
   projects: 0,
   environments: 0,
@@ -342,7 +299,5 @@ const getFlagsPlanLimitsDefaults = () => ({
 
 export const config = {
   flags,
-  flagsPermissions,
   getFlagsPlanLimitsDefaults,
-  hasFlagsPermission,
 };

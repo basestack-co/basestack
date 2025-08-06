@@ -12,8 +12,10 @@ import FormFailedUrl from "./_components/FormFailedUrl";
 import FormRedirectUrl from "./_components/FormRedirectUrl";
 import FormSendQueryString from "./_components/FormSendQueryString";
 import FormSuccessUrl from "./_components/FormSuccessUrl";
+// React
+import { useMemo } from "react";
 
-const { hasFormsPermission } = config.plans;
+const { hasPermission, PERMISSIONS } = config;
 
 const CustomizationSettingsPage = () => {
   const { formId } = useParams<{ formId: string }>();
@@ -22,15 +24,19 @@ const CustomizationSettingsPage = () => {
     { formId },
     {
       enabled: !!formId,
-    },
+    }
+  );
+
+  const permissions = useMemo(
+    () => ({
+      canUpdate: hasPermission(data?.role, PERMISSIONS.FORM.GENERAL.UPDATE),
+    }),
+    [data?.role]
   );
 
   return (
     <CardList>
-      {hasFormsPermission(
-        data?.role,
-        "edit_form_customization_data_query_string",
-      ) && (
+      {permissions.canUpdate && (
         <CardListItem>
           <SettingCardContainer>
             <FormSendQueryString
@@ -40,10 +46,7 @@ const CustomizationSettingsPage = () => {
           </SettingCardContainer>
         </CardListItem>
       )}
-      {hasFormsPermission(
-        data?.role,
-        "edit_form_customization_redirect_url",
-      ) && (
+      {permissions.canUpdate && (
         <CardListItem>
           <SettingCardContainer>
             <FormRedirectUrl
@@ -53,10 +56,7 @@ const CustomizationSettingsPage = () => {
           </SettingCardContainer>
         </CardListItem>
       )}
-      {hasFormsPermission(
-        data?.role,
-        "edit_form_customization_success_url",
-      ) && (
+      {permissions.canUpdate && (
         <CardListItem>
           <SettingCardContainer>
             <FormSuccessUrl
@@ -66,7 +66,7 @@ const CustomizationSettingsPage = () => {
           </SettingCardContainer>
         </CardListItem>
       )}
-      {hasFormsPermission(data?.role, "edit_form_customization_error_url") && (
+      {permissions.canUpdate && (
         <CardListItem>
           <SettingCardContainer>
             <FormFailedUrl

@@ -8,7 +8,7 @@ import { auth } from "@basestack/vendors";
 // Types
 import type { useRouter } from "next/navigation";
 
-const { hasFlagsPermission } = config.plans;
+const { hasPermission, PERMISSIONS } = config;
 
 export const getLeftLinks = (
   t: (key: any) => string,
@@ -16,7 +16,7 @@ export const getLeftLinks = (
   pathname: string,
   projectId: string,
   projectRole: Role,
-  onCreateFlag: () => void,
+  onCreateFlag: () => void
 ): NavigationProps["leftLinks"] => {
   const links = [
     {
@@ -44,7 +44,8 @@ export const getLeftLinks = (
       buttonVariant: ButtonVariant.Primary,
       space: { ml: 2 },
       isVisible:
-        !!projectId && hasFlagsPermission(projectRole, "add_project_flags"),
+        !!projectId &&
+        hasPermission(projectRole, PERMISSIONS.PROJECT.FLAGS.CREATE),
     },
   ].filter((link) => link.isVisible);
 
@@ -68,7 +69,7 @@ export const getRightLinks = (labels: {
 export const getAvatarDropdownList = (
   t: (key: any) => string,
   router: ReturnType<typeof useRouter>,
-  onCreateProject: () => void,
+  onCreateProject: () => void
 ) => {
   return [
     {
@@ -108,7 +109,7 @@ export const getAvatarDropdownList = (
 
 export const getAppsList = (
   t: (key: any) => string,
-  onSelectApp: (app: Product) => void,
+  onSelectApp: (app: Product) => void
 ) => {
   return [
     {

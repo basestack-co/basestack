@@ -11,8 +11,10 @@ import { CardList, CardListItem, SettingCardContainer } from "../styles";
 import FormHoneyPot from "./_components/FormHoneyPot";
 import FormIpRules from "./_components/FormIpRules";
 import FormWebsites from "./_components/FormWebsites";
+// React
+import { useMemo } from "react";
 
-const { hasFormsPermission } = config.plans;
+const { hasPermission, PERMISSIONS } = config;
 
 const SecuritySettingsPage = () => {
   const { formId } = useParams<{ formId: string }>();
@@ -21,12 +23,19 @@ const SecuritySettingsPage = () => {
     { formId },
     {
       enabled: !!formId,
-    },
+    }
+  );
+
+  const permissions = useMemo(
+    () => ({
+      canView: hasPermission(data?.role, PERMISSIONS.FORM.SETTINGS.VIEW),
+    }),
+    [data?.role]
   );
 
   return (
     <CardList>
-      {hasFormsPermission(data?.role, "edit_form_security_websites") && (
+      {permissions.canView && (
         <CardListItem>
           <SettingCardContainer>
             <FormWebsites
@@ -36,7 +45,7 @@ const SecuritySettingsPage = () => {
           </SettingCardContainer>
         </CardListItem>
       )}
-      {hasFormsPermission(data?.role, "edit_form_security_ip_rules") && (
+      {permissions.canView && (
         <CardListItem>
           <SettingCardContainer>
             <FormIpRules
@@ -46,7 +55,7 @@ const SecuritySettingsPage = () => {
           </SettingCardContainer>
         </CardListItem>
       )}
-      {hasFormsPermission(data?.role, "edit_form_security_honey_pot") && (
+      {permissions.canView && (
         <CardListItem>
           <SettingCardContainer>
             <FormHoneyPot honeypot={data?.honeypot ?? ""} />

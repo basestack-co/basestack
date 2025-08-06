@@ -4,7 +4,8 @@
 import { config } from "@basestack/utils";
 // Router
 import { useParams, useRouter } from "next/navigation";
-import { useEffect } from "react";
+// React
+import { useEffect, useMemo } from "react";
 // Server
 import { api } from "utils/trpc/react";
 // Styles
@@ -12,7 +13,7 @@ import { CardList, CardListItem, SettingCardContainer } from "../styles";
 // Components
 import Environments from "./_components/Environments";
 
-const { hasFlagsPermission } = config.plans;
+const { hasPermission, PERMISSIONS } = config;
 
 const EnvironmentsPage = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -22,18 +23,28 @@ const EnvironmentsPage = () => {
     { projectId },
     {
       enabled: !!projectId,
-    },
+    }
+  );
+
+  const permissions = useMemo(
+    () => ({
+      canView: hasPermission(
+        project?.role,
+        PERMISSIONS.PROJECT.ENVIRONMENTS.VIEW
+      ),
+    }),
+    [project?.role]
   );
 
   useEffect(() => {
-    if (!hasFlagsPermission(project?.role, "view_project_environments")) {
+    if (!permissions.canView) {
       router.push(`/a/project/${projectId}/settings/general`);
     }
-  }, [project?.role, projectId, router]);
+  }, [projectId, router, permissions.canView]);
 
   return (
     <CardList>
-      {hasFlagsPermission(project?.role, "view_project_environments") && (
+      {permissions.canView && (
         <CardListItem>
           <SettingCardContainer>
             <Environments role={project?.role} />

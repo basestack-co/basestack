@@ -1,5 +1,5 @@
 // Types
-import { type FormPlan, type FormsPermission, PlanTypeId } from "../../types";
+import { type FormPlan, PlanTypeId } from "../../types";
 
 const forms: FormPlan[] = [
   {
@@ -325,78 +325,6 @@ const forms: FormPlan[] = [
   },
 ];
 
-const formsPermissions: Record<string, FormsPermission[]> = {
-  ADMIN: [
-    "view_form_submissions",
-    "view_form_security_settings",
-    "view_form_customization_settings",
-    "view_form_notifications_settings",
-    "view_form_endpoint",
-    "view_form_id",
-    "view_form_setup_page",
-    "view_form_submissions_actions",
-    "add_form_submissions",
-    "add_form_member",
-    "edit_form_submissions",
-    "edit_form_name",
-    "edit_form_security_websites",
-    "edit_form_security_ip_rules",
-    "edit_form_security_honey_pot",
-    "edit_form_customization_data_query_string",
-    "edit_form_customization_redirect_url",
-    "edit_form_customization_success_url",
-    "edit_form_customization_error_url",
-    "edit_form_notifications_emails",
-    "enable_form",
-    "enable_form_data_retention",
-    "enable_form_spam_protection",
-    "enable_form_webhook",
-    "delete_form_submissions",
-    "delete_form",
-  ],
-  DEVELOPER: [
-    "view_form_submissions",
-    "view_form_security_settings",
-    "view_form_customization_settings",
-    "view_form_notifications_settings",
-    "view_form_endpoint",
-    "view_form_id",
-    "view_form_setup_page",
-    "view_form_submissions_actions",
-    "enable_form",
-    "enable_form_data_retention",
-    "enable_form_spam_protection",
-    "enable_form_webhook",
-    "add_form_submissions",
-    "edit_form_submissions",
-    "edit_form_security_websites",
-    "edit_form_security_ip_rules",
-    "edit_form_security_honey_pot",
-    "edit_form_customization_data_query_string",
-    "edit_form_customization_redirect_url",
-    "edit_form_customization_success_url",
-    "edit_form_customization_error_url",
-    "edit_form_notifications_emails",
-  ],
-  TESTER: [
-    "view_form_submissions",
-    "view_form_endpoint",
-    "view_form_id",
-    "view_form_setup_page",
-    "view_form_submissions_actions",
-    "add_form_submissions",
-    "edit_form_submissions",
-  ],
-  VIEWER: ["view_form_submissions"],
-};
-
-const hasFormsPermission = (
-  role: string | undefined,
-  permission: FormsPermission,
-): boolean => {
-  return formsPermissions[role ?? "VIEWER"]?.includes(permission) ?? false;
-};
-
 const getFormPlanLimitsDefaults = () => ({
   forms: 0,
   submissions: 0,
@@ -409,7 +337,5 @@ const getFormPlanLimitsDefaults = () => ({
 
 export const config = {
   forms,
-  formsPermissions,
   getFormPlanLimitsDefaults,
-  hasFormsPermission,
 };
