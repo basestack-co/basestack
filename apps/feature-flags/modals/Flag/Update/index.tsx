@@ -70,9 +70,11 @@ const UpdateFlagModal = () => {
 
   const onSubmit: SubmitHandler<FlagFormInputs> = async (input) => {
     if (project && bySlugData) {
+      const slug = input.name;
+
       const data = input.environments.map((env) => ({
         id: env?.flagId!,
-        slug: input.name,
+        slug,
         description: input.description ?? "",
         enabled: env.enabled,
         payload: JSON.parse(env.payload),
@@ -88,7 +90,17 @@ const UpdateFlagModal = () => {
         {
           onSuccess: async () => {
             await Promise.all([
-              trpcUtils.projectFlags.invalidate(),
+              trpcUtils.projectFlags.bySlug.invalidate({
+                slug,
+                projectId: project.id,
+              }),
+              trpcUtils.projectFlags.list.invalidate({
+                projectId: project.id,
+              }),
+              trpcUtils.projectFlags.environments.invalidate({
+                projectId: project.id,
+                slug,
+              }),
               trpcUtils.projectHistory.list.invalidate(),
             ]);
 
