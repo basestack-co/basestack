@@ -109,7 +109,7 @@ export const projectsRouter = createTRPCRouter({
               members: membersCount,
             },
           };
-        }),
+        })
       );
     });
   }),
@@ -120,7 +120,7 @@ export const projectsRouter = createTRPCRouter({
         .object({
           projectId: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id;
@@ -174,15 +174,12 @@ export const projectsRouter = createTRPCRouter({
       };
     }),
   create: protectedProcedure
-    .meta({
-      usageLimitKey: "projects",
-    })
     .input(
       z
         .object({
           name: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;
@@ -222,13 +219,13 @@ export const projectsRouter = createTRPCRouter({
           name: z.string().nullable().default(null),
           description: z.string().nullable().default(null),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const { projectId, ...props } = input;
 
       const data = Object.fromEntries(
-        Object.entries(props).filter(([_, value]) => value !== null),
+        Object.entries(props).filter(([_, value]) => value !== null)
       );
 
       if (Object.keys(data).length === 0) {
@@ -261,7 +258,7 @@ export const projectsRouter = createTRPCRouter({
         .object({
           projectId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const project = await ctx.prisma.$transaction(async (tx) => {

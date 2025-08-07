@@ -1,5 +1,5 @@
 // Client
-import { baseUrl, client } from "../client";
+import { baseUrl, workflowClient } from "../client";
 // Types
 import type {
   CheckDataForSpamPayload,
@@ -14,7 +14,7 @@ import type {
 }); */
 
 export const checkDataForSpamEvent = async (body: CheckDataForSpamPayload) => {
-  await client.trigger({
+  await workflowClient.trigger({
     url: `${baseUrl}/api/v1/jobs/check-spam`,
     retries: 2,
     body,
@@ -30,7 +30,7 @@ export const checkDataForSpamEvent = async (body: CheckDataForSpamPayload) => {
 //  await notificationsQueue.enqueueJSON({
 
 export const sendEmailEvent = async (body: SendEmailPayload) => {
-  await client.trigger({
+  await workflowClient.trigger({
     url: `${baseUrl}/api/v1/jobs/send-email`,
     retries: 2,
     body,
@@ -38,9 +38,9 @@ export const sendEmailEvent = async (body: SendEmailPayload) => {
 };
 
 export const sendDataToExternalWebhookEvent = async (
-  body: SendDataToExternalWebhookPayload,
+  body: SendDataToExternalWebhookPayload
 ) => {
-  await client.trigger({
+  await workflowClient.trigger({
     url: `${baseUrl}/api/v1/jobs/send-data-to-external-webhook`,
     retries: 2,
     body,

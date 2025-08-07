@@ -222,6 +222,7 @@ model Monitor {
   notifications Json?       @default("{}") @db.JsonB // Structure: { "email": [...], "slack": [...], "webhooks": [...] }
   interval      Int         @default(300)
   isEnabled     Boolean     @default(true)
+  scheduleId    String?     @unique
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 

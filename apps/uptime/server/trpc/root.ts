@@ -7,6 +7,7 @@ import {
 // Routers
 import { projectsRouter } from "server/trpc/routers/projects";
 import { projectMembersRouter } from "server/trpc/routers/projectMembers";
+import { projectMonitorsRouter } from "server/trpc/routers/projectMonitors";
 import { subscriptionRouter } from "server/trpc/routers/subscription";
 import { teamInvitesRouter } from "server/trpc/routers/teamInvites";
 import { teamMembersRouter } from "server/trpc/routers/teamMembers";
@@ -15,6 +16,7 @@ import { teamsRouter } from "server/trpc/routers/teams";
 export const appRouter = createTRPCRouter({
   healthcheck: publicProcedure.query(() => "Basestack Uptime API is running!"),
   projects: projectsRouter,
+  projectMonitors: projectMonitorsRouter,
   projectMembers: projectMembersRouter,
   teams: teamsRouter,
   teamMembers: teamMembersRouter,

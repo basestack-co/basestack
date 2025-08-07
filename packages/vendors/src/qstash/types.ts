@@ -19,3 +19,8 @@ export interface SendDataToExternalWebhookPayload extends UsagePayload {
   url: string;
   body: any;
 }
+
+export interface CreateMonitorCheckSchedulePayload extends UsagePayload {
+  url: string;
+  method: string;
+}
