@@ -20,7 +20,7 @@ const ProjectMonitorsPage = () => {
     { projectId },
     {
       enabled: !!projectId,
-    }
+    },
   );
 
   return <div>the monitors page for {project?.name}</div>;

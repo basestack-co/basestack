@@ -71,7 +71,7 @@ const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
               {
                 ...cache,
                 redirectUrl: result.form.redirectUrl,
-              }
+              },
             );
           }
 
@@ -80,7 +80,7 @@ const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
         onError: (error) => {
           toast.error(error.message);
         },
-      }
+      },
     );
   };
 
@@ -108,7 +108,7 @@ const FormRedirectUrlCard = ({ redirectUrl = "" }: Props) => {
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "setting.customization.redirect-url.inputs.name.placeholder"
+                "setting.customization.redirect-url.inputs.name.placeholder",
               ),
               hasError: !!errors.url,
               maxWidth: 560,

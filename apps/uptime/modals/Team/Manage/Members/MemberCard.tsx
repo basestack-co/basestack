@@ -57,7 +57,7 @@ const MemberCard = ({
 
       return list[role];
     },
-    [t]
+    [t],
   );
 
   const onRenderOptions = useCallback(() => {

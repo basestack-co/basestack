@@ -106,7 +106,7 @@ export const teamMembersRouter = createTRPCRouter({
           userId: z.string(),
           role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.teamMembers.update({
@@ -144,7 +144,7 @@ export const teamMembersRouter = createTRPCRouter({
           teamId: z.string(),
           userId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;

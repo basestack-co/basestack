@@ -20,7 +20,7 @@ const RecentProjects = () => {
   const theme = useTheme();
   const router = useRouter();
   const setCreateProjectModalOpen = useStore(
-    (state) => state.setCreateProjectModalOpen
+    (state) => state.setCreateProjectModalOpen,
   );
 
   const { data, isLoading } = api.projects.recent.useQuery(undefined, {

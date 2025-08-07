@@ -37,7 +37,7 @@ const DeleteProjectCard = ({ name }: Props) => {
           if (prev?.projects) {
             // Find the project and remove from the list
             const projects = prev.projects.filter(
-              (project) => project.id !== result.project.id
+              (project) => project.id !== result.project.id,
             );
 
             // Update the cache with the new data
@@ -49,7 +49,7 @@ const DeleteProjectCard = ({ name }: Props) => {
         onError: (error) => {
           toast.error(error.message);
         },
-      }
+      },
     );
   };
 

@@ -69,7 +69,7 @@ export const teamsRouter = createTRPCRouter({
         .object({
           teamId: z.string(),
         })
-        .required()
+        .required(),
     )
     .query(async ({ ctx, input }) => {
       return ctx.prisma.team.findUnique({
@@ -134,7 +134,7 @@ export const teamsRouter = createTRPCRouter({
         .object({
           name: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;
@@ -165,7 +165,7 @@ export const teamsRouter = createTRPCRouter({
           teamId: z.string(),
           name: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.team.update({
@@ -245,7 +245,7 @@ export const teamsRouter = createTRPCRouter({
           teamId: z.string(),
           userId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;
@@ -319,7 +319,7 @@ export const teamsRouter = createTRPCRouter({
           userId: z.string(),
           role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.teamMembers.update({
@@ -355,7 +355,7 @@ export const teamsRouter = createTRPCRouter({
         .object({
           token: z.string(),
         })
-        .required()
+        .required(),
     )
     .query(async ({ ctx, input }) => {
       const invitation = await ctx.prisma.teamInvitation.findUnique({
@@ -417,7 +417,7 @@ export const teamsRouter = createTRPCRouter({
           email: z.string().email(),
           role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const user = ctx.auth?.user;
@@ -516,7 +516,7 @@ export const teamsRouter = createTRPCRouter({
         .object({
           inviteId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const invitation = await ctx.prisma.teamInvitation.delete({

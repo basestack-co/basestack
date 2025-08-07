@@ -17,7 +17,7 @@ import { AppMode } from "utils/helpers/general";
 export const verifyProjectRequest = async (
   key: string,
   referer: string,
-  metadata: { ip: string | null }
+  metadata: { ip: string | null },
 ) => {
   try {
     const projectKey = key.trim();
@@ -42,7 +42,7 @@ export const verifyProjectRequest = async (
     const sub = await polar.getCustomerSubscription(
       externalCustomerId,
       Product.FLAGS,
-      AppMode
+      AppMode,
     );
 
     if (sub?.status !== "active") {
@@ -62,7 +62,7 @@ export const verifyProjectRequest = async (
           {
             product: "Feature Flags",
             referer,
-          }
+          },
         );
 
         throw new RequestError({
@@ -91,7 +91,7 @@ export const verifyProjectRequest = async (
             {
               product: "Feature Flags",
               referer,
-            }
+            },
           );
 
           throw new RequestError({

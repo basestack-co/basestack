@@ -23,17 +23,17 @@ const EnvironmentsPage = () => {
     { projectId },
     {
       enabled: !!projectId,
-    }
+    },
   );
 
   const permissions = useMemo(
     () => ({
       canView: hasPermission(
         project?.role,
-        PERMISSIONS.PROJECT.ENVIRONMENTS.VIEW
+        PERMISSIONS.PROJECT.ENVIRONMENTS.VIEW,
       ),
     }),
-    [project?.role]
+    [project?.role],
   );
 
   useEffect(() => {

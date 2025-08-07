@@ -18,10 +18,10 @@ export interface UsagePlanProps {
   isLoadingSubscription: boolean;
   onCreateCheckoutCallback: (
     planId: PlanTypeId,
-    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
   ) => void;
   onCreatePortalCallback: (
-    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
   ) => void;
   currentPlan?: CurrentPlan;
   recurringInterval: string;
@@ -116,12 +116,12 @@ const UsagePlan = ({
 
       onCreateCheckoutCallback(planId, setIsLoading);
     },
-    [onCreateCheckoutCallback]
+    [onCreateCheckoutCallback],
   );
 
   const plan = useMemo(
     () => config.plans.getPlan(product, PlanTypeId.USAGE),
-    [product]
+    [product],
   );
 
   if (isLoadingSubscription) {

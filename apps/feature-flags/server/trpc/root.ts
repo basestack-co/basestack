@@ -17,7 +17,7 @@ import { teamsRouter } from "server/trpc/routers/teams";
 
 export const appRouter = createTRPCRouter({
   healthcheck: publicProcedure.query(
-    () => "Basestack Feature Flags API is running!"
+    () => "Basestack Feature Flags API is running!",
   ),
   projects: projectsRouter,
   projectFlags: projectFlagsRouter,

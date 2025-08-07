@@ -103,14 +103,14 @@ export const formsRouter = createTRPCRouter({
     .use(
       withFormRestrictions({
         roles: [Role.ADMIN, Role.DEVELOPER, Role.TESTER, Role.VIEWER],
-      })
+      }),
     )
     .input(
       z
         .object({
           formId: z.string(),
         })
-        .required()
+        .required(),
     )
     .query(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;
@@ -188,7 +188,7 @@ export const formsRouter = createTRPCRouter({
         .object({
           name: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;
@@ -242,12 +242,12 @@ export const formsRouter = createTRPCRouter({
           honeypot: z.string().nullable().default(null),
           websites: z.string().nullable().default(null),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const { formId, ...props } = input;
       const data = Object.fromEntries(
-        Object.entries(props).filter(([_, value]) => value !== null)
+        Object.entries(props).filter(([_, value]) => value !== null),
       );
 
       if (Object.keys(data).length === 0) {
@@ -274,7 +274,7 @@ export const formsRouter = createTRPCRouter({
         .object({
           formId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const form = await ctx.prisma.$transaction(async (tx) => {

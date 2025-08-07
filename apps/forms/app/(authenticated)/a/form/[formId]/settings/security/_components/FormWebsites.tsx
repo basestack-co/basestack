@@ -80,7 +80,7 @@ const FormWebsitesCard = ({ websites = "" }: Props) => {
               {
                 ...cache,
                 websites: result.form.websites,
-              }
+              },
             );
           }
 
@@ -89,7 +89,7 @@ const FormWebsitesCard = ({ websites = "" }: Props) => {
         onError: (error) => {
           toast.error(error.message);
         },
-      }
+      },
     );
   }, [websitesValues, updateForm, formId, trpcUtils, t]);
 
@@ -108,7 +108,7 @@ const FormWebsitesCard = ({ websites = "" }: Props) => {
         }
       }
     },
-    [websiteValue, setValue, websitesValues, errors, setError]
+    [websiteValue, setValue, websitesValues, errors, setError],
   );
 
   const onDeleteWebsite = useCallback(
@@ -116,7 +116,7 @@ const FormWebsitesCard = ({ websites = "" }: Props) => {
       const ips = websitesValues?.filter((item) => item !== value);
       setValue("websites", ips);
     },
-    [setValue, websitesValues]
+    [setValue, websitesValues],
   );
 
   return (
@@ -143,7 +143,7 @@ const FormWebsitesCard = ({ websites = "" }: Props) => {
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "setting.security.websites.inputs.name.placeholder"
+                "setting.security.websites.inputs.name.placeholder",
               ),
               hasError: !!errors.website,
               onKeyDown: onHandleKeyDown,

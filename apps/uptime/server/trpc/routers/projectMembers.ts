@@ -20,7 +20,7 @@ export const projectMembersRouter = createTRPCRouter({
         .object({
           projectId: z.string(),
         })
-        .required()
+        .required(),
     )
     .query(async ({ ctx, input }) => {
       const users = await ctx.prisma.projectUsers.findMany({
@@ -56,7 +56,7 @@ export const projectMembersRouter = createTRPCRouter({
           userId: z.string(),
           role: z.enum(["DEVELOPER", "VIEWER", "OPERATOR"]),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const user = ctx.auth?.user;
@@ -119,7 +119,7 @@ export const projectMembersRouter = createTRPCRouter({
           userId: z.string(),
           role: z.enum(["DEVELOPER", "VIEWER", "OPERATOR"]),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const connection = await ctx.prisma.projectUsers.update({
@@ -148,7 +148,7 @@ export const projectMembersRouter = createTRPCRouter({
           projectId: z.string(),
           userId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const connection = await ctx.prisma.projectUsers.delete({

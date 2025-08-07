@@ -24,11 +24,11 @@ const MainPage = () => {
   const { data, isLoading } = api.subscription.current.useQuery();
 
   const closeNoActiveSubscriptionBanner = useStore(
-    (state) => state.closeNoActiveSubscriptionBanner
+    (state) => state.closeNoActiveSubscriptionBanner,
   );
 
   const setCloseNoActiveSubscriptionBanner = useStore(
-    (state) => state.setCloseNoActiveSubscriptionBanner
+    (state) => state.setCloseNoActiveSubscriptionBanner,
   );
 
   return (

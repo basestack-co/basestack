@@ -80,7 +80,7 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
               {
                 ...cache,
                 blockIpAddresses: result.form.blockIpAddresses,
-              }
+              },
             );
           }
 
@@ -89,7 +89,7 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
         onError: (error) => {
           toast.error(error.message);
         },
-      }
+      },
     );
   }, [ipsValues, updateForm, formId, trpcUtils, t]);
 
@@ -108,7 +108,7 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
         }
       }
     },
-    [ipValue, setValue, ipsValues, errors, setError]
+    [ipValue, setValue, ipsValues, errors, setError],
   );
 
   const onDeleteIp = useCallback(
@@ -116,7 +116,7 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
       const ips = ipsValues?.filter((item) => item !== value);
       setValue("ips", ips);
     },
-    [setValue, ipsValues]
+    [setValue, ipsValues],
   );
 
   return (
@@ -143,7 +143,7 @@ const FormIpRulesCard = ({ blockIpAddresses = "" }: Props) => {
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "setting.security.ip-block-rules.inputs.name.placeholder"
+                "setting.security.ip-block-rules.inputs.name.placeholder",
               ),
               hasError: !!errors.ip,
               onKeyDown: onHandleKeyDown,

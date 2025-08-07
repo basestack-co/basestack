@@ -18,7 +18,7 @@ const ProjectLayout = ({ children }: { children: React.ReactNode }) => {
     {
       enabled: !!projectId,
       retry: 1,
-    }
+    },
   );
 
   useEffect(() => {

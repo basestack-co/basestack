@@ -71,7 +71,7 @@ const FormFailedUrlCard = ({ errorUrl = "" }: Props) => {
               {
                 ...cache,
                 errorUrl: result.form.errorUrl,
-              }
+              },
             );
           }
 
@@ -80,7 +80,7 @@ const FormFailedUrlCard = ({ errorUrl = "" }: Props) => {
         onError: (error) => {
           toast.error(error.message);
         },
-      }
+      },
     );
   };
 
@@ -108,7 +108,7 @@ const FormFailedUrlCard = ({ errorUrl = "" }: Props) => {
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "setting.customization.failed-url.inputs.name.placeholder"
+                "setting.customization.failed-url.inputs.name.placeholder",
               ),
               hasError: !!errors.url,
               maxWidth: 560,

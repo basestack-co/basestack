@@ -39,19 +39,19 @@ const MembersTableCard = ({ role }: Props) => {
   const trpcUtils = api.useUtils();
   const { formId } = useParams<{ formId: string }>();
   const setAddProjectMemberModalOpen = useStore(
-    (state) => state.setAddFormMemberModalOpen
+    (state) => state.setAddFormMemberModalOpen,
   );
 
   const { data, isLoading } = api.formMembers.list.useQuery(
     { formId },
-    { enabled: !!formId }
+    { enabled: !!formId },
   );
 
   const permissions = useMemo(
     () => ({
       canAddMember: hasPermission(role, PERMISSIONS.FORM.MEMBERS.CREATE),
     }),
-    [role]
+    [role],
   );
 
   const removeUserFromForm = api.formMembers.delete.useMutation();
@@ -80,30 +80,30 @@ const MembersTableCard = ({ role }: Props) => {
 
                 if (prev?.users) {
                   const users = prev.users.filter(
-                    (item) => item.userId !== result.connection.userId
+                    (item) => item.userId !== result.connection.userId,
                   );
 
                   trpcUtils.formMembers.list.setData(
                     {
                       formId,
                     },
-                    { users }
+                    { users },
                   );
                 }
 
                 toast.success(
-                  t("modal.team.manage.tab.members.list.status.remove.success")
+                  t("modal.team.manage.tab.members.list.status.remove.success"),
                 );
               }
             },
             onError: (error) => {
               toast.error(error.message);
             },
-          }
+          },
         );
       }
     },
-    [formId, removeUserFromForm, session?.user.id, router, trpcUtils, t]
+    [formId, removeUserFromForm, session?.user.id, router, trpcUtils, t],
   );
 
   const onHandleUpdateRole = useCallback(
@@ -137,29 +137,29 @@ const MembersTableCard = ({ role }: Props) => {
                   {
                     formId,
                   },
-                  { users }
+                  { users },
                 );
 
                 toast.success(
-                  t("modal.team.manage.tab.members.list.status.update.success")
+                  t("modal.team.manage.tab.members.list.status.update.success"),
                 );
               }
             },
             onError: (error) => {
               toast.error(error.message);
             },
-          }
+          },
         );
       }
     },
-    [formId, updateUserRole, trpcUtils.formMembers.list, t]
+    [formId, updateUserRole, trpcUtils.formMembers.list, t],
   );
 
   const getTable = useMemo(() => {
     const roleList: { [role: string]: string } = {
       [Role.ADMIN]: t("modal.team.manage.tab.members.list.option.admin"),
       [Role.DEVELOPER]: t(
-        "modal.team.manage.tab.members.list.option.developer"
+        "modal.team.manage.tab.members.list.option.developer",
       ),
       [Role.TESTER]: t("modal.team.manage.tab.members.list.option.tester"),
       [Role.VIEWER]: t("modal.team.manage.tab.members.list.option.viewer"),
@@ -207,7 +207,7 @@ const MembersTableCard = ({ role }: Props) => {
                       })),
                       {
                         text: t(
-                          "modal.team.manage.tab.members.list.option.remove"
+                          "modal.team.manage.tab.members.list.option.remove",
                         ),
                         onClick: () => onHandleDelete(item.userId),
                         variant: ButtonVariant.Danger,
@@ -220,7 +220,7 @@ const MembersTableCard = ({ role }: Props) => {
         ];
       },
       // Disable actions
-      () => []
+      () => [],
     );
   }, [
     data,

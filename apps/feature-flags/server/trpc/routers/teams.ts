@@ -58,7 +58,7 @@ export const teamsRouter = createTRPCRouter({
         .object({
           teamId: z.string(),
         })
-        .required()
+        .required(),
     )
     .query(async ({ ctx, input }) => {
       return ctx.prisma.team.findUnique({
@@ -123,7 +123,7 @@ export const teamsRouter = createTRPCRouter({
         .object({
           name: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;
@@ -154,7 +154,7 @@ export const teamsRouter = createTRPCRouter({
           teamId: z.string(),
           name: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.team.update({

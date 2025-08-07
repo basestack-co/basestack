@@ -79,7 +79,7 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
               {
                 ...cache,
                 emails: result.form.emails,
-              }
+              },
             );
           }
 
@@ -88,7 +88,7 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
         onError: (error) => {
           toast.error(error.message);
         },
-      }
+      },
     );
   }, [emailsValues, updateForm, formId, trpcUtils, t]);
 
@@ -107,7 +107,7 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
         }
       }
     },
-    [emailValue, setValue, emailsValues, errors, setError]
+    [emailValue, setValue, emailsValues, errors, setError],
   );
 
   const onDeleteEmail = useCallback(
@@ -115,7 +115,7 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
       const emails = emailsValues?.filter((item) => item !== value);
       setValue("emails", emails);
     },
-    [setValue, emailsValues]
+    [setValue, emailsValues],
   );
 
   return (
@@ -142,7 +142,7 @@ const FormEmailsCard = ({ emails = "" }: Props) => {
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "setting.notifications.emails.inputs.name.placeholder"
+                "setting.notifications.emails.inputs.name.placeholder",
               ),
               hasError: !!errors.email,
               onKeyDown: onHandleKeyDown,

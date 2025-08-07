@@ -66,7 +66,7 @@ const Toolbar = ({
     () => ({
       canActions: hasPermission(formRole, PERMISSIONS.FORM.SUBMISSIONS.ACTIONS),
     }),
-    [formRole]
+    [formRole],
   );
 
   useEffect(() => {
@@ -112,7 +112,7 @@ const Toolbar = ({
                 label={t(
                   isSelectAllEnabled
                     ? "toolbar.action.un-select-all"
-                    : "toolbar.action.select-all"
+                    : "toolbar.action.select-all",
                 )}
                 variant="button"
                 disabled={isDisabled}

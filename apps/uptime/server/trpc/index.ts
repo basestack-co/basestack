@@ -91,7 +91,7 @@ export const withTeamRestrictions = ({ roles }: { roles: Role[] }) =>
     const userInTeam = await getUserInTeam(
       ctx.prisma,
       ctx?.auth?.user.id!,
-      teamId!
+      teamId!,
     );
 
     if (!userInTeam) {
@@ -136,7 +136,7 @@ export const withProjectRestrictions = ({ roles }: { roles: Role[] }) =>
     const project = await getUserInProject(
       ctx.prisma,
       ctx?.auth?.user.id!,
-      projectId!
+      projectId!,
     );
 
     // If the user does not exist in the project, return an error

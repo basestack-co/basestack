@@ -41,21 +41,21 @@ const FormSendQueryStringCard = ({ hasDataQueryString = false }: Props) => {
                 {
                   ...cache,
                   hasDataQueryString: result.form.hasDataQueryString,
-                }
+                },
               );
             }
 
             toast.success(
-              t("setting.customization.data-query-string.toast.success")
+              t("setting.customization.data-query-string.toast.success"),
             );
           },
           onError: (error) => {
             toast.error(error.message);
           },
-        }
+        },
       );
     },
-    [trpcUtils, formId, updateForm, t]
+    [trpcUtils, formId, updateForm, t],
   );
 
   return (

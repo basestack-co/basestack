@@ -33,7 +33,7 @@ const SetupPage = () => {
     { formId },
     {
       enabled: !!formId,
-    }
+    },
   );
 
   const isEnabled = form?.isEnabled ?? true;
@@ -43,7 +43,7 @@ const SetupPage = () => {
     () => ({
       canView: hasPermission(form?.role, PERMISSIONS.FORM.SETUP.VIEW),
     }),
-    [form?.role]
+    [form?.role],
   );
 
   useEffect(() => {

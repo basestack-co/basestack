@@ -29,7 +29,7 @@ const GeneralSettingsPage = () => {
     { formId },
     {
       enabled: !!formId,
-    }
+    },
   );
 
   const permissions = useMemo(
@@ -38,7 +38,7 @@ const GeneralSettingsPage = () => {
       canDelete: hasPermission(data?.role, PERMISSIONS.FORM.GENERAL.DELETE),
       canView: hasPermission(data?.role, PERMISSIONS.FORM.GENERAL.VIEW),
     }),
-    [data?.role]
+    [data?.role],
   );
 
   return (

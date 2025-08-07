@@ -72,7 +72,7 @@ const FormWebHookUrlCard = ({ webhookUrl = "", isDisabled = false }: Props) => {
               {
                 ...cache,
                 webhookUrl: result.form.webhookUrl,
-              }
+              },
             );
           }
 
@@ -81,7 +81,7 @@ const FormWebHookUrlCard = ({ webhookUrl = "", isDisabled = false }: Props) => {
         onError: (error) => {
           toast.error(error.message);
         },
-      }
+      },
     );
   };
 
@@ -110,7 +110,7 @@ const FormWebHookUrlCard = ({ webhookUrl = "", isDisabled = false }: Props) => {
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "setting.general.webhook-url.inputs.name.placeholder"
+                "setting.general.webhook-url.inputs.name.placeholder",
               ),
               hasError: !!errors.url,
               maxWidth: 560,

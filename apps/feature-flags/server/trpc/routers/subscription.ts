@@ -77,7 +77,7 @@ export const subscriptionRouter = createTRPCRouter({
     return await polar.getCustomerSubscription(
       externalCustomerId,
       Product.FLAGS,
-      AppMode
+      AppMode,
     );
   }),
   meters: protectedProcedure.query(async ({ ctx }) => {
@@ -95,7 +95,7 @@ export const subscriptionRouter = createTRPCRouter({
     const subscription = await polar.getCustomerSubscription(
       externalCustomerId,
       Product.FLAGS,
-      AppMode
+      AppMode,
     );
 
     if (!subscription?.id) {
@@ -104,7 +104,7 @@ export const subscriptionRouter = createTRPCRouter({
 
     const result = await polar.client.customerPortal.subscriptions.get(
       { customerSession: session.token },
-      { id: subscription.id }
+      { id: subscription.id },
     );
 
     const meters =
@@ -132,7 +132,7 @@ export const subscriptionRouter = createTRPCRouter({
       await polar.deleteCustomerSubscriptionCache(
         externalCustomerId,
         Product.FLAGS,
-        AppMode
+        AppMode,
       );
 
       const result = await polar.client.customerSessions.create({
@@ -153,7 +153,7 @@ export const subscriptionRouter = createTRPCRouter({
           products: z.array(z.string()),
           metadata: z.record(z.string(), z.string()),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const userEmail = ctx.auth?.user.email!;
@@ -164,7 +164,7 @@ export const subscriptionRouter = createTRPCRouter({
       await polar.deleteCustomerSubscriptionCache(
         externalCustomerId,
         Product.FLAGS,
-        AppMode
+        AppMode,
       );
 
       const checkout = await polar.client.checkouts.create({
@@ -175,7 +175,7 @@ export const subscriptionRouter = createTRPCRouter({
         customerName: userName,
         successUrl: `${config.urls.getAppWithEnv(
           Product.FLAGS,
-          AppMode as AppEnv
+          AppMode as AppEnv,
         )}/a/user/tab/billing?checkout_id={CHECKOUT_ID}`,
       });
 

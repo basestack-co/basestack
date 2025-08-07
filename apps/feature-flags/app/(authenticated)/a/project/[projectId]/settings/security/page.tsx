@@ -20,7 +20,7 @@ const SecuritySettingsPage = () => {
     { projectId },
     {
       enabled: !!projectId,
-    }
+    },
   );
 
   return (

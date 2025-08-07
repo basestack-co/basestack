@@ -39,7 +39,7 @@ const submissionsRoutes = new Hono().post("/:formId", async (c) => {
         c.req.raw,
         form.errorUrl,
         form.redirectUrl,
-        form.honeypot ?? ""
+        form.honeypot ?? "",
       );
 
       if (data) {
@@ -50,7 +50,7 @@ const submissionsRoutes = new Hono().post("/:formId", async (c) => {
             product: Product.FORMS,
             formId,
             adminUserEmail: form.adminUserEmail,
-          }
+          },
         );
 
         if (form?.hasRetention) {
@@ -119,7 +119,7 @@ const submissionsRoutes = new Hono().post("/:formId", async (c) => {
               message: "Your form has been submitted successfully!",
               url: successUrl,
             },
-            { status: 200 }
+            { status: 200 },
           );
         }
 
@@ -143,7 +143,7 @@ const submissionsRoutes = new Hono().post("/:formId", async (c) => {
             message: error.message,
             url: error.url,
           },
-          { status: error.code as any }
+          { status: error.code as any },
         );
       } else {
         return c.redirect(`${error.url}&message=${error.message}`, 303);
@@ -151,7 +151,7 @@ const submissionsRoutes = new Hono().post("/:formId", async (c) => {
     } else {
       return c.json(
         { error: true, message: "An unexpected error occurred." },
-        { status: 500 }
+        { status: 500 },
       );
     }
   }

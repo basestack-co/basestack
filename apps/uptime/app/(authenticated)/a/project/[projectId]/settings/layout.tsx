@@ -63,7 +63,7 @@ const ProjectSettingsLayout = ({
       { projectId },
       {
         enabled: !!projectId,
-      }
+      },
     );
 
   const renderLink = useMemo(() => {
@@ -83,9 +83,9 @@ const ProjectSettingsLayout = ({
   const activeLinkIndex = useMemo(
     () =>
       getLinks(projectId, project?.role).findIndex(
-        (button) => button.href === pathname
+        (button) => button.href === pathname,
       ),
-    [pathname, projectId, project?.role]
+    [pathname, projectId, project?.role],
   );
 
   const items = useMemo(
@@ -98,7 +98,7 @@ const ProjectSettingsLayout = ({
             text: t(i18nKey as NamespaceKeys<string, "navigation">),
           };
         }),
-    [t, projectId, project?.role]
+    [t, projectId, project?.role],
   );
 
   useEffect(() => {
@@ -107,7 +107,7 @@ const ProjectSettingsLayout = ({
 
   useEffect(() => {
     const link = getLinks(projectId, project?.role).find(
-      (link) => link.href === pathname
+      (link) => link.href === pathname,
     );
 
     if (!link?.isVisible) {

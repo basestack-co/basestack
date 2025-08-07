@@ -48,11 +48,11 @@ const Navigation = ({ data }: NavigationProps) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
 
   const setCreateProjectModalOpen = useStore(
-    (state) => state.setCreateProjectModalOpen
+    (state) => state.setCreateProjectModalOpen,
   );
 
   const setCreateMonitorModalOpen = useStore(
-    (state) => state.setCreateMonitorModalOpen
+    (state) => state.setCreateMonitorModalOpen,
   );
 
   const [projectName, projectRole] = useMemo(() => {
@@ -82,12 +82,12 @@ const Navigation = ({ data }: NavigationProps) => {
       { internal: [], external: [] } as {
         internal: PopupActionProps[];
         external: PopupActionProps[];
-      }
+      },
     );
 
     const mapProjectsToSection = (
       items: PopupActionProps[],
-      title: string
+      title: string,
     ) => ({
       title,
       items: items.map((item) => ({
@@ -131,7 +131,7 @@ const Navigation = ({ data }: NavigationProps) => {
           setIsDarkMode(!isDarkMode);
         }),
       list: getAvatarDropdownList(t, router, () =>
-        setCreateProjectModalOpen({ isOpen: true })
+        setCreateProjectModalOpen({ isOpen: true }),
       ),
     };
   }, [
@@ -154,7 +154,7 @@ const Navigation = ({ data }: NavigationProps) => {
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
       leftLinks={getLeftLinks(t, router, pathname, projectId, projectRole, () =>
-        setCreateMonitorModalOpen({ isOpen: true })
+        setCreateMonitorModalOpen({ isOpen: true }),
       )}
       rightLinks={getRightLinks({ docs: t("navigation.external.docs") })}
       rightLinksTitle={t("navigation.external.resources")}

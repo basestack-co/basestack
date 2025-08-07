@@ -72,14 +72,14 @@ const FormSubmissions = ({
       {
         enabled: !!formId,
         getNextPageParam: (lastPage) => lastPage.nextCursor,
-      }
+      },
     );
 
   const permissions = useMemo(
     () => ({
       canActions: hasPermission(formRole, PERMISSIONS.FORM.SUBMISSIONS.ACTIONS),
     }),
-    [formRole]
+    [formRole],
   );
 
   useEffect(() => {
@@ -107,7 +107,7 @@ const FormSubmissions = ({
   const pageSubmissionIds = useMemo(() => {
     return (
       data?.pages.flatMap((page) =>
-        page.submissions.map((submission) => submission.id)
+        page.submissions.map((submission) => submission.id),
       ) ?? []
     );
   }, [data]);
@@ -121,7 +121,7 @@ const FormSubmissions = ({
     return (
       sortedSelectIds.length === sortedPageSubmissionIds.length &&
       sortedSelectIds.every(
-        (value, index) => value === sortedPageSubmissionIds[index]
+        (value, index) => value === sortedPageSubmissionIds[index],
       )
     );
   }, [selectIds, pageSubmissionIds]);
@@ -144,7 +144,7 @@ const FormSubmissions = ({
   const onDelete = useCallback(
     (ids: string[]) => {
       const loadingToastId = toast.loading(
-        t("submission.event.delete.loading")
+        t("submission.event.delete.loading"),
       );
       deleteSubmissions.mutate(
         { ids, formId },
@@ -156,24 +156,24 @@ const FormSubmissions = ({
 
             toast.dismiss(loadingToastId);
             toast.success(
-              t("submission.event.delete.success", { count: ids.length })
+              t("submission.event.delete.success", { count: ids.length }),
             );
           },
           onError: (error) => {
             toast.dismiss(loadingToastId);
             toast.error(error.message ?? t("submission.event.delete.error"));
           },
-        }
+        },
       );
     },
-    [deleteSubmissions, formId, trpcUtils, t]
+    [deleteSubmissions, formId, trpcUtils, t],
   );
 
   const onUpdate = useCallback(
     (
       ids: string[],
       payload: { isSpam?: boolean; viewed?: boolean; showToast?: boolean },
-      showToast: boolean = true
+      showToast: boolean = true,
     ) => {
       if (!permissions.canActions) return null;
 
@@ -194,7 +194,7 @@ const FormSubmissions = ({
             if (showToast) {
               toast.dismiss(loadingToastId);
               toast.success(
-                t("submission.event.update.success", { count: ids.length })
+                t("submission.event.update.success", { count: ids.length }),
               );
             }
           },
@@ -202,10 +202,10 @@ const FormSubmissions = ({
             toast.dismiss(loadingToastId);
             toast.error(error.message ?? t("submission.event.update.error"));
           },
-        }
+        },
       );
     },
-    [updateSubmissions, formId, trpcUtils, t, permissions.canActions]
+    [updateSubmissions, formId, trpcUtils, t, permissions.canActions],
   );
 
   const onExport = useCallback(() => {
@@ -224,7 +224,7 @@ const FormSubmissions = ({
           toast.dismiss(loadingToastId);
           toast.error(error.message ?? t("submission.event.export.error"));
         },
-      }
+      },
     );
   }, [exportSubmissions, formId, t, name]);
 
@@ -236,13 +236,13 @@ const FormSubmissions = ({
             filters: {
               isSpam: value === SelectedFilter.IS_SPAM,
             },
-          }
+          },
     );
   }, []);
 
   const onSelectSort = useCallback((value: SelectedSort | null) => {
     setOrderBy(
-      value === SelectedSort.NEWEST || value === null ? "desc" : "asc"
+      value === SelectedSort.NEWEST || value === null ? "desc" : "asc",
     );
   }, []);
 
@@ -254,7 +254,7 @@ const FormSubmissions = ({
         Object.hasOwn(updateSubmissions.variables ?? {}, key)
       );
     },
-    [updateSubmissions]
+    [updateSubmissions],
   );
 
   const getSubmissionDeleteLoading = useCallback(
@@ -264,7 +264,7 @@ const FormSubmissions = ({
         (deleteSubmissions.variables?.ids ?? []).includes(id)
       );
     },
-    [deleteSubmissions]
+    [deleteSubmissions],
   );
 
   return (
@@ -368,7 +368,7 @@ const FormSubmissions = ({
                                   {
                                     viewed: true,
                                   },
-                                  false
+                                  false,
                                 );
                               }
                             }}
@@ -384,21 +384,21 @@ const FormSubmissions = ({
                             isSelected={selectIds.includes(id)}
                             blockIpAddresses={blockIpAddresses}
                             isDeleteSubmissionLoading={getSubmissionDeleteLoading(
-                              id
+                              id,
                             )}
                             isMarkSpamLoading={getSubmissionUpdateLoading(
                               id,
-                              "isSpam"
+                              "isSpam",
                             )}
                             isReadSubmissionLoading={getSubmissionUpdateLoading(
                               id,
-                              "viewed"
+                              "viewed",
                             )}
                             isActionsDisabled={!permissions.canActions}
                           />
                         </ListItem>
                       );
-                    }
+                    },
                   )}
                 </Fragment>
               );

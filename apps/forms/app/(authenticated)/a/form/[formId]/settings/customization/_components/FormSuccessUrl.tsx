@@ -71,7 +71,7 @@ const FormSuccessUrlCard = ({ successUrl = "" }: Props) => {
               {
                 ...cache,
                 successUrl: result.form.successUrl,
-              }
+              },
             );
           }
 
@@ -80,7 +80,7 @@ const FormSuccessUrlCard = ({ successUrl = "" }: Props) => {
         onError: (error) => {
           toast.error(error.message);
         },
-      }
+      },
     );
   };
 
@@ -108,7 +108,7 @@ const FormSuccessUrlCard = ({ successUrl = "" }: Props) => {
               onChange: field.onChange,
               onBlur: field.onBlur,
               placeholder: t(
-                "setting.customization.success-url.inputs.name.placeholder"
+                "setting.customization.success-url.inputs.name.placeholder",
               ),
               hasError: !!errors.url,
               maxWidth: 560,

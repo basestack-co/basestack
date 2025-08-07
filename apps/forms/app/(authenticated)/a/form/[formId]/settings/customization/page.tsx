@@ -24,14 +24,14 @@ const CustomizationSettingsPage = () => {
     { formId },
     {
       enabled: !!formId,
-    }
+    },
   );
 
   const permissions = useMemo(
     () => ({
       canUpdate: hasPermission(data?.role, PERMISSIONS.FORM.GENERAL.UPDATE),
     }),
-    [data?.role]
+    [data?.role],
   );
 
   if (!permissions.canUpdate) {

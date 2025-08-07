@@ -45,7 +45,7 @@ const FormSpamProtectionCard = ({
                 {
                   ...cache,
                   hasSpamProtection: result.form.hasSpamProtection,
-                }
+                },
               );
             }
 
@@ -54,10 +54,10 @@ const FormSpamProtectionCard = ({
           onError: (error) => {
             toast.error(error.message);
           },
-        }
+        },
       );
     },
-    [trpcUtils, formId, updateForm, t]
+    [trpcUtils, formId, updateForm, t],
   );
 
   return (

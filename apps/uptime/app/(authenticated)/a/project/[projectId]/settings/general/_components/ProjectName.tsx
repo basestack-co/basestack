@@ -62,7 +62,6 @@ const ProjectNameCard = ({ role, name }: Props) => {
       },
       {
         onSuccess: (result) => {
-
           // Get all the projects on the cache
           const cacheAllProjects = trpcUtils.projects.list.getData();
 
@@ -73,7 +72,7 @@ const ProjectNameCard = ({ role, name }: Props) => {
               projects: cacheAllProjects.projects.map((project) =>
                 project.id === result.project.id
                   ? { ...project, name: result.project.name }
-                  : project
+                  : project,
               ),
             });
           }
@@ -89,14 +88,14 @@ const ProjectNameCard = ({ role, name }: Props) => {
               {
                 ...cacheProject,
                 name: result.project.name,
-              }
+              },
             );
           }
         },
         onError: (error) => {
           toast.error(error.message);
         },
-      }
+      },
     );
   };
 

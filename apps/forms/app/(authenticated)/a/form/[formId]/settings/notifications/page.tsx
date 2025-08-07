@@ -21,14 +21,14 @@ const NotificationsSettingsPage = () => {
     { formId },
     {
       enabled: !!formId,
-    }
+    },
   );
 
   const permissions = useMemo(
     () => ({
       canView: hasPermission(data?.role, PERMISSIONS.FORM.SETTINGS.VIEW),
     }),
-    [data?.role]
+    [data?.role],
   );
 
   return (

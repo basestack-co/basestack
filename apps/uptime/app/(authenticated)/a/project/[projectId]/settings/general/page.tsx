@@ -24,21 +24,21 @@ const GeneralPage = () => {
     { projectId },
     {
       enabled: !!projectId,
-    }
+    },
   );
 
   const permissions = useMemo(
     () => ({
       canUpdate: hasPermission(
         project?.role,
-        PERMISSIONS.PROJECT.GENERAL.UPDATE
+        PERMISSIONS.PROJECT.GENERAL.UPDATE,
       ),
       canDelete: hasPermission(
         project?.role,
-        PERMISSIONS.PROJECT.GENERAL.DELETE
+        PERMISSIONS.PROJECT.GENERAL.DELETE,
       ),
     }),
-    [project?.role]
+    [project?.role],
   );
 
   return (

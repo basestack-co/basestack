@@ -39,7 +39,7 @@ const AddProjectMemberModal = () => {
         state.isAddProjectMemberModalOpen,
         state.setAddProjectMemberModalOpen,
         state.closeModalsOnClickOutside,
-      ])
+      ]),
     );
 
   const [team, members] = api.useQueries((t) => [
@@ -48,7 +48,7 @@ const AddProjectMemberModal = () => {
     }),
     t.projectMembers.list(
       { projectId },
-      { enabled: isModalOpen && !!projectId }
+      { enabled: isModalOpen && !!projectId },
     ),
   ]);
 
@@ -75,8 +75,8 @@ const AddProjectMemberModal = () => {
         .filter((team) =>
           team.members.some(
             (member) =>
-              member.userId === session?.user.id && member.role === "ADMIN"
-          )
+              member.userId === session?.user.id && member.role === "ADMIN",
+          ),
         )
         .map((team) => ({
           label: t("team.manage.title", { name: team.name }),
@@ -84,7 +84,7 @@ const AddProjectMemberModal = () => {
             .filter(
               (member) =>
                 member.userId !== session?.user.id &&
-                !projectUserIds.includes(member.userId)
+                !projectUserIds.includes(member.userId),
             )
             .map((member) => ({
               label: member.user.name,
@@ -122,11 +122,11 @@ const AddProjectMemberModal = () => {
             onError: (error) => {
               toast.error(error.message);
             },
-          }
+          },
         );
       }
     },
-    [addUserToProject, projectId, onClose, trpcUtils]
+    [addUserToProject, projectId, onClose, trpcUtils],
   );
 
   const onChangeMember = useCallback((option: unknown, setField: any) => {

@@ -40,10 +40,10 @@ const jobsRoutes = new Hono()
           context.requestPayload;
 
         console.info(
-          `Job: Basestack Forms - Send Email - Preparing to send email to ${to} with subject: ${subject}`
+          `Job: Basestack Forms - Send Email - Preparing to send email to ${to} with subject: ${subject}`,
         );
         console.info(
-          `Job: Basestack Forms - Send Email - Email with the template ${template} with props: ${JSON.stringify(props)}`
+          `Job: Basestack Forms - Send Email - Email with the template ${template} with props: ${JSON.stringify(props)}`,
         );
 
         await context.run("send-email-step", async () => {
@@ -69,14 +69,14 @@ const jobsRoutes = new Hono()
                   {
                     product: Product.FORMS,
                     template,
-                  }
+                  },
                 );
               }
-            })
+            }),
           );
 
           console.info(
-            "Job: Basestack Forms - Send Email - ✨ Email sent successfully! ✨"
+            "Job: Basestack Forms - Send Email - ✨ Email sent successfully! ✨",
           );
         });
       },
@@ -92,11 +92,11 @@ const jobsRoutes = new Hono()
           failHeaders,
         }) => {
           console.error(
-            `Job: Basestack Forms - Send Email - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `
+            `Job: Basestack Forms - Send Email - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
           );
         },
-      }
-    )
+      },
+    ),
   )
   .post(
     "/check-spam",
@@ -106,7 +106,7 @@ const jobsRoutes = new Hono()
           context.requestPayload;
 
         console.info(
-          `Job: Check Spam - Preparing to check data for spam: ${JSON.stringify(data)} with submission ID: ${submissionId}`
+          `Job: Check Spam - Preparing to check data for spam: ${JSON.stringify(data)} with submission ID: ${submissionId}`,
         );
 
         await context.run("check-data-for-spam-step", async () => {
@@ -123,20 +123,20 @@ const jobsRoutes = new Hono()
                 product: Product.FORMS,
                 submissionId,
                 userId,
-              }
+              },
             );
           }
 
           if (res.success) {
             console.info(
-              `Job: Check Spam - Data successfully checked for: ${res.result.response}`
+              `Job: Check Spam - Data successfully checked for: ${res.result.response}`,
             );
 
             const isSpam = JSON.parse(res.result.response).isSpam ?? false;
 
             if (isSpam) {
               console.info(
-                `Job: Check Spam - The data is spam. Submission ID: ${submissionId}. Preparing to update the form Submission status on the DB.`
+                `Job: Check Spam - The data is spam. Submission ID: ${submissionId}. Preparing to update the form Submission status on the DB.`,
               );
 
               await prisma.$transaction(async (tx) => {
@@ -165,11 +165,11 @@ const jobsRoutes = new Hono()
           failHeaders,
         }) => {
           console.error(
-            `Job: Check Spam - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `
+            `Job: Check Spam - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
           );
         },
-      }
-    )
+      },
+    ),
   )
   .post(
     "/send-data-to-external-webhook",
@@ -178,7 +178,7 @@ const jobsRoutes = new Hono()
         const { url, body, externalCustomerId } = context.requestPayload;
 
         console.info(
-          `Job: External Webhook - Preparing to send data to external webhook: ${url}`
+          `Job: External Webhook - Preparing to send data to external webhook: ${url}`,
         );
 
         await context.run("send-data-to-external-webhook-step", async () => {
@@ -196,17 +196,17 @@ const jobsRoutes = new Hono()
               externalCustomerId,
               {
                 product: Product.FORMS,
-              }
+              },
             );
           }
 
           console.info(
-            `Job: External Webhook - Data sent to the external webhook with status: ${res.status}`
+            `Job: External Webhook - Data sent to the external webhook with status: ${res.status}`,
           );
         });
 
         console.info(
-          "Job: External Webhook - ✨ Data successfully sent to the external webhook ✨"
+          "Job: External Webhook - ✨ Data successfully sent to the external webhook ✨",
         );
       },
       {
@@ -221,11 +221,11 @@ const jobsRoutes = new Hono()
           failHeaders,
         }) => {
           console.error(
-            `Job: External Webhook - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `
+            `Job: External Webhook - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
           );
         },
-      }
-    )
+      },
+    ),
   );
 
 export default jobsRoutes;
