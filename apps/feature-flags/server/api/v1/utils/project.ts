@@ -11,15 +11,13 @@ import {
 // Vendors
 import { polar } from "@basestack/vendors";
 // DB
-import { prisma } from "server/db";
 import { getProjectOnUser, productUrl } from "server/db/utils/project";
-import { withUsageUpdate } from "server/db/utils/usage";
 import { AppMode } from "utils/helpers/general";
 
 export const verifyProjectRequest = async (
   key: string,
   referer: string,
-  metadata: { ip: string | null },
+  metadata: { ip: string | null }
 ) => {
   try {
     const projectKey = key.trim();
@@ -44,7 +42,7 @@ export const verifyProjectRequest = async (
     const sub = await polar.getCustomerSubscription(
       externalCustomerId,
       Product.FLAGS,
-      AppMode,
+      AppMode
     );
 
     if (sub?.status !== "active") {
@@ -64,7 +62,7 @@ export const verifyProjectRequest = async (
           {
             product: "Feature Flags",
             referer,
-          },
+          }
         );
 
         throw new RequestError({
@@ -93,7 +91,7 @@ export const verifyProjectRequest = async (
             {
               product: "Feature Flags",
               referer,
-            },
+            }
           );
 
           throw new RequestError({
@@ -104,13 +102,6 @@ export const verifyProjectRequest = async (
         }
       }
     }
-
-    await withUsageUpdate(
-      prisma,
-      project.adminUserId,
-      "apiRequests",
-      "increment",
-    );
 
     await polar.createUsageEvent(UsageEvent.API_REQUESTS, externalCustomerId, {
       product: Product.FLAGS,

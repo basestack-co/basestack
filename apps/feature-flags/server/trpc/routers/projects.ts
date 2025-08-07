@@ -3,7 +3,6 @@ import { Role } from ".prisma/client";
 import { TRPCError } from "@trpc/server";
 // Utils
 import { generateSlug } from "random-word-slugs";
-import { withUsageUpdate } from "server/db/utils/usage";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -249,8 +248,6 @@ export const projectsRouter = createTRPCRouter({
           },
         });
 
-        await withUsageUpdate(tx, userId, "projects", "increment");
-
         return { project, connection };
       });
     }),
@@ -300,39 +297,9 @@ export const projectsRouter = createTRPCRouter({
         .required()
     )
     .mutation(async ({ ctx, input }) => {
-      const projectAdminUserId = ctx.project.adminUserId;
-
-      const project = await ctx.prisma.$transaction(async (tx) => {
-        const environmentWithFlagCount = await tx.environment.findFirst({
-          where: {
-            projectId: input.projectId,
-            isDefault: true,
-          },
-          select: {
-            id: true,
-            _count: {
-              select: {
-                flags: true,
-              },
-            },
-          },
-        });
-
-        const response = await tx.project.delete({
-          where: { id: input.projectId },
-          select: { id: true },
-        });
-
-        await withUsageUpdate(tx, projectAdminUserId, "projects", "decrement");
-        await withUsageUpdate(
-          tx,
-          projectAdminUserId,
-          "flags",
-          "decrement",
-          environmentWithFlagCount?._count.flags ?? 0
-        );
-
-        return response;
+      const project = await ctx.prisma.project.delete({
+        where: { id: input.projectId },
+        select: { id: true },
       });
 
       return { project };

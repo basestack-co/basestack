@@ -45,6 +45,8 @@ const uptime: UptimePlan[] = [
       teams: Infinity,
       members: Infinity,
       apiRequests: Infinity,
+      statusPages: Infinity,
+      incidents: Infinity,
     },
     features: {
       hasWebhooks: true,
@@ -52,12 +54,16 @@ const uptime: UptimePlan[] = [
   },
 ];
 
-const getFormPlanLimitsDefaults = () => ({
+const getUptimePlanLimitsDefaults = () => ({
+  projects: 0,
+  monitors: 0,
+  subscribers: 0,
   teams: 0,
   members: 0,
+  apiRequests: 0,
 });
 
 export const config = {
   uptime,
-  getFormPlanLimitsDefaults,
+  getUptimePlanLimitsDefaults,
 };

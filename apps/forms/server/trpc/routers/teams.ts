@@ -12,7 +12,6 @@ import { qstash } from "@basestack/vendors";
 import { TRPCError } from "@trpc/server";
 import dayjs from "dayjs";
 import { generateSlug } from "random-word-slugs";
-import { withUsageUpdate } from "server/db/utils/subscription";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -70,7 +69,7 @@ export const teamsRouter = createTRPCRouter({
         .object({
           teamId: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       return ctx.prisma.team.findUnique({
@@ -135,7 +134,7 @@ export const teamsRouter = createTRPCRouter({
         .object({
           name: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;
@@ -155,8 +154,6 @@ export const teamsRouter = createTRPCRouter({
           },
         });
 
-        await withUsageUpdate(tx, userId, "teams", "increment");
-
         return { team };
       });
     }),
@@ -168,7 +165,7 @@ export const teamsRouter = createTRPCRouter({
           teamId: z.string(),
           name: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.team.update({
@@ -237,16 +234,6 @@ export const teamsRouter = createTRPCRouter({
           },
         });
 
-        await withUsageUpdate(tx, userId, "teams", "decrement");
-        await withUsageUpdate(
-          tx,
-          userId,
-          "members",
-          "decrement",
-          // Remove the Admin from the count
-          members.length - 1,
-        );
-
         return { team };
       });
     }),
@@ -258,7 +245,7 @@ export const teamsRouter = createTRPCRouter({
           teamId: z.string(),
           userId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;
@@ -320,8 +307,6 @@ export const teamsRouter = createTRPCRouter({
           },
         });
 
-        await withUsageUpdate(tx, userId, "members", "decrement");
-
         return { member };
       });
     }),
@@ -334,7 +319,7 @@ export const teamsRouter = createTRPCRouter({
           userId: z.string(),
           role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.teamMembers.update({
@@ -370,7 +355,7 @@ export const teamsRouter = createTRPCRouter({
         .object({
           token: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       const invitation = await ctx.prisma.teamInvitation.findUnique({
@@ -432,7 +417,7 @@ export const teamsRouter = createTRPCRouter({
           email: z.string().email(),
           role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const user = ctx.auth?.user;
@@ -531,7 +516,7 @@ export const teamsRouter = createTRPCRouter({
         .object({
           inviteId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const invitation = await ctx.prisma.teamInvitation.delete({
@@ -607,39 +592,26 @@ export const teamsRouter = createTRPCRouter({
           });
         }
 
-        const [adminMember, teamMember] = await Promise.all([
-          tx.teamMembers.findFirst({
-            where: {
-              teamId: invitation.teamId,
-              role: Role.ADMIN,
-            },
-            select: {
-              userId: true,
-            },
-          }),
-          tx.teamMembers.create({
-            data: {
-              teamId: invitation.teamId,
-              userId: userToAdd.id,
-              role: invitation.role,
-            },
-            include: {
-              team: {
-                select: {
-                  name: true,
-                },
-              },
-              user: {
-                select: {
-                  name: true,
-                  email: true,
-                },
+        const teamMember = await ctx.prisma.teamMembers.create({
+          data: {
+            teamId: invitation.teamId,
+            userId: userToAdd.id,
+            role: invitation.role,
+          },
+          include: {
+            team: {
+              select: {
+                name: true,
               },
             },
-          }),
-        ]);
-
-        await withUsageUpdate(tx, adminMember?.userId!, "members", "increment");
+            user: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+          },
+        });
 
         await tx.teamInvitation.delete({
           where: { id: invitation.id },

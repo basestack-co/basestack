@@ -85,6 +85,10 @@ const UsagePlan = ({
           key: "email_notification",
           title: t("home.usage.meters.resource.email_notification"),
         },
+        {
+          key: "webhook_trigger",
+          title: t("home.usage.meters.resource.webhook_trigger"),
+        },
       ],
     };
 

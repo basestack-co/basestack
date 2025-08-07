@@ -13,7 +13,6 @@ import { polar, qstash } from "@basestack/vendors";
 import { Hono } from "hono";
 // Prisma
 import { prisma } from "server/db";
-import { withUsageUpdate } from "server/db/utils/subscription";
 import { AppMode } from "utils/helpers/general";
 // Utils
 import { FormMode, formatFormData, verifyForm } from "../utils/form";
@@ -40,7 +39,7 @@ const submissionsRoutes = new Hono().post("/:formId", async (c) => {
         c.req.raw,
         form.errorUrl,
         form.redirectUrl,
-        form.honeypot ?? "",
+        form.honeypot ?? ""
       );
 
       if (data) {
@@ -51,7 +50,7 @@ const submissionsRoutes = new Hono().post("/:formId", async (c) => {
             product: Product.FORMS,
             formId,
             adminUserEmail: form.adminUserEmail,
-          },
+          }
         );
 
         if (form?.hasRetention) {
@@ -66,8 +65,6 @@ const submissionsRoutes = new Hono().post("/:formId", async (c) => {
                 id: true,
               },
             });
-
-            await withUsageUpdate(tx, form.userId, "submissions", "increment");
 
             return response;
           });
@@ -122,7 +119,7 @@ const submissionsRoutes = new Hono().post("/:formId", async (c) => {
               message: "Your form has been submitted successfully!",
               url: successUrl,
             },
-            { status: 200 },
+            { status: 200 }
           );
         }
 
@@ -146,7 +143,7 @@ const submissionsRoutes = new Hono().post("/:formId", async (c) => {
             message: error.message,
             url: error.url,
           },
-          { status: error.code as any },
+          { status: error.code as any }
         );
       } else {
         return c.redirect(`${error.url}&message=${error.message}`, 303);
@@ -154,7 +151,7 @@ const submissionsRoutes = new Hono().post("/:formId", async (c) => {
     } else {
       return c.json(
         { error: true, message: "An unexpected error occurred." },
-        { status: 500 },
+        { status: 500 }
       );
     }
   }

@@ -109,7 +109,6 @@ model User {
   accounts        Account[]
   sessions        Session[]
   teams           TeamMembers[]
-  usage           Usage[]
   projects        ProjectUsers[]
   incidents       Incident[]
   incidentUpdates IncidentUpdate[]
@@ -129,21 +128,6 @@ model Verification {
   updatedAt  DateTime?
 
   @@index([identifier])
-}
-
-model Usage {
-  id          String   @id @default(cuid())
-  userId      String   @unique
-  monitors    Int      @default(0)
-  statusPages Int      @default(0)
-  incidents   Int      @default(0)
-  checks      Int      @default(0)
-  teams       Int      @default(0)
-  members     Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Team {

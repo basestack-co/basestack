@@ -4,7 +4,6 @@ import { TRPCError } from "@trpc/server";
 // Utils
 import { generateSlug } from "random-word-slugs";
 // DB
-import { withUsageUpdate } from "server/db/utils/usage";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -20,7 +19,7 @@ export const projectEnvironmentsRouter = createTRPCRouter({
         .object({
           projectId: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id;
@@ -53,11 +52,9 @@ export const projectEnvironmentsRouter = createTRPCRouter({
           name: z.string(),
           description: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
-      const projectAdminUserId = ctx.project.adminUserId;
-
       const environment = ctx.prisma.$transaction(async (tx) => {
         const defaultEnvironment = await tx.environment.findFirst({
           where: {
@@ -99,13 +96,6 @@ export const projectEnvironmentsRouter = createTRPCRouter({
           },
         });
 
-        await withUsageUpdate(
-          tx,
-          projectAdminUserId,
-          "environments",
-          "increment",
-        );
-
         return newEnvironment;
       });
 
@@ -121,7 +111,7 @@ export const projectEnvironmentsRouter = createTRPCRouter({
           name: z.string(),
           description: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const environment = await ctx.prisma.environment.update({
@@ -144,11 +134,9 @@ export const projectEnvironmentsRouter = createTRPCRouter({
           projectId: z.string(),
           environmentId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
-      const projectAdminUserId = ctx.project.adminUserId;
-
       const environment = await ctx.prisma.$transaction(async (tx) => {
         // TODO: find a better way to do this, this is a bit hacky, should be in the same query
         const current = await tx.environment.findFirst({
@@ -162,13 +150,6 @@ export const projectEnvironmentsRouter = createTRPCRouter({
               id: input.environmentId,
             },
           });
-
-          await withUsageUpdate(
-            tx,
-            projectAdminUserId,
-            "environments",
-            "decrement",
-          );
 
           return environment;
         } else {

@@ -58,7 +58,12 @@
       "date": "Renews at {date}",
       "resource": {
         "teams": "Teams",
-        "members": "Members"
+        "members": "Members",
+        "monitors": "Monitors",
+        "statusPages": "Status Pages",
+        "incidents": "Incidents",
+        "subscribers": "Subscribers",
+        "projects": "Projects"
       },
       "meters": {
         "title": "Estimated Cost: {cost}",

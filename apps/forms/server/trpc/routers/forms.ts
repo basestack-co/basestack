@@ -1,7 +1,6 @@
 // Types
 import { Role } from ".prisma/client";
 import { TRPCError } from "@trpc/server";
-import { withUsageUpdate } from "server/db/utils/subscription";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -220,8 +219,6 @@ export const formsRouter = createTRPCRouter({
           },
         });
 
-        await withUsageUpdate(tx, userId, "forms", "increment");
-
         return { form, connection };
       });
     }),
@@ -280,16 +277,12 @@ export const formsRouter = createTRPCRouter({
         .required()
     )
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx?.auth?.user.id!;
-
       const form = await ctx.prisma.$transaction(async (tx) => {
         const response = await tx.form.delete({
           where: {
             id: input.formId,
           },
         });
-
-        await withUsageUpdate(tx, userId, "forms", "decrement");
 
         return response;
       });

@@ -2,7 +2,6 @@
 import { Role } from ".prisma/client";
 import { TRPCError } from "@trpc/server";
 import dayjs from "dayjs";
-import { withUsageUpdate } from "server/db/utils/usage";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -70,39 +69,26 @@ export const teamMembersRouter = createTRPCRouter({
           });
         }
 
-        const [adminMember, teamMember] = await Promise.all([
-          tx.teamMembers.findFirst({
-            where: {
-              teamId: invitation.teamId,
-              role: Role.ADMIN,
-            },
-            select: {
-              userId: true,
-            },
-          }),
-          tx.teamMembers.create({
-            data: {
-              teamId: invitation.teamId,
-              userId: userToAdd.id,
-              role: invitation.role,
-            },
-            include: {
-              team: {
-                select: {
-                  name: true,
-                },
-              },
-              user: {
-                select: {
-                  name: true,
-                  email: true,
-                },
+        const teamMember = await ctx.prisma.teamMembers.create({
+          data: {
+            teamId: invitation.teamId,
+            userId: userToAdd.id,
+            role: invitation.role,
+          },
+          include: {
+            team: {
+              select: {
+                name: true,
               },
             },
-          }),
-        ]);
-
-        await withUsageUpdate(tx, adminMember?.userId!, "members", "increment");
+            user: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+          },
+        });
 
         await tx.teamInvitation.delete({
           where: { id: invitation.id },
@@ -120,7 +106,7 @@ export const teamMembersRouter = createTRPCRouter({
           userId: z.string(),
           role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.teamMembers.update({
@@ -158,7 +144,7 @@ export const teamMembersRouter = createTRPCRouter({
           teamId: z.string(),
           userId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;
@@ -219,8 +205,6 @@ export const teamMembersRouter = createTRPCRouter({
             },
           },
         });
-
-        await withUsageUpdate(tx, userId, "members", "decrement");
 
         return { member };
       });

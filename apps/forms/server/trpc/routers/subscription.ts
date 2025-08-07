@@ -10,19 +10,59 @@ export const subscriptionRouter = createTRPCRouter({
   usage: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx?.auth?.user.id!;
 
-    const usage = await ctx.prisma.usage.findFirst({
-      where: {
-        userId,
-      },
-      omit: {
-        userId: true,
-        updatedAt: true,
-        createdAt: true,
-      },
+    const usage = await ctx.prisma.$transaction(async (tx) => {
+      const [formsCount, submissionsCount, teamsData] = await Promise.all([
+        tx.formOnUsers.count({
+          where: {
+            userId,
+          },
+        }),
+
+        tx.submission.count({
+          where: {
+            form: {
+              users: {
+                some: {
+                  userId,
+                },
+              },
+            },
+          },
+        }),
+
+        tx.teamMembers.findMany({
+          where: {
+            userId,
+          },
+          select: {
+            teamId: true,
+          },
+        }),
+      ]);
+
+      const uniqueTeamIds = Array.from(new Set(teamsData.map((t) => t.teamId)));
+
+      const membersCount =
+        uniqueTeamIds.length > 0
+          ? await tx.teamMembers.count({
+              where: {
+                teamId: {
+                  in: uniqueTeamIds,
+                },
+              },
+            })
+          : 0;
+
+      return {
+        forms: formsCount,
+        submissions: submissionsCount,
+        teams: uniqueTeamIds.length,
+        members: membersCount,
+      };
     });
 
     if (!usage) {
-      return config.plans.getFlagsPlanLimitsDefaults();
+      return config.plans.getFormPlanLimitsDefaults();
     }
 
     return usage;
@@ -34,7 +74,7 @@ export const subscriptionRouter = createTRPCRouter({
     return await polar.getCustomerSubscription(
       externalCustomerId,
       Product.FORMS,
-      AppMode,
+      AppMode
     );
   }),
   meters: protectedProcedure
@@ -54,7 +94,7 @@ export const subscriptionRouter = createTRPCRouter({
       const subscription = await polar.getCustomerSubscription(
         externalCustomerId,
         Product.FORMS,
-        AppMode,
+        AppMode
       );
 
       if (!subscription?.id) {
@@ -63,7 +103,7 @@ export const subscriptionRouter = createTRPCRouter({
 
       const result = await polar.client.customerPortal.subscriptions.get(
         { customerSession: session.token },
-        { id: subscription.id },
+        { id: subscription.id }
       );
 
       const meters =
@@ -91,7 +131,7 @@ export const subscriptionRouter = createTRPCRouter({
       await polar.deleteCustomerSubscriptionCache(
         externalCustomerId,
         Product.FORMS,
-        AppMode,
+        AppMode
       );
 
       const result = await polar.client.customerSessions.create({
@@ -112,7 +152,7 @@ export const subscriptionRouter = createTRPCRouter({
           products: z.array(z.string()),
           metadata: z.record(z.string(), z.string()),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const userEmail = ctx.auth?.user.email!;
@@ -123,7 +163,7 @@ export const subscriptionRouter = createTRPCRouter({
       await polar.deleteCustomerSubscriptionCache(
         externalCustomerId,
         Product.FORMS,
-        AppMode,
+        AppMode
       );
 
       const checkout = await polar.client.checkouts.create({
@@ -134,7 +174,7 @@ export const subscriptionRouter = createTRPCRouter({
         customerName: userName,
         successUrl: `${config.urls.getAppWithEnv(
           Product.FORMS,
-          AppMode as AppEnv,
+          AppMode as AppEnv
         )}/a/user/tab/billing?checkout_id={CHECKOUT_ID}`,
       });
 

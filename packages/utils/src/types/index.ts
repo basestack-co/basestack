@@ -149,6 +149,8 @@ export interface UptimePlan extends Plan {
     teams: number;
     members: number;
     apiRequests: number;
+    statusPages: number;
+    incidents: number;
   };
   features: {
     hasWebhooks: boolean;

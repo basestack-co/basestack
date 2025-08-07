@@ -2,7 +2,6 @@
 import { Role } from ".prisma/client";
 import { TRPCError } from "@trpc/server";
 import { generateSlug } from "random-word-slugs";
-import { withUsageUpdate } from "server/db/utils/usage";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -59,7 +58,7 @@ export const teamsRouter = createTRPCRouter({
         .object({
           teamId: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       return ctx.prisma.team.findUnique({
@@ -124,7 +123,7 @@ export const teamsRouter = createTRPCRouter({
         .object({
           name: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;
@@ -144,8 +143,6 @@ export const teamsRouter = createTRPCRouter({
           },
         });
 
-        await withUsageUpdate(tx, userId, "teams", "increment");
-
         return { team };
       });
     }),
@@ -157,7 +154,7 @@ export const teamsRouter = createTRPCRouter({
           teamId: z.string(),
           name: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.team.update({
@@ -225,16 +222,6 @@ export const teamsRouter = createTRPCRouter({
             id: input.teamId,
           },
         });
-
-        await withUsageUpdate(tx, userId, "teams", "decrement");
-        await withUsageUpdate(
-          tx,
-          userId,
-          "members",
-          "decrement",
-          // Remove the Admin from the count
-          members.length - 1,
-        );
 
         return { team };
       });

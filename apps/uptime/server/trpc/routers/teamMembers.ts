@@ -2,7 +2,6 @@
 import { Role } from ".prisma/client";
 import { TRPCError } from "@trpc/server";
 import dayjs from "dayjs";
-import { withUsageUpdate } from "server/db/utils/subscription";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -70,39 +69,26 @@ export const teamMembersRouter = createTRPCRouter({
           });
         }
 
-        const [adminMember, teamMember] = await Promise.all([
-          tx.teamMembers.findFirst({
-            where: {
-              teamId: invitation.teamId,
-              role: Role.ADMIN,
-            },
-            select: {
-              userId: true,
-            },
-          }),
-          tx.teamMembers.create({
-            data: {
-              teamId: invitation.teamId,
-              userId: userToAdd.id,
-              role: invitation.role,
-            },
-            include: {
-              team: {
-                select: {
-                  name: true,
-                },
-              },
-              user: {
-                select: {
-                  name: true,
-                  email: true,
-                },
+        const teamMember = await ctx.prisma.teamMembers.create({
+          data: {
+            teamId: invitation.teamId,
+            userId: userToAdd.id,
+            role: invitation.role,
+          },
+          include: {
+            team: {
+              select: {
+                name: true,
               },
             },
-          }),
-        ]);
-
-        await withUsageUpdate(tx, adminMember?.userId!, "members", "increment");
+            user: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+          },
+        });
 
         await tx.teamInvitation.delete({
           where: { id: invitation.id },
@@ -118,9 +104,9 @@ export const teamMembersRouter = createTRPCRouter({
         .object({
           teamId: z.string(),
           userId: z.string(),
-          role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
+          role: z.enum(["DEVELOPER", "VIEWER", "OPERATOR"]),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.teamMembers.update({
@@ -158,19 +144,19 @@ export const teamMembersRouter = createTRPCRouter({
           teamId: z.string(),
           userId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;
 
       return await ctx.prisma.$transaction(async (tx) => {
-        const forms = await tx.formOnUsers.findMany({
+        const projects = await tx.projectUsers.findMany({
           where: {
             userId: input.userId,
             role: {
               not: Role.ADMIN,
             },
-            form: {
+            project: {
               users: {
                 some: {
                   userId: userId,
@@ -180,7 +166,7 @@ export const teamMembersRouter = createTRPCRouter({
             },
           },
           select: {
-            form: {
+            project: {
               select: {
                 name: true,
               },
@@ -188,10 +174,10 @@ export const teamMembersRouter = createTRPCRouter({
           },
         });
 
-        if (forms.length > 0) {
+        if (projects.length > 0) {
           throw new TRPCError({
             code: "BAD_REQUEST",
-            message: `User is a member of ${forms.map((f) => f.form.name).join(", ")}. Remove the user from the forms first.`,
+            message: `User is a member of ${projects.map((p) => p.project.name).join(", ")}. Remove the user from the projects first.`,
             cause: "CannotRemoveMember",
           });
         }
@@ -219,8 +205,6 @@ export const teamMembersRouter = createTRPCRouter({
             },
           },
         });
-
-        await withUsageUpdate(tx, userId, "members", "decrement");
 
         return { member };
       });

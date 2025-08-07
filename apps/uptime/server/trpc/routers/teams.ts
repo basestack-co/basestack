@@ -12,7 +12,6 @@ import { qstash } from "@basestack/vendors";
 import { TRPCError } from "@trpc/server";
 import dayjs from "dayjs";
 import { generateSlug } from "random-word-slugs";
-import { withUsageUpdate } from "server/db/utils/subscription";
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -70,7 +69,7 @@ export const teamsRouter = createTRPCRouter({
         .object({
           teamId: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       return ctx.prisma.team.findUnique({
@@ -135,7 +134,7 @@ export const teamsRouter = createTRPCRouter({
         .object({
           name: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;
@@ -155,8 +154,6 @@ export const teamsRouter = createTRPCRouter({
           },
         });
 
-        await withUsageUpdate(tx, userId, "teams", "increment");
-
         return { team };
       });
     }),
@@ -168,7 +165,7 @@ export const teamsRouter = createTRPCRouter({
           teamId: z.string(),
           name: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.team.update({
@@ -197,10 +194,10 @@ export const teamsRouter = createTRPCRouter({
           .filter((m) => m.userId !== userId)
           .map((m) => m.userId);
 
-        const usersInForms = await tx.formOnUsers.findMany({
+        const usersInForms = await tx.projectUsers.findMany({
           where: {
             userId: { in: userIds },
-            form: {
+            project: {
               users: {
                 some: {
                   userId: userId,
@@ -210,7 +207,7 @@ export const teamsRouter = createTRPCRouter({
             },
           },
           select: {
-            form: { select: { name: true } },
+            project: { select: { name: true } },
             user: { select: { name: true } },
           },
         });
@@ -218,10 +215,10 @@ export const teamsRouter = createTRPCRouter({
         if (usersInForms.length > 0) {
           throw new TRPCError({
             code: "BAD_REQUEST",
-            message: `Some team members are still assigned to forms: ${usersInForms
-              .map((u) => `User ${u.user.name} in form ${u.form.name}`)
-              .join(", ")}. Remove the users from the forms first.`,
-            cause: "CannotDeleteTeamWithMembersInForms",
+            message: `Some team members are still assigned to projects: ${usersInForms
+              .map((u) => `User ${u.user.name} in project ${u.project.name}`)
+              .join(", ")}. Remove the users from the projects first.`,
+            cause: "CannotDeleteTeamWithMembersInProjects",
           });
         }
 
@@ -237,16 +234,6 @@ export const teamsRouter = createTRPCRouter({
           },
         });
 
-        await withUsageUpdate(tx, userId, "teams", "decrement");
-        await withUsageUpdate(
-          tx,
-          userId,
-          "members",
-          "decrement",
-          // Remove the Admin from the count
-          members.length - 1,
-        );
-
         return { team };
       });
     }),
@@ -258,19 +245,19 @@ export const teamsRouter = createTRPCRouter({
           teamId: z.string(),
           userId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx?.auth?.user.id!;
 
       return await ctx.prisma.$transaction(async (tx) => {
-        const forms = await tx.formOnUsers.findMany({
+        const projects = await tx.projectUsers.findMany({
           where: {
             userId: input.userId,
             role: {
               not: Role.ADMIN,
             },
-            form: {
+            project: {
               users: {
                 some: {
                   userId: userId,
@@ -280,7 +267,7 @@ export const teamsRouter = createTRPCRouter({
             },
           },
           select: {
-            form: {
+            project: {
               select: {
                 name: true,
               },
@@ -288,10 +275,10 @@ export const teamsRouter = createTRPCRouter({
           },
         });
 
-        if (forms.length > 0) {
+        if (projects.length > 0) {
           throw new TRPCError({
             code: "BAD_REQUEST",
-            message: `User is a member of ${forms.map((f) => f.form.name).join(", ")}. Remove the user from the forms first.`,
+            message: `User is a member of ${projects.map((p) => p.project.name).join(", ")}. Remove the user from the projects first.`,
             cause: "CannotRemoveMember",
           });
         }
@@ -320,8 +307,6 @@ export const teamsRouter = createTRPCRouter({
           },
         });
 
-        await withUsageUpdate(tx, userId, "members", "decrement");
-
         return { member };
       });
     }),
@@ -332,9 +317,9 @@ export const teamsRouter = createTRPCRouter({
         .object({
           teamId: z.string(),
           userId: z.string(),
-          role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
+          role: z.enum(["DEVELOPER", "VIEWER", "OPERATOR"]),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.teamMembers.update({
@@ -370,7 +355,7 @@ export const teamsRouter = createTRPCRouter({
         .object({
           token: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       const invitation = await ctx.prisma.teamInvitation.findUnique({
@@ -430,9 +415,9 @@ export const teamsRouter = createTRPCRouter({
         .object({
           teamId: z.string(),
           email: z.string().email(),
-          role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
+          role: z.enum(["DEVELOPER", "VIEWER", "OPERATOR"]),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const user = ctx.auth?.user;
@@ -531,7 +516,7 @@ export const teamsRouter = createTRPCRouter({
         .object({
           inviteId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const invitation = await ctx.prisma.teamInvitation.delete({
@@ -607,39 +592,26 @@ export const teamsRouter = createTRPCRouter({
           });
         }
 
-        const [adminMember, teamMember] = await Promise.all([
-          tx.teamMembers.findFirst({
-            where: {
-              teamId: invitation.teamId,
-              role: Role.ADMIN,
-            },
-            select: {
-              userId: true,
-            },
-          }),
-          tx.teamMembers.create({
-            data: {
-              teamId: invitation.teamId,
-              userId: userToAdd.id,
-              role: invitation.role,
-            },
-            include: {
-              team: {
-                select: {
-                  name: true,
-                },
-              },
-              user: {
-                select: {
-                  name: true,
-                  email: true,
-                },
+        const teamMember = await ctx.prisma.teamMembers.create({
+          data: {
+            teamId: invitation.teamId,
+            userId: userToAdd.id,
+            role: invitation.role,
+          },
+          include: {
+            team: {
+              select: {
+                name: true,
               },
             },
-          }),
-        ]);
-
-        await withUsageUpdate(tx, adminMember?.userId!, "members", "increment");
+            user: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+          },
+        });
 
         await tx.teamInvitation.delete({
           where: { id: invitation.id },

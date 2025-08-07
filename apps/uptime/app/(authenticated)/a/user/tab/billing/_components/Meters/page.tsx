@@ -104,6 +104,10 @@ const Meters = ({
         key: "email_notification",
         title: t("usage.meters.resource.email_notification"),
       },
+      {
+        key: "webhook_trigger",
+        title: t("usage.meters.resource.webhook_trigger"),
+      },
     ];
 
     return resourceMap
@@ -135,6 +139,11 @@ const Meters = ({
 
   const currentUsage = useMemo(() => {
     const resources = [
+      { key: "projects", title: t("usage.resource.projects") },
+      { key: "monitors", title: t("usage.resource.monitors") },
+      { key: "statusPages", title: t("usage.resource.statusPages") },
+      { key: "incidents", title: t("usage.resource.incidents") },
+      { key: "subscribers", title: t("usage.resource.subscribers") },
       { key: "teams", title: t("usage.resource.teams") },
       { key: "members", title: t("usage.resource.members") },
     ];
