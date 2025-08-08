@@ -9,9 +9,10 @@ import { useTranslations } from "next-intl";
 import { useStore } from "store";
 // Server
 import { api } from "utils/trpc/react";
-// Utils
 // Store
 import { useShallow } from "zustand/react/shallow";
+// Types
+import { MonitorType } from ".prisma/client";
 
 const CreateMonitorModal = () => {
   const t = useTranslations("modal");
@@ -56,6 +57,7 @@ const CreateMonitorModal = () => {
           type="button"
           onClick={() => {
             createMonitor.mutate({
+              type: MonitorType.HTTP,
               name: "TEST",
               projectId,
               cron: "*/1 * * * *", // every minute
@@ -63,6 +65,7 @@ const CreateMonitorModal = () => {
                 url: "https://basestack.co/",
                 method: "GET",
                 headers: {},
+                body: "{}",
                 timeout: 7200,
                 expectedStatus: 200,
                 keyword: "",
