@@ -20,7 +20,18 @@ export interface SendDataToExternalWebhookPayload extends UsagePayload {
   body: any;
 }
 
+export interface SchedulePayload {
+  timeout: number;
+  retries: number;
+  cron: string;
+}
+
 export interface CreateMonitorCheckSchedulePayload extends UsagePayload {
-  url: string;
-  method: string;
+  projectId: string;
+  monitorId: string;
+  adminUserEmail: string;
+}
+
+export interface CreateMonitorCheckScheduleArgs extends SchedulePayload {
+  body: CreateMonitorCheckSchedulePayload;
 }

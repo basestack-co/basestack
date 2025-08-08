@@ -39,6 +39,8 @@ enum MonitorStatus {
   DEGRADED
   MAINTENANCE
   UNKNOWN
+  TIMEOUT
+  ERROR
 }
 
 enum IncidentStatus {
@@ -200,20 +202,6 @@ model ProjectUsers {
   @@index([userId])
 }
 
-// {
-//   "url": "https://example.com",
-//   "method": "GET",
-//   "headers": {},
-//   "timeout": 30,
-//   "expectedStatus": 200,
-//   "keyword": "success",
-//   "port": 80,
-//   "sslCheckDays": 30,
-//   "followRedirects": true,
-//   "verifySSL": true,
-//   "regions": ["us-east-1"]
-// }
-
 model Monitor {
   id            String      @id @default(cuid())
   name          String      @db.VarChar(100)
@@ -243,6 +231,7 @@ model MonitorCheck {
   monitorId    String
   status       MonitorStatus
   responseTime Int?
+  responseSize Int?
   statusCode   Int?
   error        String?
   region       String        @default("")

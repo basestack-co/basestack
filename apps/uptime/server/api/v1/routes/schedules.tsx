@@ -1,80 +1,96 @@
 // Vendors
-import type { CreateMonitorCheckSchedulePayload } from "@basestack/vendors";
+import {
+  type CreateMonitorCheckSchedulePayload,
+  polar,
+} from "@basestack/vendors";
+import { WorkflowNonRetryableError } from "@upstash/workflow";
+// Database
+import { prisma } from "server/db";
+// Utils
+import { Product, UsageEvent } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
+import { getPerformCheck, monitorConfigSchema } from "../utils/monitoring";
 // UpStash Workflow
 import { Receiver } from "@upstash/qstash";
 import { serve } from "@upstash/workflow/hono";
 import { Hono } from "hono";
 
-async function httpCheck(config: any): Promise<any> {
-  const startTime = Date.now();
-
-  try {
-    const response = await fetch(config.url, {
-      method: config.method,
-      headers: config.headers,
-      body: config.body,
-      // timeout: config.timeout * 1000,
-      signal: AbortSignal.timeout(config.timeout * 1000),
-    });
-
-    const responseTime = Date.now() - startTime;
-    let isUp = response.status === config.expectedStatus;
-
-    // Keyword check if specified
-    if (config.keyword && isUp) {
-      const text = await response.text();
-      isUp = text.includes(config.keyword);
-    }
-
-    return {
-      status: isUp ? "UP" : "DOWN",
-      responseTime,
-      statusCode: response.status,
-      errorMessage: isUp
-        ? null
-        : `Expected ${config.expectedStatus}, got ${response.status}`,
-    };
-  } catch (error) {
-    return {
-      status: "DOWN",
-      responseTime: Date.now() - startTime,
-      errorMessage: error instanceof Error ? error.message : "Unknown error",
-    };
-  }
-}
-
-async function performCheck(type: string, config: any) {
-  switch (type) {
-    case "HTTP":
-      return await httpCheck(config);
-    /* case 'PING':
-      return await pingCheck(config);
-    case 'TCP':
-      return await tcpCheck(config);
-    case 'SSL_CERTIFICATE':
-      return await sslCheck(config); */
-  }
-}
-
 const schedulesRoutes = new Hono().post(
   "/monitor-check",
   serve<CreateMonitorCheckSchedulePayload>(
     async (context) => {
-      const { url, method } = context.requestPayload;
+      const {
+        monitorId,
+        adminUserEmail,
+        externalCustomerId = "",
+      } = context.requestPayload;
+
+      /* await context.run("subscription-check-step", async () => {
+        const sub = await polar.getCustomerSubscription(
+          externalCustomerId,
+          Product.UPTIME,
+          AppMode
+        );
+
+        if (!sub) {
+          throw new WorkflowNonRetryableError(
+            `Schedules: Basestack Uptime - Monitor Check - No subscription found for externalCustomerId ${externalCustomerId}`
+          );
+        }
+      }); */
 
       await context.run("monitor-check-step", async () => {
-        const result = await performCheck("HTTP", {
-          url,
-          method,
-          headers: {},
-          body: "",
-          expectedStatus: 200,
-          keyword: "",
-          timeout: 30000,
+        const monitor = await prisma.monitor.findUnique({
+          where: {
+            id: monitorId,
+          },
+          select: {
+            type: true,
+            config: true,
+          },
         });
 
-        console.log("result", result);
+        if (!monitor) return;
+
+        const config = monitorConfigSchema.safeParse(monitor.config);
+
+        if (!config.success) {
+          throw new WorkflowNonRetryableError(
+            `Schedules: Basestack Uptime - Monitor Check - Invalid monitor config ${JSON.stringify(config.error)}`
+          );
+        }
+
+        console.info(
+          `Schedules: Basestack Uptime - Monitor Check - Preparing to check monitor ${monitorId} with config ${JSON.stringify(config.data)}`
+        );
+
+        const result = await getPerformCheck(monitor.type, config.data);
+
+        if (!result) {
+          throw new WorkflowNonRetryableError(
+            `Schedules: Basestack Uptime - Monitor Check - No result from getPerformCheck`
+          );
+        }
+
+        await prisma.monitorCheck.create({
+          data: {
+            monitorId,
+            ...result,
+          },
+        });
       });
+
+      /*  await context.run("create-usage-event-step", async () => {
+        await polar.createUsageEvent(
+          UsageEvent.API_REQUESTS,
+          externalCustomerId,
+          {
+            product: Product.UPTIME,
+            projectName: "Basestack Uptime",
+            adminUserEmail,
+          }
+        );
+      }); */
     },
     {
       receiver: new Receiver({

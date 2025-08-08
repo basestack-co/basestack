@@ -2,6 +2,7 @@
 import { MonitorType, Role } from ".prisma/client";
 // Utils
 import { type AppEnv, config, emailToId, Product } from "@basestack/utils";
+import { monitorConfigSchema } from "server/api/v1/utils/monitoring";
 // Vendors
 import { qstash } from "@basestack/vendors";
 import {
@@ -32,40 +33,39 @@ export const projectMonitorsRouter = createTRPCRouter({
         .object({
           projectId: z.string(),
           name: z.string(),
-          url: z.string().url(),
-          method: z.enum(["GET", "POST", "PUT", "DELETE", "PATCH"]),
-          headers: z.record(z.string(), z.string()),
-          timeout: z.number().min(1).max(300),
-          expectedStatus: z.number().min(100).max(599),
-          keyword: z.string(),
-          port: z.number().min(1).max(6555),
-          interval: z.number().min(1).max(300),
+          cron: z.string(),
+          config: monitorConfigSchema,
         })
         .required()
     )
     .mutation(async ({ ctx, input }) => {
-      const { scheduleId } = await qstash.schedules.createMonitorCheckSchedule(
-        "*/1 * * * *",
-        {
-          url: input.url,
-          method: input.method,
-        },
-        100,
-        1
-      );
+      const externalCustomerId = emailToId(ctx.project.adminUserEmail);
 
       const monitor = await ctx.prisma.monitor.create({
         data: {
           name: input.name,
           type: MonitorType.HTTP,
           projectId: input.projectId,
+          config: input.config,
+        },
+      });
+
+      const { scheduleId } = await qstash.schedules.createMonitorCheckSchedule({
+        cron: input.cron,
+        body: {
+          adminUserEmail: ctx.project.adminUserEmail,
+          projectId: input.projectId,
+          monitorId: monitor.id,
+          externalCustomerId,
+        },
+        timeout: 10000,
+        retries: 1,
+      });
+
+      await ctx.prisma.monitor.update({
+        where: { id: monitor.id },
+        data: {
           scheduleId,
-          config: {
-            url: input.url,
-            method: input.method,
-            headers: input.headers,
-            timeout: input.timeout,
-          },
         },
       });
 
