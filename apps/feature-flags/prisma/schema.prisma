@@ -9,7 +9,7 @@ datasource db {
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearchPostgres", "relationJoins", "nativeDistinct"]
+  previewFeatures = ["fullTextSearchPostgres", "relationJoins", "nativeDistinct", "driverAdapters"]
   output          = "../node_modules/.prisma/client"
 }
 
