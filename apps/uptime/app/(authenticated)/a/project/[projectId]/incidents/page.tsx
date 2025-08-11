@@ -1,8 +1,15 @@
 "use client";
 
+import {
+  Empty,
+  Label,
+  Pagination,
+  Search,
+  Table,
+  Text,
+} from "@basestack/design-system";
 import { useParams } from "next/navigation";
-import { useMemo, useState } from "react";
-import { Empty, Label, Pagination, Search, Table, Text } from "@basestack/design-system";
+import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { api } from "utils/trpc/react";
 
@@ -25,11 +32,22 @@ const ProjectIncidentsPage = () => {
   const { projectId } = useParams<{ projectId: string }>();
 
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
+
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedSearch(search), 300);
+    return () => clearTimeout(t);
+  }, [search]);
 
   const { data, isLoading, fetchNextPage } =
     api.projectIncidents.list.useInfiniteQuery(
-      { projectId, limit: 20, search },
-      { enabled: !!projectId, getNextPageParam: (last) => last.nextCursor },
+      { projectId, limit: 20, search: debouncedSearch },
+      {
+        enabled: !!projectId,
+        getNextPageParam: (last) => last.nextCursor,
+        refetchOnWindowFocus: false,
+        staleTime: 30_000,
+      },
     );
 
   const [currentPage, totalPages] = useMemo(() => {
@@ -64,13 +82,23 @@ const ProjectIncidentsPage = () => {
             { title: i.title },
             {
               children: (
-                <Label text={i.status} size="small" variant={statusVariant} isUppercase />
+                <Label
+                  text={i.status}
+                  size="small"
+                  variant={statusVariant}
+                  isUppercase
+                />
               ),
               title: i.status,
             },
             {
               children: (
-                <Label text={i.severity} size="small" variant={severityVariant} isUppercase />
+                <Label
+                  text={i.severity}
+                  size="small"
+                  variant={severityVariant}
+                  isUppercase
+                />
               ),
               title: i.severity,
             },

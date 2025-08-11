@@ -315,7 +315,8 @@ model Incident {
   statusPages StatusPageIncident[]
 
   @@index([projectId, status])
-  @@index([createdAt])
+  @@index([createdAt(sort: Desc)])
+  @@index([id])
 }
 
 model IncidentUpdate {
@@ -367,4 +368,5 @@ model StatusPageSubscriber {
 
   @@index([statusPageId, isVerified])
   @@index([email])
+  @@index([id])
 }

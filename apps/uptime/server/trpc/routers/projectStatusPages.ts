@@ -53,13 +53,13 @@ export const projectStatusPagesRouter = createTRPCRouter({
           : {}),
       };
 
-      return ctx.prisma.$transaction(async (tx) => {
-        const total = await tx.statusPage.count({ where });
-
-        const statusPages = await tx.statusPage.findMany({
+      const [total, statusPages] = await ctx.prisma.$transaction([
+        ctx.prisma.statusPage.count({ where }),
+        ctx.prisma.statusPage.findMany({
           where,
           take: limit + 1,
           cursor: input.cursor ? { id: input.cursor } : undefined,
+          skip: input.cursor ? 1 : 0,
           orderBy: [{ createdAt: "desc" }, { id: "desc" }],
           select: {
             id: true,
@@ -78,16 +78,16 @@ export const projectStatusPagesRouter = createTRPCRouter({
               },
             },
           },
-        });
+        }),
+      ]);
 
-        let nextCursor: typeof input.cursor | undefined;
-        if (statusPages.length > limit) {
-          const nextItem = statusPages.pop();
-          nextCursor = nextItem!.id;
-        }
+      let nextCursor: typeof input.cursor | undefined;
+      if (statusPages.length > limit) {
+        const nextItem = statusPages.pop();
+        nextCursor = nextItem!.id;
+      }
 
-        return { statusPages, nextCursor, total };
-      });
+      return { statusPages, nextCursor, total };
     }),
   create: protectedProcedure
     .use(withProjectRestrictions({ roles: [Role.ADMIN, Role.DEVELOPER] }))
@@ -154,8 +154,8 @@ export const projectStatusPagesRouter = createTRPCRouter({
             domain: input.domain ?? null,
             isPublic: input.isPublic ?? true,
             isEnabled: input.isEnabled ?? true,
-            language: input.language, // default in schema
-            timezone: input.timezone, // default in schema
+            language: input.language,
+            timezone: input.timezone,
             logoUrl: input.logoUrl ?? null,
             favicon: input.favicon ?? null,
             customCSS: input.customCSS ?? null,
@@ -257,7 +257,6 @@ export const projectStatusPagesRouter = createTRPCRouter({
           });
         }
 
-        // Validate monitors belong to the same project (for any component monitor links)
         const monitorIds = Array.from(
           new Set(
             (input.components ?? [])

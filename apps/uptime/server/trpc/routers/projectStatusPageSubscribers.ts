@@ -48,13 +48,13 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
           : {}),
       };
 
-      return ctx.prisma.$transaction(async (tx) => {
-        const total = await tx.statusPageSubscriber.count({ where });
-
-        const subscribers = await tx.statusPageSubscriber.findMany({
+      const [total, subscribers] = await ctx.prisma.$transaction([
+        ctx.prisma.statusPageSubscriber.count({ where }),
+        ctx.prisma.statusPageSubscriber.findMany({
           where,
           take: limit + 1,
           cursor: input.cursor ? { id: input.cursor } : undefined,
+          skip: input.cursor ? 1 : 0,
           orderBy: [{ createdAt: "desc" }, { id: "desc" }],
           select: {
             id: true,
@@ -67,16 +67,16 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
             updatedAt: true,
             statusPage: { select: { id: true, name: true, slug: true } },
           },
-        });
+        }),
+      ]);
 
-        let nextCursor: typeof input.cursor | undefined;
-        if (subscribers.length > limit) {
-          const nextItem = subscribers.pop();
-          nextCursor = nextItem!.id;
-        }
+      let nextCursor: typeof input.cursor | undefined;
+      if (subscribers.length > limit) {
+        const nextItem = subscribers.pop();
+        nextCursor = nextItem!.id;
+      }
 
-        return { subscribers, nextCursor, total };
-      });
+      return { subscribers, nextCursor, total };
     }),
   create: protectedProcedure
     .use(withProjectRestrictions({ roles: [Role.ADMIN, Role.DEVELOPER] }))

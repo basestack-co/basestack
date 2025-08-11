@@ -39,16 +39,15 @@ export const projectIncidentsRouter = createTRPCRouter({
         ...search,
       };
 
-      return ctx.prisma.$transaction(async (tx) => {
-        const { _count } = await tx.incident.aggregate({
-          _count: { id: true },
-          where,
-        });
-
-        const incidents = await tx.incident.findMany({
+      // Run count and page query concurrently for lower latency
+      const [total, incidents] = await ctx.prisma.$transaction([
+        ctx.prisma.incident.count({ where }),
+        ctx.prisma.incident.findMany({
           where,
           take: limit + 1,
           cursor: input.cursor ? { id: input.cursor } : undefined,
+          skip: input.cursor ? 1 : 0,
+          // Stable order matching previous UX: newest first, then id as tiebreaker
           orderBy: [{ createdAt: "desc" }, { id: "desc" }],
           select: {
             id: true,
@@ -90,37 +89,37 @@ export const projectIncidentsRouter = createTRPCRouter({
               },
             },
           },
-        });
+        }),
+      ]);
 
-        let nextCursor: typeof input.cursor | undefined;
-        if (incidents.length > limit) {
-          const nextItem = incidents.pop();
-          nextCursor = nextItem!.id;
-        }
+      let nextCursor: typeof input.cursor | undefined;
+      if (incidents.length > limit) {
+        const nextItem = incidents.pop();
+        nextCursor = nextItem!.id;
+      }
 
-        const data = incidents.map((i) => ({
-          id: i.id,
-          title: i.title,
-          description: i.description,
-          status: i.status,
-          severity: i.severity,
-          isScheduled: i.isScheduled,
-          scheduledStart: i.scheduledStart,
-          scheduledEnd: i.scheduledEnd,
-          resolvedAt: i.resolvedAt,
-          createdAt: i.createdAt,
-          updatedAt: i.updatedAt,
-          _count: i._count,
-          latestUpdate: i.updates[0] ?? null,
-          monitors: i.monitors.map((m) => m.monitor),
-        }));
+      const data = incidents.map((i) => ({
+        id: i.id,
+        title: i.title,
+        description: i.description,
+        status: i.status,
+        severity: i.severity,
+        isScheduled: i.isScheduled,
+        scheduledStart: i.scheduledStart,
+        scheduledEnd: i.scheduledEnd,
+        resolvedAt: i.resolvedAt,
+        createdAt: i.createdAt,
+        updatedAt: i.updatedAt,
+        _count: i._count,
+        latestUpdate: i.updates[0] ?? null,
+        monitors: i.monitors.map((m) => m.monitor),
+      }));
 
-        return {
-          incidents: data,
-          nextCursor,
-          total: _count.id,
-        };
-      });
+      return {
+        incidents: data,
+        nextCursor,
+        total,
+      };
     }),
   create: protectedProcedure
     .use(

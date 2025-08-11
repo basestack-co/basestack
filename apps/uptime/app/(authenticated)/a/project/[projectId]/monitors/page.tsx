@@ -41,7 +41,12 @@ const ProjectMonitorsPage = () => {
 
   const { data, fetchNextPage } = api.projectMonitors.list.useInfiniteQuery(
     { projectId, limit: 10, search: "" },
-    { enabled: !!projectId, getNextPageParam: (last) => last.nextCursor },
+    {
+      enabled: !!projectId,
+      getNextPageParam: (last) => last.nextCursor,
+      refetchOnWindowFocus: false,
+      staleTime: 30_000,
+    },
   );
 
   const [currentPage, totalPages] = useMemo(() => {

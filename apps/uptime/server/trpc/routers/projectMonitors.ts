@@ -43,16 +43,13 @@ export const projectMonitorsRouter = createTRPCRouter({
         ...search,
       };
 
-      return ctx.prisma.$transaction(async (tx) => {
-        const { _count } = await tx.monitor.aggregate({
-          _count: { id: true },
-          where,
-        });
-
-        const monitors = await tx.monitor.findMany({
+      const [total, monitors] = await ctx.prisma.$transaction([
+        ctx.prisma.monitor.count({ where }),
+        ctx.prisma.monitor.findMany({
           where,
           take: limit + 1,
           cursor: input.cursor ? { id: input.cursor } : undefined,
+          skip: input.cursor ? 1 : 0,
           orderBy: [{ createdAt: "desc" }, { id: "desc" }],
           select: {
             id: true,
@@ -61,7 +58,6 @@ export const projectMonitorsRouter = createTRPCRouter({
             interval: true,
             isEnabled: true,
             scheduleId: true,
-            config: true,
             createdAt: true,
             updatedAt: true,
             _count: {
@@ -84,34 +80,33 @@ export const projectMonitorsRouter = createTRPCRouter({
               },
             },
           },
-        });
+        }),
+      ]);
 
-        let nextCursor: typeof input.cursor | undefined;
-        if (monitors.length > limit) {
-          const nextItem = monitors.pop();
-          nextCursor = nextItem!.id;
-        }
+      let nextCursor: typeof input.cursor | undefined;
+      if (monitors.length > limit) {
+        const nextItem = monitors.pop();
+        nextCursor = nextItem!.id;
+      }
 
-        const data = monitors.map((m) => ({
-          id: m.id,
-          name: m.name,
-          type: m.type,
-          interval: m.interval,
-          isEnabled: m.isEnabled,
-          scheduleId: m.scheduleId,
-          config: m.config,
-          createdAt: m.createdAt,
-          updatedAt: m.updatedAt,
-          _count: m._count,
-          latestCheck: m.checks[0] ?? null,
-        }));
+      const data = monitors.map((m) => ({
+        id: m.id,
+        name: m.name,
+        type: m.type,
+        interval: m.interval,
+        isEnabled: m.isEnabled,
+        scheduleId: m.scheduleId,
+        createdAt: m.createdAt,
+        updatedAt: m.updatedAt,
+        _count: m._count,
+        latestCheck: m.checks[0] ?? null,
+      }));
 
-        return {
-          monitors: data,
-          nextCursor,
-          total: _count.id,
-        };
-      });
+      return {
+        monitors: data,
+        nextCursor,
+        total,
+      };
     }),
   create: protectedProcedure
     .use(withProjectRestrictions({ roles: [Role.ADMIN, Role.DEVELOPER] }))
