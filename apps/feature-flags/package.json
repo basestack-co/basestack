@@ -9,7 +9,7 @@
     "build:proxy": "yarn db:generate --data-proxy && yarn db:migrate:proxy && next build",
     "deploy": "yarn build:deploy",
     "start": "next start",
-    "lint": "biome check . --write --no-ignore-path",
+    "lint": "biome check . --write",
     "test:blocked": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
