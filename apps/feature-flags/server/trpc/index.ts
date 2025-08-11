@@ -7,7 +7,7 @@ import { headers } from "next/headers";
 // Auth
 import { auth } from "server/auth";
 // Database
-import { prisma } from "server/db";
+import { getDb } from "server/db";
 import { createHistory } from "server/db/utils/history";
 import { getUserInProject, getUserInTeam } from "server/db/utils/user";
 // Utils
@@ -20,6 +20,8 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
   const data = await auth.api.getSession({
     headers: await headers(),
   });
+
+  const prisma = getDb();
 
   return {
     prisma,

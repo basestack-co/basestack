@@ -4,7 +4,7 @@
 import { Role } from ".prisma/client";
 // Utils
 import { type AppEnv, Product, config as utilsConfig } from "@basestack/utils";
-import { prisma } from "server/db";
+import { getDb } from "server/db";
 import { AppMode } from "utils/helpers/general";
 
 const { urls } = utilsConfig;
@@ -12,6 +12,8 @@ const { urls } = utilsConfig;
 export const productUrl = urls.getAppWithEnv(Product.FLAGS, AppMode as AppEnv);
 
 export const getProjectOnUser = async (projectKey: string) => {
+  const prisma = getDb();
+
   const [current, admin] = await prisma.$transaction([
     prisma.projectsOnUsers.findFirst({
       where: {

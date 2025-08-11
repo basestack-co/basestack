@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 // Prisma
-import { prisma } from "server/db";
+import { getDb } from "server/db";
 // Middleware
 import { ProjectPermissionMiddleware } from "../middleware";
 
@@ -10,6 +10,7 @@ const flagsRoutes = new Hono()
     try {
       const projectKey = c.req.header("x-project-key");
       const environmentKey = c.req.header("x-environment-key");
+      const prisma = getDb();
 
       const flags = await prisma.flag.findMany({
         where: {
@@ -38,7 +39,7 @@ const flagsRoutes = new Hono()
         { flags },
         {
           status: 200,
-        },
+        }
       );
     } catch (error: any) {
       return c.json(
@@ -46,7 +47,7 @@ const flagsRoutes = new Hono()
           error: true,
           message: "Something went wrong, please try again later.",
         },
-        { status: error.code ?? 400 },
+        { status: error.code ?? 400 }
       );
     }
   })
@@ -55,6 +56,8 @@ const flagsRoutes = new Hono()
       const slug = c.req.param("slug");
       const projectKey = c.req.header("x-project-key");
       const environmentKey = c.req.header("x-environment-key");
+
+      const prisma = getDb();
 
       const flag = await prisma.flag.findFirst({
         where: {
@@ -82,7 +85,7 @@ const flagsRoutes = new Hono()
             error: true,
             message: `Flag with slug ${slug} does not exist`,
           },
-          { status: 404 },
+          { status: 404 }
         );
       }
 
@@ -95,7 +98,7 @@ const flagsRoutes = new Hono()
           error: true,
           message: "Something went wrong, please try again later.",
         },
-        { status: error.code ?? 400 },
+        { status: error.code ?? 400 }
       );
     }
   });

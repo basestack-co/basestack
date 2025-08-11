@@ -46,6 +46,7 @@
     "@monaco-editor/react": "^4.7.0",
     "@opennextjs/cloudflare": "^1.6.5",
     "@polar-sh/sdk": "^0.34.8",
+    "@prisma/adapter-pg": "^6.13.0",
     "@prisma/client": "^6.12.0",
     "@tanstack/react-query": "^5.83.0",
     "@trpc/client": "^11.4.3",

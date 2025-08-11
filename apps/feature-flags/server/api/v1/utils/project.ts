@@ -11,7 +11,7 @@ import {
 // Vendors
 import { polar } from "@basestack/vendors";
 // DB
-import { prisma } from "server/db";
+import { getDb } from "server/db";
 import { getProjectOnUser, productUrl } from "server/db/utils/project";
 import { withUsageUpdate } from "server/db/utils/usage";
 import { AppMode } from "utils/helpers/general";
@@ -22,6 +22,8 @@ export const verifyProjectRequest = async (
   metadata: { ip: string | null },
 ) => {
   try {
+    const prisma = getDb();
+
     const projectKey = key.trim();
 
     const project = await getProjectOnUser(projectKey);

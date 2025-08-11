@@ -9,12 +9,12 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 // Utils
 import { AppMode } from "../../utils/helpers/general";
 // DB
-import { prisma } from "../db";
+import { getDb } from "server/db";
 
 export const auth: ReturnType<typeof betterAuth> = authVendor.createAuthServer({
   product: Product.FLAGS,
   env: AppMode as AppEnv,
-  database: prismaAdapter(prisma, {
+  database: prismaAdapter(getDb(), {
     provider: "postgresql",
   }),
   welcomeEmail: {
