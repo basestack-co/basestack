@@ -4,6 +4,8 @@
 import { config } from "@basestack/utils";
 // Router
 import { useParams } from "next/navigation";
+// React
+import { useMemo } from "react";
 // Server
 import { api } from "utils/trpc/react";
 // Components
@@ -11,8 +13,6 @@ import { CardList, CardListItem, SettingCardContainer } from "../styles";
 import FormHoneyPot from "./_components/FormHoneyPot";
 import FormIpRules from "./_components/FormIpRules";
 import FormWebsites from "./_components/FormWebsites";
-// React
-import { useMemo } from "react";
 
 const { hasPermission, PERMISSIONS } = config;
 

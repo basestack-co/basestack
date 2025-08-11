@@ -2,6 +2,8 @@
 
 // Types
 import { Role } from ".prisma/client";
+// Hooks
+import { useDarkModeToggle } from "@basestack/hooks";
 // Components
 import {
   Navigation as NavigationUI,
@@ -11,8 +13,6 @@ import {
 import { type AppEnv, config, Product } from "@basestack/utils";
 // Vendors
 import { auth } from "@basestack/vendors";
-// Hooks
-import { useDarkModeToggle } from "@basestack/hooks";
 import { useParams, usePathname, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";

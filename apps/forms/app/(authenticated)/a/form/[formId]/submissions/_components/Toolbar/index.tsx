@@ -10,7 +10,7 @@ import { config } from "@basestack/utils";
 // Locales
 import { useTranslations } from "next-intl";
 // React
-import { useEffect, useMemo, useState, ChangeEvent } from "react";
+import { type ChangeEvent, useEffect, useMemo, useState } from "react";
 // Hooks
 import { useDebounce } from "react-use";
 import PopupMenu from "./PopupMenu";

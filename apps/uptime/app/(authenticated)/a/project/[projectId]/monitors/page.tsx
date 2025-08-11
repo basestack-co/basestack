@@ -4,12 +4,11 @@
 import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-
+import { useMemo } from "react";
 // Styles
 import { useTheme } from "styled-components";
 // Server
 import { api } from "utils/trpc/react";
-import { useMemo } from "react";
 
 const ProjectMonitorsPage = () => {
   const t = useTranslations();
@@ -19,7 +18,7 @@ const ProjectMonitorsPage = () => {
 
   const { data, fetchNextPage } = api.projectMonitors.list.useInfiniteQuery(
     { projectId, limit: 10, search: "" },
-    { enabled: !!projectId, getNextPageParam: (last) => last.nextCursor }
+    { enabled: !!projectId, getNextPageParam: (last) => last.nextCursor },
   );
 
   const [currentPage, totalPages] = useMemo(() => {

@@ -1,5 +1,5 @@
 // Types
-import type { MonitorType, MonitorStatus } from ".prisma/client";
+import type { MonitorStatus, MonitorType } from ".prisma/client";
 // Utils
 import { z } from "zod";
 
@@ -75,7 +75,7 @@ const isValidUrl = (url: string): boolean => {
 
 const validateStatus = (
   actual: number,
-  expected: number | number[]
+  expected: number | number[],
 ): boolean => {
   return Array.isArray(expected)
     ? expected.includes(actual)
@@ -100,7 +100,7 @@ const sanitizeHeaders = (headers?: Record<string, string>): HeadersInit => {
 const readResponseWithKeyword = async (
   response: Response,
   keyword: string,
-  maxSize: number
+  maxSize: number,
 ): Promise<{ found: boolean; size: number }> => {
   const reader = response.body?.getReader();
   if (!reader) return { found: false, size: 0 };
@@ -141,7 +141,7 @@ const readResponseWithKeyword = async (
 // ============================================================================
 
 export const createHttpCheck = async (
-  config: MonitorConfig
+  config: MonitorConfig,
 ): Promise<MonitorCheck> => {
   const {
     url,
@@ -200,7 +200,7 @@ export const createHttpCheck = async (
         const result = await readResponseWithKeyword(
           response,
           keyword,
-          maxResponseSize
+          maxResponseSize,
         );
         isUp = result.found;
         responseSize = result.size;
@@ -231,7 +231,7 @@ export const createHttpCheck = async (
       if (attempt < retries && !isTimeoutError(error as Error)) {
         attempt++;
         await new Promise((resolve) =>
-          setTimeout(resolve, retryDelay * attempt)
+          setTimeout(resolve, retryDelay * attempt),
         );
         continue;
       }
@@ -257,7 +257,7 @@ export const createHttpCheck = async (
 
 export const createBatchHttpCheck = async (
   configs: MonitorConfig[],
-  options: { concurrency?: number } = {}
+  options: { concurrency?: number } = {},
 ): Promise<MonitorCheck[]> => {
   const { concurrency = 10 } = options;
 
@@ -288,7 +288,7 @@ export const createBatchHttpCheck = async (
 
 export const getPerformCheck = async (
   type: MonitorType,
-  config: MonitorConfig
+  config: MonitorConfig,
 ) => {
   switch (type) {
     case "HTTPS":

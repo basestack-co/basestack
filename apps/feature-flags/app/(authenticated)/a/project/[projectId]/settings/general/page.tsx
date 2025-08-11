@@ -4,6 +4,8 @@
 import { config } from "@basestack/utils";
 // Router
 import { useParams } from "next/navigation";
+// React
+import { useMemo } from "react";
 // Server
 import { api } from "utils/trpc/react";
 // Styles
@@ -15,8 +17,6 @@ import ProjectKey from "./_components/ProjectKey";
 // Components
 import ProjectName from "./_components/ProjectName";
 import ProjectOwner from "./_components/ProjectOwner";
-// React
-import { useMemo } from "react";
 
 const { hasPermission, PERMISSIONS } = config;
 

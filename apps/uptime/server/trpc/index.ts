@@ -8,7 +8,7 @@ import { headers } from "next/headers";
 import { auth } from "server/auth";
 // Database
 import { prisma } from "server/db";
-import { getUserInTeam, getUserInProject } from "server/db/utils/user";
+import { getUserInProject, getUserInTeam } from "server/db/utils/user";
 // Utils
 import superjson from "superjson";
 import { ZodError } from "zod";

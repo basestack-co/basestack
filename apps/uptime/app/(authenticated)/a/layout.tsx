@@ -5,12 +5,12 @@ import { Loader, Splash } from "@basestack/design-system";
 // Libs
 import { auth } from "@basestack/vendors";
 import Navigation from "components/Navigation";
-// Router
-import { useRouter } from "next/navigation";
 // Modals
 import Modals from "modals";
+// Router
+import { useRouter } from "next/navigation";
 // React
-import { Fragment, ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 // Server
 import { api } from "utils/trpc/react";
 

@@ -13,8 +13,8 @@ import { useStore } from "store";
 import { api } from "utils/trpc/react";
 // Components
 import QuickLinks from "./_components/QuickLinks";
-import Teams from "./_components/Teams";
 import RecentProjects from "./_components/RecentProjects";
+import Teams from "./_components/Teams";
 // Styles
 import { Container } from "./styles";
 import Meters from "./user/tab/billing/_components/Meters/page";

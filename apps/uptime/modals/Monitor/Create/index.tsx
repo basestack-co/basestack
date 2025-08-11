@@ -1,3 +1,5 @@
+// Types
+import { MonitorType } from ".prisma/client";
 import { Modal } from "@basestack/design-system";
 // Components
 import Portal from "@basestack/design-system/global/Portal";
@@ -11,8 +13,6 @@ import { useStore } from "store";
 import { api } from "utils/trpc/react";
 // Store
 import { useShallow } from "zustand/react/shallow";
-// Types
-import { MonitorType } from ".prisma/client";
 
 const CreateMonitorModal = () => {
   const t = useTranslations("modal");
@@ -25,7 +25,7 @@ const CreateMonitorModal = () => {
         state.isCreateMonitorModalOpen,
         state.setCreateMonitorModalOpen,
         state.closeModalsOnClickOutside,
-      ])
+      ]),
     );
 
   const createMonitor = api.projectMonitors.create.useMutation();

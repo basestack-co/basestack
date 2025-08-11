@@ -2,9 +2,10 @@
 import { MonitorType, Role } from ".prisma/client";
 // Utils
 import { emailToId, Product } from "@basestack/utils";
-import { monitorConfigSchema } from "server/api/v1/utils/monitoring";
 // Vendors
 import { polar, qstash } from "@basestack/vendors";
+import { TRPCError } from "@trpc/server";
+import { monitorConfigSchema } from "server/api/v1/utils/monitoring";
 // Server
 import {
   createTRPCRouter,
@@ -134,6 +135,14 @@ export const projectMonitorsRouter = createTRPCRouter({
         AppMode
       );
 
+      if (!sub?.id) {
+        throw new TRPCError({
+          code: "PAYMENT_REQUIRED",
+          message:
+            "No active subscription found. Please upgrade to create a monitor.",
+        });
+      }
+
       const monitor = await ctx.prisma.monitor.create({
         data: {
           name: input.name,
@@ -144,27 +153,24 @@ export const projectMonitorsRouter = createTRPCRouter({
         },
       });
 
-      if (sub?.id) {
-        const { scheduleId } =
-          await qstash.schedules.createMonitorCheckSchedule({
-            cron: input.cron,
-            body: {
-              adminUserEmail: ctx.project.adminUserEmail,
-              projectId: input.projectId,
-              monitorId: monitor.id,
-              externalCustomerId,
-            },
-            timeout: input.config.timeout,
-            retries: 1,
-          });
+      const { scheduleId } = await qstash.schedules.createMonitorCheckSchedule({
+        cron: input.cron,
+        body: {
+          adminUserEmail: ctx.project.adminUserEmail,
+          projectId: input.projectId,
+          monitorId: monitor.id,
+          externalCustomerId,
+        },
+        timeout: input.config.timeout,
+        retries: 1,
+      });
 
-        await ctx.prisma.monitor.update({
-          where: { id: monitor.id },
-          data: {
-            scheduleId,
-          },
-        });
-      }
+      await ctx.prisma.monitor.update({
+        where: { id: monitor.id },
+        data: {
+          scheduleId,
+        },
+      });
 
       return { monitor: null };
     }),

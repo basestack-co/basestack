@@ -1,18 +1,19 @@
 // Vendors
+
+// Utils
+import { Product, UsageEvent } from "@basestack/utils";
 import {
   type CreateMonitorCheckSchedulePayload,
   polar,
 } from "@basestack/vendors";
-import { WorkflowNonRetryableError } from "@upstash/workflow";
-// Database
-import { prisma } from "server/db";
-// Utils
-import { Product, UsageEvent } from "@basestack/utils";
-import { getPerformCheck, monitorConfigSchema } from "../utils/monitoring";
 // UpStash Workflow
 import { Receiver } from "@upstash/qstash";
+import { WorkflowNonRetryableError } from "@upstash/workflow";
 import { serve } from "@upstash/workflow/hono";
 import { Hono } from "hono";
+// Database
+import { prisma } from "server/db";
+import { getPerformCheck, monitorConfigSchema } from "../utils/monitoring";
 
 const schedulesRoutes = new Hono().post(
   "/monitor-check",
@@ -41,19 +42,19 @@ const schedulesRoutes = new Hono().post(
 
         if (!config.success) {
           throw new WorkflowNonRetryableError(
-            `Schedules: Basestack Uptime - Monitor Check - Invalid monitor config ${JSON.stringify(config.error)}`
+            `Schedules: Basestack Uptime - Monitor Check - Invalid monitor config ${JSON.stringify(config.error)}`,
           );
         }
 
         console.info(
-          `Schedules: Basestack Uptime - Monitor Check - Preparing to check monitor ${monitorId} with config ${JSON.stringify(config.data)}`
+          `Schedules: Basestack Uptime - Monitor Check - Preparing to check monitor ${monitorId} with config ${JSON.stringify(config.data)}`,
         );
 
         const result = await getPerformCheck(monitor.type, config.data);
 
         if (!result) {
           throw new WorkflowNonRetryableError(
-            `Schedules: Basestack Uptime - Monitor Check - No result from getPerformCheck`
+            `Schedules: Basestack Uptime - Monitor Check - No result from getPerformCheck`,
           );
         }
 
@@ -73,7 +74,7 @@ const schedulesRoutes = new Hono().post(
             product: Product.UPTIME,
             projectName: "Basestack Uptime",
             adminUserEmail,
-          }
+          },
         );
       });
     },
@@ -90,11 +91,11 @@ const schedulesRoutes = new Hono().post(
         failHeaders,
       }) => {
         console.error(
-          `Schedules: Basestack Uptime - Monitor Check - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `
+          `Schedules: Basestack Uptime - Monitor Check - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
         );
       },
-    }
-  )
+    },
+  ),
 );
 
 export default schedulesRoutes;

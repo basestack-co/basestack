@@ -8,6 +8,9 @@ import {
 import { projectsRouter } from "server/trpc/routers/projects";
 import { projectMembersRouter } from "server/trpc/routers/projectMembers";
 import { projectMonitorsRouter } from "server/trpc/routers/projectMonitors";
+import { projectIncidentsRouter } from "server/trpc/routers/projectIncidents";
+import { projectStatusPageSubscribersRouter } from "server/trpc/routers/projectStatusPageSubscribers";
+import { projectStatusPagesRouter } from "server/trpc/routers/projectStatusPages";
 import { subscriptionRouter } from "server/trpc/routers/subscription";
 import { teamInvitesRouter } from "server/trpc/routers/teamInvites";
 import { teamMembersRouter } from "server/trpc/routers/teamMembers";
@@ -17,6 +20,9 @@ export const appRouter = createTRPCRouter({
   healthcheck: publicProcedure.query(() => "Basestack Uptime API is running!"),
   projects: projectsRouter,
   projectMonitors: projectMonitorsRouter,
+  projectIncidents: projectIncidentsRouter,
+  projectStatusPages: projectStatusPagesRouter,
+  projectStatusPageSubscribers: projectStatusPageSubscribersRouter,
   projectMembers: projectMembersRouter,
   teams: teamsRouter,
   teamMembers: teamMembersRouter,
