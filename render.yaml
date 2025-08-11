@@ -151,7 +151,7 @@ envVarGroups:
       - key: CLOUDFLARE_API_TOKEN
         # COMMON
       - key: NODE_VERSION
-        value: 22.6.0
+        value: 22.12.0
       - key: SKIP_INSTALL_DEPS
         value: "true" # disables npm install to use yarn
       - key: NEXT_PUBLIC_APP_MODE

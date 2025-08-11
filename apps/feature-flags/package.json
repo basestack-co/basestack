@@ -14,7 +14,10 @@
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
     "test:log": "jest --no-coverage >& ./logs/jest.log",
-    "update:packages": "yarn upgrade-interactive --latest",
+    "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf:upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "db:connect": "pscale connect $db $branch --port 3306",
     "db:generate": "prisma generate --schema=./prisma/schema.prisma",
     "db:migrate:prod": "prisma migrate deploy --schema=./prisma/schema.prisma",
@@ -27,7 +30,8 @@
     "db:studio": "prisma studio --schema=./prisma/schema.prisma",
     "auth:generate": "npx @better-auth/cli generate --config=./server/auth/index.ts",
     "jobs:dev": "npx @upstash/qstash-cli dev -port=8081",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next && rm -rf .swc"
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next && rm -rf .swc",
+    "update:packages": "yarn upgrade-interactive --latest"
   },
   "dependencies": {
     "@basestack/design-system": "*",
@@ -40,6 +44,7 @@
     "@hono/zod-validator": "^0.7.2",
     "@hookform/resolvers": "^5.2.0",
     "@monaco-editor/react": "^4.7.0",
+    "@opennextjs/cloudflare": "^1.6.5",
     "@polar-sh/sdk": "^0.34.8",
     "@prisma/client": "^6.12.0",
     "@tanstack/react-query": "^5.83.0",
@@ -102,6 +107,7 @@
     "prisma": "^6.12.0",
     "turbo": "2.5.5",
     "typescript": "^5.8.3",
-    "vercel": "^44.6.3"
+    "vercel": "^44.6.3",
+    "wrangler": "^4.28.1"
   }
 }

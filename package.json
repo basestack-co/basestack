@@ -2,7 +2,10 @@
   "name": "basestack-monorepo",
   "version": "0.0.0",
   "private": true,
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "bootstrap": "yarn install && yarn build",
     "build": "turbo run build",
@@ -41,7 +44,7 @@
   },
   "packageManager": "yarn@1.22.22",
   "engines": {
-    "node": ">=22.6.0"
+    "node": ">=22.12.0"
   },
   "husky": {
     "hooks": {
