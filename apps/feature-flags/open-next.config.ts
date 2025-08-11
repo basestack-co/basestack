@@ -7,3 +7,5 @@ export default defineCloudflareConfig({
   // See https://opennext.js.org/cloudflare/caching for more details
   // incrementalCache: r2IncrementalCache,
 });
+
+// yarn add turbo -W; yarn build:packages; cd apps/feature-flags; yarn db:generate; yarn db:migrate:prod; npx opennextjs-cloudflare deploy
