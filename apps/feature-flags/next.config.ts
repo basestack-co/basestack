@@ -19,7 +19,12 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
-  serverExternalPackages: ["@prisma/client", ".prisma/client"],
+  serverExternalPackages: [
+    "@prisma/adapter-pg",
+    "@prisma/client",
+    ".prisma/client",
+    "pg",
+  ],
   async redirects() {
     return [
       {
