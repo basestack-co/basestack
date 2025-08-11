@@ -1,11 +1,11 @@
-import { Hono } from "hono";
-// Utils
-import { randomUUID } from "node:crypto";
-import { z } from "zod";
-// Prisma
-import { prisma } from "server/db";
 // Types
 import { NotificationChannel } from ".prisma/client";
+// Utils
+import { randomUUID } from "node:crypto";
+import { Hono } from "hono";
+// Prisma
+import { prisma } from "server/db";
+import { z } from "zod";
 
 const bodySchema = z.object({
   email: z.string().email().optional().nullable(),

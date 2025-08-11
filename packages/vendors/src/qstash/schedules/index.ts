@@ -1,8 +1,9 @@
 // Client
+
+import type { Schedule } from "@upstash/qstash";
 import { baseUrl, qstashClient } from "../client";
 // Types
 import type { CreateMonitorCheckScheduleArgs } from "../types";
-import type { Schedule } from "@upstash/qstash";
 
 export const getSchedule = async (scheduleId: string): Promise<Schedule> => {
   return qstashClient.schedules.get(scheduleId);

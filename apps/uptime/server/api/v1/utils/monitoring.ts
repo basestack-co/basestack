@@ -1,9 +1,9 @@
 // Types
 import type { MonitorStatus, MonitorType } from ".prisma/client";
+import { createSocket as createDgramSocket } from "node:dgram";
 // Utils
 import { lookup } from "node:dns/promises";
 import { Socket as NetSocket } from "node:net";
-import { createSocket as createDgramSocket } from "node:dgram";
 import { connect as tlsConnect } from "node:tls";
 import { z } from "zod";
 

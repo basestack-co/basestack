@@ -4,13 +4,13 @@ import {
   createTRPCRouter,
   publicProcedure,
 } from "server/trpc";
-// Routers
-import { projectsRouter } from "server/trpc/routers/projects";
+import { projectIncidentsRouter } from "server/trpc/routers/projectIncidents";
 import { projectMembersRouter } from "server/trpc/routers/projectMembers";
 import { projectMonitorsRouter } from "server/trpc/routers/projectMonitors";
-import { projectIncidentsRouter } from "server/trpc/routers/projectIncidents";
 import { projectStatusPageSubscribersRouter } from "server/trpc/routers/projectStatusPageSubscribers";
 import { projectStatusPagesRouter } from "server/trpc/routers/projectStatusPages";
+// Routers
+import { projectsRouter } from "server/trpc/routers/projects";
 import { subscriptionRouter } from "server/trpc/routers/subscription";
 import { teamInvitesRouter } from "server/trpc/routers/teamInvites";
 import { teamMembersRouter } from "server/trpc/routers/teamMembers";

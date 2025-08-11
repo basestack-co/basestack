@@ -2,10 +2,10 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 // Utils
 import { logger } from "hono/logger";
-//  Routes
-import statusPages from "./routes/statusPages";
 import jobs from "./routes/jobs";
 import schedules from "./routes/schedules";
+//  Routes
+import statusPages from "./routes/statusPages";
 
 const app = new Hono().basePath("/api/v1");
 
