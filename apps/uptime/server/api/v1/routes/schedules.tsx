@@ -1,5 +1,3 @@
-// Vendors
-
 // Utils
 import { Product, UsageEvent } from "@basestack/utils";
 import {

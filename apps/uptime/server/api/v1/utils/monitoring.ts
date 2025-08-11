@@ -1,6 +1,10 @@
 // Types
 import type { MonitorStatus, MonitorType } from ".prisma/client";
 // Utils
+import { lookup } from "node:dns/promises";
+import { Socket as NetSocket } from "node:net";
+import { createSocket as createDgramSocket } from "node:dgram";
+import { connect as tlsConnect } from "node:tls";
 import { z } from "zod";
 
 export const monitorConfigSchema = z.object({
@@ -44,6 +48,29 @@ interface HttpError extends Error {
 // ============================================================================
 //  GENERAL FUNCTIONS
 // ============================================================================
+
+const getHostPortFromUrl = (
+  url: string,
+  overridePort?: number,
+): { host: string; port: number; protocol: string } => {
+  const u = new URL(url);
+  const protocol = u.protocol;
+  const host = u.hostname;
+  const defaultPort = protocol === "https:" ? 443 : 80;
+  const port = overridePort ?? (u.port ? parseInt(u.port, 10) : defaultPort);
+  return { host, port, protocol };
+};
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+const daysBetween = (from: Date, to: Date) =>
+  Math.ceil((to.getTime() - from.getTime()) / (1000 * 60 * 60 * 24));
+
+const extractDomain = (hostname: string): string => {
+  const parts = hostname.split(".");
+  if (parts.length <= 2) return hostname;
+  return parts.slice(-2).join(".");
+};
 
 const isTimeoutError = (error: Error): boolean => {
   return (
@@ -286,19 +313,639 @@ export const createBatchHttpCheck = async (
   return results;
 };
 
+// ============================================================================
+//  PING CHECK FUNCTION
+// ============================================================================
+
+export const createPingCheck = async (
+  config: MonitorConfig,
+): Promise<MonitorCheck> => {
+  const { url, timeout = 5000, retries = 0, retryDelay = 500, port } = config;
+
+  if (!isValidUrl(url)) {
+    return {
+      status: "DOWN",
+      responseTime: 0,
+      responseSize: 0,
+      statusCode: 0,
+      error: "Invalid URL provided",
+    };
+  }
+
+  const { host, port: resolvedPort } = getHostPortFromUrl(url, port);
+
+  let attempt = 0;
+  while (attempt <= retries) {
+    const start = performance.now();
+
+    try {
+      await lookup(host);
+
+      await new Promise<void>((resolve, reject) => {
+        const socket = new NetSocket();
+        let settled = false;
+
+        const timer = setTimeout(() => {
+          settled = true;
+          socket.destroy(new Error("timeout"));
+        }, timeout);
+
+        socket.once("connect", () => {
+          if (settled) return;
+          clearTimeout(timer);
+          settled = true;
+          socket.end();
+          resolve();
+        });
+
+        socket.once("error", (err) => {
+          if (settled) return;
+          clearTimeout(timer);
+          settled = true;
+          reject(err);
+        });
+
+        socket.connect(resolvedPort, host);
+      });
+
+      const responseTime = Math.round(performance.now() - start);
+      return {
+        status: "UP",
+        responseTime,
+        responseSize: 0,
+        statusCode: 0,
+        error: null,
+      };
+    } catch (error) {
+      const responseTime = Math.round(performance.now() - start);
+      const timeoutErr = isTimeoutError(error as Error);
+
+      if (attempt < retries && !timeoutErr) {
+        attempt++;
+        await sleep(retryDelay * attempt);
+        continue;
+      }
+
+      return {
+        status: timeoutErr ? "TIMEOUT" : "ERROR",
+        responseTime,
+        responseSize: 0,
+        statusCode: getStatusFromError(error as Error),
+        error: error instanceof Error ? error.message : "Ping failed",
+      };
+    }
+  }
+
+  return {
+    status: "ERROR",
+    responseTime: 0,
+    responseSize: 0,
+    statusCode: 0,
+    error: "Unexpected end of retry loop",
+  };
+};
+
+// ============================================================================
+//  TCP CHECK FUNCTION
+// ============================================================================
+
+export const createTcpCheck = async (
+  config: MonitorConfig,
+): Promise<MonitorCheck> => {
+  const { url, timeout = 5000, retries = 0, retryDelay = 500, port } = config;
+
+  if (!isValidUrl(url)) {
+    return {
+      status: "DOWN",
+      responseTime: 0,
+      responseSize: 0,
+      statusCode: 0,
+      error: "Invalid URL provided",
+    };
+  }
+
+  const { host, port: resolvedPort } = getHostPortFromUrl(url, port);
+  if (!resolvedPort) {
+    return {
+      status: "ERROR",
+      responseTime: 0,
+      responseSize: 0,
+      statusCode: 0,
+      error: "Port required for TCP check",
+    };
+  }
+
+  let attempt = 0;
+  while (attempt <= retries) {
+    const start = performance.now();
+
+    try {
+      await new Promise<void>((resolve, reject) => {
+        const socket = new NetSocket();
+        let settled = false;
+
+        const timer = setTimeout(() => {
+          settled = true;
+          socket.destroy(new Error("timeout"));
+        }, timeout);
+
+        socket.once("connect", () => {
+          if (settled) return;
+          clearTimeout(timer);
+          settled = true;
+          socket.end();
+          resolve();
+        });
+
+        socket.once("error", (err) => {
+          if (settled) return;
+          clearTimeout(timer);
+          settled = true;
+          reject(err);
+        });
+
+        socket.connect(resolvedPort, host);
+      });
+
+      const responseTime = Math.round(performance.now() - start);
+      return {
+        status: "UP",
+        responseTime,
+        responseSize: 0,
+        statusCode: 0,
+        error: null,
+      };
+    } catch (error) {
+      const responseTime = Math.round(performance.now() - start);
+      const timeoutErr = isTimeoutError(error as Error);
+
+      if (attempt < retries && !timeoutErr) {
+        attempt++;
+        await sleep(retryDelay * attempt);
+        continue;
+      }
+
+      return {
+        status: timeoutErr ? "TIMEOUT" : "ERROR",
+        responseTime,
+        responseSize: 0,
+        statusCode: getStatusFromError(error as Error),
+        error: error instanceof Error ? error.message : "TCP check failed",
+      };
+    }
+  }
+
+  return {
+    status: "ERROR",
+    responseTime: 0,
+    responseSize: 0,
+    statusCode: 0,
+    error: "Unexpected end of retry loop",
+  };
+};
+
+export const createUdpCheck = async (
+  config: MonitorConfig,
+): Promise<MonitorCheck> => {
+  const {
+    url,
+    timeout = 5000,
+    retries = 0,
+    retryDelay = 500,
+    port,
+    body,
+  } = config;
+
+  if (!isValidUrl(url)) {
+    return {
+      status: "DOWN",
+      responseTime: 0,
+      responseSize: 0,
+      statusCode: 0,
+      error: "Invalid URL provided",
+    };
+  }
+
+  const { host, port: resolvedPort } = getHostPortFromUrl(url, port);
+  if (!resolvedPort) {
+    return {
+      status: "ERROR",
+      responseTime: 0,
+      responseSize: 0,
+      statusCode: 0,
+      error: "Port required for UDP check",
+    };
+  }
+
+  let attempt = 0;
+  while (attempt <= retries) {
+    const start = performance.now();
+
+    try {
+      const message = Buffer.from(body ?? "ping");
+
+      const bytes = await new Promise<number>((resolve, reject) => {
+        const socket = createDgramSocket("udp4");
+        let settled = false;
+
+        const timer = setTimeout(() => {
+          if (settled) return;
+          settled = true;
+          try {
+            socket.close();
+          } catch {}
+          reject(Object.assign(new Error("timeout"), { timeout: true }));
+        }, timeout);
+
+        socket.once("message", (msg) => {
+          if (settled) return;
+          clearTimeout(timer);
+          settled = true;
+          try {
+            socket.close();
+          } catch {}
+          resolve(msg.length);
+        });
+
+        socket.once("error", (err) => {
+          if (settled) return;
+          clearTimeout(timer);
+          settled = true;
+          try {
+            socket.close();
+          } catch {}
+          reject(err);
+        });
+
+        socket.send(message, resolvedPort, host, (err) => {
+          if (err && !settled) {
+            clearTimeout(timer);
+            settled = true;
+            try {
+              socket.close();
+            } catch {}
+            reject(err);
+          }
+        });
+      });
+
+      const responseTime = Math.round(performance.now() - start);
+      return {
+        status: "UP",
+        responseTime,
+        responseSize: bytes,
+        statusCode: 0,
+        error: null,
+      };
+    } catch (error) {
+      const responseTime = Math.round(performance.now() - start);
+      const timeoutErr = isTimeoutError(error as Error);
+
+      if (attempt < retries && !timeoutErr) {
+        attempt++;
+        await sleep(retryDelay * attempt);
+        continue;
+      }
+
+      return {
+        status: timeoutErr ? "TIMEOUT" : "ERROR",
+        responseTime,
+        responseSize: 0,
+        statusCode: getStatusFromError(error as Error),
+        error: error instanceof Error ? error.message : "No UDP response",
+      };
+    }
+  }
+
+  return {
+    status: "ERROR",
+    responseTime: 0,
+    responseSize: 0,
+    statusCode: 0,
+    error: "Unexpected end of retry loop",
+  };
+};
+
+// ============================================================================
+//  SSL CHECK FUNCTION
+// ============================================================================
+
+export const createSslCertificateCheck = async (
+  config: MonitorConfig,
+): Promise<MonitorCheck> => {
+  const {
+    url,
+    timeout = 5000,
+    retries = 0,
+    retryDelay = 500,
+    port,
+    sslCheckDays = 30,
+    verifySSL = true,
+  } = config;
+
+  if (!isValidUrl(url)) {
+    return {
+      status: "DOWN",
+      responseTime: 0,
+      responseSize: 0,
+      statusCode: 0,
+      error: "Invalid URL provided",
+    };
+  }
+
+  const { host, port: resolvedPort } = getHostPortFromUrl(url, port ?? 443);
+
+  let attempt = 0;
+  while (attempt <= retries) {
+    const start = performance.now();
+
+    try {
+      const result = await new Promise<{ validTo?: string; issuer?: unknown }>(
+        (resolve, reject) => {
+          const socket = tlsConnect(
+            {
+              host: host,
+              port: resolvedPort,
+              servername: host,
+              rejectUnauthorized: verifySSL,
+              timeout,
+            },
+            () => {
+              try {
+                const cert = socket.getPeerCertificate?.();
+                socket.end();
+                resolve({ validTo: cert?.valid_to, issuer: cert?.issuer });
+              } catch (e) {
+                socket.end();
+                reject(e);
+              }
+            },
+          );
+
+          socket.once("error", (err) => reject(err));
+          socket.setTimeout(timeout, () => {
+            socket.destroy(new Error("timeout"));
+          });
+        },
+      );
+
+      const responseTime = Math.round(performance.now() - start);
+      if (!result.validTo) {
+        return {
+          status: "ERROR",
+          responseTime,
+          responseSize: 0,
+          statusCode: 0,
+          error: "No certificate presented",
+        };
+      }
+
+      const expiresAt = new Date(result.validTo);
+      const now = new Date();
+      const daysLeft = daysBetween(now, expiresAt);
+
+      if (daysLeft <= 0) {
+        return {
+          status: "DOWN",
+          responseTime,
+          responseSize: 0,
+          statusCode: 0,
+          error: `Certificate expired`,
+        };
+      }
+
+      if (daysLeft < sslCheckDays) {
+        return {
+          status: "DEGRADED",
+          responseTime,
+          responseSize: 0,
+          statusCode: 0,
+          error: `Certificate expires in ${daysLeft} day(s)`,
+        };
+      }
+
+      return {
+        status: "UP",
+        responseTime,
+        responseSize: 0,
+        statusCode: 0,
+        error: null,
+      };
+    } catch (error) {
+      const responseTime = Math.round(performance.now() - start);
+      const timeoutErr = isTimeoutError(error as Error);
+
+      if (attempt < retries && !timeoutErr) {
+        attempt++;
+        await sleep(retryDelay * attempt);
+        continue;
+      }
+
+      return {
+        status: timeoutErr ? "TIMEOUT" : "ERROR",
+        responseTime,
+        responseSize: 0,
+        statusCode: getStatusFromError(error as Error),
+        error:
+          error instanceof Error
+            ? error.message
+            : "SSL certificate check failed",
+      };
+    }
+  }
+
+  return {
+    status: "ERROR",
+    responseTime: 0,
+    responseSize: 0,
+    statusCode: 0,
+    error: "Unexpected end of retry loop",
+  };
+};
+
+// ============================================================================
+//  DOMAIN EXPIRY CHECK FUNCTION
+// ============================================================================
+
+export const createDomainExpiryCheck = async (
+  config: MonitorConfig,
+): Promise<MonitorCheck> => {
+  const {
+    url,
+    timeout = 8000,
+    retries = 0,
+    retryDelay = 500,
+    sslCheckDays = 30,
+  } = config;
+
+  if (!isValidUrl(url)) {
+    return {
+      status: "DOWN",
+      responseTime: 0,
+      responseSize: 0,
+      statusCode: 0,
+      error: "Invalid URL provided",
+    };
+  }
+
+  const { host } = getHostPortFromUrl(url);
+  const domainCandidates = [host, extractDomain(host)];
+
+  let attempt = 0;
+  while (attempt <= retries) {
+    const start = performance.now();
+    const controller = new AbortController();
+    const t = setTimeout(() => controller.abort(), timeout);
+
+    try {
+      let expiration: Date | null = null;
+
+      for (const candidate of domainCandidates) {
+        const res = await fetch(`https://rdap.org/domain/${candidate}`, {
+          headers: { accept: "application/rdap+json" },
+          signal: controller.signal,
+        });
+
+        if (res.ok) {
+          const data = await res.json().catch(() => null);
+          const events:
+            | Array<{ eventAction: string; eventDate: string }>
+            | undefined = data?.events;
+          const exp = events?.find((e) =>
+            e.eventAction?.toLowerCase().includes("expiration"),
+          )?.eventDate;
+          if (exp) {
+            expiration = new Date(exp);
+            break;
+          }
+        }
+      }
+
+      clearTimeout(t);
+
+      const responseTime = Math.round(performance.now() - start);
+
+      if (!expiration) {
+        return {
+          status: "ERROR",
+          responseTime,
+          responseSize: 0,
+          statusCode: 0,
+          error: "Unable to resolve domain expiration via RDAP",
+        };
+      }
+
+      const now = new Date();
+      const daysLeft = daysBetween(now, expiration);
+
+      if (daysLeft <= 0) {
+        return {
+          status: "DOWN",
+          responseTime,
+          responseSize: 0,
+          statusCode: 0,
+          error: "Domain expired",
+        };
+      }
+
+      if (daysLeft < sslCheckDays) {
+        return {
+          status: "DEGRADED",
+          responseTime,
+          responseSize: 0,
+          statusCode: 0,
+          error: `Domain expires in ${daysLeft} day(s)`,
+        };
+      }
+
+      return {
+        status: "UP",
+        responseTime,
+        responseSize: 0,
+        statusCode: 0,
+        error: null,
+      };
+    } catch (error) {
+      clearTimeout(t);
+      const responseTime = Math.round(performance.now() - start);
+      const timeoutErr = isTimeoutError(error as Error);
+
+      if (attempt < retries && !timeoutErr) {
+        attempt++;
+        await sleep(retryDelay * attempt);
+        continue;
+      }
+
+      return {
+        status: timeoutErr ? "TIMEOUT" : "ERROR",
+        responseTime,
+        responseSize: 0,
+        statusCode: getStatusFromError(error as Error),
+        error:
+          error instanceof Error ? error.message : "Domain expiry check failed",
+      };
+    }
+  }
+
+  return {
+    status: "ERROR",
+    responseTime: 0,
+    responseSize: 0,
+    statusCode: 0,
+    error: "Unexpected end of retry loop",
+  };
+};
+
 export const getPerformCheck = async (
   type: MonitorType,
   config: MonitorConfig,
-) => {
-  switch (type) {
-    case "HTTPS":
-    case "HTTP":
-      return await createHttpCheck(config);
-    /* case 'PING':
-        return await pingCheck(config);
-      case 'TCP':
-        return await tcpCheck(config);
-      case 'SSL_CERTIFICATE':
-        return await sslCheck(config); */
+): Promise<MonitorCheck> => {
+  if (type === "KEYWORD" && !config.keyword) {
+    return {
+      status: "ERROR",
+      responseTime: 0,
+      responseSize: 0,
+      statusCode: 0,
+      error: "Keyword monitor requires 'keyword' in config",
+    };
+  }
+
+  const handlers: Record<
+    MonitorType,
+    (cfg: MonitorConfig) => Promise<MonitorCheck>
+  > = {
+    HTTP: createHttpCheck,
+    HTTPS: createHttpCheck,
+    PING: createPingCheck,
+    TCP: createTcpCheck,
+    UDP: createUdpCheck,
+    SSL_CERTIFICATE: createSslCertificateCheck,
+    DOMAIN_EXPIRY: createDomainExpiryCheck,
+    CRON_JOB: createHttpCheck, // heartbeat URL
+    API_ENDPOINT: createHttpCheck, // generic API endpoint
+    KEYWORD: createHttpCheck, // validated above
+  };
+
+  const handler = handlers[type];
+  if (!handler) {
+    return {
+      status: "ERROR",
+      responseTime: 0,
+      responseSize: 0,
+      statusCode: 0,
+      error: `Unsupported monitor type: ${type}`,
+    };
+  }
+
+  try {
+    return await handler(config);
+  } catch (error) {
+    return {
+      status: isTimeoutError(error as Error) ? "TIMEOUT" : "ERROR",
+      responseTime: 0,
+      responseSize: 0,
+      statusCode: getStatusFromError(error as Error),
+      error: error instanceof Error ? error.message : "Monitor check failed",
+    };
   }
 };
