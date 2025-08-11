@@ -11,7 +11,8 @@
     "export": "email export",
     "build": "tsup src/index.ts --format esm,cjs --dts --external react --minify",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
-    "lint": "biome check src --write",
+    "lint": "biome check src",
+    "lint:fix": "biome check src --write",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {

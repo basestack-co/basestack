@@ -10,7 +10,8 @@
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
     "test:log": "jest --no-coverage >& ./logs/jest.log",
-    "lint": "biome check src --write",
+    "lint": "biome check src",
+    "lint:fix": "biome check src --write",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "bundlesize": "bundlesize"
   },
