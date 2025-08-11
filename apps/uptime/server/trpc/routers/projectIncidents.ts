@@ -20,7 +20,7 @@ export const projectIncidentsRouter = createTRPCRouter({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(),
         search: z.string().optional().nullable(),
-      })
+      }),
     )
     .query(async ({ ctx, input }) => {
       const limit = input.limit ?? 50;
@@ -126,7 +126,7 @@ export const projectIncidentsRouter = createTRPCRouter({
     .use(
       withProjectRestrictions({
         roles: [Role.ADMIN, Role.DEVELOPER, Role.OPERATOR],
-      })
+      }),
     )
     .input(
       z
@@ -142,7 +142,7 @@ export const projectIncidentsRouter = createTRPCRouter({
           monitorIds: z.array(z.string()).optional(),
           initialUpdateMessage: z.string().optional(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -243,7 +243,7 @@ export const projectIncidentsRouter = createTRPCRouter({
     .use(
       withProjectRestrictions({
         roles: [Role.ADMIN, Role.DEVELOPER, Role.OPERATOR],
-      })
+      }),
     )
     .input(
       z
@@ -253,7 +253,7 @@ export const projectIncidentsRouter = createTRPCRouter({
           message: z.string().min(1),
           status: z.nativeEnum(IncidentStatus).optional(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -314,7 +314,7 @@ export const projectIncidentsRouter = createTRPCRouter({
     .use(
       withProjectRestrictions({
         roles: [Role.ADMIN, Role.DEVELOPER, Role.OPERATOR],
-      })
+      }),
     )
     .input(
       z
@@ -322,7 +322,7 @@ export const projectIncidentsRouter = createTRPCRouter({
           projectId: z.string(),
           incidentId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {

@@ -21,7 +21,7 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(),
         search: z.string().optional().nullable(),
-      })
+      }),
     )
     .query(async ({ ctx, input }) => {
       const limit = input.limit ?? 50;
@@ -90,7 +90,7 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
           channels: z.array(z.nativeEnum(NotificationChannel)).min(1),
           components: z.array(z.string()).optional(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -166,7 +166,7 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
           components: z.array(z.string()).optional(),
           isVerified: z.boolean().optional(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -274,7 +274,7 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
           projectId: z.string(),
           subscriberId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {

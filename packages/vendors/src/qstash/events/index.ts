@@ -38,7 +38,7 @@ export const sendEmailEvent = async (body: SendEmailPayload) => {
 };
 
 export const sendDataToExternalWebhookEvent = async (
-  body: SendDataToExternalWebhookPayload
+  body: SendDataToExternalWebhookPayload,
 ) => {
   await workflowClient.trigger({
     url: `${baseUrl}/api/v1/jobs/send-data-to-external-webhook`,

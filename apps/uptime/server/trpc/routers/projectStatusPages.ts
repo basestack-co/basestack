@@ -1,11 +1,7 @@
 // Types
-import { MonitorType, Prisma, Role } from ".prisma/client";
+import { Prisma, Role } from ".prisma/client";
 // Utils
-import { emailToId, Product } from "@basestack/utils";
-// Vendors
-import { polar, qstash } from "@basestack/vendors";
 import { TRPCError } from "@trpc/server";
-import { monitorConfigSchema } from "server/api/v1/utils/monitoring";
 // Server
 import {
   createTRPCRouter,
@@ -13,7 +9,6 @@ import {
   withProjectRestrictions,
 } from "server/trpc";
 // Utils
-import { AppMode } from "utils/helpers/general";
 import { z } from "zod";
 
 export const projectStatusPagesRouter = createTRPCRouter({
@@ -25,7 +20,7 @@ export const projectStatusPagesRouter = createTRPCRouter({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(),
         search: z.string().optional().nullable(),
-      })
+      }),
     )
     .query(async ({ ctx, input }) => {
       const limit = input.limit ?? 50;
@@ -123,11 +118,11 @@ export const projectStatusPagesRouter = createTRPCRouter({
                 description: z.string().optional().nullable(),
                 monitorId: z.string().optional().nullable(),
                 order: z.number().int().optional(),
-              })
+              }),
             )
             .optional(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -135,8 +130,8 @@ export const projectStatusPagesRouter = createTRPCRouter({
           new Set(
             (input.components ?? [])
               .map((c) => c.monitorId)
-              .filter((v): v is string => !!v)
-          )
+              .filter((v): v is string => !!v),
+          ),
         );
 
         if (monitorIds.length) {
@@ -242,12 +237,12 @@ export const projectStatusPagesRouter = createTRPCRouter({
                 description: z.string().optional().nullable(),
                 monitorId: z.string().optional().nullable(),
                 order: z.number().int().optional(),
-              })
+              }),
             )
             .optional(),
           componentsToDelete: z.array(z.string()).optional(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -267,8 +262,8 @@ export const projectStatusPagesRouter = createTRPCRouter({
           new Set(
             (input.components ?? [])
               .map((c) => c.monitorId)
-              .filter((v): v is string => !!v)
-          )
+              .filter((v): v is string => !!v),
+          ),
         );
         if (monitorIds.length) {
           const count = await tx.monitor.count({
@@ -386,7 +381,7 @@ export const projectStatusPagesRouter = createTRPCRouter({
           projectId: z.string(),
           statusPageId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
