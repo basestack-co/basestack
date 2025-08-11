@@ -2,6 +2,27 @@
 import { baseUrl, qstashClient } from "../client";
 // Types
 import type { CreateMonitorCheckScheduleArgs } from "../types";
+import type { Schedule } from "@upstash/qstash";
+
+export const getSchedule = async (scheduleId: string): Promise<Schedule> => {
+  return qstashClient.schedules.get(scheduleId);
+};
+
+export const deleteSchedule = async (scheduleId: string): Promise<void> => {
+  return qstashClient.schedules.delete(scheduleId);
+};
+
+export const pauseSchedule = async (scheduleId: string): Promise<void> => {
+  return qstashClient.schedules.pause({
+    schedule: scheduleId,
+  });
+};
+
+export const resumeSchedule = async (scheduleId: string): Promise<void> => {
+  return qstashClient.schedules.resume({
+    schedule: scheduleId,
+  });
+};
 
 export const createMonitorCheckSchedule = async ({
   cron,
