@@ -39,7 +39,7 @@ const flagsRoutes = new Hono()
         { flags },
         {
           status: 200,
-        }
+        },
       );
     } catch (error: any) {
       return c.json(
@@ -47,7 +47,7 @@ const flagsRoutes = new Hono()
           error: true,
           message: "Something went wrong, please try again later.",
         },
-        { status: error.code ?? 400 }
+        { status: error.code ?? 400 },
       );
     }
   })
@@ -85,7 +85,7 @@ const flagsRoutes = new Hono()
             error: true,
             message: `Flag with slug ${slug} does not exist`,
           },
-          { status: 404 }
+          { status: 404 },
         );
       }
 
@@ -98,7 +98,7 @@ const flagsRoutes = new Hono()
           error: true,
           message: "Something went wrong, please try again later.",
         },
-        { status: error.code ?? 400 }
+        { status: error.code ?? 400 },
       );
     }
   });
