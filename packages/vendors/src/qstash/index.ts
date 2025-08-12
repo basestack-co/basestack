@@ -9,7 +9,12 @@ import { CheckSpamJob } from "./jobs/check-spam";
 import { CheckSubscriptionJob } from "./jobs/check-subscription";
 import { SendDataToExternalWebHookJob } from "./jobs/send-data-to-external-webhook";
 // Schedules
-import { createMonitorCheckSchedule } from "./schedules";
+import {
+  createMonitorCheckSchedule,
+  deleteSchedule,
+  pauseSchedule,
+  resumeSchedule,
+} from "./schedules";
 
 const events = {
   checkDataForSpamEvent,
@@ -25,6 +30,9 @@ const jobs = {
 
 const schedules = {
   createMonitorCheckSchedule,
+  deleteSchedule,
+  pauseSchedule,
+  resumeSchedule,
 };
 
 export { events, jobs, schedules };

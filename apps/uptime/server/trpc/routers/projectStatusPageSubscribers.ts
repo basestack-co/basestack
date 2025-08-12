@@ -12,6 +12,17 @@ import {
 // Utils
 import { z } from "zod";
 
+const emailSchema = z
+  .string()
+  .email()
+  .transform((s) => s.trim().toLowerCase());
+
+const phoneSchema = z
+  .string()
+  .transform((s) => s.replace(/\D/g, ""))
+  .refine((s) => s.length >= 8 && s.length <= 15, "Invalid phone")
+  .or(z.literal("").transform(() => null));
+
 export const projectStatusPageSubscribersRouter = createTRPCRouter({
   list: protectedProcedure
     .use(withProjectRestrictions({ roles: [] }))
@@ -21,7 +32,7 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(),
         search: z.string().optional().nullable(),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const limit = input.limit ?? 50;
@@ -55,7 +66,7 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
           take: limit + 1,
           cursor: input.cursor ? { id: input.cursor } : undefined,
           skip: input.cursor ? 1 : 0,
-          orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+          orderBy: [{ id: "desc" }],
           select: {
             id: true,
             email: true,
@@ -85,12 +96,19 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
         .object({
           projectId: z.string(),
           statusPageId: z.string(),
-          email: z.string().email().optional().nullable(),
-          phone: z.string().optional().nullable(),
+          email: emailSchema.optional().nullable(),
+          phone: phoneSchema.optional().nullable(),
           channels: z.array(z.nativeEnum(NotificationChannel)).min(1),
           components: z.array(z.string()).optional(),
         })
-        .required(),
+        .refine(
+          (d) =>
+            (!d.channels.includes("EMAIL") || !!d.email) &&
+            (!d.channels.includes("SMS") || !!d.phone),
+          {
+            message: "EMAIL channel requires email; SMS channel requires phone",
+          }
+        )
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -98,6 +116,7 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
           where: { id: input.statusPageId, projectId: input.projectId },
           select: { id: true },
         });
+
         if (!sp) {
           throw new TRPCError({
             code: "NOT_FOUND",
@@ -122,6 +141,7 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
           },
           select: { id: true },
         });
+
         if (dup) {
           throw new TRPCError({
             code: "CONFLICT",
@@ -160,13 +180,22 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
           projectId: z.string(),
           subscriberId: z.string(),
           statusPageId: z.string().optional(),
-          email: z.string().email().optional().nullable(),
-          phone: z.string().optional().nullable(),
+          email: emailSchema.optional().nullable(),
+          phone: phoneSchema.optional().nullable(),
           channels: z.array(z.nativeEnum(NotificationChannel)).optional(),
           components: z.array(z.string()).optional(),
           isVerified: z.boolean().optional(),
         })
-        .required(),
+        .refine(
+          (d) =>
+            (!d.channels?.includes("EMAIL") ||
+              (d.email !== null && d.email !== undefined)) &&
+            (!d.channels?.includes("SMS") ||
+              (d.phone !== null && d.phone !== undefined)),
+          {
+            message: "EMAIL channel requires email; SMS channel requires phone",
+          }
+        )
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -274,7 +303,7 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
           projectId: z.string(),
           subscriberId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {

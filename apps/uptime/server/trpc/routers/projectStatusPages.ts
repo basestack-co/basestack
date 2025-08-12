@@ -11,6 +11,38 @@ import {
 // Utils
 import { z } from "zod";
 
+const statusPageSharedSchema = z.object({
+  domain: z.string().optional().nullable(),
+  isPublic: z.boolean().optional(),
+  isEnabled: z.boolean().optional(),
+  language: z.string().optional(),
+  timezone: z.string().optional(),
+  logoUrl: z.string().url().optional().nullable(),
+  favicon: z.string().url().optional().nullable(),
+  customCSS: z.string().optional().nullable(),
+  customJS: z.string().optional().nullable(),
+  theme: z.any().optional(),
+  headerMessage: z.string().optional().nullable(),
+  footerMessage: z.string().optional().nullable(),
+  twitterHandle: z.string().optional().nullable(),
+  supportUrl: z.string().url().optional().nullable(),
+});
+
+const statusPageComponentBase = z.object({
+  name: z.string().min(1),
+  description: z.string().optional().nullable(),
+  monitorId: z.string().optional().nullable(),
+  order: z.number().int().optional(),
+});
+
+const slugSchema = z
+  .string()
+  .min(1)
+  .refine((s) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(s.trim().toLowerCase()), {
+    message: "Invalid slug",
+  })
+  .transform((s) => s.trim().toLowerCase());
+
 export const projectStatusPagesRouter = createTRPCRouter({
   list: protectedProcedure
     .use(withProjectRestrictions({ roles: [] }))
@@ -20,7 +52,7 @@ export const projectStatusPagesRouter = createTRPCRouter({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(),
         search: z.string().optional().nullable(),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const limit = input.limit ?? 50;
@@ -96,42 +128,40 @@ export const projectStatusPagesRouter = createTRPCRouter({
         .object({
           projectId: z.string(),
           name: z.string().min(1),
-          slug: z.string().min(1),
-          domain: z.string().optional().nullable(),
-          isPublic: z.boolean().optional(),
-          isEnabled: z.boolean().optional(),
-          language: z.string().optional(), // defaults to "en"
-          timezone: z.string().optional(), // defaults to "UTC"
-          logoUrl: z.string().url().optional().nullable(),
-          favicon: z.string().url().optional().nullable(),
-          customCSS: z.string().optional().nullable(),
-          customJS: z.string().optional().nullable(),
-          theme: z.any().optional(),
-          headerMessage: z.string().optional().nullable(),
-          footerMessage: z.string().optional().nullable(),
-          twitterHandle: z.string().optional().nullable(),
-          supportUrl: z.string().url().optional().nullable(),
-          components: z
-            .array(
-              z.object({
-                name: z.string().min(1),
-                description: z.string().optional().nullable(),
-                monitorId: z.string().optional().nullable(),
-                order: z.number().int().optional(),
-              }),
-            )
-            .optional(),
+          slug: slugSchema,
         })
-        .required(),
+        .merge(statusPageSharedSchema)
+        .extend({
+          components: z.array(statusPageComponentBase).optional(),
+        })
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
+        const conflict = await tx.statusPage.findFirst({
+          where: {
+            projectId: input.projectId,
+            OR: [
+              { slug: input.slug },
+              ...(input.domain ? [{ domain: input.domain }] : []),
+            ],
+          },
+          select: { id: true },
+        });
+
+        if (conflict) {
+          throw new TRPCError({
+            code: "CONFLICT",
+            message: "Slug or domain already in use",
+          });
+        }
+
         const monitorIds = Array.from(
           new Set(
             (input.components ?? [])
               .map((c) => c.monitorId)
-              .filter((v): v is string => !!v),
-          ),
+              .filter((v): v is string => !!v)
+          )
         );
 
         if (monitorIds.length) {
@@ -183,6 +213,7 @@ export const projectStatusPagesRouter = createTRPCRouter({
             domain: true,
             isPublic: true,
             isEnabled: true,
+            language: true,
             timezone: true,
             createdAt: true,
             updatedAt: true,
@@ -214,42 +245,28 @@ export const projectStatusPagesRouter = createTRPCRouter({
           projectId: z.string(),
           statusPageId: z.string(),
           name: z.string().optional(),
-          slug: z.string().optional(),
-          domain: z.string().optional().nullable(),
-          isPublic: z.boolean().optional(),
-          isEnabled: z.boolean().optional(),
-          language: z.string().optional(),
-          timezone: z.string().optional(),
-          logoUrl: z.string().url().optional().nullable(),
-          favicon: z.string().url().optional().nullable(),
-          customCSS: z.string().optional().nullable(),
-          customJS: z.string().optional().nullable(),
-          theme: z.any().optional(),
-          headerMessage: z.string().optional().nullable(),
-          footerMessage: z.string().optional().nullable(),
-          twitterHandle: z.string().optional().nullable(),
-          supportUrl: z.string().url().optional().nullable(),
+          slug: slugSchema.optional(),
+        })
+        .merge(statusPageSharedSchema)
+        .extend({
           components: z
             .array(
-              z.object({
+              statusPageComponentBase.extend({
                 id: z.string().optional(),
-                name: z.string().min(1),
-                description: z.string().optional().nullable(),
-                monitorId: z.string().optional().nullable(),
-                order: z.number().int().optional(),
-              }),
+              })
             )
             .optional(),
           componentsToDelete: z.array(z.string()).optional(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
         const existing = await tx.statusPage.findFirst({
           where: { id: input.statusPageId, projectId: input.projectId },
-          select: { id: true },
+          select: { id: true, slug: true, domain: true },
         });
+
         if (!existing) {
           throw new TRPCError({
             code: "NOT_FOUND",
@@ -257,12 +274,19 @@ export const projectStatusPagesRouter = createTRPCRouter({
           });
         }
 
+        if (input.slug === existing.slug || input.domain === existing.domain) {
+          throw new TRPCError({
+            code: "CONFLICT",
+            message: "Slug or domain already in use",
+          });
+        }
+
         const monitorIds = Array.from(
           new Set(
             (input.components ?? [])
               .map((c) => c.monitorId)
-              .filter((v): v is string => !!v),
-          ),
+              .filter((v): v is string => !!v)
+          )
         );
         if (monitorIds.length) {
           const count = await tx.monitor.count({
@@ -286,58 +310,60 @@ export const projectStatusPagesRouter = createTRPCRouter({
           }));
 
         const toUpdate = (input.components ?? [])
-          .filter((c) => !!c.id)
-          .map((c) => ({
-            where: { id: c.id! },
-            data: {
-              name: c.name,
-              description: c.description ?? null,
-              order: c.order ?? 0,
-              monitorId: c.monitorId ?? null,
-            },
-          }));
+          .filter((c): c is typeof c & { id: string } => !!c.id)
+          .map((c) => {
+            const data: Record<string, unknown> = {};
 
-        const data: Prisma.StatusPageUpdateInput = {
-          ...(input.name !== undefined ? { name: input.name } : {}),
-          ...(input.slug !== undefined ? { slug: input.slug } : {}),
-          ...(input.domain !== undefined ? { domain: input.domain } : {}),
-          ...(input.isPublic !== undefined ? { isPublic: input.isPublic } : {}),
-          ...(input.isEnabled !== undefined
-            ? { isEnabled: input.isEnabled }
-            : {}),
-          ...(input.language !== undefined ? { language: input.language } : {}),
-          ...(input.timezone !== undefined ? { timezone: input.timezone } : {}),
-          ...(input.logoUrl !== undefined ? { logoUrl: input.logoUrl } : {}),
-          ...(input.favicon !== undefined ? { favicon: input.favicon } : {}),
-          ...(input.customCSS !== undefined
-            ? { customCSS: input.customCSS }
-            : {}),
-          ...(input.customJS !== undefined ? { customJS: input.customJS } : {}),
-          ...(input.theme !== undefined ? { theme: input.theme } : {}),
-          ...(input.headerMessage !== undefined
-            ? { headerMessage: input.headerMessage }
-            : {}),
-          ...(input.footerMessage !== undefined
-            ? { footerMessage: input.footerMessage }
-            : {}),
-          ...(input.twitterHandle !== undefined
-            ? { twitterHandle: input.twitterHandle }
-            : {}),
-          ...(input.supportUrl !== undefined
-            ? { supportUrl: input.supportUrl }
-            : {}),
-          ...(input.components || input.componentsToDelete
-            ? {
-                components: {
-                  ...(toCreate.length ? { create: toCreate } : {}),
-                  ...(toUpdate.length ? { update: toUpdate } : {}),
-                  ...(input.componentsToDelete?.length
-                    ? { deleteMany: { id: { in: input.componentsToDelete } } }
-                    : {}),
-                },
-              }
-            : {}),
-        };
+            if ("name" in c) data.name = c.name;
+            if ("description" in c) data.description = c.description;
+            if ("order" in c) data.order = c.order;
+            if ("monitorId" in c) data.monitorId = c.monitorId;
+
+            return {
+              where: { id: c.id },
+              data,
+            };
+          });
+
+        const updatableFields: (keyof Prisma.StatusPageUpdateInput &
+          keyof typeof input)[] = [
+          "name",
+          "slug",
+          "domain",
+          "isPublic",
+          "isEnabled",
+          "language",
+          "timezone",
+          "logoUrl",
+          "favicon",
+          "customCSS",
+          "customJS",
+          "theme",
+          "headerMessage",
+          "footerMessage",
+          "twitterHandle",
+          "supportUrl",
+        ];
+
+        const data: Prisma.StatusPageUpdateInput = updatableFields.reduce(
+          (acc, field) => {
+            if (input[field] !== undefined) {
+              (acc as any)[field] = input[field] as any;
+            }
+            return acc;
+          },
+          {} as Prisma.StatusPageUpdateInput
+        );
+
+        if (input.components || input.componentsToDelete) {
+          data.components = {
+            ...(toCreate.length ? { create: toCreate } : {}),
+            ...(toUpdate.length ? { update: toUpdate } : {}),
+            ...(input.componentsToDelete?.length
+              ? { deleteMany: { id: { in: input.componentsToDelete } } }
+              : {}),
+          };
+        }
 
         const statusPage = await tx.statusPage.update({
           where: { id: existing.id },
@@ -352,6 +378,7 @@ export const projectStatusPagesRouter = createTRPCRouter({
             timezone: true,
             createdAt: true,
             updatedAt: true,
+            language: true,
             _count: {
               select: { components: true, subscribers: true, incidents: true },
             },
@@ -380,7 +407,7 @@ export const projectStatusPagesRouter = createTRPCRouter({
           projectId: z.string(),
           statusPageId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {

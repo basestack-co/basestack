@@ -25,7 +25,7 @@ export const projectMonitorsRouter = createTRPCRouter({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(),
         search: z.string().optional().nullable(),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const limit = input.limit ?? 50;
@@ -50,7 +50,7 @@ export const projectMonitorsRouter = createTRPCRouter({
           take: limit + 1,
           cursor: input.cursor ? { id: input.cursor } : undefined,
           skip: input.cursor ? 1 : 0,
-          orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+          orderBy: [{ id: "desc" }],
           select: {
             id: true,
             name: true,
@@ -116,10 +116,13 @@ export const projectMonitorsRouter = createTRPCRouter({
           type: z.nativeEnum(MonitorType),
           projectId: z.string(),
           name: z.string(),
-          cron: z.string(),
+          cron: z
+            .string()
+            .min(1)
+            .regex(/^(\S+\s+){4}\S+$/, "Invalid cron format"),
           config: monitorConfigSchema,
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const externalCustomerId = emailToId(ctx.project.adminUserEmail);
@@ -127,7 +130,7 @@ export const projectMonitorsRouter = createTRPCRouter({
       const sub = await polar.getCustomerSubscription(
         externalCustomerId,
         Product.UPTIME,
-        AppMode,
+        AppMode
       );
 
       if (!sub?.id) {
@@ -148,26 +151,34 @@ export const projectMonitorsRouter = createTRPCRouter({
         },
       });
 
-      const { scheduleId } = await qstash.schedules.createMonitorCheckSchedule({
-        cron: input.cron,
-        body: {
-          adminUserEmail: ctx.project.adminUserEmail,
-          projectId: input.projectId,
-          monitorId: monitor.id,
-          externalCustomerId,
-        },
-        timeout: input.config.timeout,
-        retries: 1,
-      });
+      try {
+        const { scheduleId } =
+          await qstash.schedules.createMonitorCheckSchedule({
+            cron: input.cron,
+            body: {
+              adminUserEmail: ctx.project.adminUserEmail,
+              projectId: input.projectId,
+              monitorId: monitor.id,
+              externalCustomerId,
+            },
+            timeout: input.config.timeout,
+            retries: 1,
+          });
 
-      await ctx.prisma.monitor.update({
-        where: { id: monitor.id },
-        data: {
-          scheduleId,
-        },
-      });
+        await ctx.prisma.monitor.update({
+          where: { id: monitor.id },
+          data: { scheduleId },
+        });
 
-      return { monitor: null };
+        return { monitor };
+      } catch {
+        await ctx.prisma.monitor.delete({ where: { id: monitor.id } });
+
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to create monitor check schedule",
+        });
+      }
     }),
   update: protectedProcedure
     .use(withProjectRestrictions({ roles: [Role.ADMIN, Role.DEVELOPER] }))
@@ -180,14 +191,27 @@ export const projectMonitorsRouter = createTRPCRouter({
           cron: z.string(),
           config: monitorConfigSchema,
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
+      const existing = await ctx.prisma.monitor.findFirst({
+        where: { id: input.monitorId, projectId: input.projectId },
+        select: { id: true, scheduleId: true },
+      });
+
+      if (!existing) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Monitor not found",
+        });
+      }
+
       const monitor = await ctx.prisma.monitor.update({
-        where: {
-          id: input.monitorId,
+        where: { id: existing.id },
+        data: {
+          name: input.name,
+          config: input.config,
         },
-        data: input,
       });
 
       return { monitor };
@@ -200,13 +224,27 @@ export const projectMonitorsRouter = createTRPCRouter({
           projectId: z.string(),
           monitorId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
+      const existing = await ctx.prisma.monitor.findFirst({
+        where: { id: input.monitorId, projectId: input.projectId },
+        select: { id: true, scheduleId: true },
+      });
+
+      if (!existing) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Monitor not found",
+        });
+      }
+
+      if (existing.scheduleId) {
+        await qstash.schedules.deleteSchedule(existing.scheduleId);
+      }
+
       const monitor = await ctx.prisma.monitor.delete({
-        where: {
-          id: input.monitorId,
-        },
+        where: { id: existing.id },
       });
 
       return { monitor };

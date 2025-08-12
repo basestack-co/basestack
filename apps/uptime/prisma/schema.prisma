@@ -317,6 +317,8 @@ model Incident {
   @@index([projectId, status])
   @@index([createdAt(sort: Desc)])
   @@index([id])
+  @@index([projectId, createdAt])
+  @@index([projectId, isScheduled, scheduledStart])
 }
 
 model IncidentUpdate {
@@ -341,6 +343,8 @@ model IncidentMonitor {
   monitorId  String
 
   @@id([incidentId, monitorId])
+  @@index([incidentId, monitorId])
+  @@index([monitorId])
 }
 
 model StatusPageIncident {

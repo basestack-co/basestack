@@ -20,7 +20,7 @@ export const projectIncidentsRouter = createTRPCRouter({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(),
         search: z.string().optional().nullable(),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const limit = input.limit ?? 50;
@@ -39,7 +39,6 @@ export const projectIncidentsRouter = createTRPCRouter({
         ...search,
       };
 
-      // Run count and page query concurrently for lower latency
       const [total, incidents] = await ctx.prisma.$transaction([
         ctx.prisma.incident.count({ where }),
         ctx.prisma.incident.findMany({
@@ -47,8 +46,7 @@ export const projectIncidentsRouter = createTRPCRouter({
           take: limit + 1,
           cursor: input.cursor ? { id: input.cursor } : undefined,
           skip: input.cursor ? 1 : 0,
-          // Stable order matching previous UX: newest first, then id as tiebreaker
-          orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+          orderBy: [{ id: "desc" }],
           select: {
             id: true,
             title: true,
@@ -125,7 +123,7 @@ export const projectIncidentsRouter = createTRPCRouter({
     .use(
       withProjectRestrictions({
         roles: [Role.ADMIN, Role.DEVELOPER, Role.OPERATOR],
-      }),
+      })
     )
     .input(
       z
@@ -141,7 +139,7 @@ export const projectIncidentsRouter = createTRPCRouter({
           monitorIds: z.array(z.string()).optional(),
           initialUpdateMessage: z.string().optional(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -242,7 +240,7 @@ export const projectIncidentsRouter = createTRPCRouter({
     .use(
       withProjectRestrictions({
         roles: [Role.ADMIN, Role.DEVELOPER, Role.OPERATOR],
-      }),
+      })
     )
     .input(
       z
@@ -252,7 +250,7 @@ export const projectIncidentsRouter = createTRPCRouter({
           message: z.string().min(1),
           status: z.nativeEnum(IncidentStatus).optional(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -268,43 +266,55 @@ export const projectIncidentsRouter = createTRPCRouter({
           });
         }
 
-        const effectiveStatus = input.status ?? existing.status;
+        const nextStatus = input.status ?? existing.status;
+        const updateIncident =
+          !!input.status && input.status !== existing.status;
 
-        const update = await tx.incidentUpdate.create({
-          data: {
-            incidentId: input.incidentId,
-            message: input.message,
-            status: effectiveStatus,
-            createdById: ctx.auth?.user.id ?? null,
-          },
-          select: {
-            id: true,
-            message: true,
-            status: true,
-            createdAt: true,
-          },
-        });
-
-        if (input.status && input.status !== existing.status) {
-          await tx.incident.update({
-            where: { id: input.incidentId },
-            data: {
-              status: input.status,
-              resolvedAt:
-                input.status === IncidentStatus.RESOLVED ? new Date() : null,
-            },
-          });
-        }
-
-        const incident = await tx.incident.findUnique({
+        const updated = await tx.incident.update({
           where: { id: input.incidentId },
+          data: {
+            ...(updateIncident
+              ? {
+                  status: input.status,
+                  resolvedAt:
+                    input.status === IncidentStatus.RESOLVED
+                      ? new Date()
+                      : null,
+                }
+              : {}),
+            updates: {
+              create: {
+                message: input.message,
+                status: nextStatus,
+                createdById: ctx.auth?.user.id ?? null,
+              },
+            },
+          },
           select: {
             id: true,
             status: true,
             resolvedAt: true,
             updatedAt: true,
+            updates: {
+              orderBy: { createdAt: "desc" },
+              take: 1,
+              select: {
+                id: true,
+                message: true,
+                status: true,
+                createdAt: true,
+              },
+            },
           },
         });
+
+        const update = updated.updates[0]!;
+        const incident = {
+          id: updated.id,
+          status: updated.status,
+          resolvedAt: updated.resolvedAt,
+          updatedAt: updated.updatedAt,
+        };
 
         return { update, incident };
       });
@@ -313,7 +323,7 @@ export const projectIncidentsRouter = createTRPCRouter({
     .use(
       withProjectRestrictions({
         roles: [Role.ADMIN, Role.DEVELOPER, Role.OPERATOR],
-      }),
+      })
     )
     .input(
       z
@@ -321,7 +331,7 @@ export const projectIncidentsRouter = createTRPCRouter({
           projectId: z.string(),
           incidentId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
