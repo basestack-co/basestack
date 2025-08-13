@@ -10,13 +10,16 @@ import {
   Pagination,
   Text,
 } from "@basestack/design-system";
+import styled, { useTheme } from "styled-components";
 // Router
 import { useParams } from "next/navigation";
 // Locales
 import { useMemo } from "react";
-import styled from "styled-components";
 // Server
 import { api } from "utils/trpc/react";
+import { PageContainer } from "../../../styles";
+import { Grid } from "./styles";
+import MonitorCard from "@basestack/ui/components/MonitorCard";
 
 const MonitorsGrid = styled.div`
   display: grid;
@@ -37,6 +40,7 @@ const MonitorsGrid = styled.div`
 `;
 
 const ProjectMonitorsPage = () => {
+  const theme = useTheme();
   const { projectId } = useParams<{ projectId: string }>();
 
   const { data, fetchNextPage } = api.projectMonitors.list.useInfiniteQuery(
@@ -72,16 +76,85 @@ const ProjectMonitorsPage = () => {
 
   if ((data?.pages?.[0]?.total ?? 0) <= 0) {
     return (
-      <Empty
-        iconName="monitor"
-        title="No monitors yet"
-        description="Create your first monitor to start tracking uptime and response times."
-      />
+      <PageContainer>
+        <Grid>
+          <MonitorCard
+            title="example.google.com"
+            labels={[
+              { text: "Google" },
+              { text: "HTTPS" },
+              { text: "Next sync in", label: "45ms" },
+            ]}
+            data={[
+              { label: "status", text: "Up", variant: "success" },
+              { label: "latency", text: "400ms", variant: "danger" },
+              { label: "cpu", text: "99%", variant: "danger" },
+            ]}
+            icons={[
+              { icon: "error", text: "1", tooltip: "some random text" },
+              { icon: "timer", text: "70%", tooltip: "some random text" },
+            ]}
+          />
+          <MonitorCard
+            title="example.google.com"
+            labels={[
+              { text: "Google" },
+              { text: "HTTPS" },
+              { text: "Next sync in", label: "1m 45ms" },
+            ]}
+            data={[
+              { label: "status", text: "Up", variant: "success" },
+              { label: "latency", text: "N/A", variant: "danger" },
+              { label: "Http code", text: "404", variant: "danger" },
+            ]}
+            icons={[
+              { icon: "error", text: "1", tooltip: "some random text" },
+              {
+                icon: "timer",
+                text: "40%",
+                variant: "danger",
+                tooltip: "some random text",
+              },
+            ]}
+          />
+          <MonitorCard
+            title="example.google.com"
+            labels={[
+              { text: "Google" },
+              { text: "Agent" },
+              { text: "Sync pause" },
+            ]}
+            data={[
+              { label: "status", text: "Paused" },
+              { label: "latency", text: "200ms", variant: "warning" },
+              { label: "Http code", text: "200" },
+            ]}
+            icons={[
+              { icon: "error", text: "1", tooltip: "some random text" },
+              {
+                icon: "timer",
+                text: "100%",
+                variant: "success",
+                tooltip: "some random text",
+              },
+            ]}
+          />
+        </Grid>
+
+        <br />
+        <br />
+        <br />
+        <Empty
+          iconName="monitor"
+          title="No monitors yet"
+          description="Create your first monitor to start tracking uptime and response times."
+        />
+      </PageContainer>
     );
   }
 
   return (
-    <Flex flexDirection="column" gap={16} style={{ padding: "24px 20px" }}>
+    <PageContainer>
       <MonitorsGrid>
         {data?.pages
           .flatMap((p) => p.monitors)
@@ -166,7 +239,7 @@ const ProjectMonitorsPage = () => {
           isLoading={false}
         />
       </div>
-    </Flex>
+    </PageContainer>
   );
 };
 

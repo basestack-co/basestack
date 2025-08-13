@@ -52,7 +52,8 @@ export const BackDropCover = styled.div`
 export const Header = styled.div`
   ${flexCenter};
   justify-content: space-between;
-  padding: ${({ theme }) => theme.spacing.s5};
+  padding: 0 ${({ theme }) => theme.spacing.s5};
+  height: ${rem("64px")};
 `;
 
 export const TitleContainer = styled.div`
@@ -75,10 +76,13 @@ export const ScrollableContent = styled.div`
   padding-bottom: ${({ theme }) => theme.spacing.s5};
 `;
 
-export const List = styled.ul`
+export const List = styled.ul.withConfig({
+  shouldForwardProp: (prop) => prop !== "mt",
+})<{ mt?: string }>`
   ${flexColumn};
   list-style-type: none;
   padding: 0 ${({ theme }) => theme.spacing.s2};
+  margin-top: ${({ mt }) => mt};
 `;
 
 export const ListItem = styled.li`

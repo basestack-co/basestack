@@ -33,6 +33,7 @@ const Navigation = ({
     leftLinks,
     product,
     onClickLogo,
+    isDrawerOpen
   };
 
   return (
@@ -44,7 +45,6 @@ const Navigation = ({
       />
       <MobileNavigation
         onClose={() => setIsDrawerOpen(false)}
-        isDrawerOpen={isDrawerOpen}
         rightLinksTitle={rightLinksTitle}
         appsTitle={appsTitle}
         {...sharedProps}

@@ -68,3 +68,7 @@ export {
   default as UsageSection,
   type UsageSectionProps,
 } from "./components/UsageSection";
+export {
+  default as MonitorCard,
+  type MonitorCardProps,
+} from "./components/MonitorCard";

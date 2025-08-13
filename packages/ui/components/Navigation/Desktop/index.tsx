@@ -1,5 +1,5 @@
 // Components
-import { Avatar, IconButton, Logo, Text } from "@basestack/design-system";
+import { Avatar, IconButton, Logo, Text, Box } from "@basestack/design-system";
 import { useTheme } from "styled-components";
 import AppsDropdown from "../../AppsDropdown";
 // UI
@@ -20,6 +20,7 @@ const DesktopNavigation = ({
   rightLinks,
   leftLinks,
   product,
+  isDrawerOpen,
 }: DesktopNavigationUIProps) => {
   const theme = useTheme();
   const currentProject = projects.current;
@@ -28,58 +29,58 @@ const DesktopNavigation = ({
   };
 
   return (
-    <Container data-testid="navigation">
-      <List data-testid="navigation-left-ul">
-        {isMobile && (
-          <>
-            <ListItem>
-              <IconButton
-                mr={theme.spacing.s3}
-                icon="menu"
-                size="medium"
-                onClick={onOpenDrawer}
+    <Container>
+      {isMobile && (
+        <>
+          <LogoContainer showSeparator={!!currentProject} onClick={onClickLogo}>
+            <Logo size={32} product={product} />
+          </LogoContainer>
+          {!!currentProject && (
+            <Box display="flex" alignItems="center" px={theme.spacing.s3}>
+              <Avatar
+                size="xSmall"
+                round={false}
+                userName={currentProject}
+                alt={`project-${currentProject}`}
+                mr={theme.spacing.s2}
               />
-            </ListItem>
-            {!!currentProject && (
-              <ListItem display="flex" alignItems="center">
-                <Avatar
-                  size="xSmall"
-                  round={false}
-                  userName={currentProject}
-                  alt={`project-${currentProject}`}
-                  mr={theme.spacing.s2}
-                />
-                <Text size="medium">{truncateProjectName(currentProject)}</Text>
-              </ListItem>
-            )}
-          </>
-        )}
-        {!isMobile && (
-          <>
-            <ListItem>
-              <LogoContainer onClick={onClickLogo}>
-                <Logo size={36} product={product} />
-              </LogoContainer>
-            </ListItem>
-            <ProjectsMenu {...projects} />
-            {leftLinks?.map((item, index) => (
-              <ListItem key={`internal-link-${index}`}>
-                <ButtonLink
-                  type={item.type}
-                  onClick={item.onClick}
-                  isActive={item.isActive}
-                  variant={item.buttonVariant}
-                  space={item.space}
-                >
-                  {item.text}
-                </ButtonLink>
-              </ListItem>
-            ))}
-          </>
-        )}
-      </List>
+              <Text size="small" fontWeight={500}>
+                {truncateProjectName(currentProject)}
+              </Text>
+            </Box>
+          )}
+          {!isDrawerOpen && (
+            <Box ml="auto">
+              <IconButton icon="menu" size="medium" onClick={onOpenDrawer} />
+            </Box>
+          )}
+        </>
+      )}
       {!isMobile && (
-        <List ml="auto" data-testid="navigation-right-ul">
+        <List>
+          <ListItem>
+            <LogoContainer showSeparator onClick={onClickLogo}>
+              <Logo size={36} product={product} />
+            </LogoContainer>
+          </ListItem>
+          <ProjectsMenu {...projects} />
+          {leftLinks?.map((item, index) => (
+            <ListItem key={`internal-link-${index}`}>
+              <ButtonLink
+                type={item.type}
+                onClick={item.onClick}
+                isActive={item.isActive}
+                variant={item.buttonVariant}
+                space={item.space}
+              >
+                {item.text}
+              </ButtonLink>
+            </ListItem>
+          ))}
+        </List>
+      )}
+      {!isMobile && (
+        <List ml="auto">
           {rightLinks?.map((item, index) => (
             <ListItem key={`externalLinks-link-${index}`}>
               <ButtonLink

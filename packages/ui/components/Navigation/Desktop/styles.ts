@@ -42,7 +42,9 @@ export const ListItem = styled.li.withConfig({
   ${compose(space, flexbox, layout)};
 `;
 
-export const LogoContainer = styled.button`
+export const LogoContainer = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== "showSeparator",
+})<{ showSeparator: boolean }>`
   ${flexCenter};
   position: relative;
   padding-right: ${({ theme }) => theme.spacing.s4};
@@ -51,13 +53,18 @@ export const LogoContainer = styled.button`
   border: none;
   background-color: transparent;
 
-  &::before {
-    content: "";
-    position: absolute;
-    height: 20px;
-    right: -1px;
-    width: 2px;
-    background-color: ${({ theme }) =>
-      theme.colors[theme.isDarkMode ? "gray600" : "gray100"]};
-  }
+  ${({ showSeparator, theme }) =>
+    showSeparator &&
+    css`
+      &::before {
+        content: "";
+        position: absolute;
+        height: 20px;
+        right: -1px;
+        width: 2px;
+        background-color: ${theme.colors[
+          theme.isDarkMode ? "gray600" : "gray100"
+        ]};
+      }
+    `}
 `;

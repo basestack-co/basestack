@@ -34,7 +34,7 @@ export const Container = styled.div`
     grid-template-columns: repeat(2, minMax(0, 1fr));
   }
 
-  @media screen and ${({ theme }) => theme.device.max.sm} {
+  @media screen and (max-width: 374px) {
     grid-template-columns: 1fr;
   }
 `;

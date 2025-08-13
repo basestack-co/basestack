@@ -70,7 +70,7 @@ const MobileNavigation = ({
               <GlobalStyle />
               <Header>
                 <LogoButton onClick={onClickLogo}>
-                  <Logo size={36} product={product} />
+                  <Logo size={32} product={product} />
                 </LogoButton>
                 <IconButton
                   icon="menu_open"
@@ -81,7 +81,7 @@ const MobileNavigation = ({
               <ContentContainer>
                 {leftLinks && leftLinks.length > 0 && (
                   <>
-                    <List>
+                    <List mt={theme.spacing.s5}>
                       {leftLinks?.map((item, index) => (
                         <ListItem key={index}>
                           <ButtonContainer isActive={item.isActive}>

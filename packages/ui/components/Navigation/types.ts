@@ -25,6 +25,7 @@ interface SharedProps {
   rightLinks?: Array<ListItemProps>;
   apps?: AppsDropdownProps["data"];
   product: LogoProps["product"];
+  isDrawerOpen: boolean;
 }
 
 export interface DesktopNavigationUIProps extends SharedProps {
@@ -34,7 +35,6 @@ export interface DesktopNavigationUIProps extends SharedProps {
 
 export interface MobileNavigationUIProps extends SharedProps {
   onClose: () => void;
-  isDrawerOpen: boolean;
   rightLinksTitle: string;
   appsTitle: string;
 }
