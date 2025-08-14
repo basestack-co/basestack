@@ -1,46 +1,26 @@
 "use client";
 
+import { useMemo } from "react";
 // Design System
 import {
-  Card,
   CardVariant,
-  Empty,
-  Flex,
-  Label,
   Pagination,
+  ButtonVariant,
+  Box,
+  Flex,
   Text,
 } from "@basestack/design-system";
-import MonitorCard from "@basestack/ui/components/MonitorCard";
+import { MonitorCard } from "@basestack/ui";
+import { useTheme } from "styled-components";
 // Router
 import { useParams } from "next/navigation";
-// Locales
-import { useMemo } from "react";
-import styled, { useTheme } from "styled-components";
 // Server
 import { api } from "utils/trpc/react";
 import { PageContainer } from "../../../styles";
 import { Grid } from "./styles";
 
-const MonitorsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-gap: ${({ theme }) => theme.spacing.s5};
-
-  @media screen and ${({ theme }) => theme.device.max.lg} {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  @media screen and ${({ theme }) => theme.device.max.md} {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  @media screen and ${({ theme }) => theme.device.max.sm} {
-    grid-template-columns: minmax(0, 1fr);
-  }
-`;
-
 const ProjectMonitorsPage = () => {
-  const theme = useTheme();
+  const { colors, isDarkMode, spacing } = useTheme();
   const { projectId } = useParams<{ projectId: string }>();
 
   const { data, fetchNextPage } = api.projectMonitors.list.useInfiniteQuery(
@@ -74,11 +54,42 @@ const ProjectMonitorsPage = () => {
     }
   };
 
+  const menuItems = [
+    { icon: "edit", text: "Edit", onClick: () => {} },
+    {
+      icon: "delete",
+      text: "Delete",
+      variant: ButtonVariant.Danger,
+      onClick: () => {},
+    },
+  ];
+
+  /*
   if ((data?.pages?.[0]?.total ?? 0) <= 0) {
     return (
       <PageContainer>
+        <Empty
+          iconName="monitor"
+          title="No monitors yet"
+          description="Create your first monitor to start tracking uptime and response times."
+        />
+      </PageContainer>
+    );
+  }
+   */
+
+  return (
+    <PageContainer>
+      <Flex flexDirection="column" gap={spacing.s5}>
+        <Box>
+          <Text size="xLarge" mr={spacing.s5}>
+            Monitoring
+          </Text>
+        </Box>
+
         <Grid>
           <MonitorCard
+            menuItems={menuItems}
             title="example.google.com"
             labels={[
               { text: "Google" },
@@ -96,6 +107,7 @@ const ProjectMonitorsPage = () => {
             ]}
           />
           <MonitorCard
+            menuItems={menuItems}
             title="example.google.com"
             labels={[
               { text: "Google" },
@@ -118,6 +130,7 @@ const ProjectMonitorsPage = () => {
             ]}
           />
           <MonitorCard
+            menuItems={menuItems}
             title="example.google.com"
             labels={[
               { text: "Google" },
@@ -140,105 +153,18 @@ const ProjectMonitorsPage = () => {
             ]}
           />
         </Grid>
+      </Flex>
 
-        <br />
-        <br />
-        <br />
-        <Empty
-          iconName="monitor"
-          title="No monitors yet"
-          description="Create your first monitor to start tracking uptime and response times."
-        />
-      </PageContainer>
-    );
-  }
-
-  return (
-    <PageContainer>
-      <MonitorsGrid>
-        {data?.pages
-          .flatMap((p) => p.monitors)
-          .map((monitor) => {
-            const latest = monitor.latestCheck;
-            const variant = getVariantFromStatus(latest?.status ?? null);
-
-            return (
-              <Card key={monitor.id} variant={variant} p={16} hasHoverAnimation>
-                <Flex flexDirection="column" gap={8}>
-                  <Flex justifyContent="space-between" alignItems="center">
-                    <Text fontWeight="bold">{monitor.name}</Text>
-                    <Label
-                      text={monitor.type}
-                      size="small"
-                      variant={
-                        monitor.type === "HTTP" || monitor.type === "HTTPS"
-                          ? "info"
-                          : monitor.type === "PING" || monitor.type === "TCP"
-                            ? "success"
-                            : monitor.type === "SSL_CERTIFICATE" ||
-                                monitor.type === "DOMAIN_EXPIRY"
-                              ? "warning"
-                              : "default"
-                      }
-                      isUppercase
-                    />
-                  </Flex>
-
-                  <Flex justifyContent="space-between">
-                    <Text size="small">
-                      Status: {latest?.status ?? "UNKNOWN"}
-                    </Text>
-                    <Text size="small">Interval: {monitor.interval}s</Text>
-                  </Flex>
-
-                  <Flex justifyContent="space-between" alignItems="center">
-                    <Text
-                      size="small"
-                      color={
-                        latest?.responseTime != null
-                          ? latest.responseTime > 400
-                            ? "#e11d48"
-                            : "#16a34a"
-                          : undefined
-                      }
-                    >
-                      {latest?.responseTime != null
-                        ? `Latency: ${latest.responseTime}ms`
-                        : "Latency: -"}
-                    </Text>
-                    <Text size="small">
-                      {latest?.statusCode != null
-                        ? `HTTP: ${latest.statusCode}`
-                        : "HTTP: -"}
-                    </Text>
-                  </Flex>
-
-                  <Flex justifyContent="space-between">
-                    <Text size="small">
-                      {monitor.isEnabled ? "Enabled" : "Disabled"}
-                    </Text>
-                    <Text size="small">
-                      {latest?.checkedAt
-                        ? `Checked: ${new Date(latest.checkedAt).toLocaleString()}`
-                        : "Checked: -"}
-                    </Text>
-                  </Flex>
-                </Flex>
-              </Card>
-            );
-          })}
-      </MonitorsGrid>
-
-      <div
-        style={{ display: "flex", justifyContent: "center", paddingBottom: 16 }}
-      >
-        <Pagination
-          onClick={fetchNextPage}
-          currentPage={currentPage >= totalPages ? totalPages : currentPage}
-          totalPages={totalPages}
-          isLoading={false}
-        />
-      </div>
+      <Box mt="auto" pt={spacing.s5}>
+        <Flex justifyContent="center">
+          <Pagination
+            onClick={fetchNextPage}
+            currentPage={currentPage >= totalPages ? totalPages : currentPage}
+            totalPages={totalPages}
+            isLoading={false}
+          />
+        </Flex>
+      </Box>
     </PageContainer>
   );
 };

@@ -1,22 +1,26 @@
+import React, { Fragment } from "react";
+import { useTheme } from "styled-components";
+import { rem } from "polished";
 import {
   Box,
   Card,
   Flex,
   HorizontalRule,
   Icon,
-  Label,
-  type LabelProps,
   Text,
+  Label,
+  LabelProps,
   Tooltip,
-  TooltipContent,
   TooltipTrigger,
+  TooltipContent,
+  PopupMenu,
+  type PopupMenuProps,
 } from "@basestack/design-system";
-import React, { Fragment } from "react";
-import { useTheme } from "styled-components";
 
 type Variant = "success" | "warning" | "danger" | "default";
 
 export interface MonitorCardProps {
+  menuItems: PopupMenuProps["items"];
   title: string;
   labels: Array<{ text: string; label?: string }>;
   data: Array<{
@@ -32,26 +36,37 @@ export interface MonitorCardProps {
   }>;
 }
 
-const MonitorCard = ({ title, labels, data, icons }: MonitorCardProps) => {
-  const theme = useTheme();
+const MonitorCard = ({
+  title,
+  labels,
+  data,
+  icons,
+  menuItems,
+}: MonitorCardProps) => {
+  const { colors, spacing, isDarkMode } = useTheme();
 
   const getColorVariant = (variant?: Variant) => {
-    const colors = {
-      success: theme.colors.green400,
-      warning: theme.colors.orange400,
-      danger: theme.colors.red400,
-      default: theme.colors.black,
+    const colorsVariant = {
+      success: isDarkMode ? colors.green300 : colors.green400,
+      warning: isDarkMode ? colors.orange300 : colors.orange400,
+      danger: isDarkMode ? colors.red300 : colors.red400,
+      default: isDarkMode ? colors.gray300 : colors.black,
     };
 
-    return colors[variant ?? "default"];
+    return colorsVariant[variant ?? "default"];
   };
 
   return (
-    <Card>
-      <Box p={theme.spacing.s5}>
+    <Card position="relative">
+      {menuItems && (
+        <Box position="absolute" right={rem("14px")} top={rem("14px")}>
+          <PopupMenu items={menuItems} />
+        </Box>
+      )}
+      <Box p={spacing.s5}>
         <Text fontWeight={500}>{title}</Text>
 
-        <Flex flexWrap="wrap" alignItems="center" gap={theme.spacing.s1}>
+        <Flex flexWrap="wrap" alignItems="center" gap={spacing.s1}>
           {labels?.map(({ text, label }, index, { length }) => (
             <Fragment key={`label-${index}`}>
               {label ? (
@@ -72,8 +87,8 @@ const MonitorCard = ({ title, labels, data, icons }: MonitorCardProps) => {
           ))}
         </Flex>
 
-        <Box mt={theme.spacing.s5}>
-          <Flex gap={theme.spacing.s2}>
+        <Box mt={spacing.s5}>
+          <Flex gap={spacing.s2} flexWrap="wrap">
             {data?.map(({ text, label, variant }, index) => (
               <Flex key={`data-${index}`} flexDirection="column" flex="1 0 0">
                 <Text muted size="xSmall">
@@ -90,10 +105,10 @@ const MonitorCard = ({ title, labels, data, icons }: MonitorCardProps) => {
 
       {icons?.length > 0 && (
         <>
-          <HorizontalRule />
+          <HorizontalRule mt="auto" />
 
-          <Box py={theme.spacing.s3} px={theme.spacing.s5}>
-            <Flex alignItems="center" gap={theme.spacing.s4} flexWrap="wrap">
+          <Box py={spacing.s3} px={spacing.s5}>
+            <Flex alignItems="center" gap={spacing.s4} flexWrap="wrap">
               {icons?.map(({ icon, text, tooltip, variant }, index) => (
                 <Tooltip key={`icon-${index}`} placement="top">
                   <TooltipTrigger>
@@ -101,7 +116,7 @@ const MonitorCard = ({ title, labels, data, icons }: MonitorCardProps) => {
                       <Icon icon={icon} size="small" />
                       <Label
                         text={text}
-                        ml={theme.spacing.s1}
+                        ml={spacing.s1}
                         variant={variant}
                         isTranslucent
                       />

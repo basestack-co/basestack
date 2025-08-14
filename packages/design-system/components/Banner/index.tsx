@@ -50,6 +50,10 @@ export interface BannerProps extends SpaceProps {
    * children
    */
   children?: ReactNode;
+  /**
+   * custom background color
+   */
+  backgroundColor?: string;
 }
 
 const Banner = ({
@@ -62,6 +66,7 @@ const Banner = ({
   maxWidth,
   borderRadius,
   children,
+  backgroundColor,
   ...props
 }: BannerProps) => {
   const theme = useTheme();
@@ -124,7 +129,10 @@ const Banner = ({
   return (
     <Container
       borderRadius={borderRadius}
-      bg={getVariant()[isTranslucent ? "translucent" : "solid"].bg}
+      bg={
+        backgroundColor ||
+        getVariant()[isTranslucent ? "translucent" : "solid"].bg
+      }
       variant={variant}
       isTranslucent={isTranslucent}
       {...props}
