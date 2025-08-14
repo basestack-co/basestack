@@ -177,6 +177,85 @@
         }
       }
     },
+    "monitor": {
+      "create": {
+        "title": "Create Monitor",
+        "button": {
+          "cancel": "Close",
+          "submit": "Create"
+        }
+      },
+      "tab": {
+        "core": {
+          "title": "Core"
+        },
+        "advanced": {
+          "title": "Advanced"
+        }
+      },
+      "form": {
+        "input": {
+          "name": {
+            "title": "Name",
+            "error": {
+              "max": "Must be 100 characters or less",
+              "min": "Required field"
+            }
+          },
+          "type": {
+            "title": "Type"
+          },
+          "cron": {
+            "title": "Cron"
+          },
+          "url": {
+            "title": "URL"
+          },
+          "method": {
+            "title": "Method"
+          },
+          "expected-status": {
+            "title": "Expected Status"
+          },
+          "timeout": {
+            "title": "Timeout"
+          },
+          "verify-ssl": {
+            "title": "Verify SSL"
+          },
+          "follow-redirects": {
+            "title": "Follow Redirects"
+          },
+          "headers": {
+            "title": "Headers (JSON)"
+          },
+          "body": {
+            "title": "Body"
+          },
+          "keyword": {
+            "title": "Keyword"
+          },
+          "port": {
+            "title": "Port"
+          },
+          "ssl-check-days": {
+            "title": "SSL Check Days"
+          },
+          "regions": {
+            "title": "Regions"
+          },
+          "retries": {
+            "title": "Retries"
+          },
+          "retry-delay": {
+            "title": "Retry Delay"
+          },
+          "max-response-size": {
+            "title": "Max Response Size"
+          }
+        }
+      }
+    },
     "team": {
       "create": {
         "title": "Create Team",

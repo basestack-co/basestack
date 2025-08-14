@@ -1,5 +1,5 @@
 // Components
-import { Avatar, IconButton, Logo, Text, Box } from "@basestack/design-system";
+import { Avatar, Box, IconButton, Logo, Text } from "@basestack/design-system";
 import { useTheme } from "styled-components";
 import AppsDropdown from "../../AppsDropdown";
 // UI

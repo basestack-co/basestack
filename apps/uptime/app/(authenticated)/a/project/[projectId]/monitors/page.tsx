@@ -10,16 +10,16 @@ import {
   Pagination,
   Text,
 } from "@basestack/design-system";
-import styled, { useTheme } from "styled-components";
+import MonitorCard from "@basestack/ui/components/MonitorCard";
 // Router
 import { useParams } from "next/navigation";
 // Locales
 import { useMemo } from "react";
+import styled, { useTheme } from "styled-components";
 // Server
 import { api } from "utils/trpc/react";
 import { PageContainer } from "../../../styles";
 import { Grid } from "./styles";
-import MonitorCard from "@basestack/ui/components/MonitorCard";
 
 const MonitorsGrid = styled.div`
   display: grid;

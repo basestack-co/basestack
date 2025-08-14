@@ -22,9 +22,20 @@ export interface SwitchProps extends SpaceProps {
    * onChange callback
    */
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  /**
+   * disable toggle
+   */
+  isDisabled?: boolean;
 }
 
-const Switch = ({ text, checked, color, onChange, ...props }: SwitchProps) => {
+const Switch = ({
+  text,
+  checked,
+  color,
+  onChange,
+  isDisabled,
+  ...props
+}: SwitchProps) => {
   const theme = useTheme();
 
   return (
@@ -35,7 +46,12 @@ const Switch = ({ text, checked, color, onChange, ...props }: SwitchProps) => {
         </Text>
       )}
       <Label>
-        <Input type="checkbox" checked={checked} onChange={onChange} />
+        <Input
+          type="checkbox"
+          checked={checked}
+          onChange={onChange}
+          disabled={isDisabled}
+        />
         <Slider />
       </Label>
     </Container>

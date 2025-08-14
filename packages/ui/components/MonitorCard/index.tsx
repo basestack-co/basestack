@@ -1,18 +1,18 @@
-import React, { Fragment } from "react";
-import { useTheme } from "styled-components";
 import {
   Box,
   Card,
   Flex,
   HorizontalRule,
   Icon,
-  Text,
   Label,
-  LabelProps,
+  type LabelProps,
+  Text,
   Tooltip,
-  TooltipTrigger,
   TooltipContent,
+  TooltipTrigger,
 } from "@basestack/design-system";
+import React, { Fragment } from "react";
+import { useTheme } from "styled-components";
 
 type Variant = "success" | "warning" | "danger" | "default";
 

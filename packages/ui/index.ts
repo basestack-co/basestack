@@ -17,6 +17,10 @@ export type {
   HistoryType,
 } from "./components/HistoryCard/types";
 export {
+  default as MonitorCard,
+  type MonitorCardProps,
+} from "./components/MonitorCard";
+export {
   default as Navigation,
   type NavigationProps,
 } from "./components/Navigation";
@@ -68,7 +72,3 @@ export {
   default as UsageSection,
   type UsageSectionProps,
 } from "./components/UsageSection";
-export {
-  default as MonitorCard,
-  type MonitorCardProps,
-} from "./components/MonitorCard";
