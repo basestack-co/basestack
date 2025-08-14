@@ -36,9 +36,9 @@ export const getLeftLinks = (
     {
       type: "button",
       icon: "mail",
-      onClick: () => router.push(`/a/project/${projectId}/subscribers`),
-      text: t("navigation.internal.subscribers"),
-      isActive: pathname.includes("subscribers"),
+      onClick: () => router.push(`/a/project/${projectId}/status-page`),
+      text: t("navigation.internal.statusPage"),
+      isActive: pathname.includes("status-page"),
       isVisible: !!projectId,
     },
     {

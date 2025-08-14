@@ -62,9 +62,9 @@ export const LogoContainer = styled.button.withConfig({
         height: 20px;
         right: -1px;
         width: 2px;
-        background-color: ${theme.colors[
-          theme.isDarkMode ? "gray600" : "gray100"
-        ]};
+        background-color: ${
+          theme.colors[theme.isDarkMode ? "gray600" : "gray100"]
+        };
       }
     `}
 `;

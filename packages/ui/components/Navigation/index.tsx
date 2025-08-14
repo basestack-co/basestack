@@ -33,7 +33,7 @@ const Navigation = ({
     leftLinks,
     product,
     onClickLogo,
-    isDrawerOpen
+    isDrawerOpen,
   };
 
   return (

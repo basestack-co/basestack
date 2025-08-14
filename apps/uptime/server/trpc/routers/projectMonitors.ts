@@ -25,7 +25,7 @@ export const projectMonitorsRouter = createTRPCRouter({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(),
         search: z.string().optional().nullable(),
-      })
+      }),
     )
     .query(async ({ ctx, input }) => {
       const limit = input.limit ?? 50;
@@ -122,7 +122,7 @@ export const projectMonitorsRouter = createTRPCRouter({
             .regex(/^(\S+\s+){4}\S+$/, "Invalid cron format"),
           config: monitorConfigSchema,
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const externalCustomerId = emailToId(ctx.project.adminUserEmail);
@@ -130,7 +130,7 @@ export const projectMonitorsRouter = createTRPCRouter({
       const sub = await polar.getCustomerSubscription(
         externalCustomerId,
         Product.UPTIME,
-        AppMode
+        AppMode,
       );
 
       if (!sub?.id) {
@@ -191,7 +191,7 @@ export const projectMonitorsRouter = createTRPCRouter({
           cron: z.string(),
           config: monitorConfigSchema,
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const existing = await ctx.prisma.monitor.findFirst({
@@ -224,7 +224,7 @@ export const projectMonitorsRouter = createTRPCRouter({
           projectId: z.string(),
           monitorId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       const existing = await ctx.prisma.monitor.findFirst({

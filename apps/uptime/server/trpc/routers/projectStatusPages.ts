@@ -52,7 +52,7 @@ export const projectStatusPagesRouter = createTRPCRouter({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(),
         search: z.string().optional().nullable(),
-      })
+      }),
     )
     .query(async ({ ctx, input }) => {
       const limit = input.limit ?? 50;
@@ -134,7 +134,7 @@ export const projectStatusPagesRouter = createTRPCRouter({
         .extend({
           components: z.array(statusPageComponentBase).optional(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -160,8 +160,8 @@ export const projectStatusPagesRouter = createTRPCRouter({
           new Set(
             (input.components ?? [])
               .map((c) => c.monitorId)
-              .filter((v): v is string => !!v)
-          )
+              .filter((v): v is string => !!v),
+          ),
         );
 
         if (monitorIds.length) {
@@ -253,12 +253,12 @@ export const projectStatusPagesRouter = createTRPCRouter({
             .array(
               statusPageComponentBase.extend({
                 id: z.string().optional(),
-              })
+              }),
             )
             .optional(),
           componentsToDelete: z.array(z.string()).optional(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -285,8 +285,8 @@ export const projectStatusPagesRouter = createTRPCRouter({
           new Set(
             (input.components ?? [])
               .map((c) => c.monitorId)
-              .filter((v): v is string => !!v)
-          )
+              .filter((v): v is string => !!v),
+          ),
         );
         if (monitorIds.length) {
           const count = await tx.monitor.count({
@@ -352,7 +352,7 @@ export const projectStatusPagesRouter = createTRPCRouter({
             }
             return acc;
           },
-          {} as Prisma.StatusPageUpdateInput
+          {} as Prisma.StatusPageUpdateInput,
         );
 
         if (input.components || input.componentsToDelete) {
@@ -407,7 +407,7 @@ export const projectStatusPagesRouter = createTRPCRouter({
           projectId: z.string(),
           statusPageId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {

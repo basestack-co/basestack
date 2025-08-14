@@ -32,7 +32,7 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(),
         search: z.string().optional().nullable(),
-      })
+      }),
     )
     .query(async ({ ctx, input }) => {
       const limit = input.limit ?? 50;
@@ -107,8 +107,8 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
             (!d.channels.includes("SMS") || !!d.phone),
           {
             message: "EMAIL channel requires email; SMS channel requires phone",
-          }
-        )
+          },
+        ),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -194,8 +194,8 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
               (d.phone !== null && d.phone !== undefined)),
           {
             message: "EMAIL channel requires email; SMS channel requires phone",
-          }
-        )
+          },
+        ),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -303,7 +303,7 @@ export const projectStatusPageSubscribersRouter = createTRPCRouter({
           projectId: z.string(),
           subscriberId: z.string(),
         })
-        .required()
+        .required(),
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
