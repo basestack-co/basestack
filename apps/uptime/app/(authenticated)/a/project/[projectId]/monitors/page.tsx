@@ -10,7 +10,7 @@ import {
   Flex,
   Text,
 } from "@basestack/design-system";
-import { MonitorCard } from "@basestack/ui";
+import { MonitorCard, Toolbar } from "@basestack/ui";
 import { useTheme } from "styled-components";
 // Router
 import { useParams } from "next/navigation";
@@ -86,6 +86,42 @@ const ProjectMonitorsPage = () => {
             Monitoring
           </Text>
         </Box>
+
+        <Toolbar
+          search={{
+            placeholder: "Search monitors",
+            value: "",
+            isDisabled: false,
+            onChange: () => {},
+            onClear: () => {},
+          }}
+          filter={{
+            text: "Filter",
+            items: [{ text: "Demo", onClick: () => {} }],
+          }}
+          sort={{
+            text: "Sort",
+            items: [{ text: "Demo", onClick: () => {} }],
+          }}
+          segment={{
+            selectedIndex: 0,
+            onSelect: () => {},
+            items: [
+              { id: "0", icon: "view_module" },
+              { id: "1", icon: "view_stream" },
+            ],
+          }}
+          popup={{
+            text: "Export",
+            items: [{ text: "Demo", onClick: () => {} }],
+          }}
+          secondaryAction={{
+            text: "Activity",
+            icon: "history",
+            onClick: () => {},
+          }}
+          primaryAction={{ text: "Create monitor", onClick: () => {} }}
+        />
 
         <Grid>
           <MonitorCard

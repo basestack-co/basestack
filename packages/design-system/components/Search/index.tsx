@@ -22,6 +22,7 @@ export interface SearchProps extends SpaceProps, LayoutProps {
     isDisabled: boolean;
     options: PopupProps["items"];
   };
+  size?: "small" | "normal";
 }
 
 const AnimatedPopup = animated(Popup);
@@ -33,6 +34,7 @@ const Search = ({
   isDisabled,
   onClear,
   filter,
+  size,
   ...props
 }: SearchProps) => {
   const theme = useTheme();
@@ -58,13 +60,14 @@ const Search = ({
           name="search"
           size="small"
           width="100%"
-          isDarker
+          isDarker={!theme.isDarkMode}
           icon="search"
           iconPlacement="left"
           placeholder={placeholder}
           onChange={onChange}
           value={value}
           isDisabled={isDisabled}
+          format={size}
         />
         {!!value && (
           <IconButton

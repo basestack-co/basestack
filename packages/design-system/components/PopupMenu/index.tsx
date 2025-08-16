@@ -15,11 +15,17 @@ interface PopupMenuProps {
     icon?: string;
     isLoading?: boolean;
     isDisabled?: boolean;
+    height?: string | number;
   };
   items: PopupProps["items"];
+  placement?: "bottom-start" | "bottom-end";
 }
 
-const PopupMenu = ({ button, items }: PopupMenuProps) => {
+const PopupMenu = ({
+  button,
+  items,
+  placement = "bottom-end",
+}: PopupMenuProps) => {
   const {
     popupWrapperRef,
     x,
@@ -32,7 +38,14 @@ const PopupMenu = ({ button, items }: PopupMenuProps) => {
     onClickMore,
     onCloseMenu,
     isPopupOpen,
-  } = useFloatingPopup({});
+  } = useFloatingPopup({ placement });
+
+  const buttonProps = button?.icon
+    ? { icon: button.icon }
+    : {
+        icon: isPopupOpen ? "arrow_drop_up" : "arrow_drop_down",
+        pr: placement === "bottom-start" ? null : rem("6px"),
+      };
 
   return (
     <Container ref={popupWrapperRef}>
@@ -42,11 +55,10 @@ const PopupMenu = ({ button, items }: PopupMenuProps) => {
           ref={refs.setReference}
           onClick={onClickMore}
           variant={button.variant || ButtonVariant.Neutral}
-          icon={isPopupOpen ? "arrow_drop_up" : "arrow_drop_down"}
-          iconPlacement="right"
-          pr={rem("6px")}
+          iconPlacement={placement === "bottom-start" ? "left" : "right"}
           isDisabled={button.isDisabled}
           isLoading={button.isLoading}
+          {...buttonProps}
         >
           {button.text}
         </Button>
