@@ -42,5 +42,7 @@ dist
 .vscode/settings.json
 .vercel
 .tool-versions
+.open-next
+.wrangler
 
 .react-email
