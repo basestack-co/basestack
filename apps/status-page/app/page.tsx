@@ -1,18 +1,29 @@
-export default function Home() {
+import { headers } from "next/headers";
+
+function getSubdomain(
+  host: string,
+  baseDomain: string = "baseuptime.com"
+): string | null {
+  const cleanHost = host.split(":")[0];
+
+  if (cleanHost.endsWith(`.${baseDomain}`)) {
+    const subdomain = cleanHost.replace(`.${baseDomain}`, "");
+
+    const parts = subdomain.split(".");
+    return parts[0] || null;
+  }
+
+  return null;
+}
+export default async function Home() {
+  const headersList = await headers();
+  const host = headersList.get("host") || "";
+
+  const subdomain = getSubdomain(host);
+
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-        <li className="mb-2 tracking-[-.01em]">
-          Get started by editing{" "}
-          <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-            app/page.tsx
-          </code>
-          .
-        </li>
-        <li className="tracking-[-.01em]">
-          Save and see your changes instantly.
-        </li>
-      </ol>
+      <h1>This is the status page for {subdomain || "unknown"}</h1>
     </div>
   );
 }
