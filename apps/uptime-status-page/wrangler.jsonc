@@ -14,8 +14,12 @@
   "placement": { "mode": "smart" },
   "routes": [
     {
-      "pattern": "*/*",
+      "pattern": "baseuptime.com/*",
       "zone_name": "baseuptime.com",
+    },
+    {
+      "pattern": "*/*",
+      "zone_name": "basestack.com",
     },
   ],
 }

@@ -17,7 +17,7 @@ function getSubdomain(
 }
 export default async function Home() {
   const headersList = await headers();
-  const host = headersList.get("host") || "";
+  const host = headersList.get("x-forwarded-host") || "";
 
   const subdomain = getSubdomain(host);
 
