@@ -151,6 +151,7 @@ export interface UptimePlan extends Plan {
     apiRequests: number;
     statusPages: number;
     incidents: number;
+    customDomains: number;
   };
   features: {
     hasWebhooks: boolean;

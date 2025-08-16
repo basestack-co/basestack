@@ -47,6 +47,7 @@ const uptime: UptimePlan[] = [
       apiRequests: Infinity,
       statusPages: Infinity,
       incidents: Infinity,
+      customDomains: Infinity,
     },
     features: {
       hasWebhooks: true,
