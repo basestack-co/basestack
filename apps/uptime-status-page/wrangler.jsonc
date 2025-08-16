@@ -19,7 +19,7 @@
     },
     {
       "pattern": "*/*",
-      "zone_name": "basestack.com",
+      "zone_name": "baseuptime.com",
     },
   ],
 }
