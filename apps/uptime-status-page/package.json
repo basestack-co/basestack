@@ -1,5 +1,5 @@
 {
-  "name": "@basestack/status-page",
+  "name": "@basestack/uptime-status-page",
   "version": "0.1.0",
   "private": true,
   "scripts": {
