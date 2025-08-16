@@ -97,7 +97,7 @@ const MonitorAdvancedTab = ({ errors, control, isSubmitting }: Props) => {
                 field.onChange(
                   e.target.value === ""
                     ? undefined
-                    : parseInt(e.target.value, 10)
+                    : parseInt(e.target.value, 10),
                 ),
               onBlur: field.onBlur,
               placeholder: "Optional",
@@ -123,7 +123,7 @@ const MonitorAdvancedTab = ({ errors, control, isSubmitting }: Props) => {
                 field.onChange(
                   e.target.value === ""
                     ? undefined
-                    : parseInt(e.target.value, 10)
+                    : parseInt(e.target.value, 10),
                 ),
               onBlur: field.onBlur,
               placeholder: "Optional",
