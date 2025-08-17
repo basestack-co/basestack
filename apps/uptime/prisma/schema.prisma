@@ -181,10 +181,10 @@ model Project {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  users       ProjectUsers[]
-  monitors    Monitor[]
-  statusPages StatusPage[]
-  incidents   Incident[]
+  users      ProjectUsers[]
+  monitors   Monitor[]
+  statusPage StatusPage?
+  incidents  Incident[]
 
   @@index([slug])
 }
@@ -262,7 +262,7 @@ model StatusPage {
   footerMessage String?  @db.Text
   twitterHandle String?  @db.VarChar(50)
   supportUrl    String?  @db.VarChar(2083)
-  projectId     String
+  projectId     String   @unique
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -272,8 +272,10 @@ model StatusPage {
   subscribers StatusPageSubscriber[]
   incidents   StatusPageIncident[]
 
-  @@index([slug, isPublic])
-  @@index([projectId])
+  @@index([slug, isPublic, isEnabled])
+  @@index([domain, isPublic, isEnabled])
+  @@index([isPublic, isEnabled])
+  @@index([id, isPublic, isEnabled])
 }
 
 model StatusPageComponent {
