@@ -71,17 +71,13 @@ const Modal: React.FC<ModalProps> = ({
                   style={styles}
                 >
                   <Header>
-                    <Text size="xLarge" mr={theme.spacing.s2}>
+                    <Text size="large" mr={theme.spacing.s2}>
                       {title}
                     </Text>
                     <IconButton ml="auto" onClick={onClose} icon="close" />
                   </Header>
                   <ContentContainer>
-                    <Body
-                      pb={buttons && buttons.length > 0 ? "2px" : rem("22px")}
-                    >
-                      {children}
-                    </Body>
+                    <Body>{children}</Body>
                     {buttons && buttons.length > 0 && (
                       <Footer expandMobile={expandMobile}>
                         {buttons.map((item, index, { length }) => {
@@ -94,12 +90,11 @@ const Modal: React.FC<ModalProps> = ({
                                   ? item.variant
                                   : isLastItem
                                     ? ButtonVariant.Primary
-                                    : ButtonVariant.Neutral
+                                    : ButtonVariant.Outlined
                               }
                               onClick={item.onClick}
                               isDisabled={item.isDisabled}
                               isLoading={item.isLoading}
-                              ml={theme.spacing.s1}
                             >
                               {item.children}
                             </Button>

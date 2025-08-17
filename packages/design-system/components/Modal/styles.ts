@@ -4,6 +4,8 @@ import styled, { createGlobalStyle, css } from "styled-components";
 import { type SpaceProps, space } from "styled-system";
 import type { Size } from "./types";
 
+const BORDER_RADIUS = "8px";
+
 export const GlobalStyle = createGlobalStyle`
     body {
         overflow: hidden;
@@ -65,7 +67,7 @@ export const Sheet = styled.div.withConfig({
   min-height: ${({ minHeight }) => `${minHeight}px`};
   background-color: ${({ theme }) => theme.modal.backgroundColor};
   box-shadow: ${({ theme }) => theme.shadow.elevation4};
-  border-radius: 4px;
+  border-radius: ${BORDER_RADIUS};
   z-index: 1;
   max-height: calc(100vh - ${({ theme }) => theme.spacing.s6});
 `;
@@ -77,17 +79,16 @@ export const ContentContainer = styled.div`
 `;
 
 export const Header = styled.div`
-  height: ${rem("76px")};
-  padding: 0 ${rem("20px")};
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  padding: ${rem("20px")};
+  border-top-left-radius: ${BORDER_RADIUS};
+  border-top-right-radius: ${BORDER_RADIUS};
   ${flexRowCenter};
   background-color: ${({ theme }) => theme.modal.backgroundColor};
   flex-shrink: 0;
 `;
 
 export const Body = styled.div<SpaceProps>`
-  padding: 2px ${rem("20px")};
+  padding: ${rem("2px")} ${rem("20px")} ${rem("20px")} ${rem("20px")};
   ${space};
   ${flexColumn};
 `;
@@ -102,13 +103,17 @@ export const Footer = styled.div.withConfig({
   flex-shrink: 0;
   justify-content: flex-end;
   margin-top: auto;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: ${BORDER_RADIUS};
+  border-bottom-right-radius: ${BORDER_RADIUS};
+  border-top: 1px solid ${({ theme }) => theme.horizontalRule.backgroundColor};
+  gap: ${({ theme }) => theme.spacing.s3};
 
   ${({ expandMobile }) =>
     expandMobile &&
     css`
       @media screen and ${({ theme }) => theme.device.max.sm} {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
         position: sticky;
         bottom: 0;
         z-index: 10;
