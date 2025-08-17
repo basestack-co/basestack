@@ -2,13 +2,17 @@ import { useFloatingPopup } from "@basestack/hooks";
 import { rem } from "polished";
 import { animated } from "react-spring";
 import { Button, ButtonVariant } from "../Button";
-import IconButton from "../IconButton";
+import IconButton, { type IconButtonVariant } from "../IconButton";
 import Popup, { type PopupProps } from "../Popup";
 import { Container } from "./styles";
 
 const AnimatedPopup = animated(Popup);
 
 interface PopupMenuProps {
+  iconButton?: {
+    icon?: string;
+    variant?: IconButtonVariant;
+  };
   button?: {
     text: string;
     variant?: ButtonVariant;
@@ -18,13 +22,16 @@ interface PopupMenuProps {
     height?: string | number;
   };
   items: PopupProps["items"];
-  placement?: "bottom-start" | "bottom-end";
+  dropdownPlacement?: "bottom-start" | "bottom-end";
+  iconPlacement?: "left" | "right";
 }
 
 const PopupMenu = ({
   button,
   items,
-  placement = "bottom-end",
+  dropdownPlacement = "bottom-end",
+  iconPlacement = "right",
+  iconButton,
 }: PopupMenuProps) => {
   const {
     popupWrapperRef,
@@ -38,13 +45,14 @@ const PopupMenu = ({
     onClickMore,
     onCloseMenu,
     isPopupOpen,
-  } = useFloatingPopup({ placement });
+  } = useFloatingPopup({ placement: dropdownPlacement });
 
   const buttonProps = button?.icon
     ? { icon: button.icon }
     : {
         icon: isPopupOpen ? "arrow_drop_up" : "arrow_drop_down",
-        pr: placement === "bottom-start" ? null : rem("6px"),
+        pl: iconPlacement === "left" ? rem("6px") : null,
+        pr: iconPlacement === "right" ? rem("6px") : null,
       };
 
   return (
@@ -55,7 +63,7 @@ const PopupMenu = ({
           ref={refs.setReference}
           onClick={onClickMore}
           variant={button.variant || ButtonVariant.Neutral}
-          iconPlacement={placement === "bottom-start" ? "left" : "right"}
+          iconPlacement={iconPlacement === "left" ? "left" : "right"}
           isDisabled={button.isDisabled}
           isLoading={button.isLoading}
           {...buttonProps}
@@ -67,7 +75,8 @@ const PopupMenu = ({
           {...getReferenceProps}
           ref={refs.setReference}
           onClick={onClickMore}
-          icon="more_horiz"
+          icon={iconButton?.icon ?? "more_horiz"}
+          variant={iconButton?.variant}
         />
       )}
       {transition(

@@ -123,6 +123,7 @@ export const StyledButton = styled.button.withConfig({
   ${({ variant }) => handleButtonVariant(variant)};
   height: ${({ iconSize }) => rem(iconSize)};
   width: ${({ iconSize }) => rem(iconSize)};
+  flex-shrink: 0;
 
   &:disabled {
     opacity: 0.5;

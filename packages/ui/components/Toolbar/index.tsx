@@ -2,15 +2,17 @@ import React from "react";
 import { useTheme } from "styled-components";
 import {
   Button,
-  Flex,
   PopupMenu,
   type PopupProps,
   Search,
   SearchProps,
   Segment,
   SegmentProps,
+  IconButton,
+  ButtonVariant,
 } from "@basestack/design-system";
-import { ButtonVariant } from "@basestack/design-system/components/Button";
+import { useMedia } from "react-use";
+import { Column, Container } from "./styles";
 
 export interface ToolbarProps {
   search: SearchProps;
@@ -25,12 +27,12 @@ export interface ToolbarProps {
   primaryAction: {
     onClick: () => void;
     text: string;
-    icon?: string;
+    icon: string;
   };
   secondaryAction?: {
     onClick: () => void;
     text: string;
-    icon?: string;
+    icon: string;
   };
   popup?: {
     text: string;
@@ -48,49 +50,66 @@ const Toolbar = ({
   segment,
   secondaryAction,
 }: ToolbarProps) => {
-  const { spacing } = useTheme();
+  const { device } = useTheme();
+  const isTablet = useMedia(device.max.lg, false);
+  const isMobile = useMedia(device.max.md, false);
 
   return (
-    <Flex gap={spacing.s5} justifyContent="space-between">
-      <Flex gap={spacing.s4}>
+    <Container>
+      <Column>
         <Search {...search} maxWidth="300px" size="small" />
 
         {filter && (
           <PopupMenu
+            iconButton={{ icon: "page_info", variant: "secondary" }}
             button={{
               variant: ButtonVariant.Tertiary,
-              text: filter.text,
+              text: isTablet ? "" : filter.text,
               icon: "page_info",
             }}
             items={filter.items}
-            placement="bottom-start"
+            iconPlacement="left"
+            dropdownPlacement="bottom-start"
           />
         )}
 
         {sort && (
           <PopupMenu
+            iconButton={{ icon: "sort", variant: "secondary" }}
             button={{
               variant: ButtonVariant.Tertiary,
-              text: sort.text,
+              text: isTablet ? "" : sort.text,
               icon: "sort",
             }}
             items={sort.items}
-            placement="bottom-start"
+            iconPlacement="left"
+            dropdownPlacement="bottom-start"
           />
         )}
-      </Flex>
+      </Column>
 
-      <Flex gap={spacing.s4}>
+      <Column>
         {segment && <Segment {...segment} />}
 
         {secondaryAction && (
-          <Button
-            icon={secondaryAction.icon}
-            iconPlacement="left"
-            variant={ButtonVariant.Tertiary}
-          >
-            {secondaryAction.text}
-          </Button>
+          <>
+            {isTablet ? (
+              <IconButton
+                icon={secondaryAction.icon}
+                onClick={secondaryAction.onClick}
+                variant="secondary"
+              />
+            ) : (
+              <Button
+                icon={secondaryAction.icon}
+                onClick={secondaryAction.onClick}
+                iconPlacement="left"
+                variant={ButtonVariant.Tertiary}
+              >
+                {secondaryAction.text}
+              </Button>
+            )}
+          </>
         )}
 
         {popup && (
@@ -100,20 +119,22 @@ const Toolbar = ({
               text: popup.text,
             }}
             items={popup.items}
+            dropdownPlacement={isMobile ? "bottom-start" : "bottom-end"}
+            iconPlacement="right"
           />
         )}
 
         {primaryAction && (
           <Button
-            icon={primaryAction.icon}
             iconPlacement="left"
             variant={ButtonVariant.Primary}
+            flexShrink={0}
           >
             {primaryAction.text}
           </Button>
         )}
-      </Flex>
-    </Flex>
+      </Column>
+    </Container>
   );
 };
 

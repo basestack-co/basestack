@@ -103,14 +103,6 @@ const ProjectMonitorsPage = () => {
             text: "Sort",
             items: [{ text: "Demo", onClick: () => {} }],
           }}
-          segment={{
-            selectedIndex: 0,
-            onSelect: () => {},
-            items: [
-              { id: "0", icon: "view_module" },
-              { id: "1", icon: "view_stream" },
-            ],
-          }}
           popup={{
             text: "Export",
             items: [{ text: "Demo", onClick: () => {} }],
@@ -120,7 +112,11 @@ const ProjectMonitorsPage = () => {
             icon: "history",
             onClick: () => {},
           }}
-          primaryAction={{ text: "Create monitor", onClick: () => {} }}
+          primaryAction={{
+            text: "Create monitor",
+            icon: "add",
+            onClick: () => {},
+          }}
         />
 
         <Grid>
