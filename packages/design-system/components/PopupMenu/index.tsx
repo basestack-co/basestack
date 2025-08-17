@@ -12,6 +12,7 @@ interface PopupMenuProps {
   iconButton?: {
     icon?: string;
     variant?: IconButtonVariant;
+    isDisabled?: boolean;
   };
   button?: {
     text: string;
@@ -77,6 +78,7 @@ const PopupMenu = ({
           onClick={onClickMore}
           icon={iconButton?.icon ?? "more_horiz"}
           variant={iconButton?.variant}
+          isDisabled={iconButton?.isDisabled}
         />
       )}
       {transition(

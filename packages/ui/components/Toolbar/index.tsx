@@ -19,22 +19,27 @@ export interface ToolbarProps {
   filter?: {
     text: string;
     items: PopupProps["items"];
+    isDisabled?: boolean;
   };
   sort?: {
     text: string;
     items: PopupProps["items"];
+    isDisabled?: boolean;
   };
   primaryAction: {
     onClick: () => void;
     text: string;
     icon: string;
+    isDisabled?: boolean;
   };
   secondaryAction?: {
     onClick: () => void;
     text: string;
     icon: string;
+    isDisabled?: boolean;
   };
   popup?: {
+    isDisabled?: boolean;
     text: string;
     items: PopupProps["items"];
   };
@@ -61,11 +66,16 @@ const Toolbar = ({
 
         {filter && (
           <PopupMenu
-            iconButton={{ icon: "page_info", variant: "secondary" }}
+            iconButton={{
+              icon: "page_info",
+              variant: "secondary",
+              isDisabled: filter.isDisabled,
+            }}
             button={{
               variant: ButtonVariant.Tertiary,
               text: isTablet ? "" : filter.text,
               icon: "page_info",
+              isDisabled: filter.isDisabled,
             }}
             items={filter.items}
             iconPlacement="left"
@@ -75,11 +85,16 @@ const Toolbar = ({
 
         {sort && (
           <PopupMenu
-            iconButton={{ icon: "sort", variant: "secondary" }}
+            iconButton={{
+              icon: "sort",
+              variant: "secondary",
+              isDisabled: sort.isDisabled,
+            }}
             button={{
               variant: ButtonVariant.Tertiary,
               text: isTablet ? "" : sort.text,
               icon: "sort",
+              isDisabled: sort.isDisabled,
             }}
             items={sort.items}
             iconPlacement="left"
@@ -98,6 +113,7 @@ const Toolbar = ({
                 icon={secondaryAction.icon}
                 onClick={secondaryAction.onClick}
                 variant="secondary"
+                isDisabled={secondaryAction.isDisabled}
               />
             ) : (
               <Button
@@ -105,6 +121,7 @@ const Toolbar = ({
                 onClick={secondaryAction.onClick}
                 iconPlacement="left"
                 variant={ButtonVariant.Tertiary}
+                isDisabled={secondaryAction.isDisabled}
               >
                 {secondaryAction.text}
               </Button>
@@ -117,6 +134,7 @@ const Toolbar = ({
             button={{
               variant: ButtonVariant.Tertiary,
               text: popup.text,
+              isDisabled: popup.isDisabled,
             }}
             items={popup.items}
             dropdownPlacement={isMobile ? "bottom-start" : "bottom-end"}
@@ -129,6 +147,7 @@ const Toolbar = ({
             iconPlacement="left"
             variant={ButtonVariant.Primary}
             flexShrink={0}
+            isDisabled={primaryAction.isDisabled}
           >
             {primaryAction.text}
           </Button>

@@ -34,6 +34,7 @@ export interface MonitorCardProps {
     tooltip?: string;
     variant?: LabelProps["variant"];
   }>;
+  onClick: () => void;
 }
 
 const MonitorCard = ({
@@ -42,6 +43,7 @@ const MonitorCard = ({
   data,
   icons,
   menuItems,
+  onClick,
 }: MonitorCardProps) => {
   const { colors, spacing, isDarkMode } = useTheme();
 
@@ -57,78 +59,92 @@ const MonitorCard = ({
   };
 
   return (
-    <Card position="relative">
+    <Card position="relative" hasHoverAnimation>
       {menuItems && (
         <Box position="absolute" right={rem("14px")} top={rem("14px")}>
           <PopupMenu items={menuItems} />
         </Box>
       )}
-      <Box p={spacing.s5}>
-        <Text fontWeight={500}>{title}</Text>
+      <Box
+        role="button"
+        onClick={onClick}
+        backgroundColor="transparent"
+        border="none"
+        cursor="pointer"
+      >
+        <Box p={spacing.s5}>
+          <Text textAlign="left" fontWeight={500}>
+            {title}
+          </Text>
 
-        <Flex flexWrap="wrap" alignItems="center" gap={spacing.s1}>
-          {labels?.map(({ text, label }, index, { length }) => (
-            <Fragment key={`label-${index}`}>
-              {label ? (
-                <Text flexShrink={0} muted>
-                  {text} <Text as="span">{label}</Text>
-                </Text>
-              ) : (
-                <Text flexShrink={0} muted>
-                  {text}
-                </Text>
-              )}
-              {index + 1 !== length && (
-                <Text flexShrink={0} muted size="xSmall">
-                  •
-                </Text>
-              )}
-            </Fragment>
-          ))}
-        </Flex>
-
-        <Box mt={spacing.s5}>
-          <Flex gap={spacing.s2} flexWrap="wrap">
-            {data?.map(({ text, label, variant }, index) => (
-              <Flex key={`data-${index}`} flexDirection="column" flex="1 0 0">
-                <Text muted size="xSmall">
-                  {label.toUpperCase()}
-                </Text>
-                <Text size="medium" color={getColorVariant(variant)}>
-                  {text}
-                </Text>
-              </Flex>
+          <Flex flexWrap="wrap" alignItems="center" gap={spacing.s1}>
+            {labels?.map(({ text, label }, index, { length }) => (
+              <Fragment key={`label-${index}`}>
+                {label ? (
+                  <Text textAlign="left" flexShrink={0} muted>
+                    {text} <Text as="span">{label}</Text>
+                  </Text>
+                ) : (
+                  <Text textAlign="left" flexShrink={0} muted>
+                    {text}
+                  </Text>
+                )}
+                {index + 1 !== length && (
+                  <Text textAlign="left" flexShrink={0} muted size="xSmall">
+                    •
+                  </Text>
+                )}
+              </Fragment>
             ))}
           </Flex>
-        </Box>
-      </Box>
 
-      {icons?.length > 0 && (
-        <>
-          <HorizontalRule mt="auto" />
-
-          <Box py={spacing.s3} px={spacing.s5}>
-            <Flex alignItems="center" gap={spacing.s4} flexWrap="wrap">
-              {icons?.map(({ icon, text, tooltip, variant }, index) => (
-                <Tooltip key={`icon-${index}`} placement="top">
-                  <TooltipTrigger>
-                    <Flex alignItems="center">
-                      <Icon icon={icon} size="small" />
-                      <Label
-                        text={text}
-                        ml={spacing.s1}
-                        variant={variant}
-                        isTranslucent
-                      />
-                    </Flex>
-                  </TooltipTrigger>
-                  <TooltipContent>{tooltip}</TooltipContent>
-                </Tooltip>
+          <Box mt={spacing.s5}>
+            <Flex gap={spacing.s2} flexWrap="wrap">
+              {data?.map(({ text, label, variant }, index) => (
+                <Flex key={`data-${index}`} flexDirection="column" flex="1 0 0">
+                  <Text textAlign="left" muted size="xSmall">
+                    {label.toUpperCase()}
+                  </Text>
+                  <Text
+                    textAlign="left"
+                    size="medium"
+                    color={getColorVariant(variant)}
+                  >
+                    {text}
+                  </Text>
+                </Flex>
               ))}
             </Flex>
           </Box>
-        </>
-      )}
+        </Box>
+
+        {icons?.length > 0 && (
+          <>
+            <HorizontalRule mt="auto" />
+
+            <Box py={spacing.s3} px={spacing.s5}>
+              <Flex alignItems="center" gap={spacing.s4} flexWrap="wrap">
+                {icons?.map(({ icon, text, tooltip, variant }, index) => (
+                  <Tooltip key={`icon-${index}`} placement="top">
+                    <TooltipTrigger>
+                      <Flex alignItems="center">
+                        <Icon icon={icon} size="small" />
+                        <Label
+                          text={text}
+                          ml={spacing.s1}
+                          variant={variant}
+                          isTranslucent
+                        />
+                      </Flex>
+                    </TooltipTrigger>
+                    <TooltipContent>{tooltip}</TooltipContent>
+                  </Tooltip>
+                ))}
+              </Flex>
+            </Box>
+          </>
+        )}
+      </Box>
     </Card>
   );
 };

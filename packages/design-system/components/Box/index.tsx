@@ -11,7 +11,17 @@ import {
   space,
   type PositionProps,
   position,
+  type BackgroundProps,
+  background,
+  type BorderProps,
+  border,
+  system,
 } from "styled-system";
+
+// custom system helper for cursor
+const cursor = system({
+  cursor: true,
+});
 
 // List of props to exclude from being passed to the DOM
 const styledSystemProps = new Set([
@@ -76,6 +86,23 @@ const styledSystemProps = new Set([
   "bottom",
   "left",
   "zIndex",
+  // background
+  "backgroundImage",
+  "backgroundSize",
+  "backgroundPosition",
+  "backgroundRepeat",
+  // border
+  "border",
+  "borderWidth",
+  "borderStyle",
+  "borderColor",
+  "borderRadius",
+  "borderTop",
+  "borderRight",
+  "borderBottom",
+  "borderLeft",
+  // cursor
+  "cursor",
 ]);
 
 const shouldForwardProp = (prop: string) => !styledSystemProps.has(prop);
@@ -85,12 +112,25 @@ export interface BoxProps
     SpaceProps,
     FlexboxProps,
     ColorProps,
-    PositionProps {}
+    PositionProps,
+    BackgroundProps,
+    BorderProps {
+  cursor?: string;
+}
 
 const Box = styled.div.withConfig({
   shouldForwardProp,
 })<BoxProps>`
-  ${compose(layout, space, flexbox, color, position)};
+  ${compose(
+    layout,
+    space,
+    flexbox,
+    color,
+    position,
+    background,
+    border,
+    cursor,
+  )};
 `;
 
 export default Box;
