@@ -14,7 +14,7 @@ import {
   TooltipTrigger,
 } from "@basestack/design-system";
 import { rem } from "polished";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { useTheme } from "styled-components";
 
 export type MonitorCardVariant = "success" | "warning" | "danger" | "default";

@@ -203,7 +203,19 @@
             }
           },
           "type": {
-            "title": "Type"
+            "title": "Type",
+            "option": {
+              "http": "HTTP",
+              "https": "HTTPS",
+              "ping": "Ping",
+              "tcp": "TCP",
+              "udp": "UDP",
+              "ssl_certificate": "SSL Certificate",
+              "domain_expiry": "Domain Expiry",
+              "cron_job": "Cron Job",
+              "api_endpoint": "API Endpoint",
+              "keyword": "Keyword"
+            }
           },
           "cron": {
             "title": "Cron"

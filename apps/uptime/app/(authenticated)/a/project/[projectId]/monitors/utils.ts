@@ -1,5 +1,6 @@
 // Types
 import type { MonitorCardVariant } from "@basestack/ui";
+import { type LabelProps, Label } from "@basestack/design-system";
 // Utils
 import dayjs from "dayjs";
 
@@ -8,7 +9,7 @@ export const getMonitorCheckStatus = (
   isEnabled: boolean,
   status: string = "N/A",
   responseTime: number = 0,
-  statusCode: number = 0,
+  statusCode: number = 0
 ) => {
   const statusVariantMap: Record<string, MonitorCardVariant> = {
     UP: "success",
@@ -18,6 +19,7 @@ export const getMonitorCheckStatus = (
     UNKNOWN: "default",
     TIMEOUT: "danger",
     ERROR: "danger",
+    PAUSED: "default",
   };
 
   const getStatusVariant = (s: string): MonitorCardVariant =>
@@ -39,7 +41,7 @@ export const getMonitorCheckStatus = (
     {
       label: t("monitor.list.card.description.status"),
       text: isEnabled ? status : t("monitor.list.card.description.paused"),
-      variant: getStatusVariant(status),
+      variant: getStatusVariant(isEnabled ? status : "PAUSED"),
     },
     {
       label: t("monitor.list.card.description.latency"),
@@ -59,7 +61,7 @@ export const getMonitorDescription = (
   isEnabled: boolean,
   name: string,
   type: string,
-  nextScheduleTime: string,
+  nextScheduleTime: string
 ) => {
   return [
     { text: name },
@@ -78,18 +80,32 @@ export const getMonitorDescription = (
 export const getMonitorIcons = (
   t: (key: any) => string,
   uptimePercentage: number,
-  errorCount: number,
+  errorCount: number
 ) => {
+  const getUptimeVariant = (uptime: number): LabelProps["variant"] => {
+    if (uptime >= 90) return "success";
+    if (uptime >= 70) return "warning";
+    return "danger";
+  };
+
   return [
     {
       icon: "timer",
-      text: uptimePercentage ? `${uptimePercentage}%` : "N/A",
+      text:
+        typeof uptimePercentage === "number" && uptimePercentage >= 0
+          ? `${uptimePercentage}%`
+          : "N/A",
       tooltip: t("monitor.list.card.icon.uptime"),
+      variant: getUptimeVariant(uptimePercentage),
     },
     {
       icon: "error",
-      text: errorCount.toString(),
+      text:
+        typeof errorCount === "number" && errorCount >= 0
+          ? errorCount.toString()
+          : "0",
       tooltip: t("monitor.list.card.icon.errors"),
+      variant: errorCount > 0 ? ("danger" as LabelProps["variant"]) : undefined,
     },
   ];
 };

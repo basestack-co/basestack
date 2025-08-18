@@ -56,10 +56,19 @@ const MonitorCoreTab = ({ errors, control, isSubmitting }: Props) => {
               {t("modal.monitor.form.input.type.title")}
             </Text>
             <Select
-              options={Object.values(MonitorType).map((v) => ({
-                value: v,
-                label: v,
-              }))}
+              options={Object.values(MonitorType)
+                .filter(
+                  (v) =>
+                    ![MonitorType.CRON_JOB, MonitorType.HTTPS].includes(
+                      v as any
+                    )
+                )
+                .map((v) => ({
+                  value: v,
+                  label: t(
+                    `modal.monitor.form.input.type.option.${v.toLowerCase()}` as any
+                  ),
+                }))}
               value={{ value: field.value, label: field.value }}
               onChange={(opt: any) => field.onChange(opt.value)}
               isDisabled={isSubmitting}
