@@ -598,5 +598,36 @@
         }
       }
     }
+  },
+  "monitor": {
+    "page": {
+      "title": "Monitors"
+    },
+    "toolbar": {
+      "search": {
+        "placeholder": "Search monitors"
+      },
+      "filter": {
+        "text": "Filter"
+      },
+      "sort": {
+        "text": "Sort"
+      },
+      "create": {
+        "text": "Create Monitor"
+      }
+    },
+    "list": {
+      "empty": {
+        "title": "No monitors yet",
+        "description": "Create your first monitor to start tracking uptime and response times."
+      },
+      "card": {
+        "action": {
+          "edit": "Edit",
+          "delete": "Delete"
+        }
+      }
+    }
   }
 }

@@ -106,28 +106,25 @@ const Toolbar = ({
       <Column>
         {segment && <Segment {...segment} />}
 
-        {secondaryAction && (
-          <>
-            {isTablet ? (
-              <IconButton
-                icon={secondaryAction.icon}
-                onClick={secondaryAction.onClick}
-                variant="secondary"
-                isDisabled={secondaryAction.isDisabled}
-              />
-            ) : (
-              <Button
-                icon={secondaryAction.icon}
-                onClick={secondaryAction.onClick}
-                iconPlacement="left"
-                variant={ButtonVariant.Tertiary}
-                isDisabled={secondaryAction.isDisabled}
-              >
-                {secondaryAction.text}
-              </Button>
-            )}
-          </>
-        )}
+        {secondaryAction &&
+          (isTablet ? (
+            <IconButton
+              icon={secondaryAction.icon}
+              onClick={secondaryAction.onClick}
+              variant="secondary"
+              isDisabled={secondaryAction.isDisabled}
+            />
+          ) : (
+            <Button
+              icon={secondaryAction.icon}
+              onClick={secondaryAction.onClick}
+              iconPlacement="left"
+              variant={ButtonVariant.Tertiary}
+              isDisabled={secondaryAction.isDisabled}
+            >
+              {secondaryAction.text}
+            </Button>
+          ))}
 
         {popup && (
           <PopupMenu
@@ -148,6 +145,7 @@ const Toolbar = ({
             variant={ButtonVariant.Primary}
             flexShrink={0}
             isDisabled={primaryAction.isDisabled}
+            onClick={primaryAction.onClick}
           >
             {primaryAction.text}
           </Button>

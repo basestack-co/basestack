@@ -13,8 +13,7 @@ export const getLeftLinks = (
   router: ReturnType<typeof useRouter>,
   pathname: string,
   projectId: string,
-  projectRole: Role,
-  onCreateMonitor: () => void,
+  projectRole: Role
 ): NavigationProps["leftLinks"] => {
   const links = [
     {
@@ -49,16 +48,6 @@ export const getLeftLinks = (
       isActive: pathname.includes("settings"),
       isVisible: !!projectId,
     },
-    {
-      type: "button",
-      icon: "add",
-      onClick: onCreateMonitor,
-      text: t("navigation.create.monitor"),
-      isActive: pathname.includes("create"),
-      buttonVariant: ButtonVariant.Primary,
-      space: { ml: 2 },
-      isVisible: !!projectId,
-    },
   ].filter((link) => link.isVisible);
 
   return links as NavigationProps["leftLinks"];
@@ -81,7 +70,7 @@ export const getRightLinks = (labels: {
 export const getAvatarDropdownList = (
   t: (key: any) => string,
   router: ReturnType<typeof useRouter>,
-  onCreateForm: () => void,
+  onCreateForm: () => void
 ) => {
   return [
     {
@@ -121,7 +110,7 @@ export const getAvatarDropdownList = (
 
 export const getAppsList = (
   t: (key: any) => string,
-  onSelectApp: (app: Product) => void,
+  onSelectApp: (app: Product) => void
 ) => {
   return [
     {

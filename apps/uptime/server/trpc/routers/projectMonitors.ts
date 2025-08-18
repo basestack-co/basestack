@@ -25,7 +25,7 @@ export const projectMonitorsRouter = createTRPCRouter({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(),
         search: z.string().optional().nullable(),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const limit = input.limit ?? 50;
@@ -58,6 +58,7 @@ export const projectMonitorsRouter = createTRPCRouter({
             interval: true,
             isEnabled: true,
             scheduleId: true,
+            config: true,
             createdAt: true,
             updatedAt: true,
             _count: {
@@ -84,23 +85,29 @@ export const projectMonitorsRouter = createTRPCRouter({
       ]);
 
       let nextCursor: typeof input.cursor | undefined;
+
       if (monitors.length > limit) {
         const nextItem = monitors.pop();
         nextCursor = nextItem!.id;
       }
 
-      const data = monitors.map((m) => ({
-        id: m.id,
-        name: m.name,
-        type: m.type,
-        interval: m.interval,
-        isEnabled: m.isEnabled,
-        scheduleId: m.scheduleId,
-        createdAt: m.createdAt,
-        updatedAt: m.updatedAt,
-        _count: m._count,
-        latestCheck: m.checks[0] ?? null,
-      }));
+      const data = monitors.map((m) => {
+        const config = monitorConfigSchema.safeParse(m.config);
+
+        return {
+          id: m.id,
+          name: m.name,
+          type: m.type,
+          interval: m.interval,
+          isEnabled: m.isEnabled,
+          scheduleId: m.scheduleId,
+          createdAt: m.createdAt,
+          updatedAt: m.updatedAt,
+          _count: m._count,
+          config: config.success ? config.data : null,
+          latestCheck: m.checks[0] ?? null,
+        };
+      });
 
       return {
         monitors: data,
@@ -116,13 +123,9 @@ export const projectMonitorsRouter = createTRPCRouter({
           type: z.nativeEnum(MonitorType),
           projectId: z.string(),
           name: z.string(),
-          cron: z
-            .string()
-            .min(1)
-            .regex(/^(\S+\s+){4}\S+$/, "Invalid cron format"),
           config: monitorConfigSchema,
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const externalCustomerId = emailToId(ctx.project.adminUserEmail);
@@ -130,7 +133,7 @@ export const projectMonitorsRouter = createTRPCRouter({
       const sub = await polar.getCustomerSubscription(
         externalCustomerId,
         Product.UPTIME,
-        AppMode,
+        AppMode
       );
 
       if (!sub?.id) {
@@ -154,7 +157,7 @@ export const projectMonitorsRouter = createTRPCRouter({
       try {
         const { scheduleId } =
           await qstash.schedules.createMonitorCheckSchedule({
-            cron: input.cron,
+            cron: input.config.cron,
             body: {
               adminUserEmail: ctx.project.adminUserEmail,
               projectId: input.projectId,
@@ -191,7 +194,7 @@ export const projectMonitorsRouter = createTRPCRouter({
           cron: z.string(),
           config: monitorConfigSchema,
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const existing = await ctx.prisma.monitor.findFirst({
@@ -224,7 +227,7 @@ export const projectMonitorsRouter = createTRPCRouter({
           projectId: z.string(),
           monitorId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const existing = await ctx.prisma.monitor.findFirst({

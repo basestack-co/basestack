@@ -11,6 +11,13 @@ import {
 } from "@basestack/ui";
 // Utils
 import { type AppEnv, config, Product } from "@basestack/utils";
+import { AppMode } from "utils/helpers/general";
+import {
+  getAppsList,
+  getAvatarDropdownList,
+  getLeftLinks,
+  getRightLinks,
+} from "./utils";
 // Libs
 import { auth } from "@basestack/vendors";
 import { useParams, usePathname, useRouter } from "next/navigation";
@@ -20,14 +27,8 @@ import { useCallback, useMemo } from "react";
 import { useMedia } from "react-use";
 // Store
 import { useStore } from "store";
+// Styles
 import { useTheme } from "styled-components";
-import { AppMode } from "utils/helpers/general";
-import {
-  getAppsList,
-  getAvatarDropdownList,
-  getLeftLinks,
-  getRightLinks,
-} from "./utils";
 
 export interface NavigationProps {
   data?: Array<PopupActionProps>;
@@ -48,11 +49,7 @@ const Navigation = ({ data }: NavigationProps) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
 
   const setCreateProjectModalOpen = useStore(
-    (state) => state.setCreateProjectModalOpen,
-  );
-
-  const setCreateMonitorModalOpen = useStore(
-    (state) => state.setCreateMonitorModalOpen,
+    (state) => state.setCreateProjectModalOpen
   );
 
   const [projectName, projectRole] = useMemo(() => {
@@ -82,12 +79,12 @@ const Navigation = ({ data }: NavigationProps) => {
       { internal: [], external: [] } as {
         internal: PopupActionProps[];
         external: PopupActionProps[];
-      },
+      }
     );
 
     const mapProjectsToSection = (
       items: PopupActionProps[],
-      title: string,
+      title: string
     ) => ({
       title,
       items: items.map((item) => ({
@@ -131,7 +128,7 @@ const Navigation = ({ data }: NavigationProps) => {
           setIsDarkMode(!isDarkMode);
         }),
       list: getAvatarDropdownList(t, router, () =>
-        setCreateProjectModalOpen({ isOpen: true }),
+        setCreateProjectModalOpen({ isOpen: true })
       ),
     };
   }, [
@@ -153,9 +150,7 @@ const Navigation = ({ data }: NavigationProps) => {
       product={Product.UPTIME}
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
-      leftLinks={getLeftLinks(t, router, pathname, projectId, projectRole, () =>
-        setCreateMonitorModalOpen({ isOpen: true }),
-      )}
+      leftLinks={getLeftLinks(t, router, pathname, projectId, projectRole)}
       rightLinks={getRightLinks({ docs: t("navigation.external.docs") })}
       rightLinksTitle={t("navigation.external.resources")}
       projects={getProjectsProps}

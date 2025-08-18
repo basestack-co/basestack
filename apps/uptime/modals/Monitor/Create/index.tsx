@@ -35,7 +35,7 @@ const CreateMonitorModal = () => {
         state.isCreateMonitorModalOpen,
         state.setCreateMonitorModalOpen,
         state.closeModalsOnClickOutside,
-      ]),
+      ])
     );
 
   const createMonitor = api.projectMonitors.create.useMutation();
@@ -64,9 +64,9 @@ const CreateMonitorModal = () => {
           projectId,
           name: input.name,
           type: input.type,
-          cron: input.cron,
           config: {
             url: input.config.url,
+            cron: input.cron,
             method: input.config.method,
             headers: headersObj,
             timeout: input.config.timeout,
@@ -92,7 +92,7 @@ const CreateMonitorModal = () => {
           onError: (error) => {
             toast.error(error.message);
           },
-        },
+        }
       );
     } catch {
       toast.error("Headers must be a valid JSON object");
