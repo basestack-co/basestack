@@ -12,9 +12,9 @@ import { SendDataToExternalWebHookJob } from "./jobs/send-data-to-external-webho
 import {
   createMonitorCheckSchedule,
   deleteSchedule,
+  getSchedule,
   pauseSchedule,
   resumeSchedule,
-  getSchedule,
 } from "./schedules";
 
 const events = {

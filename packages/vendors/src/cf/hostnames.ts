@@ -36,7 +36,7 @@ export class CloudflareApiError extends Error {
   constructor(
     message: string,
     public statusCode?: number,
-    public cloudflareErrors?: Array<{ code: number; message: string }>
+    public cloudflareErrors?: Array<{ code: number; message: string }>,
   ) {
     super(message);
     this.name = "CloudflareApiError";
@@ -53,7 +53,7 @@ const validateEnvironment = () => {
 
   if (missing.length > 0) {
     throw new Error(
-      `Missing required environment variables: ${missing.join(", ")}`
+      `Missing required environment variables: ${missing.join(", ")}`,
     );
   }
 };
@@ -83,7 +83,7 @@ const CLOUDFLARE_TIMEOUT = 10000;
 const fetchWithTimeout = async (
   url: string,
   options: RequestInit,
-  timeout = CLOUDFLARE_TIMEOUT
+  timeout = CLOUDFLARE_TIMEOUT,
 ) => {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
@@ -128,7 +128,7 @@ const makeCloudflareRequest = async <T>({
     throw new CloudflareApiError(
       data?.errors?.[0]?.message || "Unknown Cloudflare API error",
       response.status,
-      data?.errors
+      data?.errors,
     );
   }
 
@@ -151,7 +151,7 @@ interface CloudflareHostnameData {
 }
 
 const mapToHostnameResponse = (
-  data: CloudflareHostnameData
+  data: CloudflareHostnameData,
 ): HostnameResponse => ({
   id: data.id ?? "",
   status: data.status ?? "unknown",

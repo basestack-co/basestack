@@ -9,7 +9,10 @@ import { z } from "zod";
 
 export const monitorConfigSchema = z.object({
   url: z.string().url(),
-  cron: z.string().min(1).regex(/^(\S+\s+){4}\S+$/, "Invalid cron format"),
+  cron: z
+    .string()
+    .min(1)
+    .regex(/^(\S+\s+){4}\S+$/, "Invalid cron format"),
   method: z.enum(["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"]),
   headers: z.record(z.string(), z.string()),
   timeout: z.number().min(100).max(300_000), // milliseconds

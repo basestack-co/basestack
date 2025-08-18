@@ -624,7 +624,10 @@
       },
       "card": {
         "action": {
-          "edit": "Edit",
+          "resume": "Resume",
+          "pause": "Pause",
+          "incidents": "Incidents",
+          "settings": "Settings",
           "delete": "Delete"
         },
         "description": {

@@ -1,29 +1,29 @@
 "use client";
 
-import { useMemo, useCallback, Fragment } from "react";
 // Design System
 import {
-  Pagination,
-  ButtonVariant,
   Box,
-  Flex,
-  Text,
-  Skeleton,
+  ButtonVariant,
   Empty,
+  Flex,
+  Pagination,
+  Skeleton,
+  Text,
 } from "@basestack/design-system";
 import { MonitorCard, Toolbar } from "@basestack/ui";
-import { useTheme } from "styled-components";
 // Router
 import { useParams } from "next/navigation";
-// Server
-import { api } from "utils/trpc/react";
+// Locales
+import { useTranslations } from "next-intl";
+import { Fragment, useCallback, useMemo } from "react";
 // Store
 import { useStore } from "store";
+import { useTheme } from "styled-components";
+// Server
+import { api } from "utils/trpc/react";
 // Styles
 import { PageContainer } from "../../../styles";
 import { Grid } from "./styles";
-// Locales
-import { useTranslations } from "next-intl";
 // Utils
 import {
   getMonitorCheckStatus,
@@ -39,7 +39,7 @@ const ProjectMonitorsPage = () => {
   const { projectId } = useParams<{ projectId: string }>();
 
   const setCreateMonitorModalOpen = useStore(
-    (state) => state.setCreateMonitorModalOpen
+    (state) => state.setCreateMonitorModalOpen,
   );
 
   const { data, fetchNextPage, isLoading } =
@@ -50,7 +50,7 @@ const ProjectMonitorsPage = () => {
         getNextPageParam: (last) => last.nextCursor,
         refetchOnWindowFocus: false,
         staleTime: 30_000,
-      }
+      },
     );
 
   const [currentPage, totalPages] = useMemo(() => {
@@ -88,21 +88,36 @@ const ProjectMonitorsPage = () => {
     };
   }, [isLoading, t, setCreateMonitorModalOpen]);
 
-  const onRenderMenuActions = useCallback(() => {
-    return [
-      {
-        icon: "edit",
-        text: t("monitor.list.card.action.edit"),
-        onClick: () => {},
-      },
-      {
-        icon: "delete",
-        text: t("monitor.list.card.action.delete"),
-        variant: ButtonVariant.Danger,
-        onClick: () => {},
-      },
-    ];
-  }, [t]);
+  const onRenderMenuActions = useCallback(
+    (isEnabled: boolean) => {
+      return [
+        {
+          icon: isEnabled ? "pause" : "resume",
+          text: isEnabled
+            ? t("monitor.list.card.action.pause")
+            : t("monitor.list.card.action.resume"),
+          onClick: () => {},
+        },
+        {
+          icon: "siren",
+          text: t("monitor.list.card.action.incidents"),
+          onClick: () => {},
+        },
+        {
+          icon: "settings",
+          text: t("monitor.list.card.action.settings"),
+          onClick: () => {},
+        },
+        {
+          icon: "delete",
+          text: t("monitor.list.card.action.delete"),
+          variant: ButtonVariant.Danger,
+          onClick: () => {},
+        },
+      ];
+    },
+    [t],
+  );
 
   const onRenderCards = useCallback(() => {
     if (isLoading) {
@@ -154,26 +169,26 @@ const ProjectMonitorsPage = () => {
                     <MonitorCard
                       key={id}
                       onClick={() => {}}
-                      menuItems={onRenderMenuActions()}
+                      menuItems={onRenderMenuActions(isEnabled)}
                       title={config?.url ?? "N/A"}
                       labels={getMonitorDescription(
                         t,
                         isEnabled,
                         name,
                         type,
-                        _count.checks <= 0 ? "" : nextScheduleTime
+                        _count.checks <= 0 ? "" : nextScheduleTime,
                       )}
                       data={getMonitorCheckStatus(
                         t,
                         isEnabled,
                         latestCheck?.status ?? "N/A",
                         latestCheck?.responseTime ?? 0,
-                        latestCheck?.statusCode ?? 0
+                        latestCheck?.statusCode ?? 0,
                       )}
                       icons={getMonitorIcons(t, uptimePercentage, errorCount)}
                     />
                   );
-                }
+                },
               )}
             </Fragment>
           );

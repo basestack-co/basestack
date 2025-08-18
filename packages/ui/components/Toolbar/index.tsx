@@ -1,17 +1,17 @@
-import React from "react";
-import { useTheme } from "styled-components";
 import {
   Button,
+  ButtonVariant,
+  IconButton,
   PopupMenu,
   type PopupProps,
   Search,
-  SearchProps,
+  type SearchProps,
   Segment,
-  SegmentProps,
-  IconButton,
-  ButtonVariant,
+  type SegmentProps,
 } from "@basestack/design-system";
+import React from "react";
 import { useMedia } from "react-use";
+import { useTheme } from "styled-components";
 import { Column, Container } from "./styles";
 
 export interface ToolbarProps {

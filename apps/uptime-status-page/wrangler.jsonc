@@ -6,20 +6,20 @@
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
     "binding": "ASSETS",
-    "directory": ".open-next/assets",
+    "directory": ".open-next/assets"
   },
   "observability": {
-    "enabled": true,
+    "enabled": true
   },
   "placement": { "mode": "smart" },
   "routes": [
     {
       "pattern": "baseuptime.com/*",
-      "zone_name": "baseuptime.com",
+      "zone_name": "baseuptime.com"
     },
     {
       "pattern": "*/*",
-      "zone_name": "baseuptime.com",
-    },
-  ],
+      "zone_name": "baseuptime.com"
+    }
+  ]
 }

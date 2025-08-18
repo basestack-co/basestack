@@ -61,6 +61,7 @@ export {
   default as SwitchSettingCard,
   type SwitchSettingCardProps,
 } from "./components/SwitchSettingCard";
+export { default as Toolbar, type ToolbarProps } from "./components/Toolbar";
 export {
   default as TooltipIcon,
   type TooltipIconProps,
@@ -73,4 +74,3 @@ export {
   default as UsageSection,
   type UsageSectionProps,
 } from "./components/UsageSection";
-export { default as Toolbar, type ToolbarProps } from "./components/Toolbar";

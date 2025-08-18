@@ -8,7 +8,7 @@ export const getMonitorCheckStatus = (
   isEnabled: boolean,
   status: string = "N/A",
   responseTime: number = 0,
-  statusCode: number = 0
+  statusCode: number = 0,
 ) => {
   const statusVariantMap: Record<string, MonitorCardVariant> = {
     UP: "success",
@@ -59,7 +59,7 @@ export const getMonitorDescription = (
   isEnabled: boolean,
   name: string,
   type: string,
-  nextScheduleTime: string
+  nextScheduleTime: string,
 ) => {
   return [
     { text: name },
@@ -78,18 +78,18 @@ export const getMonitorDescription = (
 export const getMonitorIcons = (
   t: (key: any) => string,
   uptimePercentage: number,
-  errorCount: number
+  errorCount: number,
 ) => {
   return [
-    {
-      icon: "error",
-      text: errorCount.toString(),
-      tooltip: t("monitor.list.card.icon.errors"),
-    },
     {
       icon: "timer",
       text: uptimePercentage ? `${uptimePercentage}%` : "N/A",
       tooltip: t("monitor.list.card.icon.uptime"),
+    },
+    {
+      icon: "error",
+      text: errorCount.toString(),
+      tooltip: t("monitor.list.card.icon.errors"),
     },
   ];
 };

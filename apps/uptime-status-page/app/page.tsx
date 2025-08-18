@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 
 function getSubdomain(
   host: string,
-  baseDomain: string = "baseuptime.com"
+  baseDomain: string = "baseuptime.com",
 ): string | null {
   const cleanHost = host.split(":")[0];
 

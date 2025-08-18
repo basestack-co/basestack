@@ -12,7 +12,7 @@ export const getLeftLinks = (
   router: ReturnType<typeof useRouter>,
   pathname: string,
   projectId: string,
-  projectRole: Role
+  projectRole: Role,
 ): NavigationProps["leftLinks"] => {
   const links = [
     {
@@ -69,7 +69,7 @@ export const getRightLinks = (labels: {
 export const getAvatarDropdownList = (
   t: (key: any) => string,
   router: ReturnType<typeof useRouter>,
-  onCreateForm: () => void
+  onCreateForm: () => void,
 ) => {
   return [
     {
@@ -109,7 +109,7 @@ export const getAvatarDropdownList = (
 
 export const getAppsList = (
   t: (key: any) => string,
-  onSelectApp: (app: Product) => void
+  onSelectApp: (app: Product) => void,
 ) => {
   return [
     {

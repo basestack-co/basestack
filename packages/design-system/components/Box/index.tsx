@@ -1,5 +1,9 @@
 import styled from "styled-components";
 import {
+  type BackgroundProps,
+  type BorderProps,
+  background,
+  border,
   type ColorProps,
   color,
   compose,
@@ -7,14 +11,10 @@ import {
   flexbox,
   type LayoutProps,
   layout,
-  type SpaceProps,
-  space,
   type PositionProps,
   position,
-  type BackgroundProps,
-  background,
-  type BorderProps,
-  border,
+  type SpaceProps,
+  space,
   system,
 } from "styled-system";
 

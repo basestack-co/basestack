@@ -35,7 +35,7 @@ const CreateMonitorModal = () => {
         state.isCreateMonitorModalOpen,
         state.setCreateMonitorModalOpen,
         state.closeModalsOnClickOutside,
-      ])
+      ]),
     );
 
   const createMonitor = api.projectMonitors.create.useMutation();
@@ -92,7 +92,7 @@ const CreateMonitorModal = () => {
           onError: (error) => {
             toast.error(error.message);
           },
-        }
+        },
       );
     } catch {
       toast.error("Headers must be a valid JSON object");

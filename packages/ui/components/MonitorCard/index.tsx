@@ -1,21 +1,21 @@
-import React, { Fragment } from "react";
-import { useTheme } from "styled-components";
-import { rem } from "polished";
 import {
   Box,
   Card,
   Flex,
   HorizontalRule,
   Icon,
-  Text,
   Label,
-  LabelProps,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
+  type LabelProps,
   PopupMenu,
   type PopupMenuProps,
+  Text,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
 } from "@basestack/design-system";
+import { rem } from "polished";
+import React, { Fragment } from "react";
+import { useTheme } from "styled-components";
 
 export type MonitorCardVariant = "success" | "warning" | "danger" | "default";
 
