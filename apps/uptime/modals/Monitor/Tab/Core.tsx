@@ -59,9 +59,11 @@ const MonitorCoreTab = ({ errors, control, isSubmitting }: Props) => {
               options={Object.values(MonitorType)
                 .filter(
                   (v) =>
-                    ![MonitorType.CRON_JOB, MonitorType.HTTPS].includes(
-                      v as any
-                    )
+                    ![
+                      MonitorType.CRON_JOB,
+                      MonitorType.HTTPS,
+                      MonitorType.API_ENDPOINT,
+                    ].includes(v as any)
                 )
                 .map((v) => ({
                   value: v,

@@ -83,8 +83,10 @@ export const getMonitorIcons = (
   errorCount: number
 ) => {
   const getUptimeVariant = (uptime: number): LabelProps["variant"] => {
+    if (uptime === 0) return "default";
     if (uptime >= 90) return "success";
     if (uptime >= 70) return "warning";
+    
     return "danger";
   };
 
