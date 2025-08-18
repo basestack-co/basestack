@@ -55,7 +55,6 @@ export const projectMonitorsRouter = createTRPCRouter({
             id: true,
             name: true,
             type: true,
-            interval: true,
             isEnabled: true,
             scheduleId: true,
             config: true,
@@ -91,14 +90,77 @@ export const projectMonitorsRouter = createTRPCRouter({
         nextCursor = nextItem!.id;
       }
 
+      const scheduleIds = monitors
+        .map((m) => m.scheduleId)
+        .filter((scheduleId): scheduleId is string => scheduleId !== null);
+
+      const schedulePromises = scheduleIds.map((scheduleId) =>
+        qstash.schedules.getSchedule(scheduleId).catch(() => null)
+      );
+
+      const schedules = await Promise.all(schedulePromises);
+
+      const scheduleMap = new Map();
+
+      scheduleIds.forEach((scheduleId, index) => {
+        if (schedules[index]) {
+          scheduleMap.set(scheduleId, schedules[index]);
+        }
+      });
+
+      // Calculate uptime for last 90 days for each monitor
+      const ninetyDaysAgo = new Date();
+      ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
+
+      const monitorIds = monitors.map((m) => m.id);
+
+      const uptimeStats = await ctx.prisma.monitorCheck.groupBy({
+        by: ["monitorId", "status"],
+        where: {
+          monitorId: { in: monitorIds },
+          checkedAt: { gte: ninetyDaysAgo },
+        },
+        _count: {
+          status: true,
+        },
+      });
+
+      const uptimeMap = new Map<string, number>();
+      const errorCountMap = new Map<string, number>();
+
+      monitorIds.forEach((monitorId) => {
+        const stats = uptimeStats.filter(
+          (stat) => stat.monitorId === monitorId
+        );
+
+        const totalChecks = stats.reduce(
+          (sum, stat) => sum + stat._count.status,
+          0
+        );
+        const upChecks = stats
+          .filter((stat) => stat.status === "UP")
+          .reduce((sum, stat) => sum + stat._count.status, 0);
+        const errorChecks = stats
+          .filter((stat) => stat.status !== "UP")
+          .reduce((sum, stat) => sum + stat._count.status, 0);
+
+        const uptimePercentage =
+          totalChecks > 0 ? (upChecks / totalChecks) * 100 : 0;
+
+        uptimeMap.set(monitorId, Math.round(uptimePercentage * 100) / 100);
+        errorCountMap.set(monitorId, errorChecks);
+      });
+
       const data = monitors.map((m) => {
         const config = monitorConfigSchema.safeParse(m.config);
+        const schedule = m.scheduleId ? scheduleMap.get(m.scheduleId) : null;
+        const uptimePercentage = uptimeMap.get(m.id) ?? 0;
+        const errorCount = errorCountMap.get(m.id) ?? 0;
 
         return {
           id: m.id,
           name: m.name,
           type: m.type,
-          interval: m.interval,
           isEnabled: m.isEnabled,
           scheduleId: m.scheduleId,
           createdAt: m.createdAt,
@@ -106,6 +168,10 @@ export const projectMonitorsRouter = createTRPCRouter({
           _count: m._count,
           config: config.success ? config.data : null,
           latestCheck: m.checks[0] ?? null,
+          lastScheduleTime: schedule?.lastScheduleTime ?? null,
+          nextScheduleTime: schedule?.nextScheduleTime ?? null,
+          uptimePercentage,
+          errorCount,
         };
       });
 

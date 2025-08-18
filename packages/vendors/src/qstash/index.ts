@@ -14,6 +14,7 @@ import {
   deleteSchedule,
   pauseSchedule,
   resumeSchedule,
+  getSchedule,
 } from "./schedules";
 
 const events = {
@@ -33,6 +34,7 @@ const schedules = {
   deleteSchedule,
   pauseSchedule,
   resumeSchedule,
+  getSchedule,
 };
 
 export { events, jobs, schedules };

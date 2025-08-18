@@ -24,11 +24,17 @@ import { PageContainer } from "../../../styles";
 import { Grid } from "./styles";
 // Locales
 import { useTranslations } from "next-intl";
+// Utils
+import {
+  getMonitorCheckStatus,
+  getMonitorDescription,
+  getMonitorIcons,
+} from "./utils";
 
 const numberOfFlagsPerPage = 10;
 
 const ProjectMonitorsPage = () => {
-  const t = useTranslations("monitor");
+  const t = useTranslations();
   const { spacing } = useTheme();
   const { projectId } = useParams<{ projectId: string }>();
 
@@ -57,7 +63,7 @@ const ProjectMonitorsPage = () => {
   const getToolbarProps = useCallback(() => {
     return {
       search: {
-        placeholder: t("toolbar.search.placeholder"),
+        placeholder: t("monitor.toolbar.search.placeholder"),
         value: "",
         isDisabled: isLoading,
         onChange: () => {},
@@ -65,17 +71,17 @@ const ProjectMonitorsPage = () => {
       },
       filter: {
         isDisabled: isLoading,
-        text: t("toolbar.filter.text"),
+        text: t("monitor.toolbar.filter.text"),
         items: [{ text: "Demo", onClick: () => {} }],
       },
       sort: {
         isDisabled: isLoading,
-        text: t("toolbar.sort.text"),
+        text: t("monitor.toolbar.sort.text"),
         items: [{ text: "Demo", onClick: () => {} }],
       },
       primaryAction: {
         isDisabled: isLoading,
-        text: t("toolbar.create.text"),
+        text: t("monitor.toolbar.create.text"),
         icon: "add",
         onClick: () => setCreateMonitorModalOpen({ isOpen: true }),
       },
@@ -84,10 +90,14 @@ const ProjectMonitorsPage = () => {
 
   const onRenderMenuActions = useCallback(() => {
     return [
-      { icon: "edit", text: t("list.card.action.edit"), onClick: () => {} },
+      {
+        icon: "edit",
+        text: t("monitor.list.card.action.edit"),
+        onClick: () => {},
+      },
       {
         icon: "delete",
-        text: t("list.card.action.delete"),
+        text: t("monitor.list.card.action.delete"),
         variant: ButtonVariant.Danger,
         onClick: () => {},
       },
@@ -116,8 +126,8 @@ const ProjectMonitorsPage = () => {
       return (
         <Empty
           iconName="monitor"
-          title={t("list.empty.title")}
-          description={t("list.empty.description")}
+          title={t("monitor.list.empty.title")}
+          description={t("monitor.list.empty.description")}
         />
       );
     }
@@ -127,53 +137,44 @@ const ProjectMonitorsPage = () => {
         {data?.pages.map(({ monitors }, index) => {
           return (
             <Fragment key={index}>
-              {monitors.map(({ id, name, type, config, latestCheck }) => {
-                //   console.log("config", config);
-                console.log("latestCheck", latestCheck);
-
-                return (
-                  <MonitorCard
-                    key={id}
-                    onClick={() => {}}
-                    menuItems={onRenderMenuActions()}
-                    title={config?.url ?? "N/A"}
-                    labels={[
-                      { text: name },
-                      { text: type },
-                      { text: "Next sync in", label: "45ms" },
-                    ]}
-                    data={[
-                      {
-                        label: "status",
-                        text: latestCheck?.status ?? "N/A",
-                        variant: "success",
-                      },
-                      {
-                        label: "latency",
-                        text: latestCheck?.responseTime
-                          ? `${latestCheck.responseTime}ms`
-                          : "N/A",
-                        variant: "danger",
-                      },
-                      {
-                        label: "code",
-                        text: latestCheck?.statusCode
-                          ? `${latestCheck.statusCode}`
-                          : "N/A",
-                        variant: "danger",
-                      },
-                    ]}
-                    icons={[
-                      { icon: "error", text: "1", tooltip: "some random text" },
-                      {
-                        icon: "timer",
-                        text: "70%",
-                        tooltip: "some random text",
-                      },
-                    ]}
-                  />
-                );
-              })}
+              {monitors.map(
+                ({
+                  id,
+                  name,
+                  type,
+                  config,
+                  latestCheck,
+                  nextScheduleTime,
+                  isEnabled,
+                  uptimePercentage,
+                  errorCount,
+                  _count,
+                }) => {
+                  return (
+                    <MonitorCard
+                      key={id}
+                      onClick={() => {}}
+                      menuItems={onRenderMenuActions()}
+                      title={config?.url ?? "N/A"}
+                      labels={getMonitorDescription(
+                        t,
+                        isEnabled,
+                        name,
+                        type,
+                        _count.checks <= 0 ? "" : nextScheduleTime
+                      )}
+                      data={getMonitorCheckStatus(
+                        t,
+                        isEnabled,
+                        latestCheck?.status ?? "N/A",
+                        latestCheck?.responseTime ?? 0,
+                        latestCheck?.statusCode ?? 0
+                      )}
+                      icons={getMonitorIcons(t, uptimePercentage, errorCount)}
+                    />
+                  );
+                }
+              )}
             </Fragment>
           );
         })}
@@ -186,7 +187,7 @@ const ProjectMonitorsPage = () => {
       <Flex flexDirection="column" gap={spacing.s5}>
         <Box>
           <Text size="xLarge" mr={spacing.s5}>
-            {t("page.title")}
+            {t("monitor.page.title")}
           </Text>
         </Box>
         <Toolbar {...getToolbarProps()} />

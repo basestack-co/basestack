@@ -1,5 +1,4 @@
 import type { Role } from ".prisma/client";
-import { ButtonVariant } from "@basestack/design-system";
 import type { NavigationProps } from "@basestack/ui";
 // Utils
 import { config, Product } from "@basestack/utils";

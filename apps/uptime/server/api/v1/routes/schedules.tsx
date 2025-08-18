@@ -42,7 +42,7 @@ const schedulesRoutes = new Hono().post(
               project: { select: { name: true } },
             },
           });
-        },
+        }
       );
 
       const result = await context.run("monitor-check-step", async () => {
@@ -52,19 +52,19 @@ const schedulesRoutes = new Hono().post(
 
         if (!config.success) {
           throw new WorkflowNonRetryableError(
-            `Schedules: Basestack Uptime - Monitor Check - Invalid monitor config ${JSON.stringify(config.error)}`,
+            `Schedules: Basestack Uptime - Monitor Check - Invalid monitor config ${JSON.stringify(config.error)}`
           );
         }
 
         console.info(
-          `Schedules: Basestack Uptime - Monitor Check - Preparing to check monitor ${monitorId} with config ${JSON.stringify(config.data)}`,
+          `Schedules: Basestack Uptime - Monitor Check - Preparing to check monitor ${monitorId} with config ${JSON.stringify(config.data)}`
         );
 
         const data = await getPerformCheck(monitor.type, config.data);
 
         if (!data) {
           throw new WorkflowNonRetryableError(
-            `Schedules: Basestack Uptime - Monitor Check - No result from getPerformCheck`,
+            `Schedules: Basestack Uptime - Monitor Check - No result from getPerformCheck`
           );
         }
 
@@ -79,15 +79,17 @@ const schedulesRoutes = new Hono().post(
       });
 
       await context.run("create-usage-event-step", async () => {
-        await polar.createUsageEvent(
+        const data = await polar.createUsageEvent(
           UsageEvent.API_REQUESTS,
           externalCustomerId,
           {
             product: Product.UPTIME,
             projectName: "Basestack Uptime",
             adminUserEmail,
-          },
+          }
         );
+
+        return data;
       });
 
       await context.run("create-incident-step", async () => {
@@ -107,7 +109,7 @@ const schedulesRoutes = new Hono().post(
           `Status code: ${result.statusCode}. ` +
           (result.error ? `Error: ${result.error}` : "");
 
-        await prisma.incident.create({
+        const incident = await prisma.incident.create({
           data: {
             projectId,
             title,
@@ -127,8 +129,10 @@ const schedulesRoutes = new Hono().post(
         });
 
         console.info(
-          `Schedules: Basestack Uptime - Monitor Check - Incident created for monitor ${monitorId}`,
+          `Schedules: Basestack Uptime - Monitor Check - Incident created for monitor ${monitorId}`
         );
+
+        return incident;
       });
 
       const resolvedIncident = await context.run(
@@ -175,11 +179,11 @@ const schedulesRoutes = new Hono().post(
           });
 
           console.info(
-            `Schedules: Basestack Uptime - Monitor Check - Auto-resolved incident ${existing.id} for monitor ${monitorId}`,
+            `Schedules: Basestack Uptime - Monitor Check - Auto-resolved incident ${existing.id} for monitor ${monitorId}`
           );
 
           return { id: existing.id };
-        },
+        }
       );
 
       await context.run("send-email-notifications-step", async () => {
@@ -201,8 +205,8 @@ const schedulesRoutes = new Hono().post(
                 .map((m) => m.user.email)
                 .filter((e): e is string => !!e),
               adminUserEmail,
-            ].filter(Boolean),
-          ),
+            ].filter(Boolean)
+          )
         );
         if (to.length === 0) return;
 
@@ -218,7 +222,7 @@ const schedulesRoutes = new Hono().post(
 
         const linkUrl = `${config.urls.getAppWithEnv(
           Product.UPTIME,
-          AppMode as AppEnv,
+          AppMode as AppEnv
         )}/a/project/${projectId}/monitors`;
 
         await qstash.events.sendEmailEvent({
@@ -250,11 +254,11 @@ const schedulesRoutes = new Hono().post(
         failHeaders,
       }) => {
         console.error(
-          `Schedules: Basestack Uptime - Monitor Check - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
+          `Schedules: Basestack Uptime - Monitor Check - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `
         );
       },
-    },
-  ),
+    }
+  )
 );
 
 export default schedulesRoutes;

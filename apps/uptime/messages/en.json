@@ -626,6 +626,17 @@
         "action": {
           "edit": "Edit",
           "delete": "Delete"
+        },
+        "description": {
+          "status": "Status",
+          "latency": "Latency",
+          "code": "Code",
+          "next-run": "Next run",
+          "paused": "Paused"
+        },
+        "icon": {
+          "errors": "Total incidents for this monitor",
+          "uptime": "Uptime percentage for the last 90 days"
         }
       }
     }

@@ -19,6 +19,7 @@ export type {
 export {
   default as MonitorCard,
   type MonitorCardProps,
+  type MonitorCardVariant,
 } from "./components/MonitorCard";
 export {
   default as Navigation,

@@ -17,7 +17,7 @@ import {
   type PopupMenuProps,
 } from "@basestack/design-system";
 
-type Variant = "success" | "warning" | "danger" | "default";
+export type MonitorCardVariant = "success" | "warning" | "danger" | "default";
 
 export interface MonitorCardProps {
   menuItems: PopupMenuProps["items"];
@@ -26,7 +26,7 @@ export interface MonitorCardProps {
   data: Array<{
     label: string;
     text: string;
-    variant?: Variant;
+    variant?: MonitorCardVariant;
   }>;
   icons: Array<{
     icon: string;
@@ -47,7 +47,7 @@ const MonitorCard = ({
 }: MonitorCardProps) => {
   const { colors, spacing, isDarkMode } = useTheme();
 
-  const getColorVariant = (variant?: Variant) => {
+  const getColorVariant = (variant?: MonitorCardVariant) => {
     const colorsVariant = {
       success: isDarkMode ? colors.green300 : colors.green400,
       warning: isDarkMode ? colors.orange300 : colors.orange400,
