@@ -15,12 +15,14 @@ import { MonitorCard, Toolbar } from "@basestack/ui";
 import { useParams } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import { Fragment, useCallback, useMemo } from "react";
+import { Fragment, useCallback, useMemo, useState } from "react";
 // Store
 import { useStore } from "store";
 import { useTheme } from "styled-components";
 // Server
 import { api } from "utils/trpc/react";
+// Hooks
+import { useDebounce } from "react-use";
 // Styles
 import { PageContainer } from "../../../styles";
 import { Grid } from "./styles";
@@ -33,24 +35,42 @@ import {
 
 const numberOfFlagsPerPage = 10;
 
+export enum SelectedSort {
+  NEWEST = "Newest",
+  OLDEST = "Oldest",
+}
+
 const ProjectMonitorsPage = () => {
   const t = useTranslations();
   const { spacing } = useTheme();
   const { projectId } = useParams<{ projectId: string }>();
+  const [orderBy, setOrderBy] = useState("desc");
+  const [selectedSort, setSelectedSort] = useState<string | null>(null);
+  const [searchValue, setSearchValue] = useState<string | null>(null);
+  const [search, setSearch] = useState(searchValue);
+
+  useDebounce(
+    () => {
+      if (typeof searchValue !== "string") return;
+      setSearch(searchValue);
+    },
+    500,
+    [searchValue]
+  );
 
   const setCreateMonitorModalOpen = useStore(
-    (state) => state.setCreateMonitorModalOpen,
+    (state) => state.setCreateMonitorModalOpen
   );
 
   const { data, fetchNextPage, isLoading } =
     api.projectMonitors.list.useInfiniteQuery(
-      { projectId, limit: 10, search: "" },
+      { projectId, limit: 10, search, orderBy },
       {
         enabled: !!projectId,
         getNextPageParam: (last) => last.nextCursor,
         refetchOnWindowFocus: true,
         staleTime: 30_000,
-      },
+      }
     );
 
   const [currentPage, totalPages] = useMemo(() => {
@@ -60,24 +80,44 @@ const ProjectMonitorsPage = () => {
     ];
   }, [data]);
 
+  const onSelectSort = useCallback((value: SelectedSort | null) => {
+    setOrderBy(
+      value === SelectedSort.NEWEST || value === null ? "desc" : "asc"
+    );
+  }, []);
+
   const getToolbarProps = useCallback(() => {
     return {
       search: {
         placeholder: t("monitor.toolbar.search.placeholder"),
-        value: "",
+        value: searchValue ?? "",
         isDisabled: isLoading,
-        onChange: () => {},
-        onClear: () => {},
-      },
-      filter: {
-        isDisabled: isLoading,
-        text: t("monitor.toolbar.filter.text"),
-        items: [{ text: "Demo", onClick: () => {} }],
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+          setSearchValue(e.target.value);
+        },
+        onClear: () => {
+          setSearchValue("");
+        },
       },
       sort: {
         isDisabled: isLoading,
-        text: t("monitor.toolbar.sort.text"),
-        items: [{ text: "Demo", onClick: () => {} }],
+        text: selectedSort ?? t("monitor.toolbar.sort.text"),
+        items: [
+          {
+            text: t("monitor.toolbar.sort.newest"),
+            onClick: () => {
+              onSelectSort(SelectedSort.NEWEST);
+              setSelectedSort(t("monitor.toolbar.sort.newest"));
+            },
+          },
+          {
+            text: t("monitor.toolbar.sort.oldest"),
+            onClick: () => {
+              onSelectSort(SelectedSort.OLDEST);
+              setSelectedSort(t("monitor.toolbar.sort.oldest"));
+            },
+          },
+        ],
       },
       primaryAction: {
         isDisabled: isLoading,
@@ -86,7 +126,14 @@ const ProjectMonitorsPage = () => {
         onClick: () => setCreateMonitorModalOpen({ isOpen: true }),
       },
     };
-  }, [isLoading, t, setCreateMonitorModalOpen]);
+  }, [
+    isLoading,
+    t,
+    setCreateMonitorModalOpen,
+    searchValue,
+    onSelectSort,
+    selectedSort,
+  ]);
 
   const onRenderMenuActions = useCallback(
     (isEnabled: boolean) => {
@@ -116,7 +163,7 @@ const ProjectMonitorsPage = () => {
         },
       ];
     },
-    [t],
+    [t]
   );
 
   const onRenderCards = useCallback(() => {
@@ -195,7 +242,7 @@ const ProjectMonitorsPage = () => {
                       })}
                     />
                   );
-                },
+                }
               )}
             </Fragment>
           );

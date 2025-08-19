@@ -1,7 +1,7 @@
 // Types
 
 // Components
-import { Modal, Tabs } from "@basestack/design-system";
+import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
 // Router
 import { useParams } from "next/navigation";
@@ -13,18 +13,20 @@ import type { SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 // Store
 import { useStore } from "store";
-import { useTheme } from "styled-components";
+//import { useTheme } from "styled-components";
 // Server
 import { api } from "utils/trpc/react";
 // Store
 import { useShallow } from "zustand/react/shallow";
-import { type MonitorFormInputs, TabType } from "../types";
+// Types
+import type { MonitorFormInputs } from "../types";
 // Form
-import useMonitorForm, { tabPosition } from "../useMonitorForm";
+//import useMonitorForm, { tabPosition } from "../useMonitorForm";
+import useMonitorForm from "../useMonitorForm";
 
 const CreateMonitorModal = () => {
   const t = useTranslations("modal");
-  const theme = useTheme();
+  // const theme = useTheme();
   const trpcUtils = api.useUtils();
 
   const { projectId } = useParams<{ projectId: string }>();
@@ -35,7 +37,7 @@ const CreateMonitorModal = () => {
         state.isCreateMonitorModalOpen,
         state.setCreateMonitorModalOpen,
         state.closeModalsOnClickOutside,
-      ]),
+      ])
     );
 
   const createMonitor = api.projectMonitors.create.useMutation();
@@ -45,8 +47,8 @@ const CreateMonitorModal = () => {
     reset,
     isSubmitting,
     onRenderTab,
-    selectedTab,
-    setSelectedTab,
+    //  selectedTab,
+    //  setSelectedTab,
   } = useMonitorForm();
 
   const isSubmittingOrMutating = isSubmitting || createMonitor.isPending;
@@ -92,7 +94,7 @@ const CreateMonitorModal = () => {
           onError: (error) => {
             toast.error(error.message);
           },
-        },
+        }
       );
     } catch {
       toast.error("Headers must be a valid JSON object");
@@ -118,7 +120,7 @@ const CreateMonitorModal = () => {
         onAnimationEnd={reset}
         closeOnClickOutside={closeModalsOnClickOutside}
       >
-        <Tabs
+        {/*<Tabs
           items={[
             { text: t("monitor.tab.core.title"), id: TabType.CORE },
             { text: t("monitor.tab.advanced.title"), id: TabType.ADVANCED },
@@ -126,7 +128,7 @@ const CreateMonitorModal = () => {
           onSelect={(tab: string) => setSelectedTab(tab as TabType)}
           sliderPosition={tabPosition[selectedTab]}
           mb={theme.spacing.s6}
-        />
+        /> */}
         {onRenderTab(false)}
       </Modal>
     </Portal>

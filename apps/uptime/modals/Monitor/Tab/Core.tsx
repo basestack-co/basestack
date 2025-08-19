@@ -3,7 +3,7 @@
 // Types
 import { MonitorType } from ".prisma/client";
 // Components
-import { InputGroup, Select, Switch, Text } from "@basestack/design-system";
+import { InputGroup, Select, Text } from "@basestack/design-system";
 // Locales
 import { useTranslations } from "next-intl";
 import { type Control, Controller, type FieldErrors } from "react-hook-form";
@@ -57,18 +57,13 @@ const MonitorCoreTab = ({ errors, control, isSubmitting }: Props) => {
             </Text>
             <Select
               options={Object.values(MonitorType)
-                .filter(
-                  (v) =>
-                    ![
-                      MonitorType.CRON_JOB,
-                      MonitorType.HTTPS,
-                      MonitorType.API_ENDPOINT,
-                    ].includes(v as any),
+                .filter((v) =>
+                  [MonitorType.HTTP, MonitorType.PING].includes(v as any)
                 )
                 .map((v) => ({
                   value: v,
                   label: t(
-                    `modal.monitor.form.input.type.option.${v.toLowerCase()}` as any,
+                    `modal.monitor.form.input.type.option.${v.toLowerCase()}` as any
                   ),
                 }))}
               value={{ value: field.value, label: field.value }}
@@ -162,6 +157,7 @@ const MonitorCoreTab = ({ errors, control, isSubmitting }: Props) => {
         )}
       />
 
+      {/* 
       <Controller
         name="config.timeout"
         control={control}
@@ -211,6 +207,7 @@ const MonitorCoreTab = ({ errors, control, isSubmitting }: Props) => {
           />
         )}
       />
+      */}
     </Grid>
   );
 };

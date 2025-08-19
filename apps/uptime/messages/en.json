@@ -623,7 +623,9 @@
         "text": "Filter"
       },
       "sort": {
-        "text": "Sort"
+        "text": "Sort",
+        "newest": "Newest",
+        "oldest": "Oldest"
       },
       "create": {
         "text": "Create Monitor"

@@ -19,7 +19,7 @@ import { z } from "zod";
 async function calculateUptimeStats(
   prisma: PrismaClient,
   monitorIds: string[],
-  days: number = 90,
+  days: number = 90
 ) {
   const daysAgo = new Date();
   daysAgo.setDate(daysAgo.getDate() - days);
@@ -65,7 +65,7 @@ async function getScheduleMap(scheduleIds: string[]) {
   if (scheduleIds.length === 0) return new Map();
 
   const schedulePromises = scheduleIds.map((scheduleId) =>
-    qstash.schedules.getSchedule(scheduleId).catch(() => null),
+    qstash.schedules.getSchedule(scheduleId).catch(() => null)
   );
 
   const schedules = await Promise.all(schedulePromises);
@@ -89,13 +89,16 @@ export const projectMonitorsRouter = createTRPCRouter({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(),
         search: z.string().optional().nullable(),
-      }),
+        orderBy: z.string().optional().nullable().default("desc"),
+      })
     )
     .query(async ({ ctx, input }) => {
       const limit = input.limit ?? 50;
-
+      const orderBy = [
+        { createdAt: input.orderBy },
+        { id: input.orderBy },
+      ] as any;
       const search = input.search ? { name: { search: input.search } } : {};
-
       const where = {
         projectId: input.projectId,
         ...search,
@@ -108,7 +111,7 @@ export const projectMonitorsRouter = createTRPCRouter({
           take: limit + 1,
           cursor: input.cursor ? { id: input.cursor } : undefined,
           skip: input.cursor ? 1 : 0,
-          orderBy: [{ id: "desc" }],
+          orderBy,
           select: {
             id: true,
             name: true,
@@ -194,7 +197,7 @@ export const projectMonitorsRouter = createTRPCRouter({
           name: z.string(),
           config: monitorConfigSchema,
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const externalCustomerId = emailToId(ctx.project.adminUserEmail);
@@ -202,7 +205,7 @@ export const projectMonitorsRouter = createTRPCRouter({
       const sub = await polar.getCustomerSubscription(
         externalCustomerId,
         Product.UPTIME,
-        AppMode,
+        AppMode
       );
 
       if (!sub?.id) {
@@ -263,7 +266,7 @@ export const projectMonitorsRouter = createTRPCRouter({
           cron: z.string(),
           config: monitorConfigSchema,
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const existing = await ctx.prisma.monitor.findFirst({
@@ -296,7 +299,7 @@ export const projectMonitorsRouter = createTRPCRouter({
           projectId: z.string(),
           monitorId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const existing = await ctx.prisma.monitor.findFirst({
