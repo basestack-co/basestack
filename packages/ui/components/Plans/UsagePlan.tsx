@@ -18,10 +18,10 @@ export interface UsagePlanProps {
   isLoadingSubscription: boolean;
   onCreateCheckoutCallback: (
     planId: PlanTypeId,
-    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => void;
   onCreatePortalCallback: (
-    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => void;
   currentPlan?: CurrentPlan;
   recurringInterval: string;
@@ -54,7 +54,7 @@ const UsagePlan = ({
           title: t("home.usage.meters.resource.form_submission"),
         },
         {
-          key: "email_notification",
+          key: "forms_notifications",
           title: t("home.usage.meters.resource.email_notification"),
         },
         {
@@ -62,7 +62,7 @@ const UsagePlan = ({
           title: t("home.usage.meters.resource.spam_check"),
         },
         {
-          key: "webhook_trigger",
+          key: "forms_triggers",
           title: t("home.usage.meters.resource.webhook_trigger"),
         },
       ],
@@ -78,15 +78,15 @@ const UsagePlan = ({
       ],
       [Product.UPTIME]: [
         {
-          key: "api_requests",
+          key: "uptime_api_requests",
           title: t("home.usage.meters.resource.api_requests"),
         },
         {
-          key: "email_notification",
+          key: "uptime_notifications",
           title: t("home.usage.meters.resource.email_notification"),
         },
         {
-          key: "webhook_trigger",
+          key: "uptime_triggers",
           title: t("home.usage.meters.resource.webhook_trigger"),
         },
       ],
@@ -116,12 +116,12 @@ const UsagePlan = ({
 
       onCreateCheckoutCallback(planId, setIsLoading);
     },
-    [onCreateCheckoutCallback],
+    [onCreateCheckoutCallback]
   );
 
   const plan = useMemo(
     () => config.plans.getPlan(product, PlanTypeId.USAGE),
-    [product],
+    [product]
   );
 
   if (isLoadingSubscription) {

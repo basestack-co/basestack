@@ -164,7 +164,7 @@
         "check_out_the": "Check out the",
         "how_to": "How to",
         "open_on": "Open an issue on",
-        "docs": "Documentation",
+        "docs": "Docs",
         "sdks": "SDK’s",
         "contribute": "Contribute?",
         "github": "Github"
@@ -440,7 +440,7 @@
     },
     "external": {
       "resources": "Resources",
-      "docs": "Documentation",
+      "docs": "Docs",
       "github": "Github"
     },
     "internal": {

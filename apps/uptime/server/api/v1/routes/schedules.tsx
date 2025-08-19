@@ -80,7 +80,7 @@ const schedulesRoutes = new Hono().post(
 
       await context.run("create-usage-event-step", async () => {
         const data = await polar.createUsageEvent(
-          UsageEvent.API_REQUESTS,
+          UsageEvent.UPTIME_API_REQUESTS,
           externalCustomerId,
           {
             product: Product.UPTIME,

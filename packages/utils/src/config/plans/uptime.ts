@@ -23,17 +23,17 @@ const uptime: UptimePlan[] = [
     },
     meters: [
       {
-        key: "api_requests",
+        key: "uptime_api_requests",
         costUnit: 0.00007,
         currency: "USD",
       },
       {
-        key: "email_notification",
+        key: "uptime_notifications",
         costUnit: 0.002,
         currency: "USD",
       },
       {
-        key: "webhook_trigger",
+        key: "uptime_triggers",
         costUnit: 0.002,
         currency: "USD",
       },

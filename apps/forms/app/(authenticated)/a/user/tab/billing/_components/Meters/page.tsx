@@ -60,7 +60,7 @@ const Meters = ({
         }
         return acc;
       },
-      {} as Record<string, number>,
+      {} as Record<string, number>
     );
 
     return (
@@ -68,10 +68,10 @@ const Meters = ({
         (config.plans.getMetersEstimatedCost(
           Product.FORMS,
           PlanTypeId.USAGE,
-          usage || {},
+          usage || {}
         ) +
           minimumSpend) *
-          100,
+          100
       ) / 100
     );
   }, [meters.data, minimumSpend]);
@@ -82,7 +82,7 @@ const Meters = ({
         style: "currency",
         currency: "USD",
       }).format(estimatedCost),
-    [estimatedCost],
+    [estimatedCost]
   );
 
   const formattedMinimumSpend = useMemo(
@@ -91,7 +91,7 @@ const Meters = ({
         style: "currency",
         currency: "USD",
       }).format(minimumSpend),
-    [minimumSpend],
+    [minimumSpend]
   );
 
   const currentMeters = useMemo(() => {
@@ -101,20 +101,24 @@ const Meters = ({
         title: t("usage.meters.resource.form_submission"),
       },
       {
-        key: "email_notification",
+        key: "forms_notifications",
         title: t("usage.meters.resource.email_notification"),
       },
       { key: "spam_check", title: t("usage.meters.resource.spam_check") },
       {
-        key: "webhook_trigger",
+        key: "forms_triggers",
         title: t("usage.meters.resource.webhook_trigger"),
+      },
+      {
+        key: "forms_api_requests",
+        title: t("usage.meters.resource.api_requests"),
       },
     ];
 
     return resourceMap
       .map((resource) => {
         const meter = meters.data?.meters?.find(
-          (m) => m.nameKey === resource.key,
+          (m) => m.nameKey === resource.key
         );
         const planMeter = planMeters.find((m) => m.key === resource.key);
 
@@ -129,10 +133,7 @@ const Meters = ({
           used: meter?.consumedUnits ?? 0,
           total:
             meter?.creditedUnits === 0 ? Infinity : (meter?.creditedUnits ?? 0),
-          description:
-            meter?.creditedUnits === 0
-              ? description
-              : `${t("usage.meters.credited")} ${description}`,
+          description: meter?.consumedUnits === 0 ? description : "",
         };
       })
       .filter((m) => m !== undefined);

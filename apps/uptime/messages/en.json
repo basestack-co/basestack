@@ -73,10 +73,10 @@
         "unit": "Unit",
         "resource": {
           "api_requests": "API Requests",
-          "email_notification": "Email Notifications",
+          "email_notification": "Notifications",
           "form_submission": "Form Submissions",
           "spam_check": "Spam Checks",
-          "webhook_trigger": "Webhook Triggers"
+          "webhook_trigger": "Triggers"
         }
       },
       "alert": {
@@ -119,7 +119,7 @@
         "check_out_the": "Check out the",
         "how_to": "How to",
         "open_on": "Open an issue on",
-        "docs": "Documentation",
+        "docs": "Docs",
         "contribute": "Contribute?",
         "github": "Github"
       }
@@ -374,7 +374,7 @@
     },
     "external": {
       "resources": "Resources",
-      "docs": "Documentation",
+      "docs": "Docs",
       "github": "Github"
     },
     "internal": {

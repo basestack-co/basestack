@@ -29,7 +29,7 @@ const forms: FormPlan[] = [
         currency: "USD",
       },
       {
-        key: "email_notification",
+        key: "forms_notifications",
         costUnit: 0.002,
         currency: "USD",
       },
@@ -39,13 +39,18 @@ const forms: FormPlan[] = [
         currency: "USD",
       },
       {
-        key: "webhook_trigger",
+        key: "forms_triggers",
         costUnit: 0.002,
         currency: "USD",
       },
       {
         key: "integration_call",
         costUnit: 0.005,
+        currency: "USD",
+      },
+      {
+        key: "forms_api_requests",
+        costUnit: 0.00001,
         currency: "USD",
       },
     ],
