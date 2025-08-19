@@ -129,6 +129,7 @@ export const spacing = {
 
 export const device = {
   min: {
+    xs: "(min-width: 375px)",
     sm: "(min-width: 576px)",
     md: "(min-width: 768px)",
     lg: "(min-width: 992px)",
@@ -136,6 +137,7 @@ export const device = {
     xxl: "(min-width: 1400px)",
   },
   max: {
+    xs: "(max-width: 374.98px)",
     sm: "(max-width: 575.98px)",
     md: "(max-width: 767.98px)",
     lg: "(max-width: 991.98px)",

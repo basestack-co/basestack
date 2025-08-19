@@ -33,7 +33,7 @@ const DesktopNavigation = ({
       {isMobile && (
         <>
           <LogoContainer showSeparator={!!currentProject} onClick={onClickLogo}>
-            <Logo size={32} product={product} />
+            <Logo size={32} product={product} isOnDark={theme.isDarkMode} />
           </LogoContainer>
           {!!currentProject && (
             <Box display="flex" alignItems="center" px={theme.spacing.s3}>
@@ -60,7 +60,7 @@ const DesktopNavigation = ({
         <List>
           <ListItem>
             <LogoContainer showSeparator onClick={onClickLogo}>
-              <Logo size={36} product={product} />
+              <Logo size={36} product={product} isOnDark={theme.isDarkMode} />
             </LogoContainer>
           </ListItem>
           <ProjectsMenu {...projects} />

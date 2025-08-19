@@ -5,6 +5,7 @@ import { animated } from "react-spring";
 import { useTheme } from "styled-components";
 import type { LayoutProps, SpaceProps } from "styled-system";
 import { Button, ButtonVariant } from "../Button";
+import Box from "../Box";
 import IconButton from "../IconButton";
 import Input from "../Input";
 // Components
@@ -70,14 +71,20 @@ const Search = ({
           format={size}
         />
         {!!value && (
-          <IconButton
-            size="small"
-            variant="secondaryDark"
+          <Box
+            display="inline-flex"
             position="absolute"
-            right={filter ? theme.spacing.s1 : rem("10px")}
-            icon="close"
-            onClick={onClear}
-          />
+            right={filter ? 0 : rem("6px")}
+            border={`4px solid ${theme.search.backgroundColor}`}
+            borderRadius="50%"
+          >
+            <IconButton
+              size="small"
+              variant="secondaryDark"
+              icon="close"
+              onClick={onClear}
+            />
+          </Box>
         )}
       </InputContainer>
       {filter && (

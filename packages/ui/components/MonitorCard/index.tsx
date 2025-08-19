@@ -73,11 +73,13 @@ const MonitorCard = ({
         cursor="pointer"
       >
         <Box p={spacing.s5}>
-          <Text textAlign="left" fontWeight={500}>
-            {title}
-          </Text>
+          <Box pr={spacing.s7}>
+            <Text lineTruncate textAlign="left" fontWeight={500}>
+              {title}
+            </Text>
+          </Box>
 
-          <Flex flexWrap="wrap" alignItems="center" gap={spacing.s1}>
+          <Flex flexWrap="wrap" alignItems="center">
             {labels?.map(({ text, label }, index, { length }) => (
               <Fragment key={`label-${index}`}>
                 {label ? (
@@ -90,7 +92,13 @@ const MonitorCard = ({
                   </Text>
                 )}
                 {index + 1 !== length && (
-                  <Text textAlign="left" flexShrink={0} muted size="xSmall">
+                  <Text
+                    textAlign="left"
+                    flexShrink={0}
+                    muted
+                    size="xSmall"
+                    mx={spacing.s1}
+                  >
                     •
                   </Text>
                 )}

@@ -70,7 +70,11 @@ const MobileNavigation = ({
               <GlobalStyle />
               <Header>
                 <LogoButton onClick={onClickLogo}>
-                  <Logo size={32} product={product} />
+                  <Logo
+                    size={32}
+                    product={product}
+                    isOnDark={theme.isDarkMode}
+                  />
                 </LogoButton>
                 <IconButton
                   icon="menu_open"

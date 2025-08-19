@@ -205,7 +205,7 @@ const ProjectMonitorsPage = () => {
             {t("monitor.page.title")}
           </Text>
         </Box>
-        <Toolbar {...getToolbarProps()} />
+        <Toolbar breakpoint="xs" {...getToolbarProps()} />
         {onRenderCards()}
       </Flex>
 

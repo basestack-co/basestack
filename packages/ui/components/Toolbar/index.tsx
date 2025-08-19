@@ -44,6 +44,7 @@ export interface ToolbarProps {
     items: PopupProps["items"];
   };
   segment?: SegmentProps;
+  breakpoint?: "xs" | "sm" | "md" | "lg";
 }
 
 const Toolbar = ({
@@ -54,13 +55,14 @@ const Toolbar = ({
   popup,
   segment,
   secondaryAction,
+  breakpoint = "md",
 }: ToolbarProps) => {
   const { device } = useTheme();
   const isTablet = useMedia(device.max.lg, false);
   const isMobile = useMedia(device.max.md, false);
 
   return (
-    <Container>
+    <Container breakpoint={breakpoint}>
       <Column>
         <Search {...search} maxWidth="300px" size="small" />
 
@@ -103,7 +105,7 @@ const Toolbar = ({
         )}
       </Column>
 
-      <Column>
+      <Column flexShrink={0}>
         {segment && <Segment {...segment} />}
 
         {secondaryAction &&

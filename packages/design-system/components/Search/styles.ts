@@ -13,8 +13,6 @@ export const Container = styled.div.withConfig({
 
   input {
     border-radius: ${({ hasFilter }) => (hasFilter ? "4px 0 0 4px" : "4px")};
-    padding-right: ${({ hasFilter }) =>
-      hasFilter ? rem("32px") : rem("44px")};
 
     &:focus {
       outline-offset: -2px;
