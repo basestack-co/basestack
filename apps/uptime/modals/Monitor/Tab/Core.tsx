@@ -63,12 +63,12 @@ const MonitorCoreTab = ({ errors, control, isSubmitting }: Props) => {
                       MonitorType.CRON_JOB,
                       MonitorType.HTTPS,
                       MonitorType.API_ENDPOINT,
-                    ].includes(v as any)
+                    ].includes(v as any),
                 )
                 .map((v) => ({
                   value: v,
                   label: t(
-                    `modal.monitor.form.input.type.option.${v.toLowerCase()}` as any
+                    `modal.monitor.form.input.type.option.${v.toLowerCase()}` as any,
                   ),
                 }))}
               value={{ value: field.value, label: field.value }}

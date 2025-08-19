@@ -647,7 +647,9 @@
           "latency": "Latency",
           "code": "Code",
           "next-run": "Next run",
-          "paused": "Paused"
+          "paused": "Paused",
+          "awaiting-first-run": "Awaiting first run",
+          "pending": "Not started"
         },
         "icon": {
           "errors": "Total incidents for this monitor",

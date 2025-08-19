@@ -60,7 +60,7 @@ const Meters = ({
         }
         return acc;
       },
-      {} as Record<string, number>
+      {} as Record<string, number>,
     );
 
     return (
@@ -68,10 +68,10 @@ const Meters = ({
         (config.plans.getMetersEstimatedCost(
           Product.FLAGS,
           PlanTypeId.USAGE,
-          usage || {}
+          usage || {},
         ) +
           minimumSpend) *
-          100
+          100,
       ) / 100
     );
   }, [meters.data, minimumSpend]);
@@ -82,7 +82,7 @@ const Meters = ({
         style: "currency",
         currency: "USD",
       }).format(estimatedCost),
-    [estimatedCost]
+    [estimatedCost],
   );
 
   const formattedMinimumSpend = useMemo(
@@ -91,7 +91,7 @@ const Meters = ({
         style: "currency",
         currency: "USD",
       }).format(minimumSpend),
-    [minimumSpend]
+    [minimumSpend],
   );
 
   const currentMeters = useMemo(() => {
@@ -109,7 +109,7 @@ const Meters = ({
     return resources
       .map((resource) => {
         const meter = meters.data?.meters?.find(
-          (m) => m.nameKey === resource.key
+          (m) => m.nameKey === resource.key,
         );
         const planMeter = planMeters.find((m) => m.key === resource.key);
 
@@ -128,7 +128,7 @@ const Meters = ({
         };
       })
       .filter(
-        (meter): meter is NonNullable<typeof meter> => meter !== undefined
+        (meter): meter is NonNullable<typeof meter> => meter !== undefined,
       );
   }, [meters.data?.meters, planMeters, t]);
 

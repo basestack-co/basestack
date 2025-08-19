@@ -71,7 +71,7 @@ const ProductFormsPage = () => {
         max: "100000",
         initialValue: 500,
       },
-      email_notification: {
+      forms_notifications: {
         min: "0",
         max: "100000",
         initialValue: 0,
@@ -81,7 +81,7 @@ const ProductFormsPage = () => {
         max: "100000",
         initialValue: 0,
       },
-      webhook_trigger: {
+      forms_triggers: {
         min: "0",
         max: "100000",
         initialValue: 0,
@@ -91,10 +91,19 @@ const ProductFormsPage = () => {
         max: "100000",
         initialValue: 0,
       },
+      forms_api_requests: {
+        min: "0",
+        max: "100000",
+        initialValue: 0,
+      },
     };
 
     return meters
-      .filter((meter) => meter.key !== "integration_call")
+      .filter(
+        (meter) =>
+          meter.key !== "integration_call" &&
+          meter.key !== "forms_api_requests",
+      )
       .map((meter) => ({
         id: meter.key,
         title: t(`common.pricing.usage.count.${meter.key}` as any),

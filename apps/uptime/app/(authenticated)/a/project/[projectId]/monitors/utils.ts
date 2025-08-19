@@ -1,17 +1,12 @@
 // Types
 import type { MonitorCardVariant } from "@basestack/ui";
-import { type LabelProps, Label } from "@basestack/design-system";
+import type { LabelProps } from "@basestack/design-system";
+import type { MonitorStatus } from ".prisma/client";
 // Utils
 import dayjs from "dayjs";
 
-export const getMonitorCheckStatus = (
-  t: (key: any) => string,
-  isEnabled: boolean,
-  status: string = "N/A",
-  responseTime: number = 0,
-  statusCode: number = 0
-) => {
-  const statusVariantMap: Record<string, MonitorCardVariant> = {
+const STATUS_VARIANT_MAP: Record<MonitorStatus | "PAUSED", MonitorCardVariant> =
+  {
     UP: "success",
     DOWN: "danger",
     DEGRADED: "warning",
@@ -20,73 +15,160 @@ export const getMonitorCheckStatus = (
     TIMEOUT: "danger",
     ERROR: "danger",
     PAUSED: "default",
-  };
+  } as const;
 
-  const getStatusVariant = (s: string): MonitorCardVariant =>
-    statusVariantMap[s] ?? "default";
+const LATENCY_THRESHOLDS = {
+  EXCELLENT: 200,
+  GOOD: 500,
+} as const;
 
-  const getLatencyVariant = (latency: number): MonitorCardVariant => {
-    if (latency <= 0) return "default";
-    if (latency <= 200) return "success";
-    if (latency <= 500) return "warning";
-    return "danger";
-  };
+const STATUS_CODE_RANGES = {
+  ERROR_START: 400,
+} as const;
 
-  const getStatusCodeVariant = (code: number): MonitorCardVariant => {
-    if (code === 0) return "default";
-    return code >= 400 ? "danger" : "success";
-  };
+export interface MonitorCheckStatusItem {
+  label: string;
+  text: string;
+  variant: MonitorCardVariant;
+}
+
+export interface MonitorCheckStatusParams {
+  t: (key: any) => string;
+  isEnabled: boolean;
+  isPending: boolean;
+  status: MonitorStatus | "N/A";
+  responseTime: number;
+  statusCode: number;
+}
+
+export interface MonitorDescriptionParams {
+  t: (key: any) => string;
+  isEnabled: boolean;
+  isPending: boolean;
+  name: string;
+  type: string;
+  nextScheduleTime: string;
+}
+
+export interface MonitorIconsParams {
+  t: (key: any) => string;
+  uptimePercentage: number;
+  errorCount: number;
+}
+
+const getStatusVariant = (
+  status: MonitorStatus | "PAUSED" | "N/A",
+): MonitorCardVariant => {
+  if (status === "N/A") return "default";
+  return (
+    STATUS_VARIANT_MAP[status as keyof typeof STATUS_VARIANT_MAP] ?? "default"
+  );
+};
+
+const getLatencyVariant = (latency: number): MonitorCardVariant => {
+  if (latency <= 0) return "default";
+  if (latency <= LATENCY_THRESHOLDS.EXCELLENT) return "success";
+  if (latency <= LATENCY_THRESHOLDS.GOOD) return "warning";
+  return "danger";
+};
+
+const getStatusCodeVariant = (code: number): MonitorCardVariant => {
+  if (code === 0) return "default";
+  return code >= STATUS_CODE_RANGES.ERROR_START ? "danger" : "success";
+};
+
+const formatResponseTime = (responseTime: number): string => {
+  return responseTime > 0 ? `${responseTime}ms` : "N/A";
+};
+
+const formatStatusCode = (statusCode: number): string => {
+  return statusCode > 0 ? statusCode.toString() : "N/A";
+};
+
+const getStatusText = (
+  t: (key: string) => string,
+  isEnabled: boolean,
+  isPending: boolean,
+  status: MonitorStatus | "N/A",
+): string => {
+  if (!isEnabled) {
+    return t("monitor.list.card.description.paused");
+  }
+
+  if (isPending) {
+    return t("monitor.list.card.description.pending");
+  }
+
+  return status;
+};
+
+export const getMonitorCheckStatus = ({
+  t,
+  isEnabled,
+  isPending,
+  status = "N/A",
+  responseTime = 0,
+  statusCode = 0,
+}: MonitorCheckStatusParams): MonitorCheckStatusItem[] => {
+  const effectiveStatus = !isEnabled ? "PAUSED" : status;
 
   return [
     {
       label: t("monitor.list.card.description.status"),
-      text: isEnabled ? status : t("monitor.list.card.description.paused"),
-      variant: getStatusVariant(isEnabled ? status : "PAUSED"),
+      text: getStatusText(t, isEnabled, isPending, status),
+      variant: getStatusVariant(effectiveStatus),
     },
     {
       label: t("monitor.list.card.description.latency"),
-      text: responseTime > 0 ? `${responseTime}ms` : "N/A",
+      text: formatResponseTime(responseTime),
       variant: getLatencyVariant(responseTime),
     },
     {
       label: t("monitor.list.card.description.code"),
-      text: statusCode > 0 ? `${statusCode}` : "N/A",
+      text: formatStatusCode(statusCode),
       variant: getStatusCodeVariant(statusCode),
     },
   ];
 };
 
-export const getMonitorDescription = (
-  t: (key: any) => string,
-  isEnabled: boolean,
-  name: string,
-  type: string,
-  nextScheduleTime: string
-) => {
-  return [
-    { text: name },
-    { text: type },
-    ...(!isEnabled
-      ? [{ text: t("monitor.list.card.description.paused") }]
-      : [
-          {
-            text: t("monitor.list.card.description.next-run"),
-            label: nextScheduleTime ? dayjs(nextScheduleTime).fromNow() : "N/A",
-          },
-        ]),
-  ];
+export const getMonitorDescription = ({
+  t,
+  isEnabled,
+  isPending,
+  name,
+  type,
+  nextScheduleTime,
+}: MonitorDescriptionParams) => {
+  const baseItems = [{ text: name }, { text: type }];
+
+  if (!isEnabled) {
+    return [...baseItems, { text: t("monitor.list.card.description.paused") }];
+  }
+
+  const scheduleLabel = nextScheduleTime
+    ? dayjs(nextScheduleTime).fromNow()
+    : "";
+
+  const statusItem = {
+    text: isPending
+      ? t("monitor.list.card.description.awaiting-first-run")
+      : t("monitor.list.card.description.next-run"),
+    ...(scheduleLabel && { label: scheduleLabel }),
+  };
+
+  return [...baseItems, statusItem];
 };
 
-export const getMonitorIcons = (
-  t: (key: any) => string,
-  uptimePercentage: number,
-  errorCount: number
-) => {
+export const getMonitorIcons = ({
+  t,
+  uptimePercentage,
+  errorCount,
+}: MonitorIconsParams) => {
   const getUptimeVariant = (uptime: number): LabelProps["variant"] => {
     if (uptime === 0) return "default";
     if (uptime >= 90) return "success";
     if (uptime >= 70) return "warning";
-    
+
     return "danger";
   };
 

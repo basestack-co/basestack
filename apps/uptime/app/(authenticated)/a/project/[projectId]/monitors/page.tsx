@@ -48,7 +48,7 @@ const ProjectMonitorsPage = () => {
       {
         enabled: !!projectId,
         getNextPageParam: (last) => last.nextCursor,
-        refetchOnWindowFocus: false,
+        refetchOnWindowFocus: true,
         staleTime: 30_000,
       },
     );
@@ -165,27 +165,34 @@ const ProjectMonitorsPage = () => {
                   errorCount,
                   _count,
                 }) => {
+                  const isPending = _count.checks <= 0;
                   return (
                     <MonitorCard
                       key={id}
                       onClick={() => {}}
                       menuItems={onRenderMenuActions(isEnabled)}
                       title={config?.url ?? "N/A"}
-                      labels={getMonitorDescription(
+                      labels={getMonitorDescription({
                         t,
                         isEnabled,
+                        isPending,
                         name,
                         type,
-                        _count.checks <= 0 ? "" : nextScheduleTime,
-                      )}
-                      data={getMonitorCheckStatus(
+                        nextScheduleTime: isPending ? "" : nextScheduleTime,
+                      })}
+                      data={getMonitorCheckStatus({
                         t,
                         isEnabled,
-                        latestCheck?.status ?? "N/A",
-                        latestCheck?.responseTime ?? 0,
-                        latestCheck?.statusCode ?? 0,
-                      )}
-                      icons={getMonitorIcons(t, uptimePercentage, errorCount)}
+                        isPending,
+                        status: latestCheck?.status ?? "N/A",
+                        responseTime: latestCheck?.responseTime ?? 0,
+                        statusCode: latestCheck?.statusCode ?? 0,
+                      })}
+                      icons={getMonitorIcons({
+                        t,
+                        uptimePercentage,
+                        errorCount,
+                      })}
                     />
                   );
                 },

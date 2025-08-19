@@ -55,7 +55,7 @@ interface HttpError extends Error {
 
 const getHostPortFromUrl = (
   url: string,
-  overridePort?: number
+  overridePort?: number,
 ): { host: string; port: number; protocol: string } => {
   const u = new URL(url);
   const protocol = u.protocol;
@@ -106,7 +106,7 @@ const isValidUrl = (url: string): boolean => {
 
 const validateStatus = (
   actual: number,
-  expected: number | number[]
+  expected: number | number[],
 ): boolean => {
   return Array.isArray(expected)
     ? expected.includes(actual)
@@ -131,7 +131,7 @@ const sanitizeHeaders = (headers?: Record<string, string>): HeadersInit => {
 const readResponseWithKeyword = async (
   response: Response,
   keyword: string,
-  maxSize: number
+  maxSize: number,
 ): Promise<{ found: boolean; size: number }> => {
   const reader = response.body?.getReader();
   if (!reader) return { found: false, size: 0 };
@@ -172,7 +172,7 @@ const readResponseWithKeyword = async (
 // ============================================================================
 
 export const createHttpCheck = async (
-  config: MonitorConfig
+  config: MonitorConfig,
 ): Promise<MonitorCheck> => {
   const {
     url,
@@ -231,7 +231,7 @@ export const createHttpCheck = async (
         const result = await readResponseWithKeyword(
           response,
           keyword,
-          maxResponseSize
+          maxResponseSize,
         );
         isUp = result.found;
         responseSize = result.size;
@@ -262,7 +262,7 @@ export const createHttpCheck = async (
       if (attempt < retries && !isTimeoutError(error as Error)) {
         attempt++;
         await new Promise((resolve) =>
-          setTimeout(resolve, retryDelay * attempt)
+          setTimeout(resolve, retryDelay * attempt),
         );
         continue;
       }
@@ -288,7 +288,7 @@ export const createHttpCheck = async (
 
 export const createBatchHttpCheck = async (
   configs: MonitorConfig[],
-  options: { concurrency?: number } = {}
+  options: { concurrency?: number } = {},
 ): Promise<MonitorCheck[]> => {
   const { concurrency = 10 } = options;
 
@@ -322,7 +322,7 @@ export const createBatchHttpCheck = async (
 // ============================================================================
 
 export const createPingCheck = async (
-  config: MonitorConfig
+  config: MonitorConfig,
 ): Promise<MonitorCheck> => {
   const { url, timeout = 5000, retries = 0, retryDelay = 500, port } = config;
 
@@ -414,7 +414,7 @@ export const createPingCheck = async (
 // ============================================================================
 
 export const createTcpCheck = async (
-  config: MonitorConfig
+  config: MonitorConfig,
 ): Promise<MonitorCheck> => {
   const { url, timeout = 5000, retries = 0, retryDelay = 500, port } = config;
 
@@ -509,7 +509,7 @@ export const createTcpCheck = async (
 };
 
 export const createUdpCheck = async (
-  config: MonitorConfig
+  config: MonitorConfig,
 ): Promise<MonitorCheck> => {
   const {
     url,
@@ -635,7 +635,7 @@ export const createUdpCheck = async (
 // ============================================================================
 
 export const createSslCertificateCheck = async (
-  config: MonitorConfig
+  config: MonitorConfig,
 ): Promise<MonitorCheck> => {
   const {
     url,
@@ -683,14 +683,14 @@ export const createSslCertificateCheck = async (
                 socket.end();
                 reject(e);
               }
-            }
+            },
           );
 
           socket.once("error", (err) => reject(err));
           socket.setTimeout(timeout, () => {
             socket.destroy(new Error("timeout"));
           });
-        }
+        },
       );
 
       const responseTime = Math.round(performance.now() - start);
@@ -772,7 +772,7 @@ export const createSslCertificateCheck = async (
 // ============================================================================
 
 export const createDomainExpiryCheck = async (
-  config: MonitorConfig
+  config: MonitorConfig,
 ): Promise<MonitorCheck> => {
   const {
     url,
@@ -816,7 +816,7 @@ export const createDomainExpiryCheck = async (
             | Array<{ eventAction: string; eventDate: string }>
             | undefined = data?.events;
           const exp = events?.find((e) =>
-            e.eventAction?.toLowerCase().includes("expiration")
+            e.eventAction?.toLowerCase().includes("expiration"),
           )?.eventDate;
           if (exp) {
             expiration = new Date(exp);
@@ -902,7 +902,7 @@ export const createDomainExpiryCheck = async (
 
 export const getPerformCheck = async (
   type: MonitorType,
-  config: MonitorConfig
+  config: MonitorConfig,
 ): Promise<MonitorCheck> => {
   if (type === "KEYWORD" && !config.keyword) {
     return {

@@ -593,10 +593,13 @@
         "count": {
           "api_requests": "API Requests",
           "email_notification": "Email Notifications",
+          "forms_notifications": "Notifications (Email, Slack, etc.)",
           "form_submission": "Form Submissions",
           "spam_check": "Spam Checks",
           "webhook_trigger": "Webhook Triggers",
-          "integration_call": "Integration Calls"
+          "forms_triggers": "Triggers (Webhooks, etc.)",
+          "integration_call": "Integration Calls",
+          "forms_api_requests": "API Requests"
         }
       },
       "segment": {
