@@ -14,37 +14,35 @@ export const defaultRegions = [
   { value: "ap-south-1", label: "AP South" },
 ];
 
-export const defaultIntervalChecks = [
-  {
-    value: "*/30 * * * * *",
-    label: "Every 30 seconds",
-  },
-  {
-    value: "* * * * *",
-    label: "Every minute",
-  },
-  {
-    value: "*/3 * * * *",
-    label: "Every 3 minutes",
-  },
-  {
-    value: "*/5 * * * *",
-    label: "Every 5 minutes",
-  },
-  {
-    value: "*/15 * * * *",
-    label: "Every 15 minutes",
-  },
-  {
-    value: "*/30 * * * *",
-    label: "Every 30 minutes",
-  },
-  {
-    value: "0 * * * *",
-    label: "Every hour",
-  },
-  {
-    value: "0 */2 * * *",
-    label: "Every 2 hours",
-  },
-];
+export const getIntervalOptions = (t: (key: any) => string) => {
+  return [
+    {
+      value: "* * * * *",
+      label: t("modal.monitor.form.input.interval.option.every-minute"),
+    },
+    {
+      value: "*/3 * * * *",
+      label: t("modal.monitor.form.input.interval.option.every-3-minutes"),
+    },
+    {
+      value: "*/5 * * * *",
+      label: t("modal.monitor.form.input.interval.option.every-5-minutes"),
+    },
+    {
+      value: "*/15 * * * *",
+      label: t("modal.monitor.form.input.interval.option.every-15-minutes"),
+    },
+    {
+      value: "*/30 * * * *",
+      label: t("modal.monitor.form.input.interval.option.every-30-minutes"),
+    },
+    {
+      value: "0 * * * *",
+      label: t("modal.monitor.form.input.interval.option.every-hour"),
+    },
+    {
+      value: "0 */2 * * *",
+      label: t("modal.monitor.form.input.interval.option.every-2-hours"),
+    },
+  ];
+};

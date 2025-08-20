@@ -217,8 +217,21 @@
               "keyword": "Keyword"
             }
           },
-          "cron": {
-            "title": "Cron"
+          "interval": {
+            "title": "Interval",
+            "option": {
+              "every-30-seconds": "Every 30 seconds",
+              "every-minute": "Every minute",
+              "every-3-minutes": "Every 3 minutes",
+              "every-5-minutes": "Every 5 minutes",
+              "every-15-minutes": "Every 15 minutes",
+              "every-30-minutes": "Every 30 minutes",
+              "every-hour": "Every hour",
+              "every-2-hours": "Every 2 hours"
+            }
+          },
+          "timezone": {
+            "title": "Timezone"
           },
           "url": {
             "title": "URL"

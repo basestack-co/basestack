@@ -3,6 +3,7 @@ import type { MonitorCardVariant } from "@basestack/ui";
 import type { LabelProps } from "@basestack/design-system";
 import type { MonitorStatus } from ".prisma/client";
 // Utils
+import cronstrue from "cronstrue";
 import dayjs from "dayjs";
 
 const STATUS_VARIANT_MAP: Record<MonitorStatus | "PAUSED", MonitorCardVariant> =
@@ -54,10 +55,12 @@ export interface MonitorIconsParams {
   t: (key: any) => string;
   uptimePercentage: number;
   errorCount: number;
+  cron: string;
+  timezone: string;
 }
 
 const getStatusVariant = (
-  status: MonitorStatus | "PAUSED" | "N/A",
+  status: MonitorStatus | "PAUSED" | "N/A"
 ): MonitorCardVariant => {
   if (status === "N/A") return "default";
   return (
@@ -89,7 +92,7 @@ const getStatusText = (
   t: (key: string) => string,
   isEnabled: boolean,
   isPending: boolean,
-  status: MonitorStatus | "N/A",
+  status: MonitorStatus | "N/A"
 ): string => {
   if (!isEnabled) {
     return t("monitor.list.card.description.paused");
@@ -163,6 +166,8 @@ export const getMonitorIcons = ({
   t,
   uptimePercentage,
   errorCount,
+  cron,
+  timezone,
 }: MonitorIconsParams) => {
   const getUptimeVariant = (uptime: number): LabelProps["variant"] => {
     if (uptime === 0) return "default";
@@ -191,5 +196,13 @@ export const getMonitorIcons = ({
       tooltip: t("monitor.list.card.icon.errors"),
       variant: errorCount > 0 ? ("danger" as LabelProps["variant"]) : undefined,
     },
+    ...(cron
+      ? [
+          {
+            icon: "schedule",
+            tooltip: `${cronstrue.toString(cron)} (${timezone})`,
+          },
+        ]
+      : []),
   ];
 };

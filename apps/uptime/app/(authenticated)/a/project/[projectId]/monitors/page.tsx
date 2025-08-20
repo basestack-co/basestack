@@ -283,6 +283,8 @@ const ProjectMonitorsPage = () => {
                         t,
                         uptimePercentage,
                         errorCount,
+                        timezone: config?.timezone ?? "UTC",
+                        cron: config?.cron ?? "",
                       })}
                     />
                   );

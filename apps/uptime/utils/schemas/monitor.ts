@@ -1,3 +1,4 @@
+import { timezones } from "utils/helpers/general";
 import { z } from "zod";
 
 export const MonitorConfigSchema = z.object({
@@ -6,6 +7,7 @@ export const MonitorConfigSchema = z.object({
     .string()
     .min(1)
     .regex(/^(\S+\s+){4}\S+$/, "Invalid cron format"),
+  timezone: z.enum(timezones as [string, ...string[]]),
   method: z.enum(["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"]),
   headers: z.record(z.string(), z.string()),
   timeout: z.number().min(100).max(300_000), // milliseconds

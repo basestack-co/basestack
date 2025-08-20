@@ -217,7 +217,10 @@ export const projectMonitorsRouter = createTRPCRouter({
       try {
         const { scheduleId } =
           await qstash.schedules.createMonitorCheckSchedule({
-            cron: input.config.cron,
+            cron:
+              input.config.timezone === "UTC"
+                ? input.config.cron
+                : `CRON_TZ=${input.config.timezone} ${input.config.cron}`,
             body: {
               adminUserEmail: ctx.project.adminUserEmail,
               projectId: input.projectId,

@@ -30,7 +30,7 @@ export interface MonitorCardProps {
   }>;
   icons: Array<{
     icon: string;
-    text: string;
+    text?: string;
     tooltip?: string;
     variant?: LabelProps["variant"];
   }>;
@@ -137,12 +137,14 @@ const MonitorCard = ({
                     <TooltipTrigger>
                       <Flex alignItems="center">
                         <Icon icon={icon} size="small" />
-                        <Label
-                          text={text}
-                          ml={spacing.s1}
-                          variant={variant}
-                          isTranslucent
-                        />
+                        {text && (
+                          <Label
+                            text={text}
+                            ml={spacing.s1}
+                            variant={variant}
+                            isTranslucent
+                          />
+                        )}
                       </Flex>
                     </TooltipTrigger>
                     <TooltipContent>{tooltip}</TooltipContent>

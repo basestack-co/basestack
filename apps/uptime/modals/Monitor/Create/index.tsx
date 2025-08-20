@@ -11,23 +11,17 @@ import type { SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 // Store
 import { useStore } from "store";
-//import { useTheme } from "styled-components";
 // Server
 import { api } from "utils/trpc/react";
 // Store
 import { useShallow } from "zustand/react/shallow";
 // Types
-import { type MonitorFormInputs, IntervalSchema } from "../types";
+import type { MonitorFormInputs } from "../types";
 // Form
-//import useMonitorForm, { tabPosition } from "../useMonitorForm";
-
 import useMonitorForm from "../useMonitorForm";
-// Utils
-import { estimateCronCost } from "utils/helpers/estimates";
 
 const CreateMonitorModal = () => {
   const t = useTranslations("modal");
-  // const theme = useTheme();
   const trpcUtils = api.useUtils();
 
   const { projectId } = useParams<{ projectId: string }>();
@@ -43,14 +37,7 @@ const CreateMonitorModal = () => {
 
   const createMonitor = api.projectMonitors.create.useMutation();
 
-  const {
-    handleSubmit,
-    reset,
-    isSubmitting,
-    onRenderTab,
-    //  selectedTab,
-    //  setSelectedTab,
-  } = useMonitorForm();
+  const { handleSubmit, reset, isSubmitting, onRenderForm } = useMonitorForm();
 
   const isSubmittingOrMutating = isSubmitting || createMonitor.isPending;
 
@@ -76,6 +63,7 @@ const CreateMonitorModal = () => {
           type: input.type,
           config: {
             cron,
+            timezone: input.config.timezone,
             url: input.config.url,
             method: input.config.method,
             headers: headersObj,
@@ -128,18 +116,7 @@ const CreateMonitorModal = () => {
         onAnimationEnd={reset}
         closeOnClickOutside={closeModalsOnClickOutside}
       >
-        {/*<Tabs
-          items={[
-            { text: t("monitor.tab.core.title"), id: TabType.CORE },
-            { text: t("monitor.tab.advanced.title"), id: TabType.ADVANCED },
-          ]}
-          onSelect={(tab: string) => setSelectedTab(tab as TabType)}
-          sliderPosition={tabPosition[selectedTab]}
-          mb={theme.spacing.s6}
-        /> */}
-        {onRenderTab(false)}
-
-        <br />
+        {onRenderForm(isSubmittingOrMutating)}
       </Modal>
     </Portal>
   );
