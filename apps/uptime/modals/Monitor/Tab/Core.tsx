@@ -1,28 +1,52 @@
-// Form
-
+// React
+import { useMemo } from "react";
 // Types
 import { MonitorType } from ".prisma/client";
 // Components
 import { InputGroup, Select, Text } from "@basestack/design-system";
 // Locales
 import { useTranslations } from "next-intl";
-import { type Control, Controller, type FieldErrors } from "react-hook-form";
+import {
+  type Control,
+  Controller,
+  type FieldErrors,
+  type UseFormWatch,
+} from "react-hook-form";
 import { useTheme } from "styled-components";
 // Styles
 import { Grid } from "../styles";
 import type { MonitorFormInputs } from "../types";
 // Utils
-import { methods } from "../utils";
+import { defaultIntervalChecks, methods } from "../utils";
+import { estimateCronCost } from "utils/helpers/estimates";
 
 export interface Props {
   errors: FieldErrors<MonitorFormInputs>;
   control: Control<MonitorFormInputs>;
   isSubmitting: boolean;
+  watch: UseFormWatch<MonitorFormInputs>;
 }
 
-const MonitorCoreTab = ({ errors, control, isSubmitting }: Props) => {
+const MonitorCoreTab = ({ errors, control, isSubmitting, watch }: Props) => {
   const t = useTranslations();
   const theme = useTheme();
+
+  const cron = watch("interval");
+
+  const cost = useMemo(() => {
+    const interval = typeof cron === "string" ? cron : cron.value;
+
+    if (!interval) return "";
+
+    const result = estimateCronCost(interval, new Date(), 0.00007);
+
+    if (result === 0) return "";
+
+    return result.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
+  }, [cron]);
 
   return (
     <Grid>
@@ -75,25 +99,28 @@ const MonitorCoreTab = ({ errors, control, isSubmitting }: Props) => {
       />
 
       <Controller
-        name="cron"
+        name="interval"
         control={control}
-        render={({ field }) => (
-          <InputGroup
-            title={t("modal.monitor.form.input.cron.title")}
-            label="Use standard cron syntax (UTC)"
-            hint={errors.cron?.message}
-            inputProps={{
-              type: "text",
-              name: field.name,
-              value: field.value,
-              onChange: field.onChange,
-              onBlur: field.onBlur,
-              placeholder: "*/1 * * * *",
-              hasError: !!errors.cron,
-              isDisabled: isSubmitting,
-            }}
-          />
-        )}
+        render={({ field }) => {
+          return (
+            <div>
+              <Text size="small" mb={theme.spacing.s2} fontWeight={500}>
+                {t("modal.monitor.form.input.cron.title")}
+              </Text>
+              <Select
+                options={defaultIntervalChecks}
+                value={field.value}
+                onChange={(opt: any) => field.onChange(opt)}
+                isDisabled={isSubmitting}
+              />
+              {cost && (
+                <p style={{ fontSize: "12px", color: "#666", marginTop: "8px" }}>
+                  Estimated monthly cost: {cost}.
+                </p>
+              )}
+            </div>
+          );
+        }}
       />
 
       <Controller

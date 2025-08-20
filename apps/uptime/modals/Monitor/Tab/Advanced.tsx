@@ -23,7 +23,7 @@ const MonitorAdvancedTab = ({ errors, control, isSubmitting }: Props) => {
 
   return (
     <Grid>
-      <Controller
+      {/*  <Controller
         name="config.headers"
         control={control}
         render={({ field }) => (
@@ -42,7 +42,7 @@ const MonitorAdvancedTab = ({ errors, control, isSubmitting }: Props) => {
             }}
           />
         )}
-      />
+      />*/}
 
       <Controller
         name="config.body"
@@ -97,7 +97,7 @@ const MonitorAdvancedTab = ({ errors, control, isSubmitting }: Props) => {
                 field.onChange(
                   e.target.value === ""
                     ? undefined
-                    : parseInt(e.target.value, 10),
+                    : parseInt(e.target.value, 10)
                 ),
               onBlur: field.onBlur,
               placeholder: "Optional",
@@ -123,7 +123,7 @@ const MonitorAdvancedTab = ({ errors, control, isSubmitting }: Props) => {
                 field.onChange(
                   e.target.value === ""
                     ? undefined
-                    : parseInt(e.target.value, 10),
+                    : parseInt(e.target.value, 10)
                 ),
               onBlur: field.onBlur,
               placeholder: "Optional",

@@ -15,7 +15,9 @@ import { Hono } from "hono";
 // Database
 import { prisma } from "server/db";
 import { AppMode } from "utils/helpers/general";
-import { getPerformCheck, monitorConfigSchema } from "../utils/monitoring";
+import { getPerformCheck } from "../utils/monitoring";
+// Schemas
+import { MonitorConfigSchema } from "utils/schemas/monitor";
 
 const schedulesRoutes = new Hono().post(
   "/monitor-check",
@@ -48,7 +50,7 @@ const schedulesRoutes = new Hono().post(
       const result = await context.run("monitor-check-step", async () => {
         if (!monitor) return;
 
-        const config = monitorConfigSchema.safeParse(monitor.config);
+        const config = MonitorConfigSchema.safeParse(monitor.config);
 
         if (!config.success) {
           throw new WorkflowNonRetryableError(

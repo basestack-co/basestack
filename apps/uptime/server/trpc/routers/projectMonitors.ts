@@ -1,19 +1,20 @@
 // Types
 import { MonitorType, type PrismaClient, Role } from ".prisma/client";
 // Utils
-import { emailToId, Product } from "@basestack/utils";
+import { emailToId } from "@basestack/utils";
 // Vendors
-import { polar, qstash } from "@basestack/vendors";
+import { qstash } from "@basestack/vendors";
 import { TRPCError } from "@trpc/server";
-import { monitorConfigSchema } from "server/api/v1/utils/monitoring";
+// Schemas
+import { MonitorConfigSchema } from "utils/schemas/monitor";
 // Server
 import {
   createTRPCRouter,
   protectedProcedure,
   withProjectRestrictions,
+  withProjectAdminSubscription,
 } from "server/trpc";
 // Utils
-import { AppMode } from "utils/helpers/general";
 import { z } from "zod";
 
 async function calculateUptimeStats(
@@ -158,7 +159,7 @@ export const projectMonitorsRouter = createTRPCRouter({
       ]);
 
       const data = monitors.map((m) => {
-        const config = monitorConfigSchema.safeParse(m.config);
+        const config = MonitorConfigSchema.safeParse(m.config);
         const schedule = m.scheduleId ? scheduleMap.get(m.scheduleId) : null;
         const uptimePercentage = uptimeMap.get(m.id) ?? 0;
         const errorCount = errorCountMap.get(m.id) ?? 0;
@@ -189,32 +190,19 @@ export const projectMonitorsRouter = createTRPCRouter({
     }),
   create: protectedProcedure
     .use(withProjectRestrictions({ roles: [Role.ADMIN, Role.DEVELOPER] }))
+    .use(withProjectAdminSubscription())
     .input(
       z
         .object({
           type: z.nativeEnum(MonitorType),
           projectId: z.string(),
           name: z.string(),
-          config: monitorConfigSchema,
+          config: MonitorConfigSchema,
         })
         .required()
     )
     .mutation(async ({ ctx, input }) => {
       const externalCustomerId = emailToId(ctx.project.adminUserEmail);
-
-      const sub = await polar.getCustomerSubscription(
-        externalCustomerId,
-        Product.UPTIME,
-        AppMode
-      );
-
-      if (!sub?.id) {
-        throw new TRPCError({
-          code: "PAYMENT_REQUIRED",
-          message:
-            "No active subscription found. Please upgrade to create a monitor.",
-        });
-      }
 
       const monitor = await ctx.prisma.monitor.create({
         data: {
@@ -222,7 +210,7 @@ export const projectMonitorsRouter = createTRPCRouter({
           type: input.type,
           projectId: input.projectId,
           config: input.config,
-          isEnabled: !!sub?.id,
+          isEnabled: true,
         },
       });
 
@@ -264,7 +252,7 @@ export const projectMonitorsRouter = createTRPCRouter({
           monitorId: z.string(),
           name: z.string(),
           cron: z.string(),
-          config: monitorConfigSchema,
+          config: MonitorConfigSchema,
         })
         .required()
     )
@@ -290,6 +278,71 @@ export const projectMonitorsRouter = createTRPCRouter({
       });
 
       return { monitor };
+    }),
+  updateState: protectedProcedure
+    .use(withProjectRestrictions({ roles: [Role.ADMIN, Role.DEVELOPER] }))
+    .use(withProjectAdminSubscription())
+    .input(
+      z
+        .object({
+          projectId: z.string(),
+          monitorId: z.string(),
+          isEnabled: z.boolean(),
+        })
+        .required()
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.$transaction(async (tx) => {
+        const monitor = await tx.monitor.findFirst({
+          where: { id: input.monitorId, projectId: input.projectId },
+          select: {
+            id: true,
+            scheduleId: true,
+            isEnabled: true,
+            name: true,
+          },
+        });
+
+        if (!monitor) {
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "Monitor not found",
+            cause: "MonitorNotFound",
+          });
+        }
+
+        if (monitor.scheduleId) {
+          try {
+            if (input.isEnabled) {
+              await qstash.schedules.resumeSchedule(monitor.scheduleId);
+            } else {
+              await qstash.schedules.pauseSchedule(monitor.scheduleId);
+            }
+          } catch {
+            throw new TRPCError({
+              code: "INTERNAL_SERVER_ERROR",
+              message: `Failed to ${input.isEnabled ? "enable" : "disable"} monitor scheduling. Please try again.`,
+              cause: "FailedToUpdateMonitorStatus",
+            });
+          }
+        }
+
+        const updatedMonitor = await tx.monitor.update({
+          where: { id: monitor.id },
+          data: {
+            isEnabled: input.isEnabled,
+          },
+          select: {
+            id: true,
+            name: true,
+            isEnabled: true,
+            scheduleId: true,
+            updatedAt: true,
+          },
+        });
+
+        return { monitor: updatedMonitor };
+      });
     }),
   delete: protectedProcedure
     .use(withProjectRestrictions({ roles: [Role.ADMIN, Role.DEVELOPER] }))

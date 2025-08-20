@@ -12,18 +12,20 @@ import {
 } from "@basestack/design-system";
 import { MonitorCard, Toolbar } from "@basestack/ui";
 // Router
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
 import { Fragment, useCallback, useMemo, useState } from "react";
+// Toast
+import { toast } from "sonner";
 // Store
 import { useStore } from "store";
-import { useTheme } from "styled-components";
 // Server
 import { api } from "utils/trpc/react";
 // Hooks
 import { useDebounce } from "react-use";
 // Styles
+import { useTheme } from "styled-components";
 import { PageContainer } from "../../../styles";
 import { Grid } from "./styles";
 // Utils
@@ -42,10 +44,15 @@ export enum SelectedSort {
 
 const ProjectMonitorsPage = () => {
   const t = useTranslations();
+  const trpcUtils = api.useUtils();
   const { spacing } = useTheme();
-  const { projectId } = useParams<{ projectId: string }>();
-  const [orderBy, setOrderBy] = useState("desc");
-  const [selectedSort, setSelectedSort] = useState<string | null>(null);
+  const router = useRouter();
+  const { projectId } = useParams<{
+    projectId: string;
+  }>();
+  const [selectedSort, setSelectedSort] = useState<string | null>(
+    SelectedSort.NEWEST
+  );
   const [searchValue, setSearchValue] = useState<string | null>(null);
   const [search, setSearch] = useState(searchValue);
 
@@ -62,9 +69,20 @@ const ProjectMonitorsPage = () => {
     (state) => state.setCreateMonitorModalOpen
   );
 
+  const orderBy = useMemo(() => {
+    return selectedSort === SelectedSort.NEWEST || selectedSort === null
+      ? "desc"
+      : "asc";
+  }, [selectedSort]);
+
   const { data, fetchNextPage, isLoading } =
     api.projectMonitors.list.useInfiniteQuery(
-      { projectId, limit: 10, search, orderBy },
+      {
+        projectId,
+        limit: 10,
+        search,
+        orderBy,
+      },
       {
         enabled: !!projectId,
         getNextPageParam: (last) => last.nextCursor,
@@ -73,18 +91,15 @@ const ProjectMonitorsPage = () => {
       }
     );
 
+  const deleteMonitor = api.projectMonitors.delete.useMutation();
+  const updateMonitorState = api.projectMonitors.updateState.useMutation();
+
   const [currentPage, totalPages] = useMemo(() => {
     return [
       (data?.pages.length ?? 0) * numberOfFlagsPerPage,
       data?.pages?.[0]?.total ?? 0,
     ];
   }, [data]);
-
-  const onSelectSort = useCallback((value: SelectedSort | null) => {
-    setOrderBy(
-      value === SelectedSort.NEWEST || value === null ? "desc" : "asc"
-    );
-  }, []);
 
   const getToolbarProps = useCallback(() => {
     return {
@@ -101,21 +116,18 @@ const ProjectMonitorsPage = () => {
       },
       sort: {
         isDisabled: isLoading,
-        text: selectedSort ?? t("monitor.toolbar.sort.text"),
+        text:
+          selectedSort === SelectedSort.NEWEST
+            ? t("monitor.toolbar.sort.newest")
+            : t("monitor.toolbar.sort.oldest"),
         items: [
           {
             text: t("monitor.toolbar.sort.newest"),
-            onClick: () => {
-              onSelectSort(SelectedSort.NEWEST);
-              setSelectedSort(t("monitor.toolbar.sort.newest"));
-            },
+            onClick: () => setSelectedSort(SelectedSort.NEWEST),
           },
           {
             text: t("monitor.toolbar.sort.oldest"),
-            onClick: () => {
-              onSelectSort(SelectedSort.OLDEST);
-              setSelectedSort(t("monitor.toolbar.sort.oldest"));
-            },
+            onClick: () => setSelectedSort(SelectedSort.OLDEST),
           },
         ],
       },
@@ -126,44 +138,74 @@ const ProjectMonitorsPage = () => {
         onClick: () => setCreateMonitorModalOpen({ isOpen: true }),
       },
     };
-  }, [
-    isLoading,
-    t,
-    setCreateMonitorModalOpen,
-    searchValue,
-    onSelectSort,
-    selectedSort,
-  ]);
+  }, [isLoading, t, setCreateMonitorModalOpen, searchValue, selectedSort]);
 
   const onRenderMenuActions = useCallback(
-    (isEnabled: boolean) => {
+    (monitorId: string, isEnabled: boolean) => {
+      const monitorUrl = `/a/project/${projectId}/monitors/${monitorId}`;
+
       return [
         {
           icon: isEnabled ? "pause" : "resume",
           text: isEnabled
             ? t("monitor.list.card.action.pause")
             : t("monitor.list.card.action.resume"),
-          onClick: () => {},
+          isDisabled: updateMonitorState.isPending,
+          onClick: () => {
+            updateMonitorState.mutate(
+              {
+                projectId,
+                monitorId,
+                isEnabled: !isEnabled,
+              },
+              {
+                onSuccess: async () => {
+                  await trpcUtils.projectMonitors.list.invalidate();
+                  toast.success(t("monitor.list.card.toast.update.success"));
+                },
+                onError: (error) => {
+                  toast.error(error.message, { duration: 10000 });
+                },
+              }
+            );
+          },
         },
         {
           icon: "siren",
           text: t("monitor.list.card.action.incidents"),
-          onClick: () => {},
+          onClick: () => router.push(`${monitorUrl}/incidents`),
         },
         {
           icon: "settings",
           text: t("monitor.list.card.action.settings"),
-          onClick: () => {},
+          onClick: () => router.push(`${monitorUrl}/settings`),
         },
         {
           icon: "delete",
           text: t("monitor.list.card.action.delete"),
           variant: ButtonVariant.Danger,
-          onClick: () => {},
+          isDisabled: deleteMonitor.isPending,
+          onClick: () => {
+            deleteMonitor.mutate(
+              {
+                projectId,
+                monitorId,
+              },
+              {
+                onSuccess: async () => {
+                  await trpcUtils.projectMonitors.list.invalidate();
+                  toast.success(t("monitor.list.card.toast.delete.success"));
+                },
+                onError: (error) => {
+                  toast.error(error.message, { duration: 10000 });
+                },
+              }
+            );
+          },
         },
       ];
     },
-    [t]
+    [t, router, projectId, deleteMonitor, updateMonitorState, trpcUtils]
   );
 
   const onRenderCards = useCallback(() => {
@@ -213,11 +255,13 @@ const ProjectMonitorsPage = () => {
                   _count,
                 }) => {
                   const isPending = _count.checks <= 0;
+                  const monitorUrl = `/a/project/${projectId}/monitors/${id}`;
+
                   return (
                     <MonitorCard
                       key={id}
-                      onClick={() => {}}
-                      menuItems={onRenderMenuActions(isEnabled)}
+                      onClick={() => router.push(`${monitorUrl}/general`)}
+                      menuItems={onRenderMenuActions(id, isEnabled)}
                       title={config?.url ?? "N/A"}
                       labels={getMonitorDescription({
                         t,
@@ -249,7 +293,16 @@ const ProjectMonitorsPage = () => {
         })}
       </Grid>
     );
-  }, [totalPages, isLoading, data, onRenderMenuActions, spacing, t]);
+  }, [
+    totalPages,
+    isLoading,
+    data,
+    onRenderMenuActions,
+    spacing,
+    t,
+    router,
+    projectId,
+  ]);
 
   return (
     <PageContainer>

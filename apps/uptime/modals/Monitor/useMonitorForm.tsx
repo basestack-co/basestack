@@ -26,14 +26,16 @@ const useMonitorForm = () => {
     reset,
     setValue,
     getValues,
+    watch,
   } = useForm<MonitorFormInputs>({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
     defaultValues: {
       name: "",
       type: MonitorType.HTTP,
-      cron: "*/1 * * * *",
+      interval: { value: "*/5 * * * *", label: "Every 5 minutes" },
       config: {
+        cron: "*/5 * * * *",
         url: "",
         method: "GET",
         expectedStatus: 200,
@@ -43,7 +45,7 @@ const useMonitorForm = () => {
         retries: 0,
         retryDelay: 1000,
         maxResponseSize: 1024 * 1024,
-        headers: "{}",
+        headers: {},
         regions: [],
       },
     },
@@ -66,11 +68,12 @@ const useMonitorForm = () => {
               errors={errors}
               control={control}
               isSubmitting={isSubmitting || isLoading}
+              watch={watch}
             />
           );
       }
     },
-    [selectedTab, errors, control, isSubmitting],
+    [selectedTab, errors, control, isSubmitting, watch]
   );
 
   return {
@@ -82,6 +85,7 @@ const useMonitorForm = () => {
     isSubmitting,
     setValue,
     reset,
+    watch,
     onRenderTab,
     getValues,
   } as const;

@@ -15,12 +15,12 @@ import { useTranslations } from "next-intl";
 import { useCallback } from "react";
 // Toast
 import { toast } from "sonner";
-import { useStore } from "store";
 // Styles
 import { useTheme } from "styled-components";
 // Server
 import { api } from "utils/trpc/react";
 // Store
+import { useStore } from "store";
 import { useShallow } from "zustand/react/shallow";
 import { Header, ListItem, Section, TeamsList } from "./styles";
 
@@ -36,7 +36,7 @@ const Teams = () => {
         state.setCreateTeamModalOpen,
         state.setManageTeamModalOpen,
         state.setConfirmModalOpen,
-      ]),
+      ])
     );
 
   const { data, isLoading } = api.teams.list.useQuery(undefined, {
@@ -96,13 +96,13 @@ const Teams = () => {
                 onError: (error) => {
                   toast.error(error.message, { duration: 10000 });
                 },
-              },
+              }
             );
           },
         },
       });
     },
-    [deleteTeam, setConfirmModalOpen, t, trpcUtils],
+    [deleteTeam, setConfirmModalOpen, t, trpcUtils]
   );
 
   return (

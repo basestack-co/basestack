@@ -1,5 +1,3 @@
-// Types
-
 // Components
 import { Modal } from "@basestack/design-system";
 import Portal from "@basestack/design-system/global/Portal";
@@ -19,10 +17,13 @@ import { api } from "utils/trpc/react";
 // Store
 import { useShallow } from "zustand/react/shallow";
 // Types
-import type { MonitorFormInputs } from "../types";
+import { type MonitorFormInputs, IntervalSchema } from "../types";
 // Form
 //import useMonitorForm, { tabPosition } from "../useMonitorForm";
+
 import useMonitorForm from "../useMonitorForm";
+// Utils
+import { estimateCronCost } from "utils/helpers/estimates";
 
 const CreateMonitorModal = () => {
   const t = useTranslations("modal");
@@ -57,9 +58,16 @@ const CreateMonitorModal = () => {
 
   const onSubmit: SubmitHandler<MonitorFormInputs> = async (input) => {
     try {
-      const headersObj = input.config.headers
-        ? (JSON.parse(input.config.headers) as Record<string, string>)
-        : {};
+      const headersObj =
+        typeof input.config.headers === "object" &&
+        input.config.headers !== null
+          ? input.config.headers
+          : {};
+
+      const cron =
+        typeof input.interval === "string"
+          ? input.interval
+          : input.interval.value;
 
       createMonitor.mutate(
         {
@@ -67,8 +75,8 @@ const CreateMonitorModal = () => {
           name: input.name,
           type: input.type,
           config: {
+            cron,
             url: input.config.url,
-            cron: input.cron,
             method: input.config.method,
             headers: headersObj,
             timeout: input.config.timeout,
@@ -130,6 +138,8 @@ const CreateMonitorModal = () => {
           mb={theme.spacing.s6}
         /> */}
         {onRenderTab(false)}
+
+        <br />
       </Modal>
     </Portal>
   );

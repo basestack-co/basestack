@@ -1,15 +1,17 @@
-// Server
-
 // types
 import type { Role } from ".prisma/client";
+import { emailToId, Product } from "@basestack/utils";
 import { initTRPC, TRPCError } from "@trpc/server";
 import { headers } from "next/headers";
+// Vendors
+import { polar } from "@basestack/vendors";
 // Auth
 import { auth } from "server/auth";
 // Database
 import { prisma } from "server/db";
 import { getUserInProject, getUserInTeam } from "server/db/utils/user";
 // Utils
+import { AppMode } from "utils/helpers/general";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
@@ -57,7 +59,6 @@ export const createTRPCRouter = t.router;
 export const middleware = t.middleware;
 
 export const isAuthenticated = middleware(async ({ next, ctx }) => {
-  // Check if the user is logged in
   if (!ctx.auth?.session) {
     throw new TRPCError({
       code: "UNAUTHORIZED",
@@ -91,7 +92,7 @@ export const withTeamRestrictions = ({ roles }: { roles: Role[] }) =>
     const userInTeam = await getUserInTeam(
       ctx.prisma,
       ctx?.auth?.user.id!,
-      teamId!,
+      teamId!
     );
 
     if (!userInTeam) {
@@ -136,7 +137,7 @@ export const withProjectRestrictions = ({ roles }: { roles: Role[] }) =>
     const project = await getUserInProject(
       ctx.prisma,
       ctx?.auth?.user.id!,
-      projectId!,
+      projectId!
     );
 
     // If the user does not exist in the project, return an error
@@ -162,6 +163,33 @@ export const withProjectRestrictions = ({ roles }: { roles: Role[] }) =>
       adminUserId: project.adminUserId,
       adminUserEmail: project.adminUserEmail,
     };
+
+    return next({
+      ctx: {
+        ...ctx,
+      },
+    });
+  });
+
+// This requires withProjectRestrictions to be used first to get the project admin user email
+export const withProjectAdminSubscription = () =>
+  middleware(async ({ next, ctx }) => {
+    const externalCustomerId = emailToId(ctx.project.adminUserEmail);
+
+    const sub = await polar.getCustomerSubscription(
+      externalCustomerId,
+      Product.UPTIME,
+      AppMode
+    );
+
+    if (!sub?.id) {
+      throw new TRPCError({
+        code: "PAYMENT_REQUIRED",
+        message:
+          "No active subscription found. Please upgrade to enable this action.",
+        cause: "PaymentRequired",
+      });
+    }
 
     return next({
       ctx: {

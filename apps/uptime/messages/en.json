@@ -656,6 +656,14 @@
         "icon": {
           "errors": "Total incidents for this monitor",
           "uptime": "Uptime percentage for the last 90 days"
+        },
+        "toast": {
+          "delete": {
+            "success": "Monitor deleted successfully"
+          },
+          "update": {
+            "success": "Monitor updated successfully"
+          }
         }
       }
     }
