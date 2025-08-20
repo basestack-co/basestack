@@ -199,7 +199,7 @@ export const getMonitorIcons = ({
     ...(cron
       ? [
           {
-            icon: "schedule",
+            icon: "calendar_clock",
             tooltip: `${cronstrue.toString(cron)} (${timezone})`,
           },
         ]

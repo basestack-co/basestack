@@ -646,7 +646,7 @@
     },
     "list": {
       "empty": {
-        "title": "No monitors yet",
+        "title": "No monitors",
         "description": "Create your first monitor to start tracking uptime and response times."
       },
       "card": {
@@ -672,9 +672,11 @@
         },
         "toast": {
           "delete": {
+            "loading": "Deleting {name} monitor...",
             "success": "Monitor deleted successfully"
           },
           "update": {
+            "loading": "Updating {name} monitor...",
             "success": "Monitor updated successfully"
           }
         }

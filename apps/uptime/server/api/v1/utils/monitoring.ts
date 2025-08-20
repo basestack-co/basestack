@@ -1,10 +1,14 @@
 // Types
-import type { MonitorStatus, MonitorType } from ".prisma/client";
+import type { Monitor, MonitorStatus, MonitorType } from ".prisma/client";
 import { createSocket as createDgramSocket } from "node:dgram";
 // Utils
 import { lookup } from "node:dns/promises";
 import { Socket as NetSocket } from "node:net";
 import { connect as tlsConnect } from "node:tls";
+import { AppMode } from "utils/helpers/general";
+import { type AppEnv, config, Product } from "@basestack/utils";
+// Vendors
+import { qstash } from "@basestack/vendors";
 // Schemas
 import type { MonitorConfig } from "utils/schemas/monitor";
 
@@ -925,4 +929,54 @@ export const getPerformCheck = async (
       error: error instanceof Error ? error.message : "Monitor check failed",
     };
   }
+};
+
+export interface MonitorEmailNotification {
+  emails: string;
+  externalCustomerId: string;
+  monitor: Pick<Monitor, "name"> & {
+    project: { id: string; name: string };
+  };
+  check: Pick<MonitorCheck, "status" | "error"> & { statusCode: number | null };
+}
+
+export const createMonitorEmailNotification = async ({
+  emails,
+  externalCustomerId,
+  monitor,
+  check,
+}: MonitorEmailNotification) => {
+  if (!emails) return;
+
+  const isAlert = check.status !== "UP";
+
+  const subject = isAlert
+    ? `Alert: "${monitor.name}" is ${check.status}`
+    : `Resolved: "${monitor.name}" is back UP`;
+
+  const description = isAlert
+    ? `Project: ${monitor.project.name}. Status code: ${check.statusCode}. ${
+        check.error ? `Error: ${check.error}` : "No error reported."
+      }`
+    : `Project: ${monitor.project.name}. Incident was auto-resolved by Basestack Uptime. Status code: ${check.statusCode}.`;
+
+  const linkUrl = `${config.urls.getAppWithEnv(
+    Product.UPTIME,
+    AppMode as AppEnv
+  )}/a/project/${monitor.project.id}/monitors`;
+
+  await qstash.events.sendEmailEvent({
+    template: "welcome",
+    to: emails.split(","),
+    subject,
+    externalCustomerId,
+    props: {
+      content: {
+        name: "team",
+        title: subject,
+        description,
+        link: linkUrl,
+      },
+    },
+  });
 };

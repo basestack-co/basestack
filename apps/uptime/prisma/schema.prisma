@@ -177,7 +177,7 @@ model Project {
   name        String   @db.VarChar(100)
   slug        String   @unique @db.VarChar(150)
   description String?  @db.VarChar(500)
-  timezone    String   @default("UTC")
+  emails      String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

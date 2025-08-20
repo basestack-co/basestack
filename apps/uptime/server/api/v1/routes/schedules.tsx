@@ -1,7 +1,7 @@
 // Utils
 
 import { IncidentSeverity, IncidentStatus } from ".prisma/client";
-import { type AppEnv, config, Product, UsageEvent } from "@basestack/utils";
+import { Product, UsageEvent } from "@basestack/utils";
 // Vendors
 import {
   type CreateMonitorCheckSchedulePayload,
@@ -15,7 +15,10 @@ import { Hono } from "hono";
 // Database
 import { prisma } from "server/db";
 import { AppMode } from "utils/helpers/general";
-import { getPerformCheck } from "../utils/monitoring";
+import {
+  getPerformCheck,
+  createMonitorEmailNotification,
+} from "../utils/monitoring";
 // Schemas
 import { MonitorConfigSchema } from "utils/schemas/monitor";
 
@@ -41,81 +44,151 @@ const schedulesRoutes = new Hono().post(
               name: true,
               type: true,
               config: true,
-              project: { select: { name: true } },
+              scheduleId: true,
+              project: { select: { id: true, name: true } },
             },
           });
-        },
+        }
       );
 
-      const result = await context.run("monitor-check-step", async () => {
+      const check = await context.run("monitor-check-step", async () => {
         if (!monitor) return;
 
         const config = MonitorConfigSchema.safeParse(monitor.config);
 
         if (!config.success) {
           throw new WorkflowNonRetryableError(
-            `Schedules: Basestack Uptime - Monitor Check - Invalid monitor config ${JSON.stringify(config.error)}`,
+            `Schedules: Basestack Uptime - Monitor Check - Invalid monitor config ${JSON.stringify(config.error)}`
           );
         }
-
-        console.info(
-          `Schedules: Basestack Uptime - Monitor Check - Preparing to check monitor ${monitorId} with config ${JSON.stringify(config.data)}`,
-        );
 
         const data = await getPerformCheck(monitor.type, config.data);
 
         if (!data) {
           throw new WorkflowNonRetryableError(
-            `Schedules: Basestack Uptime - Monitor Check - No result from getPerformCheck`,
+            `Schedules: Basestack Uptime - Monitor Check - No result from getPerformCheck for monitor ${monitorId}`
           );
         }
 
-        await prisma.monitorCheck.create({
+        return prisma.monitorCheck.create({
           data: {
             monitorId,
             ...data,
           },
         });
-
-        return data;
       });
 
       await context.run("create-usage-event-step", async () => {
-        const data = await polar.createUsageEvent(
+        if (!monitor?.scheduleId) return;
+
+        const sub = await polar.getCustomerSubscription(
+          externalCustomerId,
+          Product.UPTIME,
+          AppMode
+        );
+
+        if (!sub?.id) {
+          await qstash.schedules.pauseSchedule(monitor.scheduleId);
+
+          throw new WorkflowNonRetryableError(
+            `Schedules: Basestack Uptime - Monitor Check - No subscription found for project ${projectId}`
+          );
+        }
+        return polar.createUsageEvent(
           UsageEvent.UPTIME_API_REQUESTS,
           externalCustomerId,
           {
             product: Product.UPTIME,
             projectName: "Basestack Uptime",
             adminUserEmail,
-          },
+          }
+        );
+      });
+
+      const existingIncident = await context.run(
+        "get-monitor-incident-details-step",
+        async () => {
+          if (!monitor || !check || check.status === "UP") return;
+
+          const response = await prisma.incident.findFirst({
+            where: {
+              projectId,
+              status: { not: IncidentStatus.RESOLVED },
+              createdById: null,
+              monitors: { some: { monitorId } },
+            },
+            select: { id: true },
+            orderBy: { createdAt: "desc" },
+          });
+
+          return response;
+        }
+      );
+
+      await context.run("resolve-incident-step", async () => {
+        if (!existingIncident || !check || !monitor) return;
+
+        const message =
+          `Recovered automatically. ` +
+          `Status: ${check.status}. ` +
+          `Response time: ${check.responseTime}ms. ` +
+          `Status code: ${check.statusCode}.`;
+
+        const response = await prisma.$transaction(async (tx) => {
+          await tx.incidentUpdate.create({
+            data: {
+              incidentId: existingIncident.id,
+              message,
+              status: IncidentStatus.RESOLVED,
+              createdById: null,
+            },
+          });
+
+          await tx.incident.update({
+            where: { id: existingIncident.id },
+            data: {
+              status: IncidentStatus.RESOLVED,
+              resolvedAt: new Date(),
+            },
+          });
+        });
+
+        await createMonitorEmailNotification({
+          emails: `${adminUserEmail}`,
+          externalCustomerId,
+          monitor,
+          check,
+        });
+
+        console.info(
+          `Schedules: Basestack Uptime - Monitor Check - Auto-resolved incident ${existingIncident.id} for monitor ${monitorId}`
         );
 
-        return data;
+        return response;
       });
 
       await context.run("create-incident-step", async () => {
-        if (!monitor || !result || result.status === "UP") return;
+        if (!monitor || !check || !!existingIncident?.id) return;
 
         const severity =
-          result.status === "DOWN"
+          check.status === "DOWN"
             ? IncidentSeverity.CRITICAL
-            : result.status === "DEGRADED"
+            : check.status === "DEGRADED"
               ? IncidentSeverity.MAJOR
               : IncidentSeverity.MINOR;
 
-        const title = `Monitor ${monitor.name} is ${result.status}`;
+        const title = `Monitor ${monitor.name} is ${check.status}`;
         const initialUpdate =
-          `Status: ${result.status}. ` +
-          `Response time: ${result.responseTime}ms. ` +
-          `Status code: ${result.statusCode}. ` +
-          (result.error ? `Error: ${result.error}` : "");
+          `Status: ${check.status}. ` +
+          `Response time: ${check.responseTime}ms. ` +
+          `Status code: ${check.statusCode}. ` +
+          (check.error ? `Error: ${check.error}` : "");
 
         const incident = await prisma.incident.create({
           data: {
             projectId,
             title,
-            description: result.error ?? null,
+            description: check.error ?? null,
             status: IncidentStatus.INVESTIGATING,
             severity,
             isScheduled: false,
@@ -130,117 +203,18 @@ const schedulesRoutes = new Hono().post(
           },
         });
 
+        await createMonitorEmailNotification({
+          emails: `${adminUserEmail}`,
+          externalCustomerId,
+          monitor,
+          check,
+        });
+
         console.info(
-          `Schedules: Basestack Uptime - Monitor Check - Incident created for monitor ${monitorId}`,
+          `Schedules: Basestack Uptime - Monitor Check - Incident created for monitor ${monitorId}`
         );
 
         return incident;
-      });
-
-      const resolvedIncident = await context.run(
-        "resolve-incident-step",
-        async () => {
-          if (!monitor || !result || result.status !== "UP") return;
-
-          const existing = await prisma.incident.findFirst({
-            where: {
-              projectId,
-              status: { not: IncidentStatus.RESOLVED },
-              createdById: null,
-              monitors: { some: { monitorId } },
-            },
-            select: { id: true },
-            orderBy: { createdAt: "desc" },
-          });
-
-          if (!existing) return;
-
-          const message =
-            `Recovered automatically. ` +
-            `Status: ${result.status}. ` +
-            `Response time: ${result.responseTime}ms. ` +
-            `Status code: ${result.statusCode}.`;
-
-          await prisma.$transaction(async (tx) => {
-            await tx.incidentUpdate.create({
-              data: {
-                incidentId: existing.id,
-                message,
-                status: IncidentStatus.RESOLVED,
-                createdById: null,
-              },
-            });
-
-            await tx.incident.update({
-              where: { id: existing.id },
-              data: {
-                status: IncidentStatus.RESOLVED,
-                resolvedAt: new Date(),
-              },
-            });
-          });
-
-          console.info(
-            `Schedules: Basestack Uptime - Monitor Check - Auto-resolved incident ${existing.id} for monitor ${monitorId}`,
-          );
-
-          return { id: existing.id };
-        },
-      );
-
-      await context.run("send-email-notifications-step", async () => {
-        if (!monitor || !result) return;
-
-        const isAlert = result.status !== "UP";
-        const isAutoResolved = result.status === "UP" && !!resolvedIncident;
-        if (!isAlert && !isAutoResolved) return;
-
-        const members = await prisma.projectUsers.findMany({
-          where: { projectId },
-          select: { user: { select: { email: true } } },
-        });
-
-        const to = Array.from(
-          new Set(
-            [
-              ...members
-                .map((m) => m.user.email)
-                .filter((e): e is string => !!e),
-              adminUserEmail,
-            ].filter(Boolean),
-          ),
-        );
-        if (to.length === 0) return;
-
-        const subject = isAlert
-          ? `Alert: "${monitor.name}" is ${result.status}`
-          : `Resolved: "${monitor.name}" is back UP`;
-
-        const description = isAlert
-          ? `Project: ${monitor.project.name}. Status code: ${result.statusCode}. ${
-              result.error ? `Error: ${result.error}` : "No error reported."
-            }`
-          : `Project: ${monitor.project.name}. Incident was auto-resolved by Basestack Uptime. Status code: ${result.statusCode}.`;
-
-        const linkUrl = `${config.urls.getAppWithEnv(
-          Product.UPTIME,
-          AppMode as AppEnv,
-        )}/a/project/${projectId}/monitors`;
-
-        await qstash.events.sendEmailEvent({
-          template: "welcome",
-          to,
-          subject,
-          externalCustomerId,
-          props: {
-            content: {
-              name: "team",
-              title: subject,
-              description,
-              link: linkUrl,
-            },
-          },
-        });
       });
     },
     {
@@ -256,11 +230,11 @@ const schedulesRoutes = new Hono().post(
         failHeaders,
       }) => {
         console.error(
-          `Schedules: Basestack Uptime - Monitor Check - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `,
+          `Schedules: Basestack Uptime - Monitor Check - status = ${JSON.stringify(failStatus)} response = ${JSON.stringify(failResponse)} headers = ${JSON.stringify(failHeaders)} context = ${JSON.stringify(context)} `
         );
       },
-    },
-  ),
+    }
+  )
 );
 
 export default schedulesRoutes;

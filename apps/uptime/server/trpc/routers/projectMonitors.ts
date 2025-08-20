@@ -1,5 +1,10 @@
 // Types
-import { MonitorType, type PrismaClient, Role } from ".prisma/client";
+import {
+  MonitorType,
+  type PrismaClient,
+  Role,
+  IncidentStatus,
+} from ".prisma/client";
 // Utils
 import { emailToId } from "@basestack/utils";
 // Vendors

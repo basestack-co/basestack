@@ -141,7 +141,7 @@ const ProjectMonitorsPage = () => {
   }, [isLoading, t, setCreateMonitorModalOpen, searchValue, selectedSort]);
 
   const onRenderMenuActions = useCallback(
-    (monitorId: string, isEnabled: boolean) => {
+    (monitorId: string, isEnabled: boolean, name: string) => {
       const monitorUrl = `/a/project/${projectId}/monitors/${monitorId}`;
 
       return [
@@ -152,6 +152,12 @@ const ProjectMonitorsPage = () => {
             : t("monitor.list.card.action.resume"),
           isDisabled: updateMonitorState.isPending,
           onClick: () => {
+            const loadingToastId = toast.loading(
+              t("monitor.list.card.toast.update.loading", {
+                name,
+              })
+            );
+
             updateMonitorState.mutate(
               {
                 projectId,
@@ -161,9 +167,11 @@ const ProjectMonitorsPage = () => {
               {
                 onSuccess: async () => {
                   await trpcUtils.projectMonitors.list.invalidate();
+                  toast.dismiss(loadingToastId);
                   toast.success(t("monitor.list.card.toast.update.success"));
                 },
                 onError: (error) => {
+                  toast.dismiss(loadingToastId);
                   toast.error(error.message, { duration: 10000 });
                 },
               }
@@ -186,6 +194,12 @@ const ProjectMonitorsPage = () => {
           variant: ButtonVariant.Danger,
           isDisabled: deleteMonitor.isPending,
           onClick: () => {
+            const loadingToastId = toast.loading(
+              t("monitor.list.card.toast.delete.loading", {
+                name,
+              })
+            );
+
             deleteMonitor.mutate(
               {
                 projectId,
@@ -194,9 +208,11 @@ const ProjectMonitorsPage = () => {
               {
                 onSuccess: async () => {
                   await trpcUtils.projectMonitors.list.invalidate();
+                  toast.dismiss(loadingToastId);
                   toast.success(t("monitor.list.card.toast.delete.success"));
                 },
                 onError: (error) => {
+                  toast.dismiss(loadingToastId);
                   toast.error(error.message, { duration: 10000 });
                 },
               }
@@ -229,7 +245,7 @@ const ProjectMonitorsPage = () => {
     if (totalPages <= 0) {
       return (
         <Empty
-          iconName="monitor"
+          iconName="timer"
           title={t("monitor.list.empty.title")}
           description={t("monitor.list.empty.description")}
         />
@@ -261,7 +277,7 @@ const ProjectMonitorsPage = () => {
                     <MonitorCard
                       key={id}
                       onClick={() => router.push(`${monitorUrl}/general`)}
-                      menuItems={onRenderMenuActions(id, isEnabled)}
+                      menuItems={onRenderMenuActions(id, isEnabled, name)}
                       title={config?.url ?? "N/A"}
                       labels={getMonitorDescription({
                         t,
