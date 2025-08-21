@@ -1,7 +1,7 @@
 import type { Role } from ".prisma/client";
 import type { NavigationProps } from "@basestack/ui";
 // Utils
-import { config, Product } from "@basestack/utils";
+import { config } from "@basestack/utils";
 // Libs
 import { auth } from "@basestack/vendors";
 // Types
@@ -12,44 +12,45 @@ export const getLeftLinks = (
   router: ReturnType<typeof useRouter>,
   pathname: string,
   projectId: string,
-  projectRole: Role,
+  projectRole: Role
 ): NavigationProps["leftLinks"] => {
-  const links = [
-    {
-      type: "button",
-      icon: "mail",
-      onClick: () => router.push(`/a/project/${projectId}/monitors`),
-      text: t("navigation.internal.monitors"),
-      isActive: pathname.includes("monitors"),
-      isVisible: !!projectId,
-    },
-    {
-      type: "button",
-      icon: "tune",
-      onClick: () => router.push(`/a/project/${projectId}/incidents`),
-      text: t("navigation.internal.incidents"),
-      isActive: pathname.includes("incidents"),
-      isVisible: !!projectId,
-    },
-    {
-      type: "button",
-      icon: "mail",
-      onClick: () => router.push(`/a/project/${projectId}/status-page`),
-      text: t("navigation.internal.statusPage"),
-      isActive: pathname.includes("status-page"),
-      isVisible: !!projectId,
-    },
-    {
-      type: "button",
-      icon: "settings",
-      onClick: () => router.push(`/a/project/${projectId}/settings/general`),
-      text: t("navigation.internal.settings"),
-      isActive: pathname.includes("settings"),
-      isVisible: !!projectId,
-    },
-  ].filter((link) => link.isVisible);
+  if (!projectId) return [] as NavigationProps["leftLinks"];
 
-  return links as NavigationProps["leftLinks"];
+  const config = [
+    {
+      key: "monitors",
+      icon: "mail",
+      path: "monitors",
+    },
+    {
+      key: "incidents",
+      icon: "tune",
+      path: "incidents",
+    },
+    {
+      key: "statusPage",
+      icon: "mail",
+      path: "status-page",
+    },
+    {
+      key: "settings",
+      icon: "settings",
+      path: "settings/general",
+    },
+  ] as const;
+
+  return config.map(({ key, icon, path }) => {
+    const fullPath = `/a/project/${projectId}/${path}`;
+
+    return {
+      type: "button" as const,
+      icon,
+      onClick: () => router.push(fullPath),
+      text: t(`navigation.internal.${key}`),
+      isActive: pathname === fullPath,
+      isVisible: true,
+    };
+  });
 };
 
 export const getRightLinks = (labels: {
@@ -69,7 +70,7 @@ export const getRightLinks = (labels: {
 export const getAvatarDropdownList = (
   t: (key: any) => string,
   router: ReturnType<typeof useRouter>,
-  onCreateForm: () => void,
+  onCreateForm: () => void
 ) => {
   return [
     {
@@ -103,35 +104,6 @@ export const getAvatarDropdownList = (
             },
           },
         }),
-    },
-  ];
-};
-
-export const getAppsList = (
-  t: (key: any) => string,
-  onSelectApp: (app: Product) => void,
-) => {
-  return [
-    {
-      onClick: () => onSelectApp(Product.FLAGS),
-      product: Product.FLAGS,
-      title: t("navigation.apps.flags.title"),
-      description: t("navigation.apps.flags.description"),
-      isActive: false,
-    },
-    {
-      onClick: () => onSelectApp(Product.FORMS),
-      product: Product.FORMS,
-      title: t("navigation.apps.forms.title"),
-      description: t("navigation.apps.forms.description"),
-      isActive: false,
-    },
-    {
-      onClick: () => null,
-      product: Product.UPTIME,
-      title: t("navigation.apps.uptime.title"),
-      description: t("navigation.apps.uptime.description"),
-      isActive: true,
     },
   ];
 };

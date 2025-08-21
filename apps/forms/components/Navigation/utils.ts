@@ -1,7 +1,7 @@
 import type { Role } from ".prisma/client";
 import type { NavigationProps } from "@basestack/ui";
 // Utils
-import { config, Product } from "@basestack/utils";
+import { config } from "@basestack/utils";
 // Libs
 import { auth } from "@basestack/vendors";
 // Types
@@ -98,35 +98,6 @@ export const getAvatarDropdownList = (
             },
           },
         }),
-    },
-  ];
-};
-
-export const getAppsList = (
-  t: (key: any) => string,
-  onSelectApp: (app: Product) => void,
-) => {
-  return [
-    {
-      onClick: () => onSelectApp(Product.FLAGS),
-      product: Product.FLAGS,
-      title: t("navigation.apps.flags.title"),
-      description: t("navigation.apps.flags.description"),
-      isActive: false,
-    },
-    {
-      onClick: () => null,
-      product: Product.FORMS,
-      title: t("navigation.apps.forms.title"),
-      description: t("navigation.apps.forms.description"),
-      isActive: true,
-    },
-    {
-      onClick: () => onSelectApp(Product.UPTIME),
-      product: Product.UPTIME,
-      title: t("navigation.apps.uptime.title"),
-      description: t("navigation.apps.uptime.description"),
-      isActive: false,
     },
   ];
 };

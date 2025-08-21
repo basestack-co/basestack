@@ -1,5 +1,8 @@
+// Utils
 import { NextResponse } from "next/server";
 import requestIp from "request-ip";
+// Types
+import { Product } from "../types";
 
 export const getMetadata = (req: Request) => {
   const headers: Record<string, string> = {};
@@ -73,4 +76,34 @@ export const getOriginOptions = async (
       { status: 500, headers },
     );
   }
+};
+
+export const getAppsList = (
+  t: (key: any) => string,
+  onSelectApp: (app: Product) => void,
+  activeApp?: Product,
+) => {
+  return [
+    {
+      onClick: () => onSelectApp(Product.FLAGS),
+      product: Product.FLAGS,
+      title: t("navigation.apps.flags.title"),
+      description: t("navigation.apps.flags.description"),
+      isActive: activeApp === Product.FLAGS,
+    },
+    {
+      onClick: () => onSelectApp(Product.FORMS),
+      product: Product.FORMS,
+      title: t("navigation.apps.forms.title"),
+      description: t("navigation.apps.forms.description"),
+      isActive: activeApp === Product.FORMS,
+    },
+    {
+      onClick: () => onSelectApp(Product.UPTIME),
+      product: Product.UPTIME,
+      title: t("navigation.apps.uptime.title"),
+      description: t("navigation.apps.uptime.description"),
+      isActive: activeApp === Product.UPTIME,
+    },
+  ];
 };

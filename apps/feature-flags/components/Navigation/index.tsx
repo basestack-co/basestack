@@ -10,24 +10,20 @@ import {
   type PopupActionProps,
 } from "@basestack/ui";
 // Utils
-import { type AppEnv, config, Product } from "@basestack/utils";
+import { type AppEnv, config, getAppsList, Product } from "@basestack/utils";
 // Vendors
 import { auth } from "@basestack/vendors";
 import { useParams, usePathname, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import { useCallback, useMemo } from "react";
+// React
+import { useMemo } from "react";
 import { useMedia } from "react-use";
 // Store
 import { useStore } from "store";
 import { useTheme } from "styled-components";
 import { AppMode } from "utils/helpers/general";
-import {
-  getAppsList,
-  getAvatarDropdownList,
-  getLeftLinks,
-  getRightLinks,
-} from "./utils";
+import { getAvatarDropdownList, getLeftLinks, getRightLinks } from "./utils";
 
 export interface NavigationProps {
   data?: Array<PopupActionProps>;
@@ -63,6 +59,29 @@ const Navigation = ({ data }: NavigationProps) => {
 
     return [project?.text ?? "", project?.role ?? Role.VIEWER];
   }, [projectId, data]);
+
+  const leftLinks = useMemo(() => {
+    return getLeftLinks(t, router, pathname, projectId, projectRole, () =>
+      setCreateFlagModalOpen({ isOpen: true }),
+    );
+  }, [t, router, pathname, projectId, projectRole, setCreateFlagModalOpen]);
+
+  const rightLinks = useMemo(() => {
+    return getRightLinks({ docs: t("navigation.external.docs") });
+  }, [t]);
+
+  const apps = useMemo(() => {
+    return getAppsList(
+      t,
+      (app) => {
+        window.location.href = config.urls.getAppWithEnv(
+          app,
+          AppMode as AppEnv,
+        );
+      },
+      Product.FLAGS,
+    );
+  }, [t]);
 
   const projectsList = useMemo((): Array<{
     title: string;
@@ -107,10 +126,6 @@ const Navigation = ({ data }: NavigationProps) => {
     }>;
   }, [data, t, projectId]);
 
-  const onSelectApp = useCallback((app: Product) => {
-    window.location.href = config.urls.getAppWithEnv(app, AppMode as AppEnv);
-  }, []);
-
   const getProjectsProps = useMemo(() => {
     return {
       onCreate: () => setCreateProjectModalOpen({ isOpen: true }),
@@ -153,14 +168,12 @@ const Navigation = ({ data }: NavigationProps) => {
       product={Product.FLAGS}
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
-      leftLinks={getLeftLinks(t, router, pathname, projectId, projectRole, () =>
-        setCreateFlagModalOpen({ isOpen: true }),
-      )}
-      rightLinks={getRightLinks({ docs: t("navigation.external.docs") })}
+      leftLinks={leftLinks}
+      rightLinks={rightLinks}
       rightLinksTitle={t("navigation.external.resources")}
       projects={getProjectsProps}
       appsTitle={t("navigation.apps.title")}
-      apps={getAppsList(t, onSelectApp)}
+      apps={apps}
       avatar={getAvatarProps}
     />
   );

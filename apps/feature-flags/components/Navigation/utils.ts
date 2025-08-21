@@ -2,7 +2,7 @@ import type { Role } from ".prisma/client";
 import { ButtonVariant } from "@basestack/design-system";
 import type { NavigationProps } from "@basestack/ui";
 // Utils
-import { config, Product } from "@basestack/utils";
+import { config } from "@basestack/utils";
 // Vendors
 import { auth } from "@basestack/vendors";
 // Types
@@ -24,7 +24,7 @@ export const getLeftLinks = (
       icon: "flag",
       onClick: () => router.push(`/a/project/${projectId}/flags`),
       text: t("navigation.internal.features"),
-      isActive: pathname.includes("flags"),
+      isActive: pathname === `/a/project/${projectId}/flags`,
       isVisible: !!projectId,
     },
     {
@@ -32,7 +32,7 @@ export const getLeftLinks = (
       icon: "settings",
       onClick: () => router.push(`/a/project/${projectId}/settings/general`),
       text: t("navigation.internal.settings"),
-      isActive: pathname.includes("settings"),
+      isActive: pathname === `/a/project/${projectId}/settings/general`,
       isVisible: !!projectId,
     },
     {
@@ -40,7 +40,7 @@ export const getLeftLinks = (
       icon: "add",
       onClick: onCreateFlag,
       text: t("navigation.create.flag"),
-      isActive: pathname.includes("create"),
+      isActive: pathname === `/a/project/${projectId}/flags/create`,
       buttonVariant: ButtonVariant.Primary,
       space: { ml: 2 },
       isVisible:
@@ -103,35 +103,6 @@ export const getAvatarDropdownList = (
             },
           },
         }),
-    },
-  ];
-};
-
-export const getAppsList = (
-  t: (key: any) => string,
-  onSelectApp: (app: Product) => void,
-) => {
-  return [
-    {
-      onClick: () => null,
-      product: Product.FLAGS,
-      title: t("navigation.apps.flags.title"),
-      description: t("navigation.apps.flags.description"),
-      isActive: true,
-    },
-    {
-      onClick: () => onSelectApp(Product.FORMS),
-      product: Product.FORMS,
-      title: t("navigation.apps.forms.title"),
-      description: t("navigation.apps.forms.description"),
-      isActive: false,
-    },
-    {
-      onClick: () => onSelectApp(Product.UPTIME),
-      product: Product.UPTIME,
-      title: t("navigation.apps.uptime.title"),
-      description: t("navigation.apps.uptime.description"),
-      isActive: false,
     },
   ];
 };

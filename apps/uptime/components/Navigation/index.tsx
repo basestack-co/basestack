@@ -4,31 +4,28 @@
 import { Role } from ".prisma/client";
 // Hooks
 import { useDarkModeToggle } from "@basestack/hooks";
+// React
+import { useMemo } from "react";
 // Components
 import {
   Navigation as NavigationUI,
   type PopupActionProps,
 } from "@basestack/ui";
 // Utils
-import { type AppEnv, config, Product } from "@basestack/utils";
+import { type AppEnv, config, Product, getAppsList } from "@basestack/utils";
 // Libs
 import { auth } from "@basestack/vendors";
 import { useParams, usePathname, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
-import { useCallback, useMemo } from "react";
+
 import { useMedia } from "react-use";
 // Store
 import { useStore } from "store";
 // Styles
 import { useTheme } from "styled-components";
 import { AppMode } from "utils/helpers/general";
-import {
-  getAppsList,
-  getAvatarDropdownList,
-  getLeftLinks,
-  getRightLinks,
-} from "./utils";
+import { getAvatarDropdownList, getLeftLinks, getRightLinks } from "./utils";
 
 export interface NavigationProps {
   data?: Array<PopupActionProps>;
@@ -49,7 +46,7 @@ const Navigation = ({ data }: NavigationProps) => {
   const isDarkMode = useStore((state) => state.isDarkMode);
 
   const setCreateProjectModalOpen = useStore(
-    (state) => state.setCreateProjectModalOpen,
+    (state) => state.setCreateProjectModalOpen
   );
 
   const [projectName, projectRole] = useMemo(() => {
@@ -60,6 +57,27 @@ const Navigation = ({ data }: NavigationProps) => {
 
     return [project?.text ?? "", project?.role ?? Role.VIEWER];
   }, [projectId, data]);
+
+  const leftLinks = useMemo(() => {
+    return getLeftLinks(t, router, pathname, projectId, projectRole);
+  }, [t, router, pathname, projectId, projectRole]);
+
+  const rightLinks = useMemo(() => {
+    return getRightLinks({ docs: t("navigation.external.docs") });
+  }, [t]);
+
+  const apps = useMemo(() => {
+    return getAppsList(
+      t,
+      (app) => {
+        window.location.href = config.urls.getAppWithEnv(
+          app,
+          AppMode as AppEnv
+        );
+      },
+      Product.UPTIME
+    );
+  }, [t]);
 
   const projectsList = useMemo((): Array<{
     title: string;
@@ -79,12 +97,12 @@ const Navigation = ({ data }: NavigationProps) => {
       { internal: [], external: [] } as {
         internal: PopupActionProps[];
         external: PopupActionProps[];
-      },
+      }
     );
 
     const mapProjectsToSection = (
       items: PopupActionProps[],
-      title: string,
+      title: string
     ) => ({
       title,
       items: items.map((item) => ({
@@ -128,7 +146,7 @@ const Navigation = ({ data }: NavigationProps) => {
           setIsDarkMode(!isDarkMode);
         }),
       list: getAvatarDropdownList(t, router, () =>
-        setCreateProjectModalOpen({ isOpen: true }),
+        setCreateProjectModalOpen({ isOpen: true })
       ),
     };
   }, [
@@ -141,21 +159,17 @@ const Navigation = ({ data }: NavigationProps) => {
     toggleDarkMode,
   ]);
 
-  const onSelectApp = useCallback((app: Product) => {
-    window.location.href = config.urls.getAppWithEnv(app, AppMode as AppEnv);
-  }, []);
-
   return (
     <NavigationUI
       product={Product.UPTIME}
       isMobile={isMobile}
       onClickLogo={() => router.push("/")}
-      leftLinks={getLeftLinks(t, router, pathname, projectId, projectRole)}
-      rightLinks={getRightLinks({ docs: t("navigation.external.docs") })}
+      leftLinks={leftLinks}
+      rightLinks={rightLinks}
       rightLinksTitle={t("navigation.external.resources")}
       projects={getProjectsProps}
       appsTitle={t("navigation.apps.title")}
-      apps={getAppsList(t, onSelectApp)}
+      apps={apps}
       avatar={getAvatarProps}
     />
   );
