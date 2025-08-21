@@ -220,7 +220,7 @@ const text = {
 
 const icon = {
   color: colors.black,
-  muted: colors.gray600,
+  muted: colors.gray500,
 };
 
 const iconButton = {

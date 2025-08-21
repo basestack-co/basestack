@@ -6,6 +6,7 @@ export const Container = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== "backgroundColor",
 })<{
   backgroundColor?: string;
+  borderColor?: string;
 }>`
   position: relative;
   display: flex;
@@ -13,6 +14,18 @@ export const Container = styled.div.withConfig({
   overflow: hidden;
   background-color: ${({ theme, backgroundColor }) =>
     backgroundColor || theme.tabs.backgroundColor};
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: ${({ theme, borderColor }) =>
+      borderColor || theme.tabs.tab.border};
+    z-index: 0;
+  }
 `;
 
 export const ContentContainer = styled.div`
@@ -48,24 +61,32 @@ export const Wrapper = styled.div.withConfig({
     `};
 `;
 
-const sharedButtonStyles = css`
+const sharedButtonStyles = (isCompact: boolean) => css`
   border: none;
   cursor: pointer;
-  min-width: ${rem("110px")};
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1 0 0;
   padding: 0 ${rem("12px")};
+  ${isCompact
+    ? css`
+        flex: auto 0 0;
+      `
+    : css`
+        flex: 1 0 0;
+        min-width: ${rem("110px")};
+      `}
 `;
 
 export const Tab = styled.button.withConfig({
-  shouldForwardProp: (prop) => !["hoverBgColor", "borderColor"].includes(prop),
+  shouldForwardProp: (prop) =>
+    !["hoverBgColor", "borderColor", "isCompact"].includes(prop),
 })<{
   borderColor?: string;
   hoverBgColor?: string;
+  isCompact?: boolean;
 }>`
-  ${sharedButtonStyles};
+  ${({ isCompact }) => sharedButtonStyles(isCompact || false)};
   background-color: ${({ theme }) => theme.tabs.tab.backgroundColor};
   height: ${rem("44px")};
   transition: background-color 0.1s ease-in-out;
@@ -81,11 +102,12 @@ export const Tab = styled.button.withConfig({
 `;
 
 export const Button = styled.button.withConfig({
-  shouldForwardProp: (prop) => prop !== "isActive",
+  shouldForwardProp: (prop) => !["isActive", "isCompact"].includes(prop),
 })<{
   isActive: boolean;
+  isCompact?: boolean;
 }>`
-  ${sharedButtonStyles};
+  ${({ isCompact }) => sharedButtonStyles(isCompact || false)};
   border-radius: 4px;
   background-color: ${({ theme, isActive }) =>
     isActive
@@ -93,6 +115,7 @@ export const Button = styled.button.withConfig({
       : theme.tabs.button.backgroundColor};
   height: ${rem("36px")};
   transition: background-color 0.2s ease-in-out;
+
   ${({ isActive }) =>
     !isActive &&
     css`
@@ -107,18 +130,14 @@ export const Button = styled.button.withConfig({
 
 export const Slider = styled.div.withConfig({
   shouldForwardProp: (prop) =>
-    ![
-      "backgroundColor",
-      "numberOfItems",
-      "translateX",
-      "activeBorderColor",
-    ].includes(prop),
+    !["width", "translateX", "activeBorderColor", "isCompact"].includes(prop),
 })<{
-  numberOfItems: number;
+  width: number;
   translateX: number | string;
   activeBorderColor?: string;
+  isCompact?: boolean;
 }>`
-  min-width: ${rem("110px")};
+  min-width: ${({ isCompact }) => (isCompact ? "initial" : rem("110px"))};
   position: absolute;
   pointer-events: none;
   z-index: 2;
@@ -127,7 +146,7 @@ export const Slider = styled.div.withConfig({
   background-color: ${({ theme, activeBorderColor }) =>
     activeBorderColor || theme.tabs.slider.backgroundColor};
   height: 2px;
-  width: calc((100% / ${({ numberOfItems }) => numberOfItems}));
-  transition: transform 0.2s ease-in-out;
-  transform: translateX(${({ translateX }) => `${translateX}%`});
+  width: ${({ width }) => `${width}px`};
+  transition: all 0.2s ease-in-out;
+  transform: translateX(${({ translateX }) => `${translateX}px`});
 `;

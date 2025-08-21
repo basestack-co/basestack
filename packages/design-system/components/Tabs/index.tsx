@@ -1,6 +1,6 @@
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useReducer, useRef, useState } from "react";
 import { useTheme } from "styled-components";
-import type { SpaceProps } from "styled-system";
+import { SpaceProps, variant } from "styled-system";
 import IconButton from "../IconButton";
 import Text from "../Text";
 import type { Size } from "../Text/types";
@@ -59,7 +59,25 @@ export interface TabsProps extends SpaceProps {
    * Changes tabs styling
    */
   type?: "tabs" | "buttons";
+  /**
+   * Changes tabs sizing
+   */
+  variant?: "compact" | "fullWidth";
 }
+
+const reducer = (state: any, action: { type: any; payload: any }) => {
+  switch (action.type) {
+    case "SET_SELECTED_VALUES":
+      return {
+        ...state,
+        selected: action.payload.selected,
+        translateX: action.payload.translateX,
+        width: action.payload.width,
+      };
+    default:
+      return state;
+  }
+};
 
 const Tabs = ({
   items,
@@ -72,12 +90,44 @@ const Tabs = ({
   sliderPosition = 0,
   textSize = "small",
   type = "tabs",
+  variant = "fullWidth",
   ...props
 }: TabsProps) => {
   const theme = useTheme();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const [{ selected, translateX, width }, dispatch] = useReducer(reducer, {
+    selected: sliderPosition || 0,
+    translateX: 0,
+    width: 0,
+  });
+
+  useEffect(() => {
+    const updateValues = () => {
+      if (buttonRefs.current[selected]) {
+        const selectedButton = buttonRefs.current[selected];
+        const buttonWidth = selectedButton ? selectedButton.offsetWidth : 0;
+        const buttonLeft = selectedButton ? selectedButton.offsetLeft : 0;
+
+        dispatch({
+          type: "SET_SELECTED_VALUES",
+          payload: { selected, translateX: buttonLeft, width: buttonWidth },
+        });
+      }
+    };
+
+    updateValues();
+
+    window.addEventListener("resize", updateValues);
+
+    return () => {
+      window.removeEventListener("resize", updateValues);
+    };
+  }, [selected, items]);
 
   const checkScrollPossibility = () => {
     if (scrollRef.current) {
@@ -114,14 +164,6 @@ const Tabs = ({
     const isLeftButton = position === "left";
     return (
       <IconButton
-        /*onClick={() => {
-          if (scrollRef.current) {
-            isLeftButton
-              ? (scrollRef.current.scrollLeft -= 110)
-              : (scrollRef.current.scrollLeft += 110);
-          }
-        }} */
-
         onClick={() => {
           if (!scrollRef.current) return;
 
@@ -147,7 +189,7 @@ const Tabs = ({
   };
 
   return (
-    <Container backgroundColor={backgroundColor}>
+    <Container backgroundColor={backgroundColor} borderColor={borderColor}>
       {canScrollLeft && renderIconButton("left")}
       {canScrollRight && renderIconButton("right")}
       <ContentContainer ref={scrollRef}>
@@ -162,11 +204,20 @@ const Tabs = ({
 
             return type === "tabs" ? (
               <Tab
+                // @ts-ignore
+                ref={(el) => (buttonRefs.current[index] = el)}
                 key={`tab-${item.id}`}
                 data-testid="tab-button"
-                onClick={() => onSelect(item.id, index)}
+                onClick={() => {
+                  dispatch({
+                    type: "SET_SELECTED_VALUES",
+                    payload: { selected: index, translateX, width },
+                  });
+                  onSelect(item.id, index);
+                }}
                 borderColor={borderColor}
                 hoverBgColor={hoverBgColor}
+                isCompact={variant === "compact"}
               >
                 {!!item.text && (
                   <Text
@@ -185,6 +236,7 @@ const Tabs = ({
                 key={`tab-${item.id}`}
                 onClick={() => onSelect(item.id, index)}
                 isActive={isActive}
+                isCompact={variant === "compact"}
               >
                 {!!item.text && (
                   <Text
@@ -207,8 +259,9 @@ const Tabs = ({
           {type === "tabs" && (
             <Slider
               activeBorderColor={activeBorderColor}
-              translateX={sliderPosition * 100}
-              numberOfItems={items.length}
+              translateX={translateX}
+              width={width}
+              isCompact={variant === "compact"}
             />
           )}
         </Wrapper>

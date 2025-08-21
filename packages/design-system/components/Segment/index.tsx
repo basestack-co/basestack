@@ -54,16 +54,26 @@ const Segment = ({
   });
 
   useEffect(() => {
-    if (buttonRefs.current[selected]) {
-      const selectedButton = buttonRefs.current[selected];
-      const buttonWidth = selectedButton ? selectedButton.offsetWidth : 0;
-      const buttonLeft = selectedButton ? selectedButton.offsetLeft : 0;
+    const updateValues = () => {
+      if (buttonRefs.current[selected]) {
+        const selectedButton = buttonRefs.current[selected];
+        const buttonWidth = selectedButton ? selectedButton.offsetWidth : 0;
+        const buttonLeft = selectedButton ? selectedButton.offsetLeft : 0;
 
-      dispatch({
-        type: "SET_SELECTED_VALUES",
-        payload: { selected, translateX: buttonLeft, width: buttonWidth },
-      });
-    }
+        dispatch({
+          type: "SET_SELECTED_VALUES",
+          payload: { selected, translateX: buttonLeft, width: buttonWidth },
+        });
+      }
+    };
+
+    updateValues();
+
+    window.addEventListener("resize", updateValues);
+
+    return () => {
+      window.removeEventListener("resize", updateValues);
+    };
   }, [selected, items]);
 
   return (

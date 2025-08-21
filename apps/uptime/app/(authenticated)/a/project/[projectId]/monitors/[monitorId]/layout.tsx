@@ -1,19 +1,122 @@
 "use client";
 
 // Navigation
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 // React
-import { Fragment, type ReactNode } from "react";
+import { type ReactNode, useState } from "react";
+import { useTheme } from "styled-components";
+import DetailsHeader from "@basestack/ui/components/DetailsHeader";
+import { Box, ButtonVariant, Flex, Tabs } from "@basestack/design-system";
 
 const MonitorLayout = ({ children }: { children: ReactNode }) => {
-  const { monitorId } = useParams<{ monitorId: string }>();
+  const theme = useTheme();
+  const { monitorId, projectId } = useParams<{
+    monitorId: string;
+    projectId: string;
+  }>();
+
+  const router = useRouter();
+  const [activeTab, setActiveTab] = useState({ selected: "general", index: 0 });
+
+  const monitorUrl = `/a/project/${projectId}/monitors/${monitorId}`;
 
   return (
-    <Fragment>
-      <div>Monitor Layout - {monitorId}</div>
+    <Box
+      display="flex"
+      flexDirection="column"
+      flexGrow={1}
+      px={theme.spacing.s5}
+      py={theme.spacing.s6}
+      maxWidth="1440px"
+      width="100%"
+      margin="0 auto"
+    >
+      <Flex flexDirection="column" gap={theme.spacing.s6}>
+        <DetailsHeader
+          title="Basestack Forms API"
+          details={[
+            { text: "Up", type: "label", labelVariant: "success" },
+            { icon: "location_on", text: "Remote", type: "text" },
+            { icon: "paid", text: "$120 - $140", type: "text" },
+            { icon: "timer", text: "Checked every 3 minutes", type: "text" },
+          ]}
+          button={{
+            text: "Share",
+            onClick: () => "",
+          }}
+          popup={{
+            text: "Actions",
+            items: [
+              {
+                icon: "edit",
+                text: "Edit",
+                onClick: () => "",
+              },
+              {
+                variant: ButtonVariant.Danger,
+                icon: "delete",
+                text: "Delete",
+                onClick: () => "",
+              },
+            ],
+          }}
+        />
+        <DetailsHeader
+          title="Basestack Forms API"
+          hasBullets={false}
+          details={[
+            { text: "Down", type: "label", labelVariant: "danger" },
+            { icon: "location_on", text: "Remote", type: "text" },
+            { icon: "paid", text: "$120 - $140", type: "text" },
+            { icon: "timer", text: "Checked every 3 minutes", type: "text" },
+          ]}
+          button={{
+            text: "Share",
+            onClick: () => "",
+          }}
+          popup={{
+            text: "Actions",
+            items: [
+              {
+                icon: "edit",
+                text: "Edit",
+                onClick: () => "",
+              },
+              {
+                variant: ButtonVariant.Danger,
+                icon: "delete",
+                text: "Delete",
+                onClick: () => "",
+              },
+            ],
+          }}
+        />
+
+        <Tabs
+          onSelect={(selected, index) => {
+            router.push(`${monitorUrl}/${selected}`);
+            setActiveTab({ selected, index });
+          }}
+          sliderPosition={activeTab.index}
+          backgroundColor={theme.background.default}
+          variant="compact"
+          items={[
+            { id: "general", text: "General" },
+            { id: "incidents", text: "Incidents" },
+            { id: "settings", text: "Settings" },
+          ]}
+        />
+      </Flex>
+
       <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
       {children}
-    </Fragment>
+    </Box>
   );
 };
 

@@ -74,3 +74,7 @@ export {
   default as UsageSection,
   type UsageSectionProps,
 } from "./components/UsageSection";
+export {
+  default as DetailsHeader,
+  type DetailsHeaderProps,
+} from "./components/DetailsHeader";
