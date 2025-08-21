@@ -176,7 +176,7 @@ export const withProjectAdminSubscription = () =>
   middleware(async ({ next, ctx }) => {
     const externalCustomerId = emailToId(ctx.project.adminUserEmail);
 
-    const sub = await polar.getCustomerSubscription(
+    const sub = await polar.getCustomerSubscriptionWithCache(
       externalCustomerId,
       Product.UPTIME,
       AppMode

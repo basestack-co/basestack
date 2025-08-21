@@ -81,7 +81,7 @@ const schedulesRoutes = new Hono().post(
       await context.run("create-usage-event-step", async () => {
         if (!monitor?.scheduleId) return;
 
-        const sub = await polar.getCustomerSubscription(
+        const sub = await polar.getCustomerSubscriptionWithCache(
           externalCustomerId,
           Product.UPTIME,
           AppMode
@@ -94,6 +94,7 @@ const schedulesRoutes = new Hono().post(
             `Schedules: Basestack Uptime - Monitor Check - No subscription found for project ${projectId}`
           );
         }
+
         return polar.createUsageEvent(
           UsageEvent.UPTIME_API_REQUESTS,
           externalCustomerId,
@@ -105,10 +106,10 @@ const schedulesRoutes = new Hono().post(
         );
       });
 
-      const existingIncident = await context.run(
+      const botOpenIncident = await context.run(
         "get-monitor-incident-details-step",
         async () => {
-          if (!monitor || !check || check.status === "UP") return;
+          if (!monitor || !check) return;
 
           const response = await prisma.incident.findFirst({
             where: {
@@ -126,99 +127,102 @@ const schedulesRoutes = new Hono().post(
       );
 
       await context.run("resolve-incident-step", async () => {
-        if (!existingIncident || !check || !monitor) return;
+        if (botOpenIncident?.id) {
+          if (check && monitor && check.status === "UP") {
+            const message =
+              `Recovered automatically. ` +
+              `Status: ${check.status}. ` +
+              `Response time: ${check.responseTime}ms. ` +
+              `Status code: ${check.statusCode}.`;
 
-        const message =
-          `Recovered automatically. ` +
-          `Status: ${check.status}. ` +
-          `Response time: ${check.responseTime}ms. ` +
-          `Status code: ${check.statusCode}.`;
+            const response = await prisma.$transaction(async (tx) => {
+              await tx.incidentUpdate.create({
+                data: {
+                  incidentId: botOpenIncident.id,
+                  message,
+                  status: IncidentStatus.RESOLVED,
+                  createdById: null,
+                },
+              });
 
-        const response = await prisma.$transaction(async (tx) => {
-          await tx.incidentUpdate.create({
-            data: {
-              incidentId: existingIncident.id,
-              message,
-              status: IncidentStatus.RESOLVED,
-              createdById: null,
-            },
-          });
+              await tx.incident.update({
+                where: { id: botOpenIncident.id },
+                data: {
+                  status: IncidentStatus.RESOLVED,
+                  resolvedAt: new Date(),
+                },
+              });
+            });
 
-          await tx.incident.update({
-            where: { id: existingIncident.id },
-            data: {
-              status: IncidentStatus.RESOLVED,
-              resolvedAt: new Date(),
-            },
-          });
-        });
+            await createMonitorEmailNotification({
+              emails: `${adminUserEmail}`,
+              externalCustomerId,
+              monitor,
+              check,
+            });
 
-        await createMonitorEmailNotification({
-          emails: `${adminUserEmail}`,
-          externalCustomerId,
-          monitor,
-          check,
-        });
+            console.info(
+              `Schedules: Basestack Uptime - Monitor Check - Auto-resolved incident ${botOpenIncident.id} for monitor ${monitorId}`
+            );
 
-        console.info(
-          `Schedules: Basestack Uptime - Monitor Check - Auto-resolved incident ${existingIncident.id} for monitor ${monitorId}`
-        );
-
-        return response;
+            return response;
+          }
+        }
       });
 
       await context.run("create-incident-step", async () => {
-        if (!monitor || !check || !!existingIncident?.id) return;
+        if (!botOpenIncident?.id) {
+          if (check && monitor && check.status !== "UP") {
+            const severity =
+              check.status === "DOWN"
+                ? IncidentSeverity.CRITICAL
+                : check.status === "DEGRADED"
+                  ? IncidentSeverity.MAJOR
+                  : IncidentSeverity.MINOR;
 
-        const severity =
-          check.status === "DOWN"
-            ? IncidentSeverity.CRITICAL
-            : check.status === "DEGRADED"
-              ? IncidentSeverity.MAJOR
-              : IncidentSeverity.MINOR;
+            const title = `Monitor ${monitor.name} is ${check.status}`;
+            const initialUpdate =
+              `Status: ${check.status}. ` +
+              `Response time: ${check.responseTime}ms. ` +
+              `Status code: ${check.statusCode}. ` +
+              (check.error ? `Error: ${check.error}` : "");
 
-        const title = `Monitor ${monitor.name} is ${check.status}`;
-        const initialUpdate =
-          `Status: ${check.status}. ` +
-          `Response time: ${check.responseTime}ms. ` +
-          `Status code: ${check.statusCode}. ` +
-          (check.error ? `Error: ${check.error}` : "");
-
-        const incident = await prisma.incident.create({
-          data: {
-            projectId,
-            title,
-            description: check.error ?? null,
-            status: IncidentStatus.INVESTIGATING,
-            severity,
-            isScheduled: false,
-            monitors: { create: [{ monitorId }] },
-            updates: {
-              create: {
-                message: initialUpdate,
+            const incident = await prisma.incident.create({
+              data: {
+                projectId,
+                title,
+                description: check.error ?? null,
                 status: IncidentStatus.INVESTIGATING,
-                createdById: null,
+                severity,
+                isScheduled: false,
+                monitors: { create: [{ monitorId }] },
+                updates: {
+                  create: {
+                    message: initialUpdate,
+                    status: IncidentStatus.INVESTIGATING,
+                    createdById: null,
+                  },
+                },
               },
-            },
-          },
-        });
+            });
 
-        await createMonitorEmailNotification({
-          emails: `${adminUserEmail}`,
-          externalCustomerId,
-          monitor,
-          check,
-        });
+            await createMonitorEmailNotification({
+              emails: `${adminUserEmail}`,
+              externalCustomerId,
+              monitor,
+              check,
+            });
 
-        console.info(
-          `Schedules: Basestack Uptime - Monitor Check - Incident created for monitor ${monitorId}`
-        );
+            console.info(
+              `Schedules: Basestack Uptime - Monitor Check - Incident created for monitor ${monitorId}`
+            );
 
-        return incident;
+            return incident;
+          }
+        }
       });
     },
     {
-      verbose: true,
       receiver: new Receiver({
         currentSigningKey: process.env.QSTASH_CURRENT_SIGNING_KEY!,
         nextSigningKey: process.env.QSTASH_NEXT_SIGNING_KEY!,

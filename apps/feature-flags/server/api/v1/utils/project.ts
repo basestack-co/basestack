@@ -39,7 +39,7 @@ export const verifyProjectRequest = async (
 
     const externalCustomerId = emailToId(project.adminUserEmail);
 
-    const sub = await polar.getCustomerSubscription(
+    const sub = await polar.getCustomerSubscriptionWithCache(
       externalCustomerId,
       Product.FLAGS,
       AppMode,

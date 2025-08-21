@@ -74,7 +74,7 @@ export const subscriptionRouter = createTRPCRouter({
     const userEmail = ctx.auth?.user.email!;
     const externalCustomerId = emailToId(userEmail);
 
-    return await polar.getCustomerSubscription(
+    return await polar.getCustomerSubscriptionWithCache(
       externalCustomerId,
       Product.FLAGS,
       AppMode,
@@ -92,7 +92,7 @@ export const subscriptionRouter = createTRPCRouter({
       return { meters: [], benefits: [] };
     }
 
-    const subscription = await polar.getCustomerSubscription(
+    const subscription = await polar.getCustomerSubscriptionWithCache(
       externalCustomerId,
       Product.FLAGS,
       AppMode,

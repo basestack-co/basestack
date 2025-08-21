@@ -125,7 +125,7 @@ export const verifyForm = async (
 
     const externalCustomerId = emailToId(form.adminUserEmail);
 
-    const sub = await polar.getCustomerSubscription(
+    const sub = await polar.getCustomerSubscriptionWithCache(
       externalCustomerId,
       Product.FORMS,
       AppMode,

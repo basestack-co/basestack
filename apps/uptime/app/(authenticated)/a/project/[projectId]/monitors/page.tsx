@@ -131,6 +131,7 @@ const ProjectMonitorsPage = () => {
           },
         ],
       },
+
       primaryAction: {
         isDisabled: isLoading,
         text: t("monitor.toolbar.create.text"),

@@ -14,7 +14,7 @@ export const client = new Polar({
       : "sandbox",
 });
 
-export const getCustomerSubscription = async (
+export const getCustomerSubscriptionWithCache = async (
   externalId: string,
   product: Product,
   env: string,
