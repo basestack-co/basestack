@@ -592,11 +592,12 @@
         "footer": "Prices exclude applicable sales taxes (e.g., VAT). A $5 minimum spend applies and is fully credited toward your usage.",
         "count": {
           "api_requests": "API Requests",
-          "email_notification": "Email Notifications",
+          "forms_notifications": "Email Notifications",
           "form_submission": "Form Submissions",
           "spam_check": "Spam Checks",
-          "webhook_trigger": "Webhook Triggers",
-          "integration_call": "Integration Calls"
+          "forms_triggers": "Webhook Triggers",
+          "integration_call": "Integration Calls",
+          "forms_api_requests": "API Requests"
         }
       },
       "segment": {

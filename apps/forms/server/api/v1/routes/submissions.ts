@@ -45,7 +45,7 @@ const submissionsRoutes = new Hono().post("/:formId", async (c) => {
 
       if (data) {
         await polar.createUsageEvent(
-          UsageEvent.FORM_SUBMISSION,
+          UsageEvent.FORMS_SUBMISSION,
           externalCustomerId,
           {
             product: Product.FORMS,

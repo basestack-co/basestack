@@ -45,12 +45,17 @@ export enum PlanTypeId {
 }
 
 export enum UsageEvent {
-  API_REQUESTS = "api-requests-usage",
-  FORM_SUBMISSION = "form-submission-usage",
-  EMAIL_SENT = "email-sent-usage",
-  WEBHOOK_TRIGGERED = "webhook-triggered-usage",
-  SPAM_CHECK = "spam-check-usage",
-  INTEGRATION_CALL = "integration-call-usage",
+  UPTIME_API_REQUESTS = "uptime-api-requests-usage",
+  UPTIME_NOTIFICATIONS = "uptime-notifications-usage",
+  UPTIME_TRIGGERS = "uptime-triggers-usage",
+  FORMS_API_REQUESTS = "forms-api-requests-usage",
+  FORMS_NOTIFICATIONS = "forms-notifications-usage",
+  FORMS_TRIGGERS = "forms-triggers-usage",
+  FORMS_SPAM_CHECK = "spam-check-usage",
+  FORMS_INTEGRATION_CALL = "integration-call-usage",
+  FORMS_SUBMISSION = "form-submission-usage",
+  FLAGS_API_REQUESTS = "api-requests-usage",
+  FLAGS_EMAIL_SENT = "email-sent-usage",
 }
 
 export interface PlanVariantIds {

@@ -65,7 +65,7 @@ const jobsRoutes = new Hono()
 
               if (externalCustomerId) {
                 await polar.createUsageEvent(
-                  UsageEvent.EMAIL_SENT,
+                  UsageEvent.FORMS_NOTIFICATIONS,
                   externalCustomerId,
                   {
                     product: Product.FORMS,
@@ -118,7 +118,7 @@ const jobsRoutes = new Hono()
 
           if (externalCustomerId) {
             await polar.createUsageEvent(
-              UsageEvent.SPAM_CHECK,
+              UsageEvent.FORMS_SPAM_CHECK,
               externalCustomerId,
               {
                 product: Product.FORMS,
@@ -195,7 +195,7 @@ const jobsRoutes = new Hono()
 
           if (externalCustomerId) {
             await polar.createUsageEvent(
-              UsageEvent.WEBHOOK_TRIGGERED,
+              UsageEvent.FORMS_TRIGGERS,
               externalCustomerId,
               {
                 product: Product.FORMS,
