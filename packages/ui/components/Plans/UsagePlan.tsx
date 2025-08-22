@@ -54,7 +54,7 @@ const UsagePlan = ({
           title: t("home.usage.meters.resource.form_submission"),
         },
         {
-          key: "email_notification",
+          key: "forms_notifications",
           title: t("home.usage.meters.resource.email_notification"),
         },
         {
@@ -62,7 +62,7 @@ const UsagePlan = ({
           title: t("home.usage.meters.resource.spam_check"),
         },
         {
-          key: "webhook_trigger",
+          key: "forms_triggers",
           title: t("home.usage.meters.resource.webhook_trigger"),
         },
       ],

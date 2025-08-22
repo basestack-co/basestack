@@ -53,7 +53,7 @@ const jobsRoutes = new Hono().post(
 
             if (externalCustomerId) {
               await polar.createUsageEvent(
-                UsageEvent.EMAIL_SENT,
+                UsageEvent.FLAGS_EMAIL_SENT,
                 externalCustomerId,
                 {
                   product: Product.FLAGS,

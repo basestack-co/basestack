@@ -112,11 +112,15 @@ export const verifyProjectRequest = async (
       "increment",
     );
 
-    await polar.createUsageEvent(UsageEvent.API_REQUESTS, externalCustomerId, {
-      product: Product.FLAGS,
-      projectName: project.name,
-      adminUserEmail: project.adminUserEmail,
-    });
+    await polar.createUsageEvent(
+      UsageEvent.FLAGS_API_REQUESTS,
+      externalCustomerId,
+      {
+        product: Product.FLAGS,
+        projectName: project.name,
+        adminUserEmail: project.adminUserEmail,
+      },
+    );
 
     return true;
   } catch (error) {
