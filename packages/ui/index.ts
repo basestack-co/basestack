@@ -78,3 +78,7 @@ export {
   default as DetailsHeader,
   type DetailsHeaderProps,
 } from "./components/DetailsHeader";
+export {
+  default as OutlinedCard,
+  type OutlinedCardProps,
+} from "./components/OutlinedCard";

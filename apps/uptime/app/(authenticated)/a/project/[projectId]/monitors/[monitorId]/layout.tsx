@@ -6,7 +6,16 @@ import { useParams, useRouter } from "next/navigation";
 import { type ReactNode, useState } from "react";
 import { useTheme } from "styled-components";
 import DetailsHeader from "@basestack/ui/components/DetailsHeader";
-import { Box, ButtonVariant, Flex, Tabs } from "@basestack/design-system";
+import {
+  Box,
+  ButtonVariant,
+  Flex,
+  Tabs,
+  Text,
+  HorizontalRule,
+  IconButton,
+} from "@basestack/design-system";
+import OutlinedCard from "@basestack/ui/components/OutlinedCard";
 
 const MonitorLayout = ({ children }: { children: ReactNode }) => {
   const theme = useTheme();
@@ -19,6 +28,7 @@ const MonitorLayout = ({ children }: { children: ReactNode }) => {
   const [activeTab, setActiveTab] = useState({ selected: "general", index: 0 });
 
   const monitorUrl = `/a/project/${projectId}/monitors/${monitorId}`;
+  const hasDetails = true;
 
   return (
     <Box
@@ -61,37 +71,6 @@ const MonitorLayout = ({ children }: { children: ReactNode }) => {
             ],
           }}
         />
-        <DetailsHeader
-          title="Basestack Forms API"
-          hasBullets={false}
-          details={[
-            { text: "Down", type: "label", labelVariant: "danger" },
-            { icon: "location_on", text: "Remote", type: "text" },
-            { icon: "paid", text: "$120 - $140", type: "text" },
-            { icon: "timer", text: "Checked every 3 minutes", type: "text" },
-          ]}
-          button={{
-            text: "Share",
-            onClick: () => "",
-          }}
-          popup={{
-            text: "Actions",
-            items: [
-              {
-                icon: "edit",
-                text: "Edit",
-                onClick: () => "",
-              },
-              {
-                variant: ButtonVariant.Danger,
-                icon: "delete",
-                text: "Delete",
-                onClick: () => "",
-              },
-            ],
-          }}
-        />
-
         <Tabs
           onSelect={(selected, index) => {
             router.push(`${monitorUrl}/${selected}`);
@@ -107,15 +86,42 @@ const MonitorLayout = ({ children }: { children: ReactNode }) => {
           ]}
         />
       </Flex>
+      <Box mt={theme.spacing.s6}>
+        {hasDetails ? (
+          <Flex gap={theme.spacing.s6}>
+            <Flex flexGrow={1}>{children}</Flex>
 
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-
-      {children}
+            <Box maxWidth="335px" width="100%">
+              {[
+                {
+                  title: "User ID",
+                  text: "user_google_01_2025",
+                  onClick: () => "",
+                },
+                {
+                  title: "Primary Email",
+                  text: "basestack@basestack.com",
+                  onClick: () => "",
+                },
+                {
+                  title: "User Since",
+                  text: "October 14 1890",
+                },
+              ].map((item, index, { length }) => (
+                <OutlinedCard
+                  key={index}
+                  title={item.title}
+                  text={item.text}
+                  onClick={item.onClick}
+                  hasHorizontalRule={index + 1 !== length}
+                />
+              ))}
+            </Box>
+          </Flex>
+        ) : (
+          children
+        )}
+      </Box>
     </Box>
   );
 };
