@@ -597,7 +597,8 @@
           "spam_check": "Spam Checks",
           "forms_triggers": "Webhook Triggers",
           "integration_call": "Integration Calls",
-          "forms_api_requests": "API Requests"
+          "forms_api_requests": "API Requests",
+          "email_notification": "Email Notifications"
         }
       },
       "segment": {
