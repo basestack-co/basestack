@@ -561,9 +561,44 @@
           "action": "Delete",
           "modal": {
             "title": "Are you sure about this action?",
-            "description": "Warning: This action cannot be undone. It will permanently delete the {name} project, including monitors, members, and all collaborator associations.",
+            "description": "Warning: This action cannot be undone. It will permanently delete the {name} project, including monitors, checks, incidents, status pages, subscribers, members, and all collaborator associations.",
             "action": "Delete Project"
           }
+        }
+      },
+      "webhook-url": {
+        "title": "Webhook URL",
+        "description": "Each time a monitor is checked, JSON data will be sent to the specified URL.",
+        "action": "Update",
+        "inputs": {
+          "name": {
+            "placeholder": "Enter an URL",
+            "error": {
+              "min": "Required field"
+            }
+          }
+        },
+        "toast": {
+          "success": "Webhook URL updated successfully"
+        }
+      }
+    },
+    "notifications": {
+      "emails": {
+        "title": "On-call Notifications",
+        "description": "Send incident notifications to these email addresses.",
+        "text": "Press Enter to add an email in the input field.",
+        "action": "Update",
+        "inputs": {
+          "name": {
+            "placeholder": "Enter an Email",
+            "error": {
+              "min": "Required field"
+            }
+          }
+        },
+        "toast": {
+          "success": "On-call notifications updated successfully"
         }
       }
     },

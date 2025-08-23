@@ -178,6 +178,7 @@ model Project {
   slug        String   @unique @db.VarChar(150)
   description String?  @db.VarChar(500)
   emails      String?
+  webhookUrl  String?  @db.VarChar(2183)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

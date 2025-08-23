@@ -44,6 +44,13 @@ const getLinks = (projectId: string, role: Role | undefined) => [
     href: `/a/project/${projectId}/settings/members`,
     isVisible: hasPermission(role, PERMISSIONS.PROJECT.MEMBERS.VIEW),
   },
+  {
+    id: "5",
+    i18nKey: "navigation.setting.notifications",
+    tab: "notifications",
+    href: `/a/project/${projectId}/settings/notifications`,
+    isVisible: hasPermission(role, PERMISSIONS.PROJECT.SETTINGS.VIEW),
+  },
 ];
 
 const ProjectSettingsLayout = ({
@@ -63,7 +70,7 @@ const ProjectSettingsLayout = ({
       { projectId },
       {
         enabled: !!projectId,
-      },
+      }
     );
 
   const renderLink = useMemo(() => {
@@ -83,9 +90,9 @@ const ProjectSettingsLayout = ({
   const activeLinkIndex = useMemo(
     () =>
       getLinks(projectId, project?.role).findIndex(
-        (button) => button.href === pathname,
+        (button) => button.href === pathname
       ),
-    [pathname, projectId, project?.role],
+    [pathname, projectId, project?.role]
   );
 
   const items = useMemo(
@@ -98,7 +105,7 @@ const ProjectSettingsLayout = ({
             text: t(i18nKey as NamespaceKeys<string, "navigation">),
           };
         }),
-    [t, projectId, project?.role],
+    [t, projectId, project?.role]
   );
 
   useEffect(() => {
@@ -107,7 +114,7 @@ const ProjectSettingsLayout = ({
 
   useEffect(() => {
     const link = getLinks(projectId, project?.role).find(
-      (link) => link.href === pathname,
+      (link) => link.href === pathname
     );
 
     if (!link?.isVisible) {

@@ -1,5 +1,4 @@
 // Utils
-
 import { IncidentSeverity, IncidentStatus } from ".prisma/client";
 import { Product, UsageEvent } from "@basestack/utils";
 // Vendors
@@ -45,7 +44,14 @@ const schedulesRoutes = new Hono().post(
               type: true,
               config: true,
               scheduleId: true,
-              project: { select: { id: true, name: true } },
+              project: {
+                select: {
+                  id: true,
+                  name: true,
+                  emails: true,
+                  webhookUrl: true,
+                },
+              },
             },
           });
         }
@@ -106,6 +112,19 @@ const schedulesRoutes = new Hono().post(
         );
       });
 
+      await context.run("send-data-to-external-webhook-step", async () => {
+        if (!monitor?.project.webhookUrl || !check) return;
+
+        await qstash.events.sendDataToExternalWebhookEvent({
+          url: monitor.project.webhookUrl,
+          externalCustomerId,
+          body: {
+            projectName: monitor.project.name,
+            check,
+          },
+        });
+      });
+
       const botOpenIncident = await context.run(
         "get-monitor-incident-details-step",
         async () => {
@@ -154,12 +173,14 @@ const schedulesRoutes = new Hono().post(
               });
             });
 
-            await createMonitorEmailNotification({
-              emails: `${adminUserEmail}`,
-              externalCustomerId,
-              monitor,
-              check,
-            });
+            if (monitor.project.emails) {
+              await createMonitorEmailNotification({
+                emails: monitor.project.emails,
+                externalCustomerId,
+                monitor,
+                check,
+              });
+            }
 
             console.info(
               `Schedules: Basestack Uptime - Monitor Check - Auto-resolved incident ${botOpenIncident.id} for monitor ${monitorId}`
@@ -206,12 +227,14 @@ const schedulesRoutes = new Hono().post(
               },
             });
 
-            await createMonitorEmailNotification({
-              emails: `${adminUserEmail}`,
-              externalCustomerId,
-              monitor,
-              check,
-            });
+            if (monitor.project.emails) {
+              await createMonitorEmailNotification({
+                emails: monitor.project.emails,
+                externalCustomerId,
+                monitor,
+                check,
+              });
+            }
 
             console.info(
               `Schedules: Basestack Uptime - Monitor Check - Incident created for monitor ${monitorId}`

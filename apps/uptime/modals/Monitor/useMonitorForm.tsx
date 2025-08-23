@@ -57,6 +57,7 @@ const useMonitorForm = () => {
   });
 
   const cron = watch("interval");
+  const type = watch("type");
 
   const cost = useMemo(() => {
     const interval = typeof cron === "string" ? cron : cron.value;
@@ -197,45 +198,49 @@ const useMonitorForm = () => {
             )}
           />
 
-          <Controller
-            name="config.method"
-            control={control}
-            render={({ field }) => (
-              <div>
-                <Text size="small" mb={theme.spacing.s2} fontWeight={500}>
-                  {t("modal.monitor.form.input.method.title")}
-                </Text>
-                <Select
-                  options={methods.map((m) => ({ value: m, label: m }))}
-                  value={{ value: field.value, label: field.value }}
-                  onChange={(opt: any) => field.onChange(opt.value)}
-                  isDisabled={isDisabled}
-                />
-              </div>
-            )}
-          />
+          {type === MonitorType.HTTP && (
+            <Controller
+              name="config.method"
+              control={control}
+              render={({ field }) => (
+                <div>
+                  <Text size="small" mb={theme.spacing.s2} fontWeight={500}>
+                    {t("modal.monitor.form.input.method.title")}
+                  </Text>
+                  <Select
+                    options={methods.map((m) => ({ value: m, label: m }))}
+                    value={{ value: field.value, label: field.value }}
+                    onChange={(opt: any) => field.onChange(opt.value)}
+                    isDisabled={isDisabled}
+                  />
+                </div>
+              )}
+            />
+          )}
 
-          <Controller
-            name="config.expectedStatus"
-            control={control}
-            render={({ field }) => (
-              <InputGroup
-                title={t("modal.monitor.form.input.expected-status.title")}
-                hint={errors.config?.expectedStatus?.message}
-                inputProps={{
-                  type: "number",
-                  name: field.name,
-                  value: field.value,
-                  onChange: (e) =>
-                    field.onChange(parseInt(e.target.value || "0", 10)),
-                  onBlur: field.onBlur,
-                  placeholder: "e.g. 200",
-                  hasError: !!errors.config?.expectedStatus,
-                  isDisabled,
-                }}
-              />
-            )}
-          />
+          {type === MonitorType.HTTP && (
+            <Controller
+              name="config.expectedStatus"
+              control={control}
+              render={({ field }) => (
+                <InputGroup
+                  title={t("modal.monitor.form.input.expected-status.title")}
+                  hint={errors.config?.expectedStatus?.message}
+                  inputProps={{
+                    type: "number",
+                    name: field.name,
+                    value: field.value,
+                    onChange: (e) =>
+                      field.onChange(parseInt(e.target.value || "0", 10)),
+                    onBlur: field.onBlur,
+                    placeholder: "e.g. 200",
+                    hasError: !!errors.config?.expectedStatus,
+                    isDisabled,
+                  }}
+                />
+              )}
+            />
+          )}
 
           {/* 
       <Controller
@@ -291,7 +296,7 @@ const useMonitorForm = () => {
         </Grid>
       );
     },
-    [control, errors, isSubmitting, theme, t, cost]
+    [control, errors, isSubmitting, theme, t, cost, type]
   );
 
   return {
