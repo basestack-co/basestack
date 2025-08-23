@@ -1,5 +1,12 @@
 import { transparentize } from "polished";
-import { colors, device, spacing, typography, zIndex } from "./common";
+import {
+  colors,
+  device,
+  spacing,
+  typography,
+  zIndex,
+  breakpoints,
+} from "./common";
 
 const shadow = {
   elevation1:
@@ -635,6 +642,19 @@ const circularProgress = {
   },
 };
 
+const rechart = {
+  text: {
+    normal: colors.gray300,
+    muted: colors.gray400,
+  },
+  line: {
+    stroke: {
+      primary: colors.blue300,
+      positive: colors.green400,
+    },
+  },
+};
+
 const theme = {
   isDarkMode: true,
   button,
@@ -670,6 +690,7 @@ const theme = {
   iconBox,
   banner,
   circularProgress,
+  rechart,
   background,
   typography,
   colors,
@@ -677,6 +698,7 @@ const theme = {
   zIndex,
   shadow,
   device,
+  breakpoints,
 };
 
 export default theme;

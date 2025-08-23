@@ -22,6 +22,7 @@ export interface SegmentProps extends SpaceProps {
    */
   onSelect: (selected: string) => void;
   selectedIndex?: number;
+  backgroundColor?: string;
 }
 
 const reducer = (state: any, action: { type: any; payload: any }) => {
@@ -42,6 +43,7 @@ const Segment = ({
   items,
   onSelect,
   selectedIndex,
+  backgroundColor,
   ...props
 }: SegmentProps) => {
   const theme = useTheme();
@@ -77,7 +79,11 @@ const Segment = ({
   }, [selected, items]);
 
   return (
-    <Container data-testid="segment-component" {...props}>
+    <Container
+      data-testid="segment-component"
+      backgroundColor={backgroundColor}
+      {...props}
+    >
       <Wrapper>
         {items.map((item: Item, index: number) => {
           const buttonProps = selected === index ? { className: "active" } : {};

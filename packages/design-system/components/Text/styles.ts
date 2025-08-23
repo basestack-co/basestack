@@ -1,6 +1,13 @@
 import { rem } from "polished";
 import styled, { css } from "styled-components";
-import { compose, flexbox, layout, space, typography } from "styled-system";
+import {
+  compose,
+  flexbox,
+  layout,
+  space,
+  typography,
+  system,
+} from "styled-system";
 import type { FontFamily, TextProps } from "./types";
 
 interface sharedStylesProps {
@@ -17,7 +24,12 @@ const shouldForwardProps = [
   "flexShrink",
   "muted",
   "maxWidth",
+  "textTransform",
 ];
+
+const textTransform = system({
+  textTransform: true,
+});
 
 const sharedStyles = ({
   color,
@@ -32,16 +44,14 @@ const sharedStyles = ({
   word-break: break-word;
   color: ${({ theme }) =>
     color || (muted ? theme.text.muted : theme.text.color)};
-  ${compose(space, typography, flexbox, layout)};
+  ${compose(space, typography, flexbox, layout, textTransform)};
 
-  ${
-    lineTruncate &&
-    css`
+  ${lineTruncate &&
+  css`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  `
-  }
+  `}
 `;
 
 export const XSmallText = styled.span.withConfig({

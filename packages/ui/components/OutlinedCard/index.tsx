@@ -30,15 +30,8 @@ const OutlinedCard = ({
 
   return (
     <Flex flexDirection="column">
-      <Text
-        as="p"
-        size="xSmall"
-        muted
-        fontWeight={400}
-        lineHeight={rem("24px")}
-        lineTruncate
-      >
-        {title.toUpperCase()}
+      <Text as="p" muted fontWeight={400} lineHeight={rem("24px")} lineTruncate>
+        {title}
       </Text>
       <Box
         position="relative"

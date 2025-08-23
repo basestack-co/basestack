@@ -44,7 +44,7 @@ export type TableRowProps = {
   /**
    * Popup items array
    */
-  more: Array<PopupItemsProps>;
+  more?: Array<PopupItemsProps>;
   /**
    * Optional copy at te end of the table
    */
@@ -69,11 +69,12 @@ export interface TableProps extends SpaceProps {
    * Changes the breakpoint where the table ui changes to mobile
    */
   breakpoint?: Breakpoint;
+  backgroundColor?: string;
 }
 
 export interface RowProps {
   cols: Array<TableColProps>;
-  more: Array<PopupItemsProps>;
+  more?: Array<PopupItemsProps>;
   numberOfCols: number;
   tooltip?: tooltip;
   headers: Array<string>;

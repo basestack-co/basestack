@@ -77,7 +77,7 @@ const MonitorLayout = ({ children }: { children: ReactNode }) => {
             setActiveTab({ selected, index });
           }}
           sliderPosition={activeTab.index}
-          backgroundColor={theme.background.default}
+          backgroundColor="transparent"
           variant="compact"
           items={[
             { id: "general", text: "General" },
@@ -88,7 +88,10 @@ const MonitorLayout = ({ children }: { children: ReactNode }) => {
       </Flex>
       <Box mt={theme.spacing.s6}>
         {hasDetails ? (
-          <Flex gap={theme.spacing.s6}>
+          <Flex
+            flexDirection={["column", "column", "column", "row"]}
+            gap={theme.spacing.s6}
+          >
             <Flex flexGrow={1}>{children}</Flex>
 
             <Box maxWidth="335px" width="100%">

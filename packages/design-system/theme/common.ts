@@ -146,10 +146,20 @@ export const device = {
   },
 };
 
+export const breakpoints = [
+  "375px",
+  "576px",
+  "768px",
+  "992px",
+  "1200px",
+  "1400px",
+];
+
 export const theme = {
   typography,
   colors,
   spacing,
   zIndex,
   device,
+  breakpoints,
 };

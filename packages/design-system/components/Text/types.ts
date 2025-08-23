@@ -49,4 +49,17 @@ export interface TextProps
    * Truncate text to one line
    */
   lineTruncate?: boolean;
+  /**
+   * Apply text-transform CSS property
+   */
+  textTransform?:
+    | "none"
+    | "capitalize"
+    | "uppercase"
+    | "lowercase"
+    | "full-width"
+    | "inherit"
+    | "initial"
+    | "revert"
+    | "unset";
 }

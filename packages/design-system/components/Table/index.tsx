@@ -33,7 +33,7 @@ const Row = ({
   return (
     <StyledRow
       numberOfColumns={numberOfCols}
-      hasSmallCol={!!tooltip || more.length > 0}
+      hasSmallCol={!!tooltip || (!!more && more.length > 0)}
       isResponsive={isResponsive}
       breakpoint={breakpoint}
       data-testid="row"
@@ -113,7 +113,7 @@ const Row = ({
           </Col>
         );
       })}
-      {!tooltip && more.length > 0 && (
+      {!tooltip && more && more.length > 0 && (
         <Col isSmallCol isResponsive={isResponsive} breakpoint={breakpoint}>
           <PopupMenu items={more} />
         </Col>
@@ -130,15 +130,16 @@ const Row = ({
 const Table = ({
   isResponsive = true,
   breakpoint = "md",
+  backgroundColor,
   data,
   ...props
 }: TableProps) => {
   const numberOfCols = data.headers.length;
   const hasTooltip = data.rows.some((row) => !!row.tooltip);
-  const hasMoreMenu = data.rows.some((row) => row.more.length > 0);
+  const hasMoreMenu = data.rows.some((row) => row.more && row.more.length > 0);
 
   return (
-    <Container data-testid="table" {...props}>
+    <Container data-testid="table" backgroundColor={backgroundColor} {...props}>
       <StyledRow
         hasSmallCol={hasTooltip || hasMoreMenu}
         numberOfColumns={numberOfCols}

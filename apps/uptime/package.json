@@ -67,6 +67,7 @@
     "react-hook-form": "^7.61.1",
     "react-spring": "^10.0.1",
     "react-use": "^17.6.0",
+    "recharts": "^3.1.2",
     "request-ip": "^3.3.0",
     "sonner": "^2.0.6",
     "styled-components": "^6.1.19",

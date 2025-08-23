@@ -44,12 +44,20 @@ const DetailsHeader = ({
   const { spacing } = useTheme();
 
   return (
-    <Flex gap={spacing.s5} justifyContent="space-between">
+    <Flex
+      flexDirection={["column", "column", "row"]}
+      gap={spacing.s5}
+      justifyContent="space-between"
+    >
       <Box>
         <Text size="large" mb={spacing.s1}>
           {title}
         </Text>
-        <Flex alignItems="center" gap={hasBullets ? spacing.s2 : spacing.s4}>
+        <Flex
+          alignItems="center"
+          columnGap={hasBullets ? spacing.s2 : spacing.s4}
+          flexWrap="wrap"
+        >
           {details.map((detail, index, { length }) => (
             <Fragment key={index}>
               {detail.type === "label" ? (

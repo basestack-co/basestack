@@ -4,9 +4,14 @@ import { space } from "styled-system";
 import Text from "../Text";
 import type { Breakpoint } from "./types";
 
-export const Container = styled.div`
+export const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => !["backgroundColor"].includes(prop),
+})<{
+  backgroundColor?: string;
+}>`
   ${space};
-  background-color: ${({ theme }) => theme.table.backgroundColor};
+  background-color: ${({ theme, backgroundColor }) =>
+    backgroundColor || theme.table.backgroundColor};
   padding: ${({ theme }) => theme.spacing.s5};
   border-radius: 4px;
   position: relative;
@@ -55,12 +60,10 @@ export const StyledRow = styled.div.withConfig({
           border-bottom: none;
         }
 
-        ${
-          isHeader &&
-          css`
+        ${isHeader &&
+        css`
           display: none;
-        `
-        }
+        `}
       }
     `}
 `;
@@ -84,14 +87,12 @@ export const Col = styled.div.withConfig({
       @media screen and ${theme.device.max[breakpoint]} {
         height: initial;
 
-        ${
-          isSmallCol &&
-          css`
+        ${isSmallCol &&
+        css`
           position: absolute;
           right: ${theme.spacing.s3};
           top: ${theme.spacing.s3};
-        `
-        }
+        `}
       }
     `}
 `;

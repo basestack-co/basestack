@@ -1,10 +1,15 @@
 import styled from "styled-components";
 import { space } from "styled-system";
 
-export const Container = styled.div`
+export const Container = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "backgroundColor",
+})<{
+  backgroundColor?: string;
+}>`
   ${space};
   display: flex;
-  background-color: ${({ theme }) => theme.segment.backgroundColor};
+  background-color: ${({ theme, backgroundColor }) =>
+    backgroundColor || theme.segment.backgroundColor};
   border-radius: 4px;
   height: 36px;
   padding: 4px;
