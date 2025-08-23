@@ -57,13 +57,9 @@ const statusPagesRoutes = new Hono()
         domain: true,
         language: true,
         timezone: true,
-        logoUrl: true,
-        favicon: true,
         theme: true,
-        headerMessage: true,
-        footerMessage: true,
-        twitterHandle: true,
-        supportUrl: true,
+        messages: true,
+        urls: true,
         createdAt: true,
         updatedAt: true,
         _count: {
@@ -77,22 +73,26 @@ const statusPagesRoutes = new Hono()
             description: true,
             status: true,
             order: true,
-            monitor: {
+            monitors: {
               select: {
-                id: true,
-                name: true,
-                type: true,
-                checks: {
-                  where: { checkedAt: { gte: since } },
-                  orderBy: { checkedAt: "desc" },
+                monitor: {
                   select: {
                     id: true,
-                    status: true,
-                    responseTime: true,
-                    statusCode: true,
-                    error: true,
-                    region: true,
-                    checkedAt: true,
+                    name: true,
+                    type: true,
+                    checks: {
+                      where: { checkedAt: { gte: since } },
+                      orderBy: { checkedAt: "desc" },
+                      select: {
+                        id: true,
+                        status: true,
+                        responseTime: true,
+                        statusCode: true,
+                        error: true,
+                        region: true,
+                        checkedAt: true,
+                      },
+                    },
                   },
                 },
               },
@@ -149,13 +149,9 @@ const statusPagesRoutes = new Hono()
       domain: page.domain,
       language: page.language,
       timezone: page.timezone,
-      logoUrl: page.logoUrl,
-      favicon: page.favicon,
       theme: page.theme,
-      headerMessage: page.headerMessage,
-      footerMessage: page.footerMessage,
-      twitterHandle: page.twitterHandle,
-      supportUrl: page.supportUrl,
+      messages: page.messages,
+      urls: page.urls,
       createdAt: page.createdAt,
       updatedAt: page.updatedAt,
       counts: page._count,
@@ -165,14 +161,12 @@ const statusPagesRoutes = new Hono()
         description: cpt.description,
         status: cpt.status,
         order: cpt.order,
-        monitor: cpt.monitor
-          ? {
-              id: cpt.monitor.id,
-              name: cpt.monitor.name,
-              type: cpt.monitor.type,
-              checks: cpt.monitor.checks,
-            }
-          : null,
+        monitors: cpt.monitors.map((m) => ({
+          id: m.monitor.id,
+          name: m.monitor.name,
+          type: m.monitor.type,
+          checks: m.monitor.checks,
+        })),
       })),
       incidents,
     });

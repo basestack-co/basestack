@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 
 function getSubdomain(
   host: string,
-  baseDomain: string = "baseuptime.com",
+  baseDomain: string = "baseuptime.com"
 ): string | null {
   const cleanHost = host.split(":")[0];
 
@@ -22,6 +22,13 @@ export default async function Home() {
     headersList.get("x-forwarded-host") || headersList.get("host") || "";
 
   const subdomain = getSubdomain(host);
+
+  const res = await fetch(
+    "http://localhost:3004/api/v1/status-pages/super-page-slug"
+  );
+  const data = await res.json();
+
+  console.log("the data is", data);
 
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">

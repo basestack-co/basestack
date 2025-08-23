@@ -17,15 +17,14 @@ const statusPageSharedSchema = z.object({
   isEnabled: z.boolean().optional(),
   language: z.string().optional(),
   timezone: z.string().optional(),
-  logoUrl: z.string().url().optional().nullable(),
-  favicon: z.string().url().optional().nullable(),
-  customCSS: z.string().optional().nullable(),
-  customJS: z.string().optional().nullable(),
   theme: z.any().optional(),
-  headerMessage: z.string().optional().nullable(),
-  footerMessage: z.string().optional().nullable(),
-  twitterHandle: z.string().optional().nullable(),
-  supportUrl: z.string().url().optional().nullable(),
+  messages: z.any().optional(),
+  urls: z.any().optional(),
+  isWhiteLabeled: z.boolean().optional(),
+  isPasswordProtected: z.boolean().optional(),
+  password: z.string().optional(),
+  ipWhitelisted: z.string().optional(),
+  hasAutoUpdate: z.boolean().optional(),
 });
 
 const statusPageComponentBase = z.object({
@@ -52,7 +51,7 @@ export const projectStatusPagesRouter = createTRPCRouter({
         limit: z.number().min(1).max(100).nullish(),
         cursor: z.string().nullish(),
         search: z.string().optional().nullable(),
-      }),
+      })
     )
     .query(async ({ ctx, input }) => {
       const limit = input.limit ?? 50;
@@ -134,7 +133,7 @@ export const projectStatusPagesRouter = createTRPCRouter({
         .extend({
           components: z.array(statusPageComponentBase).optional(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -160,8 +159,8 @@ export const projectStatusPagesRouter = createTRPCRouter({
           new Set(
             (input.components ?? [])
               .map((c) => c.monitorId)
-              .filter((v): v is string => !!v),
-          ),
+              .filter((v): v is string => !!v)
+          )
         );
 
         if (monitorIds.length) {
@@ -186,15 +185,9 @@ export const projectStatusPagesRouter = createTRPCRouter({
             isEnabled: input.isEnabled ?? true,
             language: input.language,
             timezone: input.timezone,
-            logoUrl: input.logoUrl ?? null,
-            favicon: input.favicon ?? null,
-            customCSS: input.customCSS ?? null,
-            customJS: input.customJS ?? null,
             theme: input.theme,
-            headerMessage: input.headerMessage ?? null,
-            footerMessage: input.footerMessage ?? null,
-            twitterHandle: input.twitterHandle ?? null,
-            supportUrl: input.supportUrl ?? null,
+            messages: input.messages,
+            urls: input.urls,
             components: input?.components?.length
               ? {
                   create: input.components.map((c, idx) => ({
@@ -228,7 +221,11 @@ export const projectStatusPagesRouter = createTRPCRouter({
                 description: true,
                 status: true,
                 order: true,
-                monitor: { select: { id: true, name: true, type: true } },
+                monitors: {
+                  select: {
+                    monitor: { select: { id: true, name: true, type: true } },
+                  },
+                },
               },
             },
           },
@@ -253,12 +250,12 @@ export const projectStatusPagesRouter = createTRPCRouter({
             .array(
               statusPageComponentBase.extend({
                 id: z.string().optional(),
-              }),
+              })
             )
             .optional(),
           componentsToDelete: z.array(z.string()).optional(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {
@@ -285,8 +282,8 @@ export const projectStatusPagesRouter = createTRPCRouter({
           new Set(
             (input.components ?? [])
               .map((c) => c.monitorId)
-              .filter((v): v is string => !!v),
-          ),
+              .filter((v): v is string => !!v)
+          )
         );
         if (monitorIds.length) {
           const count = await tx.monitor.count({
@@ -334,15 +331,14 @@ export const projectStatusPagesRouter = createTRPCRouter({
           "isEnabled",
           "language",
           "timezone",
-          "logoUrl",
-          "favicon",
-          "customCSS",
-          "customJS",
           "theme",
-          "headerMessage",
-          "footerMessage",
-          "twitterHandle",
-          "supportUrl",
+          "messages",
+          "urls",
+          "isWhiteLabeled",
+          "isPasswordProtected",
+          "password",
+          "ipWhitelisted",
+          "hasAutoUpdate",
         ];
 
         const data: Prisma.StatusPageUpdateInput = updatableFields.reduce(
@@ -352,7 +348,7 @@ export const projectStatusPagesRouter = createTRPCRouter({
             }
             return acc;
           },
-          {} as Prisma.StatusPageUpdateInput,
+          {} as Prisma.StatusPageUpdateInput
         );
 
         if (input.components || input.componentsToDelete) {
@@ -390,7 +386,11 @@ export const projectStatusPagesRouter = createTRPCRouter({
                 description: true,
                 status: true,
                 order: true,
-                monitor: { select: { id: true, name: true, type: true } },
+                monitors: {
+                  select: {
+                    monitor: { select: { id: true, name: true, type: true } },
+                  },
+                },
               },
             },
           },
@@ -407,7 +407,7 @@ export const projectStatusPagesRouter = createTRPCRouter({
           projectId: z.string(),
           statusPageId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.$transaction(async (tx) => {

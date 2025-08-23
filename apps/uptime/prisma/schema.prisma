@@ -204,22 +204,21 @@ model ProjectUsers {
 }
 
 model Monitor {
-  id            String      @id @default(cuid())
-  name          String      @db.VarChar(100)
-  type          MonitorType
-  config        Json        @default("{}") @db.JsonB
-  notifications Json?       @default("{}") @db.JsonB // Structure: { "email": [...], "slack": [...], "webhooks": [...] }
-  isEnabled     Boolean     @default(true)
-  scheduleId    String?     @unique
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  id         String      @id @default(cuid())
+  name       String      @db.VarChar(100)
+  type       MonitorType
+  config     Json        @default("{}") @db.JsonB
+  isEnabled  Boolean     @default(true)
+  scheduleId String?     @unique
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 
   project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId String
 
-  checks     MonitorCheck[]
-  incidents  IncidentMonitor[]
-  components StatusPageComponent[]
+  checks    MonitorCheck[]
+  incidents IncidentMonitor[]
+  statusPageComponents StatusPageComponentMonitor[]
 
   @@index([projectId, isEnabled])
   @@index([type, isEnabled])
@@ -245,26 +244,27 @@ model MonitorCheck {
 }
 
 model StatusPage {
-  id            String   @id @default(cuid())
-  name          String   @db.VarChar(100)
-  slug          String   @unique @db.VarChar(100)
-  domain        String?  @unique @db.VarChar(255)
-  language      String   @default("en") @db.VarChar(5)
-  isPublic      Boolean  @default(true)
-  isEnabled     Boolean  @default(true)
-  logoUrl       String?  @db.VarChar(2083)
-  favicon       String?  @db.VarChar(2083)
-  customCSS     String?  @db.Text
-  customJS      String?  @db.Text
-  theme         Json?    @default("{}") @db.JsonB
-  timezone      String   @default("UTC")
-  headerMessage String?  @db.Text
-  footerMessage String?  @db.Text
-  twitterHandle String?  @db.VarChar(50)
-  supportUrl    String?  @db.VarChar(2083)
-  projectId     String   @unique
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id                    String  @id @default(cuid())
+  name                  String  @db.VarChar(100)
+  slug                  String  @unique @db.VarChar(100)
+  domain                String? @unique @db.VarChar(255)
+  language              String  @default("en") @db.VarChar(5)
+  isPublic              Boolean @default(true)
+  isEnabled             Boolean @default(true)
+  isSubscriptionEnabled Boolean @default(true)
+  isWhiteLabeled        Boolean @default(false)
+  isPasswordProtected   Boolean @default(false)
+  password              String?
+  hasAutoUpdate         Boolean @default(true)
+  ipWhitelisted         String?
+  timezone              String  @default("UTC")
+  theme                 Json?   @default("{}") @db.JsonB
+  messages              Json?   @default("{}") @db.JsonB
+  urls                  Json?   @default("{}") @db.JsonB
+
+  projectId String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
@@ -289,8 +289,8 @@ model StatusPageComponent {
 
   statusPage   StatusPage @relation(fields: [statusPageId], references: [id], onDelete: Cascade)
   statusPageId String
-  monitor      Monitor?   @relation(fields: [monitorId], references: [id])
-  monitorId    String?
+
+  monitors StatusPageComponentMonitor[]
 
   @@index([statusPageId, order])
 }
@@ -356,6 +356,16 @@ model StatusPageIncident {
   incidentId   String
 
   @@id([statusPageId, incidentId])
+}
+
+model StatusPageComponentMonitor {
+  component   StatusPageComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+  componentId String
+  monitor     Monitor             @relation(fields: [monitorId], references: [id], onDelete: Cascade)
+  monitorId   String
+
+  @@id([componentId, monitorId])
+  @@index([monitorId])
 }
 
 model StatusPageSubscriber {

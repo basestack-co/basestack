@@ -27,7 +27,7 @@ export const teamInvitesRouter = createTRPCRouter({
         .object({
           token: z.string(),
         })
-        .required(),
+        .required()
     )
     .query(async ({ ctx, input }) => {
       const invitation = await ctx.prisma.teamInvitation.findUnique({
@@ -87,9 +87,9 @@ export const teamInvitesRouter = createTRPCRouter({
         .object({
           teamId: z.string(),
           email: z.string().email(),
-          role: z.enum(["DEVELOPER", "VIEWER", "TESTER"]),
+          role: z.enum(["DEVELOPER", "VIEWER", "OPERATOR"]),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const user = ctx.auth?.user;
@@ -168,10 +168,10 @@ export const teamInvitesRouter = createTRPCRouter({
       await qstash.events.sendEmailEvent({
         template: "invite",
         to: [input.email],
-        subject: `You have been invited to join ${invitation.team.name} team on Basestack Feature Forms`,
+        subject: `You have been invited to join ${invitation.team.name} team on Basestack Uptime`,
         externalCustomerId,
         props: {
-          product: "Basestack Feature Forms",
+          product: "Basestack Uptime",
           fromUserName: user?.name ?? "",
           toUserName: input.email,
           team: invitation.team.name,
@@ -188,7 +188,7 @@ export const teamInvitesRouter = createTRPCRouter({
         .object({
           inviteId: z.string(),
         })
-        .required(),
+        .required()
     )
     .mutation(async ({ ctx, input }) => {
       const invitation = await ctx.prisma.teamInvitation.delete({
