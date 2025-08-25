@@ -41,10 +41,15 @@ const MonitorLayout = ({ children }: { children: ReactNode }) => {
 
   const [activeTab, setActiveTab] = useState({ selected: "general", index: 0 });
 
-  const { data, isLoading } = api.projectMonitors.byId.useQuery({
-    projectId,
-    monitorId,
-  });
+  const { data, isLoading } = api.projectMonitors.byId.useQuery(
+    {
+      projectId,
+      monitorId,
+    },
+    {
+      enabled: !!monitorId && !!projectId,
+    }
+  );
 
   const updateMonitorState = api.projectMonitors.updateState.useMutation();
   const deleteMonitor = api.projectMonitors.delete.useMutation();

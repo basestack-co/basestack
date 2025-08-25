@@ -36,6 +36,11 @@ const nextConfig: NextConfig = {
         destination: "/a/project/:projectId/settings/general",
         permanent: false,
       },
+      {
+        source: "/a/project/:projectId/monitors/:monitorId",
+        destination: "/a/project/:projectId/monitors/:monitorId/overview",
+        permanent: false,
+      },
     ];
   },
 };

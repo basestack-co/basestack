@@ -18,7 +18,7 @@ const NotFound = ({ onClick, title, description, action }: NotFoundProps) => {
   return (
     <Container>
       <ContentContainer>
-        <Label text="404 error" variant="info" size="medium" isTranslucent />
+        <Label text="404" variant="info" size="medium" isTranslucent />
         <Text
           size="xxLarge"
           fontSize={rem("28px")}
