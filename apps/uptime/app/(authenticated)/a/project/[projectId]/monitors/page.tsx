@@ -15,6 +15,7 @@ import { MonitorCard, Toolbar } from "@basestack/ui";
 import { useParams, useRouter } from "next/navigation";
 // Locales
 import { useTranslations } from "next-intl";
+// React
 import { Fragment, useCallback, useMemo, useState } from "react";
 // Toast
 import { toast } from "sonner";
@@ -277,7 +278,7 @@ const ProjectMonitorsPage = () => {
                   return (
                     <MonitorCard
                       key={id}
-                      onClick={() => router.push(`${monitorUrl}/general`)}
+                      onClick={() => router.push(`${monitorUrl}/overview`)}
                       menuItems={onRenderMenuActions(id, isEnabled, name)}
                       title={config?.url ?? "N/A"}
                       labels={getMonitorDescription({

@@ -193,6 +193,81 @@ export const projectMonitorsRouter = createTRPCRouter({
         total,
       };
     }),
+  byId: protectedProcedure
+    .use(withProjectRestrictions({ roles: [] }))
+    .input(
+      z.object({
+        projectId: z.string(),
+        monitorId: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const m = await ctx.prisma.monitor.findFirst({
+        where: { id: input.monitorId, projectId: input.projectId },
+        select: {
+          id: true,
+          name: true,
+          type: true,
+          isEnabled: true,
+          scheduleId: true,
+          config: true,
+          createdAt: true,
+          checks: {
+            orderBy: { checkedAt: "desc" },
+            take: 1,
+            select: {
+              id: true,
+              status: true,
+              responseTime: true,
+              responseSize: true,
+              statusCode: true,
+              error: true,
+              region: true,
+              checkedAt: true,
+            },
+          },
+        },
+      });
+
+      if (!m) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Monitor not found",
+        });
+      }
+
+      const scheduleIds = m?.scheduleId ? [m.scheduleId] : [];
+      const monitorIds = m?.id ? [m.id] : [];
+
+      const [scheduleMap, { uptimeMap, errorCountMap }] = await Promise.all([
+        getScheduleMap(scheduleIds),
+        calculateUptimeStats(ctx.prisma, monitorIds),
+      ]);
+
+      const schedule = m?.scheduleId ? scheduleMap.get(m.scheduleId) : null;
+      const uptimePercentage = uptimeMap.get(m?.id ?? "") ?? 0;
+      const errorCount = errorCountMap.get(m?.id ?? "") ?? 0;
+      const config = MonitorConfigSchema.safeParse(m.config);
+
+      const monitor = {
+        id: m.id,
+        name: m.name,
+        type: m.type,
+        isEnabled: m.isEnabled && !schedule?.isPaused,
+        scheduleId: m.scheduleId,
+        createdAt: m.createdAt,
+        config: config.success ? config.data : null,
+        latestCheck: m.checks[0] ?? null,
+        lastScheduleTime: schedule?.lastScheduleTime ?? null,
+        nextScheduleTime: schedule?.nextScheduleTime ?? null,
+        uptimePercentage,
+        errorCount,
+      };
+
+      return {
+        monitor,
+      };
+    }),
   create: protectedProcedure
     .use(withProjectRestrictions({ roles: [Role.ADMIN, Role.DEVELOPER] }))
     .use(withProjectAdminSubscription())

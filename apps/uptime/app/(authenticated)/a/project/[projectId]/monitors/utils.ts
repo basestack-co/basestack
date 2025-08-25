@@ -59,7 +59,7 @@ export interface MonitorIconsParams {
   timezone: string;
 }
 
-const getStatusVariant = (
+export const getStatusVariant = (
   status: MonitorStatus | "PAUSED" | "N/A"
 ): MonitorCardVariant => {
   if (status === "N/A") return "default";
@@ -68,23 +68,23 @@ const getStatusVariant = (
   );
 };
 
-const getLatencyVariant = (latency: number): MonitorCardVariant => {
+export const getLatencyVariant = (latency: number): MonitorCardVariant => {
   if (latency <= 0) return "default";
   if (latency <= LATENCY_THRESHOLDS.EXCELLENT) return "success";
   if (latency <= LATENCY_THRESHOLDS.GOOD) return "warning";
   return "danger";
 };
 
-const getStatusCodeVariant = (code: number): MonitorCardVariant => {
+export const getStatusCodeVariant = (code: number): MonitorCardVariant => {
   if (code === 0) return "default";
   return code >= STATUS_CODE_RANGES.ERROR_START ? "danger" : "success";
 };
 
-const formatResponseTime = (responseTime: number): string => {
+export const formatResponseTime = (responseTime: number): string => {
   return responseTime > 0 ? `${responseTime}ms` : "N/A";
 };
 
-const formatStatusCode = (statusCode: number): string => {
+export const formatStatusCode = (statusCode: number): string => {
   return statusCode > 0 ? statusCode.toString() : "N/A";
 };
 
@@ -162,6 +162,14 @@ export const getMonitorDescription = ({
   return [...baseItems, statusItem];
 };
 
+export const getUptimeVariant = (uptime: number): LabelProps["variant"] => {
+  if (uptime === 0) return "default";
+  if (uptime >= 90) return "success";
+  if (uptime >= 70) return "warning";
+
+  return "danger";
+};
+
 export const getMonitorIcons = ({
   t,
   uptimePercentage,
@@ -169,14 +177,6 @@ export const getMonitorIcons = ({
   cron,
   timezone,
 }: MonitorIconsParams) => {
-  const getUptimeVariant = (uptime: number): LabelProps["variant"] => {
-    if (uptime === 0) return "default";
-    if (uptime >= 90) return "success";
-    if (uptime >= 70) return "warning";
-
-    return "danger";
-  };
-
   return [
     {
       icon: "timer",

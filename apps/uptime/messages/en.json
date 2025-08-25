@@ -125,31 +125,6 @@
       }
     }
   },
-  "uptime": {
-    "seo": {
-      "title": "Uptime"
-    },
-    "page": {
-      "title": "Uptime"
-    },
-    "toolbar": {
-      "search": {
-        "placeholder": "Search...",
-        "filter": {
-          "placeholder": "Search by"
-        }
-      },
-      "action": {
-        "export": "Export"
-      },
-      "filter": {
-        "placeholder": "Filters"
-      },
-      "sort": {
-        "placeholder": "Sort"
-      }
-    }
-  },
   "modal": {
     "common": {
       "copy": {
@@ -714,6 +689,37 @@
             "loading": "Updating {name} monitor...",
             "success": "Monitor updated successfully"
           }
+        }
+      }
+    },
+    "details": {
+      "tab": {
+        "overview": "Overview",
+        "incidents": "Incidents",
+        "configuration": "Configuration"
+      },
+      "action": {
+        "actions": "Actions",
+        "pause": "Pause",
+        "resume": "Resume",
+        "delete": "Delete",
+        "new-incident": "New Incident"
+      },
+      "panel": {
+        "url": "Target URL",
+        "uptime": "System Availability (Past 90 Days)",
+        "check-interval": "Check Frequency",
+        "total-incidents": "Incident Count",
+        "last-checked": "Last Run"
+      },
+      "toast": {
+        "delete": {
+          "loading": "Deleting {name} monitor...",
+          "success": "Monitor deleted successfully"
+        },
+        "update": {
+          "loading": "Updating {name} monitor...",
+          "success": "Monitor updated successfully"
         }
       }
     }

@@ -14,19 +14,22 @@ import {
   Icon,
 } from "@basestack/design-system";
 
+export interface DetailsHeaderItem {
+  text: string;
+  type?: "text" | "label";
+  labelVariant?: LabelProps["variant"];
+  icon?: string;
+}
+
 export interface DetailsHeaderProps {
   title: string;
   hasBullets?: boolean;
-  details: Array<{
-    text: string;
-    type?: "text" | "label";
-    labelVariant?: LabelProps["variant"];
-    icon?: string;
-  }>;
+  details: Array<DetailsHeaderItem>;
   button: {
     text: string;
     onClick: () => void;
     variant?: ButtonVariant;
+    isDisabled?: boolean;
   };
   popup: {
     text: string;
@@ -91,6 +94,7 @@ const DetailsHeader = ({
         <Button
           variant={button.variant || ButtonVariant.Outlined}
           onClick={button.onClick}
+          isDisabled={button.isDisabled}
         >
           {button.text}
         </Button>

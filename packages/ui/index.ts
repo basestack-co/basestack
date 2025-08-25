@@ -76,6 +76,7 @@ export {
 } from "./components/UsageSection";
 export {
   default as DetailsHeader,
+  type DetailsHeaderItem,
   type DetailsHeaderProps,
 } from "./components/DetailsHeader";
 export {
